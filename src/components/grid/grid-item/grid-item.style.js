@@ -1,63 +1,90 @@
 import styled, { css } from 'styled-components';
+import { space, grid, flexbox } from 'styled-system';
 import PropTypes from 'prop-types';
+import { baseTheme } from '../../../style/themes';
 
-function responsiveGridItem({
-  responsiveSettings,
-  gridColumnStart,
-  gridColumnEnd,
-  gridRowStart,
-  gridRowEnd
-}) {
-  const item = responsiveSettings.map((setting) => {
+function responsiveGridItem(responsiveSettings, theme) {
+  return responsiveSettings.map((setting) => {
     const {
       alignSelf,
-      colStart,
-      colEnd,
-      justifySelf,
+      gridColumn,
+      gridRow,
       maxWidth,
-      rowStart,
-      rowEnd
+      justifySelf,
+      p,
+      pl,
+      pr,
+      pt,
+      pb
     } = setting;
 
     return css`
-      margin: 0;
-      grid-column-start: ${gridColumnStart};
-      grid-column-end: ${gridColumnEnd};
-      grid-row-start: ${gridRowStart};
-      grid-row-end: ${gridRowEnd};
-
       @media screen and (max-width: ${maxWidth}) {
         align-self: ${alignSelf || 'stretch'};
         justify-self: ${justifySelf || 'stretch'};
-        grid-column-start: ${colStart};
-        grid-column-end: ${colEnd};
-        grid-row-start: ${rowStart};
-        grid-row-end: ${rowEnd};
-      }`;
+        grid-column: ${gridColumn};
+        grid-row: ${gridRow};
+        padding: ${getSpacing(p, theme)};
+        padding-left: ${getSpacing(pl, theme)};
+        padding-right: ${getSpacing(pr, theme)};
+        padding-top: ${getSpacing(pt, theme)};
+        padding-bottom: ${getSpacing(pb, theme)};
+      }
+    `;
   });
-  return item;
+}
+
+function getSpacing(prop, theme) {
+  if (prop && typeof prop === 'number') {
+    return `${theme.space[prop]}px`;
+  }
+
+  return prop;
 }
 
 const GridItemStyle = styled.div`
-  ${responsiveGridItem}
+  margin: 0;
+
+  ${flexbox}
+  ${space}
+  ${grid}
+  ${({ responsiveSettings, theme }) => responsiveSettings && css`
+    ${responsiveGridItem(responsiveSettings, theme)};
+  `}
 `;
 
 GridItemStyle.propTypes = {
-  gridColumnStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  gridColumnEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  gridRowStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  gridRowEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  alignSelf: PropTypes.string,
+  gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  justifySelf: PropTypes.string,
+  p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  px: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  py: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   responsiveSettings: PropTypes.arrayOf(
     PropTypes.shape({
       alignSelf: PropTypes.string,
-      colStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      colEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       justifySelf: PropTypes.string,
       maxWidth: PropTypes.string,
-      rowStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      rowEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     })
   )
+};
+
+GridItemStyle.defaultProps = {
+  gridColumn: '1 / 13',
+  gridRow: 'auto',
+  theme: baseTheme
 };
 
 export default GridItemStyle;

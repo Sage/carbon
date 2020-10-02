@@ -15,9 +15,14 @@ import {
 import guid from '../../utils/helpers/guid';
 
 export default {
-  title: 'Test/Flat Table',
+  title: 'Design System/Flat Table/Test',
   component: FlatTable,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };
 
 export const basic = () => {
@@ -240,6 +245,9 @@ Sortable.story = {
     info: { disable: true },
     docs: {
       page: null
+    },
+    chromatic: {
+      disable: false
     }
   }
 };
@@ -250,6 +258,9 @@ basic.story = {
     info: { disable: true },
     docs: {
       page: null
+    },
+    chromatic: {
+      disable: false
     }
   }
 };

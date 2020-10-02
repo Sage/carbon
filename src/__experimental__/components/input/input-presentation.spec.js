@@ -2,7 +2,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import 'jest-styled-components';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { InputPresentation } from '.';
 import InputPresentationStyle from './input-presentation.style';
 import baseTheme from '../../../style/themes/base';
@@ -10,6 +10,7 @@ import sizes from './input-sizes.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import classicTheme from '../../../style/themes/classic';
+import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
 
 describe('InputPresentation', () => {
   it('renders presentational div and context provider for its children', () => {
@@ -38,18 +39,40 @@ describe('InputPresentation', () => {
     });
 
     describe.each([
-      ['hasError', 'error'],
-      ['hasWarning', 'warning'],
-      ['hasInfo', 'info']
-    ])('when %s prop is set to true', (validationProp, expectedColor) => {
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('when %s prop is set to true', (validation) => {
       it('has the right style', () => {
-        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[expectedColor]}, `
-                        + `inset -1px -1px 0 ${baseTheme.colors[expectedColor]}`;
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]},`
+                        + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
 
         assertStyleMatch({
-          borderColor: `${baseTheme.colors[expectedColor]} !important`,
-          boxShadow
-        }, render({ [validationProp]: true }));
+          borderColor: `${baseTheme.colors[validation]} !important`,
+          boxShadow: validation === 'error' ? boxShadow : undefined
+        }, render({ [validation]: true }));
+      });
+    });
+
+    describe.each([
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('when %s prop is a string', (validation) => {
+      it('has the right style', () => {
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]},`
+                        + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
+
+        assertStyleMatch({
+          borderColor: `${baseTheme.colors[validation]} !important`,
+          boxShadow: validation === 'error' ? boxShadow : undefined
+        }, render({ [validation]: 'Message' }));
+      });
+    });
+
+    describe('when align prop is passed as "right"', () => {
+      it('has the correct style rules', () => {
+        assertStyleMatch({ flexDirection: 'row-reverse' }, render({ align: 'right' }));
       });
     });
 
@@ -67,8 +90,7 @@ describe('InputPresentation', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
           backgroundColor: baseTheme.readOnly.textboxBackground,
-          borderColor: baseTheme.readOnly.textboxBorder,
-          boxShadow: 'none'
+          borderColor: baseTheme.readOnly.textboxBorder
         }, render({ readOnly: true }));
       });
     });
@@ -76,79 +98,56 @@ describe('InputPresentation', () => {
     describe('hasFocus', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
-          border: '1px solid #668491'
+          border: '1px solid #668592'
         }, render({ readOnly: true }));
       });
     });
   });
 
-  describe('InputPresentationContext', () => {
-    let wrapper, context;
+  describe('context handlers', () => {
+    let contextOnMouseEnter;
+    let groupContextOnMouseEnter;
 
-    // helper function to retrieve latest context, enzyme does not currently
-    // support easily fetching this
-    const getContext = renderedWrapper => (
-      renderedWrapper.update().find(InputPresentationStyle)
-        .childAt(0).props().value
-    );
+    let contextOnMouseLeave;
+    let groupContextOnMouseLeave;
 
-    beforeAll(() => {
-      wrapper = render({}, shallow);
-      context = getContext(wrapper);
+    let wrapper;
+
+    beforeEach(() => {
+      contextOnMouseEnter = jest.fn();
+      groupContextOnMouseEnter = jest.fn();
+
+      contextOnMouseLeave = jest.fn();
+      groupContextOnMouseLeave = jest.fn();
+
+      wrapper = renderWithContext({},
+        {
+          onMouseEnter: groupContextOnMouseEnter,
+          onMouseLeave: groupContextOnMouseLeave
+        },
+        {
+          onMouseEnter: contextOnMouseEnter,
+          onMouseLeave: contextOnMouseLeave
+        },);
     });
 
-    it('provides hasFocus state defaulting to false', () => {
-      expect(context.hasFocus).toEqual(false);
+    it('triggers onMouseEnter callbacks passed from context', () => {
+      wrapper.find(InputPresentationStyle).props().onMouseEnter();
+      expect(contextOnMouseEnter).toHaveBeenCalled();
+      expect(groupContextOnMouseEnter).toHaveBeenCalled();
     });
 
-    it('enables focus on focus', () => {
-      expect(context.hasFocus).toEqual(false);
-      context.onFocus();
-      context = getContext(wrapper);
-      expect(context.hasFocus).toEqual(true);
+    it('triggers onMouseLeave callbacks passed from context', () => {
+      wrapper.find(InputPresentationStyle).props().onMouseLeave();
+      expect(contextOnMouseLeave).toHaveBeenCalled();
+      expect(groupContextOnMouseLeave).toHaveBeenCalled();
     });
 
-    it('disables focus on blur', () => {
-      expect(context.hasFocus).toEqual(true);
-      context.onBlur();
-      context = getContext(wrapper);
-      expect(context.hasFocus).toEqual(false);
-    });
-
-    it('provides hasMouseOver state defaulting to false', () => {
-      expect(context.hasMouseOver).toEqual(false);
-    });
-
-    it('enables hasMouseOver on mouse enter', () => {
-      expect(context.hasMouseOver).toEqual(false);
-      wrapper.find(InputPresentationStyle).simulate('mouseenter');
-      context = getContext(wrapper);
-      expect(context.hasMouseOver).toEqual(true);
-    });
-
-    it('disables hasMouseOver on mouse leave', () => {
-      expect(context.hasMouseOver).toEqual(true);
-      wrapper.find(InputPresentationStyle).simulate('mouseleave');
-      context = getContext(wrapper);
-      expect(context.hasMouseOver).toEqual(false);
-    });
-
-    it('assigns a given input to the component', () => {
-      expect(wrapper.instance().input).toEqual({});
-      context.inputRef({ current: 'my input!' });
-      expect(wrapper.instance().input).toEqual({ current: 'my input!' });
-    });
-
-    describe('on mouse down of the wrapping div', () => {
-      it('focuses on the input after a 0 timeout', () => {
-        jest.useFakeTimers();
-        const focus = jest.fn();
-        context.inputRef({ current: { focus } });
-        wrapper.simulate('mousedown');
-        expect(focus).not.toHaveBeenCalled();
-        jest.runAllTimers();
-        expect(focus).toHaveBeenCalled();
-      });
+    it('does nothing if onMouseEnter or onMouseLeave callbacks are not provided', () => {
+      wrapper = render();
+      const inputProps = wrapper.find(InputPresentationStyle).props();
+      inputProps.onMouseEnter();
+      inputProps.onMouseLeave();
     });
   });
 
@@ -177,6 +176,16 @@ describe('InputPresentation', () => {
 
 function render(props, renderer = mount) {
   return renderer(<InputPresentation { ...props }>sample children</InputPresentation>);
+}
+
+function renderWithContext(props = {}, inputGroupContextValue = {}, inputContextValue = {}) {
+  return mount(
+    <InputGroupContext.Provider value={ inputGroupContextValue }>
+      <InputContext.Provider value={ inputContextValue }>
+        <InputPresentation { ...props }>sample children</InputPresentation>
+      </InputContext.Provider>
+    </InputGroupContext.Provider>
+  );
 }
 
 function renderWithTheme(props, theme, renderer = mount) {

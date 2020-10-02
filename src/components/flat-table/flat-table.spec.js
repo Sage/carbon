@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import FlatTable from './flat-table.component';
 import FlatTableHead from './flat-table-head/flat-table-head.component';
 import FlatTableBody from './flat-table-body/flat-table-body.component';
@@ -13,7 +12,9 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
+import StyledFlatTableCheckbox from './flat-table-checkbox/flat-table-checkbox.style';
 import { baseTheme } from '../../style/themes';
+import { SidebarContext } from '../drawer';
 
 describe('FlatTable', () => {
   describe('when rendered with proper table data', () => {
@@ -35,7 +36,7 @@ describe('FlatTable', () => {
       wrapper = renderFlatTable({ hasStickyHead: true }, mount);
     });
 
-    it('should have the overflow-y css property seto to auto', () => {
+    it('should have the overflow-y css property set to to auto', () => {
       expect(wrapper).toHaveStyleRule('overflow-y', 'auto');
     });
 
@@ -86,9 +87,35 @@ describe('FlatTable', () => {
 
     it('then the Row Header in the table Head should have proper z-index', () => {
       assertStyleMatch({
-        zIndex: '2'
+        zIndex: '1002'
       }, wrapper, { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` });
     });
+  });
+
+  describe('when FlatTable is a child of Sidebar', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = TestRenderer.create(
+        <SidebarContext.Provider value={ { isInSidebar: true } }>
+          <FlatTable>foo</FlatTable>
+        </SidebarContext.Provider>
+      );
+    });
+
+    it.each([
+      ['StyledFlatTableHeader', StyledFlatTableHeader],
+      ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+      ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+    ])(
+      'should override the styles for %s', (id, el) => {
+        const modifierString = id === 'StyledFlatTableHeader' ? el : `${StyledFlatTableHead} ${el}`;
+        assertStyleMatch({
+          backgroundColor: `${baseTheme.flatTable.drawerSidebar.headerBackground}`,
+          borderRight: `2px solid ${baseTheme.flatTable.drawerSidebar.headerBackground}`,
+          color: `${baseTheme.colors.black}`
+        }, wrapper.toJSON(), { modifier: `${modifierString}` });
+      }
+    );
   });
 });
 
@@ -100,6 +127,7 @@ function renderFlatTable(props = {}, renderer = TestRenderer.create) {
           <FlatTableRowHeader>row header</FlatTableRowHeader>
           <FlatTableHeader>header1</FlatTableHeader>
           <FlatTableHeader>header2</FlatTableHeader>
+          <FlatTableHeader>header3</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -107,6 +135,11 @@ function renderFlatTable(props = {}, renderer = TestRenderer.create) {
           <FlatTableRowHeader>row header</FlatTableRowHeader>
           <FlatTableCell>cell1</FlatTableCell>
           <FlatTableCell>cell2</FlatTableCell>
+          <FlatTableCell rowspan='2'>cell3</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>row header</FlatTableRowHeader>
+          <FlatTableCell colspan='2'>cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>

@@ -6,7 +6,8 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { withTheme } from 'styled-components';
 
 import Pod from '../pod';
-import Form from '../../__deprecated__/components/form';
+import Form from '../form';
+import Button from '../button';
 import StyledDeleteButton from './delete-button.style';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
@@ -38,13 +39,10 @@ class ShowEditPod extends React.Component {
     this.__focusOnPod();
   }
 
-  onSaveEditForm = (ev, valid) => {
+  onSaveEditForm = (ev) => {
     ev.preventDefault();
-
-    if (valid) {
-      this.props.afterFormValidation(ev);
-      this.toggleEditingState(false);
-    }
+    this.props.onSave(ev);
+    this.toggleEditingState(false);
   }
 
   onCancelEditForm = (ev) => {
@@ -96,17 +94,29 @@ class ShowEditPod extends React.Component {
   editContent() {
     return (
       <Form
-        additionalActions={ this.props.onDelete ? this.deleteButton() : null }
-        afterFormValidation={ this.onSaveEditForm }
-        beforeFormValidation={ this.props.beforeFormValidation }
-        buttonAlign={ this.props.buttonAlign }
-        cancel={ this.props.cancel }
-        cancelText={ this.props.cancelText }
+        onSubmit={ this.onSaveEditForm }
+        buttonAlignment={ this.props.buttonAlign }
         data-element='edit-form'
-        onCancel={ this.onCancelEditForm }
-        saveText={ this.props.saveText }
+        leftSideButtons={ this.props.cancel && (
+          <Button
+            data-element='cancel-button'
+            onClick={ this.onCancelEditForm }
+          >
+            { this.props.cancelText }
+          </Button>
+        ) }
+        saveButton={ (
+          <Button
+            disabled={ this.props.saving }
+            data-element='submit-button'
+            buttonType='primary'
+            type='submit'
+          >
+            { this.props.saveText }
+          </Button>
+        ) }
+        rightSideButtons={ this.props.onDelete ? this.deleteButton() : null }
         saving={ this.props.saving }
-        validateOnMount={ this.props.validateOnMount }
       >
         {this.props.editFields}
       </Form>
@@ -217,10 +227,8 @@ ShowEditPod.propTypes = {
   /** Define a custom transition between show and edit states */
   transitionName: PropTypes.string,
   // Props passed to Form
-  /** A callback triggered after the validation has been ran on the form */
-  afterFormValidation: PropTypes.func,
-  /** A callback triggered before the validation has been ran on the form */
-  beforeFormValidation: PropTypes.func,
+  /** A callback triggered after clicking the save button */
+  onSave: PropTypes.func,
   /** Controls which direction the form buttons align */
   buttonAlign: PropTypes.string,
   /** Set to false to hide the cancel button */
@@ -235,8 +243,6 @@ ShowEditPod.propTypes = {
   deleteText: PropTypes.string,
   /** Can inform if the form is in a saving state (disables the save button) */
   saving: PropTypes.bool,
-  /** Determines if validation should be ran on mount of the component */
-  validateOnMount: PropTypes.bool,
   /** Theme prop is used only to support legacy code */
   theme: PropTypes.object
 };
@@ -248,8 +254,7 @@ ShowEditPod.defaultProps = {
   transitionName: 'carbon-show-edit-pod__transition',
   cancel: true,
   saving: false,
-  theme: baseTheme,
-  validateOnMount: false
+  theme: baseTheme
 };
 
 export default withTheme(ShowEditPod);

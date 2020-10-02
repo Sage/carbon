@@ -27,6 +27,18 @@ export interface AccordionProps {
   type?: ThemesBinary;
   /** Sets accordion title */
   title: string;
+  /** Sets accordion sub title */
+  subTitle?: string;
+  /** Sets accordion size */
+  size: 'large' | 'small';
+  /** Adds additional top and bottom padding */
+  customPadding: number;
+  /** Toggles left and right borders */
+  borders: 'default' | 'full';
+  /** Sets background as white or transparent */
+  scheme: 'white' |'transparent';
+  /** Sets accordion width */
+  width: string;
 }
 
 declare const Accordion: React.FunctionComponent<AccordionProps>;

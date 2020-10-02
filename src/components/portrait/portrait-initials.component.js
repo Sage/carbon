@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import getSizeParams from './portrait-size.config';
+import sizeParams from './portrait-size.config';
 import BaseTheme from '../../style/themes/base';
 import Browser from '../../utils/helpers/browser';
-import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledPortraitInitials, StyledPortraitInitialsImg, getColorsForInitials } from './portrait.style';
 
@@ -37,13 +36,10 @@ class PortraitInitials extends React.Component {
 
     let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
-    let { dimensions } = getSizeParams(theme, size);
 
-    if (!isClassic(theme)) {
-      // For non-Classic themes, reduce the size by 2 pixels to
-      // allow for the CSS border around the canvas <img> element.
-      dimensions -= 2;
-    }
+    let { dimensions } = sizeParams[size];
+
+    dimensions -= 2;
 
     // Set canvas with & height
     canvas.width = dimensions;
@@ -112,11 +108,11 @@ PortraitInitials.propTypes = {
   /** The user's initials to render. */
   initials: PropTypes.string.isRequired,
   /** The size of the initials image. */
-  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired,
+  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
   /** The shape of the Portrait. */
-  shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
+  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };

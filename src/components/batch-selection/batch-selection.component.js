@@ -1,7 +1,6 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledBatchSelection, StyledSelectionCount } from './batch-selection.style';
 
 const BatchSelection = ({
@@ -40,7 +39,7 @@ BatchSelection.propTypes = {
   /** Number of selected elements */
   selectedCount: PropTypes.number.isRequired,
   /** Color of the background, transparent if not defined */
-  colorTheme: PropTypes.oneOf(OptionsHelper.flatTableThemes),
+  colorTheme: PropTypes.oneOf(['dark', 'light', 'white', 'transparent']),
   /** If true disables all user interaction */
   disabled: PropTypes.bool,
   /** Hidden if true */

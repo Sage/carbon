@@ -5,6 +5,7 @@ import mintTheme from '../../style/themes/mint';
 import { mergeWithBase } from '../../style/themes/base';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
+import StyledButton from '../button/button.style';
 import {
   MenuClassic, MenuItemClassic, MenuButtonClassic, SubMenuItemIconClassic
 } from './action-popover-classic.style';
@@ -18,7 +19,7 @@ const Menu = styled.div`
   position: absolute;
   ${({ rightAlignMenu }) => (rightAlignMenu ? 'left: 0;' : 'right: 0;')}
   background-color: ${({ theme }) => theme.colors.white};
-  z-index: 1;
+  z-index: ${({ theme }) => `${theme.zIndex.popover}`};
 
   ${MenuClassic}
 `;
@@ -131,6 +132,25 @@ const SubMenuItemIcon = styled(iconThemeProviderFactory(() => 'inherit')(Icon))`
   ${SubMenuItemIconClassic}
 `;
 
+const MenuButtonOverrideWrapper = styled.div`
+  ${({ theme }) => `
+    ${StyledButton} {
+      padding: 0px ${theme.spacing}px;
+      width: 100%;
+      &:focus {
+        outline-width: 2px;
+      }
+    }
+  `}
+`;
+
 export {
-  Menu, MenuItemFactory, MenuButton, ButtonIcon, MenuItemIcon, MenuItemDivider, SubMenuItemIcon
+  Menu,
+  MenuItemFactory,
+  MenuButton,
+  ButtonIcon,
+  MenuItemIcon,
+  MenuItemDivider,
+  SubMenuItemIcon,
+  MenuButtonOverrideWrapper
 };

@@ -64,7 +64,7 @@ function applyClassicHighlightStyling() {
 function applyClassicDraggedStyling() {
   return css`
     ${StyledTableCell} {
-      background-color: #F2F4F5;
+      background-color: #F2F5F6;
     }
   `;
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 import Modal from '../modal';
 import Heading from '../heading';
-import Form from '../../__deprecated__/components/form';
+
 import ElementResize from '../../utils/helpers/element-resize';
 import {
   DialogStyle,
@@ -41,12 +41,22 @@ class Dialog extends Modal {
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
-    this.removeFocusTrap = focusTrap(this._dialog, this.props.focusFirstElement);
+
+    if (!this.props.disableFocusTrap) {
+      this.removeFocusTrap = focusTrap(
+        this._dialog,
+        !this.props.disableAutoFocus,
+        this.props.focusFirstElement,
+        this.props.bespokeFocusTrap
+      );
+    }
   }
 
   handleClose() {
     super.handleClose();
-    this.removeFocusTrap();
+    if (this.removeFocusTrap) {
+      this.removeFocusTrap();
+    }
     this.appliedFixedBottom = false;
     this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
@@ -110,10 +120,14 @@ class Dialog extends Modal {
     return contentHeight > windowHeight;
   }
 
+  getTitle(title) {
+    return title;
+  }
+
   get dialogTitle() {
     if (!this.props.title) return null;
 
-    const { showCloseIcon } = this.props;
+    const { showCloseIcon, subtitle } = this.props;
     let { title } = this.props;
 
     if (typeof title === 'string') {
@@ -130,9 +144,10 @@ class Dialog extends Modal {
     return (
       <DialogTitleStyle
         showCloseIcon={ showCloseIcon }
+        hasSubtitle={ !!subtitle }
         ref={ (titleRef) => { this._title = titleRef; } }
       >
-        {title}
+        {this.getTitle(title)}
       </DialogTitleStyle>
     );
   }
@@ -170,18 +185,6 @@ class Dialog extends Modal {
     return null;
   }
 
-  renderChildren() {
-    return React.Children.map(this.props.children, (child) => {
-      if (child && child.type === Form) {
-        return React.cloneElement(child, {
-          fixedBottom: this.appliedFixedBottom
-        });
-      }
-
-      return child;
-    });
-  }
-
   get modalHTML() {
     let { height } = this.props;
 
@@ -195,7 +198,6 @@ class Dialog extends Modal {
       },
       size: this.props.size,
       fixedBottom: this.appliedFixedBottom,
-      stickyFormFooter: this.props.stickyFormFooter,
       height: this.props.height,
       theme: this.props.theme
     };
@@ -229,7 +231,7 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            {this.renderChildren()}
+            {this.props.children}
             {this.additionalContent()}
           </DialogInnerContentStyle>
         </DialogContentStyle>
@@ -254,15 +256,27 @@ Dialog.propTypes = {
   size: PropTypes.string,
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  stickyFormFooter: PropTypes.bool,
   /** function runs when user click close button */
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
+  /* Function or reference to first element to focus */
+  focusFirstElement: PropTypes.func,
+  /* Disables the focus trap when the dialog is open */
+  disableFocusTrap: PropTypes.bool,
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus: PropTypes.bool,
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap: PropTypes.func
 };
 
 Dialog.defaultProps = {
   size: 'medium',
   showCloseIcon: true,
-  ariaRole: 'dialog'
+  ariaRole: 'dialog',
+  disableAutoFocus: false
 };
 
 export default Dialog;

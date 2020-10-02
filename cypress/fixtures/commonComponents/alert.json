@@ -1,0 +1,71 @@
+{ 
+  "default": {
+    
+  },
+  "titleOtherLanguage": {
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "subtitleOtherLanguage": {
+    "subtitle": "mp150ú¿¡üßä"
+  },
+  "subtitleSpecialCharacter": {
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "disableEscKey": {
+    "disableEscKey": true
+  },
+  "disableEscKeyFalse": {
+    "disableEscKey": false
+  },
+  "enableBackgroundUI":{
+    "enableBackgroundUI": true
+  },
+  "enableBackgroundUIFalse":{
+    "enableBackgroundUI": false
+  },
+  "height0": {
+    "height": 0
+  },
+  "height1": {
+    "height": 1
+  },
+  "height100": {
+    "height": 100
+  },
+  "height-1": {
+    "height": -1
+  },
+  "height-10": {
+    "height": -10
+  },
+  "sizeExtraSmall": {
+    "size": "extra-small"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMediumSmall": {
+    "size": "medium-small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeMediumLarge": {
+    "size": "medium-large"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "sizeExtraLarge": {
+    "size": "extra-large"
+  }
+}

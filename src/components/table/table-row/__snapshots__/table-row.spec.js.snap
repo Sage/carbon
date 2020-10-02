@@ -2,9 +2,9 @@
 
 exports[`TableRow render if is not classic theme renders a row to match the snapshot 1`] = `
 .c4 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   font-size: 13px;
   overflow: visible;
   padding: 8px;
@@ -25,17 +25,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c2.c2 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   display: block;
 }
 
 .custom-drag-layer .c2.c2 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c2:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c2 .c12 {
@@ -69,12 +69,12 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c5.c5 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c5:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c5 .c3 {
@@ -94,12 +94,12 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c6.c6 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c6:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c6 .c3:first-child {
@@ -123,19 +123,19 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c7.c7 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c7:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c7.c7.c7.c7 .c3,
 .c7.c7.c7.c7:nth-child(odd) .c3,
 .c7.c7.c7.c7:hover .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
 }
 
 .c7 .c3 {
@@ -155,17 +155,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c8.c8 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c8:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c8.c8.c8.c8 .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
   position: relative;
 }
 
@@ -179,7 +179,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c8.c8.c8.c8:hover .c3 {
-  background-color: #D8E0E3;
+  background-color: #D9E0E4;
 }
 
 .c8 .c3 {
@@ -199,17 +199,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c9.c9 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c9:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c9.c9.c9.c9 .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
   position: relative;
 }
 
@@ -223,7 +223,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c9.c9.c9.c9:hover .c3 {
-  background-color: #D8E0E3;
+  background-color: #D9E0E4;
 }
 
 .c9 .c3 {
@@ -243,12 +243,12 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c10.c10 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c10:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c10 .c3:first-child {
@@ -258,8 +258,8 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 .c10.c10.c10.c10 .c3,
 .c10.c10.c10.c10:nth-child(odd) .c3,
 .c10.c10.c10.c10:hover .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
 }
 
 .c10 .c3 {
@@ -279,17 +279,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .custom-drag-layer .c11.c11 .c3 {
-  background-color: #E5EAEC;
+  background-color: #E6EBED;
   border: none;
 }
 
 .c11:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c11.c11.c11.c11 .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
   position: relative;
 }
 
@@ -303,14 +303,14 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c11.c11.c11.c11:hover .c3 {
-  background-color: #D8E0E3;
+  background-color: #D9E0E4;
 }
 
 .c11.c11.c11.c11 .c3,
 .c11.c11.c11.c11:nth-child(odd) .c3,
 .c11.c11.c11.c11:hover .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D9E0E4;
+  border-bottom-color: #D9E0E4;
 }
 
 .c11 .c3 {
@@ -348,7 +348,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c0 .c1:hover .c3 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0 caption {

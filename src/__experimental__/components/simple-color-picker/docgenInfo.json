@@ -1,56 +1,4 @@
 {
-  "src/__experimental__/components/simple-color-picker/color-option/color-option.component.js": [
-    {
-      "description": "",
-      "displayName": "ColorOption",
-      "methods": [],
-      "props": {
-        "color": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "the value of the color that is represented by this ColorOption"
-        },
-        "name": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "the input name"
-        },
-        "onChange": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": "called when the user selects or deselects this color option",
-          "defaultValue": {
-            "value": "null",
-            "computed": false
-          }
-        },
-        "checked": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "determines if this color option is selected or unselected",
-          "defaultValue": {
-            "value": "false",
-            "computed": false
-          }
-        },
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "[Legacy] Custom classname"
-        }
-      }
-    }
-  ],
   "src/__experimental__/components/simple-color-picker/color-sample-box/color-sample-box.component.js": [
     {
       "description": "",
@@ -75,55 +23,153 @@
       }
     }
   ],
+  "src/__experimental__/components/simple-color-picker/simple-color/simple-color.component.js": [
+    {
+      "description": "",
+      "displayName": "SimpleColor",
+      "methods": [],
+      "props": {
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "the value of the color that is represented by this SimpleColor"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "the input name"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "called when the user selects or deselects this color option",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onMouseDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "determines if this color option is selected or unselected",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[Legacy] Custom classname"
+        }
+      }
+    }
+  ],
   "src/__experimental__/components/simple-color-picker/simple-color-picker.component.js": [
     {
       "description": "",
       "displayName": "SimpleColorPicker",
-      "methods": [
-        {
-          "name": "isOptionChecked",
-          "docblock": null,
-          "modifiers": [],
-          "params": [
-            {
-              "name": "color",
-              "type": null
-            }
-          ],
-          "returns": null
-        },
-        {
-          "name": "getSingleOption",
-          "docblock": null,
-          "modifiers": [],
-          "params": [
-            {
-              "name": "color",
-              "type": null
-            }
-          ],
-          "returns": null
-        },
-        {
-          "name": "getColorOptions",
-          "docblock": null,
-          "modifiers": [],
-          "params": [],
-          "returns": null
-        }
-      ],
+      "methods": [],
       "props": {
-        "availableColors": {
+        "children": {
           "type": {
-            "name": "arrayOf",
-            "value": {
-              "name": "string"
-            }
+            "name": "custom",
+            "raw": "(props, propName, componentName) => {\n  let error;\n  const prop = props[propName];\n\n  React.Children.forEach(prop, (child) => {\n    if (SimpleColor.displayName !== child.type.displayName) {\n      error = new Error(`\\`${componentName}\\` only accepts children of type \\`${SimpleColor.displayName}\\`.`);\n    }\n  });\n\n  return error;\n}"
           },
           "required": false,
-          "description": "An array of color choices to display."
+          "description": "The SimpleColor components to be rendered in the group"
         },
-        "selectedColor": {
+        "isBlurBlocked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Should the onBlur callback prop be initially blocked?"
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLegend": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, validation icon will be placed on legend instead of being placed by the input"
+        },
+        "legend": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The content for the RadioGroup Legend"
+        },
+        "value": {
           "type": {
             "name": "string"
           },
@@ -143,6 +189,34 @@
           },
           "required": false,
           "description": "A callback triggered when a color is selected."
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered when a color is selected."
+        },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered on key down."
+        },
+        "maxWidth": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "prop that sets max-width in css"
+        },
+        "childWidth": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "prop that represents childWidth"
         }
       }
     }

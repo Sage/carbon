@@ -9,7 +9,13 @@ const StyledInput = styled.input`
   flex-grow: 1;
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
+  padding: 0;
   width: 30px;
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+    -webkit-box-border: none;
+  }
 
   ${({ align }) => align && css`
     text-align: ${align};

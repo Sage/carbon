@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledFlatTableWrapper, StyledFlatTable } from './flat-table.style';
+import { SidebarContext } from '../drawer';
 
 const FlatTable = ({
   children,
@@ -8,14 +9,19 @@ const FlatTable = ({
   colorTheme
 }) => {
   return (
-    <StyledFlatTableWrapper
-      hasStickyHead={ hasStickyHead }
-      colorTheme={ colorTheme }
-    >
-      <StyledFlatTable data-component='flat-table'>
-        { children }
-      </StyledFlatTable>
-    </StyledFlatTableWrapper>
+    <SidebarContext.Consumer>
+      {context => (
+        <StyledFlatTableWrapper
+          isInSidebar={ context && context.isInSidebar }
+          hasStickyHead={ hasStickyHead }
+          colorTheme={ colorTheme }
+        >
+          <StyledFlatTable data-component='flat-table'>
+            { children }
+          </StyledFlatTable>
+        </StyledFlatTableWrapper>
+      )}
+    </SidebarContext.Consumer>
   );
 };
 

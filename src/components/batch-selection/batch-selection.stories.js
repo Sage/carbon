@@ -11,9 +11,14 @@ import IconButton from '../icon-button';
 import Icon from '../icon';
 
 export default {
-  title: 'Test/Batch Selection',
+  title: 'Design System/Batch Selection/Test',
   component: BatchSelection,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };
 
 export const basic = () => {
@@ -39,6 +44,9 @@ basic.story = {
     info: { disable: true },
     docs: {
       page: null
+    },
+    chromatic: {
+      disable: false
     }
   }
 };

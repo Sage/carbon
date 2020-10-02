@@ -24,13 +24,7 @@ export default function(scope, nextProps, nextState) {
  * @param {String} key
  * @private
  */
-function customCheck(current, next, key) {
-  if (key === 'validations') {
-    // validations are new objects each time - and only need to update the component
-    // when the value changes so we can safely skip them.
-    return true;
-  }
-
+function customCheck(current, next) {
   // if immutable object, do custom comparison. otherwise return undefined to
   // allow isEqual to continue as normal
   if (Immutable.Iterable.isIterable(current)) {

@@ -1,20 +1,36 @@
 ### Proposed behaviour
-<!-- A clear and concise description of what changes this PR makes. -->
-<!-- If applicable, add screenshots. You can paste these directly into GitHub. -->
+<!--
+A clear and concise description of what changes this PR makes.
+
+If applicable, add screenshots of a codesandbox to help explain your request. You can paste these directly into GitHub.
+
+Please DO NOT share screenshots or the source code of your project.
+
+You can create a codesandbox to show the behaviour before/after this pull request by forking this template https://codesandbox.io/s/carbon-quickstart-xi5jc
+
+If you include a CodeSandbox link, the bot will fork it with the new built version of carbon.
+If you have a commit that includes fixes #123 and issue #123 has a CodeSandbox link in the body, the bot will fork 
+it with the new built version of carbon.
+-->
 
 ### Current behaviour
-<!-- A clear and concise description of the behaviour before this change. -->
-<!-- If applicable, add screenshots. You can paste these directly into GitHub. -->
+<!--
+A clear and concise description of the behaviour before this change.
+
+If applicable, add screenshots. You can paste these directly into GitHub.
+-->
 
 ### Checklist
-<!-- Each PR should include the following, if something is not applicable please use <del>tags to strikethrough. -->
+<!-- Each PR should include the following -->
 
-- [ ] Release notes (Conventional Commits) <!-- https://www.conventionalcommits.org/en/v1.0.0-beta.4/ -->
-- [ ] Unit tests
-- [ ] Cypress automation tests
-- [ ] Storybook added or updated
-- [ ] Theme support
-- [ ] Typescript `d.ts` file added or updated
+- [ ] Commits follow our style guide
+- [ ] Screenshots are included in the PR if useful
+- [ ] All themes are supported if required
+- [ ] Unit tests added or updated if required
+- [ ] Cypress automation tests added or updated if required
+- [ ] Storybook added or updated if required
+- [ ] Typescript `d.ts` file added or updated if required
+- [ ] Carbon implementation and Design System documentation are congruent
 
 ### Additional context
 <!-- Add any other context or links about the pull request here. -->

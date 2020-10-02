@@ -12,6 +12,7 @@ describe('Portal', () => {
   guid.mockImplementation(() => 'guid-12345');
 
   let wrapper;
+
   describe('when using default node', () => {
     beforeEach(() => {
       wrapper = mount(
@@ -222,7 +223,7 @@ describe('Portal', () => {
 
       spyOn(Browser.getWindow(), 'addEventListener');
       spyOn(Browser.getWindow(), 'removeEventListener');
-      
+
       wrapper = mount(
         <Portal onReposition={ repositionCb }>
           <Icon
@@ -254,5 +255,36 @@ describe('Portal', () => {
       expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith('resize', repositionCb);
       expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith('resize', repositionCbNew);
     });
+  });
+
+  describe('when id prop is given', () => {
+    const id = 'abc';
+
+    beforeEach(() => {
+      document.body.innerHTML = '';
+
+      wrapper = mount(
+        <div>
+          <Portal id={ id }><span>a1</span></Portal>
+          <Portal id={ id }><span>a2</span></Portal>
+        </div>
+      );
+    });
+
+    afterEach(() => {
+      if (wrapper.length) wrapper.unmount();
+    });
+
+    it('matches snapshot', () => {
+      expect(document.body.innerHTML).toMatchSnapshot();
+    });
+
+    it('created one portal', () => {
+      expect(document.body.querySelectorAll('div').length).toBe(1);
+    })
+
+    it('created two spans', () => {
+      expect(document.body.querySelectorAll('span').length).toBe(2);
+    })
   });
 });

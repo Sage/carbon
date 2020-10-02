@@ -1,0 +1,56 @@
+{ 
+  "saveButtonEnabled": {
+    "save": true
+  },
+  "saveButtonDisabled": {
+    "save": false
+  },
+  "cancelButtonEnabled": {
+    "save": true
+  },
+  "cancelButtonDisabled": {
+    "save": false
+  },
+  "buttonAlignRight": {
+    "buttonAlign": "right"
+  },
+  "buttonAlignLeft": {
+    "buttonAlign": "left"
+  },
+  "savingEnabled": {
+    "saving": true
+  },
+  "savingDisabled": {
+    "saving": false
+  },
+  "cancelButtonTextOtherLanguage": {
+    "cancelText": "mp150ú¿¡üßä"
+  },
+  "cancelButtonTextSpecialCharacter": {
+    "cancelText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "saveButtonTextOtherLanguage": {
+    "saveText": "mp150ú¿¡üßä"
+  },
+  "saveButtonTextSpecialCharacter": {
+    "saveText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "additionalActionsTypeButton": {
+    "additionalActions": "Button"
+  },
+  "additionalActionsTypeLink": {
+    "additionalActions": "Link"
+  },
+  "leftAlignedActionsTypeButton": {
+    "leftAlignedActions": "Button"
+  },
+  "leftAlignedActionsTypeLink": {
+    "leftAlignedActions": "Link"
+  },
+  "rightAlignedActionsTypeButton": {
+    "rightAlignedActions": "Button"
+  },
+  "rightAlignedActionsTypeLink": {
+    "rightAlignedActions": "Link"
+  }
+}

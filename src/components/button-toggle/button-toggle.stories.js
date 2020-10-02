@@ -15,7 +15,7 @@ ButtonToggle.__docgenInfo = getDocGenInfo(
   /button-toggle\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'Option');
     const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
@@ -32,6 +32,14 @@ function makeStory(name, themeSelector) {
       action('onChange')(ev);
     };
 
+    const onFocus = (ev) => {
+      action('onFocus', { depth: 2 })(ev);
+    };
+
+    const onBlur = (ev) => {
+      action('onBlur', { depth: 2 })(ev);
+    };
+
     return (
       <div>
         <ButtonToggle
@@ -42,6 +50,8 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
+          onBlur={ onBlur }
           key='button-toggle-1'
         >
           {children}
@@ -54,6 +64,8 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
+          onBlur={ onBlur }
           key='button-toggle-2'
         >
           {children}
@@ -66,6 +78,8 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
+          onBlur={ onBlur }
           key='button-toggle-3'
         >
           {children}
@@ -76,7 +90,11 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
@@ -84,4 +102,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Button Toggle', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

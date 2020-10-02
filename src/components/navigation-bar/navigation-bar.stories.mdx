@@ -1,0 +1,53 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import NavigationBar from './navigation-bar.component';
+import {Menu, MenuItem} from '../menu';
+
+<Meta title="Design System/Navigation Bar" />
+
+# NavigationBar
+
+### Light Theme
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}}>
+    <NavigationBar>
+      Example content
+    </NavigationBar> 
+  </Story> 
+</Preview>
+
+### Light Theme Loading State
+If `isLoading={true}` the children will not be visible 
+<Preview>
+  <Story name="isLoading" parameters={{ info: { disable: true }}}>
+    <NavigationBar isLoading>
+      <Menu>
+        <MenuItem>menu item one</MenuItem>
+        <MenuItem>menu item two</MenuItem>
+      </Menu>
+    </NavigationBar> 
+  </Story> 
+</Preview>
+
+### Dark Theme
+<Preview>
+  <Story name="dark theme"  parameters={{ info: { disable: true }}}>
+    <NavigationBar navigationType="dark">
+      Example content
+    </NavigationBar>  
+  </Story>
+</Preview> 
+
+### Dark Theme Loading State
+If `isLoading={true}` the children will not be visible 
+<Preview>
+  <Story name="dark theme isLoading" parameters={{ info: { disable: true }}}>
+    <NavigationBar navigationType="dark" isLoading>
+      <Menu>
+        <MenuItem>menu item one</MenuItem>
+        <MenuItem>menu item two</MenuItem>
+      </Menu>
+    </NavigationBar> 
+  </Story> 
+</Preview>
+
+<Props of={NavigationBar} />

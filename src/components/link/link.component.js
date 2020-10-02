@@ -6,7 +6,7 @@ import LinkStyle from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import tagComponent from '../../utils/helpers/tags';
 
-class Link extends React.Component {
+class InternalLink extends React.Component {
   static safeProps = ['onClick'];
 
   onKeyDown = (ev) => {
@@ -55,7 +55,9 @@ class Link extends React.Component {
       onMouseDown: this.props.onMouseDown,
       disabled: this.props.disabled,
       onClick: this.handleClick,
-      tabIndex: this.tabIndex
+      tabIndex: this.tabIndex,
+      target: this.props.target,
+      ref: this.props.innerRef
     };
 
     if (this.props.to) {
@@ -123,7 +125,7 @@ class Link extends React.Component {
   }
 }
 
-Link.propTypes = {
+InternalLink.propTypes = {
   /** Child content to render in the link. */
   children: PropTypes.node,
   /** Classes to apply to the component. */
@@ -153,12 +155,26 @@ Link.propTypes = {
   /** Aligns the tooltip. */
   tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A routing component to render when the to prop is set */
-  routerLink: PropTypes.func
+  routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Target property in which link should open ie: _blank, _self, _parent, _top */
+  target: PropTypes.string,
+  /** Ref to be forwarded
+   * @ignore
+   * @private
+  */
+  innerRef: PropTypes.object
 };
 
-Link.defaultProps = {
+InternalLink.defaultProps = {
   iconAlign: 'left',
   tabbable: true
 };
 
+const Link = React.forwardRef((props, ref) => (<InternalLink innerRef={ ref } { ...props } />));
+
+Link.defaultProps = InternalLink.defaultProps;
+Link.propTypes = InternalLink.propTypes;
+Link.displayName = 'Link';
+
+export { InternalLink };
 export default Link;

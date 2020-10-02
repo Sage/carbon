@@ -1,0 +1,101 @@
+{
+  "placeholderOtherLanguage": {
+    "placeholder": "mp150ú¿¡üßä"
+  },
+  "placeholderSpecialCharacter": {
+    "placeholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "readOnly": {
+    "readOnly": true
+  },
+  "readOnlyFalse": {
+    "readOnly": false
+  },
+  "fieldHelpOtherLanguage": {
+    "fieldHelp": "mp150ú¿¡üßä"
+  },
+  "fieldHelpSpecialCharacter": {
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "labelOtherLanguage": {
+    "label": "mp150ú¿¡üßä"
+  },
+  "labelSpecialCharacter": {
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "labelHelpOtherLanguage": {
+    "label": "label",
+    "labelHelp": "mp150ú¿¡üßä"
+  },
+  "labelHelpSpecialCharacter": {
+    "label": "label",
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "labelInline": {
+    "label": "label",
+    "labelInline": true
+  },
+  "labelInlineFalse": {
+    "label": "label",
+    "labelInline": false
+  },
+  "labelWidth0": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 0
+  },
+  "labelWidth25": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 25
+  },
+  "labelWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 100
+  },
+  "inputWidth50": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 50
+  },
+  "inputWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 100
+  },
+  "labelAlignRight": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "right"
+  },
+  "labelAlignLeft": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "left"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "inputIconAdd": {
+    "inputIcon": "add"
+  },
+  "prefixOtherLanguage": {
+    "prefix": "mp150ú¿¡üßä"
+  },
+  "prefixSpecialCharacter": {
+    "prefix": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

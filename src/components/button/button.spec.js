@@ -22,7 +22,7 @@ const render = (props, renderer = shallow) => {
   );
 };
 
-const variants = ['primary', 'secondary', 'tertiary', 'darkBackground'];
+const variants = ['primary', 'secondary', 'tertiary', 'dashed', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
 
 describe('Button', () => {
@@ -97,8 +97,12 @@ describe('Button', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           background:
-          (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-          borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+          (
+            (variant === 'secondary'
+              || variant === 'tertiary'
+               || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+          ),
+          borderColor: (variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'),
           color: BaseTheme.disabled.text
         }, wrapper);
       });
@@ -205,8 +209,14 @@ describe('Button', () => {
 
               assertStyleMatch({
                 background:
-                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                (
+                  (variant === 'secondary'
+                    || variant === 'tertiary'
+                     || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+                ),
+                borderColor: (
+                  variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'
+                ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
                 height: `${sizes[size][0].toString()}px`,
@@ -221,9 +231,14 @@ describe('Button', () => {
               }, TestRenderer.create).toJSON();
 
               assertStyleMatch({
-                background:
-                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                background: (
+                  (variant === 'secondary'
+                    || variant === 'tertiary'
+                     || variant === 'dashed') ? 'transparent' : BaseTheme.disabled.button
+                ),
+                borderColor: (
+                  variant === 'secondary' || variant === 'dashed' ? BaseTheme.disabled.button : 'transparent'
+                ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
                 height: `${sizes[size][0].toString()}px`,
@@ -235,6 +250,21 @@ describe('Button', () => {
         );
       }
     );
+  });
+
+  describe('when ml prop passed in', () => {
+    it('adds the correct left margin', () => {
+      const wrapper = TestRenderer.create(<StyledButton size='medium' ml='10%' />);
+      assertStyleMatch({
+        marginLeft: '10%'
+      }, wrapper.toJSON());
+    });
+  });
+
+  describe('when mb prop passed in', () => {
+    it('should add the correct bottom margin', () => {
+      expect(TestRenderer.create(<StyledButton mb={ 4 } />)).toMatchSnapshot();
+    });
   });
 
   it('matches the applies the expected style to the icon', () => {
@@ -398,52 +428,18 @@ describe('Button', () => {
     });
   });
 
-  describe('when a style override object is passed in', () => {
-    it('matches the expected styling for the button', () => {
-      const styleOverride = {
-        root: {
-          padding: '10px',
-          color: 'pink',
-          '&:focus': {
-            outlineWidth: '2px'
-          }
-        }
-      };
-      const wrapper = render(
-        { children: 'foo', styleOverride }, TestRenderer.create
+  describe('when the fullWidth prop is provided', () => {
+    it.each(variants)('applies the expected style to the "%s" button', (variant) => {
+      const button = render(
+        {
+          children: 'foo',
+          fullWidth: true,
+          buttonType: variant
+        }, TestRenderer.create
       );
       assertStyleMatch({
-        height: '40px',
-        padding: '10px',
-        color: 'pink'
-      }, wrapper.toJSON());
-
-      assertStyleMatch({
-        outlineWidth: '2px'
-      }, wrapper.toJSON(), { modifier: ':focus' });
-    });
-
-    it('matches the expected styling for the icon', () => {
-      const styleOverride = {
-        icon: {
-          color: 'pink',
-          '&:focus': {
-            outlineWidth: '2px'
-          }
-        }
-      };
-      const wrapper = render(
-        { children: 'foo', styleOverride }, TestRenderer.create
-      );
-
-      assertStyleMatch({
-        height: '16px',
-        color: 'pink'
-      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
-
-      assertStyleMatch({
-        outlineWidth: '2px'
-      }, wrapper.toJSON(), { modifier: `${StyledIcon}:focus` });
+        width: '100%'
+      }, button.toJSON());
     });
   });
 });

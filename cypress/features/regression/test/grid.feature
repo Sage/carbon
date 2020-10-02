@@ -2,18 +2,7 @@ Feature: Grid component
   I want to check Grid component properties
 
   Background: Open Grid component page
-    Given I open basic Test "Grid" component page in noIframe
-
-  @positive
-  Scenario Outline: Check Grid has "<title>" as title
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "Grid" component page
-    Then pod <index> is "<title>"
-    Examples:
-      | index | title       |
-      | 0     | GridItem 1. |
-      | 1     | GridItem 2. |
-      | 2     | GridItem 3. |
+    Given I open Test test_basic "Grid" component in noIFrame with "grid" json from "test" using "default" object name
 
   @positive
   Scenario Outline: Set viewport to default and check size of <podTitle>

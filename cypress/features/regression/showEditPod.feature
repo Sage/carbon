@@ -1,150 +1,135 @@
 Feature: Show Edit Pod component
   I want to test Show Edit Pod component properties
 
-  Background: Open ShowEditPod component page
-    Given I open "ShowEditPod" component page
-
-  @positive
-  Scenario: Verify the inner content of the component
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "ShowEditPod" component page
-    Then Show Edit Pod component has proper content inside itself
-
-  @positive
-  Scenario: Verify color of the edit icon
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "ShowEditPod" component page
-    Then Edit icon has color "rgb(0, 128, 93)"
-
   @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
-    When I check border checkbox
-    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "border" object name
+    Then Show Edit Pod component has border "rgb(204, 214, 219)" color
 
   @positive
-  Scenario: Enable and disable border checkbox for a Show Edit Pod component
-    Given I check border checkbox
-    When I uncheck border checkbox
+  Scenario: Disable border checkbox for a Show Edit Pod component
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "borderFalse" object name
     Then Show Edit Pod component has border "rgba(0, 0, 0, 0.85)" color
 
   @positive
-  Scenario: Enable border on a edit dialog view for a Show Edit Pod component
-    When I check border checkbox
+  Scenario: Verify edit dialog has a border for a Show Edit Pod component
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "border" object name
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
+    Then Show Edit Pod component has border "rgb(204, 214, 219)" color
 
   @positive
-  Scenario: Enable and disable border on a edit dialog view for a Show Edit Pod component
-    Given I check border checkbox
-    When I uncheck border checkbox
+  Scenario: Verify edit dialog has not a border for a Show Edit Pod component
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "borderFalse" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has border "rgba(0, 0, 0, 0.85)" color
 
   @positive
-  Scenario Outline: Set Show Edit Pod buttonAlign to <position>
-    When I select buttonAlign to "<position>"
+  Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod buttons are aligned to "<position>"
     Examples:
-      | position |
-      | left     |
-      | right    |
+      | buttonAlign | nameOfObject     |
+      | left        | buttonAlignLeft  |
+      | right       | buttonAlignRight |
 
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
-    When I set cancelText to "<cancelText>"
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
-    Then Show Edit Pod cancelText on preview is set to "<cancelText>"
+    Then Show Edit Pod cancelText on preview is set to <cancelText>
     Examples:
-      | cancelText              |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | cancelText                   | nameOfObject               |
+      | mp150ú¿¡üßä                  | cancelTextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | cancelTextSpecialCharacter |
 
   @positive
   Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
+    Given I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "cancel" object name
     When I click edit Show Edit Pod component
     Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
     Examples:
       | color           |
-      | rgb(0, 128, 93) |
+      | rgb(0, 129, 93) |
 
   @positive
-  Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
-    Given I check cancel checkbox
-    When I uncheck cancel checkbox
+  Scenario: Disable cancel checkbox for a Show Edit Pod component
+    Given I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "cancelFalse" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component hasn't a cancel button
 
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
-    When I set deleteText to "<deleteText>"
+    Given I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
-    Then Show Edit Pod deleteText on preview is set to "<deleteText>"
+    Then Show Edit Pod deleteText on preview is set to <deleteText>
     Examples:
-      | deleteText              |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | deleteText                   | nameOfObject               |
+      | mp150ú¿¡üßä                  | deleteTextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | deleteTextSpecialCharacter |
 
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
-    When I set saveText to "<saveText>"
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
-    Then Show Edit Pod saveText on preview is set to "<saveText>"
+    Then Show Edit Pod saveText on preview is set to <saveText>
     Examples:
-      | saveText                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | saveText                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | saveTextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | saveTextSpecialCharacter |
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
-    When I check saving checkbox
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "saving" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has saving property
 
   @positive
-  Scenario: Enable and disable saving checkbox for a Show Edit Pod component
-    Given I check saving checkbox
-    When I uncheck saving checkbox
+  Scenario: Disable saving checkbox for a Show Edit Pod component
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "savingFalse" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has no saving property
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>
-    When I set title to "<title>"
-    Then Show Edit Pod title on preview is set to "<title>"
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
+    Then Show Edit Pod title on preview is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Set Show Edit Pod podType property to <podType>
-    When I select podType to "<podType>"
+    When I open default "ShowEditPod" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
     Then Show Edit Pod background-color is set to "<background-color>"
     Examples:
-      | podType     | background-color   |
-      | primary     | rgb(255, 255, 255) |
-      | secondary   | rgb(242, 244, 245) |
-      | tertiary    | rgb(229, 234, 236) |
-      | tile        | rgb(255, 255, 255) |
-      | transparent | rgba(0, 0, 0, 0)   |
+      | podType     | background-color   | nameOfObject       |
+      | primary     | rgb(255, 255, 255) | podTypePrimary     |
+      | secondary   | rgb(242, 245, 246) | podTypeSecondary   |
+      | tertiary    | rgb(230, 235, 237) | podTypeTertiary    |
+      | tile        | rgb(255, 255, 255) | podTypeTile        |
+      | transparent | rgba(0, 0, 0, 0)   | podTypeTransparent |
 
   @positive
   Scenario: Edit action was called
-    Given clear all actions in Actions Tab
-    When I click edit Show Edit Pod component
+    Given I open "ShowEditPod" component page
+      And clear all actions in Actions Tab
+    When I click edit Show Edit Pod component in Iframe
     Then edit action was called in Actions Tab
 
-  @ignore
+  @positive
   Scenario: Delete action was called
-    Given I click edit Show Edit Pod component
-    When clear all actions in Actions Tab
-      And I click delete button
+    Given I open "ShowEditPod" component page
+      And I click edit Show Edit Pod component in Iframe
+      And clear all actions in Actions Tab
+    When I click delete button
     Then delete action was called in Actions Tab
 
   @positive
   Scenario: Cancel action was called
-    Given I click edit Show Edit Pod component
-    When clear all actions in Actions Tab
-      And I click cancel button
+    Given I open "ShowEditPod" component page
+      And I click edit Show Edit Pod component in Iframe
+      And clear all actions in Actions Tab
+    When I click cancel button
     Then cancel action was called in Actions Tab

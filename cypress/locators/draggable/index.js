@@ -7,6 +7,7 @@ export const draggableItem = text => cy.get(DRAGGABLE_ITEM)
   .parent()
   .parent()
   .parent()
+  .parent()
   .find(DRAG_ICON);
 
 export const draggableItemByPosition = index => cy.get(DRAGGABLE_ITEM)

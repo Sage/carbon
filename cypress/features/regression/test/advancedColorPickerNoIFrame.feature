@@ -2,9 +2,8 @@ Feature: Advanced Color Picker component
   I want to test Advanced Color Picker component
 
   Background: Open Advanced Color Picker component page
-    Given I open basic Test "Advanced Color Picker" component page in noIframe
+    Given I open "Design System Advanced Color Picker Test" component page "basic" in no iframe
       And I open Advanced Color Picker in noIFrame
-
 
   @positive
   Scenario Outline: <key> moves selection

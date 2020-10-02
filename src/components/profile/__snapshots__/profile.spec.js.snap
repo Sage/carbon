@@ -67,13 +67,3 @@ exports[`Profile render classes renders the large class if applied 1`] = `
   </div>
 </div>
 `;
-
-exports[`ProfileClassicStyle should render correct version if classic theme is provided 1`] = `
-.c0 {
-  white-space: nowrap;
-}
-
-<div
-  className="c0"
-/>
-`;

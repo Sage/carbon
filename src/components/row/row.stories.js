@@ -17,7 +17,7 @@ Column.__docgenInfo = getDocGenInfo(
   /column\.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     // row
     const columnDivide = boolean('columnDivide', true);
@@ -61,7 +61,11 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    info: { text: info }
+    info: { text: info },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
@@ -69,4 +73,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Row', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

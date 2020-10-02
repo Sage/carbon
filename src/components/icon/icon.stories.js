@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import {
+  text, number, select, boolean
+} from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -8,6 +10,7 @@ import { notes, Info } from './documentation';
 import Icon from '.';
 import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import createGuid from '../../utils/helpers/guid';
 
 Icon.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -40,6 +43,8 @@ function dlsKnobs() {
   return {
     bgTheme,
     fontSize,
+    ml: number('ml', 0),
+    mr: number('mr', 0),
     bgSize: canSizeBg ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
     bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
     iconColor:
@@ -60,7 +65,12 @@ storiesOf('Icon', module)
       themeSelector: classicThemeSelector,
       info: { text: Info },
       notes: { markdown: notes },
-      knobs: { escapeHTML: false }
+      knobs: { escapeHTML: false },
+      parameters: {
+        chromatic: {
+          disable: true
+        }
+      }
     }
   )
   .add('default', () => {
@@ -73,5 +83,94 @@ storiesOf('Icon', module)
     themeSelector: dlsThemeSelector,
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: true
+      }
+    }
+  })
+  .add('all', () => {
+    return (
+      <>
+        {OptionsHelper.icons.map(type => OptionsHelper.sizesBinary.map((fontSize) => {
+          return OptionsHelper.shapes.map((bgShape) => {
+            if (fontSize === 'large') {
+              return (
+                <Icon
+                  type={ type }
+                  fontSize={ fontSize }
+                  key={ createGuid() }
+                  bgTheme='info'
+                  bgShape={ bgShape }
+                />
+              );
+            }
+            return OptionsHelper.sizesRestricted.map(bgSize => (
+              <Icon
+                type={ type }
+                fontSize={ fontSize }
+                key={ createGuid() }
+                bgTheme='info'
+                bgShape={ bgShape }
+                bgSize={ bgSize }
+              />
+            ));
+          });
+        }))}
+
+        {OptionsHelper.sizesBinary.map(fontSize => (
+          [true, false].map(disabled => (
+            OptionsHelper.iconBackgrounds.map((bgTheme) => {
+              if (bgTheme !== 'none') {
+                return OptionsHelper.shapes.map((bgShape) => {
+                  if (fontSize === 'large') {
+                    return (
+                      <Icon
+                        type='add'
+                        fontSize={ fontSize }
+                        disabled={ disabled }
+                        key={ createGuid() }
+                        bgTheme={ bgTheme }
+                        bgShape={ bgShape }
+                      />
+                    );
+                  }
+                  return OptionsHelper.sizesRestricted.map(bgSize => (
+                    <Icon
+                      type='add'
+                      fontSize={ fontSize }
+                      disabled={ disabled }
+                      key={ createGuid() }
+                      bgTheme={ bgTheme }
+                      bgShape={ bgShape }
+                      bgSize={ bgSize }
+                    />
+                  ));
+                });
+              }
+              return OptionsHelper.iconColors.map(iconColor => (
+                <Icon
+                  type='add'
+                  fontSize={ fontSize }
+                  disabled={ disabled }
+                  key={ createGuid() }
+                  bgTheme={ iconColor === 'on-dark-background' ? 'info' : bgTheme }
+                  iconColor={ iconColor }
+                />
+              ));
+            })
+          ))
+        ))}
+      </>
+    );
+  }, {
+    themeSelector: dlsThemeSelector,
+    info: { disable: true },
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: false
+      }
+    }
   });

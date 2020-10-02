@@ -1,4 +1,8 @@
-import { pod, gridPod, gridComponent } from '../../locators/grid';
+import {
+  pod,
+  gridPod,
+  gridComponent,
+} from '../../locators/grid';
 
 Then('pod {int} is {string}', (index, title) => {
   pod(index).should('have.text', title);
@@ -29,13 +33,11 @@ When('I resize grid viewport to {string}', (sizeOfViewport) => {
 });
 
 Then('pod {int} has height from row {string} to row {string}', (index, rowStart, rowEnd) => {
-  gridPod(index).should('have.css', 'grid-row-start', `${rowStart}`)
-    .and('have.css', 'grid-row-end', `${rowEnd}`);
+  gridPod(index).should('have.css', 'grid-row', `${rowStart} / ${rowEnd}`);
 });
 
 Then('pod {int} has width from column {int} to column {int}', (index, colStart, colEnd) => {
-  gridPod(index).should('have.css', 'grid-column-start', `${colStart}`)
-    .and('have.css', 'grid-column-end', `${colEnd}`);
+  gridPod(index).should('have.css', 'grid-column', `${colStart} / ${colEnd}`);
 });
 
 Then('grid has {string} set to {int}', (property, value) => {

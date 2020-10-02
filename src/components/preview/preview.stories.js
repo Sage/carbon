@@ -11,7 +11,7 @@ Preview.__docgenInfo = getDocGenInfo(
   /preview\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'Text rendered as children component.');
     const height = text('height');
@@ -33,7 +33,11 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    info: { text: info, propTables: [Preview] }
+    info: { text: info, propTables: [Preview] },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
@@ -41,4 +45,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Preview', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

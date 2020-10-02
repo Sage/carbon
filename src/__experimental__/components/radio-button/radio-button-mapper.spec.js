@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { act } from 'react-dom/test-utils';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 import PropTypes from 'prop-types';
 
+import mintTheme from '../../../style/themes/mint';
 import RadioButtonMapper from './radio-button-mapper.component';
 import { RadioButton } from '.';
 import Button from '../../../components/button';
@@ -11,7 +13,7 @@ import Button from '../../../components/button';
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
 
-function render(renderer = TestRenderer.create, props) {
+function render(renderer = TestRenderer.create, props, theme = mintTheme) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` }
@@ -22,15 +24,18 @@ function render(renderer = TestRenderer.create, props) {
   ));
 
   return renderer(
-    <RadioButtonMapper
-      name={ name }
-      legend='Test RadioButtonGroup Legend'
-      onBlur={ jest.fn() }
-      onChange={ jest.fn() }
-      { ...props }
-    >
-      {children}
-    </RadioButtonMapper>
+    <ThemeProvider theme={ theme }>
+      <RadioButtonMapper
+        name={ name }
+        legend='Test RadioButtonGroup Legend'
+        onBlur={ jest.fn() }
+        onChange={ jest.fn() }
+        { ...props }
+      >
+        {children}
+      </RadioButtonMapper>
+    </ThemeProvider>
+
   );
 }
 

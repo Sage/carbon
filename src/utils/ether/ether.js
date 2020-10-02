@@ -1,5 +1,4 @@
 import { omit, difference, includes } from 'lodash';
-import guid from '../helpers/guid/guid';
 
 /**
  * Ether
@@ -90,26 +89,6 @@ function insertAt(value, options) {
   return result;
 }
 
-/**
- * Dynamically creates some keys for children,
- * E.g. children rendered using cloneElement etc.
- *
- */
-function generateKeysForChildren(array) {
-  return array.map(() => guid());
-}
-
-/**
- * Filter by prop names
- * @param {Object} props
- * @param {Array} filterBy
- * @return {Object}
- */
-function filterByProps(props, filterBy) {
-  const filtered = difference(Object.keys(props), filterBy);
-  return omit(props, filtered);
-}
-
 export {
-  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren, filterByProps
+  acronymize, append, insertAt, styleElement, validProps
 };

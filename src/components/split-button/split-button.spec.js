@@ -48,6 +48,19 @@ const render = (mainProps = {}, childButtons = singleButton, renderer = shallow)
   );
 };
 
+const renderAttached = (mainProps = {}, childButtons = singleButton, renderer = mount) => {
+  return renderer(
+    <SplitButton
+      { ...mainProps }
+      text='Split button'
+      data-element='bar'
+      data-role='baz'
+    >
+      { childButtons }
+    </SplitButton>, { attachTo: document.getElementById('enzymeContainer') }
+  );
+};
+
 const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer = shallow) => {
   return renderer(
     <ThemeProvider theme={ mainProps.carbonTheme }>
@@ -70,7 +83,8 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
       text='Split button'
       data-element='bar'
       data-role='baz'
-    />
+    >{singleButton}
+    </SplitButton>
   );
 };
 
@@ -168,8 +182,8 @@ describe('SplitButton', () => {
 
       it('has the expected style', () => {
         const themeColors = {
-          small: '#006045',
-          medium: '#005B9A'
+          small: '#006046',
+          medium: '#005C9A'
         };
 
         assertStyleMatch({
@@ -180,8 +194,8 @@ describe('SplitButton', () => {
 
       it('matches the expected style for the focused "additional button"', () => {
         const themeColors = {
-          small: '#003F2E',
-          medium: '#004372'
+          small: '#00402E',
+          medium: '#004472'
         };
 
         themedWrapper.find('button').simulate('focus');
@@ -471,11 +485,23 @@ describe('SplitButton', () => {
 
   describe('when focused on the toggle button', () => {
     const additionalButtonsSelector = '[data-element="additional-buttons"]';
+    let container;
 
     beforeEach(() => {
-      wrapper = render({}, multipleButtons, mount);
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+      wrapper = renderAttached({}, multipleButtons);
       toggle = wrapper.find(StyledSplitButtonToggle);
       toggle.simulate('focus');
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
     });
 
     describe.each([['enter', 13], ['space', 32]])('the %s key is pressed', (name, keyCode) => {

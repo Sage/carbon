@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../../utils/helpers/tags';
 import { WithDrag, WithDrop } from '../../drag-and-drop/drag-and-drop';
-import CheckboxLegacy from '../../../__deprecated__/components/checkbox';
 import { Checkbox } from '../../../__experimental__/components/checkbox';
 import {
   ConfigurableItemRowStyle,
@@ -12,34 +11,12 @@ import {
   ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
 import baseTheme from '../../../style/themes/base';
-import { isClassic } from '../../../utils/helpers/style-helper';
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
     dragDropManager: PropTypes.object, // the React DND DragDropManager
     dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
   };
-
-  checkbox(enabled, locked, name, onChange) {
-    if (isClassic(this.props.theme)) {
-      return (
-        <CheckboxLegacy
-          value={ enabled }
-          disabled={ locked }
-          label={ name }
-          onChange={ onChange }
-        />
-      );
-    }
-    return (
-      <Checkbox
-        checked={ enabled }
-        disabled={ locked }
-        label={ name }
-        onChange={ onChange }
-      />
-    );
-  }
 
   iconHTML() {
     return (
@@ -101,7 +78,12 @@ class ConfigurableItemRow extends React.Component {
         >
           <ConfigurableItemRowContentWrapperStyle data-element='configurable-item-row-content-wrapper'>
             {this.icon()}
-            {this.checkbox(enabled, locked, name, onChange)}
+            <Checkbox
+              checked={ enabled }
+              disabled={ locked }
+              label={ name }
+              onChange={ onChange }
+            />
           </ConfigurableItemRowContentWrapperStyle>
         </ConfigurableItemRowStyle>
       </div>

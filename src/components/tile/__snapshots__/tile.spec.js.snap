@@ -11,7 +11,7 @@ exports[`Tile renders base styles 1`] = `
 
 .c0 {
   background-color: #FFFFFF;
-  border: 1px solid #CCD6DA;
+  border: 1px solid #CCD6DB;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -35,7 +35,7 @@ exports[`Tile renders base styles 1`] = `
 
 .c0 .c1 + .c1 {
   margin-top: 0;
-  border-left: solid 1px #E5EAEC;
+  border-left: solid 1px #E6EBED;
   padding-left: 24px;
 }
 
@@ -50,7 +50,7 @@ exports[`Tile renders base styles 1`] = `
 
 .c3 .c1 + .c1 {
   margin-top: 0;
-  border-top: solid 1px #E5EAEC;
+  border-top: solid 1px #E6EBED;
   padding-top: 24px;
 }
 

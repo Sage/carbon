@@ -5,10 +5,13 @@ import Badge from './badge.component';
 import Button from '../button';
 
 export default {
-  title: 'Test/Badge',
+  title: 'Design system/Badge/Test',
   component: Badge,
   parameters: {
     info: {
+      disable: true
+    },
+    chromatic: {
       disable: true
     }
   }
@@ -25,4 +28,12 @@ export const Basic = () => {
       <Button style={ { marginRight: 0 } } buttonType='tertiary'>Filter</Button>
     </Badge>
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

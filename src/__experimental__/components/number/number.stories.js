@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number.component';
-import Textbox, { OriginalTextbox } from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
@@ -41,20 +41,63 @@ const defaultComponent = () => {
   );
 };
 
+
+const validationsComponent = () => {
+  const validationTypes = ['error', 'warning', 'info'];
+  return (
+    <>
+      <h4>Validation as string</h4>
+      <h6>On component</h6>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-component` }
+          onChange={ () => {} }
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+      <h6>On label</h6>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-label` }
+          onChange={ () => {} }
+          validationOnLabel
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-boolean` }
+          onChange={ () => {} }
+          { ...{ [validation]: true } }
+        />
+      ))}
+    </>
+  );
+};
+
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
   return defaultComponent();
 };
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [Number, State, Textbox],
+      propTablesExclude: [Number, State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
     },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false },
     notes: { markdown: notes }
   };
 
@@ -64,5 +107,6 @@ function makeStory(name, themeSelector, component) {
 storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
+  .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

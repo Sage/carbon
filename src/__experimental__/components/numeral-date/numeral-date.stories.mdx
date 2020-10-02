@@ -1,7 +1,8 @@
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import NumeralDate from '.';
 
-<Meta title="Design System/Numeral Date" />
+<Meta title="Design System/Numeral Date" parameters={{ info: { disable: true }}} />
 
 # Numeral Date
 
@@ -12,60 +13,170 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 Import `NumeralDate` into the project.
 
 ```jsx
-import { NumeralDate } from "carbon-react/lib/components/numeral-date"
+import NumeralDate from "carbon-react/lib/__experimental__/components/numeral-date"
 
 const MyComponent = () => (
-  <NumeralDate dateFormat={['dd','mm','yyyy']} />
+  <NumeralDate dateFormat={['dd','mm','yyyy']} onChange={ onChange } value={{ dd: '27', mm: '04', yyyy: '1989' }} />
 );
 ```
 
-Default Date Format
+### Controlled
 <Preview>
-  <Story name="Default" parameters={{ info: { disable: true }}} >
-    <NumeralDate defaultValue="Numeral Date" dateFormat={['dd','mm','yyyy']}/>
+  <Story name="Controlled">
+    {() => {
+      const [value, setValue] = useState({ dd: '', mm: '', yyyy: '' })
+      return <NumeralDate value={ value } onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+    }}
   </Story>
 </Preview>
 
-Custom Date Format
+### Uncontrolled
 <Preview>
-  <Story name="Custom" parameters={{ info: { disable: true }}} >
-    <NumeralDate defaultValue="Numeral Date" dateFormat={['mm','dd','yyyy']}/>
+  <Story name="Uncontrolled">
+    {() => {
+      const [value, setValue] = useState()
+      return <NumeralDate defaultValue={{ dd: '01', mm: '02', yyyy: '2020' }} onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+    }}
   </Story>
 </Preview>
 
-Date Component has Error
+### Allowed date formats
 <Preview>
-  <Story name="Date Component has Error" parameters={{ info: { disable: true }}} >
+  <Story name="Allowed date formats">
+    <>
+      <NumeralDate label="DD/MM/YYYY - default" dateFormat={['dd','mm','yyyy']}/>
+      <NumeralDate label="MM/DD/YYYY" dateFormat={['mm','dd','yyyy']}/>
+      <NumeralDate label="DD/MM" dateFormat={['dd','mm']}/>
+      <NumeralDate label="MM/DD" dateFormat={['mm','dd']}/>
+      <NumeralDate label="MM/YYYY" dateFormat={['mm','yyyy']}/>
+    </>
+  </Story>
+</Preview>
+
+### Validations
+
+#### Error
+<Preview>
+  <Story name="Date Component has Error">
+    <>
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        error="This is an error message. It alerts the user to an error"
+        label="As string"
+      />
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        error="This is an error message. It alerts the user to an error"
+        label="As string - displayed on a label"
+        validationOnLabel
+      />
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        error={ true }
+        label="As boolean"
+      />
+    </>
+  </Story>
+</Preview>
+
+#### Warning
+<Preview>
+  <Story name="Date Component has Warning">
+    <>
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        warning="This is a warning message. It alerts the user to a warning."
+        label="As string"
+      />
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        warning="This is a warning message. It alerts the user to a warning."
+        label="As string - displayed on a label"
+        validationOnLabel
+      />
+      <NumeralDate
+        dateFormat={['dd','mm','yyyy']}
+        warning={ true }
+        label="As boolean"
+      />
+    </>
+  </Story>
+</Preview>
+
+#### Info
+<Preview>
+  <Story name="Date Component has Info">
+    <>
+      <NumeralDate 
+        dateFormat={['dd','mm','yyyy']} 
+        info="This is an info message. It alerts the user to an info."
+        label="As string"
+      />
+      <NumeralDate 
+        dateFormat={['dd','mm','yyyy']} 
+        info="This is an info message. It alerts the user to an info."
+        label="As string - displayed on a label"
+        validationOnLabel
+      />
+      <NumeralDate 
+        dateFormat={['dd','mm','yyyy']} 
+        info={ true }
+        label="As boolean"
+      />
+    </>
+  </Story>
+</Preview>
+
+### With inline label
+
+<Preview>
+  <Story name="Inline label">
     <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']}
-    inputIcon={'error'}
-    hasError
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+      dateFormat={['dd','mm','yyyy']} 
+      label="Inline"
+      labelInline
+      labelAlign="right"
+      labelWidth={30}
+    />
   </Story>
 </Preview>
 
-Date Component has Warning
+### Enabling the adaptive behaviour
+The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
+
 <Preview>
-  <Story name="Date Component has Warning" parameters={{ info: { disable: true }}} >
+  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
     <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']}
-    inputIcon={'warning'} 
-    hasWarning
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+      dateFormat={['dd','mm','yyyy']} 
+      label="Inline"
+      labelAlign="right"
+      labelWidth={30}
+      adaptiveLabelBreakpoint={960}
+    />
   </Story>
 </Preview>
 
-Date Component has Info
+### With label help
+
 <Preview>
-  <Story name="Date Component has Info" parameters={{ info: { disable: true }}} >
-    <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']} 
-    inputIcon={'info'} 
-    hasInfo
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  <Story name="With label help">
+    <NumeralDate
+      dateFormat={['dd','mm','yyyy']} 
+      label="With label help"
+      labelHelp="Label help"
+    />
+  </Story>
+</Preview>
+
+### With field help
+
+<Preview>
+  <Story name="With field help">
+    <NumeralDate
+      dateFormat={['dd','mm','yyyy']} 
+      label="With label help"
+      fieldHelp="Field help"
+    />
   </Story>
 </Preview>
 

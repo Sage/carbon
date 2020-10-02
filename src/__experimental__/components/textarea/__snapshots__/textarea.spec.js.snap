@@ -11,7 +11,13 @@ exports[`Textarea when rendered should render default 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
+}
+
+.c6:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
 }
 
 .c6::-webkit-input-placeholder {
@@ -41,7 +47,7 @@ exports[`Textarea when rendered should render default 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   background: #fff;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   box-sizing: border-box;
   cursor: text;
   display: -webkit-box;
@@ -60,8 +66,8 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
-.c4 .c5 {
-  height: calc(40px - 4px);
+.c4 .c5:-webkit-autofill {
+  margin-top: 2px;
 }
 
 .c4 input::-ms-clear {
@@ -72,16 +78,16 @@ exports[`Textarea when rendered should render default 1`] = `
   display: none!important;
 }
 
-.c7 .c5 {
-  height: calc(40px - 4px);
+.c7 .c5:-webkit-autofill {
+  margin-top: 2px;
 }
 
-.c8 .c5 {
-  height: calc(40px - 4px);
+.c8 .c5:-webkit-autofill {
+  margin-top: 2px;
 }
 
-.c9 .c5 {
-  height: calc(40px - 4px);
+.c9 .c5:-webkit-autofill {
+  margin-top: 2px;
 }
 
 .c2 + .c1 {
@@ -97,6 +103,10 @@ exports[`Textarea when rendered should render default 1`] = `
   min-height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.c0 .c10 {
+  height: 40px;
 }
 
 <div
@@ -119,8 +129,8 @@ exports[`Textarea when rendered should render default 1`] = `
         size="medium"
       >
         <textarea
-          aria-invalid={false}
           className="c5 c6"
+          data-element="input"
           disabled={false}
           id="guid-12345"
           name="textarea"

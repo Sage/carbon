@@ -4,7 +4,7 @@ exports[`FlatTableRow should have expected styles 1`] = `
 .c1 {
   background-color: #fff;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   overflow: visible;
   padding: 10px 24px;
   text-overflow: ellipsis;
@@ -14,11 +14,11 @@ exports[`FlatTableRow should have expected styles 1`] = `
 }
 
 .c1:first-of-type {
-  border-left: 1px solid #CCD6DA;
+  border-left: 1px solid #CCD6DB;
 }
 
 .c1:last-of-type {
-  border-right: 1px solid #CCD6DA;
+  border-right: 1px solid #CCD6DB;
 }
 
 .c0 {

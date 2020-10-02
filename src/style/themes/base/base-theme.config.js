@@ -7,7 +7,11 @@ export default (palette) => {
   return {
     name: 'base',
 
+    palette,
+
     spacing: 8,
+
+    space: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
 
     colors: {
       // main
@@ -27,6 +31,9 @@ export default (palette) => {
 
       // element
       border: palette.slateTint(40),
+      dashedBorder: '#99ADB6',
+      dashedButtonText: 'rgba(0, 0, 0, 0.9)',
+      dashedHoverBackground: '#CCD6DB',
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
       previewBackground: palette.slateTint(75),
@@ -53,15 +60,51 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
+    tileSelect: {
+      border: palette.slateTint(75),
+      disabledBackground: palette.slateTint(90),
+      hoverBackground: palette.slateTint(95),
+      descriptionColor: blackWithOpacity(0.55),
+      disabledText: blackWithOpacity(0.3)
+    },
+
     batchSelection: {
       lightTheme: palette.slateTint(70)
+    },
+
+    hr: {
+      background: palette.slateTint(80)
+    },
+
+    editor: {
+      border: palette.slateTint(40),
+      counter: 'rgba(0,0,0,0.55)',
+      placeholder: 'rgba(0,0,0,0.30)',
+      button: {
+        hover: palette.slateTint(80)
+      },
+      toolbar: {
+        background: palette.slateTint(95)
+      }
     },
 
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
       itemColor: blackWithOpacity(0.9),
-      itemColorDisabled: blackWithOpacity(0.3)
+      itemColorDisabled: blackWithOpacity(0.3),
+
+      light: {
+        background: palette.slateTint(90),
+        selected: palette.slateTint(85),
+        divider: palette.slateTint(80)
+      },
+
+      dark: {
+        divider: palette.slateTint(10),
+        submenuBackground: palette.slateShade(50),
+        selected: palette.slateTint(10)
+      }
     },
 
     form: {
@@ -70,8 +113,7 @@ export default (palette) => {
 
     card: {
       footerBackground: palette.slateTint(95),
-      footerBorder: palette.slateTint(90),
-      footerText: palette.productGreenShade(21)
+      footerBorder: palette.slateTint(90)
     },
 
     carousel: {
@@ -99,8 +141,18 @@ export default (palette) => {
         headerBackground: palette.slateTint(95),
         border: palette.slateTint(95)
       },
+
+      drawerSidebar: {
+        headerBackground: palette.slateTint(93),
+        hover: palette.slateTint(85),
+        highlighted: palette.slateTint(80),
+        selected: palette.slateTint(70)
+      },
+
       hover: palette.slateTint(95),
-      headerIconColor: palette.slateTint(60)
+      headerIconColor: palette.slateTint(60),
+      selected: palette.slateTint(85),
+      highlighted: palette.slateTint(90)
     },
 
     help: {
@@ -127,6 +179,12 @@ export default (palette) => {
       textboxBackground: palette.slateTint(98),
       textboxBorder: palette.slateTint(80),
       textboxText: blackWithOpacity(0.74)
+    },
+
+    definitionList: {
+      dtTextDark: blackWithOpacity(0.9),
+      dtTextLight: blackWithOpacity(0.65),
+      ddText: blackWithOpacity(0.65)
     },
 
     disabled: {
@@ -160,17 +218,13 @@ export default (palette) => {
     },
 
     drawer: {
+      background: palette.slateTint(93),
       divider: palette.slateTint(85)
     },
 
     pager: {
-      active: 'rgba(0,0,0,0.74)',
-      disabled: 'rgba(0,0,0,0.55)',
-      hover: 'rgba(0,0,0,0.90)'
-    },
-
-    rainbow: {
-      textColor: '#003349'
+      active: 'rgba(0,0,0,0.90)',
+      disabled: 'rgba(0,0,0,0.3)'
     },
 
     icon: {
@@ -183,6 +237,18 @@ export default (palette) => {
 
     popoverContainer: {
       iconColor: 'rgba(0,0,0,0.90)'
+    },
+
+    navigationBar: {
+      light: {
+        background: palette.slateTint(90),
+        borderBottom: palette.slateTint(85)
+      },
+
+      dark: {
+        background: '#003349',
+        borderBottom: '#003349'
+      }
     },
 
     numeralDate: {
@@ -233,6 +299,24 @@ export default (palette) => {
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
+    },
+
+    tab: {
+      background: palette.slateTint(80),
+      altHover: palette.slateTint(85)
+    },
+
+    note: {
+      timeStamp: 'rgba(0,0,0,0.65)'
+    },
+
+    zIndex: {
+      overlay: 1000,
+      popover: 2000,
+      modal: 3000,
+      header: 4000,
+      fullScreenModal: 5000,
+      notification: 6000
     }
   };
 };

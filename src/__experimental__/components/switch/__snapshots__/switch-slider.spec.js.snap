@@ -52,6 +52,12 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   z-index: 1;
 }
 
+.c0 .c7 {
+  position: absolute;
+  right: -30px;
+  height: 100%;
+}
+
 .c3 .c1 {
   color: rgba(0,0,0,0.55);
 }

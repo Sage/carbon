@@ -85,7 +85,7 @@ describe('TableHeader', () => {
         TestUtils.Simulate.click(sortableColumn);
         expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
           'table', {
-            currentPage: '',
+            currentPage: 0,
             pageSize: '',
             filter: {},
             sortedColumn: 'name',
@@ -101,7 +101,7 @@ describe('TableHeader', () => {
           TestUtils.Simulate.click(sortableColumn);
           expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
             'table', {
-              currentPage: '',
+              currentPage: 0,
               filter: {},
               pageSize: '',
               sortedColumn: 'name',
@@ -118,7 +118,7 @@ describe('TableHeader', () => {
         TestUtils.Simulate.click(sortableColumn);
         expect(instanceSortable.props.onChange).toHaveBeenCalledWith(
           'table', {
-            currentPage: '',
+            currentPage: 0,
             filter: {},
             pageSize: '',
             sortedColumn: 'name',

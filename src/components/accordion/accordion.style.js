@@ -9,10 +9,12 @@ const StyledAccordionContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  width: 100%;
-  padding:  ${({ theme }) => theme.spacing * 7}px;
-  background-color: ${({ accordionType, theme }) => (accordionType === 'primary' ? theme.colors.white : 'transparent')};
-  ${({ accordionType, theme }) => (accordionType === 'primary' && css`border: 1px solid ${theme.accordion.border}`)};
+  width: ${({ width }) => width || '100%'};
+  padding: ${({ customPadding }) => customPadding || 0}px 0;
+  color: ${({ theme }) => theme.text.color};
+  background-color: ${({ scheme, theme }) => (scheme === 'white' ? theme.colors.white : 'transparent')};
+  ${({ theme }) => (css`border: 1px solid ${theme.accordion.border}`)};
+  ${({ borders }) => (borders === 'default' && css`border-left: none; border-right: none;`)}
 
   & + & {
     margin-top: -1px;
@@ -24,23 +26,34 @@ const StyledAccordionContainer = styled.div`
 `;
 
 const StyledAccordionTitle = styled.h3`
-  font-size: 20px;
-  font-weight: 900;
+  font-size: ${({ size }) => (size === 'small' ? '14' : '20')}px;
+  font-weight: ${({ size }) => (size === 'small' ? 700 : 900)};
   line-height: 1;
   user-select: none;
   margin: 0;
   ${({ styleOverride }) => styleOverride};
 `;
 
+const StyledAccordionSubTitle = styled.span`
+  margin-top: 8px;
+`;
+
 const StyledAccordionIcon = styled(Icon)`
   transition: transform 0.3s;
   margin-right: ${({ iconAlign, theme }) => (iconAlign === 'left' ? theme.spacing * 2 : 0)}px;
-  ${({ isExpanded }) => !isExpanded && 'transform: rotate(90deg)'};
+  ${({ isExpanded, iconAlign }) => {
+    return !isExpanded && (iconAlign === 'right' ? 'transform: rotate(90deg)' : 'transform: rotate(-90deg)');
+  }};
   ${({ styleOverride }) => styleOverride};
 `;
 
+const StyledAccordionHeadingsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const StyledAccordionTitleContainer = styled.div`
-  padding: ${({ theme }) => theme.spacing * 3}px;
+  padding:  ${({ size, theme }) => (size === 'small' ? theme.spacing * 2 : theme.spacing * 3)}px;  
   display: flex;
   flex-grow: 1;
   align-items: center;
@@ -60,10 +73,6 @@ const StyledAccordionTitleContainer = styled.div`
 
   &:hover {
     background-color: ${({ theme }) => theme.accordion.background};
-
-    ${StyledAccordionTitle} {
-      color: ${({ theme }) => theme.colors.primary};
-    }
   }
   ${({ styleOverride }) => styleOverride};
 `;
@@ -73,13 +82,18 @@ const StyledAccordionContentContainer = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   transition: all 0.3s;
-  max-height: ${({ maxHeight }) => maxHeight}px;
-  height: ${({ maxHeight }) => maxHeight}px;
-  ${({ isExpanded }) => !isExpanded && 'visibility: hidden'};
+  ${({ maxHeight, isExpanded }) => css`
+    max-height: ${isExpanded ? `${maxHeight}px` : '0px'};
+    height: ${isExpanded ? `${maxHeight}px` : '0px'};
+    
+    ${!isExpanded && `
+      visibility: hidden;
+    `}
+  `}
 `;
 
 const StyledAccordionContent = styled.div`
-  padding: ${({ theme }) => theme.spacing * 3}px;
+  padding: 0 ${({ theme }) => theme.spacing * 3}px;
   ${({ styleOverride }) => styleOverride};
 `;
 
@@ -104,6 +118,8 @@ StyledAccordionContentContainer.defaultProps = {
 
 export {
   StyledAccordionContainer,
+  StyledAccordionHeadingsContainer,
+  StyledAccordionSubTitle,
   StyledAccordionTitleContainer,
   StyledAccordionTitle,
   StyledAccordionIcon,

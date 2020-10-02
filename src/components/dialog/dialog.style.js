@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
+
 import baseTheme from '../../style/themes/base';
-import StyledDeprecatedForm, { StyledFormFooter as StyledDeprecatedFormFooter }
-  from '../../__deprecated__/components/form/form.style';
 import { StyledForm, StyledFormFooter } from '../form/form.style';
 import StyledIconButton from '../icon-button/icon-button.style';
 
@@ -38,13 +37,13 @@ const DialogStyle = styled.div`
   ${({ height }) => height && css`
     min-height: ${height - 40}px;
 
-    ${StyledDeprecatedForm}, ${StyledForm} {
+    ${StyledForm} {
       min-height: inherit;
       padding-bottom: 88px;
       box-sizing: border-box;
     }
-
-    ${StyledDeprecatedFormFooter}, ${StyledFormFooter} {
+  
+    ${StyledFormFooter} {
       bottom: 0px;
       position: absolute;
       width: 100%;
@@ -65,23 +64,6 @@ const DialogStyle = styled.div`
       min-height: 0px !important;
   `}
 
-  ${({ fixedBottom, stickyFormFooter, size }) => fixedBottom && stickyFormFooter && css`
-      ${StyledDeprecatedFormFooter} {
-        box-sizing: border-box;
-        animation: form-buttons-animate-in 0.25s ease-out;
-        background-color: white;
-        bottom: 0;
-        left: auto;
-        margin-left: -35px;
-        box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
-        padding-bottom: 13px;
-        padding-left: 35px;
-        padding-right: 35px;
-        position: fixed;
-        z-index: 1000;
-        width: ${dialogSizes[size]};
-      }
-  `}
 
   ${StyledIconButton} {
     position: absolute;
@@ -111,6 +93,7 @@ const DialogTitleStyle = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    padding: ${({ hasSubtitle }) => !hasSubtitle && '4px 0px'};
   }
 `;
 

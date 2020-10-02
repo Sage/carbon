@@ -10,7 +10,7 @@ const FieldsetStyle = styled.fieldset`
   margin: 0;
   padding: 0;
 
-  &&& ${FormFieldStyle} {
+  &&&& ${FormFieldStyle} {
     margin-top: 0;
     margin-bottom: -1px;
   }
@@ -38,6 +38,7 @@ const LegendContainerStyle = styled.div`
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
+    margin-right: 4px;
 
     ${fieldsetClassicStyle}
   }

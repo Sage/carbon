@@ -1,32 +1,25 @@
 Feature: Detail component
-  I want to change Detail component properties
-
-  Background: Open Detail component page
-    Given I open "Detail" component page
+  I want to check Detail component properties
 
   @positive
   Scenario Outline: Change Detail children to <children>
-    When I set children to "<children>"
-    Then detail children on preview is "<children>"
+    When I open default "Detail" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
+    Then detail children on preview is <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Change Detail footnote to <footnote>
-    When I set footnote to "<footnote>"
-    Then detail footnote on preview is "<footnote>"
+    When I open default "Detail" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
+    Then detail footnote on preview is <footnote>
     Examples:
-      | footnote                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+      | footnote                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | footnoteOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | footnoteSpecialCharacter |
 
   @positive
   Scenario: Change Detail icon to chevron_up
-    When I set detail icon to "chevron_up"
+    When I open default "Detail" component in noIFrame with "detail" json from "commonComponents" using "iconChervonUp" object name
     Then icon on preview is "chevron_up"

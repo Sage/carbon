@@ -12,6 +12,8 @@
 # the cypress directory
 *.spec.js    @Sage/carbon-qa
 /cypress/    @Sage/carbon-qa
+cypress.json @Sage/carbon-qa
+cypress.env.json @Sage/carbon-qa
 
 # Codeowners file changes must be approved by a Carbon Admin.
 .github/CODEOWNERS @Sage/carbon-admin

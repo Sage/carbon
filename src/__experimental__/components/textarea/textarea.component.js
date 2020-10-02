@@ -5,9 +5,11 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
-import TextareaInput from './textarea-input.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
+import Input from '../input/input.component';
+import { InputBehaviour } from '../../../__internal__/input-behaviour';
+
+import InputIconToggle from '../input-icon-toggle';
+
 import guid from '../../../utils/helpers/guid/guid';
 import StyledTextarea from './textarea.style';
 
@@ -19,6 +21,8 @@ class Textarea extends React.Component {
 
   id = this.props.id || guid();
 
+  _input = React.createRef()
+
   /**
    * A lifecycle method that is called after initial render.
    * Allows access to refs and DOM to set expandable variables
@@ -29,7 +33,7 @@ class Textarea extends React.Component {
       // Set the min height to the initially rendered height.
       // Without minHeight expandable textareas will only have
       // one line when no content is present.
-      this.minHeight = this._input.clientHeight;
+      this.minHeight = this._input.current.clientHeight;
 
       this.expandTextarea();
     }
@@ -50,7 +54,7 @@ class Textarea extends React.Component {
   }
 
   expandTextarea = () => {
-    const textarea = this._input;
+    const textarea = this._input.current;
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
@@ -61,17 +65,21 @@ class Textarea extends React.Component {
   }
 
   renderValidation() {
-    if (hasFailedValidation(this.props)) {
-      return (
-        <ValidationIcon
-          type={ this.props.inputIcon }
-          tooltipMessage={ this.props.tooltipMessage }
-          isPartOfInput
-        />
-      );
-    }
-
-    return null;
+    const {
+      disabled, readOnly, inputIcon, size, error, warning, info, validationOnLabel
+    } = this.props;
+    return (
+      <InputIconToggle
+        disabled={ disabled }
+        readOnly={ readOnly }
+        inputIcon={ inputIcon }
+        size={ size }
+        error={ error }
+        warning={ warning }
+        info={ info }
+        useValidationIcon={ !validationOnLabel }
+      />
+    );
   }
 
   get overLimit() {
@@ -95,10 +103,6 @@ class Textarea extends React.Component {
     );
   }
 
-  inputRefCallback = (inputRef) => {
-    this._input = inputRef.current;
-  }
-
   render() {
     const {
       label,
@@ -113,45 +117,51 @@ class Textarea extends React.Component {
       placeholder,
       rows,
       cols,
+      validationOnLabel,
+      adaptiveLabelBreakpoint,
       ...props
     } = this.props;
 
     return (
-      <StyledTextarea labelInline={ labelInline }>
-        <FormField
-          label={ label }
-          disabled={ disabled }
-          id={ this.id }
-          labelInline={ labelInline }
-          { ...props }
-          useValidationIcon={ false }
-        >
-          <InputPresentation
-            type='text'
-            size={ size }
+      <InputBehaviour>
+        <StyledTextarea labelInline={ labelInline }>
+          <FormField
+            label={ label }
             disabled={ disabled }
-            readOnly={ readOnly }
+            id={ this.id }
+            labelInline={ labelInline }
             { ...props }
+            useValidationIcon={ validationOnLabel }
+            adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
           >
-            <TextareaInput
-              inputRef={ this.inputRefCallback }
-              maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
-              onChange={ onChange }
+            <InputPresentation
+              type='text'
+              size={ size }
               disabled={ disabled }
               readOnly={ readOnly }
-              labelInline={ labelInline }
-              placeholder={ disabled ? '' : placeholder }
-              rows={ rows }
-              cols={ cols }
-              id={ this.id }
               { ...props }
-            />
-            { children }
-            { this.renderValidation() }
-          </InputPresentation>
-        </FormField>
-        {this.characterCount}
-      </StyledTextarea>
+            >
+              <Input
+                ref={ this._input }
+                maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
+                onChange={ onChange }
+                disabled={ disabled }
+                readOnly={ readOnly }
+                labelInline={ labelInline }
+                placeholder={ disabled ? '' : placeholder }
+                rows={ rows }
+                cols={ cols }
+                id={ this.id }
+                as='textarea'
+                { ...props }
+              />
+              { children }
+              { this.renderValidation() }
+            </InputPresentation>
+          </FormField>
+          {this.characterCount}
+        </StyledTextarea>
+      </InputBehaviour>
     );
   }
 }
@@ -175,6 +185,8 @@ Textarea.propTypes = {
   label: PropTypes.string,
   /** When true, label is placed in line with an input */
   labelInline: PropTypes.bool,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Name of the input */
   name: PropTypes.string,
   /** Callback fired when the user types in the Textarea */
@@ -191,16 +203,28 @@ Textarea.propTypes = {
   value: PropTypes.string,
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
-  /** Status of error validations */
-  hasError: PropTypes.bool,
-  /** Status of warnings */
-  hasWarning: PropTypes.bool,
-  /** Status of info */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel: PropTypes.bool,
   /** Icon to display inside of the Textarea */
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 Textarea.defaultProps = {
@@ -208,12 +232,9 @@ Textarea.defaultProps = {
   expandable: false,
   enforceCharacterLimit: true,
   readOnly: false,
-  warnOverLimit: false
+  warnOverLimit: false,
+  validationOnLabel: false
 };
 
-function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
-  return hasError || hasWarning || hasInfo;
-}
-
 export { Textarea as OriginalTextarea };
-export default withValidations(Textarea);
+export default Textarea;

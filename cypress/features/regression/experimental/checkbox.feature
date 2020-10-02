@@ -1,88 +1,75 @@
 Feature: Experimental Checkbox component
-  I want to change Experimental Checkbox properties
-
-  Background: Open Experimental Checkbox component page
-    Given I open "Experimental Checkbox" component page
+  I want to test Experimental Checkbox properties
 
   @positive
   Scenario Outline: Change Checkbox component label to <label>
-    When I set label to "<label>"
-    Then checkbox label on preview is "<label>"
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
+    Then checkbox label on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario: Disable and enable checkbox
-    Given I check disabled checkbox
-    When I uncheck disabled checkbox
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "disabledFalse" object name
     Then Checkbox is enabled
 
   @positive
   Scenario: Disable checkbox
-    When I check disabled checkbox
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "disabled" object name
     Then Checkbox is disabled
 
   @positive
   Scenario Outline: Change Checkbox component field help to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario: Enable fieldHelpInline
-    When I check fieldHelpInline checkbox
-    Then Checkbox is set to fieldHelpInline and has margin-left set to "16px"
+    When I open default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInline" object name
+    Then Checkbox field help is inline
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    Given I check fieldHelpInline checkbox
-    When I uncheck fieldHelpInline checkbox
-    Then Checkbox is not set to fieldHelpInline and has margin set to "0px 0px 0px 16px"
+    When I open default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInlineDisabled" object name
+    Then Checkbox field help is not inline
 
   @positive
   Scenario: Enable reverse checkbox
-    When I check reverse checkbox
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "reverse" object name
     Then Checkbox is set to reverse and has width "16px"
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    # Given I open "Experimental Checkbox" component page
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "reverseFalse" object name
     Then Checkbox is not set to reverse and has width "16px"
 
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
-    When I set labelHelp to "<labelHelp>"
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-
-  @positive
-  Scenario Outline: Change Checkbox label align to <direction>
-    When I select labelAlign to "<direction>"
-    Then Checkbox labelAlign on preview is set to "<direction>"
-    Examples:
-      | direction |
-      | left      |
-      | right     |
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Change Checkbox size to <size>
-    When I select size to "<size>"
+    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
     Then Checkbox size on preview is set to "<size>"
     Examples:
-      | size  |
-      | small |
-      | large |
+      | size  | nameOfObject |
+      | small | smallSize    |
+      | large | largeSize    |
 
   @positive
   Scenario: Change Checkbox tick color
+    Given I open "Experimental Checkbox Test" component page
     When I mark checkbox on preview
     Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"

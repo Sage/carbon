@@ -2,16 +2,15 @@ import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import { Basic, Classic } from './action-popover.stories';
 import { Preview as MyPreview } from '@storybook/components';
 import {  
-  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
+  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu, ActionPopoverMenuButton
 } from '.';
 import { MenuItem } from './action-popover-item.component';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
-import Button from '../button';
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
 
-<Meta title="Design System/ActionPopover" parameters={{ info: { disable: true }}}/>
+<Meta title="Design System/Action Popover" parameters={{ info: { disable: true }}}/>
 
 # ActionPopover
 
@@ -181,9 +180,20 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
           <TableCell>John</TableCell>
           <TableCell>Doe</TableCell>
           <TableCell>
-            <ActionPopover renderButton={(props) => (
-                <Button buttonType='tertiary' iconType='dropdown' iconPosition='after' { ...props }>More</Button>
-              )}>
+            <ActionPopover 
+              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+                <ActionPopoverMenuButton
+                  buttonType='tertiary'
+                  iconType='dropdown'
+                  iconPosition='after'
+                  size='small'
+                  tabIndex={ tabIndex }
+                  data-element={ dataElement }
+                >
+                  More
+                </ActionPopoverMenuButton>
+              ) }
+            >
               <ActionPopoverItem
                 icon='email'
                 onClick={() => {}}
@@ -536,18 +546,17 @@ a &quot;Manage&quot; option.
           <TableCell>
             <ActionPopover
               rightAlignMenu
-              renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
-                <Button
+              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+                <ActionPopoverMenuButton
                   buttonType='tertiary'
                   iconType='dropdown'
                   iconPosition='after'
                   size='small'
                   tabIndex={ tabIndex }
-                  styleOverride={ styleOverride }
-                  date-element={ rest['data-element'] }
+                  data-element={ dataElement }
                 >
                   More
-                </Button>
+                </ActionPopoverMenuButton>
               ) }
             >
               <ActionPopoverItem onClick={ () => {} }>Auto Entry</ActionPopoverItem>
@@ -565,18 +574,17 @@ a &quot;Manage&quot; option.
           <TableCell>
             <ActionPopover
               rightAlignMenu
-              renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
-                <Button
+              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+                <ActionPopoverMenuButton
                   buttonType='tertiary'
                   iconType='dropdown'
                   iconPosition='after'
                   size='small'
                   tabIndex={ tabIndex }
-                  styleOverride={ styleOverride }
-                  date-element={ rest['data-element'] }
+                  data-element={ dataElement }
                 >
                   More
-                </Button>
+                </ActionPopoverMenuButton>
               ) }
             >
               <ActionPopoverItem onClick={ () => {} }>Auto Entry</ActionPopoverItem>

@@ -1,0 +1,57 @@
+{ 
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "iconSizeSmall": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "small"
+  },
+  "iconSizeLarge": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "large"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "sizeSmallIconSmall": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "small",
+    "size":"small"
+  },
+  "sizeLargeIconSmall": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "small",
+    "size":"large"
+  },
+  "sizeSmallIconLarge": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "large",
+    "size":"small"
+  },
+  "sizeLargeIconLarge": {
+    "buttonIcon": "arrow_left",
+    "buttonIconSize": "large",
+    "size":"large"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "grouped": {
+    "grouped": true
+  },
+  "groupedFalse": {
+    "grouped": false
+  },
+  "buttonIconAnalysis": {
+    "buttonIcon": "analysis"
+  }
+}

@@ -70,12 +70,6 @@ describe('Alert', () => {
       expect(onCancel).toHaveBeenCalled();
     });
 
-    it('closes when exit icon is focused and ESC key is pressed', () => {
-      const icon = wrapper.find(IconButton).first();
-      icon.simulate('keyDown', { which: 27, key: 'Escape' });
-      expect(onCancel).toHaveBeenCalled();
-    });
-
     it('does not close when exit icon is focused any other key is pressed', () => {
       const icon = wrapper.find(IconButton).first();
       icon.simulate('keyDown', { which: 65, key: 'a' });

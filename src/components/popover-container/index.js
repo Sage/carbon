@@ -1,1 +1,1 @@
-export { default } from './settings-popover.component';
+export { default } from './popover-container.component';

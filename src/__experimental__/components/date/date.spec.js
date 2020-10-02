@@ -29,24 +29,14 @@ describe('StyledDateInput', () => {
 
 describe('Date', () => {
   let wrapper;
+  let container;
 
   describe('external validations', () => {
-    it('should pass error props to the Textbox component', () => {
-      const validationPropsBag = { hasError: true, inputIcon: 'error', tooltipMessage: 'Error' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
-    });
-
-    it('should pass warning props to the Textbox component', () => {
-      const validationPropsBag = { hasWarning: true, inputIcon: 'warning', tooltipMessage: 'Warning' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
-    });
-
-    it('should pass info props to the Textbox component', () => {
-      const validationPropsBag = { hasInfo: true, inputIcon: 'info', tooltipMessage: 'Info' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
+    it.each([
+      ['error'], ['warning'], ['info']
+    ])('should pass validation prop to the Textbox component', (validation) => {
+      wrapper = render({ [validation]: true });
+      expect(wrapper.find(Textbox).props()[validation]).toBe(true);
     });
 
     it('should render calendar icon when no validationProps provided', () => {
@@ -81,7 +71,7 @@ describe('Date', () => {
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe(currentDate);
       });
 
-      it('then the input element value should not be updated if the "allowEmptyValue" prop is truthy', () => {
+      it('then the input element value should be an empty string if "allowEmptyValue" prop is truthy', () => {
         wrapper = render({ [prop]: '', allowEmptyValue: true });
         simulateBlurOnInput(wrapper);
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe('');
@@ -90,6 +80,19 @@ describe('Date', () => {
   );
 
   describe('when "autoFocus" prop is defined', () => {
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
     it("then component's input should be focused after render", () => {
       wrapper = render({ autoFocus: true });
       const input = wrapper.find('input').findWhere(n => n.props().type !== 'hidden');
@@ -304,12 +307,23 @@ describe('Date', () => {
     const mockDate = moment('2012-02-01');
 
     beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
       wrapper = render({ value: '' });
       simulateFocusOnInput(wrapper);
       wrapper
         .find(DatePicker)
         .props()
         .handleDateSelect(mockDate);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
     });
 
     it('should not contain the DatePicker component', () => {
@@ -446,6 +460,81 @@ describe('Date', () => {
         jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(emptyDate);
+      });
+    });
+  });
+
+  describe('when value prop is changed to an empty string', () => {
+    describe('and "allowEmptyValue" is false', () => {
+      const initialDate = '2019-04-01';
+      const formattedDate = '01/04/2019';
+      const emptyDate = '';
+
+      it('reformats the "visibleValue" back to the previous valid date', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate
+        });
+        wrapper.setProps({ value: emptyDate });
+
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
+      });
+
+      it('reformats the "selectedDate" back to the previous valid date', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate
+        });
+        wrapper.setProps({ value: emptyDate });
+
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(
+          wrapper.find(DatePicker).props().selectedDate
+        ).toEqual(DateHelper.stringToDate(DateHelper.formatValue(initialDate)));
+      });
+    });
+
+    describe('and "allowEmptyValue" is true', () => {
+      const initialDate = '2019-04-01';
+      const emptyDate = '';
+
+      it('sets an empty string as the "visibleValue"', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate,
+          allowEmptyValue: true
+        });
+
+        wrapper.setProps({ value: emptyDate });
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(emptyDate);
+      });
+
+      it('sets an empty string as the "selectedDate"', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate,
+          allowEmptyValue: true
+        });
+
+        wrapper.setProps({ value: emptyDate });
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+
+        expect(wrapper.find(DatePicker).props().selectedDate).toBe(emptyDate);
       });
     });
   });
@@ -600,43 +689,6 @@ describe('Date', () => {
       });
     });
   });
-
-  describe('when additional validations are provided with the "validations" prop', () => {
-    const mockValidationFunction = () => {};
-    const mockValidationFunction2 = () => {};
-
-    describe('as a function', () => {
-      it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: mockValidationFunction });
-        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
-      });
-    });
-
-    describe('as an array', () => {
-      it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: [mockValidationFunction] });
-        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
-      });
-    });
-
-    describe('when the validations update', () => {
-      it('appends the new validator to the validations array', () => {
-        wrapper = render({ validations: [mockValidationFunction] });
-        wrapper.setProps({ validations: [mockValidationFunction, mockValidationFunction2] });
-
-        expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(3);
-      });
-    });
-
-    it('updates the validation array in state when there is a difference', () => {
-      wrapper = render({ validations: [mockValidationFunction] });
-      wrapper.setProps({ validations: [mockValidationFunction2] });
-
-      expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
-    });
-  });
 });
 
 describe('when the calendar icon is clicked', () => {
@@ -661,7 +713,7 @@ describe('when the calendar icon is clicked', () => {
 });
 
 function render(props, renderer = mount) {
-  return renderer(<DateInput { ...props } />);
+  return renderer(<DateInput { ...props } />, { attachTo: document.getElementById('enzymeContainer') });
 }
 
 function getFormattedDate(date) {

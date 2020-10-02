@@ -79,6 +79,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
 }
 
 .c2:focus {
@@ -159,6 +160,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
   border-left-width: 0;
   padding: 0 10px;
 }
@@ -204,20 +206,20 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c8 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
+  background-color: #006046;
+  border: 1px solid #006046;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .c8 .c1:focus,
 .c8 .c1:hover {
-  background-color: #003F2E;
+  background-color: #00402E;
 }
 
 .c8 .c1 + .c10 .c1 {
@@ -225,20 +227,20 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c9 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
+  background-color: #005C9A;
+  border: 1px solid #005C9A;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .c9 .c1:focus,
 .c9 .c1:hover {
-  background-color: #004372;
+  background-color: #004472;
 }
 
 .c9 .c1 + .c10 .c1 {

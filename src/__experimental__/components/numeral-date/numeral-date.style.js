@@ -3,7 +3,7 @@ import StyledValidationIcon from '../../../components/validations/validation-ico
 import StyledIconSpan from '../input-icon-toggle/input-icon-toggle.style';
 import { baseTheme } from '../../../style/themes';
 import StyledFormField from '../form-field/form-field.style';
-import StyledInput from '../input/input-presentation.style';
+import StyledInputPresentantion from '../input/input-presentation.style';
 import StyledIcon from '../../../components/icon/icon.style';
 
 export const StyledNumeralDate = styled.div`
@@ -21,40 +21,26 @@ export const StyledNumeralDate = styled.div`
 `;
 StyledNumeralDate.defaultProps = { theme: baseTheme };
 
-
 export const StyledDateField = styled.div`
 
 ${({
-    isYearInput, theme, isEnd, hasError, isMiddle, dateFormatLength
+    isYearInput, theme, isEnd, hasValidationIcon, isMiddle
   }) => {
-    const yearInputOrError = isYearInput || (isEnd && hasError);
+    const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
 
     return css`
+      ${StyledInputPresentantion} {
+        position: relative;
+        width: ${(yearInputOrError ? '78px;' : '58px;')};
+        text-align: center;
 
-      ${StyledInput} {
-          position: relative;
-          width: ${(yearInputOrError ? '78px;' : '58px;')};
-          text-align: center;
-
-            ${(isMiddle && dateFormatLength === 3) && css`
-              border-left: none;
-              border-right: none;
-              :focus {
-                  border-left: 1px;
-                  border-right: 1px;
-                }
-            `}
-            ${isMiddle && css`
-              ${dateFormatLength < 3 && 'border-left: 1px;'}
-              :focus {
-                border-left: 1px;
-                border-right: 1px;
-              }
-            `}
+        ${(isMiddle || isEnd) && css`
+          margin-left: -1px;
+        `}
 
         ${StyledIcon} {
           display: flex;
-          color: ${(theme.numeralDate.error)};
+          color: ${theme.numeralDate.error};
           width: 16px;
           height: 16px;
           cursor: pointer;
@@ -66,8 +52,6 @@ ${({
         }
 
         ${StyledValidationIcon} {
-          margin-left: 0px;
-          padding: 0px;
           z-index: 9000;
         }
       `;

@@ -2,13 +2,13 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import { OriginalProfile as Profile } from './profile.component';
+import Profile from './profile.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import {
-  ProfileNameStyle, ProfileStyle, ProfileEmailStyle, ProfileDetailsStyle, ProfileAvatarStyle
+  ProfileNameStyle, ProfileEmailStyle, ProfileDetailsStyle, ProfileAvatarStyle
 } from './profile.style';
-import classicTheme from '../../style/themes/classic';
+
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 describe('Profile', () => {
@@ -116,72 +116,18 @@ describe('Profile', () => {
 });
 
 describe('ProfileAvatarStyle', () => {
-  it('should render correct style when classic theme is provided', () => {
-    const wrapper = shallow(<Profile
-      initials='AS'
-      theme={ classicTheme }
-      email='foo'
-      name='foo'
-    />);
-
-    expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
-  });
   it('should render a user image when a "src" prop is provided', () => {
     const wrapper = shallow(<Profile
       initials='AS'
-      theme={ classicTheme }
       src='Foo'
       email='foo'
       name='foo'
     />);
-
-    expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
     expect(wrapper.find(ProfileAvatarStyle).props()['data-element']).toEqual('user-image');
   });
 });
 
-describe('ProfileClassicStyle', () => {
-  it('should render correct version if classic theme is provided', () => {
-    const wrapper = TestRenderer.create(<ProfileStyle
-      theme={ classicTheme }
-    />);
-    expect(wrapper).toMatchSnapshot();
-  });
-});
-
-describe('ProfileNameStyle', () => {
-  it('should render correct style if classic theme is provided', () => {
-    assertStyleMatch({
-      display: 'block'
-    }, mount(<ProfileNameStyle theme={ classicTheme } />));
-  });
-});
-
-describe('ProfileEmailStyle', () => {
-  it('should render correct style if classic theme is provided', () => {
-    assertStyleMatch({
-      fontSize: '14px'
-    }, mount(<ProfileEmailStyle theme={ classicTheme } />));
-  });
-});
-
-describe('ProfileStyle', () => {
-  it('should render correct style if classic theme and large prop are provided', () => {
-    assertStyleMatch({
-      fontSize: '20px',
-      fontWeight: '400',
-      lineHeight: '21px'
-    }, mount(<ProfileStyle theme={ classicTheme } large />), { modifier: `${ProfileNameStyle}` });
-  });
-});
-
 describe('ProfileDetailStyle', () => {
-  it('should render correct style if classic theme is provided', () => {
-    assertStyleMatch({
-      lineHeight: '16px',
-      marginLeft: '14px'
-    }, mount(<ProfileDetailsStyle theme={ classicTheme } />));
-  });
   describe.each(
     [['XS', '1px'], ['S', '1px'], ['M', '4px'], ['ML', '8px'], ['L', '14px'], ['XL', '24px'], ['XXL', '32px']]
   )(

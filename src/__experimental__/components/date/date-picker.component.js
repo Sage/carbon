@@ -32,13 +32,13 @@ const DatePicker = (props) => {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
     enableOutsideDays: true,
     fixedWeeks: true,
-    initialMonth: props.selectedDate,
+    initialMonth: props.selectedDate || undefined,
     inline: true,
     locale: I18n.locale,
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: handleDayClick,
-    selectedDays: [props.selectedDate],
+    selectedDays: props.selectedDate || undefined,
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
       const weekdayLong = localeUtils.formatWeekdayLong(weekday);
@@ -69,7 +69,7 @@ DatePicker.propTypes = {
   /** Element that the DatePicker will be displayed under */
   inputElement: PropTypes.object.isRequired,
   /** Currently selected date */
-  selectedDate: PropTypes.object,
+  selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Callback to set selected date */
   handleDateSelect: PropTypes.func
 };

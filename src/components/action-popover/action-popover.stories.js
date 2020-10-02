@@ -1,13 +1,12 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import {
-  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
+  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu, ActionPopoverMenuButton
 } from '.';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
-import Button from '../button';
 
 const submenu = (
   <ActionPopoverMenu>
@@ -42,10 +41,13 @@ const submenuWithIcons = (
 );
 
 export default {
-  title: 'Test/Action Popover',
+  title: 'Design System/Action Popover/Test',
   parameters: {
     themeSelector: dlsThemeSelector,
     info: {
+      disable: true
+    },
+    chromatic: {
       disable: true
     }
   }
@@ -122,7 +124,12 @@ export const Default = () => (
 );
 
 Default.story = {
-  name: 'default'
+  name: 'default',
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };
 
 export const Classic = () => (
@@ -198,7 +205,10 @@ export const Classic = () => (
 Classic.story = {
   name: 'classic',
   parameters: {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -214,18 +224,17 @@ export const StylesOverriden = () => (
         <TableCell>
           <ActionPopover
             rightAlignMenu
-            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
-              <Button
+            renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+              <ActionPopoverMenuButton
                 buttonType='tertiary'
                 iconType='dropdown'
                 iconPosition='after'
                 size='small'
                 tabIndex={ tabIndex }
-                styleOverride={ styleOverride }
-                date-element={ rest['data-element'] }
+                data-element={ dataElement }
               >
                 More
-              </Button>
+              </ActionPopoverMenuButton>
             ) }
           >
             <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
@@ -243,18 +252,17 @@ export const StylesOverriden = () => (
         <TableCell>
           <ActionPopover
             rightAlignMenu
-            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
-              <Button
+            renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+              <ActionPopoverMenuButton
                 buttonType='tertiary'
                 iconType='dropdown'
                 iconPosition='after'
                 size='small'
                 tabIndex={ tabIndex }
-                styleOverride={ styleOverride }
-                date-element={ rest['data-element'] }
+                data-element={ dataElement }
               >
                 More
-              </Button>
+              </ActionPopoverMenuButton>
             ) }
           >
             <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
@@ -274,6 +282,9 @@ export const StylesOverriden = () => (
 StylesOverriden.story = {
   name: 'styles overriden',
   parameters: {
-    themeSelector: dlsThemeSelector
+    themeSelector: dlsThemeSelector,
+    chromatic: {
+      disable: false
+    }
   }
 };

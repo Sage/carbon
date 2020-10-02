@@ -1,21 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SimpleColorPicker renders as expected 1`] = `
-.c5 {
-  width: 56px;
-  height: 56px;
-  margin-right: 2px;
-  margin-bottom: 2px;
+.c0 {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  min-inline-size: 0;
 }
 
-.c5:hover {
-  cursor: pointer;
-}
-
-.c9 {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -24,55 +18,16 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  background-color: #00A376;
+  margin-bottom: 8px;
+}
+
+.c1 legend {
+  padding: 0;
+  font-weight: 600;
+  line-height: 24px;
 }
 
 .c10 {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  background-color: #0073C1;
-}
-
-.c14 {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  background-color: #582C83;
-}
-
-.c12 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -93,12 +48,12 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 24px;
 }
 
-.c12:hover {
+.c10:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c12::before {
+.c10::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -111,23 +66,94 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   display: block;
 }
 
-.c13 {
+.c4 {
+  width: 56px;
+  height: 56px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.c4:hover {
+  cursor: pointer;
+}
+
+.c8 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  background-color: #00A376;
+}
+
+.c9 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  background-color: #0073C1;
+}
+
+.c12 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  background-color: #582C83;
+}
+
+.c11 {
   height: 22px;
   width: 22px;
   pointer-events: none;
   display: none;
 }
 
-.c13::before {
+.c11::before {
   font-size: 22px;
   color: #FFFFFF;
 }
 
-.c13 {
+.c11 {
   display: block;
 }
 
-.c6 {
+.c5 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -137,31 +163,37 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 
-.c6::-webkit-input-placeholder {
+.c5:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
+.c5::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::-moz-placeholder {
+.c5::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:-ms-input-placeholder {
+.c5:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::placeholder {
+.c5::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:invalid,
-.c6:required {
+.c5:invalid,
+.c5:required {
   box-shadow: none;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   opacity: 0;
   height: 56px;
@@ -169,32 +201,16 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   margin: 0;
 }
 
-.c7:hover {
+.c6:hover {
   cursor: pointer;
 }
 
-.c7:focus + .c8 {
+.c6:focus + .c7 {
   box-shadow: inset 0px 0px 0px 3px #FFFFFF;
   border: 2px solid #FFB500;
 }
 
-.c0 {
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-
-.c0.c0.c0 .c16 {
-  margin-top: 0;
-  margin-bottom: -1px;
-}
-
-.c0 .c17 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -203,36 +219,15 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-bottom: 32px;
 }
 
-.c3 legend {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
+.c2 .c13 {
+  margin-left: 4px;
 }
 
-.c3 .c15 .c11:focus {
-  outline: 2px solid #FFB500;
-}
-
-.c1 {
-  max-width: 300px;
-}
-
-.c1 .c2 {
-  margin-bottom: 16px;
-  height: 26px;
-}
-
-.c1 .c2 legend {
-  font-size: 14px;
-  margin-left: -2px;
-}
-
-.c4 {
+.c3 {
+  max-width: 290px;
   padding: 0;
-  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -240,130 +235,137 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  border-left: 2px solid transparent;
+  border-top: 2px solid transparent;
 }
 
 <fieldset
-  className="c0 c1"
+  className="c0"
   data-component="simple-color-picker"
   role="radiogroup"
 >
   <div
     className=""
-    data-component="fieldset-style"
   >
     <div
-      className="c2 c3"
-      data-component="legend-style"
+      className="c1"
     >
       <legend
-        data-element="legend"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
       >
         SimpleColorPicker Legend
       </legend>
     </div>
     <div
-      className="c4"
+      className="c2"
     >
       <div
-        checked={false}
-        className="c5"
-        color="#00A376"
-        data-component="simple-color"
+        className="c3"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
       >
-        <input
-          aria-checked={false}
+        <div
           checked={false}
-          className="c6 c7"
-          data-down={false}
-          data-element="input"
-          data-up={false}
-          id="rId-0"
-          name="test-group"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          role="radio"
-          type="radio"
-          value="#00A376"
-        />
-        <div
-          className="c8 c9"
+          className="c4"
           color="#00A376"
-        />
-      </div>
-      <div
-        checked={true}
-        className="c5"
-        color="#0073C1"
-        data-component="simple-color"
-      >
-        <input
-          aria-checked={true}
-          checked={true}
-          className="c6 c7"
-          data-down={false}
-          data-element="input"
-          data-up={false}
-          id="rId-1"
-          name="test-group"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          role="radio"
-          type="radio"
-          value="#0073C1"
-        />
-        <div
-          className="c8 c10"
-          color="#0073C1"
+          data-component="simple-color"
         >
-          <span
-            checked={true}
-            className="c11 c12 c13"
-            color="#0073C1"
-            data-component="icon"
-            data-element="tick"
-            disabled={false}
-            fontSize="small"
-            type="tick"
+          <input
+            aria-checked={false}
+            checked={false}
+            className="c5 c6"
+            data-down={false}
+            data-element="input"
+            data-up={false}
+            id="rId-0"
+            name="test-group"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="radio"
+            type="radio"
+            value="#00A376"
+          />
+          <div
+            className="c7 c8"
+            color="#00A376"
           />
         </div>
-      </div>
-      <div
-        checked={false}
-        className="c5"
-        color="#582C83"
-        data-component="simple-color"
-      >
-        <input
-          aria-checked={false}
-          checked={false}
-          className="c6 c7"
-          data-down={false}
-          data-element="input"
-          data-up={false}
-          id="rId-2"
-          name="test-group"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          role="radio"
-          type="radio"
-          value="#582C83"
-        />
         <div
-          className="c8 c14"
+          checked={true}
+          className="c4"
+          color="#0073C1"
+          data-component="simple-color"
+        >
+          <input
+            aria-checked={true}
+            checked={true}
+            className="c5 c6"
+            data-down={false}
+            data-element="input"
+            data-up={false}
+            id="rId-1"
+            name="test-group"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="radio"
+            type="radio"
+            value="#0073C1"
+          />
+          <div
+            className="c7 c9"
+            color="#0073C1"
+          >
+            <span
+              checked={true}
+              className="c10 c11"
+              color="#0073C1"
+              data-component="icon"
+              data-element="tick"
+              disabled={false}
+              fontSize="small"
+              type="tick"
+            />
+          </div>
+        </div>
+        <div
+          checked={false}
+          className="c4"
           color="#582C83"
-        />
+          data-component="simple-color"
+        >
+          <input
+            aria-checked={false}
+            checked={false}
+            className="c5 c6"
+            data-down={false}
+            data-element="input"
+            data-up={false}
+            id="rId-2"
+            name="test-group"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="radio"
+            type="radio"
+            value="#582C83"
+          />
+          <div
+            className="c7 c12"
+            color="#582C83"
+          />
+        </div>
       </div>
     </div>
   </div>

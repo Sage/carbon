@@ -1,152 +1,132 @@
 Feature: Experimental Textbox component
-  I want to change Experimental Textbox component properties
-
-  Background: Open Experimental Textbox component page
-    Given I open "Experimental Textbox" component page
+  I want to check Experimental Textbox component properties
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then Textbox placeholder is set to "<placeholder>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then Textbox placeholder is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | placeholder                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox component
-    When I check disabled checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "disabled" object name
     Then Textbox component is disabled
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox component
-    When I check disabled checkbox
-      And I uncheck disabled checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "disabledFalse" object name
     Then Textbox component is not disabled
 
   @positive
   Scenario: Enable readOnly checkbox for a Textbox component
-    When I check readOnly checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "readOnly" object name
     Then Textbox component is readOnly
 
   @positive
   Scenario: Disable readOnly checkbox for a Textbox component
-    When I check readOnly checkbox
-      And I uncheck readOnly checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "readOnlyFalse" object name
     Then Textbox component is not readOnly
 
   @positive
-  Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp is set to "<fieldHelp>"
+  Scenario Outline: Set prefix to <prefix>
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then Prefix is set to <prefix>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | prefix                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | prefixOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | prefixSpecialCharacter |
+
+  @positive
+  Scenario Outline: Set fieldHelp to <fieldHelp>
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Examples:
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label is set to "<label>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    When I set label to "label"
-      And I set labelHelp to "<labelHelp>"
-      And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+      And I hover mouse onto "question" icon in no iFrame
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox component
-    When I set label to "label"
-      And I check labelInline checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "labelInline" object name
     Then Textbox component is labelInline
 
   @positive
   Scenario: Enable and disable labelInline checkbox for a Textbox component
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I uncheck labelInline checkbox
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "labelInlineFalse" object name
     Then Textbox component is not labelInline
 
   @positive
   Scenario Outline: Set labelWidth to <labelWidth>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set label width slider to <labelWidth>
-    Then label width is set to "<labelWidth>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then label width on preview is <labelWidth>
     Examples:
-      | labelWidth |
-      | 0          |
-      | 25         |
-      | 100        |
+      | labelWidth | nameOfObject  |
+      | 0          | labelWidth0   |
+      | 25         | labelWidth25  |
+      | 100        | labelWidth100 |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set inputWidth slider to <inputWidth>
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Textbox inputWidth is set to "<inputWidth>"
     Examples:
-      | inputWidth |
-      | 0          |
-      | 50         |
-      | 100        |
+      | inputWidth | nameOfObject  |
+      | 50         | inputWidth50  |
+      | 100        | inputWidth100 |
 
   @positive
   Scenario Outline: Set labelAlign to <labelAlign>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I select labelAlign to "<labelAlign>"
-    Then label Align on preview is "<labelAlign>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
-      | labelAlign |
-      | left       |
-      | right      |
+      | labelAlign | nameOfObject    |
+      | left       | labelAlignLeft  |
+      | right      | labelAlignRight |
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    When I input "<input>" into Textbox
-    Then Textbox input on preview is set to "<input>"
+    Given I open "Experimental Textbox" component page in noIFrame
+    When I type <input> into Textbox
+    Then Textbox input on preview is set to <input>
     Examples:
-      | input                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | input                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set label size to <size>
-    When I select size to "<size>"
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Textbox height is "<height>"
       And Textbox width is "<width>"
     Examples:
-      | size   | height | width  |
-      | small  | 28px   | 1043px |
-      | medium | 36px   | 1037px |
-      | large  | 44px   | 1033px |
+      | size   | height | width  | nameOfObject |
+      | small  | 30px   | 1263px | sizeSmall    |
+      | medium | 38px   | 1257px | sizeMedium   |
+      | large  | 46px   | 1253px | sizeLarge    |
 
   @positive
   Scenario: Check icon inside of Textbox is visible
-    When I select inputIcon to "add"
-    Then icon on preview is "add" and is visible
-
-  @positive
-  Scenario: Check iconOnClick event
-    Given I select inputIcon to "add"
-      And clear all actions in Actions Tab
-    When I click on icon inside of Textbox
-    Then iconOnClick action was called in Actions Tab
-
-  @positive
-  Scenario: Check onClick event
-    Given clear all actions in Actions Tab
-    When I click on Textbox
-    Then onClick action was called in Actions Tab
-      And Textbox input has golden border on focus
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "inputIconAdd" object name
+    Then icon name in noIframe on preview is "add"

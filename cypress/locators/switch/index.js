@@ -1,10 +1,8 @@
-import { SWITCH_PREVIEW, SWITCH_INPUT, SWITCH_DATA_COMPONENT } from './locators';
+import { SWITCH_DATA_COMPONENT } from './locators';
 
 // component preview locators
-export const switchPreview = () => cy.iFrame(SWITCH_PREVIEW);
-export const switchProperties = () => cy.iFrame(SWITCH_PREVIEW)
-  .find('span');
-export const switchInput = () => cy.iFrame(SWITCH_INPUT);
-
-// component preview locators into iFrame
-export const switchDataComponent = position => cy.get(SWITCH_DATA_COMPONENT).find('input').eq(position);
+export const switchDataComponent = () => cy.get(SWITCH_DATA_COMPONENT);
+export const switchInput = () => switchDataComponent().find('input')
+export const switchLoading = () => switchDataComponent().find('div > div > div > div > span > div').children();
+export const switchInputByPosition = position => switchDataComponent().find('div div div').children().eq(position)
+  .find('input');

@@ -2,14 +2,12 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ConfigurableItemRowWithoutHOC } from './configurable-item-row.component';
 import { Checkbox } from '../../../__experimental__/components/checkbox';
-import CheckboxLegacy from '../../../__deprecated__/components/checkbox';
-import 'jest-styled-components';
 import Icon from '../../icon';
 import { WithDrag, WithDrop } from '../../drag-and-drop';
 import DraggableContext from '../../drag-and-drop/draggable-context';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import { ConfigurableItemRowStyle, ConfigurableItemRowIconStyle } from './configurable-item-row.style';
-import classicTheme from '../../../style/themes/classic';
+import { aegeanTheme, mintTheme, baseTheme } from '../../../style/themes';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 
@@ -73,11 +71,6 @@ describe('ConfigurableItemRow', () => {
     });
     it('passes the onChange prop through to the Checkbox onChange prop', () => {
       expect(wrapper.find(Checkbox).props().onChange).toEqual(onChange);
-    });
-
-    it('if classicTheme provided, render legacy checkbox component', () => {
-      wrapper.setProps({ theme: classicTheme });
-      expect(wrapper.find(CheckboxLegacy).props().onChange).toEqual(onChange);
     });
   });
 
@@ -190,39 +183,38 @@ describe('ConfigurableItemRow', () => {
   });
 });
 
-describe('ConfigurableItemRowIconStyle', () => {
-  describe('when classic theme is provided to the component', () => {
+
+describe.each([
+  ['base', baseTheme],
+  ['mint', mintTheme],
+  ['aegean', aegeanTheme]
+])('when %s theme is provided to the component', (name, theme) => {
+  describe('ConfigurableItemRowStyle', () => {
     it('should render correct styles', () => {
       assertStyleMatch({
-        paddingRight: '0'
-      }, mount(<ConfigurableItemRowIconStyle type='drag_vertical' theme={ classicTheme } />));
+        borderBottom: `1px solid ${theme.disabled.input}`,
+        padding: '5px 0.5em 5px 0px'
+      }, mount(<ConfigurableItemRowStyle theme={ theme } />));
     });
-  });
-});
 
-describe('ConfigurableItemRowStyle', () => {
-  describe('when classic theme is provided to the component', () => {
-    it('should render correct styles', () => {
-      assertStyleMatch({
-        borderBottom: '1px solid #CCD6DA',
-        padding: '0.5em 0.5em 0.7em'
-      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } />));
-    });
-  });
-
-  describe('when isDragged is provided to the component', () => {
-    it('should render correct styles', () => {
+    it('should render correct isDragged styles', () => {
       assertStyleMatch({
         cursor: '-webkit-grabbing'
-      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } isDragged />));
+      }, mount(<ConfigurableItemRowStyle theme={ theme } isDragged />));
+    });
+
+    it('should render correct isDragging styles', () => {
+      assertStyleMatch({
+        cursor: '-webkit-grabbing'
+      }, mount(<ConfigurableItemRowStyle theme={ theme } isDragging />));
     });
   });
 
-  describe('when isDragging is provided to the component', () => {
+  describe('ConfigurableItemRowIconStyle', () => {
     it('should render correct styles', () => {
       assertStyleMatch({
-        cursor: '-webkit-grabbing'
-      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } isDragging />));
+        paddingRight: '12px'
+      }, mount(<ConfigurableItemRowIconStyle type='drag_vertical' theme={ theme } />));
     });
   });
 });

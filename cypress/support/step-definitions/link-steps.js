@@ -1,6 +1,6 @@
 import { linkPreview, linkChildren, linkIcon } from '../../locators/link';
 
-Then('children on preview is {string}', (children) => {
+Then('children on preview is {word}', (children) => {
   linkChildren().should('have.text', children);
 });
 
@@ -12,11 +12,15 @@ Then('Link is enabled', () => {
   linkPreview().should('not.have.attr', 'disabled');
 });
 
-Then('Link on preview href is set to {string}', (href) => {
+Then('Link on preview target is set to {word}', (target) => {
+  linkPreview().children().should('have.attr', 'target', `${target}`);
+});
+
+Then('Link on preview href is set to {word}', (href) => {
   linkPreview().children().should('have.attr', 'href', `${href}`);
 });
 
-Then('icon on link componenent preview is {string}', (iconName) => {
+Then('icon on link component preview is {string}', (iconName) => {
   linkIcon().should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
@@ -36,12 +40,4 @@ Then('Link is tabbable', () => {
 
 Then('Link is not tabbable', () => {
   linkPreview().children().should('have.attr', 'tabindex', '-1');
-});
-
-Then('Link component is focused', () => {
-  cy.focused().should('have', linkPreview());
-});
-
-Then('Link component is not focused', () => {
-  cy.focused().should('not.have', linkPreview());
 });

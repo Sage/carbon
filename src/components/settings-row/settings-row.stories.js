@@ -11,7 +11,7 @@ SettingsRow.__docgenInfo = getDocGenInfo(
   /settings-row\.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'Content for settings');
     const description = text(
@@ -34,7 +34,11 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    info: { text: info }
+    info: { text: info },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
@@ -42,4 +46,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('SettingsRow', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

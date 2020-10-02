@@ -15,12 +15,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 7,
+      gridColumn: '1 / 7',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1500px'
     },
     groupID1
   );
@@ -29,12 +27,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1300px'
     },
     groupID1
   );
@@ -43,12 +39,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '900px'
     },
     groupID1
   );
@@ -57,12 +51,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 7,
-      colEnd: 13,
+      gridColumn: '7 / 13',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1500px'
     },
     groupID2
   );
@@ -71,12 +63,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '1300px'
     },
     groupID2
   );
@@ -85,12 +75,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '3 / 3',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 3,
-      rowEnd: 3
+      maxWidth: '900px'
     },
     groupID2
   );
@@ -99,12 +87,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '1500px'
     },
     groupID3
   );
@@ -113,12 +99,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '3 / 3',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 3,
-      rowEnd: 3
+      maxWidth: '1300px'
     },
     groupID3
   );
@@ -127,12 +111,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '900px'
     },
     groupID3
   );
@@ -180,12 +162,264 @@ basic.story = {
   name: 'basic',
   parameters: {
     info: { disable: true },
-    docs: { page: null }
+    docs: { page: null },
+    chromatic: { viewports: [1500, 1300, 900] }
+  }
+};
+
+export const Visual = () => {
+  return (
+    <div>
+      <GridContainer>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='left'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='center'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='right'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem
+          alignSelf='end'
+          justifySelf='left'
+          gridColumn='1 / 1'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='center'
+          gridColumn='2 / 2'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+            style={ { height: '100px' } }
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='right'
+          gridColumn='1 / 1'
+          gridRow='2 / 2'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem responsiveSettings={ [
+          {
+            maxWidth: '1500px',
+            gridColumn: '1 / 7',
+            gridRow: '1 / 1',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '1300px',
+            gridColumn: '1 / 13',
+            gridRow: '1 / 1',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '900px',
+            colStart: 1,
+            colEnd: 9,
+            gridRow: '2 / 2',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }] }
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem responsiveSettings={ [
+          {
+            maxWidth: '1500px',
+            gridColumn: '7 / 13',
+            gridRow: '1 / 1',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '1300px',
+            gridColumn: '1 / 13',
+            gridRow: '2 / 2',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '900px',
+            gridColumn: '1 / 9',
+            gridRow: '3 / 3',
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }] }
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          responsiveSettings={ [
+            {
+              maxWidth: '1500px',
+              gridColumn: '1 / 13',
+              gridRow: '2 / 2',
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }, {
+              maxWidth: '1300px',
+              gridColumn: '1 / 13',
+              gridRow: '3 / 3',
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }, {
+              maxWidth: '900px',
+              gridColumn: '1 / 9',
+              gridRow: '1 / 1',
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }] }
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+    </div>
+  );
+};
+
+Visual.story = {
+  name: 'visual',
+  parameters: {
+    info: { disable: true },
+    docs: { page: null },
+    chromatic: { viewports: [1500, 1300, 900] }
   }
 };
 
 export default {
-  title: 'Test/Grid',
+  title: 'Design System/Grid/Test',
   component: GridContainer,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  chromatic: {
+    disable: true
+  }
 };

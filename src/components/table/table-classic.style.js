@@ -6,8 +6,8 @@ import StyledIcon from '../icon/icon.style';
 
 function applyClassicInternalStyling() {
   return css`
-    background-color: #F2F4F5;
-    border: 1px solid #CCD6DA;
+    background-color: #F2F5F6;
+    border: 1px solid #CCD6DB;
   `;
 }
 
@@ -15,15 +15,9 @@ function applyClassicTableStyling(props) {
   return css`
     background-color: #ffffff;
 
-    .table__spinner {
-      height: 8px;
-      width: 8px;
-      margin-bottom: -4px;
-    }
-
     ${props.tableType === 'secondary' && `
       ${StyledTableHeader} {
-        background-color: #CCD6DA;
+        background-color: #CCD6DB;
         color: #003349;
 
         ${StyledIcon},

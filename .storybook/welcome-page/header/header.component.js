@@ -32,7 +32,7 @@ const Header = () => (
           <Button
             buttonType='primary'
             target="_blank"
-            href="https://github.com/Sage/carbon/releases"
+            href="https://github.com/Sage/carbon/blob/master/docs/getting-started.stories.mdx"
             size='large'
             target='_blank'
           >

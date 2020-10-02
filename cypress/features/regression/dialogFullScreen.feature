@@ -1,89 +1,91 @@
 Feature: Dialog Full Screen component
-  I want to change Dialog Full Screen component properties
-
-  Background: Open Dialog Full Screen component page
-    Given I open "Dialog Full Screen" component page
+  I want to test Dialog Full Screen component properties
 
   @positive
   Scenario: CloseIcon has the border outline
-    Given I open component preview
-    When closeIcon is focused
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
-    Given I check showCloseIcon checkbox
-      And I open component preview
-    When I click close icon
+    Given I open "Dialog Full Screen Test" component page
+      And I check showCloseIcon checkbox
+    When I click closeIcon in IFrame
     Then Confirm dialog is not visible
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
-    When I set title to "<title>"
-      And I open component preview
-    Then component title on preview is "<title>"
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    Then component title on preview is <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
-    When I set subtitle to "<subtitle>"
-      And I open component preview
-    Then component subtitle on preview is "<subtitle>"
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    Then component subtitle on preview is <subtitle>
     Examples:
-      | subtitle                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subtitle                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | subtitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtitleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Dialog Full Screen children to <children>
-    When I set children to "<children>"
-      And I open component preview
-    Then Dialog Full Screen children on preview is "<children>"
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    Then Dialog Full Screen children on preview is <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI checkbox
-      And I open component preview
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    When I check enableBackgroundUI checkbox
-      And I uncheck enableBackgroundUI checkbox
-      And I open component preview
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey checkbox
-      And I open component preview
-      And I hit ESC key
+    Given I open "Dialog Full Screen Test" component page
+      And I check disableEscKey checkbox
+    When I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    When I check disableEscKey checkbox
+    Given I open "Dialog Full Screen Test" component page
+      And I check disableEscKey checkbox
       And I uncheck disableEscKey checkbox
-      And I open component preview
-      And I hit ESC key
+    When I hit ESC key
     Then Dialog Full Screen is not visible
 
   @positive
-  Scenario: Open event
-    When clear all actions in Actions Tab
-      And I open component preview
-    Then open action was called in Actions Tab
+  Scenario: Verify that stickyFormFooter is visible
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "stickyFooter" object name
+    Then Dialog Full Screen stickyFormFooter is visible
 
   @positive
   Scenario: Cancel event
-    Given clear all actions in Actions Tab
-      And I open component preview
-    When I click closeIcon
+    Given I open "Dialog Full Screen Test" component page
+      And clear all actions in Actions Tab
+    When I click closeIcon in IFrame
     Then cancel action was called in Actions Tab
+
+  @positive
+  Scenario: Verify that nested dialog is closed by pressing Esc key
+    Given I open "Dialog Full Screen Test" component page "nested"
+      And I "Open Main Dialog" button on preview
+      And I wait 500
+      And I "Open Nested Dialog" button on preview
+      And Dialog is visible in IFrame
+    When I hit ESC key
+    Then Dialog Full Screen is visible
+      And Dialog is not visible in IFrame
+      And I hit ESC key
+      And Dialog Full Screen is not visible

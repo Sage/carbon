@@ -1,24 +1,27 @@
-import { flashPreview, messagePreview } from '../../locators/flash';
-import { getDataElementByValue } from '../../locators';
+import { flashPreview, messagePreview, flashButton } from '../../locators/flash';
+import { icon } from '../../locators';
 import { DEBUG_FLAG } from '..';
-
-Then('Flash as is set to {string} and icon is set to {string}', (as, iconValue) => {
-  flashPreview().should('exist');
-  getDataElementByValue(iconValue).should('exist');
-});
-
-Then('Flash message is set to {string}', (message) => {
-  messagePreview().should('have.text', message);
-});
 
 When('I wait {int}', (timeout) => {
   cy.wait(timeout, { log: DEBUG_FLAG });
 });
 
-Then('Flash is not visible', () => {
-  flashPreview().should('not.exist');
-});
-
 Then('Flash is visible', () => {
   flashPreview().should('exist');
+});
+
+Then('Flash is set to {word}', (as) => {
+  if (as === 'success') {
+    icon().should('have.attr', 'data-element', 'tick');
+  } else {
+    icon().should('have.attr', 'data-element', 'error');
+  }
+});
+
+Then('Flash message is set to {word}', (message) => {
+  messagePreview().should('have.text', message);
+});
+
+Then('I open Flash dialog', () => {
+  flashButton().click();
 });

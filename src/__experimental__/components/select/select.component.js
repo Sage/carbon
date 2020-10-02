@@ -8,6 +8,9 @@ import Pill from '../../../components/pill';
 import Events from '../../../utils/helpers/events';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledSelect, StyledSelectPillContainer } from './select.style';
+import Logger from '../../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 /**
  * Basic example:
@@ -28,6 +31,15 @@ import { StyledSelect, StyledSelectPillContainer } from './select.style';
  */
 
 class Select extends React.Component {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate('The `lib/__experimental__/select` component is deprecated and will soon be removed. Please use `lib/select` instead.');
+    }
+  }
+
   listboxId = uniqueId('listbox-');
 
   isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
@@ -355,9 +367,6 @@ class Select extends React.Component {
   }
 
   inputIcon(typeAhead) {
-    if (this.props.inputIcon) {
-      return this.props.inputIcon;
-    }
     if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
     if (typeAhead) return 'search';
     return this.isMultiSelectEnabled() ? undefined : 'dropdown';

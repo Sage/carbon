@@ -12,7 +12,7 @@ Detail.__docgenInfo = getDocGenInfo(
   /detail\.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const icon = select('icon', [null, ...OptionsHelper.icons], null);
     const footnote = text('footnote', 'This detail may require a footnote.');
@@ -30,7 +30,11 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
@@ -38,4 +42,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Detail', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

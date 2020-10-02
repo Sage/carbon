@@ -11,7 +11,7 @@ Heading.__docgenInfo = getDocGenInfo(
   /heading(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const title = text('title', 'This is a heading');
     const children = text('children', 'This is content beneath a heading');
@@ -40,7 +40,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -48,4 +51,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Heading', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

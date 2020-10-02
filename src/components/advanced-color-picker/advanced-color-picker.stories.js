@@ -8,14 +8,17 @@ import { action } from '@storybook/addon-actions';
 import AdvancedColorPicker from '.';
 
 export default {
-  title: 'Test/Advanced Color Picker',
+  title: 'Design System/Advanced Color Picker/Test',
   component: AdvancedColorPicker,
   decorators: [withKnobs],
   parameters: {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -86,4 +89,12 @@ export const Basic = () => {
       open={ state.open }
     />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

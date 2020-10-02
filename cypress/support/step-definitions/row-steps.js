@@ -22,14 +22,14 @@ Then('columnAlign on preview is {string}', (direction) => {
   column().should('have.class', `${COLUMN_ALIGN_PREFIX}${direction}`);
 });
 
-Then('columnOffset on preview is {string}', (offset) => {
+Then('columnOffset on preview is {word}', (offset) => {
   column().should('have.class', `${COLUMN_OFFSET_PREFIX}${offset}`);
 });
 
-Then('columnSpan on preview is {string}', (span) => {
+Then('columnSpan on preview is {word}', (span) => {
   column().should('have.class', `${COLUMN_SPAN_PREFIX}${span}`);
 });
 
-Then('column text is {string}', (text) => {
+Then('column text is {word}', (text) => {
   column().first().should('have.text', text);
 });

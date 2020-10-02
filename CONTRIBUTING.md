@@ -18,6 +18,8 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 [Automated issue management](#automated-issue-management)
 
 [Testing](#testing)
+* [Unit Testing](#unit-testing)
+* [Functional Browser Testing](#functional-browser-testing)
 
 [Pull Request Guidelines](#pull-request-guidelines)
 * [The **Feature Branch** workflow](#the-feature-branch-workflow)
@@ -25,9 +27,14 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 
 [Styleguides](#styleguides)
 * [Git commit messages](#git-commit-messages)
+* [JavaScript guide](docs/javascript-styleguide.md)
 
 ## What is Carbon?
 Carbon is an [open source](https://opensource.com/resources/what-open-source) library of user interface components. These components are intentionally designed to be reusable, accessible, easy to use, and easy to develop with. We follow the principles of atomic design and strive to provide elements that are the building blocks of a user interface.
+
+## Getting Started with Carbon
+
+In order to help you get started with Carbon, we have written two helpful documents. The [dev-environemt-setup](docs/dev-environment-setup.md) document will provide you with the information you require to get your development environment started. The second document is our [getting-started](docs/getting-started.md) guide and this is aimed at someone who already has a development environment setup but wants to add Carbon to their existing project.
 
 ## I have a question
  - Internal **Sage** contributors are invited to post in our #carbon Slack channel, in the first instance. 
@@ -44,8 +51,8 @@ Before you create a new issue please search our [open issues](https://github.com
 
 If you can't find an existing issue that describes your bug or feature then you have three choices:
 1. For a simple **bug fix** follow the [Pull Request Guidelines](#pull-request-guidelines) and submit a PR.
-1. To introduce a **new feature** either create a new issue via the [issue tracker](https://github.com/sage/carbon/issues), or propose the change using a [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md). Which is right for you is a judgement call based on the size and complexity of the feature.
-3. **Breaking changes** should always be introduced with a [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md).
+1. To introduce a **new feature** either create a new issue via the [issue tracker](https://github.com/sage/carbon/issues), or propose the change using a [Request For Comment](rfcs/README.md). Which is right for you is a judgement call based on the size and complexity of the feature.
+3. **Breaking changes** should always be introduced with a [Request For Comment](rfcs/README.md).
 
 ## Issue tracker
 The [issue tracker](https://github.com/sage/carbon/issues) is the preferred way to report any bugs or issues with the codebase. Once an issue is submitted, it will be reviewed by the team and we will either add a task to our backlog, describe a workaround if appropriate, or advise you of the next steps that we plan to take.
@@ -58,17 +65,25 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 ## Defining Features
 
-For features that you have a proposed solution for, please write an [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md).
+For features that you have a proposed solution for, please write an [Request For Comment](rfcs/README.md).
 
 ## Automated issue management
 
 We use a bot to help us manage issues. The bot automatically labels issues where there has been no activity for 365 days as `stale`. We then consider the issue for closure. 
 
 ## Testing
-
+### Unit Testing
 * Carbon has a 100% coverage policy. Testing is done using [Jest](https://facebook.github.io/jest/). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
 * Legacy code used React Testutils - we are currently in the process of migrating to 100% Enzyme usage.
-* New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
+* New tests need to be written using Enzyme.
+
+### Functional Browser Testing
+* All components are fully tested manually in terms of functionality, accessibility, internationalisation and action events.
+* [Cypress.io](https://www.cypress.io) is used for automated regression testing.
+* [Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions.
+* The [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) extension is used for testing accessibility in accordance with the WCAG 2 and Section 508 accessibility standards.
+
+More details about how we test can be found in the [Carbon Testing Styleguide](docs/testing-styleguide.md).
 
 ## Pull Request Guidelines
 Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort. If no issue has been raised, please raise one and wait for approval before beginning work. You can then link back to this when submitting a pull request to address it.
@@ -95,6 +110,36 @@ Your branch should meet the following criteria:
 1. Typescript `d.ts` file is provided.
 
 **To be merged, the pull request must be approved by at least two project maintainers**
+
+#### GitHub Checks
+Our GitHub checks don't run on a forked PR because the Chromatic and Cypress Dashboard require credentials. When you submit a PR a project maintainer will review your code.
+If there are no changes that could expose our credentials they will use [`git-push-fork-to-upstream-branch`](https://github.com/jklukas/git-push-fork-to-upstream-branch) to
+copy your branch into our repo. Doing this will trigger a `push` build and your PR checks will be updated. This is documented on the [Circle CI blog](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/).
+
+#### Preventing unnecessary builds
+
+Our CI resources are finite, it's important that we only trigger a CI build when required. There are some best practices that you can follow to reduce the number of builds
+that you trigger.
+1. Work on a branch until you want to trigger CI, don't create a draft PR until you are ready to run CI.
+1. Create a draft PR when you want to trigger CI.
+1. Convert it to a regular PR when you want a peer review.
+1. Address any peer review comments in as many commits as required, but only push them once you're finished addressing all comments.
+1. Don't press the "Update Branch" button unless you're about to merge the branch. Once you have pressed "Update Branch" you shouldn't work on anything else
+until that branch is merged.
+
+#### Long lived branches
+Sometimes it is necessary to work on a feature for an extended amount of time. If you're aware of the pros/cons of doing such you can choose to use a `major/**` branch.
+
+1. Create a long lived branch off master e.g. `git checkout -b major/remove_classic_theme origin/master`
+1. Create a feature branch from the long lived branch e.g. `git checkout -b remove_classic_alert origin/major/remove_classic_theme`
+1. Dev creates PR and `remove_classic_alert` is merged back into `major/remove_classic_theme`
+1. Dev repeats steps 2 & 3 until the feature is complete.
+1. When the feature is complete the master and the long lived branch will have diverged, you'll need to merge master in to the long lived branch, resolving any conflicts. `git merge origin/master`
+1. Now that the two branches are up to date you can make a PR from the long lived branch into master
+
+*N.B. It's recommended that development on master is paused while this long lived branch is merged into master, otherwise you will have to re-integrate each time master changes.*
+
+*A long lived branch will only trigger one release, when it is merged into master.*
 
 ## Styleguides
 ### Git commit messages
@@ -154,5 +199,5 @@ Any of these types can trigger a `major` release by including `BREAKING CHANGE:`
 
 To accept any third party contributions we require a Contributor License Agreement to be signed. Please find links to the relevent documents below:
 
-* [Individual CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CLA.docx)
-* [Corporate CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CCLA.docx)
+* [Individual CLA](cla/SAGE-CLA.docx)
+* [Corporate CLA](cla/SAGE-CCLA.docx)

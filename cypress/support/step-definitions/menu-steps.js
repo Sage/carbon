@@ -1,31 +1,23 @@
 import {
-  menuPreview, menuListItems, submenuBlock,
+  menuPreview,
+  menuListItems,
+  submenuBlock,
+  innerMenu,
 } from '../../locators/menu';
 import { positionOfElement } from '../helper';
-
-const CARBON_BUTTON_PREFIX = 'carbon-menu carbon-menu--';
-
-Then('Menu as property on preview is {string}', (as) => {
-  menuPreview().should('have.class', `${CARBON_BUTTON_PREFIX}${as}`);
-});
 
 Then('Menu elements are visible', () => {
   menuPreview().should('be.visible');
 });
 
-When('I invoke first expandable Menu component', () => {
-  menuListItems(positionOfElement('second')).trigger('mouseover');
+When('I hover over third expandable Menu component', () => {
+  menuListItems().trigger('mouseover');
 });
 
-When('I invoke second expandable Menu component', () => {
-  menuListItems(positionOfElement('third')).trigger('mouseover');
-});
-
-Then('Menu first expandable element has {int} items', (parameter) => {
-  submenuBlock(positionOfElement('third'), positionOfElement('second')).should('have.length', parameter);
-});
-
-Then('Menu second expandable element has {int} link item and {int} list items', (firstParameter, secondParameter) => {
-  submenuBlock(positionOfElement('fourth'), positionOfElement('third')).first().should('have.length', firstParameter);
-  submenuBlock(positionOfElement('fourth'), positionOfElement('third')).children().should('have.length', secondParameter);
+Then('Menu third expandable element has inner elements', () => {
+  submenuBlock().children().should('have.length', 4);
+  innerMenu(positionOfElement('second')).should('have.attr', 'data-component', 'link');
+  innerMenu(positionOfElement('third')).should('have.attr', 'data-component', 'menu-divider');
+  innerMenu(positionOfElement('fourth')).should('have.attr', 'data-component', 'link');
+  innerMenu(positionOfElement('fifth')).should('have.attr', 'data-component', 'link');
 });

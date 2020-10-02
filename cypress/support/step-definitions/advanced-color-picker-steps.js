@@ -1,8 +1,7 @@
 import {
+  experimentalSimpleColorPickerInputInIframe,
   experimentalSimpleColorPickerInput,
   advancedColorPickerCell,
-  experimentalSimpleColorPickerInputNoIframe,
-  advancedColorPickerCellNoIframe,
 } from '../../locators/advanced-color-picker';
 import { keyCode, positionOfElement } from '../helper';
 
@@ -11,7 +10,7 @@ When('I open Advanced Color Picker', () => {
 });
 
 When('I open Advanced Color Picker in noIFrame', () => {
-  advancedColorPickerCellNoIframe().first().click();
+  advancedColorPickerCell().first().click();
 });
 
 When('I pick simple {int} color', (index) => {
@@ -29,11 +28,11 @@ Then('Simple Color {int} has focus', (index) => {
 });
 
 Then('Simple Color {int} element was picked up', (index) => {
-  experimentalSimpleColorPickerInput(index).should('have.attr', 'aria-checked', 'true');
+  experimentalSimpleColorPickerInputInIframe(index).should('have.attr', 'aria-checked', 'true');
 });
 
 Then('Simple Color {int} element was picked up in noIframe', (index) => {
-  experimentalSimpleColorPickerInputNoIframe(index).should('have.attr', 'aria-checked', 'true');
+  experimentalSimpleColorPickerInput(index).should('have.attr', 'aria-checked', 'true');
 });
 
 When('I press {word} on {int} element', (key, index) => {

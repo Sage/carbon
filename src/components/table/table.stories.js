@@ -19,9 +19,14 @@ TableWrapper.__docgenInfo = getDocGenInfo(
   /table\.component(?!spec)/
 );
 
-const commonKnobs = () => {
-  const paginate = boolean('paginate', false);
-  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+const commonKnobs = (
+  {
+    paginate: defaultPaginate = false,
+    showPageSizeSelection: defaultShowPageSizeSelection = false
+  } = {}
+) => {
+  const paginate = boolean('paginate', defaultPaginate);
+  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', defaultShowPageSizeSelection);
   const selectable = boolean('selectable', false);
   const highlightable = boolean('highlightable', false);
 
@@ -100,7 +105,10 @@ storiesOf('Table', module)
       <TableWrapper { ...tableProps } />
     );
   }, {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   })
   .add(
     'default',
@@ -115,7 +123,8 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector
+      themeSelector: dlsThemeSelector,
+      knobs: { escapeHTML: false }
     },
   )
   .add(
@@ -132,7 +141,10 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: classicThemeSelector
+      themeSelector: classicThemeSelector,
+      chromatic: {
+        disable: true
+      }
     },
   )
   .add(
@@ -140,6 +152,41 @@ storiesOf('Table', module)
     () => {
       const tableProps = {
         ...commonKnobs(),
+        ...dlsKnobs(),
+        ...inputKnobs()
+      };
+
+      return (
+        <TableWrapper { ...tableProps } />
+      );
+    },
+    {
+      themeSelector: dlsThemeSelector,
+      knobs: { escapeHTML: false }
+    },
+  )
+  .add(
+    'default with inputs and paginate',
+    () => {
+      const tableProps = {
+        ...commonKnobs({ paginate: true }),
+        ...dlsKnobs(),
+        ...inputKnobs()
+      };
+
+      return (
+        <TableWrapper { ...tableProps } />
+      );
+    },
+    {
+      themeSelector: dlsThemeSelector
+    },
+  )
+  .add(
+    'default with inputs and paginate and page size',
+    () => {
+      const tableProps = {
+        ...commonKnobs({ paginate: true, showPageSizeSelection: true }),
         ...dlsKnobs(),
         ...inputKnobs()
       };

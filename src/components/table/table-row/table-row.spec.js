@@ -410,8 +410,8 @@ describe('TableRow', () => {
         </Table>
       );
       assertStyleMatch({
-        backgroundColor: '#D8E0E3',
-        borderBottomColor: '#D8E0E3',
+        backgroundColor: '#D9E0E4',
+        borderBottomColor: '#D9E0E4',
         position: 'relative'
       }, instance.find(TableRow), { modifier: `&&&& ${StyledTableCell}` });
     });
@@ -729,7 +729,7 @@ describe('TableRow', () => {
         row1.setContext({ dragAndDropActiveIndex: 0 });
 
         assertStyleMatch(
-          { backgroundColor: '#F2F4F5' },
+          { backgroundColor: '#F2F5F6' },
           row1.find(StyledTableRow),
           { modifier: `&&&&& ${StyledTableCell}` }
         );
@@ -786,14 +786,14 @@ describe('TableRow', () => {
 });
 
 describe('TableRow', () => {
-  const container = { current: null };
-  const wrapper = { current: null };
+  let container;
+  let wrapper;
 
   const onOpen = jest.fn();
   const onClose = jest.fn();
 
   function render() {
-    wrapper.current = mount(
+    wrapper = mount(
       <ThemeProvider { ...{ theme: baseTheme } }>
         <Table>
           <TableRow>
@@ -813,32 +813,32 @@ describe('TableRow', () => {
             </TableCell>
           </TableRow>
         </Table>
-      </ThemeProvider>, { attachTo: container.current }
+      </ThemeProvider>, { attachTo: container }
     );
   }
 
   function getMenuButton() {
-    return wrapper.current.find(MenuButton);
+    return wrapper.find(MenuButton);
   }
 
   function getRow() {
-    return wrapper.current.find(TableRow).at(1);
+    return wrapper.find(TableRow).at(1);
   }
 
   beforeEach(() => {
-    container.current = document.createElement('div');
-    document.body.appendChild(container.current);
+    container = document.createElement('div');
+    document.body.appendChild(container);
     onOpen.mockReset();
     onClose.mockReset();
   });
 
 
   afterEach(() => {
-    document.body.removeChild(container.current);
-    container.current = null;
-    if (wrapper.current) {
-      wrapper.current.unmount();
-      wrapper.current = null;
+    document.body.removeChild(container);
+    container = null;
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
     }
   });
 

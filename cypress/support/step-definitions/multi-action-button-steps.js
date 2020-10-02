@@ -1,4 +1,5 @@
-import { multiActionButtonList, multiActionButtonText, multiActionButton, 
+import {
+  multiActionButtonList, multiActionButtonText, multiActionButton,
   multiActionButtonComponent,
 } from '../../locators/multi-action-button';
 import { buttonSubtextPreview } from '../../locators/button';
@@ -6,7 +7,7 @@ import { buttonSubtextPreview } from '../../locators/button';
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
 const TEXT_ALIGN = 'text-align';
 
-Then('Multi Action Button text on preview is set to {string}', (text) => {
+Then('Multi Action Button text on preview is set to {word}', (text) => {
   multiActionButtonText().should('have.text', text);
 });
 
@@ -29,7 +30,7 @@ Then('Multi Action Button border color is {string} border-color', (borderColor) 
     .and('have.css', 'border-left-color', borderColor);
 });
 
-Then('Multi Action Button height is {string}', (height) => {
+Then('Multi Action Button height is {int}', (height) => {
   multiActionButton().should('have.css', 'height', `${height}px`);
 });
 
@@ -38,7 +39,7 @@ Then('Multi Action Button align on preview is {string}', (align) => {
     .should('have.css', TEXT_ALIGN, `${align}`);
 });
 
-Then('Multi Action Button subtext on preview is {string}', (subtext) => {
+Then('Multi Action Button subtext on preview is {word}', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext);
 });
 
@@ -48,10 +49,6 @@ Then('Multi Action Button has golden border color', () => {
 
 When('I hover on Multi Action Button', () => {
   multiActionButtonComponent().trigger('mouseover');
-});
-
-When('I click the Multi Action Button', () => {
-  multiActionButtonComponent().click();
 });
 
 Then('Multi Action Button is expanded and contains three items', () => {

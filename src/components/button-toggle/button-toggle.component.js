@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledButtonToggle,
@@ -10,6 +10,8 @@ import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
+import { InputGroupContext } from '../../__internal__/input-behaviour';
+
 const ButtonToggle = (props) => {
   const {
     name,
@@ -20,10 +22,15 @@ const ButtonToggle = (props) => {
     buttonIcon,
     buttonIconSize,
     onChange,
+    onFocus,
+    onBlur,
     value,
     size
   } = props;
+  const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
+
   const inputGuid = guid();
+  const inputRef = useRef(null);
   let icon;
 
   if (buttonIcon) {
@@ -36,10 +43,15 @@ const ButtonToggle = (props) => {
     );
   }
 
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
   return (
     <StyledButtonToggle
       data-component='button-toggle'
       grouped={ grouped }
+      onClick={ handleClick }
     >
       <ButtonToggleInput
         name={ name }
@@ -48,6 +60,9 @@ const ButtonToggle = (props) => {
         guid={ inputGuid }
         value={ value }
         onChange={ onChange }
+        onFocus={ onFocus }
+        onBlur={ onBlur }
+        ref={ inputRef }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -55,6 +70,8 @@ const ButtonToggle = (props) => {
         disabled={ disabled }
         htmlFor={ inputGuid }
         size={ size }
+        onMouseEnter={ onMouseEnter }
+        onMouseLeave={ onMouseLeave }
       >
         <StyledButtonToggleContentWrapper>
           { icon }
@@ -70,8 +87,12 @@ ButtonToggle.propTypes = {
   checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
-  /** Change handler passed in from parent. */
+  /** Callback triggered by change event on the input. */
   onChange: PropTypes.func,
+  /** Callback triggered by focus event on the input. */
+  onFocus: PropTypes.func,
+  /** Callback triggered by blur event on the input. */
+  onBlur: PropTypes.func,
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */

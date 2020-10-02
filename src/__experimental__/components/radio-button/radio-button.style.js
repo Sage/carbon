@@ -4,7 +4,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import LabelStyle from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
 
@@ -15,18 +15,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     reverse,
     size,
     theme,
-    inline
+    inline,
+    mt
   }) => css`
-    margin-bottom: 12px;
-
-    ${FieldHelpStyle} {
-      margin-left: 32px;
-      padding-left: 0;
-    }
-
-    ${StyledCheckableInput} {
-      margin-right: 16px;
-    }
+    margin-top: ${mt * theme.spacing}px;
 
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;
@@ -52,13 +44,8 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       r: 5;
     }
 
-    ${LabelStyle} {
+    ${StyledLabelContainer} {
       flex: 1 1 calc(100% - 44px);
-      padding-left: 0;
-
-      ${reverse && css`
-        margin-right: 6px;
-      `}
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
@@ -81,20 +68,12 @@ const RadioButtonStyle = styled(CheckboxStyle)`
         margin-right: 6px;
       }
 
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         flex: 0 1 auto;
       }
     `}
 
     ${size === 'large' && css`
-      ${LabelStyle} {
-        padding: 4px 0;
-      }
-
-      ${StyledCheckableInput} {
-        margin-right: 14px;
-      }
-
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckableInputSvgWrapper},
@@ -108,11 +87,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       }
 
       ${reverse && css`
-        ${StyledCheckableInput} {
-          margin-right: 0;
-          margin-left: 16px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
             padding: 0;

@@ -9,6 +9,7 @@ import Textbox from '../../__experimental__/components/textbox';
 import { Accordion } from '.';
 import {
   StyledAccordionContainer,
+  StyledAccordionSubTitle,
   StyledAccordionTitleContainer,
   StyledAccordionTitle,
   StyledAccordionIcon,
@@ -139,6 +140,49 @@ describe('Accordion', () => {
       wrapper.update();
       isCollapsed(wrapper);
     });
+
+    describe('when window resizes', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <AccordionGroup>
+            <Accordion title='Title_1' defaultExpanded>
+              <div>Foo</div>
+            </Accordion>
+          </AccordionGroup>
+        );
+      });
+
+      it('recalculates the content height', () => {
+        act(() => render({ expanded: true }));
+        wrapper.update();
+        isExpanded(wrapper);
+
+        assertStyleMatch({
+          maxHeight: `${contentHeight}px`
+        }, wrapper.find(StyledAccordionContentContainer));
+
+        const newContentHeight = 400;
+
+        jest.spyOn(
+          wrapper.find(StyledAccordionContent).getDOMNode(), 'scrollHeight', 'get'
+        ).mockImplementation(() => newContentHeight);
+        act(() => {
+          global.innerWidth = 500;
+          global.innerHeight = 500;
+
+          global.dispatchEvent(new Event('resize'));
+        });
+        wrapper.update();
+
+        assertStyleMatch({
+          maxHeight: `${newContentHeight}px`
+        }, wrapper.find(StyledAccordionContentContainer));
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+    });
   });
 
   describe('layout', () => {
@@ -158,25 +202,43 @@ describe('Accordion', () => {
       }, wrapper.find(StyledAccordionTitleContainer));
     });
 
-    it('renders accordion with white background and border when type is set to "primary" (default)', () => {
+    it('renders accordion with white background and top/bottom borders by default', () => {
       assertStyleMatch({
         backgroundColor: baseTheme.colors.white,
+        border: `1px solid ${baseTheme.accordion.border}`,
+        borderLeft: 'none',
+        borderRight: 'none'
+      }, wrapper.find(StyledAccordionContainer));
+    });
+
+    it('renders accordion with transparent background and border when scheme is set to "transparent"', () => {
+      render({ scheme: 'transparent' });
+      assertStyleMatch({
+        backgroundColor: 'transparent',
+        border: `1px solid ${baseTheme.accordion.border}`,
+        borderLeft: 'none',
+        borderRight: 'none'
+      }, wrapper.find(StyledAccordionContainer));
+    });
+
+    it('has full border when borders prop is "full"', () => {
+      render({ borders: 'full' });
+      assertStyleMatch({
         border: `1px solid ${baseTheme.accordion.border}`
       }, wrapper.find(StyledAccordionContainer));
     });
 
-    it('renders accordion with transparent background and no border when type is set to "secondary" (default)', () => {
-      render({ type: 'secondary' });
-      assertStyleMatch({
-        backgroundColor: 'transparent',
-        border: undefined
-      }, wrapper.find(StyledAccordionContainer));
-    });
-
-    it('renders icon rotated when accordion is collapsed', () => {
+    it('renders icon rotated when accordion is collapsed (iconAlign "right")', () => {
       render({ expanded: false });
       assertStyleMatch({
         transform: 'rotate(90deg)'
+      }, wrapper.find(StyledAccordionIcon));
+    });
+
+    it('renders icon rotated when accordion is collapsed (iconAlign "left")', () => {
+      render({ iconAlign: 'left', expanded: false });
+      assertStyleMatch({
+        transform: 'rotate(-90deg)'
       }, wrapper.find(StyledAccordionIcon));
     });
 
@@ -184,6 +246,58 @@ describe('Accordion', () => {
       assertStyleMatch({
         visibility: 'hidden'
       }, wrapper.find(StyledAccordionContentContainer));
+    });
+
+    it('adds a sub title when subTitle prop set and size is large (default)', () => {
+      render({ subTitle: 'A sub title' });
+      const subTitle = wrapper.find(StyledAccordionSubTitle);
+      assertStyleMatch({
+        marginTop: '8px'
+      }, subTitle);
+      expect(subTitle.text()).toEqual('A sub title');
+    });
+
+    it('does not add a sub title when subTitle prop set and size is small', () => {
+      render({ subTitle: 'A sub title', size: 'small' });
+      expect(wrapper.find(StyledAccordionSubTitle)).toEqual({});
+    });
+
+    it('has the correct title container padding when size is large', () => {
+      render({ size: 'large' });
+      assertStyleMatch({
+        padding: '24px'
+      }, wrapper.find(StyledAccordionTitleContainer));
+    });
+
+    it('has the correct title container padding when size is small', () => {
+      render({ size: 'small' });
+      assertStyleMatch({
+        padding: '16px'
+      }, wrapper.find(StyledAccordionTitleContainer));
+    });
+
+    it('adds top and bottom padding to the container when customPadding prop set', () => {
+      render({ customPadding: 50 });
+      assertStyleMatch({
+        padding: '50px 0'
+      }, wrapper.find(StyledAccordionContainer));
+    });
+
+    it('sets the accordion width when the width prop is passed in', () => {
+      render({ width: '500px' });
+      assertStyleMatch({
+        width: '500px'
+      }, wrapper.find(StyledAccordionContainer));
+    });
+  });
+
+  describe('props', () => {
+    it('passes data-role attribute to the root element of component', () => {
+      render({
+        'data-role': 'role'
+      });
+
+      expect(wrapper.find(StyledAccordionContainer).props()['data-role']).toBe('role');
     });
   });
 
@@ -229,8 +343,9 @@ describe('Accordion', () => {
 
 describe('AccordionGroup', () => {
   let wrapper;
+  let container;
 
-  const render = () => {
+  const renderAttached = () => {
     wrapper = mount(
       <AccordionGroup>
         <Accordion title='Title_1' defaultExpanded>
@@ -242,12 +357,23 @@ describe('AccordionGroup', () => {
         <Accordion title='Title_3' defaultExpanded>
           <Textbox label='Textbox in an Accordion' />
         </Accordion>
-      </AccordionGroup>
+      </AccordionGroup>, { attachTo: document.getElementById('enzymeContainer') }
     );
   };
 
   beforeEach(() => {
-    render();
+    container = document.createElement('div');
+    container.id = 'enzymeContainer';
+    document.body.appendChild(container);
+    renderAttached();
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
   });
 
   it.each(

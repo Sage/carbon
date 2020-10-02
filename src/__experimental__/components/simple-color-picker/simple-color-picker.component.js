@@ -7,13 +7,19 @@ import React, {
 import PropTypes from 'prop-types';
 import Events from '../../../utils/helpers/events';
 import tagComponent from '../../../utils/helpers/tags/tags';
+import Fieldset from '../../../__internal__/fieldset';
 import SimpleColor from './simple-color';
 import RadioButtonMapper from '../radio-button/radio-button-mapper.component';
-import { SimpleColorFieldset, StyledColorOptions } from './simple-color-picker.style';
+import { StyledContent, StyledColorOptions } from './simple-color-picker.style';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
+import { InputGroupContext } from '../../../__internal__/input-behaviour';
 
 const SimpleColorPicker = (props) => {
   const {
     children,
+    error,
+    warning,
+    info,
     name,
     legend,
     onChange,
@@ -22,13 +28,14 @@ const SimpleColorPicker = (props) => {
     value,
     isBlurBlocked = false,
     maxWidth = 300,
-    childWith = 58
+    childWidth = 58,
+    validationOnLegend
   } = props;
 
   const myRef = useRef(null);
   const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
   const [focusedElement, setFocusedElement] = useState(null);
-  const itemsPerRow = Math.floor(maxWidth / childWith);
+  const itemsPerRow = Math.floor(maxWidth / childWidth);
   const rowCount = Math.ceil(children.length / itemsPerRow);
   let blankSlots = itemsPerRow * rowCount - children.length;
   let currentRow = 1;
@@ -67,7 +74,7 @@ const SimpleColorPicker = (props) => {
     }
 
     const childProps = {
-      ref: child.ref || gridItemRefs.current[index],
+      ref: gridItemRefs.current[index],
       'data-up': allowUp,
       'data-down': allowDown,
       'data-item-up': upItem,
@@ -107,7 +114,7 @@ const SimpleColorPicker = (props) => {
 
     if (Events.isLeftKey(e) || Events.isRightKey(e)) {
       const position = (element) => {
-        return e.target.getAttribute('value') === element.ref.current.props.value;
+        return e.target.getAttribute('value') === element.props.value;
       };
 
       if (Events.isLeftKey(e)) {
@@ -124,9 +131,8 @@ const SimpleColorPicker = (props) => {
     }
 
     const item = navigationGrid[itemIndex].ref.current;
-    const { value: colorValue } = item.props;
-    item.input.current.focus();
-    item.props.onChange({ target: { checked: true, value: colorValue } });
+    item.focus();
+    item.click();
   }, [onKeyDown, navigationGrid]);
 
   const handleClickOutside = (ev) => {
@@ -172,27 +178,49 @@ const SimpleColorPicker = (props) => {
     }
   };
 
+  const validationProps = {
+    error, warning, info
+  };
+
   return (
-    <SimpleColorFieldset
+    <Fieldset
       role='radiogroup'
       legend={ legend }
-      isBlurBlocked={ blurBlocked }
+      { ...(validationOnLegend && validationProps) }
       { ...tagComponent('simple-color-picker', props) }
-      maxWidth={ maxWidth }
     >
-      <StyledColorOptions ref={ myRef }>
-        <RadioButtonMapper
-          name={ name }
-          value={ value }
-          onChange={ onChange }
-          onMouseDown={ handleOnMouseDown }
-          onKeyDown={ onKeyDownHandler }
-          onBlur={ handleOnBlur }
-        >
-          { navigationGrid }
-        </RadioButtonMapper>
-      </StyledColorOptions>
-    </SimpleColorFieldset>
+      <StyledContent>
+        <InputGroupContext.Consumer>
+          {({ onMouseEnter, onMouseLeave }) => (
+            <StyledColorOptions
+              maxWidth={ maxWidth }
+              childWidth={ childWidth }
+              error={ error }
+              warning={ warning }
+              info={ info }
+              ref={ myRef }
+              onMouseEnter={ onMouseEnter }
+              onMouseLeave={ onMouseLeave }
+              { ...validationProps }
+            >
+              <RadioButtonMapper
+                name={ name }
+                value={ value }
+                onChange={ onChange }
+                onMouseDown={ handleOnMouseDown }
+                onKeyDown={ onKeyDownHandler }
+                onBlur={ handleOnBlur }
+              >
+                { navigationGrid }
+              </RadioButtonMapper>
+            </StyledColorOptions>
+          )}
+        </InputGroupContext.Consumer>
+        { !validationOnLegend && (
+          <ValidationIcon { ...validationProps } />
+        )}
+      </StyledContent>
+    </Fieldset>
   );
 };
 
@@ -212,6 +240,20 @@ SimpleColorPicker.propTypes = {
   },
   /** Should the onBlur callback prop be initially blocked? */
   isBlurBlocked: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on legend instead of being placed by the input */
+  validationOnLegend: PropTypes.bool,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
   /** The currently selected color. */
@@ -226,8 +268,8 @@ SimpleColorPicker.propTypes = {
   onKeyDown: PropTypes.func,
   /** prop that sets max-width in css */
   maxWidth: PropTypes.string,
-  /** prop that represents childWith */
-  childWith: PropTypes.string
+  /** prop that represents childWidth */
+  childWidth: PropTypes.string
 };
 
 export default SimpleColorPicker;

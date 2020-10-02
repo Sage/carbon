@@ -1,5 +1,5 @@
 import {
-  append, styleElement, acronymize, validProps, insertAt, generateKeysForChildren
+  append, styleElement, acronymize, validProps, insertAt
 } from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -27,6 +27,15 @@ describe('Ether', () => {
       expect(domInstance.style.left).toEqual('');
       styleElement(domInstance, 'left', '10px');
       expect(domInstance.style.left).toEqual('10px');
+    });
+
+    describe('when the style attribute is already set to the passed in value', () => {
+      it('does not change the attribute style', () => {
+        let domInstance = TestUtils.findRenderedDOMComponentWithClass(element, 'ether-test');
+        expect(domInstance.style.left).toEqual('');
+        styleElement(domInstance, 'left', '');
+        expect(domInstance.style.left).toEqual('');
+      });
     });
   });
 
@@ -102,14 +111,6 @@ describe('Ether', () => {
       it('ignores the invalid index', () => {
         expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
-    });
-  });
-
-  describe('generateKeysForChildren', () => {
-    it('creates an array of unique keys of the same length as a given array', () => {
-      const array = generateKeysForChildren(['foo', 'bar']);
-      expect(array.length).toEqual(2);
-      expect(array[0]).not.toEqual(array[1]);
     });
   });
 });

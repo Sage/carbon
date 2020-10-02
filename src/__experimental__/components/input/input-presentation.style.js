@@ -22,8 +22,9 @@ const InputPresentationStyle = styled.div`
   padding-right: ${({ size }) => sizes[size].horizontalPadding};
 
   ${StyledInput} {
-    /* this is required for an IE11 fix: */
-    height: calc(${({ size }) => sizes[size].height} - 4px);
+    &:-webkit-autofill {
+      margin-top: 2px;
+    }
   }
 
   ${({ disabled, theme }) => disabled && css`
@@ -48,8 +49,9 @@ const InputPresentationStyle = styled.div`
   ${({ readOnly, theme }) => readOnly && css`
     background-color: ${theme.readOnly.textboxBackground};
     border-color: ${theme.readOnly.textboxBorder};
-    box-shadow: none;
   `}
+
+  ${({ align }) => align === 'right' && 'flex-direction: row-reverse'}
 
   ${inputClassicStyling}
 
@@ -65,38 +67,44 @@ const InputPresentationStyle = styled.div`
 
 function stylingForValidations({
   theme,
-  hasError,
-  hasWarning,
-  hasInfo
+  error,
+  warning,
+  info,
+  disabled
 }) {
   let validationColor;
 
-  if (hasError) {
+  if (disabled) {
+    return '';
+  }
+
+  if (error) {
     validationColor = theme.colors.error;
-  } else if (hasWarning) {
+  } else if (warning) {
     validationColor = theme.colors.warning;
-  } else if (hasInfo) {
+  } else if (info) {
     validationColor = theme.colors.info;
   } else {
     return '';
   }
 
-  return `
+  return css`
     border-color: ${validationColor} !important;
-    box-shadow: inset 1px 1px 0 ${validationColor},
-                inset -1px -1px 0 ${validationColor};
+    z-index: 1;
+    ${error && `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
   `;
 }
 
 InputPresentationStyle.safeProps = [
+  'align',
   'disabled',
   'hasFocus',
   'inputWidth',
   'readOnly',
   'size',
-  'hasError',
-  'hasWarning',
-  'hasInfo'
+  'error',
+  'warning',
+  'info'
 ];
 
 InputPresentationStyle.defaultProps = {
@@ -106,14 +114,15 @@ InputPresentationStyle.defaultProps = {
 };
 
 InputPresentationStyle.propTypes = {
+  align: PropTypes.string,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 

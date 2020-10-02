@@ -11,7 +11,13 @@ exports[`Input renders with an input 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
+}
+
+.c0:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
 }
 
 .c0::-webkit-input-placeholder {

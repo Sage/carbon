@@ -1,10 +1,6 @@
-import { LABEL_PREVIEW_WIDTH } from './locators';
-import { DLS_ROOT } from '../locators';
+import { BUTTON_TOGGLE_GROUP_CONTAINER } from './locators';
 
 // component preview locators
-export const dlsRoot = () => cy.iFrame(DLS_ROOT);
-export const buttonToggleGroupLabelPreview = () => dlsRoot().find('label').first();
-export const labelPreviewWidth = () => cy.iFrame(LABEL_PREVIEW_WIDTH);
-export const labelPreviewByText = () => cy.iFrame(LABEL_PREVIEW_WIDTH)
+export const labelPreviewByTextIFrame = () => cy.iFrame(BUTTON_TOGGLE_GROUP_CONTAINER)
   .find('div[data-component="button-toggle"]')
   .find('label');

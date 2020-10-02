@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
@@ -15,14 +15,27 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, theme
+    disabled,
+    fieldHelpInline,
+    inputWidth,
+    labelWidth,
+    labelInline,
+    ml,
+    reverse,
+    theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
     }
 
-    ${LabelStyle} {
-      text-align: ${labelAlign};
+    ${ml && css`
+      margin-left: ${ml};
+    `}
+
+    ${StyledLabelContainer} {
+      ${labelInline && css`
+        justify-content: ${reverse ? 'flex-start' : 'flex-end'};
+      `}
       padding-top: 0;
       width: auto;
 
@@ -30,7 +43,6 @@ const StyledCheckableInputWrapper = styled.div`
       & ${StyledValidationIcon} {
         color: ${theme.help.color};
         vertical-align: middle;
-        top: -1px;
 
         &:hover, &:focus {
           color: ${theme.text.color};
@@ -43,12 +55,6 @@ const StyledCheckableInputWrapper = styled.div`
     }
 
     ${disabled && css`
-      ${LabelStyle} {
-        &, & ${StyledHelp} {
-          color: ${theme.disabled.disabled};
-        }
-      }
-
       ${HiddenCheckableInputStyle},
       ${LabelStyle} {
         &:hover, &:focus {
@@ -93,7 +99,7 @@ const StyledCheckableInputWrapper = styled.div`
     `}
 
     ${labelWidth !== undefined && labelWidth !== 0 && `
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         width: ${labelWidth}% !important;
       }
     `}
@@ -104,13 +110,11 @@ StyledCheckableInputWrapper.propTypes = {
   disabled: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   theme: PropTypes.object
 };
 
 StyledCheckableInputWrapper.defaultProps = {
-  labelAlign: 'left',
   theme: baseTheme
 };
 

@@ -1,2 +1,2 @@
 // component preview locators
-export const LABEL_PREVIEW_WIDTH = '[data-component="button-toggle-group"]';
+export const BUTTON_TOGGLE_GROUP_CONTAINER = '[data-component="button-toggle-group"]';

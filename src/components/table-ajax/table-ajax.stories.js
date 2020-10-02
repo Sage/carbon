@@ -56,7 +56,7 @@ const handleChange = (data) => {
   }, 500);
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     enableMock();
 
@@ -97,7 +97,11 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic,
+      delay: 500
+    }
   };
 
   return [name, component, metadata];
@@ -113,4 +117,4 @@ storiesOf('Table Ajax', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

@@ -4,7 +4,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c8 {
   background-color: transparent;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   box-sizing: border-box;
   font-weight: 700;
   left: auto;
@@ -21,7 +21,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c6 {
   background-color: #fff;
-  border: 1px solid #CCD6DA;
+  border: 1px solid #CCD6DB;
   border-top: none;
   box-sizing: border-box;
   left: 0;
@@ -35,25 +35,15 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c3 .c5 {
+.c3 .c5,
+.c3 .c12 {
   border-left: none;
   border-right: none;
   font-weight: 700;
   left: 0;
   padding: 8px 24px;
   top: 0;
-  z-index: 1;
-}
-
-.c0 {
-  height: 100%;
-}
-
-.c0 .c7,
-.c0 .c2 .c5 {
-  background-color: #335B6D;
-  border-right: 1px solid #668491;
-  color: #FFFFFF;
+  z-index: 1000;
 }
 
 .c1 {
@@ -66,10 +56,22 @@ exports[`FlatTable when rendered with proper table data should have expected str
   word-break: break-all;
 }
 
-.c9 {
+.c0 {
+  height: 100%;
+}
+
+.c0 .c2 .c12,
+.c0 .c7,
+.c0 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
+}
+
+.c10 {
   background-color: #fff;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   overflow: visible;
   padding: 10px 24px;
   text-overflow: ellipsis;
@@ -78,12 +80,36 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c9:first-of-type {
-  border-left: 1px solid #CCD6DA;
+.c10:first-of-type {
+  border-left: 1px solid #CCD6DB;
 }
 
-.c9:last-of-type {
-  border-right: 1px solid #CCD6DA;
+.c10:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c11 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  overflow: visible;
+  padding: 10px 24px;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c11:first-of-type {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c11:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c11:first-of-type + .c9 {
+  border-left: 1px solid #CCD6DB;
 }
 
 .c4 {
@@ -128,6 +154,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
         >
           header2
         </th>
+        <th
+          className="c7 c8"
+          data-element="flat-table-header"
+        >
+          header3
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -142,16 +174,41 @@ exports[`FlatTable when rendered with proper table data should have expected str
           row header
         </th>
         <td
-          className="c9"
+          className="c9 c10"
           data-element="flat-table-cell"
         >
           cell1
         </td>
         <td
-          className="c9"
+          className="c9 c10"
           data-element="flat-table-cell"
         >
           cell2
+        </td>
+        <td
+          className="c9 c11"
+          data-element="flat-table-cell"
+          rowSpan="2"
+        >
+          cell3
+        </td>
+      </tr>
+      <tr
+        className="c4"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c5 c6"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <td
+          className="c9 c10"
+          colSpan="2"
+          data-element="flat-table-cell"
+        >
+          cell1
         </td>
       </tr>
     </tbody>

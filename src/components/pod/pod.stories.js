@@ -14,7 +14,7 @@ Pod.__docgenInfo = getDocGenInfo(
   /pod\.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const border = boolean('border', Pod.defaultProps.border);
     const children = text('children', 'This is some example content for a Pod');
@@ -83,7 +83,10 @@ function makeStory(name, themeSelector) {
         </div>
       )
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -94,4 +97,4 @@ storiesOf('Pod', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

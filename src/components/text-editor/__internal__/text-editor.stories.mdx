@@ -1,0 +1,137 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import { useState, useRef } from 'react';
+import EditorLink from './editor-link';
+import TextEditor, 
+{
+  TextEditorState as EditorState, 
+  TextEditorContentState as ContentState
+} from './text-editor.component';
+import Toolbar from './toolbar';
+import ToolbarButton from './toolbar/toolbar-button';
+import EditorCounter from './editor-counter';
+import IconButton from '../../icon-button';
+import Icon from '../../icon';
+
+<Meta title="Design System/Text Editor" parameters={{ info: { disable: true }}} />
+
+# Text Editor
+The `TextEditor` was created using the `draftjs` framework. It requires consuming projects to install `draftjs` as a 
+peer-dependency to enable it to work.
+
+## Quick Start
+
+To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
+
+It can be used as a controlled component where the content of the input is controlled externally, as such both 
+`onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure 
+accessibility requirements are met.
+
+```jsx
+import TextEditor, { EditorState, ContentState } from "carbon-react/lib/components/text-editor";
+```
+
+### Basic usage:
+In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial 
+editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links 
+in the input, this can be done by manually typing or pasting a valid url into the editor. Another feature of the 
+component is that it supports a wide range of keyboard shortcuts to apply the various styling options: `cmd/ctrl+b` 
+toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a new line will render a 
+`unordered-list` or `ordered-list` respectively.
+
+<Preview>
+  <Story name="basic">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      return (
+        <div style={{ padding: '4px' }}>
+          <TextEditor
+            onChange={(newValue) => {setValue(newValue)}}
+            value={ value }
+            labelText='Text Editor Label'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With content:
+The initial editorState can also be created with content using 
+`EditorState.createWithContent(ContentState.createFromText(''))`, as it is below. Other options available for 
+populating the content that can be found https://draftjs.org/docs/api-reference-content-state#static-methods. 
+It is also possible to initialise the editor with content in other formats, such as `html` or `markdown` through use of 
+other packages; using the methods for data conversion provided by `draftjs` 
+(https://draftjs.org/docs/api-reference-data-conversion/), enables the parsing of these formats into something the 
+editor can expects.
+
+<Preview>
+  <Story name="with content">
+    {() => {
+      const [value, setValue] = useState(
+        EditorState.createWithContent(ContentState.createFromText('Some initial content'))
+      );
+      return (
+        <div style={{ padding: '4px' }}>
+          <TextEditor
+            onChange={(newValue) => {setValue(newValue)}}
+            value={ value }
+            labelText='Text Editor Label'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With optional Save/ Cancel buttons
+By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback 
+will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled 
+otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
+
+<Preview>
+  <Story name="with optional buttons">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      const ref = useRef(null);
+      return (
+        <div style={{ padding: '4px' }}>
+          <TextEditor
+            onChange={(newValue) => {setValue(newValue)}}
+            value={ value } ref={ ref }
+            onSave={ () => { } }
+            onCancel={ () => { } }
+            labelText='Text Editor Label'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With user defined character limit
+It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop 
+will prevent any input that would cause the content length to exceed it.
+
+<Preview>
+  <Story name="with optional character limit">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      const [limit, setLimit] = useState(100);
+      const ref = useRef(null);
+      return (
+          <div style={{ padding: '4px' }}>
+            <TextEditor
+              onChange={(newValue) => {setValue(newValue)}}
+              value={ value } ref={ ref }
+              onSubmit={ () => {} }
+              labelText='Text Editor Label'
+              characterLimit={ limit }
+            />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Text Editor Props
+<Props of={TextEditor} />

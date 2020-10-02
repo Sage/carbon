@@ -1,14 +1,12 @@
 import React from 'react';
 import 'jest-styled-components';
-import { ThemeProvider } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
 import Textbox from '../../__experimental__/components/textbox';
 import InlineInputs from './inline-inputs.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import LabelStyle from '../../__experimental__/components/label/label.style';
-import classicTheme from '../../style/themes/classic';
+import { StyledLabelContainer } from '../../__experimental__/components/label/label.style';
 
 describe('Inline Inputs', () => {
   let wrapper;
@@ -35,10 +33,9 @@ describe('Inline Inputs', () => {
 
     it('then the label should have specific styles', () => {
       assertStyleMatch({
-        fontWeight: 'bold',
         marginRight: '15px',
         width: 'auto'
-      }, wrapper, { modifier: `${LabelStyle}` });
+      }, wrapper, { modifier: `${StyledLabelContainer}` });
     });
   });
 
@@ -67,9 +64,9 @@ describe('Inline Inputs', () => {
       }, wrapper, { modifier: '.carbon-row' });
     });
 
-    it('then all inputs should have 100% width', () => {
+    it('then all inputs should have 1px width', () => {
       assertStyleMatch({
-        width: '100%'
+        width: '1px'
       }, wrapper, { modifier: 'input' });
     });
 
@@ -77,20 +74,6 @@ describe('Inline Inputs', () => {
       assertStyleMatch({
         marginLeft: '-1px'
       }, wrapper, { modifier: '.carbon-column + .carbon-column' });
-    });
-  });
-
-  describe('when the Classic Theme is set', () => {
-    const labelText = 'Test Label';
-
-    beforeEach(() => {
-      wrapper = renderWithTheme({ carbonTheme: classicTheme, label: labelText });
-    });
-
-    it('then the carbon-row CSS class styled elements should have flex-grow set to 0', () => {
-      assertStyleMatch({
-        flexGrow: '0'
-      }, wrapper, { modifier: '.carbon-row' });
     });
   });
 
@@ -159,16 +142,5 @@ function render(props = {}, renderer = shallow) {
       <Textbox />
       <Textbox />
     </InlineInputs>
-  );
-}
-
-function renderWithTheme(props = {}, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={ props.carbonTheme }>
-      <InlineInputs { ...props }>
-        <Textbox />
-        <Textbox />
-      </InlineInputs>
-    </ThemeProvider>
   );
 }

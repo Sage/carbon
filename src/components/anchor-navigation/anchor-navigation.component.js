@@ -7,11 +7,19 @@ import throttle from 'lodash/throttle';
 import Event from '../../utils/helpers/events';
 import { StyledAnchorNavigation, StyledNavigation, StyledContent } from './anchor-navigation.style';
 import AnchorNavigationItem from './anchor-navigation-item.component';
+import Logger from '../../utils/logger/logger';
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
+let deprecatedWarnTriggered = false;
+
 const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `AnchorNavigation` component is deprecated and will soon be removed.');
+  }
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const sectionRefs = useRef(React.Children.map(stickyNavigation.props.children, child => child.props.target));
@@ -64,17 +72,21 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
   };
 
   const scrollToSection = (section) => {
-    section.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
     isUserScroll.current = false;
+    section.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
   };
 
   const handleClick = (event, index) => {
     event.preventDefault();
     const sectionToScroll = sectionRefs.current[index].current;
 
-    scrollToSection(sectionToScroll);
     focusFirstFocusableChild(sectionToScroll);
-    setSelectedIndex(index);
+
+    // workaround due to preventScroll focus method option on firefox not working consistently
+    window.setTimeout(() => {
+      scrollToSection(sectionToScroll);
+      setSelectedIndex(index);
+    }, 10);
   };
 
   const focusNavItem = (event, index) => {

@@ -1,35 +1,31 @@
 Feature: Table component
-  I want to change Table component properties
-
-  Background: Open Table component default page
-    Given I open "Table" component page
+  I want to check Table component properties
 
   @positive
   Scenario: Verify the pagination is visible
-    When I check paginate checkbox
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
     Then pagination is visible
 
   @positive
   Scenario: I enable selectable
-    When I check selectable checkbox
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
     Then rows are selectable
 
   @positive
   Scenario: I disable selectable
-    Given I check selectable checkbox
-    When I uncheck selectable checkbox
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectableFalse" object name
     Then rows are not selectable
 
   @positive
   Scenario: Verify action toolbar elements
-    Given I check selectable checkbox
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
     When I check checkbox on header
-    Then Action Toolbar elemens are visible and have "rgb(0, 128, 93)" color
+    Then Action Toolbar elemens are visible and have "rgb(0, 129, 93)" color
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
-    When I check highlightable checkbox
-      And I click row by number <rowNumber>
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
+    When I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
       | rowNumber |
@@ -39,9 +35,8 @@ Feature: Table component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    Given I check highlightable checkbox
-    When I uncheck highlightable checkbox
-      And I click row by number <rowNumber>
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
+    When I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
       | rowNumber |
@@ -51,81 +46,64 @@ Feature: Table component
 
   @positive
   Scenario Outline: Sort <headerName> Column by <sortColumn>
-    When I select sortColumn to "<sortColumn>"
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then "<headerName>" Table column can be sorted
     Examples:
-      | sortColumn | headerName |
-      | name       | Country    |
-      | code       | Code       |
+      | nameOfObject   | headerName |
+      | sortColumnName | Country    |
+      | sortColumnCode | Code       |
 
   @positive
   Scenario Outline: Sort Country column in <sortOrder> order
-    Given I select sortColumn to "name"
-    When I select sortOrder to "<sortOrder>"
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Country column is sorted in "<sortOrder>" order
     Examples:
-      | sortOrder |
-      | desc      |
-      | asc       |
+      | sortOrder | nameOfObject    |
+      | desc      | sortCountryDesc |
+      | asc       | sortCountryAsc  |
 
   @positive
   Scenario Outline: Sort Code column in <sortOrder> order
-    Given I select sortColumn to "code"
-    When I select sortOrder to "<sortOrder>"
+    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Code column is sorted in "<sortOrder>" order
     Examples:
-      | sortOrder |
-      | desc      |
-      | asc       |
-
-  @ignore
-  @positive
-  #ignored because it is not working correctly during development
-  Scenario: Enable shrink property
-    When I check shrink checkbox
-    Then row is shrinked
-
-  @ignore
-  @positive
-  #ignored because it is not working correctly during development
-  Scenario: Disable shrink property
-    When I check shrink checkbox
-      And I uncheck shrink checkbox
-    Then row is not shrinked
+      | sortOrder | nameOfObject |
+      | desc      | sortCodeDesc |
+      | asc       | sortCodeAsc  |
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I set caption to "<caption>"
-    Then caption is set to "<caption>"
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Then caption is set to <caption>
     Examples:
-      | caption                 |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | caption                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | captionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
 
   @positive
   Scenario Outline: Set theme to <theme>
-    When I select theme to "<theme>"
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then theme on preview is "<theme>"
     Examples:
-      | theme     |
-      | primary   |
-      | secondary |
-      | tertiary  |
+      | theme     | nameOfObject   |
+      | primary   | themePrimary   |
+      | secondary | themeSecondary |
+      | tertiary  | themeTertiary  |
 
   @positive
   Scenario Outline: Change Table header size to <size>
-    When I select size to "<size>"
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Table header size on preview is set to "<size>"
     Examples:
-      | size    |
-      | compact |
-      | small   |
-      | medium  |
-      | large   |
+      | size    | nameOfObject |
+      | compact | sizeCompact  |
+      | small   | sizeSmall    |
+      | medium  | sizeMedium   |
+      | large   | sizeLarge    |
 
   @positive
   Scenario Outline: I enable zebra striping for <position> row in Table
-    When I check zebra striping checkbox
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
     Then <position> row has zebra striping
     Examples:
       | position |
@@ -136,60 +114,13 @@ Feature: Table component
       | 8        |
       | 9        |
 
-  @ignore
-  @negative
-  # ignored because not working correctly during development
-  Scenario Outline: Page size records is set out of scope <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
-    Then I see 0 records
-    Examples:
-      | pageSizeRecords         |
-      | -1                      |
-      | -10                     |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
+    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records
     Examples:
-      | pageSizeRecords |
-      | 0               |
-      | 1               |
-      | 2               |
-      | 5               |
-
-  @positive
-  Scenario Outline: Change event was called for sortColumn
-    Given I select sortColumn to "<sortColumn>"
-    When clear all actions in Actions Tab
-      And I click "<headerName>" header
-    Then change action was called in Actions Tab
-    Examples:
-      | sortColumn | headerName |
-      | name       | Country    |
-      | code       | Code       |
-
-  @positive
-  Scenario Outline: Change event was called after clicking <button> button
-    Given I check paginate checkbox
-    When clear all actions in Actions Tab
-      And I click "<button>" pagination button
-    Then change action was called in Actions Tab
-    Examples:
-      | button |
-      | next   |
-      | last   |
-
-  @positive
-  Scenario Outline: Change event was called after clicking <button> button
-    Given I check paginate checkbox
-      And I click "last" pagination button
-    When clear all actions in Actions Tab
-      And I click "<button>" pagination button
-    Then change action was called in Actions Tab
-    Examples:
-      | button   |
-      | previous |
-      | first    |
+      | pageSizeRecords | nameOfObject |
+      | 0               | pageSize0    |
+      | 1               | pageSize1    |
+      | 2               | pageSize2    |
+      | 5               | pageSize5    |

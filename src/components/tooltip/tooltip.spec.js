@@ -120,7 +120,7 @@ describe('Tooltip', () => {
             {
               position: 'relative',
               maxWidth: '300px',
-              zIndex: '1003'
+              zIndex: '2000'
             },
             renderWrapper(),
           );

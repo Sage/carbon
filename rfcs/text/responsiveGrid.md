@@ -438,7 +438,7 @@ $grid: 8.3333333333%;
 
   &.container {
     background: white;
-    border: 1px solid #CCD6DA;
+    border: 1px solid #CCD6DB;
   }
 }
 ```

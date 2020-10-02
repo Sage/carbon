@@ -12,12 +12,9 @@ const StyledHelp = styled.div`
   display: inline-block;
   vertical-align: middle;
   font-size: 14px;
-  padding: 0;
   position: relative;
   margin-bottom: 0;
-  margin-left: 8px;
   margin-top: 0;
-  padding: 1px;
   text-decoration: none;
 
   ${({ href }) => href && css`

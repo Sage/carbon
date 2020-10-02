@@ -1,0 +1,50 @@
+{ 
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "titleOtherLanguage": {
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "propertyPrimary": {
+    "as": "primary"
+  },
+  "propertySecondary": {
+    "as": "secondary"
+  },
+  "alignRight": {
+    "align": "right"
+  },
+  "alignCenter": {
+    "align": "center"
+  },
+  "alignLeft": {
+    "align": "left"
+  },
+  "bodyFullWidth": {
+    "bodyFullWidth": true
+  },
+  "bodyFullWidthFalse": {
+    "bodyFullWidth": false
+  },
+  "titleWidth0": {
+    "inline": true,
+    "titleWidth": 0
+  },
+  "titleWidth100": {
+    "inline": true,
+    "titleWidth": 100
+  },
+  "titleWidth15": {
+    "inline": true,
+    "titleWidth": 15
+  },
+  "inlineFalse": {
+    "inline": false
+  }
+}

@@ -100,13 +100,13 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #00805D;
+  background-color: #00815D;
   color: #FFFFFF;
   font-weight: 800;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #00805D;
+  background-color: #00815D;
   color: #FFFFFF;
 }
 
@@ -242,7 +242,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Day:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
   color: rgba(0,0,0,0.9);
 }
 
@@ -259,7 +259,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
   font-weight: 800;
   color: rgba(0,0,0,0.9);
-  background-color: #CCD6DA;
+  background-color: #CCD6DB;
 }
 
 .c0 .DayPicker-Day--outside {

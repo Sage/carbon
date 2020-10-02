@@ -10,7 +10,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
     tabIndex="0"
   />
   <Styled(Dialog)
-    focusFirstElement={[Function]}
+    bespokeFocusTrap={[Function]}
     onCancel={[Function]}
     open={false}
     size="auto"
@@ -31,6 +31,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#FFFFFF"
+        inputRef={[Function]}
         key="#FFFFFF"
         onChange={null}
         value="#FFFFFF"
@@ -40,6 +41,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="transparent"
+        inputRef={[Function]}
         key="transparent"
         onChange={null}
         value="transparent"
@@ -49,6 +51,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#000000"
+        inputRef={[Function]}
         key="#000000"
         onChange={null}
         value="#000000"
@@ -58,6 +61,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#A3CAF0"
+        inputRef={[Function]}
         key="#A3CAF0"
         onChange={null}
         value="#A3CAF0"
@@ -67,6 +71,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#FD9BA3"
+        inputRef={[Function]}
         key="#FD9BA3"
         onChange={null}
         value="#FD9BA3"
@@ -76,6 +81,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#B4AEEA"
+        inputRef={[Function]}
         key="#B4AEEA"
         onChange={null}
         value="#B4AEEA"
@@ -85,6 +91,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#ECE6AF"
+        inputRef={[Function]}
         key="#ECE6AF"
         onChange={null}
         value="#ECE6AF"
@@ -94,6 +101,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={true}
         id="#EBAEDE"
+        inputRef={[Function]}
         key="#EBAEDE"
         onChange={null}
         value="#EBAEDE"
@@ -103,6 +111,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#EBC7AE"
+        inputRef={[Function]}
         key="#EBC7AE"
         onChange={null}
         value="#EBC7AE"
@@ -112,6 +121,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#AEECEB"
+        inputRef={[Function]}
         key="#AEECEB"
         onChange={null}
         value="#AEECEB"
@@ -121,6 +131,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
         checked={false}
         defaultChecked={false}
         id="#AEECD6"
+        inputRef={[Function]}
         key="#AEECD6"
         onChange={null}
         value="#AEECD6"

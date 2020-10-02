@@ -1,76 +1,64 @@
 Feature: Message component
-  I want to change Message component default properties
-
-  Background: Open Message component default page
-    Given I open "Message" component page
+  I want to test Message component default properties
 
   @positive
   Scenario: CloseIcon has correct border colour
-    Given I click closeIcon
+    Given I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "default" object name
+    When I focus closeIcon
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Message title to <title>
-    When I set title to "<title>"
-    Then Message title on preview is set to "<title>"
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "<nameOfObject>" object name
+    Then Message title on preview is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change type of Message component to <type>
-    When I select type to "<type>"
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "<nameOfObject>" object name
     Then Message type on preview is "<typeResult>"
     Examples:
-      | type    | typeResult |
-      | error   | error      |
-      | info    | info       |
-      | success | tick       |
-      | warning | warning    |
-
-  @positive
-  Scenario: Enable open state of Message component
-    # When I check open checkbox
-    Then Message component is visible
+      | type    | typeResult | nameOfObject |
+      | error   | error      | typeError    |
+      | info    | info       | typeInfo     |
+      | success | tick       | typeSuccess  |
+      | warning | warning    | typeWarning  |
 
   @positive
   Scenario: Disable open state of Message component
-    When I uncheck open checkbox
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "openFalse" object name
     Then Message component is not visible
 
   @positive
   Scenario: Enable transparent state for a Message component
-    When I check transparent checkbox
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "transparent" object name
     Then Message component is transparent
 
   @positive
   Scenario: Disable transparent state for a Message component
-    Given I check transparent checkbox
-    When I uncheck transparent checkbox
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "transparentFalse" object name
     Then Message component is not transparent
 
   @positive
   Scenario Outline: Change Message children to <children>
-    When I set children to "<children>"
-    Then Message children on preview is set to "<children>"
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "<nameOfObject>" object name
+    Then Message children on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-
-  @positive
-  Scenario: Enable on close state for a Message component
-    # When I check onDismiss checkbox
-    Then Message has cross icon
-
-  @positive
-  Scenario: Verify the click function for a Message component
-    Given clear all actions in Actions Tab
-    When I click close icon
-    Then click action was called in Actions Tab
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario: Disable showCloseIcon for a Message component
-    When I uncheck showCloseIcon checkbox
+    When I open test_default "Message" component in noIFrame with "message" json from "commonComponents" using "showCloseIconFalse" object name
     Then Message has no cross icon
+
+  @positive
+  Scenario: Verify the click function for a Message component
+    Given I open "Message Test" component page
+      And clear all actions in Actions Tab
+    When I click closeIcon in IFrame
+    Then click action was called in Actions Tab

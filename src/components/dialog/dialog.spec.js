@@ -15,7 +15,6 @@ import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import Form from '../form';
 import { StyledForm, StyledFormFooter } from '../form/form.style';
-import DeprecatedForm from '../../__deprecated__/components/form';
 import IconButton from '../icon-button';
 
 /* global jest */
@@ -38,7 +37,7 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={ onCancel }><DeprecatedForm /></Dialog>
+            <Dialog open onCancel={ onCancel }><Form /></Dialog>
           );
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();
@@ -65,7 +64,7 @@ describe('Dialog', () => {
         beforeEach(() => {
           jest.useFakeTimers();
           wrapper = mount(
-            <Dialog onCancel={ onCancel } />
+            <Dialog open={ false } onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });
@@ -466,12 +465,6 @@ describe('Dialog', () => {
         expect(onCancel).toHaveBeenCalled();
       });
 
-      it('closes when exit icon is focused and ESC key is pressed', () => {
-        const icon = wrapper.find(IconButton).first();
-        icon.simulate('keyDown', { which: 27, key: 'Escape' });
-        expect(onCancel).toHaveBeenCalled();
-      });
-
       it('does not close when exit icon is focused any other key is pressed', () => {
         const icon = wrapper.find(IconButton).first();
         icon.simulate('keyDown', { which: 65, key: 'a' });
@@ -579,6 +572,36 @@ describe('Dialog', () => {
       const DialogTitle = wrapper.find(DialogTitleStyle);
 
       assertStyleMatch({ paddingRight: '85px' }, DialogTitle);
+    });
+  });
+
+  describe('when focus trap disabled', () => {
+    it('should not have a removeFocusTrap method', () => {
+      const wrapper = mount(
+        <Dialog
+          open
+          disableFocusTrap
+        />
+      );
+      instance = wrapper.instance();
+      instance.handleClose();
+      expect(instance.removeFocusTrap).toEqual(undefined);
+    });
+  });
+
+  describe('when auto focus disabled', () => {
+    it('should not focus the first element by default', () => {
+      mount(
+        <Dialog
+          open
+          disableAutoFocus
+        >
+          <input type='text' />
+        </Dialog>
+      );
+
+      const firstFocusableElement = document.querySelector('input');
+      expect(document.activeElement).not.toBe(firstFocusableElement);
     });
   });
 });

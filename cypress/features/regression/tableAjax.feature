@@ -1,56 +1,18 @@
 Feature: Table Ajax component
-  I want to change Table Ajax component properties
-
-  Background: Open Table Ajax component page
-    Given I open "Table Ajax" component page
+  I want to check Table Ajax component properties
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
-    Then I see <pageSizeRecords> records
+    When I open default "Table Ajax" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Then I see <pageSizeRecords> records for Table Ajax
     Examples:
-      | pageSizeRecords |
-      | 0               |
-      | 1               |
-      | 2               |
-      | 5               |
-
-  @ignore
-  @negative
-  # ignored because not working correctly during development
-  Scenario Outline: Page size records is set out of scope <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
-    Then I see 0 records
-    Examples:
-      | pageSizeRecords         |
-      | -1                      |
-      | -10                     |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | pageSizeRecords | nameOfObject |
+      | 0               | pageSize0    |
+      | 1               | pageSize1    |
+      | 2               | pageSize2    |
+      | 5               | pageSize5    |
 
   @positive
-  @ignore
-  # ignored because it require default adjustment
-  Scenario: I enable pagination
-    When I uncheck paginate checkbox
-      And I check paginate checkbox
+  Scenario: Verify the pagination is visible
+    When I open default "Table Ajax" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
     Then pagination is visible
-
-  @positive
-  @ignore
-  # ignored because it require default adjustment
-  Scenario: I enable pagination
-  Scenario: I disable pagination
-    When I uncheck paginate checkbox
-    Then pagination is not visible
-
-  @ignore
-  @positive
-  # ignored because not working correctly during development
-  Scenario Outline: Set getCustomHeaders to <getCustomHeaders>
-    When I set getCustomHeaders to "<getCustomHeaders>"
-    Then getCustomHeaders is set to "<getCustomHeaders>"
-    Examples:
-      | getCustomHeaders        |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |

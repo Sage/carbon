@@ -11,9 +11,8 @@ import {
   ConfigurableItemsWrapper,
   ConfigurableItemsButtonReset
 } from './configurable-items.style';
-import Form from '../../__deprecated__/components/form';
+import Form from '../form';
 import baseTheme from '../../style/themes/base';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 
 class ConfigurableItems extends React.Component {
@@ -24,21 +23,12 @@ class ConfigurableItems extends React.Component {
 
   additionalActions = () => {
     if (!this.props.onReset) return null;
-    if (isClassic(this.props.theme)) {
-      return (
-        <Button
-          data-element='configurable-items-reset-button' buttonType='secondary'
-          onClick={ this.onReset }
-        >
-          { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
-        </Button>
-      );
-    }
 
     return (
       <ConfigurableItemsButtonReset
         data-element='configurable-items-reset-button'
-        as={ Button } buttonType='tertiary'
+        as={ Button }
+        buttonType='tertiary'
         onClick={ this.onReset }
       >
         { I18n.t('actions.reset', { defaultValue: 'Reset Columns' }) }
@@ -63,16 +53,13 @@ class ConfigurableItems extends React.Component {
   }
 
   render() {
-    const saveText = isClassic(this.props.theme) ? 'Save' : 'Done';
     return (
       <ConfigurableItemsStyle className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
-            leftAlignedActions={ this.additionalActions() }
+            leftSideButtons={ this.additionalActions() }
             onSubmit={ this.props.onSave }
-            onCancel={ this.props.onCancel }
-            cancel={ isClassic(this.props.theme) }
-            saveText={ saveText }
+            saveButton={ <Button buttonType='primary' type='submit'>Done</Button> }
           >
             { this.rows() }
           </Form>
@@ -87,8 +74,6 @@ ConfigurableItems.propTypes = {
   children: PropTypes.node,
   /** A custom class name for the component. */
   className: PropTypes.string,
-  /** Callback triggered when the form is canceled. */
-  onCancel: PropTypes.func.isRequired,
   /** Callback triggered when an item is dragged. */
   onDrag: PropTypes.func.isRequired,
   /** Callback triggered when when the reset button is pressed. */

@@ -4,7 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
-import withValidation from '../../../components/validations/with-validation.hoc';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 const Switch = ({
   id,
@@ -17,6 +17,9 @@ const Switch = ({
   disabled,
   loading,
   reverse,
+  validationOnLabel,
+  labelInline,
+  adaptiveLabelBreakpoint,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -31,8 +34,15 @@ const Switch = ({
     [setCheckedInternal, onChange]
   );
 
+  const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+  let inlineLabel = labelInline;
+  if (adaptiveLabelBreakpoint) {
+    inlineLabel = largeScreen;
+  }
+
   const switchProps = {
     ...props,
+    labelInline: inlineLabel,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
     reverse: !reverse // switched to preserve backward compatibility
@@ -49,13 +59,19 @@ const Switch = ({
     reverse: !reverse // switched to preserve backward compatibility
   };
 
+  const shouldValidationBeOnLabel = labelInline && !reverse ? true : validationOnLabel;
+
   return (
     <SwitchStyle
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput { ...inputProps }>
-        <SwitchSlider { ...switchProps } loading={ loading } />
+      <CheckableInput useValidationIcon={ shouldValidationBeOnLabel && !disabled } { ...inputProps }>
+        <SwitchSlider
+          useValidationIcon={ !shouldValidationBeOnLabel && !disabled }
+          { ...switchProps }
+          loading={ loading }
+        />
       </CheckableInput>
     </SwitchStyle>
   );
@@ -84,14 +100,24 @@ Switch.propTypes = {
   labelHelp: PropTypes.string,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
-  /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
-  /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on label instead of being placed by the input */
+  validationOnLabel: PropTypes.bool,
   /** Override tab index on the validation and help icon */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
@@ -108,17 +134,18 @@ Switch.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 Switch.defaultProps = {
   labelInline: false,
   reverse: true,
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false,
-  helpTabIndex: 0
+  validationOnLabel: false
 };
 
 export { Switch as BaseSwitch };
-export default withValidation(Switch);
+export default Switch;

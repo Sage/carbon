@@ -1,0 +1,30 @@
+{
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "isInsideButtonSmall": {
+    "isInsideButton": true,
+    "size": "small"
+  },
+  "isInsideButtonLarge": {
+    "isInsideButton": true,
+    "size": "large"
+  },
+  "isInsideButton": {
+    "isInsideButton": true
+  },
+  "isActiveFalse": {
+    "isInsideButton": true,
+    "isActive": false
+  },
+  "isActive": {
+    "isInsideButton": true,
+    "isActive": true
+  },
+  "default": {
+    "isInsideButton": true
+  }
+}

@@ -12,7 +12,7 @@ Help.__docgenInfo = getDocGenInfo(
   /help\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'This is help text');
     const tooltipPosition = children ? select(
@@ -25,25 +25,30 @@ function makeStory(name, themeSelector) {
       OptionsHelper.alignAroundEdges,
       Help.defaultProps.tooltipAlign
     ) : undefined;
-    const href = text('href', '');
+    const href = text('href', 'http://www.sage.com');
     const type = select('type', OptionsHelper.icons, 'help');
 
     return (
-      <Help
-        tooltipPosition={ tooltipPosition }
-        tooltipAlign={ tooltipAlign }
-        href={ href }
-        type={ type }
-      >
-        {children}
-      </Help>
+      <div style={ { marginLeft: '125px' } }>
+        <Help
+          tooltipPosition={ tooltipPosition }
+          tooltipAlign={ tooltipAlign }
+          href={ href }
+          type={ type }
+        >
+          {children}
+        </Help>
+      </div>
     );
   };
 
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -51,4 +56,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Help', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

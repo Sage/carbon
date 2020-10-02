@@ -1,61 +1,74 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 import Icon from '../icon';
 import ValidationIconStyle from './validation-icon.style';
-import { InputPresentationContext } from '../../__experimental__/components/input';
+import { InputContext, InputGroupContext } from '../../__internal__/input-behaviour';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
+const getValidationType = ({ error, warning, info }) => {
+  if (error) return 'error';
+  if (warning) return 'warning';
+  if (info) return 'info';
+  return '';
+};
+
 const ValidationIcon = ({
+  error,
+  warning,
+  info,
   theme,
-  type,
   size,
   iconId,
   isPartOfInput,
-  tooltipMessage,
   tabIndex,
-  isFocused,
-  onClick
+  onClick,
+  tooltipPosition
 }) => {
   let modernTooltipProps = {};
+
+  const { hasFocus, hasMouseOver } = useContext(InputContext);
+  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } = useContext(InputGroupContext);
 
   if (!isClassic(theme)) {
     // overrides default positioning for non legacy themes
     modernTooltipProps = {
-      tooltipPosition: 'right',
+      tooltipPosition,
       tooltipAlign: 'center',
       isThemeModern: true,
       isPartOfInput
     };
   }
 
+  const validationType = getValidationType({ error, warning, info });
+
+  const validationMessage = error || warning || info;
+
+  if (typeof validationMessage !== 'string') {
+    return null;
+  }
+
   return (
-    <InputPresentationContext.Consumer>
-      {
-        context => (
-          <ValidationIconStyle
-            id={ iconId }
-            validationType={ type }
-            role='tooltip'
-            aria-label={ tooltipMessage }
-            onClick={ onClick }
-          >
-            <Icon
-              key={ `${type}-icon` }
-              tooltipType={ type }
-              tooltipMessage={ tooltipMessage }
-              tooltipVisible={ isFocused || (context && (context.hasFocus || context.hasMouseOver)) }
-              type={ type }
-              size={ size }
-              tabIndex={ tabIndex }
-              { ...modernTooltipProps }
-            />
-          </ValidationIconStyle>
-        )
-      }
-    </InputPresentationContext.Consumer>
+    <ValidationIconStyle
+      id={ iconId }
+      validationType={ validationType }
+      role='tooltip'
+      aria-label={ validationMessage }
+      onClick={ onClick }
+    >
+      <Icon
+        key={ `${validationType}-icon` }
+        tooltipType={ validationType }
+        tooltipMessage={ validationMessage }
+        tooltipVisible={ (hasFocus || hasMouseOver || groupHasFocus || groupHasMouseOver) }
+        type={ validationType }
+        size={ size }
+        tabIndex={ tabIndex }
+        { ...modernTooltipProps }
+      />
+    </ValidationIconStyle>
   );
 };
 
@@ -68,6 +81,8 @@ ValidationIcon.propTypes = {
   iconId: PropTypes.string,
   /** A message that the ValidationIcon component will display */
   tooltipMessage: PropTypes.string,
+  /** Define position of the tooltip */
+  tooltipPosition: PropTypes.string,
   /** Properties related to the theme */
   theme: PropTypes.object,
   /** A boolean to indicate if the icon is part of an input */
@@ -76,12 +91,17 @@ ValidationIcon.propTypes = {
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.number,
-  /** A boolean received from IconWrapper */
-  isFocused: PropTypes.bool
+  /** Status of error validations */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of warnings */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of info */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 ValidationIcon.defaultProps = {
   theme: baseTheme,
+  tooltipPosition: 'right',
   tabIndex: -1
 };
 

@@ -1,27 +1,18 @@
 import {
-  messageTitle, messageType, messagePreview, messageChildren, messageDismissIcon,
+  messageType, messagePreview, messageChildren, messageDismissIcon,
 } from '../../locators/message';
-import { clickActionsTab, clickClear } from '../helper';
+import { getDataElementByValue } from '../../locators';
 
-Then('Message title on preview is set to {string}', (text) => {
-  messageTitle().should('have.text', text);
+Then('Message title on preview is set to {word}', (text) => {
+  getDataElementByValue('title').should('have.text', text);
 });
 
 Then('Message type on preview is {string}', (type) => {
   messageType().should('have.attr', 'data-element', type);
 });
 
-Then('Message component is visible', () => {
-  messagePreview().should('be.visible');
-});
-
 Then('Message component is not visible', () => {
   messagePreview().should('not.exist');
-});
-
-When('clear all actions in Actions Tab', () => {
-  clickActionsTab();
-  clickClear();
 });
 
 Then('Message component is transparent', () => {
@@ -32,18 +23,10 @@ Then('Message component is not transparent', () => {
   messagePreview().should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
 });
 
-Then('Message children on preview is set to {string}', (text) => {
+Then('Message children on preview is set to {word}', (text) => {
   messageChildren().should('have.text', text);
-});
-
-Then('Message has cross icon', () => {
-  messageDismissIcon().should('be.visible');
 });
 
 Then('Message has no cross icon', () => {
   messageDismissIcon().should('not.exist');
-});
-
-Then('I click dismiss icon', () => {
-  messageDismissIcon().click();
 });

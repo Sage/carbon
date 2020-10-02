@@ -1,29 +1,35 @@
 import React from 'react';
-import { select, text } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import { withKnobs, text } from '@storybook/addon-knobs';
 import PopoverContainer from './popover-container.component';
 
 export default {
+  title: 'Design System/Popover Container/Test',
   component: PopoverContainer,
-  title: 'Test/Popover Container',
+  decorators: [withKnobs],
   parameters: {
     info: { disable: true },
-    knobs: { escapeHTML: false }
+    docs: {
+      page: null
+    },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
-export const basic = () => {
-  const title = text('title', 'Popover Title');
-  const iconType = select('iconType', [...OptionsHelper.icons], 'settings');
-  const position = select('position', [...OptionsHelper.alignBinary], 'right');
+export const Basic = () => {
+  const title = text('title', 'Title');
 
   return (
-    <div style={ position === 'left' ? { marginLeft: '400px' } : null }>
-      <PopoverContainer
-        title={ title }
-        position={ position }
-        iconType={ iconType }
-      />
-    </div>
+    <PopoverContainer title={ title } />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    },
+    knobs: { escapeHTML: false }
+  }
 };

@@ -124,25 +124,7 @@ Object {
   "onSelect": [Function],
   "open": true,
   "role": "listbox",
-  "target": .c3 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-right: -11px;
-  width: 40px;
-}
-
-.c2 {
+  "target": .c2 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -152,7 +134,13 @@ Object {
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
+}
+
+.c2:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
 }
 
 .c2::-webkit-input-placeholder {
@@ -174,6 +162,25 @@ Object {
 .c2:invalid,
 .c2:required {
   box-shadow: none;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  margin-left: -11px;
+  width: 40px;
 }
 
 .c4 {
@@ -215,8 +222,8 @@ Object {
   display: block;
 }
 
-.c5 .c1 {
-  height: calc(40px - 4px);
+.c5 .c1:-webkit-autofill {
+  margin-top: 2px;
 }
 
 .c0 {
@@ -225,7 +232,7 @@ Object {
   -ms-flex-align: stretch;
   align-items: stretch;
   background: #fff;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   box-sizing: border-box;
   cursor: text;
   display: -webkit-box;
@@ -244,8 +251,8 @@ Object {
   padding-right: 11px;
 }
 
-.c0 .c1 {
-  height: calc(40px - 4px);
+.c0 .c1:-webkit-autofill {
+  margin-top: 2px;
 }
 
 .c0.c0 {
@@ -285,7 +292,6 @@ Object {
     />
     <span
       class="c3"
-      type="dropdown"
     >
       <span
         class="c4"

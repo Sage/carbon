@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
+import { InputBehaviour } from '../../../__internal__/input-behaviour';
+
 import FormField from '../form-field';
 import HiddenCheckableInput from './hidden-checkable-input.component';
 import guid from '../../../utils/helpers/guid';
@@ -21,11 +23,24 @@ class CheckableInput extends React.Component {
     const helpId = `${id}-help`;
 
     const formFieldProps = {
-      ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
+      ...validProps(this, [
+        'fieldHelp',
+        'fieldHelpInline',
+        'labelHelp',
+        'labelSpacing',
+        'reverse',
+        'error',
+        'warning',
+        'info',
+        'mb',
+        'labelAlign',
+        'disabled'
+      ]),
       labelId,
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
+      labelInline: rest.labelInline,
       name: id,
       id
     };
@@ -41,12 +56,14 @@ class CheckableInput extends React.Component {
 
     return (
       <StyledCheckableInputWrapper { ...rest }>
-        <FormField { ...formFieldProps }>
-          <StyledCheckableInput>
-            <HiddenCheckableInput { ...inputProps } />
-            {children}
-          </StyledCheckableInput>
-        </FormField>
+        <InputBehaviour>
+          <FormField { ...formFieldProps }>
+            <StyledCheckableInput>
+              <HiddenCheckableInput { ...inputProps } />
+              {children}
+            </StyledCheckableInput>
+          </FormField>
+        </InputBehaviour>
       </StyledCheckableInputWrapper>
     );
   }
@@ -59,8 +76,18 @@ CheckableInput.propTypes = {
   children: PropTypes.node,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** The fieldHelp content to display for the input */
   fieldHelp: PropTypes.node,
   /** Displays fieldHelp inline with the CheckableInput */
@@ -71,10 +98,14 @@ CheckableInput.propTypes = {
   inputLabel: PropTypes.node,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** When true, label is placed in line an input */
+  labelInline: PropTypes.bool,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
@@ -84,11 +115,17 @@ CheckableInput.propTypes = {
   /** Reverses label and CheckableInput display */
   reverse: PropTypes.bool,
   /** Specifies input type, 'checkbox' or 'switch' */
-  inputType: PropTypes.string.isRequired
+  inputType: PropTypes.string.isRequired,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Margin left, any valid CSS value */
+  ml: PropTypes.string
 };
 
 CheckableInput.defaultProps = {
-  reverse: false
+  reverse: false,
+  labelSpacing: 1,
+  labelInline: true
 };
 
 export default CheckableInput;

@@ -2,8 +2,6 @@ import styled, { css } from 'styled-components';
 import Portrait from '../portrait';
 import baseTheme from '../../style/themes/base';
 import profileConfigSizes from './profile.config';
-import { isClassic } from '../../utils/helpers/style-helper';
-
 
 const ProfileNameStyle = styled.span`
   font-weight: bold;
@@ -13,23 +11,12 @@ const ProfileNameStyle = styled.span`
 
 const ProfileEmailStyle = styled.span`
   font-size: ${({ size }) => profileConfigSizes[size].emailSize};
-
-  ${({ theme }) => isClassic(theme) && css`
-    font-size: 14px;
-  `}
 `;
 
 const ProfileStyle = styled.div`
   white-space: nowrap;
-  ${({ theme }) => !isClassic(theme) && css`color: ${theme.text.color}`};
+  ${({ theme }) => css`color: ${theme.text.color}`};
 
-  ${({ large, theme }) => isClassic(theme) && large && css`
-    ${ProfileNameStyle} {
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 21px;
-    }
-  `}
   display: ${({ hasSrc }) => (hasSrc ? 'flex' : '')};
 `;
 
@@ -39,12 +26,6 @@ const ProfileDetailsStyle = styled.div`
   margin-top: ${({ hasSrc, size }) => (hasSrc ? profileConfigSizes[size].marginTop : '')};
   line-height: ${({ size }) => profileConfigSizes[size].lineHeight};
   margin-left: ${({ size }) => profileConfigSizes[size].marginLeft};
-
-  ${({ theme }) => isClassic(theme) && css`
-    line-height: 16px;
-    margin-left: 14px;
-    margin-right: 14px;
-  `}
 `;
 
 const ProfileAvatarStyle = styled(Portrait)`

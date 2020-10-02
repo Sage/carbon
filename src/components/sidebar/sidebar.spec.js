@@ -1,12 +1,9 @@
 import React from 'react';
-import 'jest-styled-components';
-import { ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import Sidebar from './sidebar.component';
-import Textbox from '../../__deprecated__/components/textbox';
+import Textbox from '../../__experimental__/components/textbox';
 import SidebarStyle from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import classicTheme from '../../style/themes/classic';
 import IconButton from '../icon-button';
 
 describe('Sidebar', () => {
@@ -99,12 +96,6 @@ describe('Sidebar', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it('closes when close icon is focused and ESC key is pressed', () => {
-      const icon = wrapper.find(IconButton).first();
-      icon.simulate('keyDown', { which: 27, key: 'Escape' });
-      expect(spy).toHaveBeenCalled();
-    });
-
     it('does not close when close icon is focused any other key is pressed', () => {
       const icon = wrapper.find(IconButton).first();
       icon.simulate('keyDown', { which: 65, key: 'a' });
@@ -142,44 +133,6 @@ describe('SidebarStyle', () => {
       assertStyleMatch({
         boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)',
         left: '0'
-      }, wrapper);
-    });
-  });
-
-  describe('When classic style is passed to the component', () => {
-    let wrapper;
-
-    it('should render correct style', () => {
-      wrapper = mount(
-        <ThemeProvider theme={ classicTheme }>
-          <SidebarStyle
-            theme={ classicTheme }
-            open size='extra-small'
-            position='left'
-          />
-        </ThemeProvider>
-      );
-
-      assertStyleMatch({
-        backgroundColor: '#e6ebed',
-        borderRadius: '1px',
-        bottom: '0',
-        position: 'fixed',
-        top: '0',
-        padding: '20px',
-        zIndex: '1002'
-      }, wrapper);
-    });
-
-    describe('when classic style is passed to the component and position is right', () => {
-      wrapper = mount(
-        <ThemeProvider theme={ classicTheme }>
-          <SidebarStyle theme={ classicTheme } position='right' />
-        </ThemeProvider>
-      );
-
-      assertStyleMatch({
-        borderLeft: '1px solid #ccd6db'
       }, wrapper);
     });
   });

@@ -39,6 +39,14 @@ const multiValueProp = options.map(({ value }) => value);
 const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
+  beforeAll(() => {
+    jest.spyOn(global.console, 'warn');
+  });
+
+  afterAll(() => {
+    global.console.warn.mockReset();
+  });
+
   const renderWrapper = ({ props, type = mount, selectOptions = options } = {}) => (
     type(
       <Select { ...props }>
@@ -528,18 +536,22 @@ describe('Select', () => {
 
   describe('external validations', () => {
     it.each([
-      ['error', { hasError: true }],
-      ['warning', { hasWarning: true }],
-      ['info', { hasInfo: true }]
-    ])('should pass %s props to the Textbox component', (type, prop) => {
-      const props = { ...prop, inputIcon: type, tooltipMessage: 'Validation message' };
-      const wrapper = renderWrapper({ props });
-      expect(wrapper.find(Textbox).props()).toMatchObject(props);
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('should pass %s validation prop to the Textbox component', (validation) => {
+      const wrapper = renderWrapper({ props: { [validation]: true } });
+      expect(wrapper.find(Textbox).props()[validation]).toBe(true);
     });
 
     it('should render dropdown icon when no validationProps provided', () => {
       const wrapper = renderWrapper();
       expect(wrapper.find(Textbox).props().inputIcon).toBe('dropdown');
     });
+  });
+
+  it('warns about deprecation', () => {
+    // eslint-disable-next-line max-len, no-console
+    expect(console.warn).toHaveBeenCalledWith('[Deprecation] The `lib/__experimental__/select` component is deprecated and will soon be removed. Please use `lib/select` instead.');
   });
 });

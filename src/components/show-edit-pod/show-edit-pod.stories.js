@@ -40,15 +40,15 @@ const onDelete = () => {
   action('delete')();
 };
 
-const afterFormValidation = () => {
-  action('afterFormValidation')();
+const onSave = () => {
+  action('onSave')();
 };
 
 const setField = fieldName => (e) => {
   store.set({ [fieldName]: e.target.value });
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const fieldProps = [{
     key: 'edit_first_name',
     label: 'First Name'
@@ -83,7 +83,6 @@ function makeStory(name, themeSelector) {
     const saving = boolean('saving', BaseShowEditPod.defaultProps.saving);
     const title = text('title', 'Person');
     const transitionName = text('transitionName', BaseShowEditPod.defaultProps.transitionName);
-    const validateOnMount = boolean('validateOnMount', BaseShowEditPod.defaultProps.validateOnMount);
 
     let editFields;
     const themeProp = {};
@@ -112,9 +111,8 @@ function makeStory(name, themeSelector) {
             saving={ saving }
             title={ title }
             transitionName={ transitionName }
-            validateOnMount={ validateOnMount }
             editFields={ editFields(state) }
-            afterFormValidation={ afterFormValidation }
+            onSave={ onSave }
             { ...themeProp }
           >
             <Content key='first_name' title='First Name'>
@@ -134,7 +132,10 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -150,4 +151,4 @@ storiesOf('ShowEditPod', module)
     notes: { markdown: notes }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

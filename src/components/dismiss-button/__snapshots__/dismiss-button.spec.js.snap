@@ -10,11 +10,11 @@ exports[`DismissButton when render with no additional props should match snapsho
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 <div
@@ -32,11 +32,11 @@ exports[`DismissButton when render with no additional props should match snapsho
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 <div
@@ -54,11 +54,11 @@ exports[`DismissButton when render with no additional props should match snapsho
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 <div
@@ -76,11 +76,11 @@ exports[`DismissButton when render with no additional props should match snapsho
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 <div
@@ -118,7 +118,7 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
 .c0 a:focus,
 .c0 button:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFDA7F;
+  background-color: #FFDA80;
   outline: none;
 }
 
@@ -189,11 +189,11 @@ exports[`when in classic mode when rendered as default should match the snapshot
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -236,11 +236,11 @@ exports[`when in classic mode when rendered as default when transparent prop is 
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -282,11 +282,11 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -329,11 +329,11 @@ exports[`when in classic mode when rendered as error when transparent prop is se
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -375,11 +375,11 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -422,11 +422,11 @@ exports[`when in classic mode when rendered as help when transparent prop is set
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -468,11 +468,11 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -515,11 +515,11 @@ exports[`when in classic mode when rendered as info when transparent prop is set
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -561,11 +561,11 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -608,11 +608,11 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -654,11 +654,11 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -701,11 +701,11 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -747,11 +747,11 @@ exports[`when in classic mode when rendered as success should match the snapshot
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -794,11 +794,11 @@ exports[`when in classic mode when rendered as success when transparent prop is 
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -840,11 +840,11 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {
@@ -887,11 +887,11 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
 }
 
 .c0 .c1:before {
-  color: #668491;
+  color: #668592;
 }
 
 .c0 .c1:hover:before {
-  color: #335B6D;
+  color: #335C6D;
 }
 
 .c0 .c1:before {

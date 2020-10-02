@@ -1,22 +1,19 @@
 Feature: Profile default component
-  I want to change default Profile component properties
-
-  Background: Open Profile default component page
-    Given I open "Profile" component page
+  I want to test default Profile component properties
 
   @positive
   Scenario Outline: Set email to <email>
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    Then email is set to <email>
     Examples:
-      | email              |
-      | example@email.com  |
-      | johnsmith@sage.com |
+      | email              | nameOfObject |
+      | example@email.com  | email1       |
+      | johnsmith@sage.com | email2       |
 
   @positive
   Scenario Outline: Get avatar via email
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "emailGravatar" object name
+    Then email is set to <email>
       And avatar is taken from "<avatar>"
     Examples:
       | email                | avatar                                                                      |
@@ -24,55 +21,54 @@ Feature: Profile default component
 
   @negative
   Scenario Outline: Set email out of scope to <email>
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    Then email is set to <email>
     Examples:
-      | email                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | email                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | emailOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | emailSpecialCharacter |
 
   # value which is rendering as src doesn't work properly for CI
   # ignored regression
   @ignore
   Scenario Outline: Set initials to <initials>
-    When I set initials to "<initials>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
     Then initials is set to "<initials>"
     Examples:
-      | initials |
-      | OW       |
-      | TJH      |
+      | initials | nameOfObject |
+      | OW       | initialsOW   |
+      | TJH      | initialsTJH  |
 
   # value which is rendering as src doesn't work properly for CI
   # ignored regression
   @ignore
   Scenario Outline: Get initials from name <name>
-    When I set name to "<name>"
-      And I set initials to empty
-    Then initials is set to "<result>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    Then initials is set to <result>
     Examples:
-      | name                 | result |
-      | Oscar Wilde          | OW     |
-      | Thomas Jeffrey Hanks | TJH    |
+      | name                 | result | nameOfObject           |
+      | Oscar Wilde          | OW     | nameOscarWilde         |
+      | Thomas Jeffrey Hanks | TJH    | nameThomasJeffreyHanks |
 
   @positive
   Scenario Outline: Set Profile size to <size>
-    When I select size to "<size>"
-    Then Profile size has "<sizeInPx>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    Then Profile size has <sizeInPx>
     Examples:
-      | size | sizeInPx |
-      | XS   | 24       |
-      | S    | 32       |
-      | M    | 40       |
-      | ML   | 56       |
-      | L    | 72       |
-      | XL   | 104      |
-      | XXL  | 128      |
+      | size | sizeInPx | nameOfObject |
+      | XS   | 24       | sizeXS       |
+      | S    | 32       | sizeS        |
+      | M    | 40       | sizeM        |
+      | ML   | 56       | sizeML       |
+      | L    | 72       | sizeL        |
+      | XL   | 104      | sizeXL       |
+      | XXL  | 128      | sizeXXL      |
 
   @positive
   Scenario Outline: Set name to <name>
-    When I set name to "<name>"
-    Then name is set to "<name>"
+    When I open default "Profile" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    Then name is set to <name>
     Examples:
-      | name                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | name                         | nameOfObject         |
+      | mp150ú¿¡üßä                  | nameOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | nameSpecialCharacter |

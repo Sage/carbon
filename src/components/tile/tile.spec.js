@@ -99,7 +99,7 @@ describe('Tile', () => {
         it('sets border-left and padding-left for all but the first TileComponent', () => {
           assertStyleMatch(
             {
-              borderLeft: 'solid 1px #E5EAEC',
+              borderLeft: 'solid 1px #E6EBED',
               paddingLeft: '24px'
             },
             wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
@@ -129,7 +129,7 @@ describe('Tile', () => {
         it('sets border-top and padding-top, and width: auto for all but the first TileComponent', () => {
           assertStyleMatch(
             {
-              borderTop: 'solid 1px #E5EAEC',
+              borderTop: 'solid 1px #E6EBED',
               paddingTop: '24px'
             },
             wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }

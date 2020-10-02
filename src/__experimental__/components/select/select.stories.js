@@ -3,14 +3,21 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
+import LinkTo from '@storybook/addon-links/react';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { Select, Option } from '.';
-import infoValidations from './documentation';
+import { OriginalTextbox } from '../textbox';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import AutoFocus from '../../../utils/helpers/auto-focus';
-import guid from '../../../utils/helpers/guid';
+import DeprecationWarning from '../../../__internal__/DeprecationWarning';
+
+const SelectDeprecationWarning = () => (
+  <DeprecationWarning>This component is no longer maintained and will be removed in a future version. To upgrade please
+    use the <LinkTo kind='Design System/Select' story='basic'>Design System/Select</LinkTo> component.
+  </DeprecationWarning>
+);
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -30,16 +37,15 @@ const multiSelectStore = new Store({
   value: []
 });
 
-const previous = {
-  key: guid(),
-  autoFocus: false
-};
-
-const commonKnobs = (store, enableMultiSelect = false) => {
+const commonKnobs = (store, enableMultiSelect = false, autoFocusDefault = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
-  const label = text('label', '');
-  const autoFocus = boolean('autoFocus', false);
+  const label = text('label', 'Label');
+  const previous = {
+    key: 'select',
+    autoFocus: autoFocusDefault
+  };
+  const autoFocus = boolean('autoFocus', autoFocusDefault);
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
   const key = AutoFocus.getKey(autoFocus, previous);
@@ -108,33 +114,15 @@ const objectOptions = [
   }
 ];
 
-function validator(value, errorValue, errorMessage) {
-  return new Promise((resolve, reject) => {
-    if (value === errorValue) {
-      reject(new Error(errorMessage));
-    } else {
-      resolve();
-    }
-  });
-}
-
-const selectValidation = value => validator(value, '2', '"Black" cannot be selected!');
-const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
-const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
-
-const defaultComponent = () => {
+const defaultComponent = (autoFocus = false) => () => {
   return (
     <State store={ singleSelectStore }>
-      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
+      <SelectDeprecationWarning />
+      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore, false, autoFocus) }>
         { selectOptions }
       </Select>
     </State>
   );
-};
-
-const autoFocusComponent = () => {
-  boolean('autoFocus', true);
-  return defaultComponent();
 };
 
 const customFilterComponent = () => {
@@ -151,6 +139,7 @@ const customFilterComponent = () => {
 
   return (
     <State store={ singleSelectStore }>
+      <SelectDeprecationWarning />
       <p key='description'>For example type &apos;piece&apos;, article will be shown because that is a synonym</p>
       <Select
         key='select'
@@ -171,9 +160,12 @@ const customFilterComponent = () => {
   );
 };
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -183,6 +175,7 @@ function makeMultipleStory(name, themeSelector) {
   const component = () => {
     return (
       <State store={ multiSelectStore }>
+        <SelectDeprecationWarning />
         <Select
           ariaLabel='multiSelect'
           enableMultiSelect
@@ -201,107 +194,112 @@ function makeMultipleStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+const validationTypes = ['error', 'warning', 'info'];
+
 function makeValidationsStory(name, themeSelector) {
   const component = () => {
     return (
-      <State store={ singleSelectStore }>
+      <>
+        <SelectDeprecationWarning />
+        <h4>Single select - validations as string</h4>
+        <h6>On component</h6>
+        {validationTypes.map(validation => (
+          <Select
+            ariaLabel='singleSelect'
+            { ...commonKnobs(singleSelectStore) }
+            key={ `single-${validation}-string-component` }
+            { ...{ [validation]: 'Message' } }
+          >
+            { selectOptions }
+          </Select>
+        ))}
+
+        <h6>Read Only</h6>
         <Select
           ariaLabel='singleSelect'
           { ...commonKnobs(singleSelectStore) }
-          validations={ [selectValidation] }
-          warnings={ [selectWarning] }
-          info={ [selectInfo] }
+          error='Message'
+          readOnly
         >
           { selectOptions }
         </Select>
-      </State>
-    );
-  };
 
-  const metadata = {
-    themeSelector,
-    info: {
-      text: infoValidations,
-      source: false,
-      propTablesExclude: [Select, Option]
-    }
-  };
-
-  return [name, component, metadata];
-}
-
-function makeExternalValidationsStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <>
-        <State store={ singleSelectStore }>
-          <h3>Single select</h3>
+        <h6>On label</h6>
+        {validationTypes.map(validation => (
           <Select
             ariaLabel='singleSelect'
             { ...commonKnobs(singleSelectStore) }
-            hasError
-            inputIcon='error'
-            tooltipMessage='Error'
+            key={ `single-${validation}-string-label` }
+            { ...{ [validation]: 'Message' } }
+            validationOnLabel
           >
             { selectOptions }
           </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='singleSelect'
-            { ...commonKnobs(singleSelectStore) }
-            hasWarning
-            inputIcon='warning'
-            tooltipMessage='Warning'
-          >
-            { selectOptions }
-          </Select>
-          <div style={ { height: 24 } } />
-          <Select
-            ariaLabel='singleSelect'
-            { ...commonKnobs(singleSelectStore) }
-            hasInfo
-            inputIcon='info'
-            tooltipMessage='Info'
-          >
-            { selectOptions }
-          </Select>
-        </State>
+        ))}
 
-        <State store={ multiSelectStore }>
-          <h3>Multi select</h3>
+        <h6>Read Only</h6>
+        <Select
+          ariaLabel='singleSelect'
+          { ...commonKnobs(singleSelectStore) }
+          error='Message'
+          validationOnLabel
+          readOnly
+        >
+          { selectOptions }
+        </Select>
+
+        <h4>Single select - validations as boolean</h4>
+        {validationTypes.map(validation => (
           <Select
-            ariaLabel='multiSelect'
-            enableMultiSelect
+            ariaLabel='singleSelect'
             { ...commonKnobs(singleSelectStore) }
-            hasError
-            inputIcon='error'
-            tooltipMessage='Error'
+            key={ `single-${validation}-boolean-label` }
+            { ...{ [validation]: true } }
           >
             { selectOptions }
           </Select>
-          <div style={ { height: 24 } } />
+        ))}
+
+        <h4>Multi select - validations as string</h4>
+        <h6>On component</h6>
+        {validationTypes.map(validation => (
           <Select
             ariaLabel='multiSelect'
             enableMultiSelect
-            { ...commonKnobs(singleSelectStore) }
-            hasWarning
-            inputIcon='warning'
-            tooltipMessage='Warning'
+            { ...commonKnobs(multiSelectStore, true) }
+            key={ `multi-${validation}-string-component` }
+            { ...{ [validation]: 'Message' } }
           >
             { selectOptions }
           </Select>
-          <div style={ { height: 24 } } />
+        ))}
+        <h6>On label</h6>
+        {validationTypes.map(validation => (
           <Select
             ariaLabel='multiSelect'
             enableMultiSelect
-            { ...commonKnobs(singleSelectStore) }
-            hasInfo
-            inputIcon='info'
-            tooltipMessage='Info'
+            { ...commonKnobs(multiSelectStore, true) }
+            key={ `multi-${validation}-string-label` }
+            { ...{ [validation]: 'Message' } }
+            validationOnLabel
+
           >
             { selectOptions }
           </Select>
-        </State>
+        ))}
+
+        <h4>Multi select - validations as boolean</h4>
+        {validationTypes.map(validation => (
+          <Select
+            ariaLabel='multiSelect'
+            enableMultiSelect
+            { ...commonKnobs(multiSelectStore, true) }
+            key={ `multi-${validation}-boolean-label` }
+            { ...{ [validation]: true } }
+          >
+            { selectOptions }
+          </Select>
+        ))}
       </>
     );
   };
@@ -309,7 +307,6 @@ function makeExternalValidationsStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: {
-      text: infoValidations,
       source: false,
       propTablesExclude: [Select, Option]
     }
@@ -321,15 +318,14 @@ function makeExternalValidationsStory(name, themeSelector) {
 storiesOf('Experimental/Select', module)
   .addParameters({
     info: {
-      propTablesExclude: [State]
+      propTablesExclude: [State],
+      propTables: [Select, OriginalTextbox, Option]
     },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent()))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeExternalValidationsStory('external validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true), true))
   .add(...makeStory('customFilter', dlsThemeSelector, customFilterComponent));

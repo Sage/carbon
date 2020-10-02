@@ -77,15 +77,7 @@ const ActionPopover = ({
     if (renderButton) {
       return renderButton({
         tabIndex: -1,
-        'data-element': 'action-popover-menu-button',
-        styleOverride: {
-          root: {
-            '&:focus': { outlineWidth: '2px' },
-            paddingLeft: '8px',
-            paddingRight: '8px',
-            width: '100%'
-          }
-        }
+        'data-element': 'action-popover-menu-button'
       });
     }
 

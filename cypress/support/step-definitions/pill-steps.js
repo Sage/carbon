@@ -1,15 +1,9 @@
-import { pillPreview, pillCloseIcon } from '../../locators/pill';
+import { pillPreview, pillCloseIcon, pillCloseIconIframe } from '../../locators/pill';
 
 const PILL_ON_DELETE_PROPERTY = 'carbon-pill--is-deletable';
-const BORDER_SOLID_VALUE = '1px solid ';
 
-Then('Pill children on preview is set to {string}', (text) => {
+Then('Pill children on preview is set to {word}', (text) => {
   pillPreview().should('have.text', text);
-});
-
-Then('Pill on preview has {string}', (pillColor) => {
-  pillPreview().should('have.css', 'border', `${BORDER_SOLID_VALUE}${pillColor}`)
-    .and('have.css', 'color', `${pillColor}`);
 });
 
 Then('Pill component has {string} fill color', (backgroundColor) => {
@@ -36,16 +30,12 @@ Then('Pill component has no onDelete property', () => {
   pillCloseIcon().should('not.exist');
 });
 
-When('I click cross icon', () => {
-  pillCloseIcon().click();
+When('I click cross icon in Iframe', () => {
+  pillCloseIconIframe().click();
 });
 
 Then('Pill height is {string}', (height) => {
   pillPreview().should('have.css', 'height', `${height}px`);
-});
-
-Then('I click on Pill close icon button', () => {
-  pillCloseIcon().click();
 });
 
 When('I focus Pill close icon', () => {
@@ -56,9 +46,6 @@ Then('Pill close icon has golden border outline', () => {
   pillCloseIcon().should('have.css', 'box-shadow', 'rgb(255, 181, 0) 0px 0px 0px 3px');
 });
 
-Then('I hover mouse on Pill close icon', () => {
-  pillCloseIcon().trigger('mouseover');
-});
 
 Then('Pill close icon has {string} backgroundColor', (backgroundColor) => {
   pillCloseIcon().should('have.css', 'background-color', backgroundColor);

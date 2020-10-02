@@ -1,11 +1,9 @@
 Feature: Experimental GroupedCharacter component
-  I want to change Experimental Grouped character component properties
-
-  Background: Open Experimental GroupedCharacter component page
-    Given I open "Experimental GroupedCharacter" component page
+  I want to check Experimental Grouped character component properties
 
   @positive
   Scenario Outline: Set groups to <groups> and verify input
+    Given I open "Experimental GroupedCharacter" component page
     When I input json to "groups" input field the "<groups>"
       And I put "<example>" example grouped character
     Then Input component value is set to "<result>"
@@ -17,126 +15,119 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Set separator to <separator>
-    When I set separator to "<separator>"
-      And I put "<text>" example grouped character
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+      And I put "<text>" example grouped character in no Iframe
     Then example grouped character is "<result>"
     Examples:
-      | separator | text   | result   |
-      | -         | 123456 | 12-34-56 |
-      | ?         | sage   | sa?ge    |
-      | #         | tests  | te#st#s  |
-      | @         | a      | a        |
-      | $         | ab     | ab       |
-      | %         | abc    | ab%c     |
-      | ^         | abcde  | ab^cd^e  |
-      | !         | abcdef | ab!cd!ef |
-      | *         | 123456 | 12*34*56 |
+      | separator | text   | result   | nameOfObject |
+      | -         | 123456 | 12-34-56 | separator-   |
+      | ?         | sage   | sa?ge    | separator?   |
+      | #         | tests  | te#st#s  | separator#   |
+      | @         | a      | a        | separator@   |
+      | $         | ab     | ab       | separator$   |
+      | %         | abc    | ab%c     | separator%   |
+      | ^         | abcde  | ab^cd^e  | separator^   |
+      | !         | abcdef | ab!cd!ef | separator!   |
+      | *         | 123456 | 12*34*56 | separator*   |
 
   @positive
   Scenario: Disable and enable GroupedCharacter component
-    Given I check disabled checkbox
-    When I uncheck disabled checkbox
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "disabledFalse" object name
     Then GroupedCharacter input component is not disabled
 
   @positive
   Scenario: Disable GroupedCharacter component
-    When I check disabled checkbox
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "disabled" object name
     Then GroupedCharacter input component is disabled
 
   @positive
   Scenario: Disable and enable readOnly property for GroupedCharacter component
-    Given I check readOnly checkbox
-    When I uncheck readOnly checkbox
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "readOnlyFalse" object name
     Then GroupedCharacter input component is not readonly
 
   @positive
   Scenario: Disable readOnly property for GroupedCharacter component
-    When I check readOnly checkbox
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "readOnly" object name
     Then GroupedCharacter input component is readonly
 
   @positive
   Scenario Outline: Change fieldHelp text to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label on preview is "<label>"
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Set size to <size>
-    When I select size to "<size>"
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
     Then GroupedCharacter input component size is set to "<size>" and has min-height set to <minHeight> and paddings set to <px>
     Examples:
-      | size   | minHeight | px |
-      | small  | 32        | 8  |
-      | medium | 40        | 11 |
-      | large  | 48        | 13 |
+      | size   | minHeight | px | nameOfObject |
+      | small  | 32        | 8  | sizeSmall    |
+      | medium | 40        | 11 | sizeMedium   |
+      | large  | 48        | 13 | sizeLarge    |
 
   @positive
   Scenario Outline: Change labelHelp text to <labelHelp>
-    Given I set label to "label"
-      And I set labelHelp to "<labelHelp>"
+    Given I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
     When I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable label inline
-    Given I set label to "label"
-    When I check labelInline checkbox
-    Then Grouped character component label Inline is enabled
+    When I open default "Experimental Number Input" component in noIFrame with "groupedCharacter" json from "experimental" using "labelInline" object name
+    Then label is inline
 
   @positive
   Scenario: Disable label inline
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I uncheck labelInline checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "groupedCharacter" json from "experimental" using "labelInlineFalse" object name
     Then GroupedCharacter component labelInline is disabled
 
   @positive
   Scenario Outline: Set label width to <labelWidth>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I set label width slider to <labelWidth>
-    Then GroupedCharacter Input component labelWidth is set to "<labelWidth>"
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Then label width on preview is <labelWidth>
     Examples:
-      | labelWidth |
-      | 1          |
-      | 10         |
-      | 100        |
+      | labelWidth | nameOfObject  |
+      | 1          | labelWidth1   |
+      | 10         | labelWidth10  |
+      | 100        | labelWidth100 |
 
   @positive
   Scenario Outline: Set input width to <inputWidth>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I set inputWidth slider to <inputWidth>
-    Then GroupedCharacter Input component inputWidth is set to <inputWidth>
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Then inputWidth on preview is <inputWidth>
     Examples:
-      | inputWidth |
-      | 1          |
-      | 10         |
-      | 100        |
+      | inputWidth | nameOfObject  |
+      | 1          | inputWidth1   |
+      | 10         | inputWidth10  |
+      | 100        | inputWidth100 |
 
   @positive
   Scenario Outline: Set label align to <labelAlign>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I select labelAlign to "<labelAlign>"
-    Then label Align on preview is "<labelAlign>"
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
-      | labelAlign |
-      | right      |
-      | left       |
+      | labelAlign | nameOfObject    |
+      | right      | labelAlignRight |
+      | left       | labelAlignLeft  |
+
+  @positive
+  Scenario: Check icon inside of input is visible
+    When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "inputIconAdd" object name
+    Then icon name in noIframe on preview is "add"

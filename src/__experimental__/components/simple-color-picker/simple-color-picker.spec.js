@@ -1,17 +1,20 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { act } from 'react-dom/test-utils';
-import { css } from 'styled-components';
 import { mount } from 'enzyme';
 import { SimpleColor, SimpleColorPicker } from '.';
-import { LegendContainerStyle } from '../fieldset/fieldset.style';
+import { StyledColorOptions } from './simple-color-picker.style';
+import baseTheme from '../../../style/themes/base';
+import { StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 const colorValues = [
   { color: '#00A376' },
   { color: '#0073C1' },
   { color: '#582C83' }
 ];
+
 const name = 'test-group';
 
 function render(renderer = TestRenderer.create, props, childProps) {
@@ -36,7 +39,7 @@ function render(renderer = TestRenderer.create, props, childProps) {
       { ...props }
     >
       {children}
-    </SimpleColorPicker>
+    </SimpleColorPicker>, { attachTo: document.getElementById('enzymeContainer') }
   );
 }
 
@@ -46,16 +49,13 @@ describe('SimpleColorPicker', () => {
   });
 
   describe('it renders childs in rows based on maxWidth and childWith', () => {
-    let wrapper, onChange, colorTwo;
-
-    beforeEach(() => {
-      onChange = jest.fn();
-      wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
-      colorTwo = wrapper.find(SimpleColor).at(1);
-      colorTwo.getDOMNode().focus();
-    });
+    let wrapper, onChange, secondColor;
 
     describe('onKeyDown', () => {
+      beforeEach(() => {
+        onChange = jest.fn();
+        wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
+      });
       it('fires onKeyDown callback if provided', () => {
         const onKeyDown = jest.fn();
         wrapper = render(mount, {
@@ -75,29 +75,45 @@ describe('SimpleColorPicker', () => {
       });
 
       it('confirms that 2nd color is checked by default', () => {
+        secondColor = wrapper.find(SimpleColor).at(1);
         const selectedColor = wrapper.find(SimpleColor).at(1).find('input');
         expect(selectedColor.prop('aria-checked')).toBeTruthy();
       });
 
       it('if unhandled key is pressed', () => {
+        secondColor = wrapper.find(SimpleColor).at(1);
         act(() => {
-          colorTwo.find('input').first().simulate('keydown', { which: 17, key: 'ctrl' });
+          secondColor.find('input').first().simulate('keydown', { which: 17, key: 'ctrl' });
         });
 
         expect(onChange).not.toHaveBeenCalled();
       });
 
       describe('on left key', () => {
+        let container;
+        beforeEach(() => {
+          container = document.createElement('div');
+          container.id = 'enzymeContainer';
+          document.body.appendChild(container);
+          wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
+        });
+        afterEach(() => {
+          if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+          }
+
+          container = null;
+        });
         describe('when on first color ', () => {
           it('does change selection to last color', () => {
             const colorOne = wrapper.find(SimpleColor).at(0);
-            colorOne.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
 
             act(() => {
               colorOne.find('input').first().simulate('keydown', { which: 37, key: 'ArrowLeft' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
 
             expect(
               document.activeElement.getAttribute('value')
@@ -107,43 +123,82 @@ describe('SimpleColorPicker', () => {
       });
 
       describe('on up key', () => {
+        let container;
+        beforeEach(() => {
+          container = document.createElement('div');
+          container.id = 'enzymeContainer';
+          document.body.appendChild(container);
+          wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
+        });
+        afterEach(() => {
+          if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+          }
+
+          container = null;
+        });
         describe('when up is allowed due to multi rows', () => {
           it('changes selection on up key', () => {
+            spyOn(wrapper.find(SimpleColor).first().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
+
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
+              secondColor.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).first().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[0].color);
           });
         });
 
         describe('when up is disallowed due to top row', () => {
           it('changes selection on up key', () => {
-            colorTwo = wrapper.find(SimpleColor).at(0);
-            colorTwo.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).at(0).find('input').getDOMNode(), 'click');
+            spyOn(wrapper.find(SimpleColor).at(1).find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(0);
 
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
+              secondColor.find('input').first().simulate('click');
+              secondColor.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
             });
 
-            expect(onChange).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(0).find('input').getDOMNode().click).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(1).find('input').getDOMNode().click).not.toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[0].color);
+            expect(onChange).not.toHaveBeenCalled();
           });
         });
       });
 
       describe('on right key', () => {
+        let container;
+        beforeEach(() => {
+          onChange = jest.fn();
+          container = document.createElement('div');
+          container.id = 'enzymeContainer';
+          document.body.appendChild(container);
+          wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
+        });
+        afterEach(() => {
+          if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+          }
+
+          container = null;
+        });
         describe('when on last color ', () => {
           it('does change selection to first color', () => {
-            const colorThree = wrapper.find(SimpleColor).at(2);
-            colorThree.getDOMNode().focus();
+            const thirdColor = wrapper.find(SimpleColor).at(2);
+
+            spyOn(wrapper.find(SimpleColor).first().find('input').getDOMNode(), 'click');
 
             act(() => {
-              colorThree.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
+              thirdColor.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).first().find('input').getDOMNode().click).toHaveBeenCalled();
             expect(
               document.activeElement.getAttribute('value')
             ).toBe(wrapper.find(SimpleColor).first().prop('value'));
@@ -152,40 +207,67 @@ describe('SimpleColorPicker', () => {
 
         describe('when on 2nd color ', () => {
           it('changes selection on right key', () => {
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
+
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
+              secondColor.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
           });
         });
       });
 
-
       describe('on down key', () => {
+        let container;
+        beforeEach(() => {
+          onChange = jest.fn();
+          container = document.createElement('div');
+          container.id = 'enzymeContainer';
+          document.body.appendChild(container);
+          wrapper = render(mount, { maxWidth: '58', childWith: '58', onChange });
+        });
+        afterEach(() => {
+          if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+          }
+
+          container = null;
+        });
         describe('when down is allowed due to multi rows', () => {
           it('changes selection on down key', () => {
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
+
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
+              secondColor.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
           });
         });
 
-        describe('when up is disallowed due to top row', () => {
+        describe('when down is disallowed due to bottom row', () => {
           it('changes selection on down key', () => {
-            const colorThree = wrapper.find(SimpleColor).at(2);
-            colorThree.getDOMNode().focus();
+            const thirdColor = wrapper.find(SimpleColor).at(2);
+
+            spyOn(wrapper.find(SimpleColor).at(0).find('input').getDOMNode(), 'click');
+            spyOn(wrapper.find(SimpleColor).at(1).find('input').getDOMNode(), 'click');
 
             act(() => {
-              colorThree.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
+              thirdColor.find('input').first().simulate('click');
+              thirdColor.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
             });
 
-            expect(onChange).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(0).find('input').getDOMNode().click).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(1).find('input').getDOMNode().click).not.toHaveBeenCalled();
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
+            expect(onChange).not.toHaveBeenCalled();
           });
         });
       });
@@ -295,31 +377,44 @@ describe('SimpleColorPicker', () => {
       });
     });
   });
-  describe('styles', () => {
-    it('applies the correct Legend Container styles', () => {
-      assertStyleMatch(
-        {
-          height: '26px',
-          marginBottom: '16px'
-        },
-        render().toJSON(),
-        {
-          modifier: css`
-            ${LegendContainerStyle}
-          `
-        }
-      );
+
+  describe('validations', () => {
+    const validationTypes = ['error', 'warning', 'info'];
+
+    describe.each(validationTypes)('when %s passed as string', (type) => {
+      it('renders validation icon by the input', () => {
+        const wrapper = render(mount, { [type]: 'Message' });
+        expect(wrapper.find(StyledLegendContainer).find(StyledValidationIcon).exists()).toBe(false);
+        expect(wrapper.find(StyledValidationIcon).exists()).toBe(true);
+      });
+
+      it('renders validation icon by the label if validationOnLegend is also passed as true', () => {
+        const wrapper = render(mount, { [type]: 'Message', validationOnLegend: true });
+        expect(wrapper.find(StyledLegendContainer).find(StyledValidationIcon).exists()).toBe(true);
+      });
+
+      it('renders proper outline', () => {
+        const wrapper = render(mount, { [type]: 'Message' });
+        const outlineWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledColorOptions));
+      });
     });
 
-    it('applies the correct legend styles', () => {
-      assertStyleMatch(
-        {
-          fontSize: '14px',
-          marginLeft: '-2px'
-        },
-        render().toJSON(),
-        { modifier: css`${LegendContainerStyle} legend` }
-      );
+    describe.each(validationTypes)('when %s passed as true boolean', (type) => {
+      it('do not renders validation icon', () => {
+        const wrapper = render(mount, { [type]: true });
+        expect(wrapper.find(StyledValidationIcon).exists()).toBe(false);
+      });
+
+      it('renders proper outline', () => {
+        const wrapper = render(mount, { [type]: true });
+        const outlineWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledColorOptions));
+      });
     });
   });
 

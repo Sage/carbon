@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import Icon from '../../icon';
 import baseTheme from '../../../style/themes/base';
-import LabelStyle from '../../../__experimental__/components/label/label.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
+import { StyledLabelContainer } from '../../../__experimental__/components/label/label.style';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: grab;
@@ -13,10 +12,6 @@ const ConfigurableItemRowIconStyle = styled(Icon)`
   }
 
   padding-right: 12px;
-
-  ${({ theme }) => isClassic(theme) && css`
-      padding-right: 0;
-  `}
 `;
 
 const ConfigurableItemRowContentWrapperStyle = styled.div`
@@ -30,14 +25,9 @@ const ConfigurableItemRowStyle = styled.li`
   font-weight: bold;
   padding: 5px 0.5em 5px 0px;
 
-  ${LabelStyle}{
-    padding: 0px 6px 6px 6px;
+  ${StyledLabelContainer} {
+    margin: 0px 6px 6px 6px;
   }
-
-  ${({ theme }) => isClassic(theme) && css`
-    border-bottom: 1px solid #CCD6DA;
-    padding: 0.5em 0.5em 0.7em;
-  `}
 
   ${({ isDragging, isDragged }) => (isDragging || isDragged)
     && css`

@@ -1,23 +1,15 @@
 import {
-  RADIO_BUTTON,
   RADIO_BUTTON_COMPONENT,
   RADIO_BUTTON_GROUP_COMPONENT,
-  RADIO_BUTTON_FIELDSET_COMPONENT,
-  RADIO_BUTTON_LEGEND_COMPONENT,
-  RADIO_GROUP,
+  RADIO_BUTTON_FIELDSET_GROUP,
 } from './locators';
+import { FIELD_HELP_PREVIEW } from '../locators';
 
 // component preview locators
-export const radioButtonComponent = () => cy.iFrame(RADIO_BUTTON_COMPONENT);
-export const radioButtonByPosition = position => cy.iFrame(RADIO_BUTTON).eq(position);
-export const radioButtonComponentByPosition = position => cy.iFrame(RADIO_BUTTON_COMPONENT)
-  .eq(position);
-export const radioButtonComponentNoiFrame = () => cy.get(RADIO_BUTTON_COMPONENT);
-export const radioButtonGroup = () => cy.iFrame(RADIO_BUTTON_GROUP_COMPONENT);
-export const radioButtonFieldset = () => cy.iFrame(RADIO_BUTTON_FIELDSET_COMPONENT);
-export const radioButtonLegend = () => cy.iFrame(RADIO_BUTTON_LEGEND_COMPONENT);
-
-// component preview locators in no iFrame
-export const radioGroup = () => cy.get(RADIO_GROUP);
-export const radioButtonLegendInNoIFrame = () => cy.get(RADIO_BUTTON_LEGEND_COMPONENT);
-export const radioButtonGroupInNoIFrame = () => cy.get(RADIO_BUTTON_GROUP_COMPONENT);
+export const radioButtonFieldset = () => cy.get(RADIO_BUTTON_FIELDSET_GROUP).children();
+export const radioButtonLegend = () => cy.get(RADIO_BUTTON_FIELDSET_GROUP).find('legend').parent();
+export const radioButtonGroup = () => cy.get(RADIO_BUTTON_GROUP_COMPONENT);
+export const radioButtonComponent = () => cy.get(RADIO_BUTTON_COMPONENT);
+export const radioButtonComponentByPosition = position => radioButtonComponent().eq(position);
+export const radioButtonInputByPosition = position => radioButtonComponentByPosition(position).find('input');
+export const radioButtonFieldHelp = position => radioButtonComponentByPosition(position).find(FIELD_HELP_PREVIEW);

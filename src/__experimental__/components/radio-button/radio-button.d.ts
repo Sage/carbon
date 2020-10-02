@@ -4,7 +4,9 @@ import { AlignBinaryType, SizesType } from '../../../utils/helpers/options-helpe
 export interface RadioButtonProps {
   checked?: boolean;
   disabled?: boolean;
-  error?: boolean;
+  error?: boolean | string;
+  warning?: boolean | string;
+  info?: boolean | string;
   fieldHelpInline?: boolean;
   id?: string;
   inputWidth?: number | string;

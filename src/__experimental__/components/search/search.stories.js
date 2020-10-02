@@ -10,14 +10,17 @@ import { action } from '@storybook/addon-actions';
 import Search from '.';
 
 export default {
-  title: 'Test/Search',
+  title: 'Design System/Search/Test',
   component: Search,
   decorators: [withKnobs],
   parameters: {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disabled: true
+    }
   }
 };
 
@@ -44,6 +47,7 @@ export const Basic = () => {
       placeholder={ text('placeholder', 'Search...') }
       threshold={ number('threshold', Search.defaultProps.threshold) }
       searchButton={ boolean('searchButton', true) }
+      searchWidth={ text('searchWidth', undefined) }
       onChange={ handleChange }
       onBlur={ handleBlur }
       onClick={ handleClick }
@@ -52,4 +56,12 @@ export const Basic = () => {
       id='search_id'
     />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

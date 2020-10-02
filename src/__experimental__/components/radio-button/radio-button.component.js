@@ -7,7 +7,7 @@ import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const RadioButton = ({
-  id, label, onChange, onBlur, value, ...props
+  id, label, onChange, onBlur, value, mt = 1, mb = 2, ...props
 }) => {
   const handleChange = useCallback((ev) => {
     onChange(ev);
@@ -19,12 +19,13 @@ const RadioButton = ({
     ...props,
     onChange: handleChange,
     onBlur,
-    helpTabIndex: 0,
     helpTag: 'span',
+    labelInline: true,
     inputId: id,
     inputLabel: label,
     inputValue: value,
     inputType: 'radio',
+    mb,
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
@@ -37,6 +38,7 @@ const RadioButton = ({
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
+      mt={ mt }
       { ...props }
     >
       <CheckableInput { ...inputProps }>
@@ -61,6 +63,8 @@ RadioButton.propTypes = {
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component) */
@@ -78,6 +82,10 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
+  /** Margin top, given number will be multiplied by base spacing unit (8) */
+  mt: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
@@ -91,7 +99,8 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
-  reverse: false
+  reverse: false,
+  labelSpacing: 1
 };
 
 export { RadioButton as PrivateRadioButton };

@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import sidebarClassicStyle from './sidebar-classic.style';
 import StyledIconButton from '../icon-button/icon-button.style';
 
 const sidebarSizes = {
@@ -20,7 +19,7 @@ const SidebarStyle = styled.div`
   position: fixed;
   top: 0;
   padding: 27px 32px 32px 32px;
-  z-index: 1002;
+  z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
 
   ${({ size }) => size && css`
       width: ${sidebarSizes[size]};
@@ -37,8 +36,6 @@ const SidebarStyle = styled.div`
     right: 25px;
     top: 25px;
   }
-
-  ${sidebarClassicStyle}
 `;
 
 SidebarStyle.defaultProps = {

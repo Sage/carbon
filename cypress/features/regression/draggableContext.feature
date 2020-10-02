@@ -1,8 +1,8 @@
 Feature: Draggable Context component
   I want to change Draggable Context component
 
-  Background: Open Draggable Context component in iframe
-    Given I open "DraggableContext" component in iframe
+  Background: Open Draggable Context component in noIframe
+    Given I open "DraggableContext" component in noiFrame
 
   @positive
   Scenario Outline: Drag record <record> inside Draggable Context to <destinationId> element position

@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
-import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
+    fieldHelpInline, labelInline, labelSpacing, reverse, size, theme
   }) => css`
     ${FieldLineStyle} {
-      display: block;
+      display: flex;
+      flex-flow: row wrap;
     }
 
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
@@ -26,8 +26,6 @@ const StyledSwitch = styled.div`
       flex-basis: 100%;
       margin-left: 0;
     }
-
-    margin-bottom: 24px;
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider},
@@ -40,31 +38,33 @@ const StyledSwitch = styled.div`
       margin-left: 0;
     }
 
-    ${LabelStyle} {
-      padding: 0;
+    ${StyledLabelContainer} {
+      ${!labelInline && css`padding: 0;`};
       margin-bottom: 8px;
 
       ${StyledValidationIcon} {
         position: relative;
         display: inline-block;
       }
-
-      ${labelWidth && css`
-        margin-right: ${100 - labelWidth}%;
-      `}
     }
 
     ${fieldHelpInline && css`
       ${FieldHelpStyle} {
-        margin-bottom: 10px;
+        margin: 0;
       }
     `}
 
     ${reverse && css`
       ${!labelInline && css`
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-top: 8px;
         }
+
+        ${fieldHelpInline && css`
+          ${FieldHelpStyle} {
+            margin-top: 8px;
+          }
+        `}
       `}
     `}
 
@@ -76,12 +76,9 @@ const StyledSwitch = styled.div`
       ${FieldLineStyle} {
         display: flex;
       }
-  
-      ${LabelStyle} {
+
+      ${StyledLabelContainer} {
         margin-bottom: 0;
-        margin-right: 32px;
-        padding-top: 4px;
-        width: auto;
       }
 
       ${FieldHelpStyle} {
@@ -95,29 +92,27 @@ const StyledSwitch = styled.div`
           margin-top: 0;
         }
 
-        ${LabelStyle} {
-          margin-left: 10px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
-            margin-left: 70px;
+            margin-left: 60px;
+            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
 
-      ${fieldHelpInline && `
-        ${StyledCheckableInput} {
-          margin-left: 10px;
-        }
+      ${fieldHelpInline && css`
+        ${!reverse && `
+          ${StyledCheckableInput} {
+            margin-left: 10px;
+          }
+        `}
 
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-right: 10px;
         }
 
         ${FieldHelpStyle} {
           margin-left: 0;
-          margin-top: -1px;
           align-self: center;
         }
       `}
@@ -129,27 +124,27 @@ const StyledSwitch = styled.div`
         width: 78px;
       }
 
-      ${fieldHelpInline && `
+      ${labelInline && !fieldHelpInline && reverse && css`
         ${FieldHelpStyle} {
           padding: 10px 0;
         }
       `}
 
       ${labelInline && css`
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-top: 1px;
-          padding: 10px 0;
+          padding-top: 10px;
+          padding-bottom: 10px;
         }
 
         ${!fieldHelpInline && reverse && `
           ${FieldHelpStyle} {
-            margin-left: 88px;
+            margin-left: 78px;
+            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
     `}
-
-    ${ClassicSwitchStyles}
   `}
 `;
 

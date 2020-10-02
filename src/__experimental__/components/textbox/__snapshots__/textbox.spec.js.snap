@@ -1,61 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
-<FormField
-  hasError={false}
-  hasInfo={false}
-  hasWarning={false}
-  id="mocked-guid"
-  info={Array []}
-  inputWidth={70}
-  labelWidth={30}
-  name="mocked-guid"
-  onBlur={[Function]}
-  onChange={[Function]}
-  size="medium"
-  styleOverride={Object {}}
-  useValidationIcon={false}
-  validations={Array []}
-  warnings={Array []}
->
-  <InputPresentation
-    hasError={false}
-    hasInfo={false}
-    hasWarning={false}
+exports[`Textbox renders with InputPresentation and Input and correct props passed to Input 1`] = `
+<InputBehaviour>
+  <FormField
     id="mocked-guid"
-    info={Array []}
-    inputWidth={70}
     labelWidth={30}
     name="mocked-guid"
-    onBlur={[Function]}
-    onChange={[Function]}
     size="medium"
-    type="text"
-    useValidationIcon={true}
-    validations={Array []}
-    warnings={Array []}
+    styleOverride={Object {}}
+    useValidationIcon={false}
   >
-    southpaw children
-    <Input
-      aria-invalid={false}
-      hasError={false}
-      hasInfo={false}
-      hasWarning={false}
+    <InputPresentation
       id="mocked-guid"
-      info={Array []}
       inputWidth={70}
-      labelWidth={30}
       name="mocked-guid"
-      onBlur={[Function]}
-      onChange={[Function]}
       size="medium"
       type="text"
-      useValidationIcon={true}
-      validations={Array []}
-      value="foobar"
-      warnings={Array []}
-    />
-    normal children
-  </InputPresentation>
-</FormField>
+    >
+      southpaw children
+      <ForwardRef
+        aria-invalid={false}
+        id="mocked-guid"
+        name="mocked-guid"
+        size="medium"
+        value="foobar"
+      />
+      normal children
+      <InputIconToggle
+        id="mocked-guid"
+        name="mocked-guid"
+        size="medium"
+        useValidationIcon={true}
+      />
+    </InputPresentation>
+  </FormField>
+</InputBehaviour>
 `;

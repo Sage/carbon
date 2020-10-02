@@ -453,7 +453,7 @@ describe('Table', () => {
         data = data.set('foo', 'qux');
         instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
-          currentPage: '',
+          currentPage: 0,
           filter: { foo: 'qux' },
           pageSize: '',
           sortOrder: '',
@@ -744,7 +744,7 @@ describe('Table', () => {
         };
 
         expect(instanceCustomSort.emitOptions(props)).toEqual({
-          currentPage: '1',
+          currentPage: 1,
           filter: {},
           pageSize: '10',
           sortOrder: 'asc',
@@ -1101,7 +1101,7 @@ describe('Table', () => {
       }, table);
 
       assertStyleMatch({
-        backgroundColor: '#CCD6DA',
+        backgroundColor: '#CCD6DB',
         color: '#003349'
       }, table, { modifier: `${StyledTableHeader}` });
     });
@@ -1158,8 +1158,8 @@ describe('Table', () => {
       );
 
       assertStyleMatch({
-        backgroundColor: '#F2F4F5',
-        border: '1px solid #CCD6DA',
+        backgroundColor: '#F2F5F6',
+        border: '1px solid #CCD6DB',
         borderRadius: '0px',
         overflow: 'visible'
       }, wrapper);

@@ -1,20 +1,26 @@
 import {
-  knobsTab, actionsTab, clearButton, accessibilityTab, getKnobsInputWithName,
+  knobsTab, actionsTab, clearButton, getKnobsInputWithName,
+  getElementNoIframe,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
-import { getElementNoIframe } from '../locators/build';
 
-function prepareUrl(component, suffix, iFrameOnly, prefix) {
+const stringToURL = str => str.toLowerCase().replace(/ /g, '-');
+
+function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   let url = Cypress.config().baseUrl;
   const iFrame = Cypress.env('iframe') + prefix;
-  const story = Cypress.env('story') + prefix;
+  const story = Cypress.env(env) + prefix;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += iFrame : url += story;
-  return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
+  return url + stringToURL(component) + (Cypress.env(suffix) || `--${stringToURL(suffix)}`);
 }
 
-export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '') {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix));
+export function visitDocsUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'docs') {
+  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
+}
+
+export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'story') {
+  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
   if (!iFrameOnly) knobsTab().click();
 }
 
@@ -22,8 +28,31 @@ export function visitComponentUrlByTheme(component, theme, sufix = '') {
   cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
 }
 
-export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, 'knobs', true, '')}&theme=${theme}${sufix}`);
+export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '', prefix = '') {
+  cy.visit(`${prepareUrl(component, 'knobs', true, prefix)}&theme=${theme}${sufix}`);
+}
+
+export function visitComponentUrlWithParameters(component, story, sufix = '', prefix = '', json = '', path = '', nameOfObject = '') {
+  cy.fixture(`${path}/${json}`).then(($json) => {
+    const el = $json[nameOfObject];
+    let url = '';
+    for (const prop in el) {
+      url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+    }
+    cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
+  });
+}
+
+export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '', prefix = '') {
+  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
+}
+
+export function visitComponentUrlByThemeByStoryDesignSystemTest(component, story, theme, sufix = '', prefix = '') {
+  cy.visit(`${prepareUrl(component, story, true, 'design-system-', prefix)}&theme=${theme}${sufix}`);
+}
+
+export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
 }
 
 export function visitFlatTableComponentNoiFrame(component, suffix = 'default', iFrameOnly = false, prefix = '', stickyRow = true, stickyHead = true, clickableRow = true) {
@@ -32,10 +61,6 @@ export function visitFlatTableComponentNoiFrame(component, suffix = 'default', i
 
 export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
-}
-
-export function clickAccessebilityTab(iFrameOnly = false) {
-  if (!iFrameOnly) accessibilityTab().click();
 }
 
 export function clickClear() {
@@ -110,6 +135,7 @@ export function positionOfElement(type) {
     eighth: '7',
     ninth: '8',
     tenth: '9',
+    eleventh: '10',
     nineteenth: '19',
   }[type];
 }
@@ -125,8 +151,8 @@ export function positionOfPaginationButton(type) {
 
 export function themeColor(type) {
   return {
-    primary: 'rgb(51, 91, 109)',
-    secondary: 'rgb(204, 214, 218)',
+    primary: 'rgb(51, 92, 109)',
+    secondary: 'rgb(204, 214, 219)',
     tertiary: 'rgba(0, 0, 0, 0)',
   }[type];
 }
@@ -148,7 +174,7 @@ export function keyCode(type) {
     rightarrow: { keyCode: 39, which: 39 },
     Enter: { keyCode: 13, which: 13 },
     Space: { keyCode: 32, which: 32 },
-    Tab: { keyCode: 9, which: 9 },
+    Tab: { key: 'Tab', keyCode: 9, which: 9 },
     Home: { keyCode: 36, which: 36 },
     End: { keyCode: 35, which: 35 },
   }[type];

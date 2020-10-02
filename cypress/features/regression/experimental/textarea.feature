@@ -1,238 +1,218 @@
 Feature: Experimental Textarea component
-  I want to change Experimental Textarea component properties
-
-  Background: Open Experimental Textarea component page
-    Given I open "Experimental Textarea" component page
+  I want to check Experimental Textarea component properties
 
   @positive
-  Scenario: Enable expandable checkbox for a Textarea component
-    When I check expandable checkbox
+  Scenario Outline: Enable expandable checkbox for a Textarea component
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandable" object name
+    When I input <text> into Textarea
     Then Textarea component is expandable
+    Examples:
+      | text                         |
+      | {enter}{enter}{enter}{enter} |
 
   @positive
-  Scenario: Enable and disable expandable checkbox for a Textarea component
-    Given I check expandable checkbox
-    When I uncheck expandable checkbox
+  Scenario Outline: Enable and disable expandable checkbox for a Textarea component
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandableFalse" object name
+    When I input <text> into Textarea
     Then Textarea component is not expandable
+    Examples:
+      | text                         |
+      | {enter}{enter}{enter}{enter} |
 
   @positive
   Scenario Outline: Set cols to <cols>
-    When I set cols slider to <cols>
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then cols is set to "<cols>"
     Examples:
-      | cols |
-      | 1    |
-      | 100  |
-      | 300  |
+      | cols | nameOfObject |
+      | 1    | cols1        |
+      | 100  | cols100      |
+      | 300  | cols300      |
 
   @positive
   Scenario Outline: Set rows to <rows>
-    When I set rows slider to <rows>
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then rows is set to "<rows>"
     Examples:
-      | rows |
-      | 1    |
-      | 100  |
-      | 300  |
+      | rows | nameOfObject |
+      | 1    | rows1        |
+      | 100  | rows100      |
+      | 300  | rows300      |
 
   @positive
   Scenario: Check disabled checkbox for a Textarea component
-    When I check disabled checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "disabled" object name
     Then Textarea component is disabled
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textarea component
-    Given I check disabled checkbox
-    When I uncheck disabled checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "disabledFalse" object name
     Then Textarea component is not disabled
 
   @positive
   Scenario: Enable readOnly checkbox for a Textarea component
-    When I check readOnly checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "readOnly" object name
     Then Textarea component is readOnly
 
   @positive
   Scenario: Disable readOnly checkbox for a Textarea component
-    Given I check readOnly checkbox
-    When I uncheck readOnly checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "readOnlyFalse" object name
     Then Textarea component is not readOnly
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then placeholder is set to "<placeholder>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then placeholder is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | placeholder                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp is set to "<fieldHelp>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
-    When I set characterLimit to "<characterLimit>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then characterLimit is set to "<characterLimit>"
       And characterLimit for default Textarea is shown as "<result>"
     Examples:
-      | characterLimit | result  |
-      | -1000          | -1,000  |
-      | -1             | -1      |
-      | 0              | 0       |
-      | 1              | 1       |
-      | 100            | 100     |
-      | 1000           | 1,000   |
-      | 555555         | 555,555 |
+      | characterLimit | result  | nameOfObject         |
+      | -1000          | -1,000  | characterLimit-1000  |
+      | -1             | -1      | characterLimit-1     |
+      | 0              | 0       | characterLimit0      |
+      | 1              | 1       | characterLimit1      |
+      | 100            | 100     | characterLimit100    |
+      | 1000           | 1,000   | characterLimit1000   |
+      | 555555         | 555,555 | characterLimit555555 |
 
   @negative
   Scenario Outline: Set characterLimit out of scope to <characterLimit>
-    When I set characterLimit to "<characterLimit>"
-    Then characterLimit for default Textarea is not set to "<characterLimit>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then characterLimit for default Textarea is not set to <characterLimit>
     Examples:
-      | characterLimit          |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | -0,112                  |
-      | 0.1112333               |
+      | characterLimit               | nameOfObject                   |
+      | mp150ú¿¡üßä                  | characterLimitOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | characterLimitSpecialCharacter |
+      | -0,112                       | characterLimit-0,112           |
+      | 0.1112333                    | characterLimit0.1112333        |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
-    When I set inputWidth slider to <inputWidth>
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then Textarea inputWidth is set to "<inputWidth>"
     Examples:
-      | inputWidth |
-      | 0          |
-      | 50         |
-      | 100        |
+      | inputWidth | nameOfObject  |
+      | 0          | inputWidth0   |
+      | 50         | inputWidth50  |
+      | 100        | inputWidth100 |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label is set to "<label>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    When I set label to "label"
-      And I set labelHelp to "<labelHelp>"
-      And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+      And I hover mouse onto "question" icon in no iFrame
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
-    Given I set label to "label"
-    When I check labelInline checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "labelInline" object name
     Then Textarea component is labelInline
 
   @positive
   Scenario: Enable and disable labelInline checkbox for a Textarea component
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I uncheck labelInline checkbox
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "labelInlineFalse" object name
     Then Textarea component is not labelInline
 
   @positive
   Scenario Outline: Set labelWidth to <labelWidth>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set label width slider to <labelWidth>
-    Then label width is set to "<labelWidth>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then label width on preview is <labelWidth>
     Examples:
-      | labelWidth |
-      | 0          |
-      | 25         |
-      | 100        |
+      | labelWidth | nameOfObject  |
+      | 0          | labelWidth0   |
+      | 25         | labelWidth25  |
+      | 100        | labelWidth100 |
 
   @positive
   Scenario Outline: Set labelAlign to <labelAlign>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I select labelAlign to "<labelAlign>"
-    Then label Align on preview is "<labelAlign>"
+    When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
-      | labelAlign |
-      | left       |
-      | right      |
+      | labelAlign | nameOfObject    |
+      | left       | labelAlignLeft  |
+      | right      | labelAlignRight |
 
-  #   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
-    When I set characterLimit to "<limit>"
-      And I check warnOverLimit checkbox
-      And I check enforceCharacterLimit checkbox
-      And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    When I input <text> into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | limit | text             | characters |
-      | 0     | 12345            | 5          |
-      | 5     | áéíóú¿¡üñ        | 9          |
-      | 10    | testTestTextTest | 16         |
+      | limit | text             | characters | nameOfObject                                            |
+      | 0     | 12345            | 5          | characterLimit0warnOverLimitenforceCharacterLimitFalse  |
+      | 5     | áéíóú¿¡üñ        | 9          | characterLimit5warnOverLimitenforceCharacterLimitFalse  |
+      | 10    | testTestTextTest | 16         | characterLimit10warnOverLimitenforceCharacterLimitFalse |
 
-  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
-    When I set characterLimit to "<limit>"
-      And I check warnOverLimit checkbox
-      And I uncheck warnOverLimit checkbox
-      And I check enforceCharacterLimit checkbox
-      And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    When I input <text> into Textarea
     Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | limit | text              | characters |
-      | 0     | !!                | 2          |
-      | 3     | 123456            | 6          |
-      | 5     | áéíóú¿¡üñą       | 10         |
-      | 10    | testTestTextTest! | 17         |
+      | limit | text        | characters | nameOfObject                      |
+      | 0     | !!          | 2          | characterLimit0warnOverLimitFalse |
+      | 3     | 123456      | 6          | characterLimit3warnOverLimitFalse |
+      | 5     | áéíóú¿¡üñą | 10         | characterLimit5warnOverLimitFalse |
 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
-    Given I set characterLimit to "<limit>"
-    When I input "<text>" into Textarea
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    When I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
-      | limit | text             | characters |
-      | -1    | ?                | 1          |
-      | 2     | !!!              | 2          |
-      | 5     | testText         | 5          |
-      | 7     | áéíóú¿¡üñ        | 7          |
-      | 10    | testTestTextTest | 10         |
+      | limit | text      | characters | nameOfObject                          |
+      | -1    | ?         | 1          | characterLimit-1enforceCharacterLimit |
+      | 2     | !!!       | 2          | characterLimit2enforceCharacterLimit  |
+      | 5     | testText  | 5          | characterLimit5enforceCharacterLimit  |
+      | 7     | áéíóú¿¡üñ | 7          | characterLimit7enforceCharacterLimit  |
 
-  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
-    When I set characterLimit to "<limit>"
-      And I check enforceCharacterLimit checkbox
-      And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
+    When I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
-      | limit | text             | characters |
-      | -1    | testText         | 8          |
-      | 0     | !                | 1          |
-      | 3     | 12345            | 5          |
-      | 5     | áéíóú¿¡üñ        | 9          |
-      | 10    | testTestTextTest | 16         |
+      | limit | text      | characters | nameOfObject                               |
+      | -1    | testText  | 8          | characterLimit-1enforceCharacterLimitFalse |
+      | 0     | !         | 1          | characterLimit0enforceCharacterLimitFalse  |
+      | 3     | 12345     | 5          | characterLimit3enforceCharacterLimitFalse  |
+      | 5     | áéíóú¿¡üñ | 9          | characterLimit5enforceCharacterLimitFalse  |
 
   @positive
   Scenario Outline: Verify input of Textarea component
-    When I input "<input>" into Textarea
-    Then Textarea input on preview is set to "<input>"
+    Given I open "Experimental Textarea" component page in noIFrame
+    When I input <input> into Textarea
+    Then Textarea input on preview is set to <input>
     Examples:
-      | input                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | input                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |

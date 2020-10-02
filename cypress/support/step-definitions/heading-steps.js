@@ -1,27 +1,27 @@
 import {
-  headingPreview, titlePreview, subheaderPreview, separatorPreview,
+  headingPreview, subheaderPreview, separatorPreview,
 } from '../../locators/heading';
-import { helpIcon, link } from '../../locators';
+import { helpIcon, link, getDataElementByValue } from '../../locators';
 
 const DIVIDER = 'carbon-heading--has-divider';
 
-Then('heading children on preview is {string}', (children) => {
-  headingPreview().should('contain', children);
+Then('heading children on preview is {word}', (children) => {
+  headingPreview().invoke('text').should('contain', children);
 });
 
-Then('heading title is set to {string}', (title) => {
-  titlePreview().should('have.text', title);
+Then('heading title is set to {word}', (title) => {
+  getDataElementByValue('title').should('have.text', title);
 });
 
-Then('subheader on preview is {string}', (subheader) => {
+Then('subheader on preview is {word}', (subheader) => {
   subheaderPreview().should('have.text', subheader);
 });
 
-Then('link on preview is {string}', (helpLink) => {
+Then('link on preview is {word}', (helpLink) => {
   helpIcon().should('have.attr', 'href', helpLink);
 });
 
-Then('backLink on preview is {string}', (backLink) => {
+Then('backLink on preview is {word}', (backLink) => {
   link().children().should('have.attr', 'href', backLink);
 });
 

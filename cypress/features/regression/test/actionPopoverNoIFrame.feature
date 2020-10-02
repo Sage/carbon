@@ -2,7 +2,7 @@ Feature: Action Popover component in noIFrame
   I want to change Action Popover component properties in noIFrame
 
   Background: Open Action Popover component page in noIFrame
-    Given I open "Test Action Popover" component in noiFrame
+    Given I open "Design System Action Popover Test" component page "default" in no iframe
 
   @positive
   Scenario: Open Action Popover element
@@ -120,7 +120,7 @@ Feature: Action Popover component in noIFrame
   @positive
   Scenario: Open Action Popover and close it by clicking outside of the component
     Given I click the menu button element in noiFrame
-    When I click onto root in Test directory in iFrame
+    When I click onto root in Test directory in no iFrame
     Then Action Popover element is not visible
 
   @positive

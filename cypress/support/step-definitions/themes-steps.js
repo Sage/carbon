@@ -1,5 +1,11 @@
-import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory } from '../helper';
-import { getComponentNoIframe, getElementNoIframe } from '../../locators/build';
+import {
+  visitComponentUrlByTheme,
+  visitComponentUrlByThemeKnobsStory,
+  visitComponentUrlByThemeByStory,
+  visitDesignSystemComponentUrlByThemeByStory,
+  visitComponentUrlByThemeByStoryDesignSystemTest,
+} from '../helper';
+import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
 
 const COLOR = 'color';
@@ -8,6 +14,10 @@ const BUSINESS_BGTHEME = '&knob-bgTheme=business';
 
 When('I open {string} component with theme {string}', (componentName, themeName) => {
   visitComponentUrlByTheme(componentName, themeName);
+});
+
+When('I open {word} page {string} component with theme {string}', (type, componentName, themeName) => {
+  visitComponentUrlByThemeByStoryDesignSystemTest(componentName, type, themeName);
 });
 
 When('I open {string} component with theme {string} knobs story', (componentName, themeName) => {
@@ -56,4 +66,12 @@ Then('Loader component css background color is set to {string}', (themeName) => 
   cy.fixture('themes/themes.json').then((json) => {
     loaderComponent().should('have.css', BACKGROUND_COLOR, json.common[themeName]);
   });
+});
+
+When('I open Test {string} component {word} story with theme {string}', (componentName, storyName, themeName) => {
+  visitComponentUrlByThemeByStory(componentName, storyName, themeName, '', 'test-');
+});
+
+Given('I open design systems {word} {string} component with theme {string}', (storyName, componentName, themeName) => {
+  visitDesignSystemComponentUrlByThemeByStory(componentName, 'design-system-', storyName, themeName);
 });

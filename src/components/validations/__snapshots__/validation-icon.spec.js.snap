@@ -12,10 +12,8 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1px;
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: 8px;
   border: 0;
   outline: none;
 }
@@ -30,6 +28,5 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
 
 <div
   className="c0"
-  type="error"
 />
 `;

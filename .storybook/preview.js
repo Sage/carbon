@@ -9,6 +9,8 @@ import { withThemeSelector } from './theme-selector'
 import { addParameters } from '@storybook/react';
 import { configureActions } from '@storybook/addon-actions';
 import sageTheme from './sageTheme';
+import "../src/utils/css";
+import isChromatic from 'chromatic/isChromatic';
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
@@ -27,21 +29,34 @@ addParameters({
     showNav: true,
     showPanel: true,
     theme: sageTheme,
-    storySort: (a, b) => {
-      if (a[1].kind === 'Welcome' || b[1].kind === 'Welcome') {
-        return 1;
+    storySort: (a, b) => a[1].id.localeCompare(b[1].id)
+  },
+  a11y: {
+    // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
+    options: {
+      runOnly: {
+        type: 'tag',
+        values: [
+          'wcag2a', // WCAG 2.0 & WCAG 2.1 Level A
+          'wcag2aa', // WCAG 2.0 & WCAG 2.1 Level AA
+          'wcag21a', // WCAG 2.1 Level A
+          'wcag21aa', // WCAG 2.1 Level AA
+          'best-practice' // Best practices endorsed by Deque
+        ],
       }
-      return a[1].id.localeCompare(b[1].id);
     }
-  }
+  },
+  chromatic: { disable: false },
 });
 
 setupI18n();
 
 addDecorator(withKnobs);
-addDecorator(withInfo({
-  header: false,
-  inline: true,
-}));
+if (!isChromatic()) {
+  addDecorator(withInfo({
+    header: false,
+    inline: true,
+  }));
+}
 addDecorator(withA11y);
 addDecorator(withThemeSelector);

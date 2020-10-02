@@ -2,10 +2,10 @@
 
 exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
 .c1 {
-  background-color: #335B6D;
+  background-color: #335C6D;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
-  border-left: 1px solid #668491;
+  border-bottom: 1px solid #CCD6DB;
+  border-left: 1px solid #668592;
   box-sizing: border-box;
   color: #FFFFFF;
   font-weight: 700;
@@ -28,7 +28,7 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
 }
 
 .c1:hover {
-  background-color: #19475B;
+  background-color: #1A475B;
 }
 
 .c1 .c3 {

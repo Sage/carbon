@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
+
 import { assign } from 'lodash';
 import DateInput from '../date';
-import DateRangeValidator from '../../../utils/validations/date-range';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';
 import DateHelper from '../../../utils/helpers/date';
@@ -19,8 +18,9 @@ class DateRange extends React.Component {
 
   isBlurBlocked = true;
 
+  inlineLabelWidth = 40;
+
   state = {
-    forceUpdateTriggerToggle: false,
     startDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
       rawValue: DateHelper.formatValue(this.startDate || this.today)
@@ -65,10 +65,6 @@ class DateRange extends React.Component {
           this.props.onChange(event);
         }
       });
-
-    this.setState(prevState => ({
-      forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
-    }), this.blockBlur());
   }
 
   _onBlur = () => {
@@ -126,18 +122,6 @@ class DateRange extends React.Component {
     return value ? value[1] : undefined;
   }
 
-  /** The error message for the start message. */
-  get startMessage() {
-    return this.props.startMessage
-      || I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
-  }
-
-  /** The error message for the end message. */
-  get endMessage() {
-    return this.props.endMessage
-     || I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
-  }
-
   /** Handle focus on start date field */
   focusStart = () => {
     this.blockBlur('start');
@@ -154,31 +138,13 @@ class DateRange extends React.Component {
     if (id === 'start') {
       this.startDateInputRef.current.isBlurBlocked = true;
       this.startDateInputRef.current.inputFocusedViaPicker = true;
-    } else if (id === 'end') {
+    } else {
       this.endDateInputRef.current.isBlurBlocked = true;
       this.endDateInputRef.current.inputFocusedViaPicker = true;
     }
   }
 
-  startDateProps() {
-    return this.dateProps('start', [
-      new DateRangeValidator({
-        endDate: this.state.endDateValue.rawValue,
-        messageText: this.startMessage
-      })
-    ]);
-  }
-
-  endDateProps() {
-    return this.dateProps('end', [
-      new DateRangeValidator({
-        startDate: this.state.startDateValue.rawValue,
-        messageText: this.endMessage
-      })
-    ]);
-  }
-
-  dateProps(propsKey, defaultValidations) {
+  dateProps(propsKey) {
     const dateProps = this.props[`${propsKey}DateProps`] || {};
 
     const props = assign({}, {
@@ -186,12 +152,14 @@ class DateRange extends React.Component {
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
       onBlur: this._onBlur.bind(null),
-      value: this.state[`${propsKey}DateValue`].rawValue
+      value: this.state[`${propsKey}DateValue`].rawValue,
+      error: this.props[`${propsKey}Error`],
+      warning: this.props[`${propsKey}Warning`],
+      info: this.props[`${propsKey}Info`],
+      validationOnLabel: this.props.validationOnLabel
     }, dateProps);
 
     props.className = dateProps.className;
-    props.forceUpdateTriggerToggle = this.state.forceUpdateTriggerToggle;
-    props.validations = defaultValidations.concat(dateProps.validations || []);
 
     return props;
   }
@@ -200,16 +168,18 @@ class DateRange extends React.Component {
     return (
       <StyledDateRange { ...tagComponent('date-range', this.props) } labelsInline={ this.props.labelsInline }>
         <DateInput
-          { ...this.startDateProps() } onFocus={ this.focusStart }
+          { ...this.dateProps('start') }
+          onFocus={ this.focusStart }
           data-element='start-date'
           ref={ this.startDateInputRef }
-          isDateRange
+          labelWidth={ this.inlineLabelWidth } // Textbox only applies this when labelsInLine prop is true
         />
         <DateInput
-          { ...this.endDateProps() } onFocus={ this.focusEnd }
+          { ...this.dateProps('end') }
+          onFocus={ this.focusEnd }
           data-element='end-date'
           ref={ this.endDateInputRef }
-          isDateRange
+          labelWidth={ this.inlineLabelWidth } // Textbox only applies this when labelsInLine prop is true
         />
       </StyledDateRange>
     );
@@ -219,9 +189,8 @@ class DateRange extends React.Component {
 DateRange.propTypes = {
   /**
    * Optional label for endDate field
-   * eslint is disabled because the prop is used to determine the label in the dateProps function
    */
-  endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  endLabel: PropTypes.string,
   /** Custom callback - receives array of startDate and endDate */
   onChange: PropTypes.func,
   /** Custom callback - receives array of startDate and endDate */
@@ -230,15 +199,36 @@ DateRange.propTypes = {
   value: PropTypes.arrayOf(PropTypes.string),
   /* The default value of the input if it's meant to be used as an uncontrolled component */
   defaultValue: PropTypes.arrayOf(PropTypes.string),
+  /** Indicate that error has occurred on start date
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  startError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred on start date
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  startWarning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information for start date
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  startInfo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that error has occurred on end date
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  endError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred on end date
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  endWarning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information for end date
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  endInfo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icons will be placed on labels instead of being placed on the inputs */
+  validationOnLabel: PropTypes.bool,
   /**
    * Optional label for startDate field
-   * eslint is disabled because the prop is used to determine the label in the dateProps function
    */
-  startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  /** Custom message for startDate field */
-  startMessage: PropTypes.string,
-  /** Custom message for endDate field */
-  endMessage: PropTypes.string,
+  startLabel: PropTypes.string,
   /** Display labels inline */
   labelsInline: PropTypes.bool,
   /** Props for the child start Date component */

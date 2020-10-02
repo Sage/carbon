@@ -1,0 +1,24 @@
+name: Chromatic PR
+
+# Running on pull_request allows developers to push to a branch without triggering chromatic
+# Opening/re-opening/synchronising a PR, will run chromatic, even if the PR is a draft.
+on: pull_request
+
+jobs:
+  chromatic:
+    # if not a fork
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }} 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - run: npm ci
+    - uses: chromaui/action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        exitOnceUploaded: true # We don't want it to fail CI, we'll be using the GitHub Check

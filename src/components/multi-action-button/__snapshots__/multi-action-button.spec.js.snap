@@ -61,6 +61,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
 }
 
 .c3:focus {
@@ -111,7 +112,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   white-space: nowrap;
   left: 0;
   right: auto;
-  z-index: 12;
+  z-index: 2000;
 }
 
 .c0 .c4 {

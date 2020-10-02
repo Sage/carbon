@@ -13,7 +13,6 @@ const renderStyledButton = (buttonProps) => {
     theme,
     forwardRef,
     href,
-    styleOverride,
     ...styleProps
   } = buttonProps;
 
@@ -33,7 +32,6 @@ const renderStyledButton = (buttonProps) => {
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
-      styleOverride={ styleOverride }
     >
       { renderChildren(buttonProps) }
     </StyledButton>
@@ -42,7 +40,12 @@ const renderStyledButton = (buttonProps) => {
 
 const Button = (props) => {
   const {
-    disabled, to, iconType, renderRouterLink, size, subtext
+    disabled,
+    to,
+    iconType,
+    renderRouterLink,
+    size,
+    subtext
   } = props;
 
   const { as, buttonType, ...rest } = props;
@@ -138,23 +141,24 @@ Button.propTypes = {
   href: PropTypes.string,
   /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
   to: PropTypes.string,
-  /** Allows override of existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  }),
   /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
-  renderRouterLink: PropTypes.func
+  renderRouterLink: PropTypes.func,
+  /** Apply fullWidth style to the button */
+  fullWidth: PropTypes.bool,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Margin left, any valid CSS value */
+  ml: PropTypes.string
 };
 
 Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
+  fullWidth: false,
   disabled: false,
   destructive: false,
   iconPosition: 'before',
-  subtext: '',
-  styleOverride: { root: {}, icon: {} }
+  subtext: ''
 };
 
 const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);

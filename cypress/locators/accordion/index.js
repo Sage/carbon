@@ -1,17 +1,25 @@
 import {
-  ACCORDION_PREVIEW, ACCORDION_CONTENT, ACCORDION_TITLE_CONTAINER, ACCORDION_TITLE,
+  ACCORDION_PREVIEW,
+  ACCORDION_TITLE_CONTAINER,
+  ACCORDION_ICON,
+  ACCORDION_DEFAULT_ID,
 } from './locators';
 
 // component preview locators
-export const accordion = () => cy.iFrame(ACCORDION_PREVIEW);
-export const accordionTitleContainer = () => accordion().find(ACCORDION_TITLE_CONTAINER);
-export const accordionTitleContainerNoIFrame = () => cy.get(ACCORDION_PREVIEW)
-  .find(ACCORDION_TITLE_CONTAINER);
-export const accordionTitle = () => accordionTitleContainer().find(ACCORDION_TITLE);
-export const accordionContent = () => accordion().find(ACCORDION_CONTENT);
-export const accordionIcon = () => accordionTitleContainer()
-  .find('span');
-export const accordionTitleContainerByPosition = index => accordion()
+export const accordionIframe = () => cy.iFrame(ACCORDION_PREVIEW);
+export const accordionTitleContainerInIframe = () => accordionIframe().find(ACCORDION_TITLE_CONTAINER);
+export const accordionIcon = () => accordionTitleContainerInIframe()
+  .find(ACCORDION_ICON);
+export const accordionTitleContainerByPositionInIfame = index => accordionIframe()
   .find(ACCORDION_TITLE_CONTAINER).eq(index).children();
-export const accordionTitleContainerByPositionNoIFrame = index => cy.get(ACCORDION_PREVIEW)
+
+// DS locators
+export const accordionDefaultTitleDS = () => cy.iFrame(ACCORDION_DEFAULT_ID)
+  .find(ACCORDION_TITLE_CONTAINER);
+
+// NoIFrame locators
+export const accordionTitleContainer = () => cy.get(ACCORDION_PREVIEW)
+  .find(ACCORDION_TITLE_CONTAINER);
+export const accordionDefaultTitle = () => cy.get(ACCORDION_TITLE_CONTAINER);
+export const accordionTitleContainerByPosition = index => cy.get(ACCORDION_PREVIEW)
   .find(ACCORDION_TITLE_CONTAINER).eq(index).children();

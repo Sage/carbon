@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Modal from './modal.component';
-import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 
 describe('Modal', () => {
@@ -44,7 +43,7 @@ describe('Modal', () => {
     });
 
     it('does not remove the event listener if it was not in use', () => {
-      wrapper = shallow(<Modal onCancel={ onCancel } />);
+      wrapper = shallow(<Modal open={ false } onCancel={ onCancel } />);
       wrapper.unmount();
       expect(mockWindow.removeEventListener).not.toHaveBeenCalled();
     });
@@ -65,7 +64,7 @@ describe('Modal', () => {
         jest.useFakeTimers();
         onCancel = jasmine.createSpy('cancel');
         wrapper = shallow(
-          <Modal onCancel={ onCancel } />
+          <Modal open={ false } onCancel={ onCancel } />
         );
       });
 
@@ -105,7 +104,7 @@ describe('Modal', () => {
     describe('when the modal is closed', () => {
       beforeEach(() => {
         wrapper = shallow(
-          <Modal onCancel={ onCancel } />
+          <Modal open={ false } onCancel={ onCancel } />
         );
       });
 
@@ -126,49 +125,6 @@ describe('Modal', () => {
         jest.runTimersToTime(500);
         expect(clearTimeout).toHaveBeenCalled();
         expect(wrapper.state()).toEqual({ state: 'closed' });
-      });
-    });
-  });
-
-  describe('closeModal', () => {
-    describe('when disableEscKey is false', () => {
-      beforeEach(() => {
-        onCancel = jasmine.createSpy('cancel');
-        wrapper = shallow(
-          <Modal open onCancel={ onCancel } />
-        );
-      });
-
-      describe('when the esc key is released', () => {
-        it('calls the cancel modal handler', () => {
-          spyOn(Events, 'isEscKey').and.returnValue(true);
-          wrapper.instance().closeModal({});
-          expect(onCancel).toHaveBeenCalled();
-        });
-      });
-
-      describe('when any other key is released', () => {
-        it('calls the cancel modal handler', () => {
-          spyOn(Events, 'isEscKey').and.returnValue(false);
-          wrapper.instance().closeModal({});
-          expect(onCancel).not.toHaveBeenCalled();
-        });
-      });
-    });
-
-    describe('when disableEscKey is true', () => {
-      onCancel = jasmine.createSpy('cancel');
-      wrapper = shallow(
-        <Modal
-          disableEscKey
-          open
-          onCancel={ onCancel }
-        />
-      );
-
-      it('does not call onCancel', () => {
-        wrapper.instance().closeModal({ which: 12 });
-        expect(onCancel).not.toHaveBeenCalled();
       });
     });
   });
@@ -199,6 +155,52 @@ describe('Modal', () => {
           />
         );
         expect(wrapper).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when the modal is open', () => {
+    let domNode;
+    let escapeKeyEvent;
+    const onCancelFn = jest.fn();
+
+    beforeEach(() => {
+      escapeKeyEvent = new KeyboardEvent('keyup', {
+        key: 'Escape',
+        which: 27,
+        bubbles: true
+      });
+      wrapper = mount(
+        <Modal open onCancel={ onCancelFn } />
+      );
+      domNode = wrapper.getDOMNode();
+      document.body.appendChild(domNode);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(domNode);
+    });
+
+    describe('and the esc key is released', () => {
+      it('stopImmediatePropagation function should have been called on the event', () => {
+        jest.spyOn(escapeKeyEvent, 'stopImmediatePropagation');
+        domNode.dispatchEvent(escapeKeyEvent);
+        expect(escapeKeyEvent.stopImmediatePropagation).toHaveBeenCalled();
+      });
+
+      it('then the onCancel method should have been called', () => {
+        onCancelFn.mockReset();
+        domNode.dispatchEvent(escapeKeyEvent);
+        expect(onCancelFn).toHaveBeenCalled();
+      });
+
+      describe('with disableEscKey prop set to true', () => {
+        it('then the onCancel method should not have been called', () => {
+          wrapper.setProps({ disableEscKey: true });
+          onCancelFn.mockReset();
+          domNode.dispatchEvent(escapeKeyEvent);
+          expect(onCancelFn).not.toHaveBeenCalled();
+        });
       });
     });
   });

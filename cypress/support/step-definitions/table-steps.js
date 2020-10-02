@@ -1,11 +1,26 @@
 import {
   rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
-  actionToolbar, checkboxInHeader, actionToolbarButton,
+  actionToolbar, checkboxInHeader, actionToolbarButton, pagination, tableBody,
+  tableHeaderInIFrame,
+  tableAjax,
+  paginationButtonByIndexInIFrame,
 } from '../../locators/table';
-import { themeColor, tableHeaderSize, positionOfElement } from '../helper';
+import { themeColor, tableHeaderSize, positionOfElement, positionOfPaginationButton } from '../helper';
 
 Then('I see {int} records', (records) => {
-  rows().should('have.length', records);
+  if (records === 0) {
+    tableBody().should('have.length', 1);
+  } else {
+    rows().should('have.length', records);
+  }
+});
+
+Then('I see {int} records for Table Ajax', (records) => {
+  if (records === 0) {
+    tableAjax().children().should('have.length', 1);
+  } else {
+    tableAjax().children().should('have.length', records + 1);
+  }
 });
 
 Then('rows are selectable', () => {
@@ -78,7 +93,7 @@ When('Code column is sorted in {string} order', (sortOrder) => {
   }
 });
 
-Then('caption is set to {string}', (text) => {
+Then('caption is set to {word}', (text) => {
   caption().should('have.text', text);
 });
 
@@ -87,7 +102,7 @@ Then('theme on preview is {string}', (theme) => {
 });
 
 When('{int} row has zebra striping', (rowNumber) => {
-  rowNumbers(rowNumber).should('have.css', 'background-color', 'rgb(249, 250, 251)');
+  rowNumbers(rowNumber).should('have.css', 'background-color', 'rgb(250, 251, 251)');
 });
 
 Then('Table header size on preview is set to {string}', (size) => {
@@ -118,6 +133,14 @@ Then('I click {string} header', (headerName) => {
   }
 });
 
+Then('I click {string} header in IFrame', (headerName) => {
+  if (headerName === 'Country') {
+    tableHeaderInIFrame().eq(positionOfElement('first')).click();
+  } else {
+    tableHeaderInIFrame().eq(positionOfElement('second')).click();
+  }
+});
+
 When('I check checkbox on header', () => {
   checkboxInHeader().eq(positionOfElement('first')).click();
 });
@@ -145,4 +168,12 @@ Then('Action Toolbar elemens are visible and have {string} color', (color) => {
     .and('have.css', 'color', color)
     .and('be.visible')
     .and('contain', 'Test Action');
+});
+
+Then('pagination is visible', () => {
+  pagination().should('be.visible');
+});
+
+Then('I click {string} pagination button in IFrame', (button) => {
+  paginationButtonByIndexInIFrame(positionOfPaginationButton(button)).click();
 });

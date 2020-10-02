@@ -1,0 +1,53 @@
+{
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "subtextOtherLanguage": {
+    "size": "large",
+    "subtext": "mp150ú¿¡üßä"
+  },
+  "subtextSpecialCharacter": {
+    "size": "large",
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "buttonTypePrimary": {
+    "buttonType": "primary"
+  },
+  "buttonTypeSecondary": {
+    "buttonType": "secondary"
+  },
+  "buttonTypeTertiary": {
+    "buttonType": "tertiary"
+  },
+  "buttonTypeDarkBackground": {
+    "buttonType": "darkBackground"
+  },
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "iconPositionAfter": {
+    "has icon": true,
+    "iconType": "add",
+    "iconPosition": "after"
+  },
+  "iconPositionBefore": {
+    "has icon": true,
+    "iconType": "add",
+    "iconPosition": "before"
+  }
+}

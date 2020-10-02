@@ -1,16 +1,5 @@
-import { spinner } from '../../locators/spinner';
+
 import { loader, loaderInsideButton } from '../../locators/loader';
-
-const SPINNER_CLASS_PREFIX = 'carbon-spinner--';
-
-Then('Loader {word} is set to {string}', (word, value) => {
-  spinner().should('have.class', `${SPINNER_CLASS_PREFIX}${value}`);
-});
-
-Then('Loader Legacy Spinner width and height is set to {string}', (value) => {
-  spinner($element => expect($element).to.have.css('height', `${value}px`));
-  spinner($element => expect($element).to.have.css('width', `${value}px`));
-});
 
 Then('Loader width is set to {int} px and height is set to {int} px', (width, height) => {
   loader().should('have.css', 'height', `${height}px`)
@@ -20,15 +9,6 @@ Then('Loader width is set to {int} px and height is set to {int} px', (width, he
 Then('button with loader width is set to {int} px and height is set to {int} px', (width, height) => {
   loaderInsideButton().should('have.css', 'height', `${height}px`)
     .and('have.css', 'width', `${width}px`);
-});
-
-Then('Loader {string} color is set to {string}', (parameter, color) => {
-  spinner().should('have.css', `${parameter}`, `${color}`);
-});
-
-Then('Loader {string} color is set to {string} gradient of {string} base color', (parameter, gradient, baseColor) => {
-  const color = baseColor.replace('rgb', 'rgba').replace(')', `, ${gradient})`);
-  spinner().should('have.css', `${parameter}`, `${color}`);
 });
 
 Then('Loader isInsideButton and backgroundColor is {string}', (color) => {

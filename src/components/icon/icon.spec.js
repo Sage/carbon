@@ -251,6 +251,32 @@ describe('Icon component', () => {
     });
   });
 
+  describe('spacing props', () => {
+    describe('when mr prop is passed', () => {
+      it('renders with proper margin-right style', () => {
+        const wrapper = renderStyles({ mr: 2 });
+        assertStyleMatch(
+          {
+            marginRight: '16px'
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+
+    describe('when ml prop is passed', () => {
+      it('renders with proper margin-left style', () => {
+        const wrapper = renderStyles({ ml: 2 });
+        assertStyleMatch(
+          {
+            marginLeft: '16px'
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+  });
+
   describe('background color', () => {
     describe('when disabled', () => {
       it('renders backgroundColor in a proper color', () => {
@@ -282,8 +308,8 @@ describe('Icon component', () => {
         const wrapper = renderStyles({ bgTheme: status });
         const hoverColors = {
           info: '#005C9B',
-          error: '#9F2C3F',
-          success: '#008C00',
+          error: '#9F2D3F',
+          success: '#008D00',
           warning: '#BA5000'
         };
         it(`renders proper background color for ${status}`, () => {
