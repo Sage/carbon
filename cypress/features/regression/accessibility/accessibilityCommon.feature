@@ -39,7 +39,6 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | app wrapper         |
       | button toggle       |
       | carousel            |
       | card                |
@@ -71,3 +70,11 @@ Feature: Accessibility tests - Common list
       | table-ajax          |
       | table               |
       | tooltip             |
+
+ @accessibility
+  Scenario Outline: Component <component> default_story
+    When I open "<component>" component page "default_story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component     |
+      | AppWrapper    |
