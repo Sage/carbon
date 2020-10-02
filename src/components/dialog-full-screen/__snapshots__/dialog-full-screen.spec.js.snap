@@ -1,0 +1,318 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to content exists and contains html 1`] = `
+.c0 {
+  overflow-y: auto;
+}
+
+.c4 + .c0 {
+  height: calc(100% - 0px);
+}
+
+.c0 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
+}
+
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: 0;
+}
+
+.c2:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c2 ~ .c1 {
+  margin-left: 16px;
+}
+
+.c2:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c2:hover .c3 {
+  color: #FFFFFF;
+}
+
+.c2 .c3 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c2 .c3 svg {
+  margin-top: 0;
+}
+
+<div
+  class="c0"
+  data-element="content"
+>
+  <div
+    class="carbon-app-wrapper"
+    data-component="app-wrapper"
+  >
+    <button
+      class="c1 c2"
+      data-component="button"
+      role="button"
+      type="button"
+    >
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Button
+        </span>
+      </span>
+    </button>
+    <button
+      class="c1 c2"
+      data-component="button"
+      role="button"
+      type="button"
+    >
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Button
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to heading exists 1`] = `
+.c5 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c5:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c5::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e91e";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c6 {
+  width: 100%;
+}
+
+.c6.c6.c6.c6 .c11 {
+  margin-top: -22px;
+  margin-top: -14px;
+}
+
+.c6.c6.c6.c6 .c11 a,
+.c6.c6.c6.c6 .c11 button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 8px;
+}
+
+.c1 {
+  border-bottom: 1px solid #CCD6DB;
+}
+
+.c1 .carbon-app-wrapper {
+  position: relative;
+  max-width: none;
+  padding: 32px;
+}
+
+.c1 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+  border: none;
+}
+
+.c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.c3 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c3:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c3:hover {
+  cursor: pointer;
+}
+
+.c3::-moz-focus-inner {
+  border: none;
+}
+
+.c3 .c4 {
+  position: relative;
+}
+
+.c3 .c4:focus {
+  border: none;
+}
+
+.c7 .c2 {
+  position: absolute;
+  right: 33px;
+  top: 32px;
+  z-index: 1;
+}
+
+.c0 + .c8 {
+  height: calc(100% - 0px);
+}
+
+.c0 + .c9 {
+  height: calc(100% - 0px);
+}
+
+.c10:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c10 .c4 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c10 .c4 svg {
+  margin-top: 0;
+}
+
+<div
+  class="c0 c1"
+  data-component="full-screen-heading"
+>
+  <div
+    class="carbon-app-wrapper"
+    data-component="app-wrapper"
+  >
+    <button
+      class="c2 c3"
+      data-element="close"
+    >
+      <span
+        class="c4 c5"
+        data-component="icon"
+        data-element="close"
+        font-size="small"
+        type="close"
+      />
+    </button>
+    <div
+      class="c6 carbon-heading carbon-heading--has-divider"
+      data-component="heading"
+    >
+      <div
+        class="carbon-heading__header"
+      >
+        <div
+          class="carbon-heading__headers"
+        >
+          <div
+            class="carbon-heading__main-header"
+          >
+            <h1
+              class="carbon-heading__title"
+              data-element="title"
+            >
+              my custom heading
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
