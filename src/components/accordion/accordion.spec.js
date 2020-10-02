@@ -140,6 +140,49 @@ describe('Accordion', () => {
       wrapper.update();
       isCollapsed(wrapper);
     });
+
+    describe('when window resizes', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <AccordionGroup>
+            <Accordion title='Title_1' defaultExpanded>
+              <div>Foo</div>
+            </Accordion>
+          </AccordionGroup>
+        );
+      });
+
+      it('recalculates the content height', () => {
+        act(() => render({ expanded: true }));
+        wrapper.update();
+        isExpanded(wrapper);
+
+        assertStyleMatch({
+          maxHeight: `${contentHeight}px`
+        }, wrapper.find(StyledAccordionContentContainer));
+
+        const newContentHeight = 400;
+
+        jest.spyOn(
+          wrapper.find(StyledAccordionContent).getDOMNode(), 'scrollHeight', 'get'
+        ).mockImplementation(() => newContentHeight);
+        act(() => {
+          global.innerWidth = 500;
+          global.innerHeight = 500;
+
+          global.dispatchEvent(new Event('resize'));
+        });
+        wrapper.update();
+
+        assertStyleMatch({
+          maxHeight: `${newContentHeight}px`
+        }, wrapper.find(StyledAccordionContentContainer));
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+    });
   });
 
   describe('layout', () => {

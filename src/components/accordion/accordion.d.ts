@@ -28,7 +28,7 @@ export interface AccordionProps {
   /** Sets accordion title */
   title: string;
   /** Sets accordion sub title */
-  subTitle: string;
+  subTitle?: string;
   /** Sets accordion size */
   size: 'large' | 'small';
   /** Adds additional top and bottom padding */
