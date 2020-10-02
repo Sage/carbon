@@ -1,3 +1,39 @@
+## [42.1.0](https://github.com/Sage/carbon/compare/v42.0.0...v42.1.0) (2020-10-02)
+
+
+### Features
+
+* **accordion:** calculate content height on window resize ([2e8dd71](https://github.com/Sage/carbon/commit/2e8dd71be47933f9bad9fc0497247890d26c59f3))
+
+
+### Bug Fixes
+
+* **definition-list:** display as grid to enable content wrapping ([3af247a](https://github.com/Sage/carbon/commit/3af247a548a87bcab495372c2197de9764b46d24))
+
+## [42.0.0](https://github.com/Sage/carbon/compare/v41.2.0...v42.0.0) (2020-09-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **switch:** switch component no longer supports classic theme
+* **checkbox:** checkbox component no longer supports classic theme
+* **sidebar:** The classic theme has been removed from sidebar. To
+upgrade please use a DLS theme.
+
+Fixes FE-3088
+* **carousel:** The classic theme has been removed from carousel. To upgrade
+please use a DLS theme.
+* **carousel:** The `transition` prop has been removed from carousel. This was used in the classic theme.
+
+fixes FE-2908
+
+### Miscellaneous Chores
+
+* **carousel:** remove classic theme ([6c44050](https://github.com/Sage/carbon/commit/6c44050afc227a6659f9abd71cf8b9df8c17af1b))
+* **checkbox:** remove classic theme support ([99ad721](https://github.com/Sage/carbon/commit/99ad7217638e8d0f56bf2c26836c4c2185ac0360))
+* **sidebar:** remove classic theme ([d3c1175](https://github.com/Sage/carbon/commit/d3c117557f4ed284f8764fafe67bf6e97667fe6b))
+* **switch:** remove classic theme support ([53a22c0](https://github.com/Sage/carbon/commit/53a22c02d45bb330771541b46b796f9fb5b5a617))
+
 ## [41.2.0](https://github.com/Sage/carbon/compare/v41.1.1...v41.2.0) (2020-09-29)
 
 

@@ -44,7 +44,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Loader component theme to <theme>
-    When I open "loader" component with theme "<theme>"
+    When I open test_basic page "Loader" component with theme "<theme>"
     Then Loader component css background color is set to "<theme>"
     Examples:
       | theme  |

@@ -1,6 +1,5 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { CSSTransition } from 'react-transition-group';
 import { shallow, mount } from 'enzyme';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
@@ -17,18 +16,16 @@ import {
   CarouselSelectorInputWrapperStyle,
   CarouselNextButtonWrapperStyle
 } from './carousel.style';
-import classicTheme from '../../style/themes/classic';
 import mintTheme from '../../style/themes/mint';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
-/* global jest */
 
 describe('BaseCarousel', () => {
   let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <BaseCarousel theme={ classicTheme } className='foobar'>
+      <BaseCarousel className='foobar'>
         <Slide />
         <Slide />
         <Slide />
@@ -68,7 +65,7 @@ describe('BaseCarousel', () => {
     describe('when initialSelectedId is not passed', () => {
       it('defaults the initial slide to slide 0', () => {
         const wrapper = shallow(
-          <BaseCarousel theme={ classicTheme }>
+          <BaseCarousel>
             <Slide />
             <Slide />
             <Slide />
@@ -83,7 +80,7 @@ describe('BaseCarousel', () => {
   describe('componentWillReceiveProps', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+          <BaseCarousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -105,44 +102,38 @@ describe('BaseCarousel', () => {
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(wrapper.instance().transitionDirection).toEqual('next');
-      expect(wrapper.state().disabled).toBeTruthy();
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(1);
+      expect(wrapper.state().disabled).toBeFalsy();
 
       // Move to slide 1
       wrapper.setProps({ slideIndex: 1 });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(1);
       expect(wrapper.instance().transitionDirection).toEqual('previous');
-      expect(wrapper.state().disabled).toBeTruthy();
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(2);
+      expect(wrapper.state().disabled).toBeFalsy();
 
       // Move to slide 3
       wrapper.setProps({ slideIndex: 3 });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(0);
       expect(wrapper.instance().transitionDirection).toEqual('previous');
-      expect(wrapper.state().disabled).toBeTruthy();
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(3);
+      expect(wrapper.state().disabled).toBeFalsy();
 
       // Move to slide -1
       wrapper.setProps({ slideIndex: -1 });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
       expect(wrapper.instance().transitionDirection).toEqual('next');
-      expect(wrapper.state().disabled).toBeTruthy();
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
+      expect(wrapper.state().disabled).toBeFalsy();
 
       // Move to slide 2
       wrapper.setProps({ slideIndex: 2 });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
 
       // Undefined slideIndex
       wrapper.setProps({ slideIndex: undefined });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      expect(enableButtonsAfterTimeoutSpy.calls.count()).toEqual(4);
     });
 
     describe('when onSlideChange is set', () => {
@@ -156,26 +147,10 @@ describe('BaseCarousel', () => {
     });
   });
 
-  describe('enableButtonsAfterTimeout', () => {
-    it('sets a timeout', () => {
-      spyOn(window, 'setTimeout');
-      instance.enableButtonsAfterTimeout();
-      expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 750);
-    });
-
-    it('sets the disabled state to false', () => {
-      jest.useFakeTimers();
-      instance.setState({ disabled: true });
-      instance.enableButtonsAfterTimeout();
-      jest.runTimersToTime(750);
-      expect(instance.state.disabled).toBeFalsy();
-    });
-  });
-
   describe('onPreviousClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+          <BaseCarousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -194,14 +169,6 @@ describe('BaseCarousel', () => {
 
     it('sets the transistion direction to previous', () => {
       expect(wrapper.instance().transitionDirection).toEqual('previous');
-    });
-
-    it('disables the buttons', () => {
-      expect(wrapper.state().disabled).toBeTruthy();
-    });
-
-    it('calls to re-enable buttons after timeout', () => {
-      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when on slide 0', () => {
@@ -227,7 +194,7 @@ describe('BaseCarousel', () => {
   describe('onNextClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+          <BaseCarousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -246,14 +213,6 @@ describe('BaseCarousel', () => {
 
     it('sets the transistion direction to next', () => {
       expect(wrapper.instance().transitionDirection).toEqual('next');
-    });
-
-    it('disables the buttons', () => {
-      expect(wrapper.state().disabled).toBeTruthy();
-    });
-
-    it('calls to re-enable buttons after timeout', () => {
-      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when on the last slide', () => {
@@ -279,7 +238,7 @@ describe('BaseCarousel', () => {
   describe('onSlideSelection', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+          <BaseCarousel initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
@@ -295,14 +254,6 @@ describe('BaseCarousel', () => {
 
     it('sets the new slideIndex', () => {
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
-    });
-
-    it('disables the buttons', () => {
-      expect(wrapper.state().disabled).toBeTruthy();
-    });
-
-    it('calls to re-enable the buttons', () => {
-      expect(wrapper.instance().enableButtonsAfterTimeout).toHaveBeenCalled();
     });
 
     describe('when new slide index is greater than current', () => {
@@ -353,7 +304,7 @@ describe('BaseCarousel', () => {
     describe('when one child', () => {
       it('returns 1', () => {
         instance = TestUtils.renderIntoDocument(
-          <BaseCarousel theme={ classicTheme } className='foobar'>
+          <BaseCarousel className='foobar'>
             <Slide />
           </BaseCarousel>
         );
@@ -374,7 +325,7 @@ describe('BaseCarousel', () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <BaseCarousel theme={ classicTheme }>
+        <BaseCarousel theme={ mintTheme }>
           <Slide />
         </BaseCarousel>
       );
@@ -385,32 +336,12 @@ describe('BaseCarousel', () => {
     it('returns a slide instance', () => {
       expect(slide.type).toEqual(Slide);
     });
-
-    it('adds an active and a padded classes', () => {
-      expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
-    });
-
-    describe('when the previous button is disabled', () => {
-      it('adds a padded classes', () => {
-        wrapper.setProps({ enablePreviousButton: false });
-
-        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
-      });
-    });
-
-    describe('when the next button is disabled', () => {
-      it('adds a padded classes', () => {
-        wrapper.setProps({ enableNextButton: false });
-
-        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
-      });
-    });
   });
 
   describe('slideSelector', () => {
     describe('when enableSlideSelector is set to true', () => {
       const wrapper = shallow(
-        <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+        <BaseCarousel initialSlideIndex={ 0 }>
           <Slide />
           <Slide />
           <Slide />
@@ -428,7 +359,7 @@ describe('BaseCarousel', () => {
     describe('when enableSlideSelector is set to false', () => {
       const wrapper = shallow(
         <BaseCarousel
-          theme={ classicTheme } initialSlideIndex={ 0 }
+          initialSlideIndex={ 0 }
           enableSlideSelector={ false }
         >
           <Slide />
@@ -445,7 +376,7 @@ describe('BaseCarousel', () => {
   describe('previousButton', () => {
     describe('when enablePreviousButton is set to true', () => {
       const wrapper = shallow(
-        <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+        <BaseCarousel initialSlideIndex={ 0 }>
           <Slide />
         </BaseCarousel>
       );
@@ -459,7 +390,7 @@ describe('BaseCarousel', () => {
     describe('when enablePreviousButton is set to false', () => {
       const wrapper = shallow(
         <BaseCarousel
-          theme={ classicTheme } initialSlideIndex={ 0 }
+          initialSlideIndex={ 0 }
           enablePreviousButton={ false }
         >
           <Slide />
@@ -476,7 +407,10 @@ describe('BaseCarousel', () => {
   describe('nextButton', () => {
     describe('when enableNextButton is set to true', () => {
       const wrapper = shallow(
-        <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+        <BaseCarousel
+          initialSlideIndex={ 0 }
+          enableNextButton
+        >
           <Slide />
         </BaseCarousel>
       );
@@ -490,7 +424,7 @@ describe('BaseCarousel', () => {
     describe('when enableNextButton is set to false', () => {
       const wrapper = shallow(
         <BaseCarousel
-          theme={ classicTheme } initialSlideIndex={ 0 }
+          initialSlideIndex={ 0 }
           enableNextButton={ false }
         >
           <Slide />
@@ -508,7 +442,7 @@ describe('BaseCarousel', () => {
     describe('on component', () => {
       const wrapper = shallow(
         <BaseCarousel
-          theme={ classicTheme }
+
           data-element='bar' data-role='baz'
           initialSlideIndex={ 0 }
         >
@@ -523,7 +457,7 @@ describe('BaseCarousel', () => {
 
     describe('on internal elements', () => {
       const wrapper = mount(
-        <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
+        <BaseCarousel initialSlideIndex={ 0 }>
           <Slide data-element='slide' />
         </BaseCarousel>
       );
@@ -532,18 +466,6 @@ describe('BaseCarousel', () => {
         wrapper.find('[data-element="slide"]').exists();
         wrapper.find('[data-element="visible-slide"]').exists();
       });
-    });
-  });
-
-  describe('classNames', () => {
-    it('uses a custom name if supplied', () => {
-      const wrapper = mount(
-        <BaseCarousel theme={ classicTheme } transition='foo'>
-          <Slide />
-        </BaseCarousel>
-      );
-      const transitionGroup = wrapper.find(CSSTransition);
-      expect(transitionGroup.props().classNames).toEqual('carousel-transition-foo');
     });
   });
 });
@@ -564,26 +486,19 @@ describe('When button get click', () => {
 });
 
 describe('CarouselPreviousButtonWrapperStyle', () => {
-  const wrapper = mount(<CarouselPreviousButtonWrapperStyle theme={ classicTheme } />);
+  const wrapper = mount(<CarouselPreviousButtonWrapperStyle />);
   it('should render matched style', () => {
     assertStyleMatch({
-      marginTop: '-22.5px'
+      marginTop: '-32.5px'
     }, wrapper);
   });
 });
 
 describe('CarouselStyledIcon', () => {
-  it('should render matched style when classic', () => {
-    const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
-    assertStyleMatch({
-      fontSize: '25px'
-    }, wrapper, { modifier: '&&::before' });
-  });
-
   it('should render matched style when modern themed', () => {
     const wrapper = mount(<CarouselStyledIcon theme={ mintTheme } />);
     assertStyleMatch({
-      color: '#FFFFFF'
+      color: 'rgba(0,0,0,0.65)'
     }, wrapper);
   });
 });
@@ -599,20 +514,19 @@ describe('CarouselButtonStyle', () => {
   });
 
   it('should render matched style', () => {
-    wrapper = mount(<CarouselButtonStyle theme={ classicTheme } />);
+    wrapper = mount(<CarouselButtonStyle />);
     assertStyleMatch({
-      width: '45px',
-      height: '45px',
-      backgroundColor: '#CCD6DB',
-      color: 'rgba(0,0,0,0.85)'
+      width: '40px',
+      height: '64px',
+      color: '#FFFFFF'
     }, wrapper);
   });
 
   it('should render matched style to next button', () => {
-    wrapper = mount(<CarouselNextButtonWrapperStyle theme={ classicTheme } />);
+    wrapper = mount(<CarouselNextButtonWrapperStyle />);
 
     assertStyleMatch({
-      marginRight: '0'
+      marginRight: '2px'
     }, wrapper);
   });
 });
@@ -621,10 +535,10 @@ describe('CarouselSelectorWrapperStyle', () => {
   let wrapper;
 
   it('should render matched styles', () => {
-    wrapper = mount(<CarouselSelectorWrapperStyle theme={ classicTheme } />);
+    wrapper = mount(<CarouselSelectorWrapperStyle />);
     assertStyleMatch({
       height: '20px',
-      marginTop: '5px',
+      marginTop: '25px',
       textAlign: 'center'
     }, wrapper);
   });
@@ -649,14 +563,13 @@ describe('CarouselSelectorLabelStyle', () => {
   let wrapper;
 
   it('should render matched style', () => {
-    wrapper = mount(<CarouselSelectorLabelStyle theme={ classicTheme } />);
+    wrapper = mount(<CarouselSelectorLabelStyle />);
 
     assertStyleMatch({
-      border: '1px solid #4C6F7F',
-      background: 'transparent',
-      width: '8px',
-      height: '8px',
-      margin: '0px 5px'
+      background: '#CCD6DB',
+      width: '10px',
+      height: '10px',
+      margin: '0px 4px'
     }, wrapper);
   });
 });
@@ -665,10 +578,10 @@ describe('CarouselSelectorInputWrapperStyle', () => {
   let wrapper;
 
   it('should render matched style', () => {
-    wrapper = mount(<CarouselSelectorInputWrapperStyle theme={ classicTheme } />);
+    wrapper = mount(<CarouselSelectorInputWrapperStyle />);
 
     assertStyleMatch({
-      width: '22px'
+      display: 'inline-block'
     }, wrapper);
   });
 });
@@ -678,9 +591,7 @@ describe('SlideStyle', () => {
 
   it('should render matched style', () => {
     wrapper = mount(<Slide
-      transitionName={ () => {} }
       onClick={ () => { } }
-      style={ classicTheme }
     />);
     assertStyleMatch({
       transition: 'all 0.2s ease-in',
