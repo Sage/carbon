@@ -1,3 +1,11 @@
+## [42.3.0](https://github.com/Sage/carbon/compare/v42.2.0...v42.3.0) (2020-10-02)
+
+
+### Features
+
+* **button:** add spacing props ([abf89e3](https://github.com/Sage/carbon/commit/abf89e33593814381cf00c0f48416e3c1c95e601))
+* **select:** add spacing props ([b3684de](https://github.com/Sage/carbon/commit/b3684de16e00c0fe3d0426e13d336ec783b211d4))
+
 ## [42.2.0](https://github.com/Sage/carbon/compare/v42.1.0...v42.2.0) (2020-10-02)
 
 
