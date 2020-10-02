@@ -1,3 +1,10 @@
+## [42.2.0](https://github.com/Sage/carbon/compare/v42.1.0...v42.2.0) (2020-10-02)
+
+
+### Features
+
+* **dialog full screen:** added reference to scrollable content ([00183f9](https://github.com/Sage/carbon/commit/00183f9035484f54afa3b7f6790796f22b2ecc7d)), closes [#3116](https://github.com/Sage/carbon/issues/3116)
+
 ## [42.1.0](https://github.com/Sage/carbon/compare/v42.0.0...v42.1.0) (2020-10-02)
 
 
