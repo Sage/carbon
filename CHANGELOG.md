@@ -1,3 +1,15 @@
+## [42.1.0](https://github.com/Sage/carbon/compare/v42.0.0...v42.1.0) (2020-10-02)
+
+
+### Features
+
+* **accordion:** calculate content height on window resize ([2e8dd71](https://github.com/Sage/carbon/commit/2e8dd71be47933f9bad9fc0497247890d26c59f3))
+
+
+### Bug Fixes
+
+* **definition-list:** display as grid to enable content wrapping ([3af247a](https://github.com/Sage/carbon/commit/3af247a548a87bcab495372c2197de9764b46d24))
+
 ## [42.0.0](https://github.com/Sage/carbon/compare/v41.2.0...v42.0.0) (2020-09-30)
 
 
