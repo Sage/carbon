@@ -5,7 +5,9 @@ import React, {
   useCallback
 } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import invariant from 'invariant';
+
 import StyledSimpleSelect from './simple-select.style';
 import SelectTextbox, { formInputPropTypes } from '../select-textbox/select-textbox.component';
 import SelectList from '../select-list/select-list.component';
@@ -28,7 +30,7 @@ const SimpleSelect = React.forwardRef(({
   onClick,
   onFocus,
   onKeyDown,
-  ...textboxProps
+  ...props
 }, inputRef) => {
   const selectListId = useRef(guid());
   const labelId = useRef(guid());
@@ -312,7 +314,7 @@ const SimpleSelect = React.forwardRef(({
       onFocus: handleTextboxFocus,
       onKeyDown: handleTextboxKeydown,
       onChange: handleTextboxChange,
-      ...textboxProps
+      ...props
     };
   }
 
@@ -325,6 +327,7 @@ const SimpleSelect = React.forwardRef(({
       aria-expanded={ isOpen }
       aria-haspopup='listbox'
       ref={ containerRef }
+      { ...props }
     >
       <SelectTextbox
         aria-controls={ isOpen ? selectListId.current : '' }
@@ -350,6 +353,8 @@ const SimpleSelect = React.forwardRef(({
 });
 
 SimpleSelect.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
   ...formInputPropTypes,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.oneOfType([

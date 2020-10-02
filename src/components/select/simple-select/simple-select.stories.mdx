@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import { Select, Option } from '../';
 import SelectTextbox from '../select-textbox/select-textbox.component';
+import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Select" />
 
@@ -176,7 +177,7 @@ import { Select, Option } from "carbon-react/lib/components/select";
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
-  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
+  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }, info: { disable: true }}}>
     <Select
       name='transparent'
       id='transparent'
@@ -199,9 +200,10 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   </Story>
 </Preview>
 
-## Props:
-
-<Props of={ Select } />
+<StyledSystemProps
+  of={ Select }
+  spacing
+/>
 
 ### Props derived from the Textbox Component
 
