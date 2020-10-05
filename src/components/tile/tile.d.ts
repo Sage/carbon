@@ -18,12 +18,12 @@ export interface TileProps extends SpacingProps {
    * Set a pixel with for the Tile component. If both are set to non-zero values, this
    * takes precedence over the percentage-based "width" prop.
    */
-  pixelWidth: number;
+  pixelWidth?: number;
   /**
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.
    */
-  width: number;
+  width?: number;
 }
 
 declare const Tile: React.FunctionComponent<TileProps>;

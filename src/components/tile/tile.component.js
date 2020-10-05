@@ -21,10 +21,14 @@ const Tile = ({
         width={ contentWidth }
         isHorizontal={ isHorizontal(orientation) }
         isVertical={ isVertical(orientation) }
-        pt={ isVertical(orientation) && (props.pt, props.py, p) }
-        pb={ isVertical(orientation) && (props.pb, props.py, p) }
-        pr={ isHorizontal(orientation) && (props.pr, props.px, p) }
-        pl={ isHorizontal(orientation) && (props.pl, props.px, p) }
+        { ...(isVertical(orientation) && {
+          pt: props.pt || props.py || p,
+          pb: props.pb || props.py || p
+        }) }
+        { ...(isHorizontal(orientation) && {
+          pr: props.pr || props.px || p,
+          pl: props.pl || props.px || p
+        }) }
       >
         {React.cloneElement(child, childProps)}
       </TileContent>
@@ -47,6 +51,7 @@ const Tile = ({
 };
 
 Tile.propTypes = {
+  /** Styled system spacing props */
   ...propTypes.space,
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
   as: PropTypes.oneOf(OptionsHelper.tileThemes),

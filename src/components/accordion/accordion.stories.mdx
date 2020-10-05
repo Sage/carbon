@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 import { AccordionGroup, Accordion } from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Button from '../button';
 import { Dl, Dt, Dd } from '../definition-list';
 import { Checkbox } from '../../__experimental__/components/checkbox';
+import Box from '../box';
 
 <Meta
   title="Design System/Accordion"
@@ -73,6 +75,18 @@ Default version of accordion has white background and no side borders.
 <Preview>
   <Story name="default">
     <Accordion title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### With disableContentPadding
+Accordion without padding inside of the content.
+<Preview>
+  <Story parameters={{ chromatic: { disable: true }}} name="with disableContentPadding">
+    <Accordion disableContentPadding title='Heading'>
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -152,15 +166,147 @@ The default width of 100% can be overriden.
   </Story>
 </Preview>
 
-### Custom padding
-Extra padding be be added top and bottom.
+### With different padding and margin
+
 <Preview>
-  <Story name="custom padding">
-    <Accordion customPadding={50} title='Heading'>
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
-    </Accordion>
+  <Story name="with different padding and margin">
+    <>
+      <Accordion m={0} p={0} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={1} p={1} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={2} p={2} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={3} p={3} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={4} p={4} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={5} p={5} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={6} p={6} title="Accordion">
+        <div>content</div>
+      </Accordion>
+    </>
+  </Story>
+</Preview>
+
+### With different padding and margin in Accordion title
+
+<Preview>
+  <Story name="with different padding and margin in Accordion title">
+    <>
+      <Accordion headerSpacing={{p:0}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:1}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:2}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:3}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:4}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:5}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{p:6}} title="Accordion">
+        <div>content</div>
+      </Accordion>
+    </>
+  </Story>
+</Preview>
+
+### With Box component and different paddings
+
+<Preview>
+  <Story name="with Box component and different paddings">
+    {() => {
+      const [isOpen, setOpen] = useState(true);
+      return(
+        <>
+          <Accordion 
+            expanded={isOpen} 
+            onClick={() => setOpen(!isOpen)} 
+            disableContentPadding 
+            headerSpacing={{p:2}} 
+            title="Accordion controlled">
+            <Box p={2} pr='21px'>
+                <Box bg="gray">This is example content inside of the Box component with gray background</Box>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
+                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
+                Donec semper odio elit, tempus ultrices est molestie id. 
+                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
+                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
+                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
+                Aenean et condimentum arcu, non malesuada elit. 
+                Cras a magna vestibulum, semper tortor id, molestie eros.
+                </div>
+            </Box>
+          </Accordion>
+          <Accordion disableContentPadding headerSpacing={{p:3}} title="Accordion with a very long title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. ">
+            <Box p={3} pr='29px'>
+              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
+                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
+                Donec semper odio elit, tempus ultrices est molestie id. 
+                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
+                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
+                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
+                Aenean et condimentum arcu, non malesuada elit. 
+                Cras a magna vestibulum, semper tortor id, molestie eros.
+                </div>
+            </Box>
+          </Accordion>
+          <Accordion disableContentPadding headerSpacing={{p:4}} title="Accordion">
+            <Box p={4} pr='37px'>
+              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
+                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
+                Donec semper odio elit, tempus ultrices est molestie id. 
+                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
+                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
+                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
+                Aenean et condimentum arcu, non malesuada elit. 
+                Cras a magna vestibulum, semper tortor id, molestie eros.
+                </div>
+            </Box>
+          </Accordion>
+          <Accordion disableContentPadding headerSpacing={{p:5}} title="Accordion">
+            <Box p={5} pr="45px">
+              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
+                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
+                Donec semper odio elit, tempus ultrices est molestie id. 
+                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
+                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
+                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
+                Aenean et condimentum arcu, non malesuada elit. 
+                Cras a magna vestibulum, semper tortor id, molestie eros.
+                </div>
+            </Box>
+          </Accordion>
+        </>
+      )
+    }}
   </Story>
 </Preview>
 
@@ -376,3 +522,4 @@ Accordion styles can be easily overriden by providing `styleOverride` prop with 
 </Preview>
 
 <Props of={Accordion} />
+<StyledSystemProps of={Accordion} spacing />

@@ -126,7 +126,8 @@ describe('Tile', () => {
         return TestRenderer.create(<TileContent { ...props }>Test</TileContent>).toJSON();
       }
 
-      testStyledSystemSpacing(props => <Tile { ...props } />, { p: 3 }, wrapper => wrapper.find(StyledTile));
+      // eslint-disable-next-line max-len
+      testStyledSystemSpacing(props => <Tile { ...props } headerSpace={ { p: 3 } } />, { p: 3 }, wrapper => wrapper.find(StyledTile));
 
       it('has the correct base styles', () => {
         const wrapper = renderTileContent();

@@ -8,7 +8,7 @@ const TileContent = styled.div`
     width, isHorizontal, isVertical, theme
   }) => css`
     ${space}
-  
+    box-sizing: border-box;
     position: relative;
     flex-grow: 1;
 
