@@ -44,7 +44,6 @@ Feature: Accessibility tests - Common list
       | card                |
       | configurable-items  |
       | content             |
-      | detail              |
       | draggableContext    |
       | heading             |
       | help                |
@@ -78,3 +77,4 @@ Feature: Accessibility tests - Common list
     Examples:
       | component     |
       | AppWrapper    |
+      | Detail        |
