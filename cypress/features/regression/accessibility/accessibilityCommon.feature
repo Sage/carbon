@@ -39,7 +39,6 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | app wrapper         |
       | button toggle       |
       | carousel            |
       | card                |
@@ -77,4 +76,5 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component     |
+      | AppWrapper    |
       | Detail        |
