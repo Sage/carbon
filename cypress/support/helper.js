@@ -1,5 +1,8 @@
 import {
-  knobsTab, actionsTab, clearButton, getKnobsInputWithName,
+  knobsTab,
+  actionsTab,
+  clearButton,
+  getKnobsInputWithName,
   getElementNoIframe,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
@@ -24,35 +27,19 @@ export function visitComponentUrl(component, suffix = 'default', iFrameOnly = fa
   if (!iFrameOnly) knobsTab().click();
 }
 
-export function visitComponentUrlByTheme(component, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
-}
-
-export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '', prefix = '') {
-  cy.visit(`${prepareUrl(component, 'knobs', true, prefix)}&theme=${theme}${sufix}`);
-}
-
 export function visitComponentUrlWithParameters(component, story, sufix = '', prefix = '', json = '', path = '', nameOfObject = '') {
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
     let url = '';
     for (const prop in el) {
-      url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+      if (prop === 'theme') {
+        url += `&theme=${encodeURIComponent(el[prop])}`;
+      } else {
+        url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+      }
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
   });
-}
-
-export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '', prefix = '') {
-  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
-}
-
-export function visitComponentUrlByThemeByStoryDesignSystemTest(component, story, theme, sufix = '', prefix = '') {
-  cy.visit(`${prepareUrl(component, story, true, 'design-system-', prefix)}&theme=${theme}${sufix}`);
-}
-
-export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, story, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
 }
 
 export function clickActionsTab(iFrameOnly = false) {
@@ -88,15 +75,6 @@ export function dragAndDrop(draggableElement, destinationPosition, startFromHigh
   draggableElement
     .trigger('mouseup', { force: true, release: true });
   console.log('Dropped item');
-}
-
-export function setSlidebar(selector, value) {
-  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-  selector.then(($range) => {
-    const range = $range[0];
-    nativeInputValueSetter.call(range, value);
-    range.dispatchEvent(new Event('change', { value, bubbles: true }));
-  });
 }
 
 export function pressESCKey() {
