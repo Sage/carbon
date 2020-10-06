@@ -235,6 +235,22 @@ describe('Label', () => {
       expect(icon.exists()).toEqual(false);
     });
   });
+
+  describe.each(validationTypes)('when %s prop is passed as string and label is inline', (vType) => {
+    it('tooltip should render in position "top"', () => {
+      const wrapper = render({ [vType]: 'Message', useValidationIcon: true, inline: true }, mount);
+      const icon = wrapper.find(ValidationIcon);
+      expect(icon.prop('tooltipPosition')).toBe('top');
+    });
+  });
+
+  describe.each(validationTypes)('when %s prop is passed as string and label is not inline', (vType) => {
+    it('tooltip should render in position "right"', () => {
+      const wrapper = render({ [vType]: 'Message', useValidationIcon: true }, mount);
+      const icon = wrapper.find(ValidationIcon);
+      expect(icon.prop('tooltipPosition')).toBe('right');
+    });
+  });
 });
 
 function render(props, renderer = mount) {
