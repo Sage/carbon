@@ -368,8 +368,8 @@ describe('ShowEditPod', () => {
         }, classic);
       });
 
-      it('then the "podType" prop in the Pod Component should be set to "secondary"', () => {
-        expect(wrapper.find(Pod).props().podType).toBe('secondary');
+      it('then the "variant" prop in the Pod Component should be set to "secondary"', () => {
+        expect(wrapper.find(Pod).props().variant).toBe('secondary');
       });
     });
 

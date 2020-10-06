@@ -38,45 +38,52 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page in noIFrame
     Then "<component>" component has no accessibility violations
     Examples:
-      | component                        |
-      | app wrapper                      |
-      | button toggle                    |
-      | carousel                         |
-      | card                             |
-      | configurable-items               |
-      | content                          |
-      | detail                           |
-      | draggableContext                 |
-      | heading                          |
-      | help                             |
-      | i18ncomponent                    |
-      | icon                             |
-      | link                             |
-      | loader                           |
-      | menulist                         |
-      | menu                             |
-      | message                          |
-      | mount-in-app                     |
-      | multi-action-button              |
-      | navigation-bar                   |
-      | pill                             |
-      | pod                              |
-      | portrait                         |
-      | preview                          |
-      | profile                          |
-      | row                              |
-      | showeditpod                      |
-      | settingsrow                      |
-      | split-button                     |
-      | step-sequence-item               |
-      | step-sequence                    |
-      | table-ajax                       |
-      | table                            |
-      | tabs                             |
-      | tile                             |
-      | tooltip                          |
+      | component           |
+      | app wrapper         |
+      | button toggle       |
+      | carousel            |
+      | card                |
+      | configurable-items  |
+      | content             |
+      | detail              |
+      | draggableContext    |
+      | heading             |
+      | help                |
+      | i18ncomponent       |
+      | icon                |
+      | link                |
+      | loader              |
+      | menulist            |
+      | menu                |
+      | message             |
+      | mount-in-app        |
+      | multi-action-button |
+      | navigation-bar      |
+      | pill                |
+      | portrait            |
+      | preview             |
+      | profile             |
+      | row                 |
+      | showeditpod         |
+      | settingsrow         |
+      | split-button        |
+      | step-sequence-item  |
+      | step-sequence       |
+      | table-ajax          |
+      | table               |
+      | tabs                |
+      | tile                |
+      | tooltip             |
 
   @accessibility
   Scenario: Component Menu dark story
     When I open dark theme "Menu" component page in noIFrame
     Then "Menu dark theme" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Component <component> basic default page
+    When I open "<component>" component page "basic" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component |
+      | Pod       |
