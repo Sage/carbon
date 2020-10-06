@@ -94,7 +94,7 @@ Feature: Decimal input component
 
   @positive
   Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
-    Given I open "Experimental-Decimal-Input" component page in noIFrame
+    Given I open "Experimental-Decimal-Input" component page "default" in no iframe
     When I set Decimal input to <label>
     Then Decimal input is not set to <label>
     Examples:

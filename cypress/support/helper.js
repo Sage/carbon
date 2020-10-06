@@ -55,10 +55,6 @@ export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, s
   cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
 }
 
-export function visitFlatTableComponentNoiFrame(component, suffix = 'default', iFrameOnly = false, prefix = '', stickyRow = true, stickyHead = true, clickableRow = true) {
-  cy.visit(`${prepareUrl(component, suffix, iFrameOnly, prefix, stickyRow, stickyHead, clickableRow)}&knob-hasHeaderRow=${stickyRow}&knob-hasStickyHead=${stickyHead}&knob-hasClickableRows=${clickableRow}`);
-}
-
 export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
 }

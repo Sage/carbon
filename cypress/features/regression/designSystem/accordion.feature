@@ -2,7 +2,7 @@ Feature: Design System Accordion component
   I want to test Design System Accordion component
 
   Background: Open Design System Accordion component page
-    Given I open design systems default_story "Accordion" component in no iframe
+    Given I open "Design System Accordion" component page "default_story" in no iframe
 
   @positive
   Scenario: I expand accordion using click
