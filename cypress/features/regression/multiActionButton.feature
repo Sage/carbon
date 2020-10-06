@@ -79,7 +79,7 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario: Check click event
-    Given I open "Multi Action Button" component page
+    Given I open "Multi Action Button" component page "default"
       And clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab

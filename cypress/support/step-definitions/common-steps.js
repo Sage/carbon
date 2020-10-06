@@ -47,9 +47,9 @@ Given('I open {word} {string} component in noIFrame with {string} json from {str
   visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
 });
 
-Given('I open {string} component page', (component) => {
-  visitComponentUrl(component);
-});
+// Given('I open {string} component page', (component) => {
+//   visitComponentUrl(component);
+// });
 
 Given('I open {string} component page {string}', (component, story) => {
   visitComponentUrl(component, story, false);
