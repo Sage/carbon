@@ -18,10 +18,6 @@ function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   return url + stringToURL(component) + (Cypress.env(suffix) || `--${stringToURL(suffix)}`);
 }
 
-export function visitDocsUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'docs') {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
-}
-
 export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'story') {
   cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
   if (!iFrameOnly) knobsTab().click();

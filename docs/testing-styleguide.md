@@ -141,6 +141,7 @@ Cypress tests are written in Gherkin syntax with Cucumber expressions. Observe t
 Some common test steps:
   * I open `<story name>` `<component name>` component in noIFrame with `<dedicated json file>` json from `<directory to take json from>` using `<object name in json>` object name
   * I open `<name>` component page `<story name>`;
+  * I open `<name>` component page `<story name>` in no iframe.
 
 ##### Scenario tags
 Test scenarios in feature files can be tagged to enable a subset of scenarios to be run, ignored or identified in some manner. Use the following tags:

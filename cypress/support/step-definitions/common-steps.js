@@ -1,7 +1,6 @@
 import {
   visitComponentUrl, pressESCKey, pressTABKey, asyncWaitForKnobs,
   positionOfElement, keyCode,
-  visitDocsUrl,
   visitComponentUrlWithParameters,
   clickActionsTab,
   clickClear,
@@ -35,10 +34,6 @@ const TEXT_ALIGN = 'justify-content';
 const TEXT_ALIGN_START = 'flex-start';
 const TEXT_ALIGN_END = 'flex-end';
 
-Given('I open Design Systems {word} {string} component docs page', (type, component) => {
-  visitDocsUrl(component, type, false, 'design-system-');
-});
-
 Given('I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
   visitComponentUrlWithParameters(component, type, true, 'design-system-', json, path, nameOfObject);
 });
@@ -47,10 +42,6 @@ Given('I open {word} {string} component in noIFrame with {string} json from {str
   visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
 });
 
-// Given('I open {string} component page', (component) => {
-//   visitComponentUrl(component);
-// });
-
 Given('I open {string} component page {string}', (component, story) => {
   visitComponentUrl(component, story, false);
 });
@@ -58,10 +49,6 @@ Given('I open {string} component page {string}', (component, story) => {
 Given('I open {string} component page {string} in no iframe', (component, story) => {
   visitComponentUrl(component, story, true);
 });
-
-// Given('I open {word} Test {string} component page', (type, component) => {
-//   visitComponentUrl(component, type, false, 'test-');
-// });
 
 When('I open {word} tab', (text) => {
   cy.wait(500, { log: DEBUG_FLAG }); // required because element needs to be loaded
@@ -127,10 +114,6 @@ Then('label on preview is {word} in NoIFrame', (text) => {
 
 Then('label is set to {word}', (text) => {
   getDataElementByValue('label').should('have.text', text);
-});
-
-When('I hover mouse onto help icon in IFrame', () => {
-  helpIconIframe().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
