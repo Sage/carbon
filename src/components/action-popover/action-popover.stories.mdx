@@ -9,6 +9,7 @@ import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
+import Link from '../link';
 
 <Meta title="Design System/Action Popover" parameters={{ info: { disable: true }}}/>
 
@@ -205,11 +206,36 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
             </ActionPopover>
           </TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover 
+              renderButton={ ({ 'data-element': dataElement }) => (
+                <Link
+                  onClick={() => {}}
+                  tabbable={false}
+                  data-element={ dataElement }
+                >
+                  More
+                </Link>
+              ) }
+            >
+              <ActionPopoverItem
+                icon='email'
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
       </Table>
     </div>
   </Story>
 </Preview>
-
 
 ## With a sub-menu
 A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron 
