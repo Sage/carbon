@@ -16,6 +16,7 @@ import Switch from "../../__experimental__/components/switch";
 import Button from '../button';
 import DialogFullScreen from '../dialog-full-screen';
 import Dialog from '../dialog';
+import AppWrapper from '../app-wrapper';
 
 <Meta
   title="Design System/Form"
@@ -277,12 +278,14 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
             title='Form in Dialog'
             subtitle='Subtitle'
           >
-            <Form
-              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
-            >
-              <Textbox label='Textbox' />
-            </Form>
+            <AppWrapper>
+              <Form
+                leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+                saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+              >
+                <Textbox label='Textbox' />
+              </Form>
+            </AppWrapper>
           </DialogFullScreen>
         </>
       );
