@@ -1,5 +1,6 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { useState, useRef } from 'react';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 import { 
   FlatTable, 
   FlatTableHead, 
@@ -14,17 +15,19 @@ import {
 import BatchSelection from '../batch-selection';
 import IconButton from '../icon-button';
 import Icon from '../icon';
+import Textbox from '../../__experimental__/components/textbox';
 import Pager from '../pager'
+import { ActionPopover, ActionPopoverItem } from '../action-popover';
 import { SidebarContext } from '../drawer';
 
-<Meta title="Design System/Flat Table" />
+<Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
 
 # Flat Table
 
 ### Basic usage:
 
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}} >
+  <Story name="basic">
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
@@ -66,9 +69,9 @@ import { SidebarContext } from '../drawer';
 
 ### With row headers
 <Preview>
-  <Story name="with row header" parameters={{ info: { disable: true }}} >
+  <Story name="with row header">
     <div style={ { width: '380px', overflowX: 'auto' } }>
-      <FlatTable hasRowHeader>
+      <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableRowHeader>Name</FlatTableRowHeader>
@@ -108,9 +111,73 @@ import { SidebarContext } from '../drawer';
   </Story>
 </Preview>
 
+### With custom cell paddings
+
+Padding can be set on each cell individually by using the usual spacing props syntax.
+<Preview>
+  <Story name="with custom cell paddings">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader px={5} py={2}>Name</FlatTableHeader>
+          <FlatTableHeader py={2}>Location</FlatTableHeader>
+          <FlatTableHeader py={2}>Relationship Status</FlatTableHeader>
+          <FlatTableHeader py={2}>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1,2,3,4].map((key) => 
+          <FlatTableRow key={key}>
+            <FlatTableCell px={5}>John Doe</FlatTableCell>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>5</FlatTableCell>
+          </FlatTableRow>
+        )}
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With custom column width
+
+Column width can be set by passing number as a `width` prop to the column header component.
+**Column width can't be smaller than the sum of horizontal cell padding and content width.**
+<Preview>
+  <Story name="with custom column width">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader width={200}>Notes</FlatTableHeader>
+          <FlatTableHeader width={40} px={1}>
+            <Icon iconColor="on-dark-background" type="settings"/>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1,2,3,4].map((key) => 
+          <FlatTableRow key={key}>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell><Textbox size="small"/></FlatTableCell>
+            <FlatTableCell px={1}>
+              <ActionPopover>
+                <ActionPopoverItem onClick={() => {}} icon='graph'>Business</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}} icon='email'>Email Invoice</ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+          </FlatTableRow>
+        )}
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
 ### With stickyHead prop set to true
 <Preview>
-  <Story name="with sticky head" parameters={{ info: { disable: true }}} >
+  <Story name="with sticky head">
     <div style={ { height: '150px' } }>
       <FlatTable hasStickyHead>
         <FlatTableHead>
@@ -154,7 +221,7 @@ import { SidebarContext } from '../drawer';
 
 ### With clickable rows
 <Preview>
-  <Story name="with clickable rows" parameters={{ info: { disable: true }}} >
+  <Story name="with clickable rows">
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
@@ -199,7 +266,7 @@ import { SidebarContext } from '../drawer';
 To create a transparent effect for the header, the background-color is set to match a white background
 
 <Preview>
-  <Story name="transparent-white theme" parameters={{ info: { disable: true }}} >
+  <Story name="transparent-white theme">
     <div>
       <FlatTable colorTheme="transparent-white">
         <FlatTableHead>
@@ -246,7 +313,7 @@ To create a transparent effect for the header, the background-color is set to ma
 To create a transparent effect for the header, the background-color is set to match the base app background
 
 <Preview>
-  <Story name="transparent-base theme" parameters={{ info: { disable: true }}} >
+  <Story name="transparent-base theme">
     <FlatTable colorTheme="transparent-base">
      <FlatTableHead>
         <FlatTableRow>
@@ -288,7 +355,7 @@ To create a transparent effect for the header, the background-color is set to ma
 
 ### With light theme 
 <Preview>
-  <Story name="light theme" parameters={{ info: { disable: true }}} >
+  <Story name="light theme">
     <FlatTable colorTheme="light">
       <FlatTableHead>
         <FlatTableRow>
@@ -335,7 +402,7 @@ To create a transparent effect for the header, the background-color is set to ma
 
 ### With a cell spanning the whole row 
 <Preview>
-  <Story name="with colspan" parameters={{ info: { disable: true }}} >
+  <Story name="with colspan">
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -356,7 +423,7 @@ To create a transparent effect for the header, the background-color is set to ma
 
 ### With a cell spanning the whole column 
 <Preview>
-  <Story name="with rowspan" parameters={{ info: { disable: true }}} >
+  <Story name="with rowspan">
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -395,7 +462,7 @@ If a given action is available for some, but not all, selected rows, then the ac
 
 Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
 <Preview>
-  <Story name="selectable rows" parameters={{ info: { disable: true } }} >
+  <Story name="selectable rows">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
@@ -473,7 +540,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
 ### With Highlightable Rows
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 <Preview>
-  <Story name="highlightable rows" parameters={{ info: { disable: true } }} >
+  <Story name="highlightable rows">
     {() => {
       const [highlightedRow, setHighlightedRow] = useState('');
       const handleHighlightRow = (id) => {
@@ -528,7 +595,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 ### With Selectable and Highlightable Rows
 It is also possible to integrate selection of multiple rows and the highlighting of single rows.
 <Preview>
-  <Story name="selectable and highlightable rows" parameters={{ info: { disable: true } }} >
+  <Story name="selectable and highlightable rows">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
@@ -616,7 +683,7 @@ If pagination is needed, this can be shown at the bottom of the table.
 
 Balance performance concerns with the convenience of the user being able to see more data - we suggest giving the user the option of showing 25, 50, and 100 table rows before pagination, with a default of 50. Whatever the user selects, make this sticky per user, per table, and between sessions.
 <Preview>
-  <Story name="paginated" parameters={{ info: { disable: true }}} >
+  <Story name="paginated">
     {() => {
       const rows = [
         <FlatTableRow key='0'>
@@ -707,7 +774,7 @@ Balance performance concerns with the convenience of the user being able to see 
 
 ### When a child of Sidebar
 <Preview>
-  <Story name="when a child of sidebar" parameters={{ info: { disable: true }}} >
+  <Story name="when a child of sidebar">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
@@ -812,7 +879,12 @@ Balance performance concerns with the convenience of the user being able to see 
 
 ### FlatTableHeader
 
-<Props of={FlatTableHeader} />
+<StyledSystemProps
+  of={ FlatTableHeader }
+  spacing
+  defaults={{ py: 1, px: 3 }}
+  noHeader
+/>
 
 ### Sort
 
@@ -820,11 +892,21 @@ Balance performance concerns with the convenience of the user being able to see 
 
 ### FlatTableCell
 
-<Props of={FlatTableCell} />
+<StyledSystemProps
+  of={ FlatTableCell }
+  spacing
+  defaults={{ py: '10px', px: 3 }}
+  noHeader
+/>
 
 ### FlatTableRowHeader
 
-<Props of={FlatTableRowHeader} />
+<StyledSystemProps
+  of={ FlatTableRowHeader }
+  spacing
+  defaults={{ py: "10px", px: 3 }}
+  noHeader
+/>
 
 ### FlatTableCheckbox
 

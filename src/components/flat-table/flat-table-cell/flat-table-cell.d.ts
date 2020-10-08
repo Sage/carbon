@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { SpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface FlatTableCellProps {
+export interface FlatTableCellProps extends SpacingProps {
   /** Content alignment */
   align: string;
   children?: React.ReactNode | string;
