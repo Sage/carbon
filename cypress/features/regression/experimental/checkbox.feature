@@ -70,6 +70,6 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Change Checkbox tick color
-    Given I open "Experimental Checkbox Test" component page
+    Given I open "Experimental Checkbox Test" component page "default"
     When I mark checkbox on preview
     Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"

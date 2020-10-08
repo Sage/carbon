@@ -1,7 +1,7 @@
 Feature: Action Popover component in noIFrame
   I want to change Action Popover component properties in noIFrame
 
-  Background: Open Action Popover component page in noIFrame
+  Background: Open Action Popover component page in no iframe
     Given I open "Design System Action Popover Test" component page "default" in no iframe
 
   @positive

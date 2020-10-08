@@ -2,7 +2,7 @@ Feature: Advanced Color Picker component
   I want to test Advanced Color Picker component
 
   Background: Open Advanced Color Picker component page
-  Given I open design systems default_story "Advanced Color Picker" component in no iframe
+  Given I open "Design System Advanced Color Picker" component page "default_story" in no iframe
     And I open Advanced Color Picker
 
   @positive

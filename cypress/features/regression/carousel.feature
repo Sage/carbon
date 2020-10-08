@@ -54,7 +54,7 @@ Feature: Carousel component
 
   @positive
   Scenario: Verify the click event for a clickable slide
-    Given I open "Carousel" component page
+    Given I open "Carousel" component page "default"
       And I select slideIndex to "1"
       And clear all actions in Actions Tab
     When I click clickable slide

@@ -2,7 +2,7 @@ Feature: Design System Multi Select component
   I want to check Design System Multi Select component events
 
   Background: Open Design System Multi Select component page
-    Given I open design systems basic "Select multiselect" component page
+    Given I open "Design System Select multiselect" component page "basic"
 
   @positive
   Scenario: Check the onChange events after typed string into the input

@@ -2,7 +2,7 @@ Feature: Design System Select filterable component
   I want to check Design System Select filterable component events
 
   Background: Open Design System Select filterable component page
-    Given I open design systems basic "Select filterable" component page
+    Given I open "Design System Select filterable" component page "basic"
 
   @positive
   Scenario: Check the onChange events after typed string into the input
