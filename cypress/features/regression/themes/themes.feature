@@ -75,7 +75,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Show Edit Pod component theme to <theme>
-    When I open "showeditpod" component with theme "<theme>"
+    When I open "Showeditpod Test" component with theme "<theme>"
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  |
