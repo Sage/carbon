@@ -4,13 +4,10 @@ import { mount, shallow } from 'enzyme';
 import Tooltip from '../tooltip';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import 'jest-styled-components';
 import Icon from './icon.component';
 import StyledIcon from './icon.style';
-import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import classicConfig from './icon-classic-config';
-import dlsConfig from './icon-config';
+import iconConfig from './icon-config';
 import baseTheme from '../../style/themes/base';
 import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
@@ -44,33 +41,6 @@ describe('Icon component', () => {
     }
   );
 
-  describe.each(OptionsHelper.colors)(
-    'when in classic theme',
-    (bgTheme) => {
-      it(`applies proper background color for ${bgTheme}`, () => {
-        const wrapper = renderStyles({ theme: classicTheme, bgTheme });
-        assertStyleMatch(
-          {
-            backgroundColor: classicConfig.backgroundColor[bgTheme]
-          },
-          wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: 'normal',
-            lineHeight: '16px',
-            verticalAlign: 'middle'
-          },
-          wrapper.toJSON(),
-          { modifier: '&::before' }
-        );
-      });
-    }
-  );
-
   describe('when the icon type is services', () => {
     beforeEach(() => {
       browserTypeCheck.mockImplementation(() => true);
@@ -79,7 +49,7 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "small"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, fontSize: 'small'
+        type: 'services', fontSize: 'small'
       });
       assertStyleMatch(
         {
@@ -92,11 +62,11 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "large"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, fontSize: 'large'
+        type: 'services', fontSize: 'large'
       });
       assertStyleMatch(
         {
-          marginTop: '-7px'
+          marginTop: '-8px'
         },
         wrapper.toJSON(),
         { modifier: '&::before' }
@@ -106,11 +76,11 @@ describe('Icon component', () => {
     it('it applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
       browserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, fontSize: 'small'
+        type: 'services', fontSize: 'small'
       });
       assertStyleMatch(
         {
-          marginTop: '-4px'
+          marginTop: '-6px'
         },
         wrapper.toJSON(),
         { modifier: '&::before' }
@@ -366,11 +336,11 @@ describe('Icon component', () => {
       'with bgSize prop provided',
       (size) => {
         it(`renders in the proper size for ${size}`, () => {
-          const wrapper = renderStyles({ theme: classicTheme, bgSize: size });
+          const wrapper = renderStyles({ bgSize: size });
           assertStyleMatch(
             {
-              width: dlsConfig.backgroundSize[size],
-              height: dlsConfig.backgroundSize[size]
+              width: iconConfig.backgroundSize[size],
+              height: iconConfig.backgroundSize[size]
             },
             wrapper.toJSON()
           );
@@ -383,10 +353,10 @@ describe('Icon component', () => {
     'background shape',
     (shape) => {
       it(`renders in the proper size for ${shape}`, () => {
-        const wrapper = renderStyles({ theme: classicTheme, bgShape: shape });
+        const wrapper = renderStyles({ bgShape: shape });
         assertStyleMatch(
           {
-            borderRadius: dlsConfig.backgroundShape[shape]
+            borderRadius: iconConfig.backgroundShape[shape]
           },
           wrapper.toJSON()
         );
