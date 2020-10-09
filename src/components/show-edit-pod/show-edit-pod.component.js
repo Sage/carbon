@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import ReactDOM from 'react-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { withTheme } from 'styled-components';
 
 import Pod from '../pod';
 import Form from '../form';
@@ -12,9 +11,7 @@ import StyledDeleteButton from './delete-button.style';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import { StyledPod, StyledLink } from './show-edit-pod.style';
-import { isClassic } from '../../utils/helpers/style-helper';
-import { baseTheme } from '../../style/themes';
+import StyledPod from './show-edit-pod.style';
 
 class ShowEditPod extends React.Component {
   state = {
@@ -67,17 +64,6 @@ class ShowEditPod extends React.Component {
 
   deleteButton() {
     const label = this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' });
-
-    if (isClassic(this.props.theme)) {
-      return (
-        <StyledLink
-          onClick={ this.props.onDelete }
-          data-element='delete-link'
-        >
-          {label}
-        </StyledLink>
-      );
-    }
 
     return (
       <StyledDeleteButton
@@ -149,15 +135,11 @@ class ShowEditPod extends React.Component {
   }
 
   universalProps() {
-    const { podType, as } = this.props;
     const {
       onEdit, className, ...props
     } = validProps(this, Object.keys(Pod.propTypes));
 
-    return {
-      ...props,
-      variant: podType || as
-    };
+    return props;
   }
 
   contentProps() {
@@ -172,12 +154,7 @@ class ShowEditPod extends React.Component {
 
   editingProps() {
     const props = this.universalProps();
-
-    if (isClassic(this.props.theme)) {
-      props.variant = 'secondary';
-    }
     props.onKeyDown = this.onKeyDown;
-
     return props;
   }
 
@@ -207,10 +184,8 @@ class ShowEditPod extends React.Component {
 }
 
 ShowEditPod.propTypes = {
-  /** A legacy theme for the Pod. */
-  as: PropTypes.string,
-  /** Theme for the Pod. */
-  podType: PropTypes.string,
+  /** Pod theme variant. */
+  variant: PropTypes.string,
   /** Enable/disable the border on the Pod. */
   border: PropTypes.bool,
   /** This component supports children. */
@@ -243,21 +218,18 @@ ShowEditPod.propTypes = {
   /** Supply custom text for the delete button */
   deleteText: PropTypes.string,
   /** Can inform if the form is in a saving state (disables the save button) */
-  saving: PropTypes.bool,
-  /** Theme prop is used only to support legacy code */
-  theme: PropTypes.object
+  saving: PropTypes.bool
 };
 
 ShowEditPod.defaultProps = {
-  as: 'transparent',
+  variant: 'transparent',
   border: false,
   buttonAlign: 'right',
   transitionName: 'carbon-show-edit-pod__transition',
   cancel: true,
-  saving: false,
-  theme: baseTheme
+  saving: false
 };
 
-export default withTheme(ShowEditPod);
+export default ShowEditPod;
 
 export { ShowEditPod as BaseShowEditPod };

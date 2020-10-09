@@ -32,7 +32,7 @@ export const Default = () => {
   const displayEditButtonOnHover = onEdit ? boolean('displayEditButtonOnHover', false) : undefined;
   const triggerEditOnContent = onEdit ? boolean('triggerEditOnContent', false) : undefined;
   const internalEditButton = onEdit ? boolean('internalEditButton', false) : undefined;
-  const variant = select('variant', OptionsHelper.themesFull, Pod.defaultProps.as);
+  const variant = select('variant', OptionsHelper.themesFull, Pod.defaultProps.variant);
 
   return (
     <Pod
