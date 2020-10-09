@@ -3,8 +3,8 @@ import { SpacingProps } from '../../../utils/helpers/options-helper';
 
 export interface FlatTableHeaderProps extends SpacingProps {
   /** Content alignment */
-  align: string;
-  children: React.ReactNode | string;
+  align?: string;
+  children?: React.ReactNode | string;
   /** Number of columns that a header cell should span */
   colspan?: number | string;
   /** Number of rows that a header cell should span */
