@@ -30,6 +30,7 @@ const SimpleSelect = React.forwardRef(({
   onClick,
   onFocus,
   onKeyDown,
+  onBlur,
   ...props
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -314,6 +315,7 @@ const SimpleSelect = React.forwardRef(({
       onFocus: handleTextboxFocus,
       onKeyDown: handleTextboxKeydown,
       onChange: handleTextboxChange,
+      onBlur,
       ...props
     };
   }
