@@ -25,7 +25,7 @@ When('I open {string} component with theme {string} knobs story', (componentName
 });
 
 When('I open Icon component with theme {string}', (themeName) => {
-  visitComponentUrlByTheme('icon', themeName, BUSINESS_BGTHEME);
+  visitComponentUrlByTheme('icon-test', themeName, BUSINESS_BGTHEME);
 });
 
 Then('{string} component css {string} is set to {string} common', (componentName, css, themeName) => {
