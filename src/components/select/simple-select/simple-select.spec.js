@@ -20,7 +20,7 @@ describe('SimpleSelect', () => {
     expect(wrapper.find(Textbox).prop('type')).toBe('select');
   });
 
-  testStyledSystemSpacing(props => <SimpleSelect { ...props } />);
+  testStyledSystemSpacing(props => getSelect(props));
 
   it('the input ref should be forwarded', () => {
     let mockRef;
