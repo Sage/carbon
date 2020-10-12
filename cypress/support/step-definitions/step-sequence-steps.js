@@ -1,6 +1,7 @@
 import {
   stepSequence,
   stepSequenceElement,
+  stepSequenceItem,
   stepSequenceItemIndicator,
   ariaLabel,
   stepSequenceDataComponent,
@@ -20,6 +21,10 @@ Then('indicator is set to {word}', (indicator) => {
 
 Then('hidden label is set to {word}', (hiddenLabel) => {
   ariaLabel(ARIA_LABEL).contains(hiddenLabel).should('have.text', hiddenLabel);
+});
+
+Then('label {string} color is set to {string}', (text, color) => {
+  stepSequenceItem().contains(text).should('have.css', 'color', color);
 });
 
 Then('ariaLabel is set to {word}', (label) => {

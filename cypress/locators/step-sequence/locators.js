@@ -1,5 +1,5 @@
 // component preview locators
-const STORY_ROOT = '#story-root';
+const STORY_ROOT = '#root';
 export const STEP_SEQUENCE = `${STORY_ROOT} > ol`;
 export const STEP_SEQUENCE_ELEMENT = `${STEP_SEQUENCE} > li`;
 export const STEP_SEQUENCE_ITEM = `${STORY_ROOT} > li`;

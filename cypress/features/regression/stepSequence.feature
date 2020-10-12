@@ -3,7 +3,7 @@ Feature: Step Sequence component
 
   @positive
   Scenario Outline: I set orientation to <orientation>
-    When I open default "Step Sequence" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
+    When I open step-sequence "Step Sequence Test" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
     Then orientation is set to "<orientation>"
     Examples:
       | orientation | nameOfObject          |
