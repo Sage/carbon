@@ -7,7 +7,7 @@ import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { assertStyleMatch, testStyledSystemSpacing } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import StyledIcon from '../icon/icon.style';
 
@@ -23,8 +23,8 @@ const render = (props, renderer = shallow) => {
 };
 
 const variants = ['primary', 'secondary', 'tertiary', 'dashed', 'darkBackground'];
-const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
-
+const sizesPadding = { small: '16px', medium: '24px', large: '32px' };
+const sizesHeights = { small: '32px', medium: '40px', large: '48px' };
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
     it('renders the default props and children', () => {
@@ -35,6 +35,21 @@ describe('Button', () => {
       expect(wrapper.props().disabled).toEqual(false);
     });
   });
+
+  describe.each(variants)(
+    'spacing for %s button', (variant) => {
+      testStyledSystemSpacing(
+        props => <Button variant={ variant } { ...props }>Test</Button>, { px: '24px' }
+      );
+    }
+  );
+
+  describe.each(Object.entries(sizesPadding))(
+    'spacing for %s button', (size, px) => {
+      testStyledSystemSpacing(props => <Button size={ size } { ...props }>Test</Button>, { px });
+    }
+  );
+
 
   describe('when only the "iconPosition" and "iconType" props are passed into the component', () => {
     it('renders the default props and children to match the snapshot with the Icon before children', () => {
@@ -81,9 +96,7 @@ describe('Button', () => {
         borderColor: BaseTheme.colors.primary,
         color: BaseTheme.colors.primary,
         fontSize: '14px',
-        height: '40px',
-        paddingLeft: '24px',
-        paddingRight: '24px'
+        minHeight: sizesHeights.medium
       }, wrapper);
     });
   });
@@ -190,17 +203,15 @@ describe('Button', () => {
         borderColor: BaseTheme.disabled.button,
         color: BaseTheme.disabled.text,
         fontSize: '14px',
-        height: `${sizes.medium[0].toString()}px`,
-        paddingLeft: `${sizes.medium[1].toString()}px`,
-        paddingRight: `${sizes.medium[1].toString()}px`
+        minHeight: sizesHeights.medium
       }, wrapper);
     });
 
-    describe.each(Object.keys(sizes))(
+    describe.each(Object.entries(sizesHeights))(
       'when a "%s"',
-      (size) => {
+      (size, height) => {
         describe.each(variants)(
-          ' "%s" button is renderred',
+          ' "%s" button is rendered',
           (variant) => {
             it('matches the expected style', () => {
               const wrapper = render({
@@ -219,9 +230,7 @@ describe('Button', () => {
                 ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
-                height: `${sizes[size][0].toString()}px`,
-                paddingLeft: `${sizes[size][1].toString()}px`,
-                paddingRight: `${sizes[size][1].toString()}px`
+                minHeight: height
               }, wrapper);
             });
 
@@ -241,9 +250,7 @@ describe('Button', () => {
                 ),
                 color: BaseTheme.disabled.text,
                 fontSize: (size === 'large' ? '16px' : '14px'),
-                height: `${sizes[size][0].toString()}px`,
-                paddingLeft: `${sizes[size][1].toString()}px`,
-                paddingRight: `${sizes[size][1].toString()}px`
+                minHeight: height
               }, wrapper);
             });
           }
@@ -252,23 +259,8 @@ describe('Button', () => {
     );
   });
 
-  describe('when ml prop passed in', () => {
-    it('adds the correct left margin', () => {
-      const wrapper = TestRenderer.create(<StyledButton size='medium' ml='10%' />);
-      assertStyleMatch({
-        marginLeft: '10%'
-      }, wrapper.toJSON());
-    });
-  });
-
-  describe('when mb prop passed in', () => {
-    it('should add the correct bottom margin', () => {
-      expect(TestRenderer.create(<StyledButton mb={ 4 } />)).toMatchSnapshot();
-    });
-  });
-
   it('matches the applies the expected style to the icon', () => {
-    const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
+    const wrapper = TestRenderer.create(<StyledButton iconType='plus'>Test</StyledButton>);
     assertStyleMatch({
       height: '16px'
     }, wrapper.toJSON(), { modifier: `${StyledIcon}` });

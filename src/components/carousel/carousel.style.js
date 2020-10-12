@@ -1,39 +1,27 @@
 import styled, { css } from 'styled-components';
 import Icon from '../icon';
 import { slideAnimation, fadeAnimation } from './slide.config';
-import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
-import { CarouselButtonStyleClassic, CarouselSelectorLabelStyleClassic } from './carousel-classic.style';
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
   position: absolute;
   top: 50%;
   z-index: 20;
-
-  ${({ theme }) => isClassic(theme) && css`
-    margin-top: -22.5px;
-  `}
 `;
 
 const CarouselPreviousButtonWrapperStyle = styled(CarouselNavigationStyle)`
-  margin-left:  ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
+  margin-left: 2px;
 `;
 const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
-  margin-right: ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
+  margin-right: 2px;
 `;
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-  ${({ theme }) => !isClassic(theme) && css`
-    color: ${theme.colors.white};
-    :hover {
-      color: ${theme.colors.white};
-    }
-  `}
   &&::before {
-    font-size: ${({ theme }) => (isClassic(theme) ? '25px' : '16px')}
+    font-size: 16px;
   }
 `;
 
@@ -84,7 +72,6 @@ const CarouselButtonStyle = styled.button`
     `}
     }
 
-    ${CarouselButtonStyleClassic}
   `}
 `;
 
@@ -103,13 +90,12 @@ const CarouselSelectorLabelStyle = styled.label`
     cursor: pointer;
   }
 
-  ${CarouselSelectorLabelStyleClassic};
 `;
 
 const CarouselSelectorWrapperStyle = styled.div`
   ${({ theme }) => css`
     height: 20px;
-    margin-top: ${isClassic(theme) ? '5px' : '25px'};
+    margin-top: 25px;
     text-align: center;
 
     ${CarouselSelectorInputStyle}:checked {
@@ -119,11 +105,6 @@ const CarouselSelectorWrapperStyle = styled.div`
         height: 10px;
         position: relative;
         width: 10px;
-
-        ${isClassic(theme) && css`
-          background: #255BC7;
-          top: 1px;
-        `}
       }
     }
   `}
@@ -133,10 +114,6 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   display: inline-block;
   line-height: 20px;
   vertical-align: middle;
-
-  ${({ theme }) => isClassic(theme) && css`
-    width: 22px;
-  `}
 `;
 
 const CarouselSliderWrapper = styled.div`

@@ -33,7 +33,7 @@ You can provide a save button using the `saveButton` prop.
 
 
 ```jsx
-import Form from "carbon-react/lib/components/form"
+import Form from "carbon-react/lib/components/form";
 
 const MyComponent = () => (
   <Form
@@ -207,7 +207,7 @@ When `buttonAlignment` prop is set as `left`, buttons are aligned to the left si
 It is possible to render `Form` as a content of `Dialog` component.
 
 <Preview>
-  <Story name="In Dialog">
+  <Story name="In Dialog" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -235,7 +235,7 @@ It is possible to render `Form` as a content of `Dialog` component.
 With sticky footer
 
 <Preview>
-  <Story name="In Dialog with sticky footer">
+  <Story name="In Dialog with sticky footer" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -265,7 +265,7 @@ With sticky footer
 It is possible to render `Form` as a content of `DialogFullScreen` component.
 
 <Preview>
-  <Story name="In DialogFullScreen">
+  <Story name="In DialogFullScreen" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -282,6 +282,35 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
               saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
             >
               <Textbox label='Textbox' />
+            </Form>
+          </DialogFullScreen>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+With sticky footer
+
+<Preview>
+  <Story name="In DialogFullScreen with sticky footer" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
+          <DialogFullScreen
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title='Form in Dialog'
+            subtitle='Subtitle'
+          >
+            <Form
+              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+              stickyFooter
+            >
+              {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
             </Form>
           </DialogFullScreen>
         </>
@@ -448,35 +477,6 @@ Please click on "Show code" below to see how to set these components up for alig
         inputWidth={30}
       />
     </Form>
-  </Story>
-</Preview>
-
-With sticky footer
-
-<Preview>
-  <Story name="In DialogFullScreen with sticky footer">
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      return (
-        <>
-          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
-          <DialogFullScreen
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Form in Dialog'
-            subtitle='Subtitle'
-          >
-            <Form
-              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
-              stickyFooter
-            >
-              {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
-            </Form>
-          </DialogFullScreen>
-        </>
-      );
-    }}
   </Story>
 </Preview>
 
