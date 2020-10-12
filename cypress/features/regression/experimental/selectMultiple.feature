@@ -63,7 +63,7 @@ Feature: Select multiple component
 
   @positive
   Scenario: Verify the inner context of Select Multiple component
-    Given I open "Experimental Select" component page multiple
+    Given I open "Experimental Select" component page "multiple"
     When Type "Amber" text into input and select the value in iFrame
       And Type "Black" text into input and select the value in iFrame
       And Type "Green" text into input and select the value in iFrame
@@ -73,7 +73,7 @@ Feature: Select multiple component
 
   @positive
   Scenario: Check the change function call for Select Multiple component
-    Given I open "Experimental Select" component page multiple
+    Given I open "Experimental Select" component page "multiple"
     Given clear all actions in Actions Tab
     When Type "Black" text into input and select the value in iFrame
     Then change action was called in Actions Tab

@@ -1,85 +1,65 @@
 { 
-  "open": {
-    "open": true
-  },
   "height0": {
-    "open": true,
     "height": 0
   },
   "height1": {
-    "open": true,
     "height": 1
   },
   "height100": {
-    "open": true,
     "height": 100
   },
   "height-1": {
-    "open": true,
     "height": -1
   },
   "height-10": {
-    "open": true,
     "height": -10
   },
   "heightSpecialCharacter": {
-    "open": true,
     "height": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "titleOtherLanguage": {
-    "open": true,
     "title": "mp150ú¿¡üßä"
   },
   "titleSpecialCharacter": {
-    "open": true,
     "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "subtitleOtherLanguage": {
-    "open": true,
     "subtitle": "mp150ú¿¡üßä"
   },
   "subtitleSpecialCharacter": {
-    "open": true,
     "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "sizeExtraSmall": {
-    "open": true,
     "size": "extra-small"
   },
   "sizeSmall": {
-    "open": true,
     "size": "small"
   },
   "sizeMediumSmall": {
-    "open": true,
     "size": "medium-small"
   },
   "sizeMedium": {
-    "open": true,
     "size": "medium"
   },
   "sizeMediumLarge": {
-    "open": true,
     "size": "medium-large"
   },
   "sizeLarge": {
-    "open": true,
     "size": "large"
   },
   "sizeExtraLarge": {
-    "open": true,
     "size": "extra-large"
   },
   "showCloseIconFalse": {
-    "open": true,
     "showCloseIcon": false
   },
   "enableBackgroundUI":{
-    "open": true,
     "enableBackgroundUI": true
   },
   "enableBackgroundUIFalse":{
-    "open": true,
     "enableBackgroundUI": false
+  },
+  "stickyFooter": {
+    "Form component stickyFooter": true
   }
 }

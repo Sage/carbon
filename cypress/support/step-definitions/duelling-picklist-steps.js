@@ -1,9 +1,8 @@
 import {
   assignedPicklist, unassignedPicklistItems, duellingPicklistComponent, picklistRightLabel,
   picklistLeftLabel, assignedPicklistItems, unassignedPicklist, addButton, removeButton,
-  duellingSearchInput,
+  duellingSearchInput, checkBox,
 } from '../../locators/duelling-picklist/index';
-import { checkboxRole } from '../../locators/checkbox/index';
 import { positionOfElement, keyCode } from '../helper';
 
 Then('unassigned picklist has {int} items', (items) => {
@@ -33,11 +32,11 @@ Then('unassigned picklist is empty', () => {
 });
 
 Then('I check Access to all current and new clients checkbox', () => {
-  checkboxRole().check();
+  checkBox().check();
 });
 
 Then('I uncheck Access to all current and new clients checkbox', () => {
-  checkboxRole().uncheck();
+  checkBox().uncheck();
 });
 
 Then('Duelling Picklist is disabled', () => {

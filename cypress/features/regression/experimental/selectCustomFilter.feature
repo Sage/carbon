@@ -2,7 +2,7 @@ Feature: Experimental Select component customFilter story
   I want to test Experimental Select component properties in customFilter story
 
   Background: Open Experimental Select component page customFilter story
-    Given I open "Experimental Select" component page customFilter
+    Given I open "Experimental Select" component page "customFilter"
 
   @positive
   Scenario Outline: Verify Select component input <value> could be selected using synonyms <synonyms>
