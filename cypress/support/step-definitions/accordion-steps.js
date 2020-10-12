@@ -1,29 +1,29 @@
 import {
-  accordionTitleContainer,
+  accordionTitleContainerInIframe,
   accordionIcon,
+  accordionTitleContainerByPositionInIfame,
+  accordionTitleContainer,
   accordionTitleContainerByPosition,
-  accordionTitleContainerNoIFrame,
-  accordionTitleContainerByPositionNoIFrame,
   accordionDefaultTitleDS,
-  accordionDefaultTitleNoIFrame,
+  accordionDefaultTitle,
 } from '../../locators/accordion';
 import { positionOfElement, keyCode } from '../helper';
 
 Then('Accordion iconAlign property on preview is set to {string}', (iconAlign) => {
-  accordionTitleContainerByPosition(positionOfElement('first')).first()
+  accordionTitleContainerByPositionInIfame(positionOfElement('first')).first()
     .should('have.attr', 'data-element', 'accordion-headings-container')
     .and('be.visible');
-  accordionTitleContainerByPosition(positionOfElement('first')).last()
+  accordionTitleContainerByPositionInIfame(positionOfElement('first')).last()
     .should('have.attr', 'data-component', 'icon')
     .and('be.visible');
   if (iconAlign === 'right') { // set by default
-    accordionTitleContainer().should('have.css', 'justify-content', 'space-between')
+    accordionTitleContainerInIframe().should('have.css', 'justify-content', 'space-between')
       .and('not.have.css', 'flex-direction', 'row-reverse');
-    accordionTitleContainerByPosition(positionOfElement('first')).first()
+    accordionTitleContainerInIframe(positionOfElement('first')).first()
       .should('have.css', 'margin-right', '0px');
   } else {
-    accordionTitleContainer().should('have.css', 'flex-direction', 'row-reverse');
-    accordionTitleContainerByPosition(positionOfElement('first')).last()
+    accordionTitleContainerInIframe().should('have.css', 'flex-direction', 'row-reverse');
+    accordionTitleContainerByPositionInIfame(positionOfElement('first')).last()
       .should('have.css', 'margin-right', '16px');
   }
 });
@@ -45,15 +45,15 @@ When('I expand Design System accordionRow via click', () => {
 });
 
 When('I expand Design System accordionRow via click in NoIFrame', () => {
-  accordionDefaultTitleNoIFrame().click();
+  accordionDefaultTitle().click();
 });
 
 When('I expand accordionRow via click', () => {
-  accordionTitleContainer().click();
+  accordionTitleContainerInIframe().click();
 });
 
 When('I expand accordionRow using {string} key', (key) => {
-  accordionDefaultTitleDS().trigger('keydown', keyCode(key));
+  accordionDefaultTitle().trigger('keydown', keyCode(key));
 });
 
 Then('accordionRow is expanded', () => {
@@ -62,7 +62,7 @@ Then('accordionRow is expanded', () => {
 });
 
 Then('accordionRow has golden border outline', () => {
-  accordionDefaultTitleDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
+  accordionDefaultTitle().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
     .and('be.visible');
 });
 
@@ -71,10 +71,10 @@ When('I focus accordionRow', () => {
 });
 
 Then('Accordion {int} row is focused', (index) => {
-  accordionTitleContainerByPositionNoIFrame(index).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
+  accordionTitleContainerByPosition(index).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
     .and('be.visible');
 });
 
 When('I focus {word} accordionRow', (position) => {
-  accordionTitleContainerNoIFrame(positionOfElement(position)).first().focus({ force: true });
+  accordionTitleContainer(positionOfElement(position)).first().focus({ force: true });
 });

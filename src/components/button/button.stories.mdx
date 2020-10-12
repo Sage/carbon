@@ -1,12 +1,13 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import Button from '.';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Button" />
 
 # Button
 
 ```javascript
-import Button from 'carbon-react/lib/components/button';
+  import Button from 'carbon-react/lib/components/button';
 ```
 
 ## Primary Buttons
@@ -219,34 +220,11 @@ Dashed buttons can be `fullWidth`.
 </Preview>
 
 ## Shared Props
-Options shared between all of the above types of buttons.
+Options shared between all of the above types of buttons. When setting padding we recommend using either the `p`, `py` 
+or `px` props to ensure the spacing within the button is applied evenly.
 
-### Left margin
-The `ml` prop controls the left margin of the button. Any valid CSS string can be used.
-
-<Preview>
-  <Story name="all types/left-margin" parameters={{ info: { disable: true }}} >
-    <Button ml="10%">Left margin</Button>
-  </Story>
-</Preview>
-
-### Bottom margin
-The `mb` prop controls the bottom margin of the button. It is an integer which is multiplied by the base theme constant (8px). 
-
-<Preview>
-  <Story name="all types/bottom-margin" parameters={{ info: { disable: true }}} >
-  <>
-    <div>
-      <Button mb={1}>8px bottom margin</Button>
-    </div>
-    <div>
-      <Button mb={2}>16px bottom margin</Button>
-    </div>
-    <div>
-      <Button mb={3}>24px bottom margin</Button>
-    </div>
-  </>
-  </Story>
-</Preview>
-
-<Props of={Button} />
+<StyledSystemProps
+  of={Button}
+  spacing
+  spacingDefaults={{ pt: '1px', pb: '1px', px: '24px' }}
+/>

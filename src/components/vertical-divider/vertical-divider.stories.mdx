@@ -1,0 +1,371 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+
+import VerticalDivider from '.';
+import Dialog from '../dialog';
+import Button from '../button';
+import Tile from '../tile';
+import Content from '../content'
+import Icon from '../icon';
+import { GridContainer, GridItem } from '../grid'
+import { Menu, MenuItem, SubmenuBlock, MenuDivider, MenuVerticalDivider } from '../menu';
+import { FlatTable, FlatTableHead, FlatTableBody, FlatTableHeader, FlatTableRow, FlatTableCell } from '../flat-table';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+
+<Meta
+  title='Design System/VerticalDivider'
+  parameters={{ info: { disable: true }}}
+/>
+
+# VerticalDivider
+Provides a vertical dividing line to make the adjacent components feel distinctly separate from one another.
+
+## Quick Start
+
+To use component, import the `VerticalDivider` and set the padding to align it with the other components.
+
+```jsx
+  import VerticalDivider from 'carbon-react/lib/components/vertical-divider';
+
+  const MyComponent = () => (
+    <VerticalDivider />
+  );
+```
+
+## Visuals
+
+### Default
+By default the VerticalDivider has a height of `100%` and padding of `24px`.
+
+<Preview>
+  <Story name='default'>
+    <div style={{ display: 'inline-flex' }}> 
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+    </div>
+  </Story>
+</Preview>
+
+### In a flex container
+It is possible to set a custom height for the component by passing a value to the `h` prop as either a number or a string: 
+if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
+
+<Preview>
+  <Story name='in a flex container'>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 24 }}>
+      <Icon type='home' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='settings' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='add' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='minus' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='info' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='warning' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='chevron_up' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='chevron_down' />
+      <VerticalDivider h={ 16 } />
+      <Icon type='edit' />
+    </div>
+  </Story>
+</Preview>
+
+### In a non-flex container
+When using the component in a non-flex container you can set the `displayInline` prop to true (default is false). This will 
+add the css attribute `display: inline;` to the component.
+
+<Preview>
+  <Story name='in a non-flex container'>
+    <div style={{display: 'inline-block', width: '620px', height: 'auto', margin: '0px 180px' }}> 
+      <Icon type='home' />
+      <VerticalDivider displayInline />
+      <Icon type='settings' />
+      <VerticalDivider displayInline />
+      <Icon type='add' />
+      <VerticalDivider displayInline />
+      <Icon type='minus' />
+      <VerticalDivider displayInline />
+      <Icon type='info' />
+      <VerticalDivider displayInline />
+      <Icon type='warning' />
+      <VerticalDivider displayInline />
+      <Icon type='chevron_up' />
+      <VerticalDivider displayInline />
+      <Icon type='chevron_down' />
+      <VerticalDivider displayInline />
+      <Icon type='edit' />
+    </div> 
+  </Story>
+</Preview>
+
+### With custom spacing and height
+The `p` prop allows for the spacing on all sides to be customised. The `pt` and `pb` props set the vertical spacing and 
+the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base 
+theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
+
+<Preview>
+  <Story name='with custom spacing and height'>
+    <div style={{ display: 'inline-flex' }}> 
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={1} pb={1} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={1} pr={1} h={185} />
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={2} pb={2} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={2} pr={2} h={200} />
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={3} pb={3} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={3} pr={3} h={215}/>
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={4} pb={4} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={4} pr={4} h={230} />
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={5} pb={5} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={5} pr={5} h={245} />
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={6} pb={6} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+      <VerticalDivider pl={6} pr={6} h={260} />
+      <div>
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider h='100px' pt={7} pb={7} />
+        <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      </div>
+    </div>
+  </Story>
+</Preview>
+
+### Tint variants
+It is possible to pass a value (any value between `1` and `100`) to the `tint` prop (default is `80`) to adjust the tint 
+applied to the slate.
+
+<Preview>
+  <Story name='with custom tint'>
+    <div style={{ display: 'inline-flex' }}> 
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider tint={20} />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      <VerticalDivider tint={75} />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+      <VerticalDivider tint={80} />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+      <VerticalDivider tint={90} />
+      <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+    </div>
+  </Story>
+</Preview>
+
+### In a Dialog
+
+<Preview>
+  <Story name='in a dialog' parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(true) }>Click Me</Button>
+          <Dialog title='Title' open={ isOpen } onCancel={ () => setIsOpen(false) }>
+            <div style={{ display: 'inline-flex' }}>
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} />
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+              <VerticalDivider />
+              <div style={{ height: 56, width: 56, backgroundColor: '#00815D' }} /> 
+            </div>
+          </Dialog>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### In a Tile
+
+<Preview>
+  <Story name='in a tile'>
+    <Tile pixelWidth={800} orientation='vertical'>
+      <Content title='Test Title One'>
+        Test Body One
+      </Content>
+      <div style={{ display: 'inline-flex', height: 40 }}>
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} /> 
+      </div>
+    </Tile>
+  </Story>
+</Preview>
+
+## In a grid container
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
+<Preview>
+  <Story name='in grid container' parameters={{ info: { disable: true }}} >
+    <GridContainer>
+      <GridItem 
+        alignSelf='stretch'
+        justifySelf='stretch'
+        gridColumn='1'
+        gridColumn='1 / 2'
+        gridRow='1 / 2'
+      >
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+        <VerticalDivider h={100} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+      </GridItem>
+      <GridItem 
+        alignSelf='stretch'
+        justifySelf='stretch'
+        gridColumn='3 / 4'
+        gridRow='1 /2 '
+      >
+        <VerticalDivider h={180} />
+      </GridItem>
+      <GridItem 
+        alignSelf='stretch'
+        justifySelf='stretch'
+        gridColumn='5 / 6'
+        gridRow='1 / 2'
+      >
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+        <VerticalDivider h={100} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+      </GridItem>
+      <GridItem 
+        alignSelf='stretch'
+        justifySelf='stretch'
+        gridColumn='7 / 8'
+        gridRow='1 / 2'
+      >
+        <VerticalDivider h={180} />
+      </GridItem>
+       <GridItem 
+        alignSelf='stretch'
+        justifySelf='stretch'
+        gridColumn='9 / 10'
+        gridRow='1 / 2'
+      >
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+        <VerticalDivider h={100} />
+        <div style={{ height: 40, width: 40, backgroundColor: '#00815D' }} />
+      </GridItem>
+    </GridContainer>
+  </Story>
+</Preview>
+
+### In a table
+
+<Preview>
+  <Story name='in a table'>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Dish Name</FlatTableHeader>
+          <FlatTableHeader>Ingredients</FlatTableHeader>
+          <FlatTableHeader>Cooking Time</FlatTableHeader>
+          <FlatTableHeader>Prep Time</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Pancakes</FlatTableCell>
+          <FlatTableCell>
+            Eggs
+            <VerticalDivider displayInline />
+            Flour
+            <VerticalDivider displayInline />
+            Milk
+          </FlatTableCell>
+          <FlatTableCell>5 minutes</FlatTableCell>
+          <FlatTableCell>5 minutes</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### In a Menu
+
+<Preview>
+  <Story name='in a menu'>
+    <div style={{ minHeight: 120 }}> 
+      <Menu menuType='dark'>
+        <MenuItem href='#'>
+          Menu Item One
+        </MenuItem>
+        <VerticalDivider height={24} p={1} tint={20} />
+        <MenuItem submenu='Menu Item Three'>
+          <MenuItem href='#'>
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href='#'>
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div> 
+  </Story>
+</Preview>
+
+<StyledSystemProps
+  of={VerticalDivider}
+  spacing
+  spacingDefaults={{ p: '3' }}
+/>

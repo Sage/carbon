@@ -1,8 +1,10 @@
 import {
   simpleColorPickerDiv,
-  experimentalSimpleColorPickerInput,
   simpleColorPickerLegendNoIFrame,
 } from '../../locators/simple-color-picker';
+import {
+  experimentalSimpleColorPickerInputInIframe,
+} from '../../locators/advanced-color-picker/index';
 import { getKnobsInput, commonDataElementInputPreviewNoIframe } from '../../locators';
 import { keyCode } from '../helper';
 
@@ -16,26 +18,26 @@ Then('Simple Color Picker {int} element was picked up', (index) => {
 
 When('I pick {int} simple color input', (index) => {
   for (let i = 0; i < index; ++i) {
-    experimentalSimpleColorPickerInput(i + 1).click();
+    experimentalSimpleColorPickerInputInIframe(i + 1).click();
   }
 });
 
 Then('Experimental Simple Color Picker {int} element was picked up', (index) => {
-  experimentalSimpleColorPickerInput(index).should('have.attr', 'aria-checked', 'true');
+  experimentalSimpleColorPickerInputInIframe(index).should('have.attr', 'aria-checked', 'true');
 });
 
 When('I select {int} color', (index) => {
-  experimentalSimpleColorPickerInput(index).click();
+  experimentalSimpleColorPickerInputInIframe(index).click();
 });
 
 When('I press {word} on the {int} color', (key, index) => {
-  experimentalSimpleColorPickerInput(index).trigger('keydown', keyCode(key));
+  experimentalSimpleColorPickerInputInIframe(index).trigger('keydown', keyCode(key));
 });
 
 Then('It renders with all colors', () => {
   cy.fixture('simpleColorPicker.json').then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
-      experimentalSimpleColorPickerInput(i + 1).should('have.value', $json[i].color)
+      experimentalSimpleColorPickerInputInIframe(i + 1).should('have.value', $json[i].color)
         .and('have.attr', 'aria-label', $json[i].label);
     }
   });
@@ -52,7 +54,7 @@ When('I input new color json into {string} input field', (inputFieldName) => {
 Then('It renders with all new colors', () => {
   cy.fixture('simpleColorPickerNew.json').then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
-      experimentalSimpleColorPickerInput(i + 1).should('have.value', $json[i].color)
+      experimentalSimpleColorPickerInputInIframe(i + 1).should('have.value', $json[i].color)
         .and('have.attr', 'aria-label', $json[i].label);
     }
   });

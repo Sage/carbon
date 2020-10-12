@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+
+import { assertStyleMatch, testStyledSystemSpacing } from '../../../__spec_helper__/test-utils';
 import SimpleSelect from './simple-select.component';
 import Textbox from '../../../__experimental__/components/textbox';
 import Option from '../option/option.component';
@@ -17,6 +18,8 @@ describe('SimpleSelect', () => {
 
     expect(wrapper.find(Textbox).prop('type')).toBe('select');
   });
+
+  testStyledSystemSpacing(props => <SimpleSelect { ...props } />);
 
   it('the input ref should be forwarded', () => {
     let mockRef;

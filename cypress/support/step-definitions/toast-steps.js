@@ -4,7 +4,7 @@ import {
   toastTogglePreview,
   toastComponentIFrame,
 } from '../../locators/toast';
-import { getDataElementByValueIframe } from '../../locators';
+import { getDataElementByValue } from '../../locators';
 
 When('I click on {string} Toggle Preview', (e) => {
   toastTogglePreview(e).scrollIntoView();
@@ -24,24 +24,24 @@ Then('Toast component is not visible', () => {
 });
 
 Then('Toast component has no close icon', () => {
-  getDataElementByValueIframe('close').should('not.exist');
+  getDataElementByValue('close').should('not.exist');
 });
 
 Then('Toast has background-color {string} and border {string} color', (color) => {
-  toastComponentIFrame().children().first().should('have.css', 'background-color', color);
-  toastComponentIFrame().should('have.css', 'border-color', color);
+  toastComponent().children().first().should('have.css', 'background-color', color);
+  toastComponent().should('have.css', 'border-color', color);
 });
 
 Then('Toast is centred', () => {
-  toastComponentIFrame().should('have.css', 'margin-right', '0px');
+  toastComponent().should('have.css', 'margin-right', '0px');
 });
 
 Then('Toast is not centred', () => {
-  toastComponentIFrame().should('have.css', 'margin-right', '30px');
+  toastComponent().should('have.css', 'margin-right', '30px');
 });
 
 Then('Toast component is stacked', () => {
-  toastComponentIFrame().parent().parent().as('toastParent');
+  toastComponent().parent().parent().as('toastParent');
   cy.get('@toastParent').should('have.length', 2);
   cy.get('@toastParent').children().eq(0).find('div')
     .should('have.attr', 'data-component', 'toast');
