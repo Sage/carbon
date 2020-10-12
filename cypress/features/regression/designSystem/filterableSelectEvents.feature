@@ -2,7 +2,7 @@ Feature: Design System Select filterable component
   I want to check Design System Select filterable component events
 
   Background: Open Design System Select filterable component page
-    Given I open design systems basic "Select filterable" component page
+    Given I open "Design System Select filterable" component page "basic"
 
   @positive
   Scenario: Check the onChange events after typed string into the input
@@ -21,7 +21,7 @@ Feature: Design System Select filterable component
   @positive
   Scenario: Check the onOpen, onClick, onFocus after clicking on the dropdown button
     Given clear all actions in Actions Tab
-    When I click on "first" dropdown button
+    When I click on dropdown button in iframe
       And I wait 500
     Then onOpen action was called in Actions Tab
       And onFocus action was called in Actions Tab
@@ -43,3 +43,9 @@ Feature: Design System Select filterable component
       And I focus basic Select input
     When I click on Select label
     Then onBlur action was called in Actions Tab
+
+  @positive
+  Scenario: Close Filterable Select list using Esc keyboard
+    Given I click on dropdown button in iframe
+    When I hit ESC key
+    Then "filterable" Select list is closed in iframe

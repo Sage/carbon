@@ -3,32 +3,32 @@ Feature: Sidebar component
 
   @positive
   Scenario: CloseIcon has the border outline
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "open" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "default" object name
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario: Enable open checkbox for a Sidebar component
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "open" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "default" object name
     Then Sidebar component is visible
 
   @positive
   Scenario: Disable open checkbox for a Sidebar component
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "openFalse" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "openFalse" object name
     Then Sidebar component is not visible
 
   @positive
   Scenario: Enable enableBackgroundUI checkbox for a Sidebar component
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUI" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUI" object name
     Then Sidebar component has enabled background UI
 
   @positive
   Scenario: Disable enableBackgroundUI checkbox for a Sidebar component
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUIFalse" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Sidebar component has disabled background UI
 
   @positive
   Scenario Outline: Sidebar Pod position to <position>
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
     Then Sidebar position value is set to "<position>"
     Examples:
       | position | nameOfObject  |
@@ -37,7 +37,7 @@ Feature: Sidebar component
 
   @positive
   Scenario Outline: Set Sidebar size to <size>
-    When I open default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Sidebar" component in noIFrame with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
     Then Sidebar size value is set to "<sizePropertyInPx>"
     Examples:
       | size         | sizePropertyInPx | nameOfObject    |
@@ -51,8 +51,7 @@ Feature: Sidebar component
 
   @positive
   Scenario: Check the cancel click event
-    Given I open "Sidebar" component page
-      And I check open checkbox
+    Given I open "Sidebar Test" component page "default"
       And clear all actions in Actions Tab
     When I close Sidebar
     Then cancel action was called in Actions Tab

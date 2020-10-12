@@ -1,5 +1,5 @@
 import React, {
-  useState, useRef, useEffect, useCallback
+  useState, useRef, useEffect, useLayoutEffect, useCallback
 } from 'react';
 import PropTypes from 'prop-types';
 
@@ -56,8 +56,21 @@ const Accordion = React.forwardRef(({
 
   const isExpanded = isControlled ? expanded : isExpandedInternal;
 
+  useLayoutEffect(() => {
+    const resizedContentHeight = () => {
+      setContentHeight(accordionContent.current.scrollHeight);
+    };
+
+    const event = 'resize';
+    window.addEventListener(event, resizedContentHeight);
+
+    return function cleanup() {
+      window.removeEventListener(event, resizedContentHeight);
+    };
+  }, []);
+
   useEffect(() => {
-    setContentHeight(!isExpanded ? 0 : accordionContent.current.scrollHeight);
+    setContentHeight(accordionContent.current.scrollHeight);
   }, [isExpanded, children]);
 
   const toggleAccordion = useCallback((ev) => {

@@ -2,7 +2,7 @@ Feature: Anchor Navigation component
   I want to test Anchor Navigation component properties
 
   Background: Open Anchor Navigation component page
-    Given I open in full screen Test "AnchorNavigation" component page in noIframe
+    Given I open "Test AnchorNavigation" component page "in_full_screen_dialog" in no iframe
       And I open component preview in noIFrame
 
   @positive

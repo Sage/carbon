@@ -108,7 +108,7 @@ Feature: Experimental Textbox multiple component
 
   @positive
   Scenario Outline: Verify input of Textbox multiple component
-    Given I open "Experimental Textbox" component page multiple in NoIFrame
+    Given I open "Experimental Textbox" component page "multiple" in no iframe
     When I type <input> into "first" Textbox
       And I type <input> into "second" Textbox
     Then Multiple textbox input on preview is set to <input>

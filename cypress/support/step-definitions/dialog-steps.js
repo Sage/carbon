@@ -6,6 +6,7 @@ import {
 import {
   backgroundUILocatorIFrame,
   storyRoot,
+  dlsRoot,
 } from '../../locators/index';
 import {
   positionOfElement,
@@ -37,7 +38,7 @@ Then('Dialog stickyFormFooter is visible', () => {
 });
 
 When('I click on {string} outside dialog', (position) => {
-  storyRoot().click(position, { force: true });
+  dlsRoot().click(position, { force: true });
 });
 
 When('I click on background {string} outside dialog', (position) => {

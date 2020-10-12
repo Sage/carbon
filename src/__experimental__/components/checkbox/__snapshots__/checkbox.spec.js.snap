@@ -105,7 +105,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c25 {
+.c1 .c23 {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -114,20 +114,20 @@ exports[`Checkbox base theme renders as expected 1`] = `
   width: auto;
 }
 
-.c1 .c25 .c26,
-.c1 .c25 .c27 {
+.c1 .c23 .c24,
+.c1 .c23 .c25 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c25 .c26:hover,
-.c1 .c25 .c27:hover,
-.c1 .c25 .c26:focus,
-.c1 .c25 .c27:focus {
+.c1 .c23 .c24:hover,
+.c1 .c23 .c25:hover,
+.c1 .c23 .c24:focus,
+.c1 .c23 .c25:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c24 {
+.c1 .c22 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -357,150 +357,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
-.c22 .c6 {
-  padding-top: 1px;
-}
-
-.c22 .c10 {
-  height: 16px;
-}
-
-.c22 .c8,
-.c22 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c22 .c6,
-.c22 .c8,
-.c22 .c10,
-.c22 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c22 .c8:not([disabled]):focus + .c10,
-.c22 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c22 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c22 .c8,
-.c22 svg {
-  padding: 1px;
-}
-
-.c22 .c6,
-.c22 .c8,
-.c22 .c10,
-.c22 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c22 .c8:not([disabled]):focus + .c10,
-.c22 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c22 .c8:not([disabled]):focus + .c10 > svg,
-.c22 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c23 .c6 {
-  padding-top: 1px;
-}
-
-.c23 .c10 {
-  height: 16px;
-}
-
-.c23 .c8,
-.c23 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c23 .c6,
-.c23 .c8,
-.c23 .c10,
-.c23 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c23 .c8:not([disabled]):focus + .c10,
-.c23 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: #4d7080;
-}
-
-.c23 .c10:hover,
-.c23 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c23 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c23 .c8,
-.c23 svg {
-  padding: 1px;
-}
-
-.c23 .c6,
-.c23 .c8,
-.c23 .c10,
-.c23 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c23 .c8:not([disabled]):focus + .c10,
-.c23 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c23 .c8:not([disabled]):focus + .c10 > svg,
-.c23 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: #8099a4;
-}
-
 .c0 .c6 {
   padding-top: 1px;
 }
@@ -535,20 +391,20 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c25 {
+.c0 .c23 {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c0 .c24 {
+.c0 .c22 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 8px;
 }
 
-.c0 .c27 {
+.c0 .c25 {
   position: relative;
   display: inline-block;
 }

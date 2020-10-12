@@ -3,14 +3,14 @@ Feature: Design System Numeral Date component
 
   @positive
   Scenario: Verify that Numeral Date input doesn't allow type numeral character in inputs
-    Given I open design systems controlled "Numeral Date" component in no iframe
+    Given I open "Design System Numeral Date" component page "controlled" in no iframe
       And I click on first input
     When I type no numeral characters "date" in inputs
     Then inputs have value ""
 
   @positive
   Scenario Outline: Check that <position> inputs have a character limit
-    Given I open design systems controlled "Numeral Date" component in no iframe
+    Given I open "Design System Numeral Date" component page "controlled" in no iframe
       And I click on first input
     When I type numeral characters "<string>" in "<position>" inputs
     Then "<position>" numeral input is set to "<result>"
