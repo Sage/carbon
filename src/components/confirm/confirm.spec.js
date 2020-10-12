@@ -3,11 +3,11 @@ import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import classicTheme from '../../style/themes/classic';
 import Confirm from './confirm.component';
 import { StyledConfirmButtons, StyledConfirmHeading } from './confirm.style';
 import Button from '../button/button.component';
 import baseTheme from '../../style/themes/base';
+import mintTheme from '../../style/themes/mint';
 import StyledIcon from '../icon/icon.style';
 import Icon from '../icon';
 
@@ -126,11 +126,11 @@ describe('Confirm', () => {
     });
   });
 
-  describe('when in classic theme', () => {
+  describe('Validation styling', () => {
     it('confirm buttons should match snapshot', () => {
-      wrapper = TestRenderer.create(<StyledConfirmButtons theme={ classicTheme } />);
+      wrapper = TestRenderer.create(<StyledConfirmButtons theme={ mintTheme } />);
       assertStyleMatch({
-        marginTop: '20px'
+        marginTop: '48px'
       }, wrapper.toJSON());
     });
 
