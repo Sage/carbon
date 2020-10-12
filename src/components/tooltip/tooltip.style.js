@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isHorizontal } from './tooltip.utils';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const fadeIn = keyframes`
   0% {
@@ -29,10 +28,6 @@ const StyledTooltipInner = styled.div`
 
     ${type === 'error' && css`
       background-color: ${theme.colors.error};
-    `}
-
-    ${isClassic(theme) && css`
-      padding: 10px 15px;
     `}
   `}
 `;
