@@ -3,13 +3,13 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario: Multi Select list is not open when has a focus
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
     When I focus select input
     Then multi Select list is closed
 
   @positive
   Scenario Outline: Multi Select list is not open using keyboard <key>
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
       And I focus select input
     When I click onto controlled select using "<key>" key
     Then multi Select list is closed
@@ -20,45 +20,45 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario: Multi Select list is not opened by clicking mouse in the text input
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
     When I click on Select input
     Then multi Select list is closed
 
   @positive
   Scenario: Open Multi Select list by clicking mouse on the dropdown button
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
     When I click on dropdown button
     Then multi Select list is opened
 
   @positive
   Scenario: Close Multi Select list by double clicking mouse on the dropdown button
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
       And I click on dropdown button
     When I click on dropdown button
     Then multi Select list is closed
 
   @positive
   Scenario: Close Multi Select list by clicking out of component
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
       And I click on dropdown button
     When I click onto root in Test directory in no iFrame
     Then multi Select list is closed
 
   @positive
   Scenario: Open on focus multi Select component is opened when has a focus
-    Given I open design systems open_on_focus "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "open_on_focus" in no iframe
     When I focus openOnFocus Select input
     Then multi Select list is opened
 
   @positive
   Scenario: Open on focus Multi Select list by clicking mouse on the dropdown button
-    Given I open design systems open_on_focus "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "open_on_focus" in no iframe
     When I click on dropdown button
     Then multi Select list is opened
 
   @positive
   Scenario: Choose option from the Select list via clicking an option
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
       And I click on dropdown button
     When I click on "first" option on Select list
     Then Multi select input has "Amber" pill
@@ -66,7 +66,7 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario: Filter by typed character
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
     When I type "A" into input
     Then multi Select list is opened
       And "first" option on Select list is "Amber"
@@ -76,7 +76,7 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario Outline: Open multi select list using arrow key
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
       And I focus select input
       And I click onto controlled select using "<key>" key
     When I click onto controlled select using "<key>" key
@@ -89,7 +89,7 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario: Verify the inner context of Select Multiple component
-    Given I open design systems controlled "Select multiselect" component in no iframe
+    Given I open "Design System Select multiselect" component page "controlled" in no iframe
     When Type "Amber" text into multi select input and select the value
       And Type "Black" text into multi select input and select the value
       And Type "Green" text into multi select input and select the value

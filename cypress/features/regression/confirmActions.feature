@@ -2,7 +2,7 @@ Feature: Confirm component - in iFrame
   I want to test Confirm component in iFrame
 
   Background: Open Confirm component page
-    Given I open "Confirm Test" component page
+    Given I open "Confirm Test" component page "default"
 
   @positive
   Scenario: Disable escape key

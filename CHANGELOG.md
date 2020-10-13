@@ -1,3 +1,17 @@
+### [42.3.2](https://github.com/Sage/carbon/compare/v42.3.1...v42.3.2) (2020-10-09)
+
+
+### Bug Fixes
+
+* **select:** stop passing onblur to style wrapper ([da246cf](https://github.com/Sage/carbon/commit/da246cf88f7a3d49d06e52f61f1091e8f37dbe23))
+
+### [42.3.1](https://github.com/Sage/carbon/compare/v42.3.0...v42.3.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* **search:** address alignment styling bug with search button ([5aa9307](https://github.com/Sage/carbon/commit/5aa93070356299974a1e8fd7feebafdc97145395))
+
 ## [42.3.0](https://github.com/Sage/carbon/compare/v42.2.0...v42.3.0) (2020-10-02)
 
 

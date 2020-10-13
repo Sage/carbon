@@ -2,7 +2,7 @@ Feature: Design System Simple Select component
   I want to check Design System Simple Select component events
 
   Background: Open Design System Simple Select component page
-    Given I open design systems basic "Select" component page
+    Given I open "Design System Select" component page "basic"
 
   @positive
   Scenario: Check the onOpen, onClick, onFocus after clicking on the input
