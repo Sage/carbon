@@ -387,6 +387,13 @@
           },
           "required": false,
           "description": "Margin bottom, given number will be multiplied by base spacing unit (8)"
+        },
+        "adaptiveLabelBreakpoint": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set"
         }
       }
     }

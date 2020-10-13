@@ -4,6 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 const Switch = ({
   id,
@@ -18,6 +19,7 @@ const Switch = ({
   reverse,
   validationOnLabel,
   labelInline,
+  adaptiveLabelBreakpoint,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -32,9 +34,15 @@ const Switch = ({
     [setCheckedInternal, onChange]
   );
 
+  const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+  let inlineLabel = labelInline;
+  if (adaptiveLabelBreakpoint) {
+    inlineLabel = largeScreen;
+  }
+
   const switchProps = {
     ...props,
-    labelInline,
+    labelInline: inlineLabel,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
     reverse: !reverse // switched to preserve backward compatibility
@@ -58,9 +66,9 @@ const Switch = ({
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput useValidationIcon={ shouldValidationBeOnLabel } { ...inputProps }>
+      <CheckableInput useValidationIcon={ shouldValidationBeOnLabel && !disabled } { ...inputProps }>
         <SwitchSlider
-          useValidationIcon={ !shouldValidationBeOnLabel }
+          useValidationIcon={ !shouldValidationBeOnLabel && !disabled }
           { ...switchProps }
           loading={ loading }
         />
@@ -128,7 +136,9 @@ Switch.propTypes = {
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string.isRequired,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 Switch.defaultProps = {

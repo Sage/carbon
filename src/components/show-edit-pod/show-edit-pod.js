@@ -149,13 +149,14 @@ class ShowEditPod extends React.Component {
   }
 
   universalProps() {
+    const { podType, as } = this.props;
     const {
-      onEdit, className, podType, as, ...props
+      onEdit, className, ...props
     } = validProps(this, Object.keys(Pod.propTypes));
 
     return {
       ...props,
-      podType: podType || as
+      variant: podType || as
     };
   }
 
@@ -173,7 +174,7 @@ class ShowEditPod extends React.Component {
     const props = this.universalProps();
 
     if (isClassic(this.props.theme)) {
-      props.podType = 'secondary';
+      props.variant = 'secondary';
     }
     props.onKeyDown = this.onKeyDown;
 

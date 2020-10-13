@@ -16,9 +16,11 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${stylingForType}
 
-  ${({ mb, theme }) => mb && css`
+  &&& {
+    ${({ mb, theme }) => (mb || mb === 0) && css`
     margin-bottom: ${mb * theme.spacing}px;
   `}
+  }
 
   ${({ fullWidth }) => fullWidth && css`
     width: 100%;

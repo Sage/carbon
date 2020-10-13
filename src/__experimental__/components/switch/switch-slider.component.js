@@ -38,7 +38,8 @@ const SwitchSlider = (props) => {
   const sliderPanelStyleProps = {
     isLoading: loading,
     size,
-    type: checked ? 'on' : 'off'
+    type: checked ? 'on' : 'off',
+    disabled
   };
 
   const loaderProps = {

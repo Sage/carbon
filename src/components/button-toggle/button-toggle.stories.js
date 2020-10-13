@@ -32,8 +32,12 @@ function makeStory(name, themeSelector, disableChromatic = false) {
       action('onChange')(ev);
     };
 
+    const onFocus = (ev) => {
+      action('onFocus', { depth: 2 })(ev);
+    };
+
     const onBlur = (ev) => {
-      action('onBlur')(ev);
+      action('onBlur', { depth: 2 })(ev);
     };
 
     return (
@@ -46,6 +50,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
           onBlur={ onBlur }
           key='button-toggle-1'
         >
@@ -59,6 +64,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
           onBlur={ onBlur }
           key='button-toggle-2'
         >
@@ -72,6 +78,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onFocus={ onFocus }
           onBlur={ onBlur }
           key='button-toggle-3'
         >

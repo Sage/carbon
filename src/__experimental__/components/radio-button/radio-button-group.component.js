@@ -6,6 +6,7 @@ import Fieldset from '../../../__internal__/fieldset';
 import RadioButtonGroupStyle from './radio-button-group.style';
 import RadioButtonMapper from './radio-button-mapper.component';
 import Logger from '../../../utils/logger/logger';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 let deprecatedWarnTriggered = false;
 
@@ -16,10 +17,40 @@ const RadioButtonGroup = (props) => {
     Logger.deprecate('`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed.');
   }
   const {
-    children, name, legend, error, warning, info, onBlur,
-    onChange, value, inline, legendInline, legendWidth, legendAlign,
-    legendSpacing, ml, mb, labelSpacing = 1, styleOverride
+    children,
+    name,
+    legend,
+    error,
+    warning,
+    info,
+    onBlur,
+    onChange,
+    value,
+    inline = false,
+    legendInline = false,
+    legendWidth,
+    legendAlign,
+    legendSpacing,
+    ml,
+    mb,
+    labelSpacing = 1,
+    adaptiveLegendBreakpoint,
+    adaptiveSpacingBreakpoint,
+    styleOverride = {}
   } = props;
+
+  const isAboveLegendBreakpoint = useIsAboveBreakpoint(adaptiveLegendBreakpoint);
+  const isAboveSpacingBreakpoint = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
+
+  let inlineLegend = legendInline;
+  if (adaptiveLegendBreakpoint) {
+    inlineLegend = isAboveLegendBreakpoint;
+  }
+
+  let marginLeft = ml;
+  if (adaptiveSpacingBreakpoint && !isAboveSpacingBreakpoint) {
+    marginLeft = undefined;
+  }
 
   return (
     <Fieldset
@@ -28,11 +59,11 @@ const RadioButtonGroup = (props) => {
       error={ error }
       warning={ warning }
       info={ info }
-      inline={ legendInline }
+      inline={ inlineLegend }
       legendWidth={ legendWidth }
       legendAlign={ legendAlign }
       legendSpacing={ legendSpacing }
-      ml={ ml }
+      ml={ marginLeft }
       mb={ mb }
       styleOverride={ styleOverride }
       { ...tagComponent('radiogroup', props) }
@@ -104,18 +135,16 @@ RadioButtonGroup.propTypes = {
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7]),
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
+  /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLegendBreakpoint: PropTypes.number,
+  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  adaptiveSpacingBreakpoint: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
   })
-};
-
-RadioButtonGroup.defaultProps = {
-  inline: false,
-  legendInline: false,
-  styleOverride: {}
 };
 
 export default RadioButtonGroup;

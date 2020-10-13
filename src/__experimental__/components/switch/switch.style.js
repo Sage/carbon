@@ -80,7 +80,6 @@ const StyledSwitch = styled.div`
 
       ${StyledLabelContainer} {
         margin-bottom: 0;
-        width: auto;
       }
 
       ${FieldHelpStyle} {

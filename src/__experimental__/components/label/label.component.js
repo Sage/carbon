@@ -7,9 +7,11 @@ import IconWrapperStyle from './icon-wrapper.style';
 import Logger from '../../../utils/logger/logger';
 import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
 
-const shouldDisplayValidationIcon = ({ error, warning, info }) => {
-  const validation = error || warning || info;
-  return typeof validation === 'string';
+const shouldDisplayValidationIcon = ({
+  error, warning, info, disabled
+}) => {
+  const validation = (error || warning || info);
+  return disabled ? false : typeof validation === 'string';
 };
 
 let deprecatedWarnTriggered = false;
@@ -62,7 +64,9 @@ const Label = ({
       onBlur: () => setFocus(false)
     };
 
-    if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
+    if (useValidationIcon && shouldDisplayValidationIcon({
+      error, warning, info, disabled
+    })) {
       return (
         <IconWrapperStyle>
           <ValidationIcon

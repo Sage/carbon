@@ -49,7 +49,6 @@ const InputPresentationStyle = styled.div`
   ${({ readOnly, theme }) => readOnly && css`
     background-color: ${theme.readOnly.textboxBackground};
     border-color: ${theme.readOnly.textboxBorder};
-    box-shadow: none;
   `}
 
   ${({ align }) => align === 'right' && 'flex-direction: row-reverse'}
@@ -70,9 +69,14 @@ function stylingForValidations({
   theme,
   error,
   warning,
-  info
+  info,
+  disabled
 }) {
   let validationColor;
+
+  if (disabled) {
+    return '';
+  }
 
   if (error) {
     validationColor = theme.colors.error;

@@ -82,11 +82,11 @@ describe('Help', () => {
     });
   });
 
-  it('calls preventDefault to prevent clicking interacting with the input', () => {
+  it('it does not prevent clicking interacting with the input', () => {
     wrapper = renderHelp({}, mount);
     const preventDefault = jest.fn();
     wrapper.simulate('click', { preventDefault });
-    expect(preventDefault).toHaveBeenCalled();
+    expect(preventDefault).not.toHaveBeenCalled();
   });
 
   describe('when the Help component is focused', () => {
@@ -105,6 +105,13 @@ describe('Help', () => {
         wrapper.find(StyledHelp).simulate('blur');
         expect(wrapper.update().find(Tooltip).exists()).toBe(false);
       });
+    });
+
+    it('does not call preventDefault on blur or focus event', () => {
+      const preventDefault = jest.fn();
+      wrapper.find(StyledHelp).simulate('blur', { preventDefault });
+      wrapper.find(StyledHelp).simulate('focus', { preventDefault });
+      expect(preventDefault).not.toBeCalled();
     });
 
     afterEach(() => {
