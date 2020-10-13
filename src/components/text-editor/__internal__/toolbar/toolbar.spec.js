@@ -69,7 +69,7 @@ describe('Toolbar', () => {
 
       assertStyleMatch({
         width: '62px',
-        height: '33px'
+        minHeight: '33px'
       }, render({ onSave: () => {} }).find(StyledEditorActionControls), { modifier: `${StyledButton}` });
 
       assertStyleMatch({

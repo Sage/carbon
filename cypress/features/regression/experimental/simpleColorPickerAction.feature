@@ -2,7 +2,7 @@ Feature: Simple Color Picker component
   I want to test Simple Color Picker component
 
   Background: Open Simple Color Picker component default page
-    Given I open "Experimental Simple Color Picker" component page
+    Given I open "Experimental Simple Color Picker" component page "default"
 
   @positive
   Scenario: When avaiableColors prop is provided changes rendnered colors
@@ -13,7 +13,7 @@ Feature: Simple Color Picker component
   @positive
   Scenario: Color Picker renders all the provided colors and their respective labels
     # commented because of BDD default scenario Given - When - Then
-    # When I open "Experimental Simple Color Picker" component page
+    # When I open "Experimental Simple Color Picker" component page "default"
     Then It renders with all colors
 
   @positive

@@ -17,7 +17,7 @@ const StyledCounter = styled.div`
 const StyledButton = styled(Button)`
   padding: 0;
   width: 22px;
-  height: 22px;
+  min-height: 22px;
   border-radius: 50%;
   overflow: hidden;
   text-align: center;

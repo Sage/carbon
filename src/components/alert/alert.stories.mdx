@@ -1,0 +1,81 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+import Alert from '.';
+import Modal from '../modal';
+import Dialog from '../dialog';
+import Button from '../button';
+
+<Meta
+  title="Alert"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Alert
+An important message that interrupts user activity, but can be dismissed.
+
+Useful if a message is so important you’d like to prevent any other activity until the user resolves it.
+
+If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.
+
+Include a Message component within the Alert component, use plain text, or apply a standard Carbon Error or Warning icon.
+
+This component has the same options and properties as the Dialog component.
+
+## Related Components
+- Simple positive or negative confirmation? [Try Flash](/?path=/story/flash--default "Try Flash").
+- Longer message which stays on-screen? [Try Message](/?path=/docs/message--default-story "Try Message").
+- Longer, time sensitive message that must be dismissed? [Try Toast](/?path=/docs/design-system-toast--default-story "Try Toast").
+- Confirm or cancel an action I’ve initiated? [Try Confirm](/?path=/docs/confirm--default-story "Try Confirm").
+- Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Try Dialog").
+
+## Quick Start
+
+Import the component and use as shown below:
+
+```jsx
+import Alert from "carbon-react/lib/components/alert";
+
+const MyComponent = ({ isOpen, handleClose }) => (
+  <Alert
+    onCancel={ handleClose }
+    title="Title"
+    subtitle="Subtitle"
+    open={ isOpen }
+  >
+    This is an example of an alert
+  </Alert>
+);
+```
+
+### Default
+
+<Preview>
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Alert
+          </Button>
+          <Alert
+            onCancel={ () => setIsOpen(!isOpen) }
+            title="Title"
+            subtitle="Subtitle"
+            open={ isOpen }
+          >
+            This is an example of an alert
+          </Alert>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### Alert
+
+<Props of={Alert} />

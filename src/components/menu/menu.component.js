@@ -2,9 +2,12 @@ import React, { useRef, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { StyledMenuWrapper, StyledMenuItemsWrapper, StyledMenuItem } from './menu.style';
 import Events from '../../utils/helpers/events';
+import VerticalDivider from '../vertical-divider';
 
 const Menu = ({ menuType = 'light', children }) => {
-  const menuItemsRefs = useRef(React.Children.map(children, child => child.ref || React.createRef()));
+  const childrenArray = Array.isArray(children) ? children : [children];
+  const filteredChildren = childrenArray.filter(child => child.type !== VerticalDivider);
+  const menuItemsRefs = useRef(filteredChildren.map(child => child.ref || React.createRef()));
   const actualFocusedItemIndex = useRef();
   const [isOpenSubmenu, setIsOpenSubmenu] = useState(null);
   const [isOpenByArrowLeftOrRight, setOpenByArrowLeftOrRight] = useState(false);
@@ -55,7 +58,7 @@ const Menu = ({ menuType = 'light', children }) => {
 
         return element.children;
       };
-      React.Children.forEach(children, ({ props }, i) => {
+      filteredChildren.forEach(({ props }, i) => {
         if (props.children && getMenuText(props).toString().toLowerCase().startsWith(event.key.toLowerCase())) {
           if (firstMatch === undefined) {
             firstMatch = i;
@@ -72,7 +75,9 @@ const Menu = ({ menuType = 'light', children }) => {
         setFocusToElement(undefined, firstMatch);
       }
     }
-  }, [children, setFocusToElement]);
+  }, [filteredChildren, setFocusToElement]);
+
+  let index = 0;
 
   return (
     <StyledMenuWrapper
@@ -85,23 +90,31 @@ const Menu = ({ menuType = 'light', children }) => {
         {
           React.Children.map(
             children,
-            (child, index) => {
+            (child) => {
               const isFirstElement = index === 0;
+              const i = index;
+
+              if (child.type !== VerticalDivider) {
+                index += 1;
+              }
+
               return (
-                <StyledMenuItem>{
+                <StyledMenuItem menuType={ menuType }>{
                   React.cloneElement(
                     child,
                     {
                       menuType,
-                      ref: menuItemsRefs.current[index],
-                      isFirstElement,
-                      menuItemIndex: index,
-                      isOpen: isOpenSubmenu === index,
-                      setIsOpenSubmenu,
-                      setFocusToElement,
-                      isOpenByArrowLeftOrRight,
-                      setOpenByArrowLeftOrRight,
-                      handleKeyDown: ev => handleKeyDown(ev, index)
+                      ...(child.type !== VerticalDivider && {
+                        ref: menuItemsRefs.current[i],
+                        isFirstElement,
+                        menuItemIndex: i,
+                        isOpen: isOpenSubmenu === i,
+                        setIsOpenSubmenu,
+                        setFocusToElement,
+                        isOpenByArrowLeftOrRight,
+                        setOpenByArrowLeftOrRight,
+                        handleKeyDown: ev => handleKeyDown(ev, i)
+                      })
                     },
                   )
                 }

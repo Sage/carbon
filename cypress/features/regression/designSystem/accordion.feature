@@ -2,11 +2,11 @@ Feature: Design System Accordion component
   I want to test Design System Accordion component
 
   Background: Open Design System Accordion component page
-    Given I open Design Systems default_story "Accordion" component docs page
+    Given I open "Design System Accordion" component page "default_story" in no iframe
 
   @positive
   Scenario: I expand accordion using click
-    When I expand Design System accordionRow via click
+    When I expand Design System accordionRow via click in NoIFrame
     Then accordionRow is expanded
 
   @positive
@@ -16,5 +16,5 @@ Feature: Design System Accordion component
 
   @positive
   Scenario: Verify border outline color on focus
-    When I focus accordionRow
+    When I focus first accordionRow
     Then accordionRow has golden border outline

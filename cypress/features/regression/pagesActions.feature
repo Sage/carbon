@@ -2,7 +2,7 @@ Feature: Pages component in IFrame
   I want to test Pages component
 
   Background: Open Pages component default page
-    Given I open "Pages" component page
+    Given I open "Pages" component page "default"
 
  @positive
   Scenario: Go to second page
