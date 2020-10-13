@@ -33,7 +33,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> default story
-    When I open "<component>" component page in noIFrame
+    When I open "<component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
