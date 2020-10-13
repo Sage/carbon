@@ -4,6 +4,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { AccordionGroup, Accordion } from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Button from '../button';
+import { Dl, Dt, Dd } from '../definition-list';
 
 <Meta
   title="Design System/Accordion"
@@ -172,7 +173,7 @@ import { Accordion, AccordionGroup } from "carbon-react/lib/components/accordion
 ```
 
 <Preview>
-  <Story id="test-accordion--grouped" name="grouped">
+  <Story id="design-system-accordion-test--grouped" name="grouped">
   </Story>
 </Preview>
 
@@ -229,6 +230,41 @@ Accordion styles can be easily overriden by providing `styleOverride` prop with 
         labelWidth={ 15 }
         inputWidth={ 85 }
       />
+    </Accordion>
+  </Story>
+</Preview>
+
+### With a definition list
+<Preview>
+  <Story name="with a definition list">
+    <Accordion title='Heading'>
+      <Dl>
+        <Dt>Drink</Dt>
+        <Dd>Coffee</Dd>
+        <Dt>Brew Method</Dt>
+        <Dd>Stove Top Moka Pot</Dd>
+        <Dt>Brand of Coffee</Dt>
+        <Dd>Magic Coffee Beans</Dd>
+        <Dt>Website</Dt>
+        <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
+        <Dt>Email</Dt>
+        <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
+        <Dt>Main and Registered Address</Dt>
+        <Dd mb='4px'>Magic Coffee Beans,</Dd>
+        <Dd mb='4px'>In The Middle of Our Street,</Dd>
+        <Dd mb='4px'>Madness,</Dd>
+        <Dd mb='4px'>CO4 3VE</Dd>
+        <Dd>
+          <Button 
+            buttonType='tertiary' 
+            iconType="link" 
+            iconPosition="after"
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'
+          >
+            View in Google Maps
+          </Button> 
+        </Dd>
+      </Dl>
     </Accordion>
   </Story>
 </Preview>

@@ -6,27 +6,25 @@ import LinkStyle from '../link/link.style';
 
 export const StyledDl = styled.dl`
   ${space}
-  display: inline-flex;
+  display: grid;
   height: auto;
   width: 100%;
   background-color: transparent;
   overflow: hidden;
+  grid-template-rows: auto;
+  grid-template-columns: ${({ w }) => `${w}% auto;`}
 `;
 
 export const StyledDtDiv = styled.div`
   ${space}
-  ${({ w, dtTextAlign }) => css`
+  ${({ dtTextAlign }) => css`
     text-align: ${dtTextAlign};
-    width: ${w}%;
-    white-space: nowrap;
   `}
 `;
 
 export const StyledDdDiv = styled.div`
   ${({ ddTextAlign }) => css`
     text-align: ${ddTextAlign};
-    width: auto;
-    white-space: nowrap;
   `}
 `;
 
@@ -65,6 +63,6 @@ export const StyledDd = styled.dd`
   `}
 `;
 
-StyledDt.defaultProps = {
+StyledDd.defaultProps = {
   theme: baseTheme
 };

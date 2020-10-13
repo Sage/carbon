@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TransitionGroup } from 'react-transition-group';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
@@ -18,7 +17,7 @@ import {
   CarouselWrapperStyle,
   CarouselSliderWrapper
 } from './carousel.style';
-import { isClassic } from '../../utils/helpers/style-helper';
+import guid from '../../utils/helpers/guid';
 import baseTheme from '../../style/themes/base';
 
 const NEXT = 'next';
@@ -35,7 +34,6 @@ class BaseCarousel extends React.Component {
     this.onPreviousClick = this.onPreviousClick.bind(this);
     this.onNextClick = this.onNextClick.bind(this);
     this.onSlideSelection = this.onSlideSelection.bind(this);
-    this.enableButtonsAfterTimeout = this.enableButtonsAfterTimeout.bind(this);
     this.previousButtonProps = this.previousButtonProps.bind(this);
     this.nextButtonProps = this.nextButtonProps.bind(this);
     this.numOfSlides = this.numOfSlides.bind(this);
@@ -109,25 +107,10 @@ class BaseCarousel extends React.Component {
 
   /** Handle the slide change to the newIndex */
   handleSlideChange(newIndex) {
-    if (isClassic(this.props.theme)) {
-      this.setState({ disabled: true, selectedSlideIndex: newIndex });
-    } else {
-      this.setState({ selectedSlideIndex: newIndex });
-    }
-
-    this.enableButtonsAfterTimeout();
+    this.setState({ selectedSlideIndex: newIndex });
 
     if (this.props.onSlideChange) {
       this.props.onSlideChange(newIndex, this.transitionDirection);
-    }
-  }
-
-  /** Re-enables the next and previous buttons after timeout */
-  enableButtonsAfterTimeout() {
-    if (isClassic(this.props.theme)) {
-      setTimeout(() => {
-        this.setState({ disabled: false });
-      }, TRANSITION_TIME);
     }
   }
 
@@ -155,25 +138,22 @@ class BaseCarousel extends React.Component {
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
-      transitionName: this.transitionName,
       timeout: TRANSITION_TIME,
       theme: this.props.theme,
       slideProps: {
         className: visibleSlide.props.className,
-        isPadded: this.props.enablePreviousButton || this.props.enableNextButton,
         'data-element': 'visible-slide',
         key: `carbon-slide-${index}`,
         ...visibleSlide.props
       }
     };
-
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
   }
 
   visibleSlides() {
-    const arrayWithKeys = this.props.children.map((element, key) => {
+    const arrayWithKeys = React.Children.map(this.props.children, (element, key) => {
       return React.cloneElement(element, {
-        key: `slide-${key}`,
+        key: `slide-${guid()}`,
         id: key,
         selectedIndex: this.state.selectedSlideIndex,
         theme: this.props.theme,
@@ -232,9 +212,9 @@ class BaseCarousel extends React.Component {
           data-element='previous'
           aria-label='previous'
           type='button'
-          disabled={ isClassic(this.props.theme) ? null : isDisabled }
+          disabled={ isDisabled }
         >
-          <CarouselStyledIconLeft type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
+          <CarouselStyledIconLeft type='chevron_down' />
         </CarouselButtonStyle>
       </CarouselPreviousButtonWrapperStyle>
     );
@@ -253,41 +233,16 @@ class BaseCarousel extends React.Component {
           data-element='next'
           aria-label='next'
           type='button'
-          disabled={ isClassic(this.props.theme) ? null : isDisabled }
+          disabled={ isDisabled }
         >
-          <CarouselStyledIconRight type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
+          <CarouselStyledIconRight type='chevron_down' />
         </CarouselButtonStyle>
       </CarouselNextButtonWrapperStyle>
     );
   }
 
-  /** Returns the current transition name */
-  transitionName = () => {
-    if (this.props.transition === 'slide') {
-      return `slide-${this.transitionDirection}`;
-    }
-
-    return `carousel-transition-${this.props.transition}`;
-  }
-
   /** Renders the Slide Component */
   render() {
-    if (isClassic(this.props.theme)) {
-      return (
-        <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-          {/** carbon-carousel__content is related to pages.scss */}
-          <div className='carbon-carousel__content'>
-            {this.previousButton()}
-            <TransitionGroup>
-              {this.visibleSlide()}
-            </TransitionGroup>
-            {this.nextButton()}
-          </div>
-          {this.slideSelector()}
-        </CarouselWrapperStyle>
-      );
-    }
-
     return (
       <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
         <div className='carbon-carousel__content'>
@@ -329,8 +284,6 @@ BaseCarousel.propTypes = {
   enableNextButton: PropTypes.bool,
   /** Action to be called on slide change */
   onSlideChange: PropTypes.func,
-  /** Controls which transition to use. */
-  transition: PropTypes.string,
   /** theme is used only to support legacy code */
   theme: PropTypes.object
 };
@@ -340,7 +293,6 @@ BaseCarousel.defaultProps = {
   enableSlideSelector: true,
   enablePreviousButton: true,
   enableNextButton: true,
-  transition: 'slide',
   theme: baseTheme
 };
 

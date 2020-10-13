@@ -143,7 +143,7 @@ const generateStyledSystemProps = (
 const StyledSystemProps = ({
   of,
   spacing,
-  spacingDefaults,
+  spacingDefaults = {},
   noHeader
 }) => {
   const rows = spacing ? generateStyledSystemProps(spacingDefaults) : null;
@@ -160,7 +160,7 @@ const StyledSystemProps = ({
 };
 
 StyledSystemProps.propTypes = {
-  of: PropTypes.node,
+  of: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   noHeader: PropTypes.bool,
   spacing: PropTypes.bool,
   spacingDefaults: PropTypes.object

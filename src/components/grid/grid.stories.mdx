@@ -2,6 +2,8 @@ import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
 import { PropsTable } from '@storybook/components';
 import Pod from '../pod';
 import { GridContainer, GridItem } from '.';
+import { Dl, Dt, Dd } from '../definition-list';
+import Button from '../button';
 
 <Meta title="Design System/Grid" />
 
@@ -369,6 +371,75 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         </Pod>
       </GridItem>
     </GridContainer>
+  </Story>
+</Preview>
+
+## With a subgrid example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+<Preview>
+  <Story name="subgrid" parameters={{ info: { disable: true }}} >
+    <div id="grid-align">
+      <GridContainer>
+        <GridItem
+          justifySelf="left"
+          gridColumn="1 / 1"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="center"
+          gridColumn="2 / 11"
+        >
+          <Dl>
+            <Dt>Drink</Dt>
+            <Dd>Coffee</Dd>
+            <Dt>Brew Method</Dt>
+            <Dd>Stove Top Moka Pot</Dd>
+            <Dt>Brand of Coffee</Dt>
+            <Dd>Magic Coffee Beans</Dd>
+            <Dt>Website</Dt>
+            <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
+            <Dt>Email</Dt>
+            <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
+            <Dt>Main and Registered Address</Dt>
+            <Dd mb='4px'>Magic Coffee Beans,</Dd>
+            <Dd mb='4px'>In The Middle of Our Street,</Dd>
+            <Dd mb='4px'>Madness,</Dd>
+            <Dd mb='4px'>CO4 3VE</Dd>
+            <Dd>
+              <Button 
+                buttonType='tertiary' 
+                iconType="link" 
+                iconPosition="after"
+                href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'
+              >
+                View in Google Maps
+              </Button> 
+            </Dd>
+          </Dl>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="right"
+          gridColumn="11 / 12"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+    </div>
   </Story>
 </Preview>
 

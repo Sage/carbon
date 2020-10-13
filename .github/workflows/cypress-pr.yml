@@ -7,7 +7,7 @@ jobs:
      # if not a fork
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-18.04
-    timeout-minutes: 12
+    timeout-minutes: 15
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -20,7 +20,7 @@ jobs:
             1, 2, 3, 4, 5, 
             6, 7, 8, 9, 10, 
             11, 12, 13, 14, 15, 
-            16, 17, 18, 19, 20
+            16, 17, 18, 19
             ]
     container: cypress/browsers:node14.7.0-chrome84
     steps:
