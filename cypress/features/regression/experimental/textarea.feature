@@ -209,7 +209,7 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Verify input of Textarea component
-    Given I open "Experimental Textarea" component page in noIFrame
+    Given I open "Experimental Textarea" component page "default" in no iframe
     When I input <input> into Textarea
     Then Textarea input on preview is set to <input>
     Examples:

@@ -19,5 +19,8 @@ export default baseTheme;
 export const mergeWithBase = (configureTheme) => {
   const themeToMergeWithBase = configureTheme(palette);
 
-  return mergeDeep(baseTheme, themeToMergeWithBase);
+  return {
+    ...mergeDeep(baseTheme, themeToMergeWithBase),
+    palette
+  };
 };

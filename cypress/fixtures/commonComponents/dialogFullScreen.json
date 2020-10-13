@@ -1,41 +1,35 @@
 { 
-  "open": {
-    "open": true
+  "default": {
+
   },
   "showCloseIcon": {
-    "open": true,
     "showCloseIcon": true
   },
   "titleOtherLanguage": {
-    "open": true,
     "title": "mp150ú¿¡üßä"
   },
   "titleSpecialCharacter": {
-    "open": true,
     "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "subtitleOtherLanguage": {
-    "open": true,
     "subtitle": "mp150ú¿¡üßä"
   },
   "subtitleSpecialCharacter": {
-    "open": true,
     "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "childrenOtherLanguage": {
-    "open": true,
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "open": true,
     "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "enableBackgroundUI":{
-    "open": true,
     "enableBackgroundUI": true
   },
   "enableBackgroundUIFalse":{
-    "open": true,
     "enableBackgroundUI": false
+  },
+  "stickyFooter": {
+    "Form component stickyFooter": true
   }
 }
