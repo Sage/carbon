@@ -3,7 +3,7 @@ Feature: Accessibility tests - Experimental folder
 
   @accessibility
   Scenario Outline: Component <component> default story
-    When I open Experimental "<component>" component page in noIFrame
+    When I open "Experimental <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
@@ -23,7 +23,7 @@ Feature: Accessibility tests - Experimental folder
 
   @accessibility
   Scenario Outline: Component <component> validation story
-    When I open Experimental "<component>" component page validations in noIframe
+    When I open "Experimental <component>" component page "validations" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |

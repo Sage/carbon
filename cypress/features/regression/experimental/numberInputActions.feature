@@ -2,7 +2,7 @@ Feature: Experimental Number Input component
   I want to check Experimental Number Input component properties
 
   Background: Open Experimental Number Input component page
-    Given I open "Experimental Number Input" component page
+    Given I open "Experimental Number Input" component page "default"
 
   @positive
   Scenario: Enable onChangeDeferred action

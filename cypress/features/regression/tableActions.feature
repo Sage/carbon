@@ -2,7 +2,7 @@ Feature: Table component
   I want to check Table component properties
 
   Background: Open Table component default page
-    Given I open "Table" component page
+    Given I open "Table" component page "default"
 
   @positive
   Scenario Outline: Change event was called for sortColumn

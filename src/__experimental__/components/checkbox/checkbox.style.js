@@ -7,7 +7,6 @@ import StyledFieldHelp from '../field-help/field-help.style';
 import StyledHiddenCheckableInput from '../checkable-input/hidden-checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledLabel, { StyledLabelContainer } from '../label/label.style';
-import styledCheckBoxClassic from './checkbox-classic.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledFormField from '../form-field/form-field.style';
 import StyledIcon from '../../../components/icon/icon.style';
@@ -160,9 +159,6 @@ const CheckboxStyle = styled.div`
         }
       `}
     `}
-
-
-    ${styledCheckBoxClassic}
   `}
 `;
 
