@@ -24,7 +24,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Icon component theme to <theme>
-    When I open default "Icon" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Icon Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "icon" component css "background-color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject     |
