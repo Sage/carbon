@@ -90,8 +90,7 @@ export const StyledSearchButton = styled.div`
         border-color: ${theme.colors.secondary};
       }
     `}
-    width: 43px;
-    height: 43px;
+    width: 40px;
     margin: 0px 0px;
     padding-bottom: 3px;
     :focus {

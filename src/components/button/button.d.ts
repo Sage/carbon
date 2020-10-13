@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { SpacingProps } from '../../utils/helpers/options-helper';
 import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
 
-export interface ButtonProps {
+export interface ButtonProps extends SpacingProps {
   as?: 'primary' | 'secondary' | 'tertiary' | 'dashed' | 'destructive' | 'darkBackground';
   buttonType?: 'primary' | 'secondary' | 'tertiary' | 'dashed' | 'destructive' | 'darkBackground';
   disabled?: boolean;

@@ -63,9 +63,5 @@
   },
   "default": {
 
-  },
-  "disabled": {
-    "totalRecors": 1,
-    "pageSize": 10
   }
 }

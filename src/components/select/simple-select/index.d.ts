@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Option from '../option';
+import { SpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface SimpleSelectProps {
+export interface SimpleSelectProps extends SpacingProps {
   /** Id attribute of the input element */
   id?: string;
   /** Name attribute of the input element */

@@ -44,7 +44,7 @@ const StyledEditorActionControls = styled.div`
 
   ${StyledButton} {
     width: 62px;
-    height: 33px;
+    min-height: 33px;
   }
   
   ${StyledButton}:first-of-type {
