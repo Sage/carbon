@@ -2,7 +2,8 @@ Feature: Design System Duelling Picklist Component
   I want to test Design System Duelling Picklist component
 
   Background: Design System Duelling Picklist Component in noIframe
-    Given I open Design Systems page "duellingpicklist" component docs page
+    Given I open "Test DuellingPicklist" component page "basic" in no iframe
+
 
   @positive
   Scenario: All items are unassigned

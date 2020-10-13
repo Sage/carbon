@@ -114,7 +114,8 @@ const Search = ({
         <StyledSearchButton>
           {Boolean(isFocused || searchValue.length) && (
             <Button
-              size='small'
+              size='medium'
+              px='16px'
               { ...buttonProps }
             >
               <StyledButtonIcon>

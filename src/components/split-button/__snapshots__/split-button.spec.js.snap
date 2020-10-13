@@ -45,6 +45,8 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c2 {
+  padding-left: 24px;
+  padding-right: 24px;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -68,18 +70,13 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  height: 40px;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-left: 0;
+  min-height: 40px;
 }
 
 .c2:focus {
@@ -149,18 +146,13 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  height: 40px;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-left: 0;
+  min-height: 40px;
   border-left-width: 0;
   padding: 0 10px;
 }

@@ -1,10 +1,16 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
+import { css } from 'styled-components';
 import { Menu, MenuItem } from '.';
 import StyledMenuItemWrapper from './menu-item/menu-item.style';
 import { StyledSubmenu } from './submenu-block/submenu.style';
+import { StyledMenuItem } from './menu.style';
 import MenuDivider from './menu-divider/menu-divider.component';
+import VerticalDivider from '../vertical-divider';
+import { StyledVerticalWrapper, StyledDivider } from '../vertical-divider/vertical-divider.style';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import baseTheme from '../../style/themes/base';
 
 describe('Menu', () => {
   let wrapper;
@@ -67,6 +73,10 @@ describe('Menu', () => {
           <MenuItem href='#'>
             A Menu Item One
           </MenuItem>
+          <VerticalDivider
+            height={ 24 } p={ 1 }
+            color={ 20 }
+          />
           <MenuItem href='#'>
             B Menu Item Two
           </MenuItem>
@@ -976,6 +986,40 @@ describe('Menu', () => {
         wrapper.update();
         expect(wrapper.find(MenuItem).at(1).find('a').at(0)).toBeFocused();
       });
+    });
+  });
+
+  describe('VerticalDivider in Menu', () => {
+    it('applies the expected styling by default', () => {
+      wrapper = mount(
+        <Menu>
+          <VerticalDivider />
+        </Menu>
+      );
+
+      assertStyleMatch({
+        backgroundColor: baseTheme.menu.light.background
+      }, wrapper.find(StyledMenuItem), { modifier: `${StyledVerticalWrapper}` });
+    });
+
+    it('applies the expected styling when menuType is "dark"', () => {
+      wrapper = mount(
+        <Menu menuType='dark'>
+          <VerticalDivider />
+        </Menu>
+      );
+
+      assertStyleMatch({
+        backgroundColor: baseTheme.colors.slate,
+        color: baseTheme.colors.white,
+        display: 'inline-block',
+        verticalAlign: 'bottom'
+      }, wrapper.find(StyledMenuItem), { modifier: `${StyledVerticalWrapper}` });
+
+      assertStyleMatch({
+        position: 'relative',
+        top: '-1px'
+      }, wrapper.find(StyledMenuItem), { modifier: css`${StyledVerticalWrapper} ${StyledDivider}` });
     });
   });
 });

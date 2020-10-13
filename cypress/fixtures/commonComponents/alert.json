@@ -1,93 +1,71 @@
 { 
-  "open": {
-    "open": true
+  "default": {
+    
   },
-  "openTitleOtherLanguage": {
-    "open": true,
+  "titleOtherLanguage": {
     "title": "mp150ú¿¡üßä"
   },
-  "openTitleSpecialCharacter": {
-    "open": true,
+  "titleSpecialCharacter": {
     "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "openSubtitleOtherLanguage": {
-    "open": true,
+  "subtitleOtherLanguage": {
     "subtitle": "mp150ú¿¡üßä"
   },
-  "openSubtitleSpecialCharacter": {
-    "open": true,
+  "subtitleSpecialCharacter": {
     "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "openChildrenOtherLanguage": {
-    "open": true,
+  "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"
   },
-  "openChildrenSpecialCharacter": {
-    "open": true,
+  "childrenSpecialCharacter": {
     "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "openDisableEscKey": {
-    "open": true,
+  "disableEscKey": {
     "disableEscKey": true
   },
-  "openDisableEscKeyFalse": {
-    "open": true,
+  "disableEscKeyFalse": {
     "disableEscKey": false
   },
-  "openEnableBackgroundUI":{
-    "open": true,
+  "enableBackgroundUI":{
     "enableBackgroundUI": true
   },
-  "openEnableBackgroundUIFalse":{
-    "open": true,
+  "enableBackgroundUIFalse":{
     "enableBackgroundUI": false
   },
-  "openHeight0": {
-    "open": true,
+  "height0": {
     "height": 0
   },
-  "openHeight1": {
-    "open": true,
+  "height1": {
     "height": 1
   },
-  "openHeight100": {
-    "open": true,
+  "height100": {
     "height": 100
   },
-  "openHeight-1": {
-    "open": true,
+  "height-1": {
     "height": -1
   },
-  "openHeight-10": {
-    "open": true,
+  "height-10": {
     "height": -10
   },
-  "openSizeExtraSmall": {
-    "open": true,
+  "sizeExtraSmall": {
     "size": "extra-small"
   },
-  "openSizeSmall": {
-    "open": true,
+  "sizeSmall": {
     "size": "small"
   },
-  "openSizeMediumSmall": {
-    "open": true,
+  "sizeMediumSmall": {
     "size": "medium-small"
   },
-  "openSizeMedium": {
-    "open": true,
+  "sizeMedium": {
     "size": "medium"
   },
-  "openSizeMediumLarge": {
-    "open": true,
+  "sizeMediumLarge": {
     "size": "medium-large"
   },
-  "openSizeLarge": {
-    "open": true,
+  "sizeLarge": {
     "size": "large"
   },
-  "openSizeExtraLarge": {
-    "open": true,
+  "sizeExtraLarge": {
     "size": "extra-large"
   }
 }
