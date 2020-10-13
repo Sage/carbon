@@ -136,6 +136,31 @@ describe('DialogFullScreen', () => {
         expect(heading.props().title).toEqual('my custom heading');
       });
     });
+
+    describe('has a Ref to the scrollable content', () => {
+      beforeEach(() => {
+        const titleHeading = <Heading title='my custom heading' />;
+        wrapper = mount(
+          <DialogFullScreen
+            onCancel={ onCancel }
+            className='foo'
+            open
+            title={ titleHeading }
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </DialogFullScreen>
+        );
+      });
+
+      it('and the ref to content exists and contains html', () => {
+        expect(wrapper.instance().contentRef.current).toMatchSnapshot();
+      });
+
+      it('and the ref to heading exists', () => {
+        expect(wrapper.instance().headingRef.current).toMatchSnapshot();
+      });
+    });
   });
 
   describe('tags', () => {

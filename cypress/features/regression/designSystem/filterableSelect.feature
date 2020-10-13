@@ -2,7 +2,7 @@ Feature: Design System Filterable Select component
   I want to change Design System Filterable Select component properties
 
   Background: Open Design System Filterable Select component page
-    Given I open design systems controlled "Select filterable" component in no iframe
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
 
   @positive
   Scenario: Filter by typed character

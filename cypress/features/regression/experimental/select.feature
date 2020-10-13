@@ -85,7 +85,7 @@ Feature: Experimental Select component
 
   @positive
   Scenario Outline: Verify the inner context of Select component typing <text> and getting <result>
-    Given I open "Experimental Select" component page
+    Given I open "Experimental Select" component page "default"
     When Type "<text>" text into input and select the value in iFrame
     Then Select input has "<result>" value in iFrame
     Examples:
@@ -96,7 +96,7 @@ Feature: Experimental Select component
 
   @positive
   Scenario: Check the change function call for Select component
-    Given I open "Experimental Select" component page
+    Given I open "Experimental Select" component page "default"
     Given clear all actions in Actions Tab
     When Type "Black" text into input and select the value in iFrame
     Then change action was called in Actions Tab

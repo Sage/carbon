@@ -98,6 +98,7 @@ Where functionality is already tested in unit testing, this does not need to be 
 .
 ├── cypress
 │ ├── fixture
+│ │   ├── json files (test data)
 │ ├── features
 │ │   ├── regression
 │ │       ├── accessibility
@@ -138,12 +139,9 @@ Cypress tests are written in Gherkin syntax with Cucumber expressions. Observe t
   * Common steps (`common-steps.js`) are used for all common actions.
 
 Some common test steps:
-  * I set `<knobs field>` to `<parameter>`;
-  * I select `<knobs field>` to `<parameter>`;
-  * I check/uncheck `<knobs field>` checkbox;
-  * I open `<name>` component page;
-    * To open different stories on Storybook;
-      * I open `<name>` component page `default`/`basic`/`with button`/`iframe`/`with button page in iframe`/`multiple`/`validations`.
+  * I open `<story name>` `<component name>` component in noIFrame with `<dedicated json file>` json from `<directory to take json from>` using `<object name in json>` object name
+  * I open `<name>` component page `<story name>`;
+  * I open `<name>` component page `<story name>` in no iframe.
 
 ##### Scenario tags
 Test scenarios in feature files can be tagged to enable a subset of scenarios to be run, ignored or identified in some manner. Use the following tags:

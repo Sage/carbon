@@ -3,17 +3,17 @@ Feature: Design Systems FlatTable component
 
   @positive
   Scenario: FlatTable has sticky row
-    When I open design systems with_row_header "Flat Table" component in no iframe
+    When I open "Design System Flat Table" component page "with_row_header" in no iframe
     Then FlatTable rows are sticky
 
   @positive
   Scenario: FlatTable has sticky header
-    When I open design systems with_sticky_head "Flat Table" component in no iframe
+    When I open "Design System Flat Table" component page "with_sticky_head" in no iframe
     Then FlatTable has sticky header
 
   @positive
   Scenario: Verify outline color
-    When I open design systems with_clickable_rows "Flat Table" component in no iframe
+    When I open "Design System Flat Table" component page "with_clickable_rows" in no iframe
     Then I focus 2 row and focused row element has golden border on focus
 
   @positive

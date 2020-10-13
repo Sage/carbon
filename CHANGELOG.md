@@ -1,3 +1,39 @@
+### [42.3.3](https://github.com/Sage/carbon/compare/v42.3.2...v42.3.3) (2020-10-13)
+
+
+### Bug Fixes
+
+* **validation:** renders tooltip in 'top' position when validation ([01884a7](https://github.com/Sage/carbon/commit/01884a77c858291f00afed2a016503ac45543c47)), closes [#3191](https://github.com/Sage/carbon/issues/3191)
+
+### [42.3.2](https://github.com/Sage/carbon/compare/v42.3.1...v42.3.2) (2020-10-09)
+
+
+### Bug Fixes
+
+* **select:** stop passing onblur to style wrapper ([da246cf](https://github.com/Sage/carbon/commit/da246cf88f7a3d49d06e52f61f1091e8f37dbe23))
+
+### [42.3.1](https://github.com/Sage/carbon/compare/v42.3.0...v42.3.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* **search:** address alignment styling bug with search button ([5aa9307](https://github.com/Sage/carbon/commit/5aa93070356299974a1e8fd7feebafdc97145395))
+
+## [42.3.0](https://github.com/Sage/carbon/compare/v42.2.0...v42.3.0) (2020-10-02)
+
+
+### Features
+
+* **button:** add spacing props ([abf89e3](https://github.com/Sage/carbon/commit/abf89e33593814381cf00c0f48416e3c1c95e601))
+* **select:** add spacing props ([b3684de](https://github.com/Sage/carbon/commit/b3684de16e00c0fe3d0426e13d336ec783b211d4))
+
+## [42.2.0](https://github.com/Sage/carbon/compare/v42.1.0...v42.2.0) (2020-10-02)
+
+
+### Features
+
+* **dialog full screen:** added reference to scrollable content ([00183f9](https://github.com/Sage/carbon/commit/00183f9035484f54afa3b7f6790796f22b2ecc7d)), closes [#3116](https://github.com/Sage/carbon/issues/3116)
+
 ## [42.1.0](https://github.com/Sage/carbon/compare/v42.0.0...v42.1.0) (2020-10-02)
 
 

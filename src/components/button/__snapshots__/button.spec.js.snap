@@ -1,208 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button when mb prop passed in should add the correct bottom margin 1`] = `
-.c2 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c3 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c4 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c5 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c6 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c7 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c8 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c9 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c10 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c11 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c12 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c13 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c14 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c15 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c16 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c17 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c18 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c19 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c20 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c21 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c22 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c23 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c24 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c25 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c26 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c27 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c28 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c29 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c30 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c31 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c32 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c33 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c34 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c1 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
-}
-
-.c1:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c1 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
-.c1:hover .c35 {
-  color: #FFFFFF;
-}
-
-.c1.c1.c1 {
-  margin-bottom: 32px;
-}
-
-.c1 .c35 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c1 .c35 svg {
-  margin-top: 0;
-}
-
-<button
-  className="c0 c1"
-/>
-`;
-
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
 .c3 {
   display: inline-block;
@@ -247,7 +44,747 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c5 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c5:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c5 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c5 .c2 svg {
+  margin-top: 0;
+}
+
+.c6 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c6:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c6 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c6 .c2 svg {
+  margin-top: 0;
+}
+
+.c7 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c7:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c7 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c7 .c2 svg {
+  margin-top: 0;
+}
+
+.c8 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c8:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c8 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c8 .c2 svg {
+  margin-top: 0;
+}
+
+.c9 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c9:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c9 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c9 .c2 svg {
+  margin-top: 0;
+}
+
+.c10 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c10:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c10 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c10 .c2 svg {
+  margin-top: 0;
+}
+
+.c11 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c11:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c11 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c11 .c2 svg {
+  margin-top: 0;
+}
+
+.c12 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c12:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c12 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c12 .c2 svg {
+  margin-top: 0;
+}
+
+.c13 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c13:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c13 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c13 .c2 svg {
+  margin-top: 0;
+}
+
+.c14 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c14:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c14 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c14 .c2 svg {
+  margin-top: 0;
+}
+
+.c15 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c15:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c15 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c15 .c2 svg {
+  margin-top: 0;
+}
+
+.c16 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c16:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c16 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c16 .c2 svg {
+  margin-top: 0;
+}
+
+.c17 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c17:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c17 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c17 .c2 svg {
+  margin-top: 0;
+}
+
+.c18 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c18:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c18 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c18 .c2 svg {
+  margin-top: 0;
+}
+
+.c19 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c19:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c19 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c19 .c2 svg {
+  margin-top: 0;
+}
+
+.c20 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c20:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c20 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c20 .c2 svg {
+  margin-top: 0;
+}
+
+.c21 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c21:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c21 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c21 .c2 svg {
+  margin-top: 0;
+}
+
+.c22 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c22:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c22 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c22 .c2 svg {
+  margin-top: 0;
+}
+
+.c23 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c23:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c23 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c23 .c2 svg {
+  margin-top: 0;
+}
+
+.c24 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c24:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c24 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c24 .c2 svg {
+  margin-top: 0;
+}
+
+.c25 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c25:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c25 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c25 .c2 svg {
+  margin-top: 0;
+}
+
+.c26 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c26:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c26 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c26 .c2 svg {
+  margin-top: 0;
+}
+
+.c27 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c27:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c27 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c27 .c2 svg {
+  margin-top: 0;
+}
+
+.c28 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c28:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c28 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c28 .c2 svg {
+  margin-top: 0;
+}
+
+.c29 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c29:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c29 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c29 .c2 svg {
+  margin-top: 0;
+}
+
+.c30 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c30:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c30 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c30 .c2 svg {
+  margin-top: 0;
+}
+
+.c31 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c31:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c31 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c31 .c2 svg {
+  margin-top: 0;
+}
+
+.c32 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c32:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c32 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c32 .c2 svg {
+  margin-top: 0;
+}
+
+.c33 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c33:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c33 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c33 .c2 svg {
+  margin-top: 0;
+}
+
+.c34 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c34:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c34 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c34 .c2 svg {
+  margin-top: 0;
+}
+
+.c35 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c35:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c35 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c35 .c2 svg {
+  margin-top: 0;
+}
+
+.c36 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c36:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c36 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c36 .c2 svg {
+  margin-top: 0;
+}
+
+.c37 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c37:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c37 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c37 .c2 svg {
+  margin-top: 0;
+}
+
+.c38 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c38:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c38 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c38 .c2 svg {
+  margin-top: 0;
+}
+
+.c39 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c39:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c39 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c39 .c2 svg {
+  margin-top: 0;
+}
+
+.c40 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c40:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c40 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c40 .c2 svg {
+  margin-top: 0;
+}
+
+.c41 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c41:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c41 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c41 .c2 svg {
+  margin-top: 0;
+}
+
+.c42 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c42:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c42 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c42 .c2 svg {
+  margin-top: 0;
+}
+
+.c43 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c43:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c43 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c43 .c2 svg {
+  margin-top: 0;
+}
+
+.c44 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c44:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c44 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c44 .c2 svg {
+  margin-top: 0;
+}
+
+.c45 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c45:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c45 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c45 .c2 svg {
+  margin-top: 0;
+}
+
 .c1 {
+  padding-left: 24px;
+  padding-right: 24px;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -271,18 +808,13 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  height: 40px;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-left: 0;
+  min-height: 40px;
 }
 
 .c1:focus {
@@ -366,6 +898,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1 {
+  padding-left: 24px;
+  padding-right: 24px;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -389,18 +923,13 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  height: 40px;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-left: 0;
+  min-height: 40px;
 }
 
 .c1:focus {
@@ -428,6 +957,744 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1 .c2 svg {
+  margin-top: 0;
+}
+
+.c4 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c4:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c4 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c4 .c2 svg {
+  margin-top: 0;
+}
+
+.c5 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c5:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c5 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c5 .c2 svg {
+  margin-top: 0;
+}
+
+.c6 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c6:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c6 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c6 .c2 svg {
+  margin-top: 0;
+}
+
+.c7 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c7:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c7 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c7 .c2 svg {
+  margin-top: 0;
+}
+
+.c8 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c8:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c8 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c8 .c2 svg {
+  margin-top: 0;
+}
+
+.c9 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c9:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c9 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c9 .c2 svg {
+  margin-top: 0;
+}
+
+.c10 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c10:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c10 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c10 .c2 svg {
+  margin-top: 0;
+}
+
+.c11 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c11:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c11 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c11 .c2 svg {
+  margin-top: 0;
+}
+
+.c12 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c12:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c12 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c12 .c2 svg {
+  margin-top: 0;
+}
+
+.c13 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c13:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c13 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c13 .c2 svg {
+  margin-top: 0;
+}
+
+.c14 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c14:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c14 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c14 .c2 svg {
+  margin-top: 0;
+}
+
+.c15 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c15:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c15 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c15 .c2 svg {
+  margin-top: 0;
+}
+
+.c16 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c16:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c16 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c16 .c2 svg {
+  margin-top: 0;
+}
+
+.c17 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c17:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c17 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c17 .c2 svg {
+  margin-top: 0;
+}
+
+.c18 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c18:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c18 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c18 .c2 svg {
+  margin-top: 0;
+}
+
+.c19 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c19:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c19 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c19 .c2 svg {
+  margin-top: 0;
+}
+
+.c20 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c20:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c20 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c20 .c2 svg {
+  margin-top: 0;
+}
+
+.c21 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c21:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c21 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c21 .c2 svg {
+  margin-top: 0;
+}
+
+.c22 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c22:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c22 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c22 .c2 svg {
+  margin-top: 0;
+}
+
+.c23 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c23:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c23 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c23 .c2 svg {
+  margin-top: 0;
+}
+
+.c24 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c24:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c24 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c24 .c2 svg {
+  margin-top: 0;
+}
+
+.c25 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c25:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c25 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c25 .c2 svg {
+  margin-top: 0;
+}
+
+.c26 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c26:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c26 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c26 .c2 svg {
+  margin-top: 0;
+}
+
+.c27 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c27:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c27 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c27 .c2 svg {
+  margin-top: 0;
+}
+
+.c28 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c28:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c28 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c28 .c2 svg {
+  margin-top: 0;
+}
+
+.c29 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c29:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c29 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c29 .c2 svg {
+  margin-top: 0;
+}
+
+.c30 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c30:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c30 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c30 .c2 svg {
+  margin-top: 0;
+}
+
+.c31 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c31:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c31 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c31 .c2 svg {
+  margin-top: 0;
+}
+
+.c32 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c32:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c32 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c32 .c2 svg {
+  margin-top: 0;
+}
+
+.c33 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c33:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c33 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c33 .c2 svg {
+  margin-top: 0;
+}
+
+.c34 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c34:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c34 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c34 .c2 svg {
+  margin-top: 0;
+}
+
+.c35 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c35:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c35 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c35 .c2 svg {
+  margin-top: 0;
+}
+
+.c36 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c36:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c36 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c36 .c2 svg {
+  margin-top: 0;
+}
+
+.c37 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c37:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c37 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c37 .c2 svg {
+  margin-top: 0;
+}
+
+.c38 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c38:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c38 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c38 .c2 svg {
+  margin-top: 0;
+}
+
+.c39 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c39:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c39 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c39 .c2 svg {
+  margin-top: 0;
+}
+
+.c40 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c40:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c40 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c40 .c2 svg {
+  margin-top: 0;
+}
+
+.c41 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c41:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c41 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c41 .c2 svg {
+  margin-top: 0;
+}
+
+.c42 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c42:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c42 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c42 .c2 svg {
+  margin-top: 0;
+}
+
+.c43 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c43:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c43 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c43 .c2 svg {
+  margin-top: 0;
+}
+
+.c44 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c44:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c44 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c44 .c2 svg {
   margin-top: 0;
 }
 

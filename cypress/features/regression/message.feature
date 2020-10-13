@@ -58,7 +58,7 @@ Feature: Message component
 
   @positive
   Scenario: Verify the click function for a Message component
-    Given I open "Message Test" component page
+    Given I open "Message Test" component page "default"
       And clear all actions in Actions Tab
     When I click closeIcon in IFrame
     Then click action was called in Actions Tab

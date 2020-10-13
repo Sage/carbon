@@ -72,15 +72,6 @@ Feature: Pager component
     Then pageSize is not visible
 
   @positive
-  Scenario Outline: Pagination <button> button is disabled
-    When I open Test test_basic "Pager" component in noIFrame with "pager" json from "test" using "default" object name
-    Then pagination "<button>" button is disabled
-    Examples:
-      | button   |
-      | first    |
-      | previous |
-
-  @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on last button
     Given I open Test test_basic "Pager" component in noIFrame with "pager" json from "test" using "default" object name
     When I click "last" pagination button
@@ -121,11 +112,6 @@ Feature: Pager component
       | button |
       | next   |
       | last   |
-
-  @positive
-  Scenario: Pagination buttons are disabled
-    When I open Test test_basic "Pager" component in noIFrame with "pager" json from "test" using "disabled" object name
-    Then pagination buttons are disabled
 
   @positive
   Scenario: Pagination input has golden border

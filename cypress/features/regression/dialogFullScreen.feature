@@ -8,7 +8,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
-    Given I open "Dialog Full Screen Test" component page
+    Given I open "Dialog Full Screen Test" component page "default"
       And I check showCloseIcon checkbox
     When I click closeIcon in IFrame
     Then Confirm dialog is not visible
@@ -52,14 +52,14 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Disable escape key
-    Given I open "Dialog Full Screen Test" component page
+    Given I open "Dialog Full Screen Test" component page "default"
       And I check disableEscKey checkbox
     When I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    Given I open "Dialog Full Screen Test" component page
+    Given I open "Dialog Full Screen Test" component page "default"
       And I check disableEscKey checkbox
       And I uncheck disableEscKey checkbox
     When I hit ESC key
@@ -72,7 +72,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Cancel event
-    Given I open "Dialog Full Screen Test" component page
+    Given I open "Dialog Full Screen Test" component page "default"
       And clear all actions in Actions Tab
     When I click closeIcon in IFrame
     Then cancel action was called in Actions Tab

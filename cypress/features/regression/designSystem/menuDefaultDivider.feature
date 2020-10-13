@@ -2,12 +2,12 @@ Feature: Design Systems Menu component - divider story
   I want to check Design Systems Menu component default divider story properties
 
   Background: Open Design Systems Menu component default divider page
-    Given I open design systems default_divider "Menu" component in no iframe
+    Given I open "Design System Menu" component page "default_divider" in no iframe
 
   @positive
   Scenario: Check the persistence of Menu component
     # commented because of BDD default scenario Given - When - Then
-    # When I open design systems default "Menu" component in no iframe
+    # When I open "Design System Menu" component page "default_divider" in no iframe
     Then Menu elements are visible
 
   @positive
