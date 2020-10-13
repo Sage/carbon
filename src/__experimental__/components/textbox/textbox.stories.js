@@ -153,6 +153,21 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           readOnly
         />
 
+        <h6>On label Inline</h6>
+        {validationTypes.map(validation => (
+          <Textbox
+            key={ `${validation}-string-label` }
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            validationOnLabel
+            labelInline
+            labelWidth={ 10 }
+            inputWidth={ 50 }
+            { ...{ [validation]: 'Message' } }
+          />
+        ))}
+
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (
           <Textbox
