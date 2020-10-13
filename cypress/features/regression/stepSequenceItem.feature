@@ -14,16 +14,6 @@ Feature: Step Sequence Item component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | indicatorSpecialCharacter |
 
   @positive
-  Scenario Outline: I set status to <status>
-    When I open step-sequence-item "Step Sequence Test" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
-    Then label "Step Label" color is set to "<color>"
-    Examples:
-      | status     | color               | nameOfObject     |
-      | complete   | rgb(0, 163, 118)    | statusComplete   |
-      | current    | rgba(0, 0, 0, 0.9)  | statusCurrent    |
-      | incomplete | rgba(0, 0, 0, 0.55) | statusIncomplete |
-
-  @positive
   Scenario: I set hiddenCompleteLabel to mp150ú¿¡üßä
     When I open step-sequence-item "Step Sequence Test" component in noIFrame with "stepSequence" json from "commonComponents" using "hiddenCompleteLabelOtherLanguage" object name
     Then hidden label is set to mp150ú¿¡üßä

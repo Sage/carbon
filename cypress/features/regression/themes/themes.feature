@@ -96,7 +96,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Step Sequence component theme to <theme>
-    When I open default "Step Sequence" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open step-sequence "Step Sequence Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "step-sequence-item" component css "color" is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
