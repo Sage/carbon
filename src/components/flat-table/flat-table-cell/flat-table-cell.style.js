@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
+
 import baseTheme from '../../../style/themes/base';
 
 const StyledFlatTableCell = styled.td`
@@ -6,12 +8,16 @@ const StyledFlatTableCell = styled.td`
     background-color: #fff;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
-    overflow: visible;
-    padding: 10px 24px;
     text-overflow: ellipsis;
     text-align: ${align};
     vertical-align: middle;
     white-space: nowrap;
+    padding: 0;
+    
+    > div {
+      box-sizing: border-box;
+      ${space};
+    }
 
     &:first-of-type {
       border-left: 1px solid ${theme.table.secondary};

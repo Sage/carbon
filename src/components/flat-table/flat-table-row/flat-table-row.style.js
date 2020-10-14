@@ -12,7 +12,6 @@ const StyledFlatTableRow = styled.tr`
   min-width: 100%;
   table-layout: fixed;
   width: auto;
-  word-break: break-all;
 
   ${({ isRowInteractive, theme }) => isRowInteractive && css`
     cursor: pointer;

@@ -10,9 +10,7 @@ const StyledFlatTable = styled.table`
   border-radius: 0px;
   border-spacing: 0;
   min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  word-break: break-all;
+  width: 100%;
 `;
 
 const StyledFlatTableWrapper = styled.div`

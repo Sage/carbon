@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { SpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface FlatTableCellProps {
+export interface FlatTableCellProps extends SpacingProps {
   /** Content alignment */
-  align: string;
+  align?: string;
   children?: React.ReactNode | string;
   /** Number of columns that a cell should span */
   colspan?: number | string;
