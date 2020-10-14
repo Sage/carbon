@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { boolean, withKnobs, select } from '@storybook/addon-knobs';
+import {
+  boolean, withKnobs, select, number
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import {
@@ -30,6 +32,8 @@ export const basic = () => {
   const hasHeaderRow = boolean('hasHeaderRow', false);
   const hasClickableRows = boolean('hasClickableRows', false);
   const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'dark');
+  const firstColumnWidth = number('first column width', 150);
+  const secondColumnWidth = number('second column width', 120);
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -70,7 +74,11 @@ export const basic = () => {
                 }
 
                 return (
-                  <Component key={ cellData.id }>
+                  <Component
+                    key={ cellData.id }
+                    { ...(index === 0 && { width: firstColumnWidth }) }
+                    { ...(index === 1 && { width: secondColumnWidth }) }
+                  >
                     { cellData.content }
                   </Component>
                 );
@@ -276,7 +284,7 @@ const headRowData = {
 };
 
 const rowData = {
-  client: (<div><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</div>),
+  client: (<><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</>),
   clientType: 'business',
   categories: 'Group1, Group2, Group3',
   products: 'Accounting',

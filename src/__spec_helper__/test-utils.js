@@ -128,7 +128,7 @@ const getDefaultValue = (value) => {
   return value;
 };
 
-const testStyledSystemSpacing = (component, defaults, styleContainer) => {
+const testStyledSystemSpacing = (component, defaults, styleContainer, assertOpts) => {
   describe('default props', () => {
     const wrapper = mount(component());
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
@@ -155,7 +155,8 @@ const testStyledSystemSpacing = (component, defaults, styleContainer) => {
             marginTop,
             marginBottom
           },
-          StyleElement
+          StyleElement,
+          assertOpts
         ));
       } else {
         expect(StyleElement).not.toHaveStyleRule('marginLeft');
@@ -188,7 +189,8 @@ const testStyledSystemSpacing = (component, defaults, styleContainer) => {
             paddingTop,
             paddingBottom
           },
-          StyleElement
+          StyleElement,
+          assertOpts
         ));
       } else {
         expect(StyleElement).not.toHaveStyleRule('paddingLeft');
@@ -210,7 +212,8 @@ const testStyledSystemSpacing = (component, defaults, styleContainer) => {
 
         expect(assertStyleMatch(
           { [propName]: '16px' },
-          styleContainer ? styleContainer(wrapper) : wrapper
+          styleContainer ? styleContainer(wrapper) : wrapper,
+          assertOpts
         ));
       });
     });
