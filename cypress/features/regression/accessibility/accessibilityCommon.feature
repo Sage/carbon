@@ -62,8 +62,6 @@ Scenario Outline: Component <component> default story
     | row                 |
     | settingsrow         |
     | split-button        |
-    | step-sequence-item  |
-    | step-sequence       |
     | table-ajax          |
     | table               |
     | tooltip             |
@@ -75,3 +73,4 @@ Scenario Outline: Component <component> basic story
   Examples:
     | component   |
     | showeditpod |
+    | step-sequence |
