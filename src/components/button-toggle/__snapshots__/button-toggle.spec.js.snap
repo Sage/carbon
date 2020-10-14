@@ -1,124 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ButtonToggle Classic theme renders correctly with default settings 1`] = `
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.c2 {
-  display: inline-block;
-  position: relative;
-  height: 38px;
-  padding: 0 24px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid #668592;
-  font-size: 14px;
-  background-color: #FFFFFF;
-  height: auto;
-  min-width: auto;
-  padding: 15px 25px;
-  font-weight: 900;
-  border: 1px solid #ccd6db;
-}
-
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #00402E;
-}
-
-input:checked ~ .c2 .c4 {
-  color: #FFFFFF;
-}
-
-input:focus ~ .c2 {
-  outline: 3px solid #FFB500;
-  z-index: 100;
-}
-
-.c2:hover {
-  background-color: #E6F5E6;
-  border-color: #00402E;
-}
-
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #1573e6;
-}
-
-input:checked ~ .c2 .c4 {
-  color: #FFFFFF;
-}
-
-input:focus ~ .c2 {
-  outline: 0;
-}
-
-.c2:hover {
-  border-color: #1e499f;
-  color: #FFFFFF;
-  background-color: #1e499f;
-}
-
-.c2:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c0 {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.c0:not(:first-of-type) {
-  margin-left: 10px;
-}
-
-.c1 {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-}
-
-<div
-  className="c0"
-  data-component="button-toggle"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    id="guid-12345"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    type="radio"
-  />
-  <label
-    className="c2"
-    htmlFor="guid-12345"
-    size="large"
-  >
-    <div
-      className="c3"
-    >
-      Button
-    </div>
-  </label>
-</div>
-`;
-
 exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 .c4 {
   display: -webkit-box;
@@ -147,19 +28,14 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   border: 1px solid #668592;
   font-size: 14px;
   background-color: #FFFFFF;
-  height: auto;
-  min-width: auto;
-  padding: 15px 25px;
-  font-weight: 900;
-  border: 1px solid #ccd6db;
 }
 
 input:checked ~ .c2 {
   color: #FFFFFF;
-  background-color: #00402E;
+  background-color: #004500;
 }
 
-input:checked ~ .c2 .c8 {
+input:checked ~ .c2 .c7 {
   color: #FFFFFF;
 }
 
@@ -170,30 +46,7 @@ input:focus ~ .c2 {
 
 .c2:hover {
   background-color: #E6F5E6;
-  border-color: #00402E;
-}
-
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #1573e6;
-}
-
-input:checked ~ .c2 .c8 {
-  color: #FFFFFF;
-}
-
-input:focus ~ .c2 {
-  outline: 0;
-}
-
-.c2:hover {
-  border-color: #1e499f;
-  color: #FFFFFF;
-  background-color: #1e499f;
-}
-
-.c2:hover .c8 {
-  color: #FFFFFF;
+  border-color: #004500;
 }
 
 .c5 .c3 {
@@ -203,12 +56,6 @@ input:focus ~ .c2 {
 }
 
 .c6 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c7 .c3 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -250,7 +97,6 @@ input:focus ~ .c2 {
     <label
       className="c2"
       htmlFor="guid-12345"
-      size="large"
     >
       <div
         className="c3 c4"
@@ -274,7 +120,6 @@ input:focus ~ .c2 {
     <label
       className="c2"
       htmlFor="guid-12345"
-      size="large"
     >
       <div
         className="c3 c4"
@@ -310,12 +155,6 @@ exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = 
   flex-direction: column;
 }
 
-.c6 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
 .c2 {
   display: inline-block;
   position: relative;
@@ -333,7 +172,7 @@ input:checked ~ .c2 {
   background-color: #004472;
 }
 
-input:checked ~ .c2 .c7 {
+input:checked ~ .c2 .c6 {
   color: #FFFFFF;
 }
 
@@ -378,7 +217,6 @@ input:focus ~ .c2 {
   <label
     className="c2"
     htmlFor="guid-12345"
-    size="large"
   >
     <div
       className="c3 c4"
@@ -390,7 +228,7 @@ input:focus ~ .c2 {
 `;
 
 exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -405,12 +243,6 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
   align-items: center;
   width: 100%;
   height: 100%;
-}
-
-.c5 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 
 .c2 {
@@ -430,7 +262,7 @@ input:checked ~ .c2 {
   background-color: #00402E;
 }
 
-input:checked ~ .c2 .c6 {
+input:checked ~ .c2 .c4 {
   color: #FFFFFF;
 }
 
@@ -475,10 +307,9 @@ input:focus ~ .c2 {
   <label
     className="c2"
     htmlFor="guid-12345"
-    size="large"
   >
     <div
-      className="c3 c4"
+      className="c3"
     >
       Button
     </div>

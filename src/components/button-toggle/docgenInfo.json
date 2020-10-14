@@ -129,17 +129,6 @@
             "computed": false
           }
         },
-        "size": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Sets the size of the button (padding, font-size). Only used in Classic theme.",
-          "defaultValue": {
-            "value": "'large'",
-            "computed": false
-          }
-        },
         "grouped": {
           "type": {
             "name": "bool"
