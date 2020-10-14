@@ -1,18 +1,19 @@
 Feature: Accessibility tests - Common list
   I want to check that all components have no violations
 
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
-  Scenario Outline: Component <component> page with button
-    Given I open "<component>" component page with button in noIFrame
-    When I open component preview no iframe
+  @accessibility
+  Scenario Outline: Component <component> page auto opened
+    Given I open "<component>" component page "default" in no iframe
+      And I wait 500
     Then "<component>" component has no accessibility violations
     Examples:
-      | component |
-      | alert     |
-      | sidebar   |
-
+      | component          |
+      | alert              |
+      | confirm            |
+      | dialog             |
+      | dialog-full-screen |
+      | sidebar            |
+    
   @accessibility
   Scenario: Component button toggle
     When I open "Button-Toggle-Group" component page "basic" in no iframe
@@ -22,20 +23,17 @@ Feature: Accessibility tests - Common list
   # ignored because of accessibility issues after
   # changing state of components -> FE-2894
   Scenario Outline: Component <component> page with preview button
-    Given I open "<component>" component page in noIFrame
+    Given I open "<component>" component page "default" in no iframe
     When I open component preview no iframe
     Then "<data-component>" component has no accessibility violations
     Examples:
       | component          |
-      | dialog-full-screen |
-      | dialog             |
       | flash              |
       | pages              |
-      | confirm            |
 
   @accessibility
   Scenario Outline: Component <component> default story
-    When I open "<component>" component page in noIFrame
+    When I open "<component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |

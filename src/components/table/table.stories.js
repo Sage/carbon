@@ -47,7 +47,7 @@ const commonKnobs = (
 const classicKnobs = () => {
   return {
     theme: select(
-      'theme',
+      'tableTheme',
       [
         OptionsHelper.tableThemes[0],
         OptionsHelper.tableThemes[1]
@@ -60,7 +60,7 @@ const classicKnobs = () => {
 const dlsKnobs = () => {
   return {
     theme: select(
-      'theme',
+      'tableTheme',
       [
         OptionsHelper.tableThemes[0],
         OptionsHelper.tableThemes[1],

@@ -3,11 +3,10 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
-import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
 import SwitchSlider from './switch-slider.component';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import { baseTheme, classicTheme } from '../../../style/themes';
+import { baseTheme } from '../../../style/themes';
 
 describe('SwitchSlider', () => {
   describe('base theme', () => {
@@ -121,98 +120,6 @@ describe('SwitchSlider', () => {
             transform: 'translateX(38px)'
           }, wrapper, { modifier: '::before' });
         });
-      });
-    });
-  });
-
-  describe('Classic theme', () => {
-    describe('Panel content', () => {
-      describe('default', () => {
-        const panels = renderWithTheme({}, classicTheme).root.findAllByType(SwitchSliderPanel);
-
-        it('renders a cross Icon in the panel', () => {
-          expect(panels[0].props.children.type).toBe(Icon);
-          expect(panels[0].props.children.props.type).toBe('cross');
-        });
-
-        it('renders only one panel', () => {
-          expect(panels.length).toBe(1);
-        });
-      });
-
-      describe('when checked=true', () => {
-        const panels = renderWithTheme({ checked: true }, classicTheme).root.findAllByType(SwitchSliderPanel);
-
-        it('renders a tick Icon in the panel', () => {
-          expect(panels[0].props.children.type).toBe(Icon);
-          expect(panels[0].props.children.props.type).toBe('tick');
-        });
-
-        it('renders only one panel', () => {
-          expect(panels.length).toBe(1);
-        });
-      });
-
-      describe('when loading=true', () => {
-        const panels = renderWithTheme({ loading: true }, classicTheme).root.findAllByType(SwitchSliderPanel);
-
-        it('renders a Loader in the panel', () => {
-          expect(panels[0].props.children.type).toBe(Loader);
-        });
-
-        it('renders only one panel', () => {
-          expect(panels.length).toBe(1);
-        });
-      });
-    });
-
-    describe('default', () => {
-      const wrapper = renderWithTheme({}, classicTheme).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: '#003349',
-          borderRadius: '24px',
-          height: '28px',
-          width: '55px'
-        }, wrapper);
-      });
-
-      it('applies the correct ::before styles', () => {
-        assertStyleMatch({
-          borderRadius: '50%',
-          boxShadow: '0 2px 3px 0 rgba(0,0,0,.3)',
-          height: '23px',
-          top: '2px',
-          transition: 'transform .25s ease',
-          width: '23px'
-        }, wrapper, { modifier: '::before' });
-      });
-    });
-
-    describe('and checked=true', () => {
-      const wrapper = renderWithTheme({ checked: true }, classicTheme).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: classicTheme.colors.baseBlue
-        }, wrapper);
-      });
-
-      it('applies the correct ::before styles', () => {
-        assertStyleMatch({
-          transform: 'translateX(28px)'
-        }, wrapper, { modifier: '::before' });
-      });
-    });
-
-    describe('and loading=true', () => {
-      const wrapper = renderWithTheme({ loading: true }, classicTheme).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          opacity: '0.6'
-        }, wrapper);
       });
     });
   });

@@ -125,7 +125,7 @@ Feature: Pod component
 
   @positive
   Scenario: Check the edit event
-    Given I open "Pod" component page
+    Given I open "Pod" component page "default"
       And I check onEdit checkbox
       And clear all actions in Actions Tab
     When I click onEdit icon in Iframe

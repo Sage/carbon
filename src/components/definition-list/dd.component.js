@@ -8,9 +8,7 @@ const Dd = ({
   children
 }) => {
   return (
-    <StyledDd
-      mb={ mb }
-    >
+    <StyledDd mb={ mb }>
       {children}
     </StyledDd>
   );

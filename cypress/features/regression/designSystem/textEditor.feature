@@ -2,7 +2,7 @@ Feature: Design System Text Editor component
   I want to test Design System Text Editor component
 
   Background: Open Design System Text Editor component page
-    Given I open design systems basic "Text Editor" component in no iframe
+    Given I open "Design System Text Editor" component page "basic" in no iframe
 
   @positive
   Scenario: Verify that counter works properly

@@ -1,0 +1,207 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Switch from '.';
+
+
+<Meta
+  title="Experimental/Switch"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Switch
+
+Switches provide a way to efficiently toggle between two states. They are often used on settings pages to switch on and off individual features.
+
+Disabled or read-only Switches might be difficult for a user to distinguish visually, so try to avoid this.
+
+Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+
+## Related Components
+- Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--basic "Checkbox").
+- Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
+- Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--basic "Select").
+- Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
+
+## Translations
+
+The switch component uses `switch.on` and `switch.off` to retrieve the translations from I18n-js.
+
+## Quick Start
+
+```jsx
+import Switch from "carbon-react/lib/__experimental__/components/switch"
+
+const MyComponent = () => (
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Switch
+      label="Label"
+      name="switch-name"
+      checked={isChecked}
+      onChange={ e => setIsChecked(e.target.checked) }
+    />
+  )
+);
+```
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="Label"
+          name="switch-name"
+          checked={isChecked}
+          onChange={ e => setIsChecked(e.target.checked) }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="Sizes">
+    {() => {
+      return ['small', 'large'].map(size =>
+        <Switch
+          label={size}
+          key={ `switch-${size}` }
+          name={ `switch-${size}` }
+          size={size}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="Disabled">
+    <Switch label="Disabled switch" disabled />
+  </Story>
+</Preview>
+
+### Reversed
+
+<Preview>
+  <Story name="Reversed">
+    <Switch label="Reversed switch" reverse={false} />
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="With labelInline">
+    <>
+      <Switch
+        label="With labelInline"
+        labelInline
+      />
+      <Switch
+        label="With labelInline and reversed"
+        labelInline
+        reverse={false}
+      />
+    </>
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="With fieldHelp">
+    <>
+      <Switch
+        label="With fieldHelp"
+        fieldHelp="This text provides help for the input."
+      />
+      <Switch
+        label="With inline fieldHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+      />
+    </>
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="With labelHelp">
+    <Switch
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+    />
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="Single switch - string validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <Switch
+        id={ `switch${type}` }
+        key={ `switch-${type}` }
+        { ...{ [type]: 'Message' } }
+        label={ `Example switch (${type})` }
+        name={ `switch-${type}` }
+      />
+    ))}
+  </Story>
+</Preview>
+
+### As a string with validationOnLabel
+
+<Preview>
+  <Story name="Single switch - string validation - validationOnLabel">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <Switch
+        id={ `switch${type}-label` }
+        key={ `switch-${type}-label` }
+        { ...{ [type]: 'Message' } }
+        label={ `Example switch (${type})` }
+        name={ `switch-${type}-label` }
+        validationOnLabel
+      />
+    ))}
+  </Story>
+</Preview>
+
+### As a boolean
+<Preview>
+  <Story name="Single switch - boolean validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <Switch
+        id={ `switch_${type}-boolean` }
+        key={ `switch-${type}-boolean` }
+        { ...{ [type]: true } }
+        label={ `Example switch (${type})` }
+        name={ `switch-${type}-boolean` }
+      />
+    ))}
+  </Story>
+</Preview>
+
+## Props:
+
+### Switch
+
+<Props of={Switch} />
