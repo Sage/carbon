@@ -1,8 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider, css } from 'styled-components';
-import { mergeDeep } from '../../style/utils/merge-deep';
-import mintTheme from '../../style/themes/mint';
-import { mergeWithBase } from '../../style/themes/base';
+import styled, { ThemeProvider, css, withTheme } from 'styled-components';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
 import StyledButton from '../button/button.style';
@@ -91,29 +88,24 @@ const MenuButton = styled.div`
  * theme provider wrapped around it
  * @param {*} themeFn
  */
-const iconThemeProviderFactory = themeFn => (Component) => {
-  const customTheme = (palette) => {
-    const color = themeFn(palette);
-    return (mergeDeep(
-      mintTheme,
-      {
-        icon: {
-          default: color,
-          defaultHover: color
-        }
-      }
-    ));
+const iconThemeProviderFactory = (Component, themeFn) => withTheme(({ theme, ...props }) => {
+  const color = themeFn(theme.palette);
+  const customTheme = {
+    ...theme,
+    icon: {
+      default: color,
+      defaultHover: color
+    }
   };
-  const theme = mergeWithBase(customTheme);
-  return props => <ThemeProvider { ...{ theme } }><Component { ...props } /></ThemeProvider>;
-};
+  return <ThemeProvider theme={ customTheme }><Component { ...props } /></ThemeProvider>;
+});
 
-const ButtonIcon = iconThemeProviderFactory(palette => palette.slate)(Icon);
-const MenuItemIcon = styled(iconThemeProviderFactory(() => 'inherit')(Icon))`
+const ButtonIcon = iconThemeProviderFactory(Icon, palette => palette.slate);
+const MenuItemIcon = styled(iconThemeProviderFactory(Icon, () => 'inherit'))`
   ${({ theme }) => `padding-right: ${theme.spacing}px;`}
 `;
 
-const SubMenuItemIcon = styled(iconThemeProviderFactory(() => 'inherit')(Icon))`
+const SubMenuItemIcon = styled(ButtonIcon)`
   ${({ theme, type }) => css`
     position: absolute;
     &, :hover { 

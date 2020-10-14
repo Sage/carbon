@@ -14,6 +14,12 @@ const shouldDisplayValidationIcon = ({
   return disabled ? false : typeof validation === 'string';
 };
 
+const tooltipPosition = ({
+  error, warning, info, inline
+}) => {
+  return (error || warning || info) && inline === true ? 'top' : 'right';
+};
+
 let deprecatedWarnTriggered = false;
 
 const Label = ({
@@ -68,6 +74,9 @@ const Label = ({
     if (useValidationIcon && shouldDisplayValidationIcon({
       error, warning, info, disabled
     })) {
+      const tooltipPositionValue = tooltipPosition({
+        error, warning, info, inline
+      });
       return (
         <IconWrapperStyle>
           <ValidationIcon
@@ -75,6 +84,7 @@ const Label = ({
             error={ error }
             warning={ warning }
             info={ info }
+            tooltipPosition={ tooltipPositionValue }
           />
         </IconWrapperStyle>
       );
