@@ -7,36 +7,38 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Decimal from './decimal.component';
 import Textbox from '../textbox/textbox.component';
 import StyledWiggle, { wiggleAnimation } from './decimal.style';
+import Label from '../label';
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
 // Note that we're asserting e.preventDefault has been called in may places, but we're simulating from the rendered
 // input, not calling the prop directly, this is important. By mounting we can make these assertions with
 // confidence that the `onChange` will not be dispatched if e.preventDefault has been called
+
+let wrapper;
+let container;
+const onChange = jest.fn();
+
+const mount = (jsx) => {
+  wrapper = enzymeMount(jsx, { attachTo: container });
+};
+
+const DOM = (jsx) => {
+  ReactDOM.render(jsx, container);
+};
+
+function render(props = {}, renderer = mount) {
+  const defaultProps = {
+    onChange,
+    ...props
+  };
+
+  renderer(
+    <Decimal { ...defaultProps } />
+  );
+}
+
 describe('Decimal', () => {
-  let wrapper;
-  let container;
-  const onChange = jest.fn();
-
-  const mount = (jsx) => {
-    wrapper = enzymeMount(jsx, { attachTo: container });
-  };
-
-  const DOM = (jsx) => {
-    ReactDOM.render(jsx, container);
-  };
-
-  function render(props = {}, renderer = mount) {
-    const defaultProps = {
-      onChange,
-      ...props
-    };
-
-    renderer(
-      <Decimal { ...defaultProps } />
-    );
-  }
-
   function setProps(obj) {
     wrapper.setProps(obj);
     wrapper.update();
@@ -1696,5 +1698,28 @@ describe('Decimal', () => {
         }
       }));
     });
+  });
+});
+
+describe('required', () => {
+  let inputs;
+  beforeAll(() => {
+    render({ label: 'required', required: true }, (jsx) => {
+      wrapper = enzymeMount(jsx);
+    });
+    inputs = wrapper.find('input');
+  });
+
+  it('the required prop is passed to the input', () => {
+    expect(inputs.at(0).prop('required')).toBe(true);
+  });
+
+  it('the required prop not passed to the hidden input', () => {
+    expect(inputs.at(1).prop('required')).toBe(undefined);
+  });
+
+  it('the isRequired prop is passed to the label', () => {
+    const label = wrapper.find(Label);
+    expect(label.prop('isRequired')).toBe(true);
   });
 });

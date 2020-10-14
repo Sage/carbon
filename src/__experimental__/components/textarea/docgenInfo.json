@@ -56,22 +56,6 @@
       }
     }
   ],
-  "src/__experimental__/components/textarea/textarea-input.component.js": [
-    {
-      "description": "",
-      "displayName": "TextareaInput",
-      "methods": [],
-      "props": {
-        "maxLength": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        }
-      }
-    }
-  ],
   "src/__experimental__/components/textarea/textarea.component.js": [
     {
       "description": "",
@@ -107,18 +91,6 @@
             "get"
           ],
           "params": [],
-          "returns": null
-        },
-        {
-          "name": "inputRefCallback",
-          "docblock": null,
-          "modifiers": [],
-          "params": [
-            {
-              "name": "inputRef",
-              "type": null
-            }
-          ],
           "returns": null
         }
       ],
@@ -203,12 +175,12 @@
             "name": "enum",
             "value": [
               {
-                "value": 1,
-                "computed": "false"
+                "value": "1",
+                "computed": false
               },
               {
-                "value": 2,
-                "computed": "false"
+                "value": "2",
+                "computed": false
               }
             ]
           },
@@ -356,32 +328,32 @@
             "name": "enum",
             "value": [
               {
-                "value": 0,
-                "computed": "false"
+                "value": "0",
+                "computed": false
               },
               {
-                "value": 1,
-                "computed": "false"
+                "value": "1",
+                "computed": false
               },
               {
-                "value": 2,
-                "computed": "false"
+                "value": "2",
+                "computed": false
               },
               {
-                "value": 3,
-                "computed": "false"
+                "value": "3",
+                "computed": false
               },
               {
-                "value": 4,
-                "computed": "false"
+                "value": "4",
+                "computed": false
               },
               {
-                "value": 5,
-                "computed": "false"
+                "value": "5",
+                "computed": false
               },
               {
-                "value": 7,
-                "computed": "false"
+                "value": "7",
+                "computed": false
               }
             ]
           },
@@ -394,6 +366,13 @@
           },
           "required": false,
           "description": "Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set"
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as mandatory"
         }
       }
     }
@@ -401,12 +380,7 @@
   "src/__experimental__/components/textarea/textarea.stories.js": [
     {
       "description": "",
-      "displayName": "defaultComponent",
-      "methods": []
-    },
-    {
-      "description": "",
-      "displayName": "autoFocusComponent",
+      "displayName": "Required",
       "methods": []
     }
   ]

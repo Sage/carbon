@@ -446,7 +446,9 @@ BaseDateInput.propTypes = {
   /** The current date YYYY-MM-DD */
   value: PropTypes.string,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint: PropTypes.number
+  adaptiveLabelBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export { defaultDateFormat, BaseDateInput };

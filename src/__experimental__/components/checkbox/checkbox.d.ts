@@ -30,6 +30,8 @@ interface CheckboxProps {
   info?: boolean | string;
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
 }
 
 declare const Checkbox: React.ComponentClass<CheckboxProps>;

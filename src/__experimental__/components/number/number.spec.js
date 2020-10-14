@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Number from './number.component';
 import Textbox from '../textbox';
+import Label from '../label';
 
 describe('Number Input', () => {
   let wrapper, input, onChangeFn, onKeyDownFn;
@@ -112,6 +113,22 @@ describe('Number Input', () => {
         input.simulate('keyDown', keyDownParams);
         expect(onKeyDownFn).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('required', () => {
+    beforeAll(() => {
+      wrapper = renderNumberInput({ label: 'required', required: true });
+    });
+
+    it('the required prop is passed to the input', () => {
+      input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

@@ -41,6 +41,7 @@ const FormField = ({
   mb,
   adaptiveLabelBreakpoint,
   styleOverride = {},
+  isRequired,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -97,6 +98,7 @@ const FormField = ({
             pr={ !reverse ? labelSpacing : undefined }
             pl={ reverse ? labelSpacing : undefined }
             styleOverride={ styleOverride.label }
+            isRequired={ isRequired }
           >
             {label}
           </Label>
@@ -164,6 +166,8 @@ FormField.propTypes = {
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory */
+  isRequired: PropTypes.bool,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
