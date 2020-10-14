@@ -113,14 +113,14 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Edit action was called
-    Given I open "ShowEditPod" component page
+    Given I open "ShowEditPod" component page "default"
       And clear all actions in Actions Tab
     When I click edit Show Edit Pod component in Iframe
     Then edit action was called in Actions Tab
 
   @positive
   Scenario: Delete action was called
-    Given I open "ShowEditPod" component page
+    Given I open "ShowEditPod" component page "default"
       And I click edit Show Edit Pod component in Iframe
       And clear all actions in Actions Tab
     When I click delete button
@@ -128,7 +128,7 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Cancel action was called
-    Given I open "ShowEditPod" component page
+    Given I open "ShowEditPod" component page "default"
       And I click edit Show Edit Pod component in Iframe
       And clear all actions in Actions Tab
     When I click cancel button

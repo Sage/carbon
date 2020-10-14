@@ -1,0 +1,87 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import DialogFullScreen from '.';
+import Button from '../button';
+import Form from '../form';
+import Textbox from '../../__experimental__/components/textbox';
+
+<Meta
+  title="Dialog Full Screen"
+  parameters={{ info: { disable: true }}}
+/>
+
+# DialogFullScreen
+A full-width and full-height dialog overlaid on top of any page.
+
+Useful to perform an action in context without navigating the user to a separate page.
+
+Whilst a standard Dialog component’s width might constrain what you can do, the full screen dialog uses the full width and height available.
+
+A good example could be importing a large volume of data, and checking for errors, in the context of an underlying table of data.
+
+## Related Components
+- Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Dialog").
+- Need to refer back to the underlying page? [Try Sidebar](/?path=/docs/sidebar--default-story "Sidebar").
+
+## Quick Start
+
+Import the component and use as shown below:
+
+```jsx
+import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen";
+
+const MyComponent = ({ isOpen, handleClose }) => (
+  <DialogFullScreen
+    open={ isOpen }
+    onCancel={ handleClose }
+    title="Title"
+    subtitle="Subtitle"
+  >
+    Dialog content
+  </DialogFullScreen>
+);
+```
+
+### Default
+
+<Preview>
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open DialogFullScreen
+          </Button>
+          <DialogFullScreen
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title="Title"
+            subtitle="Subtitle"
+          >
+            <Form
+              stickyFooter={ true }
+              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
+            >
+              <div>This is an example of a full screen Dialog with a Form as content</div>
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
+              <Textbox label='Surname' />
+              <Textbox label='Birth Place' />
+              <Textbox label='Favourite Colour' />
+              <Textbox label='Address' />
+            </Form>
+          </DialogFullScreen>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### DialogFullScreen
+
+<Props of={DialogFullScreen} />

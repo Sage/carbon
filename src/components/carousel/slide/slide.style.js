@@ -1,17 +1,16 @@
 import styled, { css } from 'styled-components';
-import { isClassic } from '../../../utils/helpers/style-helper';
 import baseTheme from '../../../style/themes/base';
 
 const SlideStyle = styled.div`
 ${({
-    theme, onClick, id, selectedIndex, isPadded
+    theme, onClick, id, selectedIndex
   }) => css`
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
   z-index: 10;
 
-  ${!isClassic(theme) && css`
+  ${(theme) && css`
     transition: .5s;
     min-width: 80%;
     transform: scale(.9);
@@ -31,10 +30,6 @@ ${({
         }
       `}
     `}
-  `}
-
-  ${isPadded && css`
-      padding: 0 60px;
   `}
 `}
 `;

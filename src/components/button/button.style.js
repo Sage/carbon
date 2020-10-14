@@ -1,12 +1,15 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
+
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
-import buttonSizes from './button-sizes.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
 
 const StyledButton = styled.button`
+  ${space}
   align-items: center;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: inline-flex;
@@ -55,15 +58,12 @@ function stylingForType({
   theme,
   size,
   destructive,
-  fullWidth,
-  ml
+  fullWidth
 }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
     font-weight: 600;
-    padding-top: 1px;
-    padding-bottom: 1px;
     text-decoration: none;
     &:focus {
       outline: solid 3px ${theme.colors.focus};
@@ -74,8 +74,23 @@ function stylingForType({
       margin-left: 16px;
       }
     `}
+
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
-    ${buttonSizes(theme, ml)[size]}
+    
+    ${size === 'small' && css`
+      font-size: ${theme.text.size};
+      min-height: 32px;
+    `}
+
+    ${size === 'medium' && css`
+      font-size: ${theme.text.size};
+      min-height: 40px;
+    `}
+    
+    ${size === 'large' && css`
+      font-size: 16px;
+      min-height: 48px;
+    `}
   `;
 }
 
@@ -86,6 +101,8 @@ StyledButton.defaultProps = {
 };
 
 StyledButton.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
   /** Button types for new business themes */
   buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
   /** The text the button displays */
@@ -103,11 +120,7 @@ StyledButton.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Used to transform button into anchor */
-  to: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left, any valid CSS value */
-  ml: PropTypes.string
+  to: PropTypes.string
 };
 
 export default StyledButton;

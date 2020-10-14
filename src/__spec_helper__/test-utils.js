@@ -131,53 +131,72 @@ const getDefaultValue = (value) => {
 const testStyledSystemSpacing = (component, defaults, styleContainer) => {
   describe('default props', () => {
     const wrapper = mount(component());
+    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it('should set the correct margins', () => {
+      let margin;
       let marginLeft;
       let marginRight;
       let marginTop;
       let marginBottom;
 
       if (defaults) {
-        marginLeft = getDefaultValue(defaults.ml || defaults.mx || defaults.m || undefined);
-        marginRight = getDefaultValue(defaults.mr || defaults.mx || defaults.m || undefined);
-        marginTop = getDefaultValue(defaults.mt || defaults.my || defaults.m || undefined);
-        marginBottom = getDefaultValue(defaults.mb || defaults.my || defaults.m || undefined);
-      }
+        margin = getDefaultValue(defaults.m || undefined);
+        marginLeft = getDefaultValue(defaults.ml || defaults.mx || undefined);
+        marginRight = getDefaultValue(defaults.mr || defaults.mx || undefined);
+        marginTop = getDefaultValue(defaults.mt || defaults.my || undefined);
+        marginBottom = getDefaultValue(defaults.mb || defaults.my || undefined);
 
-      expect(assertStyleMatch(
-        {
-          marginLeft,
-          marginRight,
-          marginTop,
-          marginBottom
-        },
-        styleContainer ? styleContainer(wrapper) : wrapper
-      ));
+        expect(assertStyleMatch(
+          {
+            margin,
+            marginLeft,
+            marginRight,
+            marginTop,
+            marginBottom
+          },
+          StyleElement
+        ));
+      } else {
+        expect(StyleElement).not.toHaveStyleRule('marginLeft');
+        expect(StyleElement).not.toHaveStyleRule('marginRight');
+        expect(StyleElement).not.toHaveStyleRule('marginTop');
+        expect(StyleElement).not.toHaveStyleRule('marginBottom');
+        expect(StyleElement).not.toHaveStyleRule('margin');
+      }
     });
 
     it('should set the correct paddings', () => {
+      let padding;
       let paddingLeft;
       let paddingRight;
       let paddingTop;
       let paddingBottom;
 
       if (defaults) {
-        paddingLeft = getDefaultValue(defaults.pl || defaults.px || defaults.p || undefined);
-        paddingRight = getDefaultValue(defaults.pr || defaults.px || defaults.p || undefined);
-        paddingTop = getDefaultValue(defaults.pt || defaults.py || defaults.p || undefined);
-        paddingBottom = getDefaultValue(defaults.pb || defaults.py || defaults.p || undefined);
-      }
+        padding = getDefaultValue(defaults.p || undefined);
+        paddingLeft = getDefaultValue(defaults.pl || defaults.px || undefined);
+        paddingRight = getDefaultValue(defaults.pr || defaults.px || undefined);
+        paddingTop = getDefaultValue(defaults.pt || defaults.py || undefined);
+        paddingBottom = getDefaultValue(defaults.pb || defaults.py || undefined);
 
-      expect(assertStyleMatch(
-        {
-          paddingLeft,
-          paddingRight,
-          paddingTop,
-          paddingBottom
-        },
-        styleContainer ? styleContainer(wrapper) : wrapper
-      ));
+        expect(assertStyleMatch(
+          {
+            padding,
+            paddingLeft,
+            paddingRight,
+            paddingTop,
+            paddingBottom
+          },
+          StyleElement
+        ));
+      } else {
+        expect(StyleElement).not.toHaveStyleRule('paddingLeft');
+        expect(StyleElement).not.toHaveStyleRule('paddingRight');
+        expect(StyleElement).not.toHaveStyleRule('paddingTop');
+        expect(StyleElement).not.toHaveStyleRule('paddingBottom');
+        expect(StyleElement).not.toHaveStyleRule('padding');
+      }
     });
   });
 
