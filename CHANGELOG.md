@@ -1,3 +1,15 @@
+## [42.4.0](https://github.com/Sage/carbon/compare/v42.3.3...v42.4.0) (2020-10-14)
+
+
+### Features
+
+* **flat-table:** add possibility to set column width and cell paddings ([fcae564](https://github.com/Sage/carbon/commit/fcae564a1c499a2bf4becd9d384a975a6f51f712))
+
+
+### Bug Fixes
+
+* **flat-table:** update incorrect typescript prop definitions ([0749454](https://github.com/Sage/carbon/commit/0749454c43ae2cac845f8da48d7c7d961f4d65e0))
+
 ### [42.3.3](https://github.com/Sage/carbon/compare/v42.3.2...v42.3.3) (2020-10-13)
 
 
