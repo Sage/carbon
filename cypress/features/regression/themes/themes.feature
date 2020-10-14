@@ -75,7 +75,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Show Edit Pod component theme to <theme>
-    When I open default "Showeditpod" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Showeditpod Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
