@@ -5,46 +5,16 @@
   "labelSpecialCharacter": {
     "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "disabledFalse": {
-    "disabled": false
-  },
-  "disabled": {
-    "disabled": true
-  },
   "fieldHelpOtherLanguage": {
     "fieldHelp": "mp150ú¿¡üßä"
   },
   "fieldHelpSpecialCharacter": {
     "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "fieldHelpInline": {
-    "fieldHelpInline": true
-  },
-  "fieldHelpInlineDisabled": {
-    "fieldHelpInline": false
-  },
-  "reverse": {
-    "reverse": true
-  },
-  "reverseFalse": {
-    "reverse": false
-  },
   "labelHelpOtherLanguage": {
     "labelHelp": "mp150ú¿¡üßä"
   },
   "labelHelpSpecialCharacter": {
     "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "smallSize": {
-    "size": "small"
-  },
-  "largeSize": {
-    "size": "large"
-  },
-  "labelAlignLeft": {
-    "labelAlign": "left"
-  },
-  "labelAlignRight": {
-    "labelAlign": "right"
   }
 }

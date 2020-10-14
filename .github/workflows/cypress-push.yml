@@ -8,7 +8,7 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-18.04
-    timeout-minutes: 12
+    timeout-minutes: 15
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes

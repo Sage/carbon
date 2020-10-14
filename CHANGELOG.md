@@ -1,3 +1,17 @@
+### [42.3.3](https://github.com/Sage/carbon/compare/v42.3.2...v42.3.3) (2020-10-13)
+
+
+### Bug Fixes
+
+* **validation:** renders tooltip in 'top' position when validation ([01884a7](https://github.com/Sage/carbon/commit/01884a77c858291f00afed2a016503ac45543c47)), closes [#3191](https://github.com/Sage/carbon/issues/3191)
+
+### [42.3.2](https://github.com/Sage/carbon/compare/v42.3.1...v42.3.2) (2020-10-09)
+
+
+### Bug Fixes
+
+* **select:** stop passing onblur to style wrapper ([da246cf](https://github.com/Sage/carbon/commit/da246cf88f7a3d49d06e52f61f1091e8f37dbe23))
+
 ### [42.3.1](https://github.com/Sage/carbon/compare/v42.3.0...v42.3.1) (2020-10-07)
 
 
