@@ -1,3 +1,10 @@
+## [42.5.0](https://github.com/Sage/carbon/compare/v42.4.0...v42.5.0) (2020-10-14)
+
+
+### Features
+
+* add asterisk to required fields ([157e02e](https://github.com/Sage/carbon/commit/157e02e02d4881a677f48c4988ccaa044988cbab))
+
 ## [42.4.0](https://github.com/Sage/carbon/compare/v42.3.3...v42.4.0) (2020-10-14)
 
 
