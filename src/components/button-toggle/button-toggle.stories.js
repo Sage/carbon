@@ -1,86 +1,40 @@
 import React from 'react';
 import {
-  boolean,
-  select,
   text,
   withKnobs
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation';
 import ButtonToggle from './button-toggle.component';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
-
-ButtonToggle.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /button-toggle\.component(?!spec)/
-);
 
 export const basic = () => {
   const children = text('children', 'Option');
-  const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
-  const buttonIconSize = select(
-    'buttonIconSize',
-    OptionsHelper.sizesBinary,
-    ButtonToggle.defaultProps.buttonIconSize
-  );
-  const size = select('size', OptionsHelper.sizesBinary, ButtonToggle.defaultProps.size);
-  const disabled = boolean('disabled', false);
-  const grouped = boolean('grouped', false);
-
-  const onChange = (ev) => {
-    action('onChange')(ev);
-  };
-
-  const onFocus = (ev) => {
-    action('onFocus', { depth: 2 })(ev);
-  };
-
-  const onBlur = (ev) => {
-    action('onBlur', { depth: 2 })(ev);
-  };
 
   return (
     <div>
       <ButtonToggle
         name='new-button-toggle'
-        size={ size }
-        buttonIcon={ buttonIcon }
-        buttonIconSize={ buttonIconSize }
-        disabled={ disabled }
-        grouped={ grouped }
-        onChange={ onChange }
-        onFocus={ onFocus }
-        onBlur={ onBlur }
         key='button-toggle-1'
+        onChange={ () => action('onChange')('foo') }
+        onFocus={ () => action('onFocus')('foo') }
+        onBlur={ () => action('onBlur')('foo') }
       >
         {children}
       </ButtonToggle>
       <ButtonToggle
         name='new-button-toggle'
-        size={ size }
-        buttonIcon={ buttonIcon }
-        buttonIconSize={ buttonIconSize }
-        disabled={ disabled }
-        grouped={ grouped }
-        onChange={ onChange }
-        onFocus={ onFocus }
-        onBlur={ onBlur }
         key='button-toggle-2'
+        onChange={ () => action('onChange')('bar') }
+        onFocus={ () => action('onFocus')('bar') }
+        onBlur={ () => action('onBlur')('bar') }
       >
         {children}
       </ButtonToggle>
       <ButtonToggle
         name='new-button-toggle'
-        size={ size }
-        buttonIcon={ buttonIcon }
-        buttonIconSize={ buttonIconSize }
-        disabled={ disabled }
-        grouped={ grouped }
-        onChange={ onChange }
-        onFocus={ onFocus }
-        onBlur={ onBlur }
         key='button-toggle-3'
+        onChange={ () => action('onChange')('baz') }
+        onFocus={ () => action('onFocus')('baz') }
+        onBlur={ () => action('onBlur')('baz') }
       >
         {children}
       </ButtonToggle>
@@ -89,19 +43,25 @@ export const basic = () => {
 };
 
 basic.story = {
-  name: 'basic',
-  parameters: {
-    notes: { markdown: notes },
-    docs: { page: null },
-    chromatic: true
-  }
+  name: 'basic'
 };
 
 export default {
-  title: 'Button Toggle',
+  title: 'Button Toggle/Test',
   component: ButtonToggle,
   decorators: [withKnobs],
-  chromatic: {
-    disable: true
+  parameters: {
+    docs: {
+      page: null
+    },
+    info: {
+      disable: true
+    },
+    chromatic: {
+      disable: true
+    },
+    knobs: {
+      escapeHTML: false
+    }
   }
 };
