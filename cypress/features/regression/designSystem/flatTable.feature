@@ -34,7 +34,7 @@ Feature: Design Systems FlatTable component
     Examples:
       | position | headerName |
       | first    | Client     |
-      | second   | total      |
+      | second   | total      | 
 
   @positive
   Scenario Outline: <headerName> flat table header has focus

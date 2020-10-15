@@ -8,7 +8,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   box-sizing: border-box;
   font-weight: 700;
   left: auto;
-  padding: 8px 24px;
   text-align: left;
   top: 0;
   -webkit-user-select: none;
@@ -17,6 +16,16 @@ exports[`FlatTable when rendered with proper table data should have expected str
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+  word-break: keep-all;
+  padding: 0;
+}
+
+.c8 > div {
+  box-sizing: border-box;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .c6 {
@@ -26,13 +35,21 @@ exports[`FlatTable when rendered with proper table data should have expected str
   box-sizing: border-box;
   left: 0;
   font-weight: normal;
-  padding: 10px 24px;
   position: -webkit-sticky;
   position: sticky;
   text-align: left;
   top: auto;
   vertical-align: middle;
   white-space: nowrap;
+  padding: 0;
+}
+
+.c6 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .c3 .c5,
@@ -41,9 +58,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-right: none;
   font-weight: 700;
   left: 0;
-  padding: 8px 24px;
   top: 0;
   z-index: 1000;
+}
+
+.c3 .c5 > div {
+  padding: 8px 24px;
 }
 
 .c1 {
@@ -51,9 +71,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-radius: 0px;
   border-spacing: 0;
   min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  word-break: break-all;
+  width: 100%;
 }
 
 .c0 {
@@ -72,12 +90,19 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  overflow: visible;
-  padding: 10px 24px;
   text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
+  padding: 0;
+}
+
+.c10 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .c10:first-of-type {
@@ -92,12 +117,19 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  overflow: visible;
-  padding: 10px 24px;
   text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
+  padding: 0;
+}
+
+.c11 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .c11:first-of-type {
@@ -119,7 +151,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   min-width: 100%;
   table-layout: fixed;
   width: auto;
-  word-break: break-all;
 }
 
 <div
@@ -140,25 +171,33 @@ exports[`FlatTable when rendered with proper table data should have expected str
           className="c5 c6"
           data-element="flat-table-row-header"
         >
-          row header
+          <div>
+            row header
+          </div>
         </th>
         <th
           className="c7 c8"
           data-element="flat-table-header"
         >
-          header1
+          <div>
+            header1
+          </div>
         </th>
         <th
           className="c7 c8"
           data-element="flat-table-header"
         >
-          header2
+          <div>
+            header2
+          </div>
         </th>
         <th
           className="c7 c8"
           data-element="flat-table-header"
         >
-          header3
+          <div>
+            header3
+          </div>
         </th>
       </tr>
     </thead>
@@ -171,26 +210,34 @@ exports[`FlatTable when rendered with proper table data should have expected str
           className="c5 c6"
           data-element="flat-table-row-header"
         >
-          row header
+          <div>
+            row header
+          </div>
         </th>
         <td
           className="c9 c10"
           data-element="flat-table-cell"
         >
-          cell1
+          <div>
+            cell1
+          </div>
         </td>
         <td
           className="c9 c10"
           data-element="flat-table-cell"
         >
-          cell2
+          <div>
+            cell2
+          </div>
         </td>
         <td
           className="c9 c11"
           data-element="flat-table-cell"
           rowSpan="2"
         >
-          cell3
+          <div>
+            cell3
+          </div>
         </td>
       </tr>
       <tr
@@ -201,14 +248,18 @@ exports[`FlatTable when rendered with proper table data should have expected str
           className="c5 c6"
           data-element="flat-table-row-header"
         >
-          row header
+          <div>
+            row header
+          </div>
         </th>
         <td
           className="c9 c10"
           colSpan="2"
           data-element="flat-table-cell"
         >
-          cell1
+          <div>
+            cell1
+          </div>
         </td>
       </tr>
     </tbody>

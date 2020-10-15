@@ -24,6 +24,7 @@ import { baseTheme } from '../../../style/themes';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import SwitchStyle from './switch.style';
 import SwitchSlider from './switch-slider.component';
+import Label from '../label';
 
 
 jest.mock('../../../utils/helpers/guid');
@@ -398,6 +399,24 @@ describe('Switch', () => {
           );
         });
       });
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = render({ required: true, label: 'required' }, mount);
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

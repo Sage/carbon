@@ -1,3 +1,30 @@
+### [42.5.1](https://github.com/Sage/carbon/compare/v42.5.0...v42.5.1) (2020-10-15)
+
+
+### Bug Fixes
+
+* **filterable-select:** visible value cannot be cleared ([2b89fed](https://github.com/Sage/carbon/commit/2b89fed087ccbc6f2d0509608fde5a8f89f9ad66))
+* **simple-select:** visible value cannot be cleared ([fbaa76f](https://github.com/Sage/carbon/commit/fbaa76f93f4632f60ee58a4597b4236e9032e497))
+
+## [42.5.0](https://github.com/Sage/carbon/compare/v42.4.0...v42.5.0) (2020-10-14)
+
+
+### Features
+
+* add asterisk to required fields ([157e02e](https://github.com/Sage/carbon/commit/157e02e02d4881a677f48c4988ccaa044988cbab))
+
+## [42.4.0](https://github.com/Sage/carbon/compare/v42.3.3...v42.4.0) (2020-10-14)
+
+
+### Features
+
+* **flat-table:** add possibility to set column width and cell paddings ([fcae564](https://github.com/Sage/carbon/commit/fcae564a1c499a2bf4becd9d384a975a6f51f712))
+
+
+### Bug Fixes
+
+* **flat-table:** update incorrect typescript prop definitions ([0749454](https://github.com/Sage/carbon/commit/0749454c43ae2cac845f8da48d7c7d961f4d65e0))
+
 ### [42.3.3](https://github.com/Sage/carbon/compare/v42.3.2...v42.3.3) (2020-10-13)
 
 
