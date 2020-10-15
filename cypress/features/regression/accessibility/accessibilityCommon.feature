@@ -71,6 +71,7 @@ Scenario Outline: Component <component> basic story
   When I open "<component>" component page "basic" in no iframe
   Then "<component>" component has no accessibility violations
   Examples:
-    | component   |
-    | showeditpod |
+    | component     |
+    | showeditpod   |
     | step-sequence |
+    | icon          |
