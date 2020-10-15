@@ -599,6 +599,8 @@ describe('SimpleSelect', () => {
   });
 
   describe('when the component is controlled', () => {
+    const onChangeFn = jest.fn();
+    let wrapper;
     const expectedObject = {
       target: {
         id: 'testSelect',
@@ -613,11 +615,13 @@ describe('SimpleSelect', () => {
       selectionType: 'click'
     };
 
+    beforeEach(() => {
+      onChangeFn.mockClear();
+      wrapper = renderSelect({ onChange: onChangeFn, value: 'opt1' });
+    });
+
     describe('and an option is selected', () => {
       it('then the onChange prop should be called with expected value', () => {
-        const onChangeFn = jest.fn();
-        const wrapper = renderSelect({ onChange: onChangeFn, value: 'opt1' });
-
         wrapper.find('input').simulate('click');
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
@@ -628,12 +632,7 @@ describe('SimpleSelect', () => {
     });
 
     describe('when a printable character has been typed in the Textbox', () => {
-      let onChangeFn;
-      let wrapper;
-
       beforeEach(() => {
-        onChangeFn = jest.fn();
-        wrapper = renderSelect({ onChange: onChangeFn, value: 'opt1' });
         wrapper.find('input').simulate('change', { target: { value: 'b' } });
         wrapper.update();
       });
@@ -644,6 +643,20 @@ describe('SimpleSelect', () => {
 
       it('then the onChange function should have been called with with the expected value', () => {
         expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+      });
+    });
+
+    describe('and an an empty value has been passed', () => {
+      it('then the textbox displayed value should be cleared', () => {
+        expect(wrapper.find(Textbox).props().formattedValue).toBe('red');
+        wrapper.setProps({ value: '' });
+        expect(wrapper.update().find(Textbox).props().formattedValue).toBe('');
+      });
+
+      it('then the textbox value should be cleared', () => {
+        expect(wrapper.find(Textbox).props().value).toBe('opt1');
+        wrapper.setProps({ value: '' });
+        expect(wrapper.update().find(Textbox).props().value).toBe(undefined);
       });
     });
   });
