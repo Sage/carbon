@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { baseTheme } from '../../../style/themes';
 
+const overhang = 4;
+
 const StyledSelectList = styled.ul`
   background-color: white;
   box-sizing: border-box;
@@ -13,7 +15,10 @@ const StyledSelectList = styled.ul`
   overflow-y: scroll;
   padding: 0;
   position: absolute;
-  width: 100%;
+  width: calc(100% + ${2 * overhang}px);
+  z-index: 2000;
+  top: calc(100% + 1px);
+  left: -${overhang}px;
 `;
 
 StyledSelectList.defaultProps = {

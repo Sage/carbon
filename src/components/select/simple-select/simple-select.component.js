@@ -339,20 +339,19 @@ const SimpleSelect = React.forwardRef(({
         type='select'
         labelId={ labelId.current }
         { ...getTextboxProps() }
+        positionedChildren={ isOpen && (
+          <SelectList
+            ref={ listboxRef }
+            id={ selectListId.current }
+            labelId={ labelId.current }
+            onSelect={ onSelectOption }
+            onSelectListClose={ onSelectListClose }
+            highlightedValue={ selectedValue }
+          >
+            { children }
+          </SelectList>
+        ) }
       />
-      { isOpen && (
-        <SelectList
-          ref={ listboxRef }
-          id={ selectListId.current }
-          labelId={ labelId.current }
-          anchorElement={ textboxRef.parentElement }
-          onSelect={ onSelectOption }
-          onSelectListClose={ onSelectListClose }
-          highlightedValue={ selectedValue }
-        >
-          { children }
-        </SelectList>
-      ) }
     </StyledSimpleSelect>
   );
 });

@@ -286,22 +286,21 @@ const FilterableSelect = React.forwardRef(({
         type='text'
         labelId={ labelId.current }
         { ...getTextboxProps() }
+        positionedChildren={ isOpen && (
+          <FilterableSelectList
+            ref={ listboxRef }
+            id={ selectListId.current }
+            labelId={ labelId.current }
+            onSelect={ onSelectOption }
+            onSelectListClose={ onSelectListClose }
+            filterText={ filterText }
+            highlightedValue={ highlightedValue }
+            noResultsMessage={ noResultsMessage }
+          >
+            { children }
+          </FilterableSelectList>
+        ) }
       />
-      { isOpen && (
-        <FilterableSelectList
-          ref={ listboxRef }
-          id={ selectListId.current }
-          labelId={ labelId.current }
-          anchorElement={ textboxRef.parentElement }
-          onSelect={ onSelectOption }
-          onSelectListClose={ onSelectListClose }
-          filterText={ filterText }
-          highlightedValue={ highlightedValue }
-          noResultsMessage={ noResultsMessage }
-        >
-          { children }
-        </FilterableSelectList>
-      ) }
     </div>
   );
 });

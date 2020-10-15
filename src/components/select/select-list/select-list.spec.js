@@ -6,12 +6,6 @@ import { baseTheme } from '../../../style/themes';
 import Option from '../option/option.component';
 
 describe('SelectList', () => {
-  it('should have select-list element rendered inside of a Portal', () => {
-    const wrapper = renderSelectList();
-    expect(wrapper.find('Portal').exists()).toEqual(true);
-    expect(wrapper.find('Portal').find('ul[data-element="select-list"]').exists()).toEqual(true);
-  });
-
   describe('when a key is pressed', () => {
     let wrapper;
     const escapeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
@@ -190,32 +184,6 @@ describe('SelectList', () => {
           expect(option.prop('isHighlighted')).toBe(false);
         });
       });
-    });
-  });
-
-  describe('when the anchor element is provided', () => {
-    let wrapper, domNode;
-    const mockAnchorElement = {
-      getBoundingClientRect: () => {
-        return {
-          top: 100,
-          left: 100,
-          width: 200,
-          height: 50
-        };
-      }
-    };
-
-    beforeEach(() => {
-      wrapper = mount(getSelectList({ anchorElement: mockAnchorElement }));
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
-    });
-
-    it('then the list should have expected "top", "left" and "width" values', () => {
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.top).toBe('150px');
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.left).toBe('96px');
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.width).toBe('208px');
     });
   });
 });

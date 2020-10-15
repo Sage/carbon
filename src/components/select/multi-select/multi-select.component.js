@@ -50,7 +50,6 @@ const MultiSelect = React.forwardRef(({
   const [selectedValue, setSelectedValue] = useState([]);
   const [highlightedValue, setHighlightedValue] = useState('');
   const [filterText, setFilterText] = useState('');
-  const [repositionTrigger, setRepositionTrigger] = useState(false);
   const [placeholderOverride, setPlaceholderOverride] = useState();
 
   const setOpen = useCallback(() => {
@@ -193,10 +192,6 @@ const MultiSelect = React.forwardRef(({
     if (!isControlled.current && onChange) {
       onChange(createCustomEvent(selectedValue));
     }
-
-    setRepositionTrigger((previousValue) => {
-      return !previousValue;
-    });
   }, [createCustomEvent, onChange, selectedValue]);
 
   function handleTextboxClick(event) {
@@ -397,25 +392,23 @@ const MultiSelect = React.forwardRef(({
         type='text'
         labelId={ labelId.current }
         { ...getTextboxProps() }
+        positionedChildren={ isOpen && (
+          <FilterableSelectList
+            ref={ listboxRef }
+            aria-multiselectable
+            id={ selectListId.current }
+            labelId={ labelId.current }
+            onSelect={ onSelectOption }
+            onSelectListClose={ onSelectListClose }
+            onMouseDown={ handleListMouseDown }
+            filterText={ filterText }
+            highlightedValue={ highlightedValue }
+            noResultsMessage={ noResultsMessage }
+          >
+            { children }
+          </FilterableSelectList>
+        ) }
       />
-      { isOpen && (
-        <FilterableSelectList
-          ref={ listboxRef }
-          aria-multiselectable
-          id={ selectListId.current }
-          labelId={ labelId.current }
-          anchorElement={ textboxRef.parentElement }
-          onSelect={ onSelectOption }
-          onSelectListClose={ onSelectListClose }
-          onMouseDown={ handleListMouseDown }
-          filterText={ filterText }
-          highlightedValue={ highlightedValue }
-          noResultsMessage={ noResultsMessage }
-          repositionTrigger={ repositionTrigger }
-        >
-          { children }
-        </FilterableSelectList>
-      ) }
     </StyledMultiSelect>
   );
 });
