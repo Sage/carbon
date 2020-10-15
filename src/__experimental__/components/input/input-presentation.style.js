@@ -7,6 +7,12 @@ import inputClassicStyling from './input-presentation-classic.style';
 import StyledInput from './input.style';
 import StyledInlineInputs from '../../../components/inline-inputs/inline-inputs.style';
 
+export const StyledInputPresentationContainer = styled.div`
+  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  display: flex;
+  position: relative;
+`;
+
 const InputPresentationStyle = styled.div`
   align-items: stretch;
   background: #fff;
@@ -15,7 +21,7 @@ const InputPresentationStyle = styled.div`
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  width: 100%;
   margin: 0;
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].horizontalPadding};

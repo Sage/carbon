@@ -387,10 +387,10 @@ class BaseDateInput extends React.Component {
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
           inputRef={ this.assignInput }
           adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
+          positionedChildren={ this.renderDatePicker({ minDate, maxDate }) }
           { ...events }
         />
         { this.renderHiddenInput() }
-        { this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );
   }

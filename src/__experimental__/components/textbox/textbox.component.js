@@ -27,6 +27,7 @@ const Textbox = ({
   prefix,
   adaptiveLabelBreakpoint,
   required,
+  positionedChildren,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -51,6 +52,7 @@ const Textbox = ({
           { ...removeParentProps(props) }
           styleOverride={ styleOverride.input }
           inputWidth={ inputWidth || (100 - labelWidth) }
+          positionedChildren={ positionedChildren }
         >
           { leftChildren }
           { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
@@ -154,6 +156,13 @@ Textbox.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Placeholder string to be displayed in input */
   placeholder: PropTypes.string,
+  /**
+   * Container for DatePicker or SelectList components
+   * @private
+   * @ignore
+   *
+  */
+  positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */

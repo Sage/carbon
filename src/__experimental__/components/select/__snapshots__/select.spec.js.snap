@@ -28,6 +28,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    positionedChildren={false}
     value=""
   />
 </styled.div>
@@ -61,6 +62,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    positionedChildren={false}
     value=""
   />
 </styled.div>
@@ -94,6 +96,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    positionedChildren={false}
     value=""
   />
 </styled.div>
@@ -242,9 +245,7 @@ Object {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 70%;
-  -ms-flex: 0 0 70%;
-  flex: 0 0 70%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
@@ -286,9 +287,6 @@ Object {
       placeholder="Please Select..."
       type="text"
       value=""
-    />
-    <span
-      data-portal-entrance="guid-12345"
     />
     <span
       class="c3"

@@ -2,9 +2,9 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import 'jest-styled-components';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { InputPresentation } from '.';
-import InputPresentationStyle from './input-presentation.style';
+import InputPresentationStyle, { StyledInputPresentationContainer } from './input-presentation.style';
 import baseTheme from '../../../style/themes/base';
 import sizes from './input-sizes.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -17,6 +17,12 @@ describe('InputPresentation', () => {
     expect(render({}, TestRenderer.create)).toMatchSnapshot();
   });
 
+  it('renders provided positionedChildren component as a direct child of container', () => {
+    const Component = () => <div />;
+    expect(render({ positionedChildren: <Component /> }, shallow)
+      .find(StyledInputPresentationContainer).childAt(0).get(0)).toEqual(<Component />);
+  });
+
   describe('style', () => {
     describe('sizes', () => {
       OptionsHelper.sizesRestricted.forEach((size) => {
@@ -25,7 +31,7 @@ describe('InputPresentation', () => {
             minHeight: sizes[size].height,
             paddingLeft: sizes[size].horizontalPadding,
             paddingRight: sizes[size].horizontalPadding
-          }, render({ size }));
+          }, render({ size }).find(InputPresentationStyle));
         });
       });
     });
@@ -50,7 +56,7 @@ describe('InputPresentation', () => {
         assertStyleMatch({
           borderColor: `${baseTheme.colors[validation]} !important`,
           boxShadow: validation === 'error' ? boxShadow : undefined
-        }, render({ [validation]: true }));
+        }, render({ [validation]: true }).find(InputPresentationStyle));
       });
     });
 
@@ -66,13 +72,13 @@ describe('InputPresentation', () => {
         assertStyleMatch({
           borderColor: `${baseTheme.colors[validation]} !important`,
           boxShadow: validation === 'error' ? boxShadow : undefined
-        }, render({ [validation]: 'Message' }));
+        }, render({ [validation]: 'Message' }).find(InputPresentationStyle));
       });
     });
 
     describe('when align prop is passed as "right"', () => {
       it('has the correct style rules', () => {
-        assertStyleMatch({ flexDirection: 'row-reverse' }, render({ align: 'right' }));
+        assertStyleMatch({ flexDirection: 'row-reverse' }, render({ align: 'right' }).find(InputPresentationStyle));
       });
     });
 
@@ -82,7 +88,7 @@ describe('InputPresentation', () => {
           background: baseTheme.disabled.input,
           borderColor: baseTheme.disabled.border,
           cursor: 'not-allowed'
-        }, render({ disabled: true }));
+        }, render({ disabled: true }).find(InputPresentationStyle));
       });
     });
 
@@ -91,7 +97,7 @@ describe('InputPresentation', () => {
         assertStyleMatch({
           backgroundColor: baseTheme.readOnly.textboxBackground,
           borderColor: baseTheme.readOnly.textboxBorder
-        }, render({ readOnly: true }));
+        }, render({ readOnly: true }).find(InputPresentationStyle));
       });
     });
 
@@ -99,7 +105,7 @@ describe('InputPresentation', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
           border: '1px solid #668592'
-        }, render({ readOnly: true }));
+        }, render({ readOnly: true }).find(InputPresentationStyle));
       });
     });
   });
@@ -160,7 +166,7 @@ describe('InputPresentation', () => {
       assertStyleMatch({
         outline: 'none',
         border: '1px solid #255BC7'
-      }, renderWithTheme({ hasFocus: true }, classicTheme), {
+      }, renderWithTheme({ hasFocus: true }, classicTheme).find(InputPresentationStyle), {
         modifier: '&&'
       });
     });
@@ -169,7 +175,7 @@ describe('InputPresentation', () => {
       assertStyleMatch({
         background: '#d9e0e4',
         borderColor: '#d9e0e4 !important'
-      }, renderWithTheme({ disabled: true }, classicTheme));
+      }, renderWithTheme({ disabled: true }, classicTheme).find(InputPresentationStyle));
     });
   });
 });
