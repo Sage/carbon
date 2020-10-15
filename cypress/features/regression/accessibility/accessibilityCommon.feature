@@ -74,4 +74,5 @@ Scenario Outline: Component <component> basic story
   Then "<component>" component has no accessibility violations
   Examples:
     | component   |
+    | icon        |
     | showeditpod |
