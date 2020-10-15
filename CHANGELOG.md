@@ -1,3 +1,11 @@
+### [42.5.1](https://github.com/Sage/carbon/compare/v42.5.0...v42.5.1) (2020-10-15)
+
+
+### Bug Fixes
+
+* **filterable-select:** visible value cannot be cleared ([2b89fed](https://github.com/Sage/carbon/commit/2b89fed087ccbc6f2d0509608fde5a8f89f9ad66))
+* **simple-select:** visible value cannot be cleared ([fbaa76f](https://github.com/Sage/carbon/commit/fbaa76f93f4632f60ee58a4597b4236e9032e497))
+
 ## [42.5.0](https://github.com/Sage/carbon/compare/v42.4.0...v42.5.0) (2020-10-14)
 
 
