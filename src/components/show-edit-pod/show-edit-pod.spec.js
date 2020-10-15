@@ -1,15 +1,12 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
-import ShowEditPod from './show-edit-pod';
+import ShowEditPod from './show-edit-pod.component';
 import Form from '../form';
 import Pod from '../pod';
 import Button from '../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import StyledDeleteButton from './delete-button.style';
-import classic from '../../style/themes/classic';
-import { StyledLink } from './show-edit-pod.style';
 
 describe('ShowEditPod', () => {
   describe('when the "editing" prop is set on mount', () => {
@@ -41,14 +38,14 @@ describe('ShowEditPod', () => {
 
         expect(wrapper.update().find(Form).exists()).toBe(false);
       });
-    })
+    });
 
     afterEach(() => {
       wrapper.unmount();
       if (container && container.parentNode) {
         container.parentNode.removeChild(container);
       }
-    
+
       container = null;
       jest.useRealTimers();
     });
@@ -65,7 +62,7 @@ describe('ShowEditPod', () => {
 
     describe('and onEdit prop is called on Pod Component', () => {
       beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers();
         wrapper = renderShowEditPod({ onEdit: jest.fn() });
         wrapper.find(Pod).props().onEdit();
       });
@@ -74,9 +71,11 @@ describe('ShowEditPod', () => {
         expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(true);
       });
 
-     describe('and then the onCancel prop is called on the Edit Form', () => {
+      describe('and then the onCancel prop is called on the Edit Form', () => {
         it('does not display the Edit Form', () => {
-          wrapper.update().find(Form).find(Button).at(0).props().onClick();
+          wrapper.update().find(Form).find(Button).at(0)
+            .props()
+            .onClick();
           jest.runAllTimers();
 
           expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(false);
@@ -136,17 +135,17 @@ describe('ShowEditPod', () => {
 
         it('sets focus on the pod DOM node', () => {
           const focusedElement = document.activeElement;
-  
+
           expect(focusedElement.dataset.component).toBe('pod');
         });
       });
     });
-  
+
     describe('with the "editing" prop not set', () => {
       let onSave;
 
       beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers();
         onSave = jest.fn();
         wrapper = renderShowEditPod({
           onSave,
@@ -169,11 +168,11 @@ describe('ShowEditPod', () => {
         });
       });
     });
-  
+
     describe('with the "editing" prop set to true on mount', () => {
       describe('and onEdit prop is called on Pod Component', () => {
         beforeEach(() => {
-          jest.useFakeTimers()
+          jest.useFakeTimers();
           wrapper = renderShowEditPod({
             onEdit: jest.fn(),
             editing: true
@@ -251,7 +250,8 @@ describe('ShowEditPod', () => {
 
     describe('and the cancel is triggered on Edit Form', () => {
       it('calls the onCancel function', () => {
-        wrapper.find(Form).find(Button).at(0).props().onClick(mockEvent);
+        wrapper.find(Form).find(Button).at(0).props()
+          .onClick(mockEvent);
         expect(onCancel).toHaveBeenCalledWith(mockEvent);
       });
     });
@@ -262,7 +262,7 @@ describe('ShowEditPod', () => {
         expect(onCancel).toHaveBeenCalled();
       });
     });
-  
+
     describe('when the event is not the escape key', () => {
       it('does not call onCancelEditForm', () => {
         wrapper.find(Form).simulate('keydown', { which: 33 });
@@ -357,82 +357,10 @@ describe('ShowEditPod', () => {
       ]);
     });
   });
-
-  describe('when theme is set to "classic"', () => {
-    let wrapper;
-
-    describe('and the "editing" prop is set', () => {
-      beforeEach(() => {
-        wrapper = renderWithTheme({
-          editing: true
-        }, classic);
-      });
-
-      it('then the "variant" prop in the Pod Component should be set to "secondary"', () => {
-        expect(wrapper.find(Pod).props().variant).toBe('secondary');
-      });
-    });
-
-    describe('and the "onDelete" prop is set', () => {
-      let wrapper, additionalComponent, onDelete;
-      const mockText = 'mock text';
-  
-      beforeEach(() => {
-        onDelete = jest.fn();
-      });
-  
-      it('passes the Delete Link to the "additionalActions" prop', () => {
-        wrapper = renderWithTheme({
-          onDelete,
-          editing: true
-        }, classic);
-        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
-  
-        expect(additionalComponent.type()).toBe(StyledLink);
-      });
-  
-      describe('with the "deleteText" prop', () => {
-        it('then the text of the Delete Link should match the prop', () => {
-          wrapper = renderShowEditPod({
-            onDelete,
-            editing: true,
-            deleteText: mockText
-          });
-          additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
-  
-          expect(additionalComponent.text()).toBe(mockText);
-        });
-      });
-  
-      describe('without the "deleteText" prop set', () => {
-        it('then the text of the Delete Link should be "Delete"', () => {
-          wrapper = renderShowEditPod({
-            onDelete,
-            editing: true
-          });
-          additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
-  
-          expect(additionalComponent.text()).toBe('Delete');
-        });
-      });
-  
-      afterEach(() => {
-        additionalComponent.unmount();
-      });
-    });
-  });
 });
 
 function renderShowEditPod(props, renderer = mount) {
   return renderer(
     <ShowEditPod { ...props } />, { attachTo: document.getElementById('enzymeContainer') }
-  );
-}
-
-function renderWithTheme(props, theme, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={ theme }>
-      <ShowEditPod { ...props } />
-    </ThemeProvider>
   );
 }

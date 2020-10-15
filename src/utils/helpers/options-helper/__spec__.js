@@ -42,13 +42,6 @@ describe('OptionsHelper', () => {
       'warning'
     ]);
   });
-  it('pillColors', () => {
-    expect(OptionsHelper.pillColors).toEqual([
-      'neutral',
-      'negative',
-      'positive'
-    ]);
-  });
   it('icons', () => {
     expect(OptionsHelper.icons).toEqual([
       'add',

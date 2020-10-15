@@ -60,7 +60,6 @@ Scenario Outline: Component <component> default story
     | preview             |
     | profile             |
     | row                 |
-    | showeditpod         |
     | settingsrow         |
     | split-button        |
     | step-sequence-item  |
@@ -74,5 +73,6 @@ Scenario Outline: Component <component> basic story
   When I open "<component>" component page "basic" in no iframe
   Then "<component>" component has no accessibility violations
   Examples:
-    | component |
-    | icon      |
+    | component   |
+    | icon        |
+    | showeditpod |
