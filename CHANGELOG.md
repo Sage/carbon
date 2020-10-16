@@ -1,3 +1,10 @@
+### [42.5.2](https://github.com/Sage/carbon/compare/v42.5.1...v42.5.2) (2020-10-16)
+
+
+### Bug Fixes
+
+* **label:** remove margin from label when input in form ([9f27214](https://github.com/Sage/carbon/commit/9f27214bd1f5c9ec31ef2a8ee77946c294ddc28c))
+
 ### [42.5.1](https://github.com/Sage/carbon/compare/v42.5.0...v42.5.1) (2020-10-15)
 
 
