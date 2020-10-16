@@ -30,6 +30,7 @@ import Toolbar from './toolbar';
 import Label from '../../../__experimental__/components/label';
 import Events from '../../../utils/helpers/events/events';
 import createGuid from '../../../utils/helpers/guid';
+import LabelWrapper from './label-wrapper';
 
 const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const INLINE_STYLES = ['BOLD', 'ITALIC'];
@@ -227,7 +228,14 @@ const TextEditor = React.forwardRef(({
 
   return (
     <>
-      <Label labelId={ labelId.current } isRequired={ required }>{labelText}</Label>
+      <LabelWrapper onClick={ () => handleEditorFocus(true) }>
+        <Label
+          labelId={ labelId.current }
+          isRequired={ required }
+        >
+          {labelText}
+        </Label>
+      </LabelWrapper>
       <StyledEditorContainer
         data-component='text-editor-container'
         isFocused={ isFocused }
