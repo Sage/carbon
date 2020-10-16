@@ -5,6 +5,7 @@ import { AccordionGroup, Accordion } from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Button from '../button';
 import { Dl, Dt, Dd } from '../definition-list';
+import { Checkbox } from '../../__experimental__/components/checkbox';
 
 <Meta
   title="Design System/Accordion"
@@ -174,6 +175,111 @@ import { Accordion, AccordionGroup } from "carbon-react/lib/components/accordion
 
 <Preview>
   <Story id="design-system-accordion-test--grouped" name="grouped">
+  </Story>
+</Preview>
+
+### With validation icon
+The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`, 
+`warning` or `info` props. This message will be displayed as in the tooltip.
+
+<Preview>
+  <Story name="validation icon">
+    {() => {
+      const [errors, setErrors] = useState({ one: 'error', two: 'error', three: 'error' });
+      const [warnings, setWarnings] = useState({});
+      const [infos, setInfos] = useState({});
+      const [expanded, setExpanded] = useState({one: false, two: false, three: true})
+      const handleChange = (id, type, setter, msg) => {
+        const update = type[id] ? undefined : msg;
+        setter(previous => ({ ...previous, [id]: update }));
+      }
+      return (
+        <div style={{ marginTop: '16px' }}>
+          <AccordionGroup>
+            <Accordion
+              title='Heading'
+              expanded={expanded.one}
+              onChange={() => setExpanded((previousState) => ({...previousState, one: !previousState.one})) }
+              error={errors.one}
+              warning={ warnings.one }
+              info={ infos.one }>
+              <div style={{ padding: '8px'}}>
+                <Checkbox
+                  label='Add error'
+                  error={!!errors.one}
+                  onChange={ () => handleChange('one', errors, setErrors, 'error')}
+                  checked={!!errors.one}
+                />
+                <Checkbox
+                  label='Add warning'
+                  warning={!!warnings.one}
+                  onChange={ () => handleChange('one', warnings, setWarnings, 'warning')}
+                />
+                <Checkbox
+                  label='Add info'
+                  info={!!infos.one}
+                  onChange={ () => handleChange('one', infos, setInfos, 'info')}
+                />
+              </div>
+            </Accordion>
+            <Accordion
+              title='Heading'
+              expanded={expanded.two}
+              onChange={() => setExpanded((previousState) => ({...previousState, two: !previousState.two})) }
+              subTitle='Sub title'
+              error={errors.two}
+              warning={ warnings.two }
+              info={ infos.two }>
+              <div style={{ padding: '8px'}}>
+                <Checkbox
+                  label='Add error'
+                  error={!!errors.two}
+                  onChange={ () => handleChange('two', errors, setErrors, 'error')}
+                  checked={!!errors.two}
+                />
+                <Checkbox
+                  label='Add warning'
+                  warning={!!warnings.two}
+                  onChange={ () => handleChange('two', warnings, setWarnings, 'warning')}
+                />
+                <Checkbox
+                  label='Add info'
+                  info={!!infos.two}
+                  onChange={ () => handleChange('two', infos, setInfos, 'info')}
+                />
+              </div>
+            </Accordion>
+            <Accordion
+              title='Heading'
+              expanded={expanded.three}
+              onChange={() => setExpanded((previousState) => ({...previousState, three: !previousState.three})) }
+              subTitle='Sub title'
+              error={errors.three}
+              warning={ warnings.three }
+              info={ infos.three }>
+              <div style={{ padding: '8px'}}>
+                <Checkbox
+                  label='Add error'
+                  error={!!errors.three}
+                  onChange={ () => handleChange('three', errors, setErrors, 'error')}
+                  checked={!!errors.three}
+                />
+                <Checkbox
+                  label='Add warning'
+                  warning={!!warnings.three}
+                  onChange={ () => handleChange('three', warnings, setWarnings, 'warning')}
+                />
+                <Checkbox
+                  label='Add info'
+                  info={!!infos.three}
+                  onChange={ () => handleChange('three', infos, setInfos, 'info')}
+                />
+              </div>
+            </Accordion>
+          </AccordionGroup>
+        </div>
+      );
+    }}
   </Story>
 </Preview>
 

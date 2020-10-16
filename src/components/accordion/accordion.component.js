@@ -16,6 +16,7 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent
 } from './accordion.style';
+import ValidationIcon from '../validations';
 import Logger from '../../utils/logger/logger';
 
 let deprecatedWarnTriggered = false;
@@ -38,6 +39,9 @@ const Accordion = React.forwardRef(({
   subTitle,
   title,
   width,
+  error,
+  warning,
+  info,
   ...rest
 }, ref) => {
   if (!deprecatedWarnTriggered) {
@@ -92,6 +96,7 @@ const Accordion = React.forwardRef(({
   const accordionId = id || `Accordion_${guid.current}`;
   const headerId = `AccordionHeader_${guid.current}`;
   const contentId = `AccordionContent_${guid.current}`;
+  const showValidationIcon = !!(error || warning || info);
 
   return (
     <StyledAccordionContainer
@@ -119,6 +124,7 @@ const Accordion = React.forwardRef(({
       >
         <StyledAccordionHeadingsContainer
           data-element='accordion-headings-container'
+          hasValidationIcon={ showValidationIcon }
         >
           <StyledAccordionTitle
             data-element='accordion-title'
@@ -127,6 +133,16 @@ const Accordion = React.forwardRef(({
           >
             { title }
           </StyledAccordionTitle>
+
+          { showValidationIcon && (
+            <ValidationIcon
+              error={ error }
+              warning={ warning }
+              info={ info }
+              tooltipPosition='top'
+              tabIndex={ 0 }
+            />
+          ) }
 
           {(subTitle && size === 'large') && (
             <StyledAccordionSubTitle>
@@ -196,7 +212,13 @@ Accordion.propTypes = {
   /** Sets background as white or transparent */
   scheme: PropTypes.oneOf(['white', 'transparent']),
   /** Sets accordion width */
-  width: PropTypes.string
+  width: PropTypes.string,
+  /** An error message to be displayed in the tooltip */
+  error: PropTypes.string,
+  /** A warning message to be displayed in the tooltip */
+  warning: PropTypes.string,
+  /** An info message to be displayed in the tooltip */
+  info: PropTypes.string
 };
 
 Accordion.displayName = 'Accordion';

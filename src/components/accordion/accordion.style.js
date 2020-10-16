@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import Icon from '../icon';
 import { baseTheme } from '../../style/themes';
+import ValidationIconStyle from '../validations/validation-icon.style';
 
 const StyledAccordionContainer = styled.div`
   display: flex;
@@ -48,8 +49,16 @@ const StyledAccordionIcon = styled(Icon)`
 `;
 
 const StyledAccordionHeadingsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  ${({ hasValidationIcon }) => (
+    hasValidationIcon ? 'grid-template-columns: auto auto;' : 'grid-template-rows: auto auto;'
+  )}
+  
+  ${ValidationIconStyle} {
+    height: 20px;
+    position: relative;
+    top: 2px;
+  }
 `;
 
 const StyledAccordionTitleContainer = styled.div`
