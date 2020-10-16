@@ -185,22 +185,6 @@ describe('Label', () => {
   });
 
   describe('when attached to child of form', () => {
-    describe('when inline', () => {
-      it('applies styling for an inline label', () => {
-        assertStyleMatch({
-          marginLeft: '12px'
-        }, render({ childOfForm: true, inline: true, align: 'right' }, TestRenderer.create).toJSON());
-      });
-    });
-
-    describe('when not inline', () => {
-      it('applies styling for label', () => {
-        assertStyleMatch({
-          marginBottom: '12px'
-        }, render({ childOfForm: true }, TestRenderer.create).toJSON());
-      });
-    });
-
     describe('when IconWrapperStyle', () => {
       let wrapper;
 

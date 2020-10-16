@@ -50,18 +50,8 @@ export const StyledLabelContainer = styled.div`
 
   ${({
     childOfForm,
-    inline,
-    align,
     optional
   }) => childOfForm && css`
-    ${!inline && css`
-      margin-bottom: 12px;
-    `}
-
-    ${inline && align === 'right' && css`
-      margin-left: 12px;
-    `}
-
     ${optional && css`
       ::after {
         content: '(optional)';
