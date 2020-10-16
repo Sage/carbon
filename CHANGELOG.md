@@ -1,3 +1,10 @@
+## [42.6.0](https://github.com/Sage/carbon/compare/v42.5.2...v42.6.0) (2020-10-16)
+
+
+### Features
+
+* **accordion:** add support to rendering validation icon beside heading ([4e0c130](https://github.com/Sage/carbon/commit/4e0c1301573a3f6e648b41b5507eeeaa022f1acc))
+
 ### [42.5.2](https://github.com/Sage/carbon/compare/v42.5.1...v42.5.2) (2020-10-16)
 
 
