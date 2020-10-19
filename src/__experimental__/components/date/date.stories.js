@@ -188,10 +188,18 @@ const EmptyDateComponent = () => {
   );
 };
 
+const RequiredDateComponent = () => {
+  return (
+    <DateInput label='Date of Birth' required />
+  );
+};
+
+
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, dateComponent))
   .add(...makeStory('classic', classicThemeSelector, dateComponent, true))
   .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true))
+  .add(...makeStory('required', dlsThemeSelector, RequiredDateComponent));

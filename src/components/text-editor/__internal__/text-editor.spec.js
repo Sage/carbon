@@ -14,6 +14,7 @@ import ToolbarButton from './toolbar/toolbar-button/toolbar-button.component';
 import Counter from './editor-counter';
 import Toolbar from './toolbar';
 import guid from '../../../utils/helpers/guid';
+import Label from '../../../__experimental__/components/label';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -510,6 +511,15 @@ describe('TextEditor', () => {
         const editor = wrapper.find(Editor);
         act(() => { expect(editor.props().handleBeforeInput('*')).toEqual('handled'); });
       });
+    });
+  });
+
+  describe('required', () => {
+    it('the isRequired prop is passed to the label', () => {
+      wrapper = render({ label: 'required', required: true });
+
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 

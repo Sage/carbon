@@ -48,6 +48,8 @@ export interface MultiSelectProps {
   onBlur?: () => void;
   /** Callback function for when the key is pressed when focused on Select Textbox. */
   onKeyDown?: () => void;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
 }
 
 declare const MultiSelect: React.ComponentType<MultiSelectProps>;

@@ -1,5 +1,5 @@
 import {
-  FLAT_TABLE_COMPONENT, FLAT_TABLE_CELL
+  FLAT_TABLE_COMPONENT, FLAT_TABLE_CELL,
 } from './locators';
 
 // component preview locators
@@ -13,5 +13,5 @@ export const flatTableHeaderCells = () => flatTableHeader().find('th');
 export const flatTableBodyRowByPosition = index => flatTable().find('tbody tr').eq(index);
 
 export const flatTableClickableRow = index => cy.get(FLAT_TABLE_COMPONENT).find('tbody tr').eq(index);
-export const flatTableSortable = () => cy.get(FLAT_TABLE_COMPONENT).find('thead tr th div:nth-child(1)');
+export const flatTableSortable = () => cy.get(FLAT_TABLE_COMPONENT).find('thead tr th > div > div:nth-child(1)');
 export const flatTableCell = index => cy.get(FLAT_TABLE_CELL).eq(index);
