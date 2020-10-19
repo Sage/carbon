@@ -1,105 +1,67 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import {
-  text, select, boolean
+  text,
+  withKnobs
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation';
 import ButtonToggle from './button-toggle.component';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-ButtonToggle.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /button-toggle\.component(?!spec)/
-);
+export const basic = () => {
+  const children = text('children', 'Option');
 
-function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    const children = text('children', 'Option');
-    const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
-    const buttonIconSize = select(
-      'buttonIconSize',
-      OptionsHelper.sizesBinary,
-      ButtonToggle.defaultProps.buttonIconSize
-    );
-    const size = select('size', OptionsHelper.sizesBinary, ButtonToggle.defaultProps.size);
-    const disabled = boolean('disabled', false);
-    const grouped = boolean('grouped', false);
+  return (
+    <div>
+      <ButtonToggle
+        name='new-button-toggle'
+        key='button-toggle-1'
+        onChange={ () => action('onChange')('foo') }
+        onFocus={ () => action('onFocus')('foo') }
+        onBlur={ () => action('onBlur')('foo') }
+      >
+        {children}
+      </ButtonToggle>
+      <ButtonToggle
+        name='new-button-toggle'
+        key='button-toggle-2'
+        onChange={ () => action('onChange')('bar') }
+        onFocus={ () => action('onFocus')('bar') }
+        onBlur={ () => action('onBlur')('bar') }
+      >
+        {children}
+      </ButtonToggle>
+      <ButtonToggle
+        name='new-button-toggle'
+        key='button-toggle-3'
+        onChange={ () => action('onChange')('baz') }
+        onFocus={ () => action('onFocus')('baz') }
+        onBlur={ () => action('onBlur')('baz') }
+      >
+        {children}
+      </ButtonToggle>
+    </div>
+  );
+};
 
-    const onChange = (ev) => {
-      action('onChange')(ev);
-    };
+basic.story = {
+  name: 'basic'
+};
 
-    const onFocus = (ev) => {
-      action('onFocus', { depth: 2 })(ev);
-    };
-
-    const onBlur = (ev) => {
-      action('onBlur', { depth: 2 })(ev);
-    };
-
-    return (
-      <div>
-        <ButtonToggle
-          name='new-button-toggle'
-          size={ size }
-          buttonIcon={ buttonIcon }
-          buttonIconSize={ buttonIconSize }
-          disabled={ disabled }
-          grouped={ grouped }
-          onChange={ onChange }
-          onFocus={ onFocus }
-          onBlur={ onBlur }
-          key='button-toggle-1'
-        >
-          {children}
-        </ButtonToggle>
-        <ButtonToggle
-          name='new-button-toggle'
-          size={ size }
-          buttonIcon={ buttonIcon }
-          buttonIconSize={ buttonIconSize }
-          disabled={ disabled }
-          grouped={ grouped }
-          onChange={ onChange }
-          onFocus={ onFocus }
-          onBlur={ onBlur }
-          key='button-toggle-2'
-        >
-          {children}
-        </ButtonToggle>
-        <ButtonToggle
-          name='new-button-toggle'
-          size={ size }
-          buttonIcon={ buttonIcon }
-          buttonIconSize={ buttonIconSize }
-          disabled={ disabled }
-          grouped={ grouped }
-          onChange={ onChange }
-          onFocus={ onFocus }
-          onBlur={ onBlur }
-          key='button-toggle-3'
-        >
-          {children}
-        </ButtonToggle>
-      </div>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
-    chromatic: {
-      disable: disableChromatic
+export default {
+  title: 'Button Toggle/Test',
+  component: ButtonToggle,
+  decorators: [withKnobs],
+  parameters: {
+    docs: {
+      page: null
     },
-    knobs: { escapeHTML: false }
-  };
-
-  return [name, component, metadata];
-}
-
-storiesOf('Button Toggle', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+    info: {
+      disable: true
+    },
+    chromatic: {
+      disable: true
+    },
+    knobs: {
+      escapeHTML: false
+    }
+  }
+};

@@ -38,7 +38,6 @@ Scenario Outline: Component <component> default story
   Examples:
     | component           |
     | app wrapper         |
-    | button toggle       |
     | carousel            |
     | card                |
     | configurable-items  |
@@ -75,3 +74,4 @@ Scenario Outline: Component <component> basic story
     | showeditpod   |
     | step-sequence |
     | icon          |
+    | button toggle |
