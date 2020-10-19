@@ -30,6 +30,7 @@ const SimpleSelect = React.forwardRef(({
   onClick,
   onFocus,
   onKeyDown,
+  onBlur,
   ...props
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -61,10 +62,13 @@ const SimpleSelect = React.forwardRef(({
 
   const setMatchingText = useCallback((newValue) => {
     const matchingOption = React.Children.toArray(children).find(option => (option.props.value === newValue));
+    let newText = '';
 
     if (matchingOption) {
-      setTextValue(matchingOption.props.text);
+      newText = matchingOption.props.text;
     }
+
+    setTextValue(newText);
   }, [children]);
 
   const selectValueStartingWithText = useCallback((newFilterText) => {
@@ -314,6 +318,7 @@ const SimpleSelect = React.forwardRef(({
       onFocus: handleTextboxFocus,
       onKeyDown: handleTextboxKeydown,
       onChange: handleTextboxChange,
+      onBlur,
       ...props
     };
   }

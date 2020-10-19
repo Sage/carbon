@@ -3,7 +3,7 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Set groups to <groups> and verify input
-    Given I open "Experimental GroupedCharacter" component page
+    Given I open "Experimental GroupedCharacter" component page "default"
     When I input json to "groups" input field the "<groups>"
       And I put "<example>" example grouped character
     Then Input component value is set to "<result>"

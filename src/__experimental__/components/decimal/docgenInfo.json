@@ -5,6 +5,20 @@
       "displayName": "Decimal",
       "methods": [
         {
+          "name": "startAnimation",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "stopAnimation",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "callOnChange",
           "docblock": null,
           "modifiers": [],
@@ -109,7 +123,12 @@
           "name": "getSafeValueProp",
           "docblock": null,
           "modifiers": [],
-          "params": [],
+          "params": [
+            {
+              "name": "isInitialValue",
+              "type": null
+            }
+          ],
           "returns": null
         },
         {
@@ -198,6 +217,13 @@
           "required": false,
           "description": "The width of the input as a percentage"
         },
+        "readOnly": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, the component will be read-only"
+        },
         "defaultValue": {
           "type": {
             "name": "string"
@@ -257,8 +283,37 @@
             "value": "false",
             "computed": false
           }
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as mandatory"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/decimal/decimal.stories.js": [
+    {
+      "description": "",
+      "displayName": "requiredComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "defaultComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "componentWithValidations",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusComponent",
+      "methods": []
     }
   ]
 }

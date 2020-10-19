@@ -7,6 +7,8 @@ export interface TextEditorProps {
   onCancel?: () => void;
   onSave?: () => void;
   value: object;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
 }
 
 declare const TextEditor: React.FunctionComponent<TextEditorProps>;

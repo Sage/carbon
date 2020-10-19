@@ -107,7 +107,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    Given I open "Experimental Textbox" component page in noIFrame
+    Given I open "Experimental Textbox" component page "default" in no iframe
     When I type <input> into Textbox
     Then Textbox input on preview is set to <input>
     Examples:

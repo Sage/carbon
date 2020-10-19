@@ -65,7 +65,7 @@ Feature: Experimental Date Input component
 
   @positive
   Scenario: Change Date Input component minDate
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
       And I set minDate to today
       And I set dateInput to today
     When I choose date yesterday via DayPicker
@@ -73,7 +73,7 @@ Feature: Experimental Date Input component
 
   @positive
   Scenario: Change Date Input component maxDate
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
       And I set maxDate to today
       And I set dateInput to today
     When I choose date tomorrow via DayPicker
@@ -81,30 +81,30 @@ Feature: Experimental Date Input component
 
   @positive
   Scenario: Check Date Input today date
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
     When I set dateInput to today
     Then the date is set to today
 
   @positive
   Scenario: Open dayPickerDay via click on input
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
     When I click dateInput
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on input
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
     When I click dateInput twice
     Then dayPickerDay is not visible
 
   @positive
   Scenario: Open dayPickerDay via click on icon
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
     When I click onto date icon
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on icon
-    Given I open "Experimental Date Input" component page
+    Given I open "Experimental Date Input" component page "default"
     When I click onto date icon twice
     Then dayPickerDay is not visible

@@ -198,6 +198,24 @@ describe('componentWillUnmount', () => {
       expect(window.removeEventListener).not.toHaveBeenCalled();
     });
   });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = renderTextarea({ required: true, label: 'required' }, mount);
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('textarea');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
+    });
+  });
 });
 
 function renderTextarea(props, renderer = mount) {

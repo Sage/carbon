@@ -2,7 +2,7 @@ Feature: Dialog component actions in IFrame
   I want to test Dialog component - actions in IFrame
 
   Background: Open Dialog component page
-    Given I open "Dialog Test" component page
+    Given I open "Dialog Test" component page "default"
 
   @positive
   Scenario: Disable escape key

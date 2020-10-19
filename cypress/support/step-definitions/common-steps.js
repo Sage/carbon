@@ -1,7 +1,6 @@
 import {
   visitComponentUrl, pressESCKey, pressTABKey, asyncWaitForKnobs,
-  visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
-  visitDocsUrl,
+  positionOfElement, keyCode,
   visitComponentUrlWithParameters,
   clickActionsTab,
   clickClear,
@@ -35,18 +34,6 @@ const TEXT_ALIGN = 'justify-content';
 const TEXT_ALIGN_START = 'flex-start';
 const TEXT_ALIGN_END = 'flex-end';
 
-Given('I open design systems {word} {string} component page', (type, component) => {
-  visitComponentUrl(component, type, false, 'design-system-');
-});
-
-Given('I open Design Systems {word} {string} component docs page', (type, component) => {
-  visitDocsUrl(component, type, false, 'design-system-');
-});
-
-Given('I open design systems {word} {string} component in no iframe', (type, component) => {
-  visitComponentUrl(component, type, true, 'design-system-');
-});
-
 Given('I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
   visitComponentUrlWithParameters(component, type, true, 'design-system-', json, path, nameOfObject);
 });
@@ -55,84 +42,12 @@ Given('I open {word} {string} component in noIFrame with {string} json from {str
   visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
 });
 
-Given('I open {string} component page', (component) => {
-  visitComponentUrl(component);
-});
-
 Given('I open {string} component page {string}', (component, story) => {
   visitComponentUrl(component, story, false);
 });
 
 Given('I open {string} component page {string} in no iframe', (component, story) => {
   visitComponentUrl(component, story, true);
-});
-
-Given('I open {string} component page in noIFrame', (component) => {
-  visitComponentUrl(component, 'default', true);
-});
-
-Given('I open Experimental {string} component page in noIFrame', (component) => {
-  visitComponentUrl(component, 'default', true, 'experimental-');
-});
-
-Given('I open {string} component page basic', (component) => {
-  visitComponentUrl(component, 'basic');
-});
-
-Given('I open in full screen Test {string} component page in noIframe', (component) => {
-  visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
-});
-
-Given('I open {string} component page with button', (component) => {
-  visitComponentUrl(component, 'with_button');
-});
-
-Given('I open {string} component page with button in noIFrame', (component) => {
-  visitComponentUrl(component, 'with_button', true);
-});
-
-Given('I open dark theme {string} component page in noIFrame', (component) => {
-  visitComponentUrl(component, 'dark_theme', true);
-});
-
-Given('I open {string} component in noiFrame', (component) => {
-  visitComponentUrl(component, 'default', true);
-});
-
-Given('I open {string} component with button page in iframe', (component) => {
-  visitComponentUrl(component, 'with_button', true);
-});
-
-Given('I open {string} component page multiple', (component) => {
-  visitComponentUrl(component, 'multiple');
-});
-
-Given('I open {string} component page multiple in NoIFrame', (component) => {
-  visitComponentUrl(component, 'multiple', true);
-});
-
-Given('I open {string} component page full-width in no iframe', (component) => {
-  visitComponentUrl(component, 'full_width');
-});
-
-Given('I open Experimental {string} component page validations in noIframe', (component) => {
-  visitComponentUrl(component, 'validations', true, 'experimental-');
-});
-
-Given('I open {word} Test {string} component page', (type, component) => {
-  visitComponentUrl(component, type, false, 'test-');
-});
-
-Given('I open {word} Test {string} component page in noIframe', (type, component) => {
-  visitComponentUrl(component, type, true, 'test-');
-});
-
-When('I open Design System Flat Table Test component basic page with prop value', () => {
-  visitFlatTableComponentNoiFrame('Design System Flat Table Test', 'basic', true);
-});
-
-Given('I open {string} component page customFilter', (component) => {
-  visitComponentUrl(component, 'customFilter');
 });
 
 When('I open {word} tab', (text) => {
@@ -199,10 +114,6 @@ Then('label on preview is {word} in NoIFrame', (text) => {
 
 Then('label is set to {word}', (text) => {
   getDataElementByValue('label').should('have.text', text);
-});
-
-When('I hover mouse onto help icon in IFrame', () => {
-  helpIconIframe().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {

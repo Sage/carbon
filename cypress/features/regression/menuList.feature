@@ -59,7 +59,7 @@ Feature: MenuList component
 
   @positive
   Scenario Outline: Check search field
-    Given I open "MenuList" component page
+    Given I open "MenuList" component page "default"
       And I click into menu item second element in Iframe
     When I change search parameter to "<parameter>"
     Then search result is "<result>"

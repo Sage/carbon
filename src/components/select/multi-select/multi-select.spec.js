@@ -6,6 +6,7 @@ import Textbox from '../../../__experimental__/components/textbox';
 import Option from '../option/option.component';
 import SelectList from '../select-list/select-list.component';
 import Pill from '../../pill';
+import Label from '../../../__experimental__/components/label';
 
 describe('MultiSelect', () => {
   it('the input ref should be forwarded', () => {
@@ -558,6 +559,24 @@ describe('MultiSelect', () => {
         wrapper.find('input').simulate('keyDown', keyDownEventObject);
         expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
       });
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = renderSelect({ label: 'required', required: true });
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

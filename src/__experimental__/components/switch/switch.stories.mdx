@@ -87,6 +87,27 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    {() => {
+      const [checked, setState] = useState(false);
+      return (
+        <Switch
+          label="Terms and Conditions"
+          name="required"
+          required
+          checked={checked}
+          onChange={ e => setState(state => !state) }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Reversed
 
 <Preview>

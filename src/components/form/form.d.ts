@@ -30,8 +30,11 @@ export interface FormProps {
  /** The total number of warnings present in the form */
  warningCount?: number;
 
-  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
-  fieldSpacing?: FormFieldSpacing;
+ /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
+ fieldSpacing?: FormFieldSpacing;
+
+ /** Disable HTML5 validation */
+ noValidate?: boolean;
 }
 
 declare const Form: React.FunctionComponent<FormProps>;

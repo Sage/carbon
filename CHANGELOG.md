@@ -1,3 +1,65 @@
+## [42.6.0](https://github.com/Sage/carbon/compare/v42.5.2...v42.6.0) (2020-10-16)
+
+
+### Features
+
+* **accordion:** add support to rendering validation icon beside heading ([4e0c130](https://github.com/Sage/carbon/commit/4e0c1301573a3f6e648b41b5507eeeaa022f1acc))
+
+### [42.5.2](https://github.com/Sage/carbon/compare/v42.5.1...v42.5.2) (2020-10-16)
+
+
+### Bug Fixes
+
+* **label:** remove margin from label when input in form ([9f27214](https://github.com/Sage/carbon/commit/9f27214bd1f5c9ec31ef2a8ee77946c294ddc28c))
+
+### [42.5.1](https://github.com/Sage/carbon/compare/v42.5.0...v42.5.1) (2020-10-15)
+
+
+### Bug Fixes
+
+* **filterable-select:** visible value cannot be cleared ([2b89fed](https://github.com/Sage/carbon/commit/2b89fed087ccbc6f2d0509608fde5a8f89f9ad66))
+* **simple-select:** visible value cannot be cleared ([fbaa76f](https://github.com/Sage/carbon/commit/fbaa76f93f4632f60ee58a4597b4236e9032e497))
+
+## [42.5.0](https://github.com/Sage/carbon/compare/v42.4.0...v42.5.0) (2020-10-14)
+
+
+### Features
+
+* add asterisk to required fields ([157e02e](https://github.com/Sage/carbon/commit/157e02e02d4881a677f48c4988ccaa044988cbab))
+
+## [42.4.0](https://github.com/Sage/carbon/compare/v42.3.3...v42.4.0) (2020-10-14)
+
+
+### Features
+
+* **flat-table:** add possibility to set column width and cell paddings ([fcae564](https://github.com/Sage/carbon/commit/fcae564a1c499a2bf4becd9d384a975a6f51f712))
+
+
+### Bug Fixes
+
+* **flat-table:** update incorrect typescript prop definitions ([0749454](https://github.com/Sage/carbon/commit/0749454c43ae2cac845f8da48d7c7d961f4d65e0))
+
+### [42.3.3](https://github.com/Sage/carbon/compare/v42.3.2...v42.3.3) (2020-10-13)
+
+
+### Bug Fixes
+
+* **validation:** renders tooltip in 'top' position when validation ([01884a7](https://github.com/Sage/carbon/commit/01884a77c858291f00afed2a016503ac45543c47)), closes [#3191](https://github.com/Sage/carbon/issues/3191)
+
+### [42.3.2](https://github.com/Sage/carbon/compare/v42.3.1...v42.3.2) (2020-10-09)
+
+
+### Bug Fixes
+
+* **select:** stop passing onblur to style wrapper ([da246cf](https://github.com/Sage/carbon/commit/da246cf88f7a3d49d06e52f61f1091e8f37dbe23))
+
+### [42.3.1](https://github.com/Sage/carbon/compare/v42.3.0...v42.3.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* **search:** address alignment styling bug with search button ([5aa9307](https://github.com/Sage/carbon/commit/5aa93070356299974a1e8fd7feebafdc97145395))
+
 ## [42.3.0](https://github.com/Sage/carbon/compare/v42.2.0...v42.3.0) (2020-10-02)
 
 
