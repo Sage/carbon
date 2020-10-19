@@ -9,6 +9,7 @@ import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
+import Link from '../link';
 import LinkTo from '@storybook/addon-links/react';
 
 <Meta title="Design System/Action Popover" parameters={{ info: { disable: true }}}/>
@@ -194,6 +195,32 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
                 >
                   More
                 </ActionPopoverMenuButton>
+              ) }
+            >
+              <ActionPopoverItem
+                icon='email'
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover 
+              renderButton={ ({ 'data-element': dataElement }) => (
+                <Link
+                  onClick={() => {}}
+                  tabbable={false}
+                  data-element={ dataElement }
+                >
+                  More
+                </Link>
               ) }
             >
               <ActionPopoverItem
