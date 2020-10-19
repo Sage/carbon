@@ -13,7 +13,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button Toggle component theme to <theme>
-    When I open default "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open basic "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
       And I click "button-toggle" component
     Then Button Toggle component css background color is set to "<theme>"
     Examples:

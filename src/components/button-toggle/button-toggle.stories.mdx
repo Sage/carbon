@@ -1,0 +1,154 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ButtonToggle from '../button-toggle';
+
+<Meta
+  title="Button Toggle"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Button Toggle
+
+Press one of the buttons to make selection
+
+## Overview 
+
+ButtonToggle component should be used when user has to make a choice between a small number of options.
+
+## Guidance, hints and tips 
+
+- An icon could be added to make the meaning of an option clearer.
+- This component should not be used as part of the `Form`, `ButtonToggleGroup` should be used instead.
+
+## Quick Start 
+
+To use the `ButtonToggle` component you have to import the `<ButtonToggle />` component:
+
+```javascript
+import ButtonToggle from 'carbon-react/lib/components/button-toggle';
+```
+
+## Basic usage
+
+<Preview>
+  <Story name='basic'>
+    <div>
+      <ButtonToggle
+        name='basic'
+        key='foo'
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        name='basic'
+        key='bar'
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        name='basic'
+        key='baz'
+     >Baz</ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+## Disabled
+
+<Preview>
+  <Story name='disabled'>
+    <div>
+      <ButtonToggle
+        name='disabled'
+        key='foo'
+        disabled
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        name='disabled'
+        key='bar'
+        disabled
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        name='disabled'
+        key='baz'
+        disabled
+      >Baz</ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+## Grouped
+
+<Preview>
+  <Story name='grouped'>
+    <div>
+      <ButtonToggle
+        name='grouped'
+        key='foo'
+        grouped
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        name='grouped'
+        key='bar'
+        grouped
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        name='grouped'
+        key='baz'
+        grouped
+      >Baz</ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+## With large icon
+
+<Preview>
+  <Story name='with large icon'>
+    <div>
+      <ButtonToggle
+        name='sizes'
+        key='foo'
+        buttonIcon='add'
+        buttonIconSize='large'
+      >add</ButtonToggle>
+      <ButtonToggle
+        name='sizes'
+        key='bar'
+        buttonIcon='share'
+        buttonIconSize='large'
+      >share</ButtonToggle>
+      <ButtonToggle
+        name='sizes'
+        key='baz'
+        buttonIcon='tick'
+        buttonIconSize='large'
+      >tick</ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+## With small icon
+
+<Preview>
+  <Story name='with small icon'>
+    <div>
+      <ButtonToggle
+        name='sizes'
+        key='foo'
+        buttonIcon='add'
+      >add</ButtonToggle>
+      <ButtonToggle
+        name='sizes'
+        key='bar'
+        buttonIcon='share'
+      >share</ButtonToggle>
+      <ButtonToggle
+        name='sizes'
+        key='baz'
+        buttonIcon='tick'
+      >tick</ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={ButtonToggle} />
