@@ -38,7 +38,6 @@ Scenario Outline: Component <component> default story
   Examples:
     | component           |
     | app wrapper         |
-    | button toggle       |
     | carousel            |
     | card                |
     | configurable-items  |
@@ -56,16 +55,23 @@ Scenario Outline: Component <component> default story
     | mount-in-app        |
     | multi-action-button |
     | pill                |
-    | pod                 |
     | portrait            |
     | preview             |
     | profile             |
     | row                 |
-    | showeditpod         |
     | settingsrow         |
     | split-button        |
-    | step-sequence-item  |
-    | step-sequence       |
     | table-ajax          |
     | table               |
     | tooltip             |
+
+@accessibility
+Scenario Outline: Component <component> basic story
+  When I open "<component>" component page "basic" in no iframe
+  Then "<component>" component has no accessibility violations
+  Examples:
+    | component     |
+    | showeditpod   |
+    | step-sequence |
+    | icon          |
+    | button toggle |

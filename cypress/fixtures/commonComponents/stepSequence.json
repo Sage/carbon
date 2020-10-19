@@ -1,10 +1,4 @@
 { 
-  "orientationVertical": {
-    "orientation": "vertical"
-  },
-  "orientationHorizontal": {
-    "orientation": "horizontal"
-  },
   "indicator-100": {
     "indicator": -100
   },
@@ -19,15 +13,6 @@
   },
   "indicatorSpecialCharacter": {
     "indicator": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "statusComplete": {
-    "status": "complete"
-  },
-  "statusCurrent": {
-    "status": "current"
-  },
-  "statusIncomplete": {
-    "status": "incomplete"
   },
   "hiddenCompleteLabelOtherLanguage": {
     "status": "complete",
