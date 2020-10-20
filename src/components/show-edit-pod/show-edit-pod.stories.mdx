@@ -1,0 +1,237 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import styled from 'styled-components';
+import ShowEditPod from './';
+import Heading from '../heading';
+import Button from '../button';
+import Content from '../content';
+import Textbox from '../../__experimental__/components/textbox';
+
+<Meta
+  title="ShowEditPod"
+  parameters={{ info: { disable: true }}}
+/>
+
+# ShowEditPod
+Nest any Carbon input into this component.
+
+Configure Pod and Fieldset components to work together, or choose this pre-configured Show/Edit Pod component.
+
+The Show/Edit Pod Component automatically presents content as a read-only Pod, until the user clicks an edit icon, which shows the same information in an editable Fieldset.
+
+However, configuring Pod and Fieldset components manually will give you more customization options.
+
+Choose whether the editable state has a disabled or enabled Save button, a Cancel button, or a Delete button, and their alignment.
+
+Choose from various visual options, including borders, and primary, secondary, or tertiary appearance.
+
+Set the pod to flex to the width of its content, or take up the full width of its container.
+
+Top-aligned labels (Carbon default) or inline right-aligned labels are usually fastest for users.
+
+Create a single path to completion with your inputs, and between your inputs and the primary action Button.
+
+Indicate mandatory, or optional fields, whichever is the minority. Think carefully before collecting optional data - don’t collect information you don’t need! Try suffixing ‘(optional)’ after your field label.
+
+More guidance is available for each of the individual inputs you might place inside this component.
+
+## Related Components
+
+- Editing a number of closely related inputs? [Try Fieldset](/?path=/docs/design-system-fieldset-address-fieldset-examples--canada "Fieldset").
+- Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--basic-with-sticky-footer "Form").
+- Viewing content that’s grouped together visually? [Try Pod](/?path=/docs/pod--basic "Pod").
+
+## Quick Start
+
+```jsx
+import ShowEditPod from "carbon-react/lib/components/show-edit-pod";
+
+const MyComponent = () => (
+  return (
+    <ShowEditPod title="Title">
+      <Content title="Content">
+        Content
+      </Content>
+    </ShowEditPod>
+  )
+);
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    <ShowEditPod 
+      title="Title"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      editFields={
+        <Textbox
+          label="Field"
+          labelInline
+          labelAlign='right'
+        />
+      }
+    >
+      <Content title="Content title">
+        Content
+      </Content>
+    </ShowEditPod>
+  </Story>
+</Preview>
+
+### Buttons alignment
+
+<Preview>
+  <Story name="Buttons alignment">
+    {() => ['left', 'right'].map(buttonAlign =>
+      <>
+        <ShowEditPod 
+          title={buttonAlign}
+          onEdit={() => {}}
+          onDelete={() => {}}
+          saveText="Save"
+          deleteText="Delete"
+          cancelText="Cancel"
+          buttonAlign={buttonAlign}
+          editFields={
+            <Textbox
+              label="Field"
+              labelInline
+              labelAlign='right'
+            />
+          }
+        >
+          <Content title="Content title">
+            Content
+          </Content>
+        </ShowEditPod>
+        <div style={{ marginBottom: 24 }}/>
+      </>
+    )}
+  </Story>
+</Preview>
+
+### With borders
+
+<Preview>
+  <Story name="With borders">
+    <ShowEditPod 
+      title="With borders"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      border
+      editFields={
+        <Textbox
+          label="Field"
+          labelInline
+          labelAlign='right'
+        />
+      }
+    >
+      <Content title="Content title">
+        Content
+      </Content>
+    </ShowEditPod>
+  </Story>
+</Preview>
+
+### Various variants
+
+<Preview>
+  <Story name="Various variants">
+    {() => [
+      'primary',
+      'secondary',
+      'tertiary',
+      'tile',
+      'transparent'
+    ].map(variant =>
+      <>
+        <ShowEditPod 
+          title={variant}
+          onEdit={() => {}}
+          onDelete={() => {}}
+          saveText="Save"
+          deleteText="Delete"
+          cancelText="Cancel"
+          variant={variant}
+          editFields={
+            <Textbox
+              label="Field"
+              labelInline
+              labelAlign='right'
+            />
+          }
+        >
+          <Content title="Content title">
+            Content
+          </Content>
+        </ShowEditPod>
+        <div style={{ marginBottom: 24 }}/>
+      </>
+    )}
+  </Story>
+</Preview>
+
+### Custom transition
+
+<Preview>
+  <Story name="Custom transition">
+    {() => {
+      const StyledContainer = styled.div`
+        .custom-transition-name-enter {
+          transform: scale(0);
+          opacity: 0;
+        }
+        .custom-transition-name-enter-active {
+          transform: scale(1);
+          opacity: 1;
+          transition: all 300ms ease-in;
+        }
+        .custom-transition-name-exit {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .custom-transition-name-exit-active {
+          transform: scale(0);
+          opacity: 0;
+          position: absolute;
+        }
+        `
+      return (
+        <StyledContainer>
+          <ShowEditPod 
+            title="Title"
+            onEdit={() => {}}
+            onDelete={() => {}}
+            saveText="Save"
+            deleteText="Delete"
+            cancelText="Cancel"
+            transitionName="custom-transition-name"
+            editFields={
+              <Textbox
+                label="Field"
+                labelInline
+                labelAlign='right'
+              />
+            }
+          >
+            <Content title="Content title">
+              Content
+            </Content>
+          </ShowEditPod>
+        </StyledContainer>
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props
+
+<Props of={ShowEditPod} />

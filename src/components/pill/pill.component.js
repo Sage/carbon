@@ -4,7 +4,6 @@ import StyledPill from './pill.style';
 import Icon from '../icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import IconButton from '../icon-button';
 
 class Pill extends React.Component {
@@ -30,7 +29,6 @@ class Pill extends React.Component {
   render() {
     const {
       fill,
-      as,
       onDelete,
       colorVariant,
       pillRole,
@@ -43,7 +41,7 @@ class Pill extends React.Component {
       <StyledPill
         { ...validProps(this) }
         inFill={ fill }
-        colorVariant={ colorVariant || as }
+        colorVariant={ colorVariant }
         isDeletable={ onDelete }
         pillRole={ pillRole }
         size={ size }
@@ -60,29 +58,25 @@ class Pill extends React.Component {
 
 Pill.propTypes = {
 
-  /** Sets the theme of the notification [legacy]. */
-  as: PropTypes.oneOf([...OptionsHelper.colors, 'disabled']),
+  /** Change the color of a status pill. */
+  colorVariant: PropTypes.oneOf(['neutral', 'negative', 'positive', 'warning']),
 
-  /** Sets the theme of the notification. */
-  colorVariant: PropTypes.oneOf([...OptionsHelper.pillColors, 'warning']),
-
-  /** This component supports children.  */
+  /** The content to display inside of the pill.  */
   children: PropTypes.string.isRequired,
 
   /** Fills the pill background with colour. When fill is false only the border is coloured. */
   fill: PropTypes.bool,
 
   /** Sets the type of pill in use. */
-  pillRole: PropTypes.oneOf([...OptionsHelper.pillRoles]),
+  pillRole: PropTypes.oneOf(['tag', 'status']),
 
   /** Callback function for when the pill is clicked. */
   onClick: PropTypes.func,
 
-  /** Callback function to delete the component, when the added Icon is clicked. */
+  /** Callback function for when the remove icon is clicked. */
   onDelete: PropTypes.func,
 
-  /** Assigns a size to the button: "S" | "M" | "L" | "XL" */
-  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted),
+  size: PropTypes.oneOf(['S', 'M', 'L', 'XL']),
 
   /** Margin right, given number will be multiplied by base spacing unit (8) */
   mr: PropTypes.number,
@@ -92,7 +86,7 @@ Pill.propTypes = {
 };
 
 Pill.defaultProps = {
-  as: 'default',
+  colorVariant: 'neutral',
   fill: false,
   onClick: null,
   onDelete: null,

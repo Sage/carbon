@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { css, ThemeProvider } from 'styled-components';
+import { css } from 'styled-components';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 
@@ -21,7 +21,7 @@ import {
 } from './pod.style.js';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-import { baseTheme, classicTheme } from '../../style/themes';
+import { baseTheme } from '../../style/themes';
 
 describe('Pod', () => {
   let instance;
@@ -364,9 +364,9 @@ describe('StyledEditAction', () => {
     ['tertiary', baseTheme.pod.tertiaryBackground],
     ['transparent', 'transparent'],
     ['tile', baseTheme.colors.white]
-  ])('when the podType prop is set to %s', (podType, expectedValue) => {
+  ])('when the variant prop is set to %s', (variant, expectedValue) => {
     it('should have expected backgroundColor', () => {
-      wrapper = renderEditAction({ podType });
+      wrapper = renderEditAction({ variant });
       assertStyleMatch({
         backgroundColor: expectedValue
       }, wrapper, { modifier: css`&&` });
@@ -444,9 +444,9 @@ describe('StyledBlock', () => {
     ['tertiary', baseTheme.pod.tertiaryBackground],
     ['transparent', 'transparent'],
     ['tile', baseTheme.colors.white]
-  ])('when the podType prop is set to %s', (podType, expectedValue) => {
+  ])('when the variant prop is set to %s', (variant, expectedValue) => {
     it('should have expected backgroundColor', () => {
-      wrapper = renderStyledBlock({ podType });
+      wrapper = renderStyledBlock({ variant });
       assertStyleMatch({
         backgroundColor: expectedValue
       }, wrapper);
@@ -471,9 +471,9 @@ describe('StyledBlock', () => {
     });
   });
 
-  describe('when podType prop is set to tile', () => {
+  describe('when variant prop is set to tile', () => {
     it('should match expected styles', () => {
-      wrapper = renderStyledBlock({ podType: 'tile' });
+      wrapper = renderStyledBlock({ variant: 'tile' });
       assertStyleMatch({
         boxShadow: '0 2px 3px 0 rgba(2,18,36,0.2)'
       }, wrapper);
@@ -497,9 +497,9 @@ describe('StyledBlock', () => {
       }, wrapper);
     });
 
-    describe('with internalEditButton prop set and podType set to tile', () => {
+    describe('with internalEditButton prop set and variant set to tile', () => {
       it('should have undefined display style', () => {
-        wrapper = renderStyledBlock({ [prop]: true, internalEditButton: true, podType: 'tile' });
+        wrapper = renderStyledBlock({ [prop]: true, internalEditButton: true, variant: 'tile' });
         assertStyleMatch({
           backgroundColor: 'transparent'
         }, wrapper);
@@ -548,9 +548,9 @@ describe('StyledFooter', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
-  describe('when podType prop is set to tile', () => {
+  describe('when variant prop is set to tile', () => {
     it('should have expected border top style', () => {
-      wrapper = renderStyledFooter({ podType: 'tile' });
+      wrapper = renderStyledFooter({ variant: 'tile' });
       assertStyleMatch({
         borderTop: `1px solid ${baseTheme.pod.border}`
       }, wrapper);
@@ -606,140 +606,6 @@ describe('StyledEditContainer', () => {
   });
 });
 
-describe('Classic Theme', () => {
-  describe('StyledEditAction', () => {
-    let wrapper;
-
-    it('should match expected styles', () => {
-      wrapper = renderClassicEditAction({}, TestRenderer.create);
-      expect(wrapper.toJSON()).toMatchSnapshot();
-    });
-
-    describe.each(['isHovered', 'isFocused'])('when the %s prop set', (prop) => {
-      it('should have expected color and backgroundColor', () => {
-        wrapper = renderClassicEditAction({ [prop]: true });
-        assertStyleMatch({
-          backgroundColor: '#004b87',
-          color: 'white'
-        }, wrapper, { modifier: css`&&` });
-      });
-    });
-  });
-
-  describe('StyledBlock', () => {
-    let wrapper;
-
-    it('should have expected border', () => {
-      wrapper = renderClassicStyledBlock({ podType: 'tile' });
-      assertStyleMatch({
-        border: '1px solid #ccd6db'
-      }, wrapper);
-    });
-
-    it('should match expected styles', () => {
-      wrapper = renderClassicStyledBlock({ podType: 'secondary' });
-      assertStyleMatch({
-        backgroundColor: '#f2f5f6'
-      }, wrapper);
-    });
-
-    describe.each([
-      ['primary', 'white'],
-      ['secondary', '#f2f5f6'],
-      ['tertiary', '#e6ebed'],
-      ['transparent', 'transparent'],
-      ['tile', 'white']
-    ])('when the podType prop is set to %s', (podType, expectedValue) => {
-      it('should have expected backgroundColor', () => {
-        wrapper = renderClassicStyledBlock({ podType });
-        assertStyleMatch({
-          backgroundColor: expectedValue
-        }, wrapper);
-      });
-    });
-
-    describe('when noBorder prop is set', () => {
-      it('should not render the border', () => {
-        wrapper = renderClassicStyledBlock({ noBorder: true });
-        assertStyleMatch({
-          border: 'none'
-        }, wrapper);
-      });
-    });
-
-    describe.each(['isHovered', 'isFocused'])('when the %s prop set', (prop) => {
-      it('should have undefined display style', () => {
-        wrapper = renderClassicStyledBlock({ [prop]: true });
-        assertStyleMatch({
-          backgroundColor: '#d9e0e4'
-        }, wrapper);
-      });
-
-      describe('with internalEditButton prop set and podType set to tile', () => {
-        it('should have undefined display style', () => {
-          wrapper = renderClassicStyledBlock({ [prop]: true, internalEditButton: true, podType: 'tile' });
-          assertStyleMatch({
-            backgroundColor: 'transparent'
-          }, wrapper);
-        });
-      });
-
-      describe('with contentTriggersEdit prop set', () => {
-        it('should have undefined display style', () => {
-          wrapper = renderClassicStyledBlock({ [prop]: true, contentTriggersEdit: true });
-          assertStyleMatch({
-            backgroundColor: '#004b87'
-          }, wrapper);
-        });
-      });
-    });
-  });
-
-  describe('StyledHeader', () => {
-    let wrapper;
-
-    it('should have expected border', () => {
-      wrapper = mount(
-        <ThemeProvider theme={ classicTheme }>
-          <StyledHeader />
-        </ThemeProvider>
-      );
-      assertStyleMatch({
-        marginBottom: '15px'
-      }, wrapper);
-    });
-  });
-
-  describe('StyledFooter', () => {
-    let wrapper;
-
-    it('should have expected border', () => {
-      wrapper = mount(
-        <ThemeProvider theme={ classicTheme }>
-          <StyledFooter />
-        </ThemeProvider>
-      );
-      assertStyleMatch({
-        backgroundColor: '#f2f5f6'
-      }, wrapper);
-    });
-
-    describe('when podType prop is set to tile', () => {
-      it('should match expected styles', () => {
-        wrapper = mount(
-          <ThemeProvider theme={ classicTheme }>
-            <StyledFooter podType='tile' />
-          </ThemeProvider>
-        );
-
-        assertStyleMatch({
-          borderTop: '1px solid #ccd6db'
-        }, wrapper);
-      });
-    });
-  });
-});
-
 function renderEditAction(props = {}, renderer = mount) {
   return renderer(<StyledEditAction { ...props } />);
 }
@@ -754,20 +620,4 @@ function renderStyledFooter(props = {}, renderer = mount) {
 
 function renderStyledHeader(props = {}, renderer = mount) {
   return renderer(<StyledHeader { ...props } />);
-}
-
-function renderClassicStyledBlock(props = {}, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={ classicTheme }>
-      <StyledBlock { ...props } />
-    </ThemeProvider>
-  );
-}
-
-function renderClassicEditAction(props = {}, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={ classicTheme }>
-      <StyledEditAction { ...props } />
-    </ThemeProvider>
-  );
 }

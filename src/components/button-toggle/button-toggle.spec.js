@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import guid from '../../utils/helpers/guid';
-import { classicTheme, baseTheme } from '../../style/themes';
+import { baseTheme } from '../../style/themes';
 import ButtonToggle from './button-toggle.component';
 import ButtonToggleInput from './button-toggle-input.component';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
@@ -144,37 +144,6 @@ describe('ButtonToggle', () => {
     });
   });
 
-  describe('Classic theme', () => {
-    it('renders correctly with default settings', () => {
-      const wrapper = renderWithTheme({ theme: classicTheme }, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
-    it('renders correctly with large buttonIcon and large size', () => {
-      const wrapper = renderWithTheme({
-        theme: classicTheme,
-        buttonIcon: 'add',
-        buttonIconSize: 'large',
-        size: 'large'
-      });
-      assertStyleMatch({
-        height: 'auto',
-        paddingTop: '15px',
-        paddingBottom: '15px'
-      }, wrapper.find('label'));
-    });
-    it('renders correctly with small size', () => {
-      const wrapper = renderWithTheme({
-        theme: classicTheme,
-        size: 'small'
-      });
-      assertStyleMatch({
-        height: 'auto',
-        padding: '5px 8px',
-        fontWeight: '700',
-        fontSize: '12px'
-      }, wrapper.find('label'));
-    });
-  });
   describe.each(carbonThemesJestTable)('when the %s theme is set', (themeName, theme) => {
     it('renders correct styles', () => {
       const wrapper = renderWithTheme({
@@ -195,10 +164,10 @@ describe('ButtonToggle', () => {
       }, wrapper.find('label'));
     });
   });
+
   describe('General styling', () => {
     it('renders correctly when disabled', () => {
-      const wrapper = renderWithTheme({
-        theme: classicTheme,
+      const wrapper = render({
         disabled: true
       });
       assertStyleMatch({
@@ -208,8 +177,7 @@ describe('ButtonToggle', () => {
       }, wrapper.find('label'), { modifier: '&' });
     });
     it('renders correctly with small icon', () => {
-      const wrapper = renderWithTheme({
-        theme: classicTheme,
+      const wrapper = render({
         buttonIcon: 'add',
         buttonIconSize: 'small'
       });
@@ -223,18 +191,20 @@ describe('ButtonToggle', () => {
         children: 'Text'
       };
       const wrapper = TestRenderer.create(
-        <ThemeProvider theme={ classicTheme }>
-          <div>
-            <ButtonToggle { ...props } />
-            <ButtonToggle { ...props } />
-          </div>
-        </ThemeProvider>
+        <div>
+          <ButtonToggle { ...props } />
+          <ButtonToggle { ...props } />
+        </div>
       );
       // Uses snapshot as jest/enzyme doesnt support :first-of-type
       expect(wrapper).toMatchSnapshot();
     });
   });
 });
+
+function render(props = {}, renderer = mount) {
+  return renderer(<ButtonToggle { ...props }>Button</ButtonToggle>);
+}
 
 function renderWithTheme(props = {}, renderer = mount) {
   const { theme, ...componentProps } = props;
