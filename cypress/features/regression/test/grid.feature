@@ -49,14 +49,14 @@ Scenario Outline: Set viewport to large and check size of <podTitle>
     | 3     | GridItem 3. |
 
 @positive
-Scenario Outline: Set viewport to <viewport> and check proper margins and grid-gaps
+Scenario Outline: Set viewport to <viewport> and check proper paddings and grid-gaps
   When I resize grid viewport to "<viewport>"
-  Then grid has "margin" set to <margin>
+  Then grid has "padding" set to <padding>
     And grid has "grid-gap" set to <grid-gap>
   Examples:
-    | viewport    | margin | grid-gap |
-    | extra small | 16     | 16       |
-    | small       | 24     | 16       |
-    | medium      | 32     | 24       |
-    | large       | 40     | 24       |
-    | extra large | 40     | 40       |
+    | viewport    | padding | grid-gap |
+    | extra small | 16      | 16       |
+    | small       | 24      | 16       |
+    | medium      | 32      | 24       |
+    | large       | 40      | 24       |
+    | extra large | 40      | 40       |
