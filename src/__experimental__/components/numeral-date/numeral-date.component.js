@@ -28,7 +28,8 @@ const NumeralDate = ({
   labelAlign,
   labelHelp,
   fieldHelp,
-  adaptiveLabelBreakpoint
+  adaptiveLabelBreakpoint,
+  required
 }) => {
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
@@ -100,6 +101,7 @@ const NumeralDate = ({
         labelHelp={ labelHelp }
         fieldHelp={ fieldHelp }
         adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
+        isRequired={ required }
       >
         <StyledNumeralDate
           name={ name }
@@ -129,6 +131,7 @@ const NumeralDate = ({
                     error={ !!error }
                     warning={ !!warning }
                     info={ !!info }
+                    { ...required && { required } }
                     {
                     ...(isEnd && !validationOnLabel && {
                       error,
@@ -212,7 +215,9 @@ NumeralDate.propTypes = {
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint: PropTypes.number
+  adaptiveLabelBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export default NumeralDate;

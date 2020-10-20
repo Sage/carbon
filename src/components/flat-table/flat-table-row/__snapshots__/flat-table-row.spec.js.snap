@@ -5,12 +5,19 @@ exports[`FlatTableRow should have expected styles 1`] = `
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  overflow: visible;
-  padding: 10px 24px;
   text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
+  padding: 0;
+}
+
+.c1 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .c1:first-of-type {
@@ -28,7 +35,6 @@ exports[`FlatTableRow should have expected styles 1`] = `
   min-width: 100%;
   table-layout: fixed;
   width: auto;
-  word-break: break-all;
 }
 
 <table>
@@ -41,13 +47,17 @@ exports[`FlatTableRow should have expected styles 1`] = `
         className="c1"
         data-element="flat-table-cell"
       >
-        cell1
+        <div>
+          cell1
+        </div>
       </td>
       <td
         className="c1"
         data-element="flat-table-cell"
       >
-        cell2
+        <div>
+          cell2
+        </div>
       </td>
     </tr>
   </tbody>

@@ -40,3 +40,8 @@ Feature: Accessibility tests - Experimental folder
       | switch              |
       | textbox             |
       | textarea            |
+
+  @accessibility
+  Scenario: Experimental checkbox with asterisk
+    When I open "Experimental checkbox" component page "required" in no iframe
+    Then "Experimental checkbox with asterisk" component has no accessibility violations

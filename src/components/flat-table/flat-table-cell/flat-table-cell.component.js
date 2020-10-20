@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { space } from '@styled-system/prop-types';
+
 import StyledFlatTableCell from './flat-table-cell.style';
 
 const FlatTableCell = ({
   align,
   children,
   colspan,
-  rowspan
+  rowspan,
+  py,
+  px,
+  ...rest
 }) => {
   return (
     <StyledFlatTableCell
@@ -14,13 +19,20 @@ const FlatTableCell = ({
       data-element='flat-table-cell'
       colSpan={ colspan }
       rowSpan={ rowspan }
+      py={ py || '10px' }
+      px={ px || 3 }
+      { ...rest }
     >
-      { children }
+      <div>
+        { children }
+      </div>
     </StyledFlatTableCell>
   );
 };
 
 FlatTableCell.propTypes = {
+  /** Styled system spacing props */
+  ...space,
   /** Content alignment */
   align: PropTypes.oneOf(['center', 'left', 'right']),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),

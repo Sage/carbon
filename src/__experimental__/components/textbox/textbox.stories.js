@@ -23,7 +23,8 @@ OriginalTextbox.__docgenInfo = getDocGenInfo(
 Textbox.displayName = 'Textbox';
 
 const defaultStoryPropsConfig = {
-  inputWidthEnabled: true
+  inputWidthEnabled: true,
+  requiredKnob: true
 };
 
 function makeStory(name, themeSelector, component, disableChromatic = false) {
@@ -103,7 +104,17 @@ const multipleTextboxAutoFocus = () => {
   boolean('autoFocus', true);
   return multipleTextbox();
 };
-
+const requiredTextbox = () => {
+  return (
+    <Textbox
+      { ...getCommonTextboxProps({
+        ...defaultStoryPropsConfig,
+        requiredKnob: false
+      }) }
+      required
+    />
+  );
+};
 
 function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   const validationTypes = ['error', 'warning', 'info'];
@@ -153,6 +164,21 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           readOnly
         />
 
+        <h6>On label Inline</h6>
+        {validationTypes.map(validation => (
+          <Textbox
+            key={ `${validation}-string-label` }
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            validationOnLabel
+            labelInline
+            labelWidth={ 10 }
+            inputWidth={ 50 }
+            { ...{ [validation]: 'Message' } }
+          />
+        ))}
+
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (
           <Textbox
@@ -201,10 +227,16 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
-  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
+  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus))
+  .add(...makeStory('required', dlsThemeSelector, requiredTextbox));
 
 // eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
+export function getCommonTextboxProps(overrides = {}, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
+
+  const config = {
+    ...defaultStoryPropsConfig,
+    ...overrides
+  };
   const previous = {
     key: 'textbox',
     autoFocus: autoFocusDefault
@@ -233,6 +265,8 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
   const iconOnClick = action('iconOnClick');
   const inputIcon = select('inputIcon', ['', ...OptionsHelper.icons]);
 
+  const required = config.requiredKnob ? boolean('required', false) : undefined;
+
   return {
     key,
     disabled,
@@ -250,6 +284,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     onClick,
     iconOnClick,
     inputIcon,
-    prefix
+    prefix,
+    required
   };
 }

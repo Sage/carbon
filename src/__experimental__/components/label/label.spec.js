@@ -115,6 +115,23 @@ describe('Label', () => {
         paddingRight: '16px'
       }, render({ inline: true, pr: 2 }, TestRenderer.create).toJSON());
     });
+
+    it('applies styling for an inline "isRequired" label', () => {
+      const wrapper = render({
+        inline: true,
+        childOfForm: false,
+        isRequired: true,
+        theme: mintTheme
+      });
+
+      assertStyleMatch({
+        content: "'*'",
+        color: '#C7384F',
+        fontWeight: '700',
+        marginLeft: '8px'
+      }, wrapper.find(StyledLabel),
+      { modifier: '::after' });
+    });
   });
 
   describe('when left aligned', () => {
@@ -168,22 +185,6 @@ describe('Label', () => {
   });
 
   describe('when attached to child of form', () => {
-    describe('when inline', () => {
-      it('applies styling for an inline label', () => {
-        assertStyleMatch({
-          marginLeft: '12px'
-        }, render({ childOfForm: true, inline: true, align: 'right' }, TestRenderer.create).toJSON());
-      });
-    });
-
-    describe('when not inline', () => {
-      it('applies styling for label', () => {
-        assertStyleMatch({
-          marginBottom: '12px'
-        }, render({ childOfForm: true }, TestRenderer.create).toJSON());
-      });
-    });
-
     describe('when IconWrapperStyle', () => {
       let wrapper;
 
@@ -233,6 +234,22 @@ describe('Label', () => {
       const icon = wrapper.find(ValidationIcon);
 
       expect(icon.exists()).toEqual(false);
+    });
+  });
+
+  describe.each(validationTypes)('when %s prop is passed as string and label is inline', (vType) => {
+    it('tooltip should render in position "top"', () => {
+      const wrapper = render({ [vType]: 'Message', useValidationIcon: true, inline: true }, mount);
+      const icon = wrapper.find(ValidationIcon);
+      expect(icon.prop('tooltipPosition')).toBe('top');
+    });
+  });
+
+  describe.each(validationTypes)('when %s prop is passed as string and label is not inline', (vType) => {
+    it('tooltip should render in position "right"', () => {
+      const wrapper = render({ [vType]: 'Message', useValidationIcon: true }, mount);
+      const icon = wrapper.find(ValidationIcon);
+      expect(icon.prop('tooltipPosition')).toBe('right');
     });
   });
 });

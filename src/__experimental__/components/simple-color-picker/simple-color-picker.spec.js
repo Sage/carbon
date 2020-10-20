@@ -8,6 +8,7 @@ import baseTheme from '../../../style/themes/base';
 import { StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
+import Fieldset from '../../../__internal__/fieldset';
 
 const colorValues = [
   { color: '#00A376' },
@@ -433,6 +434,26 @@ describe('SimpleColorPicker', () => {
         + ' type `SimpleColor`.\n    in SimpleColorPicker';
 
       expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = render(mount, { required: true });
+    });
+
+    it('the required prop is passed to the inputs', () => {
+      const inputs = wrapper.find('input');
+      inputs.forEach((input) => {
+        expect(input.prop('required')).toBe(true);
+      });
+    });
+
+    it('the isRequired prop is passed to the fieldset', () => {
+      const fieldset = wrapper.find(Fieldset);
+      expect(fieldset.prop('isRequired')).toBe(true);
     });
   });
 });
