@@ -1,26 +1,22 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { StyledFormFooter } from '../form/form.style.js';
 import { StyledEditAction } from '../pod/pod.style.js';
 import Pod from '../pod';
-import Link from '../link';
-import { isClassic } from '../../utils/helpers/style-helper';
 import StyledDeleteButton from './delete-button.style.js';
 import { baseTheme } from '../../style/themes';
 
 
 const StyledPod = styled(Pod)`
   ${StyledFormFooter} {
-    margin-top: ${({ theme }) => (isClassic(theme) ? 20 : 24)}px;
+    margin-top: 24px;
   }
 
   ${StyledEditAction} {
-    ${({ theme }) => !isClassic(theme) && css`
-      > a, button {
-        height: 16px;
-        width: 16px;
-        padding: 16px;
-      }
-    `};
+    > a, button {
+      height: 16px;
+      width: 16px;
+      padding: 16px;
+    }
   }
 
   ${StyledDeleteButton} {
@@ -54,14 +50,4 @@ StyledPod.defaultProps = {
   theme: baseTheme
 };
 
-const StyledLink = styled(Link)`
-  a {
-    color: #C7384F;
-
-    &:hover {
-      color: #C11E20;
-    }
-  }
-`;
-
-export { StyledPod, StyledLink };
+export default StyledPod;

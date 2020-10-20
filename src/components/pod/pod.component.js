@@ -87,7 +87,7 @@ class Pod extends React.Component {
 
   footer() {
     const {
-      footer, padding, as, podType
+      footer, padding, variant
     } = this.props;
 
     if (!footer) {
@@ -98,7 +98,7 @@ class Pod extends React.Component {
       <StyledFooter
         data-element='footer'
         padding={ padding }
-        podType={ podType || as }
+        variant={ variant }
       >
         {footer}
       </StyledFooter>
@@ -109,8 +109,7 @@ class Pod extends React.Component {
     const {
       onEdit,
       internalEditButton,
-      as,
-      podType,
+      variant,
       padding,
       border,
       displayEditButtonOnHover,
@@ -135,7 +134,7 @@ class Pod extends React.Component {
           isHovered={ isHovered }
           noBorder={ !border }
           padding={ padding }
-          podType={ podType || as }
+          variant={ variant }
           { ...this.linkProps() }
         >
           {I18n.t('actions.edit', { defaultValue: 'Edit' })}
@@ -191,7 +190,7 @@ class Pod extends React.Component {
 
   render() {
     const {
-      as, podType, border, editContentFullWidth, internalEditButton, onEdit, padding, ...rest
+      variant, border, editContentFullWidth, internalEditButton, onEdit, padding, ...rest
     } = this.props;
 
     const { isFocused, isHovered } = this.state;
@@ -211,7 +210,7 @@ class Pod extends React.Component {
           isFocused={ isFocused }
           isHovered={ isHovered }
           noBorder={ !border }
-          podType={ podType || as }
+          variant={ variant }
           { ...(this.shouldContentHaveEditEvents() ? { ...this.editEvents(), tabIndex: '0' } : {}) }
         >
           <StyledContent data-element='content' padding={ padding }>
@@ -249,16 +248,10 @@ Pod.propTypes = {
   padding: PropTypes.string,
 
   /**
-   * Legacy prop to apply a theme to the Pod.
-   * Value: primary, secondary, tile
-   */
-  as: PropTypes.string,
-
-  /**
    * Prop to apply a theme to the Pod.
    * Value: primary, secondary, tile
    */
-  podType: PropTypes.string,
+  variant: PropTypes.string,
 
   /**
    * The collapsed state of the pod
@@ -325,7 +318,7 @@ Pod.propTypes = {
 
 Pod.defaultProps = {
   border: true,
-  as: 'primary',
+  variant: 'primary',
   padding: 'medium',
   alignTitle: 'left'
 };

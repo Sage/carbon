@@ -7,7 +7,6 @@ import { StyledTooltipInner, StyledTooltipWrapper } from './tooltip.style';
 import StyledTooltipPointer, { pointerSize, pointerSideMargin } from './tooltip-pointer.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import classicTheme from '../../style/themes/classic';
 
 jest.mock('../../__experimental__/components/input/input-sizes.style', () => ({
   small: {
@@ -97,17 +96,6 @@ describe('Tooltip', () => {
         it('applies the error backgroundColor', () => {
           assertStyleMatch(
             { backgroundColor: '#C7384F' }, renderInner({ type: 'error' })
-          );
-        });
-      });
-
-      describe('Classic theme', () => {
-        it('sets the font bolder and padding to 10px 15px', () => {
-          assertStyleMatch(
-            {
-              padding: '10px 15px',
-              fontWeight: '700'
-            }, renderInner({ theme: classicTheme })
           );
         });
       });

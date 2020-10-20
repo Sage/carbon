@@ -1,19 +1,239 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import Pod from './';
 import Heading from '../heading';
 import Button from '../button';
 
 <Meta
-  title="Design System/Pod"
+  title="Pod"
   parameters={{ info: { disable: true }}}
 />
+
+# Pod
+Presents content grouped visually together. This can be text, or other components. A good example is a ‘tile’ showing contact information for an individual.
+
+Configure Pod and Fieldset components to work together, or choose the pre-configured Show/Edit Pod component:
+
+The ShowEditPod component automatically presents content as a read-only Pod, until the user clicks an edit icon, which shows the same information in an editable Fieldset.
+
+However, configuring Pod and Fieldset components manually will give you more customization options, like the following:
+
+The onEdit property shows a standard edit icon, which can be used to show a fieldset. You can choose whether this icon appears inside or outside the pod, and whether it appears only on hover. You can also choose whether clicking only the icon triggers the onEdit property, or clicking anywhere on the pod.
+
+Choose from various visual options, including padding, borders, and primary, secondary, or tertiary appearance.
+
+Set the pod to flex to the width of its content, or take up the full width of its container.
+
+## Related Components
+- Editing a number of closely related inputs? [Try Fieldset](/?path=/docs/design-system-fieldset-address-fieldset-examples--canada "Fieldset").
+- Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--basic-with-sticky-footer "Form").
+- Using Fieldset and Pod components together? [Try Show/Edit Pod](/?path=/docs/showeditpod--basic "Show/Edit Pod").
+
+## Quick Start
+
+```jsx
+import Pod from "carbon-react/lib/components/pod";
+
+const MyComponent = () => (
+  return (
+    <Pod title="Title" subtitle="Subtitle">
+      Content
+    </Pod>
+  )
+);
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    <Pod title="Title">
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### Collapsable
+
+Pod accepts collapsed prop which sets the intial state of the Pod and allows it
+to be collapsible. If the prop is not passed the Pod will not be collapsible.
+
+<Preview>
+  <Story name="Collapsable" >
+    <Pod title="Title" collapsed>
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With subtitle, description and footer
+
+<Preview>
+  <Story name="With subtitle description and footer">
+    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer">
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### Without border
+
+<Preview>
+  <Story name="Without border">
+    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer" border={false}>
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With edit button
+
+<Preview>
+  <Story name="With edit button">
+    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer" onEdit={() => {}}>
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With edit button and displayEditButtonOnHover
+
+<Preview>
+  <Story name="With displayEditButtonOnHover">
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onEdit={() => {}}
+      displayEditButtonOnHover
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With edit button and editContentFullWidth
+
+<Preview>
+  <Story name="With editContentFullWidth">
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onEdit={() => {}}
+      editContentFullWidth
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With internal edit button
+
+<Preview>
+  <Story name="With internal edit button">
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      internalEditButton
+      onEdit={() => {}}
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With different variants
+
+<Preview>
+  <Story name="With different variants">
+    {() => [
+      'primary',
+      'secondary',
+      'tertiary',
+      'tile',
+      'transparent'
+    ].map(variant =>
+      <>
+        <Pod 
+          title="Title"
+          subtitle="Subtitle"
+          description="Description"
+          footer="Footer"
+          onEdit={() => {}}
+          variant={variant}
+        >
+          {variant}
+        </Pod>
+        <div style={{ marginBottom: 24 }}/>
+      </>
+    )}
+  </Story>
+</Preview>
+
+### With different paddings
+
+<Preview>
+  <Story name="With different paddings">
+    {() => [
+      'extra-small',
+      'small',
+      'medium',
+      'large',
+      'extra-large'
+    ].map(padding =>
+      <>
+        <Pod
+          title="Title"
+          subtitle="Subtitle"
+          description="Description"
+          footer="Footer"
+          onEdit={() => {}}
+          padding={padding}
+        >
+          {padding}
+        </Pod>
+        <div style={{ marginBottom: 24 }}/>
+      </>
+    )}
+  </Story>
+</Preview>
+
+### With different title alignments
+
+<Preview>
+  <Story name="With different title alignments">
+    {() => [
+      'left',
+      'center',
+      'right',
+    ].map(alignment =>
+      <>
+        <Pod
+          title="Title"
+          subtitle="Subtitle"
+          description="Description"
+          footer="Footer"
+          onEdit={() => {}}
+          alignTitle={alignment}
+        >
+          {alignment}
+        </Pod>
+        <div style={{ marginBottom: 24 }}/>
+      </>
+    )}
+  </Story>
+</Preview>
 
 ### Address pod
 <Preview>
   <Story name="address example">
     <Pod
       internalEditButton
-      podType='tertiary'
+      variant='tertiary'
     >
       <h5 style={ { margin: 0 } }>Unit 1</h5>
       <div>South Nelson Industrial Estate</div>
@@ -42,3 +262,7 @@ import Button from '../button';
     </Pod>
   </Story>
 </Preview>
+
+## Props
+
+<Props of={Pod} />
