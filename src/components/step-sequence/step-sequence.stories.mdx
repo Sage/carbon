@@ -1,0 +1,164 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { StepSequence, StepSequenceItem } from './';
+
+<Meta
+  title="Step Sequence"
+  parameters={{ info: { disable: true }}}
+/>
+
+# StepSequence
+
+Indicate the progress of a step flow.
+
+Progress indicators always directly mirror the number of pages, not general categories.
+
+Try to keep label text for each step as short as possible.
+
+For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
+
+## Quick Start
+
+```jsx
+import { StepSequence, StepSequenceItem } from "carbon-react/lib/components/step-sequence";
+
+const MyComponent = () => (
+  return (
+    <StepSequence>
+      <StepSequenceItem
+        aria-label='Step 1 of 2'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='1'
+        status='complete'
+      >
+        Name
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 2 of 2'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='2'
+        status='incomplete'
+      >
+        Delivery Address
+      </StepSequenceItem>
+    </StepSequence>
+  )
+);
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    <StepSequence>
+      <StepSequenceItem
+        aria-label='Step 1 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='1'
+        status='complete'
+      >
+        Name
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 2 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='2'
+        status='complete'
+      >
+        Delivery Address
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 3 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='3'
+        status='current'
+      >
+        Delivery Details
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 4 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='4'
+        status='incomplete'
+      >
+        Payment
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 5 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='5'
+        status='incomplete'
+      >
+        Confirm
+      </StepSequenceItem>
+    </StepSequence>
+  </Story>
+</Preview>
+
+### Vertical
+
+<Preview>
+  <Story name="Vertical">
+    <StepSequence orientation="vertical">
+      <StepSequenceItem
+        aria-label='Step 1 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='1'
+        status='complete'
+      >
+        Name
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 2 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='2'
+        status='complete'
+      >
+        Delivery Address
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 3 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='3'
+        status='current'
+      >
+        Delivery Details
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 4 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='4'
+        status='incomplete'
+      >
+        Payment
+      </StepSequenceItem>
+      <StepSequenceItem
+        aria-label='Step 5 of 5'
+        hiddenCompleteLabel='Complete'
+        hiddenCurrentLabel='Current'
+        indicator='5'
+        status='incomplete'
+      >
+        Confirm
+      </StepSequenceItem>
+    </StepSequence>
+  </Story>
+</Preview>
+
+## Props
+
+### StepSequence
+<Props of={StepSequence} />
+
+### StepSequenceItem
+<Props of={StepSequenceItem} />

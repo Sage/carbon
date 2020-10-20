@@ -121,9 +121,9 @@ export const basic = () => {
 
   const item1Child = (
     <Pod
-      alignTitle='left' as='primary'
+      alignTitle='left'
       border padding='medium'
-      podType='primary'
+      variant='primary'
     >
       GridItem 1.
     </Pod>
@@ -131,9 +131,9 @@ export const basic = () => {
 
   const item2Child = (
     <Pod
-      alignTitle='left' as='primary'
+      alignTitle='left'
       border padding='medium'
-      podType='primary'
+      variant='primary'
     >
       GridItem 2.
     </Pod>
@@ -141,9 +141,9 @@ export const basic = () => {
 
   const item3Child = (
     <Pod
-      alignTitle='left' as='primary'
+      alignTitle='left'
       border padding='medium'
-      podType='primary'
+      variant='primary'
     >
       GridItem 3.
     </Pod>
@@ -177,10 +177,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             1
           </Pod>
@@ -191,10 +190,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             2
           </Pod>
@@ -205,10 +203,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             3
           </Pod>
@@ -221,10 +218,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             1
           </Pod>
@@ -235,10 +231,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             2
           </Pod>
@@ -249,10 +244,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             3
           </Pod>
@@ -266,10 +260,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             1
           </Pod>
@@ -281,10 +274,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
             style={ { height: '100px' } }
           >
             2
@@ -298,10 +290,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             3
           </Pod>
@@ -331,9 +322,9 @@ export const Visual = () => {
           }] }
         >
           <Pod
-            alignTitle='left' as='primary'
+            alignTitle='left'
             border padding='medium'
-            podType='primary'
+            variant='primary'
           >
             1
           </Pod>
@@ -361,10 +352,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             2
           </Pod>
@@ -393,10 +383,9 @@ export const Visual = () => {
         >
           <Pod
             alignTitle='left'
-            as='primary'
             border
             padding='medium'
-            podType='primary'
+            variant='primary'
           >
             3
           </Pod>

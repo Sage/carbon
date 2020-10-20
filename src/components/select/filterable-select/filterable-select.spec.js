@@ -5,6 +5,7 @@ import FilterableSelect from './filterable-select.component';
 import Textbox from '../../../__experimental__/components/textbox';
 import Option from '../option/option.component';
 import SelectList from '../select-list/select-list.component';
+import Label from '../../../__experimental__/components/label';
 
 describe('FilterableSelect', () => {
   it('the Textbox should have type of "text"', () => {
@@ -369,71 +370,98 @@ describe('FilterableSelect', () => {
       document.body.removeChild(domNode);
     });
   });
-});
 
+  describe('when the onKeyDown prop is passed', () => {
+    const expectedEventObject = {
+      key: 'ArrowDown'
+    };
 
-describe('when the onKeyDown prop is passed', () => {
-  const expectedEventObject = {
-    key: 'ArrowDown'
-  };
+    it('then when a key is pressed, that prop should be called with expected values', () => {
+      const onKeyDownFn = jest.fn();
+      const wrapper = renderSelect({ onKeyDown: onKeyDownFn });
 
-  it('then when a key is pressed, that prop should be called with expected values', () => {
-    const onKeyDownFn = jest.fn();
-    const wrapper = renderSelect({ onKeyDown: onKeyDownFn });
+      wrapper.find('input').simulate('keyDown', expectedEventObject);
 
-    wrapper.find('input').simulate('keyDown', expectedEventObject);
-
-    expect(onKeyDownFn).toHaveBeenCalledWith(expect.objectContaining({
-      ...expectedEventObject
-    }));
-  });
-});
-
-describe('when the component is controlled', () => {
-  const expectedObject = {
-    target: {
-      id: 'testSelect',
-      name: 'testSelect',
-      value: 'opt3'
-    }
-  };
-
-  const clickOptionObject = {
-    value: 'opt3',
-    text: 'black',
-    selectionType: 'click'
-  };
-
-  describe('and an option is selected', () => {
-    it('then the onChange prop should be called with expected value', () => {
-      const onChangeFn = jest.fn();
-      const wrapper = renderSelect({ onChange: onChangeFn, value: 'opt1' });
-
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
-      expect(wrapper.find(SelectList).exists()).toBe(true);
-      act(() => {
-        wrapper.find(SelectList).prop('onSelect')(clickOptionObject);
-      });
-      expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+      expect(onKeyDownFn).toHaveBeenCalledWith(expect.objectContaining({
+        ...expectedEventObject
+      }));
     });
   });
 
-  describe('when a printable character has been typed in the Textbox', () => {
-    let onChangeFn;
+  describe('when the component is controlled', () => {
+    const onChangeFn = jest.fn();
     let wrapper;
+    const expectedObject = {
+      target: {
+        id: 'testSelect',
+        name: 'testSelect',
+        value: 'opt3'
+      }
+    };
+
+    const clickOptionObject = {
+      value: 'opt3',
+      text: 'black',
+      selectionType: 'click'
+    };
 
     beforeEach(() => {
-      onChangeFn = jest.fn();
+      onChangeFn.mockClear();
       wrapper = renderSelect({ onChange: onChangeFn, value: 'opt1' });
-      wrapper.find('input').simulate('change', { target: { value: 'b' } });
-      wrapper.update();
     });
 
-    it('then the onChange function should have been called with with the expected value', () => {
-      expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+    describe('and an option is selected', () => {
+      it('then the onChange prop should be called with expected value', () => {
+        wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+        act(() => {
+          wrapper.find(SelectList).prop('onSelect')(clickOptionObject);
+        });
+        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+      });
+    });
+
+    describe('when a printable character has been typed in the Textbox', () => {
+      beforeEach(() => {
+        wrapper.find('input').simulate('change', { target: { value: 'b' } });
+        wrapper.update();
+      });
+
+      it('then the onChange function should have been called with with the expected value', () => {
+        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+      });
+
+      describe('and an an empty value has been passed', () => {
+        it('then the textbox displayed value should be cleared', () => {
+          expect(wrapper.find(Textbox).props().formattedValue).toBe('blue');
+          wrapper.setProps({ value: '' });
+          expect(wrapper.update().find(Textbox).props().formattedValue).toBe('');
+        });
+
+        it('then the textbox value should be cleared', () => {
+          expect(wrapper.find(Textbox).props().value).toBe('opt1');
+          wrapper.setProps({ value: '' });
+          expect(wrapper.update().find(Textbox).props().value).toBe(undefined);
+        });
+      });
+    });
+  });
+
+  describe('required', () => {
+    const wrapper = renderSelect({ label: 'required', required: true });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });
+
 
 function renderSelect(props = {}, renderer = mount) {
   return renderer(getSelect(props));

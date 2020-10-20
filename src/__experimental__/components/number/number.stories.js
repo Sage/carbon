@@ -24,6 +24,18 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
+
+const RequiredComponent = () => {
+  return (
+    <Number
+      label='Amount'
+      value={ store.get('value') }
+      onChange={ setValue }
+      required
+    />
+  );
+};
+
 const defaultComponent = () => {
   const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
   const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
@@ -109,4 +121,5 @@ storiesOf('Experimental/Number Input', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('required', dlsThemeSelector, RequiredComponent));

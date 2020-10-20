@@ -157,6 +157,10 @@ const FilterableSelect = React.forwardRef(({
 
     setSelectedValue(newValue);
     setHighlightedValue(newValue);
+
+    if (isControlled.current && !newValue) {
+      setTextValue('');
+    }
   }, [value, defaultValue, onChange]);
 
   useEffect(() => {

@@ -24,6 +24,25 @@ const onChange = (ev) => {
   action('change')(ev);
 };
 
+const requiredComponent = () => {
+  const groups = object('groups', [2, 2, 4]);
+  const separator = text('separator', '-');
+
+  return (
+    <State store={ groupedCharacterStore }>
+      <GroupedCharacter
+        { ...getCommonTextboxProps({ requiredKnob: false }) }
+        groups={ groups }
+        separator={ separator }
+        value={ groupedCharacterStore.get('value') }
+        onChange={ onChange }
+        required
+      />
+    </State>
+  );
+};
+
+
 const defaultComponent = () => {
   const groups = object('groups', [2, 2, 4]);
   const separator = text('separator', '-');
@@ -117,4 +136,5 @@ storiesOf('Experimental/GroupedCharacter', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('required', dlsThemeSelector, requiredComponent));

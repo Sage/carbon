@@ -8,6 +8,7 @@ import {
   accordionDefaultTitle,
 } from '../../locators/accordion';
 import { positionOfElement, keyCode } from '../helper';
+import { icon } from '../../locators';
 
 Then('Accordion iconAlign property on preview is set to {string}', (iconAlign) => {
   accordionTitleContainerByPositionInIfame(positionOfElement('first')).first()
@@ -77,4 +78,8 @@ Then('Accordion {int} row is focused', (index) => {
 
 When('I focus {word} accordionRow', (position) => {
   accordionTitleContainer(positionOfElement(position)).first().focus({ force: true });
+});
+
+When('I click on {word} validation icon', (position) => {
+  icon().eq(positionOfElement(position)).click();
 });

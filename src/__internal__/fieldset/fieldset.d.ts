@@ -34,6 +34,8 @@ export interface FieldsetProps {
     root?: object;
     legend?: object;
   };
+  /** If true, an asterisk will be added to the label */
+  isRequired?: boolean;
 }
 
 declare const Fieldset: React.ComponentClass<FieldsetProps>;

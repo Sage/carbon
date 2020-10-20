@@ -14,9 +14,12 @@ import {
   StyledAccordionTitle,
   StyledAccordionIcon,
   StyledAccordionContent,
-  StyledAccordionContentContainer
+  StyledAccordionContentContainer,
+  StyledAccordionHeadingsContainer
 } from './accordion.style';
 import AccordionGroup from './accordion-group.component';
+import ValidationIcon from '../validations';
+import StyledValidationIcon from '../validations/validation-icon.style';
 
 const contentHeight = 200;
 
@@ -288,6 +291,39 @@ describe('Accordion', () => {
       assertStyleMatch({
         width: '500px'
       }, wrapper.find(StyledAccordionContainer));
+    });
+
+    describe('with validation icon', () => {
+      it.each([{ error: 'error' }, { warning: 'warning' }, { info: 'info' }])(
+        'renders the validation icon when a message is provided', (status) => {
+          wrapper = mount(<Accordion title='Title' { ...status } />);
+          expect(wrapper.find(ValidationIcon).exists()).toEqual(true);
+        }
+      );
+
+      it('applies expected styling when the icon is not rendered', () => {
+        wrapper = mount(<Accordion title='Title' />);
+
+        assertStyleMatch({
+          display: 'grid',
+          gridTemplateRows: 'auto auto'
+        }, wrapper.find(StyledAccordionHeadingsContainer));
+      });
+
+      it('applies expected styling when the icon is rendered', () => {
+        wrapper = mount(<Accordion title='Title' error='error' />);
+
+        assertStyleMatch({
+          display: 'grid',
+          gridTemplateColumns: 'auto auto'
+        }, wrapper.find(StyledAccordionHeadingsContainer));
+
+        assertStyleMatch({
+          height: '20px',
+          position: 'relative',
+          top: '2px'
+        }, wrapper.find(StyledAccordionHeadingsContainer), { modifier: `${StyledValidationIcon}` });
+      });
     });
   });
 
