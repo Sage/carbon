@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import {
-  StyledButtonToggleClassicLabel,
-  StyledButtonToggleClassicIcon
-} from './button-toggle-classic.style';
 import StyledIcon from '../icon/icon.style';
 
 const StyledButtonToggleContentWrapper = styled.div`
@@ -70,8 +66,6 @@ const StyledButtonToggleLabel = styled.label`
     }
     cursor: not-allowed;
   `};
-
-    ${StyledButtonToggleClassicLabel}
 `;
 
 const iconFontSizes = {
@@ -99,8 +93,6 @@ const StyledButtonToggleIcon = styled.div`
       margin-left: 6px;
     }
   `}
-
-  ${StyledButtonToggleClassicIcon}
 `;
 
 const StyledButtonToggle = styled.div`
@@ -124,10 +116,6 @@ const StyledButtonToggleInput = styled.input`
   height: 0;
   opacity: 0;
 `;
-
-StyledButtonToggle.propTypes = {
-  buttonSize: PropTypes.string
-};
 
 StyledButtonToggleIcon.propTypes = {
   buttonIconSize: PropTypes.string

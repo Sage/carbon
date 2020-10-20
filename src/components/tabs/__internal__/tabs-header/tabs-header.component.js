@@ -10,7 +10,7 @@ const TabsHeader = ({
   extendedLine,
   alternateStyling,
   noRightBorder = false,
-  hasCustomTarget = false
+  isInSidebar = false
 }) => {
   return (
     <StyledTabsHeader
@@ -20,7 +20,7 @@ const TabsHeader = ({
       extendedLine={ extendedLine }
       alternateStyling={ alternateStyling }
       noRightBorder={ noRightBorder }
-      hasCustomTarget={ hasCustomTarget }
+      isInSidebar={ isInSidebar }
     >
       {children}
     </StyledTabsHeader>
@@ -35,7 +35,7 @@ TabsHeader.propTypes = {
   extendedLine: PropTypes.bool,
   alternateStyling: PropTypes.bool,
   noRightBorder: PropTypes.bool,
-  hasCustomTarget: PropTypes.bool
+  isInSidebar: PropTypes.bool
 };
 
 export default TabsHeader;

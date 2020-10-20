@@ -1,10 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StepSequenceItem from './step-sequence-item.component';
-import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
 import Icon from '../../icon';
 import StepSequenceItemHiddenLabelStyle from './step-sequence-item-hidden-label.style';
@@ -54,12 +52,6 @@ describe('StepSequenceItem', () => {
       const instance = wrapper({ ...defaultProps, status: 'current', theme: mintTheme }, mount);
       expect(instance.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(true);
       expect(instance.find(StepSequenceItemHiddenLabelStyle).text()).toEqual('HiddenCurrent');
-    });
-  });
-
-  describe('Classic theme', () => {
-    it('renders correctly', () => {
-      expect(wrapper({ ...defaultProps, theme: classicTheme })).toMatchSnapshot();
     });
   });
 });

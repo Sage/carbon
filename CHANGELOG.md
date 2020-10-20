@@ -1,3 +1,59 @@
+## [44.0.0](https://github.com/Sage/carbon/compare/v43.0.0...v44.0.0) (2020-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** `setTarget` callback is no longer available, `onTabChange` should be used instead
+
+### Bug Fixes
+
+* **tabs:** tabs position left in sidebar and remove set target callback ([a3afc81](https://github.com/Sage/carbon/commit/a3afc813db8657925c343f62523d2a47c1000872)), closes [#3214](https://github.com/Sage/carbon/issues/3214)
+
+## [43.0.0](https://github.com/Sage/carbon/compare/v42.6.0...v43.0.0) (2020-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button-toggle:** button-toggle component no longer supports classic theme
+* **step-sequence:** step-sequence and step-sequence-item components no longer supports classic theme
+* **tooltip:** tooltip component no longer supports classic theme
+* **icon:** Icon component no longer supports classic theme
+* **show-edit-pod:** ShowEditPod component no longer supports classic theme, also `as` and `podType` props have been removed in favour of `variant` prop
+
+There is a codemod available to assist with this upgrade
+ `npx carbon-codemod rename-prop <target> carbon-react/lib/components/show-edit-pod as variant`
+ or
+  `npx carbon-codemod rename-prop <target> carbon-react/lib/components/show-edit-pod podType variant`
+
+See https://github.com/Sage/carbon-codemod for more information.
+* **pod:** Pod component no longer supports classic theme, also `as` and `podType` props have been removed in favour of `variant` prop
+
+There is a codemod available to assist with this upgrade
+ `npx carbon-codemod rename-prop <target> carbon-react/lib/components/pod as variant`
+ or
+  `npx carbon-codemod rename-prop <target> carbon-react/lib/components/pod podType variant`
+
+See https://github.com/Sage/carbon-codemod for more information.
+* **radio-button:** radio button component no longer supports classic theme
+* **pill:** The classic theme has been removed from `Pill`. To
+upgrade please use a DLS theme.
+* **pill:** The `as` prop is no longer supported in `Pill`. It has
+no effect when using a DLS theme. In future this will change the root
+element so any existing usages should be removed.
+
+Fixes FE-3089
+
+### Miscellaneous Chores
+
+* **button-toggle:** remove classic theme support ([75a2238](https://github.com/Sage/carbon/commit/75a22383ed4988c09f92bb89ac665c9d68ea55d1))
+* **icon:** remove classic theme support ([2661503](https://github.com/Sage/carbon/commit/266150312e2079d5c584058ba3e24ea9d423c07a))
+* **pill:** remove classic theme ([d765b95](https://github.com/Sage/carbon/commit/d765b954a9eff00ce1cac2e0ab5fd97a8ce56465))
+* **pod:** remove classic theme support ([154e75f](https://github.com/Sage/carbon/commit/154e75f4243cae1e222a8218a71d9dad431099b8))
+* **radio-button:** remove classic theme support ([a8a5e94](https://github.com/Sage/carbon/commit/a8a5e9449da671009b4df7948a74098ac882fdc6))
+* **show-edit-pod:** remove classic theme support ([4517785](https://github.com/Sage/carbon/commit/451778533049c5218ed2f4c698f76f1a9153327d))
+* **step-sequence:** remove classic theme support ([45eb633](https://github.com/Sage/carbon/commit/45eb633a07df1f8c85a3628b98123fb91f95de1c))
+* **tooltip:** remove classic theme support ([d9f98d2](https://github.com/Sage/carbon/commit/d9f98d2b5f3c7cd616ac4261a2333376e453345f))
+
 ## [42.6.0](https://github.com/Sage/carbon/compare/v42.5.2...v42.6.0) (2020-10-16)
 
 
