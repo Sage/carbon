@@ -122,6 +122,6 @@ describe('TabsHeader', () => {
     assertStyleMatch({
       width: '100%',
       margin: 'auto'
-    }, renderStyles({ hasCustomTarget: true, position: 'left' }));
+    }, renderStyles({ isInSidebar: true, position: 'left' }));
   });
 });
