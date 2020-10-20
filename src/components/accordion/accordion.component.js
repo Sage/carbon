@@ -17,6 +17,7 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent
 } from './accordion.style';
+import Button from '../button';
 import ValidationIcon from '../validations';
 import Logger from '../../utils/logger/logger';
 
@@ -44,6 +45,9 @@ const Accordion = React.forwardRef(({
   error,
   warning,
   info,
+  buttonHeading,
+  buttonWidth = 150,
+  openTitle,
   ...rest
 }, ref) => {
   if (!deprecatedWarnTriggered) {
@@ -108,6 +112,7 @@ const Accordion = React.forwardRef(({
       borders={ borders }
       scheme={ scheme }
       styleOverride={ styleOverride.root }
+      buttonHeading={ buttonHeading }
       { ...rest }
     >
       <StyledAccordionTitleContainer
@@ -115,51 +120,70 @@ const Accordion = React.forwardRef(({
         id={ headerId }
         aria-expanded={ isExpanded }
         aria-controls={ contentId }
-        onClick={ toggleAccordion }
-        onKeyDown={ handleKeyDown }
+        onClick={ buttonHeading ? undefined : toggleAccordion }
+        onKeyDown={ buttonHeading ? undefined : handleKeyDown }
         iconAlign={ iconAlign }
         ref={ ref }
-        tabIndex='0'
+        tabIndex={ buttonHeading ? '-1' : '0' }
         size={ size }
+        isExpanded={ isExpanded }
+        buttonHeading={ buttonHeading }
+        buttonWidth={ buttonWidth }
         styleOverride={ styleOverride.headerArea }
         { ...headerSpacing }
       >
-        <StyledAccordionHeadingsContainer
-          data-element='accordion-headings-container'
-          hasValidationIcon={ showValidationIcon }
-        >
-          <StyledAccordionTitle
-            data-element='accordion-title'
-            size={ size }
-            styleOverride={ styleOverride.header }
+        {buttonHeading && (
+          <Button
+            buttonType='tertiary'
+            iconType='chevron_down'
+            iconPosition='after'
+            onClick={ toggleAccordion }
           >
-            { title }
-          </StyledAccordionTitle>
+            {isExpanded ? (openTitle || title) : title}
+          </Button>
+        )}
 
-          { showValidationIcon && (
-            <ValidationIcon
-              error={ error }
-              warning={ warning }
-              info={ info }
-              tooltipPosition='top'
-              tabIndex={ 0 }
+        {!buttonHeading && (
+          <>
+            <StyledAccordionHeadingsContainer
+              data-element='accordion-headings-container'
+              hasValidationIcon={ showValidationIcon }
+            >
+              <StyledAccordionTitle
+                data-element='accordion-title'
+                size={ size }
+                styleOverride={ styleOverride.header }
+              >
+                { title }
+              </StyledAccordionTitle>
+
+              { showValidationIcon && (
+                <ValidationIcon
+                  error={ error }
+                  warning={ warning }
+                  info={ info }
+                  tooltipPosition='top'
+                  tabIndex={ 0 }
+                />
+              ) }
+
+              {(subTitle && size === 'large') && (
+                <StyledAccordionSubTitle>
+                  { subTitle }
+                </StyledAccordionSubTitle>
+              )}
+            </StyledAccordionHeadingsContainer>
+
+            <StyledAccordionIcon
+              data-element='accordion-icon'
+              type={ iconType }
+              isExpanded={ isExpanded }
+              iconAlign={ iconAlign }
+              styleOverride={ styleOverride.icon }
             />
-          ) }
+          </>
+        )}
 
-          {(subTitle && size === 'large') && (
-            <StyledAccordionSubTitle>
-              { subTitle }
-            </StyledAccordionSubTitle>
-          )}
-        </StyledAccordionHeadingsContainer>
-
-        <StyledAccordionIcon
-          data-element='accordion-icon'
-          type={ iconType }
-          isExpanded={ isExpanded }
-          iconAlign={ iconAlign }
-          styleOverride={ styleOverride.icon }
-        />
       </StyledAccordionTitleContainer>
       <StyledAccordionContentContainer
         isExpanded={ isExpanded }
@@ -225,7 +249,13 @@ Accordion.propTypes = {
   /** A warning message to be displayed in the tooltip */
   warning: PropTypes.string,
   /** An info message to be displayed in the tooltip */
-  info: PropTypes.string
+  info: PropTypes.string,
+  /** Renders the accordion heading in the style of a tertiary button */
+  buttonHeading: PropTypes.bool,
+  /** Width of the buttonHeading when it's set, defaults to 150px */
+  buttonWidth: PropTypes.number,
+  /** When the Accordion is open the title can change to this */
+  openTitle: PropTypes.string
 };
 
 Accordion.displayName = 'Accordion';
