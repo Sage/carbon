@@ -273,25 +273,63 @@ basic.story = {
   }
 };
 
-const headRowData = {
-  client: 'Client',
-  clientType: 'Client Type',
-  categories: 'Categories',
-  products: 'Products',
-  finalAccDue: 'Final Account Due',
-  corpTaxDue: 'Corp Tax Due',
-  vatDue: 'VAT due'
+
+const getDay = (i) => {
+  if (i > 28) {
+    return '05';
+  }
+
+  if (i < 10) {
+    return `0${i}`;
+  }
+
+  return `${i}`;
 };
 
-const rowData = {
-  client: (<><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</>),
-  clientType: 'business',
-  categories: 'Group1, Group2, Group3',
-  products: 'Accounting',
-  finalAccDue: '12/12/20',
-  corpTaxDue: '20/12/20',
-  vatDue: '25/12/20'
+const getMonth = (i) => {
+  if (i > 12) {
+    return '11';
+  }
+
+  if (i < 10) {
+    return `0${i}`;
+  }
+
+  return `${i}`;
 };
+
+const getYear = i => 2020 - i;
+
+const names = [
+  'Chris Thompson',
+  'Uri Foster',
+  'Daniel Dopper',
+  'Patrice Jambon',
+  'Ace Walker',
+  'Harriet Lewis',
+  'Lauren Hughes',
+  'Holly Smith'
+];
+
+const headRowData = {
+  employee: 'Employee',
+  location: 'Location',
+  role: 'Role',
+  department: 'Department',
+  companyVehicle: 'Company vehicle',
+  performanceReview: 'Performance review date',
+  employmentStart: 'Employment start date'
+};
+
+const rowData = i => ({
+  employee: (<><h5 style={ { margin: 0 } }>{names[i]}</h5>000000{i + 10}</>),
+  location: i % 2 === 0 ? 'Newcastle' : 'Barcelona',
+  role: i > 2 && i % 2 !== 0 ? 'Advisor' : 'Manager',
+  department: i > 3 ? 'Sales' : 'IT',
+  companyVehicle: (i > 3 && i % 2 === 0) ? 'Yes' : 'No',
+  performanceReview: i + 1 <= 12 ? `${getDay(i + 1)}/${getMonth(i + 1)}/${getYear(i)}` : '11/05/20',
+  employmentStart: i + 1 < 12 ? `${getDay(27 - i)}/${getMonth(12 - i)}/${getYear(i)}` : '11/07/20'
+});
 
 function getRowWithInputs(onClickFn, hasHeaderRow) {
   let firstRow = <FlatTableCell>Row with inputs</FlatTableCell>;
@@ -323,8 +361,8 @@ function getTableData() {
 function renderBody(rowCount) {
   const rows = [...Array(rowCount)];
 
-  return rows.map(() => {
-    return rowData;
+  return rows.map((_, i) => {
+    return rowData(i);
   });
 }
 
@@ -347,7 +385,7 @@ function processRowData(row, cellType) {
   return Object.keys(row).map((columnKey) => {
     let align = 'left';
 
-    if (['finalAccDue', 'corpTaxDue', 'vatDue'].includes(columnKey)) {
+    if (['performanceReview', 'employmentStart'].includes(columnKey)) {
       align = 'right';
     }
 
