@@ -13,7 +13,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button Toggle component theme to <theme>
-    When I open default "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open basic "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
       And I click "button-toggle" component
     Then Button Toggle component css background color is set to "<theme>"
     Examples:
@@ -24,7 +24,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Icon component theme to <theme>
-    When I open default "Icon" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Icon Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "icon" component css "background-color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject     |
@@ -65,7 +65,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Pill component theme to <theme>
-    When I open default "Pill" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open Basic "Design System Pill Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "pill" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |
@@ -75,7 +75,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Show Edit Pod component theme to <theme>
-    When I open default "Showeditpod" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Showeditpod Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
@@ -96,7 +96,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Step Sequence component theme to <theme>
-    When I open default "Step Sequence" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open step-sequence "Step Sequence Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "step-sequence-item" component css "color" is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
