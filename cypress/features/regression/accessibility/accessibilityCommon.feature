@@ -43,7 +43,6 @@ Feature: Accessibility tests - Common list
       | configurable-items  |
       | content             |
       | draggableContext    |
-      | heading             |
       | help                |
       | i18ncomponent       |
       | icon                |
@@ -76,3 +75,4 @@ Feature: Accessibility tests - Common list
       | component     |
       | AppWrapper    |
       | Detail        |
+      | Heading       |

@@ -3,7 +3,6 @@ import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 import StyledLink from '../link/link.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledHeading = styled.div`
   width: 100%;
@@ -11,21 +10,26 @@ const StyledHeading = styled.div`
     a, button {
       text-decoration: none;
       padding-top: ${({ divider }) => (divider ? '8px' : '1px')};
-    }
+
+      &:focus {
+        background-color: transparent;
+        outline: 3px solid ${({ theme }) => theme.colors.focus};
+        width: 25px;
+      }
+    }  
     
-    ${({ divider, subheader, theme }) => !isClassic(theme) && css`
+    ${({ divider, subheader }) => css`
       margin-top: ${(!divider ? '-16px' : '')};
       margin-top: ${(!subheader ? '-22px' : '')};
       margin-top: ${(!divider && !subheader ? '-12px' : '')};
       margin-top: ${(divider && !subheader ? '-14px' : '')};
     `}
-
-    ${({ divider, subheader, theme }) => isClassic(theme) && css`
-      margin-top: ${!divider && subheader ? '-14px' : ''};
-      margin-top: ${!divider && !subheader ? '-10px' : ''};
-    `}
   }
 `;
+
+StyledHeading.defaultProps = {
+  theme: baseTheme
+};
 
 const StyledHeadingIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.border};
