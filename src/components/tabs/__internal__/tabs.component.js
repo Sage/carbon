@@ -37,7 +37,6 @@ const Tabs = ({
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
   const sidebarContext = useContext(SidebarContext);
-  const hasCustomTarget = useRef(Boolean(sidebarContext && sidebarContext.setTarget));
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
@@ -105,13 +104,9 @@ const Tabs = ({
 
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback((tabid) => {
-    if (setLocation && !hasCustomTarget.current) {
+    if (setLocation && !sidebarContext) {
       const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
       _window.history.replaceState(null, 'change-tab', url);
-    }
-
-    if (hasCustomTarget.current) {
-      sidebarContext.setTarget(tabid);
     }
 
     setSelectedTabIdState(tabid);
@@ -221,7 +216,7 @@ const Tabs = ({
 
       const tabTitle = (
         <TabTitle
-          position={ position }
+          position={ sidebarContext ? 'left' : position }
           className={ child.props.className || '' }
           dataTabId={ tabId }
           id={ refId }
@@ -246,7 +241,7 @@ const Tabs = ({
           noLeftBorder={ ['no left side', 'no sides'].includes(borders) }
           noRightBorder={ ['no right side', 'no sides'].includes(borders) }
           customLayout={ customLayout }
-          hasCustomTarget={ hasCustomTarget.current }
+          isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
         />
       );
 
@@ -256,12 +251,12 @@ const Tabs = ({
     return (
       <TabsHeader
         align={ align }
-        position={ position }
+        position={ sidebarContext ? 'left' : position }
         role='tablist'
         extendedLine={ extendedLine }
-        alternateStyling={ variant === 'alternate' || hasCustomTarget.current }
+        alternateStyling={ variant === 'alternate' || !!sidebarContext }
         noRightBorder={ ['no right side', 'no sides'].includes(borders) }
-        hasCustomTarget={ hasCustomTarget.current }
+        isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
       >
         { tabTitles }
       </TabsHeader>
@@ -283,7 +278,7 @@ const Tabs = ({
 
   /** Builds all tabs where non selected tabs have class of hidden */
   const renderTabs = () => {
-    if (hasCustomTarget.current) return null;
+    if (sidebarContext) return null;
 
     if (!renderHiddenTabs) {
       return visibleTab();
@@ -300,8 +295,7 @@ const Tabs = ({
           ariaLabelledby: `${child.props.tabId}-tab`,
           updateErrors,
           updateWarnings,
-          updateInfos,
-          hasCustomTarget: hasCustomTarget.current
+          updateInfos
         })
       );
     });
@@ -321,11 +315,12 @@ const Tabs = ({
   return (
     <StyledTabs
       className={ className }
-      position={ position }
+      position={ sidebarContext ? 'left' : position }
       updateErrors={ updateErrors }
       updateWarnings={ updateWarnings }
       { ...tagComponent('tabs', rest) }
-      hasCustomTarget={ hasCustomTarget.current }
+      isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
+
     >
       { renderTabHeaders() }
       { renderTabs() }

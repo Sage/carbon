@@ -5,11 +5,11 @@ import BaseTheme from '../../../style/themes/base';
 const StyledTabs = styled.div`
   margin-top: 15px;
   
-  ${({ position, hasCustomTarget, theme }) => css`
+  ${({ position, inSidebar, theme }) => css`
     color: ${theme.text.color};
 
     ${position === 'left' && css`
-      ${!hasCustomTarget && css`
+      ${!inSidebar && css`
         display: flex;
       `}
       
