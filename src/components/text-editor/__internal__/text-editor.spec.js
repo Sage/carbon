@@ -15,6 +15,7 @@ import Counter from './editor-counter';
 import Toolbar from './toolbar';
 import guid from '../../../utils/helpers/guid';
 import Label from '../../../__experimental__/components/label';
+import LabelWrapper from './label-wrapper';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -375,6 +376,35 @@ describe('TextEditor', () => {
         act(() => { wrapper.update(); });
         expect(wrapper.find(Toolbar).props().canFocus).toEqual(true);
         setTimeout(() => expect(wrapper.find(ToolbarButton).at(0).getDOMNode()).toBeFocused());
+      });
+    });
+
+    describe('Mouse click on Label', () => {
+      let container;
+      beforeEach(() => {
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+      });
+
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
+      it('set focus to TextEditor component', () => {
+        act(() => {
+          wrapper.find(LabelWrapper).props().onClick();
+        });
+
+        act(() => {
+          wrapper.update();
+        });
+
+        setTimeout(() => expect(wrapper.find(Editor)).toBeFocused());
       });
     });
 
