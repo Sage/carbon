@@ -21,7 +21,6 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
         value={
           Object {
             "isInSidebar": true,
-            "setTarget": [Function],
           }
         }
       >

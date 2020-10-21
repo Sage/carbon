@@ -1,3 +1,21 @@
+## [44.1.0](https://github.com/Sage/carbon/compare/v44.0.0...v44.1.0) (2020-10-21)
+
+
+### Features
+
+* **text-editor:** allow to focus editor when label is clicked ([3beaf2a](https://github.com/Sage/carbon/commit/3beaf2af6a1472e662f6c2b241f1870f3b0bdb08))
+
+## [44.0.0](https://github.com/Sage/carbon/compare/v43.0.0...v44.0.0) (2020-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** `setTarget` callback is no longer available, `onTabChange` should be used instead
+
+### Bug Fixes
+
+* **tabs:** tabs position left in sidebar and remove set target callback ([a3afc81](https://github.com/Sage/carbon/commit/a3afc813db8657925c343f62523d2a47c1000872)), closes [#3214](https://github.com/Sage/carbon/issues/3214)
+
 ## [43.0.0](https://github.com/Sage/carbon/compare/v42.6.0...v43.0.0) (2020-10-20)
 
 
