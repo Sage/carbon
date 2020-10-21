@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import StyledIcon from '../icon/icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledHelp = styled.div`
   background: none;
@@ -30,18 +29,6 @@ const StyledHelp = styled.div`
   &:focus ${StyledIcon} {
     outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
   }
-
-  ${({ theme }) => isClassic(theme) && css`
-    ${StyledIcon} {
-      color: #8099A4;
-    }
-
-    :focus ${StyledIcon},
-    :hover ${StyledIcon} {
-      color: #8099A4;
-      outline: none;
-    }
-  `}
 `;
 
 StyledHelp.defaultProps = {
