@@ -1,4 +1,5 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import {useState} from 'react';
 import Search from '.';
 
 <Meta title="Design System/Search" />
@@ -21,6 +22,23 @@ Search component without Search Button and default width.
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue=""/>
+  </Story>
+</Preview>
+
+Search component can be controlled
+<Preview>
+  <Story name="Controlled" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [value, setValue] = useState('');
+      return (
+        <Search id="test" name="test" placeholder="Search..." 
+      onChange={ (e) => setValue(e.target.value)}
+      onClick={ (e) => setValue('') } 
+      value={value}
+      searchButton
+    />)
+    }}
+    
   </Story>
 </Preview>
 
