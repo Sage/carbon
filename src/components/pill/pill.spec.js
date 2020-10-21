@@ -4,16 +4,11 @@ import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 import Pill from './pill.component';
 import styleConfig from './pill.style.config';
-import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { classicTheme } from '../../style/themes';
-import StyledIcon from '../icon/icon.style';
 import IconButton from '../icon-button';
 
-const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
-const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
+const modernStyleTypes = ['neutral', 'negative', 'positive', 'warning'];
 
 describe('Pill', () => {
   const render = (props, renderer = mount) => {
@@ -395,108 +390,5 @@ describe('Pill', () => {
           });
         });
       });
-  });
-
-  describe('when the theme is Classic', () => {
-    it('matches the expected styles for a default pill', () => {
-      const wrapper = render({ children: 'My Text', theme: classicTheme }, TestRenderer.create).toJSON();
-      assertStyleMatch({
-        borderRadius: '10px',
-        display: 'inline-block',
-        fontSize: '12px',
-        fontWeight: '700',
-        letterSpacing: '0.7px',
-        lineHeight: '15px',
-        padding: '2px 7px',
-        position: 'relative',
-        textAlign: 'center'
-      }, wrapper);
-    });
-
-    describe('when the component is deletable', () => {
-      it('matches the expected styles for a deletable pill', () => {
-        const wrapper = render({
-          children: 'My Text',
-          onDelete: jest.fn(),
-          theme: classicTheme
-        }, TestRenderer.create).toJSON();
-        assertStyleMatch({
-          padding: '2px 19px 2px 7px'
-        }, wrapper);
-      });
-
-      describe('when the component is in a filled state', () => {
-        const fillWrapper = render({
-          children: 'My Text',
-          onDelete: jest.fn(),
-          fill: true,
-          theme: classicTheme
-        });
-
-        it('matches the expected filled styling', () => {
-          const style = 'default';
-          const colorSet = classicStyleConfig[style];
-          assertStyleMatch({
-            backgroundColor: colorSet.color
-          }, fillWrapper);
-        });
-      });
-    });
-
-    describe.each(classicStyleTypes)(
-      'when the pill style is set as "%s"',
-      (style) => {
-        const wrapper = render({
-          children: 'My Text',
-          as: style,
-          theme: classicTheme
-        });
-
-        const colorSet = classicStyleConfig[style];
-
-        it(`matches the expected styling for ${style}`, () => {
-          assertStyleMatch({
-            border: `1px solid ${colorSet.color}`,
-            color: colorSet.color
-          }, wrapper);
-        });
-
-        describe('when the component is in a filled state', () => {
-          const fillWrapper = render({
-            children: 'My Text',
-            as: style,
-            fill: true,
-            theme: classicTheme
-          });
-
-          it(`matches the expected filled styling for ${style}`, () => {
-            assertStyleMatch({
-              backgroundColor: colorSet.color
-            }, fillWrapper);
-          });
-        });
-      }
-    );
-
-    describe('when the pill type is a warning', () => {
-      let wrapper;
-
-      beforeEach(() => {
-        wrapper = render({ children: 'My Text', as: 'warning', theme: classicTheme }, TestRenderer.create).toJSON();
-      });
-
-      it('has no height specified', () => {
-        assertStyleMatch({
-          height: 'auto',
-          minHeight: 'auto'
-        }, wrapper);
-      });
-
-      it('has no padding in default pill button', () => {
-        assertStyleMatch({
-          padding: '0'
-        }, wrapper, { modifier: `button ${StyledIcon}` });
-      });
-    });
   });
 });

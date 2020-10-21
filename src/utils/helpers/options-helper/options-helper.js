@@ -59,24 +59,6 @@ const OptionsHelper = {
     'warning'
   ],
 
-  pillColors: [
-    'neutral',
-    'negative',
-    'positive'
-  ],
-
-  pillRoles: [
-    'tag',
-    'status'
-  ],
-
-  pillSizesRestricted: [
-    'S',
-    'M',
-    'L',
-    'XL'
-  ],
-
   toast: [
     'success',
     'error'

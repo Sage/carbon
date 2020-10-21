@@ -5,12 +5,6 @@ import Link from '../link';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
 
-import { isClassic } from '../../utils/helpers/style-helper';
-
-import {
-  styledBlockClassic, styledHeaderClassic, styledFooterClassic, styledEditActionClassic
-} from './pod-classic.style';
-
 const StyledPod = styled.div`
   display: flex;
   align-items: flex-start;
@@ -23,18 +17,18 @@ const StyledPod = styled.div`
   }
 `;
 
-const blockBackgrounds = (podType, theme) => ({
+const blockBackgrounds = (variant, theme) => ({
   primary: theme.colors.white,
   secondary: theme.pod.secondaryBackground,
   tertiary: theme.pod.tertiaryBackground,
   transparent: 'transparent',
   tile: theme.colors.white
-}[podType]);
+}[variant]);
 
 const StyledBlock = styled.div`
   ${({
     theme,
-    podType,
+    variant,
     noBorder,
     editable,
     contentTriggersEdit,
@@ -44,16 +38,16 @@ const StyledBlock = styled.div`
     isFocused
   }) => css`
     box-sizing: border-box;
-    background-color: ${blockBackgrounds(podType, theme)};
+    background-color: ${blockBackgrounds(variant, theme)};
     width: 100%;
-    ${podType === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
+    ${variant === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
     ${noBorder ? 'border: none' : `border: 1px solid ${theme.pod.border};`};
     ${editable && !(fullWidth || internalEditButton) && 'width: auto;'};
     ${contentTriggersEdit && 'cursor: pointer'};
     ${(isHovered || isFocused) && css`
       background-color: ${theme.pod.hoverBackground};
 
-      ${internalEditButton && podType === 'tile' && 'background-color: transparent;'}
+      ${internalEditButton && variant === 'tile' && 'background-color: transparent;'}
       ${contentTriggersEdit && css`
         background-color: ${theme.colors.primary};
         * {
@@ -62,16 +56,13 @@ const StyledBlock = styled.div`
       `}
     `}
 
-    ${!isClassic(theme)
-      && isFocused
+    ${isFocused
       && (!internalEditButton || contentTriggersEdit)
       && css`
         outline: 3px solid ${theme.colors.focus};
         border: none;
         ${noBorder ? '' : 'padding: 1px'};
       `};
-
-    ${styledBlockClassic}
   `}
 `;
 
@@ -105,19 +96,17 @@ const footerPaddings = {
 };
 
 const StyledFooter = styled.div`
-  ${({ theme, podType, padding }) => css`
+  ${({ theme, variant, padding }) => css`
     background-color: ${theme.pod.footerBackground};
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
 
-    ${podType === 'tile' && css`
+    ${variant === 'tile' && css`
       border-top: 1px solid ${theme.pod.border};
     `};
 
     padding: ${footerPaddings[padding]};
-
-    ${styledFooterClassic}
   `}
 `;
 
@@ -138,19 +127,19 @@ const editPaddings = {
   'extra-large': 15
 };
 
-const editBackgrounds = (podType, theme) => ({
+const editBackgrounds = (variant, theme) => ({
   primary: theme.colors.white,
   secondary: theme.pod.secondaryBackground,
   tertiary: theme.pod.tertiaryBackground,
   transparent: 'transparent',
   tile: theme.colors.white
-}[podType]);
+}[variant]);
 
 const StyledEditAction = styled(Link)`
   ${({
     theme,
     padding,
-    podType,
+    variant,
     noBorder,
     isFocused,
     isHovered,
@@ -160,7 +149,7 @@ const StyledEditAction = styled(Link)`
   }) => css`
     && {
       cursor: pointer;
-      background-color: ${editBackgrounds(podType, theme)};
+      background-color: ${editBackgrounds(variant, theme)};
       border: 1px solid ${theme.pod.border};
       margin-left: 8px;
 
@@ -193,7 +182,6 @@ const StyledEditAction = styled(Link)`
         `}
 
       ${isFocused
-        && !isClassic(theme)
         && (!internalEditButton || !contentTriggersEdit)
         && css`
           outline: 3px solid ${theme.colors.focus};
@@ -208,8 +196,6 @@ const StyledEditAction = styled(Link)`
         clip: rect(1px, 1px, 1px, 1px);
         position: absolute;
       }
-
-      ${styledEditActionClassic}
     }
   `}
 `;
@@ -243,8 +229,6 @@ const StyledHeader = styled.div`
       && css`
         margin-right: ${headerRightAlignMargins[padding]}px;
       `};
-
-    ${styledHeaderClassic}
   `}
 `;
 
