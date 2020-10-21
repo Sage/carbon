@@ -1,3 +1,10 @@
+## [44.1.0](https://github.com/Sage/carbon/compare/v44.0.0...v44.1.0) (2020-10-21)
+
+
+### Features
+
+* **text-editor:** allow to focus editor when label is clicked ([3beaf2a](https://github.com/Sage/carbon/commit/3beaf2af6a1472e662f6c2b241f1870f3b0bdb08))
+
 ## [44.0.0](https://github.com/Sage/carbon/compare/v43.0.0...v44.0.0) (2020-10-20)
 
 
