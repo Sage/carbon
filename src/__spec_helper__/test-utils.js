@@ -121,6 +121,43 @@ const spacingProps = [
   ['py', 'paddingBottom']
 ];
 
+const colorProps = [
+  ['color', 'color', '#CCCCCC'],
+  ['bg', 'background-color', '#FFFFFF'],
+  ['opacity', 'opacity', '0.5']
+];
+
+const layoutProps = [
+  ['width', 'width', '200px'],
+  ['height', 'height', '200px'],
+  ['minWidth', 'min-width', '120px'],
+  ['maxWidth', 'max-width', '120px'],
+  ['minHeight', 'min-height', '120px'],
+  ['maxHeight', 'max-height', '120px'],
+  ['size', 'width', '120px'],
+  ['size', 'height', '120px'],
+  ['display', 'display', 'inline-block'],
+  ['verticalAlign', 'vertical-align', 'baseline'],
+  ['overflow', 'overflow', 'hidden'],
+  ['overflowX', 'overflow-x', 'hidden'],
+  ['overflowY', 'overflow-y', 'hidden']
+];
+const flexBoxProps = [
+  ['alignItems', 'alignItems', 'center'],
+  ['alignContent', 'alignContent', 'center'],
+  ['justifyItems', 'justifyItems', 'center'],
+  ['justifyContent', 'justifyContent', 'center'],
+  ['flexWrap', 'flexWrap', 'wrap'],
+  ['flexDirection', 'flexDirection', 'row-reverse'],
+  ['flex', 'flex', '1'],
+  ['flexGrow', 'flexGrow', '1'],
+  ['flexShrink', 'flexShrink', '1'],
+  ['flexBasis', 'flexBasis', '100px'],
+  ['justifySelf', 'justifySelf', 'center'],
+  ['alignSelf', 'alignSelf', 'center'],
+  ['order', 'order', '1']
+];
+
 const getDefaultValue = (value) => {
   if (typeof value === 'number') {
     return `${value * 8}px`;
@@ -216,6 +253,51 @@ const testStyledSystemSpacing = (component, defaults, styleContainer) => {
     });
 };
 
+const testStyledSystemColor = (component, styleContainer) => {
+  describe.each(colorProps)('when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: value };
+        wrapper = mount(component({ ...props }));
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(wrapper).toHaveStyleRule(propName, value, styleContainer ? styleContainer(wrapper) : wrapper);
+      });
+    });
+};
+
+const testStyledSystemLayout = (component, styleContainer) => {
+  describe.each(layoutProps)('when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: value };
+        wrapper = mount(component({ ...props }));
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(wrapper).toHaveStyleRule(propName, value, styleContainer ? styleContainer(wrapper) : wrapper);
+      });
+    });
+};
+
+const testStyledSystemFlexBox = (component, styleContainer) => {
+  describe.each(flexBoxProps)('when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: value };
+        wrapper = mount(component({ ...props }));
+
+        expect(assertStyleMatch(
+          { [propName]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        ));
+      });
+    });
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -231,5 +313,8 @@ export {
   simulate,
   carbonThemesJestTable,
   mockMatchMedia,
-  testStyledSystemSpacing
+  testStyledSystemSpacing,
+  testStyledSystemColor,
+  testStyledSystemLayout,
+  testStyledSystemFlexBox
 };
