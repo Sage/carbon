@@ -1,3 +1,10 @@
+## [45.1.0](https://github.com/Sage/carbon/compare/v45.0.1...v45.1.0) (2020-10-22)
+
+
+### Features
+
+* **dialogfullscreen:** ability to add content to header ([d972587](https://github.com/Sage/carbon/commit/d972587330eed73deabcfb9eeac87a382d1572d1))
+
 ### [45.0.1](https://github.com/Sage/carbon/compare/v45.0.0...v45.0.1) (2020-10-22)
 
 
