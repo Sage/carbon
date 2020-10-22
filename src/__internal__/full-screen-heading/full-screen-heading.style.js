@@ -1,28 +1,40 @@
 import styled, { css } from 'styled-components';
 import fullScreenHeadingClassic from './full-screen-heading-classic.style';
-import baseTheme from '../../../style/themes/base';
+import baseTheme from '../../style/themes/base';
+
+export const StyledHeaderContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const StyledFullScreenHeading = styled.div`
   ${({ hasContent }) => hasContent && css`
     border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
   `}
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 
-  .carbon-app-wrapper {
-    position: relative;
-    max-width: none;
-    padding: 32px;
+  padding: 0 16px;
+  @media screen and (min-width: 600px) {
+    padding: 0 24px;
+  }
+  @media screen and (min-width: 960px) {
+    padding: 0 32px;
+  }
+  @media screen and (min-width: 1260px) {
+    padding: 0 40px;
   }
 
   .carbon-heading {
+    width: auto;
     .carbon-heading__header {
       background-color: transparent;
       align-items: center;
-      box-sizing: content-box;
       display: flex;
-      margin-bottom: 0;
       padding-bottom: 0;
-      width: 100%;
       border: none;
+      margin: 22px 24px 24px 0;
 
       .icon-chevron_left:before {
         font-size: 24px;
