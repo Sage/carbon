@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import GroupedCharacter from './grouped-character.component';
+import Label from '../label';
 
 const mountComponent = props => mount(<GroupedCharacter { ...props } />);
 
@@ -170,6 +171,26 @@ describe('GroupedCharacter', () => {
         jest.runAllTimers();
         assertInputCursorAt(2);
       });
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = mountComponent({
+        label: 'required', required: true, separator, groups: basicGroupConfig, value: ''
+      });
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

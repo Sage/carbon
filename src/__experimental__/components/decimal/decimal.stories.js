@@ -72,6 +72,20 @@ const commonProps = () => {
   };
 };
 
+const requiredComponent = () => {
+  return (
+    <State store={ store }>
+      <Decimal
+        { ...commonProps() }
+        { ...getCommonTextboxProps({ requiredKnob: false }) }
+        value={ store.get('value') }
+        onChange={ setValue }
+        onBlur={ action('onBlur') }
+        required
+      />
+    </State>
+  );
+};
 const defaultComponent = () => {
   return (
     <State store={ store }>
@@ -164,4 +178,5 @@ storiesOf('Experimental/Decimal Input', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
-  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations));
+  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations))
+  .add(...makeStory('required', dlsThemeSelector, requiredComponent));

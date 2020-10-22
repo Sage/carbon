@@ -32,7 +32,6 @@ const Drawer = ({
   backgroundColor,
   title,
   showControls,
-  setTarget,
   ...props
 }) => {
   const drawerSidebarContentRef = useRef();
@@ -161,7 +160,9 @@ const Drawer = ({
           isExpanded={ isExpanded }
           role='navigation'
         >
-          <SidebarContext.Provider value={ { isInSidebar: true, setTarget: id => setTarget(id) } }>
+          <SidebarContext.Provider
+            value={ { isInSidebar: true } }
+          >
             { sidebar }
           </SidebarContext.Provider>
         </StyledDrawerSidebar>
@@ -192,9 +193,7 @@ Drawer.propTypes = {
   /** Sets title heading of sidebar's content */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
-  showControls: PropTypes.bool,
-  /** Callback to be used as part of SidebarContext to override targeting of Tabs */
-  setTarget: PropTypes.func
+  showControls: PropTypes.bool
 };
 
 Drawer.defaultProps = {

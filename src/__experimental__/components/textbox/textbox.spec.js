@@ -8,6 +8,7 @@ import InputPresentation from '../input/input-presentation.component';
 import { StyledLabelContainer } from '../label/label.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledPrefix from './__internal__/prefix.style';
+import Label from '../label';
 
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
 
@@ -107,6 +108,30 @@ describe('Textbox', () => {
       );
       expect(wrapper.find(StyledPrefix).exists()).toBe(true);
       expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = mount(
+        <Textbox
+          value='foo'
+          label='Required'
+          required
+        />
+      );
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 

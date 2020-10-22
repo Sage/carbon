@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../../utils/helpers/options-helper/options-helper';
 import baseTheme from '../../../../style/themes/base';
 
-const computeLineWidth = ({ alternateStyling, hasCustomTarget, position }) => {
-  if (hasCustomTarget && position === 'left') {
+const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
+  if (isInSidebar && position === 'left') {
     return '0px';
   }
   return (alternateStyling ? '-1px' : '-2px');
@@ -25,7 +25,7 @@ const StyledTabHeaders = styled.ul`
   `}
 
   ${({
-    position, noRightBorder, hasCustomTarget, theme
+    position, noRightBorder, isInSidebar, theme
   }) => position === 'left' && css`
     flex-direction: column;
     box-shadow: inset ${computeLineWidth} 0px 0px 0px ${theme.tab.background};
@@ -34,12 +34,12 @@ const StyledTabHeaders = styled.ul`
       box-shadow: none;
     `}
 
-    ${!hasCustomTarget && css`
+    ${!isInSidebar && css`
       width: 20%;
       margin: 0 10px 0;
     `}
 
-    ${hasCustomTarget && css`
+    ${isInSidebar && css`
       width: 100%;
       margin: auto;
     `}

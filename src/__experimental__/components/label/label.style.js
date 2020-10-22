@@ -8,6 +8,17 @@ const LabelStyle = styled.label`
   display: block;
   font-weight: 600;
 
+  ${({
+    isRequired, theme
+  }) => isRequired && css`
+    ::after {
+      content: '*';
+      color: ${theme.colors.asterisk};
+      font-weight: 700;
+      margin-left: ${theme.spacing}px;
+    }
+  `}
+
   ${({ disabled, theme }) => disabled && css`
     color: ${theme.disabled.disabled};
   `}
@@ -39,18 +50,8 @@ export const StyledLabelContainer = styled.div`
 
   ${({
     childOfForm,
-    inline,
-    align,
     optional
   }) => childOfForm && css`
-    ${!inline && css`
-      margin-bottom: 12px;
-    `}
-
-    ${inline && align === 'right' && css`
-      margin-left: 12px;
-    `}
-
     ${optional && css`
       ::after {
         content: '(optional)';

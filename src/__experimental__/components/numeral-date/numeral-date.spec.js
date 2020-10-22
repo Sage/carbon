@@ -9,6 +9,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledInputPresentantion from '../input/input-presentation.style';
 import FormField from '../form-field';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import Label from '../label';
 
 describe('NumeralDate', () => {
   let wrapper;
@@ -254,6 +255,24 @@ describe('NumeralDate', () => {
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapperWithTags.find(StyledNumeralDate), 'numeral-date');
       });
+    });
+  });
+
+  describe('required', () => {
+    beforeAll(() => {
+      wrapper = renderWrapper({ label: 'required', required: true, dateFormat: ['dd', 'mm', 'yyyy'] });
+    });
+
+    it('the required prop is passed to the inputs', () => {
+      const inputs = wrapper.find('input');
+      inputs.forEach((input) => {
+        expect(input.prop('required')).toBe(true);
+      });
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

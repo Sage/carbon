@@ -217,8 +217,27 @@
           },
           "required": false,
           "description": "prop that represents childWidth"
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as mandatory"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/simple-color-picker/simple-color-picker.stories.js": [
+    {
+      "description": "",
+      "displayName": "Component",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "Required",
+      "methods": []
     }
   ]
 }

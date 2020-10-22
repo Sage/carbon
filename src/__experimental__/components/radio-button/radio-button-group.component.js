@@ -36,6 +36,7 @@ const RadioButtonGroup = (props) => {
     labelSpacing = 1,
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
+    required,
     styleOverride = {}
   } = props;
 
@@ -66,6 +67,7 @@ const RadioButtonGroup = (props) => {
       ml={ marginLeft }
       mb={ mb }
       styleOverride={ styleOverride }
+      isRequired={ required }
       { ...tagComponent('radiogroup', props) }
     >
       <RadioButtonGroupStyle
@@ -86,6 +88,7 @@ const RadioButtonGroup = (props) => {
             error: !!error,
             warning: !!warning,
             info: !!info,
+            required,
             ...child.props
           }))}
         </RadioButtonMapper>
@@ -144,7 +147,9 @@ RadioButtonGroup.propTypes = {
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+  }),
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export default RadioButtonGroup;

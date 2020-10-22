@@ -4,9 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import guid from '../../utils/helpers/guid';
-import classicTheme from '../../style/themes/classic';
-import baseTheme from '../../style/themes/base';
-import mintTheme from '../../style/themes/mint';
+import { baseTheme, mintTheme } from '../../style/themes';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { StyledButtonToggleLabel } from '../button-toggle/button-toggle.style';
 import StyledValidationIcon from '../validations/validation-icon.style';
@@ -62,12 +60,6 @@ describe('ButtonToggleGroup', () => {
     });
   });
 
-  describe('Classic theme', () => {
-    it('renders correctly with default settings', () => {
-      const wrapper = renderWithTheme({ theme: classicTheme });
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
   describe('Modern theme', () => {
     it('renders correctly with default settings', () => {
       const wrapper = renderWithTheme({ theme: mintTheme });
@@ -76,7 +68,7 @@ describe('ButtonToggleGroup', () => {
   });
   describe('Style props', () => {
     it('renders with the correct width', () => {
-      const wrapper = renderWithTheme({ theme: classicTheme, labelInline: true, inputWidth: 48 }, mount);
+      const wrapper = renderWithTheme({ theme: baseTheme, labelInline: true, inputWidth: 48 }, mount);
       assertStyleMatch({
         width: '48%'
       }, wrapper.find(ButtonToggleGroupStyle));

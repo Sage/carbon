@@ -123,7 +123,9 @@ GroupedCharacter.propTypes = {
   /** on change handler which receives the event with object as a value containing rawValue and formattedValue */
   onChange: PropTypes.func,
   /** on blur handler which receives the event with object as a value containing rawValue and formattedValue */
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export default GroupedCharacter;

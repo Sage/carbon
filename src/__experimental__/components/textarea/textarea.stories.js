@@ -66,6 +66,7 @@ const defaultComponent = (autoFocusDefault = false) => () => {
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
   const adaptiveLabelBreakpoint = labelInline ? number('adaptiveLabelBreakpoint') : undefined;
   const key = AutoFocus.getKey(autoFocus, previous);
+  const required = boolean('required', false);
 
   return (
     <State store={ store }>
@@ -91,6 +92,7 @@ const defaultComponent = (autoFocusDefault = false) => () => {
         inputWidth={ inputWidth }
         labelAlign={ labelAlign }
         adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
+        required={ required }
       />
     </State>
   );
@@ -189,6 +191,11 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   return [name, component, metadata];
 }
 
+const Required = () => {
+  return (<Textarea label='Comment' required />
+  );
+};
+
 storiesOf('Experimental/Textarea', module)
   .addParameters({
     info: {
@@ -196,6 +203,7 @@ storiesOf('Experimental/Textarea', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent()))
+  .add(...makeStory('required', dlsThemeSelector, Required))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
