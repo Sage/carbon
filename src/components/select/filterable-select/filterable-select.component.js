@@ -24,6 +24,7 @@ const FilterableSelect = React.forwardRef(({
   onClick,
   onKeyDown,
   noResultsMessage,
+  disablePortal,
   ...textboxProps
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -273,6 +274,22 @@ const FilterableSelect = React.forwardRef(({
     return key === 'ArrowDown' || key === 'ArrowUp'
     || key === 'Home' || key === 'End';
   }
+  const selectList = (
+    <FilterableSelectList
+      ref={ listboxRef }
+      id={ selectListId.current }
+      labelId={ labelId.current }
+      anchorElement={ textboxRef && textboxRef.parentElement }
+      onSelect={ onSelectOption }
+      onSelectListClose={ onSelectListClose }
+      filterText={ filterText }
+      highlightedValue={ highlightedValue }
+      noResultsMessage={ noResultsMessage }
+      disablePortal={ disablePortal }
+    >
+      { children }
+    </FilterableSelectList>
+  );
 
   return (
     <div
@@ -285,28 +302,18 @@ const FilterableSelect = React.forwardRef(({
         aria-controls={ isOpen ? selectListId.current : '' }
         type='text'
         labelId={ labelId.current }
+        positionedChildren={ disablePortal && isOpen && selectList }
         { ...getTextboxProps() }
-        positionedChildren={ isOpen && (
-          <FilterableSelectList
-            ref={ listboxRef }
-            id={ selectListId.current }
-            labelId={ labelId.current }
-            onSelect={ onSelectOption }
-            onSelectListClose={ onSelectListClose }
-            filterText={ filterText }
-            highlightedValue={ highlightedValue }
-            noResultsMessage={ noResultsMessage }
-          >
-            { children }
-          </FilterableSelectList>
-        ) }
       />
+      { !disablePortal && isOpen && selectList}
     </div>
   );
 });
 
 FilterableSelect.propTypes = {
   ...formInputPropTypes,
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.oneOfType([
     PropTypes.string,

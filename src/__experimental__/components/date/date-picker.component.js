@@ -4,12 +4,16 @@ import I18n from 'i18n-js';
 import 'react-day-picker/lib/style.css';
 import LocaleUtils from 'react-day-picker/moment';
 import DayPicker from 'react-day-picker';
+import Browser from '../../../utils/helpers/browser/browser';
 import DateHelper from '../../../utils/helpers/date/date';
+import Portal from '../../../components/portal/portal';
 import Navbar from './navbar';
 import Weekday from './weekday';
 import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
+  const window = Browser.getWindow();
+  const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
   const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
   const datepicker = useRef(null);
 
@@ -52,10 +56,24 @@ const DatePicker = (props) => {
     }
   };
 
-  return (
+  const picker = (
     <StyledDayPicker>
-      <DayPicker { ...datePickerProps } ref={ datepicker } />
+      <DayPicker
+        { ...datePickerProps }
+        containerProps={ { style: containerPosition } }
+        ref={ datepicker }
+      />
     </StyledDayPicker>
+  );
+
+  if (props.disablePortal) {
+    return picker;
+  }
+
+  return (
+    <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
+      {picker}
+    </Portal>
   );
 };
 
@@ -64,6 +82,8 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal: PropTypes.string,
   /* The string value in the date input */
   inputDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */
@@ -105,6 +125,16 @@ function checkIsoFormatAndLength(date) {
   }
   const array = date.split('-');
   return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
+}
+
+function getContainerPosition(window, input) {
+  const inputRect = input.getBoundingClientRect();
+  const offsetY = window.pageYOffset;
+
+  return {
+    left: inputRect.left,
+    top: inputRect.bottom + offsetY
+  };
 }
 
 export default DatePicker;

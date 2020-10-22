@@ -33,6 +33,7 @@ const MultiSelect = React.forwardRef(({
   openOnFocus = false,
   noResultsMessage,
   placeholder,
+  disablePortal,
   ...textboxProps
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -50,6 +51,7 @@ const MultiSelect = React.forwardRef(({
   const [selectedValue, setSelectedValue] = useState([]);
   const [highlightedValue, setHighlightedValue] = useState('');
   const [filterText, setFilterText] = useState('');
+  const [repositionTrigger, setRepositionTrigger] = useState(false);
   const [placeholderOverride, setPlaceholderOverride] = useState();
 
   const setOpen = useCallback(() => {
@@ -192,6 +194,10 @@ const MultiSelect = React.forwardRef(({
     if (!isControlled.current && onChange) {
       onChange(createCustomEvent(selectedValue));
     }
+
+    setRepositionTrigger((previousValue) => {
+      return !previousValue;
+    });
   }, [createCustomEvent, onChange, selectedValue]);
 
   function handleTextboxClick(event) {
@@ -380,6 +386,26 @@ const MultiSelect = React.forwardRef(({
     || key === 'Home' || key === 'End';
   }
 
+  const selectList = (
+    <FilterableSelectList
+      ref={ listboxRef }
+      aria-multiselectable
+      id={ selectListId.current }
+      labelId={ labelId.current }
+      anchorElement={ textboxRef && textboxRef.parentElement }
+      onSelect={ onSelectOption }
+      onSelectListClose={ onSelectListClose }
+      onMouseDown={ handleListMouseDown }
+      filterText={ filterText }
+      highlightedValue={ highlightedValue }
+      noResultsMessage={ noResultsMessage }
+      repositionTrigger={ repositionTrigger }
+      disablePortal={ disablePortal }
+    >
+      { children }
+    </FilterableSelectList>
+  );
+
   return (
     <StyledMultiSelect
       data-component='multiselect'
@@ -391,30 +417,18 @@ const MultiSelect = React.forwardRef(({
         aria-controls={ isOpen ? selectListId.current : '' }
         type='text'
         labelId={ labelId.current }
+        positionedChildren={ disablePortal && isOpen && selectList }
         { ...getTextboxProps() }
-        positionedChildren={ isOpen && (
-          <FilterableSelectList
-            ref={ listboxRef }
-            aria-multiselectable
-            id={ selectListId.current }
-            labelId={ labelId.current }
-            onSelect={ onSelectOption }
-            onSelectListClose={ onSelectListClose }
-            onMouseDown={ handleListMouseDown }
-            filterText={ filterText }
-            highlightedValue={ highlightedValue }
-            noResultsMessage={ noResultsMessage }
-          >
-            { children }
-          </FilterableSelectList>
-        ) }
       />
+      { !disablePortal && isOpen && selectList }
     </StyledMultiSelect>
   );
 });
 
 MultiSelect.propTypes = {
   ...formInputPropTypes,
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.arrayOf(PropTypes.string),
   /** The default selected value(s), when the component is operating in uncontrolled mode */

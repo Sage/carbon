@@ -31,6 +31,7 @@ const SimpleSelect = React.forwardRef(({
   onFocus,
   onKeyDown,
   onBlur,
+  disablePortal,
   ...props
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -322,6 +323,20 @@ const SimpleSelect = React.forwardRef(({
       ...props
     };
   }
+  const selectList = (
+    <SelectList
+      ref={ listboxRef }
+      id={ selectListId.current }
+      labelId={ labelId.current }
+      anchorElement={ textboxRef && textboxRef.parentElement }
+      onSelect={ onSelectOption }
+      onSelectListClose={ onSelectListClose }
+      highlightedValue={ selectedValue }
+      disablePortal={ disablePortal }
+    >
+      { children }
+    </SelectList>
+  );
 
   return (
     <StyledSimpleSelect
@@ -339,19 +354,9 @@ const SimpleSelect = React.forwardRef(({
         type='select'
         labelId={ labelId.current }
         { ...getTextboxProps() }
-        positionedChildren={ isOpen && (
-          <SelectList
-            ref={ listboxRef }
-            id={ selectListId.current }
-            labelId={ labelId.current }
-            onSelect={ onSelectOption }
-            onSelectListClose={ onSelectListClose }
-            highlightedValue={ selectedValue }
-          >
-            { children }
-          </SelectList>
-        ) }
+        positionedChildren={ disablePortal && isOpen && selectList }
       />
+      { !disablePortal && isOpen && selectList }
     </StyledSimpleSelect>
   );
 });
@@ -365,6 +370,8 @@ SimpleSelect.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal: PropTypes.bool,
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
@@ -378,6 +385,10 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func
+};
+
+SimpleSelect.defaultProps = {
+  disablePortal: false
 };
 
 export default SimpleSelect;

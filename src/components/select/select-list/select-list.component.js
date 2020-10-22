@@ -8,7 +8,10 @@ import PropTypes from 'prop-types';
 import StyledSelectList from './select-list.style';
 import updateListScrollTop from './update-list-scroll';
 import getNextChildByText from '../utils/get-next-child-by-text';
+import Portal from '../../portal/portal';
 import { getNextIndexByKey } from '../utils/get-next-child-by-key';
+
+const overhang = 4;
 
 const SelectList = React.forwardRef(({
   id,
@@ -17,7 +20,10 @@ const SelectList = React.forwardRef(({
   onSelect,
   onSelectListClose,
   filterText,
+  anchorElement,
   highlightedValue,
+  repositionTrigger,
+  disablePortal,
   ...listProps
 }, listRef) => {
   const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
@@ -68,6 +74,18 @@ const SelectList = React.forwardRef(({
     }
   }, [children, onSelectListClose, currentOptionsListIndex, onSelect, highlightNextItem]);
 
+  const repositionList = useCallback(() => {
+    if (anchorElement) {
+      const inputBoundingRect = anchorElement.getBoundingClientRect();
+
+      const top = `${window.pageYOffset + inputBoundingRect.top + inputBoundingRect.height}px`;
+      const width = `${inputBoundingRect.width + 2 * overhang}px`;
+      const left = `${window.pageXOffset + inputBoundingRect.left - overhang}px`;
+
+      listRef.current.setAttribute('style', `top: ${top}; width: ${width}; left: ${left}`);
+    }
+  }, [anchorElement, listRef]);
+
   useEffect(() => {
     const keyboardEvent = 'keydown';
 
@@ -103,6 +121,12 @@ const SelectList = React.forwardRef(({
   }, [children, filterText, getIndexOfMatch, lastFilter, listRef]);
 
   useEffect(() => {
+    if (!disablePortal) {
+      repositionList();
+    }
+  }, [disablePortal, repositionList, repositionTrigger]);
+
+  useEffect(() => {
     if (!highlightedValue) {
       return;
     }
@@ -133,7 +157,7 @@ const SelectList = React.forwardRef(({
     || keyEvent === 'Home' || keyEvent === 'End';
   }
 
-  return (
+  const selectList = (
     <StyledSelectList
       id={ id }
       aria-labelledby={ labelId }
@@ -146,6 +170,15 @@ const SelectList = React.forwardRef(({
       { getChildrenWithListProps() }
     </StyledSelectList>
   );
+
+  if (disablePortal) {
+    return selectList;
+  }
+  return (
+    <Portal onReposition={ repositionList }>
+      {selectList}
+    </Portal>
+  );
 });
 
 SelectList.propTypes = {
@@ -155,6 +188,10 @@ SelectList.propTypes = {
   labelId: PropTypes.string,
   /** Child components (such as <Option>) for the <ScrollableList> */
   children: PropTypes.node,
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal: PropTypes.bool,
+  /** DOM element to position the dropdown menu list relative to */
+  anchorElement: PropTypes.object,
   /** A callback for when a child is selected */
   onSelect: PropTypes.func.isRequired,
   /** A callback for when the list should be closed */
@@ -162,7 +199,9 @@ SelectList.propTypes = {
   /** Text value to highlight an option */
   filterText: PropTypes.string,
   /** Value of option to be highlighted on component render */
-  highlightedValue: PropTypes.string
+  highlightedValue: PropTypes.string,
+  /** A trigger to manually reposition the list */
+  repositionTrigger: PropTypes.bool
 };
 
 export default SelectList;
