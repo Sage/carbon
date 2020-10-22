@@ -173,6 +173,13 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   padding-top: 8px;
 }
 
+.c6.c6.c6.c6 .c11 a:focus,
+.c6.c6.c6.c6 .c11 button:focus {
+  background-color: transparent;
+  outline: 3px solid #FFB500;
+  width: 25px;
+}
+
 .c1 {
   border-bottom: 1px solid #CCD6DB;
 }
