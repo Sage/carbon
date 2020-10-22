@@ -1,3 +1,10 @@
+### [45.0.1](https://github.com/Sage/carbon/compare/v45.0.0...v45.0.1) (2020-10-22)
+
+
+### Bug Fixes
+
+* **radiobutton:** check for onchange passed in ([b5dacc6](https://github.com/Sage/carbon/commit/b5dacc6242ed66c50a0f1f245f28531ecbe509a1)), closes [#3263](https://github.com/Sage/carbon/issues/3263)
+
 ## [45.0.0](https://github.com/Sage/carbon/compare/v44.1.0...v45.0.0) (2020-10-22)
 
 
