@@ -33,7 +33,7 @@ const DatePicker = (props) => {
     selectedDays: props.selectedDate || undefined,
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
-      const weekdayLong = localeUtils.formatWeekdayLong(weekday);
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday, I18n.locale);
       const weekdayShort = weekdayLong.substring(0, 3);
 
       return (
