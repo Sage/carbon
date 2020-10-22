@@ -37,6 +37,8 @@ in the input, this can be done by manually typing or pasting a valid url into th
 component is that it supports a wide range of keyboard shortcuts to apply the various styling options: `cmd/ctrl+b` 
 toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a new line will render a 
 `unordered-list` or `ordered-list` respectively.
+You can use the `required` prop to indicate if the field is mandatory.
+
 
 <Preview>
   <Story name="basic">
@@ -76,6 +78,7 @@ editor can expects.
             onChange={(newValue) => {setValue(newValue)}}
             value={ value }
             labelText='Text Editor Label'
+            required
           />
         </div>
       );

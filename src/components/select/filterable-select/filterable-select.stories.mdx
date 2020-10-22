@@ -2,6 +2,7 @@ import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import { FilterableSelect, Option } from '../';
+import Button from '../../button';
 import SelectTextbox from '../select-textbox/select-textbox.component';
 
 <Meta title="Design System/Select/Filterable" />
@@ -66,25 +67,31 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
         setValue(event.target.value);
         action('value set');
       };
+      function clearValue() {
+        setValue('');
+      }
       return (
-        <FilterableSelect
-          id='controlled'
-          name='controlled'
-          value={ value }
-          onChange={ onChangeHandler }
-        >
-          <Option text='Amber' value='1' />
-          <Option text='Black' value='2' />
-          <Option text='Blue' value='3' />
-          <Option text='Brown' value='4' />
-          <Option text='Green' value='5' />
-          <Option text='Orange' value='6' />
-          <Option text='Pink' value='7' />
-          <Option text='Purple' value='8' />
-          <Option text='Red' value='9' />
-          <Option text='White' value='10' />
-          <Option text='Yellow' value='11' />
-        </FilterableSelect>
+        <div>
+          <Button onClick={ clearValue } mb={ 2 }>clear</Button>
+          <FilterableSelect
+            id='controlled'
+            name='controlled'
+            value={ value }
+            onChange={ onChangeHandler }
+          >
+            <Option text='Amber' value='1' />
+            <Option text='Black' value='2' />
+            <Option text='Blue' value='3' />
+            <Option text='Brown' value='4' />
+            <Option text='Green' value='5' />
+            <Option text='Orange' value='6' />
+            <Option text='Pink' value='7' />
+            <Option text='Purple' value='8' />
+            <Option text='Red' value='9' />
+            <Option text='White' value='10' />
+            <Option text='Yellow' value='11' />
+          </FilterableSelect>
+        </div>
       );
     }}
   </Story>
@@ -115,6 +122,33 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 <Preview>
   <Story name="readonly" parameters={{ info: { disable: true }}} >
     <FilterableSelect name='readonly' id='readonly' defaultValue='4' readOnly>
+      <Option text='Amber' value='1' />
+      <Option text='Black' value='2' />
+      <Option text='Blue' value='3' />
+      <Option text='Brown' value='4' />
+      <Option text='Green' value='5' />
+      <Option text='Orange' value='6' />
+      <Option text='Pink' value='7' />
+      <Option text='Purple' value='8' />
+      <Option text='Red' value='9' />
+      <Option text='White' value='10' />
+      <Option text='Yellow' value='11' />
+    </FilterableSelect>
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required" parameters={{ info: { disable: true }}} >
+    <FilterableSelect
+      name='required-select'
+      id='required-select'
+      label='Foreground Color'
+      required
+    >
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
       <Option text='Blue' value='3' />

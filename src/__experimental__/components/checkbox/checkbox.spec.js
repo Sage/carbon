@@ -16,6 +16,7 @@ import {
   carbonThemesJestTable,
   mockMatchMedia
 } from '../../../__spec_helper__/test-utils';
+import Label from '../label';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -325,6 +326,30 @@ describe('Checkbox', () => {
       }, wrapper, {
         modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
       });
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = mount(
+        <Checkbox
+          value='foo'
+          label='Required'
+          required
+        />
+      );
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

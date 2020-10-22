@@ -333,7 +333,9 @@ Decimal.propTypes = {
   /**
    * Allow an empty value instead of defaulting to 0.00
    */
-  allowEmptyValue: PropTypes.bool
+  allowEmptyValue: PropTypes.bool,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 Decimal.defaultProps = {

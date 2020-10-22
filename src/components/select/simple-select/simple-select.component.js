@@ -62,10 +62,13 @@ const SimpleSelect = React.forwardRef(({
 
   const setMatchingText = useCallback((newValue) => {
     const matchingOption = React.Children.toArray(children).find(option => (option.props.value === newValue));
+    let newText = '';
 
     if (matchingOption) {
-      setTextValue(matchingOption.props.text);
+      newText = matchingOption.props.text;
     }
+
+    setTextValue(newText);
   }, [children]);
 
   const selectValueStartingWithText = useCallback((newFilterText) => {

@@ -35,7 +35,15 @@
         },
         "selectedDate": {
           "type": {
-            "name": "object"
+            "name": "union",
+            "value": [
+              {
+                "name": "object"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
           "description": "Currently selected date"
@@ -377,6 +385,20 @@
           },
           "required": false,
           "description": "The current date YYYY-MM-DD"
+        },
+        "adaptiveLabelBreakpoint": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set"
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as mandatory"
         }
       },
       "composes": [
@@ -393,6 +415,21 @@
     {
       "description": "",
       "displayName": "autoFocusDateComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "ValidationDateComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "EmptyDateComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "RequiredDateComponent",
       "methods": []
     }
   ],

@@ -5,7 +5,6 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import { StyledLabelContainer } from '../label/label.style';
-import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const RadioButtonStyle = styled(CheckboxStyle)`
@@ -100,8 +99,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
         margin-left: 32px;
       }
     `}
-
-    ${ClassicRadioButtonStyles}
   `}
 `;
 

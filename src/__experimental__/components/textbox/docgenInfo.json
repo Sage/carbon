@@ -105,12 +105,12 @@
             "name": "enum",
             "value": [
               {
-                "value": 1,
-                "computed": "false"
+                "value": "1",
+                "computed": false
               },
               {
-                "value": 2,
-                "computed": "false"
+                "value": "2",
+                "computed": false
               }
             ]
           },
@@ -133,11 +133,7 @@
             "name": "number"
           },
           "required": false,
-          "description": "Width of an input in percentage. Works only when labelInline is true",
-          "defaultValue": {
-            "value": "70",
-            "computed": false
-          }
+          "description": "Width of an input in percentage. Works only when labelInline is true"
         },
         "fieldHelp": {
           "type": {
@@ -271,37 +267,44 @@
           "required": false,
           "description": "Handler for onClick events"
         },
+        "prefix": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Emphasized part of the displayed text"
+        },
         "mb": {
           "type": {
             "name": "enum",
             "value": [
               {
-                "value": 0,
-                "computed": "false"
+                "value": "0",
+                "computed": false
               },
               {
-                "value": 1,
-                "computed": "false"
+                "value": "1",
+                "computed": false
               },
               {
-                "value": 2,
-                "computed": "false"
+                "value": "2",
+                "computed": false
               },
               {
-                "value": 3,
-                "computed": "false"
+                "value": "3",
+                "computed": false
               },
               {
-                "value": 4,
-                "computed": "false"
+                "value": "4",
+                "computed": false
               },
               {
-                "value": 5,
-                "computed": "false"
+                "value": "5",
+                "computed": false
               },
               {
-                "value": 7,
-                "computed": "false"
+                "value": "7",
+                "computed": false
               }
             ]
           },
@@ -314,6 +317,13 @@
           },
           "required": false,
           "description": "Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set"
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as required"
         },
         "styleOverride": {
           "type": {
@@ -375,6 +385,16 @@
     },
     {
       "description": "",
+      "displayName": "disabledTextbox",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "readOnlyTextbox",
+      "methods": []
+    },
+    {
+      "description": "",
       "displayName": "autoFocusTextbox",
       "methods": []
     },
@@ -386,6 +406,11 @@
     {
       "description": "",
       "displayName": "multipleTextboxAutoFocus",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "requiredTextbox",
       "methods": []
     }
   ]

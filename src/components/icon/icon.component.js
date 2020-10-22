@@ -69,7 +69,7 @@ Icon.propTypes = {
   /** Background shape */
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
   /** Background color theme */
-  bgTheme: PropTypes.oneOf([...OptionsHelper.colors, ...OptionsHelper.iconBackgrounds, '']),
+  bgTheme: PropTypes.oneOf(OptionsHelper.iconBackgrounds),
   /** Icon font size */
   fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** Icon color */

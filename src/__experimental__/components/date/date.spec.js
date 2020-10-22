@@ -10,6 +10,7 @@ import StyledDateInput from './date.style';
 import { classicTheme } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
+import Label from '../label';
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
@@ -709,6 +710,29 @@ describe('when the calendar icon is clicked', () => {
     wrapper.find(DatePicker).parent().props().onClick();
     wrapper.update();
     expect(wrapper.find(DatePicker).exists()).toBe(true);
+  });
+});
+
+describe('required', () => {
+  let wrapper;
+  let inputs;
+
+  beforeAll(() => {
+    wrapper = render({ label: 'required', required: true });
+    inputs = wrapper.find('input');
+  });
+
+  it('the required prop is passed to the input', () => {
+    expect(inputs.at(0).prop('required')).toBe(true);
+  });
+
+  it('the required prop not passed to the hidden input', () => {
+    expect(inputs.at(1).prop('required')).toBe(undefined);
+  });
+
+  it('the isRequired prop is passed to the label', () => {
+    const label = wrapper.find(Label);
+    expect(label.prop('isRequired')).toBe(true);
   });
 });
 
