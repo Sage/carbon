@@ -2,7 +2,6 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import Heading from './heading';
-import { StyledHeading } from './heading.style';
 import Help from './../help';
 import Link from './../link';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -11,8 +10,7 @@ import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
 import LinkStyleAnchor from '../link/link.style';
-import mintTheme from '../../style/themes/mint'
-import classicTheme from '../../style/themes/classic'
+import mintTheme from '../../style/themes/mint';
 
 describe('Heading', () => {
   let instance;
@@ -56,6 +54,7 @@ describe('Heading', () => {
     const link = wrapper.find(Link);
     expect(link.prop('className')).toEqual('carbon-heading__back');
     expect(link.prop('href')).toEqual('/foobar');
+    
   });
 
   it('renders a back link as a button with focus support on Internet Explorer', () => {
@@ -75,26 +74,6 @@ describe('Heading', () => {
     assertStyleMatch({
       outline: `solid 3px ${mintTheme.colors.focus}`
     }, wrapper.find(PagesContent), { modifier: `&&&& ${LinkStyleAnchor} button:focus` })
-  });
-
-  it('renders a back link and applies the expected style for classic theme with a subheader and no divider', () => {
-    const wrapper = mount(
-      <StyledHeading theme={ classicTheme } subheader='foo' />
-    );
-
-    assertStyleMatch({
-      marginTop: '-14px'
-    }, wrapper, { modifier: `&&&& ${LinkStyleAnchor}`})
-  });
-
-  it('renders a back link and applies the expected style for classic theme with no divider or subheader', () => {
-    const wrapper = mount(
-      <StyledHeading theme={ classicTheme } />
-    );
-
-    assertStyleMatch({
-      marginTop: '-10px'
-    }, wrapper, { modifier: `&&&& ${LinkStyleAnchor}`})
   });
 
   it('renders a subheader', () => {
