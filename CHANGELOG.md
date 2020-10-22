@@ -1,3 +1,24 @@
+## [45.0.0](https://github.com/Sage/carbon/compare/v44.1.0...v45.0.0) (2020-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **help:** classic styling has been removed from the component
+
+fixes FE-3110
+* **heading:** removal of the classic styling from the heading component.
+
+fixes FE-3109
+* **confirm:** confirm component no longer supports classic styling
+
+fixes FE-3104
+
+### Miscellaneous Chores
+
+* **confirm:** remove classic styling ([151cdfb](https://github.com/Sage/carbon/commit/151cdfbd80f84d86520bc0cc6eef9eb1504858fb))
+* **heading:** remove classic theme ([649c264](https://github.com/Sage/carbon/commit/649c26456e3a73a669cc3c7a70449736c5b3f99d))
+* **help:** remove classic theme ([a6b32c3](https://github.com/Sage/carbon/commit/a6b32c3bfaa34aa102bc1fcbf6d7ec7ba36edac7))
+
 ## [44.1.0](https://github.com/Sage/carbon/compare/v44.0.0...v44.1.0) (2020-10-21)
 
 
