@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   boolean,
   text,
   number,
   withKnobs
 } from '@storybook/addon-knobs';
-import { Store } from '@sambego/storybook-state';
+
 import { action } from '@storybook/addon-actions';
 import Search from '.';
 
@@ -25,12 +25,10 @@ export default {
 };
 
 export const Basic = () => {
-  const store = new Store({
-    value: ''
-  });
+  const [value, setValue] = useState('');
 
   const handleChange = (ev) => {
-    store.set({ value: ev.target.value });
+    setValue(ev.target.value);
     action('change')(ev);
   };
 
@@ -51,7 +49,7 @@ export const Basic = () => {
       onChange={ handleChange }
       onBlur={ handleBlur }
       onClick={ handleClick }
-      value={ store.get('value') }
+      value={ value }
       name='search_name'
       id='search_id'
     />
