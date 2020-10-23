@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
-import classicThemeForLinkAnchor from './link-classic.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIcon from '../icon/icon.style';
 
 const LinkStyle = styled.div`
@@ -17,14 +15,11 @@ const LinkStyle = styled.div`
     ${StyledIcon} {
       margin-right: 5px;
       position: relative;
-
+      vertical-align: middle;
       ${({ iconAlign }) => iconAlign === 'right' && css`
         margin-right: 0;
         margin-left: 5px;
       `}
-
-      vertical-align: middle;
-      top: ${({ theme }) => (isClassic(theme) ? '-2px' : '')};
     }
 
     &:hover {
@@ -32,7 +27,7 @@ const LinkStyle = styled.div`
       color: ${({ theme }) => theme.colors.secondary};
     }
 
-    ${({ theme }) => !isClassic(theme) && css`
+    ${({ theme }) => css`
       &:focus {
         color: ${theme.text.color};
         background-color: ${theme.colors.focusedLinkBackground};
@@ -49,8 +44,6 @@ const LinkStyle = styled.div`
         color: ${theme.disabled.text};
       }
     `}
-
-    ${classicThemeForLinkAnchor}
   }
 
   button { 
