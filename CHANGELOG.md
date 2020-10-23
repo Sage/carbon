@@ -1,3 +1,56 @@
+## [45.1.0](https://github.com/Sage/carbon/compare/v45.0.1...v45.1.0) (2020-10-22)
+
+
+### Features
+
+* **dialogfullscreen:** ability to add content to header ([d972587](https://github.com/Sage/carbon/commit/d972587330eed73deabcfb9eeac87a382d1572d1))
+
+### [45.0.1](https://github.com/Sage/carbon/compare/v45.0.0...v45.0.1) (2020-10-22)
+
+
+### Bug Fixes
+
+* **radiobutton:** check for onchange passed in ([b5dacc6](https://github.com/Sage/carbon/commit/b5dacc6242ed66c50a0f1f245f28531ecbe509a1)), closes [#3263](https://github.com/Sage/carbon/issues/3263)
+
+## [45.0.0](https://github.com/Sage/carbon/compare/v44.1.0...v45.0.0) (2020-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **help:** classic styling has been removed from the component
+
+fixes FE-3110
+* **heading:** removal of the classic styling from the heading component.
+
+fixes FE-3109
+* **confirm:** confirm component no longer supports classic styling
+
+fixes FE-3104
+
+### Miscellaneous Chores
+
+* **confirm:** remove classic styling ([151cdfb](https://github.com/Sage/carbon/commit/151cdfbd80f84d86520bc0cc6eef9eb1504858fb))
+* **heading:** remove classic theme ([649c264](https://github.com/Sage/carbon/commit/649c26456e3a73a669cc3c7a70449736c5b3f99d))
+* **help:** remove classic theme ([a6b32c3](https://github.com/Sage/carbon/commit/a6b32c3bfaa34aa102bc1fcbf6d7ec7ba36edac7))
+
+## [44.1.0](https://github.com/Sage/carbon/compare/v44.0.0...v44.1.0) (2020-10-21)
+
+
+### Features
+
+* **text-editor:** allow to focus editor when label is clicked ([3beaf2a](https://github.com/Sage/carbon/commit/3beaf2af6a1472e662f6c2b241f1870f3b0bdb08))
+
+## [44.0.0](https://github.com/Sage/carbon/compare/v43.0.0...v44.0.0) (2020-10-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** `setTarget` callback is no longer available, `onTabChange` should be used instead
+
+### Bug Fixes
+
+* **tabs:** tabs position left in sidebar and remove set target callback ([a3afc81](https://github.com/Sage/carbon/commit/a3afc813db8657925c343f62523d2a47c1000872)), closes [#3214](https://github.com/Sage/carbon/issues/3214)
+
 ## [43.0.0](https://github.com/Sage/carbon/compare/v42.6.0...v43.0.0) (2020-10-20)
 
 

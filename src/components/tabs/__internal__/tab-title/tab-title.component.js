@@ -25,7 +25,7 @@ const TabTitle = React.forwardRef(({
   noLeftBorder = false,
   noRightBorder = false,
   customLayout,
-  hasCustomTarget,
+  isInSidebar,
   ...tabTitleProps
 }, ref) => {
   const keys = useRef([]);
@@ -84,9 +84,9 @@ const TabTitle = React.forwardRef(({
       size={ size }
       noRightBorder={ noRightBorder }
       onClick={ onClick }
-      alternateStyling={ alternateStyling || hasCustomTarget }
+      alternateStyling={ alternateStyling || isInSidebar }
       borders={ borders }
-      hasCustomTarget={ hasCustomTarget }
+      isInSidebar={ isInSidebar }
       { ...tabTitleProps }
       { ...tagComponent('tab-header', tabTitleProps) }
     >
@@ -103,7 +103,7 @@ const TabTitle = React.forwardRef(({
         hasSiblings={ !!siblings }
         isTabSelected={ isTabSelected }
         hasCustomLayout={ !!customLayout }
-        alternateStyling={ alternateStyling || hasCustomTarget }
+        alternateStyling={ alternateStyling || isInSidebar }
       >
         { renderContent() }
 
@@ -162,7 +162,7 @@ TabTitle.propTypes = {
   noLeftBorder: PropTypes.bool,
   noRightBorder: PropTypes.bool,
   customLayout: PropTypes.node,
-  hasCustomTarget: PropTypes.bool
+  isInSidebar: PropTypes.bool
 };
 
 export default TabTitle;

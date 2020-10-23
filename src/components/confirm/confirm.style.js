@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import confirmClassicStyle from './confirm.classic.style';
 import StyledIcon from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 
@@ -8,7 +7,6 @@ export const StyledConfirmButtons = styled.div`
   margin-top: 48px;
   display: flex;
   justify-content: flex-end;
-  ${confirmClassicStyle}
 `;
 
 export const StyledConfirmHeading = styled.div`
