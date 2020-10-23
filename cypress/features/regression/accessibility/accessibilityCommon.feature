@@ -85,4 +85,4 @@ Scenario Outline: Component <component> basic story
       | Detail        |
       | Heading       |
       | Help          |
-      | Link          |
+      | I18nComponent |
