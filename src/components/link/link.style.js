@@ -1,9 +1,7 @@
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
-import classicThemeForLinkAnchor from "./link-classic.style";
-import { isClassic } from "../../utils/helpers/style-helper";
-import StyledIcon from "../icon/icon.style";
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import baseTheme from '../../style/themes/base';
+import StyledIcon from '../icon/icon.style';
 
 const LinkStyle = styled.div`
   display: inline-block;
@@ -18,16 +16,11 @@ const LinkStyle = styled.div`
     ${StyledIcon} {
       margin-right: 5px;
       position: relative;
-
-      ${({ iconAlign }) =>
-        iconAlign === "right" &&
-        css`
-          margin-right: 0;
-          margin-left: 5px;
-        `}
-
       vertical-align: middle;
-      top: ${({ theme }) => (isClassic(theme) ? "-2px" : "")};
+      ${({ iconAlign }) => iconAlign === 'right' && css`
+        margin-right: 0;
+        margin-left: 5px;
+      `}
     }
 
     &:hover {
@@ -35,29 +28,23 @@ const LinkStyle = styled.div`
       color: ${({ theme }) => theme.colors.secondary};
     }
 
-    ${({ theme }) =>
-      !isClassic(theme) &&
-      css`
-        &:focus {
-          color: ${theme.text.color};
-          background-color: ${theme.colors.focusedLinkBackground};
-          outline: none;
-        }
-      `}
+    ${({ theme }) => css`
+      &:focus {
+        color: ${theme.text.color};
+        background-color: ${theme.colors.focusedLinkBackground};
+        outline: none;
+      }
+    `}
+
+    ${({ disabled, theme }) => disabled && css`
+      color: ${theme.disabled.text};
 
     ${({ disabled, theme }) =>
       disabled &&
       css`
         color: ${theme.disabled.text};
-
-        &:hover,
-        &:focus {
-          cursor: not-allowed;
-          color: ${theme.disabled.text};
-        }
-      `}
-
-    ${classicThemeForLinkAnchor}
+      }
+    `}
   }
 
   button {

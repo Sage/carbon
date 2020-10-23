@@ -48,7 +48,6 @@ Scenario Outline: Component <component> default story
     | help                |
     | i18ncomponent       |
     | icon                |
-    | link                |
     | loader              |
     | menulist            |
     | message             |
@@ -86,3 +85,4 @@ Scenario Outline: Component <component> basic story
       | Detail        |
       | Heading       |
       | Help          |
+      | Link          |

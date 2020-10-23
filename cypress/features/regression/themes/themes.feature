@@ -34,7 +34,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Link component theme to <theme>
-    When I open default "Link" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open Basic "Link Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
