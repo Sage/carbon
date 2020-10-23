@@ -60,7 +60,7 @@ const DatePicker = (props) => {
     <StyledDayPicker>
       <DayPicker
         { ...datePickerProps }
-        containerProps={ { style: containerPosition } }
+        containerProps={ { style: props.disablePortal ? {} : containerPosition } }
         ref={ datepicker }
       />
     </StyledDayPicker>

@@ -17,7 +17,7 @@ const StyledSelectList = styled.ul`
   position: absolute;
   width: calc(100% + ${2 * overhang}px);
   z-index: 2000;
-  top: calc(100% + 1px);
+  top: 100%;
   left: -${overhang}px;
 `;
 
