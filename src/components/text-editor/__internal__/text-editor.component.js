@@ -30,6 +30,7 @@ import Toolbar from './toolbar';
 import Label from '../../../__experimental__/components/label';
 import Events from '../../../utils/helpers/events/events';
 import createGuid from '../../../utils/helpers/guid';
+import LabelWrapper from './label-wrapper';
 
 const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const INLINE_STYLES = ['BOLD', 'ITALIC'];
@@ -41,7 +42,8 @@ const TextEditor = React.forwardRef(({
   onChange,
   onCancel,
   onSave,
-  value
+  value,
+  required
 }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inlines, setInlines] = useState([]);
@@ -226,7 +228,14 @@ const TextEditor = React.forwardRef(({
 
   return (
     <>
-      <Label labelId={ labelId.current }>{labelText}</Label>
+      <LabelWrapper onClick={ () => handleEditorFocus(true) }>
+        <Label
+          labelId={ labelId.current }
+          isRequired={ required }
+        >
+          {labelText}
+        </Label>
+      </LabelWrapper>
       <StyledEditorContainer
         data-component='text-editor-container'
         isFocused={ isFocused }
@@ -274,7 +283,9 @@ TextEditor.propTypes = {
   /** Optional callback to handle event after clicking the 'Save" button, passing this will render the form buttons */
   onSave: PropTypes.func,
   /** The value of the input, this is an EditorState immutable object */
-  value: PropTypes.object.isRequired
+  value: PropTypes.object.isRequired,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export const TextEditorState = EditorState;

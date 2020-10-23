@@ -336,4 +336,10 @@ describe('Form', () => {
       expect(tagWrapper.find(StyledInternalSummary).at(1).prop('data-element')).toBe('warnings');
     });
   });
+
+  it('sets novalidate on the form', () => {
+    expect(wrapper.find('form').prop('noValidate')).toBe(true);
+    wrapper.setProps({ noValidate: false });
+    expect(wrapper.find('form').prop('noValidate')).toBe(false);
+  });
 });

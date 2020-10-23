@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 const StyledTab = styled.div`
   display: none;
 
-  ${({ isTabSelected, position, hasCustomTarget }) => isTabSelected && !hasCustomTarget && css`
+  ${({ isTabSelected, position }) => isTabSelected && css`
     display: block;
 
     ${position === 'left' && css`

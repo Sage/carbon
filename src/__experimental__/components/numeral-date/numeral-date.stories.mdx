@@ -180,4 +180,20 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   </Story>
 </Preview>
 
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    <>
+    <NumeralDate
+      label="Date of Birth"
+      dateFormat={['dd','mm','yyyy']} 
+      required
+    />
+    </>
+  </Story>
+</Preview>
+
 <Props of={NumeralDate} />

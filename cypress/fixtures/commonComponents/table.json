@@ -43,13 +43,13 @@
     "caption": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "themePrimary": {
-    "theme": "primary"
+    "tableTheme": "primary"
   },
   "themeSecondary": {
-    "theme": "secondary"
+    "tableTheme": "secondary"
   },
   "themeTertiary": {
-    "theme": "tertiary"
+    "tableTheme": "tertiary"
   },
   "sizeCompact": {
     "size": "compact"

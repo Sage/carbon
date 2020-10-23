@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import '../../style/fonts/fonts.css';
 import iconUnicodes from './icon-unicodes';
-import classicIconStyles from './icon-classic.style';
 import baseTheme from '../../style/themes/base';
 import generatePalette from '../../style/palette';
 import iconSizeConfig from './icon-config';
@@ -106,7 +105,6 @@ const StyledIcon = styled.span`
 
     ${ml && css`margin-left: ${ml * theme.spacing}px`};
     ${mr && css`margin-right: ${mr * theme.spacing}px`};
-    ${classicIconStyles};
   `}
 `;
 

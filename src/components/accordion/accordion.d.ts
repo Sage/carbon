@@ -39,7 +39,13 @@ export interface AccordionProps {
   scheme: 'white' |'transparent';
   /** Sets accordion width */
   width: string;
-}
+  /** An error message to be displayed in the tooltip */
+  error: string;
+  /** A warning message to be displayed in the tooltip */
+  warning: string;
+  /** An info message to be displayed in the tooltip */
+  info: string;
+  }
 
 declare const Accordion: React.FunctionComponent<AccordionProps>;
 export default Accordion;

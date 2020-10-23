@@ -65,7 +65,8 @@ function defaultKnobs(type, autoFocusDefault = false) {
     size: select('size', OptionsHelper.sizesBinary, 'small', type),
     value: text('value', type, type),
     ml: text('ml', '0', type),
-    adaptiveSpacingBreakpoint: number('adaptiveSpacingBreakpoint')
+    adaptiveSpacingBreakpoint: number('adaptiveSpacingBreakpoint'),
+    required: boolean('required', false)
   });
 }
 

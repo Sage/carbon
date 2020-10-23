@@ -2,7 +2,7 @@ Feature: Design System Select component
   I want to change Design System Select component properties
 
   Background: Open Design System Select component page
-    Given I open design systems controlled "Select" component in no iframe
+    Given I open "Design System Select" component page "controlled" in no iframe
 
   @positive
   Scenario Outline: Open Select list using <key>

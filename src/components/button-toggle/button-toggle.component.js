@@ -24,8 +24,7 @@ const ButtonToggle = (props) => {
     onChange,
     onFocus,
     onBlur,
-    value,
-    size
+    value
   } = props;
   const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
 
@@ -69,7 +68,6 @@ const ButtonToggle = (props) => {
         buttonIconSize={ buttonIconSize }
         disabled={ disabled }
         htmlFor={ inputGuid }
-        size={ size }
         onMouseEnter={ onMouseEnter }
         onMouseLeave={ onMouseLeave }
       >
@@ -97,8 +95,6 @@ ButtonToggle.propTypes = {
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  /** Sets the size of the button (padding, font-size). Only used in Classic theme. */
-  size: PropTypes.string,
   /** Remove spacing from between buttons. */
   grouped: PropTypes.bool,
   /** Disable all user interaction. */
@@ -112,7 +108,6 @@ ButtonToggle.propTypes = {
 };
 
 ButtonToggle.defaultProps = {
-  size: 'large',
   buttonIconSize: 'small'
 };
 

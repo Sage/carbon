@@ -14,6 +14,8 @@ import ToolbarButton from './toolbar/toolbar-button/toolbar-button.component';
 import Counter from './editor-counter';
 import Toolbar from './toolbar';
 import guid from '../../../utils/helpers/guid';
+import Label from '../../../__experimental__/components/label';
+import LabelWrapper from './label-wrapper';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -377,6 +379,35 @@ describe('TextEditor', () => {
       });
     });
 
+    describe('Mouse click on Label', () => {
+      let container;
+      beforeEach(() => {
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+      });
+
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
+      it('set focus to TextEditor component', () => {
+        act(() => {
+          wrapper.find(LabelWrapper).props().onClick();
+        });
+
+        act(() => {
+          wrapper.update();
+        });
+
+        setTimeout(() => expect(wrapper.find(Editor)).toBeFocused());
+      });
+    });
+
     describe('Pressing Tab and Shift keys', () => {
       it('does not pass focus to the Toolbar', () => {
         wrapper = render();
@@ -510,6 +541,15 @@ describe('TextEditor', () => {
         const editor = wrapper.find(Editor);
         act(() => { expect(editor.props().handleBeforeInput('*')).toEqual('handled'); });
       });
+    });
+  });
+
+  describe('required', () => {
+    it('the isRequired prop is passed to the label', () => {
+      wrapper = render({ label: 'required', required: true });
+
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 

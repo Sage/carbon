@@ -9,9 +9,12 @@ const StyledFlatTableHead = styled.thead`
     border-right: none;
     font-weight: 700;
     left: 0;
-    padding: 8px 24px;
     top: 0;
     z-index: ${({ theme }) => theme.zIndex.overlay};
+  }
+
+  ${StyledFlatTableRowHeader} > div {
+    padding: 8px 24px;
   }
 `;
 

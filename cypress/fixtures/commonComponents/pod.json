@@ -1,45 +1,9 @@
 {
-  "border": {
-    "border": true
-  },
-  "borderFalse": {
-    "border": false
-  },
   "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
     "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "paddingExtraSmall": {
-    "padding": "extra-small"
-  },
-  "paddingSmall": {
-    "padding": "small"
-  },
-  "paddingMedium": {
-    "padding": "medium"
-  },
-  "paddingLarge": {
-    "padding": "large"
-  },
-  "paddingExtraLarge": {
-    "padding": "extra-large"
-  },
-  "podTypePrimary": {
-    "podType": "primary"
-  },
-  "podTypeSecondary": {
-    "podType": "secondary"
-  },
-  "podTypeTetiary": {
-    "podType": "tertiary"
-  },
-  "podTypeTile": {
-    "podType": "tile"
-  },
-  "podTypeTransparent": {
-    "podType": "transparent"
   },
   "titleOtherLanguage": {
     "title": "mp150ú¿¡üßä"
@@ -67,45 +31,8 @@
   "footerSpecialCharacter": {
     "footer": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "onEdit": {
-    "onEdit": true
-  },
-  "onEditFalse": {
-    "onEdit": false
-  },
-  "editContentFullWidth": {
-    "onEdit": true,
-    "editContentFullWidth": true
-  },
-  "displayEditButtonOnHover": {
-    "onEdit": true,
-    "title": "title",
-    "displayEditButtonOnHover": true
-  },
-  "internalEditButton": {
-    "onEdit": true,
-    "internalEditButton": true
-  },
   "triggerEditOnContent": {
     "onEdit": true,
     "triggerEditOnContent": true
-  },
-  "alignTitleAlignLeft": {
-    "title": "title",
-    "subtitle": "subtitle",
-    "footer": "footer",
-    "alignTitle": "left"
-  },
-  "alignTitleAlignRight": {
-    "title": "title",
-    "subtitle": "subtitle",
-    "footer": "footer",
-    "alignTitle": "right"
-  },
-  "alignTitleAlignCenter": {
-    "title": "title",
-    "subtitle": "subtitle",
-    "footer": "footer",
-    "alignTitle": "center"
   }
 }

@@ -448,7 +448,7 @@ const StyledSystemProps = ({
 };
 
 StyledSystemProps.propTypes = {
-  of: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  of: PropTypes.oneOfType([PropTypes.node, PropTypes.func, PropTypes.object]),
   noHeader: PropTypes.bool,
   spacing: PropTypes.bool,
   layout: PropTypes.bool,

@@ -25,16 +25,59 @@
             "name": "string"
           },
           "required": false,
-          "description": "input value"
+          "description": "Input value if component is meant to be used as a controlled component"
+        },
+        "defaultValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Default input value if component is meant to be used as an uncontrolled component"
         },
         "onChange": {
           "type": {
             "name": "func"
           },
           "required": false,
-          "description": "on change handler which will receive the input value without separators"
+          "description": "on change handler which receives the event with object as a value containing rawValue and formattedValue"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "on blur handler which receives the event with object as a value containing rawValue and formattedValue"
+        },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as mandatory"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/grouped-character/grouped-character.stories.js": [
+    {
+      "description": "",
+      "displayName": "requiredComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "defaultComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "validationsComponent",
+      "methods": []
     }
   ]
 }

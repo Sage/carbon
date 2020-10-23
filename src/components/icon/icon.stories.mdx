@@ -1,0 +1,120 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import Icon from './';
+
+<Meta
+  title="Icon"
+  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+/>
+
+# Icon
+Carbon comes with more than 100 standard icons to choose from. See the Icons page in the Style section.
+
+A tooltip option is available within this component.
+
+Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
+
+## Quick Start
+
+```jsx
+import Icon from "carbon-react/lib/components/icon";
+
+const MyComponent = () => (
+  return (
+    <Icon type="add" />
+  )
+);
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    <Icon type="add" />
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="Disabled">
+    <Icon type="add" disabled />
+  </Story>
+</Preview>
+
+### With tooltip
+
+<Preview>
+  <Story name="With tooltip">
+    <div style={{ margin: 60 }}>
+      <Icon type="add" tooltipMessage="Hey I'm a tooltip!" />
+    </div>
+  </Story>
+</Preview>
+
+
+### Various fontSizes
+
+<Preview>
+  <Story name="Various fontSizes">
+    <>
+      <Icon type="add" fontSize="small" />
+      <Icon type="add" fontSize="large" />
+    </>
+  </Story>
+</Preview>
+
+### Various bgThemes
+
+<Preview>
+  <Story name="Various bgThemes">
+    {() => [
+      'info',
+      'error',
+      'success',
+      'warning',
+      'business',
+      'none'
+    ].map(bgTheme => <Icon type="add" bgTheme={bgTheme} mr={1} /> )}
+  </Story>
+</Preview>
+
+### Various bgShapes
+
+<Preview>
+  <Story name="Various bgShapes">
+    {() => [
+      'circle',
+      'rounded-rect',
+      'square'
+    ].map(bgShape => <Icon type="add" bgTheme="success" bgShape={bgShape} mr={1} /> )}
+  </Story>
+</Preview>
+
+### Various bgSizes
+
+<Preview>
+  <Story name="Various bgSizes">
+    {() => [
+      'small',
+      'medium',
+      'large'
+    ].map(bgSize => <Icon type="add" bgTheme="success" bgSize={bgSize} mr={1} /> )}
+  </Story>
+</Preview>
+
+### Various iconColors
+
+<Preview>
+  <Story name="Various iconColors">
+    {() => [
+      'default',
+      'on-light-background',
+      'on-dark-background',
+      'business-color'
+    ].map(iconColor => <Icon type="add" iconColor={iconColor} mr={1} /> )}
+  </Story>
+</Preview>
+
+## Props
+
+<Props of={Icon} />

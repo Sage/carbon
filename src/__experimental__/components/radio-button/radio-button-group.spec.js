@@ -6,6 +6,7 @@ import { RadioButton, RadioButtonGroup } from '.';
 import { StyledFieldset, StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import RadioButtonGroupStyle from './radio-button-group.style';
 import Fieldset from '../../../__internal__/fieldset';
+import Label from '../label';
 
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
@@ -162,6 +163,47 @@ describe('RadioButtonGroup', () => {
 
     it('renders legend element with properly assigned styles', () => {
       assertStyleMatch(customStyleObject, wrapper.find(StyledLegendContainer));
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = mount(
+        <RadioButtonGroup
+          name='radio' label='Group Label'
+          required
+        >
+          <RadioButton
+            label='off'
+            value='test'
+          />
+          <RadioButton
+            label='on'
+            value='test'
+          />
+        </RadioButtonGroup>
+      );
+    });
+
+    it('the required prop is passed to the inputs', () => {
+      const inputs = wrapper.find('input');
+      inputs.forEach((input) => {
+        expect(input.prop('required')).toBe(true);
+      });
+    });
+
+    it('the isRequired prop is not passed to the labels', () => {
+      const labels = wrapper.find(Label);
+      labels.forEach((label) => {
+        expect(label.prop('isRequired')).toBe(undefined);
+      });
+    });
+
+    it('the isRequired prop is passed to the fieldset', () => {
+      const fieldset = wrapper.find(Fieldset);
+      expect(fieldset.prop('isRequired')).toBe(true);
     });
   });
 });

@@ -312,5 +312,37 @@ describe('RadioButtonMapper', () => {
       expect(radio.at(1).prop('checked')).toBe(false);
       expect(radio.at(2).prop('checked')).toBe(false);
     });
+
+    describe('when onChange not passed in', () => {
+      it('clicking a value checks the appropraite radio button', () => {
+        const wrapper = mount(
+          <RadioButtonMapper
+            legend='Test RadioButtonGroup Legend'
+            name='radio-button-group'
+          >
+            <RadioButton
+              name='one'
+              value='one'
+            />
+            <RadioButton
+              name='two'
+              value='two'
+            />
+            <RadioButton
+              name='three'
+              value='three'
+            />
+          </RadioButtonMapper>
+        );
+        let radio = getRadioButtons(wrapper);
+
+        radio.at(0).find('input').simulate('change');
+
+        radio = getRadioButtons(wrapper);
+        expect(radio.at(0).prop('checked')).toBe(true);
+        expect(radio.at(1).prop('checked')).toBe(false);
+        expect(radio.at(2).prop('checked')).toBe(false);
+      });
+    });
   });
 });

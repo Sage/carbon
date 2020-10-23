@@ -1,10 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import classicThemeForPill from './pill-classic.style';
 import styleConfig from './pill.style.config';
 import { baseTheme } from '../../style/themes';
-import { isClassic } from '../../utils/helpers/style-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
 
 function addStyleToPillIcon(fontSize) {
@@ -21,13 +18,9 @@ const PillStyle = styled.span`
  ${({
     colorVariant, theme, inFill, isDeletable, pillRole, size, ml, mr
   }) => {
+    const isStatus = pillRole === 'status';
     const { colors, text } = baseTheme;
-
-    let carbonColor = colorVariant;
-    if (!isClassic(theme) && !hasCarbonColorVariant(colorVariant)) {
-      carbonColor = 'neutral';
-    }
-    const variety = (pillRole === 'status') ? carbonColor : 'primary';
+    const variety = isStatus ? colorVariant : 'primary';
     const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][variety];
 
     return css`
@@ -41,210 +34,202 @@ const PillStyle = styled.span`
       align-items: center;
       justify-content: center;
 
-      ${hasCarbonColorVariant(carbonColor) && css`
-        border: 2px solid ${varietyColor};
-        height: auto;
+      border: 2px solid ${varietyColor};
+      height: auto;
 
-        ${inFill && css`
-          background-color: ${varietyColor};
-          color: ${(variety === 'warning') ? text.color : colors.white};
-        `}
+      ${inFill && css`
+        background-color: ${varietyColor};
+        color: ${(variety === 'warning') ? text.color : colors.white};
+      `}
 
-        ${size === 'S' && css`
-          min-height: 16px;
+      ${size === 'S' && css`
+        min-height: 16px;
+        line-height: 16px;
+        font-size: 10px;
+      `}
+
+      ${size === 'M' && css`
+        min-height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+      `}
+
+      ${size === 'L' && css`
+        min-height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+      `}
+
+      ${size === 'XL' && css`
+        min-height: 26px;
+        line-height: 26px;
+        font-size: 16px;
+      `}
+
+      ${isDeletable && css`
+        button {
+          -webkit-appearance: none;
+          border-radius: 0 6px 6px 0;
+          border: none;
+          bottom: 0;
+          font-size: 100%;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 20px;
+          margin: 0;
           line-height: 16px;
-          font-size: 10px;
-        `}
 
-        ${size === 'M' && css`
-          min-height: 20px;
-          line-height: 20px;
-          font-size: 12px;
-        `}
-
-        ${size === 'L' && css`
-          min-height: 24px;
-          line-height: 24px;
-          font-size: 14px;
-        `}
-
-        ${size === 'XL' && css`
-          min-height: 26px;
-          line-height: 26px;
-          font-size: 16px;
-        `}
-
-        ${isDeletable && css`
-          button {
-            -webkit-appearance: none;
-            border-radius: 0 6px 6px 0;
-            border: none;
-            bottom: 0;
-            font-size: 100%;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 20px;
-            margin: 0;
-            line-height: 16px;
-
-            ${inFill && css`
-              background-color: ${varietyColor};
-              color: ${(variety === 'warning') ? text.color : colors.white};
-              ${StyledIcon} {
-                color: ${(variety === 'warning') ? text.color : colors.white};
-              }
-            `}
-
-            ${!inFill && css`
-              background-color: transparent;
-              color: ${text.color};
-            `}
-
-            &:focus {
-              outline: none;
-              box-shadow: 0 0 0 3px ${colors.focus};
-              background-color: ${buttonFocus};
-              & { color: ${(variety === 'warning') ? text.color : colors.white} }
-              ::-moz-focus-inner {
-                border: 0;
-              }
-              ${StyledIcon} {
-                color: ${(variety === 'warning') ? text.color : colors.white};
-              }
-            }
-
-            &:hover {
-              background-color: ${buttonFocus};
-              color: ${(variety === 'warning') ? text.color : colors.white};
-              cursor: pointer;
-              ${StyledIcon} {
-                color: ${(variety === 'warning') ? text.color : colors.white};
-              }
-            }
-  
+          ${inFill && css`
+            background-color: ${varietyColor};
+            color: ${(variety === 'warning') ? text.color : colors.white};
             ${StyledIcon} {
-              font-size: 12px;
-              padding: 0 4px;
+              color: ${(variety === 'warning') ? text.color : colors.white};
+            }
+          `}
 
-              &:hover, 
-              &:focus {
-                color: ${(variety === 'warning') ? text.color : colors.white};
-              }
+          ${!inFill && css`
+            background-color: transparent;
+            color: ${text.color};
+          `}
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px ${colors.focus};
+            background-color: ${buttonFocus};
+            & { color: ${(variety === 'warning') ? text.color : colors.white} }
+            ::-moz-focus-inner {
+              border: 0;
+            }
+            ${StyledIcon} {
+              color: ${(variety === 'warning') ? text.color : colors.white};
             }
           }
 
-          ${size === 'S' && css`
-            padding: 0 24px 0 7px;
+          &:hover {
+            background-color: ${buttonFocus};
+            color: ${(variety === 'warning') ? text.color : colors.white};
+            cursor: pointer;
+            ${StyledIcon} {
+              color: ${(variety === 'warning') ? text.color : colors.white};
+            }
+          }
 
-            button {
-              padding: 0;
-              border-radius: 0 8px 8px 0;
-              line-height: 14px;
+          ${StyledIcon} {
+            font-size: 12px;
+            padding: 0 4px;
+
+            &:hover, 
+            &:focus {
+              color: ${(variety === 'warning') ? text.color : colors.white};
+            }
+          }
+        }
+
+        ${size === 'S' && css`
+          padding: 0 24px 0 7px;
+
+          button {
+            padding: 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 14px;
 
               ${addStyleToPillIcon('7px')}
             }
           `}
 
-          ${size === 'M' && css`
-            padding: 0 32px 0 11px;
-            border-radius: 12px;
+        ${size === 'M' && css`
+          padding: 0 32px 0 11px;
+          border-radius: 12px;
 
-            button {
-              width: 24px;
-              padding: 0;
-              border-radius: 0 10px 10px 0;
-              line-height: 15px;
+          button {
+            width: 24px;
+            padding: 0;
+            border-radius: 0 10px 10px 0;
+            line-height: 15px;
 
               ${addStyleToPillIcon('10px')}
             }
           `}
 
-          ${size === 'L' && css`
-            padding: 0 36px 0 15px;
-            border-radius: 13px;
+        ${size === 'L' && css`
+          padding: 0 36px 0 15px;
+          border-radius: 13px;
 
-            button {
-              width: 28px;
-              padding: 0;
-              border-radius: 0 11px 11px 0;
-              line-height: 16px;
+          button {
+            width: 28px;
+            padding: 0;
+            border-radius: 0 11px 11px 0;
+            line-height: 16px;
 
               ${addStyleToPillIcon('12px')}
             }
           `}
 
-          ${size === 'XL' && css`
-            padding: 0 41px 0 19px;
-            border-radius: 15px;
+        ${size === 'XL' && css`
+          padding: 0 41px 0 19px;
+          border-radius: 15px;
 
-            button {
-              width: 32px;
-              padding: 0;
-              border-radius: 0 12px 12px 0;
-              line-height: 18px;
+          button {
+            width: 32px;
+            padding: 0;
+            border-radius: 0 12px 12px 0;
+            line-height: 18px;
 
               ${addStyleToPillIcon('13px')}
             }
           `}
         `}
 
-        ${!isDeletable && css`
-          ${size === 'S' && css`
-            padding: 0 7px;
+      ${!isDeletable && css`
+        ${size === 'S' && css`
+          padding: 0 7px;
 
-            button {
-              padding: 0;
-            }
-          `}
+          button {
+            padding: 0;
+          }
+        `}
 
-          ${size === 'M' && css`
-            padding: 0 11px;
-            border-radius: 12px;
+        ${size === 'M' && css`
+          padding: 0 11px;
+          border-radius: 12px;
 
-            button {
-              width: 24px;
-              padding: 0;
-              border-radius: 0 8px 8px 0;
-            }
-          `}
+          button {
+            width: 24px;
+            padding: 0;
+            border-radius: 0 8px 8px 0;
+          }
+        `}
 
-          ${size === 'L' && css`
-            padding: 0 15px;
-            border-radius: 13px;
+        ${size === 'L' && css`
+          padding: 0 15px;
+          border-radius: 13px;
 
-            button {
-              width: 28px;
-              padding: 0;
-              border-radius: 0 10px 10px 0;
-            }
-          `}
+          button {
+            width: 28px;
+            padding: 0;
+            border-radius: 0 10px 10px 0;
+          }
+        `}
 
-          ${size === 'XL' && css`
-            padding: 0 19px;
-            border-radius: 15px;
+        ${size === 'XL' && css`
+          padding: 0 19px;
+          border-radius: 15px;
 
-            button {
-              width: 32px;
-              padding: 0;
-              border-radius: 0 12px 12px 0;
-            }
-          `}
+          button {
+            width: 32px;
+            padding: 0;
+            border-radius: 0 12px 12px 0;
+          }
         `}
       `}
 
       ${ml && css`margin-left: ${ml * theme.spacing}px`};
       ${mr && css`margin-right: ${mr * theme.spacing}px`};
-
-      ${isClassic(theme) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;
   }
 }
 `;
-
-function hasCarbonColorVariant(colorVariant) {
-  return [...OptionsHelper.pillColors, 'warning'].includes(colorVariant);
-}
 
 PillStyle.defaultProps = {
   inFill: false,
@@ -255,11 +240,9 @@ PillStyle.defaultProps = {
 
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
-  colorVariant: PropTypes.string,
+  colorVariant: PropTypes.oneOf(['neutral', 'negative', 'positive', 'warning']),
   isDeletable: PropTypes.func,
-
-  /** Assigns a size to the pill */
-  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted)
+  size: PropTypes.oneOf(['S', 'M', 'L', 'XL'])
 };
 
 export default PillStyle;

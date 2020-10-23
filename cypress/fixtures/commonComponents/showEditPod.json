@@ -41,21 +41,6 @@
   "titleSpecialCharacter": {
     "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "podTypePrimary": {
-    "podType": "primary"
-  },
-  "podTypeSecondary": {
-    "podType": "secondary"
-  },  
-  "podTypeTertiary": {
-    "podType": "tertiary"
-  },  
-  "podTypeTile": {
-    "podType": "tile"
-  },  
-  "podTypeTransparent": {
-    "podType": "transparent"
-  },
   "saveTextOtherLanguage": {
     "saveText": "mp150ú¿¡üßä"
   },
