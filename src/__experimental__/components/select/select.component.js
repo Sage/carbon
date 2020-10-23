@@ -457,7 +457,8 @@ class Select extends React.Component {
           { ...this.dataAttributes() }
           { ...this.textboxProps() }
           { ...this.eventProps() }
-          positionedChildren={ this.listDisplayable(allowTypeAhead, filter, open) && (
+        >
+          { this.listDisplayable(allowTypeAhead, filter, open) && (
             <SelectList
               alwaysHighlight={ !!filter } // always ensure something is highlighted only if there's a filter
               customFilter={ customFilter }
@@ -473,7 +474,7 @@ class Select extends React.Component {
               { children }
             </SelectList>
           ) }
-        />
+        </Textbox>
       </StyledSelect>
     );
   }

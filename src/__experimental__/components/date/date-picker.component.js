@@ -83,7 +83,7 @@ DatePicker.propTypes = {
   /** Maximum possible date */
   maxDate: PropTypes.string,
   /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
-  disablePortal: PropTypes.string,
+  disablePortal: PropTypes.bool,
   /* The string value in the date input */
   inputDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */

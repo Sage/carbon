@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
@@ -689,6 +689,24 @@ describe('Date', () => {
         expect(wrapper.find(Textbox).props().value).toEqual('12/12/2012');
       });
     });
+  });
+});
+
+describe('disablePortal', () => {
+  it('renders DatePicker as a content of positionedChildren prop on Textbox when disablePortal is true', () => {
+    const wrapper = render({ disablePortal: true });
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    const positionedChildren = shallow(wrapper.find(Textbox).props().positionedChildren);
+    expect(positionedChildren.find(DatePicker).exists()).toBe(true);
+  });
+
+  it('renders DatePicker as a direct children of StyledDateInput by default', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(Textbox).props().positionedChildren).toBe(false);
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
   });
 });
 

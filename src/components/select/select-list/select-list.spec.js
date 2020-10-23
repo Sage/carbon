@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
+
 import SelectList from './select-list.component';
+import StyledSelectList from './select-list.style';
 import { baseTheme } from '../../../style/themes';
 import Option from '../option/option.component';
+import Portal from '../../portal';
 
 describe('SelectList', () => {
   describe('when a key is pressed', () => {
@@ -184,6 +187,18 @@ describe('SelectList', () => {
           expect(option.prop('isHighlighted')).toBe(false);
         });
       });
+    });
+  });
+
+  describe('portal', () => {
+    it('renders SelectList as a child of portal by default', () => {
+      const wrapper = renderSelectList();
+      expect(wrapper.find(Portal).find(StyledSelectList).exists()).toBe(true);
+    });
+
+    it('does not render portal when disablePortal is passed', () => {
+      const wrapper = renderSelectList({ disablePortal: true });
+      expect(wrapper.find(Portal).exists()).toBe(false);
     });
   });
 });
