@@ -13,7 +13,6 @@ const datePickerWidth = {
 const StyledDateInput = styled.div`
   width: 100%;
   display: inline-block;
-
   & ${InputPresentationStyle} {
     flex: none;
     width: ${({ size }) => (size ? datePickerWidth[size] : '135px')};

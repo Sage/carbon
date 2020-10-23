@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
@@ -697,7 +697,7 @@ describe('disablePortal', () => {
     const wrapper = render({ disablePortal: true });
     wrapper.find(InputIconToggle).props().onClick();
     wrapper.update();
-    const positionedChildren = shallow(wrapper.find(Textbox).props().positionedChildren);
+    const positionedChildren = mount(wrapper.find(Textbox).props().positionedChildren);
     expect(positionedChildren.find(DatePicker).exists()).toBe(true);
   });
 
