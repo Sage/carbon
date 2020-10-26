@@ -1,3 +1,10 @@
+## [45.2.0](https://github.com/Sage/carbon/compare/v45.1.0...v45.2.0) (2020-10-26)
+
+
+### Features
+
+* **text-editor:** add support for validation icon and error styles ([9c6f114](https://github.com/Sage/carbon/commit/9c6f114faf2afb2ccc9fe4720efa23642739097c))
+
 ## [45.1.0](https://github.com/Sage/carbon/compare/v45.0.1...v45.1.0) (2020-10-22)
 
 
