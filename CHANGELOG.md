@@ -1,3 +1,10 @@
+### [45.2.1](https://github.com/Sage/carbon/compare/v45.2.0...v45.2.1) (2020-10-26)
+
+
+### Bug Fixes
+
+* **inputs:** show input icon if info validation is empty string ([cdca91a](https://github.com/Sage/carbon/commit/cdca91aff59ed8e5266ddf8772362ac7a4683a26)), closes [#3137](https://github.com/Sage/carbon/issues/3137)
+
 ## [45.2.0](https://github.com/Sage/carbon/compare/v45.1.0...v45.2.0) (2020-10-26)
 
 
