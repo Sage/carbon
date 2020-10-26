@@ -9,7 +9,15 @@ import Button from '../button';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import Pill from '../../components/pill';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import Drawer from "../drawer/__internal__/drawer.component";
+import { Tabs, Tab } from "../tabs";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import Link from "../link";
+import IconButton from "../icon-button/icon-button.component";
+import Icon from "../icon";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
+import Typography from "../typography";
+import { Dl, Dt, Dd } from "../definition-list";
 
 <Meta
   title="Dialog Full Screen"
@@ -81,6 +89,432 @@ const MyComponent = ({ isOpen, handleClose }) => (
           </DialogFullScreen>
         </>
       )
+    }}
+  </Story>
+</Preview>
+
+### With complex example
+If you want to use more than one group of `Tabs` remember to put `selectedTabId` prop in every `Tabs` component 
+to have a possibility to manage active `Tabs` group
+<Preview>
+  <Story name="with complex example">
+    {()=>{
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("tab-1");
+  const padding40 = useMediaQuery("(min-width: 1260px)");
+  const padding32 = useMediaQuery("(min-width: 960px)");
+  const padding24 = useMediaQuery("(min-width: 600px)");
+  const setCorrectPadding = () => {
+    if (padding40) {
+      return 5;
+    }
+    if (padding32) {
+      return 4;
+    }
+    if (padding24) {
+      return 3;
+    }
+    return 2;
+  };
+  const aboveBreakpoint = useMediaQuery("(min-width: 411px)");
+  const verticalMargin = aboveBreakpoint ? "26px" : 0;
+  const HeaderChildren = (
+    <div
+      style={{
+        margin: `${verticalMargin} 0 26px`,
+      }}
+    >
+      <Box display="flex">
+      <Pill as="help" fill>
+        A pill
+      </Pill>
+      <Pill as="info" fill ml={2} mr={1}>
+        Another pill
+      </Pill>
+        <ActionPopover>
+          <ActionPopoverItem>Example Item</ActionPopoverItem>
+        </ActionPopover>
+      </Box>
+    </div>
+  );
+  const SidebarContent = (
+    <div style={{ height: "600px" }}>
+      <Box pl={setCorrectPadding()}>
+        <Typography 
+          display="block"
+          pt={5}
+          pb={1}
+          textTransform="uppercase"
+          variant="b"
+        >
+          Organisations
+        </Typography>
+      </Box>
+      <Tabs
+        onTabChange={(id) => setActiveTab(id)}
+        borders="no sides"
+        align="left"
+        selectedTabId={activeTab}
+        position="left"
+      >
+        <Tab
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={1}>
+              <Box display="flex">
+                <Box flexGrow="1">
+                    <Typography variant="b">Example text</Typography>
+                  <Typography mb={0}>
+                    Example text without bold
+                  </Typography>
+                </Box>
+                <IconButton>
+                  <Icon type="flag" />
+                </IconButton>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </Box>
+            </Box>
+          }
+        >
+          Content for tab 1
+        </Tab>
+        <Tab
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={1}>
+              <Box display="flex">
+                <Box flexGrow="1">
+                  <Typography variant="b">Example text</Typography>
+                  <Typography mb={0}>
+                    Example text without bold
+                  </Typography>
+                </Box>
+                <IconButton>
+                  <Icon type="flag" />
+                </IconButton>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </Box>
+            </Box>
+          }
+        >
+          Content for tab 2
+        </Tab>
+        <Tab
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={1}>
+              <Box display="flex">
+                <Box flexGrow="1">
+                  <Typography variant="b">Example text</Typography>
+                  <Typography mb={0}>
+                    Example text wisthout bold
+                  </Typography>
+                </Box>
+                <IconButton>
+                  <Icon type="flag" />
+                </IconButton>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </Box>
+            </Box>
+          }
+        >
+          Content for tab 3
+        </Tab>
+      </Tabs>
+      <Button ml={setCorrectPadding()} p={0} buttonType="tertiary" iconType="plus" iconPosition="after">
+        Button Tertiary
+      </Button>
+      <Box pl={setCorrectPadding()}>
+      <Typography display="block" pt={5} pb={1} textTransform="uppercase" variant="b"> 
+        Contacts
+      </Typography>
+      </Box>
+      <Tabs
+        onTabChange={(id) => setActiveTab(id)}
+        borders="no sides"
+        align="left"
+        position="left"
+        selectedTabId={activeTab}
+      >
+        <Tab
+          tabId="tab-contact-4"
+          title="Tab 4"
+          key="tab-4"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={2}>
+              <Box display="flex">
+                <Box flexGrow="1" display="flex">
+                    <Typography variant="b" pr={1}>Example text</Typography>
+                  <Pill pillRole="status" size="S">
+                    Primary
+                  </Pill>
+                </Box>
+                <IconButton>
+                  <Icon type="flag" />
+                </IconButton>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </Box>
+            </Box>
+          }
+        >
+          Content for tab 1
+        </Tab>
+        <Tab
+          tabId="tab-contact-5"
+          title="Tab 5"
+          key="tab-5"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={2}>
+              <div style={{ display: "flex" }}>
+                <div style={{ "flex-grow": "1" }}>
+                  <Typography variant="b">Example text</Typography>
+                </div>
+                <IconButton>
+                  <Icon type="flag" />
+                </IconButton>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </div>
+            </Box>
+          }
+        >
+          Content for tab 2
+        </Tab>
+        <Tab
+          tabId="tab-contact-6"
+          title="Tab 6"
+          key="tab-6"
+          customLayout={
+            <Box pl={setCorrectPadding()} pr={1} py={2}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ "flex-grow": "1" }}>
+                  <Typography variant="b">Example text</Typography>
+                </div>
+                <ActionPopover>
+                  <ActionPopoverItem>Example Item</ActionPopoverItem>
+                </ActionPopover>
+              </div>
+            </Box>
+          }
+        >
+          Content for tab 3
+        </Tab>
+      </Tabs>
+    </div>
+  );
+  const ContentOne = (
+    <div>
+      <Accordion borders="none" title="Example one details">
+        <Dl dtTextAlign="right" ddTextAlign="left">
+          <Dt>Type</Dt>
+          <Dd>Example Type Text</Dd>
+          <Dt>Display name</Dt>
+          <Dd>Example Display Name</Dd>
+          <Dt>Registered name</Dt>
+          <Dd>Example Registered Name</Dd>
+          <Dt>Email</Dt>
+          <Dd>
+            <Link href="mailto:example@email.com" type="button">
+              example@mail.com{" "}
+            </Link>
+          </Dd>
+          <Dt>Phone</Dt>
+          <Dd>
+            <Link href="tel: 000 000 000">000 000 000</Link>
+          </Dd>
+          <Dt>Main and registered address</Dt>
+          <Dd>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <Box py={2}>
+              <Link
+                href="https://www.google.com/"
+                icon="link"
+                iconAlign="right"
+              >
+                View in Google Maps
+              </Link>
+            </Box>
+          </Dd>
+        </Dl>
+      </Accordion>
+      <Accordion borders="none" title="Example one products">
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+      </Accordion>
+    </div>
+  );
+  const ContentTwo = (
+    <div>
+      <Accordion borders="none" title="Example two details">
+        <Dl dtTextAlign="right" ddTextAlign="left">
+          <Dt>Type</Dt>
+          <Dd>Example Type Text</Dd>
+          <Dt>Display name</Dt>
+          <Dd>Example Display Name</Dd>
+          <Dt>Registered name</Dt>
+          <Dd>Example Registered Name</Dd>
+          <Dt>Email</Dt>
+          <Dd>
+            <Link href="mailto:example@email.com" type="button">
+              example@mail.com{" "}
+            </Link>
+          </Dd>
+          <Dt>Phone</Dt>
+          <Dd>
+            <Link href="tel: 000 000 000">000 000 000</Link>
+          </Dd>
+          <Dt>Main and registered address</Dt>
+          <Dd>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div style={{ padding: "16px 0" }}>
+              <Link
+                href="https://www.google.com/"
+                icon="link"
+                iconAlign="right"
+              >
+                View in Google Maps
+              </Link>
+            </div>
+          </Dd>
+        </Dl>
+      </Accordion>
+      <Accordion borders="none" title="Example two products">
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+      </Accordion>
+    </div>
+  );
+  const ContentThree = (
+    <div>
+      <Accordion borders="none" title="Example three details">
+        <Dl dtTextAlign="right" ddTextAlign="left">
+          <Dt>Type</Dt>
+          <Dd>Example Type Text</Dd>
+          <Dt>Display name</Dt>
+          <Dd>Example Display Name</Dd>
+          <Dt>Registered name</Dt>
+          <Dd>Example Registered Name</Dd>
+          <Dt>Email</Dt>
+          <Dd>
+            <Link href="mailto:example@email.com" type="button">
+              example@mail.com{" "}
+            </Link>
+          </Dd>
+          <Dt>Phone</Dt>
+          <Dd>
+            <Link href="tel: 000 000 000">000 000 000</Link>
+          </Dd>
+          <Dt>Main and registered address</Dt>
+          <Dd>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div>Example Text Address</div>
+            <div style={{ padding: "16px 0" }}>
+              <Link
+                href="https://www.google.com/"
+                icon="link"
+                iconAlign="right"
+              >
+                View in Google Maps
+              </Link>
+            </div>
+          </Dd>
+        </Dl>
+      </Accordion>
+      <Accordion borders="none" title="Example three products">
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+        <div>Example Product Content</div>
+      </Accordion>
+    </div>
+  );
+  const showCorrectContent = () => {
+    switch (activeTab) {
+      case "tab-1":
+        return ContentOne;
+      case "tab-2":
+        return ContentTwo;
+      case "tab-3":
+        return ContentThree;
+      default:
+        return "no content provided";
+    }
+  };
+  const handleCancel = () => {
+    setIsOpen(false);
+    action("cancel")();
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  const handleClick = (evt) => {
+    action("click")(evt);
+  };
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open Dialog</Button>
+      <DialogFullScreen
+        open={isOpen}
+        onCancel={handleCancel}
+        title="Dialog Title"
+        subtitle="Dialog subtitle"
+        headerChildren={HeaderChildren}
+        enableBackgroundUI={false}
+        disableEscKey={false}
+        ariaRole="dialog"
+        onClick={handleClick}
+        showCloseIcon
+        disableContentPadding
+      >
+        <Drawer sidebar={SidebarContent}>
+          <Box p={5}>{showCorrectContent()}</Box>
+        </Drawer>
+      </DialogFullScreen>
+    </div>
+  );
     }}
   </Story>
 </Preview>
