@@ -39,6 +39,27 @@ describe('InputIconToggle', () => {
   describe.each(
     ['error', 'warning', 'info']
   )(
+    'when %s validation prop is empty string and useValidationIcon is true', (validationProp) => {
+      let wrapper;
+
+      beforeAll(() => {
+        wrapper = render({ inputIcon: 'dropdown', [validationProp]: '', useValidationIcon: true }, mount);
+      });
+
+      it('it does not render a validation icon', () => {
+        const validationIcon = wrapper.find(ValidationIcon);
+        expect(validationIcon.exists()).toBe(false);
+      });
+
+      it('renders input icon', () => {
+        expect(wrapper.find(Icon).props().type).toBe('dropdown');
+      });
+    }
+  );
+
+  describe.each(
+    ['error', 'warning', 'info']
+  )(
     'when %s validation prop is string and useValidationIcon is true and readOnly is true', (validationProp) => {
       it('it renders a validation icon', () => {
         const wrapper = render({ [validationProp]: 'Message', useValidationIcon: true, readOnly: true });
