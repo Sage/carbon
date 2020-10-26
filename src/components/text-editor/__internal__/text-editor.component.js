@@ -24,7 +24,7 @@ import {
   hasBlockStyle,
   blockStyleFn
 } from './utils';
-import StyledEditorContainer from './text-editor.style';
+import { StyledEditorOutline, StyledEditorContainer } from './text-editor.style';
 import Counter from './editor-counter';
 import Toolbar from './toolbar';
 import Label from '../../../__experimental__/components/label';
@@ -43,7 +43,10 @@ const TextEditor = React.forwardRef(({
   onCancel,
   onSave,
   value,
-  required
+  required,
+  error,
+  warning,
+  info
 }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inlines, setInlines] = useState([]);
@@ -64,6 +67,11 @@ const TextEditor = React.forwardRef(({
   };
 
   const handleKeyCommand = (command) => {
+    // bail out if the enter is pressed and limit has been reached
+    if (command.includes('split-block') && contentLength === characterLimit) {
+      return 'handled';
+    }
+
     // if the backspace or enter is pressed get block type and text
     if (command.includes('backspace') || command.includes('split-block')) {
       const { blockType, blockLength } = getContentInfo(value);
@@ -236,37 +244,48 @@ const TextEditor = React.forwardRef(({
           {labelText}
         </Label>
       </LabelWrapper>
-      <StyledEditorContainer
-        data-component='text-editor-container'
+      <StyledEditorOutline
         isFocused={ isFocused }
-        ariaLabelledBy={ labelId.current }
+        hasError={ !!error }
       >
-        <Counter limit={ characterLimit } count={ contentLength } />
-        <Editor
-          ref={ editor }
-          onFocus={ () => handleEditorFocus(true) }
-          onBlur={ () => handleEditorFocus(false) }
-          editorState={ editorState }
-          onChange={ onChange }
-          handleBeforeInput={ handleBeforeInput }
-          handlePastedText={ handlePastedText }
-          handleKeyCommand={ handleKeyCommand }
+        <StyledEditorContainer
+          data-component='text-editor-container'
           ariaLabelledBy={ labelId.current }
-          ariaDescribedBy={ labelId.current }
-          blockStyleFn={ blockStyleFn }
-          keyBindingFn={ keyBindingFn }
-        />
-        <Toolbar
-          onSave={ onSave }
-          onCancel={ onCancel }
-          setBlockStyle={ (ev, blockType) => handleBlockStyleChange(ev, blockType) }
-          setInlineStyle={ (ev, inlineStyle, keyboardUsed) => handleInlineStyleChange(ev, inlineStyle, keyboardUsed) }
-          isDisabled={ contentLength === 0 }
-          editorState={ editorState }
-          activeControls={ activeControls }
-          canFocus={ focusToolbar }
-        />
-      </StyledEditorContainer>
+          hasError={ !!error }
+        >
+          <Counter
+            limit={ characterLimit }
+            count={ contentLength }
+            error={ error }
+            warning={ warning }
+            info={ info }
+          />
+          <Editor
+            ref={ editor }
+            onFocus={ () => handleEditorFocus(true) }
+            onBlur={ () => handleEditorFocus(false) }
+            editorState={ editorState }
+            onChange={ onChange }
+            handleBeforeInput={ handleBeforeInput }
+            handlePastedText={ handlePastedText }
+            handleKeyCommand={ handleKeyCommand }
+            ariaLabelledBy={ labelId.current }
+            ariaDescribedBy={ labelId.current }
+            blockStyleFn={ blockStyleFn }
+            keyBindingFn={ keyBindingFn }
+          />
+          <Toolbar
+            onSave={ onSave }
+            onCancel={ onCancel }
+            setBlockStyle={ (ev, blockType) => handleBlockStyleChange(ev, blockType) }
+            setInlineStyle={ (ev, inlineStyle, keyboardUsed) => handleInlineStyleChange(ev, inlineStyle, keyboardUsed) }
+            isDisabled={ contentLength === 0 }
+            editorState={ editorState }
+            activeControls={ activeControls }
+            canFocus={ focusToolbar }
+          />
+        </StyledEditorContainer>
+      </StyledEditorOutline>
     </>
   );
 });
@@ -285,7 +304,13 @@ TextEditor.propTypes = {
   /** The value of the input, this is an EditorState immutable object */
   value: PropTypes.object.isRequired,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  /** Message to be displayed when there is an error */
+  error: PropTypes.string,
+  /** Message to be displayed when there is a warning */
+  warning: PropTypes.string,
+  /** Message to be displayed when there is an info */
+  info: PropTypes.string
 };
 
 export const TextEditorState = EditorState;
