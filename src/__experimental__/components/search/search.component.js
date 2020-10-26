@@ -30,7 +30,7 @@ const Search = ({
   const [searchIsActive, setSearchIsActive] = useState(initialValue.length >= threshold);
 
   const iconType = useMemo(() => {
-    const isSearchValueEmpty = searchValue.length === 0;
+    const isSearchValueEmpty = !isControlled ? searchValue.length === 0 : value.length === 0;
     const isFocusedOrActive = isFocused || searchIsActive;
     setSearchIsActive(!isControlled ? (searchValue.length >= threshold) : (value.length >= threshold));
 
@@ -43,7 +43,7 @@ const Search = ({
     }
 
     return '';
-  }, [searchValue.length, isFocused, searchIsActive, value, isControlled, threshold, searchButton]);
+  }, [isControlled, searchValue, value, isFocused, searchIsActive, threshold, searchButton]);
 
   const handleChange = (e) => {
     if (onChange) {
