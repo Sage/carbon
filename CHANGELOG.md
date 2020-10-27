@@ -1,3 +1,18 @@
+## [46.0.0](https://github.com/Sage/carbon/compare/v45.3.0...v46.0.0) (2020-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grid-container:** change styled system spacing props from margin to padding
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/grid m p`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Bug Fixes
+
+* **grid-container:** margins are not counted in scrollHeight ([81c2e5b](https://github.com/Sage/carbon/commit/81c2e5b7227c54ca63c93a8d89647f6a526c67fa))
+
 ## [45.3.0](https://github.com/Sage/carbon/compare/v45.2.1...v45.3.0) (2020-10-27)
 
 
