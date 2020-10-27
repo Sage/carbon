@@ -154,9 +154,18 @@ const generateStyledSystemColorProps = (
       }
     },
     {
-      name: 'bg',
+      name: 'backgroundColor',
       type: { summary: 'string' },
       description: 'Background, theme value or any valid CSS string.',
+      required: false,
+      defaultValue: {
+        summary: defaults.backgroundColor || '-'
+      }
+    },
+    {
+      name: 'bg',
+      type: { summary: 'string' },
+      description: 'Shorthand for backgroundColor',
       required: false,
       defaultValue: {
         summary: defaults.bg || '-'

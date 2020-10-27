@@ -307,6 +307,7 @@ export interface SpacingProps {
 export interface ColorProps {
   color?: string;
   bg?: string;
+  backgroundColor?: string;
   opacity?: number;
 }
 
