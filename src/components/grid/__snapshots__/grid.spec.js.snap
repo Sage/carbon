@@ -6,7 +6,7 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
   grid-template-columns: repeat(12,1fr);
   grid-template-rows: auto;
   width: auto;
-  margin: 40px;
+  padding: 40px;
   grid-gap: 40px;
 }
 
@@ -48,20 +48,20 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
 
 @media screen and (max-width:1259px) {
   .c0 {
-    margin: 32px;
+    padding: 32px;
   }
 }
 
 @media screen and (max-width:959px) {
   .c0 {
     grid-gap: 16px;
-    margin: 24px;
+    padding: 24px;
   }
 }
 
 @media screen and (max-width:599px) {
   .c0 {
-    margin: 16px;
+    padding: 16px;
   }
 }
 
@@ -93,7 +93,7 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
   grid-template-columns: repeat(12,1fr);
   grid-template-rows: auto;
   width: auto;
-  margin: 40px;
+  padding: 40px;
   grid-gap: 40px;
 }
 
@@ -123,20 +123,20 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
 
 @media screen and (max-width:1259px) {
   .c0 {
-    margin: 32px;
+    padding: 32px;
   }
 }
 
 @media screen and (max-width:959px) {
   .c0 {
     grid-gap: 16px;
-    margin: 24px;
+    padding: 24px;
   }
 }
 
 @media screen and (max-width:599px) {
   .c0 {
-    margin: 16px;
+    padding: 16px;
   }
 }
 
