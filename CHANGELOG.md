@@ -1,3 +1,32 @@
+## [47.0.0](https://github.com/Sage/carbon/compare/v46.0.0...v47.0.0) (2020-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **color:** The `atOpacity` function has been removed from the
+theme palette. To use this utility you should import it directly
+`import atOpacity from “carbon-react/lib/style/utils/at-opacity`.
+
+BREKAING CHANGE: The file “carbon-react/lib/style/index” has been
+removed.
+If you want to use `addOpacity` you can use `atOpacity` directly.
+If you want to use `blackAtOpacity` you can use
+`theme.palette.blackOpacity` or you can use `atOpacity` directly.
+Please note that `blackAtOpacity` previously returned a white opacity
+you can use `theme.palette.whiteOpacity` to keep this behaviour.
+If you want to use `generatePalette` you can import it directly `import
+generatePalette from “carbon-react/lib/style/palette`.
+
+### Features
+
+* **color:** add palette support to color props ([68a32d6](https://github.com/Sage/carbon/commit/68a32d63ac3dba4847becc39327cf9a4c5600f29))
+* **typography:** create typography component ([45c981d](https://github.com/Sage/carbon/commit/45c981d67f8d598a7166f4aa91443b2e64bcd4f5))
+
+
+### Bug Fixes
+
+* **color:** add missing backgroundColor definitions ([2cd3afb](https://github.com/Sage/carbon/commit/2cd3afb90c85f2d3265952ae95c1d3803bbcc05c))
+
 ## [46.0.0](https://github.com/Sage/carbon/compare/v45.3.0...v46.0.0) (2020-10-27)
 
 
