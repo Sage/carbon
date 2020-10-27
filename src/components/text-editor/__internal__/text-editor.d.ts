@@ -9,6 +9,9 @@ export interface TextEditorProps {
   value: object;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  error?: string;
+  warning?: string;
+  info?: string;
 }
 
 declare const TextEditor: React.FunctionComponent<TextEditorProps>;

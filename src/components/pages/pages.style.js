@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { slideAnimation, fadeAnimation } from './pages.config';
-import { StyledHeading, StyledHeadingIcon } from '../heading/heading.style';
+import { StyledHeadingIcon } from '../heading/heading.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import LinkStyleAnchor from '../link/link.style';
 import BaseTheme from '../../style/themes/base';
@@ -53,10 +53,6 @@ const PagesContent = styled.div`
     min-width: auto;
     max-width: 100%;
     padding: 4px 0 0 0; 
-  }
-
-  ${StyledHeading} {
-    padding-left: 40px;
   }
 `;
 

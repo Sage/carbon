@@ -1,3 +1,66 @@
+## [45.3.0](https://github.com/Sage/carbon/compare/v45.2.1...v45.3.0) (2020-10-27)
+
+
+### Features
+
+* **box:** add new box component ([9d0df49](https://github.com/Sage/carbon/commit/9d0df497857d42a0f1d6c35c3ae2fbea1e9b1dae))
+
+### [45.2.1](https://github.com/Sage/carbon/compare/v45.2.0...v45.2.1) (2020-10-26)
+
+
+### Bug Fixes
+
+* **inputs:** show input icon if info validation is empty string ([cdca91a](https://github.com/Sage/carbon/commit/cdca91aff59ed8e5266ddf8772362ac7a4683a26)), closes [#3137](https://github.com/Sage/carbon/issues/3137)
+
+## [45.2.0](https://github.com/Sage/carbon/compare/v45.1.0...v45.2.0) (2020-10-26)
+
+
+### Features
+
+* **text-editor:** add support for validation icon and error styles ([9c6f114](https://github.com/Sage/carbon/commit/9c6f114faf2afb2ccc9fe4720efa23642739097c))
+
+## [45.1.0](https://github.com/Sage/carbon/compare/v45.0.1...v45.1.0) (2020-10-22)
+
+
+### Features
+
+* **dialogfullscreen:** ability to add content to header ([d972587](https://github.com/Sage/carbon/commit/d972587330eed73deabcfb9eeac87a382d1572d1))
+
+### [45.0.1](https://github.com/Sage/carbon/compare/v45.0.0...v45.0.1) (2020-10-22)
+
+
+### Bug Fixes
+
+* **radiobutton:** check for onchange passed in ([b5dacc6](https://github.com/Sage/carbon/commit/b5dacc6242ed66c50a0f1f245f28531ecbe509a1)), closes [#3263](https://github.com/Sage/carbon/issues/3263)
+
+## [45.0.0](https://github.com/Sage/carbon/compare/v44.1.0...v45.0.0) (2020-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **help:** classic styling has been removed from the component
+
+fixes FE-3110
+* **heading:** removal of the classic styling from the heading component.
+
+fixes FE-3109
+* **confirm:** confirm component no longer supports classic styling
+
+fixes FE-3104
+
+### Miscellaneous Chores
+
+* **confirm:** remove classic styling ([151cdfb](https://github.com/Sage/carbon/commit/151cdfbd80f84d86520bc0cc6eef9eb1504858fb))
+* **heading:** remove classic theme ([649c264](https://github.com/Sage/carbon/commit/649c26456e3a73a669cc3c7a70449736c5b3f99d))
+* **help:** remove classic theme ([a6b32c3](https://github.com/Sage/carbon/commit/a6b32c3bfaa34aa102bc1fcbf6d7ec7ba36edac7))
+
+## [44.1.0](https://github.com/Sage/carbon/compare/v44.0.0...v44.1.0) (2020-10-21)
+
+
+### Features
+
+* **text-editor:** allow to focus editor when label is clicked ([3beaf2a](https://github.com/Sage/carbon/commit/3beaf2af6a1472e662f6c2b241f1870f3b0bdb08))
+
 ## [44.0.0](https://github.com/Sage/carbon/compare/v43.0.0...v44.0.0) (2020-10-20)
 
 

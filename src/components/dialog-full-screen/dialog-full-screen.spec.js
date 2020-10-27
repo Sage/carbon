@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import DialogFullScreen from './dialog-full-screen.component';
-import FullScreenHeading from './full-screen-heading';
+import FullScreenHeading from '../../__internal__/full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledContent from './content.style';
 import classicTheme from '../../style/themes/classic';
@@ -229,7 +229,49 @@ describe('DialogFullScreen', () => {
       expect(wrapper.find(IconButton).first().length).toEqual(1);
     });
   });
+
+  describe('when headerChildren prop set', () => {
+    const HeaderChildren = (
+      <div id='header-children'>Some content</div>
+    );
+
+    it('renders the content inside of the header', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+          headerChildren={ HeaderChildren }
+        />
+      );
+      expect(
+        wrapper.find(FullScreenHeading).find('#header-children').length
+      ).toEqual(1);
+    });
+  });
+
+  /** Remove this when after Pages is re-written */
+  describe('when pagesStyling prop set', () => {
+    it('applies the Pages specific styling', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          data-role='baz'
+          data-element='bar'
+          pagesStyling
+        />
+      );
+
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
 });
+
 
 describe('closeIcon', () => {
   let wrapper;

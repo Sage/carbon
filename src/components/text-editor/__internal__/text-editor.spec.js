@@ -9,12 +9,18 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import mintTheme from '../../../style/themes/mint';
 import TextEditor, { TextEditorContentState, TextEditorState } from './text-editor.component';
 import EditorLink from './editor-link/editor-link.component';
-import StyledEditorContainer from './text-editor.style';
+import { StyledEditorOutline, StyledEditorContainer } from './text-editor.style';
 import ToolbarButton from './toolbar/toolbar-button/toolbar-button.component';
 import Counter from './editor-counter';
 import Toolbar from './toolbar';
 import guid from '../../../utils/helpers/guid';
 import Label from '../../../__experimental__/components/label';
+import LabelWrapper from './label-wrapper';
+import ValidationIcon from '../../validations';
+import { isSafari } from '../../../utils/helpers/browser-type-check';
+
+jest.mock('../../../utils/helpers/browser-type-check');
+isSafari.mockImplementation(() => false);
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -92,7 +98,7 @@ describe('TextEditor', () => {
         minHeight: '220px',
         minWidth: '320px',
         backgroundColor: mintTheme.colors.white,
-        border: `1px solid ${mintTheme.editor.border}`
+        outline: `1px solid ${mintTheme.editor.border}`
       }, wrapper.find(StyledEditorContainer));
 
       assertStyleMatch({
@@ -106,7 +112,7 @@ describe('TextEditor', () => {
         minHeight: 'inherit',
         height: '100%',
         minWidth: '290px',
-        padding: '8px'
+        padding: '14px 8px'
       }, wrapper.find(StyledEditorContainer), { modifier: 'div.public-DraftEditor-content' });
     });
 
@@ -116,15 +122,16 @@ describe('TextEditor', () => {
       act(() => { wrapper.update(); });
 
       assertStyleMatch({
-        outline: `3px solid ${mintTheme.colors.focus}`
-      }, wrapper.find(StyledEditorContainer));
+        outline: `3px solid ${mintTheme.colors.focus}`,
+        outlineOffset: '1px'
+      }, wrapper.find(StyledEditorOutline));
 
       act(() => { wrapper.find(Editor).props().onBlur(); });
       act(() => { wrapper.update(); });
 
       assertStyleMatch({
-        outline: undefined
-      }, wrapper.find(StyledEditorContainer));
+        outline: 'none'
+      }, wrapper.find(StyledEditorOutline));
     });
   });
 
@@ -378,6 +385,35 @@ describe('TextEditor', () => {
       });
     });
 
+    describe('Mouse click on Label', () => {
+      let container;
+      beforeEach(() => {
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+      });
+
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
+      it('set focus to TextEditor component', () => {
+        act(() => {
+          wrapper.find(LabelWrapper).props().onClick();
+        });
+
+        act(() => {
+          wrapper.update();
+        });
+
+        setTimeout(() => expect(wrapper.find(Editor)).toBeFocused());
+      });
+    });
+
     describe('Pressing Tab and Shift keys', () => {
       it('does not pass focus to the Toolbar', () => {
         wrapper = render();
@@ -488,6 +524,12 @@ describe('TextEditor', () => {
         });
       });
 
+      it('prevents enter key press when the limit has been reached', () => {
+        wrapper = render({ characterLimit: 0 });
+        const editor = wrapper.find(Editor);
+        act(() => { expect(editor.props().handleKeyCommand('split-block')).toEqual('handled'); });
+      });
+
       it('allows pasting into input that would not exceed the limit', () => {
         wrapper = render({ characterLimit: 2 });
         const editor = wrapper.find(Editor);
@@ -520,6 +562,31 @@ describe('TextEditor', () => {
 
       const label = wrapper.find(Label);
       expect(label.prop('isRequired')).toBe(true);
+    });
+  });
+
+  describe('validation', () => {
+    it.each([{ error: 'error' }, { warning: 'warning' }, { info: 'info' }])(
+      'passes the validation props to the counter and renders the icon', (msg) => {
+        expect(render({ ...msg }).find(ValidationIcon).exists()).toEqual(true);
+      }
+    );
+
+    it('applies the expected outline when an error message is passed', () => {
+      assertStyleMatch({
+        outline: `2px solid ${mintTheme.colors.error}`
+      }, render({ error: 'error' }).find(StyledEditorContainer));
+    });
+
+    it('applies the correct outline-offset when there is an error and the editor is focused', () => {
+      wrapper = render({ error: 'error' });
+      act(() => { wrapper.find(Editor).props().onFocus(); });
+      act(() => { wrapper.update(); });
+
+      assertStyleMatch({
+        outline: `3px solid ${mintTheme.colors.focus}`,
+        outlineOffset: '2px'
+      }, wrapper.find(StyledEditorOutline));
     });
   });
 

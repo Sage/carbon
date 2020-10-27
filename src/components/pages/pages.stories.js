@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import DefaultPages from './pages.component';
+import Pages from '.';
 import Page from './page/page.component';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import DialogFullScreen from '../dialog-full-screen';
@@ -18,7 +18,7 @@ Page.__docgenInfo = getDocGenInfo(
   /page\.js(?!spec)/
 );
 
-DefaultPages.__docgenInfo = getDocGenInfo(
+Pages.__docgenInfo = getDocGenInfo(
   docgenInfo,
   /pages(?!spec)/
 );
@@ -111,9 +111,10 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           <DialogFullScreen
             open={ store.get('open') }
             onCancel={ handleCancel }
+            pagesStyling
           >
             <PageState>
-              <DefaultPages
+              <Pages
                 pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
@@ -128,7 +129,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
                   </Button>
                 </Page>
                 <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> } />
-              </DefaultPages>
+              </Pages>
             </PageState>
           </DialogFullScreen>
         </DialogState>
@@ -140,7 +141,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, Pages, Page, State]
     },
     chromatic: {
       disable: disableChromatic
