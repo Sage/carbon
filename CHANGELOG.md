@@ -1,3 +1,10 @@
+## [45.3.0](https://github.com/Sage/carbon/compare/v45.2.1...v45.3.0) (2020-10-27)
+
+
+### Features
+
+* **box:** add new box component ([9d0df49](https://github.com/Sage/carbon/commit/9d0df497857d42a0f1d6c35c3ae2fbea1e9b1dae))
+
 ### [45.2.1](https://github.com/Sage/carbon/compare/v45.2.0...v45.2.1) (2020-10-26)
 
 
