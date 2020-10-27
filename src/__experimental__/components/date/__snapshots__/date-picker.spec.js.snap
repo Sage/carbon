@@ -491,7 +491,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="lundi"
                 >
-                  lun
+                  lu
                 </abbr>
               </div>
               <div
@@ -502,7 +502,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="mardi"
                 >
-                  mar
+                  ma
                 </abbr>
               </div>
               <div
@@ -513,7 +513,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="mercredi"
                 >
-                  mer
+                  me
                 </abbr>
               </div>
               <div
@@ -524,7 +524,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="jeudi"
                 >
-                  jeu
+                  je
                 </abbr>
               </div>
               <div
@@ -535,7 +535,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="vendredi"
                 >
-                  ven
+                  ve
                 </abbr>
               </div>
               <div
@@ -546,7 +546,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="samedi"
                 >
-                  sam
+                  sa
                 </abbr>
               </div>
               <div
@@ -557,7 +557,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                   className="c6"
                   title="dimanche"
                 >
-                  dim
+                  di
                 </abbr>
               </div>
             </div>

@@ -34,7 +34,7 @@ const DatePicker = (props) => {
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
       const weekdayLong = localeUtils.formatWeekdayLong(weekday, I18n.locale);
-      const weekdayShort = weekdayLong.substring(0, 3);
+      const weekdayShort = localeUtils.formatWeekdayShort(weekday, I18n.locale);
 
       return (
         <Weekday className={ className } title={ weekdayLong }>
