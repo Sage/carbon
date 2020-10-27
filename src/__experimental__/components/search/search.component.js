@@ -103,7 +103,7 @@ const Search = ({
       id={ id }
       data-component='search'
       name={ name }
-      searchHasValue={ searchValue && searchValue.length }
+      searchHasValue={ !isControlled ? (searchValue && searchValue.length) : (value && value.length) }
     >
       <Textbox
         { ...rest }
