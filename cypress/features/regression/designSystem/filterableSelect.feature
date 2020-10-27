@@ -55,3 +55,11 @@ Feature: Design System Filterable Select component
     When I click on "first" option on Select list
     Then Design system Select input has "Amber" value
       And "filterable" Select list is closed
+
+  @positive
+  Scenario: Selecting the action button opens up a dialog box
+    Given I open "Design System Select filterable" component page "with_action_button" in no iframe
+    When I click on dropdown button
+      And I click onto "Add a New Element" button
+    Then Dialog is visible
+    

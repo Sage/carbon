@@ -57,3 +57,7 @@ Then('footer buttons have color {string} and has {int} px border', (color, px) =
   dialogStickyFormFooterButton(positionOfElement('second')).should('have.css', 'background-color')
     .and('contain', color);
 });
+
+Then('Dialog is visible', () => {
+  dialogPreview().should('be.visible');
+});
