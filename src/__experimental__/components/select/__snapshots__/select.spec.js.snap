@@ -242,9 +242,7 @@ Object {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 70%;
-  -ms-flex: 0 0 70%;
-  flex: 0 0 70%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;

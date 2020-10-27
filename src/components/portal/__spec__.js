@@ -240,7 +240,13 @@ describe('Portal', () => {
       if (wrapper.length) wrapper.unmount();
     });
 
-    it('will remove the old listener and add a new window "resize" listener ', () => {
+    it('will remove the old listener and add a new window "resize" listener', () => {
+      wrapper.setProps({ onReposition: repositionCbNew });
+      expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith('resize', repositionCb);
+      expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith('resize', repositionCbNew);
+    });
+
+    it('will remove the old listener and add a new window "resize" listener also to scrollParent ', () => {
       wrapper.instance().scrollParent = { removeEventListener: () => jest.fn(), addEventListener: () => jest.fn()};
       spyOn(wrapper.instance().scrollParent, 'removeEventListener');
       spyOn(wrapper.instance().scrollParent, 'addEventListener');

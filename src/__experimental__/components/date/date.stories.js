@@ -194,6 +194,12 @@ const RequiredDateComponent = () => {
   );
 };
 
+const DisablePortalDateComponent = () => {
+  return (
+    <DateInput label='Date of Birth' disablePortal />
+  );
+};
+
 
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
@@ -202,4 +208,5 @@ storiesOf('Experimental/Date Input', module)
   .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true))
-  .add(...makeStory('required', dlsThemeSelector, RequiredDateComponent));
+  .add(...makeStory('required', dlsThemeSelector, RequiredDateComponent))
+  .add(...makeStory('disablePortal', dlsThemeSelector, DisablePortalDateComponent));
