@@ -87,6 +87,12 @@
       "allow": ["^UNSAFE_"],
       "properties": "never",
       "ignoreDestructuring": false
+    }],
+    "no-restricted-imports": ["error", { "paths": [{
+      "name": "styled-system",
+      "importNames": ["color"],
+      "message": "Please use the default export from 'src/style/utils/color' instead."
+      }]
     }]
   },
   "env": {

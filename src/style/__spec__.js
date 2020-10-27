@@ -1,6 +1,6 @@
 import config from './color-config';
 import mix from './utils/mix';
-import { addOpacity, generatePalette } from './'
+import generatePalette from './palette'
 
 const assertCorrectColorMix = (config, paletteObject) => {
   Object.keys(config).forEach(col => {
@@ -80,26 +80,6 @@ describe('style', () => {
     it('accepts colors with combinations of with and without hash symbols', () => {
       expect(mix('#' + config.genericGreen, 'FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
       expect(mix(config.genericGreen, '#FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
-    })
-  })
-
-  describe('addOpacity', () => {
-    it('adds the correct opacity to an input color', () => {
-      const blackAt50Opacity = addOpacity('#000000', 0.5);
-      expect(blackAt50Opacity).toEqual('rgba(0,0,0,0.5)');
-    })
-
-    it('consistently adds the correct opacity to an input color', () => {
-      [...Array(100).keys()].map(i => i / 100).forEach(degree => {
-        expect(addOpacity('#000000', degree)).toEqual(`rgba(0,0,0,${degree})`);
-      })
-    })
-
-    it('consistently adds the correct opacity to non-black input colors', () => {
-      [...Array(100).keys()].map(i => i / 100).forEach(degree => {
-        // #006e3a === rgb(0,110,58)
-        expect(addOpacity('#006e3a', degree)).toEqual(`rgba(0,110,58,${degree})`);
-      })
     })
   })
 })

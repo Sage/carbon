@@ -6,7 +6,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 
 const shouldDisplayValidationIcon = ({ error, warning, info }) => {
-  const validation = error || warning || info;
+  const validation = error || warning || info || null;
   return typeof validation === 'string';
 };
 
