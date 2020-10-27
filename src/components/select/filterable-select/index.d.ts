@@ -2,6 +2,8 @@ import * as React from 'react';
 import Option from '../option';
 
 export interface FilterableSelectProps {
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal?: boolean;
   /** Id attribute of the input element */
   id?: string;
   /** Name attribute of the input element */

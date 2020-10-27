@@ -1,17 +1,14 @@
 import React, { useRef } from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
+
 import SelectList from './select-list.component';
+import StyledSelectList from './select-list.style';
 import { baseTheme } from '../../../style/themes';
 import Option from '../option/option.component';
+import Portal from '../../portal';
 
 describe('SelectList', () => {
-  it('should have select-list element rendered inside of a Portal', () => {
-    const wrapper = renderSelectList();
-    expect(wrapper.find('Portal').exists()).toEqual(true);
-    expect(wrapper.find('Portal').find('ul[data-element="select-list"]').exists()).toEqual(true);
-  });
-
   describe('when a key is pressed', () => {
     let wrapper;
     const escapeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
@@ -216,6 +213,18 @@ describe('SelectList', () => {
       expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.top).toBe('150px');
       expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.left).toBe('96px');
       expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.width).toBe('208px');
+    });
+  });
+
+  describe('portal', () => {
+    it('renders SelectList as a child of portal by default', () => {
+      const wrapper = renderSelectList();
+      expect(wrapper.find(Portal).find(StyledSelectList).exists()).toBe(true);
+    });
+
+    it('does not render portal when disablePortal is passed', () => {
+      const wrapper = renderSelectList({ disablePortal: true });
+      expect(wrapper.find(Portal).exists()).toBe(false);
     });
   });
 });
