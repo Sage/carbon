@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../modal';
 import Heading from '../heading';
-import AppWrapper from '../app-wrapper';
-import FullScreenHeading from './full-screen-heading';
+import FullScreenHeading from '../../__internal__/full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledContent from './content.style';
 import Browser from '../../utils/helpers/browser';
 import focusTrap from '../../utils/helpers/focus-trap';
-import IconButton from '../icon-button';
-import Icon from '../icon';
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -49,30 +46,6 @@ class DialogFullScreen extends Modal {
   }
 
   /**
-   * Returns the computed HTML for the dialog.
-   */
-  get modalHTML() {
-    return (
-      <StyledDialogFullScreen
-        ref={ (d) => { this._dialog = d; } }
-        data-element='dialog-full-screen'
-      >
-        { this.dialogTitle() }
-        <StyledContent
-          hasHeader={ this.props.title !== undefined }
-          headingHeight={ this.state.headingHeight }
-          data-element='content'
-          ref={ this.contentRef }
-        >
-          <AppWrapper>
-            { this.props.children }
-          </AppWrapper>
-        </StyledContent>
-      </StyledDialogFullScreen>
-    );
-  }
-
-  /**
    * Overrides the original function to disable the document's scroll.
    */
   handleOpen() {
@@ -90,19 +63,6 @@ class DialogFullScreen extends Modal {
     this.removeFocusTrap();
     this.document.documentElement.style.overflow = this.originalOverflow;
     return this.document.documentElement;
-  }
-
-  closeIcon() {
-    const { showCloseIcon, onCancel } = this.props;
-    if (!showCloseIcon || !onCancel) return null;
-    return (
-      <IconButton
-        data-element='close'
-        onAction={ onCancel }
-      >
-        <Icon type='close' />
-      </IconButton>
-    );
   }
 
   /**
@@ -123,10 +83,38 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
-        { this.closeIcon() }
+      <FullScreenHeading
+        hasContent={ title }
+        ref={ this.headingRef }
+        showCloseIcon={ this.props.showCloseIcon }
+        onCancel={ this.props.onCancel }
+      >
         { title }
+        { this.props.headerChildren }
       </FullScreenHeading>
+    );
+  }
+
+  /**
+   * Returns the computed HTML for the dialog.
+   */
+  get modalHTML() {
+    return (
+      <StyledDialogFullScreen
+        ref={ (d) => { this._dialog = d; } }
+        data-element='dialog-full-screen'
+        pagesStyling={ this.props.pagesStyling }
+      >
+        { this.dialogTitle() }
+        <StyledContent
+          hasHeader={ this.props.title !== undefined }
+          headingHeight={ this.state.headingHeight }
+          data-element='content'
+          ref={ this.contentRef }
+        >
+          { this.props.children }
+        </StyledContent>
+      </StyledDialogFullScreen>
     );
   }
 }
@@ -138,14 +126,22 @@ DialogFullScreen.defaultProps = {
 };
 
 DialogFullScreen.propTypes = {
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Sets the open state of the modal */
-  open: PropTypes.bool.isRequired,
-  /** Determines if the background is disabled when the modal is open */
-  enableBackgroundUI: PropTypes.bool,
+  ...Modal.propTypes,
+  /** Child elements */
+  children: PropTypes.node,
+  /** Title displayed at top of dialog */
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  /** Subtitle displayed at top of dialog */
+  subtitle: PropTypes.string,
   /** Determines if the close icon is shown */
-  showCloseIcon: PropTypes.bool
+  showCloseIcon: PropTypes.bool,
+  /** Container for components to be displayed in the header */
+  headerChildren: PropTypes.node,
+  /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
+  pagesStyling: PropTypes.bool
 };
 
 export default DialogFullScreen;

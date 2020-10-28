@@ -5,10 +5,16 @@ import { mergeDeep } from '../../utils/merge-deep';
 import generatePalette from '../../palette';
 import addHexSymbols from '../../utils/add-hex-symbols';
 
+const colors = generatePalette(baseColors);
+const colorsWithHex = addHexSymbols(baseColors);
+const blackOpacity = atOpacity('#000000');
+const whiteOpacity = atOpacity('#FFFFFF');
+
 const palette = {
-  ...generatePalette(baseColors),
-  atOpacity,
-  ...addHexSymbols(baseColors)
+  ...colors,
+  blackOpacity,
+  whiteOpacity,
+  ...colorsWithHex
 };
 
 
@@ -18,7 +24,6 @@ export default baseTheme;
 
 export const mergeWithBase = (configureTheme) => {
   const themeToMergeWithBase = configureTheme(palette);
-
   return {
     ...mergeDeep(baseTheme, themeToMergeWithBase),
     palette
