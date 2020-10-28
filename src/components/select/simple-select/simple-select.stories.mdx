@@ -1,6 +1,6 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Select, Option } from '../';
 import Button from '../../button';
 import SelectTextbox from '../select-textbox/select-textbox.component';
@@ -39,11 +39,11 @@ import { Select, Option } from "carbon-react/lib/components/select";
       label='label'
       labelInline
       onOpen={ action('onOpen') }
-      onChange={ action('onChange') }
-      onClick={ action('onClick') }
-      onFocus={ action('onFocus') }
-      onBlur={ action('onBlur') }
-      onKeyDown={ action('onKeyDown') }
+      onChange={ action('onChange', { depth: 2 }) }
+      onClick={ action('onClick', { depth: 2 }) }
+      onFocus={ action('onFocus', { depth: 2 }) }
+      onBlur={ action('onBlur', { depth: 2 }) }
+      onKeyDown={ action('onKeyDown', { depth: 2 }) }
     >
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -213,8 +213,8 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 <Preview>
   <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }, info: { disable: true }}}>
     <Select
-      name='transparent'
-      id='transparent'
+      name='adaptive'
+      id='adaptive'
       label='label'
       defaultValue='4'
       adaptiveLabelBreakpoint={960}
@@ -238,6 +238,10 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   of={ Select }
   spacing
 />
+
+## Props:
+
+<Props of={ Select } />
 
 ### Props derived from the Textbox Component
 
