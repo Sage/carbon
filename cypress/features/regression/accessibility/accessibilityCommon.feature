@@ -49,7 +49,6 @@ Scenario Outline: Component <component> default story
     | i18ncomponent       |
     | icon                |
     | loader              |
-    | menulist            |
     | message             |
     | mount-in-app        |
     | multi-action-button |
@@ -86,3 +85,5 @@ Scenario Outline: Component <component> basic story
       | Heading       |
       | Help          |
       | I18nComponent |
+      | Link          |
+      | MenuList      |
