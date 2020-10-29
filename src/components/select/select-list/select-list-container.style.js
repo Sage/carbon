@@ -7,10 +7,9 @@ const StyledSelectListContainer = styled.div`
   background-color: white;
   box-shadow: ${({ theme }) => `${theme.shadows.depth1}`};
   position: absolute;
-  z-index: 2000;
+  z-index: 1000;
   top: 100%;
   width: calc(100% + ${2 * overhang}px);
-  z-index: 2000;
   left: -${overhang}px;
 `;
 
