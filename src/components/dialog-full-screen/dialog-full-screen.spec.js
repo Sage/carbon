@@ -1,23 +1,26 @@
-import React from "react";
-import { mount } from "enzyme";
-import "jest-styled-components";
-import DialogFullScreen from "./dialog-full-screen.component";
-import FullScreenHeading from "../../__internal__/full-screen-heading";
-import StyledDialogFullScreen from "./dialog-full-screen.style";
-import StyledContent from "./content.style";
-import classicTheme from "../../style/themes/classic";
-import Button from "../button";
-import guid from "../../utils/helpers/guid";
-import Heading from "../heading";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import IconButton from "../icon-button";
+import React from 'react';
+import { mount } from 'enzyme';
+import DialogFullScreen from './dialog-full-screen.component';
+import FullScreenHeading from '../../__internal__/full-screen-heading';
+import StyledDialogFullScreen from './dialog-full-screen.style';
+import StyledContent from './content.style';
+import classicTheme from '../../style/themes/classic';
+import Button from '../button';
+import guid from '../../utils/helpers/guid';
+import Heading from '../heading';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import IconButton from '../icon-button';
+import StyledIconButton from '../icon-button/icon-button.style';
+import StyledFullScreenHeading from '../../__internal__/full-screen-heading/full-screen-heading.style';
 
-jest.mock("../../utils/helpers/guid");
+jest.mock('../../utils/helpers/guid');
 
-describe("DialogFullScreen", () => {
-  guid.mockImplementation(() => "guid-12345");
+describe('DialogFullScreen', () => {
+  guid.mockImplementation(() => 'guid-12345');
 
-  let instance, wrapper, onCancel;
+  let instance,
+      wrapper,
+      onCancel;
 
   beforeEach(() => {
     onCancel = jasmine.createSpy("cancel");
@@ -284,9 +287,37 @@ describe("DialogFullScreen", () => {
           data-element="bar"
           pagesStyling
         />
-      );
+      ).find(StyledDialogFullScreen);
 
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        padding: '0'
+      },
+      wrapper, { modifier: `${StyledContent}` });
+
+      assertStyleMatch({
+        position: 'absolute',
+        right: '33px',
+        top: '32px',
+        zIndex: '1'
+      },
+      wrapper, { modifier: `${StyledIconButton}` });
+
+      assertStyleMatch({
+        padding: '32px 32px 0'
+      },
+      wrapper, { modifier: `${StyledFullScreenHeading}` });
+
+      assertStyleMatch({
+        width: 'auto',
+        paddingTop: '4px',
+        marginBottom: '34px'
+      }, wrapper, { modifier: '.carbon-heading' });
+
+      assertStyleMatch({
+        width: '100%',
+        boxSizing: 'content-box',
+        margin: '0 0 0 8px'
+      }, wrapper, { modifier: '.carbon-heading .carbon-heading__header' });
     });
   });
 });
