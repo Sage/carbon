@@ -1,3 +1,4 @@
+import I18n from 'i18n-js';
 import moment from 'moment';
 import MockDate from 'mockdate';
 import React from 'react';
@@ -17,6 +18,21 @@ const secondDate = '2019-02-08';
 const invalidDate = '2019-02-';
 const noDate = '';
 const currentDate = moment().toDate();
+
+jest.mock('../../../components/portal/portal', () => {
+  const React = require('react'); // eslint-disable-line no-shadow, global-require
+  const PropTypes = require('prop-types'); // eslint-disable-line global-require
+
+  const MockPortal = ({ children }) => {
+    return (<div data-element='mock-portal'>{ children }</div>);
+  };
+
+  MockPortal.propTypes = {
+    children: PropTypes.node
+  };
+
+  return MockPortal;
+});
 
 describe('DatePicker', () => {
   let wrapper;
@@ -167,6 +183,24 @@ describe('StyledDayPicker', () => {
       expect(
         renderStyledDayPicker({ theme: classicTheme, value: '2019-04-01' })
       ).toMatchSnapshot();
+    });
+  });
+
+  describe('i18n', () => {
+    const { locale } = I18n;
+    beforeAll(() => {
+      I18n.locale = 'fr';
+    });
+
+    afterAll(() => {
+      I18n.locale = locale;
+    });
+
+    describe('translation', () => {
+      it('renders properly', () => {
+        const wrapper = render({ inputElement, inputDate: firstDate }, TestRenderer.create);
+        expect(wrapper).toMatchSnapshot();
+      });
     });
   });
 });

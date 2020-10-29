@@ -1,3 +1,11 @@
+### [47.1.1](https://github.com/Sage/carbon/compare/v47.1.0...v47.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **date:** datepicker incorrect weekday short names ([9947e44](https://github.com/Sage/carbon/commit/9947e44e522b0d9b58a5fbd89fcbfb0d57a3d91c))
+* **date:** datepicker weekdays not translated ([0377971](https://github.com/Sage/carbon/commit/037797189f74524dc26da8108d1dede3929ef531)), closes [#3120](https://github.com/Sage/carbon/issues/3120)
+
 ## [47.1.0](https://github.com/Sage/carbon/compare/v47.0.0...v47.1.0) (2020-10-28)
 
 
