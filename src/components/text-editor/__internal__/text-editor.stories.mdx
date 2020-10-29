@@ -116,7 +116,7 @@ It is possible to override the default value for the character limit via the `ch
 will prevent any input that would cause the content length to exceed it.
 
 <Preview>
-  <Story name="with optional character limit">
+  <Story name="with optional character limit" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
       const limit = 100;
