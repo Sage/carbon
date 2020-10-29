@@ -60,7 +60,7 @@ import Drawer from 'carbon-react/lib/components/drawer';
 ### Uncontrolled - defaultExpanded usage:
 
 <Preview>
-  <Story name="default expanded" parameters={{ info: { disable: true }}} >
+  <Story name="default expanded" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     return (
       <div style={ { height: '200px' } }>
         <Drawer
@@ -391,7 +391,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Animation Speed (2 second):
 
 <Preview>
-  <Story name="two second animation" parameters={{ info: { disable: true }}} >
+  <Story name="two second animation" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
@@ -456,7 +456,7 @@ Note: parent container background-color is set to red for demonstration purpose.
               )}
               showControls
               expandedWidth='30%'
-              expanded={ isExpanded }
+              expanded={ true }
               onChange={ onChangeHandler }
               sidebar={ (
                 <ul>
@@ -499,7 +499,7 @@ Note: parent container background-color is set to red for demonstration purpose.
               )}
               showControls
               expandedWidth='62%'
-              expanded={ isExpanded }
+              expanded={ true }
               onChange={ onChangeHandler }
               sidebar={ (
                 <ul>
@@ -521,7 +521,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Animation Speed (2 second):
 
 <Preview>
-  <Story name="three second animation" parameters={{ info: { disable: true }}} >
+  <Story name="three second animation" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
