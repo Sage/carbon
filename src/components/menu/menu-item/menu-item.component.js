@@ -10,6 +10,7 @@ import {
 import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
 import Events from "../../../utils/helpers/events";
+import SubmenuBlock from "../submenu-block/submenu-block.component";
 
 const MenuItem = React.forwardRef(
   (
@@ -34,6 +35,7 @@ const MenuItem = React.forwardRef(
       isOpenByArrowLeftOrRight,
       setOpenByArrowLeftOrRight,
       setFocusToElement,
+      variant = "default",
     },
     ref
   ) => {
@@ -60,42 +62,72 @@ const MenuItem = React.forwardRef(
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const childrenItems = React.Children.map(children, (child) => {
+      if (child.type === SubmenuBlock) {
+        const childArray = Array.isArray(child.props.children)
+          ? child.props.children
+          : [child.props.children];
+
+        return [...childArray.map((innerChild) => innerChild)];
+      }
+
+      return child;
+    });
+
     const submenuItemsRefs =
       submenu &&
-      useRef(
-        React.Children.map(children, (child) => child.ref || React.createRef())
-      );
+      useRef(childrenItems.map((child) => child.ref || React.createRef()));
     const actualFocusedItemIndex = useRef();
     const submenuWrapperRef = useRef();
     const setFocusToSubmenuElement = useCallback(
-      (event, index) => {
+      (event, index, initialDirection) => {
         if (event) {
           event.preventDefault();
         }
 
-        const findIndex = () => {
-          if (
-            submenuItemsRefs.current[index] &&
-            submenuItemsRefs.current[index].current.tagName === "DIV"
-          ) {
-            if (Events.isDownKey(event)) {
-              return index + 1;
-            }
-            return index - 1;
+        const isPassiveElement = (i) =>
+          submenuItemsRefs.current[i] &&
+          submenuItemsRefs.current[i].current.tagName === "DIV";
+
+        const getBoundedIndex = (i) => {
+          if (i > submenuItemsRefs.current.length - 1) {
+            return 0;
           }
-          return index;
+          if (i < 0) {
+            return submenuItemsRefs.current.length - 1;
+          }
+
+          return i;
+        };
+
+        const calculateNewIndex = (i, direction) => {
+          const increment = direction === "desc" ? 1 : -1;
+          const newIndex = getBoundedIndex(i + increment);
+
+          if (isPassiveElement(newIndex)) {
+            return calculateNewIndex(newIndex, direction);
+          }
+
+          return newIndex;
+        };
+
+        const findIndex = () => {
+          const newIndex = getBoundedIndex(index);
+
+          if (isPassiveElement(newIndex)) {
+            const direction =
+              initialDirection === "desc" || (event && Events.isDownKey(event))
+                ? "desc"
+                : "asc";
+
+            return calculateNewIndex(newIndex, direction);
+          }
+
+          return newIndex;
         };
 
         actualFocusedItemIndex.current = findIndex();
-
-        const isFocusOnLastMenuItem = index === submenuItemsRefs.current.length;
-        const isFocusOnFirstMenuItem = index === -1;
-        if (isFocusOnLastMenuItem) {
-          actualFocusedItemIndex.current = 0;
-        } else if (isFocusOnFirstMenuItem) {
-          actualFocusedItemIndex.current = submenuItemsRefs.current.length - 1;
-        }
-
         submenuItemsRefs.current[
           actualFocusedItemIndex.current
         ].current.focus();
@@ -131,8 +163,7 @@ const MenuItem = React.forwardRef(
           !state.didOpenByClick &&
           !isOpenByArrowLeftOrRight
         ) {
-          setFocusToSubmenuElement(undefined, 0);
-          // eslint-disable-next-line max-len
+          setFocusToSubmenuElement(undefined, 0, "desc");
         } else if (
           state.didOpenByArrowUp &&
           !state.didOpenByMouseEnter &&
@@ -141,7 +172,8 @@ const MenuItem = React.forwardRef(
         ) {
           setFocusToSubmenuElement(
             undefined,
-            submenuItemsRefs.current.length - 1
+            submenuItemsRefs.current.length - 1,
+            "asc"
           );
         }
       }
@@ -149,10 +181,8 @@ const MenuItem = React.forwardRef(
       return function cleanup() {
         document.removeEventListener("click", detectClickOutside);
       };
-      // eslint-disable-next-line max-len
     }, [
       submenu,
-      submenuItemsRefs,
       detectClickOutside,
       isOpen,
       onCloseSubmenu,
@@ -166,6 +196,7 @@ const MenuItem = React.forwardRef(
       state.didOpenByArrowLeftOrRight,
       isOpenByArrowLeftOrRight,
       setOpenByArrowLeftOrRight,
+      submenuItemsRefs,
     ]);
 
     const onKeyDownSubmenu = useCallback(
@@ -217,12 +248,13 @@ const MenuItem = React.forwardRef(
                 setFocusToElement(undefined, menuItemIndex + 1);
               } else if (Events.isHomeKey(ev)) {
                 ev.preventDefault();
-                setFocusToSubmenuElement(ev, 0);
+                setFocusToSubmenuElement(ev, 0, "desc");
               } else if (Events.isEndKey(ev)) {
                 ev.preventDefault();
                 setFocusToSubmenuElement(
                   ev,
-                  submenuItemsRefs.current.length - 1
+                  submenuItemsRefs.current.length - 1,
+                  "asc"
                 );
               }
             } else if (Events.isDownKey(ev)) {
@@ -245,10 +277,14 @@ const MenuItem = React.forwardRef(
               onCloseSubmenu();
             } else if (Events.isHomeKey(ev)) {
               ev.preventDefault();
-              setFocusToSubmenuElement(ev, 0);
+              setFocusToSubmenuElement(ev, 0, "desc");
             } else if (Events.isEndKey(ev)) {
               ev.preventDefault();
-              setFocusToSubmenuElement(ev, submenuItemsRefs.current.length - 1);
+              setFocusToSubmenuElement(
+                ev,
+                submenuItemsRefs.current.length - 1,
+                "asc"
+              );
             } else if (Events.isEscKey(ev)) {
               onCloseSubmenu();
               ref.current.focus();
@@ -259,7 +295,7 @@ const MenuItem = React.forwardRef(
               let firstMatch;
               let nextMatch;
 
-              React.Children.forEach(children, ({ props }, i) => {
+              childrenItems.forEach(({ props }, i) => {
                 if (
                   props.children &&
                   props.children
@@ -287,10 +323,9 @@ const MenuItem = React.forwardRef(
             }
           }
         }
-        // eslint-disable-next-line max-len
       },
       [
-        children,
+        childrenItems,
         isOpen,
         isOpenByArrowLeftOrRight,
         menuItemIndex,
@@ -356,13 +391,14 @@ const MenuItem = React.forwardRef(
               tabIndex={-1}
               onKeyDown={onKeyDownSubmenu}
               onClick={handleClick}
+              variant={variant}
             >
               {submenu}
             </StyledMenuItemWrapper>
           </StyledSubmenuTitle>
           <StyledSubmenu submenuDirection={submenuDirection}>
-            {React.Children.map(children, (child, index) => (
-              <StyledSubmenuItem>
+            {childrenItems.map((child, index) => (
+              <StyledSubmenuItem key={child.props.key || index}>
                 {React.cloneElement(child, {
                   menuType,
                   ref: submenuItemsRefs.current[index],
@@ -406,6 +442,8 @@ const MenuItem = React.forwardRef(
         data-component="menu-item"
         {...elementProps}
         isOpen={isOpen}
+        variant={variant}
+        role="menuitem"
       >
         {content()}
       </StyledMenuItemWrapper>
@@ -445,6 +483,8 @@ MenuItem.propTypes = {
    *
    */
   menuType: PropTypes.oneOf(["light", "dark"]),
+  /** set the colour variant for a menuType */
+  variant: PropTypes.oneOf(["default", "alternate"]),
   /**
    * @private
    * @ignore
