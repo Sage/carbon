@@ -83,7 +83,7 @@ Default version of accordion has white background and no side borders.
 ### Transparent
 Transparent scheme has transparent background.
 <Preview>
-  <Story name="transparent">
+  <Story name="transparent" parameters={{ chromatic: { disable: true }}}>
     <Accordion scheme="transparent" title='Heading'>
       <div>Content</div>
       <div>Content</div>
@@ -316,7 +316,7 @@ Accordion adjust it's height properly when it's content is being dynamically cha
 Accordion styles can be easily overriden by providing `styleOverride` prop with proper structure as defined in propTypes.
 
 <Preview>
-  <Story name="styles overriden">
+  <Story name="styles overriden" parameters={{ chromatic: { disable: true }}}>
     <Accordion
       title='Heading'
       styleOverride={
@@ -343,7 +343,7 @@ Accordion styles can be easily overriden by providing `styleOverride` prop with 
 ### With a definition list
 <Preview>
   <Story name="with a definition list">
-    <Accordion title='Heading'>
+    <Accordion title='Heading' expanded={true}>
       <Dl>
         <Dt>Drink</Dt>
         <Dd>Coffee</Dd>
