@@ -59,7 +59,7 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
 ### Controlled Usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     {() => {
       const [value, setValue] = useState([]);
       function onChangeHandler(event) {
@@ -138,7 +138,7 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
 ### Read Only:
 
 <Preview>
-  <Story name="readonly" parameters={{ info: { disable: true }}} >
+  <Story name="readonly">
     <MultiSelect name='readonly' id='readonly' defaultValue={ ['1', '3'] } readOnly>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -159,7 +159,7 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
 
 You can use the `required` prop to indicate if the field is mandatory.
 <Preview>
-  <Story name="required" parameters={{ info: { disable: true }}} >
+  <Story name="required">
    <MultiSelect
       name='required-select'
       id='required-select'

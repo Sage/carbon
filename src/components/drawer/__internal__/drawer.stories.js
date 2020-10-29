@@ -317,7 +317,7 @@ Visual.story = {
   name: 'visual',
   parameters: {
     chromatic: {
-      disable: true
+      disable: false
     }
   }
 };

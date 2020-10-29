@@ -121,5 +121,5 @@ storiesOf('Experimental/Number Input', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent, true))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
   .add(...makeStory('required', dlsThemeSelector, RequiredComponent));

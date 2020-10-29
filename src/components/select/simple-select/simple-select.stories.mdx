@@ -90,7 +90,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Controlled usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     {() => {
       const [value, setValue] = useState('');
       function onChangeHandler(event) {

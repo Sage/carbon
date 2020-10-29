@@ -177,6 +177,6 @@ storiesOf('Experimental/Decimal Input', module)
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent, true))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
   .add(...makeStory('validations', dlsThemeSelector, componentWithValidations))
   .add(...makeStory('required', dlsThemeSelector, requiredComponent));

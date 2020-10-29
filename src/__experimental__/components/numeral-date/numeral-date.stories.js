@@ -105,7 +105,7 @@ Basic.story = {
 Validations.story = {
   parameters: {
     chromatic: {
-      disable: true
+      disable: false
     }
   }
 };
