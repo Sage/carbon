@@ -24,6 +24,7 @@ import {
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
+import { dataComponentButtonByTextNoIFrame } from '../../locators/pages';
 
 const transparentBorderColor = 'rgba(0, 0, 0, 0.85)';
 const notTransparentBorderColor = 'rgb(102, 133, 146)';
@@ -248,4 +249,8 @@ When('I click on {string} option on Select list in iframe', (position) => {
 
 When('I click on Select label', () => {
   label().click();
+});
+
+When('I click onto {string} button', (buttonName) => {
+  dataComponentButtonByTextNoIFrame(buttonName).click();
 });

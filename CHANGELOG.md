@@ -1,3 +1,15 @@
+## [47.1.0](https://github.com/Sage/carbon/compare/v47.0.0...v47.1.0) (2020-10-28)
+
+
+### Features
+
+* **filterable-select:** add list action button ([c2ef17a](https://github.com/Sage/carbon/commit/c2ef17a05861660f2f49b02081cd97db866ddc2d))
+
+
+### Bug Fixes
+
+* **button:** change forwardref proptype ([9e2599d](https://github.com/Sage/carbon/commit/9e2599d00ea19c3a48692006b8b43601386e4b40))
+
 ## [47.0.0](https://github.com/Sage/carbon/compare/v46.0.0...v47.0.0) (2020-10-27)
 
 

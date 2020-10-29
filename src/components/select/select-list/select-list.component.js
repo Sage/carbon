@@ -10,10 +10,13 @@ import updateListScrollTop from './update-list-scroll';
 import getNextChildByText from '../utils/get-next-child-by-text';
 import Portal from '../../portal/portal';
 import { getNextIndexByKey } from '../utils/get-next-child-by-key';
+import ListActionButton from '../list-action-button/list-action-button.component';
+import StyledSelectListContainer from './select-list-container.style';
 
 const overhang = 4;
 
 const SelectList = React.forwardRef(({
+  listActionButton,
   id,
   labelId,
   children,
@@ -23,10 +26,13 @@ const SelectList = React.forwardRef(({
   anchorElement,
   highlightedValue,
   repositionTrigger,
+  onListAction,
   ...listProps
-}, listRef) => {
+}, listContainerRef) => {
   const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
   const lastFilter = useRef('');
+  const listRef = useRef();
+  const listActionButtonRef = useRef();
 
   const getIndexOfMatch = useCallback((valueToMatch) => {
     return React.Children.toArray(children).findIndex(child => child.props.value === valueToMatch);
@@ -48,15 +54,33 @@ const SelectList = React.forwardRef(({
     setCurrentOptionsListIndex(nextIndex);
     updateListScrollTop(nextIndex, listRef.current);
     onSelect({ text, value, selectionType: 'navigationKey' });
-  }, [currentOptionsListIndex, getIndexOfMatch, highlightedValue, listRef, onSelect]);
+  }, [currentOptionsListIndex, getIndexOfMatch, highlightedValue, onSelect]);
+
+  const handleActionButtonTab = useCallback((event, isActionButtonFocused) => {
+    if (isActionButtonFocused) {
+      onSelect({ selectionType: 'tab' });
+    } else {
+      event.preventDefault();
+      listActionButtonRef.current.focus();
+    }
+  }, [onSelect]);
+
+  const focusOnAnchor = useCallback(() => {
+    if (anchorElement) {
+      anchorElement.getElementsByTagName('input')[0].focus();
+    }
+  }, [anchorElement]);
 
   const handleGlobalKeydown = useCallback((event) => {
     const { key } = event;
     const optionList = React.Children.toArray(children);
+    const isActionButtonFocused = document.activeElement === listActionButtonRef.current;
 
-    if (key === 'Tab' || key === 'Escape') {
+    if (key === 'Tab' && listActionButton) {
+      handleActionButtonTab(event, isActionButtonFocused);
+    } else if (key === 'Tab' || key === 'Escape') {
       onSelectListClose();
-    } else if (key === 'Enter') {
+    } else if (key === 'Enter' && !isActionButtonFocused) {
       const currentOption = optionList[currentOptionsListIndex];
 
       if (!currentOption) {
@@ -69,9 +93,19 @@ const SelectList = React.forwardRef(({
 
       onSelect({ text, value, selectionType: 'enterKey' });
     } else if (isNavigationKey(key)) {
+      focusOnAnchor();
       highlightNextItem(key, optionList);
     }
-  }, [children, onSelectListClose, currentOptionsListIndex, onSelect, highlightNextItem]);
+  }, [
+    children,
+    listActionButton,
+    handleActionButtonTab,
+    onSelectListClose,
+    currentOptionsListIndex,
+    onSelect,
+    highlightNextItem,
+    focusOnAnchor
+  ]);
 
   const repositionList = useCallback(() => {
     if (anchorElement) {
@@ -81,9 +115,9 @@ const SelectList = React.forwardRef(({
       const width = `${inputBoundingRect.width + 2 * overhang}px`;
       const left = `${window.pageXOffset + inputBoundingRect.left - overhang}px`;
 
-      listRef.current.setAttribute('style', `top: ${top}; width: ${width}; left: ${left}`);
+      listContainerRef.current.setAttribute('style', `top: ${top}; width: ${width}; left: ${left}`);
     }
-  }, [anchorElement, listRef]);
+  }, [anchorElement, listContainerRef]);
 
   useEffect(() => {
     const keyboardEvent = 'keydown';
@@ -117,7 +151,7 @@ const SelectList = React.forwardRef(({
 
       return indexOfMatch;
     });
-  }, [children, filterText, getIndexOfMatch, lastFilter, listRef]);
+  }, [children, filterText, getIndexOfMatch, lastFilter]);
 
   useEffect(() => {
     repositionList();
@@ -132,7 +166,7 @@ const SelectList = React.forwardRef(({
 
     setCurrentOptionsListIndex(indexOfMatch);
     updateListScrollTop(indexOfMatch, listRef.current);
-  }, [getIndexOfMatch, highlightedValue, listRef]);
+  }, [getIndexOfMatch, highlightedValue]);
 
   function getChildrenWithListProps() {
     return React.Children.map(children, (child, index) => {
@@ -156,17 +190,29 @@ const SelectList = React.forwardRef(({
 
   return (
     <Portal onReposition={ repositionList }>
-      <StyledSelectList
-        id={ id }
-        aria-labelledby={ labelId }
-        data-element='select-list'
-        role='listbox'
-        ref={ listRef }
-        tabIndex='0'
-        { ...listProps }
+      <StyledSelectListContainer
+        data-element='select-list-wrapper'
+        ref={ listContainerRef }
       >
-        { getChildrenWithListProps() }
-      </StyledSelectList>
+        <StyledSelectList
+          id={ id }
+          aria-labelledby={ labelId }
+          data-element='select-list'
+          ref={ listRef }
+          role='listbox'
+          tabIndex='0'
+          { ...listProps }
+        >
+          { getChildrenWithListProps() }
+        </StyledSelectList>
+        { listActionButton && (
+          <ListActionButton
+            ref={ listActionButtonRef }
+            listActionButton={ listActionButton }
+            onListAction={ onListAction }
+          />
+        ) }
+      </StyledSelectListContainer>
     </Portal>
   );
 });
@@ -189,7 +235,11 @@ SelectList.propTypes = {
   /** Value of option to be highlighted on component render */
   highlightedValue: PropTypes.string,
   /** A trigger to manually reposition the list */
-  repositionTrigger: PropTypes.bool
+  repositionTrigger: PropTypes.bool,
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** A callback for when the Action Button is triggered */
+  onListAction: PropTypes.func
 };
 
 export default SelectList;
