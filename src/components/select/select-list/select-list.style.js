@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const overhang = 4;
-
 const StyledSelectList = styled.ul`
   box-sizing: border-box;
   list-style-type: none;
@@ -11,11 +9,6 @@ const StyledSelectList = styled.ul`
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;
-  position: absolute;
-  width: calc(100% + ${2 * overhang}px);
-  z-index: 2000;
-  top: 100%;
-  left: -${overhang}px;
 `;
 
 StyledSelectList.defaultProps = {

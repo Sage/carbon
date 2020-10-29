@@ -195,6 +195,7 @@ const SelectList = React.forwardRef(({
     <StyledSelectListContainer
       data-element='select-list-wrapper'
       ref={ listContainerRef }
+      { ...listProps }
     >
       <StyledSelectList
         id={ id }
@@ -203,7 +204,6 @@ const SelectList = React.forwardRef(({
         role='listbox'
         ref={ listRef }
         tabIndex='0'
-        { ...listProps }
       >
         { getChildrenWithListProps() }
       </StyledSelectList>
