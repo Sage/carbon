@@ -1,6 +1,7 @@
+import atOpacity from '../../utils/at-opacity';
+
 export default (palette) => {
-  const { atOpacity } = palette,
-      baseWithOpacity = atOpacity(palette.productBlue);
+  const baseWithOpacity = atOpacity(palette.productBlue);
 
   return (
     {

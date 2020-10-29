@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '../../button';
 import Option from '../option';
 
 export interface FilterableSelectProps {
@@ -50,6 +51,10 @@ export interface FilterableSelectProps {
   onBlur?: () => void;
   /** Callback function for when the key is pressed when focused on Select Textbox. */
   onKeyDown?: () => void;
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton?: boolean | typeof Button;
+  /** A callback for when the Action Button is triggered */
+  onListAction?: () => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
 }

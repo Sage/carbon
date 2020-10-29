@@ -1,12 +1,9 @@
 import styled from 'styled-components';
-import { baseTheme } from '../../../style/themes';
 
 const overhang = 4;
 
 const StyledSelectList = styled.ul`
-  background-color: white;
   box-sizing: border-box;
-  box-shadow: ${({ theme }) => `${theme.shadows.depth1}`};
   list-style-type: none;
   max-height: ${props => `${props.maxHeight}`};
   margin: 0;
@@ -22,8 +19,7 @@ const StyledSelectList = styled.ul`
 `;
 
 StyledSelectList.defaultProps = {
-  maxHeight: '180px',
-  theme: baseTheme
+  maxHeight: '180px'
 };
 
 export default StyledSelectList;

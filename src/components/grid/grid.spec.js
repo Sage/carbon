@@ -5,16 +5,16 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { GridContainer, GridItem } from '.';
 import { baseTheme } from '../../style/themes';
 
-const marginProps = [
-  ['m', 'margin'],
-  ['ml', 'marginLeft'],
-  ['mr', 'marginRight'],
-  ['mt', 'marginTop'],
-  ['mb', 'marginBottom'],
-  ['mx', 'marginLeft'],
-  ['mx', 'marginRight'],
-  ['my', 'marginTop'],
-  ['my', 'marginBottom']
+const paddingProps = [
+  ['p', 'padding'],
+  ['pl', 'paddingLeft'],
+  ['pr', 'paddingRight'],
+  ['pt', 'paddingTop'],
+  ['pb', 'paddingBottom'],
+  ['px', 'paddingLeft'],
+  ['px', 'paddingRight'],
+  ['py', 'paddingTop'],
+  ['py', 'paddingBottom']
 ];
 
 const item1900 = {
@@ -108,7 +108,7 @@ describe('Grid', () => {
           gridTemplateColumns: 'repeat(12,1fr)',
           gridTemplateRows: 'auto',
           width: 'auto',
-          margin: '40px',
+          padding: '40px',
           gridGap: '40px'
         }, elem
       );
@@ -140,7 +140,7 @@ describe('Grid', () => {
       global.console.error.mockReset();
     });
 
-    describe.each(marginProps)('when a custom margin is specified using the "%s" styled system props',
+    describe.each(paddingProps)('when a custom padding is specified using the "%s" styled system props',
       (styledSystemProp, propName) => {
         it(`then that ${propName} should have been set on the GridContainer`, () => {
           const props = { [styledSystemProp]: '15px' };

@@ -155,7 +155,7 @@ Button.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Ref to be forwarded */
-  forwardRef: PropTypes.func,
+  forwardRef: PropTypes.object,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Legacy - used to transform button into anchor */

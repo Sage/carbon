@@ -25,6 +25,8 @@ const FilterableSelect = React.forwardRef(({
   onKeyDown,
   noResultsMessage,
   disablePortal,
+  listActionButton,
+  onListAction,
   ...textboxProps
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -165,6 +167,13 @@ const FilterableSelect = React.forwardRef(({
   }, [value, defaultValue, onChange]);
 
   useEffect(() => {
+    const hasListActionButton = listActionButton !== undefined;
+    const onListActionMissingMessage = 'onListAction prop required when using listActionButton prop';
+
+    invariant(!hasListActionButton || (hasListActionButton && onListAction), onListActionMissingMessage);
+  }, [listActionButton, onListAction]);
+
+  useEffect(() => {
     setMatchingText(value || defaultValue);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -214,6 +223,13 @@ const FilterableSelect = React.forwardRef(({
   const onSelectOption = useCallback((optionData) => {
     const { text, value: newValue, selectionType } = optionData;
 
+    if (selectionType === 'tab') {
+      setOpenState(false);
+      textboxRef.focus();
+
+      return;
+    }
+
     if (!isControlled.current) {
       setSelectedValue(newValue);
     }
@@ -245,6 +261,11 @@ const FilterableSelect = React.forwardRef(({
 
       return text && text.toLowerCase().indexOf(textToMatch.toLowerCase()) !== -1;
     });
+  }
+
+  function handleOnListAction() {
+    setOpenState(false);
+    onListAction();
   }
 
   function assignInput(input) {
@@ -286,6 +307,8 @@ const FilterableSelect = React.forwardRef(({
       highlightedValue={ highlightedValue }
       noResultsMessage={ noResultsMessage }
       disablePortal={ disablePortal }
+      listActionButton={ listActionButton }
+      onListAction={ handleOnListAction }
     >
       { children }
     </FilterableSelectList>
@@ -329,7 +352,11 @@ FilterableSelect.propTypes = {
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** A custom message to be displayed when any option does not match the filter text */
-  noResultsMessage: PropTypes.string
+  noResultsMessage: PropTypes.string,
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** A callback for when the Action Button is triggered */
+  onListAction: PropTypes.func
 };
 
 export default FilterableSelect;

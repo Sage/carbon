@@ -1,8 +1,7 @@
-export default (palette) => {
-  const { atOpacity } = palette,
+import atOpacity from '../../utils/at-opacity';
 
-      blackWithOpacity = atOpacity('#000000'),
-      baseWithOpacity = atOpacity(palette.productGreen);
+export default (palette) => {
+  const baseWithOpacity = atOpacity(palette.productGreen);
 
   return {
     name: 'base',
@@ -65,8 +64,8 @@ export default (palette) => {
       border: palette.slateTint(75),
       disabledBackground: palette.slateTint(90),
       hoverBackground: palette.slateTint(95),
-      descriptionColor: blackWithOpacity(0.55),
-      disabledText: blackWithOpacity(0.3)
+      descriptionColor: palette.blackOpacity(0.55),
+      disabledText: palette.blackOpacity(0.3)
     },
 
     batchSelection: {
@@ -92,8 +91,8 @@ export default (palette) => {
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
-      itemColor: blackWithOpacity(0.9),
-      itemColorDisabled: blackWithOpacity(0.3),
+      itemColor: palette.blackOpacity(0.9),
+      itemColorDisabled: palette.blackOpacity(0.3),
 
       light: {
         background: palette.slateTint(90),
@@ -157,8 +156,8 @@ export default (palette) => {
     },
 
     help: {
-      color: blackWithOpacity(0.65),
-      hover: blackWithOpacity(0.9)
+      color: palette.blackOpacity(0.65),
+      hover: palette.blackOpacity(0.9)
     },
 
     pod: {
@@ -171,29 +170,29 @@ export default (palette) => {
     },
 
     text: {
-      color: blackWithOpacity(0.9),
-      placeholder: blackWithOpacity(0.3),
+      color: palette.blackOpacity(0.9),
+      placeholder: palette.blackOpacity(0.3),
       size: '14px'
     },
 
     readOnly: {
       textboxBackground: palette.slateTint(98),
       textboxBorder: palette.slateTint(80),
-      textboxText: blackWithOpacity(0.74)
+      textboxText: palette.blackOpacity(0.74)
     },
 
     definitionList: {
-      dtTextDark: blackWithOpacity(0.9),
-      dtTextLight: blackWithOpacity(0.65),
-      ddText: blackWithOpacity(0.65)
+      dtTextDark: palette.blackOpacity(0.9),
+      dtTextLight: palette.blackOpacity(0.65),
+      ddText: palette.blackOpacity(0.65)
     },
 
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),
-      disabled: blackWithOpacity(0.55),
+      disabled: palette.blackOpacity(0.55),
       input: palette.slateTint(95),
-      text: blackWithOpacity(0.3),
+      text: palette.blackOpacity(0.3),
       buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90),
       switch: palette.slateTint(89.5)

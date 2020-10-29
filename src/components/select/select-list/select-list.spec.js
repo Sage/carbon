@@ -7,17 +7,19 @@ import StyledSelectList from './select-list.style';
 import { baseTheme } from '../../../style/themes';
 import Option from '../option/option.component';
 import Portal from '../../portal';
+import ListActionButton from '../list-action-button/list-action-button.component';
+
+const escapeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+const tabKeyDownEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
+const enterKeyDownEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+const downKeyDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true });
+const upKeyDownEvent = new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true });
+const homeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Home', bubbles: true });
+const endKeyDownEvent = new KeyboardEvent('keydown', { key: 'End', bubbles: true });
 
 describe('SelectList', () => {
   describe('when a key is pressed', () => {
     let wrapper;
-    const escapeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
-    const tabKeyDownEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
-    const enterKeyDownEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-    const downKeyDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true });
-    const upKeyDownEvent = new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true });
-    const homeKeyDownEvent = new KeyboardEvent('keydown', { key: 'Home', bubbles: true });
-    const endKeyDownEvent = new KeyboardEvent('keydown', { key: 'End', bubbles: true });
     let domNode;
     let onSelectListClose;
     let onSelect;
@@ -191,17 +193,22 @@ describe('SelectList', () => {
   });
 
   describe('when the anchor element is provided', () => {
-    let wrapper, domNode;
-    const mockAnchorElement = {
-      getBoundingClientRect: () => {
-        return {
-          top: 100,
-          left: 100,
-          width: 200,
-          height: 50
-        };
-      }
+    let wrapper;
+    let domNode;
+    const onFocusFn = jest.fn();
+    const mockAnchorElement = document.createElement('div');
+    const mockInput = document.createElement('input');
+    mockAnchorElement.appendChild(mockInput);
+    const getBoundingClientRectMock = () => {
+      return {
+        top: 100,
+        left: 100,
+        width: 200,
+        height: 50
+      };
     };
+    mockAnchorElement.getBoundingClientRect = getBoundingClientRectMock;
+    mockInput.focus = onFocusFn;
 
     beforeEach(() => {
       wrapper = mount(getSelectList({ anchorElement: mockAnchorElement }));
@@ -209,10 +216,81 @@ describe('SelectList', () => {
       document.body.appendChild(domNode);
     });
 
-    it('then the list should have expected "top", "left" and "width" values', () => {
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.top).toBe('150px');
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.left).toBe('96px');
-      expect(wrapper.find('Portal').find('ul[data-element="select-list"]').getDOMNode().style.width).toBe('208px');
+    afterEach(() => {
+      document.body.removeChild(domNode);
+    });
+
+    it('then the list wrapper should have expected "top", "left" and "width" values', () => {
+      const listWrapperSelector = 'div[data-element="select-list-wrapper"]';
+      expect(wrapper.find('Portal').find(listWrapperSelector).getDOMNode().style.top).toBe('150px');
+      expect(wrapper.find('Portal').find(listWrapperSelector).getDOMNode().style.left).toBe('96px');
+      expect(wrapper.find('Portal').find(listWrapperSelector).getDOMNode().style.width).toBe('208px');
+    });
+
+    describe.each([
+      ['Up', upKeyDownEvent],
+      ['Down', downKeyDownEvent],
+      ['Home', homeKeyDownEvent],
+      ['End', endKeyDownEvent]
+    ])('and then the %s key is pressed', (key, keyEvent) => {
+      it('then the focus function should have been called on the anchor element', () => {
+        onFocusFn.mockClear();
+        act(() => {
+          domNode.dispatchEvent(keyEvent);
+        });
+        expect(onFocusFn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('when the listActionButton prop is provided', () => {
+    it('then the ListActionButton should be rendered', () => {
+      const wrapper = renderSelectList({ listActionButton: true, onListAction: () => {} });
+      expect(wrapper.find(ListActionButton).exists()).toBe(true);
+      wrapper.unmount();
+    });
+
+    describe('when the anchor element is provided', () => {
+      let wrapper;
+      let domNode;
+      const onFocusFn = jest.fn();
+      const onSelectFn = jest.fn();
+      const expectedSelectValue = { selectionType: 'tab' };
+
+      beforeEach(() => {
+        wrapper = renderSelectList({
+          listActionButton: true,
+          onListAction: () => {},
+          onSelect: onSelectFn
+        });
+        domNode = wrapper.getDOMNode();
+        document.body.appendChild(domNode);
+      });
+
+      afterEach(() => {
+        document.body.removeChild(domNode);
+      });
+
+      it('then the focus function should have been called on the ListActionButton', () => {
+        onFocusFn.mockClear();
+        wrapper.find(ListActionButton).find('button').getDOMNode().focus = onFocusFn;
+        act(() => {
+          domNode.dispatchEvent(tabKeyDownEvent);
+        });
+        expect(onFocusFn).toHaveBeenCalled();
+      });
+
+      describe('with the ListActionButton already focused', () => {
+        it('then the onSelect function prop should have been called with expected value', () => {
+          onSelectFn.mockClear();
+          wrapper.find(ListActionButton).find('button').getDOMNode().focus();
+
+          act(() => {
+            domNode.dispatchEvent(tabKeyDownEvent);
+          });
+          expect(onSelectFn).toHaveBeenCalledWith(expectedSelectValue);
+        });
+      });
     });
   });
 

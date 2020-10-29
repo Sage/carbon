@@ -1,0 +1,73 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import Box from '.';
+import Form from '../form';
+import Textbox from '../../__experimental__/components/textbox';
+import Button from '../button';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+
+<Meta title="Design System/Box" />
+
+# Box
+
+```javascript
+  import Box from 'carbon-react/lib/components/box';
+```
+
+## Overview
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+<Preview>
+  <Story name="spacing" parameters={{ info: { disable: true }}} >
+    <Box m={3} p={3} bg="secondary">
+      <Box height="100px" bg="primary"></Box>
+    </Box>
+  </Story>
+</Preview>
+
+## Color
+<Preview>
+  <Story name="color" parameters={{ info: { disable: true }}} >
+    <Box m={3} p={3} bg="secondary">
+      <Box width="100px" height="100px" bg="primary" color="yellow">
+        This is some sample text
+      </Box>
+    </Box>
+  </Story>
+</Preview>
+
+## Flex
+<Preview>
+  <Story name="flex" parameters={{ info: { disable: true }}} >
+    <div>
+      <Box display='flex' flexDirection="row" justifyContent="space-between" alignItems='stretch'm="5px">
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+      </Box>
+      <Box display='flex' flexDirection="column" justifyContent="space-between" alignItems='stretch' height="400px" m="5px">
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+      </Box>
+    </div>
+  </Story>
+</Preview>
+
+## Layout
+<Preview>
+  <Story name="layout" parameters={{ info: { disable: true }}} >
+    <Box display='block' size="150px" overflow="hidden">
+      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
+      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
+      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
+    </Box>
+  </Story>
+</Preview>
+
+## Props
+
+<StyledSystemProps
+  spacing
+  color
+  flexBox
+  layout
+/>
