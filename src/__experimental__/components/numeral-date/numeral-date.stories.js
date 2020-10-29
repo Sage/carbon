@@ -97,7 +97,7 @@ export const Validations = () => {
 Basic.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };
@@ -105,7 +105,7 @@ Basic.story = {
 Validations.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };
