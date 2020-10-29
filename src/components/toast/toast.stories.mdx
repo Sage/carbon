@@ -63,7 +63,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="variant-info"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +110,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="variant-error"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const [isOpen, setIsOpen] = useState(false);
@@ -157,7 +157,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="variant-warning"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const [isOpen, setIsOpen] = useState(false);
@@ -205,7 +205,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="variant-success"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const [isOpen, setIsOpen] = useState(false);
@@ -253,7 +253,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="centered"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const onDismissClick = (evt) => {
@@ -307,7 +307,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 <Preview>
   <Story
     name="dismissible"
-    parameters={{ info: { disable: true }}}
+    parameters={{ info: { disable: true }, chromatic: { disable: true }}}
   >
   {() => {
     const onDismissClick = (evt) => {
@@ -364,7 +364,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 One second delay
 
 <Preview>
-  <Story name="stacked-delayed" parameters={{ info: { disable: true }}} >
+  <Story name="stacked-delayed" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
   {() => {
     const onDismissClickA = (evt) => {
       setIsOpenA(!isOpenA);
@@ -450,7 +450,7 @@ One second delay
 Please use `targetPortalId` prop to group multiple toasts so that they stack.
 
 <Preview>
-  <Story name="stacked" parameters={{ info: { disable: true }}} >
+  <Story name="stacked" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
   {() => {
     const onDismissClickA = (evt) => {
       setIsOpenA(!isOpenA);
@@ -518,7 +518,7 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
 ### Basic usage:
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
+  <Story name="default" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
   {() => {
     const [isOpen, setIsOpen] = useState(false);
     const handleToggle = () => {
