@@ -226,8 +226,8 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
-  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox, true))
+  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus, true))
   .add(...makeStory('required', dlsThemeSelector, requiredTextbox));
 
 // eslint-disable-next-line
