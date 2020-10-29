@@ -136,5 +136,5 @@ storiesOf('Experimental/GroupedCharacter', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent, true))
   .add(...makeStory('required', dlsThemeSelector, requiredComponent));
