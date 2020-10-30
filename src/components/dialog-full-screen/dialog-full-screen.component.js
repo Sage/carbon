@@ -116,6 +116,7 @@ class DialogFullScreen extends Modal {
           headingHeight={this.state.headingHeight}
           data-element="content"
           ref={this.contentRef}
+          disableContentPadding={this.props.disableContentPadding}
         >
           {this.props.children}
         </StyledContent>
@@ -132,6 +133,8 @@ DialogFullScreen.defaultProps = {
 
 DialogFullScreen.propTypes = {
   ...Modal.propTypes,
+  /** remove padding from content */
+  disableContentPadding: PropTypes.bool,
   /** Child elements */
   children: PropTypes.node,
   /** Title displayed at top of dialog */
