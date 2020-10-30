@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-import { AlignBinaryType, ThemesBinary } from '../../utils/helpers/options-helper/options-helper';
+import { AlignBinaryType, SpacingProps, ThemesBinary } from '../../utils/helpers/options-helper/options-helper';
 
-export interface AccordionProps {
+export interface AccordionProps extends SpacingProps {
+  headerSpace?: object;
+  disableContentPadding?: boolean;
   children?: React.ReactNode;
   id?: string;
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
@@ -31,10 +33,8 @@ export interface AccordionProps {
   subTitle?: string;
   /** Sets accordion size */
   size: 'large' | 'small';
-  /** Adds additional top and bottom padding */
-  customPadding: number;
   /** Toggles left and right borders */
-  borders: 'default' | 'full';
+  borders: 'default' | 'full' | 'none';
   /** Sets background as white or transparent */
   scheme: 'white' |'transparent';
   /** Sets accordion width */

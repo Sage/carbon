@@ -2,6 +2,7 @@ import React, {
   useState, useRef, useEffect, useLayoutEffect, useCallback
 } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 
 import OptionsHelper from '../../utils/helpers/options-helper';
 import createGuid from '../../utils/helpers/guid';
@@ -23,7 +24,6 @@ let deprecatedWarnTriggered = false;
 
 const Accordion = React.forwardRef(({
   borders = 'default',
-  customPadding,
   defaultExpanded,
   expanded,
   onChange,
@@ -39,6 +39,8 @@ const Accordion = React.forwardRef(({
   subTitle,
   title,
   width,
+  headerSpacing,
+  disableContentPadding = false,
   error,
   warning,
   info,
@@ -104,7 +106,6 @@ const Accordion = React.forwardRef(({
       data-component='accordion'
       width={ width }
       borders={ borders }
-      customPadding={ customPadding }
       scheme={ scheme }
       styleOverride={ styleOverride.root }
       { ...rest }
@@ -121,6 +122,7 @@ const Accordion = React.forwardRef(({
         tabIndex='0'
         size={ size }
         styleOverride={ styleOverride.headerArea }
+        { ...headerSpacing }
       >
         <StyledAccordionHeadingsContainer
           data-element='accordion-headings-container'
@@ -170,6 +172,7 @@ const Accordion = React.forwardRef(({
           aria-labelledby={ headerId }
           ref={ accordionContent }
           styleOverride={ styleOverride.content }
+          disableContentPadding={ disableContentPadding }
         >
           { children }
         </StyledAccordionContent>
@@ -179,6 +182,12 @@ const Accordion = React.forwardRef(({
 });
 
 Accordion.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
+  /** Styled system spacing props provided to Accordion Title */
+  headerSpacing: PropTypes.object,
+  /** Disable padding for the content */
+  disableContentPadding: PropTypes.bool,
   children: PropTypes.node,
   id: PropTypes.string,
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
@@ -205,10 +214,8 @@ Accordion.propTypes = {
   subTitle: PropTypes.string,
   /** Sets accordion size */
   size: PropTypes.oneOf(['large', 'small']),
-  /** Adds additional top and bottom padding */
-  customPadding: PropTypes.number,
   /** Toggles left and right borders */
-  borders: PropTypes.oneOf(['default', 'full']),
+  borders: PropTypes.oneOf(['default', 'full', 'none']),
   /** Sets background as white or transparent */
   scheme: PropTypes.oneOf(['white', 'transparent']),
   /** Sets accordion width */
