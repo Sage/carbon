@@ -90,7 +90,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Controlled usage:
 
 <Preview>
-  <Story name="controlled">
+  <Story name="controlled" parameters={{ chromatic: { disable: true }}} >
     {() => {
       const [value, setValue] = useState('');
       function onChangeHandler(event) {
@@ -130,7 +130,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Open on focus:
 
 <Preview>
-  <Story name="openOnFocus">
+  <Story name="openOnFocus" parameters={{ chromatic: { disable: true }}} >
     <Select name='openOnFocus' id='openOnFocus' openOnFocus>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />

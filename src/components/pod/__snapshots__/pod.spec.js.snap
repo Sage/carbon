@@ -22,7 +22,7 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #26A826;
+  color: #008200;
   display: inline-block;
 }
 
@@ -56,7 +56,7 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   cursor: pointer;
   border: 1px solid #CCD6DB;
   margin-left: 8px;
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
 }
 

@@ -212,7 +212,7 @@ describe('Icon component', () => {
 
         assertStyleMatch(
           {
-            color: '#1E861E'
+            color: '#006800'
           },
           wrapper.toJSON(),
           { modifier: ':hover' }
@@ -314,7 +314,7 @@ describe('Icon component', () => {
 
         assertStyleMatch(
           {
-            backgroundColor: '#1E861E'
+            backgroundColor: '#006800'
           },
           wrapper.toJSON(),
           { modifier: ':hover' }

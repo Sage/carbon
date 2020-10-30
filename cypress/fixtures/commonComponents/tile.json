@@ -5,27 +5,6 @@
   "asTransparent": {
     "as_Default": "transparent"
   },
-  "orientationHorizontal": {
-    "orientation_Default": "horizontal"
-  },
-  "orientationVertical": {
-    "orientation_Default": "vertical"
-    },
-  "paddingXS": {
-    "padding_Default": "XS"
-  },
-  "paddingS": {
-    "padding_Default": "S"
-  },
-  "paddingM": {
-    "padding_Default": "M"
-  },
-  "paddingL": {
-    "padding_Default": "L"
-  },
-  "paddingXL": {
-    "padding_Default": "XL"
-  },
   "width1": {
     "width_Default": 1
   },

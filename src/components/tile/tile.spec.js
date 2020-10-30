@@ -4,9 +4,10 @@ import 'jest-styled-components';
 import { mount } from 'enzyme';
 import { css } from 'styled-components';
 import Tile from '.';
-import { TileContent } from './tile.style';
+import { StyledTile, TileContent } from './tile.style';
 import Content from '../content';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { assertStyleMatch, testStyledSystemSpacing } from '../../__spec_helper__/test-utils';
+import { baseTheme } from '../../style/themes';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(
@@ -81,30 +82,6 @@ describe('Tile', () => {
         it('sets the correct flex-direction on the main wrapper', () => {
           assertStyleMatch({ flexDirection: 'row' }, wrapper);
         });
-
-        it('sets the TileContent display to inline', () => {
-          assertStyleMatch({ display: 'inline' }, wrapper, { modifier: css`${TileContent}` });
-        });
-
-        it('sets padding-right for all but the last TileContent', () => {
-          assertStyleMatch(
-            {
-              paddingRight: '24px'
-            },
-            wrapper,
-            { modifier: css`${`${TileContent}:not(:last-of-type)`}` }
-          );
-        });
-
-        it('sets border-left and padding-left for all but the first TileComponent', () => {
-          assertStyleMatch(
-            {
-              borderLeft: 'solid 1px #E6EBED',
-              paddingLeft: '24px'
-            },
-            wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
-          );
-        });
       });
 
       describe('when it is vertical', () => {
@@ -112,28 +89,6 @@ describe('Tile', () => {
 
         it('sets the correct flex-direction on the main wrapper', () => {
           assertStyleMatch({ flexDirection: 'column' }, wrapper);
-        });
-
-        it('sets the TileContent width to auto', () => {
-          assertStyleMatch({ width: 'auto' }, wrapper, { modifier: css`${TileContent}` });
-        });
-
-        it('sets padding-bottom for all but the last TileContent', () => {
-          assertStyleMatch(
-            { paddingBottom: '24px' },
-            wrapper,
-            { modifier: css`${`${TileContent}:not(:last-of-type)`}` }
-          );
-        });
-
-        it('sets border-top and padding-top, and width: auto for all but the first TileComponent', () => {
-          assertStyleMatch(
-            {
-              borderTop: 'solid 1px #E6EBED',
-              paddingTop: '24px'
-            },
-            wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
-          );
         });
       });
 
@@ -162,22 +117,6 @@ describe('Tile', () => {
           assertStyleMatch({ width: '500px' }, wrapper);
         });
       });
-
-      describe('padding', () => {
-        const paddingSizes = [
-          ['XS', '8px'],
-          ['S', '16px'],
-          ['M', '24px'],
-          ['L', '32px'],
-          ['XL', '40px']
-        ];
-
-        it.each(paddingSizes)('when %s, padding is set to %s', (option, value) => {
-          const wrapper = render({ padding: option }).toJSON();
-
-          assertStyleMatch({ padding: value }, wrapper);
-        });
-      });
     });
   });
 
@@ -186,6 +125,9 @@ describe('Tile', () => {
       function renderTileContent(props) {
         return TestRenderer.create(<TileContent { ...props }>Test</TileContent>).toJSON();
       }
+
+      // eslint-disable-next-line max-len
+      testStyledSystemSpacing(props => <Tile { ...props } headerSpace={ { p: 3 } } />, { p: 3 }, wrapper => wrapper.find(StyledTile));
 
       it('has the correct base styles', () => {
         const wrapper = renderTileContent();
@@ -197,6 +139,76 @@ describe('Tile', () => {
             width: undefined
           },
           wrapper
+        );
+      });
+
+      describe('orientation="horizontal"', () => {
+        const wrapper = mount(
+          <TileContent isHorizontal>test</TileContent>
+        );
+
+        it('sets border-top and padding-top, and width: auto for all but the first TileComponent', () => {
+          assertStyleMatch(
+            {
+              marginTop: '0',
+              borderLeft: `solid 1px ${baseTheme.tile.separator}`
+            },
+            wrapper, { modifier: css`${`& + ${TileContent}`}` }
+          );
+        });
+
+        it('should not set padding right to last component', () => {
+          assertStyleMatch({
+            paddingRight: '0'
+          }, wrapper, { modifier: ':last-of-type' });
+        });
+
+        it('should not set padding left to first component', () => {
+          assertStyleMatch({
+            paddingLeft: '0'
+          }, wrapper, { modifier: ':first-of-type' });
+        });
+      });
+
+      describe('orientation="vertical"', () => {
+        const wrapper = mount(
+          <TileContent isVertical>test</TileContent>
+        );
+
+        it('sets border-top and padding-top, and width: auto for all but the first TileComponent', () => {
+          assertStyleMatch(
+            {
+              marginTop: '0',
+              borderTop: `solid 1px ${baseTheme.tile.separator}`
+            },
+            wrapper, { modifier: css`${`& + ${TileContent}`}` }
+          );
+        });
+
+        it('should not set padding bottom to last component', () => {
+          assertStyleMatch({
+            paddingBottom: '0'
+          }, wrapper, { modifier: ':last-of-type' });
+        });
+
+        it('should not set padding top to first component', () => {
+          assertStyleMatch({
+            paddingTop: '0'
+          }, wrapper, { modifier: ':first-of-type' });
+        });
+      });
+
+      it('sets border-top and padding-top, and width: auto for all but the first TileComponent', () => {
+        const wrapper = mount(
+          <TileContent isVertical>test</TileContent>
+        );
+
+        assertStyleMatch(
+          {
+            marginTop: '0',
+            borderTop: `solid 1px ${baseTheme.tile.separator}`
+          },
+          wrapper, { modifier: css`${`& + ${TileContent}`}` }
         );
       });
 

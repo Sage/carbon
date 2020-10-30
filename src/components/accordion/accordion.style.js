@@ -1,21 +1,23 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 
 import Icon from '../icon';
 import { baseTheme } from '../../style/themes';
 import ValidationIconStyle from '../validations/validation-icon.style';
 
 const StyledAccordionContainer = styled.div`
+  ${space};
   display: flex;
   align-items: stretch;
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
   width: ${({ width }) => width || '100%'};
-  padding: ${({ customPadding }) => customPadding || 0}px 0;
   color: ${({ theme }) => theme.text.color};
   background-color: ${({ scheme, theme }) => (scheme === 'white' ? theme.colors.white : 'transparent')};
-  ${({ theme }) => (css`border: 1px solid ${theme.accordion.border}`)};
-  ${({ borders }) => (borders === 'default' && css`border-left: none; border-right: none;`)}
+  ${({ theme }) => (css`border: 1px solid ${theme.accordion.border};`)};
+  ${({ borders }) => (borders === 'default' && css`border-left: none; border-right: none;`)};
+  ${({ borders }) => (borders === 'none' && css`border: none;`)};
 
   & + & {
     margin-top: -1px;
@@ -63,6 +65,7 @@ const StyledAccordionHeadingsContainer = styled.div`
 
 const StyledAccordionTitleContainer = styled.div`
   padding:  ${({ size, theme }) => (size === 'small' ? theme.spacing * 2 : theme.spacing * 3)}px;  
+  ${space};
   display: flex;
   flex-grow: 1;
   align-items: center;
@@ -103,6 +106,11 @@ const StyledAccordionContentContainer = styled.div`
 
 const StyledAccordionContent = styled.div`
   padding: 0 ${({ theme }) => theme.spacing * 3}px;
+
+  ${({ disableContentPadding }) => disableContentPadding && css`
+    padding: 0
+  `}
+ 
   ${({ styleOverride }) => styleOverride};
 `;
 

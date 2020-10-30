@@ -59,7 +59,7 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
 ### Controlled Usage:
 
 <Preview>
-  <Story name="controlled">
+  <Story name="controlled" parameters={{ chromatic: { disable: true }}} >
     {() => {
       const [value, setValue] = useState([]);
       function onChangeHandler(event) {
@@ -98,7 +98,7 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
 ### Open on focus:
 
 <Preview>
-  <Story name="openOnFocus">
+  <Story name="openOnFocus" parameters={{ chromatic: { disable: true }}} >
     <MultiSelect name='openOnFocus' id='openOnFocus' openOnFocus>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />

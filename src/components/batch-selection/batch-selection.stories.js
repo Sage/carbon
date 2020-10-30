@@ -46,7 +46,7 @@ basic.story = {
       page: null
     },
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };

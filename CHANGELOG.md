@@ -1,3 +1,39 @@
+## [48.0.0](https://github.com/Sage/carbon/compare/v47.1.2...v48.0.0) (2020-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **accordion:** prop `customPadding` no longer exists, after adding `styled-system` you can add any padding you need to Accordion
+To fix issues you will have to replace
+```
+<Accordion customPadding="50" />
+```
+with
+```
+<Accordion py="50px" />
+```
+to see more information about `styled-system` go visit https://styled-system.com/api
+
+feat(accordion): add prop headerSpacing
+
+headerSpacing prop allow you to use styled-system spacing API for Accordion Title
+
+feat(accordion): add new prop `disableContentPadding`
+* **tile:** - Tile will no longer support for padding prop  like `S, M, L, XL`
+- Tile will now support styled-system values for the padding and margin. You can see more here https://styled-system.com/api
+
+### Features
+
+* **accordion:** add styled-system ([ca27839](https://github.com/Sage/carbon/commit/ca27839f09f27c112eb54cfd0dfb201610800f9a))
+* **tile:** add styled-system ([e2de6fa](https://github.com/Sage/carbon/commit/e2de6fa0886bfa1da52ae2043de49ac3ed725da1))
+
+### [47.1.2](https://github.com/Sage/carbon/compare/v47.1.1...v47.1.2) (2020-10-30)
+
+
+### Bug Fixes
+
+* **theme:** update base/none theme primary color ([173d35f](https://github.com/Sage/carbon/commit/173d35f898097d456ef9ab18aa84c451096f4ada))
+
 ### [47.1.1](https://github.com/Sage/carbon/compare/v47.1.0...v47.1.1) (2020-10-29)
 
 

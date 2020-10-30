@@ -255,7 +255,7 @@ Sortable.story = {
       page: null
     },
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };
@@ -268,7 +268,7 @@ basic.story = {
       page: null
     },
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };
