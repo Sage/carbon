@@ -1,3 +1,17 @@
+## [48.1.0](https://github.com/Sage/carbon/compare/v48.0.0...v48.1.0) (2020-10-30)
+
+
+### Features
+
+* **date:** add option to disable portal in component ([ec01acf](https://github.com/Sage/carbon/commit/ec01acf6a2f7bddf51b4a24918faa77eba57acbe))
+* **select:** add option to disable portal in component ([b0013bf](https://github.com/Sage/carbon/commit/b0013bfaa79dc7afb8faf18dea7d553a9a1c0b47))
+
+
+### Bug Fixes
+
+* **date:** fix failing snapshots ([1bd4c06](https://github.com/Sage/carbon/commit/1bd4c0670f36f6848c3c6e7bf6387eb2eff431a1))
+* **select:** fix select list positioning mechanism ([ee4686c](https://github.com/Sage/carbon/commit/ee4686cd1ac2e361ef3377d7e4bc956a8da0e232))
+
 ## [48.0.0](https://github.com/Sage/carbon/compare/v47.1.2...v48.0.0) (2020-10-30)
 
 
