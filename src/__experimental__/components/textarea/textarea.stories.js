@@ -207,4 +207,4 @@ storiesOf('Experimental/Textarea', module)
   .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true)));
+  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true), true));

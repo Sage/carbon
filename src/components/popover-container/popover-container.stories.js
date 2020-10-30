@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import PopoverContainer from './popover-container.component';
 
 export default {
@@ -19,16 +19,17 @@ export default {
 
 export const Basic = () => {
   const title = text('title', 'Title');
+  const open = boolean('open', true);
 
   return (
-    <PopoverContainer title={ title } />
+    <PopoverContainer title={ title } open={ open } />
   );
 };
 
 Basic.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     },
     knobs: { escapeHTML: false }
   }

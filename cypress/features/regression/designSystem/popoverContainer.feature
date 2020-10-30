@@ -46,9 +46,3 @@ Feature: Design System Popover container component
     When I open "Design System Popover container" component page "position" in no iframe
     Then opening icon is on the "right" side
       And Popover component is opened the "right" side
-
-  @positive
-  Scenario: Verify open button is hide when the PopoverContainer is open
-    Given I open "Design System Popover container" component page "cover_button" in no iframe
-    When I open popover container in open component
-    Then opening icon is hide
