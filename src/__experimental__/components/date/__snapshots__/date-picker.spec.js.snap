@@ -399,13 +399,13 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
   font-weight: 800;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
 }
 
@@ -1208,13 +1208,13 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
   font-weight: 800;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
 }
 

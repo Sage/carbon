@@ -4,12 +4,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c6 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: #008200;
   background-color: transparent;
 }
 
 .c6:hover {
-  color: #1E861E;
+  color: #006800;
   background-color: transparent;
 }
 
@@ -73,8 +73,8 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
 }
@@ -149,8 +149,8 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
   border-left-width: 0;

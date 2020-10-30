@@ -39,8 +39,8 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
 }
@@ -1111,7 +1111,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                               "hoveredTabKeyline": "#4DB84D",
                               "info": "#0073C2",
                               "previewBackground": "#BFCCD2",
-                              "primary": "#26A826",
+                              "primary": "#008200",
                               "secondary": "#006300",
                               "slate": "#003349",
                               "success": "#00B000",
@@ -1427,7 +1427,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                     "hoveredTabKeyline": "#4DB84D",
                                     "info": "#0073C2",
                                     "previewBackground": "#BFCCD2",
-                                    "primary": "#26A826",
+                                    "primary": "#008200",
                                     "secondary": "#006300",
                                     "slate": "#003349",
                                     "success": "#00B000",
@@ -1782,7 +1782,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                 "hoveredTabKeyline": "#4DB84D",
                                 "info": "#0073C2",
                                 "previewBackground": "#BFCCD2",
-                                "primary": "#26A826",
+                                "primary": "#008200",
                                 "secondary": "#006300",
                                 "slate": "#003349",
                                 "success": "#00B000",
@@ -2103,7 +2103,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                       "hoveredTabKeyline": "#4DB84D",
                                       "info": "#0073C2",
                                       "previewBackground": "#BFCCD2",
-                                      "primary": "#26A826",
+                                      "primary": "#008200",
                                       "secondary": "#006300",
                                       "slate": "#003349",
                                       "success": "#00B000",
@@ -2419,7 +2419,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                             "hoveredTabKeyline": "#4DB84D",
                                             "info": "#0073C2",
                                             "previewBackground": "#BFCCD2",
-                                            "primary": "#26A826",
+                                            "primary": "#008200",
                                             "secondary": "#006300",
                                             "slate": "#003349",
                                             "success": "#00B000",
@@ -2815,7 +2815,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                         "hoveredTabKeyline": "#4DB84D",
                                         "info": "#0073C2",
                                         "previewBackground": "#BFCCD2",
-                                        "primary": "#26A826",
+                                        "primary": "#008200",
                                         "secondary": "#006300",
                                         "slate": "#003349",
                                         "success": "#00B000",
@@ -3172,7 +3172,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                               "hoveredTabKeyline": "#4DB84D",
                                               "info": "#0073C2",
                                               "previewBackground": "#BFCCD2",
-                                              "primary": "#26A826",
+                                              "primary": "#008200",
                                               "secondary": "#006300",
                                               "slate": "#003349",
                                               "success": "#00B000",
@@ -3488,7 +3488,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                                     "hoveredTabKeyline": "#4DB84D",
                                                     "info": "#0073C2",
                                                     "previewBackground": "#BFCCD2",
-                                                    "primary": "#26A826",
+                                                    "primary": "#008200",
                                                     "secondary": "#006300",
                                                     "slate": "#003349",
                                                     "success": "#00B000",
@@ -3850,7 +3850,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                                 "hoveredTabKeyline": "#4DB84D",
                                                 "info": "#0073C2",
                                                 "previewBackground": "#BFCCD2",
-                                                "primary": "#26A826",
+                                                "primary": "#008200",
                                                 "secondary": "#006300",
                                                 "slate": "#003349",
                                                 "success": "#00B000",
@@ -4181,7 +4181,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                                       "hoveredTabKeyline": "#4DB84D",
                                                       "info": "#0073C2",
                                                       "previewBackground": "#BFCCD2",
-                                                      "primary": "#26A826",
+                                                      "primary": "#008200",
                                                       "secondary": "#006300",
                                                       "slate": "#003349",
                                                       "success": "#00B000",
@@ -4503,7 +4503,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                                             "hoveredTabKeyline": "#4DB84D",
                                                             "info": "#0073C2",
                                                             "previewBackground": "#BFCCD2",
-                                                            "primary": "#26A826",
+                                                            "primary": "#008200",
                                                             "secondary": "#006300",
                                                             "slate": "#003349",
                                                             "success": "#00B000",
@@ -4849,7 +4849,7 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                                         "hoveredTabKeyline": "#4DB84D",
                                                         "info": "#0073C2",
                                                         "previewBackground": "#BFCCD2",
-                                                        "primary": "#26A826",
+                                                        "primary": "#008200",
                                                         "secondary": "#006300",
                                                         "slate": "#003349",
                                                         "success": "#00B000",
