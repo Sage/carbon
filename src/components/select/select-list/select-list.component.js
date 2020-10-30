@@ -6,7 +6,10 @@ import React, {
   useMemo,
 } from "react";
 import PropTypes from "prop-types";
-import StyledSelectList from "./select-list.style";
+import {
+  StyledSelectList,
+  StyledSelectLoaderContainer,
+} from "./select-list.style";
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import Portal from "../../portal/portal";
@@ -16,6 +19,7 @@ import {
 } from "../utils/get-next-option-by-key";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import StyledSelectListContainer from "./select-list-container.style";
+import Loader from "../../loader";
 import Option from "../option/option.component";
 
 const overhang = 4;
@@ -35,6 +39,7 @@ const SelectList = React.forwardRef(
       repositionTrigger,
       disablePortal,
       onListAction,
+      isLoading,
       ...listProps
     },
     listContainerRef
@@ -232,20 +237,38 @@ const SelectList = React.forwardRef(
       updateListScrollTop(indexOfMatch, listRef.current);
     }, [childOptions, highlightedValue]);
 
-    function getChildrenWithListProps() {
-      return React.Children.map(children, (child, index) => {
+    const handleSelect = useCallback(
+      (optionData) => {
+        onSelect({ ...optionData, selectionType: "click" });
+      },
+      [onSelect]
+    );
+
+    const getChildrenWithListProps = useCallback(() => {
+      const optionsList = React.Children.map(children, (child, index) => {
+        if (child.type !== Option) {
+          return child;
+        }
+
         const newProps = {
           onSelect: handleSelect,
           isHighlighted: currentOptionsListIndex === index,
+          hidden: isLoading && React.Children.count(children) === 1,
         };
 
         return React.cloneElement(child, newProps);
       });
-    }
 
-    function handleSelect(optionData) {
-      onSelect({ ...optionData, selectionType: "click" });
-    }
+      if (isLoading) {
+        optionsList.push(
+          <StyledSelectLoaderContainer key="loader">
+            <Loader />
+          </StyledSelectLoaderContainer>
+        );
+      }
+
+      return optionsList;
+    }, [children, currentOptionsListIndex, handleSelect, isLoading]);
 
     function isNavigationKey(keyEvent) {
       return (
@@ -269,6 +292,7 @@ const SelectList = React.forwardRef(
           role="listbox"
           ref={listRef}
           tabIndex="0"
+          isLoading={isLoading}
         >
           {getChildrenWithListProps()}
         </StyledSelectList>
@@ -285,6 +309,7 @@ const SelectList = React.forwardRef(
     if (disablePortal) {
       return selectList;
     }
+
     return <Portal onReposition={repositionList}>{selectList}</Portal>;
   }
 );
@@ -314,6 +339,8 @@ SelectList.propTypes = {
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
+  /** If true the loader animation is displayed */
+  isLoading: PropTypes.bool,
 };
 
 export default SelectList;

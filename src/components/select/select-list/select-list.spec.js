@@ -3,12 +3,13 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
-import StyledSelectList from "./select-list.style";
+import { StyledSelectList } from "./select-list.style";
 import { baseTheme } from "../../../style/themes";
 import Option from "../option/option.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Portal from "../../portal";
 import ListActionButton from "../list-action-button/list-action-button.component";
+import Loader from "../../loader";
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -310,6 +311,35 @@ describe("SelectList", () => {
           domNode.dispatchEvent(keyEvent);
         });
         expect(onFocusFn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when the isLoading prop is provided", () => {
+    it("then a Loader Component should be rendered in the list", () => {
+      const wrapper = renderSelectList({
+        isLoading: true,
+        onListAction: () => {},
+      });
+      expect(wrapper.find(Loader).exists()).toBe(true);
+      wrapper.unmount();
+    });
+
+    describe("and there is only one option", () => {
+      it("that option should have the hidden prop", () => {
+        const wrapper = mount(
+          <SelectList
+            value="red"
+            onSelect={() => {}}
+            onSelectListClose={() => {}}
+            isLoading
+          >
+            <Option value="opt1" text="red" />
+          </SelectList>
+        );
+
+        expect(wrapper.find(Option).first().prop("hidden")).toBe(true);
+        wrapper.unmount();
       });
     });
   });
