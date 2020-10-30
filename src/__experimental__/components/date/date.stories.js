@@ -209,4 +209,4 @@ storiesOf('Experimental/Date Input', module)
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true))
   .add(...makeStory('required', dlsThemeSelector, RequiredDateComponent))
-  .add(...makeStory('disablePortal', dlsThemeSelector, DisablePortalDateComponent));
+  .add(...makeStory('disablePortal', dlsThemeSelector, DisablePortalDateComponent, true));
