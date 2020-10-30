@@ -6,6 +6,7 @@ import TestRenderer from 'react-test-renderer';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import DayPicker from 'react-day-picker';
+
 import Portal from '../../../components/portal/portal';
 import DatePicker from './date-picker.component';
 import StyledDayPicker from './day-picker.style';
@@ -41,12 +42,13 @@ describe('DatePicker', () => {
       wrapper = render({ selectedDate: currentDate, inputElement, inputDate: firstDate }, mount);
     });
 
-    it('should render a "Portal" component', () => {
-      expect(wrapper.find(Portal).exists()).toBe(true);
+    it('by default should render a "DayPicker" component inside a "Portal"', () => {
+      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
     });
 
-    it('should render a "DayPicker" component inside a "Portal"', () => {
-      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
+    it('should not render a "Portal" when disablePortal prop is passed', () => {
+      wrapper.setProps({ disablePortal: true });
+      expect(wrapper.find(Portal).exists()).toBe(false);
     });
   });
 

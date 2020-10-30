@@ -2,6 +2,9 @@
 
 exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 .c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -301,6 +304,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
 }
 
 .c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -1110,6 +1116,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
 .c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);

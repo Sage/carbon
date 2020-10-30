@@ -4,6 +4,9 @@ import dayPickerClassicStyle from './day-picker-classic.style';
 
 const StyledDayPicker = styled.div`
   .DayPicker {
+    z-index: 1000;
+    top: calc(100% + 1px);
+    left: 0;
     background-color: ${({ theme }) => theme.colors.white};
     box-shadow: ${({ theme }) => theme.shadows.depth1};
     color: ${({ theme }) => theme.text.color};
