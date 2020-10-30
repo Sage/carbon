@@ -1,3 +1,10 @@
+### [47.1.2](https://github.com/Sage/carbon/compare/v47.1.1...v47.1.2) (2020-10-30)
+
+
+### Bug Fixes
+
+* **theme:** update base/none theme primary color ([173d35f](https://github.com/Sage/carbon/commit/173d35f898097d456ef9ab18aa84c451096f4ada))
+
 ### [47.1.1](https://github.com/Sage/carbon/compare/v47.1.0...v47.1.1) (2020-10-29)
 
 
