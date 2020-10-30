@@ -48,7 +48,7 @@ describe('Form', () => {
         window.dispatchEvent(new Event('scroll'));
       });
       wrapper.update();
-      expect(wrapper.find(StyledFormFooter).hasClass('isSticky')).toBe(true);
+      expect(wrapper.find(StyledFormFooter).hasClass('sticky')).toBe(true);
       assertStyleMatch({
         paddingBottom: '72px'
       }, wrapper.find(StyledForm));

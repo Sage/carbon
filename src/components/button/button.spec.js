@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from 'styled-components';
 import { shallow } from 'enzyme';
 import Icon from 'components/icon';
 import TestRenderer from 'react-test-renderer';
@@ -148,7 +147,7 @@ describe('Button', () => {
 
       assertStyleMatch({
         color: BaseTheme.colors.error
-      }, wrapper, { modifier: css`${StyledIcon}` });
+      }, wrapper, { modifier: `${StyledIcon}` });
 
       assertStyleMatch({
         background: BaseTheme.colors.destructive.hover,
@@ -157,7 +156,7 @@ describe('Button', () => {
 
       assertStyleMatch({
         color: BaseTheme.colors.white
-      }, wrapper, { modifier: `:focus ${css`${StyledIcon}`}` });
+      }, wrapper, { modifier: `:focus ${StyledIcon}` });
 
       assertStyleMatch({
         background: BaseTheme.colors.destructive.hover,
@@ -167,7 +166,7 @@ describe('Button', () => {
 
       assertStyleMatch({
         color: BaseTheme.colors.white
-      }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+      }, wrapper, { modifier: `:hover ${StyledIcon}` });
     });
   });
 
@@ -184,7 +183,7 @@ describe('Button', () => {
 
     assertStyleMatch({
       color: BaseTheme.colors.error
-    }, wrapper, { modifier: css`${StyledIcon}` });
+    }, wrapper, { modifier: `${StyledIcon}` });
 
     assertStyleMatch({
       color: BaseTheme.colors.destructive.hover
@@ -192,7 +191,7 @@ describe('Button', () => {
 
     assertStyleMatch({
       color: BaseTheme.colors.destructive.hover
-    }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+    }, wrapper, { modifier: `:hover ${StyledIcon}` });
   });
 
   describe('when the "disabled" prop is passed', () => {

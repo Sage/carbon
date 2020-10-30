@@ -256,8 +256,11 @@ describe('Menu', () => {
       it('should stop keyboard navigation if defaultPrevented is provided', () => {
         menuItemSecond.getDOMNode().focus();
         expect(menuItemSecond).toBeFocused();
-        styledMenuItemSecond.props()
-          .onKeyDown({ defaultPrevented: () => {}, preventDefault: () => {}, which: KEYS.arrowRight });
+        styledMenuItemSecond.props().onKeyDown({
+          defaultPrevented: () => {},
+          preventDefault: () => {},
+          which: KEYS.arrowRight,
+        });
         expect(onKeyDownFn).toHaveBeenCalled();
         expect(menuItemSecond).toBeFocused();
       });

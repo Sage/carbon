@@ -20,10 +20,10 @@ describe('ColorSampleBox', () => {
   let wrapper;
 
   it('applies passed color to the background-color', () => {
-    wrapper = renderStyles({ color: '#0073C2' });
+    wrapper = renderStyles({ color: '#0073c2' });
     assertStyleMatch(
       {
-        backgroundColor: '#0073C2'
+        backgroundColor: '#0073c2'
       },
       wrapper.toJSON()
     );
@@ -33,7 +33,7 @@ describe('ColorSampleBox', () => {
     wrapper = renderStyles({ color: 'transparent' });
     assertStyleMatch(
       {
-        backgroundColor: '#EEEEEE',
+        backgroundColor: '#eeeeee',
         backgroundImage: 'url()',
         backgroundSize: '14px 14px',
         backgroundPosition: '-2px -2px'

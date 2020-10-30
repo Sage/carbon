@@ -86,7 +86,8 @@ const ItemTarget = {
   }
 };
 
-WithDrop = DropTarget( // eslint-disable-line no-class-assign
+// eslint-disable-next-line no-class-assign
+WithDrop = DropTarget(
   ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
     isOver: monitor.isOver(),
     connectDropTarget: connect.dropTarget(),

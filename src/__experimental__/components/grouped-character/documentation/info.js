@@ -6,7 +6,7 @@ const info = (
     <StoryHeader>Grouped Character Component</StoryHeader>
     <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
-      {'import GroupedCharacter from \'carbon-react/lib/components/grouped-character\';'}
+      import GroupedCharacter from \'carbon-react/lib/components/grouped-character\';
     </StoryCode>
 
     <p>To render a Grouped Character</p>

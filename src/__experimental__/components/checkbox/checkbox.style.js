@@ -49,6 +49,7 @@ const CheckboxStyle = styled.div`
       width: 16px;
     }
 
+    // prettier-ignore
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {

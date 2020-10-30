@@ -320,7 +320,7 @@ describe('Styled FullScreenHeading', () => {
         />
       );
       assertStyleMatch({
-        borderBottomColor: '#CCD6DB'
+        borderBottomColor: '#ccd6db'
       }, wrapper);
     });
   });

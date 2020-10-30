@@ -89,7 +89,7 @@ const Form = ({
       { children }
       <StyledFormFooter
         data-element='form-footer'
-        className={ isFooterSticky ? 'isSticky' : '' }
+        className={ isFooterSticky ? 'sticky' : '' }
         ref={ formFooterRef }
         stickyFooter={ isFooterSticky }
         buttonAlignment={ buttonAlignment }

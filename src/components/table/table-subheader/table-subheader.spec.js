@@ -24,7 +24,7 @@ describe('TableSubheader', () => {
       const th = wrapper.find('[data-component="table-sub-header"]').hostNodes();
       expect(th).toBeDefined();
       assertStyleMatch({
-        backgroundColor: '#001E2B',
+        backgroundColor: '#001e2b',
         color: BaseTheme.colors.white,
         fontWeight: 'bold'
       }, th);

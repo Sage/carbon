@@ -174,7 +174,7 @@ describe('TabTitle', () => {
         assertStyleMatch(
           { borderBottom: `1px solid ${baseTheme.tab.background}` },
           wrapper.find(StyledTabTitle),
-          { modifier: css`:last-of-type ${StyledTitleContent}` }
+          { modifier: `:last-of-type ${StyledTitleContent}` }
         );
       });
     });

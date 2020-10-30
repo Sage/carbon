@@ -44,7 +44,7 @@ describe('SubmenuBlock', () => {
     );
 
     assertStyleMatch({
-      backgroundColor: '#1B1D21'
+      backgroundColor: '#1b1d21'
     }, wrapper, { modifier: `> *:not(${StyledSubmenuItem})` });
   });
 

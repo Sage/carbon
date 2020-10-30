@@ -551,7 +551,7 @@ describe('CarouselSliderWrapper', () => {
     wrapper = mount(<CarouselSliderWrapper elementIndex={ 1 } />);
 
     assertStyleMatch({
-      transition: '.4s',
+      transition: '0.4s',
       display: 'flex',
       position: 'relative',
       left: '-70%'

@@ -80,7 +80,7 @@ describe('ButtonToggleGroup', () => {
     describe.each(validationTypes)('when %s prop is passed as string', (type) => {
       it('renders proper styles', () => {
         // eslint-disable-next-line max-len
-        const boxShadow = type === 'error' ? `inset 1px 1px 0 ${baseTheme.colors.error},inset -1px -1px 0 ${baseTheme.colors.error}` : undefined;
+        const boxShadow = type === 'error' ? `inset 1px 1px 0 ${baseTheme.colors.error}, inset -1px -1px 0 ${baseTheme.colors.error}` : undefined;
         const wrapper = renderWithTheme({ theme: baseTheme, [type]: 'Message' }, mount);
         assertStyleMatch(
           {
@@ -106,7 +106,7 @@ describe('ButtonToggleGroup', () => {
     describe.each(validationTypes)('when %s prop is passed as boolean', (type) => {
       it('renders proper styles', () => {
         // eslint-disable-next-line max-len
-        const boxShadow = type === 'error' ? `inset 1px 1px 0 ${baseTheme.colors.error},inset -1px -1px 0 ${baseTheme.colors.error}` : undefined;
+        const boxShadow = type === 'error' ? `inset 1px 1px 0 ${baseTheme.colors.error}, inset -1px -1px 0 ${baseTheme.colors.error}` : undefined;
         const wrapper = renderWithTheme({ theme: baseTheme, [type]: true }, mount);
         assertStyleMatch(
           {

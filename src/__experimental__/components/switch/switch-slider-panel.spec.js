@@ -55,7 +55,7 @@ describe('SwitchSliderPanel', () => {
     it('applies the correct off panel styles', () => {
       assertStyleMatch({
         color: theme.text.color
-      }, wrapper, { modifier: "[type='off']" });
+      }, wrapper, { modifier: '[type="off"]' });
     });
   });
 });

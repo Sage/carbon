@@ -19,7 +19,7 @@ const SwitchSliderPanel = styled.div`
       margin-left: 9px;
     }
 
-    &[type='off'] {
+    &[type="off"] {
       color: ${theme.text.color};
       margin-right: 6px;
     }

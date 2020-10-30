@@ -350,7 +350,7 @@ describe('Switch', () => {
         const shadowWidth = type === 'error' ? 2 : 1;
         assertStyleMatch({
           // eslint-disable-next-line max-len
-          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
+          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]}, inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
         }, wrapper.find(StyledSwitchSlider));
       });
     });
@@ -371,7 +371,7 @@ describe('Switch', () => {
         const shadowWidth = type === 'error' ? 2 : 1;
         assertStyleMatch({
           // eslint-disable-next-line max-len
-          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
+          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]}, inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
         }, wrapper.find(StyledSwitchSlider));
       });
     });

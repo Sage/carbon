@@ -26,7 +26,7 @@ const DialogStyle = styled.div`
   }
 
   ${({ size }) => size && css`
-    width: ${dialogSizes[size]}
+    width: ${dialogSizes[size]};
 
     // IE10+ fix (caters for scrollbar width)
       @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
@@ -50,8 +50,9 @@ const DialogStyle = styled.div`
     }
   `};
 
+  // prettier-ignore
   ${({ size }) => css`
-    ${StyledFormFooter}.isSticky {
+    ${StyledFormFooter}.sticky {
       margin-left: -35px;
       left: auto;
       width: ${dialogSizes[size]};

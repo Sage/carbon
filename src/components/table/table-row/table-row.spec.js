@@ -729,7 +729,7 @@ describe('TableRow', () => {
         row1.setContext({ dragAndDropActiveIndex: 0 });
 
         assertStyleMatch(
-          { backgroundColor: '#F2F5F6' },
+          { backgroundColor: '#f2f5f6' },
           row1.find(StyledTableRow),
           { modifier: `&&&&& ${StyledTableCell}` }
         );

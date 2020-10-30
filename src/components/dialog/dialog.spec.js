@@ -316,7 +316,7 @@ describe('Dialog', () => {
         left: 'auto',
         width: '750px',
         position: 'fixed'
-      }, wrapper.find(DialogStyle), { modifier: `${StyledFormFooter}.isSticky` });
+      }, wrapper.find(DialogStyle), { modifier: `${StyledFormFooter}.sticky` });
     });
   });
 

@@ -1158,8 +1158,8 @@ describe('Table', () => {
       );
 
       assertStyleMatch({
-        backgroundColor: '#F2F5F6',
-        border: '1px solid #CCD6DB',
+        backgroundColor: '#f2f5f6',
+        border: '1px solid #ccd6db',
         borderRadius: '0px',
         overflow: 'visible'
       }, wrapper);

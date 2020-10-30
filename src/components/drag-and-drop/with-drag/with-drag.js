@@ -85,7 +85,8 @@ const ItemSource = {
   }
 };
 
-WithDrag = DragSource( // eslint-disable-line no-class-assign
+// eslint-disable-next-line no-class-assign
+WithDrag = DragSource(
   ItemTypes.getItemType, ItemSource, connect => ({
     connectDragSource: connect.dragSource()
   })

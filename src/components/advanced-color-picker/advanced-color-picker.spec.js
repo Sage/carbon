@@ -133,7 +133,7 @@ describe('AdvancedColorPicker', () => {
             ).toBe(wrapper.find(SimpleColor).at(0).prop('value'));
             assertStyleMatch(
               {
-                backgroundColor: '#EEEEEE',
+                backgroundColor: '#eeeeee',
                 backgroundImage: 'url()',
                 backgroundSize: '14px 14px'
               },
@@ -266,7 +266,7 @@ describe('AdvancedColorPicker', () => {
         });
 
         it('uses selectedColor when provided', () => {
-          const selectedColor = '#AEECD6';
+          const selectedColor = '#aeecd6';
           render({ ...requiredProps, selectedColor });
           expect(wrapper.find(AdvancedColorPicker).first().prop('selectedColor')).toBe(selectedColor);
         });

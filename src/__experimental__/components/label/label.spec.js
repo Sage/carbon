@@ -103,7 +103,7 @@ describe('Label', () => {
       });
 
       assertStyleMatch({
-        content: "'(optional)'",
+        content: '"(optional)"',
         fontWeight: '350',
         marginLeft: '4px'
       }, wrapper.find(StyledLabelContainer),
@@ -125,7 +125,7 @@ describe('Label', () => {
       });
 
       assertStyleMatch({
-        content: "'*'",
+        content: '"*"',
         color: '#C7384F',
         fontWeight: '700',
         marginLeft: '8px'

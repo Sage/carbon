@@ -7,7 +7,7 @@ const info = (
     <p>Captures a single date.</p>
     <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
-      {'import DateInput from \'carbon-react/lib/components/Date\';'}
+      import DateInput from \'carbon-react/lib/components/Date\';
     </StoryCode>
 
     <p>To render a Date Input</p>

@@ -27,8 +27,7 @@ expect.extend({
       );
     };
 
-    const negative = () => `${hint}\n\n`
-    + 'DOMNode should not have focus';
+    const negative = () => `${hint}\n\nDOMNode should not have focus`;
 
     const message = pass ? negative : positive;
 
