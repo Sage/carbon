@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import DialogFullScreen from '.';
+import { Accordion } from '../accordion';
 import AppWrapper from '../app-wrapper';
+import Box from '../box';
 import Button from '../button';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
@@ -108,6 +110,69 @@ const MyComponent = ({ isOpen, handleClose }) => (
             title="An example of a long header"
             subtitle="Subtitle"
             headerChildren={ HeaderChildren }
+          >
+            <Form
+              stickyFooter={ true }
+              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
+            >
+              <div>This is an example of a full screen Dialog with a Form as content</div>
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
+              <Textbox label='Surname' />
+              <Textbox label='Birth Place' />
+              <Textbox label='Favourite Colour' />
+              <Textbox label='Address' />
+            </Form>
+          </DialogFullScreen>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### With hidable header children 
+
+<Preview>
+  <Story name="with hidable header children" parameters={{ chromatic: { disable: true, viewports: [500, 1400] }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      const aboveBreakpoint = useMediaQuery('(min-width: 568px)');
+      const verticalMargin = aboveBreakpoint ? '26px' : 0;
+      const HeaderChildrenAboveBreakpoint = (
+        <div style={{ margin: `${verticalMargin} 0 26px` }}>
+          <Pill as="help" fill>A pill</Pill> 
+          <Pill as="info" fill ml={2} mr={1}>Another pill</Pill>
+        </div>
+      );
+      const HeaderChildrenBelowBreakpoint = ( 
+        <Accordion
+          title="More info"
+          openTitle="Less info"
+          scheme="transparent"
+          borders="none"
+          disableContentPadding
+          buttonHeading
+          buttonWidth={120}
+          ml="-13px"
+        >
+          <Box py="16px" pl="14px">
+            <Pill as="help" fill>A pill</Pill> 
+            <Pill as="info" fill ml={2} mr={1}>Another pill</Pill>
+          </Box>
+        </Accordion> 
+      );
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open DialogFullScreen
+          </Button>
+          <DialogFullScreen
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title="An example of a long header"
+            subtitle="Subtitle"
+            headerChildren={ aboveBreakpoint ? HeaderChildrenAboveBreakpoint : HeaderChildrenBelowBreakpoint }
           >
             <Form
               stickyFooter={ true }

@@ -198,7 +198,11 @@ describe('StyledDayPicker', () => {
 
     describe('translation', () => {
       it('renders properly', () => {
-        const wrapper = render({ inputElement, inputDate: firstDate }, TestRenderer.create);
+        const wrapper = render({
+          inputElement,
+          inputDate: firstDate,
+          selectedDate: new Date('2019-04-01')
+        }, TestRenderer.create);
         expect(wrapper).toMatchSnapshot();
       });
     });

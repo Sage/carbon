@@ -310,6 +310,26 @@ The default width of 100% can be overriden.
   </Story>
 </Preview>
 
+### Opening button
+A button can be passed in to replace the title and opening icon. 
+This is not currently designed to be used within a form using validation.
+<Preview>
+  <Story name="opening button">
+    <Accordion
+      title="More info"
+      openTitle="Less info"
+      scheme="transparent"
+      borders="none"
+      buttonHeading
+      buttonWidth={200}
+    >
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
 ### Grouped
 Accordions borders collapse when positioned next to each other making it easy to group them.
 To achieve proper keyboard accessibility as described in `W3` sources it is required to wrap neighbouring accordions in

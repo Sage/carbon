@@ -341,6 +341,52 @@ describe('Accordion', () => {
     });
   });
 
+  describe('when buttonHeading set', () => {
+    it('should render a button in the header', () => {
+      wrapper = mount(<Accordion title='Title' buttonHeading />);
+
+      expect(wrapper.find(StyledAccordionTitleContainer).find('button').exists()).toBe(true);
+    });
+
+    describe('when openTitle prop set', () => {
+      it('should display the title when closed', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            openTitle='Less info'
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Title');
+      });
+
+      it('should display the openTitle when open', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            openTitle='Less info'
+            expanded
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Less info');
+      });
+    });
+
+    describe('when openTitle prop false', () => {
+      it('should display the title when open', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            expanded
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Title');
+      });
+    });
+  });
+
   describe('props', () => {
     it('passes data-role attribute to the root element of component', () => {
       render({
