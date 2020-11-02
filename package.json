@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "48.2.0",
+  "version": "48.3.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -147,6 +147,7 @@
     "markdown-to-jsx": "^6.11.4",
     "marked": "^0.7.0",
     "moment": "~2.20.1",
+    "polished": "^4.0.3",
     "prop-types": "^15.5.8",
     "react-day-picker": "~6.1.1",
     "react-dnd": "^10.0.2",

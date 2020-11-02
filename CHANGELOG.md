@@ -1,3 +1,11 @@
+## [48.3.0](https://github.com/Sage/carbon/compare/v48.2.0...v48.3.0) (2020-11-02)
+
+
+### Features
+
+* **icon:** add custom color support ([7b69b04](https://github.com/Sage/carbon/commit/7b69b042e8998b185b1c4767e6f80ba84bca7a44))
+* **pill:** add custom color support ([c542205](https://github.com/Sage/carbon/commit/c5422051419050a6e5c4dd5293fea784f078e293))
+
 ## [48.2.0](https://github.com/Sage/carbon/compare/v48.1.0...v48.2.0) (2020-11-02)
 
 

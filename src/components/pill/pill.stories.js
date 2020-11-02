@@ -13,6 +13,7 @@ const getKnobs = () => {
     ml: number('ml', 0),
     mr: number('mr', 0),
     children: text('children', 'Pill'),
+    borderColor: text('borderColor', undefined),
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
     size: select('size', ['S', 'M', 'L', 'XL'], Pill.defaultProps.size),
@@ -41,6 +42,7 @@ export const basic = () => {
     fill,
     onDelete,
     pillRole,
+    borderColor,
     size,
     ml,
     mr
@@ -50,6 +52,7 @@ export const basic = () => {
       colorVariant={ colorVariant }
       fill={ fill }
       onDelete={ onDelete ? action('delete') : null }
+      borderColor={ borderColor }
       pillRole={ pillRole }
       size={ size }
       ml={ ml }

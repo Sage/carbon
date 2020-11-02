@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { shade, meetsContrastGuidelines } from 'polished';
+
 import styleConfig from './pill.style.config';
 import { baseTheme } from '../../style/themes';
 import StyledIcon from '../icon/icon.style';
+import { toColor } from '../../style/utils/color.js';
 
 function addStyleToPillIcon(fontSize) {
   return `
@@ -16,12 +19,30 @@ function addStyleToPillIcon(fontSize) {
 
 const PillStyle = styled.span`
  ${({
-    colorVariant, theme, inFill, isDeletable, pillRole, size, ml, mr
+    colorVariant, borderColor, theme, inFill, isDeletable, pillRole, size, ml, mr
   }) => {
     const isStatus = pillRole === 'status';
     const { colors, text } = baseTheme;
     const variety = isStatus ? colorVariant : 'primary';
-    const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][variety];
+    let pillColor;
+    let buttonFocusColor;
+    let contentColor;
+
+    try {
+      if (borderColor) {
+        pillColor = toColor(theme, borderColor);
+        buttonFocusColor = shade(0.2, pillColor);
+      } else {
+        const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][variety];
+        pillColor = varietyColor;
+        buttonFocusColor = buttonFocus;
+      }
+
+      contentColor = meetsContrastGuidelines(pillColor, text.color).AAA ? text.color : colors.white;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
 
     return css`
       border-radius: 12px;
@@ -33,13 +54,12 @@ const PillStyle = styled.span`
       text-align: center;
       align-items: center;
       justify-content: center;
-
-      border: 2px solid ${varietyColor};
+      border: 2px solid ${pillColor};
       height: auto;
 
       ${inFill && css`
-        background-color: ${varietyColor};
-        color: ${(variety === 'warning') ? text.color : colors.white};
+        background-color: ${pillColor};
+        color: ${contentColor};
       `}
 
       ${size === 'S' && css`
@@ -81,10 +101,9 @@ const PillStyle = styled.span`
           line-height: 16px;
 
           ${inFill && css`
-            background-color: ${varietyColor};
-            color: ${(variety === 'warning') ? text.color : colors.white};
+            color: ${contentColor};
             ${StyledIcon} {
-              color: ${(variety === 'warning') ? text.color : colors.white};
+              color: ${contentColor};
             }
           `}
 
@@ -96,22 +115,22 @@ const PillStyle = styled.span`
           &:focus {
             outline: none;
             box-shadow: 0 0 0 3px ${colors.focus};
-            background-color: ${buttonFocus};
-            & { color: ${(variety === 'warning') ? text.color : colors.white} }
+            background-color: ${buttonFocusColor};
+            & { color: ${contentColor} }
             ::-moz-focus-inner {
               border: 0;
             }
             ${StyledIcon} {
-              color: ${(variety === 'warning') ? text.color : colors.white};
+              color: ${contentColor};
             }
           }
 
           &:hover {
-            background-color: ${buttonFocus};
-            color: ${(variety === 'warning') ? text.color : colors.white};
+            background-color: ${buttonFocusColor};
+            color: ${contentColor};
             cursor: pointer;
             ${StyledIcon} {
-              color: ${(variety === 'warning') ? text.color : colors.white};
+              color: ${contentColor};
             }
           }
 
@@ -121,7 +140,7 @@ const PillStyle = styled.span`
 
             &:hover, 
             &:focus {
-              color: ${(variety === 'warning') ? text.color : colors.white};
+              color: ${contentColor};
             }
           }
         }

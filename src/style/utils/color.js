@@ -21,7 +21,7 @@ import { color as styledColor } from 'styled-system';
  * This allows us to keep our themes as plain objects.
  */
 
-const toColor = (theme, color) => {
+export const toColor = (theme, color) => {
   const { palette } = theme;
 
   const percentage = color.match(/\d+/);

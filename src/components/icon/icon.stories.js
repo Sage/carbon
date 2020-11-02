@@ -39,6 +39,8 @@ const dlsKnobs = () => {
     fontSize,
     ml: number('ml', 0),
     mr: number('mr', 0),
+    color: text('color', undefined),
+    bg: text('bg', undefined),
     bgSize: canSizeBg ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
     bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
     iconColor:
@@ -126,6 +128,29 @@ export const All = () => (
         })
       ))
     ))}
+    {/* Custom colors */}
+    <Icon type='add' color='blackOpacity65' />
+    <Icon type='add' color='brilliantGreenShade20' />
+    <Icon type='add' color='red' />
+    <Icon type='add' color='#123456' />
+    <Icon type='add' color='rgb(0, 123, 10)' />
+    <Icon
+      type='add'
+      color='white'
+      bg='blackOpacity65'
+    />
+    <Icon type='add' bg='brilliantGreenShade20' />
+    <Icon type='add' bg='red' />
+    <Icon
+      type='add'
+      color='white'
+      bg='#123456'
+    />
+    <Icon
+      type='add'
+      color='white'
+      bg='rgb(0, 123, 10)'
+    />
   </>
 );
 

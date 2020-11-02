@@ -4,7 +4,6 @@ import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import StyledIcon from './icon.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Icon extends React.Component {
   /** Return component props */
@@ -42,6 +41,8 @@ class Icon extends React.Component {
         fontSize={ this.props.fontSize }
         iconColor={ this.props.iconColor }
         disabled={ this.props.disabled }
+        color={ this.props.color }
+        bg={ this.props.bg }
         type={ this.type }
         key='icon'
         className={ this.props.className || null }
@@ -65,15 +66,42 @@ Icon.propTypes = {
   /** Icon type */
   type: PropTypes.string.isRequired,
   /** Background size */
-  bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  bgSize: PropTypes.oneOf([
+    'small',
+    'medium',
+    'large'
+  ]),
   /** Background shape */
-  bgShape: PropTypes.oneOf(OptionsHelper.shapes),
+  bgShape: PropTypes.oneOf([
+    'circle',
+    'rounded-rect',
+    'square'
+  ]),
   /** Background color theme */
-  bgTheme: PropTypes.oneOf(OptionsHelper.iconBackgrounds),
+  bgTheme: PropTypes.oneOf([
+    'info',
+    'error',
+    'success',
+    'warning',
+    'business',
+    'none'
+  ]),
   /** Icon font size */
-  fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  fontSize: PropTypes.oneOf([
+    'small',
+    'large'
+  ]),
   /** Icon color */
-  iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
+  iconColor: PropTypes.oneOf([
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
+  ]),
+  /** Override iconColor, provide any color from palette or any valid css color value. */
+  color: PropTypes.string,
+  /** Override bgTheme, provide any color from palette or any valid css color value. */
+  bg: PropTypes.string,
   /** Sets the icon in the disabled state */
   disabled: PropTypes.bool,
   /** Margin right, given number will be multiplied by base spacing unit (8) */
