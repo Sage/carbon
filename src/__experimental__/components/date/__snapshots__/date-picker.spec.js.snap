@@ -478,7 +478,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
             role="heading"
           >
             <div>
-              octobre 2020
+              avril 2019
             </div>
           </div>
           <div
@@ -577,46 +577,10 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               role="row"
             >
               <div
-                aria-disabled={true}
-                aria-label="lun. 28 sept. 2020"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                28
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="mar. 29 sept. 2020"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                29
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="mer. 30 sept. 2020"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                30
-              </div>
-              <div
                 aria-disabled={false}
-                aria-label="jeu. 1 oct. 2020"
-                aria-selected={false}
-                className="DayPicker-Day"
+                aria-label="lun. 1 avr. 2019"
+                aria-selected={true}
+                className="DayPicker-Day DayPicker-Day--selected"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="gridcell"
@@ -626,7 +590,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="ven. 2 oct. 2020"
+                aria-label="mar. 2 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -638,9 +602,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="sam. 3 oct. 2020"
+                aria-label="mer. 3 avr. 2019"
                 aria-selected={false}
-                className="DayPicker-Day"
+                className="DayPicker-Day DayPicker-Day--today"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="gridcell"
@@ -650,7 +614,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="dim. 4 oct. 2020"
+                aria-label="jeu. 4 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -660,14 +624,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 4
               </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
               <div
                 aria-disabled={false}
-                aria-label="lun. 5 oct. 2020"
+                aria-label="ven. 5 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -679,7 +638,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mar. 6 oct. 2020"
+                aria-label="sam. 6 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -691,7 +650,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mer. 7 oct. 2020"
+                aria-label="dim. 7 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -701,9 +660,14 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 7
               </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
               <div
                 aria-disabled={false}
-                aria-label="jeu. 8 oct. 2020"
+                aria-label="lun. 8 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -715,7 +679,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="ven. 9 oct. 2020"
+                aria-label="mar. 9 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -727,7 +691,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="sam. 10 oct. 2020"
+                aria-label="mer. 10 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -739,7 +703,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="dim. 11 oct. 2020"
+                aria-label="jeu. 11 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -749,14 +713,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 11
               </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
               <div
                 aria-disabled={false}
-                aria-label="lun. 12 oct. 2020"
+                aria-label="ven. 12 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -768,7 +727,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mar. 13 oct. 2020"
+                aria-label="sam. 13 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -780,7 +739,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mer. 14 oct. 2020"
+                aria-label="dim. 14 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -790,9 +749,14 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 14
               </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
               <div
                 aria-disabled={false}
-                aria-label="jeu. 15 oct. 2020"
+                aria-label="lun. 15 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -804,7 +768,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="ven. 16 oct. 2020"
+                aria-label="mar. 16 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -816,7 +780,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="sam. 17 oct. 2020"
+                aria-label="mer. 17 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -828,7 +792,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="dim. 18 oct. 2020"
+                aria-label="jeu. 18 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -838,14 +802,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 18
               </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
               <div
                 aria-disabled={false}
-                aria-label="lun. 19 oct. 2020"
+                aria-label="ven. 19 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -857,7 +816,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mar. 20 oct. 2020"
+                aria-label="sam. 20 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -869,7 +828,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mer. 21 oct. 2020"
+                aria-label="dim. 21 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -879,9 +838,14 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 21
               </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
               <div
                 aria-disabled={false}
-                aria-label="jeu. 22 oct. 2020"
+                aria-label="lun. 22 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -893,7 +857,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="ven. 23 oct. 2020"
+                aria-label="mar. 23 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -905,7 +869,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="sam. 24 oct. 2020"
+                aria-label="mer. 24 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -917,7 +881,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="dim. 25 oct. 2020"
+                aria-label="jeu. 25 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -927,14 +891,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 25
               </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
               <div
                 aria-disabled={false}
-                aria-label="lun. 26 oct. 2020"
+                aria-label="ven. 26 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -946,7 +905,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mar. 27 oct. 2020"
+                aria-label="sam. 27 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -958,7 +917,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="mer. 28 oct. 2020"
+                aria-label="dim. 28 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -968,9 +927,14 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 28
               </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
               <div
                 aria-disabled={false}
-                aria-label="jeu. 29 oct. 2020"
+                aria-label="lun. 29 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -982,7 +946,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={false}
-                aria-label="ven. 30 oct. 2020"
+                aria-label="mar. 30 avr. 2019"
                 aria-selected={false}
                 className="DayPicker-Day"
                 onClick={[Function]}
@@ -993,20 +957,8 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                 30
               </div>
               <div
-                aria-disabled={false}
-                aria-label="sam. 31 oct. 2020"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                31
-              </div>
-              <div
                 aria-disabled={true}
-                aria-label="dim. 1 nov. 2020"
+                aria-label="mer. 1 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1016,14 +968,9 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 1
               </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
               <div
                 aria-disabled={true}
-                aria-label="lun. 2 nov. 2020"
+                aria-label="jeu. 2 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1035,7 +982,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={true}
-                aria-label="mar. 3 nov. 2020"
+                aria-label="ven. 3 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1047,7 +994,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={true}
-                aria-label="mer. 4 nov. 2020"
+                aria-label="sam. 4 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1059,7 +1006,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={true}
-                aria-label="jeu. 5 nov. 2020"
+                aria-label="dim. 5 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1069,9 +1016,14 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               >
                 5
               </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
               <div
                 aria-disabled={true}
-                aria-label="ven. 6 nov. 2020"
+                aria-label="lun. 6 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1083,7 +1035,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={true}
-                aria-label="sam. 7 nov. 2020"
+                aria-label="mar. 7 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1095,7 +1047,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
               </div>
               <div
                 aria-disabled={true}
-                aria-label="dim. 8 nov. 2020"
+                aria-label="mer. 8 mai 2019"
                 aria-selected={false}
                 className="DayPicker-Day DayPicker-Day--outside"
                 onClick={[Function]}
@@ -1104,6 +1056,54 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
                 tabIndex={-1}
               >
                 8
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="jeu. 9 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                9
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="ven. 10 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                10
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="sam. 11 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                11
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="dim. 12 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                12
               </div>
             </div>
           </div>
