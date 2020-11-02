@@ -75,7 +75,7 @@ export const Grouped = () => (
 Basic.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };

@@ -26,6 +26,7 @@ const SelectList = React.forwardRef(({
   anchorElement,
   highlightedValue,
   repositionTrigger,
+  disablePortal,
   onListAction,
   ...listProps
 }, listContainerRef) => {
@@ -154,8 +155,10 @@ const SelectList = React.forwardRef(({
   }, [children, filterText, getIndexOfMatch, lastFilter]);
 
   useEffect(() => {
-    repositionList();
-  }, [repositionList, repositionTrigger]);
+    if (!disablePortal) {
+      repositionList();
+    }
+  }, [disablePortal, repositionList, repositionTrigger]);
 
   useEffect(() => {
     if (!highlightedValue) {
@@ -188,31 +191,39 @@ const SelectList = React.forwardRef(({
     || keyEvent === 'Home' || keyEvent === 'End';
   }
 
+  const selectList = (
+    <StyledSelectListContainer
+      data-element='select-list-wrapper'
+      ref={ listContainerRef }
+      { ...listProps }
+    >
+      <StyledSelectList
+        id={ id }
+        aria-labelledby={ labelId }
+        data-element='select-list'
+        role='listbox'
+        ref={ listRef }
+        tabIndex='0'
+      >
+        { getChildrenWithListProps() }
+      </StyledSelectList>
+      { listActionButton && (
+        <ListActionButton
+          ref={ listActionButtonRef }
+          listActionButton={ listActionButton }
+          onListAction={ onListAction }
+        />
+      ) }
+    </StyledSelectListContainer>
+
+  );
+
+  if (disablePortal) {
+    return selectList;
+  }
   return (
     <Portal onReposition={ repositionList }>
-      <StyledSelectListContainer
-        data-element='select-list-wrapper'
-        ref={ listContainerRef }
-      >
-        <StyledSelectList
-          id={ id }
-          aria-labelledby={ labelId }
-          data-element='select-list'
-          ref={ listRef }
-          role='listbox'
-          tabIndex='0'
-          { ...listProps }
-        >
-          { getChildrenWithListProps() }
-        </StyledSelectList>
-        { listActionButton && (
-          <ListActionButton
-            ref={ listActionButtonRef }
-            listActionButton={ listActionButton }
-            onListAction={ onListAction }
-          />
-        ) }
-      </StyledSelectListContainer>
+      {selectList}
     </Portal>
   );
 });
@@ -224,6 +235,8 @@ SelectList.propTypes = {
   labelId: PropTypes.string,
   /** Child components (such as <Option>) for the <ScrollableList> */
   children: PropTypes.node,
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal: PropTypes.bool,
   /** DOM element to position the dropdown menu list relative to */
   anchorElement: PropTypes.object,
   /** A callback for when a child is selected */

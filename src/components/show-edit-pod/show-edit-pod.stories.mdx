@@ -90,7 +90,7 @@ const MyComponent = () => (
       <>
         <ShowEditPod 
           title={buttonAlign}
-          onEdit={() => {}}
+          editing={true}
           onDelete={() => {}}
           saveText="Save"
           deleteText="Delete"
@@ -182,7 +182,7 @@ const MyComponent = () => (
 ### Custom transition
 
 <Preview>
-  <Story name="Custom transition">
+  <Story name="Custom transition" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const StyledContainer = styled.div`
         .custom-transition-name-enter {

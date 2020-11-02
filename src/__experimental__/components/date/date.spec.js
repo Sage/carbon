@@ -692,6 +692,24 @@ describe('Date', () => {
   });
 });
 
+describe('disablePortal', () => {
+  it('renders DatePicker as a content of positionedChildren prop on Textbox when disablePortal is true', () => {
+    const wrapper = render({ disablePortal: true });
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    const positionedChildren = mount(wrapper.find(Textbox).props().positionedChildren);
+    expect(positionedChildren.find(DatePicker).exists()).toBe(true);
+  });
+
+  it('renders DatePicker as a direct children of StyledDateInput by default', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(Textbox).props().positionedChildren).toBe(false);
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+  });
+});
+
 describe('when the calendar icon is clicked', () => {
   it('opens the picker, if it is not already open, and closes it on the next click', () => {
     const wrapper = render({});

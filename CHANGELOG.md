@@ -1,3 +1,68 @@
+## [48.2.0](https://github.com/Sage/carbon/compare/v48.1.0...v48.2.0) (2020-11-02)
+
+
+### Features
+
+* **accordion:** add tertiary button heading styling option ([254f1de](https://github.com/Sage/carbon/commit/254f1de4bcd737c4c0eb3c812309ca89c070f972))
+
+## [48.1.0](https://github.com/Sage/carbon/compare/v48.0.0...v48.1.0) (2020-10-30)
+
+
+### Features
+
+* **date:** add option to disable portal in component ([ec01acf](https://github.com/Sage/carbon/commit/ec01acf6a2f7bddf51b4a24918faa77eba57acbe))
+* **select:** add option to disable portal in component ([b0013bf](https://github.com/Sage/carbon/commit/b0013bfaa79dc7afb8faf18dea7d553a9a1c0b47))
+
+
+### Bug Fixes
+
+* **date:** fix failing snapshots ([1bd4c06](https://github.com/Sage/carbon/commit/1bd4c0670f36f6848c3c6e7bf6387eb2eff431a1))
+* **select:** fix select list positioning mechanism ([ee4686c](https://github.com/Sage/carbon/commit/ee4686cd1ac2e361ef3377d7e4bc956a8da0e232))
+
+## [48.0.0](https://github.com/Sage/carbon/compare/v47.1.2...v48.0.0) (2020-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **accordion:** prop `customPadding` no longer exists, after adding `styled-system` you can add any padding you need to Accordion
+To fix issues you will have to replace
+```
+<Accordion customPadding="50" />
+```
+with
+```
+<Accordion py="50px" />
+```
+to see more information about `styled-system` go visit https://styled-system.com/api
+
+feat(accordion): add prop headerSpacing
+
+headerSpacing prop allow you to use styled-system spacing API for Accordion Title
+
+feat(accordion): add new prop `disableContentPadding`
+* **tile:** - Tile will no longer support for padding prop  like `S, M, L, XL`
+- Tile will now support styled-system values for the padding and margin. You can see more here https://styled-system.com/api
+
+### Features
+
+* **accordion:** add styled-system ([ca27839](https://github.com/Sage/carbon/commit/ca27839f09f27c112eb54cfd0dfb201610800f9a))
+* **tile:** add styled-system ([e2de6fa](https://github.com/Sage/carbon/commit/e2de6fa0886bfa1da52ae2043de49ac3ed725da1))
+
+### [47.1.2](https://github.com/Sage/carbon/compare/v47.1.1...v47.1.2) (2020-10-30)
+
+
+### Bug Fixes
+
+* **theme:** update base/none theme primary color ([173d35f](https://github.com/Sage/carbon/commit/173d35f898097d456ef9ab18aa84c451096f4ada))
+
+### [47.1.1](https://github.com/Sage/carbon/compare/v47.1.0...v47.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **date:** datepicker incorrect weekday short names ([9947e44](https://github.com/Sage/carbon/commit/9947e44e522b0d9b58a5fbd89fcbfb0d57a3d91c))
+* **date:** datepicker weekdays not translated ([0377971](https://github.com/Sage/carbon/commit/037797189f74524dc26da8108d1dede3929ef531)), closes [#3120](https://github.com/Sage/carbon/issues/3120)
+
 ## [47.1.0](https://github.com/Sage/carbon/compare/v47.0.0...v47.1.0) (2020-10-28)
 
 

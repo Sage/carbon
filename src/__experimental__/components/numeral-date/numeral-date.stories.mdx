@@ -57,7 +57,7 @@ const MyComponent = () => (
 
 #### Error
 <Preview>
-  <Story name="Date Component has Error">
+  <Story name="Date Component has Error" parameters={{ chromatic: { disable: true }}}>
     <>
       <NumeralDate
         dateFormat={['dd','mm','yyyy']}
@@ -81,7 +81,7 @@ const MyComponent = () => (
 
 #### Warning
 <Preview>
-  <Story name="Date Component has Warning">
+  <Story name="Date Component has Warning" parameters={{ chromatic: { disable: true }}}>
     <>
       <NumeralDate
         dateFormat={['dd','mm','yyyy']}
@@ -105,7 +105,7 @@ const MyComponent = () => (
 
 #### Info
 <Preview>
-  <Story name="Date Component has Info">
+  <Story name="Date Component has Info" parameters={{ chromatic: { disable: true }}}>
     <>
       <NumeralDate 
         dateFormat={['dd','mm','yyyy']} 

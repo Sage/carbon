@@ -37,12 +37,12 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 .c3 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: #008200;
   background-color: transparent;
 }
 
 .c3:hover {
-  color: #1E861E;
+  color: #006800;
   background-color: transparent;
 }
 
@@ -87,7 +87,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #26A826;
+  color: #008200;
   display: inline-block;
 }
 

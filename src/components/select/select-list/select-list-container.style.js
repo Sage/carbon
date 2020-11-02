@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { baseTheme } from '../../../style/themes';
 
+const overhang = 4;
+
 const StyledSelectListContainer = styled.div`
   background-color: white;
   box-shadow: ${({ theme }) => `${theme.shadows.depth1}`};
   position: absolute;
-  width: 100%;
+  z-index: 1000;
+  top: 100%;
+  width: calc(100% + ${2 * overhang}px);
+  left: -${overhang}px;
 `;
 
 StyledSelectListContainer.defaultProps = {

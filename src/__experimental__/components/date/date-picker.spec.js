@@ -1,3 +1,4 @@
+import I18n from 'i18n-js';
 import moment from 'moment';
 import MockDate from 'mockdate';
 import React from 'react';
@@ -5,6 +6,7 @@ import TestRenderer from 'react-test-renderer';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import DayPicker from 'react-day-picker';
+
 import Portal from '../../../components/portal/portal';
 import DatePicker from './date-picker.component';
 import StyledDayPicker from './day-picker.style';
@@ -17,6 +19,21 @@ const invalidDate = '2019-02-';
 const noDate = '';
 const currentDate = moment().toDate();
 
+jest.mock('../../../components/portal/portal', () => {
+  const React = require('react'); // eslint-disable-line no-shadow, global-require
+  const PropTypes = require('prop-types'); // eslint-disable-line global-require
+
+  const MockPortal = ({ children }) => {
+    return (<div data-element='mock-portal'>{ children }</div>);
+  };
+
+  MockPortal.propTypes = {
+    children: PropTypes.node
+  };
+
+  return MockPortal;
+});
+
 describe('DatePicker', () => {
   let wrapper;
 
@@ -25,12 +42,13 @@ describe('DatePicker', () => {
       wrapper = render({ selectedDate: currentDate, inputElement, inputDate: firstDate }, mount);
     });
 
-    it('should render a "Portal" component', () => {
-      expect(wrapper.find(Portal).exists()).toBe(true);
+    it('by default should render a "DayPicker" component inside a "Portal"', () => {
+      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
     });
 
-    it('should render a "DayPicker" component inside a "Portal"', () => {
-      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
+    it('should not render a "Portal" when disablePortal prop is passed', () => {
+      wrapper.setProps({ disablePortal: true });
+      expect(wrapper.find(Portal).exists()).toBe(false);
     });
   });
 
@@ -165,6 +183,28 @@ describe('StyledDayPicker', () => {
       expect(
         renderStyledDayPicker({ theme: classicTheme, value: '2019-04-01' })
       ).toMatchSnapshot();
+    });
+  });
+
+  describe('i18n', () => {
+    const { locale } = I18n;
+    beforeAll(() => {
+      I18n.locale = 'fr';
+    });
+
+    afterAll(() => {
+      I18n.locale = locale;
+    });
+
+    describe('translation', () => {
+      it('renders properly', () => {
+        const wrapper = render({
+          inputElement,
+          inputDate: firstDate,
+          selectedDate: new Date('2019-04-01')
+        }, TestRenderer.create);
+        expect(wrapper).toMatchSnapshot();
+      });
     });
   });
 });

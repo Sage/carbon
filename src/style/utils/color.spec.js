@@ -30,7 +30,7 @@ describe.each([
     assert({
       [prop]: 'primary'
     }, {
-      [css]: '#26A826'
+      [css]: '#008200'
     });
   });
 

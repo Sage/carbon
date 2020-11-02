@@ -15,10 +15,22 @@ const DatePicker = (props) => {
   const window = Browser.getWindow();
   const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
   const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
-  const containerProps = {
-    style: containerPosition
-  };
   const datepicker = useRef(null);
+
+  useEffect(() => {
+    const formattedDate = isoFormattedValueString(props.inputDate);
+    const hasUpdated = currentInputDate !== formattedDate;
+    if (hasUpdated) {
+      datepicker.current.showMonth(DateHelper.stringToDate(formattedDate));
+      setCurrentInputDate(formattedDate);
+    }
+  }, [props.inputDate, currentInputDate]);
+
+  const handleDayClick = (selectedDate, modifiers) => {
+    if (!modifiers.disabled) {
+      props.handleDateSelect(selectedDate);
+    }
+  };
 
   const datePickerProps = {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
@@ -33,8 +45,8 @@ const DatePicker = (props) => {
     selectedDays: props.selectedDate || undefined,
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
-      const weekdayLong = localeUtils.formatWeekdayLong(weekday);
-      const weekdayShort = weekdayLong.substring(0, 3);
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday, I18n.locale);
+      const weekdayShort = localeUtils.formatWeekdayShort(weekday, I18n.locale);
 
       return (
         <Weekday className={ className } title={ weekdayLong }>
@@ -44,34 +56,23 @@ const DatePicker = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (hasComponentUpdated()) {
-      const updatedDate = isoFormattedValueString(props.inputDate);
-      datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
-      setCurrentInputDate(updatedDate);
-    }
-  }, [props.inputDate, currentInputDate, containerPosition, hasComponentUpdated]);
+  const picker = (
+    <StyledDayPicker>
+      <DayPicker
+        { ...datePickerProps }
+        containerProps={ { style: props.disablePortal ? {} : containerPosition } }
+        ref={ datepicker }
+      />
+    </StyledDayPicker>
+  );
 
-  function handleDayClick(selectedDate, modifiers) {
-    if (!modifiers.disabled) {
-      props.handleDateSelect(selectedDate);
-    }
-  }
-
-  function hasComponentUpdated() {
-    const propDate = isoFormattedValueString(props.inputDate);
-    return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
+  if (props.disablePortal) {
+    return picker;
   }
 
   return (
     <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
-      <StyledDayPicker>
-        <DayPicker
-          { ...datePickerProps }
-          containerProps={ containerProps }
-          ref={ datepicker }
-        />
-      </StyledDayPicker>
+      {picker}
     </Portal>
   );
 };
@@ -81,6 +82,8 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal: PropTypes.bool,
   /* The string value in the date input */
   inputDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */
@@ -90,10 +93,6 @@ DatePicker.propTypes = {
   /** Callback to set selected date */
   handleDateSelect: PropTypes.func
 };
-
-function currentDateHasChanged(currentDate, newDate) {
-  return currentDate !== newDate;
-}
 
 function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
@@ -128,9 +127,6 @@ function checkIsoFormatAndLength(date) {
   return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
 }
 
-/**
- * Returns the style for the DayPicker container
- */
 function getContainerPosition(window, input) {
   const inputRect = input.getBoundingClientRect();
   const offsetY = window.pageYOffset;
