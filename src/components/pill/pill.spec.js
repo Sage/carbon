@@ -2,11 +2,15 @@ import React from 'react';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
+import { shade } from 'polished';
+
 import Pill from './pill.component';
 import styleConfig from './pill.style.config';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
 import IconButton from '../icon-button';
+import { baseTheme } from '../../style/themes';
+import { toColor } from '../../style/utils/color.js';
 
 const modernStyleTypes = ['neutral', 'negative', 'positive', 'warning'];
 
@@ -99,6 +103,69 @@ describe('Pill', () => {
 
     it('includes correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'pill', 'bar', 'baz');
+    });
+  });
+  describe('custom colors', () => {
+    const correctColors = ['red', 'slateShade50', 'rgb(0,123,100)', 'hsl(0,100%,50%)', '#123456'];
+    describe.each(correctColors)('when borderColor prop is provided', (color) => {
+      it('takes precedence over colorVariant and renders properly colored pill', () => {
+        const wrapper = mount(
+          <Pill borderColor={ color } fill>
+            My Text
+          </Pill>
+        );
+        assertStyleMatch({
+          border: `2px solid ${toColor(baseTheme, color)}`,
+          backgroundColor: toColor(baseTheme, color)
+        }, wrapper);
+      });
+
+      it('renders properly colored pill delete button when hovered or focused', () => {
+        const wrapper = mount(
+          <Pill borderColor={ color } onDelete={ () => {} }>
+            My Text
+          </Pill>
+        );
+        assertStyleMatch({
+          backgroundColor: shade(0.2, (toColor(baseTheme, color)))
+        }, wrapper, { modifier: 'button:hover' });
+
+        assertStyleMatch({
+          backgroundColor: shade(0.2, (toColor(baseTheme, color)))
+        }, wrapper, { modifier: 'button:focus' });
+      });
+    });
+
+    const wrongColors = ['rgb(0,0)', '#ff', 'test'];
+    describe.each(wrongColors)('when wrong color prop is provided', (color) => {
+      it('throws an error', () => {
+        jest.spyOn(global.console, 'error');
+        mount(<Pill borderColor={ color }>My Text</Pill>);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+      });
+    });
+
+    describe('content color', () => {
+      const darkColor = baseTheme.text.color;
+      const lightColor = baseTheme.colors.white;
+
+      it.each(
+        [['black', lightColor], ['white', darkColor], ['red', lightColor]]
+      )('renders properly colored content to meet contrast guidelines', (color, result) => {
+        const wrapper = mount(
+          <Pill
+            borderColor={ color }
+            fill
+            onDelete={ () => {} }
+          >
+            My Text
+          </Pill>
+        );
+        assertStyleMatch({
+          color: result
+        }, wrapper);
+      });
     });
   });
 
