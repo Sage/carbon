@@ -1,3 +1,10 @@
+## [48.2.0](https://github.com/Sage/carbon/compare/v48.1.0...v48.2.0) (2020-11-02)
+
+
+### Features
+
+* **accordion:** add tertiary button heading styling option ([254f1de](https://github.com/Sage/carbon/commit/254f1de4bcd737c4c0eb3c812309ca89c070f972))
+
 ## [48.1.0](https://github.com/Sage/carbon/compare/v48.0.0...v48.1.0) (2020-10-30)
 
 
