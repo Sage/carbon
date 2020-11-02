@@ -1,6 +1,8 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { mount, shallow } from 'enzyme';
+import { shade } from 'polished';
+
 import Tooltip from '../tooltip';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
@@ -10,6 +12,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import iconConfig from './icon-config';
 import baseTheme from '../../style/themes/base';
 import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
+import { toColor } from '../../style/utils/color.js';
 
 jest.mock('../../utils/helpers/browser-type-check');
 
@@ -109,6 +112,57 @@ describe('Icon component', () => {
     });
   });
 
+  describe('custom colors', () => {
+    const correctColors = ['red', 'slateShade50', 'rgb(0,123,100)', 'hsl(0,100%,50%)', '#123456'];
+    describe.each(correctColors)('when color prop is provided', (color) => {
+      it('takes precedence over iconColor and renders properly colored Icon', () => {
+        const wrapper = mount(<Icon color={ color } />);
+        assertStyleMatch({
+          color: toColor(baseTheme, color)
+        }, wrapper.find(StyledIcon));
+      });
+
+      it('renders properly colored Icon when hovered', () => {
+        const wrapper = mount(<Icon color={ color } />);
+        assertStyleMatch({
+          color: shade(0.2, (toColor(baseTheme, color)))
+        }, wrapper.find(StyledIcon), { modifier: ':hover' });
+      });
+    });
+    describe.each(correctColors)('when bg prop is provided', (color) => {
+      it('takes precedence over bgTheme and renders properly colored Icon', () => {
+        const wrapper = mount(<Icon bg={ color } />);
+        assertStyleMatch({
+          backgroundColor: toColor(baseTheme, color)
+        }, wrapper.find(StyledIcon));
+      });
+
+      it('renders properly colored Icon when hovered', () => {
+        const wrapper = mount(<Icon bg={ color } />);
+        assertStyleMatch({
+          backgroundColor: shade(0.2, (toColor(baseTheme, color)))
+        }, wrapper.find(StyledIcon), { modifier: ':hover' });
+      });
+    });
+
+    const wrongColors = ['rgb(0,0)', '#ff', 'test'];
+    describe.each(wrongColors)('when wrong color prop is provided', (color) => {
+      it('throws an error', () => {
+        jest.spyOn(global.console, 'error');
+        mount(<Icon color={ color } />);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+      });
+    });
+    describe.each(wrongColors)('when wrong bg prop is provided', (color) => {
+      it('throws an error', () => {
+        jest.spyOn(global.console, 'error');
+        mount(<Icon bg={ color } />);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+      });
+    });
+  });
 
   describe('icon color', () => {
     it('renders proper icon color for disabled state', () => {
