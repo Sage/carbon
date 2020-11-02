@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import {useState} from 'react';
 import Search from '.';
+import Button from '../../../components/button';
 
 <Meta title="Design System/Search" />
 
@@ -31,14 +32,16 @@ Search component can be controlled
     {() => {
       const [value, setValue] = useState('');
       return (
+      <div>
+        <Button onClick={() => setValue('')}>Clear value</Button>
+        <Button onClick={() => setValue('test value')}>Set value</Button>
         <Search id="test" name="test" placeholder="Search..." 
-      onChange={ (e) => setValue(e.target.value)}
-      onClick={ (e) => setValue('') } 
-      value={value}
-      searchButton
-    />)
+        value={value}
+        searchButton   
+        />
+      </div>
+    )
     }}
-    
   </Story>
 </Preview>
 
