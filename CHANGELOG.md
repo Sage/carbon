@@ -1,3 +1,13 @@
+### [48.3.1](https://github.com/Sage/carbon/compare/v48.3.0...v48.3.1) (2020-11-02)
+
+
+### Bug Fixes
+
+* **search:** fix story ([4ff48d9](https://github.com/Sage/carbon/commit/4ff48d917321ed122f303df350b3f43dd95036a8))
+* **search:** fix styling ([60a1deb](https://github.com/Sage/carbon/commit/60a1deb0e782797243d2a63f154b06fb421c5bc9))
+* **search:** search icon show in wrong time ([436a4f4](https://github.com/Sage/carbon/commit/436a4f475f34f53f8f4086301c56ed91cea0c0aa))
+* **search:** work in controlled mode ([56f897f](https://github.com/Sage/carbon/commit/56f897f8a62743aa3b03420f55de1cca5926f9c1))
+
 ## [48.3.0](https://github.com/Sage/carbon/compare/v48.2.0...v48.3.0) (2020-11-02)
 
 
