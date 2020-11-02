@@ -36,6 +36,7 @@ Search component can be controlled
         <Button onClick={() => setValue('')}>Clear value</Button>
         <Button onClick={() => setValue('test value')}>Set value</Button>
         <Search id="test" name="test" placeholder="Search..." 
+        onChange={(e)=> setValue(e.target.value)}
         value={value}
         searchButton   
         />
