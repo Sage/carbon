@@ -188,6 +188,9 @@ describe('Search', () => {
       });
 
       it('clears the input value', () => {
+        wrapper = renderWrapper({
+          defaultValue: 'Bar', onBlur, onChange, onKeyDown, id: 'Search', name: 'Search'
+        }, mount);
         act(() => {
           const icon = wrapper.find(Icon).findWhere(n => n.props().type === 'cross').hostNodes();
           icon.simulate('click');
@@ -208,7 +211,20 @@ describe('Search', () => {
   });
 
   describe('Clicking the button', () => {
-    it('calls onClick', () => {
+    it('calls onClick when uncontrolled', () => {
+      onClick = jest.fn();
+      wrapper = renderWrapper({
+        defaultValue: 'FooBar', onClick, searchButton: true, id: 'Search', name: 'Search'
+      }, mount);
+      act(() => {
+        const button = wrapper.find(Button);
+        button.simulate('click');
+      });
+      wrapper.update();
+      expect(onClick).toHaveBeenCalledWith({ target: { id: 'Search', name: 'Search', value: 'FooBar' } });
+    });
+
+    it('calls onClick when controlled', () => {
       onClick = jest.fn();
       wrapper = renderWrapper({
         value: 'FooBar', onClick, searchButton: true, id: 'Search', name: 'Search'
@@ -218,7 +234,7 @@ describe('Search', () => {
         button.simulate('click');
       });
       wrapper.update();
-      expect(onClick).toHaveBeenCalled();
+      expect(onClick).toHaveBeenCalledWith({ target: { id: 'Search', name: 'Search', value: 'FooBar' } });
     });
   });
 

@@ -1,5 +1,7 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import {useState} from 'react';
 import Search from '.';
+import Button from '../../../components/button';
 
 <Meta title="Design System/Search" />
 
@@ -10,7 +12,7 @@ This search component should be used if you require the user to conduct a search
 Import `Search` into the project.
 
 ```jsx
-import Search from 'carbon-react/lib/components/search';
+import Search from 'carbon-react/lib/__experimental__/components/search';
 
 const MyComponent = () => (
   <Search placeholder="Search..." defaultValue="" searchWidth="" />
@@ -21,6 +23,26 @@ Search component without Search Button and default width.
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue=""/>
+  </Story>
+</Preview>
+
+Search component can be controlled
+<Preview>
+  <Story name="Controlled" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [value, setValue] = useState('');
+      return (
+      <div>
+        <Button onClick={() => setValue('')}>Clear value</Button>
+        <Button onClick={() => setValue('test value')}>Set value</Button>
+        <Search id="test" name="test" placeholder="Search..." 
+        onChange={(e)=> setValue(e.target.value)}
+        value={value}
+        searchButton   
+        />
+      </div>
+    )
+    }}
   </Story>
 </Preview>
 

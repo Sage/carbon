@@ -30,10 +30,9 @@ const Search = ({
   const [searchIsActive, setSearchIsActive] = useState(initialValue.length >= threshold);
 
   const iconType = useMemo(() => {
-    const isSearchValueEmpty = searchValue.length === 0;
+    const isSearchValueEmpty = !isControlled ? searchValue.length === 0 : value.length === 0;
     const isFocusedOrActive = isFocused || searchIsActive;
-
-    setSearchIsActive(searchValue.length >= threshold);
+    setSearchIsActive(!isControlled ? (searchValue.length >= threshold) : (value.length >= threshold));
 
     if (!isSearchValueEmpty) {
       return 'cross';
@@ -44,13 +43,16 @@ const Search = ({
     }
 
     return '';
-  }, [isFocused, searchIsActive, searchValue, threshold, searchButton]);
+  }, [isControlled, searchValue, value, isFocused, searchIsActive, threshold, searchButton]);
 
   const handleChange = (e) => {
     if (onChange) {
       onChange(e);
     }
-    setSearchValue(e.target.value);
+
+    if (!isControlled) {
+      setSearchValue(e.target.value);
+    }
   };
 
   const handleOnFocus = () => {
@@ -63,9 +65,9 @@ const Search = ({
       onClick: (ev) => {
         onClick({
           target: {
-            name: ev.target.name,
-            id: ev.target.id,
-            value: searchValue
+            name: ev.target.name || name,
+            id: ev.target.id || id,
+            value: !isControlled ? searchValue : value
           }
         });
       }
@@ -101,18 +103,18 @@ const Search = ({
       id={ id }
       data-component='search'
       name={ name }
-      searchHasValue={ searchValue && searchValue.length }
+      searchHasValue={ !isControlled ? (searchValue && searchValue.length) : (value && value.length) }
     >
       <Textbox
         { ...rest }
         placeholder={ placeholder }
-        value={ searchValue }
+        value={ !isControlled ? searchValue : value }
         inputIcon={ iconType }
         iconOnClick={ handleIconClick }
       />
       {(searchButton && (
         <StyledSearchButton>
-          {Boolean(isFocused || searchValue.length) && (
+          {Boolean(isFocused || (!isControlled ? searchValue.length : value.length)) && (
             <Button
               size='medium'
               px='16px'
