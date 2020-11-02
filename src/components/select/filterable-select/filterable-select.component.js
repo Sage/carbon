@@ -24,6 +24,9 @@ const FilterableSelect = React.forwardRef(({
   onClick,
   onKeyDown,
   noResultsMessage,
+  disablePortal,
+  listActionButton,
+  onListAction,
   ...textboxProps
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -164,6 +167,13 @@ const FilterableSelect = React.forwardRef(({
   }, [value, defaultValue, onChange]);
 
   useEffect(() => {
+    const hasListActionButton = listActionButton !== undefined;
+    const onListActionMissingMessage = 'onListAction prop required when using listActionButton prop';
+
+    invariant(!hasListActionButton || (hasListActionButton && onListAction), onListActionMissingMessage);
+  }, [listActionButton, onListAction]);
+
+  useEffect(() => {
     setMatchingText(value || defaultValue);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -213,6 +223,13 @@ const FilterableSelect = React.forwardRef(({
   const onSelectOption = useCallback((optionData) => {
     const { text, value: newValue, selectionType } = optionData;
 
+    if (selectionType === 'tab') {
+      setOpenState(false);
+      textboxRef.focus();
+
+      return;
+    }
+
     if (!isControlled.current) {
       setSelectedValue(newValue);
     }
@@ -246,6 +263,11 @@ const FilterableSelect = React.forwardRef(({
     });
   }
 
+  function handleOnListAction() {
+    setOpenState(false);
+    onListAction();
+  }
+
   function assignInput(input) {
     setTextboxRef(input.current);
 
@@ -273,6 +295,24 @@ const FilterableSelect = React.forwardRef(({
     return key === 'ArrowDown' || key === 'ArrowUp'
     || key === 'Home' || key === 'End';
   }
+  const selectList = (
+    <FilterableSelectList
+      ref={ listboxRef }
+      id={ selectListId.current }
+      labelId={ labelId.current }
+      anchorElement={ textboxRef && textboxRef.parentElement }
+      onSelect={ onSelectOption }
+      onSelectListClose={ onSelectListClose }
+      filterText={ filterText }
+      highlightedValue={ highlightedValue }
+      noResultsMessage={ noResultsMessage }
+      disablePortal={ disablePortal }
+      listActionButton={ listActionButton }
+      onListAction={ handleOnListAction }
+    >
+      { children }
+    </FilterableSelectList>
+  );
 
   return (
     <div
@@ -285,29 +325,18 @@ const FilterableSelect = React.forwardRef(({
         aria-controls={ isOpen ? selectListId.current : '' }
         type='text'
         labelId={ labelId.current }
+        positionedChildren={ disablePortal && isOpen && selectList }
         { ...getTextboxProps() }
       />
-      { isOpen && (
-        <FilterableSelectList
-          ref={ listboxRef }
-          id={ selectListId.current }
-          labelId={ labelId.current }
-          anchorElement={ textboxRef.parentElement }
-          onSelect={ onSelectOption }
-          onSelectListClose={ onSelectListClose }
-          filterText={ filterText }
-          highlightedValue={ highlightedValue }
-          noResultsMessage={ noResultsMessage }
-        >
-          { children }
-        </FilterableSelectList>
-      ) }
+      { !disablePortal && isOpen && selectList }
     </div>
   );
 });
 
 FilterableSelect.propTypes = {
   ...formInputPropTypes,
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -323,7 +352,11 @@ FilterableSelect.propTypes = {
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** A custom message to be displayed when any option does not match the filter text */
-  noResultsMessage: PropTypes.string
+  noResultsMessage: PropTypes.string,
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** A callback for when the Action Button is triggered */
+  onListAction: PropTypes.func
 };
 
 export default FilterableSelect;

@@ -33,6 +33,7 @@ const MultiSelect = React.forwardRef(({
   openOnFocus = false,
   noResultsMessage,
   placeholder,
+  disablePortal,
   ...textboxProps
 }, inputRef) => {
   const selectListId = useRef(guid());
@@ -385,6 +386,26 @@ const MultiSelect = React.forwardRef(({
     || key === 'Home' || key === 'End';
   }
 
+  const selectList = (
+    <FilterableSelectList
+      ref={ listboxRef }
+      aria-multiselectable
+      id={ selectListId.current }
+      labelId={ labelId.current }
+      anchorElement={ textboxRef && textboxRef.parentElement }
+      onSelect={ onSelectOption }
+      onSelectListClose={ onSelectListClose }
+      onMouseDown={ handleListMouseDown }
+      filterText={ filterText }
+      highlightedValue={ highlightedValue }
+      noResultsMessage={ noResultsMessage }
+      repositionTrigger={ repositionTrigger }
+      disablePortal={ disablePortal }
+    >
+      { children }
+    </FilterableSelectList>
+  );
+
   return (
     <StyledMultiSelect
       data-component='multiselect'
@@ -396,32 +417,18 @@ const MultiSelect = React.forwardRef(({
         aria-controls={ isOpen ? selectListId.current : '' }
         type='text'
         labelId={ labelId.current }
+        positionedChildren={ disablePortal && isOpen && selectList }
         { ...getTextboxProps() }
       />
-      { isOpen && (
-        <FilterableSelectList
-          ref={ listboxRef }
-          aria-multiselectable
-          id={ selectListId.current }
-          labelId={ labelId.current }
-          anchorElement={ textboxRef.parentElement }
-          onSelect={ onSelectOption }
-          onSelectListClose={ onSelectListClose }
-          onMouseDown={ handleListMouseDown }
-          filterText={ filterText }
-          highlightedValue={ highlightedValue }
-          noResultsMessage={ noResultsMessage }
-          repositionTrigger={ repositionTrigger }
-        >
-          { children }
-        </FilterableSelectList>
-      ) }
+      { !disablePortal && isOpen && selectList }
     </StyledMultiSelect>
   );
 });
 
 MultiSelect.propTypes = {
   ...formInputPropTypes,
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.arrayOf(PropTypes.string),
   /** The default selected value(s), when the component is operating in uncontrolled mode */

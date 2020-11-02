@@ -2,6 +2,7 @@ import React, {
   useState, useRef, useEffect, useLayoutEffect, useCallback
 } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 
 import OptionsHelper from '../../utils/helpers/options-helper';
 import createGuid from '../../utils/helpers/guid';
@@ -16,6 +17,7 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent
 } from './accordion.style';
+import Button from '../button';
 import ValidationIcon from '../validations';
 import Logger from '../../utils/logger/logger';
 
@@ -23,7 +25,6 @@ let deprecatedWarnTriggered = false;
 
 const Accordion = React.forwardRef(({
   borders = 'default',
-  customPadding,
   defaultExpanded,
   expanded,
   onChange,
@@ -39,9 +40,14 @@ const Accordion = React.forwardRef(({
   subTitle,
   title,
   width,
+  headerSpacing,
+  disableContentPadding = false,
   error,
   warning,
   info,
+  buttonHeading,
+  buttonWidth = 150,
+  openTitle,
   ...rest
 }, ref) => {
   if (!deprecatedWarnTriggered) {
@@ -104,9 +110,9 @@ const Accordion = React.forwardRef(({
       data-component='accordion'
       width={ width }
       borders={ borders }
-      customPadding={ customPadding }
       scheme={ scheme }
       styleOverride={ styleOverride.root }
+      buttonHeading={ buttonHeading }
       { ...rest }
     >
       <StyledAccordionTitleContainer
@@ -114,50 +120,70 @@ const Accordion = React.forwardRef(({
         id={ headerId }
         aria-expanded={ isExpanded }
         aria-controls={ contentId }
-        onClick={ toggleAccordion }
-        onKeyDown={ handleKeyDown }
+        onClick={ buttonHeading ? undefined : toggleAccordion }
+        onKeyDown={ buttonHeading ? undefined : handleKeyDown }
         iconAlign={ iconAlign }
         ref={ ref }
-        tabIndex='0'
+        tabIndex={ buttonHeading ? '-1' : '0' }
         size={ size }
+        isExpanded={ isExpanded }
+        buttonHeading={ buttonHeading }
+        buttonWidth={ buttonWidth }
         styleOverride={ styleOverride.headerArea }
+        { ...headerSpacing }
       >
-        <StyledAccordionHeadingsContainer
-          data-element='accordion-headings-container'
-          hasValidationIcon={ showValidationIcon }
-        >
-          <StyledAccordionTitle
-            data-element='accordion-title'
-            size={ size }
-            styleOverride={ styleOverride.header }
+        {buttonHeading && (
+          <Button
+            buttonType='tertiary'
+            iconType='chevron_down'
+            iconPosition='after'
+            onClick={ toggleAccordion }
           >
-            { title }
-          </StyledAccordionTitle>
+            {isExpanded ? (openTitle || title) : title}
+          </Button>
+        )}
 
-          { showValidationIcon && (
-            <ValidationIcon
-              error={ error }
-              warning={ warning }
-              info={ info }
-              tooltipPosition='top'
-              tabIndex={ 0 }
+        {!buttonHeading && (
+          <>
+            <StyledAccordionHeadingsContainer
+              data-element='accordion-headings-container'
+              hasValidationIcon={ showValidationIcon }
+            >
+              <StyledAccordionTitle
+                data-element='accordion-title'
+                size={ size }
+                styleOverride={ styleOverride.header }
+              >
+                { title }
+              </StyledAccordionTitle>
+
+              { showValidationIcon && (
+                <ValidationIcon
+                  error={ error }
+                  warning={ warning }
+                  info={ info }
+                  tooltipPosition='top'
+                  tabIndex={ 0 }
+                />
+              ) }
+
+              {(subTitle && size === 'large') && (
+                <StyledAccordionSubTitle>
+                  { subTitle }
+                </StyledAccordionSubTitle>
+              )}
+            </StyledAccordionHeadingsContainer>
+
+            <StyledAccordionIcon
+              data-element='accordion-icon'
+              type={ iconType }
+              isExpanded={ isExpanded }
+              iconAlign={ iconAlign }
+              styleOverride={ styleOverride.icon }
             />
-          ) }
+          </>
+        )}
 
-          {(subTitle && size === 'large') && (
-            <StyledAccordionSubTitle>
-              { subTitle }
-            </StyledAccordionSubTitle>
-          )}
-        </StyledAccordionHeadingsContainer>
-
-        <StyledAccordionIcon
-          data-element='accordion-icon'
-          type={ iconType }
-          isExpanded={ isExpanded }
-          iconAlign={ iconAlign }
-          styleOverride={ styleOverride.icon }
-        />
       </StyledAccordionTitleContainer>
       <StyledAccordionContentContainer
         isExpanded={ isExpanded }
@@ -170,6 +196,7 @@ const Accordion = React.forwardRef(({
           aria-labelledby={ headerId }
           ref={ accordionContent }
           styleOverride={ styleOverride.content }
+          disableContentPadding={ disableContentPadding }
         >
           { children }
         </StyledAccordionContent>
@@ -179,6 +206,12 @@ const Accordion = React.forwardRef(({
 });
 
 Accordion.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
+  /** Styled system spacing props provided to Accordion Title */
+  headerSpacing: PropTypes.object,
+  /** Disable padding for the content */
+  disableContentPadding: PropTypes.bool,
   children: PropTypes.node,
   id: PropTypes.string,
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
@@ -205,10 +238,8 @@ Accordion.propTypes = {
   subTitle: PropTypes.string,
   /** Sets accordion size */
   size: PropTypes.oneOf(['large', 'small']),
-  /** Adds additional top and bottom padding */
-  customPadding: PropTypes.number,
   /** Toggles left and right borders */
-  borders: PropTypes.oneOf(['default', 'full']),
+  borders: PropTypes.oneOf(['default', 'full', 'none']),
   /** Sets background as white or transparent */
   scheme: PropTypes.oneOf(['white', 'transparent']),
   /** Sets accordion width */
@@ -218,7 +249,13 @@ Accordion.propTypes = {
   /** A warning message to be displayed in the tooltip */
   warning: PropTypes.string,
   /** An info message to be displayed in the tooltip */
-  info: PropTypes.string
+  info: PropTypes.string,
+  /** Renders the accordion heading in the style of a tertiary button */
+  buttonHeading: PropTypes.bool,
+  /** Width of the buttonHeading when it's set, defaults to 150px */
+  buttonWidth: PropTypes.number,
+  /** When the Accordion is open the title can change to this */
+  openTitle: PropTypes.string
 };
 
 Accordion.displayName = 'Accordion';

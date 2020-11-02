@@ -2,6 +2,9 @@
 
 exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 .c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -175,8 +178,135 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 />
 `;
 
-exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
+exports[`StyledDayPicker i18n translation renders properly 1`] = `
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: block;
+  border: none;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
+.c1.DayPicker-NavBar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0;
+  top: 0;
+  height: 40px;
+}
+
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e916";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e917";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c5,
+.c5.DayPicker-Weekday {
+  border: none;
+  min-width: 40px;
+  font-weight: 800;
+  color: #668592;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px 0 5px;
+}
+
+.c6 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 .c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -275,13 +405,825 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
   color: #FFFFFF;
   font-weight: 800;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #26A826;
+  background-color: #008200;
+  color: #FFFFFF;
+}
+
+<div
+  data-element="mock-portal"
+>
+  <div
+    className="c0"
+  >
+    <div
+      className="DayPicker"
+      lang="fr"
+      role="application"
+      style={
+        Object {
+          "left": 0,
+          "top": 0,
+        }
+      }
+    >
+      <div
+        className="DayPicker-wrapper"
+        onKeyDown={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="c1 DayPicker-NavBar"
+        >
+          <button
+            className="c2"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="c3"
+              data-component="icon"
+              data-element="chevron_left"
+              disabled={false}
+              fontSize="small"
+              type="chevron_left"
+            />
+          </button>
+          <button
+            className="c2"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="c4"
+              data-component="icon"
+              data-element="chevron_right"
+              disabled={false}
+              fontSize="small"
+              type="chevron_right"
+            />
+          </button>
+        </div>
+        <div
+          className="DayPicker-Month"
+          role="grid"
+        >
+          <div
+            className="DayPicker-Caption"
+            role="heading"
+          >
+            <div>
+              avril 2019
+            </div>
+          </div>
+          <div
+            className="DayPicker-Weekdays"
+            role="rowgroup"
+          >
+            <div
+              className="DayPicker-WeekdaysRow"
+              role="row"
+            >
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="lundi"
+                >
+                  lu
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="mardi"
+                >
+                  ma
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="mercredi"
+                >
+                  me
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="jeudi"
+                >
+                  je
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="vendredi"
+                >
+                  ve
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="samedi"
+                >
+                  sa
+                </abbr>
+              </div>
+              <div
+                className="c5 DayPicker-Weekday"
+                role="columnheader"
+              >
+                <abbr
+                  className="c6"
+                  title="dimanche"
+                >
+                  di
+                </abbr>
+              </div>
+            </div>
+          </div>
+          <div
+            className="DayPicker-Body"
+            role="rowgroup"
+          >
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={false}
+                aria-label="lun. 1 avr. 2019"
+                aria-selected={true}
+                className="DayPicker-Day DayPicker-Day--selected"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={0}
+              >
+                1
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mar. 2 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                2
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mer. 3 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--today"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                3
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="jeu. 4 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                4
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="ven. 5 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                5
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="sam. 6 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                6
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="dim. 7 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                7
+              </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={false}
+                aria-label="lun. 8 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                8
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mar. 9 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                9
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mer. 10 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                10
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="jeu. 11 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                11
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="ven. 12 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                12
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="sam. 13 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                13
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="dim. 14 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                14
+              </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={false}
+                aria-label="lun. 15 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                15
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mar. 16 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                16
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mer. 17 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                17
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="jeu. 18 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                18
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="ven. 19 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                19
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="sam. 20 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                20
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="dim. 21 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                21
+              </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={false}
+                aria-label="lun. 22 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                22
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mar. 23 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                23
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mer. 24 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                24
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="jeu. 25 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                25
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="ven. 26 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                26
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="sam. 27 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                27
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="dim. 28 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                28
+              </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={false}
+                aria-label="lun. 29 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                29
+              </div>
+              <div
+                aria-disabled={false}
+                aria-label="mar. 30 avr. 2019"
+                aria-selected={false}
+                className="DayPicker-Day"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                30
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="mer. 1 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                1
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="jeu. 2 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                2
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="ven. 3 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                3
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="sam. 4 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                4
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="dim. 5 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                5
+              </div>
+            </div>
+            <div
+              className="DayPicker-Week"
+              role="row"
+            >
+              <div
+                aria-disabled={true}
+                aria-label="lun. 6 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                6
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="mar. 7 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                7
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="mer. 8 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                8
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="jeu. 9 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                9
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="ven. 10 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                10
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="sam. 11 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                11
+              </div>
+              <div
+                aria-disabled={true}
+                aria-label="dim. 12 mai 2019"
+                aria-selected={false}
+                className="DayPicker-Day DayPicker-Day--outside"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="gridcell"
+                tabIndex={-1}
+              >
+                12
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
+.c0 .DayPicker {
+  z-index: 1000;
+  top: calc(100% + 1px);
+  left: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  color: rgba(0,0,0,0.9);
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 3px;
+  overflow: hidden;
+  padding: 24px;
+  position: absolute;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0 .DayPicker * {
+  box-sizing: border-box;
+}
+
+.c0 .DayPicker:focus {
+  outline: none;
+}
+
+.c0 .DayPicker abbr[title] {
+  border: none;
+  cursor: initial;
+}
+
+.c0 .DayPicker-wrapper {
+  padding: 0;
+}
+
+.c0 .DayPicker-Month {
+  margin: 0 0 2px;
+}
+
+.c0 .DayPicker-Body,
+.c0 .DayPicker-Week {
+  width: 100%;
+}
+
+.c0 .DayPicker-Caption {
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Caption >div {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.c0 .DayPicker-Day {
+  min-width: 40px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  border: none;
+  font-weight: 800;
+  padding: 10px 0;
+}
+
+.c0 .DayPicker-Day:hover {
+  background-color: #F2F5F6;
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .DayPicker-Day +* {
+  border-left: 1px;
+}
+
+.c0 .DayPicker-Day abbr {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0 .DayPicker-Day--today,
+.c0 .DayPicker-Day--today.DayPicker-Day--outside {
+  font-weight: 800;
+  color: rgba(0,0,0,0.9);
+  background-color: #CCD6DB;
+}
+
+.c0 .DayPicker-Day--outside {
+  color: rgba(0,0,0,0.55);
+  background-color: $#FFFFFF;
+}
+
+.c0 .DayPicker-Day--disabled,
+.c0 .DayPicker-Day--disabled:hover {
+  color: rgba(0,0,0,0.55);
+  background-color: #FFFFFF;
+  cursor: default;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  background-color: #008200;
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #008200;
   color: #FFFFFF;
 }
 

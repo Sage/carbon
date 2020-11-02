@@ -59,7 +59,7 @@ export const Basic = () => {
 Basic.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };

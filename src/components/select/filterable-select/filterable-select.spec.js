@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
+
+import SelectTextbox from '../select-textbox/select-textbox.component';
 import FilterableSelect from './filterable-select.component';
 import Textbox from '../../../__experimental__/components/textbox';
 import Option from '../option/option.component';
 import SelectList from '../select-list/select-list.component';
+import Button from '../../button';
 import Label from '../../../__experimental__/components/label';
 
 describe('FilterableSelect', () => {
@@ -388,6 +391,72 @@ describe('FilterableSelect', () => {
     });
   });
 
+  describe('when the listActionButton prop is provided', () => {
+    let wrapper;
+    const testWrapper = document.createElement('div');
+    const onListActionFn = jest.fn();
+    const mockButton = <Button>mock button</Button>;
+
+    document.body.appendChild(testWrapper);
+
+    beforeEach(() => {
+      wrapper = mount(
+        getSelect({ listActionButton: mockButton, onListAction: onListActionFn }),
+        { attachTo: testWrapper }
+      );
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+    });
+
+    it('then that prop should be passed down to the SelectList component', () => {
+      expect(wrapper.find(SelectList).props().listActionButton).toEqual(mockButton);
+      wrapper.unmount();
+    });
+
+    describe('and onListAction has been called in the SelectList', () => {
+      it('then the onlistAction prop should have been called', () => {
+        onListActionFn.mockClear();
+        act(() => {
+          wrapper.find(SelectList).props().onListAction();
+        });
+        expect(onListActionFn).toHaveBeenCalled();
+        wrapper.unmount();
+      });
+    });
+
+    describe('and the Tab key has been pressed', () => {
+      const tabKeyDownEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
+
+      it('then the rendered button should be focused', () => {
+        act(() => {
+          document.body.dispatchEvent(tabKeyDownEvent);
+        });
+        expect(wrapper.update().find(SelectList).exists()).toBe(true);
+        expect(wrapper.find(SelectList).find('button').getDOMNode()).toBe(document.activeElement);
+      });
+
+      describe('with the rendered button already focused', () => {
+        beforeEach(() => {
+          act(() => {
+            wrapper.find('button').getDOMNode().focus();
+            document.body.dispatchEvent(tabKeyDownEvent);
+          });
+        });
+
+        it('then the SelectList should be closed', () => {
+          expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        });
+
+        it('then the select input should be focused', () => {
+          expect(wrapper.find('input').getDOMNode()).toBe(document.activeElement);
+        });
+      });
+    });
+  });
+
   describe('when the component is controlled', () => {
     const onChangeFn = jest.fn();
     let wrapper;
@@ -458,6 +527,24 @@ describe('FilterableSelect', () => {
     it('the isRequired prop is passed to the label', () => {
       const label = wrapper.find(Label);
       expect(label.prop('isRequired')).toBe(true);
+    });
+  });
+
+  describe('disablePortal', () => {
+    it('renders SelectList as a content of positionedChildren prop on Textbox when disablePortal is true', () => {
+      const wrapper = renderSelect({ disablePortal: true });
+
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
+      const positionedChildren = mount(wrapper.find(SelectTextbox).props().positionedChildren);
+      expect(positionedChildren.find(SelectList).exists()).toBe(true);
+    });
+
+    it('renders SelectList as a direct children of StyledSimpleSelect by default', () => {
+      const wrapper = renderSelect();
+
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
+      expect(wrapper.find(SelectTextbox).props().positionedChildren).toBe(undefined);
+      expect(wrapper.find(SelectList).exists()).toBe(true);
     });
   });
 });

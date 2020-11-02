@@ -1,11 +1,12 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
-import { useState } from 'react';
-import { FilterableSelect, Option } from '../';
+import { useState, useRef } from 'react';
 import Button from '../../button';
+import Dialog from '../../dialog';
+import { FilterableSelect, Option } from '../';
 import SelectTextbox from '../select-textbox/select-textbox.component';
 
-<Meta title="Design System/Select/Filterable" />
+<Meta title="Design System/Select/Filterable" parameters={{ info: { disable: true }}} />
 
 # Filterable Select
 
@@ -29,7 +30,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### Basic usage:
 
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}} >
+  <Story name="basic">
     <FilterableSelect
       name='simple'
       id='simple'
@@ -60,7 +61,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### Controlled Usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState('');
       function onChangeHandler(event) {
@@ -100,7 +101,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### Disabled:
 
 <Preview>
-  <Story name="disabled" parameters={{ info: { disable: true }}} >
+  <Story name="disabled">
     <FilterableSelect name='disabled' id='disabled' defaultValue='3' disabled>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -120,7 +121,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### Read Only:
 
 <Preview>
-  <Story name="readonly" parameters={{ info: { disable: true }}} >
+  <Story name="readonly">
     <FilterableSelect name='readonly' id='readonly' defaultValue='4' readOnly>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -137,12 +138,84 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
+### With disabled portal:
+
+<Preview>
+  <Story name="withDisabledPortal" parameters={{ chromatic: { disable: true }}} >
+    <FilterableSelect disablePortal name='withDisabledPortal' id='withDisabledPortal' defaultValue='4'>
+      <Option text='Amber' value='1' />
+      <Option text='Black' value='2' />
+      <Option text='Blue' value='3' />
+      <Option text='Brown' value='4' />
+      <Option text='Green' value='5' />
+      <Option text='Orange' value='6' />
+      <Option text='Pink' value='7' />
+      <Option text='Purple' value='8' />
+      <Option text='Red' value='9' />
+      <Option text='White' value='10' />
+      <Option text='Yellow' value='11' />
+    </FilterableSelect>
+  </Story>
+</Preview>
+
+### With Action Button:
+Default Action Button will be rendered when the `listActionButton` prop is set to `true` on the Component.
+
+A custom `Button` Component could be passed as the `listActionButton` value. 
+
+<Preview>
+  <Story name="with action button" parameters={{ chromatic: { disable: true }}} > 
+    {() => {
+      const [value, setValue] = useState('');
+      const [isOpen, setIsOpen] = useState(false);
+      const [optionList, setOptionList] = useState([
+        <Option text='Amber' value='amber' key='Amber' />,
+        <Option text='Black' value='black' key='Black' />,
+        <Option text='Blue' value='blue' key='Blue' />,
+        <Option text='Brown' value='brown' key='Brown' />,
+        <Option text='Green' value='green' key='Green' />,
+      ]);
+      function addNew() {
+        const counter = optionList.length.toString();
+        setOptionList((optionList) => [
+          ...optionList,
+          <Option text={ `New${counter}` } value={ `val${counter}` } key={ `New${counter}` }/>
+        ]);
+        setIsOpen(false);
+        setValue(`val${counter}`);
+      }
+      return (
+        <>
+          <FilterableSelect
+            name='action'
+            id='action'
+            label='label'
+            value={ value }
+            onChange={ (event) => setValue(event.target.value) }
+            listActionButton={<Button iconType='add' iconPosition='after'>Add a New Element</Button>}
+            onListAction={ () => setIsOpen(true) }
+          >
+            { optionList }
+          </FilterableSelect>
+          <Dialog
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title='Dialog component triggered on action'
+          >
+            <Button onClick={ addNew }>Add new</Button>
+          </Dialog>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="required" parameters={{ info: { disable: true }}} >
+  <Story name="required">
     <FilterableSelect
       name='required-select'
       id='required-select'

@@ -5,6 +5,7 @@ import InputIconToggle from '../input-icon-toggle';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import FormField from '../form-field';
 import InputPresentation from '../input/input-presentation.component';
+import InputPresentationStyle from '../input/input-presentation.style';
 import { StyledLabelContainer } from '../label/label.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledPrefix from './__internal__/prefix.style';
@@ -89,7 +90,7 @@ describe('Textbox', () => {
     });
 
     it('renders input element with properly assigned styles', () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(InputPresentation));
+      assertStyleMatch(randomStyleObject, wrapper.find(InputPresentation).find(InputPresentationStyle));
     });
 
     it('renders label element with properly assigned styles', () => {
@@ -142,6 +143,14 @@ describe('Textbox', () => {
         fontWeight: '900',
         marginRight: '8px'
       }, mount(<StyledPrefix>abc</StyledPrefix>));
+    });
+  });
+
+  describe('positionedChildren', () => {
+    it('passes positionedChildren prop to the InputPresentation component', () => {
+      const Component = () => <div />;
+      const wrapper = mount(<Textbox positionedChildren={ <Component /> } />);
+      expect(wrapper.find(InputPresentation).props().positionedChildren).toEqual(<Component />);
     });
   });
 });

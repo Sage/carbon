@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 
-import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { simulate, assertStyleMatch, testStyledSystemSpacing } from '../../__spec_helper__/test-utils';
 import baseTheme from '../../style/themes/base';
 
 import Textbox from '../../__experimental__/components/textbox';
@@ -45,6 +45,10 @@ const isCollapsed = (wrapper) => {
   }, wrapper.find(StyledAccordionContentContainer));
 };
 
+testStyledSystemSpacing(
+  props => <Accordion title='foo' { ...props } />, {}, wrapper => wrapper.find(StyledAccordionContainer)
+);
+
 describe('Accordion', () => {
   let wrapper;
 
@@ -55,9 +59,26 @@ describe('Accordion', () => {
     ).mockImplementation(() => contentHeight);
   };
 
-
   beforeEach(() => {
     render();
+  });
+
+  it('renders content without paddings if `diableCustomPadding` is applied', () => {
+    render({ disableContentPadding: true });
+
+    assertStyleMatch({
+      padding: '0'
+    }, wrapper.find(StyledAccordionContent));
+  });
+
+  describe(' with headerSpacing prop', () => {
+    it('should apply correct padding', () => {
+      render({ headerSpacing: { p: 3 } });
+
+      assertStyleMatch({
+        padding: '24px'
+      }, wrapper.find(StyledAccordionTitleContainer));
+    });
   });
 
   describe('controlled behaviour', () => {
@@ -231,6 +252,13 @@ describe('Accordion', () => {
       }, wrapper.find(StyledAccordionContainer));
     });
 
+    it('has no border when borders prop is "none"', () => {
+      render({ borders: 'none' });
+      assertStyleMatch({
+        border: 'none'
+      }, wrapper.find(StyledAccordionContainer));
+    });
+
     it('renders icon rotated when accordion is collapsed (iconAlign "right")', () => {
       render({ expanded: false });
       assertStyleMatch({
@@ -272,20 +300,6 @@ describe('Accordion', () => {
       }, wrapper.find(StyledAccordionTitleContainer));
     });
 
-    it('has the correct title container padding when size is small', () => {
-      render({ size: 'small' });
-      assertStyleMatch({
-        padding: '16px'
-      }, wrapper.find(StyledAccordionTitleContainer));
-    });
-
-    it('adds top and bottom padding to the container when customPadding prop set', () => {
-      render({ customPadding: 50 });
-      assertStyleMatch({
-        padding: '50px 0'
-      }, wrapper.find(StyledAccordionContainer));
-    });
-
     it('sets the accordion width when the width prop is passed in', () => {
       render({ width: '500px' });
       assertStyleMatch({
@@ -323,6 +337,52 @@ describe('Accordion', () => {
           position: 'relative',
           top: '2px'
         }, wrapper.find(StyledAccordionHeadingsContainer), { modifier: `${StyledValidationIcon}` });
+      });
+    });
+  });
+
+  describe('when buttonHeading set', () => {
+    it('should render a button in the header', () => {
+      wrapper = mount(<Accordion title='Title' buttonHeading />);
+
+      expect(wrapper.find(StyledAccordionTitleContainer).find('button').exists()).toBe(true);
+    });
+
+    describe('when openTitle prop set', () => {
+      it('should display the title when closed', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            openTitle='Less info'
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Title');
+      });
+
+      it('should display the openTitle when open', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            openTitle='Less info'
+            expanded
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Less info');
+      });
+    });
+
+    describe('when openTitle prop false', () => {
+      it('should display the title when open', () => {
+        wrapper = mount(
+          <Accordion
+            title='Title'
+            buttonHeading
+            expanded
+          />
+        );
+        expect(wrapper.find('[data-element="main-text"]').text()).toEqual('Title');
       });
     });
   });

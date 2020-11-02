@@ -15,7 +15,7 @@ export default (palette) => {
     colors: {
       // main
       base: palette.productGreen,
-      primary: palette.genericGreenTint(15),
+      primary: palette.genericGreenShade(15),
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,

@@ -318,6 +318,7 @@ class BaseDateInput extends React.Component {
           selectedDate={ this.state.selectedDate }
           handleDateSelect={ this.handleDateSelect }
           inputDate={ inputDate }
+          disablePortal={ this.props.disablePortal }
           { ...dateRangeProps }
         />
       </div>
@@ -356,6 +357,7 @@ class BaseDateInput extends React.Component {
       maxDate,
       labelInline,
       adaptiveLabelBreakpoint,
+      disablePortal,
       ...inputProps
     } = this.props;
 
@@ -387,10 +389,11 @@ class BaseDateInput extends React.Component {
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
           inputRef={ this.assignInput }
           adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
+          positionedChildren={ disablePortal && this.renderDatePicker({ minDate, maxDate }) }
           { ...events }
         />
         { this.renderHiddenInput() }
-        { this.renderDatePicker({ minDate, maxDate }) }
+        { !disablePortal && this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );
   }
@@ -431,6 +434,8 @@ BaseDateInput.propTypes = {
   allowEmptyValue: PropTypes.bool,
   /** Automatically focus on component mount */
   autoFocus: PropTypes.bool,
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal: PropTypes.bool,
   /** Minimum possible date YYYY-MM-DD */
   minDate: PropTypes.string,
   /** Maximum possible date YYYY-MM-DD */
@@ -449,6 +454,10 @@ BaseDateInput.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool
+};
+
+BaseDateInput.defaultProps = {
+  disablePortal: false
 };
 
 export { defaultDateFormat, BaseDateInput };

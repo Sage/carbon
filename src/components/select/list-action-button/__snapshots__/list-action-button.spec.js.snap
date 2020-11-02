@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MultiActionButton when rendered should match the snapshot 1`] = `
-.c5 {
+exports[`Option renders properly 1`] = `
+.c4 {
   display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
 }
 
-.c5:hover {
+.c4:hover {
   color: #006800;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
-  content: "\\e910";
+  content: "\\e940";
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -26,7 +26,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   display: block;
 }
 
-.c3 {
+.c2 {
   padding-left: 24px;
   padding-right: 24px;
   -webkit-align-items: center;
@@ -61,105 +61,93 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   min-height: 40px;
 }
 
-.c3:focus {
+.c2:focus {
   outline: solid 3px #FFB500;
 }
 
-.c3 ~ .c2 {
+.c2 ~ .c1 {
   margin-left: 16px;
 }
 
-.c3:hover {
+.c2:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c3:hover .c4 {
+.c2:hover .c3 {
   color: #FFFFFF;
 }
 
-.c3 .c4 {
+.c2 .c3 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c3 .c4 svg {
+.c2 .c3 svg {
   margin-top: 0;
 }
 
-.c1 {
-  display: inline-block;
-  position: relative;
+.c0 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top: 1px solid #CCD6DB;
+  box-shadow: 0 0px 0 0 rgba(0,0,0,0),0 -8px 8px 0 rgba(0,0,0,0.03);
 }
 
-.c1 > .c2 {
-  margin: 0;
+.c0 .c3 {
+  color: rgba(0,0,0,0.9);
 }
 
-.c1 > .c2:focus {
-  border: 3px solid #FFB500;
-  outline: none;
-  margin: -1px;
+.c0 .c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
 }
 
-.c0 .c6 {
-  min-width: 100%;
-  white-space: nowrap;
-  left: 0;
-  right: auto;
-  z-index: 2000;
+.c0 .c1:hover {
+  background-color: #F2F5F6;
 }
 
-.c0 .c4 {
-  margin-left: 0;
-  left: 8px;
+.c0 .c1:hover .c3 {
+  color: rgba(0,0,0,0.9);
 }
 
 <div
   className="c0"
-  size="medium"
 >
-  <div
-    aria-haspopup="true"
-    className="c1"
-    data-component="multi-action-button"
-    onMouseLeave={[Function]}
+  <button
+    className="c1 c2"
+    data-component="button"
+    disabled={false}
+    onClick={[Function]}
+    role="button"
+    size="medium"
+    type="button"
   >
-    <button
-      aria-expanded={false}
-      aria-haspopup="true"
-      aria-label="Show more"
-      className="c2 c3"
-      data-component="button"
-      data-element="toggle-button"
-      disabled={false}
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      onTouchStart={[Function]}
-      role="button"
-      size="medium"
-      type="button"
-    >
-      <span>
-        <span
-          data-element="main-text"
-        >
-          Test
-        </span>
-      </span>
+    <span>
       <span
-        className="c4 c5"
-        data-component="icon"
-        data-element="dropdown"
-        disabled={false}
-        fontSize="small"
-        type="dropdown"
-      />
-    </button>
-  </div>
+        data-element="main-text"
+      >
+        Add New Item
+      </span>
+    </span>
+    <span
+      className="c3 c4"
+      data-component="icon"
+      data-element="add"
+      disabled={false}
+      fontSize="small"
+      type="add"
+    />
+  </button>
 </div>
 `;

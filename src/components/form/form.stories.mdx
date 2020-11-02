@@ -10,6 +10,7 @@ import {
   RadioButtonGroup
 } from "../../__experimental__/components/radio-button";
 import DateInput from "../../__experimental__/components/date";
+import { Select, Option } from "../select";
 import { Checkbox } from "../../__experimental__/components/checkbox";
 import Hr from "../../components/hr";
 import Switch from "../../__experimental__/components/switch";
@@ -254,6 +255,31 @@ With sticky footer
               stickyFooter
             >
               {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              <DateInput
+                label="Date"
+                name='dateinput'
+                value='2019-04-04'
+                disablePortal
+              />
+              <Select
+                name='simple'
+                id='simple'
+                label='label'
+                disablePortal
+              >
+                <Option text='Amber' value='1' />
+                <Option text='Black' value='2' />
+                <Option text='Blue' value='3' />
+                <Option text='Brown' value='4' />
+                <Option text='Green' value='5' />
+                <Option text='Orange' value='6' />
+                <Option text='Pink' value='7' />
+                <Option text='Purple' value='8' />
+                <Option text='Red' value='9' />
+                <Option text='White' value='10' />
+                <Option text='Yellow' value='11' />
+              </Select>
+              {Array.from({ length: 15}).map((_, index) => <Textbox key={ index } label='Textbox' />)}
             </Form>
           </Dialog>
         </>
@@ -314,6 +340,29 @@ With sticky footer
               stickyFooter
             >
               {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              <DateInput
+                label="Date"
+                name='dateinput'
+                value='2019-04-04'
+              />
+              <Select
+                name='simple'
+                id='simple'
+                label='label'
+              >
+                <Option text='Amber' value='1' />
+                <Option text='Black' value='2' />
+                <Option text='Blue' value='3' />
+                <Option text='Brown' value='4' />
+                <Option text='Green' value='5' />
+                <Option text='Orange' value='6' />
+                <Option text='Pink' value='7' />
+                <Option text='Purple' value='8' />
+                <Option text='Red' value='9' />
+                <Option text='White' value='10' />
+                <Option text='Yellow' value='11' />
+              </Select>
+              {Array.from({ length: 15}).map((_, index) => <Textbox key={ index } label='Textbox' />)}
             </Form>
           </DialogFullScreen>
         </>

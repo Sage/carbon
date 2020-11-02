@@ -28,9 +28,8 @@ export const Basic = () => {
   };
 
   const tileProps = {
-    as: select('as', OptionsHelper.tileThemes, Tile.defaultProps.as, 'Default'),
-    orientation: select('orientation', OptionsHelper.orientation, Tile.defaultProps.orientation, 'Default'),
-    padding: select('padding', OptionsHelper.sizesTile, Tile.defaultProps.padding, 'Default'),
+    as: select('as', OptionsHelper.tileThemes, 'tile', 'Default'),
+    orientation: select('orientation', OptionsHelper.orientation, 'horizontal', 'Default'),
     pixelWidth: number('pixelWidth', 0, { ...percentageOpts, max: 2000 }, 'Default'),
     width: number('width', 0, percentageOpts, 'Default')
   };
@@ -70,7 +69,7 @@ export const Basic = () => {
 Basic.story = {
   parameters: {
     chromatic: {
-      disable: false
+      disable: true
     }
   }
 };

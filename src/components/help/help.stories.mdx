@@ -42,7 +42,7 @@ Hover over the help component to see the different positions.
     {() => {
       return ['right', 'left', 'top', 'bottom'].map(position =>
         <div style={ { margin: '64px' } }>
-          <Help tooltipPosition={`${position}`}>
+          <Help tooltipPosition={`${position}`} isFocused={true}>
             This tooltip is positioned {`${position}`}
           </Help>
         </div>
@@ -66,7 +66,8 @@ Hover over the help component to see the different alignments.
         <div style={ { margin: '64px' } }>
           <Help 
           tooltipPosition='top' 
-          tooltipAlign={`${align}`}>
+          tooltipAlign={`${align}`}
+          isFocused={true}>
             This tooltip is aligned {`${align}`} 
           </Help>
         </div>        
@@ -87,7 +88,8 @@ Hover over the help component to see the different alignments.
         <div style={ { margin: '64px' } }>
           <Help 
           tooltipPosition='right' 
-          tooltipAlign={`${align}`}>
+          tooltipAlign={`${align}`}
+          isFocused={true}>
             This tooltip is aligned {`${align}`} 
           </Help>
         </div>        

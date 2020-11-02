@@ -177,7 +177,7 @@ Column width can be set by passing number as a `width` prop to the column header
 
 ### With stickyHead prop set to true
 <Preview>
-  <Story name="with sticky head">
+  <Story name="with sticky head" parameters={{ chromatic: { disable: true }}}>
     <div style={ { height: '150px' } }>
       <FlatTable hasStickyHead>
         <FlatTableHead>
@@ -221,7 +221,7 @@ Column width can be set by passing number as a `width` prop to the column header
 
 ### With clickable rows
 <Preview>
-  <Story name="with clickable rows">
+  <Story name="with clickable rows" parameters={{ chromatic: { disable: true }}}>
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
@@ -462,7 +462,7 @@ If a given action is available for some, but not all, selected rows, then the ac
 
 Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
 <Preview>
-  <Story name="selectable rows">
+  <Story name="selectable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
@@ -540,7 +540,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
 ### With Highlightable Rows
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 <Preview>
-  <Story name="highlightable rows">
+  <Story name="highlightable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [highlightedRow, setHighlightedRow] = useState('');
       const handleHighlightRow = (id) => {
@@ -774,7 +774,7 @@ Balance performance concerns with the convenience of the user being able to see 
 
 ### When a child of Sidebar
 <Preview>
-  <Story name="when a child of sidebar">
+  <Story name="when a child of sidebar" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
