@@ -1,13 +1,11 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import SwitchSliderPanel from './switch-slider-panel.style';
-import StyledValidationIcon from '../../../components/validations/validation-icon.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import SwitchSliderPanel from "./switch-slider-panel.style";
+import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 
 const StyledSwitchSlider = styled.span`
-  ${({
-    checked, disabled, size, theme, error, warning, info
-  }) => css`
+  ${({ checked, disabled, size, theme, error, warning, info }) => css`
     background-color: ${theme.switch.off};
     display: flex;
     font-size: 12px;
@@ -20,12 +18,24 @@ const StyledSwitchSlider = styled.span`
     width: 60px;
     z-index: 2;
 
-      ${info && !disabled
-        && css`box-shadow: inset 1px 1px 0 ${theme.colors.info}, inset -1px -1px 0 ${theme.colors.info};`}
-      ${warning && !disabled
-        && css`box-shadow: inset 1px 1px 0 ${theme.colors.warning}, inset -1px -1px 0 ${theme.colors.warning};`}
-      ${error && !disabled
-        && css`box-shadow: inset 2px 2px 0 ${theme.colors.error}, inset -2px -2px 0 ${theme.colors.error};`}
+    ${info &&
+    !disabled &&
+    css`
+      box-shadow: inset 1px 1px 0 ${theme.colors.info},
+        inset -1px -1px 0 ${theme.colors.info};
+    `}
+    ${warning &&
+    !disabled &&
+    css`
+      box-shadow: inset 1px 1px 0 ${theme.colors.warning},
+        inset -1px -1px 0 ${theme.colors.warning};
+    `}
+      ${error &&
+    !disabled &&
+    css`
+      box-shadow: inset 2px 2px 0 ${theme.colors.error},
+        inset -2px -2px 0 ${theme.colors.error};
+    `}
 
     &::before {
       background-color: ${theme.colors.white};
@@ -35,12 +45,13 @@ const StyledSwitchSlider = styled.span`
       height: 20px;
       position: absolute;
       left: 2px;
-      transition: transform .4s;
+      transition: transform 0.4s;
       width: 20px;
       z-index: 1;
     }
 
-    ${checked && `
+    ${checked &&
+    `
       background-color: ${theme.colors.primary};
 
       &::before {
@@ -48,28 +59,34 @@ const StyledSwitchSlider = styled.span`
       }
     `}
 
-    ${disabled && css`
+    ${disabled &&
+    css`
       background-color: ${theme.disabled.background};
 
       &::before {
         opacity: 0.8;
       }
 
-      ${SwitchSliderPanel} { color: ${theme.disabled.disabled}; }
+      ${SwitchSliderPanel} {
+        color: ${theme.disabled.disabled};
+      }
 
-      ${checked && `
+      ${checked &&
+      `
         background-color: ${theme.colors.disabled};
 
         ${SwitchSliderPanel} { color: ${theme.colors.white}; }
       `}
     `}
 
-    ${size === 'large' && css`
+    ${size === "large" &&
+    css`
       &::before {
         height: 36px;
         width: 36px;
 
-        ${checked && `
+        ${checked &&
+        `
           transform: translateX(38px);
         `}
       }
@@ -87,11 +104,11 @@ StyledSwitchSlider.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 StyledSwitchSlider.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledSwitchSlider;

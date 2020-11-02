@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { DragSource } from 'react-dnd-legacy';
-import ItemTypes from '../../../utils/helpers/dnd/item-types';
-import BrowserHelper from '../../../utils/helpers/browser';
+import React from "react";
+import PropTypes from "prop-types";
+import { DragSource } from "react-dnd-legacy";
+import ItemTypes from "../../../utils/helpers/dnd/item-types";
+import BrowserHelper from "../../../utils/helpers/browser";
 
 class WithDrag extends React.Component {
   static propTypes = {
@@ -27,28 +27,36 @@ class WithDrag extends React.Component {
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
     canDrag: PropTypes.func, // an optional callback to determine if this item can be dragged
     beginDrag: PropTypes.func, // an optional callback to trigger when dragging begins
-    endDrag: PropTypes.func // an optional callback to trigger when dragging ends
+    endDrag: PropTypes.func, // an optional callback to trigger when dragging ends
     /* eslint-enable react/no-unused-prop-types */
-  }
+  };
 
   static contextTypes = {
     dragAndDropBeginDrag: PropTypes.func,
-    dragAndDropEndDrag: PropTypes.func
-  }
+    dragAndDropEndDrag: PropTypes.func,
+  };
 
   componentDidMount() {
-    BrowserHelper.getWindow().addEventListener('selectstart', this.allowTextSelection);
+    BrowserHelper.getWindow().addEventListener(
+      "selectstart",
+      this.allowTextSelection
+    );
   }
 
   componentWillUnmount() {
-    BrowserHelper.getWindow().removeEventListener('selectstart', this.allowTextSelection);
+    BrowserHelper.getWindow().removeEventListener(
+      "selectstart",
+      this.allowTextSelection
+    );
   }
 
   // In Safari it changes the mouse cursor when dragging because it thinks text is being selected
   // We test if the target is an html element (not text) or if we already know the user is dragging
   allowTextSelection = (event) => {
-    const allowedElements = ['INPUT', 'TEXTAREA', 'SELECT'];
-    const nonInputElement = event.target instanceof HTMLElement && allowedElements.indexOf(event.target.tagName) < 0;
+    const allowedElements = ["INPUT", "TEXTAREA", "SELECT"];
+    const nonInputElement =
+      event.target instanceof HTMLElement &&
+      allowedElements.indexOf(event.target.tagName) < 0;
     if (nonInputElement || this.dragging) {
       event.preventDefault();
       return false;
@@ -61,15 +69,16 @@ class WithDrag extends React.Component {
     // order component, so disable the react/prop-types ESLint rule on the line
     // below
 
-    return this.props.connectDragSource(this.props.children, { // eslint-disable-line react/prop-types
-      dropEffect: 'copy'
+    return this.props.connectDragSource(this.props.children, {
+      // eslint-disable-line react/prop-types
+      dropEffect: "copy",
     });
   }
 }
 
 const ItemSource = {
   canDrag(props, monitor) {
-    return (props.canDrag) ? props.canDrag(props, monitor) : true;
+    return props.canDrag ? props.canDrag(props, monitor) : true;
   },
 
   beginDrag(props, monitor, component) {
@@ -82,14 +91,12 @@ const ItemSource = {
     component.dragging = false;
     const endDrag = props.endDrag || component.context.dragAndDropEndDrag;
     return endDrag(props, monitor, component);
-  }
+  },
 };
 
 // eslint-disable-next-line no-class-assign
-WithDrag = DragSource(
-  ItemTypes.getItemType, ItemSource, connect => ({
-    connectDragSource: connect.dragSource()
-  })
-)(WithDrag);
+WithDrag = DragSource(ItemTypes.getItemType, ItemSource, (connect) => ({
+  connectDragSource: connect.dragSource(),
+}))(WithDrag);
 
 export default WithDrag;

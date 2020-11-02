@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCodeBlock,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const Info = (
   <div>
@@ -10,31 +13,34 @@ const Info = (
     <p>In your file</p>
 
     <StoryCodeBlock>
-      {'import {'}
-      {'  DraggableContext,'}
-      {'  WithDrop,'}
-      {'  WithDrag'}
+      {"import {"}
+      {"  DraggableContext,"}
+      {"  WithDrop,"}
+      {"  WithDrag"}
       {'} from "carbon-react/lib/components/drag-and-drop";'}
     </StoryCodeBlock>
 
-    <p>A draggable context is used to define an area in the page where drag and drop can be used.</p>
+    <p>
+      A draggable context is used to define an area in the page where drag and
+      drop can be used.
+    </p>
 
     <p>You also need to use WithDrop and WithDrag:</p>
 
     <StoryCodeBlock>
-      {'<DraggableContext onDrag={ onItemMoved }>'}
-      {'  <ol>'}
-      {'    {items.map((item, index) => {'}
-      {'      return ('}
-      {'        <WithDrop index={ index }>'}
-      {'          <li>'}
-      {'            <WithDrag><span>{ item.content }</span></WithDrag>'}
-      {'          </li>'}
-      {'        </WithDrop>'}
-      {'      );'}
-      {'    })}'}
-      {'  </ol>'}
-      {'</DraggableContext>'}
+      {"<DraggableContext onDrag={ onItemMoved }>"}
+      {"  <ol>"}
+      {"    {items.map((item, index) => {"}
+      {"      return ("}
+      {"        <WithDrop index={ index }>"}
+      {"          <li>"}
+      {"            <WithDrag><span>{ item.content }</span></WithDrag>"}
+      {"          </li>"}
+      {"        </WithDrop>"}
+      {"      );"}
+      {"    })}"}
+      {"  </ol>"}
+      {"</DraggableContext>"}
     </StoryCodeBlock>
   </div>
 );

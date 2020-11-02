@@ -1,18 +1,21 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
-import Icon from '../icon';
-import ValidationIconStyle from './validation-icon.style';
-import { InputContext, InputGroupContext } from '../../__internal__/input-behaviour';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { isClassic } from '../../utils/helpers/style-helper';
-import baseTheme from '../../style/themes/base';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { withTheme } from "styled-components";
+import Icon from "../icon";
+import ValidationIconStyle from "./validation-icon.style";
+import {
+  InputContext,
+  InputGroupContext,
+} from "../../__internal__/input-behaviour";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { isClassic } from "../../utils/helpers/style-helper";
+import baseTheme from "../../style/themes/base";
 
 const getValidationType = ({ error, warning, info }) => {
-  if (error) return 'error';
-  if (warning) return 'warning';
-  if (info) return 'info';
-  return '';
+  if (error) return "error";
+  if (warning) return "warning";
+  if (info) return "info";
+  return "";
 };
 
 const ValidationIcon = ({
@@ -25,20 +28,23 @@ const ValidationIcon = ({
   isPartOfInput,
   tabIndex,
   onClick,
-  tooltipPosition
+  tooltipPosition,
 }) => {
   let modernTooltipProps = {};
 
   const { hasFocus, hasMouseOver } = useContext(InputContext);
-  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } = useContext(InputGroupContext);
+  const {
+    hasFocus: groupHasFocus,
+    hasMouseOver: groupHasMouseOver,
+  } = useContext(InputGroupContext);
 
   if (!isClassic(theme)) {
     // overrides default positioning for non legacy themes
     modernTooltipProps = {
       tooltipPosition,
-      tooltipAlign: 'center',
+      tooltipAlign: "center",
       isThemeModern: true,
-      isPartOfInput
+      isPartOfInput,
     };
   }
 
@@ -46,27 +52,29 @@ const ValidationIcon = ({
 
   const validationMessage = error || warning || info;
 
-  if (typeof validationMessage !== 'string') {
+  if (typeof validationMessage !== "string") {
     return null;
   }
 
   return (
     <ValidationIconStyle
-      id={ iconId }
-      validationType={ validationType }
-      role='tooltip'
-      aria-label={ validationMessage }
-      onClick={ onClick }
+      id={iconId}
+      validationType={validationType}
+      role="tooltip"
+      aria-label={validationMessage}
+      onClick={onClick}
     >
       <Icon
-        key={ `${validationType}-icon` }
-        tooltipType={ validationType }
-        tooltipMessage={ validationMessage }
-        tooltipVisible={ (hasFocus || hasMouseOver || groupHasFocus || groupHasMouseOver) }
-        type={ validationType }
-        size={ size }
-        tabIndex={ tabIndex }
-        { ...modernTooltipProps }
+        key={`${validationType}-icon`}
+        tooltipType={validationType}
+        tooltipMessage={validationMessage}
+        tooltipVisible={
+          hasFocus || hasMouseOver || groupHasFocus || groupHasMouseOver
+        }
+        type={validationType}
+        size={size}
+        tabIndex={tabIndex}
+        {...modernTooltipProps}
       />
     </ValidationIconStyle>
   );
@@ -96,13 +104,13 @@ ValidationIcon.propTypes = {
   /** Status of warnings */
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of info */
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 ValidationIcon.defaultProps = {
   theme: baseTheme,
-  tooltipPosition: 'right',
-  tabIndex: -1
+  tooltipPosition: "right",
+  tabIndex: -1,
 };
 
 export default withTheme(ValidationIcon);

@@ -1,7 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { StyledPicklistDivider } from './duelling-picklist.style';
+import { StyledPicklistDivider } from "./duelling-picklist.style";
 
-const PicklistDivider = props => <StyledPicklistDivider { ...props } data-element='picklist-divider' />;
+const PicklistDivider = (props) => (
+  <StyledPicklistDivider {...props} data-element="picklist-divider" />
+);
 
 export default PicklistDivider;

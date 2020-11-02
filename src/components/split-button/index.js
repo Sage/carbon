@@ -1,1 +1,1 @@
-export { default } from './split-button.component';
+export { default } from "./split-button.component";

@@ -1,1 +1,1 @@
-export { default } from './dismiss-button.component';
+export { default } from "./dismiss-button.component";

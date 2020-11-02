@@ -1,1 +1,1 @@
-export { Tabs, Tab } from './__internal__/tabs.component';
+export { Tabs, Tab } from "./__internal__/tabs.component";

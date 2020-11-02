@@ -1,1 +1,1 @@
-export { default } from './vertical-divider.component';
+export { default } from "./vertical-divider.component";

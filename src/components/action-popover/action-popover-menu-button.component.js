@@ -1,20 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { MenuButtonOverrideWrapper } from './action-popover.style';
-import Button from '../button';
+import React from "react";
+import PropTypes from "prop-types";
+import { MenuButtonOverrideWrapper } from "./action-popover.style";
+import Button from "../button";
 
 const ActionPopoverMenuButton = ({
-  buttonType, iconType, iconPosition, size, children, ...props
+  buttonType,
+  iconType,
+  iconPosition,
+  size,
+  children,
+  ...props
 }) => (
   <MenuButtonOverrideWrapper>
     <Button
-      buttonType={ buttonType }
-      iconType={ iconType }
-      iconPosition={ iconPosition }
-      size={ size }
-      { ...props }
+      buttonType={buttonType}
+      iconType={iconType}
+      iconPosition={iconPosition}
+      size={size}
+      {...props}
     >
-      { children }
+      {children}
     </Button>
   </MenuButtonOverrideWrapper>
 );
@@ -24,7 +29,7 @@ ActionPopoverMenuButton.propTypes = {
   iconType: PropTypes.string,
   iconPosition: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.string
+  children: PropTypes.string,
 };
 
 export default ActionPopoverMenuButton;

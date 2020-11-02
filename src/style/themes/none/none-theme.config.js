@@ -1,7 +1,5 @@
 export default () => {
-  return (
-    {
-      name: 'none'
-    }
-  );
+  return {
+    name: "none",
+  };
 };

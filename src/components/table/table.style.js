@@ -1,19 +1,19 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 import {
   applyClassicInternalStyling,
-  applyClassicTableStyling
-} from './table-classic.style.js';
+  applyClassicTableStyling,
+} from "./table-classic.style.js";
 import {
   applyModernTableStyling,
-  applyModernInternalStyling
-} from './table-modern.style.js';
-import StyledTableRow from './table-row/table-row.style';
-import StyledLink from '../link/link.style';
-import baseTheme from '../../style/themes/base';
-import { isClassic } from '../../utils/helpers/style-helper';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import StyledTableCell from './table-cell/table-cell.style.js';
+  applyModernInternalStyling,
+} from "./table-modern.style.js";
+import StyledTableRow from "./table-row/table-row.style";
+import StyledLink from "../link/link.style";
+import baseTheme from "../../style/themes/base";
+import { isClassic } from "../../utils/helpers/style-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import StyledTableCell from "./table-cell/table-cell.style.js";
 
 const StyledTable = styled.table`
   border-collapse: separate;
@@ -23,7 +23,7 @@ const StyledTable = styled.table`
   table-layout: fixed;
   width: auto;
   word-break: break-all;
-  
+
   ${(props) => {
     if (isClassic(props.theme)) return applyClassicTableStyling(props);
     return applyModernTableStyling(props);
@@ -51,7 +51,7 @@ function applyPaginationStyle() {
   return css`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-`;
+  `;
 }
 
 export const StyledInternalTableWrapper = styled.div`
@@ -59,49 +59,51 @@ export const StyledInternalTableWrapper = styled.div`
   border-radius: 0px;
   overflow: visible;
   position: relative;
-  
-  ${({ onConfigure, theme }) => onConfigure && css`
-    ${StyledTable} {
-      border-radius: 0;
-    }
-    
-    ${StyledLink} {
-      left: -25px;
-      position: absolute;
-      top: -1px;
-      width: 25px;
 
-      align-items: center;
-      background-color: ${theme.table.header};
-      border: 1px solid ${theme.table.secondary};
-      border-right: none;
-      border-radius: 25px 0 0 25px;
-      box-sizing: content-box;
-      color: ${theme.colors.white};
-      display: flex;
-      height: 100%;
-      justify-content: center;
+  ${({ onConfigure, theme }) =>
+    onConfigure &&
+    css`
+      ${StyledTable} {
+        border-radius: 0;
+      }
 
-      &:hover {
-        background-color: #19475A;
+      ${StyledLink} {
+        left: -25px;
+        position: absolute;
+        top: -1px;
+        width: 25px;
+
+        align-items: center;
+        background-color: ${theme.table.header};
+        border: 1px solid ${theme.table.secondary};
+        border-right: none;
+        border-radius: 25px 0 0 25px;
+        box-sizing: content-box;
         color: ${theme.colors.white};
         display: flex;
         height: 100%;
         justify-content: center;
 
         &:hover {
-          background-color: #19475A;
+          background-color: #19475a;
           color: ${theme.colors.white};
-        }
-    
-        &:first-child {
-          height: 19px;
-          margin-right: -4px;
-          z-index: 3;
+          display: flex;
+          height: 100%;
+          justify-content: center;
+
+          &:hover {
+            background-color: #19475a;
+            color: ${theme.colors.white};
+          }
+
+          &:first-child {
+            height: 19px;
+            margin-right: -4px;
+            z-index: 3;
+          }
         }
       }
-    }
-  `}
+    `}
 `;
 
 function styleInternalWrapper(props) {
@@ -114,22 +116,22 @@ StyledTable.propTypes = {
   tableType: PropTypes.oneOf(OptionsHelper.tableThemes),
 
   /** Toggles the zebra striping for the table rows */
-  isZebra: PropTypes.bool
+  isZebra: PropTypes.bool,
 };
 
 StyledTable.defaultProps = {
   theme: baseTheme,
-  size: 'medium'
+  size: "medium",
 };
 
 StyledInternalTableWrapper.propTypes = {
   /** The height for the Table Wrapper */
-  minHeight: PropTypes.string
+  minHeight: PropTypes.string,
 };
 
 StyledInternalTableWrapper.defaultProps = {
   theme: baseTheme,
-  size: 'medium'
+  size: "medium",
 };
 
 export default StyledTable;

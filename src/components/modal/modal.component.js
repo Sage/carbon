@@ -1,14 +1,12 @@
 /* eslint-disable react/sort-comp */ // Getting confusing order from sort-comp
-import React from 'react';
-import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Events from '../../utils/helpers/events';
-import Browser from '../../utils/helpers/browser';
-import Portal from '../portal';
-import ModalManager from './__internal__/modal-manager';
-import {
-  StyledModal, StyledModalBackground
-} from './modal.style';
+import React from "react";
+import PropTypes from "prop-types";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Events from "../../utils/helpers/events";
+import Browser from "../../utils/helpers/browser";
+import Portal from "../portal";
+import ModalManager from "./__internal__/modal-manager";
+import { StyledModal, StyledModalBackground } from "./modal.style";
 /**
  * A Modal Component
  *
@@ -16,8 +14,8 @@ import {
  */
 class Modal extends React.Component {
   static childContextTypes = {
-    modal: PropTypes.object
-  }
+    modal: PropTypes.object,
+  };
 
   constructor(props) {
     super(props);
@@ -26,7 +24,7 @@ class Modal extends React.Component {
     this.timeout = 500;
 
     this.state = {
-      state: this.props.open ? 'open' : 'closed'
+      state: this.props.open ? "open" : "closed",
     };
     this.modalRef = React.createRef();
   }
@@ -34,15 +32,15 @@ class Modal extends React.Component {
   updateDataState = () => {
     clearTimeout(this.openTimeout);
     this.openTimeout = setTimeout(() => {
-      this.setState({ state: this.props.open ? 'open' : 'closed' });
+      this.setState({ state: this.props.open ? "open" : "closed" });
     }, this.timeout);
-  }
+  };
 
   getChildContext() {
     return {
       modal: {
-        onCancel: this.props.onCancel
-      }
+        onCancel: this.props.onCancel,
+      },
     };
   }
 
@@ -67,51 +65,66 @@ class Modal extends React.Component {
     this.listening = true;
     this.updateDataState();
     ModalManager.addModal(this.modalRef.current);
-    Browser.getWindow().addEventListener('keyup', this.closeModal);
+    Browser.getWindow().addEventListener("keyup", this.closeModal);
   }
 
   handleClose() {
     this.listening = false;
     ModalManager.removeModal(this.modalRef.current);
     this.updateDataState();
-    Browser.getWindow().removeEventListener('keyup', this.closeModal);
+    Browser.getWindow().removeEventListener("keyup", this.closeModal);
   }
 
   closeModal = (ev) => {
     const { open, onCancel, disableEscKey } = this.props;
     const isTopmost = ModalManager.isTopmost(this.modalRef.current);
 
-    if (open && onCancel && !disableEscKey && Events.isEscKey(ev) && isTopmost) {
+    if (
+      open &&
+      onCancel &&
+      !disableEscKey &&
+      Events.isEscKey(ev) &&
+      isTopmost
+    ) {
       ev.stopImmediatePropagation();
       onCancel(ev);
     }
-  }
+  };
 
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
       return (
         <StyledModalBackground
-          data-element='modal-background'
-          transitionName={ this.backgroundTransitionName }
+          data-element="modal-background"
+          transitionName={this.backgroundTransitionName}
         />
       );
     }
     return null;
   }
 
-  get mainClasses() { return null; }
+  get mainClasses() {
+    return null;
+  }
 
-  get modalHTML() { return null; }
+  get modalHTML() {
+    return null;
+  }
 
-  get transitionName() { return 'modal'; }
+  get transitionName() {
+    return "modal";
+  }
 
-  get backgroundTransitionName() { return 'modal-background'; }
+  get backgroundTransitionName() {
+    return "modal-background";
+  }
 
-  componentTags() { return null; }
+  componentTags() {
+    return null;
+  }
 
   render() {
-    let backgroundHTML,
-        modalHTML;
+    let backgroundHTML, modalHTML;
 
     if (this.props.open) {
       backgroundHTML = this.backgroundHTML;
@@ -119,21 +132,21 @@ class Modal extends React.Component {
     }
 
     return (
-      <Portal key='1'>
+      <Portal key="1">
         <StyledModal
-          className={ this.mainClasses }
-          { ...this.componentTags(this.props) }
-          data-state={ this.state.state }
-          transitionName={ this.transitionName }
-          ref={ this.modalRef }
+          className={this.mainClasses}
+          {...this.componentTags(this.props)}
+          data-state={this.state.state}
+          transitionName={this.transitionName}
+          ref={this.modalRef}
         >
           <TransitionGroup>
             {backgroundHTML && (
               <CSSTransition
-                key='modal'
+                key="modal"
                 appear
-                classNames={ this.backgroundTransitionName }
-                timeout={ this.timeout }
+                classNames={this.backgroundTransitionName}
+                timeout={this.timeout}
               >
                 {backgroundHTML}
               </CSSTransition>
@@ -143,8 +156,8 @@ class Modal extends React.Component {
             {modalHTML && (
               <CSSTransition
                 appear
-                classNames={ this.transitionName }
-                timeout={ this.timeout }
+                classNames={this.transitionName}
+                timeout={this.timeout}
               >
                 {modalHTML}
               </CSSTransition>
@@ -166,13 +179,13 @@ Modal.propTypes = {
   /** Determines if the Esc Key closes the modal */
   disableEscKey: PropTypes.bool,
   /** The ARIA role to be applied to the modal */
-  ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
+  ariaRole: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 };
 
 Modal.defaultProps = {
   onCancel: null,
   enableBackgroundUI: false,
-  disableEscKey: false
+  disableEscKey: false,
 };
 
 export default Modal;

@@ -1,6 +1,9 @@
-import styled, { css } from 'styled-components';
-import { StyledVerticalWrapper, StyledDivider } from '../vertical-divider/vertical-divider.style';
-import { baseTheme } from '../../style/themes';
+import styled, { css } from "styled-components";
+import {
+  StyledVerticalWrapper,
+  StyledDivider,
+} from "../vertical-divider/vertical-divider.style";
+import { baseTheme } from "../../style/themes";
 
 const StyledMenuWrapper = styled.nav`
   line-height: 40px;
@@ -21,7 +24,8 @@ const StyledMenuItem = styled.li`
       display: inline-block;
       vertical-align: bottom;
 
-      ${menuType === 'dark' && css`
+      ${menuType === "dark" &&
+      css`
         background-color: ${theme.colors.slate};
         color: ${theme.colors.white};
       `}
@@ -35,11 +39,7 @@ const StyledMenuItem = styled.li`
 `;
 
 StyledMenuItem.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
-export {
-  StyledMenuWrapper,
-  StyledMenuItemsWrapper,
-  StyledMenuItem
-};
+export { StyledMenuWrapper, StyledMenuItemsWrapper, StyledMenuItem };

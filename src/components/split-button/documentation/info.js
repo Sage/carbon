@@ -1,5 +1,9 @@
-import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+  StoryCodeBlock,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -7,14 +11,17 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import SplitButton from &quot;carbon-react/lib/components/split-button&quot;</StoryCode>
+    <StoryCode padded>
+      import SplitButton from
+      &quot;carbon-react/lib/components/split-button&quot;
+    </StoryCode>
 
     <p>To render a SplitButton (developer can add any buttons to dropdown):</p>
     <StoryCodeBlock>
       {'<SplitButton text="Main Button" onClick={ clickHandler }>'}
       {'  <Button onClick="buttonClickHandler1">Button name 1</Button>'}
       {'  <Button onClick="buttonClickHandler2">Button name 2</Button>'}
-      {'</SplitButton>'}
+      {"</SplitButton>"}
     </StoryCodeBlock>
   </div>
 );

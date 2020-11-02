@@ -1,8 +1,8 @@
-import propTypes from '@styled-system/prop-types';
-import styled from 'styled-components';
-import { space, layout, flexbox } from 'styled-system';
-import BaseTheme from '../../style/themes/base';
-import color from '../../style/utils/color';
+import propTypes from "@styled-system/prop-types";
+import styled from "styled-components";
+import { space, layout, flexbox } from "styled-system";
+import BaseTheme from "../../style/themes/base";
+import color from "../../style/utils/color";
 
 const Box = styled.div`
   ${space}
@@ -19,11 +19,11 @@ Box.propTypes = {
   /** Styled system layout props */
   ...propTypes.layout,
   /** Styled system color props */
-  ...propTypes.color
+  ...propTypes.color,
 };
 
 Box.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
 export default Box;

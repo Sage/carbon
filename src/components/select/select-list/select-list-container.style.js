@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { baseTheme } from '../../../style/themes';
+import styled from "styled-components";
+import { baseTheme } from "../../../style/themes";
 
 const overhang = 4;
 
@@ -14,8 +14,8 @@ const StyledSelectListContainer = styled.div`
 `;
 
 StyledSelectListContainer.defaultProps = {
-  maxHeight: '180px',
-  theme: baseTheme
+  maxHeight: "180px",
+  theme: baseTheme,
 };
 
 export default StyledSelectListContainer;

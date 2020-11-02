@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { connect } from 'carbon-state-management/lib/flux';
-import tagComponent from '../../utils/helpers/tags';
-import Dialog from '../../components/dialog';
-import ConfigurableItemsStore from './store';
-import ConfigurableItemsActions from './actions';
-import ConfigurableItemsContent from './configurable-items-content';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { connect } from "carbon-state-management/lib/flux";
+import tagComponent from "../../utils/helpers/tags";
+import Dialog from "../../components/dialog";
+import ConfigurableItemsStore from "./store";
+import ConfigurableItemsActions from "./actions";
+import ConfigurableItemsContent from "./configurable-items-content";
 
 class ConfigurableItemsPattern extends React.Component {
   static propTypes = {
@@ -56,14 +56,15 @@ class ConfigurableItemsPattern extends React.Component {
      * @property title
      * @type {Object}
      */
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ])
-  }
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.itemsData && this.open && (this.open !== prevState.configurableItemsStore.get('open'))) {
+    if (
+      this.props.itemsData &&
+      this.open &&
+      this.open !== prevState.configurableItemsStore.get("open")
+    ) {
       ConfigurableItemsActions.updateData(this.props.itemsData);
     }
   }
@@ -73,33 +74,33 @@ class ConfigurableItemsPattern extends React.Component {
     if (this.props.onCancel) {
       this.props.onCancel(event);
     }
-  }
+  };
 
   onChange = (rowIndex) => {
     ConfigurableItemsActions.updateItem(rowIndex);
-  }
+  };
 
   onDrag = (dragIndex, hoverIndex) => {
     ConfigurableItemsActions.reorderItems(dragIndex, hoverIndex);
-  }
+  };
 
   onReset = (event) => {
     ConfigurableItemsActions.toggleDialogOpen();
     if (this.props.onReset) {
       this.props.onReset(event);
     }
-  }
+  };
 
   onSave = (event) => {
     this.props.onSave(event, this.itemsData);
-  }
+  };
 
   get itemsData() {
-    return this.state.configurableItemsStore.get('items_data');
+    return this.state.configurableItemsStore.get("items_data");
   }
 
   get open() {
-    return this.state.configurableItemsStore.get('open');
+    return this.state.configurableItemsStore.get("open");
   }
 
   /**
@@ -116,22 +117,21 @@ class ConfigurableItemsPattern extends React.Component {
   }
 
   get mainClasses() {
-    return classNames(
-      'configurable-items-pattern',
-      this.props.className
-    );
+    return classNames("configurable-items-pattern", this.props.className);
   }
 
   content() {
-    if (this.itemsData.size === 0) { return null; }
+    if (this.itemsData.size === 0) {
+      return null;
+    }
     return (
       <ConfigurableItemsContent
-        itemsData={ this.itemsData }
-        onCancel={ this.onCancel }
-        onChange={ this.onChange }
-        onDrag={ this.onDrag }
-        onReset={ this.onReset }
-        onSave={ this.onSave }
+        itemsData={this.itemsData}
+        onCancel={this.onCancel}
+        onChange={this.onChange}
+        onDrag={this.onDrag}
+        onReset={this.onReset}
+        onSave={this.onSave}
       />
     );
   }
@@ -139,14 +139,14 @@ class ConfigurableItemsPattern extends React.Component {
   render() {
     return (
       <Dialog
-        { ...tagComponent('configurable-items-pattern', this.props) }
-        className={ this.mainClasses }
-        onCancel={ this.onCancel }
-        open={ this.isDialogOpen }
-        title={ this.props.title }
+        {...tagComponent("configurable-items-pattern", this.props)}
+        className={this.mainClasses}
+        onCancel={this.onCancel}
+        open={this.isDialogOpen}
+        title={this.props.title}
         stickyFormFooter
       >
-        { this.content() }
+        {this.content()}
       </Dialog>
     );
   }

@@ -1,4 +1,4 @@
-import ShouldComponentUpdateHelper from '../../helpers/should-component-update';
+import ShouldComponentUpdateHelper from "../../helpers/should-component-update";
 
 /**
  * ShouldComponentUpdate Decorator.
@@ -41,7 +41,8 @@ const ShouldComponentUpdate = (ComposedComponent) => {
     }
   }
 
-  Component.displayName = ComposedComponent.displayName || ComposedComponent.name;
+  Component.displayName =
+    ComposedComponent.displayName || ComposedComponent.name;
   return Component;
 };
 

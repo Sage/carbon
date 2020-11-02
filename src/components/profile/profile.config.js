@@ -1,59 +1,58 @@
-
 export default {
   XS: {
     dimensions: 24,
-    nameSize: '13px',
-    emailSize: '12px',
-    lineHeight: '12px',
-    marginLeft: '16px',
-    marginTop: '1px'
+    nameSize: "13px",
+    emailSize: "12px",
+    lineHeight: "12px",
+    marginLeft: "16px",
+    marginTop: "1px",
   },
   S: {
     dimensions: 32,
-    nameSize: '14px',
-    emailsize: '12px',
-    lineHeight: '16px',
-    marginLeft: '16px',
-    marginTop: '1px'
+    nameSize: "14px",
+    emailsize: "12px",
+    lineHeight: "16px",
+    marginLeft: "16px",
+    marginTop: "1px",
   },
   M: {
     dimensions: 40,
-    nameSize: '14px',
-    emailSize: '14px',
-    lineHeight: '16px',
-    marginLeft: '16px',
-    marginTop: '4px'
+    nameSize: "14px",
+    emailSize: "14px",
+    lineHeight: "16px",
+    marginLeft: "16px",
+    marginTop: "4px",
   },
   ML: {
     dimensions: 56,
-    nameSize: '14px',
-    emailSize: '14px',
-    lineHeight: '20px',
-    marginLeft: '24px',
-    marginTop: '8px'
+    nameSize: "14px",
+    emailSize: "14px",
+    lineHeight: "20px",
+    marginLeft: "24px",
+    marginTop: "8px",
   },
   L: {
     dimensions: 72,
-    nameSize: '20px',
-    emailSize: '14px',
-    lineHeight: '22px',
-    marginLeft: '24px',
-    marginTop: '14px'
+    nameSize: "20px",
+    emailSize: "14px",
+    lineHeight: "22px",
+    marginLeft: "24px",
+    marginTop: "14px",
   },
   XL: {
     dimensions: 104,
-    nameSize: '24px',
-    emailSize: '20px',
-    lineHeight: '26px',
-    marginLeft: '32px',
-    marginTop: '24px'
+    nameSize: "24px",
+    emailSize: "20px",
+    lineHeight: "26px",
+    marginLeft: "32px",
+    marginTop: "24px",
   },
   XXL: {
     dimensions: 128,
-    nameSize: '32px',
-    emailSize: '24px',
-    lineHeight: '30px',
-    marginLeft: '40px',
-    marginTop: '32px'
-  }
+    nameSize: "32px",
+    emailSize: "24px",
+    lineHeight: "30px",
+    marginLeft: "40px",
+    marginTop: "32px",
+  },
 };

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StyledTableHeader from './table-header.style';
-import Icon from '../../icon';
-import { validProps } from '../../../utils/ether/ether';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import React from "react";
+import PropTypes from "prop-types";
+import StyledTableHeader from "./table-header.style";
+import Icon from "../../icon";
+import { validProps } from "../../../utils/ether/ether";
+import OptionsHelper from "../../../utils/helpers/options-helper";
 
 /**
  * A TableHeader widget.
@@ -57,8 +57,8 @@ class TableHeader extends React.Component {
    */
   get sortIconHTML() {
     if (this.sorted) {
-      const type = this.context.sortOrder === 'desc' ? 'sort_down' : 'sort_up';
-      return <Icon type={ type } />;
+      const type = this.context.sortOrder === "desc" ? "sort_down" : "sort_up";
+      return <Icon type={type} />;
     }
     return null;
   }
@@ -87,11 +87,13 @@ class TableHeader extends React.Component {
     let currentSortDescription = null;
 
     if (currentSortOrder) {
-      nextSortOrder = currentSortOrder === 'asc' ? 'descending' : 'ascending';
-      currentSortDescription = `sorted ${currentSortOrder === 'desc' ? 'descending' : 'ascending'}, `;
+      nextSortOrder = currentSortOrder === "asc" ? "descending" : "ascending";
+      currentSortDescription = `sorted ${
+        currentSortOrder === "desc" ? "descending" : "ascending"
+      }, `;
     } else {
-      nextSortOrder = 'descending';
-      currentSortDescription = '';
+      nextSortOrder = "descending";
+      currentSortDescription = "";
     }
 
     return `Sortable column, ${currentSortDescription}activate to sort column ${nextSortOrder}`;
@@ -100,7 +102,8 @@ class TableHeader extends React.Component {
   ariaAttributes() {
     const aria = {};
     if (this.context.sortOrder && this.isCurrentSortedColumn) {
-      aria['aria-sort'] = this.context.sortOrder === 'asc' ? 'ascending' : 'descending';
+      aria["aria-sort"] =
+        this.context.sortOrder === "asc" ? "ascending" : "descending";
     }
 
     return aria;
@@ -110,21 +113,21 @@ class TableHeader extends React.Component {
    * Emits sort event to parent context - table.
    */
   emitSortEvent = () => {
-    let sortOrder = this.context.sortOrder || 'desc';
+    let sortOrder = this.context.sortOrder || "desc";
 
     // If this is the current sorted column. flip order
     if (this.sorted) {
-      sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
+      sortOrder = this.context.sortOrder === "asc" ? "desc" : "asc";
     }
 
     this.context.onSort(this.props.name, sortOrder);
-  }
+  };
 
   componentTags(props) {
     return {
-      'data-component': 'table-header',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
+      "data-component": "table-header",
+      "data-element": props["data-element"],
+      "data-role": props["data-role"],
     };
   }
 
@@ -139,15 +142,15 @@ class TableHeader extends React.Component {
     let contents = null;
 
     if (this.props.sortable) {
-      const sortOrder = this.context.sortOrder === 'asc' ? 'desc' : 'asc';
+      const sortOrder = this.context.sortOrder === "asc" ? "desc" : "asc";
       contents = (
         <a
-          href={ `#sort-${sortOrder}` }
-          aria-label={ this.sortDescription }
-          onClick={ this.onSortableColumnClick }
+          href={`#sort-${sortOrder}`}
+          aria-label={this.sortDescription}
+          onClick={this.onSortableColumnClick}
         >
-          { this.props.children }
-          { this.sortIconHTML }
+          {this.props.children}
+          {this.sortIconHTML}
         </a>
       );
     } else {
@@ -156,28 +159,26 @@ class TableHeader extends React.Component {
 
     const additionalProps = {
       align: this.props.align,
-      sortable: this.props.sortable
+      sortable: this.props.sortable,
     };
 
-    if (/^\d+$/.test(this.props.width)) additionalProps.width = this.props.width;
+    if (/^\d+$/.test(this.props.width))
+      additionalProps.width = this.props.width;
 
-    return (
-      React.createElement(
-        this.styledComponent(),
-        {
-          ...this.componentTags(this.props),
-          ...this.tableHeaderProps,
-          ...this.ariaAttributes(),
-          ...additionalProps
-        },
-        contents
-      )
+    return React.createElement(
+      this.styledComponent(),
+      {
+        ...this.componentTags(this.props),
+        ...this.tableHeaderProps,
+        ...this.ariaAttributes(),
+        ...additionalProps,
+      },
+      contents
     );
   }
 }
 
 TableHeader.propTypes = {
-
   /** Aligns the content of the cell (can be "left", "center" or "right"). */
   align: PropTypes.oneOf(OptionsHelper.alignFull),
 
@@ -188,10 +189,12 @@ TableHeader.propTypes = {
   name(props, propName) {
     if (props.sortable) {
       if (!props[propName]) {
-        throw new Error('Sortable columns require a prop of name of type String');
+        throw new Error(
+          "Sortable columns require a prop of name of type String"
+        );
       }
-      if (typeof props[propName] !== 'string') {
-        throw new Error('name must be a string');
+      if (typeof props[propName] !== "string") {
+        throw new Error("name must be a string");
       }
     }
   },
@@ -203,21 +206,21 @@ TableHeader.propTypes = {
   styledComponent: PropTypes.node,
 
   /** A width value to constrain a column eg 250. */
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 TableHeader.defaultProps = {
   children: null,
-  name: '',
+  name: "",
   sortable: false,
-  align: 'left'
+  align: "left",
 };
 
 /** Sort handler passed from table context  */
 TableHeader.contextTypes = {
   onSort: PropTypes.func,
   sortedColumn: PropTypes.string,
-  sortOrder: PropTypes.string
+  sortOrder: PropTypes.string,
 };
 
 export default TableHeader;

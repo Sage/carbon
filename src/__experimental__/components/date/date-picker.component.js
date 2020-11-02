@@ -1,20 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import 'react-day-picker/lib/style.css';
-import LocaleUtils from 'react-day-picker/moment';
-import DayPicker from 'react-day-picker';
-import Browser from '../../../utils/helpers/browser/browser';
-import DateHelper from '../../../utils/helpers/date/date';
-import Portal from '../../../components/portal/portal';
-import Navbar from './navbar';
-import Weekday from './weekday';
-import StyledDayPicker from './day-picker.style';
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import "react-day-picker/lib/style.css";
+import LocaleUtils from "react-day-picker/moment";
+import DayPicker from "react-day-picker";
+import Browser from "../../../utils/helpers/browser/browser";
+import DateHelper from "../../../utils/helpers/date/date";
+import Portal from "../../../components/portal/portal";
+import Navbar from "./navbar";
+import Weekday from "./weekday";
+import StyledDayPicker from "./day-picker.style";
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
-  const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
-  const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
+  const [containerPosition, setContainerPosition] = useState(() =>
+    getContainerPosition(window, props.inputElement)
+  );
+  const [currentInputDate, setCurrentInputDate] = useState(
+    isoFormattedValueString(props.inputDate)
+  );
   const datepicker = useRef(null);
 
   useEffect(() => {
@@ -49,19 +53,19 @@ const DatePicker = (props) => {
       const weekdayShort = localeUtils.formatWeekdayShort(weekday, I18n.locale);
 
       return (
-        <Weekday className={ className } title={ weekdayLong }>
+        <Weekday className={className} title={weekdayLong}>
           {weekdayShort}
         </Weekday>
       );
-    }
+    },
   };
 
   const picker = (
     <StyledDayPicker>
       <DayPicker
-        { ...datePickerProps }
-        containerProps={ { style: props.disablePortal ? {} : containerPosition } }
-        ref={ datepicker }
+        {...datePickerProps}
+        containerProps={{ style: props.disablePortal ? {} : containerPosition }}
+        ref={datepicker}
       />
     </StyledDayPicker>
   );
@@ -71,7 +75,11 @@ const DatePicker = (props) => {
   }
 
   return (
-    <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
+    <Portal
+      onReposition={() =>
+        setContainerPosition(getContainerPosition(window, props.inputElement))
+      }
+    >
       {picker}
     </Portal>
   );
@@ -91,7 +99,7 @@ DatePicker.propTypes = {
   /** Currently selected date */
   selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Callback to set selected date */
-  handleDateSelect: PropTypes.func
+  handleDateSelect: PropTypes.func,
 };
 
 function isoFormattedValueString(valueToFormat) {
@@ -120,11 +128,19 @@ function getDisabledDays(minDate, maxDate) {
 }
 
 function checkIsoFormatAndLength(date) {
-  if (date.length !== 10 || !DateHelper.isValidDate(date, { defaultValue: 'YYYY-MM-DD' })) {
+  if (
+    date.length !== 10 ||
+    !DateHelper.isValidDate(date, { defaultValue: "YYYY-MM-DD" })
+  ) {
     return false;
   }
-  const array = date.split('-');
-  return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
+  const array = date.split("-");
+  return (
+    array.length === 3 &&
+    array[0].length === 4 &&
+    array[1].length === 2 &&
+    array[2].length === 2
+  );
 }
 
 function getContainerPosition(window, input) {
@@ -133,7 +149,7 @@ function getContainerPosition(window, input) {
 
   return {
     left: inputRect.left,
-    top: inputRect.bottom + offsetY
+    top: inputRect.bottom + offsetY,
   };
 }
 

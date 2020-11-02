@@ -1,1 +1,1 @@
-export { default, TabContext } from './tab.component';
+export { default, TabContext } from "./tab.component";

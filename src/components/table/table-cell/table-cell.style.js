@@ -1,17 +1,15 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import StyledInputPresentation from '../../../__experimental__/components/input/input-presentation.style';
-import StyledInput from '../../../__experimental__/components/input/input.style';
-import tableSizes from '../table-sizes.style.js';
-import { isClassic } from '../../../utils/helpers/style-helper';
-import StyledIcon from '../../icon/icon.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
+import StyledInput from "../../../__experimental__/components/input/input.style";
+import tableSizes from "../table-sizes.style.js";
+import { isClassic } from "../../../utils/helpers/style-helper";
+import StyledIcon from "../../icon/icon.style";
 
 const StyledTableCell = styled.td`
-  ${({
-    action, align, theme, size, isTextArea, isDate
-  }) => {
+  ${({ action, align, theme, size, isTextArea, isDate }) => {
     const { colors, table } = theme;
     return css`
       background-color: ${table.primary};
@@ -30,10 +28,12 @@ const StyledTableCell = styled.td`
         margin-right: -6px;
         margin-top: -4px;
       }
-      
+
       ${action && applyActionStyling(colors)}
 
-      ${!isClassic(theme) && size ? applyModernPresentationStyling(size, isTextArea, isDate) : ''}
+      ${!isClassic(theme) && size
+        ? applyModernPresentationStyling(size, isTextArea, isDate)
+        : ""}
     `;
   }}
 `;
@@ -51,7 +51,7 @@ function applyActionStyling(colors) {
     }
 
     .icon-delete:hover:before {
-      color: #C7384F;
+      color: #c7384f;
     }
   `;
 }
@@ -64,7 +64,7 @@ function applyModernPresentationStyling(size, isTextArea, isDate) {
       padding-left: ${paddingSize};
       padding-right: ${paddingSize};
       position: relative;
-      ${size === 'large' && isDate ? 'width: 150px;' : ''}
+      ${size === "large" && isDate ? "width: 150px;" : ""}
       ${additionalPresentationStyling(isTextArea, inputHeight)}
     }
     ${applyModernInputStyling(isTextArea, inputHeight, fontSize)}
@@ -123,12 +123,12 @@ StyledTableCell.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.tableSizes),
 
   /** Used to toggle the input wrapper height. */
-  isTextArea: PropTypes.bool
+  isTextArea: PropTypes.bool,
 };
 
 StyledTableCell.defaultProps = {
   theme: baseTheme,
-  align: 'left'
+  align: "left",
 };
 
 export default StyledTableCell;

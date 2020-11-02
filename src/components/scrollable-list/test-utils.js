@@ -1,6 +1,6 @@
-import React from 'react';
-import { makeArrayKeys } from '../../__spec_helper__/test-utils';
-import ScrollableListItem from './scrollable-list-item.component';
+import React from "react";
+import { makeArrayKeys } from "../../__spec_helper__/test-utils";
+import ScrollableListItem from "./scrollable-list-item.component";
 
 const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
   // generate jsx for selectable list items, based on indexes in config
@@ -8,7 +8,7 @@ const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
     if (nonSelectables.includes(item)) return [...acc, <div />];
     if (customSelectables.includes(item)) return [...acc, <div isSelectable />];
 
-    return [...acc, <ScrollableListItem id={ index } />];
+    return [...acc, <ScrollableListItem id={index} />];
   };
 };
 

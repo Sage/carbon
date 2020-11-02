@@ -1,15 +1,13 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import { isClassic } from '../../../utils/helpers/style-helper';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import tableSizes from '../table-sizes.style';
-import StyledIcon from '../../icon/icon.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import { isClassic } from "../../../utils/helpers/style-helper";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import tableSizes from "../table-sizes.style";
+import StyledIcon from "../../icon/icon.style";
 
 const StyledTableHeader = styled.th`
-  ${({
-    align, sortable, theme, width
-  }) => {
+  ${({ align, sortable, theme, width }) => {
     const { table, colors } = theme;
     return css`
       background-color: ${table.header};
@@ -19,7 +17,7 @@ const StyledTableHeader = styled.th`
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
-      ${isClassic(theme) ? `height: ${tableSizes.medium.height};` : ''}
+      ${isClassic(theme) ? `height: ${tableSizes.medium.height};` : ""}
       outline: medium none;
       padding: 0 8px;
       position: relative;
@@ -33,7 +31,10 @@ const StyledTableHeader = styled.th`
         border-left: none;
       }
 
-      ${width && css`width: ${width}px;`}
+      ${width &&
+      css`
+        width: ${width}px;
+      `}
 
       ${sortable && applySortableStyling(align, colors, table)}
     `;
@@ -66,7 +67,7 @@ function applySortableStyling(align, colors, table) {
       }
 
       span {
-        float: ${align === 'right' ? 'left' : 'right'};
+        float: ${align === "right" ? "left" : "right"};
 
         .carbon-icon__svg--sort-down,
         .carbon-icon__svg--sort-up {
@@ -86,12 +87,12 @@ StyledTableHeader.propTypes = {
   sortable: PropTypes.bool,
 
   /** Width to set column to. */
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 StyledTableHeader.defaultProps = {
   theme: baseTheme,
-  align: 'left'
+  align: "left",
 };
 
 export default StyledTableHeader;

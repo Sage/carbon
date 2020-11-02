@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>

@@ -1,1 +1,1 @@
-export { default } from './draggable-table-cell.component';
+export { default } from "./draggable-table-cell.component";

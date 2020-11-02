@@ -1,1 +1,1 @@
-export { default } from './table-subheader.component';
+export { default } from "./table-subheader.component";

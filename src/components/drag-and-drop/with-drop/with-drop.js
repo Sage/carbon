@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { DropTarget } from 'react-dnd-legacy';
-import ItemTypes from '../../../utils/helpers/dnd/item-types';
-import Text from '../../../utils/helpers/text';
+import React from "react";
+import PropTypes from "prop-types";
+import { DropTarget } from "react-dnd-legacy";
+import ItemTypes from "../../../utils/helpers/dnd/item-types";
+import Text from "../../../utils/helpers/text";
 
 class WithDrop extends React.Component {
   static propTypes = {
@@ -21,18 +21,18 @@ class WithDrop extends React.Component {
     onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
     canDrop: PropTypes.func, // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
-    didDrop: PropTypes.func
-  }
+    didDrop: PropTypes.func,
+  };
 
   static contextTypes = {
     dragAndDropOnDrag: PropTypes.func,
-    dragAndDropHover: PropTypes.func
-  }
+    dragAndDropHover: PropTypes.func,
+  };
 
   state = {
     isDraggedElementOver: false,
-    inDeadZone: false
-  }
+    inDeadZone: false,
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // eslint-disable-next-line react/prop-types
@@ -60,7 +60,7 @@ class WithDrop extends React.Component {
 
     const childrenWithProps = React.cloneElement(children, {
       isDraggedElementOver: this.state.isDraggedElementOver,
-      inDeadZone: this.state.inDeadZone
+      inDeadZone: this.state.inDeadZone,
     });
 
     if (droppableNode) {
@@ -74,7 +74,7 @@ class WithDrop extends React.Component {
 
 const ItemTarget = {
   canDrop(props, monitor) {
-    return (props.canDrop) ? props.canDrop(props, monitor) : true;
+    return props.canDrop ? props.canDrop(props, monitor) : true;
   },
 
   hover(props, monitor, component) {
@@ -83,15 +83,17 @@ const ItemTarget = {
     Text.clearSelection();
     const hover = props.hover || component.context.dragAndDropHover;
     return hover(props, monitor, component);
-  }
+  },
 };
 
 // eslint-disable-next-line no-class-assign
 WithDrop = DropTarget(
-  ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
+  ItemTypes.getItemType,
+  ItemTarget,
+  (connect, monitor) => ({
     isOver: monitor.isOver(),
     connectDropTarget: connect.dropTarget(),
-    didDrop: monitor.didDrop()
+    didDrop: monitor.didDrop(),
   })
 )(WithDrop);
 

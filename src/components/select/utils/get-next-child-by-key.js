@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export function getNextChildByKey(key, children, previousSelectedValue) {
   const childrenList = React.Children.toArray(children);
@@ -14,17 +14,17 @@ export function getNextIndexByKey(key, currentIndex, lastIndex) {
   const isNoOptionSelected = currentIndex === -1;
   let newIndex = currentIndex;
 
-  if (key === 'Home') {
+  if (key === "Home") {
     newIndex = 0;
-  } else if (key === 'End') {
+  } else if (key === "End") {
     newIndex = lastIndex;
-  } else if (key === 'ArrowDown') {
+  } else if (key === "ArrowDown") {
     if (currentIndex === lastIndex || isNoOptionSelected) {
       newIndex = 0;
     } else {
       newIndex = currentIndex + 1;
     }
-  } else if (key === 'ArrowUp') {
+  } else if (key === "ArrowUp") {
     if (currentIndex === 0 || isNoOptionSelected) {
       newIndex = lastIndex;
     } else {

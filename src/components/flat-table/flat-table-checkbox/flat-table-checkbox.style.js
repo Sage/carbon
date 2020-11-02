@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components';
-import StyledCheckbox from '../../../__experimental__/components/checkbox/checkbox.style';
-import baseTheme from '../../../style/themes/base';
+import styled, { css } from "styled-components";
+import StyledCheckbox from "../../../__experimental__/components/checkbox/checkbox.style";
+import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCheckbox = styled.td`
   ${({ as, theme }) => css`
-    ${(as === 'td') && `
+    ${as === "td" &&
+    `
       background-color: ${theme.colors.white};
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
@@ -24,7 +25,8 @@ const StyledFlatTableCheckbox = styled.td`
       }
     `}
 
-    ${(as === 'th') && `
+    ${as === "th" &&
+    `
       background-color: transparent;
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
@@ -39,7 +41,7 @@ const StyledFlatTableCheckbox = styled.td`
       white-space: nowrap;
     `}
   `}
-  
+
   width: 18px;
 
   ${StyledCheckbox} {
@@ -48,7 +50,7 @@ const StyledFlatTableCheckbox = styled.td`
 `;
 
 StyledFlatTableCheckbox.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledFlatTableCheckbox;

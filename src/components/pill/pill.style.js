@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { shade, meetsContrastGuidelines } from 'polished';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import { shade, meetsContrastGuidelines } from "polished";
 
-import styleConfig from './pill.style.config';
-import { baseTheme } from '../../style/themes';
-import StyledIcon from '../icon/icon.style';
-import { toColor } from '../../style/utils/color.js';
+import styleConfig from "./pill.style.config";
+import { baseTheme } from "../../style/themes";
+import StyledIcon from "../icon/icon.style";
+import { toColor } from "../../style/utils/color.js";
 
 function addStyleToPillIcon(fontSize) {
   return `
@@ -18,12 +18,20 @@ function addStyleToPillIcon(fontSize) {
 }
 
 const PillStyle = styled.span`
- ${({
-    colorVariant, borderColor, theme, inFill, isDeletable, pillRole, size, ml, mr
+  ${({
+    colorVariant,
+    borderColor,
+    theme,
+    inFill,
+    isDeletable,
+    pillRole,
+    size,
+    ml,
+    mr,
   }) => {
-    const isStatus = pillRole === 'status';
+    const isStatus = pillRole === "status";
     const { colors, text } = baseTheme;
-    const variety = isStatus ? colorVariant : 'primary';
+    const variety = isStatus ? colorVariant : "primary";
     let pillColor;
     let buttonFocusColor;
     let contentColor;
@@ -33,12 +41,16 @@ const PillStyle = styled.span`
         pillColor = toColor(theme, borderColor);
         buttonFocusColor = shade(0.2, pillColor);
       } else {
-        const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][variety];
+        const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][
+          variety
+        ];
         pillColor = varietyColor;
         buttonFocusColor = buttonFocus;
       }
 
-      contentColor = meetsContrastGuidelines(pillColor, text.color).AAA ? text.color : colors.white;
+      contentColor = meetsContrastGuidelines(pillColor, text.color).AAA
+        ? text.color
+        : colors.white;
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
@@ -57,36 +69,42 @@ const PillStyle = styled.span`
       border: 2px solid ${pillColor};
       height: auto;
 
-      ${inFill && css`
+      ${inFill &&
+      css`
         background-color: ${pillColor};
         color: ${contentColor};
       `}
 
-      ${size === 'S' && css`
+      ${size === "S" &&
+      css`
         min-height: 16px;
         line-height: 16px;
         font-size: 10px;
       `}
 
-      ${size === 'M' && css`
+      ${size === "M" &&
+      css`
         min-height: 20px;
         line-height: 20px;
         font-size: 12px;
       `}
 
-      ${size === 'L' && css`
+      ${size === "L" &&
+      css`
         min-height: 24px;
         line-height: 24px;
         font-size: 14px;
       `}
 
-      ${size === 'XL' && css`
+      ${size === "XL" &&
+      css`
         min-height: 26px;
         line-height: 26px;
         font-size: 16px;
       `}
 
-      ${isDeletable && css`
+      ${isDeletable &&
+      css`
         button {
           -webkit-appearance: none;
           border-radius: 0 6px 6px 0;
@@ -100,14 +118,16 @@ const PillStyle = styled.span`
           margin: 0;
           line-height: 16px;
 
-          ${inFill && css`
+          ${inFill &&
+          css`
             color: ${contentColor};
             ${StyledIcon} {
               color: ${contentColor};
             }
           `}
 
-          ${!inFill && css`
+          ${!inFill &&
+          css`
             background-color: transparent;
             color: ${text.color};
           `}
@@ -116,7 +136,9 @@ const PillStyle = styled.span`
             outline: none;
             box-shadow: 0 0 0 3px ${colors.focus};
             background-color: ${buttonFocusColor};
-            & { color: ${contentColor} }
+            & {
+              color: ${contentColor};
+            }
             ::-moz-focus-inner {
               border: 0;
             }
@@ -138,14 +160,15 @@ const PillStyle = styled.span`
             font-size: 12px;
             padding: 0 4px;
 
-            &:hover, 
+            &:hover,
             &:focus {
               color: ${contentColor};
             }
           }
         }
 
-        ${size === 'S' && css`
+        ${size === "S" &&
+        css`
           padding: 0 24px 0 7px;
 
           button {
@@ -153,11 +176,12 @@ const PillStyle = styled.span`
             border-radius: 0 8px 8px 0;
             line-height: 14px;
 
-              ${addStyleToPillIcon('7px')}
-            }
-          `}
+            ${addStyleToPillIcon("7px")}
+          }
+        `}
 
-        ${size === 'M' && css`
+        ${size === "M" &&
+        css`
           padding: 0 32px 0 11px;
           border-radius: 12px;
 
@@ -167,11 +191,12 @@ const PillStyle = styled.span`
             border-radius: 0 10px 10px 0;
             line-height: 15px;
 
-              ${addStyleToPillIcon('10px')}
-            }
-          `}
+            ${addStyleToPillIcon("10px")}
+          }
+        `}
 
-        ${size === 'L' && css`
+        ${size === "L" &&
+        css`
           padding: 0 36px 0 15px;
           border-radius: 13px;
 
@@ -181,11 +206,12 @@ const PillStyle = styled.span`
             border-radius: 0 11px 11px 0;
             line-height: 16px;
 
-              ${addStyleToPillIcon('12px')}
-            }
-          `}
+            ${addStyleToPillIcon("12px")}
+          }
+        `}
 
-        ${size === 'XL' && css`
+        ${size === "XL" &&
+        css`
           padding: 0 41px 0 19px;
           border-radius: 15px;
 
@@ -195,13 +221,15 @@ const PillStyle = styled.span`
             border-radius: 0 12px 12px 0;
             line-height: 18px;
 
-              ${addStyleToPillIcon('13px')}
-            }
-          `}
+            ${addStyleToPillIcon("13px")}
+          }
         `}
+      `}
 
-      ${!isDeletable && css`
-        ${size === 'S' && css`
+      ${!isDeletable &&
+      css`
+        ${size === "S" &&
+        css`
           padding: 0 7px;
 
           button {
@@ -209,7 +237,8 @@ const PillStyle = styled.span`
           }
         `}
 
-        ${size === 'M' && css`
+        ${size === "M" &&
+        css`
           padding: 0 11px;
           border-radius: 12px;
 
@@ -220,7 +249,8 @@ const PillStyle = styled.span`
           }
         `}
 
-        ${size === 'L' && css`
+        ${size === "L" &&
+        css`
           padding: 0 15px;
           border-radius: 13px;
 
@@ -231,7 +261,8 @@ const PillStyle = styled.span`
           }
         `}
 
-        ${size === 'XL' && css`
+        ${size === "XL" &&
+        css`
           padding: 0 19px;
           border-radius: 15px;
 
@@ -243,25 +274,30 @@ const PillStyle = styled.span`
         `}
       `}
 
-      ${ml && css`margin-left: ${ml * theme.spacing}px`};
-      ${mr && css`margin-right: ${mr * theme.spacing}px`};
+      ${ml &&
+      css`
+        margin-left: ${ml * theme.spacing}px;
+      `};
+      ${mr &&
+      css`
+        margin-right: ${mr * theme.spacing}px;
+      `};
     `;
-  }
-}
+  }}
 `;
 
 PillStyle.defaultProps = {
   inFill: false,
-  colorVariant: 'default',
+  colorVariant: "default",
   isDeletable: false,
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
-  colorVariant: PropTypes.oneOf(['neutral', 'negative', 'positive', 'warning']),
+  colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
   isDeletable: PropTypes.func,
-  size: PropTypes.oneOf(['S', 'M', 'L', 'XL'])
+  size: PropTypes.oneOf(["S", "M", "L", "XL"]),
 };
 
 export default PillStyle;

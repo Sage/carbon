@@ -1,20 +1,14 @@
-import styled, { css } from 'styled-components';
-import StyledInputPresentation from '../input/input-presentation.style';
-import StyledIcon from '../../../components/icon/icon.style';
-import StyledButton from '../../../components/button/button.style';
-import { baseTheme } from '../../../style/themes';
-import StyledFormField from '../form-field/form-field.style';
+import styled, { css } from "styled-components";
+import StyledInputPresentation from "../input/input-presentation.style";
+import StyledIcon from "../../../components/icon/icon.style";
+import StyledButton from "../../../components/button/button.style";
+import { baseTheme } from "../../../style/themes";
+import StyledFormField from "../form-field/form-field.style";
 
 const StyledSearch = styled.div`
-  ${({
-    isFocused,
-    searchWidth,
-    searchIsActive,
-    searchHasValue,
-    theme
-  }) => {
+  ${({ isFocused, searchWidth, searchIsActive, searchHasValue, theme }) => {
     return css`
-      width: ${searchWidth ? `${searchWidth}` : '100%'};
+      width: ${searchWidth ? `${searchWidth}` : "100%"};
       padding-bottom: 2px;
       background-color: transparent;
       border-bottom: 2px solid ${theme.search.passive};
@@ -26,26 +20,39 @@ const StyledSearch = styled.div`
         border-bottom-color: ${theme.search.active};
         cursor: pointer;
       }
-      ${!isFocused && !searchHasValue && css`
-        ${StyledInputPresentation} {
-          border: 1px solid transparent;
-          color: ${theme.icon.default};
-        }
-      `}
-      ${(isFocused || searchHasValue) && css`
-        border-color: transparent;
-        transition: background 0.2s ease;
-        color: ${theme.icon.defaultHover};
-        :hover {
+      ${
+        !isFocused &&
+        !searchHasValue &&
+        css`
+          ${StyledInputPresentation} {
+            border: 1px solid transparent;
+            color: ${theme.icon.default};
+          }
+        `
+      }
+      ${
+        (isFocused || searchHasValue) &&
+        css`
           border-color: transparent;
-        }
-      `}
-      ${isFocused && !searchIsActive && css`
-        color: ${theme.icon.defaultHover};
-      `}
+          transition: background 0.2s ease;
+          color: ${theme.icon.defaultHover};
+          :hover {
+            border-color: transparent;
+          }
+        `
+      }
+      ${
+        isFocused &&
+        !searchIsActive &&
+        css`
+          color: ${theme.icon.defaultHover};
+        `
+      }
       
       ${StyledInputPresentation} {
-        background-color: ${searchHasValue || isFocused ? `${theme.colors.white}` : 'transparent'}
+        background-color: ${
+          searchHasValue || isFocused ? `${theme.colors.white}` : "transparent"
+        }
         flex: 1;
         font-size: 14px;
         font-weight: 700;
@@ -78,7 +85,7 @@ const StyledSearch = styled.div`
 StyledSearch.defaultProps = { theme: baseTheme };
 export default StyledSearch;
 
-export const StyledSearchButton = styled.div` 
+export const StyledSearchButton = styled.div`
   display: inline-flex;
   border-bottom: none;
   &&& ${StyledButton} {

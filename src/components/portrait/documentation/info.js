@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -8,7 +11,9 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Portrait from &quot;carbon-react/lib/components/portrait&quot;</StoryCode>
+    <StoryCode padded>
+      import Portrait from &quot;carbon-react/lib/components/portrait&quot;
+    </StoryCode>
 
     <p>To render a portrait:</p>
     <StoryCode>{'<Portrait src="/my-image" alt="my image">'}</StoryCode>
@@ -24,12 +29,13 @@ const info = (
     </p>
 
     <p>
-      To render Portrait without an image, pass only <StoryCode padded>initials</StoryCode> prop.
+      To render Portrait without an image, pass only{" "}
+      <StoryCode padded>initials</StoryCode> prop.
     </p>
 
     <p>
-      You can pass a <StoryCode padded>size</StoryCode> property to adjust the size of the portrait. The default value
-      is medium.
+      You can pass a <StoryCode padded>size</StoryCode> property to adjust the
+      size of the portrait. The default value is medium.
     </p>
   </div>
 );

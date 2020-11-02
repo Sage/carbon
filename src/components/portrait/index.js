@@ -1,1 +1,1 @@
-export { default } from './portrait.component';
+export { default } from "./portrait.component";

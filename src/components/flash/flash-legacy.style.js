@@ -1,23 +1,19 @@
-import styled, { css } from 'styled-components';
-import Link from '../link';
-import Icon from '../icon';
+import styled, { css } from "styled-components";
+import Link from "../link";
+import Icon from "../icon";
 
 const colors = {
-  warning: '#FF7D00',
-  default: '#335C6D',
-  error: '#c7384f',
-  info: '#1573E6',
-  new: '#663399',
-  success: '#50B848',
-  help: '#FFAB00',
-  maintenance: '#FF7D00'
+  warning: "#FF7D00",
+  default: "#335C6D",
+  error: "#c7384f",
+  info: "#1573E6",
+  new: "#663399",
+  success: "#50B848",
+  help: "#FFAB00",
+  maintenance: "#FF7D00",
 };
 
-const requireWhiteTextColor = [
-  'error',
-  'new',
-  'info'
-];
+const requireWhiteTextColor = ["error", "new", "info"];
 
 const sliderAnimation = `
   .carbon-flash__slider-appear,
@@ -108,17 +104,15 @@ const FlashIconStyle = styled(Icon)`
 `;
 
 const FlashLink = styled(Link)`
-
   color: #fff;
 
-  a:hover{
-    color: #fff
+  a:hover {
+    color: #fff;
   }
-
 `;
 
 const FlashMessageStyle = styled.div`
-  color: rgba(0,0,0,0.85);
+  color: rgba(0, 0, 0, 0.85);
   font-size: 14px;
   font-weight: 700;
   margin: 20px 70px;
@@ -127,7 +121,7 @@ const FlashMessageStyle = styled.div`
 `;
 
 const FlashContentStyle = styled.div`
-  background-color: transparent ;
+  background-color: transparent;
   margin: 0 auto;
   max-width: 1600px;
   min-width: 958px;
@@ -135,7 +129,7 @@ const FlashContentStyle = styled.div`
 `;
 
 const FlashSliderStyle = styled.div`
-  content: 'h';
+  content: "h";
   display: inline-block;
   font-size: 13px;
   height: 100%;
@@ -154,18 +148,21 @@ const FlashStyle = styled.div`
   width: 100%;
 
   // tag added by CSSTransitionGroup
-    > div {
+  > div {
     display: inline-block;
     height: 100%;
     width: 100%;
-  };
+  }
 
-    ${({ variant }) => variant && css`
-        ${FlashSliderStyle} {
-          background: ${colors[variant]};
-        };
+  ${({ variant }) =>
+    variant &&
+    css`
+      ${FlashSliderStyle} {
+        background: ${colors[variant]};
+      }
 
-        ${requireWhiteTextColor.includes(variant) && `
+      ${requireWhiteTextColor.includes(variant) &&
+      `
         
           ${FlashMessageStyle},
           ${FlashCloseStyle},
@@ -176,8 +173,8 @@ const FlashStyle = styled.div`
         `}
     `};
 
-    ${sliderAnimation};
-    ${contentAnimation};
+  ${sliderAnimation};
+  ${contentAnimation};
 `;
 
 export {
@@ -187,5 +184,5 @@ export {
   FlashMessageStyle,
   FlashLink,
   FlashIconStyle,
-  FlashCloseStyle
+  FlashCloseStyle,
 };

@@ -1,47 +1,59 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { StyledFieldset, StyledFieldsetContent, StyledLegendContainer } from './fieldset.style';
-import ValidationIcon from '../../components/validations/validation-icon.component';
-import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
+import {
+  StyledFieldset,
+  StyledFieldsetContent,
+  StyledLegendContainer,
+} from "./fieldset.style";
+import ValidationIcon from "../../components/validations/validation-icon.component";
+import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 
 const Fieldset = ({
-  legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
-  warning, info, ml, mb, styleOverride, isRequired, ...rest
+  legend,
+  children,
+  inline,
+  legendWidth,
+  legendAlign = "right",
+  legendSpacing = 2,
+  error,
+  warning,
+  info,
+  ml,
+  mb,
+  styleOverride,
+  isRequired,
+  ...rest
 }) => (
   <InputGroupBehaviour>
     <StyledFieldset
-      data-component='fieldset'
-      styleOverride={ styleOverride.root }
-      ml={ ml }
-      mb={ mb }
-      { ...rest }
+      data-component="fieldset"
+      styleOverride={styleOverride.root}
+      ml={ml}
+      mb={mb}
+      {...rest}
     >
-      <StyledFieldsetContent inline={ inline }>
+      <StyledFieldsetContent inline={inline}>
         {legend && (
           <StyledLegendContainer
-            inline={ inline }
-            styleOverride={ styleOverride.legend }
-            width={ legendWidth }
-            align={ legendAlign }
-            rightPadding={ legendSpacing }
-            isRequired={ isRequired }
+            inline={inline}
+            styleOverride={styleOverride.legend}
+            width={legendWidth}
+            align={legendAlign}
+            rightPadding={legendSpacing}
+            isRequired={isRequired}
           >
             <InputGroupContext.Consumer>
               {({ onMouseEnter, onMouseLeave }) => (
-                <legend onMouseEnter={ onMouseEnter } onMouseLeave={ onMouseLeave }>
-                  { legend }
+                <legend onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                  {legend}
                 </legend>
-              ) }
+              )}
             </InputGroupContext.Consumer>
-            <ValidationIcon
-              error={ error }
-              warning={ warning }
-              info={ info }
-            />
+            <ValidationIcon error={error} warning={warning} info={info} />
           </StyledLegendContainer>
         )}
-        { children }
+        {children}
       </StyledFieldsetContent>
     </StyledFieldset>
   </InputGroupBehaviour>
@@ -69,7 +81,7 @@ Fieldset.propTypes = {
   /** Percentage width of legend (only when legend is inline)  */
   legendWidth: PropTypes.number,
   /** Text alignment of legend when inline */
-  legendAlign: PropTypes.oneOf(['left', 'right']),
+  legendAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** Margin left, any valid CSS value  */
@@ -79,15 +91,15 @@ Fieldset.propTypes = {
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   }),
   /** If true, an asterisk will be added to the label */
-  isRequired: PropTypes.bool
+  isRequired: PropTypes.bool,
 };
 
 Fieldset.defaultProps = {
   inline: false,
-  styleOverride: {}
+  styleOverride: {},
 };
 
 export default Fieldset;

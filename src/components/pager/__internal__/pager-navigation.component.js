@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
 import {
   StyledPagerNavigation,
   StyledPagerNavInner,
-  StyledPagerNoSelect
-} from './pager.style';
-import NumberInput from '../../../__experimental__/components/number';
-import Events from '../../../utils/helpers/events';
-import createGuid from '../../../utils/helpers/guid';
-import PagerNavigationLink from './pager-navigation-link.component';
-import Label from '../../../__experimental__/components/label';
+  StyledPagerNoSelect,
+} from "./pager.style";
+import NumberInput from "../../../__experimental__/components/number";
+import Events from "../../../utils/helpers/events";
+import createGuid from "../../../utils/helpers/guid";
+import PagerNavigationLink from "./pager-navigation-link.component";
+import Label from "../../../__experimental__/components/label";
 
 const PagerNavigation = ({
   pageSize,
@@ -30,18 +30,18 @@ const PagerNavigation = ({
   const handlePageInputChange = (ev) => {
     if (Number(ev.target.value) <= 0 || Number.isNaN(Number(ev.target.value))) {
       setCurrentPage(1);
-      onPagination(1, pageSize, 'input');
-      return '1';
+      onPagination(1, pageSize, "input");
+      return "1";
     }
 
     if (Number(ev.target.value) > pageCount) {
       setCurrentPage(pageCount);
-      onPagination(pageCount, pageSize, 'input');
+      onPagination(pageCount, pageSize, "input");
       return pageCount;
     }
 
     setCurrentPage(Number(ev.target.value));
-    onPagination(Number(ev.target.value), pageSize, 'input');
+    onPagination(Number(ev.target.value), pageSize, "input");
     return ev.target.value;
   };
 
@@ -53,53 +53,54 @@ const PagerNavigation = ({
     currentPage,
     pageSize,
     pageCount,
-    onPagination
+    onPagination,
   };
 
   return (
-    <StyledPagerNavigation { ...props }>
+    <StyledPagerNavigation {...props}>
       <PagerNavigationLink
-        type='first'
-        onClick={ onFirst }
-        { ...pagerNavigationLinkProps }
+        type="first"
+        onClick={onFirst}
+        {...pagerNavigationLinkProps}
       />
       <PagerNavigationLink
-        type='previous'
-        onClick={ onPrevious }
-        { ...pagerNavigationLinkProps }
+        type="previous"
+        onClick={onPrevious}
+        {...pagerNavigationLinkProps}
       />
       <StyledPagerNavInner>
         <StyledPagerNoSelect>
-          { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
+          {I18n.t("pager.page_x", { defaultValue: "Page " })}
         </StyledPagerNoSelect>
-        <Label htmlFor={ currentPageId }>
+        <Label htmlFor={currentPageId}>
           <NumberInput
-            value={ currentPage.toString() }
-            data-element='current-page'
-            onChange={ handleCurrentPageChange }
-            onBlur={ handlePageInputChange }
-            id={ currentPageId }
-            onKeyUp={ (ev) => {
+            value={currentPage.toString()}
+            data-element="current-page"
+            onChange={handleCurrentPageChange}
+            onBlur={handlePageInputChange}
+            id={currentPageId}
+            onKeyUp={(ev) => {
               if (!Events.isEnterKey(ev)) {
                 return false;
               }
               return handlePageInputChange(ev);
-            } }
+            }}
           />
         </Label>
         <StyledPagerNoSelect>
-          { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ pageCount }
+          {I18n.t("pager.of_y", { defaultValue: " of " })}
+          {pageCount}
         </StyledPagerNoSelect>
       </StyledPagerNavInner>
       <PagerNavigationLink
-        type='next'
-        onClick={ onNext }
-        { ...pagerNavigationLinkProps }
+        type="next"
+        onClick={onNext}
+        {...pagerNavigationLinkProps}
       />
       <PagerNavigationLink
-        type='last'
-        onClick={ onLast }
-        { ...pagerNavigationLinkProps }
+        type="last"
+        onClick={onLast}
+        {...pagerNavigationLinkProps}
       />
     </StyledPagerNavigation>
   );
@@ -107,7 +108,8 @@ const PagerNavigation = ({
 
 PagerNavigation.propTypes = {
   /** Current visible page */
-  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   /** Pagination page size */
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /* Count of all of the pages */
@@ -123,7 +125,7 @@ PagerNavigation.propTypes = {
   /** onLast Callback trigered when last link is triggered */
   onLast: PropTypes.func,
   /** onPagination Callback trigered when a change is triggered */
-  onPagination: PropTypes.func
+  onPagination: PropTypes.func,
 };
 
 export default PagerNavigation;

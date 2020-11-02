@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { assign } from 'lodash';
+import axios from "axios";
+import { assign } from "lodash";
 
 /**
  * Global configuration for all service classes.
@@ -7,7 +7,7 @@ import { assign } from 'lodash';
 const config = {
   csrfToken: null, // defines the CSRF token if required by your web application
   onSuccess: null, // defines a callback to trigger on every successful response
-  onError: null // defines a callback to trigger on every erroneous response
+  onError: null, // defines a callback to trigger on every erroneous response
 };
 
 class Service {
@@ -45,11 +45,11 @@ class Service {
     // sets up the axios client with default options
     this.client = axios.create({
       headers: {
-        'X-CSRF-Token': config.csrfToken,
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        "X-CSRF-Token": config.csrfToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      transformResponse: [this.responseTransform]
+      transformResponse: [this.responseTransform],
     });
 
     // applies the default axios interceptors used for manipulating the data
@@ -70,7 +70,7 @@ class Service {
    * @return {Object} the response data
    */
   handleSuccess(response) {
-    if (response.data && response.data.status === 'error') {
+    if (response.data && response.data.status === "error") {
       if (this.shouldTriggerCallback(config.onError)) {
         config.onError(response.data);
       }
@@ -184,7 +184,7 @@ class Service {
    */
   post(data, options) {
     const { onSuccess, onError, ...params } = options;
-    const request = this.client.post('', data, params);
+    const request = this.client.post("", data, params);
 
     request.then(
       this.handleResponse.bind(this, onSuccess),
@@ -251,7 +251,9 @@ class Service {
    * @return {Void}
    */
   responseTransform(response) {
-    if (!response) { return undefined; }
+    if (!response) {
+      return undefined;
+    }
     return JSON.parse(response);
   }
 

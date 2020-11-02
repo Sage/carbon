@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledSelectList = styled.ul`
   box-sizing: border-box;
   list-style-type: none;
-  max-height: ${props => `${props.maxHeight}`};
+  max-height: ${(props) => `${props.maxHeight}`};
   margin: 0;
   outline: none;
   overflow-x: hidden;
@@ -12,7 +12,7 @@ const StyledSelectList = styled.ul`
 `;
 
 StyledSelectList.defaultProps = {
-  maxHeight: '180px'
+  maxHeight: "180px",
 };
 
 export default StyledSelectList;

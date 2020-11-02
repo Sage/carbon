@@ -1,22 +1,25 @@
-import styled, { css } from 'styled-components';
-import BaseTheme from '../../../style/themes/base';
-import { isClassic } from '../../../utils/helpers/style-helper';
+import styled, { css } from "styled-components";
+import BaseTheme from "../../../style/themes/base";
+import { isClassic } from "../../../utils/helpers/style-helper";
 
 const FormFieldStyle = styled.div`
   & + & {
-    margin-top: ${({ theme }) => (isClassic(theme) ? '10px' : '16px')};
+    margin-top: ${({ theme }) => (isClassic(theme) ? "10px" : "16px")};
   }
 
   &&& {
-    ${({ mb, theme }) => (mb || mb === 0)
-  && css`margin-bottom: ${mb * theme.spacing}px`};
+    ${({ mb, theme }) =>
+      (mb || mb === 0) &&
+      css`
+        margin-bottom: ${mb * theme.spacing}px;
+      `};
   }
 
   ${({ styleOverride }) => styleOverride};
 `;
 
 FormFieldStyle.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
 const FieldLineStyle = styled.div`
@@ -27,7 +30,7 @@ const FieldLineStyle = styled.div`
       `;
     }
 
-    return 'display: block;';
+    return "display: block;";
   }}
 `;
 

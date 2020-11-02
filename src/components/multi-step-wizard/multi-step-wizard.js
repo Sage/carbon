@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Step from './step';
-import './multi-step-wizard.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Step from "./step";
+import "./multi-step-wizard.scss";
 
 /**
  * A MultiStepWizard widget.
@@ -131,18 +131,18 @@ class MultiStepWizard extends React.Component {
      * @type {Boolean}
      * @default false
      */
-    completed: PropTypes.bool // eslint-disable-line react/no-unused-prop-types
-  }
+    completed: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  };
 
   static defaultProps = {
     beforeSubmitValidation: null,
-    className: '',
+    className: "",
     completed: false,
     currentStep: 1,
     enableInactiveSteps: false,
     onNext: null,
-    onBack: null
-  }
+    onBack: null,
+  };
 
   static childContextTypes = {
     /**
@@ -151,9 +151,8 @@ class MultiStepWizard extends React.Component {
      * @property wizard
      * @type {Object}
      */
-    wizard: PropTypes.object
-  }
-
+    wizard: PropTypes.object,
+  };
 
   /**
    * Returns wizard object to child components.
@@ -174,8 +173,8 @@ class MultiStepWizard extends React.Component {
         next: this.next,
         back: this.back,
         complete: this.complete,
-        totalSteps: this.totalSteps
-      }
+        totalSteps: this.totalSteps,
+      },
     };
   }
 
@@ -187,7 +186,10 @@ class MultiStepWizard extends React.Component {
    */
   UNSAFE_componentWillMount() {
     const validProps = this.validateStepProps(this.props);
-    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
+    this.setState({
+      currentStep: validProps.currentStep,
+      completed: validProps.completed,
+    });
   }
 
   /**
@@ -199,7 +201,10 @@ class MultiStepWizard extends React.Component {
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
     const validProps = this.validateStepProps(nextProps);
-    this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
+    this.setState({
+      currentStep: validProps.currentStep,
+      completed: validProps.completed,
+    });
   }
 
   /**
@@ -221,7 +226,7 @@ class MultiStepWizard extends React.Component {
     }
 
     return { currentStep: step, completed: false };
-  }
+  };
 
   /**
    * Get total number of steps
@@ -241,9 +246,11 @@ class MultiStepWizard extends React.Component {
    */
   next = () => {
     if (this.state.currentStep < this.totalSteps) {
-      this.setState(prevState => ({ currentStep: prevState.currentStep + 1 }));
+      this.setState((prevState) => ({
+        currentStep: prevState.currentStep + 1,
+      }));
     }
-  }
+  };
 
   /**
    * Back to the previous step.
@@ -253,9 +260,12 @@ class MultiStepWizard extends React.Component {
    */
   back = () => {
     if (this.state.currentStep > 1) {
-      this.setState(prevState => ({ completed: false, currentStep: prevState.currentStep - 1 }));
+      this.setState((prevState) => ({
+        completed: false,
+        currentStep: prevState.currentStep - 1,
+      }));
     }
-  }
+  };
 
   /**
    * Completes the wizard.
@@ -267,7 +277,7 @@ class MultiStepWizard extends React.Component {
     if (this.state.currentStep === this.totalSteps) {
       this.setState({ completed: true });
     }
-  }
+  };
 
   /**
    * Returns the computed HTML for the wizard's steps.
@@ -281,10 +291,11 @@ class MultiStepWizard extends React.Component {
         // Step is never going to be re-ordered or changed so index is safe to use
         /* eslint-disable react/no-array-index-key */
         <Step
-          stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` }
-          { ...step.props }
+          stepNumber={index + 1}
+          key={`multi-step-wizard-step-${index}`}
+          {...step.props}
         >
-          { step }
+          {step}
         </Step>
         /* eslint-enable react/no-array-index-key */
       );
@@ -298,10 +309,7 @@ class MultiStepWizard extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames(
-      'multi-step-wizard',
-      this.props.className
-    );
+    return classNames("multi-step-wizard", this.props.className);
   }
 
   /**
@@ -312,10 +320,8 @@ class MultiStepWizard extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
-        <div className='multi-step-wizard__content'>
-          { this.wizardStepsHTML }
-        </div>
+      <div className={this.mainClasses}>
+        <div className="multi-step-wizard__content">{this.wizardStepsHTML}</div>
       </div>
     );
   }

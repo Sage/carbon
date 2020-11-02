@@ -1,13 +1,13 @@
-import React from 'react';
-import Textbox from '../textbox';
+import React from "react";
+import Textbox from "../textbox";
 
 class Number extends React.Component {
   render() {
     return (
       <Textbox
-        { ...this.props }
-        onChange={ this.handleOnChange }
-        onKeyDown={ this.handleKeyDown }
+        {...this.props}
+        onChange={this.handleOnChange}
+        onKeyDown={this.handleKeyDown}
       />
     );
   }
@@ -32,14 +32,14 @@ class Number extends React.Component {
 }
 
 function isValidNumber(value) {
-  const regex = new RegExp('^[-]?[0-9]*$');
+  const regex = new RegExp("^[-]?[0-9]*$");
   const result = regex.test(value);
 
   return result;
 }
 
 Number.propTypes = {
-  ...Textbox.propTypes
+  ...Textbox.propTypes,
 };
 
 export default Number;

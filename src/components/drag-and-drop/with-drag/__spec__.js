@@ -1,20 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { mount } from 'enzyme';
-import { DragDropContext } from 'react-dnd-legacy';
-import TestBackend from 'react-dnd-test-backend';
-import WithDrag from './with-drag';
-import BrowserHelper from './../../../utils/helpers/browser';
+import React from "react";
+import PropTypes from "prop-types";
+import { mount } from "enzyme";
+import { DragDropContext } from "react-dnd-legacy";
+import TestBackend from "react-dnd-test-backend";
+import WithDrag from "./with-drag";
+import BrowserHelper from "./../../../utils/helpers/browser";
 
-describe('WithDrag', () => {
-  let wrapper, backend, handlerId, beginDragContextSpy, beginDragPropSpy,
-      endDragContextSpy, endDragPropSpy, component;
+describe("WithDrag", () => {
+  let wrapper,
+    backend,
+    handlerId,
+    beginDragContextSpy,
+    beginDragPropSpy,
+    endDragContextSpy,
+    endDragPropSpy,
+    component;
 
   function createWrapper(props = {}) {
     let DnD = wrapInTestContext(WithDrag);
 
     wrapper = mount(
-      <DnD { ...props }>
+      <DnD {...props}>
         <div>foo</div>
       </DnD>
     );
@@ -29,8 +35,8 @@ describe('WithDrag', () => {
       class TestContextContainer extends React.Component {
         static childContextTypes = {
           dragAndDropBeginDrag: PropTypes.func,
-          dragAndDropEndDrag: PropTypes.func
-        }
+          dragAndDropEndDrag: PropTypes.func,
+        };
 
         getChildContext() {
           return {
@@ -48,69 +54,69 @@ describe('WithDrag', () => {
 
   beforeEach(() => {
     beginDragContextSpy = jasmine.createSpy().and.returnValue({
-      index: 1
+      index: 1,
     });
     beginDragPropSpy = jasmine.createSpy().and.returnValue({
-      index: 1
+      index: 1,
     });
     endDragContextSpy = jasmine.createSpy();
     endDragPropSpy = jasmine.createSpy();
   });
 
-  describe('without custom props', () => {
+  describe("without custom props", () => {
     beforeEach(() => {
       createWrapper();
     });
 
-    describe('beginDrag', () => {
-      it('calls the beginDrag from context', () => {
+    describe("beginDrag", () => {
+      it("calls the beginDrag from context", () => {
         backend.simulateBeginDrag([handlerId]);
         expect(beginDragPropSpy).not.toHaveBeenCalled();
         expect(beginDragContextSpy).toHaveBeenCalled();
       });
 
-      it('marks the component as dragging', () => {
-        spyOn(BrowserHelper, 'getDocument').and.returnValue({});
+      it("marks the component as dragging", () => {
+        spyOn(BrowserHelper, "getDocument").and.returnValue({});
         backend.simulateBeginDrag([handlerId]);
-        expect(component.decoratedComponentInstance.dragging).toBeTruthy()
+        expect(component.decoratedComponentInstance.dragging).toBeTruthy();
       });
     });
 
-    describe('endDrag', () => {
-      it('calls the endDrag from context', () => {
+    describe("endDrag", () => {
+      it("calls the endDrag from context", () => {
         backend.simulateBeginDrag([handlerId]);
         backend.simulateEndDrag([handlerId]);
         expect(endDragPropSpy).not.toHaveBeenCalled();
         expect(endDragContextSpy).toHaveBeenCalled();
       });
 
-      it('marks the component as not dragging', () => {
-        spyOn(BrowserHelper, 'getDocument').and.returnValue({});
+      it("marks the component as not dragging", () => {
+        spyOn(BrowserHelper, "getDocument").and.returnValue({});
         backend.simulateBeginDrag([handlerId]);
         backend.simulateEndDrag([handlerId]);
-        expect(component.decoratedComponentInstance.dragging).toBeFalsy()
+        expect(component.decoratedComponentInstance.dragging).toBeFalsy();
       });
     });
   });
 
-  describe('with custom props', () => {
+  describe("with custom props", () => {
     beforeEach(() => {
       createWrapper({
         beginDrag: beginDragPropSpy,
-        endDrag: endDragPropSpy
+        endDrag: endDragPropSpy,
       });
     });
 
-    describe('beginDrag', () => {
-      it('calls the beginDrag from context', () => {
+    describe("beginDrag", () => {
+      it("calls the beginDrag from context", () => {
         backend.simulateBeginDrag([handlerId]);
         expect(beginDragPropSpy).toHaveBeenCalled();
         expect(beginDragContextSpy).not.toHaveBeenCalled();
       });
     });
 
-    describe('endDrag', () => {
-      it('calls the endDrag from context', () => {
+    describe("endDrag", () => {
+      it("calls the endDrag from context", () => {
         backend.simulateBeginDrag([handlerId]);
         backend.simulateEndDrag([handlerId]);
         expect(endDragPropSpy).toHaveBeenCalled();
@@ -119,88 +125,100 @@ describe('WithDrag', () => {
     });
   });
 
-  describe('custom canDrag', () => {
+  describe("custom canDrag", () => {
     beforeEach(() => {
-
       createWrapper({
         canDrag: () => {
-          return false
-        }
+          return false;
+        },
       });
     });
 
-    describe('when it returns false', () => {
-      it('it does not trigger begin drag', () => {
+    describe("when it returns false", () => {
+      it("it does not trigger begin drag", () => {
         backend.simulateBeginDrag([handlerId]);
         expect(beginDragContextSpy).not.toHaveBeenCalled();
       });
     });
   });
 
-  describe('selectstart', () => {
+  describe("selectstart", () => {
     beforeEach(() => {
-      spyOn(BrowserHelper.getWindow(), 'addEventListener');
-      spyOn(BrowserHelper.getWindow(), 'removeEventListener');
+      spyOn(BrowserHelper.getWindow(), "addEventListener");
+      spyOn(BrowserHelper.getWindow(), "removeEventListener");
       createWrapper();
     });
-    describe('didMount', () => {
-      it('adds a event listener', () => {
-        expect(BrowserHelper.getWindow().addEventListener).toHaveBeenCalledWith('selectstart', jasmine.any(Function))
+    describe("didMount", () => {
+      it("adds a event listener", () => {
+        expect(BrowserHelper.getWindow().addEventListener).toHaveBeenCalledWith(
+          "selectstart",
+          jasmine.any(Function)
+        );
       });
     });
 
-    describe('WillUnmount', () => {
-      it('remove a event listener', () => {
+    describe("WillUnmount", () => {
+      it("remove a event listener", () => {
         wrapper.unmount();
-        expect(BrowserHelper.getWindow().removeEventListener).toHaveBeenCalledWith('selectstart', jasmine.any(Function))
+        expect(
+          BrowserHelper.getWindow().removeEventListener
+        ).toHaveBeenCalledWith("selectstart", jasmine.any(Function));
       });
     });
 
-    describe('when the event target is an input element', () => {
-      it('does not prevent selectstart', () => {
-        const element = BrowserHelper.getDocument().createElement('input');
+    describe("when the event target is an input element", () => {
+      it("does not prevent selectstart", () => {
+        const element = BrowserHelper.getDocument().createElement("input");
         const event = {
           target: element,
-          preventDefault: jest.fn()
-        }
-        spyOn(event, 'preventDefault');
-        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
+          preventDefault: jest.fn(),
+        };
+        spyOn(event, "preventDefault");
+        expect(
+          component.decoratedComponentInstance.allowTextSelection(event)
+        ).toBeTruthy();
       });
     });
 
-    describe('when the event target is NOT an input element', () => {
-      it('prevents selectstart', () => {
-        const element = BrowserHelper.getDocument().createElement('span');
+    describe("when the event target is NOT an input element", () => {
+      it("prevents selectstart", () => {
+        const element = BrowserHelper.getDocument().createElement("span");
         const event = {
           target: element,
-          preventDefault: jest.fn()
-        }
-        spyOn(event, 'preventDefault');
-        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
+          preventDefault: jest.fn(),
+        };
+        spyOn(event, "preventDefault");
+        expect(
+          component.decoratedComponentInstance.allowTextSelection(event)
+        ).toBeFalsy();
       });
     });
 
-    describe('when the event target is not a dom element but the component is dragging', () => {
-      it('prevents selectstart', () => {
+    describe("when the event target is not a dom element but the component is dragging", () => {
+      it("prevents selectstart", () => {
         const event = {
-          target: 'Some Text',
-          preventDefault: jest.fn()
-        }
-        spyOn(event, 'preventDefault');
+          target: "Some Text",
+          preventDefault: jest.fn(),
+        };
+        spyOn(event, "preventDefault");
         component.decoratedComponentInstance.dragging = true;
-        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
+        expect(
+          component.decoratedComponentInstance.allowTextSelection(event)
+        ).toBeFalsy();
       });
     });
 
-    describe('when the event target is not a dom element and the component is not dragging', () => {
-      it('does not prevent selectstart', () => {
+    describe("when the event target is not a dom element and the component is not dragging", () => {
+      it("does not prevent selectstart", () => {
         const event = {
-          target: 'Some Text',
-          preventDefault: jest.fn()
-        }
-        spyOn(event, 'preventDefault');
+          target: "Some Text",
+          preventDefault: jest.fn(),
+        };
+        spyOn(event, "preventDefault");
         component.decoratedComponentInstance.dragging = false;
-        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
+        expect(
+          component.decoratedComponentInstance.allowTextSelection(event)
+        ).toBeTruthy();
       });
     });
   });

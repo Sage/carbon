@@ -1,6 +1,4 @@
-import {
-  useState, useRef, useCallback, useMemo
-} from 'react';
+import { useState, useRef, useCallback, useMemo } from "react";
 
 const useInputBehaviour = () => {
   const [hasFocus, setHasFocus] = useState(false);
@@ -12,7 +10,9 @@ const useInputBehaviour = () => {
 
   const onBlur = useCallback(() => setHasFocus(false), []);
 
-  const assignInput = useCallback((input) => { inputRef.current = input.current; }, []);
+  const assignInput = useCallback((input) => {
+    inputRef.current = input.current;
+  }, []);
 
   // use mouse down rather than click to accomodate click and drag events too
   const onMouseDown = useCallback(() => {
@@ -24,19 +24,30 @@ const useInputBehaviour = () => {
 
   const onMouseLeave = useCallback(() => setHasMouseOver(false), []);
 
-  const contextValue = useMemo(() => ({
-    hasFocus,
-    hasMouseOver,
-    onFocus,
-    onBlur,
-    onMouseDown,
-    onMouseEnter,
-    onMouseLeave,
-    inputRef: assignInput
-  }), [assignInput, onMouseDown, hasFocus, hasMouseOver, onBlur, onFocus, onMouseEnter, onMouseLeave]);
+  const contextValue = useMemo(
+    () => ({
+      hasFocus,
+      hasMouseOver,
+      onFocus,
+      onBlur,
+      onMouseDown,
+      onMouseEnter,
+      onMouseLeave,
+      inputRef: assignInput,
+    }),
+    [
+      assignInput,
+      onMouseDown,
+      hasFocus,
+      hasMouseOver,
+      onBlur,
+      onFocus,
+      onMouseEnter,
+      onMouseLeave,
+    ]
+  );
 
   return contextValue;
 };
-
 
 export default useInputBehaviour;

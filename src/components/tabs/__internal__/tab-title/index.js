@@ -1,1 +1,1 @@
-export { default } from './tab-title.component';
+export { default } from "./tab-title.component";

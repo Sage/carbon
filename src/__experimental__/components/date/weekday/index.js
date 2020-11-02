@@ -1,1 +1,1 @@
-export { default } from './weekday.component';
+export { default } from "./weekday.component";

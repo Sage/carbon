@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import DraggableContext from './draggable-context';
-import { mount } from 'enzyme';
-import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
-import Browser from './../../../utils/helpers/browser';
-import CustomDragLayer from './../custom-drag-layer';
+import React from "react";
+import ReactDOM from "react-dom";
+import DraggableContext from "./draggable-context";
+import { mount } from "enzyme";
+import ItemTargetHelper from "./../../../utils/helpers/dnd/item-target";
+import Browser from "./../../../utils/helpers/browser";
+import CustomDragLayer from "./../custom-drag-layer";
 
-describe('DraggableContext', () => {
+describe("DraggableContext", () => {
   let wrapper, instance, onDragSpy;
 
-  describe('when not passing in a custom drag layer', () => {
+  describe("when not passing in a custom drag layer", () => {
     beforeEach(() => {
-      onDragSpy = jasmine.createSpy('onDragSpy');
+      onDragSpy = jasmine.createSpy("onDragSpy");
       wrapper = mount(
-        <DraggableContext onDrag={ onDragSpy }>
-          <div className='draggable-child'>
+        <DraggableContext onDrag={onDragSpy}>
+          <div className="draggable-child">
             <p>One</p>
             <p>Two</p>
           </div>
@@ -24,100 +24,102 @@ describe('DraggableContext', () => {
       instance = wrapper.instance().child;
     });
 
-    it('is wrapped in a DragDropContextContainer', () => {
-      expect(DraggableContext.name).toBe('DragDropContextContainer');
+    it("is wrapped in a DragDropContextContainer", () => {
+      expect(DraggableContext.name).toBe("DragDropContextContainer");
     });
 
-    it('has a DecoratedComponent pointing to the original component', () => {
-      expect(DraggableContext.DecoratedComponent.name).toBe('DraggableContext');
+    it("has a DecoratedComponent pointing to the original component", () => {
+      expect(DraggableContext.DecoratedComponent.name).toBe("DraggableContext");
     });
 
-    describe('handleHover', () => {
-      it('references the onHoverUpDown method', () => {
+    describe("handleHover", () => {
+      it("references the onHoverUpDown method", () => {
         expect(instance.handleHover).toEqual(ItemTargetHelper.onHoverUpDown);
       });
     });
 
-    describe('handleDrag', () => {
-      it('sets activeIndex to the hoverIndex', () => {
+    describe("handleDrag", () => {
+      it("sets activeIndex to the hoverIndex", () => {
         instance.handleDrag(2, 4);
         expect(instance.state.activeIndex).toEqual(4);
       });
 
-      describe('when there is no originalIndex', () => {
-        it('does not call onDrag', () => {
+      describe("when there is no originalIndex", () => {
+        it("does not call onDrag", () => {
           instance.handleDrag(undefined, 4);
           expect(onDragSpy).not.toHaveBeenCalled();
         });
       });
 
-      describe('when there is an originalIndex', () => {
-        it('does not call onDrag', () => {
+      describe("when there is an originalIndex", () => {
+        it("does not call onDrag", () => {
           instance.handleDrag(2, 4);
           expect(onDragSpy).toHaveBeenCalledWith(2, 4);
         });
       });
     });
 
-    describe('handleBeginDrag', () => {
-      it('returns the index of the props passed in', () => {
-        expect(instance.handleBeginDrag({ index: 3, foo: 'bar', offsetDiffY: 0 })).toEqual({
+    describe("handleBeginDrag", () => {
+      it("returns the index of the props passed in", () => {
+        expect(
+          instance.handleBeginDrag({ index: 3, foo: "bar", offsetDiffY: 0 })
+        ).toEqual({
           index: 3,
-          foo: 'bar',
-          offsetDiffY: 0
+          foo: "bar",
+          offsetDiffY: 0,
         });
       });
     });
 
-    describe('handleEndDrag', () => {
-      it('resets activeIndex', () => {
+    describe("handleEndDrag", () => {
+      it("resets activeIndex", () => {
         instance.handleDrag(2, 4);
         instance.handleEndDrag();
         expect(instance.state.activeIndex).toBe(null);
       });
     });
 
-    describe('startScrolling', () => {
+    describe("startScrolling", () => {
       let frameMock;
       beforeEach(() => {
         instance.frame = true;
         const windowMock = jest.fn();
         frameMock = jest.fn();
-        windowMock.mockReturnValue({requestAnimationFrame: frameMock});
-        Browser.getWindow= windowMock;
+        windowMock.mockReturnValue({ requestAnimationFrame: frameMock });
+        Browser.getWindow = windowMock;
       });
-      it('is immune to startScrolling when there is a frame', () => {
+      it("is immune to startScrolling when there is a frame", () => {
         instance.startScrolling();
         expect(frameMock).not.toHaveBeenCalled();
       });
     });
 
-    describe('checkAutoScroll', () => {
-      it('is immune to triggering when dragging index is null', () => {
+    describe("checkAutoScroll", () => {
+      it("is immune to triggering when dragging index is null", () => {
         expect(instance.checkAutoScroll()).toBeUndefined();
       });
     });
 
-    describe('render', () => {
-      it('renders this.props.children', () => {
-        expect(wrapper.find('.draggable-child').length).toEqual(1);
-        expect(wrapper.find('p').length).toEqual(2);
+    describe("render", () => {
+      it("renders this.props.children", () => {
+        expect(wrapper.find(".draggable-child").length).toEqual(1);
+        expect(wrapper.find("p").length).toEqual(2);
       });
 
-      it('renders CustomDragLayer', () => {
+      it("renders CustomDragLayer", () => {
         expect(wrapper.find(CustomDragLayer).length).toEqual(1);
       });
     });
   });
 
-  describe('passing in a custom drag layer', () => {
+  describe("passing in a custom drag layer", () => {
     let customDragLayer, renderedCustomDragLayer;
     beforeEach(() => {
-      onDragSpy = jasmine.createSpy('onDragSpy');
-      customDragLayer = <CustomDragLayer className='my-custom-drag-layer' />
+      onDragSpy = jasmine.createSpy("onDragSpy");
+      customDragLayer = <CustomDragLayer className="my-custom-drag-layer" />;
       wrapper = mount(
-        <DraggableContext onDrag={ onDragSpy } customDragLayer={customDragLayer}>
-          <div className='draggable-child'>
+        <DraggableContext onDrag={onDragSpy} customDragLayer={customDragLayer}>
+          <div className="draggable-child">
             <p>One</p>
             <p>Two</p>
           </div>
@@ -125,22 +127,24 @@ describe('DraggableContext', () => {
       );
     });
 
-    describe('render', () => {
-      it('uses the custom drag layer provided by the prop', () => {
-        renderedCustomDragLayer = wrapper.find(CustomDragLayer)
+    describe("render", () => {
+      it("uses the custom drag layer provided by the prop", () => {
+        renderedCustomDragLayer = wrapper.find(CustomDragLayer);
         expect(renderedCustomDragLayer.length).toEqual(1);
-        expect(renderedCustomDragLayer.props().className).toEqual('my-custom-drag-layer');
+        expect(renderedCustomDragLayer.props().className).toEqual(
+          "my-custom-drag-layer"
+        );
       });
     });
   });
 
-  describe('passing in autoScroll', () => {
+  describe("passing in autoScroll", () => {
     let scrollingMock;
     beforeEach(() => {
-      onDragSpy = jasmine.createSpy('onDragSpy');
+      onDragSpy = jasmine.createSpy("onDragSpy");
       wrapper = mount(
-        <DraggableContext onDrag={ onDragSpy } autoScroll>
-          <div className='draggable-child'>
+        <DraggableContext onDrag={onDragSpy} autoScroll>
+          <div className="draggable-child">
             <p>One</p>
             <p>Two</p>
           </div>
@@ -150,49 +154,53 @@ describe('DraggableContext', () => {
       instance.setState({ activeIndex: 1 });
       const windowMock = jest.fn();
       scrollingMock = jest.fn();
-      const domMock = jest.fn((elem) => {elem.speed = 0;});
+      const domMock = jest.fn((elem) => {
+        elem.speed = 0;
+      });
       ReactDOM.findDOMNode = domMock;
 
-      const windowParams = { 
+      const windowParams = {
         innerHeight: 600,
-        requestAnimationFrame: (method) => { method(); },
+        requestAnimationFrame: (method) => {
+          method();
+        },
         scrollTo: scrollingMock,
-        scrollX: 0
-      }
-      
+        scrollX: 0,
+      };
+
       windowMock.mockReturnValue(windowParams);
-      Browser.getWindow= windowMock;
+      Browser.getWindow = windowMock;
     });
 
-    it('does not cause scrolling when dragging in the center of the table', () =>{
-      instance.checkAutoScroll({clientY: 300});
+    it("does not cause scrolling when dragging in the center of the table", () => {
+      instance.checkAutoScroll({ clientY: 300 });
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).not.toHaveBeenCalled();
     });
 
-    it('scrolls the window down when dragging the element toward the bottom of the window', () => {
-      instance.checkAutoScroll({clientY: 540});
+    it("scrolls the window down when dragging the element toward the bottom of the window", () => {
+      instance.checkAutoScroll({ clientY: 540 });
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();
     });
 
-    it('scrolls the window up when dragging the element toward the top of the window', () => {
-      instance.checkAutoScroll({clientY: 60});
+    it("scrolls the window up when dragging the element toward the top of the window", () => {
+      instance.checkAutoScroll({ clientY: 60 });
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();
     });
   });
 
-  describe('passing in autoScroll in a Dialog', () => {
+  describe("passing in autoScroll in a Dialog", () => {
     let scrollingMock, frameMock;
     beforeEach(() => {
-      onDragSpy = jasmine.createSpy('onDragSpy');
+      onDragSpy = jasmine.createSpy("onDragSpy");
       wrapper = mount(
-        <DraggableContext onDrag={ onDragSpy } autoScroll>
-          <div className='draggable-child'>
+        <DraggableContext onDrag={onDragSpy} autoScroll>
+          <div className="draggable-child">
             <p>One</p>
             <p>Two</p>
           </div>
@@ -203,23 +211,28 @@ describe('DraggableContext', () => {
       const windowMock = jest.fn();
       scrollingMock = jest.fn();
       frameMock = jest.fn();
-      frameMock.mockImplementationOnce((method) => { method(); })
-        .mockImplementationOnce(() => { return; })
-      const windowParams = { 
-        getComputedStyle: () => ({position: 'relative', overflow: 'scroll'}),
+      frameMock
+        .mockImplementationOnce((method) => {
+          method();
+        })
+        .mockImplementationOnce(() => {
+          return;
+        });
+      const windowParams = {
+        getComputedStyle: () => ({ position: "relative", overflow: "scroll" }),
         innerHeight: 600,
         requestAnimationFrame: frameMock,
         scrollTo: scrollingMock,
-        scrollX: 0
-      }
-      instance.element = {scrollTop: 0};
-      
+        scrollX: 0,
+      };
+      instance.element = { scrollTop: 0 };
+
       windowMock.mockReturnValue(windowParams);
-      Browser.getWindow= windowMock;
+      Browser.getWindow = windowMock;
     });
 
-    it('scrolls and moves the element that should be scrolled', () => {
-      instance.checkAutoScroll({clientY: 540});
+    it("scrolls and moves the element that should be scrolled", () => {
+      instance.checkAutoScroll({ clientY: 540 });
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();
