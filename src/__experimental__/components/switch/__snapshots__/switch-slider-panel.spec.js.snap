@@ -8,11 +8,11 @@ exports[`SwitchSliderPanel base theme renders as expected 1`] = `
   margin-top: 5px;
 }
 
-.c0[type='on'] {
+.c0[type="on"] {
   margin-left: 9px;
 }
 
-.c0[type='off'] {
+.c0[type="off"] {
   color: rgba(0,0,0,0.9);
   margin-right: 6px;
 }

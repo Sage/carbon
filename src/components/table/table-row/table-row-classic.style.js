@@ -1,29 +1,30 @@
-import { css } from 'styled-components';
-import StyledTableCell from '../table-cell/table-cell.style';
+import { css } from "styled-components";
+import StyledTableCell from "../table-cell/table-cell.style";
 
 function applyClassicRowStyling(isPassive, isSelected) {
   return css`
-    border-color: #E7F1FC;
+    border-color: #e7f1fc;
     &:hover .common-input__input {
-      border-color: #E7F1FC;
+      border-color: #e7f1fc;
     }
-    &:nth-child(2n+1) {
+    &:nth-child(2n + 1) {
       ${StyledTableCell} {
         background-color: #ffffff;
       }
     }
 
     .custom-drag-layer && {
-      background-color: #E6EBED;
+      background-color: #e6ebed;
       display: block;
 
       ${StyledTableCell} {
-        background-color: #E6EBED;
+        background-color: #e6ebed;
         border: none;
       }
     }
 
-    ${!(isPassive || isSelected) && `
+    ${!(isPassive || isSelected) &&
+    `
       &:hover {
         ${StyledTableCell} {
           background-color: #E7F1FC;
@@ -64,7 +65,7 @@ function applyClassicHighlightStyling() {
 function applyClassicDraggedStyling() {
   return css`
     ${StyledTableCell} {
-      background-color: #F2F5F6;
+      background-color: #f2f5f6;
     }
   `;
 }
@@ -73,5 +74,5 @@ export {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling
+  applyClassicHighlightStyling,
 };

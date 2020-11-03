@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import Textbox from '../../../__experimental__/components/textbox';
-import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
+import React from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import Textbox from "../../../__experimental__/components/textbox";
+import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 const SelectTextbox = ({
   value,
@@ -17,8 +17,8 @@ const SelectTextbox = ({
   required,
   ...restProps
 }) => {
-  const defaultPlaceholder = I18n.t('select.placeholder', {
-    defaultValue: 'Please Select...'
+  const defaultPlaceholder = I18n.t("select.placeholder", {
+    defaultValue: "Please Select...",
   });
 
   function handleTextboxClick(event) {
@@ -54,18 +54,18 @@ const SelectTextbox = ({
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
       onBlur: handleTextboxBlur,
-      ...restProps
+      ...restProps,
     };
   }
 
   return (
     <Textbox
-      data-element='select-input'
-      inputIcon='dropdown'
-      autoComplete='off'
-      size={ size }
-      value={ selectedValue }
-      { ...getTextboxProps() }
+      data-element="select-input"
+      inputIcon="dropdown"
+      autoComplete="off"
+      size={size}
+      value={selectedValue}
+      {...getTextboxProps()}
     />
   );
 };
@@ -108,7 +108,7 @@ const formInputPropTypes = {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 SelectTextbox.propTypes = {
@@ -125,8 +125,8 @@ SelectTextbox.propTypes = {
   selectedValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
-    PropTypes.arrayOf(PropTypes.string)
-  ])
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 export default SelectTextbox;

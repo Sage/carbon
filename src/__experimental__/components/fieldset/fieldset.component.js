@@ -1,9 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { validProps } from '../../../utils/ether';
-import tagComponent from '../../../utils/helpers/tags';
-import { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
-import Logger from '../../../utils/logger/logger';
+import React from "react";
+import PropTypes from "prop-types";
+import { validProps } from "../../../utils/ether";
+import tagComponent from "../../../utils/helpers/tags";
+import {
+  FieldsetStyle,
+  LegendContainerStyle,
+  FieldsetContentStyle,
+} from "./fieldset.style";
+import Logger from "../../../utils/logger/logger";
 
 let deprecatedWarnTriggered = false;
 
@@ -11,7 +15,9 @@ const Fieldset = (props) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     // eslint-disable-next-line max-len
-    Logger.deprecate('`styleOverride` that is used in the `Fieldset` component is deprecated and will soon be removed.');
+    Logger.deprecate(
+      "`styleOverride` that is used in the `Fieldset` component is deprecated and will soon be removed."
+    );
   }
 
   const legend = () => {
@@ -19,34 +25,32 @@ const Fieldset = (props) => {
 
     return (
       <LegendContainerStyle
-        inline={ props.inline }
-        data-component='legend-style'
-        styleOverride={ props.styleOverride.legend }
+        inline={props.inline}
+        data-component="legend-style"
+        styleOverride={props.styleOverride.legend}
       >
-        <legend data-element='legend'>
-          { props.legend }
-        </legend>
+        <legend data-element="legend">{props.legend}</legend>
       </LegendContainerStyle>
     );
   };
 
   const { ...safeProps } = validProps({
     propTypes: Fieldset.propTypes,
-    props
+    props,
   });
 
   return (
     <FieldsetStyle
-      { ...tagComponent('fieldset', props) }
-      { ...safeProps }
-      styleOverride={ props.styleOverride.root }
+      {...tagComponent("fieldset", props)}
+      {...safeProps}
+      styleOverride={props.styleOverride.root}
     >
       <FieldsetContentStyle
-        data-component='fieldset-style'
-        inline={ props.inline }
+        data-component="fieldset-style"
+        inline={props.inline}
       >
-        { legend() }
-        { props.children }
+        {legend()}
+        {props.children}
       </FieldsetContentStyle>
     </FieldsetStyle>
   );
@@ -62,13 +66,13 @@ Fieldset.propTypes = {
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
 };
 
 Fieldset.defaultProps = {
   inline: false,
-  styleOverride: {}
+  styleOverride: {},
 };
 
 export default Fieldset;

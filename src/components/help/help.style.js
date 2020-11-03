@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import StyledIcon from '../icon/icon.style';
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import StyledIcon from "../icon/icon.style";
 
 const StyledHelp = styled.div`
   background: none;
@@ -16,9 +16,11 @@ const StyledHelp = styled.div`
   margin-top: 0;
   text-decoration: none;
 
-  ${({ href }) => href && css`
-    cursor: pointer;
-  `}
+  ${({ href }) =>
+    href &&
+    css`
+      cursor: pointer;
+    `}
 
   &:focus,
   &:hover {
@@ -32,7 +34,7 @@ const StyledHelp = styled.div`
 `;
 
 StyledHelp.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledHelp;

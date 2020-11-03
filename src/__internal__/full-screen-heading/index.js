@@ -1,1 +1,1 @@
-export { default } from './full-screen-heading.component';
+export { default } from "./full-screen-heading.component";

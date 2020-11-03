@@ -1,1 +1,1 @@
-export { default } from './show-edit-pod.component';
+export { default } from "./show-edit-pod.component";

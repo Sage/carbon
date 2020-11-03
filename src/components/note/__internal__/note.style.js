@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
 
 const StyledNoteContent = styled.div`
   position: relative;
   width: 100%;
-  
+
   ${({ theme }) => `
     &:not(:last-of-type) {
       padding-bottom: 24px;
@@ -33,8 +33,8 @@ const StyledNoteContent = styled.div`
 const StyledInlineControl = styled.div`
   position: absolute;
   top: 24px;
-  right: 16px; 
-  z-index: 100
+  right: 16px;
+  z-index: 100;
 `;
 
 const StyledTitle = styled.header`
@@ -47,7 +47,7 @@ const StyledTitle = styled.header`
 const StyledFooterContent = styled.div`
   line-height: 21px;
   align-items: baseline
-  ${({ theme }) => `
+    ${({ theme }) => `
     &:first-of-type {
       font-weight: bold;
       font-size: 14px;
@@ -70,7 +70,7 @@ const StyledFooterContent = styled.div`
       margin-top: ${2 * theme.spacing}px;
       margin-left: ${3 * theme.spacing}px;
     }
-  `}
+  `};
 `;
 
 const StyledFooter = styled.div`
@@ -98,24 +98,24 @@ const StyledNote = styled.div`
 `;
 
 StyledNoteContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledNote.propTypes = {
   padding: PropTypes.string,
-  width: PropTypes.number
+  width: PropTypes.number,
 };
 
 StyledNote.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledFooter.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledFooterContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -124,5 +124,5 @@ export {
   StyledInlineControl,
   StyledTitle,
   StyledFooter,
-  StyledFooterContent
+  StyledFooterContent,
 };

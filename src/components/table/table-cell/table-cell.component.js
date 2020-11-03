@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StyledTableCell from './table-cell.style';
-import Date from '../../../__experimental__/components/date';
-import TextArea from '../../../__experimental__/components/textarea';
-import { validProps } from '../../../utils/ether';
-import tagComponent from '../../../utils/helpers/tags';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import React from "react";
+import PropTypes from "prop-types";
+import StyledTableCell from "./table-cell.style";
+import Date from "../../../__experimental__/components/date";
+import TextArea from "../../../__experimental__/components/textarea";
+import { validProps } from "../../../utils/ether";
+import tagComponent from "../../../utils/helpers/tags";
+import OptionsHelper from "../../../utils/helpers/options-helper";
 
 /**
  * A TableCell widget.
@@ -25,7 +25,7 @@ class TableCell extends React.Component {
    * Returns the child's name if there is one.
    */
   childName(child) {
-    return (child && child.type) ? child.type.name : null;
+    return child && child.type ? child.type.name : null;
   }
 
   /**
@@ -33,7 +33,7 @@ class TableCell extends React.Component {
    */
   get checkChildrenInputType() {
     const { children } = this.props;
-    const TYPES = { isTextArea: 'isTextArea', isDate: 'isDate' };
+    const TYPES = { isTextArea: "isTextArea", isDate: "isDate" };
 
     if (!Array.isArray(children)) {
       if (this.childName(children) === TextArea.name) {
@@ -61,7 +61,7 @@ class TableCell extends React.Component {
    * Returns props to be used on the TD element.
    */
   get tableCellProps() {
-    const { children, ...props } = validProps(this, ['align', 'size']);
+    const { children, ...props } = validProps(this, ["align", "size"]);
     const inputType = this.checkChildrenInputType;
 
     if (inputType) props[inputType] = true;
@@ -74,8 +74,11 @@ class TableCell extends React.Component {
    */
   render() {
     return (
-      <StyledTableCell { ...this.tableCellProps } { ...tagComponent('table-cell', this.props) }>
-        { this.props.children }
+      <StyledTableCell
+        {...this.tableCellProps}
+        {...tagComponent("table-cell", this.props)}
+      >
+        {this.props.children}
       </StyledTableCell>
     );
   }
@@ -92,11 +95,11 @@ TableCell.propTypes = {
   children: PropTypes.node,
 
   /** Defines the height of a cell used to size an input for example */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes)
+  size: PropTypes.oneOf(OptionsHelper.tableSizes),
 };
 
 TableCell.defaultProps = {
-  align: 'left'
+  align: "left",
 };
 
 export default TableCell;

@@ -1,49 +1,55 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import propTypes from '@styled-system/prop-types';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledTile, TileContent } from './tile.style.js';
+import React from "react";
+import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import { StyledTile, TileContent } from "./tile.style.js";
 
 const Tile = ({
-  as = 'tile', p = 3, children, orientation = 'horizontal', width, ...props
+  as = "tile",
+  p = 3,
+  children,
+  orientation = "horizontal",
+  width,
+  ...props
 }) => {
-  const isHorizontal = () => orientation === 'horizontal';
-  const isVertical = () => orientation === 'vertical';
+  const isHorizontal = () => orientation === "horizontal";
+  const isVertical = () => orientation === "vertical";
   const wrappedChildren = React.Children.map(children, (child, index) => {
-    if (!child) { return null; }
+    if (!child) {
+      return null;
+    }
 
     const { width: contentWidth, ...childProps } = child.props;
     const key = child.key || `tile-content-${index + 1}`;
 
     return (
       <TileContent
-        key={ key }
-        width={ contentWidth }
-        isHorizontal={ isHorizontal(orientation) }
-        isVertical={ isVertical(orientation) }
-        { ...(isVertical(orientation) && {
+        key={key}
+        width={contentWidth}
+        isHorizontal={isHorizontal(orientation)}
+        isVertical={isVertical(orientation)}
+        {...(isVertical(orientation) && {
           pt: props.pt || props.py || p,
-          pb: props.pb || props.py || p
-        }) }
-        { ...(isHorizontal(orientation) && {
+          pb: props.pb || props.py || p,
+        })}
+        {...(isHorizontal(orientation) && {
           pr: props.pr || props.px || p,
-          pl: props.pl || props.px || p
-        }) }
+          pl: props.pl || props.px || p,
+        })}
       >
         {React.cloneElement(child, childProps)}
       </TileContent>
     );
   });
 
-
   return (
     <StyledTile
-      tileTheme={ as }
-      width={ width }
-      data-component='tile'
-      isHorizontal={ isHorizontal(orientation) }
-      p={ p }
-      { ...props }
+      tileTheme={as}
+      width={width}
+      data-component="tile"
+      isHorizontal={isHorizontal(orientation)}
+      p={p}
+      {...props}
     >
       {wrappedChildren}
     </StyledTile>
@@ -74,7 +80,7 @@ Tile.propTypes = {
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.
    */
-  width: PropTypes.number
+  width: PropTypes.number,
 };
 
 export default Tile;

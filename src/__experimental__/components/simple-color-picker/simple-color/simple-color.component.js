@@ -1,43 +1,50 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import tagComponent from '../../../../utils/helpers/tags/tags';
-import StyledSimpleColor from './simple-color.style';
-import ColorSampleBox from '../color-sample-box';
-import StyledSimpleColorInput from '../simple-color-input/simple-color-input.style';
+import PropTypes from "prop-types";
+import React from "react";
+import tagComponent from "../../../../utils/helpers/tags/tags";
+import StyledSimpleColor from "./simple-color.style";
+import ColorSampleBox from "../color-sample-box";
+import StyledSimpleColorInput from "../simple-color-input/simple-color-input.style";
 
 const SimpleColor = React.forwardRef((props, ref) => {
   const {
-    onChange, onBlur, onMouseDown, value, name, checked, className, ...rest
+    onChange,
+    onBlur,
+    onMouseDown,
+    value,
+    name,
+    checked,
+    className,
+    ...rest
   } = props;
 
   return (
     <StyledSimpleColor
-      color={ value }
-      checked={ checked }
-      className={ className }
-      { ...tagComponent('simple-color', props) }
+      color={value}
+      checked={checked}
+      className={className}
+      {...tagComponent("simple-color", props)}
     >
       <StyledSimpleColorInput
-        onChange={ onChange }
-        onBlur={ onBlur }
-        onMouseDown={ onMouseDown }
-        checked={ checked }
-        name={ name }
-        type='radio'
-        role='radio'
-        value={ value }
-        aria-checked={ checked }
-        ref={ ref }
-        { ...rest }
+        onChange={onChange}
+        onBlur={onBlur}
+        onMouseDown={onMouseDown}
+        checked={checked}
+        name={name}
+        type="radio"
+        role="radio"
+        value={value}
+        aria-checked={checked}
+        ref={ref}
+        {...rest}
       />
-      <ColorSampleBox color={ value } checked={ checked } />
+      <ColorSampleBox color={value} checked={checked} />
     </StyledSimpleColor>
   );
 });
 
 SimpleColor.defaultProps = {
   checked: false,
-  onChange: null
+  onChange: null,
 };
 
 SimpleColor.propTypes = {
@@ -52,8 +59,8 @@ SimpleColor.propTypes = {
   /** determines if this color option is selected or unselected */
   checked: PropTypes.bool,
   /** [Legacy] Custom classname */
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-SimpleColor.displayName = 'SimpleColor';
+SimpleColor.displayName = "SimpleColor";
 export default SimpleColor;

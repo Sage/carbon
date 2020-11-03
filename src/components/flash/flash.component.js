@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
-import Toast from '../toast';
-import FlashLegacy from './flash-legacy.component';
-import baseTheme from '../../style/themes/base';
-import { isClassic } from '../../utils/helpers/style-helper';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { withTheme } from "styled-components";
+import Toast from "../toast";
+import FlashLegacy from "./flash-legacy.component";
+import baseTheme from "../../style/themes/base";
+import { isClassic } from "../../utils/helpers/style-helper";
 
 const Flash = (props) => {
   let timer = null;
@@ -24,19 +24,17 @@ const Flash = (props) => {
   }, timer);
 
   if (isClassic(props.theme)) {
-    return (
-      <FlashLegacy { ...props } />
-    );
+    return <FlashLegacy {...props} />;
   }
 
   return (
     <Toast
-      isCenter={ props.isCenter }
-      open={ props.open }
-      variant={ props.variant || props.as }
-      onDismiss={ props.timeout ? null : props.onDismiss }
-      id={ props.id }
-      data-component='flash'
+      isCenter={props.isCenter}
+      open={props.open}
+      variant={props.variant || props.as}
+      onDismiss={props.timeout ? null : props.onDismiss}
+      id={props.id}
+      data-component="flash"
     >
       {props.message}
     </Toast>
@@ -58,21 +56,21 @@ Flash.propTypes = {
   message: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
-    PropTypes.array
+    PropTypes.array,
   ]).isRequired,
   /** Time for flash to remain on screen */
   timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** supporting legacy components. Theme help us pick up a right component */
   theme: PropTypes.object,
   /** allow to center keep flash component centered */
-  isCenter: PropTypes.bool
+  isCenter: PropTypes.bool,
 };
 
 Flash.defaultProps = {
-  as: 'success',
+  as: "success",
   timeout: 0,
   isCenter: true,
-  theme: baseTheme
+  theme: baseTheme,
 };
 export { Flash as FlashWithoutHOC };
 export default withTheme(Flash);

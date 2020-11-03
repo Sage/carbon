@@ -1,4 +1,4 @@
-import toJson from 'enzyme-to-json';
+import toJson from "enzyme-to-json";
 
 function snapshotWithoutProps(enzymeWrapper, propNames) {
   let propNameList = propNames;
@@ -16,14 +16,14 @@ function snapshotWithoutProps(enzymeWrapper, propNames) {
       });
 
       return json;
-    }
+    },
   };
 
   return toJson(enzymeWrapper, snapshotOptions);
 }
 
 function noThemeSnapshot(enzymeWrapper) {
-  return snapshotWithoutProps(enzymeWrapper, 'theme');
+  return snapshotWithoutProps(enzymeWrapper, "theme");
 }
 
 export { snapshotWithoutProps, noThemeSnapshot };

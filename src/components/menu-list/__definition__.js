@@ -1,8 +1,8 @@
-import { MenuList } from './';
-import Definition from './../../../demo/utils/definition';
-import menuListItemDefinition from './menu-list-item/__definition__';
+import { MenuList } from "./";
+import Definition from "./../../../demo/utils/definition";
+import menuListItemDefinition from "./menu-list-item/__definition__";
 
-let definition = new Definition('menu-list', MenuList, {
+let definition = new Definition("menu-list", MenuList, {
   description: `A set of related items that can be shown or hidden.`,
   designerNotes: `
 * Children can be shown or hidden by clicking their title.
@@ -15,7 +15,7 @@ let definition = new Definition('menu-list', MenuList, {
   associatedDefinitions: [menuListItemDefinition],
   hiddenProps: ["filter"],
   propRequires: {
-    collapsible: "title"
+    collapsible: "title",
   },
   propTypes: {
     children: "Node",
@@ -30,15 +30,17 @@ let definition = new Definition('menu-list', MenuList, {
     children: "This component supports children.",
     className: "Classes for the component.",
     collapsible: "Turns collapsible on/off.",
-    filter: "Enable a filter for the menu. When this is enabled each menu item requires a name prop.",
+    filter:
+      "Enable a filter for the menu. When this is enabled each menu item requires a name prop.",
     filterPlaceholder: "Placeholder text for the filter.",
     initiallyOpen: "Set the menu open on mount.",
-    title: "Define a title for the menu, if this is defined then the menu can be collapsible."
-  }
+    title:
+      "Define a title for the menu, if this is defined then the menu can be collapsible.",
+  },
 });
 
 definition.addChildByDefinition(menuListItemDefinition, {
-  children: "Menu Item One"
+  children: "Menu Item One",
 });
 
 definition.addChildByDefinition(menuListItemDefinition, {
@@ -52,15 +54,15 @@ definition.addChildByDefinition(menuListItemDefinition, {
     <MenuListItem name="Third Sub Item">
       Third Sub Item
     </MenuListItem>
-  </MenuList>`
+  </MenuList>`,
 });
 
 definition.addChildByDefinition(menuListItemDefinition, {
-  children: "Menu Item Three"
+  children: "Menu Item Three",
 });
 
 definition.addChildByDefinition(menuListItemDefinition, {
-  children: "Menu Item Four"
+  children: "Menu Item Four",
 });
 
 export default definition;

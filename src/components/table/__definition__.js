@@ -1,10 +1,10 @@
-import { Table } from './';
-import Definition from './../../../demo/utils/definition';
-import ComponentActions from './../../../demo/actions/component';
-import tableRowDefinition from './table-row/__definition__';
-import tableCellDefinition from './table-cell/__definition__';
-import tableHeaderDefinition from './table-header/__definition__';
-import tableSubheaderDefinition from './table-subheader/__definition__';
+import { Table } from "./";
+import Definition from "./../../../demo/utils/definition";
+import ComponentActions from "./../../../demo/actions/component";
+import tableRowDefinition from "./table-row/__definition__";
+import tableCellDefinition from "./table-cell/__definition__";
+import tableHeaderDefinition from "./table-header/__definition__";
+import tableSubheaderDefinition from "./table-subheader/__definition__";
 
 // TODO: see if we can remove the need for this - this populates the data by
 // fetching it from the mock service
@@ -14,8 +14,8 @@ setTimeout(() => {
   // we currently delay this update incase the xhr mock is disabled (ie on a doc page)
 }, 1000);
 
-const definition = new Definition('table', Table, {
-  description: 'A table of relational data to view or interact with.',
+const definition = new Definition("table", Table, {
+  description: "A table of relational data to view or interact with.",
   designerNotes: `
 * Shows relational data to the user.
 * The content of rows and columns can be plain or styled text, Icons, or even inputs. Achieve this by nesting components inside a Table component.
@@ -26,18 +26,21 @@ const definition = new Definition('table', Table, {
 * The Highlightable configuration allows the user to click an option, and for the option to be marked visually. This could be useful if the user can select an option which then loads in a Sidebar, for example.
 `,
   associatedDefinitions: [
-    tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
+    tableRowDefinition,
+    tableCellDefinition,
+    tableHeaderDefinition,
+    tableSubheaderDefinition,
   ],
-  dataVariable: 'tableData',
+  dataVariable: "tableData",
   propValues: {
-    caption: 'Country and Country Codes',
+    caption: "Country and Country Codes",
     highlightable: false,
     onChange: ComponentActions.updateTable,
     paginate: false,
     selectable: false,
     shrink: false,
-    showPageSizeSelection: false
-  }
+    showPageSizeSelection: false,
+  },
 });
 
 definition.isATable();

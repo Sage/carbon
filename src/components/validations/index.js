@@ -1,1 +1,1 @@
-export { default } from './validation-icon.component';
+export { default } from "./validation-icon.component";

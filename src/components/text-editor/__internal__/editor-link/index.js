@@ -1,1 +1,1 @@
-export { default } from './editor-link.component';
+export { default } from "./editor-link.component";

@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -7,7 +10,7 @@ const info = (
     <p>Captures a single date.</p>
     <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
-      {'import DateInput from \'carbon-react/lib/components/Date\';'}
+      import DateInput from \'carbon-react/lib/components/Date\';
     </StoryCode>
 
     <p>To render a Date Input</p>

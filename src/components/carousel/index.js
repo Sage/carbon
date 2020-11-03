@@ -1,1 +1,1 @@
-export { Carousel, Slide } from './carousel.component';
+export { Carousel, Slide } from "./carousel.component";

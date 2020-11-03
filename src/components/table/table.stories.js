@@ -1,201 +1,190 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { State } from '@sambego/storybook-state';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { State } from "@sambego/storybook-state";
+import { boolean, text, select, number } from "@storybook/addon-knobs";
 import {
-  boolean,
-  text,
-  select,
-  number
-} from '@storybook/addon-knobs';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import { notes, info } from './documentation';
-import TableWrapper from './table-story-helpers/table-story-wrapper.component';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { Table } from '.';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+  dlsThemeSelector,
+  classicThemeSelector,
+} from "../../../.storybook/theme-selectors";
+import { notes, info } from "./documentation";
+import TableWrapper from "./table-story-helpers/table-story-wrapper.component";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { Table } from ".";
+import getDocGenInfo from "../../utils/helpers/docgen-info";
 
 TableWrapper.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  require("./docgenInfo.json"),
   /table\.component(?!spec)/
 );
 
-const commonKnobs = (
-  {
-    paginate: defaultPaginate = false,
-    showPageSizeSelection: defaultShowPageSizeSelection = false
-  } = {}
-) => {
-  const paginate = boolean('paginate', defaultPaginate);
-  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', defaultShowPageSizeSelection);
-  const selectable = boolean('selectable', false);
-  const highlightable = boolean('highlightable', false);
+const commonKnobs = ({
+  paginate: defaultPaginate = false,
+  showPageSizeSelection: defaultShowPageSizeSelection = false,
+} = {}) => {
+  const paginate = boolean("paginate", defaultPaginate);
+  const showPageSizeSelection =
+    paginate && boolean("showPageSizeSelection", defaultShowPageSizeSelection);
+  const selectable = boolean("selectable", false);
+  const highlightable = boolean("highlightable", false);
 
   return {
-    sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
-    sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
+    sortOrder: select("sortOrder", ["", "asc", "desc"], ""),
+    sortColumn: select("sortColumn", ["", "name", "code"], ""),
     highlightable,
     selectable,
-    isPassiveData: !highlightable && !selectable ? boolean('isPassiveData', false) : undefined,
-    shrink: boolean('shrink', false),
-    caption: text('caption', 'Country and Country Codes'),
-    totalRecords: number('totalRecords', 50),
+    isPassiveData:
+      !highlightable && !selectable
+        ? boolean("isPassiveData", false)
+        : undefined,
+    shrink: boolean("shrink", false),
+    caption: text("caption", "Country and Country Codes"),
+    totalRecords: number("totalRecords", 50),
     paginate,
-    showPageSizeSelection
+    showPageSizeSelection,
   };
 };
 
 const classicKnobs = () => {
   return {
     theme: select(
-      'tableTheme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1]
-      ],
+      "tableTheme",
+      [OptionsHelper.tableThemes[0], OptionsHelper.tableThemes[1]],
       Table.defaultProps.theme
-    )
+    ),
   };
 };
 
 const dlsKnobs = () => {
   return {
     theme: select(
-      'tableTheme',
+      "tableTheme",
       [
         OptionsHelper.tableThemes[0],
         OptionsHelper.tableThemes[1],
-        OptionsHelper.tableThemes[2]
+        OptionsHelper.tableThemes[2],
       ],
       Table.defaultProps.theme
     ),
-    size: select('size', OptionsHelper.tableSizes, Table.defaultProps.size),
-    isZebra: boolean('zebra striping', false)
+    size: select("size", OptionsHelper.tableSizes, Table.defaultProps.size),
+    isZebra: boolean("zebra striping", false),
   };
 };
 
 const inputKnobs = () => {
   return {
     inputType: select(
-      'input type',
+      "input type",
       [
         OptionsHelper.inputTypes[0],
         OptionsHelper.inputTypes[1],
-        OptionsHelper.inputTypes[2]
+        OptionsHelper.inputTypes[2],
       ],
       OptionsHelper.inputTypes[0]
-    )
+    ),
   };
 };
 
-storiesOf('Table', module)
+storiesOf("Table", module)
   .addParameters({
     info: {
       text: info,
-      propTablesExclude: [State]
+      propTablesExclude: [State],
     },
-    notes: { markdown: notes }
-  })
-  .add('classic', () => {
-    const tableProps = {
-      ...commonKnobs(),
-      ...classicKnobs()
-    };
-
-    return (
-      <TableWrapper { ...tableProps } />
-    );
-  }, {
-    themeSelector: classicThemeSelector,
-    chromatic: {
-      disable: true
-    }
+    notes: { markdown: notes },
   })
   .add(
-    'default',
-    () => {
-      const tableProps = {
-        ...commonKnobs(),
-        ...dlsKnobs()
-      };
-
-      return (
-        <TableWrapper { ...tableProps } />
-      );
-    },
-    {
-      themeSelector: dlsThemeSelector,
-      knobs: { escapeHTML: false }
-    },
-  )
-  .add(
-    'classic with inputs',
+    "classic",
     () => {
       const tableProps = {
         ...commonKnobs(),
         ...classicKnobs(),
-        ...inputKnobs()
       };
 
-      return (
-        <TableWrapper { ...tableProps } />
-      );
+      return <TableWrapper {...tableProps} />;
     },
     {
       themeSelector: classicThemeSelector,
       chromatic: {
-        disable: true
-      }
-    },
+        disable: true,
+      },
+    }
   )
   .add(
-    'default with inputs',
+    "default",
     () => {
       const tableProps = {
         ...commonKnobs(),
         ...dlsKnobs(),
-        ...inputKnobs()
       };
 
-      return (
-        <TableWrapper { ...tableProps } />
-      );
+      return <TableWrapper {...tableProps} />;
     },
     {
       themeSelector: dlsThemeSelector,
-      knobs: { escapeHTML: false }
-    },
+      knobs: { escapeHTML: false },
+    }
   )
   .add(
-    'default with inputs and paginate',
+    "classic with inputs",
+    () => {
+      const tableProps = {
+        ...commonKnobs(),
+        ...classicKnobs(),
+        ...inputKnobs(),
+      };
+
+      return <TableWrapper {...tableProps} />;
+    },
+    {
+      themeSelector: classicThemeSelector,
+      chromatic: {
+        disable: true,
+      },
+    }
+  )
+  .add(
+    "default with inputs",
+    () => {
+      const tableProps = {
+        ...commonKnobs(),
+        ...dlsKnobs(),
+        ...inputKnobs(),
+      };
+
+      return <TableWrapper {...tableProps} />;
+    },
+    {
+      themeSelector: dlsThemeSelector,
+      knobs: { escapeHTML: false },
+    }
+  )
+  .add(
+    "default with inputs and paginate",
     () => {
       const tableProps = {
         ...commonKnobs({ paginate: true }),
         ...dlsKnobs(),
-        ...inputKnobs()
+        ...inputKnobs(),
       };
 
-      return (
-        <TableWrapper { ...tableProps } />
-      );
+      return <TableWrapper {...tableProps} />;
     },
     {
-      themeSelector: dlsThemeSelector
-    },
+      themeSelector: dlsThemeSelector,
+    }
   )
   .add(
-    'default with inputs and paginate and page size',
+    "default with inputs and paginate and page size",
     () => {
       const tableProps = {
         ...commonKnobs({ paginate: true, showPageSizeSelection: true }),
         ...dlsKnobs(),
-        ...inputKnobs()
+        ...inputKnobs(),
       };
 
-      return (
-        <TableWrapper { ...tableProps } />
-      );
+      return <TableWrapper {...tableProps} />;
     },
     {
-      themeSelector: dlsThemeSelector
-    },
+      themeSelector: dlsThemeSelector,
+    }
   );

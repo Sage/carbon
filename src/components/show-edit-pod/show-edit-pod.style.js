@@ -1,10 +1,9 @@
-import styled from 'styled-components';
-import { StyledFormFooter } from '../form/form.style.js';
-import { StyledEditAction } from '../pod/pod.style.js';
-import Pod from '../pod';
-import StyledDeleteButton from './delete-button.style.js';
-import { baseTheme } from '../../style/themes';
-
+import styled from "styled-components";
+import { StyledFormFooter } from "../form/form.style.js";
+import { StyledEditAction } from "../pod/pod.style.js";
+import Pod from "../pod";
+import StyledDeleteButton from "./delete-button.style.js";
+import { baseTheme } from "../../style/themes";
 
 const StyledPod = styled(Pod)`
   ${StyledFormFooter} {
@@ -12,7 +11,8 @@ const StyledPod = styled(Pod)`
   }
 
   ${StyledEditAction} {
-    > a, button {
+    > a,
+    button {
       height: 16px;
       width: 16px;
       padding: 16px;
@@ -47,7 +47,7 @@ const StyledPod = styled(Pod)`
 `;
 
 StyledPod.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledPod;

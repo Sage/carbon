@@ -32,8 +32,7 @@ const ItemTargetHelper = {
     // to avoid expensive index searches.
     item.index = hoverIndex;
     item.offsetDiffY = newOffsetDiff.y;
-  }
-
+  },
 };
 
 export default ItemTargetHelper;

@@ -1,5 +1,9 @@
-import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+  StoryCodeBlock,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -10,16 +14,19 @@ const info = (
     <p>In your file:</p>
 
     <StoryCode padded>
-      import MultiActionButton from &quot;carbon-react/lib/components/multi-action-button&quot;;
+      import MultiActionButton from
+      &quot;carbon-react/lib/components/multi-action-button&quot;;
     </StoryCode>
 
-    <p>To render a MultiActionButton (developer can add any buttons to dropdown):</p>
+    <p>
+      To render a MultiActionButton (developer can add any buttons to dropdown):
+    </p>
 
     <StoryCodeBlock>
       {'<MultiActionButton text="Main Text">'}
       {'  <Button onClick="buttonClickHandler1">Button name 1</Button>'}
       {'  <Button onClick="buttonClickHandler2">Button name 2</Button>'}
-      {'</MultiActionButton>'}
+      {"</MultiActionButton>"}
     </StoryCodeBlock>
   </div>
 );

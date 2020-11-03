@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import Icon from '../icon';
-import { slideAnimation, fadeAnimation } from './slide.config';
-import baseTheme from '../../style/themes/base';
+import styled, { css } from "styled-components";
+import Icon from "../icon";
+import { slideAnimation, fadeAnimation } from "./slide.config";
+import baseTheme from "../../style/themes/base";
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
@@ -40,17 +40,18 @@ const CarouselButtonStyle = styled.button`
     height: 64px;
     background: ${theme.colors.primary};
     color: ${theme.colors.white};
-    opacity: ${disabled ? '0.1' : '1'};
+    opacity: ${disabled ? "0.1" : "1"};
 
     &:hover {
       background-color: ${theme.colors.secondary};
-      cursor: ${disabled ? 'default' : 'pointer'};
+      cursor: ${disabled ? "default" : "pointer"};
 
-      ${disabled && css`
+      ${disabled &&
+      css`
         background-color: ${theme.colors.primary};
         cursor: default;
 
-        ${CarouselStyledIcon}{
+        ${CarouselStyledIcon} {
           cursor: default;
         }
       `}
@@ -61,17 +62,17 @@ const CarouselButtonStyle = styled.button`
     }
 
     &:focus {
-    outline: 2px solid ${theme.colors.focus};
-      
-    ::-moz-focus-inner{
-      border: 0;
-    }
+      outline: 2px solid ${theme.colors.focus};
 
-    ${disabled && css`
-      outline: none;
-    `}
-    }
+      ::-moz-focus-inner {
+        border: 0;
+      }
 
+      ${disabled &&
+      css`
+        outline: none;
+      `}
+    }
   `}
 `;
 
@@ -89,7 +90,6 @@ const CarouselSelectorLabelStyle = styled.label`
   &:hover {
     cursor: pointer;
   }
-
 `;
 
 const CarouselSelectorWrapperStyle = styled.div`
@@ -117,56 +117,56 @@ const CarouselSelectorInputWrapperStyle = styled.span`
 `;
 
 const CarouselSliderWrapper = styled.div`
-transition: .4s;
-display: flex;
-position: relative;
-left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%;
+  transition: 0.4s;
+  display: flex;
+  position: relative;
+  left: ${({ elementIndex }) => 10 - 80 * elementIndex}%;
 `;
 
 const CarouselWrapperStyle = styled.div`
   .carbon-carousel__content {
     overflow: hidden;
     position: relative;
-}
+  }
 
   ${slideAnimation};
   ${fadeAnimation};
 `;
 
 CarouselNavigationStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselButtonStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselStyledIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselSelectorWrapperStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselSelectorLabelStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselStyledIconLeft.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselStyledIconRight.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselPreviousButtonWrapperStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CarouselNextButtonWrapperStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -182,5 +182,5 @@ export {
   CarouselSelectorInputStyle,
   CarouselSelectorLabelStyle,
   CarouselWrapperStyle,
-  CarouselSliderWrapper
+  CarouselSliderWrapper,
 };

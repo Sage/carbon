@@ -1,3 +1,3 @@
-import filterChildren from './filter-children.util';
+import filterChildren from "./filter-children.util";
 
 export default filterChildren;

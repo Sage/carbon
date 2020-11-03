@@ -1,22 +1,27 @@
-import React from 'react';
-import { action } from '@storybook/addon-actions';
+import React from "react";
+import { action } from "@storybook/addon-actions";
 import {
-  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu, ActionPopoverMenuButton
-} from '.';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+  ActionPopoverMenuButton,
+} from ".";
 import {
-  Table, TableRow, TableCell, TableHeader
-} from '../table';
+  dlsThemeSelector,
+  classicThemeSelector,
+} from "../../../.storybook/theme-selectors";
+import { Table, TableRow, TableCell, TableHeader } from "../table";
 
 const submenu = (
   <ActionPopoverMenu>
-    <ActionPopoverItem onClick={ action('sub menu 1') }>
+    <ActionPopoverItem onClick={action("sub menu 1")}>
       Sub Menu 1
     </ActionPopoverItem>
-    <ActionPopoverItem onClick={ action('sub menu 2') }>
+    <ActionPopoverItem onClick={action("sub menu 2")}>
       Sub Menu 2
     </ActionPopoverItem>
-    <ActionPopoverItem disabled onClick={ action('sub menu 3') }>
+    <ActionPopoverItem disabled onClick={action("sub menu 3")}>
       Sub Menu 3
     </ActionPopoverItem>
   </ActionPopoverMenu>
@@ -24,37 +29,33 @@ const submenu = (
 
 const submenuWithIcons = (
   <ActionPopoverMenu>
-    <ActionPopoverItem icon='graph' onClick={ action('sub menu 1') }>
+    <ActionPopoverItem icon="graph" onClick={action("sub menu 1")}>
       Sub Menu 1
     </ActionPopoverItem>
-    <ActionPopoverItem icon='add' onClick={ action('sub menu 2') }>
+    <ActionPopoverItem icon="add" onClick={action("sub menu 2")}>
       Sub Menu 2
     </ActionPopoverItem>
-    <ActionPopoverItem
-      icon='print'
-      disabled
-      onClick={ action('sub menu 3') }
-    >
+    <ActionPopoverItem icon="print" disabled onClick={action("sub menu 3")}>
       Sub Menu 3
     </ActionPopoverItem>
   </ActionPopoverMenu>
 );
 
 export default {
-  title: 'Design System/Action Popover/Test',
+  title: "Design System/Action Popover/Test",
   parameters: {
     themeSelector: dlsThemeSelector,
     info: {
-      disable: true
+      disable: true,
     },
     chromatic: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 };
 
 export const Default = () => (
-  <div style={ { marginTop: '40px', height: '275px' } }>
+  <div style={{ marginTop: "40px", height: "275px" }}>
     <Table isZebra>
       <TableRow>
         <TableHeader>First Name</TableHeader>
@@ -68,30 +69,36 @@ export const Default = () => (
           <ActionPopover>
             <ActionPopoverItem
               disabled
-              icon='graph'
-              submenu={ submenu }
-              onClick={ action('email') }
+              icon="graph"
+              submenu={submenu}
+              onClick={action("email")}
             >
               Business
             </ActionPopoverItem>
-            <ActionPopoverItem icon='email' onClick={ action('email') }>Email Invoice</ActionPopoverItem>
+            <ActionPopoverItem icon="email" onClick={action("email")}>
+              Email Invoice
+            </ActionPopoverItem>
             <ActionPopoverItem
-              icon='print'
-              onClick={ action('print') }
-              submenu={ submenu }
+              icon="print"
+              onClick={action("print")}
+              submenu={submenu}
             >
               Print Invoice
             </ActionPopoverItem>
             <ActionPopoverItem
-              icon='pdf'
-              submenu={ submenu }
-              onClick={ action('pdf') }
+              icon="pdf"
+              submenu={submenu}
+              onClick={action("pdf")}
             >
               Download PDF
             </ActionPopoverItem>
-            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverItem icon="csv" onClick={action("csv")}>
+              Download CSV
+            </ActionPopoverItem>
             <ActionPopoverDivider />
-            <ActionPopoverItem icon='delete' onClick={ action('delete') }>Delete</ActionPopoverItem>
+            <ActionPopoverItem icon="delete" onClick={action("delete")}>
+              Delete
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -100,7 +107,9 @@ export const Default = () => (
         <TableCell>Smith</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverItem icon="csv" onClick={action("csv")}>
+              Download CSV
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -110,9 +119,9 @@ export const Default = () => (
         <TableCell>
           <ActionPopover>
             <ActionPopoverItem
-              icon='csv'
-              submenu={ submenuWithIcons }
-              onClick={ action('csv') }
+              icon="csv"
+              submenu={submenuWithIcons}
+              onClick={action("csv")}
             >
               Download CSV
             </ActionPopoverItem>
@@ -124,16 +133,16 @@ export const Default = () => (
 );
 
 Default.story = {
-  name: 'default',
+  name: "default",
   parameters: {
     chromatic: {
-      disable: false
-    }
-  }
+      disable: false,
+    },
+  },
 };
 
 export const Classic = () => (
-  <div style={ { height: '275px' } }>
+  <div style={{ height: "275px" }}>
     <Table isZebra>
       <TableRow>
         <TableHeader>First Name</TableHeader>
@@ -147,30 +156,36 @@ export const Classic = () => (
           <ActionPopover>
             <ActionPopoverItem
               disabled
-              icon='graph'
-              submenu={ submenu }
-              onClick={ action('business') }
+              icon="graph"
+              submenu={submenu}
+              onClick={action("business")}
             >
               Business
             </ActionPopoverItem>
-            <ActionPopoverItem icon='email' onClick={ action('email') }>Email Invoice</ActionPopoverItem>
+            <ActionPopoverItem icon="email" onClick={action("email")}>
+              Email Invoice
+            </ActionPopoverItem>
             <ActionPopoverItem
-              icon='print'
-              onClick={ action('print') }
-              submenu={ submenu }
+              icon="print"
+              onClick={action("print")}
+              submenu={submenu}
             >
               Print Invoice
             </ActionPopoverItem>
             <ActionPopoverItem
-              icon='pdf'
-              submenu={ submenu }
-              onClick={ action('pdf') }
+              icon="pdf"
+              submenu={submenu}
+              onClick={action("pdf")}
             >
               Download PDF
             </ActionPopoverItem>
-            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverItem icon="csv" onClick={action("csv")}>
+              Download CSV
+            </ActionPopoverItem>
             <ActionPopoverDivider />
-            <ActionPopoverItem icon='delete' onClick={ action('delete') }>Delete</ActionPopoverItem>
+            <ActionPopoverItem icon="delete" onClick={action("delete")}>
+              Delete
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -179,7 +194,9 @@ export const Classic = () => (
         <TableCell>Smith</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverItem icon="csv" onClick={action("csv")}>
+              Download CSV
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -189,9 +206,9 @@ export const Classic = () => (
         <TableCell>
           <ActionPopover>
             <ActionPopoverItem
-              icon='csv'
-              submenu={ submenuWithIcons }
-              onClick={ action('csv') }
+              icon="csv"
+              submenu={submenuWithIcons}
+              onClick={action("csv")}
             >
               Download CSV
             </ActionPopoverItem>
@@ -203,20 +220,20 @@ export const Classic = () => (
 );
 
 Classic.story = {
-  name: 'classic',
+  name: "classic",
   parameters: {
     themeSelector: classicThemeSelector,
     chromatic: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 };
 
 export const StylesOverriden = () => (
-  <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+  <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
     <Table isZebra>
       <TableRow>
-        <TableHeader colSpan='3'>Services</TableHeader>
+        <TableHeader colSpan="3">Services</TableHeader>
       </TableRow>
       <TableRow>
         <TableCell>Accounting</TableCell>
@@ -224,25 +241,35 @@ export const StylesOverriden = () => (
         <TableCell>
           <ActionPopover
             rightAlignMenu
-            renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+            renderButton={({ tabIndex, "data-element": dataElement }) => (
               <ActionPopoverMenuButton
-                buttonType='tertiary'
-                iconType='dropdown'
-                iconPosition='after'
-                size='small'
-                tabIndex={ tabIndex }
-                data-element={ dataElement }
+                buttonType="tertiary"
+                iconType="dropdown"
+                iconPosition="after"
+                size="small"
+                tabIndex={tabIndex}
+                data-element={dataElement}
               >
                 More
               </ActionPopoverMenuButton>
-            ) }
+            )}
           >
-            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverItem onClick={action("auto entry")}>
+              Auto Entry
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("corporation tax")}>
+              Corporation Tax
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("final accounts")}>
+              Final Accounts
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("vat centre")}>
+              VAT Centre
+            </ActionPopoverItem>
             <ActionPopoverDivider />
-            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+            <ActionPopoverItem onClick={action("manage services")}>
+              Manage Services
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -252,25 +279,35 @@ export const StylesOverriden = () => (
         <TableCell>
           <ActionPopover
             rightAlignMenu
-            renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+            renderButton={({ tabIndex, "data-element": dataElement }) => (
               <ActionPopoverMenuButton
-                buttonType='tertiary'
-                iconType='dropdown'
-                iconPosition='after'
-                size='small'
-                tabIndex={ tabIndex }
-                data-element={ dataElement }
+                buttonType="tertiary"
+                iconType="dropdown"
+                iconPosition="after"
+                size="small"
+                tabIndex={tabIndex}
+                data-element={dataElement}
               >
                 More
               </ActionPopoverMenuButton>
-            ) }
+            )}
           >
-            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
-            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverItem onClick={action("auto entry")}>
+              Auto Entry
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("corporation tax")}>
+              Corporation Tax
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("final accounts")}>
+              Final Accounts
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={action("vat centre")}>
+              VAT Centre
+            </ActionPopoverItem>
             <ActionPopoverDivider />
-            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+            <ActionPopoverItem onClick={action("manage services")}>
+              Manage Services
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -278,13 +315,12 @@ export const StylesOverriden = () => (
   </div>
 );
 
-
 StylesOverriden.story = {
-  name: 'styles overriden',
+  name: "styles overriden",
   parameters: {
     themeSelector: dlsThemeSelector,
     chromatic: {
-      disable: false
-    }
-  }
+      disable: false,
+    },
+  },
 };

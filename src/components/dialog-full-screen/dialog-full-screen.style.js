@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import classicDialogFullScreenStyle from './dialog-full-screen-classic.style';
-import baseTheme from '../../style/themes/base';
-import StyledContent from './content.style';
-import StyledIconButton from '../icon-button/icon-button.style';
-import StyledFullScreenHeading from '../../__internal__/full-screen-heading/full-screen-heading.style';
+import styled, { css } from "styled-components";
+import classicDialogFullScreenStyle from "./dialog-full-screen-classic.style";
+import baseTheme from "../../style/themes/base";
+import StyledContent from "./content.style";
+import StyledIconButton from "../icon-button/icon-button.style";
+import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
 
 const StyledDialogFullScreen = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
@@ -18,7 +18,9 @@ const StyledDialogFullScreen = styled.div`
     The following CSS is for a legacy use of the Pages component.
     Please do not remove this until Pages has been re-written.
    */
-   ${({ pagesStyling }) => pagesStyling && css`
+  ${({ pagesStyling }) =>
+    pagesStyling &&
+    css`
       ${StyledContent} {
         padding: 0;
       }
@@ -44,14 +46,13 @@ const StyledDialogFullScreen = styled.div`
           width: 100%;
         }
       }
-   `}
+    `}
 
   ${classicDialogFullScreenStyle}
 `;
 
 StyledDialogFullScreen.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
-
 
 export default StyledDialogFullScreen;

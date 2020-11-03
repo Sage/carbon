@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import baseTheme from '../../../../style/themes/base';
-import { Input as SimpleColorInput } from '../../input';
-import StyledColorSampleBox from '../color-sample-box/color-sample-box.style';
-import SimpleColorInputClassicStyle from './simple-color-input-classic.style';
+import styled from "styled-components";
+import baseTheme from "../../../../style/themes/base";
+import { Input as SimpleColorInput } from "../../input";
+import StyledColorSampleBox from "../color-sample-box/color-sample-box.style";
+import SimpleColorInputClassicStyle from "./simple-color-input-classic.style";
 
 const StyledSimpleColorInput = styled(SimpleColorInput)`
   position: absolute;
@@ -24,7 +24,7 @@ const StyledSimpleColorInput = styled(SimpleColorInput)`
 `;
 
 StyledSimpleColorInput.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledSimpleColorInput;

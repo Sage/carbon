@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { keys } from 'lodash';
+import React from "react";
+import ReactDOM from "react-dom";
+import { keys } from "lodash";
 
 /**
 * Browser Helper
@@ -13,11 +13,11 @@ const Browser = {
   isDomAvailable: () => {
     const _window = Browser.getWindow();
     const _document = Browser.getDocument();
-    return (!!(
-      typeof _window !== 'undefined'
-      && _document
-      && _document.createElement
-    ));
+    return !!(
+      typeof _window !== "undefined" &&
+      _document &&
+      _document.createElement
+    );
   },
   /**
    * Get the current window
@@ -116,8 +116,12 @@ const Browser = {
   setCookie: (name, value, options = {}) => {
     let cookie = `${name}=${value}`;
 
-    if (options.expires) { cookie += `; expires=${options.expires}`; }
-    if (options['max-age']) { cookie += `; max-age=${options['max-age']}`; }
+    if (options.expires) {
+      cookie += `; expires=${options.expires}`;
+    }
+    if (options["max-age"]) {
+      cookie += `; max-age=${options["max-age"]}`;
+    }
 
     Browser.getDocument().cookie = cookie;
   },
@@ -129,10 +133,10 @@ const Browser = {
    * @method getCookieValueByName
    */
   getCookie: (name) => {
-    const cookies = Browser.getDocument().cookie.split(';');
+    const cookies = Browser.getDocument().cookie.split(";");
 
     for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim().split('=');
+      const cookie = cookies[i].trim().split("=");
       if (cookie[0] === name) {
         return cookie[1];
       }
@@ -149,35 +153,29 @@ const Browser = {
    * @param   {Object}  target  Optional target window name
    * @return  {Void}
    */
-  postToNewWindow: (url, data, target = '_blank') => {
+  postToNewWindow: (url, data, target = "_blank") => {
     const doc = Browser.getDocument(),
-        containerId = 'carbonPostFormContainer';
+      containerId = "carbonPostFormContainer";
 
     let container = doc.getElementById(containerId);
 
     if (!container) {
-      container = doc.createElement('div');
-      container.setAttribute('id', containerId);
+      container = doc.createElement("div");
+      container.setAttribute("id", containerId);
       doc.body.appendChild(container);
     }
 
-    ReactDOM.render((
-      <form
-        action={ url } method='post'
-        target={ target }
-      >
-        { keys(data).map((key) => {
-          return (
-            <input
-              type='hidden' key={ key }
-              name={ key } value={ data[key] }
-            />
-          );
-        }) }
-      </form>
-    ), container, function() {
-      Browser.submitForm(this);
-    });
+    ReactDOM.render(
+      <form action={url} method="post" target={target}>
+        {keys(data).map((key) => {
+          return <input type="hidden" key={key} name={key} value={data[key]} />;
+        })}
+      </form>,
+      container,
+      function () {
+        Browser.submitForm(this);
+      }
+    );
     ReactDOM.unmountComponentAtNode(container);
   },
 
@@ -189,7 +187,7 @@ const Browser = {
    */
   submitForm: (form) => {
     form.submit();
-  }
+  },
 };
 
 export default Browser;

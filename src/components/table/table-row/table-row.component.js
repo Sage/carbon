@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TableCell from '../table-cell';
-import TableHeader from '../table-header';
-import { Checkbox } from '../../../__experimental__/components/checkbox';
-import guid from '../../../utils/helpers/guid';
-import WithDrop from '../../drag-and-drop/with-drop';
-import DraggableTableCell from '../draggable-table-cell';
-import StyledTableRow from './table-row.style';
-import { validProps } from '../../../utils/ether';
-import tagComponent from '../../../utils/helpers/tags';
-import { ActionPopover } from '../../action-popover';
+import React from "react";
+import PropTypes from "prop-types";
+import TableCell from "../table-cell";
+import TableHeader from "../table-header";
+import { Checkbox } from "../../../__experimental__/components/checkbox";
+import guid from "../../../utils/helpers/guid";
+import WithDrop from "../../drag-and-drop/with-drop";
+import DraggableTableCell from "../draggable-table-cell";
+import StyledTableRow from "./table-row.style";
+import { validProps } from "../../../utils/ether";
+import tagComponent from "../../../utils/helpers/tags";
+import { ActionPopover } from "../../action-popover";
 
 /**
  * A TableRow widget.
@@ -35,8 +35,8 @@ class TableRow extends React.Component {
     /**
      * Internal state to track if the row is currently selected.
      */
-    selected: false
-  }
+    selected: false,
+  };
 
   constructor(props) {
     super(props);
@@ -45,16 +45,25 @@ class TableRow extends React.Component {
 
   UNSAFE_componentWillMount() {
     if (this.context.dragDropManager) {
-      if (this.props.as !== 'header' && this.props.index === undefined) {
-        throw new Error('You need to provide an index for rows that are draggable');
+      if (this.props.as !== "header" && this.props.index === undefined) {
+        throw new Error(
+          "You need to provide an index for rows that are draggable"
+        );
       }
     }
 
     if (this.requiresUniqueID && !this.props.uniqueID) {
-      throw new Error('A TableRow which is selectable or highlightable should provide a uniqueID.');
+      throw new Error(
+        "A TableRow which is selectable or highlightable should provide a uniqueID."
+      );
     }
 
-    if (this.context.attachToTable && this.props.uniqueID && !this.props.selectAll && !this.isHeader) {
+    if (
+      this.context.attachToTable &&
+      this.props.uniqueID &&
+      !this.props.selectAll &&
+      !this.isHeader
+    ) {
       // generate row id
       this.rowID = guid();
       // only attach to the table if we have a unique id
@@ -106,7 +115,7 @@ class TableRow extends React.Component {
    */
   onSelectAll = () => {
     this.context.selectAll(this);
-  }
+  };
 
   /**
    * Call the selectRow callback and call any custom event the developer may have set.
@@ -114,14 +123,20 @@ class TableRow extends React.Component {
   onRowClick = (...args) => {
     if (this.props.onHighlight) {
       // trigger onHighlight callback if defined
-      this.props.onHighlight(this.props.uniqueID, !this.state.highlighted, this);
+      this.props.onHighlight(
+        this.props.uniqueID,
+        !this.state.highlighted,
+        this
+      );
     } else {
       // trigger highlightRow method on the table
       this.context.highlightRow(this.props.uniqueID, this);
     }
     // trigger any custom onClick event the developer may have set
-    if (this.props.onClick) { this.props.onClick(...args); }
-  }
+    if (this.props.onClick) {
+      this.props.onClick(...args);
+    }
+  };
 
   /**
    * Call the selectRow callback.
@@ -134,7 +149,7 @@ class TableRow extends React.Component {
       // trigger selectRow method on the table
       this.context.selectRow(this.props.uniqueID, this, !this.state.selected);
     }
-  }
+  };
 
   /**
    * Sets additional props to the row.
@@ -142,8 +157,13 @@ class TableRow extends React.Component {
   get rowProps() {
     const { ...props } = validProps(this);
 
-    props.isClickable = this.props.onClick || this.props.highlightable || this.context.highlightable;
-    props.isDragged = (this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index);
+    props.isClickable =
+      this.props.onClick ||
+      this.props.highlightable ||
+      this.context.highlightable;
+    props.isDragged =
+      this.draggingIsOccurring() &&
+      this.context.dragAndDropActiveIndex === this.props.index;
     props.isDragging = this.draggingIsOccurring();
     props.isHighlighted = this.state.highlighted;
     props.isPassive = this.context.passiveData;
@@ -161,7 +181,7 @@ class TableRow extends React.Component {
    * Determines if the developer has flagged this row as a header.
    */
   get isHeader() {
-    return this.props.as === 'header';
+    return this.props.as === "header";
   }
 
   /**
@@ -171,25 +191,33 @@ class TableRow extends React.Component {
     // renders a TableHeader if row is flagged as a header.
     const cell = this.isHeader ? TableHeader : TableCell;
 
-    return React.createElement(cell, {
-      key: 'select', 'data-component': 'selectable-cell'
-    }, this.multiSelect);
+    return React.createElement(
+      cell,
+      {
+        key: "select",
+        "data-component": "selectable-cell",
+      },
+      this.multiSelect
+    );
   }
 
   /**
    * Returns the checkbox for the select action.
    */
   get multiSelect() {
-    if (this.props.hideMultiSelect) { return null; }
+    if (this.props.hideMultiSelect) {
+      return null;
+    }
 
     // determines which action to use (multi-select or select-all)
-    const action = (this.props.selectAll || this.isHeader) ? this.onSelectAll : this.onSelect;
+    const action =
+      this.props.selectAll || this.isHeader ? this.onSelectAll : this.onSelect;
 
     return (
       <Checkbox
-        onClick={ ev => ev.stopPropagation() }
-        onChange={ action }
-        checked={ this.state.selected }
+        onClick={(ev) => ev.stopPropagation()}
+        onChange={action}
+        checked={this.state.selected}
       />
     );
   }
@@ -201,7 +229,11 @@ class TableRow extends React.Component {
     // if component specifically disables selectable, don't put the cell in
     if (this.props.selectable !== false) {
       // if multi-seletable, add the checkbox cell
-      if (this.props.selectAll || this.context.selectable || this.props.selectable) {
+      if (
+        this.props.selectAll ||
+        this.context.selectable ||
+        this.props.selectable
+      ) {
         return true;
       }
     }
@@ -213,9 +245,12 @@ class TableRow extends React.Component {
    * Determines if the row requires a unique ID.
    */
   get requiresUniqueID() {
-    const highlightable = this.props.highlightable !== false
-      && (this.props.highlightable || this.context.highlightable),
-        selectable = this.props.selectable !== false && (this.props.selectable || this.context.selectable);
+    const highlightable =
+        this.props.highlightable !== false &&
+        (this.props.highlightable || this.context.highlightable),
+      selectable =
+        this.props.selectable !== false &&
+        (this.props.selectable || this.context.selectable);
 
     return highlightable || selectable;
   }
@@ -224,8 +259,8 @@ class TableRow extends React.Component {
    * Determines if dragging is occurring within the current draggable context.
    */
   draggingIsOccurring = () => {
-    return typeof this.context.dragAndDropActiveIndex === 'number';
-  }
+    return typeof this.context.dragAndDropActiveIndex === "number";
+  };
 
   /**
    * Returns a draggable cell if required.
@@ -237,12 +272,14 @@ class TableRow extends React.Component {
 
     return (
       <DraggableTableCell
-        identifier={ this.props.dragAndDropIdentifier }
-        draggableNode={ () => { return this.state.rowNode; } }
-        canDrag={ !this.props.hideDrag }
+        identifier={this.props.dragAndDropIdentifier}
+        draggableNode={() => {
+          return this.state.rowNode;
+        }}
+        canDrag={!this.props.hideDrag}
       />
     );
-  }
+  };
 
   /**
    * Returns the row wrapped in draggable functionality if required.
@@ -254,15 +291,19 @@ class TableRow extends React.Component {
 
     return (
       <WithDrop
-        identifier={ this.props.dragAndDropIdentifier }
-        index={ this.props.index }
-        canDrop={ () => { return !this.props.hideDrag; } }
-        droppableNode={ () => { return this.state.rowNode; } }
+        identifier={this.props.dragAndDropIdentifier}
+        index={this.props.index}
+        canDrop={() => {
+          return !this.props.hideDrag;
+        }}
+        droppableNode={() => {
+          return this.state.rowNode;
+        }}
       >
         {row}
       </WithDrop>
     );
-  }
+  };
 
   set highlighted(highlighted) {
     this.setState({ highlighted });
@@ -276,27 +317,32 @@ class TableRow extends React.Component {
         return td;
       }
 
-      const childrenWithProps = React.Children.map(td.props.children, (child) => {
-        // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
-        // state of the row
-        if (child && child.type === ActionPopover) {
-          hasActionPopover = true;
-          const props = {
-            onOpen: () => {
-              this.highlighted = true;
-              child.props.onOpen();
-            },
-            onClose: () => {
-              this.highlighted = false;
-              child.props.onClose();
-            }
-          };
-          return React.cloneElement(child, props);
+      const childrenWithProps = React.Children.map(
+        td.props.children,
+        (child) => {
+          // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
+          // state of the row
+          if (child && child.type === ActionPopover) {
+            hasActionPopover = true;
+            const props = {
+              onOpen: () => {
+                this.highlighted = true;
+                child.props.onOpen();
+              },
+              onClose: () => {
+                this.highlighted = false;
+                child.props.onClose();
+              },
+            };
+            return React.cloneElement(child, props);
+          }
+          return child;
         }
-        return child;
-      });
+      );
 
-      return hasActionPopover ? React.cloneElement(td, { children: childrenWithProps }) : td;
+      return hasActionPopover
+        ? React.cloneElement(td, { children: childrenWithProps })
+        : td;
     });
   }
 
@@ -312,14 +358,13 @@ class TableRow extends React.Component {
 
     return this.renderDraggableRow(
       <StyledTableRow
-        { ...this.rowProps }
-        { ...tagComponent('table-row', this.props) }
-        ref={ this._row }
+        {...this.rowProps}
+        {...tagComponent("table-row", this.props)}
+        ref={this._row}
       >
         {this.renderDraggableCell()}
         {content}
       </StyledTableRow>
-
     );
   }
 }
@@ -379,13 +424,10 @@ TableRow.propTypes = {
   dragged: PropTypes.bool,
 
   /** Used to determine if line is empty is dragging */
-  dragging: PropTypes.func
+  dragging: PropTypes.func,
 };
 
-TableRow.safeProps = [
-  'onClick',
-  'theme'
-];
+TableRow.safeProps = ["onClick", "theme"];
 
 TableRow.contextTypes = {
   attachToTable: PropTypes.func, // attach the row to the table
@@ -398,7 +440,7 @@ TableRow.contextTypes = {
   selectRow: PropTypes.func, // a callback function for when a row is selected
   dragDropManager: PropTypes.object, // the React DND DragDropManager
   dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
-  passiveData: PropTypes.bool // tracks if the data should be rendered passively
+  passiveData: PropTypes.bool, // tracks if the data should be rendered passively
 };
 
 export default TableRow;

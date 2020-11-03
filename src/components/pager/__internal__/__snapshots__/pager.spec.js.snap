@@ -16,7 +16,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 }
 
 .c12:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
@@ -160,7 +160,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 }
 
 .c10 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 .c3 .c11 {
@@ -647,7 +647,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 }
 
 .c15:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
@@ -733,7 +733,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 }
 
 .c13 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 .c17 .c14 {

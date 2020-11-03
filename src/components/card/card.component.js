@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import StyledCard from './card.style';
-import Icon from '../icon';
+import React from "react";
+import PropTypes from "prop-types";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import StyledCard from "./card.style";
+import Icon from "../icon";
 
 const { sizesRestricted } = OptionsHelper;
 
@@ -13,7 +13,7 @@ const Card = ({
   interactive,
   draggable,
   spacing,
-  dataRole
+  dataRole,
 }) => {
   const handleClick = (ev) => {
     if (!draggable && action) {
@@ -22,30 +22,32 @@ const Card = ({
   };
 
   const renderChildren = () => {
-    return React.Children.map(children, child => React.cloneElement(child, { spacing }));
+    return React.Children.map(children, (child) =>
+      React.cloneElement(child, { spacing })
+    );
   };
 
-  const onClickHandler = (interactive) ? handleClick : null;
+  const onClickHandler = interactive ? handleClick : null;
 
   return (
     <StyledCard
-      data-component='card'
-      cardWidth={ cardWidth }
-      interactive={ interactive }
-      draggable={ draggable }
-      spacing={ spacing }
-      type='button'
-      onClick={ onClickHandler }
-      tabIndex={ 0 }
-      data-role={ dataRole }
+      data-component="card"
+      cardWidth={cardWidth}
+      interactive={interactive}
+      draggable={draggable}
+      spacing={spacing}
+      type="button"
+      onClick={onClickHandler}
+      tabIndex={0}
+      data-role={dataRole}
     >
-      { draggable && <Icon type='drag' />}
-      { renderChildren() }
+      {draggable && <Icon type="drag" />}
+      {renderChildren()}
     </StyledCard>
   );
 };
 Card.defaultProps = {
-  spacing: 'medium'
+  spacing: "medium",
 };
 
 Card.propTypes = {
@@ -60,7 +62,7 @@ Card.propTypes = {
   draggable: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
   spacing: PropTypes.oneOf(sizesRestricted),
-  dataRole: PropTypes.string
+  dataRole: PropTypes.string,
 };
 
 export default Card;

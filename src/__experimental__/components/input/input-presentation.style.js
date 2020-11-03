@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import sizes from './input-sizes.style';
-import inputClassicStyling from './input-presentation-classic.style';
-import StyledInput from './input.style';
-import StyledInlineInputs from '../../../components/inline-inputs/inline-inputs.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import sizes from "./input-sizes.style";
+import inputClassicStyling from "./input-presentation-classic.style";
+import StyledInput from "./input.style";
+import StyledInlineInputs from "../../../components/inline-inputs/inline-inputs.style";
 
 export const StyledInputPresentationContainer = styled.div`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;
@@ -33,31 +33,37 @@ const InputPresentationStyle = styled.div`
     }
   }
 
-  ${({ disabled, theme }) => disabled && css`
-    background: ${theme.disabled.input};
-    border-color: ${theme.disabled.border};
-    cursor: not-allowed;
-  `}
+  ${({ disabled, theme }) =>
+    disabled &&
+    css`
+      background: ${theme.disabled.input};
+      border-color: ${theme.disabled.border};
+      cursor: not-allowed;
+    `}
 
-  ${({ hasFocus, theme }) => hasFocus && css`
-    && {
-      outline: 3px solid ${theme.colors.focus};
-      z-index: 2;
-    }
+  ${({ hasFocus, theme }) =>
+    hasFocus &&
+    css`
+      && {
+        outline: 3px solid ${theme.colors.focus};
+        z-index: 2;
+      }
 
-    ${StyledInlineInputs} && {
-      position: relative;
-    }
-  `}
+      ${StyledInlineInputs} && {
+        position: relative;
+      }
+    `}
 
   ${stylingForValidations}
 
-  ${({ readOnly, theme }) => readOnly && css`
-    background-color: ${theme.readOnly.textboxBackground};
-    border-color: ${theme.readOnly.textboxBorder};
-  `}
+  ${({ readOnly, theme }) =>
+    readOnly &&
+    css`
+      background-color: ${theme.readOnly.textboxBackground};
+      border-color: ${theme.readOnly.textboxBorder};
+    `}
 
-  ${({ align }) => align === 'right' && 'flex-direction: row-reverse'}
+  ${({ align }) => align === "right" && "flex-direction: row-reverse"}
 
   ${inputClassicStyling}
 
@@ -65,23 +71,17 @@ const InputPresentationStyle = styled.div`
     display: none;
   }
   input::-webkit-contacts-auto-fill-button {
-    display: none!important;
+    display: none !important;
   }
 
   ${({ styleOverride }) => styleOverride};
 `;
 
-function stylingForValidations({
-  theme,
-  error,
-  warning,
-  info,
-  disabled
-}) {
+function stylingForValidations({ theme, error, warning, info, disabled }) {
   let validationColor;
 
   if (disabled) {
-    return '';
+    return "";
   }
 
   if (error) {
@@ -91,32 +91,33 @@ function stylingForValidations({
   } else if (info) {
     validationColor = theme.colors.info;
   } else {
-    return '';
+    return "";
   }
 
   return css`
     border-color: ${validationColor} !important;
     z-index: 1;
-    ${error && `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
+    ${error &&
+    `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
   `;
 }
 
 InputPresentationStyle.safeProps = [
-  'align',
-  'disabled',
-  'hasFocus',
-  'inputWidth',
-  'readOnly',
-  'size',
-  'error',
-  'warning',
-  'info'
+  "align",
+  "disabled",
+  "hasFocus",
+  "inputWidth",
+  "readOnly",
+  "size",
+  "error",
+  "warning",
+  "info",
 ];
 
 InputPresentationStyle.defaultProps = {
   inputWidth: 100,
-  size: 'medium',
-  theme: baseTheme
+  size: "medium",
+  theme: baseTheme,
 };
 
 InputPresentationStyle.propTypes = {
@@ -129,7 +130,7 @@ InputPresentationStyle.propTypes = {
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 export default InputPresentationStyle;

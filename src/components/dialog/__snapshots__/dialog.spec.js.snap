@@ -13,7 +13,7 @@ exports[`Dialog renders children when they are not a JSX component should render
 
 exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogStyle should render matched snapshot 1`] = `
 .c0 {
-  background-color: #F2F5F6;
+  background-color: #f2f5f6;
   box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
   position: fixed;
   top: 50%;
@@ -25,7 +25,7 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   outline: none;
 }
 
-.c0 .c1.isSticky {
+.c0 .c1.sticky {
   margin-left: -35px;
   left: auto;
   position: fixed;

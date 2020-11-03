@@ -69,7 +69,7 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 }
 
 .c1 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 <div
@@ -131,7 +131,7 @@ exports[`InputPresentation renders presentational div and context provider for i
 }
 
 .c1 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 <div

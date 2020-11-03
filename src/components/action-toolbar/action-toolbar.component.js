@@ -1,10 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import I18n from 'i18n-js';
-import Link from '../link';
-import tagComponent from '../../utils/helpers/tags';
-import { StyledActionToolbar, StyledActionToolbarTotal, StyledActionToolbarActions } from './action-toolbar.style';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import I18n from "i18n-js";
+import Link from "../link";
+import tagComponent from "../../utils/helpers/tags";
+import {
+  StyledActionToolbar,
+  StyledActionToolbarTotal,
+  StyledActionToolbarActions,
+} from "./action-toolbar.style";
 
 /**
  * A ActionToolbar widget.
@@ -41,7 +45,7 @@ class ActionToolbar extends React.Component {
 
   static contextTypes = {
     attachActionToolbar: PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: PropTypes.func // tracks the action toolbar component
+    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
   };
 
   constructor(...args) {
@@ -54,7 +58,7 @@ class ActionToolbar extends React.Component {
 
   state = {
     total: 0,
-    selected: {}
+    selected: {},
   };
 
   UNSAFE_componentWillMount() {
@@ -81,8 +85,10 @@ class ActionToolbar extends React.Component {
   }
 
   handleOnClick = (onClick, selected) => {
-    if (!onClick) { return null; }
-    return event => onClick(selected, event);
+    if (!onClick) {
+      return null;
+    }
+    return (event) => onClick(selected, event);
   };
 
   isActive() {
@@ -94,18 +100,16 @@ class ActionToolbar extends React.Component {
   }
 
   buildAction(action, index) {
-    const {
-      onClick, className, text, ...props
-    } = action;
+    const { onClick, className, text, ...props } = action;
 
     return (
       <Link
-        className={ this.linkClasses(className) }
-        data-element='action'
-        disabled={ !this.isActive() }
-        key={ index }
-        onClick={ this.handleOnClick(onClick, this.state.selected) }
-        { ...props }
+        className={this.linkClasses(className)}
+        data-element="action"
+        disabled={!this.isActive()}
+        key={index}
+        onClick={this.handleOnClick(onClick, this.state.selected)}
+        {...props}
       >
         {text}
       </Link>
@@ -116,18 +120,22 @@ class ActionToolbar extends React.Component {
     return {
       disabled: !this.isActive(),
       selected: this.state.selected,
-      total: this.state.total
+      total: this.state.total,
     };
   };
 
   render() {
     return (
-      <StyledActionToolbar className={ this.props.className } { ...tagComponent('action-toolbar', this.props) }>
+      <StyledActionToolbar
+        className={this.props.className}
+        {...tagComponent("action-toolbar", this.props)}
+      >
         <StyledActionToolbarTotal>
-          <strong data-element='total'>{this.state.total}</strong>
-          &nbsp;{I18n.t('action_toolbar.selected', { defaultValue: 'Selected' })}
+          <strong data-element="total">{this.state.total}</strong>
+          &nbsp;
+          {I18n.t("action_toolbar.selected", { defaultValue: "Selected" })}
         </StyledActionToolbarTotal>
-        <StyledActionToolbarActions disabled={ !this.isActive() }>
+        <StyledActionToolbarActions disabled={!this.isActive()}>
           {this.actions()}
           {this.props.children && this.props.children(this.propsForChildren())}
         </StyledActionToolbarActions>
@@ -142,7 +150,7 @@ ActionToolbar.propTypes = {
   /** A custom class name for the component. */
   className: PropTypes.string,
   /** A function to return child components for the action toolbar. */
-  children: PropTypes.func
+  children: PropTypes.func,
 };
 
 export default ActionToolbar;

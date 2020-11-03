@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import StyledHelp from '../../../components/help/help.style';
-import baseTheme from '../../../style/themes/base';
+import styled from "styled-components";
+import ValidationIconStyle from "../../../components/validations/validation-icon.style";
+import StyledHelp from "../../../components/help/help.style";
+import baseTheme from "../../../style/themes/base";
 
 const IconWrapperStyle = styled.div`
   display: inline-block;
@@ -14,7 +14,7 @@ const IconWrapperStyle = styled.div`
   margin-bottom: -4px;
   vertical-align: top;
 
-  :focus{
+  :focus {
     outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
   }
 
@@ -24,7 +24,7 @@ const IconWrapperStyle = styled.div`
 `;
 
 IconWrapperStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default IconWrapperStyle;

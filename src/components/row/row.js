@@ -1,18 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Column from './column';
-import './row.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Column from "./column";
+import "./row.scss";
 
 class Row extends React.Component {
   static propTypes = {
     /**
      * This component supports children of type Column.
      */
-    children: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]),
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
     /**
      * Classes to apply to the component.
@@ -32,19 +29,16 @@ class Row extends React.Component {
     /**
      * Define a certain amount of columns, instead of basing it on the number of children.
      */
-    columns: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
+    columns: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
      * Classes to apply to all column children.
      */
-    columnClasses: PropTypes.string
+    columnClasses: PropTypes.string,
   };
 
   static defaultProps = {
-    gutter: 'medium'
+    gutter: "medium",
   };
 
   /**
@@ -56,14 +50,15 @@ class Row extends React.Component {
   buildColumns = () => {
     return React.Children.toArray(this.props.children).map((child) => {
       return React.cloneElement(
-        child, {
+        child,
+        {
           columnClasses: this.props.columnClasses,
-          columnDivide: this.props.columnDivide
+          columnDivide: this.props.columnDivide,
         },
         child.props.children
       );
     });
-  }
+  };
 
   /**
    * Main Class getter
@@ -72,10 +67,12 @@ class Row extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    const columns = String(this.props.columns || React.Children.toArray(this.props.children).length);
+    const columns = String(
+      this.props.columns || React.Children.toArray(this.props.children).length
+    );
 
     return classNames(
-      'carbon-row',
+      "carbon-row",
       `carbon-row--gutter-${this.props.gutter}`,
       this.props.className,
       `carbon-row--columns-${columns}`
@@ -90,15 +87,12 @@ class Row extends React.Component {
    */
   render() {
     return (
-      <div data-component='row' className={ this.mainClasses }>
-        { this.buildColumns() }
+      <div data-component="row" className={this.mainClasses}>
+        {this.buildColumns()}
       </div>
     );
   }
 }
 
 export default Row;
-export {
-  Row,
-  Column
-};
+export { Row, Column };

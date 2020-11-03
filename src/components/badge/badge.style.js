@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import StyledIcon from '../icon/icon.style';
-import Button from '../button';
-import Icon from '../icon';
+import styled from "styled-components";
+import StyledIcon from "../icon/icon.style";
+import Button from "../button";
+import Icon from "../icon";
 
 const StyledBadgeWrapper = styled.div`
   position: relative;
@@ -27,24 +27,25 @@ const StyledButton = styled(Button)`
   margin-right: 0;
   background: ${({ theme }) => theme.colors.white};
 
-  ::-moz-focus-inner{
+  ::-moz-focus-inner {
     border: none;
   }
 
-  &:hover, &:focus{
+  &:hover,
+  &:focus {
     background: ${({ theme }) => theme.colors.primary};
     border: none;
-    ${StyledCounter}{
+    ${StyledCounter} {
       display: none;
     }
 
-    ${StyledIcon}{
+    ${StyledIcon} {
       display: block;
       width: auto;
       height: auto;
       margin-right: 0;
 
-      :before{
+      :before {
         font-size: 16px;
         color: ${({ theme }) => theme.colors.white};
       }
@@ -57,9 +58,4 @@ const StyledCrossIcon = styled(Icon)`
   display: none;
 `;
 
-export {
-  StyledBadgeWrapper,
-  StyledButton,
-  StyledCrossIcon,
-  StyledCounter
-};
+export { StyledBadgeWrapper, StyledButton, StyledCrossIcon, StyledCounter };

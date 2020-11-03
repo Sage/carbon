@@ -1,6 +1,5 @@
-
-import styled from 'styled-components';
-import Button from '../button';
+import styled from "styled-components";
+import Button from "../button";
 
 const StyledDeleteButton = styled(Button)`
   padding-right: 0px;

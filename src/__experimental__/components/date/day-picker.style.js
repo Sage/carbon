@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import baseTheme from '../../../style/themes/base';
-import dayPickerClassicStyle from './day-picker-classic.style';
+import styled from "styled-components";
+import baseTheme from "../../../style/themes/base";
+import dayPickerClassicStyle from "./day-picker-classic.style";
 
 const StyledDayPicker = styled.div`
   .DayPicker {
@@ -20,7 +20,7 @@ const StyledDayPicker = styled.div`
     text-align: center;
     user-select: none;
   }
-  
+
   .DayPicker * {
     box-sizing: border-box;
   }
@@ -42,7 +42,8 @@ const StyledDayPicker = styled.div`
     margin: 0 0 2px;
   }
 
-  .DayPicker-Body, .DayPicker-Week {
+  .DayPicker-Body,
+  .DayPicker-Week {
     width: 100%;
   }
 
@@ -52,7 +53,7 @@ const StyledDayPicker = styled.div`
     font-size: 16px;
     font-weight: 800;
 
-    >div {
+    > div {
       margin: 0 auto;
       width: 80%;
     }
@@ -71,7 +72,7 @@ const StyledDayPicker = styled.div`
       color: ${({ theme }) => theme.text.color};
     }
 
-    +* {
+    + * {
       border-left: 1px;
     }
 
@@ -80,7 +81,8 @@ const StyledDayPicker = styled.div`
     }
   }
 
-  .DayPicker-Day--today, .DayPicker-Day--today.DayPicker-Day--outside {
+  .DayPicker-Day--today,
+  .DayPicker-Day--today.DayPicker-Day--outside {
     font-weight: 800;
     color: ${({ theme }) => theme.text.color};
     background-color: ${({ theme }) => theme.disabled.border};
@@ -88,10 +90,11 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-Day--outside {
     color: ${({ theme }) => theme.disabled.disabled};
-    background-color: $${({ theme }) => theme.colors.white};
+    background-color: $ ${({ theme }) => theme.colors.white};
   }
 
-  .DayPicker-Day--disabled, .DayPicker-Day--disabled:hover {
+  .DayPicker-Day--disabled,
+  .DayPicker-Day--disabled:hover {
     color: ${({ theme }) => theme.disabled.disabled};
     background-color: ${({ theme }) => theme.colors.white};
     cursor: default;
@@ -112,7 +115,7 @@ const StyledDayPicker = styled.div`
 `;
 
 StyledDayPicker.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledDayPicker;

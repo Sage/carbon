@@ -1,25 +1,28 @@
 /* eslint-disable react/no-unused-prop-types */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { StyledNavigationItem } from './anchor-navigation.style';
+import { StyledNavigationItem } from "./anchor-navigation.style";
 
-const AnchorNavigationItem = React.forwardRef(({
-  children, onKeyDown, onClick, href, tabIndex, isSelected, styleOverride
-}, ref) => (
-  <StyledNavigationItem isSelected={ isSelected } styleOverride={ styleOverride }>
-    <a
-      onKeyDown={ onKeyDown }
-      onClick={ onClick }
-      tabIndex={ tabIndex }
-      ref={ ref }
-      href={ href }
-      data-element='anchor-navigation-item'
-    >
-      {children}
-    </a>
-  </StyledNavigationItem>
-));
+const AnchorNavigationItem = React.forwardRef(
+  (
+    { children, onKeyDown, onClick, href, tabIndex, isSelected, styleOverride },
+    ref
+  ) => (
+    <StyledNavigationItem isSelected={isSelected} styleOverride={styleOverride}>
+      <a
+        onKeyDown={onKeyDown}
+        onClick={onClick}
+        tabIndex={tabIndex}
+        ref={ref}
+        href={href}
+        data-element="anchor-navigation-item"
+      >
+        {children}
+      </a>
+    </StyledNavigationItem>
+  )
+);
 
 AnchorNavigationItem.propTypes = {
   children: PropTypes.node,
@@ -36,8 +39,8 @@ AnchorNavigationItem.propTypes = {
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Reference to the section html element meant to be shown   */
-  target: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  target: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
-AnchorNavigationItem.displayName = 'AnchorNavigationItem';
+AnchorNavigationItem.displayName = "AnchorNavigationItem";
 export default AnchorNavigationItem;

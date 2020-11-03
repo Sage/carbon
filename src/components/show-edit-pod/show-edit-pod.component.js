@@ -1,24 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import ReactDOM from 'react-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import React from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import ReactDOM from "react-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import Pod from '../pod';
-import Form from '../form';
-import Button from '../button';
-import StyledDeleteButton from './delete-button.style';
-import Events from '../../utils/helpers/events';
-import { validProps } from '../../utils/ether';
-import tagComponent from '../../utils/helpers/tags';
-import StyledPod from './show-edit-pod.style';
+import Pod from "../pod";
+import Form from "../form";
+import Button from "../button";
+import StyledDeleteButton from "./delete-button.style";
+import Events from "../../utils/helpers/events";
+import { validProps } from "../../utils/ether";
+import tagComponent from "../../utils/helpers/tags";
+import StyledPod from "./show-edit-pod.style";
 
 class ShowEditPod extends React.Component {
   state = {
-    editing: false
-  }
+    editing: false,
+  };
 
-  isControlled = this.props.editing !== undefined
+  isControlled = this.props.editing !== undefined;
 
   componentDidMount() {
     if (this.props.editing) {
@@ -34,13 +34,13 @@ class ShowEditPod extends React.Component {
     this.props.onEdit(ev);
     this.toggleEditingState(true);
     this.__focusOnPod();
-  }
+  };
 
   onSaveEditForm = (ev) => {
     ev.preventDefault();
     this.props.onSave(ev);
     this.toggleEditingState(false);
-  }
+  };
 
   onCancelEditForm = (ev) => {
     if (this.props.onCancel) {
@@ -48,29 +48,31 @@ class ShowEditPod extends React.Component {
     }
 
     this.toggleEditingState(false);
-  }
+  };
 
   toggleEditingState = (newState) => {
     if (!this.isControlled) {
       this.setState({ editing: newState });
     }
-  }
+  };
 
   onKeyDown = (ev) => {
     if (Events.isEscKey(ev)) {
       this.onCancelEditForm(ev);
     }
-  }
+  };
 
   deleteButton() {
-    const label = this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' });
+    const label =
+      this.props.deleteText ||
+      I18n.t("actions.delete", { defaultValue: "Delete" });
 
     return (
       <StyledDeleteButton
-        buttonType='tertiary'
-        data-element='delete-button'
-        size='medium'
-        onClick={ this.props.onDelete }
+        buttonType="tertiary"
+        data-element="delete-button"
+        size="medium"
+        onClick={this.props.onDelete}
       >
         {label}
       </StyledDeleteButton>
@@ -80,29 +82,31 @@ class ShowEditPod extends React.Component {
   editContent() {
     return (
       <Form
-        onSubmit={ this.onSaveEditForm }
-        buttonAlignment={ this.props.buttonAlign }
-        data-element='edit-form'
-        leftSideButtons={ this.props.cancel && (
+        onSubmit={this.onSaveEditForm}
+        buttonAlignment={this.props.buttonAlign}
+        data-element="edit-form"
+        leftSideButtons={
+          this.props.cancel && (
+            <Button
+              data-element="cancel-button"
+              onClick={this.onCancelEditForm}
+            >
+              {this.props.cancelText}
+            </Button>
+          )
+        }
+        saveButton={
           <Button
-            data-element='cancel-button'
-            onClick={ this.onCancelEditForm }
+            disabled={this.props.saving}
+            data-element="submit-button"
+            buttonType="primary"
+            type="submit"
           >
-            { this.props.cancelText }
+            {this.props.saveText}
           </Button>
-        ) }
-        saveButton={ (
-          <Button
-            disabled={ this.props.saving }
-            data-element='submit-button'
-            buttonType='primary'
-            type='submit'
-          >
-            { this.props.saveText }
-          </Button>
-        ) }
-        rightSideButtons={ this.props.onDelete ? this.deleteButton() : null }
-        saving={ this.props.saving }
+        }
+        rightSideButtons={this.props.onDelete ? this.deleteButton() : null}
+        saving={this.props.saving}
       >
         {this.props.editFields}
       </Form>
@@ -113,31 +117,30 @@ class ShowEditPod extends React.Component {
     if (this.isEditing()) {
       return (
         <CSSTransition
-          key='1'
-          classNames={ this.props.transitionName }
-          timeout={ { enter: 300, exit: 50 } }
+          key="1"
+          classNames={this.props.transitionName}
+          timeout={{ enter: 300, exit: 50 }}
         >
-          <div key='edit'>{this.editContent()}</div>
+          <div key="edit">{this.editContent()}</div>
         </CSSTransition>
       );
     }
     return (
       <CSSTransition
-        key='2'
-        classNames={ this.props.transitionName }
-        timeout={ { enter: 300, exit: 50 } }
+        key="2"
+        classNames={this.props.transitionName}
+        timeout={{ enter: 300, exit: 50 }}
       >
-        <div key='show'>
-          {this.props.children}
-        </div>
+        <div key="show">{this.props.children}</div>
       </CSSTransition>
     );
   }
 
   universalProps() {
-    const {
-      onEdit, className, ...props
-    } = validProps(this, Object.keys(Pod.propTypes));
+    const { onEdit, className, ...props } = validProps(
+      this,
+      Object.keys(Pod.propTypes)
+    );
 
     return props;
   }
@@ -164,20 +167,20 @@ class ShowEditPod extends React.Component {
 
   __focusOnPod = () => {
     ReactDOM.findDOMNode(this.pod).focus(); // eslint-disable-line react/no-find-dom-node
-  }
+  };
 
   render() {
     return (
       <StyledPod
-        className={ this.props.className }
-        { ...this.podProps() }
-        ref={ (node) => { this.pod = node; } }
-        tabIndex='-1'
-        { ...tagComponent('show-edit-pod', this.props) }
+        className={this.props.className}
+        {...this.podProps()}
+        ref={(node) => {
+          this.pod = node;
+        }}
+        tabIndex="-1"
+        {...tagComponent("show-edit-pod", this.props)}
       >
-        <TransitionGroup>
-          {this.content()}
-        </TransitionGroup>
+        <TransitionGroup>{this.content()}</TransitionGroup>
       </StyledPod>
     );
   }
@@ -218,16 +221,16 @@ ShowEditPod.propTypes = {
   /** Supply custom text for the delete button */
   deleteText: PropTypes.string,
   /** Can inform if the form is in a saving state (disables the save button) */
-  saving: PropTypes.bool
+  saving: PropTypes.bool,
 };
 
 ShowEditPod.defaultProps = {
-  variant: 'transparent',
+  variant: "transparent",
   border: false,
-  buttonAlign: 'right',
-  transitionName: 'carbon-show-edit-pod__transition',
+  buttonAlign: "right",
+  transitionName: "carbon-show-edit-pod__transition",
   cancel: true,
-  saving: false
+  saving: false,
 };
 
 export default ShowEditPod;

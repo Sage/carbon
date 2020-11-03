@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import { space } from 'styled-system';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
 
-import baseTheme from '../../../style/themes/base';
+import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableHeader = styled.th`
   ${({ align, theme, colWidth }) => css`
@@ -18,19 +18,24 @@ const StyledFlatTableHeader = styled.th`
     white-space: nowrap;
     word-break: keep-all;
     padding: 0;
-    ${colWidth && css`width: ${colWidth}px`};
+    ${colWidth &&
+    css`
+      width: ${colWidth}px;
+    `};
 
     > div {
       box-sizing: border-box;
       ${space};
-      ${colWidth && css`width: ${colWidth}px`};
+      ${colWidth &&
+      css`
+        width: ${colWidth}px;
+      `};
     }
-
   `}
 `;
 
 StyledFlatTableHeader.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledFlatTableHeader;

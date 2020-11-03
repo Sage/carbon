@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import BaseTheme from '../../style/themes/base';
-import StyledButton from '../button/button.style';
+import styled, { css } from "styled-components";
+import BaseTheme from "../../style/themes/base";
+import StyledButton from "../button/button.style";
 
 const StyledSplitButtonChildrenContainer = styled.div`
   ${({ theme, align }) => css`
@@ -36,7 +36,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
 `;
 
 StyledSplitButtonChildrenContainer.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
 export default StyledSplitButtonChildrenContainer;

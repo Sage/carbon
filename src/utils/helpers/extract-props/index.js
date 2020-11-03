@@ -1,1 +1,1 @@
-export { default } from './extract-props';
+export { default } from "./extract-props";

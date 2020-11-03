@@ -1,4 +1,4 @@
-import StyledIcon from '../icon/icon.style';
+import StyledIcon from "../icon/icon.style";
 
 export function makeColors(color) {
   return `
@@ -18,7 +18,9 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       background: ${colors.secondary};
     }
 
-    ${isDisabled ? `
+    ${
+      isDisabled
+        ? `
     background: ${disabled.button};
     color: ${disabled.text};
     &:hover {
@@ -26,23 +28,33 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       border-color: ${disabled.button};
       color: ${disabled.text};
     }
-  ` : ''}
+  `
+        : ""
+    }
 
-    ${destructive ? `background: ${colors.error};
+    ${
+      destructive
+        ? `background: ${colors.error};
     border-color: transparent;
     color: ${colors.white};
     &:hover {
       background: ${colors.destructive.hover};
     }
 
-    ${isDisabled ? `
+    ${
+      isDisabled
+        ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
         color: ${disabled.text};
       }
-    ` : ''}` : ''}
+    `
+        : ""
+    }`
+        : ""
+    }
   `,
   secondary: `
       background: transparent;
@@ -54,7 +66,9 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
        ${makeColors(colors.white)}
       }
 
-      ${destructive ? `
+      ${
+        destructive
+          ? `
         border-color: ${colors.error};
         ${makeColors(colors.error)}
         &:focus {
@@ -66,9 +80,13 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
           border-color: ${colors.destructive.hover};
           background: ${colors.destructive.hover};
         }
-      ` : ''}
+      `
+          : ""
+      }
 
-      ${isDisabled ? `
+      ${
+        isDisabled
+          ? `
         border-color: ${disabled.button};
         color: ${disabled.text};
         &:hover {
@@ -76,7 +94,9 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
           border-color: ${disabled.button};
           ${makeColors(disabled.text)}
         }
-    ` : ''}
+    `
+          : ""
+      }
   `,
   tertiary: `
     background: transparent;
@@ -86,19 +106,27 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       ${makeColors(colors.secondary)}
     }
 
-    ${destructive ? `
+    ${
+      destructive
+        ? `
       ${makeColors(colors.error)}
       &:hover {
         ${makeColors(colors.destructive.hover)}
       }
-      ` : ''}
+      `
+        : ""
+    }
 
-    ${isDisabled ? `
+    ${
+      isDisabled
+        ? `
       color: ${disabled.text};
       &:hover {
         ${makeColors(disabled.text)}
       }
-    ` : ''}
+    `
+        : ""
+    }
   `,
   dashed: `
     background: transparent;
@@ -109,21 +137,29 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       background-color: ${colors.dashedHoverBackground}
     }
 
-    ${destructive ? `
+    ${
+      destructive
+        ? `
       ${makeColors(colors.error)}
       &:hover {
         ${makeColors(colors.destructive.hover)}
       }
-      ` : ''}
+      `
+        : ""
+    }
 
-    ${isDisabled ? `
+    ${
+      isDisabled
+        ? `
       border-color: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background-color: transparent;
         ${makeColors(disabled.text)}
       }
-    ` : ''}
+    `
+        : ""
+    }
   `,
   darkBackground: `
     background: ${colors.white};
@@ -134,13 +170,17 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       ${makeColors(colors.white)}
     }
 
-    ${isDisabled ? `
+    ${
+      isDisabled
+        ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
         ${makeColors(disabled.text)}
       }
-    ` : ''}
-  `
+    `
+        : ""
+    }
+  `,
 });

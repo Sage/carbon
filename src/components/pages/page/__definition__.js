@@ -1,16 +1,16 @@
-import Page from './page.component';
-import Definition from '../../../../demo/utils/definition';
+import Page from "./page.component";
+import Definition from "../../../../demo/utils/definition";
 
-const definition = new Definition('page', Page, {
-  props: ['children', 'title'],
+const definition = new Definition("page", Page, {
+  props: ["children", "title"],
   propTypes: {
-    title: 'Node',
-    children: 'Node'
+    title: "Node",
+    children: "Node",
   },
   propDescriptions: {
-    title: 'The title for the page, normally a Heading component.',
-    children: 'This component supports children.'
-  }
+    title: "The title for the page, normally a Heading component.",
+    children: "This component supports children.",
+  },
 });
 
 export default definition;

@@ -1,38 +1,41 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import 'jest-styled-components';
-import ShowEditPod from './show-edit-pod.component';
-import Form from '../form';
-import Pod from '../pod';
-import Button from '../button';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import StyledDeleteButton from './delete-button.style';
+import React from "react";
+import { mount } from "enzyme";
+import "jest-styled-components";
+import ShowEditPod from "./show-edit-pod.component";
+import Form from "../form";
+import Pod from "../pod";
+import Button from "../button";
+import {
+  elementsTagTest,
+  rootTagTest,
+} from "../../utils/helpers/tags/tags-specs";
+import StyledDeleteButton from "./delete-button.style";
 
-describe('ShowEditPod', () => {
+describe("ShowEditPod", () => {
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
     let container;
 
     beforeEach(() => {
       jest.useFakeTimers();
-      container = document.createElement('div');
-      container.id = 'enzymeContainer';
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
       document.body.appendChild(container);
       wrapper = renderShowEditPod({ editing: true });
     });
 
-    it('sets focus on the pod DOM node', () => {
+    it("sets focus on the pod DOM node", () => {
       const focusedElement = document.activeElement;
 
-      expect(focusedElement.dataset.component).toBe('pod');
+      expect(focusedElement.dataset.component).toBe("pod");
     });
 
-    it('displays the Edit Form', () => {
+    it("displays the Edit Form", () => {
       expect(wrapper.find(Form).exists()).toBe(true);
     });
 
-    describe('and when the editing prop is changed to false', () => {
-      it('does not display the Edit Form', () => {
+    describe("and when the editing prop is changed to false", () => {
+      it("does not display the Edit Form", () => {
         wrapper.setProps({ editing: false });
         jest.runAllTimers();
 
@@ -54,31 +57,33 @@ describe('ShowEditPod', () => {
   describe('when the "editing" prop is not set on mount', () => {
     let wrapper;
 
-    it('does not set focus on the pod DOM node', () => {
+    it("does not set focus on the pod DOM node", () => {
       wrapper = renderShowEditPod();
       const focusedElement = document.activeElement;
-      expect(focusedElement.dataset.component).not.toBe('pod');
+      expect(focusedElement.dataset.component).not.toBe("pod");
     });
 
-    describe('and onEdit prop is called on Pod Component', () => {
+    describe("and onEdit prop is called on Pod Component", () => {
       beforeEach(() => {
         jest.useFakeTimers();
         wrapper = renderShowEditPod({ onEdit: jest.fn() });
         wrapper.find(Pod).props().onEdit();
       });
 
-      it('displays the Edit Form', () => {
-        expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(true);
+      it("displays the Edit Form", () => {
+        expect(
+          wrapper.update().find('[data-element="edit-form"]').exists()
+        ).toBe(true);
       });
 
-      describe('and then the onCancel prop is called on the Edit Form', () => {
-        it('does not display the Edit Form', () => {
-          wrapper.update().find(Form).find(Button).at(0)
-            .props()
-            .onClick();
+      describe("and then the onCancel prop is called on the Edit Form", () => {
+        it("does not display the Edit Form", () => {
+          wrapper.update().find(Form).find(Button).at(0).props().onClick();
           jest.runAllTimers();
 
-          expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(false);
+          expect(
+            wrapper.update().find('[data-element="edit-form"]').exists()
+          ).toBe(false);
         });
       });
     });
@@ -100,27 +105,27 @@ describe('ShowEditPod', () => {
       beforeEach(() => {
         onEditSpy = jest.fn();
         wrapper = renderShowEditPod({
-          onEdit: onEditSpy
+          onEdit: onEditSpy,
         });
         wrapper.find(Pod).props().onEdit();
       });
 
-      it('calls the onEdit callback', () => {
+      it("calls the onEdit callback", () => {
         expect(onEditSpy).toHaveBeenCalled();
       });
 
-      it('displays the Edit Form', () => {
+      it("displays the Edit Form", () => {
         expect(wrapper.update().find(Form).exists()).toBe(true);
       });
 
-      describe('and focus is set', () => {
+      describe("and focus is set", () => {
         beforeEach(() => {
-          container = document.createElement('div');
-          container.id = 'enzymeContainer';
+          container = document.createElement("div");
+          container.id = "enzymeContainer";
           document.body.appendChild(container);
           onEditSpy = jest.fn();
           wrapperAttached = renderShowEditPod({
-            onEdit: onEditSpy
+            onEdit: onEditSpy,
           });
           wrapperAttached.find(Pod).props().onEdit();
         });
@@ -133,10 +138,10 @@ describe('ShowEditPod', () => {
           container = null;
         });
 
-        it('sets focus on the pod DOM node', () => {
+        it("sets focus on the pod DOM node", () => {
           const focusedElement = document.activeElement;
 
-          expect(focusedElement.dataset.component).toBe('pod');
+          expect(focusedElement.dataset.component).toBe("pod");
         });
       });
     });
@@ -149,14 +154,14 @@ describe('ShowEditPod', () => {
         onSave = jest.fn();
         wrapper = renderShowEditPod({
           onSave,
-          onEdit: jest.fn()
+          onEdit: jest.fn(),
         });
         wrapper.find(Pod).props().onEdit();
         jest.runAllTimers();
       });
 
-      describe('after the Edit Form saving', () => {
-        it('does not display the Edit Form', () => {
+      describe("after the Edit Form saving", () => {
+        it("does not display the Edit Form", () => {
           const ev = { preventDefault: jest.fn() };
 
           wrapper.update().find(Form).props().onSubmit(ev);
@@ -170,18 +175,18 @@ describe('ShowEditPod', () => {
     });
 
     describe('with the "editing" prop set to true on mount', () => {
-      describe('and onEdit prop is called on Pod Component', () => {
+      describe("and onEdit prop is called on Pod Component", () => {
         beforeEach(() => {
           jest.useFakeTimers();
           wrapper = renderShowEditPod({
             onEdit: jest.fn(),
-            editing: true
+            editing: true,
           });
           wrapper.setProps({ editing: false });
           jest.runAllTimers();
         });
 
-        it('does not display the Edit Form', () => {
+        it("does not display the Edit Form", () => {
           expect(wrapper.update().find(Form).exists()).toBe(false);
 
           jest.useRealTimers();
@@ -190,16 +195,16 @@ describe('ShowEditPod', () => {
     });
 
     describe('with the "editing" prop set to false on mount', () => {
-      describe('and onEdit prop is called on Pod Component', () => {
+      describe("and onEdit prop is called on Pod Component", () => {
         beforeEach(() => {
           wrapper = renderShowEditPod({
             onEdit: jest.fn(),
-            editing: false
+            editing: false,
           });
           wrapper.find(Pod).props().onEdit();
         });
 
-        it('does not display the Edit Form', () => {
+        it("does not display the Edit Form", () => {
           expect(wrapper.update().find(Form).exists()).toBe(false);
         });
       });
@@ -210,7 +215,7 @@ describe('ShowEditPod', () => {
     });
   });
 
-  describe('after the Edit Form saving', () => {
+  describe("after the Edit Form saving", () => {
     let wrapper, onSave;
     const mockEvent = { preventDefault: () => {} };
 
@@ -218,19 +223,19 @@ describe('ShowEditPod', () => {
       onSave = jest.fn();
       wrapper = renderShowEditPod({
         onSave,
-        editing: true
+        editing: true,
       });
     });
 
-    it('prevents default on passed event', () => {
-      const preventSpy = jasmine.createSpy('prevent');
+    it("prevents default on passed event", () => {
+      const preventSpy = jasmine.createSpy("prevent");
       const ev = { preventDefault: preventSpy };
 
       wrapper.find(Form).props().onSubmit(ev);
       expect(preventSpy).toHaveBeenCalled();
     });
 
-    it('calls the onSave callback', () => {
+    it("calls the onSave callback", () => {
       wrapper.find(Form).props().onSubmit(mockEvent);
       expect(onSave).toHaveBeenCalled();
     });
@@ -244,28 +249,27 @@ describe('ShowEditPod', () => {
       onCancel = jest.fn();
       wrapper = renderShowEditPod({
         onCancel,
-        editing: true
+        editing: true,
       });
     });
 
-    describe('and the cancel is triggered on Edit Form', () => {
-      it('calls the onCancel function', () => {
-        wrapper.find(Form).find(Button).at(0).props()
-          .onClick(mockEvent);
+    describe("and the cancel is triggered on Edit Form", () => {
+      it("calls the onCancel function", () => {
+        wrapper.find(Form).find(Button).at(0).props().onClick(mockEvent);
         expect(onCancel).toHaveBeenCalledWith(mockEvent);
       });
     });
 
-    describe('and the escape key is hit', () => {
-      it('calls the onCancel function', () => {
-        wrapper.find(Pod).simulate('keydown', { which: 27 });
+    describe("and the escape key is hit", () => {
+      it("calls the onCancel function", () => {
+        wrapper.find(Pod).simulate("keydown", { which: 27 });
         expect(onCancel).toHaveBeenCalled();
       });
     });
 
-    describe('when the event is not the escape key', () => {
-      it('does not call onCancelEditForm', () => {
-        wrapper.find(Form).simulate('keydown', { which: 33 });
+    describe("when the event is not the escape key", () => {
+      it("does not call onCancelEditForm", () => {
+        wrapper.find(Form).simulate("keydown", { which: 33 });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });
@@ -277,7 +281,7 @@ describe('ShowEditPod', () => {
 
   describe('when the "onDelete" prop is set', () => {
     let wrapper, additionalComponent, onDelete;
-    const mockText = 'mock text';
+    const mockText = "mock text";
 
     beforeEach(() => {
       onDelete = jest.fn();
@@ -286,7 +290,7 @@ describe('ShowEditPod', () => {
     it('passes the Delete Button to the "additionalActions" prop', () => {
       wrapper = renderShowEditPod({
         onDelete,
-        editing: true
+        editing: true,
       });
       additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
@@ -294,13 +298,15 @@ describe('ShowEditPod', () => {
     });
 
     describe('with the "deleteText" prop', () => {
-      it('then the text of the Delete Button should match the prop', () => {
+      it("then the text of the Delete Button should match the prop", () => {
         wrapper = renderShowEditPod({
           onDelete,
           editing: true,
-          deleteText: mockText
+          deleteText: mockText,
         });
-        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
+        additionalComponent = mount(
+          wrapper.find(Form).props().rightSideButtons
+        );
 
         expect(additionalComponent.text()).toBe(mockText);
       });
@@ -310,11 +316,13 @@ describe('ShowEditPod', () => {
       it('then the text of the Delete Button should be "Delete"', () => {
         wrapper = renderShowEditPod({
           onDelete,
-          editing: true
+          editing: true,
         });
-        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
+        additionalComponent = mount(
+          wrapper.find(Form).props().rightSideButtons
+        );
 
-        expect(additionalComponent.text()).toBe('Delete');
+        expect(additionalComponent.text()).toBe("Delete");
       });
     });
 
@@ -325,42 +333,40 @@ describe('ShowEditPod', () => {
 
   describe('when the "editFields" prop is set', () => {
     let wrapper;
-    const mockText = 'mock text';
+    const mockText = "mock text";
 
     beforeEach(() => {
       wrapper = renderShowEditPod({
         editFields: mockText,
-        editing: true
+        editing: true,
       });
     });
 
-    it('the the prop content should be rendered in the Edit Form', () => {
+    it("the the prop content should be rendered in the Edit Form", () => {
       expect(wrapper.find(Form).props().children).toBe(mockText);
     });
   });
 
-  describe('tags', () => {
-    describe('on component', () => {
-      const wrapper = mount(<ShowEditPod data-element='bar' data-role='baz' />);
+  describe("tags", () => {
+    describe("on component", () => {
+      const wrapper = mount(<ShowEditPod data-element="bar" data-role="baz" />);
 
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper.find(Pod), 'show-edit-pod', 'bar', 'baz');
+      it("include correct component, element and role data tags", () => {
+        rootTagTest(wrapper.find(Pod), "show-edit-pod", "bar", "baz");
       });
     });
 
-    describe('on internal elements', () => {
-      const wrapper = mount(<ShowEditPod editing onEdit={ () => {} } />);
+    describe("on internal elements", () => {
+      const wrapper = mount(<ShowEditPod editing onEdit={() => {}} />);
       const form = wrapper.find('[data-component="form"]').hostNodes();
-      expect(form.type()).toEqual('form');
-      elementsTagTest(form, [
-        'edit-form'
-      ]);
+      expect(form.type()).toEqual("form");
+      elementsTagTest(form, ["edit-form"]);
     });
   });
 });
 
 function renderShowEditPod(props, renderer = mount) {
-  return renderer(
-    <ShowEditPod { ...props } />, { attachTo: document.getElementById('enzymeContainer') }
-  );
+  return renderer(<ShowEditPod {...props} />, {
+    attachTo: document.getElementById("enzymeContainer"),
+  });
 }

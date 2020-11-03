@@ -1,4 +1,4 @@
-import useMediaQuery from '../../useMediaQuery';
+import useMediaQuery from "../../useMediaQuery";
 
 export default function useIsAboveBreakpoint(breakpoint) {
   const matchesQuery = useMediaQuery(`(min-width:${breakpoint}px)`);

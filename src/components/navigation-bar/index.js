@@ -1,1 +1,1 @@
-export { default } from './navigation-bar.component';
+export { default } from "./navigation-bar.component";

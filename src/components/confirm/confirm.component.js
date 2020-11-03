@@ -1,11 +1,11 @@
-import React from 'react';
-import I18n from 'i18n-js';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import Dialog from '../dialog';
-import { StyledConfirmButtons, StyledConfirmHeading } from './confirm.style';
-import Button from '../button/button.component';
-import Icon from '../icon';
+import React from "react";
+import I18n from "i18n-js";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import Dialog from "../dialog";
+import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
+import Button from "../button/button.component";
+import Icon from "../icon";
 
 class Confirm extends Dialog {
   // ** Returns main classes for the component combined with dialog main classes. */
@@ -18,17 +18,21 @@ class Confirm extends Dialog {
     return (
       <StyledConfirmButtons>
         <Button
-          onClick={ this.props.onCancel } data-element='cancel'
-          buttonType='secondary'
+          onClick={this.props.onCancel}
+          data-element="cancel"
+          buttonType="secondary"
         >
-          {this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' })}
+          {this.props.cancelLabel ||
+            I18n.t("confirm.no", { defaultValue: "No" })}
         </Button>
         <Button
-          onClick={ this.props.onConfirm } data-element='confirm'
-          buttonType='primary'
-          destructive={ this.props.destructive }
+          onClick={this.props.onConfirm}
+          data-element="confirm"
+          buttonType="primary"
+          destructive={this.props.destructive}
         >
-          {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
+          {this.props.confirmLabel ||
+            I18n.t("confirm.yes", { defaultValue: "Yes" })}
         </Button>
       </StyledConfirmButtons>
     );
@@ -38,11 +42,8 @@ class Confirm extends Dialog {
     const { iconType } = this.props;
     if (this.props.iconType) {
       return (
-        <StyledConfirmHeading type={ iconType } data-element={ iconType }>
-          <Icon
-            type={ iconType }
-            fontSize='large'
-          />
+        <StyledConfirmHeading type={iconType} data-element={iconType}>
+          <Icon type={iconType} fontSize="large" />
           {title}
         </StyledConfirmHeading>
       );
@@ -52,19 +53,19 @@ class Confirm extends Dialog {
 
   componentTags(props) {
     return {
-      'data-component': 'confirm',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
+      "data-component": "confirm",
+      "data-element": props["data-element"],
+      "data-role": props["data-role"],
     };
   }
 }
 
 Confirm.defaultProps = {
   ...Dialog.defaultProps,
-  size: 'extra-small',
+  size: "extra-small",
   showCloseIcon: false,
   destructive: false,
-  iconType: null
+  iconType: null,
 };
 
 Confirm.propTypes = {
@@ -82,7 +83,7 @@ Confirm.propTypes = {
   destructive: PropTypes.bool,
 
   /** Defines an Icon type within the button (see Icon for options) */
-  iconType: PropTypes.oneOf(['error', 'warning'])
+  iconType: PropTypes.oneOf(["error", "warning"]),
 };
 
 export default Confirm;

@@ -1,42 +1,46 @@
-import React from 'react';
-import I18n from 'i18n-js';
-import PropTypes from 'prop-types';
+import React from "react";
+import I18n from "i18n-js";
+import PropTypes from "prop-types";
 
-import { StyledFormSummary, StyledInternalSummary } from './form-summary.style';
-import Icon from '../icon';
+import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
+import Icon from "../icon";
 
-const warningAppend = ({ errors, warnings }, type) => errors > 0 && warnings > 0 && type === 'warnings';
+const warningAppend = ({ errors, warnings }, type) =>
+  errors > 0 && warnings > 0 && type === "warnings";
 
-const translationKey = (props, type) => (warningAppend(props, type) ? 'errors_and_warnings' : type);
+const translationKey = (props, type) =>
+  warningAppend(props, type) ? "errors_and_warnings" : type;
 
 const defaultTranslations = (errorCount, warningCount) => ({
   errors: {
     defaultValue: {
-      one: 'There is %{count} error',
-      other: 'There are %{count} errors'
+      one: "There is %{count} error",
+      other: "There are %{count} errors",
     },
-    count: parseInt(errorCount, 10)
+    count: parseInt(errorCount, 10),
   },
   warnings: {
     defaultValue: {
-      one: 'There is %{count} warning',
-      other: 'There are %{count} warnings'
+      one: "There is %{count} warning",
+      other: "There are %{count} warnings",
     },
-    count: parseInt(warningCount, 10)
+    count: parseInt(warningCount, 10),
   },
   errors_and_warnings: {
     defaultValue: {
-      one: 'and %{count} warning',
-      other: 'and %{count} warnings'
+      one: "and %{count} warning",
+      other: "and %{count} warnings",
     },
-    count: parseInt(warningCount, 10)
-  }
+    count: parseInt(warningCount, 10),
+  },
 });
 
 const translation = (props, type) => {
   const parsedKey = translationKey(props, type);
 
-  const defaultTranslation = defaultTranslations(props.errors, props.warnings)[parsedKey];
+  const defaultTranslation = defaultTranslations(props.errors, props.warnings)[
+    parsedKey
+  ];
   const location = `errors.messages.form_summary.${parsedKey}`;
 
   return I18n.t(location, defaultTranslation);
@@ -45,11 +49,9 @@ const translation = (props, type) => {
 const Summary = ({ type, ...props }) => {
   if (props[type] > 0) {
     return (
-      <StyledInternalSummary type={ type } data-element={ type }>
-        <Icon type={ type.slice(0, -1) } />
-        <span>
-          {translation(props, type)}
-        </span>
+      <StyledInternalSummary type={type} data-element={type}>
+        <Icon type={type.slice(0, -1)} />
+        <span>{translation(props, type)}</span>
       </StyledInternalSummary>
     );
   }
@@ -57,24 +59,24 @@ const Summary = ({ type, ...props }) => {
 };
 
 Summary.propTypes = {
-  type: PropTypes.oneOf(['errors', 'warnings'])
+  type: PropTypes.oneOf(["errors", "warnings"]),
 };
 
-const FormSummary = props => (
+const FormSummary = (props) => (
   <StyledFormSummary
-    showSummary={ props.errors > 0 || props.warnings > 0 }
-    data-element='form-summary'
+    showSummary={props.errors > 0 || props.warnings > 0}
+    data-element="form-summary"
   >
-    <Summary type='errors' { ...props } />
-    <Summary type='warnings' { ...props } />
-    { props.children }
+    <Summary type="errors" {...props} />
+    <Summary type="warnings" {...props} />
+    {props.children}
   </StyledFormSummary>
 );
 
 FormSummary.propTypes = {
   children: PropTypes.node,
   errors: PropTypes.number,
-  warnings: PropTypes.number
+  warnings: PropTypes.number,
 };
 
 export default FormSummary;

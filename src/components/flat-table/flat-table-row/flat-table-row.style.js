@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import { baseTheme } from '../../../style/themes';
-import StyledFlatTableCell from '../flat-table-cell/flat-table-cell.style';
-import StyledFlatTableRowHeader from '../flat-table-row-header/flat-table-row-header.style';
-import StyledFlatTableCheckbox from '../flat-table-checkbox/flat-table-checkbox.style';
-import StyledFlatTableHeader from '../flat-table-header/flat-table-header.style';
+import styled, { css } from "styled-components";
+import { baseTheme } from "../../../style/themes";
+import StyledFlatTableCell from "../flat-table-cell/flat-table-cell.style";
+import StyledFlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.style";
+import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
+import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 
 const StyledFlatTableRow = styled.tr`
   border-collapse: separate;
@@ -13,50 +13,55 @@ const StyledFlatTableRow = styled.tr`
   table-layout: fixed;
   width: auto;
 
-  ${({ isRowInteractive, theme }) => isRowInteractive && css`
-    cursor: pointer;
+  ${({ isRowInteractive, theme }) =>
+    isRowInteractive &&
+    css`
+      cursor: pointer;
 
-    :focus{
-      outline: 2px solid ${theme.colors.focus};
-      outline-offset: -1px;
+      :focus {
+        outline: 2px solid ${theme.colors.focus};
+        outline-offset: -1px;
 
-      ${StyledFlatTableRowHeader} {
-        border-bottom: 1px solid transparent;
-        border-left: 1px solid ${theme.colors.focus};
-        background-clip: padding-box;
-        z-index: ${theme.zIndex.overlay};
-
-        :before {
-          content: '';
-          border-top: 2px solid ${theme.colors.focus};
-          border-bottom: 1px solid ${theme.colors.focus};
-          display: block;
-          left: 0px;
-          top: -1px;
-          height: 100%;
-          width: 101%;
-          position: absolute;
+        ${StyledFlatTableRowHeader} {
+          border-bottom: 1px solid transparent;
+          border-left: 1px solid ${theme.colors.focus};
+          background-clip: padding-box;
           z-index: ${theme.zIndex.overlay};
+
+          :before {
+            content: "";
+            border-top: 2px solid ${theme.colors.focus};
+            border-bottom: 1px solid ${theme.colors.focus};
+            display: block;
+            left: 0px;
+            top: -1px;
+            height: 100%;
+            width: 101%;
+            position: absolute;
+            z-index: ${theme.zIndex.overlay};
+          }
         }
       }
-    }
 
-    :hover {
-      ${StyledFlatTableCell},
-      ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
-        background-color: ${theme.flatTable.hover};
+      :hover {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
+          background-color: ${theme.flatTable.hover};
+        }
       }
-    }
-  `}
+    `}
 
-  ${({
-    selected, highlighted, isInSidebar, theme
-  }) => {
-    const colorOfSelected = isInSidebar ? theme.flatTable.drawerSidebar.selected : theme.flatTable.selected;
-    const colorOfHighlighted = isInSidebar ? theme.flatTable.drawerSidebar.highlighted : theme.flatTable.highlighted;
+  ${({ selected, highlighted, isInSidebar, theme }) => {
+    const colorOfSelected = isInSidebar
+      ? theme.flatTable.drawerSidebar.selected
+      : theme.flatTable.selected;
+    const colorOfHighlighted = isInSidebar
+      ? theme.flatTable.drawerSidebar.highlighted
+      : theme.flatTable.highlighted;
 
     return css`
-      ${isInSidebar && `
+      ${isInSidebar &&
+      `
         ${StyledFlatTableHeader},
         ${StyledFlatTableRowHeader},
         ${StyledFlatTableCell},
@@ -83,7 +88,8 @@ const StyledFlatTableRow = styled.tr`
         }
       `}
 
-      ${highlighted && `
+      ${highlighted &&
+      `
         ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
           background-color: ${colorOfHighlighted};
           border-bottom-color: ${colorOfHighlighted};
@@ -98,7 +104,8 @@ const StyledFlatTableRow = styled.tr`
         }
       `}
 
-      ${selected && `
+      ${selected &&
+      `
         ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
           background-color: ${colorOfSelected};
           border-bottom-color: ${colorOfSelected};
@@ -112,12 +119,12 @@ const StyledFlatTableRow = styled.tr`
           }
         }
       `}
-  `;
+    `;
   }}
 `;
 
 StyledFlatTableRow.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledFlatTableRow;

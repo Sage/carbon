@@ -1,4 +1,4 @@
-import { aegeanTheme, classicTheme, mintTheme } from '../../../style/themes';
+import { aegeanTheme, classicTheme, mintTheme } from "../../../style/themes";
 
 export function isClassic({ name }) {
   return name === classicTheme.name;

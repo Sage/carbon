@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import StyledButton from '../button/button.style';
-import baseTheme from '../../style/themes/base';
+import styled from "styled-components";
+import StyledButton from "../button/button.style";
+import baseTheme from "../../style/themes/base";
 
 const StyledSplitButton = styled.div`
   display: inline-block;
   position: relative;
-  
+
   & > ${StyledButton} {
     margin: 0;
 
@@ -18,7 +18,7 @@ const StyledSplitButton = styled.div`
 `;
 
 StyledSplitButton.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledSplitButton;

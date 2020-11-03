@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import baseTheme from '../../style/themes/base';
+import styled, { keyframes } from "styled-components";
+import baseTheme from "../../style/themes/base";
 
 const shimmer = keyframes`
   0% { opacity:0.1 }
@@ -17,11 +17,11 @@ const PreviewStyle = styled.span`
 
   & + & {
     margin-top: 3px;
-}
+  }
 `;
 
 PreviewStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default PreviewStyle;
