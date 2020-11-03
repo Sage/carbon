@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { color as styledColor } from 'styled-system';
+import { color as styledColor } from "styled-system";
 
 /*
  * styled-system/color allows users to use a color from the theme, from the `colors` object.
@@ -29,8 +29,10 @@ export const toColor = (theme, color) => {
 
   if (method in palette) {
     const match = palette[method];
-    if (typeof match === 'function') {
-      const arg = ['blackOpacity', 'whiteOpacity'].includes(method.toString()) ? `0.${percentage}` : percentage;
+    if (typeof match === "function") {
+      const arg = ["blackOpacity", "whiteOpacity"].includes(method.toString())
+        ? `0.${percentage}`
+        : percentage;
 
       return match(arg);
     }
@@ -40,12 +42,12 @@ export const toColor = (theme, color) => {
   return color;
 };
 
-export default ({
-  color, bg, backgroundColor, ...rest
-}) => {
+export default ({ color, bg, backgroundColor, ...rest }) => {
   return styledColor({
     ...rest,
     ...(color && { color: toColor(rest.theme, color) }),
-    ...((bg || backgroundColor) && { bg: toColor(rest.theme, bg || backgroundColor) })
+    ...((bg || backgroundColor) && {
+      bg: toColor(rest.theme, bg || backgroundColor),
+    }),
   });
 };

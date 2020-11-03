@@ -1,18 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { TransitionGroup } from 'react-transition-group';
-import { compact, assign } from 'lodash';
-import { withTheme } from 'styled-components';
-import tagComponent from '../../utils/helpers/tags';
-import Page from './page/page.component';
-import {
-  PagesWrapperStyle,
-  PagesContent
-} from './pages.style';
-import baseTheme from '../../style/themes/base';
+import React from "react";
+import PropTypes from "prop-types";
+import { TransitionGroup } from "react-transition-group";
+import { compact, assign } from "lodash";
+import { withTheme } from "styled-components";
+import tagComponent from "../../utils/helpers/tags";
+import Page from "./page/page.component";
+import { PagesWrapperStyle, PagesContent } from "./pages.style";
+import baseTheme from "../../style/themes/base";
 
-const NEXT = 'next';
-const PREVIOUS = 'previous';
+const NEXT = "next";
+const PREVIOUS = "previous";
 const TRANSITION_TIME = 500;
 
 class Pages extends React.Component {
@@ -25,13 +22,14 @@ class Pages extends React.Component {
 
   state = {
     // Currently selected page
-    pageIndex: Number(this.props.pageIndex) || Number(this.props.initialpageIndex)
+    pageIndex:
+      Number(this.props.pageIndex) || Number(this.props.initialpageIndex),
   };
 
   /** A lifecycle method that is called before re-render. */
   componentDidUpdate(prevProps) {
     if (this.props.pageIndex === prevProps.pageIndex) return;
-    if (typeof this.props.pageIndex === 'undefined') return;
+    if (typeof this.props.pageIndex === "undefined") return;
 
     const newIndex = this.verifyNewIndex(this.props.pageIndex);
     const currentIndex = this.state.pageIndex;
@@ -48,7 +46,7 @@ class Pages extends React.Component {
 
   handleStateUpdate(newIndex) {
     this.setState({
-      pageIndex: newIndex
+      pageIndex: newIndex,
     });
   }
 
@@ -69,31 +67,38 @@ class Pages extends React.Component {
 
   /** Gets the number of slides */
   numOfPages = () => {
-    return Array.isArray(this.props.children) ? compact(this.props.children).length : 1;
+    return Array.isArray(this.props.children)
+      ? compact(this.props.children).length
+      : 1;
   };
 
   /** Gets the currently visible page */
   visiblePage = () => {
     let index = this.state.pageIndex;
 
-    const visiblePage = compact(React.Children.toArray(this.props.children))[index];
+    const visiblePage = compact(React.Children.toArray(this.props.children))[
+      index
+    ];
 
     index = visiblePage.props.id || index;
 
     const additionalProps = {
       transitionName: this.transitionName,
       timeout: TRANSITION_TIME,
-      'data-element': 'visible-page',
+      "data-element": "visible-page",
       key: `carbon-page-${index}`,
-      className: visiblePage.props.className
+      className: visiblePage.props.className,
     };
 
-    return React.cloneElement(visiblePage, assign({}, visiblePage.props, additionalProps));
+    return React.cloneElement(
+      visiblePage,
+      assign({}, visiblePage.props, additionalProps)
+    );
   };
 
   /** Returns the current transition name */
   transitionName = () => {
-    if (this.props.transition === 'slide') {
+    if (this.props.transition === "slide") {
       return `slide-${this.transitionDirection}`;
     }
 
@@ -103,11 +108,15 @@ class Pages extends React.Component {
   /** Renders the Slide Component */
   render() {
     return (
-      <PagesWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-        <PagesContent className='carbon-carousel__content' theme={ this.props.theme }>
-          <TransitionGroup>
-            {this.visiblePage()}
-          </TransitionGroup>
+      <PagesWrapperStyle
+        className={this.props.className}
+        {...tagComponent("carousel", this.props)}
+      >
+        <PagesContent
+          className="carbon-carousel__content"
+          theme={this.props.theme}
+        >
+          <TransitionGroup>{this.visiblePage()}</TransitionGroup>
         </PagesContent>
       </PagesWrapperStyle>
     );
@@ -118,29 +127,20 @@ Pages.propTypes = {
   /** [legacy] Custom className */
   className: PropTypes.string,
   /** The selected tab on page load */
-  initialpageIndex: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  pageIndex: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  initialpageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  pageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Individual tabs */
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   /** Controls which transition to use. */
   transition: PropTypes.string,
   /** theme is used only to support legacy code */
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 Pages.defaultProps = {
   initialpageIndex: 0,
-  transition: 'slide',
-  theme: baseTheme
+  transition: "slide",
+  theme: baseTheme,
 };
 
 const PagesWithHOC = withTheme(Pages);

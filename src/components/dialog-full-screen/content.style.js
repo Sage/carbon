@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import FullScreenHeading from '../../__internal__/full-screen-heading/full-screen-heading.style';
-import contentClassicStyle from './content-classic.style';
+import styled, { css } from "styled-components";
+import FullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
+import contentClassicStyle from "./content-classic.style";
 
 const StyledContent = styled.div`
   overflow-y: auto;
@@ -21,7 +21,9 @@ const StyledContent = styled.div`
     }
   `}
 
-  ${({ hasHeader }) => !hasHeader && `
+  ${({ hasHeader }) =>
+    !hasHeader &&
+    `
     padding-top: 0;
     margin-top: -25px;
 
@@ -36,7 +38,7 @@ const StyledContent = styled.div`
 `;
 
 StyledContent.defaultProps = {
-  headingHeight: 0
+  headingHeight: 0,
 };
 
 export default StyledContent;

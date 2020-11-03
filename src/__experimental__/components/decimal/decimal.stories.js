@@ -1,41 +1,42 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { number, select, boolean } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import { State, Store } from "@sambego/storybook-state";
 import {
-  number, select, boolean
-} from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-import { State, Store } from '@sambego/storybook-state';
-import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import Decimal from './decimal.component';
-import { OriginalTextbox } from '../textbox';
-import { getCommonTextboxProps } from '../textbox/textbox.stories';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import { info, notes } from './documentation';
-import getDocGenInfo from '../../../utils/helpers/docgen-info';
-import guid from '../../../utils/helpers/guid';
+  dlsThemeSelector,
+  classicThemeSelector,
+} from "../../../../.storybook/theme-selectors";
+import Decimal from "./decimal.component";
+import { OriginalTextbox } from "../textbox";
+import { getCommonTextboxProps } from "../textbox/textbox.stories";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import { info, notes } from "./documentation";
+import getDocGenInfo from "../../../utils/helpers/docgen-info";
+import guid from "../../../utils/helpers/guid";
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
-  require('../textbox/docgenInfo.json'),
+  require("../textbox/docgenInfo.json"),
   /textbox\.component(?!spec)/
 );
 
 Decimal.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  require("./docgenInfo.json"),
   /decimal\.component(?!spec)/
 );
 
 const store = new Store({
-  value: '0.00'
+  value: "0.00",
 });
 
 const setValue = (ev) => {
-  action('onChange')(ev);
+  action("onChange")(ev);
   store.set({ value: ev.target.value.rawValue });
 };
 
 const previous = {
   key: guid(),
-  allowEmptyValue: false
+  allowEmptyValue: false,
 };
 
 const commonProps = () => {
@@ -43,16 +44,20 @@ const commonProps = () => {
     range: true,
     min: 0,
     max: 15,
-    step: 1
+    step: 1,
   };
   const align = select(
-    'align',
+    "align",
     OptionsHelper.alignBinary,
     Decimal.defaultProps.align
   );
-  const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
-  const autoFocus = boolean('autoFocus', false);
-  const allowEmptyValue = boolean('allowEmptyValue', false);
+  const precision = number(
+    "precision",
+    Decimal.defaultProps.precision,
+    precisionRange
+  );
+  const autoFocus = boolean("autoFocus", false);
+  const allowEmptyValue = boolean("allowEmptyValue", false);
 
   // When the allowEmptyValue knob changes we want to force the component to re-create
   // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
@@ -68,19 +73,19 @@ const commonProps = () => {
     align,
     precision,
     autoFocus,
-    allowEmptyValue
+    allowEmptyValue,
   };
 };
 
 const requiredComponent = () => {
   return (
-    <State store={ store }>
+    <State store={store}>
       <Decimal
-        { ...commonProps() }
-        { ...getCommonTextboxProps({ requiredKnob: false }) }
-        value={ store.get('value') }
-        onChange={ setValue }
-        onBlur={ action('onBlur') }
+        {...commonProps()}
+        {...getCommonTextboxProps({ requiredKnob: false })}
+        value={store.get("value")}
+        onChange={setValue}
+        onBlur={action("onBlur")}
         required
       />
     </State>
@@ -88,61 +93,61 @@ const requiredComponent = () => {
 };
 const defaultComponent = () => {
   return (
-    <State store={ store }>
+    <State store={store}>
       <Decimal
-        { ...commonProps() }
-        { ...getCommonTextboxProps() }
-        value={ store.get('value') }
-        onChange={ setValue }
-        onBlur={ action('onBlur') }
+        {...commonProps()}
+        {...getCommonTextboxProps()}
+        value={store.get("value")}
+        onChange={setValue}
+        onBlur={action("onBlur")}
       />
     </State>
   );
 };
 
 const componentWithValidations = () => {
-  const validationTypes = ['error', 'warning', 'info'];
+  const validationTypes = ["error", "warning", "info"];
   return (
     <>
       <h4>Validation as string</h4>
       <h6>On component</h6>
-      {validationTypes.map(validation => (
-        <State store={ store } key={ `${validation}-string-component` }>
+      {validationTypes.map((validation) => (
+        <State store={store} key={`${validation}-string-component`}>
           <Decimal
-            { ...commonProps() }
-            { ...getCommonTextboxProps() }
-            { ...{ [validation]: 'Message' } }
-            value={ store.get('value') }
-            onChange={ setValue }
-            onBlur={ action('onBlur') }
+            {...commonProps()}
+            {...getCommonTextboxProps()}
+            {...{ [validation]: "Message" }}
+            value={store.get("value")}
+            onChange={setValue}
+            onBlur={action("onBlur")}
           />
         </State>
       ))}
       <h6>On label</h6>
-      {validationTypes.map(validation => (
-        <State store={ store } key={ `${validation}-string-label` }>
+      {validationTypes.map((validation) => (
+        <State store={store} key={`${validation}-string-label`}>
           <Decimal
-            { ...commonProps() }
-            { ...getCommonTextboxProps() }
-            { ...{ [validation]: 'Message' } }
+            {...commonProps()}
+            {...getCommonTextboxProps()}
+            {...{ [validation]: "Message" }}
             validationOnLabel
-            value={ store.get('value') }
-            onChange={ setValue }
-            onBlur={ action('onBlur') }
+            value={store.get("value")}
+            onChange={setValue}
+            onBlur={action("onBlur")}
           />
         </State>
       ))}
 
       <h4>Validation as boolean</h4>
-      {validationTypes.map(validation => (
-        <State store={ store } key={ `${validation}-boolean` }>
+      {validationTypes.map((validation) => (
+        <State store={store} key={`${validation}-boolean`}>
           <Decimal
-            { ...commonProps() }
-            { ...getCommonTextboxProps() }
-            { ...{ [validation]: true } }
-            value={ store.get('value') }
-            onChange={ setValue }
-            onBlur={ action('onBlur') }
+            {...commonProps()}
+            {...getCommonTextboxProps()}
+            {...{ [validation]: true }}
+            value={store.get("value")}
+            onChange={setValue}
+            onBlur={action("onBlur")}
           />
         </State>
       ))}
@@ -151,7 +156,7 @@ const componentWithValidations = () => {
 };
 
 const autoFocusComponent = () => {
-  boolean('autoFocus', true);
+  boolean("autoFocus", true);
   return defaultComponent();
 };
 
@@ -161,22 +166,22 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     chromatic: {
-      disable: disableChromatic
-    }
+      disable: disableChromatic,
+    },
   };
 
   return [name, component, metadata];
 }
 
-storiesOf('Experimental/Decimal Input', module)
+storiesOf("Experimental/Decimal Input", module)
   .addParameters({
     info: {
       text: info,
-      propTables: [Decimal, OriginalTextbox]
-    }
+      propTables: [Decimal, OriginalTextbox],
+    },
   })
-  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
-  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations))
-  .add(...makeStory('required', dlsThemeSelector, requiredComponent));
+  .add(...makeStory("default", dlsThemeSelector, defaultComponent))
+  .add(...makeStory("classic", classicThemeSelector, defaultComponent, true))
+  .add(...makeStory("autoFocus", dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory("validations", dlsThemeSelector, componentWithValidations))
+  .add(...makeStory("required", dlsThemeSelector, requiredComponent));

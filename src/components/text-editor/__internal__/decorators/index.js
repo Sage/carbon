@@ -1,8 +1,4 @@
-import {
-  CompositeDecorator
-} from 'draft-js';
-import linkDecorator from './link-decorator';
+import { CompositeDecorator } from "draft-js";
+import linkDecorator from "./link-decorator";
 
-export default new CompositeDecorator([
-  linkDecorator
-]);
+export default new CompositeDecorator([linkDecorator]);

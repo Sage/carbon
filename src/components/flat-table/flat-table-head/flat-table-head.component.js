@@ -1,17 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StyledFlatTableHead from './flat-table-head.style';
+import React from "react";
+import PropTypes from "prop-types";
+import StyledFlatTableHead from "./flat-table-head.style";
 
 const FlatTableHead = ({ children }) => {
-  return (
-    <StyledFlatTableHead>
-      { children }
-    </StyledFlatTableHead>
-  );
+  return <StyledFlatTableHead>{children}</StyledFlatTableHead>;
 };
 
 FlatTableHead.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default FlatTableHead;

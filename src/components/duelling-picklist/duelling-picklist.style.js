@@ -1,14 +1,16 @@
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
 
 const StyledDuellingPicklistOverlay = styled.div`
-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 
-  ${({ disabled }) => disabled && css`
-    opacity: 0.2;
-    pointer-events: none;
-    user-select: none;
-  `}
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.2;
+      pointer-events: none;
+      user-select: none;
+    `}
 `;
 
 const StyledDuellingPicklist = styled.div`
@@ -50,7 +52,11 @@ const StyledControl = styled.div`
 
 const StyledPicklistDivider = styled.div`
   min-width: 2px;
-  background-image: linear-gradient(180deg, #BFCBD1 0%, rgba(191, 203, 209, 0) 99.9%);
+  background-image: linear-gradient(
+    180deg,
+    #bfcbd1 0%,
+    rgba(191, 203, 209, 0) 99.9%
+  );
   margin-left: 40px;
   margin-right: 40px;
 `;
@@ -95,14 +101,15 @@ const StyledPicklistPlaceholder = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 `;
 
 const StyledPicklistItem = styled.li`
   display: flex;
   align-items: center;
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 20, 29, 0.15), 0 3px 3px 0 rgba(0, 20, 29, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 20, 29, 0.15),
+    0 3px 3px 0 rgba(0, 20, 29, 0.2);
   background-color: ${({ theme }) => theme.colors.white};
 
   &:focus {
@@ -117,12 +124,12 @@ const StyledPicklistItem = styled.li`
 const colors = {
   background: {
     add: ({ theme }) => theme.colors.primary,
-    remove: ({ theme }) => theme.colors.error
+    remove: ({ theme }) => theme.colors.error,
   },
   hoverBackground: {
     add: ({ theme }) => theme.colors.secondary,
-    remove: ({ theme }) => theme.colors.destructive.hover
-  }
+    remove: ({ theme }) => theme.colors.destructive.hover,
+  },
 };
 
 const StyledButton = styled.button`
@@ -162,5 +169,5 @@ export {
   StyledPicklistPlaceholder,
   StyledPicklistDivider,
   StyledPicklistItem,
-  StyledButton
+  StyledButton,
 };

@@ -1,5 +1,5 @@
-import Request from 'superagent';
-import Logger from '../../logger';
+import Request from "superagent";
+import Logger from "../../logger";
 
 /**
  * A helper to make poll an endpoint with a GET request
@@ -59,8 +59,7 @@ export default (queryOptions, functions, options) => {
       funcs.onMaxRetries();
       return;
     }
-    Request
-      .get(queryOpts.url)
+    Request.get(queryOpts.url)
       .query(queryOpts.data)
       .set(queryOpts.headers)
       .end((err, response) => {
@@ -84,7 +83,7 @@ export default (queryOptions, functions, options) => {
 
         return result;
       });
-  }());
+  })();
 };
 
 /**
@@ -97,7 +96,7 @@ function getQueryOptions(queryOptions) {
   return {
     url: queryOptions.url,
     data: queryOptions.data || {},
-    headers: queryOptions.headers || {}
+    headers: queryOptions.headers || {},
   };
 }
 
@@ -111,7 +110,7 @@ function getOptions(options) {
   return {
     interval: options.interval || 3000,
     endTime: Date.now() + options.endTime || Infinity,
-    retries: options.retries || Infinity
+    retries: options.retries || Infinity,
   };
 }
 
@@ -125,12 +124,26 @@ function getFunctions(functions) {
   return {
     callback: functions.callback || null,
     handleError: functions.handleError || null,
-    conditionMet: functions.conditionMet || (() => { return false; }),
-    conditionNotMetCallback: functions.conditionNotMetCallback || (() => { return false; }),
-    terminate: functions.terminate || (() => { return false; }),
-    onMaxRetries: functions.onMaxRetries || (() => {
-      Logger.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
-    })
+    conditionMet:
+      functions.conditionMet ||
+      (() => {
+        return false;
+      }),
+    conditionNotMetCallback:
+      functions.conditionNotMetCallback ||
+      (() => {
+        return false;
+      }),
+    terminate:
+      functions.terminate ||
+      (() => {
+        return false;
+      }),
+    onMaxRetries:
+      functions.onMaxRetries ||
+      (() => {
+        Logger.warn("The poller has made too many requests - terminating poll"); // eslint-disable-line no-console
+      }),
   };
 }
 
@@ -141,13 +154,17 @@ function getFunctions(functions) {
  * @return {Boolean}
  */
 function setupValid(queryOptions, functions) {
-  if (queryOptions === null || typeof queryOptions.url === 'undefined') {
-    Logger.error('You must provide a url to the poller'); // eslint-disable-line no-console
+  if (queryOptions === null || typeof queryOptions.url === "undefined") {
+    Logger.error("You must provide a url to the poller"); // eslint-disable-line no-console
     return false;
   }
 
-  if (typeof functions.conditionMet !== 'undefined' && typeof functions.callback === 'undefined') {
-    const msg = 'You must provide a callback function if you are testing a condition with conditionMet';
+  if (
+    typeof functions.conditionMet !== "undefined" &&
+    typeof functions.callback === "undefined"
+  ) {
+    const msg =
+      "You must provide a callback function if you are testing a condition with conditionMet";
     Logger.error(msg); // eslint-disable-line no-console
     return false;
   }

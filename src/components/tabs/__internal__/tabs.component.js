@@ -4,31 +4,31 @@ import React, {
   useEffect,
   useLayoutEffect,
   useRef,
-  useState
-} from 'react';
-import PropTypes from 'prop-types';
-import Tab from './tab';
-import Event from '../../../utils/helpers/events/events';
-import tagComponent from '../../../utils/helpers/tags/tags';
-import Browser from '../../../utils/helpers/browser/browser';
-import StyledTabs from './tabs.style';
-import TabsHeader from './tabs-header';
-import TabTitle from './tab-title';
-import { SidebarContext } from '../../drawer';
+  useState,
+} from "react";
+import PropTypes from "prop-types";
+import Tab from "./tab";
+import Event from "../../../utils/helpers/events/events";
+import tagComponent from "../../../utils/helpers/tags/tags";
+import Browser from "../../../utils/helpers/browser/browser";
+import StyledTabs from "./tabs.style";
+import TabsHeader from "./tabs-header";
+import TabTitle from "./tab-title";
+import { SidebarContext } from "../../drawer";
 
 const Tabs = ({
-  align = 'left',
+  align = "left",
   className,
   children,
   onTabChange,
   selectedTabId,
   renderHiddenTabs = true,
-  position = 'top',
+  position = "top",
   setLocation = true,
   extendedLine = true,
-  size = 'default',
-  borders = 'off',
-  variant = 'default',
+  size = "default",
+  borders = "off",
+  variant = "default",
   validationStatusOverride,
   ...rest
 }) => {
@@ -52,7 +52,7 @@ const Tabs = ({
         const hash = _window.location.hash.substring(1);
 
         if (Array.isArray(children)) {
-          const filteredChildren = children.filter(child => child);
+          const filteredChildren = children.filter((child) => child);
           let useHash = false;
 
           if (hash) {
@@ -103,25 +103,35 @@ const Tabs = ({
   );
 
   /** Updates the currently visible tab */
-  const updateVisibleTab = useCallback((tabid) => {
-    if (setLocation && !sidebarContext) {
-      const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
-      _window.history.replaceState(null, 'change-tab', url);
-    }
+  const updateVisibleTab = useCallback(
+    (tabid) => {
+      if (setLocation && !sidebarContext) {
+        const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
+        _window.history.replaceState(null, "change-tab", url);
+      }
 
-    setSelectedTabIdState(tabid);
+      setSelectedTabIdState(tabid);
 
-    if (onTabChange) {
-      onTabChange(tabid);
-    }
-  }, [_window.history, _window.location.origin, _window.location.pathname, sidebarContext, onTabChange, setLocation]);
+      if (onTabChange) {
+        onTabChange(tabid);
+      }
+    },
+    [
+      _window.history,
+      _window.location.origin,
+      _window.location.pathname,
+      sidebarContext,
+      onTabChange,
+      setLocation,
+    ]
+  );
 
   /** Determines if the tab titles are in a vertical format. */
-  const isVertical = currentPosition => currentPosition === 'left';
+  const isVertical = (currentPosition) => currentPosition === "left";
 
   /** Handles the changing of tabs with the mouse */
   const handleTabClick = (ev) => {
-    if (Event.isEventType(ev, 'keydown')) {
+    if (Event.isEventType(ev, "keydown")) {
       return;
     }
 
@@ -130,14 +140,15 @@ const Tabs = ({
   };
 
   /** Focuses the tab for the reference specified */
-  const focusTab = ref => ref.focus();
+  const focusTab = (ref) => ref.focus();
 
   /** The children nodes converted into an Array */
-  const filteredChildren = () => React.Children.toArray(children).filter(child => child);
+  const filteredChildren = () =>
+    React.Children.toArray(children).filter((child) => child);
 
   /** Array of the tabIds for the child nodes */
   const tabIds = () => {
-    return filteredChildren().map(child => child.props.tabId);
+    return filteredChildren().map((child) => child.props.tabId);
   };
 
   /** Will trigger the tab at the given index. */
@@ -175,7 +186,7 @@ const Tabs = ({
   };
 
   /** Returns true/false for if the given tab id is selected. */
-  const isTabSelected = tabId => tabId === selectedTabIdState;
+  const isTabSelected = (tabId) => tabId === selectedTabIdState;
 
   const addRef = (ref) => {
     if (ref && !tabRefs.current.includes(ref)) {
@@ -194,54 +205,69 @@ const Tabs = ({
         errorMessage,
         warningMessage,
         infoMessage,
-        customLayout
+        customLayout,
       } = child.props;
       const refId = `${tabId}-tab`;
 
-      const errors = tabsErrors[tabId] ? Object.entries(tabsErrors[tabId]).filter(tab => tab[1] === true).length : 0;
-      const warnings = (
-        tabsWarnings[tabId] ? Object.entries(tabsWarnings[tabId]).filter(tab => tab[1] === true).length : 0
-      );
-      const infos = (
-        tabsInfos[tabId] ? Object.entries(tabsInfos[tabId]).filter(tab => tab[1] === true).length : 0
-      );
+      const errors = tabsErrors[tabId]
+        ? Object.entries(tabsErrors[tabId]).filter((tab) => tab[1] === true)
+            .length
+        : 0;
+      const warnings = tabsWarnings[tabId]
+        ? Object.entries(tabsWarnings[tabId]).filter((tab) => tab[1] === true)
+            .length
+        : 0;
+      const infos = tabsInfos[tabId]
+        ? Object.entries(tabsInfos[tabId]).filter((tab) => tab[1] === true)
+            .length
+        : 0;
 
-      const hasOverride = validationStatusOverride && validationStatusOverride[tabId];
-      const errorOverride = hasOverride && validationStatusOverride[tabId].error;
-      const warningOverride = hasOverride && validationStatusOverride[tabId].warning;
+      const hasOverride =
+        validationStatusOverride && validationStatusOverride[tabId];
+      const errorOverride =
+        hasOverride && validationStatusOverride[tabId].error;
+      const warningOverride =
+        hasOverride && validationStatusOverride[tabId].warning;
       const infoOverride = hasOverride && validationStatusOverride[tabId].info;
-      const tabHasError = errorOverride !== undefined ? errorOverride : errors > 0;
-      const tabHasWarning = warningOverride !== undefined ? warningOverride : (warnings > 0 && !tabHasError);
-      const tabHasInfo = infoOverride !== undefined ? infoOverride : (infos > 0 && !tabHasError && !tabHasWarning);
+      const tabHasError =
+        errorOverride !== undefined ? errorOverride : errors > 0;
+      const tabHasWarning =
+        warningOverride !== undefined
+          ? warningOverride
+          : warnings > 0 && !tabHasError;
+      const tabHasInfo =
+        infoOverride !== undefined
+          ? infoOverride
+          : infos > 0 && !tabHasError && !tabHasWarning;
 
       const tabTitle = (
         <TabTitle
-          position={ sidebarContext ? 'left' : position }
-          className={ child.props.className || '' }
-          dataTabId={ tabId }
-          id={ refId }
-          key={ tabId }
-          onClick={ handleTabClick }
-          onKeyDown={ handleKeyDown(index) }
-          ref={ node => addRef(node) }
-          tabIndex={ isTabSelected(tabId) ? '0' : '-1' }
-          title={ title }
-          isTabSelected={ isTabSelected(tabId) }
-          error={ tabHasError }
-          warning={ tabHasWarning }
-          info={ tabHasInfo }
-          size={ size }
-          borders={ borders !== 'off' }
-          siblings={ siblings }
-          titlePosition={ titlePosition }
-          errorMessage={ errorMessage }
-          warningMessage={ warningMessage }
-          infoMessage={ infoMessage }
-          alternateStyling={ variant === 'alternate' }
-          noLeftBorder={ ['no left side', 'no sides'].includes(borders) }
-          noRightBorder={ ['no right side', 'no sides'].includes(borders) }
-          customLayout={ customLayout }
-          isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
+          position={sidebarContext ? "left" : position}
+          className={child.props.className || ""}
+          dataTabId={tabId}
+          id={refId}
+          key={tabId}
+          onClick={handleTabClick}
+          onKeyDown={handleKeyDown(index)}
+          ref={(node) => addRef(node)}
+          tabIndex={isTabSelected(tabId) ? "0" : "-1"}
+          title={title}
+          isTabSelected={isTabSelected(tabId)}
+          error={tabHasError}
+          warning={tabHasWarning}
+          info={tabHasInfo}
+          size={size}
+          borders={borders !== "off"}
+          siblings={siblings}
+          titlePosition={titlePosition}
+          errorMessage={errorMessage}
+          warningMessage={warningMessage}
+          infoMessage={infoMessage}
+          alternateStyling={variant === "alternate"}
+          noLeftBorder={["no left side", "no sides"].includes(borders)}
+          noRightBorder={["no right side", "no sides"].includes(borders)}
+          customLayout={customLayout}
+          isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
         />
       );
 
@@ -250,15 +276,15 @@ const Tabs = ({
 
     return (
       <TabsHeader
-        align={ align }
-        position={ sidebarContext ? 'left' : position }
-        role='tablist'
-        extendedLine={ extendedLine }
-        alternateStyling={ variant === 'alternate' || !!sidebarContext }
-        noRightBorder={ ['no right side', 'no sides'].includes(borders) }
-        isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
+        align={align}
+        position={sidebarContext ? "left" : position}
+        role="tablist"
+        extendedLine={extendedLine}
+        alternateStyling={variant === "alternate" || !!sidebarContext}
+        noRightBorder={["no right side", "no sides"].includes(borders)}
+        isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
       >
-        { tabTitles }
+        {tabTitles}
       </TabsHeader>
     );
   };
@@ -273,7 +299,11 @@ const Tabs = ({
       }
     });
 
-    return tab ? React.cloneElement(tab, { isTabSelected: isTabSelected(tab.props.tabId) }) : null;
+    return tab
+      ? React.cloneElement(tab, {
+          isTabSelected: isTabSelected(tab.props.tabId),
+        })
+      : null;
   };
 
   /** Builds all tabs where non selected tabs have class of hidden */
@@ -285,19 +315,17 @@ const Tabs = ({
     }
 
     const tabs = filteredChildren().map((child) => {
-      return (
-        React.cloneElement(child, {
-          ...child.props,
-          role: 'tabpanel',
-          position,
-          isTabSelected: isTabSelected(child.props.tabId),
-          key: `${child.props.tabId}-tab`,
-          ariaLabelledby: `${child.props.tabId}-tab`,
-          updateErrors,
-          updateWarnings,
-          updateInfos
-        })
-      );
+      return React.cloneElement(child, {
+        ...child.props,
+        role: "tabpanel",
+        position,
+        isTabSelected: isTabSelected(child.props.tabId),
+        key: `${child.props.tabId}-tab`,
+        ariaLabelledby: `${child.props.tabId}-tab`,
+        updateErrors,
+        updateWarnings,
+        updateInfos,
+      });
     });
 
     return tabs;
@@ -310,20 +338,24 @@ const Tabs = ({
       }
       previousSelectedTabId.current = selectedTabId;
     }
-  }, [previousSelectedTabId, selectedTabId, selectedTabIdState, updateVisibleTab]);
+  }, [
+    previousSelectedTabId,
+    selectedTabId,
+    selectedTabIdState,
+    updateVisibleTab,
+  ]);
 
   return (
     <StyledTabs
-      className={ className }
-      position={ sidebarContext ? 'left' : position }
-      updateErrors={ updateErrors }
-      updateWarnings={ updateWarnings }
-      { ...tagComponent('tabs', rest) }
-      isInSidebar={ Boolean(sidebarContext && sidebarContext.isInSidebar) }
-
+      className={className}
+      position={sidebarContext ? "left" : position}
+      updateErrors={updateErrors}
+      updateWarnings={updateWarnings}
+      {...tagComponent("tabs", rest)}
+      isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
     >
-      { renderTabHeaders() }
-      { renderTabs() }
+      {renderTabHeaders()}
+      {renderTabs()}
     </StyledTabs>
   );
 };
@@ -338,31 +370,37 @@ Tabs.propTypes = {
   /** The child elements of Tabs need to be Tab components. */
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   /** Sets the alignment of the tab titles. Possible values include. */
-  align: PropTypes.oneOf(['left', 'right']),
+  align: PropTypes.oneOf(["left", "right"]),
   /** A callback for when a tab is changed. You can use this to manually control
    * tab changing or to fire other events when a tab is changed. */
   onTabChange: PropTypes.func,
   /** The position of the tab title. */
-  position: PropTypes.oneOf(['top', 'left']),
+  position: PropTypes.oneOf(["top", "left"]),
   /** Sets the selected tabId in the URL. */
   setLocation: PropTypes.bool,
   /** Sets size of the tab titles. */
-  size: PropTypes.oneOf(['default', 'large']),
+  size: PropTypes.oneOf(["default", "large"]),
   /** Sets the divider of the tab titles header to extend the full width of the parent. */
   extendedLine: PropTypes.bool,
   /** Adds a combination of borders to the tab titles. */
-  borders: PropTypes.oneOf(['off', 'on', 'no left side', 'no right side', 'no sides']),
+  borders: PropTypes.oneOf([
+    "off",
+    "on",
+    "no left side",
+    "no right side",
+    "no sides",
+  ]),
   /** Adds an alternate styling variant to the tab titles. */
-  variant: PropTypes.oneOf(['default', 'alternate']),
+  variant: PropTypes.oneOf(["default", "alternate"]),
   /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
    * The `id` property should match the `tabId`s for the rendered Tabs. */
   validationStatusOverride: PropTypes.shape({
     id: PropTypes.shape({
       error: PropTypes.bool,
       warning: PropTypes.bool,
-      info: PropTypes.bool
-    })
-  })
+      info: PropTypes.bool,
+    }),
+  }),
 };
 
 export { Tabs, Tab };

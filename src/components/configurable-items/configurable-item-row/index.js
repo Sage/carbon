@@ -1,1 +1,1 @@
-export { default } from './configurable-item-row.component';
+export { default } from "./configurable-item-row.component";

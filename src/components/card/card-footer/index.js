@@ -1,1 +1,1 @@
-export { default } from './card-footer.component';
+export { default } from "./card-footer.component";

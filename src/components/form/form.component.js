@@ -1,18 +1,16 @@
-import React, {
-  useState, useRef, useEffect, useCallback
-} from 'react';
-import PropTypes from 'prop-types';
-import throttle from 'lodash/throttle';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import throttle from "lodash/throttle";
 
-import ElementResize from '../../utils/helpers/element-resize';
+import ElementResize from "../../utils/helpers/element-resize";
 
-import FormSummary from './form-summary.component';
+import FormSummary from "./form-summary.component";
 import {
   StyledForm,
   StyledFormFooter,
   StyledLeftButtons,
-  StyledRightButtons
-} from './form.style';
+  StyledRightButtons,
+} from "./form.style";
 
 const SCROLL_THROTTLE = 100;
 
@@ -24,7 +22,7 @@ const Form = ({
   errorCount,
   warningCount,
   onSubmit,
-  buttonAlignment = 'right',
+  buttonAlignment = "right",
   stickyFooter,
   fieldSpacing = 3,
   noValidate = true,
@@ -38,33 +36,38 @@ const Form = ({
 
   const stickyListenersAddedRef = useRef(false);
 
-  const checkStickyFooter = useCallback(throttle(() => {
-    const footerHeight = formFooterRef.current.offsetHeight;
-    const topVisibilityOffset = 40;
-    const { top, bottom } = formRef.current.getBoundingClientRect();
+  const checkStickyFooter = useCallback(
+    throttle(() => {
+      const footerHeight = formFooterRef.current.offsetHeight;
+      const topVisibilityOffset = 40;
+      const { top, bottom } = formRef.current.getBoundingClientRect();
 
-    const isBottomBelowScreen = bottom - (footerHeight / 2) > window.innerHeight;
-    const isBottomAboveScreen = bottom + (footerHeight / 2) < window.innerHeight;
-    const isTopAboveScreen = top + topVisibilityOffset < window.innerHeight;
+      const isBottomBelowScreen =
+        bottom - footerHeight / 2 > window.innerHeight;
+      const isBottomAboveScreen =
+        bottom + footerHeight / 2 < window.innerHeight;
+      const isTopAboveScreen = top + topVisibilityOffset < window.innerHeight;
 
-    if (isBottomBelowScreen && isTopAboveScreen) {
-      setIsFooterSticky(true);
-    } else if (isBottomAboveScreen || !isTopAboveScreen) {
-      setIsFooterSticky(false);
-    }
-  }, SCROLL_THROTTLE), []);
+      if (isBottomBelowScreen && isTopAboveScreen) {
+        setIsFooterSticky(true);
+      } else if (isBottomAboveScreen || !isTopAboveScreen) {
+        setIsFooterSticky(false);
+      }
+    }, SCROLL_THROTTLE),
+    []
+  );
 
   const addStickyFooterListeners = useCallback(() => {
     ElementResize.addListener(formRef.current, checkStickyFooter);
-    window.addEventListener('resize', checkStickyFooter, true);
-    window.addEventListener('scroll', checkStickyFooter, true);
+    window.addEventListener("resize", checkStickyFooter, true);
+    window.addEventListener("scroll", checkStickyFooter, true);
     stickyListenersAddedRef.current = true;
   }, [checkStickyFooter]);
 
   const removeStickyFooterListeners = useCallback(() => {
     ElementResize.removeListener(formRef.current, checkStickyFooter);
-    window.removeEventListener('resize', checkStickyFooter, true);
-    window.removeEventListener('scroll', checkStickyFooter, true);
+    window.removeEventListener("resize", checkStickyFooter, true);
+    window.removeEventListener("scroll", checkStickyFooter, true);
     stickyListenersAddedRef.current = false;
   }, [checkStickyFooter]);
 
@@ -74,39 +77,44 @@ const Form = ({
       checkStickyFooter();
     }
     return () => removeStickyFooterListeners();
-  }, [addStickyFooterListeners, checkStickyFooter, removeStickyFooterListeners, stickyFooter]);
+  }, [
+    addStickyFooterListeners,
+    checkStickyFooter,
+    removeStickyFooterListeners,
+    stickyFooter,
+  ]);
 
   return (
     <StyledForm
-      ref={ formRef }
-      stickyFooter={ stickyFooter && isFooterSticky }
-      onSubmit={ onSubmit }
-      data-component='form'
-      fieldSpacing={ fieldSpacing }
-      noValidate={ noValidate }
-      { ...rest }
+      ref={formRef}
+      stickyFooter={stickyFooter && isFooterSticky}
+      onSubmit={onSubmit}
+      data-component="form"
+      fieldSpacing={fieldSpacing}
+      noValidate={noValidate}
+      {...rest}
     >
-      { children }
+      {children}
       <StyledFormFooter
-        data-element='form-footer'
-        className={ isFooterSticky ? 'isSticky' : '' }
-        ref={ formFooterRef }
-        stickyFooter={ isFooterSticky }
-        buttonAlignment={ buttonAlignment }
+        data-element="form-footer"
+        className={isFooterSticky ? "sticky" : ""}
+        ref={formFooterRef}
+        stickyFooter={isFooterSticky}
+        buttonAlignment={buttonAlignment}
       >
         {leftSideButtons && (
-          <StyledLeftButtons buttonAlignment={ buttonAlignment }>
-            { leftSideButtons }
+          <StyledLeftButtons buttonAlignment={buttonAlignment}>
+            {leftSideButtons}
           </StyledLeftButtons>
         )}
 
-        <FormSummary errors={ errorCount } warnings={ warningCount }>
+        <FormSummary errors={errorCount} warnings={warningCount}>
           {saveButton}
         </FormSummary>
 
         {rightSideButtons && (
-          <StyledRightButtons buttonAlignment={ buttonAlignment }>
-            { rightSideButtons }
+          <StyledRightButtons buttonAlignment={buttonAlignment}>
+            {rightSideButtons}
           </StyledRightButtons>
         )}
       </StyledFormFooter>
@@ -116,7 +124,7 @@ const Form = ({
 
 Form.propTypes = {
   /** Alignment of buttons */
-  buttonAlignment: PropTypes.oneOf(['left', 'right']),
+  buttonAlignment: PropTypes.oneOf(["left", "right"]),
 
   /** Enables the sticky footer. */
   stickyFooter: PropTypes.bool,
@@ -146,7 +154,7 @@ Form.propTypes = {
   fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
 
   /** Disable HTML5 validation */
-  noValidate: PropTypes.bool
+  noValidate: PropTypes.bool,
 };
 
 export default Form;

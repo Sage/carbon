@@ -1,1 +1,1 @@
-export { default } from './label-wrapper.component';
+export { default } from "./label-wrapper.component";

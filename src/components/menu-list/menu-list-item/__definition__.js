@@ -1,15 +1,15 @@
-import MenuListItem from './';
-import Definition from './../../../../demo/utils/definition';
+import MenuListItem from "./";
+import Definition from "./../../../../demo/utils/definition";
 
-let definition = new Definition('menu-list-item', MenuListItem, {
+let definition = new Definition("menu-list-item", MenuListItem, {
   propTypes: {
     children: "Node",
-    className: "String"
+    className: "String",
   },
   propDescriptions: {
     children: "This component supports children.",
-    className: "Classes for the component."
-  }
+    className: "Classes for the component.",
+  },
 });
 
 export default definition;

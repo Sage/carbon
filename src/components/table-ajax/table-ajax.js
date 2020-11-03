@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
-import Request from 'superagent';
-import serialize from '../../utils/helpers/serialize';
+import PropTypes from "prop-types";
+import Request from "superagent";
+import serialize from "../../utils/helpers/serialize";
 import {
-  Table, TableRow, TableCell, TableHeader, TableSubheader
-} from '../table';
-import Logger from '../../utils/logger';
+  Table,
+  TableRow,
+  TableCell,
+  TableHeader,
+  TableSubheader,
+} from "../table";
+import Logger from "../../utils/logger";
 
 class TableAjax extends Table {
   /**
@@ -111,12 +115,12 @@ class TableAjax extends Table {
      * @property withCredentials
      * @type: {Boolean}
      */
-    withCredentials: PropTypes.bool
-  }
+    withCredentials: PropTypes.bool,
+  };
 
   static defaultProps = {
-    paginate: true
-  }
+    paginate: true,
+  };
 
   state = {
     /**
@@ -126,7 +130,7 @@ class TableAjax extends Table {
      * @property currentPage
      * @type {String}
      */
-    currentPage: this.props.currentPage || '1',
+    currentPage: this.props.currentPage || "1",
 
     /**
      * The current value of the data-state property
@@ -134,7 +138,7 @@ class TableAjax extends Table {
      * @property dataState
      * @type {String}
      */
-    dataState: 'idle',
+    dataState: "idle",
 
     /**
      * Pagination
@@ -161,7 +165,7 @@ class TableAjax extends Table {
      * @property sortOrder
      * @type {String}
      */
-    sortOrder: this.props.sortOrder || '',
+    sortOrder: this.props.sortOrder || "",
 
     /**
      * Sorting
@@ -170,8 +174,7 @@ class TableAjax extends Table {
      * @property sortedColumn
      * @type {String}
      */
-    sortedColumn: this.props.sortedColumn || ''
-
+    sortedColumn: this.props.sortedColumn || "",
   };
 
   /**
@@ -183,7 +186,7 @@ class TableAjax extends Table {
    */
   componentDidMount() {
     super.componentDidMount();
-    this.emitOnChangeCallback('data', this.emitOptions(), 0);
+    this.emitOnChangeCallback("data", this.emitOptions(), 0);
   }
 
   /**
@@ -198,7 +201,7 @@ class TableAjax extends Table {
    */
   componentDidUpdate(prevProps, prevState) {
     if (this.state.pageSize !== prevState.pageSize) {
-      this.emitOnChangeCallback('data', this.emitOptions());
+      this.emitOnChangeCallback("data", this.emitOptions());
     }
     this.resizeTable();
   }
@@ -249,8 +252,8 @@ class TableAjax extends Table {
     highlightRow: PropTypes.func, // a callback function for when a row is highlighted
     selectable: PropTypes.bool, // table can enable all rows to be selectable
     sortOrder: PropTypes.string, // the current sort order applied
-    sortedColumn: PropTypes.string // the currently sorted column
-  }
+    sortedColumn: PropTypes.string, // the currently sorted column
+  };
 
   /**
    * Returns table object to child components.
@@ -272,9 +275,9 @@ class TableAjax extends Table {
       selectRow: this.selectRow,
       highlightRow: this.highlightRow,
       sortedColumn: this.sortedColumn,
-      sortOrder: this.sortOrder
+      sortOrder: this.sortOrder,
     };
-  }
+  };
 
   /**
    * Get pageSize for table
@@ -324,21 +327,21 @@ class TableAjax extends Table {
     }
 
     const resetHeight = Number(options.pageSize) < Number(this.pageSize),
-        currentPage = (element === 'filter') ? '1' : options.currentPage;
+      currentPage = element === "filter" ? "1" : options.currentPage;
 
     this.setState({
       currentPage,
       pageSize: options.pageSize,
       sortOrder: options.sortOrder,
-      sortedColumn: options.sortedColumn
+      sortedColumn: options.sortedColumn,
     });
 
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       // track the request incase we need to abort it
       this.setState({
-        dataState: 'requested',
-        ariaBusy: true
+        dataState: "requested",
+        ariaBusy: true,
       });
 
       if (this.props.postAction) {
@@ -356,10 +359,12 @@ class TableAjax extends Table {
       this._request.end((err, response) => {
         this._hasRetreivedData = true;
         this.handleResponse(err, response);
-        if (resetHeight) { this.resetTableHeight(); }
+        if (resetHeight) {
+          this.resetTableHeight();
+        }
       });
     }, timeout);
-  }
+  };
 
   /**
    * Clears the ajax timeout if present
@@ -375,7 +380,7 @@ class TableAjax extends Table {
     if (this._request) {
       this._request.abort();
     }
-  }
+  };
 
   /**
    * Handles what happens with response.
@@ -386,9 +391,15 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
-      const data = this.props.formatResponse ? this.props.formatResponse(response.body) : response.body;
+      const data = this.props.formatResponse
+        ? this.props.formatResponse(response.body)
+        : response.body;
       this.props.onChange(data);
-      this.setState({ totalRecords: Number(data.records), dataState: 'loaded', ariaBusy: false });
+      this.setState({
+        totalRecords: Number(data.records),
+        dataState: "loaded",
+        ariaBusy: false,
+      });
     } else if (this.props.onAjaxError) {
       this.setComponentTagsErrored();
       this.props.onAjaxError(err, response);
@@ -396,10 +407,10 @@ class TableAjax extends Table {
       this.setComponentTagsErrored();
       Logger.warn(`${err.status} - ${response}`);
     }
-  }
+  };
 
   setComponentTagsErrored() {
-    this.setState({ dataState: 'errored', ariaBusy: false });
+    this.setState({ dataState: "errored", ariaBusy: false });
   }
 
   /**
@@ -412,10 +423,14 @@ class TableAjax extends Table {
    */
   queryParams = (element, options) => {
     const query = options.filter || {};
-    query.page = (element === 'filter') ? '1' : options.currentPage;
+    query.page = element === "filter" ? "1" : options.currentPage;
     query.rows = options.pageSize;
-    if (options.sortOrder) { query.sord = options.sortOrder; }
-    if (options.sortedColumn) { query.sidx = options.sortedColumn; }
+    if (options.sortOrder) {
+      query.sord = options.sortOrder;
+    }
+    if (options.sortedColumn) {
+      query.sidx = options.sortedColumn;
+    }
 
     if (this.props.postAction) {
       return query;
@@ -425,7 +440,7 @@ class TableAjax extends Table {
       return serialize(this.props.formatRequest(query));
     }
     return serialize(query);
-  }
+  };
 
   /**
    * Retrieve headers to use for the request
@@ -433,8 +448,10 @@ class TableAjax extends Table {
    * @method getHeaders
    */
   getHeaders = () => {
-    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { Accept: 'application/json' };
-  }
+    return this.props.getCustomHeaders
+      ? this.props.getCustomHeaders()
+      : { Accept: "application/json" };
+  };
 
   /**
    * Base Options to be emitted by onChange
@@ -449,9 +466,9 @@ class TableAjax extends Table {
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: this.state.pageSize,
       sortedColumn: this.state.sortedColumn,
-      sortOrder: this.state.sortOrder
+      sortOrder: this.state.sortOrder,
     };
-  }
+  };
 
   /**
    * Props to pass to pager component
@@ -467,7 +484,7 @@ class TableAjax extends Table {
       totalRecords: this.state.totalRecords,
       onPagination: this.onPagination,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
-      showPageSizeSelection: this.props.showPageSizeSelection
+      showPageSizeSelection: this.props.showPageSizeSelection,
     };
   }
 
@@ -476,18 +493,14 @@ class TableAjax extends Table {
    */
   dataState = () => {
     return this.state.dataState;
-  }
+  };
 
   /**
    * The name used for the data-component attribute
    */
-  get dataComponent() { return 'table-ajax'; }
+  get dataComponent() {
+    return "table-ajax";
+  }
 }
 
-export {
-  TableAjax,
-  TableRow,
-  TableCell,
-  TableHeader,
-  TableSubheader
-};
+export { TableAjax, TableRow, TableCell, TableHeader, TableSubheader };

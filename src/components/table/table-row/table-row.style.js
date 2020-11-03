@@ -1,22 +1,22 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import StyledTableCell from '../table-cell/table-cell.style';
-import StyledTableHeader from '../table-header/table-header.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import StyledTableCell from "../table-cell/table-cell.style";
+import StyledTableHeader from "../table-header/table-header.style";
 import {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling
-} from './table-row-classic.style';
+  applyClassicHighlightStyling,
+} from "./table-row-classic.style";
 import {
   applyModernRowStyling,
   applyModernSelectedStyling,
-  applyModernDropTargetStyling
-} from './table-row-modern.style';
-import baseTheme from '../../../style/themes/base';
-import StyledIcon from '../../icon/icon.style';
-import CheckboxStyle from '../../../__experimental__/components/checkbox/checkbox.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
+  applyModernDropTargetStyling,
+} from "./table-row-modern.style";
+import baseTheme from "../../../style/themes/base";
+import StyledIcon from "../../icon/icon.style";
+import CheckboxStyle from "../../../__experimental__/components/checkbox/checkbox.style";
+import { isClassic } from "../../../utils/helpers/style-helper";
 
 /**
  * Current version of react-dnd used in DragAndDrop is incompatible
@@ -28,7 +28,9 @@ const StyledTableRow = styled.tr`
 
 function applyRowStyling({ isPassive, isSelected, theme }) {
   return css`
-    ${isClassic(theme) ? applyClassicRowStyling(isPassive, isSelected) : applyModernRowStyling(isPassive, theme)}
+    ${isClassic(theme)
+      ? applyClassicRowStyling(isPassive, isSelected)
+      : applyModernRowStyling(isPassive, theme)}
     ${selectableRowStyling}
     ${highlightRowStyling}
     ${selectedRowStyling}
@@ -38,11 +40,12 @@ function applyRowStyling({ isPassive, isSelected, theme }) {
 
 function selectableRowStyling({ isSelectable, theme }) {
   return css`
-    ${isSelectable && css`
+    ${isSelectable &&
+    css`
       ${StyledTableCell}:first-child,
       ${StyledTableHeader}:first-child {
         &:not(['data-component=selectable-cell']) {
-          ${isClassic(theme) ? 'padding-left: 15px' : ''};
+          ${isClassic(theme) ? "padding-left: 15px" : ""};
         }
       }
 
@@ -60,12 +63,15 @@ function selectableRowStyling({ isSelectable, theme }) {
 
 function selectedRowStyling({ isSelected, theme }) {
   return css`
-    ${isSelected && css`
+    ${isSelected &&
+    css`
       &&&&,
       &&&&:nth-child(odd),
       &&&&:hover {
         ${StyledTableCell} {
-          ${isClassic(theme) ? applyClassicSelectedStyling() : applyModernSelectedStyling(theme)} 
+          ${isClassic(theme)
+            ? applyClassicSelectedStyling()
+            : applyModernSelectedStyling(theme)}
         }
       }
     `}
@@ -75,14 +81,17 @@ function selectedRowStyling({ isSelected, theme }) {
 function highlightRowStyling({ isClickable, isHighlighted, theme }) {
   const { table } = theme;
   return css`
-    ${isClickable && 'cursor: pointer;'}
+    ${isClickable && "cursor: pointer;"}
 
-    ${isHighlighted && css`
+    ${isHighlighted &&
+    css`
       &&&& {
         ${StyledTableCell} {
-          ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernSelectedStyling(theme)}
+          ${isClassic(theme)
+            ? applyClassicHighlightStyling()
+            : applyModernSelectedStyling(theme)}
           position: relative;
-    
+
           &:before {
             content: "";
             height: 1px;
@@ -92,10 +101,10 @@ function highlightRowStyling({ isClickable, isHighlighted, theme }) {
             width: 100%;
           }
         }
-    
+
         &:hover {
           ${StyledTableCell} {
-            background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+            background-color: ${isClassic(theme) ? "#D0E3FA" : table.selected};
           }
         }
       }
@@ -108,7 +117,7 @@ function dragRowStyling({
   isDragging,
   theme,
   isDraggedElementOver,
-  inDeadZone
+  inDeadZone,
 }) {
   const border = css`1px solid ${theme.table.header} !important`;
 
@@ -123,11 +132,13 @@ function dragRowStyling({
       cursor: grabbing;
     }
 
-    ${isDragging && css`
+    ${isDragging &&
+    css`
       user-select: none;
     `}
 
-    ${isDragged && css`
+    ${isDragged &&
+    css`
       ${inDeadZone && isDraggedElementOver} {
         ${StyledTableCell} {
           background-color: ${theme.table.dragging};
@@ -156,11 +167,11 @@ function dragRowStyling({
 }
 
 StyledTableRow.propTypes = {
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 StyledTableRow.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledTableRow;

@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ConfigurableItems, ConfigurableItemRow } from '../../../components/configurable-items';
-import tagComponent from '../../../utils/helpers/tags';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  ConfigurableItems,
+  ConfigurableItemRow,
+} from "../../../components/configurable-items";
+import tagComponent from "../../../utils/helpers/tags";
 
 class ConfigurableItemsContent extends React.Component {
   static propTypes = {
@@ -51,40 +54,38 @@ class ConfigurableItemsContent extends React.Component {
      * @property onSave
      * @type {Function}
      */
-    onSave: PropTypes.func.isRequired
-  }
+    onSave: PropTypes.func.isRequired,
+  };
 
   onChange = (rowId) => {
     return () => {
       this.props.onChange(rowId);
     };
-  }
+  };
 
   rows = (itemsData) => {
-    return (
-      itemsData.map((item, rowIndex) => {
-        return (
-          <ConfigurableItemRow
-            enabled={ item.get('enabled') }
-            key={ rowIndex }
-            locked={ item.get('locked') }
-            name={ item.get('name') }
-            rowIndex={ rowIndex }
-            onChange={ this.onChange(rowIndex) }
-          />
-        );
-      })
-    );
-  }
+    return itemsData.map((item, rowIndex) => {
+      return (
+        <ConfigurableItemRow
+          enabled={item.get("enabled")}
+          key={rowIndex}
+          locked={item.get("locked")}
+          name={item.get("name")}
+          rowIndex={rowIndex}
+          onChange={this.onChange(rowIndex)}
+        />
+      );
+    });
+  };
 
   render() {
     const { itemsData, ...configurableItemsProps } = this.props;
     return (
       <ConfigurableItems
-        { ...configurableItemsProps }
-        { ...tagComponent('configurable-items-content', this.props) }
+        {...configurableItemsProps}
+        {...tagComponent("configurable-items-content", this.props)}
       >
-        { this.rows(itemsData) }
+        {this.rows(itemsData)}
       </ConfigurableItems>
     );
   }

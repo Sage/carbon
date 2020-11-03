@@ -1,30 +1,34 @@
 // definition.js
-import DraggableContext from './';
-import Definition from './../../../../demo/utils/definition';
-import WithDragDefinition from './../with-drag/__definition__';
-import WithDropDefinition from './../with-drop/__definition__';
-import CustomDragLayerDefinition from './../custom-drag-layer/__definition__';
+import DraggableContext from "./";
+import Definition from "./../../../../demo/utils/definition";
+import WithDragDefinition from "./../with-drag/__definition__";
+import WithDropDefinition from "./../with-drop/__definition__";
+import CustomDragLayerDefinition from "./../custom-drag-layer/__definition__";
 
-const definition = new Definition('draggable-context', DraggableContext, {
-  associatedDefinitions: [WithDropDefinition, WithDragDefinition, CustomDragLayerDefinition],
+const definition = new Definition("draggable-context", DraggableContext, {
+  associatedDefinitions: [
+    WithDropDefinition,
+    WithDragDefinition,
+    CustomDragLayerDefinition,
+  ],
 
-  hiddenProps: ['children', 'customDragLayer', 'onDrag'],
+  hiddenProps: ["children", "customDragLayer", "onDrag"],
 
-  props: ['customDragLayer', 'onDrag', 'autoScroll'],
+  props: ["customDragLayer", "onDrag", "autoScroll"],
 
   propTypes: {
-    customDragLayer: 'Object',
-    onDrag: 'Function',
-    autoScroll: 'Boolean'
+    customDragLayer: "Object",
+    onDrag: "Function",
+    autoScroll: "Boolean",
   },
 
-  requiredProps: ['onDrag'],
+  requiredProps: ["onDrag"],
 
-  dataVariable: 'dndData',
+  dataVariable: "dndData",
 
   propValues: {
-    onDrag: 'updateDndData',
-    autoScroll: 'true',
+    onDrag: "updateDndData",
+    autoScroll: "true",
     children: `<div>
     <Table tbody={false}>
       <thead>
@@ -37,7 +41,7 @@ const definition = new Definition('draggable-context', DraggableContext, {
         { buildRows() }
       </tbody>
     </Table>
-  </div>`
+  </div>`,
   },
 
   js: `function buildRows() {
@@ -55,9 +59,11 @@ const definition = new Definition('draggable-context', DraggableContext, {
 }`,
 
   propDescriptions: {
-    customDragLayer: 'Optionally provide the CustomDragLayer for the drag & drop ghost layer',
-    onDrag: 'Callback function for when a draggable item is moved',
-    autoScroll: 'Optionally provide the auto scroll functionality when dragging'
+    customDragLayer:
+      "Optionally provide the CustomDragLayer for the drag & drop ghost layer",
+    onDrag: "Callback function for when a draggable item is moved",
+    autoScroll:
+      "Optionally provide the auto scroll functionality when dragging",
   },
 
   relatedComponentsNotes: `
@@ -80,8 +86,7 @@ Although the \`Table\` component has drag and drop enabled already, any combinat
   </ol>
 </DraggableContext>
 \`\`\`
-`
-
+`,
 });
 
 export default definition;

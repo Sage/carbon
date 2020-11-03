@@ -1,22 +1,20 @@
-import atOpacity from '../../utils/at-opacity';
+import atOpacity from "../../utils/at-opacity";
 
 export default (palette) => {
   const baseWithOpacity = atOpacity(palette.productBlue);
 
-  return (
-    {
-      name: 'aegean',
+  return {
+    name: "aegean",
 
-      colors: {
-        base: palette.productBlue,
-        primary: palette.productBlueShade(3),
-        secondary: palette.productBlueShade(23),
-        tertiary: palette.productBlueShade(43),
-        whiteMix: palette.productBlueTint(90),
-        withOpacity: baseWithOpacity(0.55),
-        hoveredTabKeyline: palette.productBlueTint(30),
-        disabled: palette.productBlueTint(40)
-      }
-    }
-  );
+    colors: {
+      base: palette.productBlue,
+      primary: palette.productBlueShade(3),
+      secondary: palette.productBlueShade(23),
+      tertiary: palette.productBlueShade(43),
+      whiteMix: palette.productBlueTint(90),
+      withOpacity: baseWithOpacity(0.55),
+      hoveredTabKeyline: palette.productBlueTint(30),
+      disabled: palette.productBlueTint(40),
+    },
+  };
 };

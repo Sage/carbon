@@ -1,4 +1,4 @@
-import { omit, difference, includes } from 'lodash';
+import { omit, difference, includes } from "lodash";
 
 /**
  * Ether
@@ -16,10 +16,10 @@ import { omit, difference, includes } from 'lodash';
  * @return {String}
  */
 function acronymize(str) {
-  if (!str) return '';
+  if (!str) return "";
   const matches = str.match(/\b\w/g);
-  if (!matches) return '';
-  return matches.join('');
+  if (!matches) return "";
+  return matches.join("");
 }
 
 /**
@@ -62,7 +62,10 @@ function styleElement(element, attribute, value) {
  */
 function validProps(input, safeProps) {
   const klass = input.isReactComponent ? input.constructor : input;
-  const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
+  const unsafeProps = difference(
+    Object.keys(klass.propTypes),
+    safeProps || klass.safeProps || []
+  );
   return omit(input.props, unsafeProps);
 }
 
@@ -77,7 +80,7 @@ function validProps(input, safeProps) {
  * @return {String} result - formatted
  */
 function insertAt(value, options) {
-  const separator = options.separator || '-';
+  const separator = options.separator || "-";
   let result = value;
 
   for (let i = 0; i < result.length; i++) {
@@ -89,6 +92,4 @@ function insertAt(value, options) {
   return result;
 }
 
-export {
-  acronymize, append, insertAt, styleElement, validProps
-};
+export { acronymize, append, insertAt, styleElement, validProps };

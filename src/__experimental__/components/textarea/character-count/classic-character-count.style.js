@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 const StyledClassicCharacterCount = styled.div`
   text-align: right;
@@ -9,10 +9,11 @@ const StyledClassicCharacterCount = styled.div`
     font-weight: 700;
   }
 
-  ${({ isOverLimit, theme }) => isOverLimit && css`
-    color: ${theme.colors.error}
-  `}
-
+  ${({ isOverLimit, theme }) =>
+    isOverLimit &&
+    css`
+      color: ${theme.colors.error};
+    `}
 `;
 
 export default StyledClassicCharacterCount;

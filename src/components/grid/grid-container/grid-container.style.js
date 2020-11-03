@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { space, grid } from 'styled-system';
+import styled from "styled-components";
+import { space, grid } from "styled-system";
 
 const GridContainerStyle = styled.div`
   display: grid;
@@ -12,7 +12,7 @@ const GridContainerStyle = styled.div`
   @media screen and (max-width: 1920px) {
     grid-gap: 24px;
   }
-  
+
   @media screen and (max-width: 1259px) {
     padding: 32px;
   }

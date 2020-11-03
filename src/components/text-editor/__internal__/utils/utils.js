@@ -1,20 +1,17 @@
-import {
-  EditorState,
-  Modifier
-} from 'draft-js';
-import decorators from '../decorators';
+import { EditorState, Modifier } from "draft-js";
+import decorators from "../decorators";
 
-const ORDERLIST_TYPE = 'ordered-list-item';
-const UNORDERLIST_TYPE = 'unordered-list-item';
+const ORDERLIST_TYPE = "ordered-list-item";
+const UNORDERLIST_TYPE = "unordered-list-item";
 
 export const computeBlockType = (char, type) => {
-  if (char === '.' && type !== ORDERLIST_TYPE) {
+  if (char === "." && type !== ORDERLIST_TYPE) {
     return ORDERLIST_TYPE;
   }
-  if (char === '*' && type !== UNORDERLIST_TYPE) {
+  if (char === "*" && type !== UNORDERLIST_TYPE) {
     return UNORDERLIST_TYPE;
   }
-  return 'unstyled';
+  return "unstyled";
 };
 
 /*
@@ -34,7 +31,7 @@ const getDefaultBlockData = (blockType, initialData = {}) => {
 /*
 Changes the block type of the current block.
 */
-export const resetBlockType = (value, newType = 'unstyled') => {
+export const resetBlockType = (value, newType = "unstyled") => {
   const contentState = value.getCurrentContent();
   const selectionState = value.getSelection();
   const key = selectionState.getStartKey();
@@ -42,61 +39,69 @@ export const resetBlockType = (value, newType = 'unstyled') => {
   const block = blockMap.get(key);
 
   const newBlock = block.merge({
-    text: '',
+    text: "",
     type: newType,
-    data: getDefaultBlockData(newType)
+    data: getDefaultBlockData(newType),
   });
 
   const newContentState = contentState.merge({
     blockMap: blockMap.set(key, newBlock),
     selectionAfter: selectionState.merge({
       anchorOffset: 0,
-      focusOffset: 0
-    })
+      focusOffset: 0,
+    }),
   });
 
-  return EditorState.push(value, newContentState, 'change-block-type');
+  return EditorState.push(value, newContentState, "change-block-type");
 };
 
 export function blockStyleFn(block) {
   switch (block.getType()) {
-    case 'unordered-list-item':
-      return 'text-editor-block-unordered';
-    case 'ordered-list-item':
-      return 'text-editor-block-ordered';
+    case "unordered-list-item":
+      return "text-editor-block-unordered";
+    case "ordered-list-item":
+      return "text-editor-block-ordered";
     default:
-      return '';
+      return "";
   }
 }
 
 /*
   Return mutated editorState with decorators added
 */
-export const getDecoratedValue = value => EditorState.set(value, { decorator: decorators });
+export const getDecoratedValue = (value) =>
+  EditorState.set(value, { decorator: decorators });
 
 /*
   Get the current Content State
 */
-export const getContent = value => value.getCurrentContent();
+export const getContent = (value) => value.getCurrentContent();
 
 /*
   Get the current selection State
 */
-export const getSelection = value => value.getSelection();
+export const getSelection = (value) => value.getSelection();
 
 /*
   Get the current Content and Block information
 */
 export const getContentInfo = (value) => {
   const content = getContent(value);
-  const currentBlock = content.getBlockForKey(getSelection(value).getStartKey());
+  const currentBlock = content.getBlockForKey(
+    getSelection(value).getStartKey()
+  );
   const blockType = currentBlock.getType();
   const blockLength = currentBlock.getLength();
   const blockText = currentBlock.getText();
   const blockMap = content.getBlockMap();
 
   return {
-    content, currentBlock, blockType, blockLength, blockText, blockMap
+    content,
+    currentBlock,
+    blockType,
+    blockLength,
+    blockText,
+    blockMap,
   };
 };
 
@@ -111,14 +116,19 @@ export const getSelectionInfo = (value) => {
   const endOffset = selection.getEndOffset();
 
   return {
-    selection, startKey, endKey, startOffset, endOffset
+    selection,
+    startKey,
+    endKey,
+    startOffset,
+    endOffset,
   };
 };
 
 /*
   Move cursor to end of Content
 */
-export const moveSelectionToEnd = value => EditorState.forceSelection(value, getContent(value).getSelectionAfter());
+export const moveSelectionToEnd = (value) =>
+  EditorState.forceSelection(value, getContent(value).getSelectionAfter());
 
 /*
   Returns the current Selection length
@@ -129,21 +139,21 @@ export const getSelectedLength = (value) => {
   let length = 0;
 
   if (!selection.isCollapsed()) {
-    const {
-      startKey, endKey, startOffset, endOffset
-    } = getSelectionInfo(value);
+    const { startKey, endKey, startOffset, endOffset } = getSelectionInfo(
+      value
+    );
     const { content, blockLength } = getContentInfo(value);
     const startLength = blockLength - startOffset;
     const keyAfterEnd = content.getKeyAfter(endKey);
 
     if (startKey === endKey) {
-      length += (endOffset - startOffset);
+      length += endOffset - startOffset;
     } else {
       let currentKey = startKey;
 
       while (currentKey && currentKey !== keyAfterEnd) {
         if (currentKey === startKey) {
-          length += (startLength + 1);
+          length += startLength + 1;
         } else if (currentKey === endKey) {
           length += endOffset;
         } else {
@@ -171,23 +181,18 @@ export function isASCIIChar(str) {
   return /^\S+$/.test(str);
 }
 
-export function replaceText(
-  editorState,
-  text,
-  inlineStyle,
-  forceSelection,
-) {
+export function replaceText(editorState, text, inlineStyle, forceSelection) {
   const contentState = Modifier.replaceText(
     editorState.getCurrentContent(),
     editorState.getSelection(),
     text,
-    inlineStyle,
+    inlineStyle
   );
 
   return EditorState.push(
     editorState,
     contentState,
-    'insert-characters',
-    forceSelection,
+    "insert-characters",
+    forceSelection
   );
 }

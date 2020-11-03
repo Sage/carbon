@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../../.storybook/style/storybook-info.styles";
 
 const Info = (
   <div>
@@ -19,9 +22,7 @@ const Info = (
 
     <p>To render a Number:</p>
 
-    <StoryCode padded>
-      {'<Number name="myNumber" />'}
-    </StoryCode>
+    <StoryCode padded>{'<Number name="myNumber" />'}</StoryCode>
   </div>
 );
 

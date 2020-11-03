@@ -1,23 +1,22 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import Help from '../../../components/help';
-import StyledLabel, { StyledLabelContainer } from './label.style';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
-import IconWrapperStyle from './icon-wrapper.style';
-import Logger from '../../../utils/logger/logger';
-import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
+import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
+import Help from "../../../components/help";
+import StyledLabel, { StyledLabelContainer } from "./label.style";
+import ValidationIcon from "../../../components/validations/validation-icon.component";
+import IconWrapperStyle from "./icon-wrapper.style";
+import Logger from "../../../utils/logger/logger";
+import {
+  InputContext,
+  InputGroupContext,
+} from "../../../__internal__/input-behaviour";
 
-const shouldDisplayValidationIcon = ({
-  error, warning, info, disabled
-}) => {
-  const validation = (error || warning || info);
-  return disabled ? false : typeof validation === 'string';
+const shouldDisplayValidationIcon = ({ error, warning, info, disabled }) => {
+  const validation = error || warning || info;
+  return disabled ? false : typeof validation === "string";
 };
 
-const tooltipPosition = ({
-  error, warning, info, inline
-}) => {
-  return (error || warning || info) && inline === true ? 'top' : 'right';
+const tooltipPosition = ({ error, warning, info, inline }) => {
+  return (error || warning || info) && inline === true ? "top" : "right";
 };
 
 let deprecatedWarnTriggered = false;
@@ -25,7 +24,7 @@ let deprecatedWarnTriggered = false;
 const Label = ({
   disabled,
   inline,
-  align = 'right',
+  align = "right",
   inputSize,
   width,
   childOfForm,
@@ -45,15 +44,20 @@ const Label = ({
   pr,
   pl,
   isRequired,
-  styleOverride = {}
+  styleOverride = {},
 }) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
-    Logger.deprecate('`styleOverride` that is used in the `Label` component is deprecated and will soon be removed.');
+    Logger.deprecate(
+      "`styleOverride` that is used in the `Label` component is deprecated and will soon be removed."
+    );
   }
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
-  const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } = useContext(InputGroupContext);
+  const {
+    onMouseEnter: onGroupMouseEnter,
+    onMouseLeave: onGroupMouseLeave,
+  } = useContext(InputGroupContext);
 
   const handleMouseEnter = (ev) => {
     if (onMouseEnter) onMouseEnter(ev);
@@ -68,63 +72,74 @@ const Label = ({
   const icon = () => {
     const wrapperProps = {
       onFocus: () => setFocus(true),
-      onBlur: () => setFocus(false)
+      onBlur: () => setFocus(false),
     };
 
-    if (useValidationIcon && shouldDisplayValidationIcon({
-      error, warning, info, disabled
-    })) {
+    if (
+      useValidationIcon &&
+      shouldDisplayValidationIcon({
+        error,
+        warning,
+        info,
+        disabled,
+      })
+    ) {
       const tooltipPositionValue = tooltipPosition({
-        error, warning, info, inline
+        error,
+        warning,
+        info,
+        inline,
       });
       return (
         <IconWrapperStyle>
           <ValidationIcon
-            iconId={ helpId }
-            error={ error }
-            warning={ warning }
-            info={ info }
-            tooltipPosition={ tooltipPositionValue }
+            iconId={helpId}
+            error={error}
+            warning={warning}
+            info={info}
+            tooltipPosition={tooltipPositionValue}
           />
         </IconWrapperStyle>
       );
     }
 
-    return help && (
-      <IconWrapperStyle { ...wrapperProps }>
-        <Help
-          helpId={ helpId }
-          as={ helpTag }
-          tabIndex={ helpTabIndex }
-          type={ helpIcon }
-          isFocused={ isFocused }
-        >
-          {help}
-        </Help>
-      </IconWrapperStyle>
+    return (
+      help && (
+        <IconWrapperStyle {...wrapperProps}>
+          <Help
+            helpId={helpId}
+            as={helpTag}
+            tabIndex={helpTabIndex}
+            type={helpIcon}
+            isFocused={isFocused}
+          >
+            {help}
+          </Help>
+        </IconWrapperStyle>
+      )
     );
   };
 
   return (
     <StyledLabelContainer
-      align={ align }
-      inline={ inline }
-      inputSize={ inputSize }
-      width={ width }
-      optional={ optional }
-      childOfForm={ childOfForm }
-      pr={ pr }
-      pl={ pl }
-      styleOverride={ styleOverride }
+      align={align}
+      inline={inline}
+      inputSize={inputSize}
+      width={width}
+      optional={optional}
+      childOfForm={childOfForm}
+      pr={pr}
+      pl={pl}
+      styleOverride={styleOverride}
     >
       <StyledLabel
-        data-element='label'
-        disabled={ disabled }
-        id={ labelId }
-        htmlFor={ htmlFor }
-        onMouseEnter={ handleMouseEnter }
-        onMouseLeave={ handleMouseLeave }
-        isRequired={ isRequired }
+        data-element="label"
+        disabled={disabled}
+        id={labelId}
+        htmlFor={htmlFor}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        isRequired={isRequired}
       >
         {children}
       </StyledLabel>
@@ -137,9 +152,9 @@ Label.propTypes = {
   /** Label width */
   width: PropTypes.number,
   /** Label alignment */
-  align: PropTypes.oneOf(['left', 'right']),
+  align: PropTypes.oneOf(["left", "right"]),
   /** Size of an input Label is used in */
-  inputSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** Flag to indicate that component is used in a Form */
   childOfForm: PropTypes.bool,
   /** When true, label is placed in line an input */
@@ -179,7 +194,7 @@ Label.propTypes = {
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Flag to configure component as mandatory */
-  isRequired: PropTypes.bool
+  isRequired: PropTypes.bool,
 };
 
 export default React.memo(Label);

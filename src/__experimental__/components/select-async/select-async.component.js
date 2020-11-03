@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import Select from '../select/select.component';
-import Option from '../select/option.component';
-import responseErrorMessage from './response-error.message';
+import React from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import Select from "../select/select.component";
+import Option from "../select/option.component";
+import responseErrorMessage from "./response-error.message";
 
 /**
  * SelectAsync renders a regular Select, but wraps it in additional functionality
@@ -68,23 +68,23 @@ class SelectAsync extends React.Component {
     endpoint: PropTypes.string.isRequired,
     formatRequest: PropTypes.func,
     formatResponse: PropTypes.func,
-    itemsPerPage: PropTypes.number
-  }
+    itemsPerPage: PropTypes.number,
+  };
 
   static defaultProps = {
-    itemsPerPage: 20
-  }
+    itemsPerPage: 20,
+  };
 
   state = {
     fetching: false,
     items: [],
     page: 0,
-    total: 0
-  }
+    total: 0,
+  };
 
-  select = React.createRef()
+  select = React.createRef();
 
-  deferredFetch = undefined
+  deferredFetch = undefined;
 
   onOpen = () => this.fetchData({ page: 1 });
 
@@ -99,11 +99,11 @@ class SelectAsync extends React.Component {
       params: {
         page,
         items_per_page: itemsPerPage,
-        search
+        search,
       },
       headers: {
-        Accept: 'application/json'
-      }
+        Accept: "application/json",
+      },
     };
 
     if (formatRequest) opts = formatRequest(opts);
@@ -113,11 +113,13 @@ class SelectAsync extends React.Component {
 
   handleResponse(originalResponse) {
     const { formatResponse } = this.props;
-    const response = formatResponse ? formatResponse(originalResponse) : originalResponse;
+    const response = formatResponse
+      ? formatResponse(originalResponse)
+      : originalResponse;
 
     const { data } = response;
 
-    if (!Object.prototype.hasOwnProperty.call(data, '$items')) {
+    if (!Object.prototype.hasOwnProperty.call(data, "$items")) {
       throw Error(responseErrorMessage);
     }
 
@@ -125,7 +127,7 @@ class SelectAsync extends React.Component {
       items: this.buildOptions(data.$page, data.$items),
       page: data.$page || 1,
       total: data.$total || data.$items.length,
-      fetching: false
+      fetching: false,
     });
   }
 
@@ -134,7 +136,7 @@ class SelectAsync extends React.Component {
     this.deferredFetch = setTimeout(() => {
       this.fetchData({ page: 1, search });
     }, 200);
-  }
+  };
 
   fetchData = async ({ page, search = this.filterValue() }) => {
     this.setState({ fetching: true });
@@ -143,20 +145,18 @@ class SelectAsync extends React.Component {
       this.fetchOptions(page, search)
     );
     this.handleResponse(response);
-  }
+  };
 
   fetchNextPage = () => {
-    const {
-      fetching, items, total, page
-    } = this.state;
+    const { fetching, items, total, page } = this.state;
 
     if (fetching) return;
     if (items.length === total) return;
     this.fetchData({ page: page + 1 });
-  }
+  };
 
   buildOptions(page, items) {
-    return (page > 1) ? this.state.items.concat(items) : items;
+    return page > 1 ? this.state.items.concat(items) : items;
   }
 
   renderOptions() {
@@ -165,25 +165,21 @@ class SelectAsync extends React.Component {
     if (this.props.children) return this.props.children(items);
     if (!items.length) return null;
 
-    return items.map(item => (
-      <Option
-        key={ item.id }
-        value={ String(item.id) }
-        text={ item.displayed_as }
-      />
+    return items.map((item) => (
+      <Option key={item.id} value={String(item.id)} text={item.displayed_as} />
     ));
   }
 
   render() {
     return (
       <Select
-        { ...this.props }
-        ref={ this.select }
-        onOpen={ this.onOpen }
-        onFilter={ this.deferredFetchData }
-        onLazyLoad={ this.fetchNextPage }
+        {...this.props}
+        ref={this.select}
+        onOpen={this.onOpen}
+        onFilter={this.deferredFetchData}
+        onLazyLoad={this.fetchNextPage}
       >
-        { this.renderOptions() }
+        {this.renderOptions()}
       </Select>
     );
   }

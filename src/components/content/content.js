@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import tagComponent from '../../utils/helpers/tags';
-import './content.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import tagComponent from "../../utils/helpers/tags";
+import "./content.scss";
 
 class Content extends React.Component {
   static propTypes = {
@@ -46,15 +46,15 @@ class Content extends React.Component {
      * Over-rides the calculation of body width based on titleWidth
      * Sometimes we need the body to be full width while keeping a title width similar to other widths
      */
-    bodyFullWidth: PropTypes.bool
-  }
+    bodyFullWidth: PropTypes.bool,
+  };
 
   static defaultProps = {
-    align: 'left',
-    as: 'primary',
+    align: "left",
+    as: "primary",
     bodyFullWidth: false,
-    inline: false
-  }
+    inline: false,
+  };
 
   constructor(args) {
     super(args);
@@ -72,12 +72,13 @@ class Content extends React.Component {
    */
   classes() {
     return classNames(
-      'carbon-content',
+      "carbon-content",
       this.props.className,
       `carbon-content--${this.props.as}`,
-      `carbon-content--align-${this.props.align}`, {
-        'carbon-content--inline': this.props.inline,
-        'carbon-content--body-full-width': this.props.bodyFullWidth
+      `carbon-content--align-${this.props.align}`,
+      {
+        "carbon-content--inline": this.props.inline,
+        "carbon-content--body-full-width": this.props.bodyFullWidth,
       }
     );
   }
@@ -112,7 +113,7 @@ class Content extends React.Component {
     }
 
     if (this.props.bodyFullWidth) {
-      style.width = '100%';
+      style.width = "100%";
     }
 
     return style;
@@ -125,21 +126,24 @@ class Content extends React.Component {
   render() {
     if (this.props.children) {
       return (
-        <div className={ this.classes() } { ...tagComponent('content', this.props) }>
+        <div
+          className={this.classes()}
+          {...tagComponent("content", this.props)}
+        >
           <div
-            className='carbon-content__title'
-            data-element='title'
-            style={ this.titleStyle() }
+            className="carbon-content__title"
+            data-element="title"
+            style={this.titleStyle()}
           >
-            { this.props.title }
+            {this.props.title}
           </div>
 
           <div
-            className='carbon-content__body'
-            data-element='body'
-            style={ this.bodyStyle() }
+            className="carbon-content__body"
+            data-element="body"
+            style={this.bodyStyle()}
           >
-            { this.props.children }
+            {this.props.children}
           </div>
         </div>
       );

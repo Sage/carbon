@@ -1,1 +1,1 @@
-export { default } from './checkable-input.component';
+export { default } from "./checkable-input.component";

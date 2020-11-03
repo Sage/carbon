@@ -16,7 +16,7 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c7:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
@@ -84,7 +84,7 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c5 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 .c8 .c6:-webkit-autofill {

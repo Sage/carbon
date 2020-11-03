@@ -1,1 +1,1 @@
-export { default } from './confirm.component';
+export { default } from "./confirm.component";

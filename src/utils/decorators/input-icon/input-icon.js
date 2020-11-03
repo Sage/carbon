@@ -1,9 +1,9 @@
-import React from 'react';
-import classNames from 'classnames';
-import { assign } from 'lodash';
+import React from "react";
+import classNames from "classnames";
+import { assign } from "lodash";
 
-import Icon from '../../../components/icon';
-import './input-icon.scss';
+import Icon from "../../../components/icon";
+import "./input-icon.scss";
 
 /**
  * InputIcon decorator.
@@ -57,18 +57,22 @@ const InputIcon = (ComposedComponent) => {
         return null;
       }
 
-      let icon = <Icon type={ iconType } className='carbon-input-icon' />;
+      let icon = <Icon type={iconType} className="carbon-input-icon" />;
 
-      if (['error', 'warning', 'info'].indexOf(iconType) > -1) {
+      if (["error", "warning", "info"].indexOf(iconType) > -1) {
         icon = (
-          <span className={ `carbon-input-icon carbon-input-icon--${iconType}` }>
-            { this.validationHTML }
+          <span className={`carbon-input-icon carbon-input-icon--${iconType}`}>
+            {this.validationHTML}
           </span>
         );
       }
 
-      return <label htmlFor={ this.inputProps.id } key='label-icon'>{ icon }</label>;
-    }
+      return (
+        <label htmlFor={this.inputProps.id} key="label-icon">
+          {icon}
+        </label>
+      );
+    };
 
     /**
      * Extends the main classes with any input icon classes.
@@ -77,14 +81,12 @@ const InputIcon = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      return classNames(
-        super.mainClasses,
-        'common-input--with-icon'
-      );
+      return classNames(super.mainClasses, "common-input--with-icon");
     }
   }
 
-  Component.displayName = ComposedComponent.displayName || ComposedComponent.name;
+  Component.displayName =
+    ComposedComponent.displayName || ComposedComponent.name;
   return Component;
 };
 

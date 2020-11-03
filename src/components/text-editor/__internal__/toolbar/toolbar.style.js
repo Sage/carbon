@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import StyledButton from '../../../button/button.style';
-import baseTheme from '../../../../style/themes/base';
+import styled from "styled-components";
+import StyledButton from "../../../button/button.style";
+import baseTheme from "../../../../style/themes/base";
 
 const StyledToolbar = styled.div`
   padding: 8px;
@@ -21,7 +21,7 @@ const StyledToolbar = styled.div`
 `;
 
 StyledToolbar.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 const StyledEditorStyleControls = styled.div`
@@ -33,7 +33,7 @@ const StyledEditorStyleControls = styled.div`
 `;
 
 StyledEditorStyleControls.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 const StyledEditorActionControls = styled.div`
@@ -46,14 +46,14 @@ const StyledEditorActionControls = styled.div`
     width: 62px;
     min-height: 33px;
   }
-  
+
   ${StyledButton}:first-of-type {
     font-size: 16px;
   }
 `;
 
 StyledEditorActionControls.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export { StyledToolbar, StyledEditorActionControls, StyledEditorStyleControls };

@@ -1,7 +1,6 @@
-import I18n from 'i18n-js';
+import I18n from "i18n-js";
 
 const ValidationsHelper = {
-
   /**
    * Return the correct validationMessage
    *
@@ -23,16 +22,16 @@ const ValidationsHelper = {
    * @return {String} function type to call
    */
   comparisonType: (params) => {
-    const is = typeof params.is !== 'undefined',
-        max = typeof params.max !== 'undefined',
-        min = typeof params.min !== 'undefined';
+    const is = typeof params.is !== "undefined",
+      max = typeof params.max !== "undefined",
+      min = typeof params.min !== "undefined";
 
-    if (is && !max && !min) return 'Exact';
-    if (!is && max && !min) return 'Less';
-    if (!is && min && !max) return 'Greater';
-    if (!is && min && max) return 'Range';
+    if (is && !max && !min) return "Exact";
+    if (!is && max && !min) return "Less";
+    if (!is && min && !max) return "Greater";
+    if (!is && min && max) return "Range";
     return null;
-  }
+  },
 };
 
 export default ValidationsHelper;

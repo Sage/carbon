@@ -1,1 +1,1 @@
-export { default } from './simple-color.component';
+export { default } from "./simple-color.component";

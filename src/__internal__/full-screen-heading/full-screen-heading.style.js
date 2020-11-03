@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import fullScreenHeadingClassic from './full-screen-heading-classic.style';
-import baseTheme from '../../style/themes/base';
+import styled, { css } from "styled-components";
+import fullScreenHeadingClassic from "./full-screen-heading-classic.style";
+import baseTheme from "../../style/themes/base";
 
 export const StyledHeaderContainer = styled.div`
   display: flex;
@@ -8,9 +8,11 @@ export const StyledHeaderContainer = styled.div`
 `;
 
 const StyledFullScreenHeading = styled.div`
-  ${({ hasContent }) => hasContent && css`
-    border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
-  `}
+  ${({ hasContent }) =>
+    hasContent &&
+    css`
+      border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
+    `}
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -51,7 +53,7 @@ const StyledFullScreenHeading = styled.div`
 `;
 
 StyledFullScreenHeading.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledFullScreenHeading;

@@ -1,27 +1,27 @@
-import Text from './text';
-import Browser from '../browser';
+import Text from "./text";
+import Browser from "../browser";
 
-describe('Text', () => {
-  describe('clearSelection', () => {
-    describe('when document.body.createTextRange is defined', () => {
-      it('calls collapse and select on the text range', () => {
+describe("Text", () => {
+  describe("clearSelection", () => {
+    describe("when document.body.createTextRange is defined", () => {
+      it("calls collapse and select on the text range", () => {
         const mockTextRange = {
           collapse() {},
-          select() {}
+          select() {},
         };
 
         const mockDocument = {
           body: {
             createTextRange() {
               return mockTextRange;
-            }
-          }
+            },
+          },
         };
 
-        spyOn(mockTextRange, 'collapse');
-        spyOn(mockTextRange, 'select');
+        spyOn(mockTextRange, "collapse");
+        spyOn(mockTextRange, "select");
 
-        spyOn(Browser, 'getDocument').and.returnValue(mockDocument);
+        spyOn(Browser, "getDocument").and.returnValue(mockDocument);
 
         Text.clearSelection();
 
@@ -30,21 +30,21 @@ describe('Text', () => {
       });
     });
 
-    describe('when window.getSelection is defined', () => {
-      it('calls removeAllRanges on the selection', () => {
+    describe("when window.getSelection is defined", () => {
+      it("calls removeAllRanges on the selection", () => {
         const mockSelection = {
-          removeAllRanges() {}
+          removeAllRanges() {},
         };
 
         const mockWindow = {
           getSelection() {
             return mockSelection;
-          }
+          },
         };
 
-        spyOn(mockSelection, 'removeAllRanges');
+        spyOn(mockSelection, "removeAllRanges");
 
-        spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+        spyOn(Browser, "getWindow").and.returnValue(mockWindow);
 
         Text.clearSelection();
 
@@ -52,13 +52,13 @@ describe('Text', () => {
       });
     });
 
-    describe('titleCase', () => {
+    describe("titleCase", () => {
       const isUpperCase = (str) => {
         return str === str.toUpperCase();
-      }
-      
-      it('capitalises the first letter of a given string', () => {
-        const str = Text.titleCase('foo');
+      };
+
+      it("capitalises the first letter of a given string", () => {
+        const str = Text.titleCase("foo");
 
         expect(isUpperCase(str.charAt(0))).toEqual(true);
         expect(isUpperCase(str)).toEqual(false);

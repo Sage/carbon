@@ -1,1 +1,1 @@
-export { default } from './input-icon-toggle.component';
+export { default } from "./input-icon-toggle.component";

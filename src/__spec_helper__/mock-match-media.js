@@ -7,23 +7,25 @@ export const setup = () => {
     return;
   }
   const noop = () => {};
-  Object.defineProperty(global.window, 'matchMedia', {
+  Object.defineProperty(global.window, "matchMedia", {
     writable: true,
-    value: query => ({
+    value: (query) => ({
       matches: _matches,
       media: query,
       onchange: null,
       addListener: noop,
       removeListener,
-      dispatchEvent: noop
-    })
+      dispatchEvent: noop,
+    }),
   });
   mocked = true;
 };
 
 export const mockMatchMedia = (matches) => {
   if (!mocked) {
-    throw new Error('window.matchMedia has not been mocked. Did you call setup()?');
+    throw new Error(
+      "window.matchMedia has not been mocked. Did you call setup()?"
+    );
   }
   _matches = matches;
   return { removeListener };

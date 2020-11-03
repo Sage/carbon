@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import tagComponent from '../../utils/helpers/tags';
-import Icon from '../icon';
-import './detail.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import tagComponent from "../../utils/helpers/tags";
+import Icon from "../icon";
+import "./detail.scss";
 
 class Detail extends React.Component {
   static propTypes = {
@@ -25,8 +25,8 @@ class Detail extends React.Component {
     /**
      * The rendered children of the component.
      */
-    children: PropTypes.node
-  }
+    children: PropTypes.node,
+  };
 
   /**
    * Returns the classes for the component.
@@ -35,12 +35,9 @@ class Detail extends React.Component {
    * @return {String}
    */
   get classes() {
-    return classNames(
-      'carbon-detail',
-      this.props.className, {
-        'carbon-detail--has-icon': this.props.icon
-      }
-    );
+    return classNames("carbon-detail", this.props.className, {
+      "carbon-detail--has-icon": this.props.icon,
+    });
   }
 
   /**
@@ -50,15 +47,18 @@ class Detail extends React.Component {
    * @return {Object} JSX
    */
   icon = () => {
-    if (!this.props.icon) { return null; }
+    if (!this.props.icon) {
+      return null;
+    }
 
     return (
       <Icon
-        className='carbon-detail__icon' type={ this.props.icon }
-        data-element='icon'
+        className="carbon-detail__icon"
+        type={this.props.icon}
+        data-element="icon"
       />
     );
-  }
+  };
 
   /**
    * Returns the markup for the footnote if one if specified.
@@ -67,14 +67,16 @@ class Detail extends React.Component {
    * @return {Object} JSX
    */
   footnote = () => {
-    if (!this.props.footnote) { return null; }
+    if (!this.props.footnote) {
+      return null;
+    }
 
     return (
-      <div className='carbon-detail__footnote' data-element='footnote'>
-        { this.props.footnote }
+      <div className="carbon-detail__footnote" data-element="footnote">
+        {this.props.footnote}
       </div>
     );
-  }
+  };
 
   /**
    * @method render
@@ -82,14 +84,12 @@ class Detail extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes } { ...tagComponent('detail', this.props) }>
-        { this.icon() }
+      <div className={this.classes} {...tagComponent("detail", this.props)}>
+        {this.icon()}
 
-        <div className='carbon-detail__content'>
-          { this.props.children }
-        </div>
+        <div className="carbon-detail__content">{this.props.children}</div>
 
-        { this.footnote() }
+        {this.footnote()}
       </div>
     );
   }

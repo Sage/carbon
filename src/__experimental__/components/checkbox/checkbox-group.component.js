@@ -1,39 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags';
-import { StyledCheckboxGroup } from './checkbox.style';
-import FormField from '../form-field';
-import { InputGroupBehaviour } from '../../../__internal__/input-behaviour';
+import React from "react";
+import PropTypes from "prop-types";
+import tagComponent from "../../../utils/helpers/tags";
+import { StyledCheckboxGroup } from "./checkbox.style";
+import FormField from "../form-field";
+import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 
 const CheckboxGroup = (props) => {
-  const {
-    children,
-    groupName,
-    error,
-    warning,
-    info
-  } = props;
+  const { children, groupName, error, warning, info } = props;
 
   const groupLabelId = `${groupName}-label`;
 
   return (
     <InputGroupBehaviour>
       <StyledCheckboxGroup
-        aria-labelledby={ groupLabelId }
-        role='checkbox'
-        error={ error }
-        warning={ warning }
-        info={ info }
-        { ...tagComponent('checkboxgroup', props) }
+        aria-labelledby={groupLabelId}
+        role="checkbox"
+        error={error}
+        warning={warning}
+        info={info}
+        {...tagComponent("checkboxgroup", props)}
       >
-        <FormField { ...props }>
-          {React.Children.map(children, child => React.cloneElement(child, {
-            inputName: groupName,
-            error: !!error,
-            warning: !!warning,
-            info: !!info,
-            ...child.props
-          }))}
+        <FormField {...props}>
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, {
+              inputName: groupName,
+              error: !!error,
+              warning: !!warning,
+              info: !!info,
+              ...child.props,
+            })
+          )}
         </FormField>
       </StyledCheckboxGroup>
     </InputGroupBehaviour>
@@ -60,7 +56,7 @@ CheckboxGroup.propTypes = {
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
-  labelSpacing: PropTypes.oneOf([1, 2])
+  labelSpacing: PropTypes.oneOf([1, 2]),
 };
 
 export default CheckboxGroup;

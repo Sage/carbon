@@ -1,11 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
-import sizeParams from './portrait-size.config';
-import BaseTheme from '../../style/themes/base';
-import Browser from '../../utils/helpers/browser';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledPortraitInitials, StyledPortraitInitialsImg, getColorsForInitials } from './portrait.style';
+import React from "react";
+import PropTypes from "prop-types";
+import { withTheme } from "styled-components";
+import sizeParams from "./portrait-size.config";
+import BaseTheme from "../../style/themes/base";
+import Browser from "../../utils/helpers/browser";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import {
+  StyledPortraitInitials,
+  StyledPortraitInitialsImg,
+  getColorsForInitials,
+} from "./portrait.style";
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
@@ -13,12 +17,11 @@ class PortraitInitials extends React.Component {
 
   /** Invoked before a mounted component receives new props. */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const shouldClearCache = (
-      this.props.theme !== nextProps.theme
-      || this.props.initials !== nextProps.initials
-      || this.props.size !== nextProps.size
-      || this.props.darkBackground !== nextProps.darkBackground
-    );
+    const shouldClearCache =
+      this.props.theme !== nextProps.theme ||
+      this.props.initials !== nextProps.initials ||
+      this.props.size !== nextProps.size ||
+      this.props.darkBackground !== nextProps.darkBackground;
 
     if (shouldClearCache) {
       this.cachedImageDataUrl = null;
@@ -34,8 +37,8 @@ class PortraitInitials extends React.Component {
     const { theme, size, darkBackground } = this.props;
     const { textColor, bgColor } = getColorsForInitials(theme, darkBackground);
 
-    let canvas = Browser.getDocument().createElement('canvas');
-    let context = canvas.getContext('2d');
+    let canvas = Browser.getDocument().createElement("canvas");
+    let context = canvas.getContext("2d");
 
     let { dimensions } = sizeParams[size];
 
@@ -48,7 +51,7 @@ class PortraitInitials extends React.Component {
     // Select a font family to support different language characters
     // like Arial
     context.font = `${Math.round(canvas.width / 2.4)}px Lato, Arial`;
-    context.textAlign = 'center';
+    context.textAlign = "center";
 
     // Setup background and front color
     context = this.applyBackground(context, dimensions, bgColor);
@@ -78,25 +81,30 @@ class PortraitInitials extends React.Component {
     const letters = this.props.initials.slice(0, 3);
 
     canvasContext.fillStyle = textColor;
-    canvasContext.fillText(letters.toUpperCase(), dimensions / 2, dimensions / 1.5);
+    canvasContext.fillText(
+      letters.toUpperCase(),
+      dimensions / 2,
+      dimensions / 1.5
+    );
 
     return canvasContext;
   }
 
   /** Renders the component. */
   render() {
-    const {
-      size, shape, theme, ...otherProps
-    } = this.props;
+    const { size, shape, theme, ...otherProps } = this.props;
     return (
       <StyledPortraitInitials
-        data-element='initials'
-        size={ size }
-        shape={ shape }
-        theme={ theme }
-        { ...otherProps }
+        data-element="initials"
+        size={size}
+        shape={shape}
+        theme={theme}
+        {...otherProps}
       >
-        <StyledPortraitInitialsImg src={ this.generateDataUrl() } alt={ this.props.alt } />
+        <StyledPortraitInitialsImg
+          src={this.generateDataUrl()}
+          alt={this.props.alt}
+        />
       </StyledPortraitInitials>
     );
   }
@@ -114,12 +122,12 @@ PortraitInitials.propTypes = {
   /** The shape of the Portrait. */
   shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
   /** The `alt` HTML string. */
-  alt: PropTypes.string
+  alt: PropTypes.string,
 };
 
 PortraitInitials.defaultProps = {
-  shape: 'square',
-  theme: BaseTheme
+  shape: "square",
+  theme: BaseTheme,
 };
 
 export default withTheme(PortraitInitials);

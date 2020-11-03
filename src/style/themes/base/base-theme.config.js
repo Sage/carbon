@@ -1,10 +1,10 @@
-import atOpacity from '../../utils/at-opacity';
+import atOpacity from "../../utils/at-opacity";
 
 export default (palette) => {
   const baseWithOpacity = atOpacity(palette.productGreen);
 
   return {
-    name: 'base',
+    name: "base",
 
     palette,
 
@@ -24,15 +24,15 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
 
       // generic
-      black: '#000000',
-      slate: '#003349',
-      white: '#FFFFFF',
+      black: "#000000",
+      slate: "#003349",
+      white: "#FFFFFF",
 
       // element
       border: palette.slateTint(40),
-      dashedBorder: '#99ADB6',
-      dashedButtonText: 'rgba(0, 0, 0, 0.9)',
-      dashedHoverBackground: '#CCD6DB',
+      dashedBorder: "#99ADB6",
+      dashedButtonText: "rgba(0, 0, 0, 0.9)",
+      dashedHoverBackground: "#CCD6DB",
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
       previewBackground: palette.slateTint(75),
@@ -45,19 +45,19 @@ export default (palette) => {
       success: palette.brilliantGreenShade(20),
       warning: palette.carrotOrange,
       destructive: {
-        hover: palette.errorRedShade(20)
+        hover: palette.errorRedShade(20),
       },
-      asterisk: palette.errorRed
+      asterisk: palette.errorRed,
     },
 
     anchorNavigation: {
       divider: palette.slateTint(80),
-      navItemHoverBackground: palette.slateTint(90)
+      navItemHoverBackground: palette.slateTint(90),
     },
 
     accordion: {
       border: palette.slateTint(80),
-      background: palette.slateTint(90)
+      background: palette.slateTint(90),
     },
 
     tileSelect: {
@@ -65,27 +65,27 @@ export default (palette) => {
       disabledBackground: palette.slateTint(90),
       hoverBackground: palette.slateTint(95),
       descriptionColor: palette.blackOpacity(0.55),
-      disabledText: palette.blackOpacity(0.3)
+      disabledText: palette.blackOpacity(0.3),
     },
 
     batchSelection: {
-      lightTheme: palette.slateTint(70)
+      lightTheme: palette.slateTint(70),
     },
 
     hr: {
-      background: palette.slateTint(80)
+      background: palette.slateTint(80),
     },
 
     editor: {
       border: palette.slateTint(40),
-      counter: 'rgba(0,0,0,0.55)',
-      placeholder: 'rgba(0,0,0,0.30)',
+      counter: "rgba(0,0,0,0.55)",
+      placeholder: "rgba(0,0,0,0.30)",
       button: {
-        hover: palette.slateTint(80)
+        hover: palette.slateTint(80),
       },
       toolbar: {
-        background: palette.slateTint(95)
-      }
+        background: palette.slateTint(95),
+      },
     },
 
     menu: {
@@ -97,94 +97,94 @@ export default (palette) => {
       light: {
         background: palette.slateTint(90),
         selected: palette.slateTint(85),
-        divider: palette.slateTint(80)
+        divider: palette.slateTint(80),
       },
 
       dark: {
         divider: palette.slateTint(10),
         submenuBackground: palette.slateShade(50),
-        selected: palette.slateTint(10)
-      }
+        selected: palette.slateTint(10),
+      },
     },
 
     form: {
-      invalid: palette.slateTint(95)
+      invalid: palette.slateTint(95),
     },
 
     card: {
       footerBackground: palette.slateTint(95),
-      footerBorder: palette.slateTint(90)
+      footerBorder: palette.slateTint(90),
     },
 
     carousel: {
       activeSelectorBackground: palette.slateTint(40),
-      inactiveSelectorBackground: palette.slateTint(80)
+      inactiveSelectorBackground: palette.slateTint(80),
     },
 
     flatTable: {
       light: {
         headerBackground: palette.slateTint(80),
-        border: palette.slateTint(70)
+        border: palette.slateTint(70),
       },
 
       dark: {
         headerBackground: palette.slateTint(20),
-        border: palette.slateTint(40)
+        border: palette.slateTint(40),
       },
 
       transparentWhite: {
-        headerBackground: '#fff',
-        border: '#fff'
+        headerBackground: "#fff",
+        border: "#fff",
       },
 
       transparentBase: {
         headerBackground: palette.slateTint(95),
-        border: palette.slateTint(95)
+        border: palette.slateTint(95),
       },
 
       drawerSidebar: {
         headerBackground: palette.slateTint(93),
         hover: palette.slateTint(85),
         highlighted: palette.slateTint(80),
-        selected: palette.slateTint(70)
+        selected: palette.slateTint(70),
       },
 
       hover: palette.slateTint(95),
       headerIconColor: palette.slateTint(60),
       selected: palette.slateTint(85),
-      highlighted: palette.slateTint(90)
+      highlighted: palette.slateTint(90),
     },
 
     help: {
       color: palette.blackOpacity(0.65),
-      hover: palette.blackOpacity(0.9)
+      hover: palette.blackOpacity(0.9),
     },
 
     pod: {
       border: palette.slateTint(80),
       secondaryBackground: palette.slateTint(95),
       tertiaryBackground: palette.slateTint(90),
-      tileBackground: '#FFFFFF',
+      tileBackground: "#FFFFFF",
       footerBackground: palette.slateTint(95),
-      hoverBackground: palette.slateTint(85)
+      hoverBackground: palette.slateTint(85),
     },
 
     text: {
       color: palette.blackOpacity(0.9),
       placeholder: palette.blackOpacity(0.3),
-      size: '14px'
+      size: "14px",
     },
 
     readOnly: {
       textboxBackground: palette.slateTint(98),
       textboxBorder: palette.slateTint(80),
-      textboxText: palette.blackOpacity(0.74)
+      textboxText: palette.blackOpacity(0.74),
     },
 
     definitionList: {
       dtTextDark: palette.blackOpacity(0.9),
       dtTextLight: palette.blackOpacity(0.65),
-      ddText: palette.blackOpacity(0.65)
+      ddText: palette.blackOpacity(0.65),
     },
 
     disabled: {
@@ -193,17 +193,17 @@ export default (palette) => {
       disabled: palette.blackOpacity(0.55),
       input: palette.slateTint(95),
       text: palette.blackOpacity(0.3),
-      buttonText: 'rgba(0,0,0,.2)',
+      buttonText: "rgba(0,0,0,.2)",
       background: palette.slateTint(90),
-      switch: palette.slateTint(89.5)
+      switch: palette.slateTint(89.5),
     },
 
     draggableItem: {
-      border: palette.slateTint(90)
+      border: palette.slateTint(90),
     },
 
     checkable: {
-      checked: 'rgba(0,0,0,0.90)'
+      checked: "rgba(0,0,0,0.90)",
     },
 
     table: {
@@ -214,52 +214,52 @@ export default (palette) => {
       hover: palette.slateTint(90),
       selected: palette.slateTint(85),
       zebra: palette.slateTint(98),
-      dragging: palette.slateTint(90)
+      dragging: palette.slateTint(90),
     },
 
     drawer: {
       background: palette.slateTint(93),
-      divider: palette.slateTint(85)
+      divider: palette.slateTint(85),
     },
 
     pager: {
-      active: 'rgba(0,0,0,0.90)',
-      disabled: 'rgba(0,0,0,0.3)'
+      active: "rgba(0,0,0,0.90)",
+      disabled: "rgba(0,0,0,0.3)",
     },
 
     icon: {
-      default: 'rgba(0,0,0,0.65)',
-      defaultHover: 'rgba(0,0,0,0.90)',
+      default: "rgba(0,0,0,0.65)",
+      defaultHover: "rgba(0,0,0,0.90)",
       onLightBackground: palette.slateTint(40),
       onLightBackgroundHover: palette.slateTint(20),
-      disabled: 'rgba(0,0,0,0.30)'
+      disabled: "rgba(0,0,0,0.30)",
     },
 
     popoverContainer: {
-      iconColor: 'rgba(0,0,0,0.90)'
+      iconColor: "rgba(0,0,0,0.90)",
     },
 
     navigationBar: {
       light: {
         background: palette.slateTint(90),
-        borderBottom: palette.slateTint(85)
+        borderBottom: palette.slateTint(85),
       },
 
       dark: {
-        background: '#003349',
-        borderBottom: '#003349'
-      }
+        background: "#003349",
+        borderBottom: "#003349",
+      },
     },
 
     numeralDate: {
-      passive: '#668592',
-      error: '#C7384F'
+      passive: "#668592",
+      error: "#C7384F",
     },
 
     portrait: {
       border: palette.slateTint(50),
       background: palette.slateTint(95),
-      initials: 'rgba(0,0,0,0.65)'
+      initials: "rgba(0,0,0,0.65)",
     },
 
     pill: {
@@ -267,47 +267,51 @@ export default (palette) => {
       warning: palette.carrotOrangeTint(20),
       neutralBackgroundFocus: palette.slateTint(10),
       warningButtonFocus: palette.carrotOrange,
-      errorButtonFocus: palette.errorRedShade(20)
+      errorButtonFocus: palette.errorRedShade(20),
     },
 
     search: {
       active: palette.goldTint(50),
-      button: '#255BC7',
+      button: "#255BC7",
       passive: palette.slateTint(80),
-      searchActive: '#668592'
+      searchActive: "#668592",
     },
 
     select: {
-      border: '#bfccd2',
-      selected: palette.slateTint(95)
+      border: "#bfccd2",
+      selected: palette.slateTint(95),
     },
 
     shadows: {
-      depth1: '0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)',
-      depth2: '0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)',
-      depth3: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)',
-      depth4: '0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)',
+      depth1: "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+      depth2:
+        "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+      depth3:
+        "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+      depth4:
+        "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
       /* no space after comma as it is stripped from the variable when used in the spec */
-      cards: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
-      cardsIE: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)'
+      cards: "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+      cardsIE:
+        "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
     },
 
     switch: {
-      off: '#CCD6DB'
+      off: "#CCD6DB",
     },
 
     tile: {
       border: palette.slateTint(80),
-      separator: palette.slateTint(90)
+      separator: palette.slateTint(90),
     },
 
     tab: {
       background: palette.slateTint(80),
-      altHover: palette.slateTint(85)
+      altHover: palette.slateTint(85),
     },
 
     note: {
-      timeStamp: 'rgba(0,0,0,0.65)'
+      timeStamp: "rgba(0,0,0,0.65)",
     },
 
     zIndex: {
@@ -316,7 +320,7 @@ export default (palette) => {
       modal: 3000,
       header: 4000,
       fullScreenModal: 5000,
-      notification: 6000
-    }
+      notification: 6000,
+    },
   };
 };

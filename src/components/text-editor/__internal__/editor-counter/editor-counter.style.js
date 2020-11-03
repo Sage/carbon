@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import baseTheme from '../../../../style/themes/base';
+import styled from "styled-components";
+import baseTheme from "../../../../style/themes/base";
 
 const StyledCounter = styled.span`
-  color: ${({ theme, hasError }) => (hasError ? `${theme.colors.error};` : `${theme.editor.counter};`)}
+  color: ${({ theme, hasError }) =>
+    hasError ? `${theme.colors.error};` : `${theme.editor.counter};`}
   width: 100%;
 `;
 
@@ -18,7 +19,7 @@ const StyledCounterWrapper = styled.div`
 `;
 
 StyledCounter.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export { StyledCounter, StyledCounterWrapper };

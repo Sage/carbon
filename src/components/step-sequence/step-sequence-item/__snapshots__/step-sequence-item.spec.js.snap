@@ -20,7 +20,7 @@ exports[`StepSequenceItem renders correctly 1`] = `
 }
 
 .c0::before {
-  content: '';
+  content: "";
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;

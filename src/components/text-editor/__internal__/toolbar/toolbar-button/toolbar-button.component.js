@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StyledToolbarButton from './toolbar-button.style';
-import TooltipDecorator from '../../../../../utils/decorators/tooltip-decorator/tooltip-decorator';
+import React from "react";
+import PropTypes from "prop-types";
+import StyledToolbarButton from "./toolbar-button.style";
+import TooltipDecorator from "../../../../../utils/decorators/tooltip-decorator/tooltip-decorator";
 
 class ToolbarButton extends React.Component {
   componentDidUpdate() {
@@ -15,23 +15,25 @@ class ToolbarButton extends React.Component {
     return (
       <>
         <StyledToolbarButton
-          data-component='text-editor-toolbar-button'
-          ref={ (comp) => { this._target = comp; } }
-          onMouseOver={ this.props.onMouseOver }
-          onMouseLeave={ this.props.onMouseLeave }
-          onFocus={ this.props.onMouseOver }
-          onKeyDown={ this.props.onKeyDown }
-          onMouseDown={ this.props.onMouseDown }
-          onBlur={ this.props.onMouseLeave }
-          isActive={ this.props.activated }
-          aria-label={ this.props.ariaLabel }
-          { ...(!this.props.tabbable) && { tabIndex: -1 } }
-          type='button'
+          data-component="text-editor-toolbar-button"
+          ref={(comp) => {
+            this._target = comp;
+          }}
+          onMouseOver={this.props.onMouseOver}
+          onMouseLeave={this.props.onMouseLeave}
+          onFocus={this.props.onMouseOver}
+          onKeyDown={this.props.onKeyDown}
+          onMouseDown={this.props.onMouseDown}
+          onBlur={this.props.onMouseLeave}
+          isActive={this.props.activated}
+          aria-label={this.props.ariaLabel}
+          {...(!this.props.tabbable && { tabIndex: -1 })}
+          type="button"
         >
-          { this.props.children }
+          {this.props.children}
         </StyledToolbarButton>
 
-        { this.tooltipHTML }
+        {this.tooltipHTML}
       </>
     );
   }
@@ -54,11 +56,11 @@ ToolbarButton.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   /** Controls whether the button's tooltip should be shown */
   tooltipVisible: PropTypes.bool,
-  tabbable: PropTypes.bool
+  tabbable: PropTypes.bool,
 };
 
 ToolbarButton.defaultProps = {
-  tooltipVisible: false
+  tooltipVisible: false,
 };
 
 export default TooltipDecorator(ToolbarButton);

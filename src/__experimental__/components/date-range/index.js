@@ -1,1 +1,1 @@
-export { default } from './date-range.component';
+export { default } from "./date-range.component";

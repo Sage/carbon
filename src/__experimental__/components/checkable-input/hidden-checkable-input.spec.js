@@ -1,22 +1,28 @@
-import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
+import React from "react";
+import { mount, shallow } from "enzyme";
+import {
+  InputContext,
+  InputGroupContext,
+} from "../../../__internal__/input-behaviour";
 
-import HiddenCheckableInput from './hidden-checkable-input.component';
-import HiddenCheckableInputStyle from './hidden-checkable-input.style';
+import HiddenCheckableInput from "./hidden-checkable-input.component";
+import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 
-
-const render = (props = {}, inputGroupContextValue = {}, inputContextValue = {}) => {
+const render = (
+  props = {},
+  inputGroupContextValue = {},
+  inputContextValue = {}
+) => {
   return mount(
-    <InputGroupContext.Provider value={ inputGroupContextValue }>
-      <InputContext.Provider value={ inputContextValue }>
-        <HiddenCheckableInput { ...props } />
+    <InputGroupContext.Provider value={inputGroupContextValue}>
+      <InputContext.Provider value={inputContextValue}>
+        <HiddenCheckableInput {...props} />
       </InputContext.Provider>
     </InputGroupContext.Provider>
   );
 };
 
-describe('HiddenCheckableInput', () => {
+describe("HiddenCheckableInput", () => {
   let propOnBlur;
   let contextOnBlur;
   let groupContextOnBlur;
@@ -51,64 +57,64 @@ describe('HiddenCheckableInput', () => {
     wrapper = render(
       {
         onBlur: propOnBlur,
-        onFocus: propOnFocus
+        onFocus: propOnFocus,
       },
       {
         onBlur: groupContextOnBlur,
         onFocus: groupContextOnFocus,
         onMouseEnter: groupContextOnMouseEnter,
-        onMouseLeave: groupContextOnMouseLeave
+        onMouseLeave: groupContextOnMouseLeave,
       },
       {
         onBlur: contextOnBlur,
         onFocus: contextOnFocus,
         onMouseEnter: contextOnMouseEnter,
-        onMouseLeave: contextOnMouseLeave
-      },
+        onMouseLeave: contextOnMouseLeave,
+      }
     );
   });
 
-  it('renders as expected', () => {
+  it("renders as expected", () => {
     const props = {
       checked: true,
-      helpId: 'test-help',
-      name: 'test-name',
-      inputType: 'test-type',
-      inputValue: 'test-value',
-      tabindex: 0
+      helpId: "test-help",
+      name: "test-name",
+      inputType: "test-type",
+      inputValue: "test-value",
+      tabindex: 0,
     };
 
-    const shallowWrapper = shallow(<HiddenCheckableInput { ...props } />);
+    const shallowWrapper = shallow(<HiddenCheckableInput {...props} />);
     expect(shallowWrapper).toMatchSnapshot();
   });
 
-  it('triggers onFocus callbacks passed from props and context', () => {
+  it("triggers onFocus callbacks passed from props and context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onFocus();
     expect(propOnFocus).toHaveBeenCalled();
     expect(contextOnFocus).toHaveBeenCalled();
     expect(groupContextOnFocus).toHaveBeenCalled();
   });
 
-  it('triggers onBlur callbacks passed from props and context', () => {
+  it("triggers onBlur callbacks passed from props and context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onBlur();
     expect(propOnBlur).toHaveBeenCalled();
     expect(contextOnBlur).toHaveBeenCalled();
     expect(groupContextOnBlur).toHaveBeenCalled();
   });
 
-  it('triggers onMouseEnter callbacks passed from context', () => {
+  it("triggers onMouseEnter callbacks passed from context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onMouseEnter();
     expect(contextOnMouseEnter).toHaveBeenCalled();
     expect(groupContextOnMouseEnter).toHaveBeenCalled();
   });
 
-  it('triggers onMouseLeave callbacks passed from context', () => {
+  it("triggers onMouseLeave callbacks passed from context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onMouseLeave();
     expect(contextOnMouseLeave).toHaveBeenCalled();
     expect(groupContextOnMouseLeave).toHaveBeenCalled();
   });
 
-  it('does nothing if onFocus, onBlur, onMouseEnter or onMouseLeave callbacks are not provided', () => {
+  it("does nothing if onFocus, onBlur, onMouseEnter or onMouseLeave callbacks are not provided", () => {
     wrapper = render();
     const inputProps = wrapper.find(HiddenCheckableInputStyle).props();
     inputProps.onFocus();

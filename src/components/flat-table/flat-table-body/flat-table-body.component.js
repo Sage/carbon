@@ -1,17 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const FlatTableBody = ({ children }) => {
-  return (
-    <tbody>
-      { children }
-    </tbody>
-  );
+  return <tbody>{children}</tbody>;
 };
 
 FlatTableBody.propTypes = {
   /** Array of FlatTableRow. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default FlatTableBody;

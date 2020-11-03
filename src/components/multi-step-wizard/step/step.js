@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import I18n from 'i18n-js';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import I18n from "i18n-js";
 
-import Button from '../../button';
-import Icon from '../../icon';
-import './step.scss';
+import Button from "../../button";
+import Icon from "../../icon";
+import "./step.scss";
 
 /**
  * A Step widget.
@@ -84,22 +84,22 @@ class Step extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node
-  }
+    children: PropTypes.node,
+  };
 
   static defaultProps = {
     children: null,
-    className: '',
+    className: "",
     defaultButton: true,
     enabled: false,
     extraButtons: [],
     onBack: null,
-    onNext: null
-  }
+    onNext: null,
+  };
 
   static contextTypes = {
-    wizard: PropTypes.object
-  }
+    wizard: PropTypes.object,
+  };
 
   /**
    * Completes the step's wizard and triggers the custom submit event handler of the step's wizard
@@ -221,7 +221,7 @@ class Step extends React.Component {
    * @return {Boolean}
    */
   get stepsCompleted() {
-    return (this.wizard.completed === true);
+    return this.wizard.completed === true;
   }
 
   /**
@@ -232,9 +232,9 @@ class Step extends React.Component {
    */
   get stepHTML() {
     return (
-      <div className='multi-step-wizard-step__content'>
-        { this.props.children }
-        { this.buttonHTML }
+      <div className="multi-step-wizard-step__content">
+        {this.props.children}
+        {this.buttonHTML}
       </div>
     );
   }
@@ -255,23 +255,27 @@ class Step extends React.Component {
     if (this.isLastStep) {
       submitButton = (
         <Button
-          as='primary'
-          className='multi-step-wizard-step__button submit'
-          data-element='submit'
-          onClick={ this.handleOnSubmit }
+          as="primary"
+          className="multi-step-wizard-step__button submit"
+          data-element="submit"
+          onClick={this.handleOnSubmit}
         >
-          { I18n.t('wizards.multi_step_wizard.buttons.submit', { defaultValue: 'Submit' }) }
+          {I18n.t("wizards.multi_step_wizard.buttons.submit", {
+            defaultValue: "Submit",
+          })}
         </Button>
       );
     } else {
       nextButton = (
         <Button
-          as='primary'
-          className='multi-step-wizard-step__button next'
-          data-element='next'
-          onClick={ this.handleOnNext }
+          as="primary"
+          className="multi-step-wizard-step__button next"
+          data-element="next"
+          onClick={this.handleOnNext}
         >
-          { I18n.t('wizards.multi_step_wizard.buttons.next', { defaultValue: 'Next' }) }
+          {I18n.t("wizards.multi_step_wizard.buttons.next", {
+            defaultValue: "Next",
+          })}
         </Button>
       );
     }
@@ -279,21 +283,23 @@ class Step extends React.Component {
     if (!this.isFirstStep) {
       backButton = (
         <Button
-          className='multi-step-wizard-step__button back'
-          data-element='back'
-          onClick={ this.handleOnBack }
+          className="multi-step-wizard-step__button back"
+          data-element="back"
+          onClick={this.handleOnBack}
         >
-          { I18n.t('wizards.multi_step_wizard.buttons.back', { defaultValue: 'Back' }) }
+          {I18n.t("wizards.multi_step_wizard.buttons.back", {
+            defaultValue: "Back",
+          })}
         </Button>
       );
     }
 
     return (
-      <div className='multi-step-wizard-step__buttons'>
-        { nextButton }
-        { submitButton }
-        { backButton }
-        { this.extraButtonHTML }
+      <div className="multi-step-wizard-step__buttons">
+        {nextButton}
+        {submitButton}
+        {backButton}
+        {this.extraButtonHTML}
       </div>
     );
   }
@@ -306,9 +312,14 @@ class Step extends React.Component {
    */
   get indicatorHTML() {
     if (this.stepProcessed) {
-      return <Icon type='white-tick' className='multi-step-wizard-step__white-tick' />;
+      return (
+        <Icon
+          type="white-tick"
+          className="multi-step-wizard-step__white-tick"
+        />
+      );
     }
-    return <div>{ this.props.stepNumber }</div>;
+    return <div>{this.props.stepNumber}</div>;
   }
 
   /**
@@ -318,7 +329,7 @@ class Step extends React.Component {
    * @return {Boolean}
    */
   get indicatorStatus() {
-    return this.stepProcessed ? 'processed' : 'pending';
+    return this.stepProcessed ? "processed" : "pending";
   }
 
   /**
@@ -332,8 +343,8 @@ class Step extends React.Component {
       return (
         // Would change behaviour to supply a uuid on each button
         /* eslint-disable react/no-array-index-key */
-        <span key={ `multi-step-wizard-step-custom-buttons-${index}` }>
-          { button }
+        <span key={`multi-step-wizard-step-custom-buttons-${index}`}>
+          {button}
         </span>
         /* eslint-enable react/no-array-index-key */
       );
@@ -348,14 +359,16 @@ class Step extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'multi-step-wizard-step',
+      "multi-step-wizard-step",
       `multi-step-wizard-step-${this.props.stepNumber}`,
       `multi-step-wizard-step--${this.indicatorStatus}`,
       {
-        'multi-step-wizard-step--disabled': this.stepDisabled,
-        'multi-step-wizard-step--pending--disabled': this.stepDisabled && this.indicatorStatus === 'pending',
-        'multi-step-wizard-step--processed--disabled': this.stepDisabled && this.indicatorStatus === 'processed',
-        'multi-step-wizard-step-final': this.isLastStep
+        "multi-step-wizard-step--disabled": this.stepDisabled,
+        "multi-step-wizard-step--pending--disabled":
+          this.stepDisabled && this.indicatorStatus === "pending",
+        "multi-step-wizard-step--processed--disabled":
+          this.stepDisabled && this.indicatorStatus === "processed",
+        "multi-step-wizard-step-final": this.isLastStep,
       },
       this.props.className
     );
@@ -369,23 +382,27 @@ class Step extends React.Component {
   render() {
     if (this.wizard) {
       return (
-        <div className={ this.mainClasses }>
-          <div className={ `multi-step-wizard-step__indicator-bar ${this.indicatorStatus}` }>
-            <div className='multi-step-wizard-step__indicator-background' />
+        <div className={this.mainClasses}>
+          <div
+            className={`multi-step-wizard-step__indicator-bar ${this.indicatorStatus}`}
+          >
+            <div className="multi-step-wizard-step__indicator-background" />
           </div>
-          <div className='multi-step-wizard-step__indicator-icon'>
-            <div className='multi-step-wizard-step__indicator-placeholder'>
-              <div className={ `multi-step-wizard-step__indicator-icon__content ${this.indicatorStatus}` }>
-                { this.indicatorHTML }
+          <div className="multi-step-wizard-step__indicator-icon">
+            <div className="multi-step-wizard-step__indicator-placeholder">
+              <div
+                className={`multi-step-wizard-step__indicator-icon__content ${this.indicatorStatus}`}
+              >
+                {this.indicatorHTML}
               </div>
             </div>
           </div>
-          { this.stepHTML }
+          {this.stepHTML}
         </div>
       );
     }
 
-    return <div className='multi-step-wizard-step--none' />;
+    return <div className="multi-step-wizard-step--none" />;
   }
 }
 

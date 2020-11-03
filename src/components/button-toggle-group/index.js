@@ -1,1 +1,1 @@
-export { default } from './button-toggle-group.component';
+export { default } from "./button-toggle-group.component";

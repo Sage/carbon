@@ -139,7 +139,7 @@ Object {
 }
 
 .c2:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
@@ -267,7 +267,7 @@ Object {
 }
 
 .c0 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 <div

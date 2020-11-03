@@ -1,49 +1,49 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ItemTargetHelper from './';
+import React from "react";
+import ReactDOM from "react-dom";
+import ItemTargetHelper from "./";
 
-describe('ItemTargetHelper', () => {
-  describe('onHoverUpDown', () => {
+describe("ItemTargetHelper", () => {
+  describe("onHoverUpDown", () => {
     let component,
-        rect,
-        monitor = {},
-        monitorItem,
-        props,
-        clientOffset,
-        offsetDiff;
+      rect,
+      monitor = {},
+      monitorItem,
+      props,
+      clientOffset,
+      offsetDiff;
 
     beforeEach(() => {
-      component = document.createElement('div');
+      component = document.createElement("div");
       component.setState = () => {};
       rect = {
         bottom: 100,
-        height: 50, 
+        height: 50,
         left: 0,
         right: 200,
         top: 50,
-        width: 200
+        width: 200,
       };
 
       props = {
         index: 0,
-        onDrag: () => {}
+        onDrag: () => {},
       };
-      
+
       clientOffset = {
         x: 50,
-        y: 50
+        y: 50,
       };
 
-      spyOn(ReactDOM, 'findDOMNode').and.returnValue(component);
-      spyOn(component, 'getBoundingClientRect').and.returnValue(rect);
+      spyOn(ReactDOM, "findDOMNode").and.returnValue(component);
+      spyOn(component, "getBoundingClientRect").and.returnValue(rect);
 
       monitorItem = {
-        index: 0
+        index: 0,
       };
 
       offsetDiff = {
         x: 0,
-        y: 0
+        y: 0,
       };
 
       monitor = {
@@ -55,46 +55,46 @@ describe('ItemTargetHelper', () => {
         },
         getDifferenceFromInitialOffset: () => {
           return offsetDiff;
-        }
+        },
       };
     });
 
-    describe('calls props.onDrag when', () => {
-      it('item dragged downwards and below 50% of item height', () => {
+    describe("calls props.onDrag when", () => {
+      it("item dragged downwards and below 50% of item height", () => {
         props.index = 1;
         clientOffset.y = 76; // over the halfway point when dragging downwards
 
-        spyOn(props, 'onDrag');
+        spyOn(props, "onDrag");
         ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
         expect(props.onDrag).toHaveBeenCalled();
       });
 
-      it('item dragged upwards and above 50% of item height', () => {
+      it("item dragged upwards and above 50% of item height", () => {
         props.index = 0;
 
         clientOffset.y = 51;
         monitorItem.index = 1;
 
-        spyOn(props, 'onDrag');
+        spyOn(props, "onDrag");
         ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
         expect(props.onDrag).toHaveBeenCalled();
       });
 
-      it('item dragged upwards and above 50% of item height', () => {
+      it("item dragged upwards and above 50% of item height", () => {
         props.index = 0;
 
         clientOffset.y = 51;
         monitorItem.index = 1;
 
-        spyOn(props, 'onDrag');
+        spyOn(props, "onDrag");
         ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
         expect(props.onDrag).toHaveBeenCalled();
       });
 
-      it('calls context.dragAndDropOnDrag when onDrag prop is unavailable is', () => {
+      it("calls context.dragAndDropOnDrag when onDrag prop is unavailable is", () => {
         props.index = 0;
 
         clientOffset.y = 51;
@@ -102,7 +102,7 @@ describe('ItemTargetHelper', () => {
         let contextSpy = jasmine.createSpy();
 
         component.context = {
-          dragAndDropOnDrag: contextSpy
+          dragAndDropOnDrag: contextSpy,
         };
         delete props.onDrag;
 
@@ -110,16 +110,16 @@ describe('ItemTargetHelper', () => {
         expect(contextSpy).toHaveBeenCalled();
       });
 
-      describe('when difference between item offset y and initial offset y is less than 1', () => {
-        it('it does not run onDrag', () => {
+      describe("when difference between item offset y and initial offset y is less than 1", () => {
+        it("it does not run onDrag", () => {
           props.index = 0;
           clientOffset.y = 51;
           monitorItem.index = 1;
           monitorItem.offsetDiffY = 10;
           offsetDiff.y = 11;
 
-          spyOn(component, 'setState');
-          spyOn(props, 'onDrag');
+          spyOn(component, "setState");
+          spyOn(props, "onDrag");
           ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
           expect(props.onDrag).not.toHaveBeenCalled();
@@ -127,15 +127,15 @@ describe('ItemTargetHelper', () => {
         });
       });
 
-      describe('when difference between item offset y and initial offset y is greater than 1', () => {
-        it('it does not run onDrag', () => {
+      describe("when difference between item offset y and initial offset y is greater than 1", () => {
+        it("it does not run onDrag", () => {
           props.index = 0;
           monitorItem.index = 1;
           clientOffset.y = 51;
           monitorItem.offsetDiffY = 10;
           offsetDiff.y = 12;
 
-          spyOn(props, 'onDrag');
+          spyOn(props, "onDrag");
           ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
           expect(props.onDrag).toHaveBeenCalled();
@@ -143,12 +143,12 @@ describe('ItemTargetHelper', () => {
       });
     });
 
-    describe('does not call props.onDrag when', () => {
-      it('dragIndex is the same as the hoverIndex', () => {
+    describe("does not call props.onDrag when", () => {
+      it("dragIndex is the same as the hoverIndex", () => {
         props.index = 0;
         monitorItem.index = 0;
 
-        spyOn(props, 'onDrag');
+        spyOn(props, "onDrag");
 
         ItemTargetHelper.onHoverUpDown(props, monitor, component);
         expect(props.onDrag).not.toHaveBeenCalled();

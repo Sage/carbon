@@ -1,1 +1,1 @@
-export { default } from './dialog-full-screen.component';
+export { default } from "./dialog-full-screen.component";

@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import Fieldset from '../../__experimental__/components/fieldset';
-import { Input } from '../../__experimental__/components/input';
-import Button from '../button';
-import tint from '../../style/utils/tint';
+import styled, { css } from "styled-components";
+import Fieldset from "../../__experimental__/components/fieldset";
+import { Input } from "../../__experimental__/components/input";
+import Button from "../button";
+import tint from "../../style/utils/tint";
 
-import { LegendContainerStyle } from '../../__experimental__/components/fieldset/fieldset.style';
-import { baseTheme } from '../../style/themes';
+import { LegendContainerStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { baseTheme } from "../../style/themes";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
@@ -40,22 +40,26 @@ const StyledTileSelect = styled.div`
   border: 1px solid ${({ theme }) => theme.tileSelect.border};
   background-color: ${({ theme }) => theme.colors.white};
   padding: 24px;
-  ${({ checked, theme }) => checked && css`
-    border-color: ${theme.colors.primary};
-    background: ${tint(theme.colors.primary)(95)};
-    z-index: 10;
-  `}
-  ${({ disabled, theme }) => disabled && css`
-    background: ${theme.tileSelect.disabledBackground};
-    ${StyledTitle}, ${StyledSubtitle}, ${StyledDescription} {
-      color: ${theme.tileSelect.disabledText};
-    }
-    ${StyledAdornment} * {
-      color: ${theme.colors.black};
-      fill: ${theme.colors.black};
-      opacity: 0.3;
-    }
-  `};
+  ${({ checked, theme }) =>
+    checked &&
+    css`
+      border-color: ${theme.colors.primary};
+      background: ${tint(theme.colors.primary)(95)};
+      z-index: 10;
+    `}
+  ${({ disabled, theme }) =>
+    disabled &&
+    css`
+      background: ${theme.tileSelect.disabledBackground};
+      ${StyledTitle}, ${StyledSubtitle}, ${StyledDescription} {
+        color: ${theme.tileSelect.disabledText};
+      }
+      ${StyledAdornment} * {
+        color: ${theme.colors.black};
+        fill: ${theme.colors.black};
+        opacity: 0.3;
+      }
+    `};
 `;
 
 const StyledTileSelectContainer = styled.div`
@@ -64,11 +68,14 @@ const StyledTileSelectContainer = styled.div`
   & + & ${StyledTileSelect} {
     margin-top: -1px;
   }
-  ${({ checked, disabled, theme }) => !checked && !disabled && css`
-    &:hover ${StyledTileSelect} {
-      background: ${theme.tileSelect.hoverBackground};
-    }
-  `}
+  ${({ checked, disabled, theme }) =>
+    !checked &&
+    !disabled &&
+    css`
+      &:hover ${StyledTileSelect} {
+        background: ${theme.tileSelect.hoverBackground};
+      }
+    `}
 `;
 
 const StyledTileSelectInput = styled(Input)`
@@ -80,8 +87,8 @@ const StyledTileSelectInput = styled(Input)`
   width: 100%;
   margin: 0;
   z-index: 100;
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  &:focus + ${StyledTileSelect}  {
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  &:focus + ${StyledTileSelect} {
     outline: 3px solid ${({ theme }) => theme.colors.focus};
     z-index: 15;
   }
@@ -98,7 +105,7 @@ const StyledDeselectButton = styled(Button)`
   position: absolute;
   top: 16px;
   right: 8px;
-  z-index: 200
+  z-index: 200;
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
@@ -108,13 +115,15 @@ const StyledTileSelectFieldset = styled(Fieldset)`
       font-size: 16px;
       line-height: 16px;
       margin-left: -2px;
-    } 
-  }
-  ${({ multiSelect }) => multiSelect && css`
-    ${StyledTileSelectContainer} {
-      margin-bottom: 8px;
     }
-  `}
+  }
+  ${({ multiSelect }) =>
+    multiSelect &&
+    css`
+      ${StyledTileSelectContainer} {
+        margin-bottom: 8px;
+      }
+    `}
 `;
 
 const StyledGroupDescription = styled.p`
@@ -123,21 +132,20 @@ const StyledGroupDescription = styled.p`
   margin-bottom: 16px;
 `;
 
-
 StyledTileSelect.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledTileSelectContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledGroupDescription.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledTileSelectInput.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledDescription.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -151,5 +159,5 @@ export {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
-  StyledDeselectButton
+  StyledDeselectButton,
 };

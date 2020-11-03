@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Icon from '../../../components/icon';
-import InputIconToggleStyle from './input-icon-toggle.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
+import React from "react";
+import PropTypes from "prop-types";
+import Icon from "../../../components/icon";
+import InputIconToggleStyle from "./input-icon-toggle.style";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import ValidationIcon from "../../../components/validations/validation-icon.component";
 
 const shouldDisplayValidationIcon = ({ error, warning, info }) => {
   const validation = error || warning || info || null;
-  return typeof validation === 'string';
+  return typeof validation === "string";
 };
 
 const InputIconToggle = ({
@@ -21,19 +21,23 @@ const InputIconToggle = ({
   warning,
   info,
   useValidationIcon,
-  align
+  align,
 }) => {
-  if (useValidationIcon && !disabled && shouldDisplayValidationIcon({ error, warning, info })) {
+  if (
+    useValidationIcon &&
+    !disabled &&
+    shouldDisplayValidationIcon({ error, warning, info })
+  ) {
     return (
-      <InputIconToggleStyle size={ size }>
+      <InputIconToggleStyle size={size}>
         <ValidationIcon
-          error={ error }
-          warning={ warning }
-          info={ info }
-          size={ size }
-          onClick={ onClick }
+          error={error}
+          warning={warning}
+          info={info}
+          size={size}
+          onClick={onClick}
           isPartOfInput
-          tooltipPosition={ align === 'right' ? 'left' : 'right' }
+          tooltipPosition={align === "right" ? "left" : "right"}
         />
       </InputIconToggleStyle>
     );
@@ -42,11 +46,11 @@ const InputIconToggle = ({
   if (type && !(disabled || readOnly)) {
     return (
       <InputIconToggleStyle
-        size={ size }
-        onClick={ onClick }
-        onMouseDown={ onMouseDown }
+        size={size}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
       >
-        <Icon type={ type } />
+        <Icon type={type} />
       </InputIconToggleStyle>
     );
   }
@@ -63,8 +67,8 @@ InputIconToggle.propTypes = {
   onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  align: PropTypes.oneOf(['left', 'right']),
-  useValidationIcon: PropTypes.bool
+  align: PropTypes.oneOf(["left", "right"]),
+  useValidationIcon: PropTypes.bool,
 };
 
 export default InputIconToggle;

@@ -1,1 +1,1 @@
-export { default } from './flat-table-head.component';
+export { default } from "./flat-table-head.component";

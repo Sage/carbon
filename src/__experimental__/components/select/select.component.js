@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
-import invariant from 'invariant';
-import SelectList from './select-list.component';
-import Textbox from '../textbox';
-import Pill from '../../../components/pill';
-import Events from '../../../utils/helpers/events';
-import tagComponent from '../../../utils/helpers/tags';
-import { StyledSelect, StyledSelectPillContainer } from './select.style';
-import Logger from '../../../utils/logger/logger';
+import React from "react";
+import PropTypes from "prop-types";
+import { uniqueId } from "lodash";
+import invariant from "invariant";
+import SelectList from "./select-list.component";
+import Textbox from "../textbox";
+import Pill from "../../../components/pill";
+import Events from "../../../utils/helpers/events";
+import tagComponent from "../../../utils/helpers/tags";
+import { StyledSelect, StyledSelectPillContainer } from "./select.style";
+import Logger from "../../../utils/logger/logger";
 
 let deprecatedWarnTriggered = false;
 
@@ -36,35 +36,43 @@ class Select extends React.Component {
     if (!deprecatedWarnTriggered) {
       deprecatedWarnTriggered = true;
       // eslint-disable-next-line max-len
-      Logger.deprecate('The `lib/__experimental__/select` component is deprecated and will soon be removed. Please use `lib/select` instead.');
+      Logger.deprecate(
+        "The `lib/__experimental__/select` component is deprecated and will soon be removed. Please use `lib/select` instead."
+      );
     }
   }
 
-  listboxId = uniqueId('listbox-');
+  listboxId = uniqueId("listbox-");
 
-  isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
+  isComponentControlled =
+    this.props.value !== undefined && this.props.value !== null;
 
   getInitialStateValue = () => {
     if (this.isComponentControlled) {
       return this.props.value;
     }
-    if (this.props.defaultValue !== undefined && this.props.defaultValue !== null) {
+    if (
+      this.props.defaultValue !== undefined &&
+      this.props.defaultValue !== null
+    ) {
       return this.props.defaultValue;
     }
-    return (this.props.enableMultiSelect ? [] : '');
-  }
+    return this.props.enableMultiSelect ? [] : "";
+  };
 
   state = {
     value: this.getInitialStateValue(),
     filter: undefined,
-    open: false
-  }
+    open: false,
+  };
 
-  blurBlocked = false // stops the blur callback from triggering (closing the list) when we don't want it to
+  blurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
 
-  input = {} // this will store a reference to the input html element
+  input = {}; // this will store a reference to the input html element
 
-  assignInput = (input) => { this.input = input; }
+  assignInput = (input) => {
+    this.input = input;
+  };
 
   blockBlur() {
     this.blurBlocked = true;
@@ -83,20 +91,20 @@ class Select extends React.Component {
       const customEvent = this.createCustomEvent(value);
       this.props.onBlur(customEvent);
     }
-  }
+  };
 
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
   handleFocus = (ev) => {
     if (!this.props.preventFocusAutoOpen) this.openList();
     if (this.props.onFocus) this.props.onFocus(ev);
-  }
+  };
 
-  handleMouseEnter = () => this.blockBlur()
+  handleMouseEnter = () => this.blockBlur();
 
-  handleMouseLeave = () => this.unblockBlur()
+  handleMouseLeave = () => this.unblockBlur();
 
-  handleClick = () => this.openList()
+  handleClick = () => this.openList();
 
   /**
    * Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).
@@ -108,10 +116,11 @@ class Select extends React.Component {
 
     invariant(
       enableMultiSelect === isValuePropAnArray,
-      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
-      }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
+      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect}) and \`value\` (${
+        isValuePropAnArray ? "is an array" : "is not an array"
+      })`
     );
-  }
+  };
 
   /**
    * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
@@ -121,7 +130,7 @@ class Select extends React.Component {
       this.verifyControlledIntegrity();
     }
     return Boolean(this.props.enableMultiSelect);
-  }
+  };
 
   /**
    * Gets this component's current value.
@@ -133,18 +142,24 @@ class Select extends React.Component {
       return this.props.value;
     }
     return this.state.value;
-  }
+  };
 
   /**
    * Gets this component's current multi-select values.
    * Should only be called when the component is in multi-select mode.
    */
   getMultiSelectValues = () => {
-    invariant(this.props.enableMultiSelect, 'Cannot get multi-select value: `enableMultiSelect` prop is falsy');
+    invariant(
+      this.props.enableMultiSelect,
+      "Cannot get multi-select value: `enableMultiSelect` prop is falsy"
+    );
     const value = this.getValue();
-    invariant(this.isMultiValue(value), 'Cannot get multi-select value: value is not an array');
+    invariant(
+      this.isMultiValue(value),
+      "Cannot get multi-select value: value is not an array"
+    );
     return value; // Guaranteed to be an array.
-  }
+  };
 
   /**
    * This handler is attached to `SelectList.onSelect()`, which is attached to `ScrollableList.onSelect()`,
@@ -170,14 +185,14 @@ class Select extends React.Component {
     } else {
       this.triggerChange(optionProps.value);
     }
-  }
+  };
 
   handleFilter = (ev) => {
     const { value: filter } = ev.target;
     this.setState({ filter });
 
     if (this.props.onFilter) this.props.onFilter(filter);
-  }
+  };
 
   handleKeyDown = (ev) => {
     // order of event checking is important here!
@@ -208,7 +223,7 @@ class Select extends React.Component {
     }
 
     if (!this.props.filterable) ev.preventDefault();
-  }
+  };
 
   openWhenTypeAhead(typeAhead, value) {
     if (!this.props.filterable) return false;
@@ -262,19 +277,19 @@ class Select extends React.Component {
   createCustomEvent(value) {
     const { name, id } = this.props;
 
-    const strings = (this.isMultiValue(value) ? value : [value]);
+    const strings = this.isMultiValue(value) ? value : [value];
 
-    const objects = strings.map(stringValue => ({
+    const objects = strings.map((stringValue) => ({
       optionValue: stringValue,
-      optionText: this.getTextForValue(stringValue)
+      optionText: this.getTextForValue(stringValue),
     }));
 
     const customEvent = {
       target: {
         ...(name && { name }),
         ...(id && { id }),
-        value: objects
-      }
+        value: objects,
+      },
     };
 
     return customEvent;
@@ -285,7 +300,10 @@ class Select extends React.Component {
    * Should only be called when the component is in multi-select mode.
    */
   removeMultiItem(index) {
-    invariant(this.isMultiSelectEnabled(), 'Cannot remove multi-select item: Component not in multi-select mode');
+    invariant(
+      this.isMultiSelectEnabled(),
+      "Cannot remove multi-select item: Component not in multi-select mode"
+    );
 
     const multiSelectValues = this.getMultiSelectValues();
 
@@ -301,12 +319,15 @@ class Select extends React.Component {
    * Should only be called when the component is in single-select mode.
    */
   removeSingleItem() {
-    invariant(!this.isMultiSelectEnabled(), 'Cannot remove single-select item: Component not in single-select mode');
+    invariant(
+      !this.isMultiSelectEnabled(),
+      "Cannot remove single-select item: Component not in single-select mode"
+    );
 
     const value = this.getValue();
 
     if (!this.state.filter && !!value) {
-      this.triggerChange('');
+      this.triggerChange("");
     }
   }
 
@@ -315,46 +336,50 @@ class Select extends React.Component {
    */
   getTextForValue = (value) => {
     const optionsComponents = React.Children.toArray(this.props.children);
-    const matchingOption = optionsComponents.find(option => (option.props.value === value));
-    return matchingOption ? matchingOption.props.text : '';
-  }
+    const matchingOption = optionsComponents.find(
+      (option) => option.props.value === value
+    );
+    return matchingOption ? matchingOption.props.text : "";
+  };
 
   // returns the human readable value for the user
   formattedValue(filterValue, value) {
-    let visibleValue = '';
+    let visibleValue = "";
     // if not multi-value then fetch the text key on the value
     if (!this.isMultiSelectEnabled() && value) {
       visibleValue = this.getTextForValue(value);
     }
     // if there is a filter then return that over the selected visible value
-    return (typeof filterValue === 'string') ? filterValue : visibleValue;
+    return typeof filterValue === "string" ? filterValue : visibleValue;
   }
 
   renderMultiValues(values) {
     const canDelete = !this.props.disabled && !this.props.readOnly;
 
-    return (
-      values.map((value, index) => (
-        <StyledSelectPillContainer key={ value }>
-          <Pill
-            onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
-            title={ this.getTextForValue(value) }
-          >
-            { this.getTextForValue(value) }
-          </Pill>
-        </StyledSelectPillContainer>
-      ))
-    );
+    return values.map((value, index) => (
+      <StyledSelectPillContainer key={value}>
+        <Pill
+          onDelete={canDelete ? () => this.removeMultiItem(index) : undefined}
+          title={this.getTextForValue(value)}
+        >
+          {this.getTextForValue(value)}
+        </Pill>
+      </StyledSelectPillContainer>
+    ));
   }
 
   /**
    * Determines whether `value` indicates a single value (when the component is operating in single-select mode)
    * or multiple values (when the component is operating in multi-select mode).
    */
-  isMultiValue(value) { return Array.isArray(value); }
+  isMultiValue(value) {
+    return Array.isArray(value);
+  }
 
   placeholder(placeholder) {
-    let displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
+    let displayedPlaceHolder = this.props.typeAhead
+      ? "Type to Search..."
+      : "Please Select...";
 
     if (placeholder) displayedPlaceHolder = placeholder;
 
@@ -363,13 +388,13 @@ class Select extends React.Component {
 
   // data attributes used for automation
   dataAttributes() {
-    return tagComponent(this.props['data-component'], this.props);
+    return tagComponent(this.props["data-component"], this.props);
   }
 
   inputIcon(typeAhead) {
-    if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
-    if (typeAhead) return 'search';
-    return this.isMultiSelectEnabled() ? undefined : 'dropdown';
+    if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return "cross";
+    if (typeAhead) return "search";
+    return this.isMultiSelectEnabled() ? undefined : "dropdown";
   }
 
   eventProps() {
@@ -381,7 +406,7 @@ class Select extends React.Component {
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown,
         onClick: this.handleClick,
-        onChange: this.handleFilter
+        onChange: this.handleFilter,
       };
     }
     return events;
@@ -398,14 +423,17 @@ class Select extends React.Component {
       inputIcon: this.inputIcon(typeAhead),
       inputRef: this.assignInput,
       placeholder: placeholderText,
-      'aria-label': placeholderText,
-      leftChildren: this.isMultiSelectEnabled() && this.renderMultiValues(value),
+      "aria-label": placeholderText,
+      leftChildren:
+        this.isMultiSelectEnabled() && this.renderMultiValues(value),
       value,
-      formattedValue: this.formattedValue(this.state.filter, value)
+      formattedValue: this.formattedValue(this.state.filter, value),
     };
 
     if (leftChildren) {
-      props.leftChildren = props.leftChildren ? [leftChildren, ...props.leftChildren] : leftChildren;
+      props.leftChildren = props.leftChildren
+        ? [leftChildren, ...props.leftChildren]
+        : leftChildren;
     }
 
     return props;
@@ -413,7 +441,9 @@ class Select extends React.Component {
 
   listDisplayable(isTypeAhead) {
     const { filter, open } = this.state;
-    return (this.openWhenTypeAhead((isTypeAhead), filter) || !isTypeAhead) ? open : false;
+    return this.openWhenTypeAhead(isTypeAhead, filter) || !isTypeAhead
+      ? open
+      : false;
   }
 
   render() {
@@ -439,41 +469,43 @@ class Select extends React.Component {
 
     return (
       <StyledSelect
-        role='combobox'
-        data-component='carbon-select'
+        role="combobox"
+        data-component="carbon-select"
         // move this to textbox style in DLS phase 2
-        style={ { minWidth: 75 } }
-        onMouseEnter={ this.handleMouseEnter }
-        onMouseLeave={ this.handleMouseLeave }
-        aria-haspopup='listbox'
-        aria-expanded={ open }
-        aria-controls={ open ? this.listboxId : '' }
-        aria-label={ ariaLabel }
-        isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
-        transparent={ transparent }
+        style={{ minWidth: 75 }}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={open ? this.listboxId : ""}
+        aria-label={ariaLabel}
+        isAnyValueSelected={
+          this.isMultiSelectEnabled() && this.getMultiSelectValues().length >= 1
+        }
+        transparent={transparent}
       >
         <Textbox
-          { ...props } // this needs to send all of the original props
-          { ...this.dataAttributes() }
-          { ...this.textboxProps() }
-          { ...this.eventProps() }
+          {...props} // this needs to send all of the original props
+          {...this.dataAttributes()}
+          {...this.textboxProps()}
+          {...this.eventProps()}
         >
-          { this.listDisplayable(allowTypeAhead, filter, open) && (
+          {this.listDisplayable(allowTypeAhead, filter, open) && (
             <SelectList
-              alwaysHighlight={ !!filter } // always ensure something is highlighted only if there's a filter
-              customFilter={ customFilter }
-              filterValue={ filter }
-              onLazyLoad={ onLazyLoad }
-              isLoopable={ isLoopable }
-              onSelect={ this.handleChange }
-              open={ open }
-              target={ this.input.current && this.input.current.parentElement }
-              role='listbox'
-              id={ this.listboxId }
+              alwaysHighlight={!!filter} // always ensure something is highlighted only if there's a filter
+              customFilter={customFilter}
+              filterValue={filter}
+              onLazyLoad={onLazyLoad}
+              isLoopable={isLoopable}
+              onSelect={this.handleChange}
+              open={open}
+              target={this.input.current && this.input.current.parentElement}
+              role="listbox"
+              id={this.listboxId}
             >
-              { children }
+              {children}
             </SelectList>
-          ) }
+          )}
         </Textbox>
       </StyledSelect>
     );
@@ -483,7 +515,7 @@ class Select extends React.Component {
 const valuePropType = PropTypes.oneOfType([
   PropTypes.string, // Single-select mode
   PropTypes.object, // CustomFilter-select mode
-  PropTypes.array // Multi-select mode
+  PropTypes.array, // Multi-select mode
 ]);
 
 Select.propTypes = {
@@ -530,7 +562,7 @@ Select.propTypes = {
   /** Name attribute of the component */
   name: PropTypes.string,
   /** Name of the component */
-  'data-component': PropTypes.string,
+  "data-component": PropTypes.string,
   /** Are >=3 characters required to trigger the dropdown menu? */
   typeAhead: PropTypes.bool,
   /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
@@ -539,12 +571,12 @@ Select.propTypes = {
   /** Add additional child elements before the input */
   leftChildren: PropTypes.node,
   /** If true the component input has no border and is transparent */
-  transparent: PropTypes.bool
+  transparent: PropTypes.bool,
 };
 
 Select.defaultProps = {
   filterable: true,
-  typeAhead: false
+  typeAhead: false,
 };
 
 export default Select;

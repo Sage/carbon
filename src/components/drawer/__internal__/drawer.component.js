@@ -1,14 +1,9 @@
-import React, {
-  useState,
-  useCallback,
-  useRef,
-  useEffect
-} from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import invariant from 'invariant';
-import createGuid from '../../../utils/helpers/guid/guid';
-import Icon from '../../icon';
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import invariant from "invariant";
+import createGuid from "../../../utils/helpers/guid/guid";
+import Icon from "../../icon";
 
 import {
   StyledDrawerWrapper,
@@ -16,8 +11,8 @@ import {
   StyledButton,
   StyledDrawerChildren,
   StyledDrawerSidebar,
-  StyledSidebarTitle
-} from './drawer.style';
+  StyledSidebarTitle,
+} from "./drawer.style";
 
 const SidebarContext = React.createContext();
 
@@ -42,9 +37,10 @@ const Drawer = ({
   const timer = useRef();
 
   useEffect(() => {
-    const message = 'Drawer should not switch from uncontrolled to controlled'
-    + ' (or vice versa). Decide between using a controlled or uncontrolled Drawer element'
-    + ' for the lifetime of the component';
+    const message =
+      "Drawer should not switch from uncontrolled to controlled" +
+      " (or vice versa). Decide between using a controlled or uncontrolled Drawer element" +
+      " for the lifetime of the component";
     invariant(isControlled.current === (expanded !== undefined), message);
 
     if (expanded !== undefined) {
@@ -59,13 +55,22 @@ const Drawer = ({
   }, []);
 
   const getAnimationDuration = useCallback(() => {
-    if (animationDuration.indexOf('ms') !== -1) {
-      const animationTime = animationDuration.substring(0, animationDuration.length - 2);
+    if (animationDuration.indexOf("ms") !== -1) {
+      const animationTime = animationDuration.substring(
+        0,
+        animationDuration.length - 2
+      );
       return animationTime;
     }
 
-    if (animationDuration.indexOf('.') !== -1 || animationDuration.indexOf('s') !== -1) {
-      const animationTime = animationDuration.substring(0, animationDuration.length - 1);
+    if (
+      animationDuration.indexOf(".") !== -1 ||
+      animationDuration.indexOf("s") !== -1
+    ) {
+      const animationTime = animationDuration.substring(
+        0,
+        animationDuration.length - 1
+      );
       return parseFloat(animationTime) * 1000;
     }
 
@@ -90,35 +95,34 @@ const Drawer = ({
     }
   }, [getAnimationDuration, isExpanded]);
 
-  const toggleDrawer = useCallback((ev) => {
-    setIsExpanded(!isExpanded);
-    if (onChange) onChange(ev, !isExpanded);
-    if (isExpanded) {
-      drawerSidebarContentRef.current.scrollTop = 0;
-    }
+  const toggleDrawer = useCallback(
+    (ev) => {
+      setIsExpanded(!isExpanded);
+      if (onChange) onChange(ev, !isExpanded);
+      if (isExpanded) {
+        drawerSidebarContentRef.current.scrollTop = 0;
+      }
 
-    toggleAnimation();
-  }, [toggleAnimation, isExpanded, onChange]);
+      toggleAnimation();
+    },
+    [toggleAnimation, isExpanded, onChange]
+  );
 
   const guid = useRef(createGuid());
   const sidebarId = `DrawerSidebar_${guid.current}`;
 
   const getClassNames = useCallback(() => {
     return classNames(
-      isExpanded ? 'open' : 'closed',
-      isOpening ? 'opening' : '',
-      isClosing ? 'closing' : ''
+      isExpanded ? "open" : "closed",
+      isOpening ? "opening" : "",
+      isClosing ? "closing" : ""
     );
   }, [isExpanded, isOpening, isClosing]);
 
   const getTitle = () => {
     if (title === undefined) return null;
 
-    return (
-      <StyledSidebarTitle>
-        { title }
-      </StyledSidebarTitle>
-    );
+    return <StyledSidebarTitle>{title}</StyledSidebarTitle>;
   };
 
   const getControls = () => {
@@ -126,50 +130,43 @@ const Drawer = ({
 
     return (
       <StyledButton
-        aria-label='toggle sidebar'
-        aria-expanded={ isExpanded }
-        aria-controls={ sidebarId }
-        data-element='drawer-toggle'
-        onClick={ toggleDrawer }
-        isExpanded={ isExpanded }
-        animationDuration={ animationDuration }
+        aria-label="toggle sidebar"
+        aria-expanded={isExpanded}
+        aria-controls={sidebarId}
+        data-element="drawer-toggle"
+        onClick={toggleDrawer}
+        isExpanded={isExpanded}
+        animationDuration={animationDuration}
       >
-        <Icon type='chevron_right' />
+        <Icon type="chevron_right" />
       </StyledButton>
     );
   };
 
   return (
-    <StyledDrawerWrapper
-      data-component='drawer'
-      { ...props }
-    >
+    <StyledDrawerWrapper data-component="drawer" {...props}>
       <StyledDrawerContent
-        expandedWidth={ expandedWidth }
-        animationDuration={ animationDuration }
-        className={ getClassNames() }
-        aria-expanded={ isExpanded ? 'true' : 'false' }
-        ref={ drawerSidebarContentRef }
-        backgroundColor={ backgroundColor }
+        expandedWidth={expandedWidth}
+        animationDuration={animationDuration}
+        className={getClassNames()}
+        aria-expanded={isExpanded ? "true" : "false"}
+        ref={drawerSidebarContentRef}
+        backgroundColor={backgroundColor}
       >
-        { getTitle() }
-        { getControls() }
+        {getTitle()}
+        {getControls()}
         <StyledDrawerSidebar
-          hasControls={ !!showControls }
-          id={ sidebarId }
-          isExpanded={ isExpanded }
-          role='navigation'
+          hasControls={!!showControls}
+          id={sidebarId}
+          isExpanded={isExpanded}
+          role="navigation"
         >
-          <SidebarContext.Provider
-            value={ { isInSidebar: true } }
-          >
-            { sidebar }
+          <SidebarContext.Provider value={{ isInSidebar: true }}>
+            {sidebar}
           </SidebarContext.Provider>
         </StyledDrawerSidebar>
       </StyledDrawerContent>
-      <StyledDrawerChildren>
-        {children}
-      </StyledDrawerChildren>
+      <StyledDrawerChildren>{children}</StyledDrawerChildren>
     </StyledDrawerWrapper>
   );
 };
@@ -193,13 +190,13 @@ Drawer.propTypes = {
   /** Sets title heading of sidebar's content */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
-  showControls: PropTypes.bool
+  showControls: PropTypes.bool,
 };
 
 Drawer.defaultProps = {
-  expandedWidth: '40%',
-  animationDuration: '400ms',
-  defaultExpanded: true
+  expandedWidth: "40%",
+  animationDuration: "400ms",
+  defaultExpanded: true,
 };
 
 export { SidebarContext };

@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import Button from '../button';
+import styled from "styled-components";
+import Button from "../button";
 import {
   ConfigurableItemRowContentWrapperStyle,
   ConfigurableItemRowIconStyle,
-  ConfigurableItemRowStyle
-} from './configurable-item-row/configurable-item-row.style';
-import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
-import StyledCheckbox from '../../__experimental__/components/checkbox/checkbox.style';
+  ConfigurableItemRowStyle,
+} from "./configurable-item-row/configurable-item-row.style";
+import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
+import StyledCheckbox from "../../__experimental__/components/checkbox/checkbox.style";
 
-import baseTheme from '../../style/themes/base';
+import baseTheme from "../../style/themes/base";
 
 const ConfigurableItemsButtonReset = styled(Button)`
   &&& {
@@ -27,7 +27,7 @@ const ConfigurableItemsWrapper = styled.ol`
     margin-top: 8px;
   }
 
-  && ${StyledFormField}{
+  && ${StyledFormField} {
     margin-bottom: 0px;
   }
 `;
@@ -55,7 +55,11 @@ const ConfigurableItemsStyle = styled.div`
 `;
 
 ConfigurableItemsStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
-export { ConfigurableItemsWrapper, ConfigurableItemsStyle, ConfigurableItemsButtonReset };
+export {
+  ConfigurableItemsWrapper,
+  ConfigurableItemsStyle,
+  ConfigurableItemsButtonReset,
+};

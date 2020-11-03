@@ -1,1 +1,1 @@
-export { default } from './grid-container.component';
+export { default } from "./grid-container.component";

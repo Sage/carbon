@@ -1,7 +1,7 @@
-import styled, { css, keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import styled, { css, keyframes } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 const loaderAnimation = keyframes`
   0%, 80%, 100% {
@@ -15,17 +15,16 @@ const loaderAnimation = keyframes`
 `;
 
 const StyledLoaderSquare = styled.div`
-  ${({
-    theme, size, isInsideButton, isActive
-  }) => css`
+  ${({ theme, size, isInsideButton, isActive }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: ${theme.colors.primary};
     display: inline-block;
-    height: ${size === 'large' ? '16px' : '8px'};
-    width: ${size === 'large' ? '16px' : '8px'};
-    margin-right: ${size === 'large' ? '10px' : '6px'};
+    height: ${size === "large" ? "16px" : "8px"};
+    width: ${size === "large" ? "16px" : "8px"};
+    margin-right: ${size === "large" ? "10px" : "6px"};
 
-    ${isInsideButton && css`
+    ${isInsideButton &&
+    css`
       background-color: ${isActive ? theme.colors.white : theme.colors.border};
     `}
 
@@ -46,15 +45,15 @@ const StyledLoaderSquare = styled.div`
 
 StyledLoaderSquare.defaultProps = {
   theme: baseTheme,
-  size: 'small',
+  size: "small",
   isInsideButton: false,
-  isActive: true
+  isActive: true,
 };
 
 StyledLoaderSquare.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   isInsideButton: PropTypes.bool,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
 };
 
 export default StyledLoaderSquare;

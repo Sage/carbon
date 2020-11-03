@@ -1,12 +1,18 @@
-import { Children } from 'react';
+import { Children } from "react";
 
 /**
  * Recreates HTML Select element functionality of finding first match based on typed characters
  * */
-export default function getNextChildByText(textToMatch, children, previousIndex = -1) {
+export default function getNextChildByText(
+  textToMatch,
+  children,
+  previousIndex = -1
+) {
   const arrayOfChildren = Children.toArray(children);
   const lastCharacter = textToMatch.slice(-1);
-  const isTheSameCharacter = textToMatch.split('').every(character => character === lastCharacter);
+  const isTheSameCharacter = textToMatch
+    .split("")
+    .every((character) => character === lastCharacter);
   let indexOfMatch = findElementStartingWithText(textToMatch, arrayOfChildren);
   const listOfMatches = getListOfMatches(arrayOfChildren, lastCharacter);
 
@@ -19,7 +25,10 @@ export default function getNextChildByText(textToMatch, children, previousIndex 
 
 function getListOfMatches(arrayOfChildren, lastCharacter) {
   return arrayOfChildren.reduce((acc, child, index) => {
-    if (child.props.text && child.props.text.toLowerCase().startsWith(lastCharacter.toLowerCase())) {
+    if (
+      child.props.text &&
+      child.props.text.toLowerCase().startsWith(lastCharacter.toLowerCase())
+    ) {
       acc.push(index);
     }
 
@@ -34,11 +43,14 @@ function getIndexOfNextElement(listOfMatches, previousIndex) {
     return listOfMatches[0];
   }
 
-  return listOfMatches[(listOfMatches.indexOf(previousIndex) + 1)];
+  return listOfMatches[listOfMatches.indexOf(previousIndex) + 1];
 }
 
 function findElementStartingWithText(textToMatch, list) {
   return list.findIndex((child) => {
-    return child.props.text && child.props.text.toLowerCase().startsWith(textToMatch.toLowerCase());
+    return (
+      child.props.text &&
+      child.props.text.toLowerCase().startsWith(textToMatch.toLowerCase())
+    );
   });
 }

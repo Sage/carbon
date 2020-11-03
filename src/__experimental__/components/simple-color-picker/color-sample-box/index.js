@@ -1,1 +1,1 @@
-export { default } from './color-sample-box.component';
+export { default } from "./color-sample-box.component";

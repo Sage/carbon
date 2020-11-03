@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Help from '../help';
-import Link from '../link';
-import tagComponent from '../../utils/helpers/tags';
-import './heading.scss';
-import { StyledHeading, StyledHeadingIcon } from './heading.style';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Help from "../help";
+import Link from "../link";
+import tagComponent from "../../utils/helpers/tags";
+import "./heading.scss";
+import { StyledHeading, StyledHeadingIcon } from "./heading.style";
 
 class Heading extends React.Component {
   static propTypes = {
@@ -22,10 +22,7 @@ class Heading extends React.Component {
     /**
      * Defines the title for the heading.
      */
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     /**
      * Defines the title id for the heading.
@@ -35,10 +32,7 @@ class Heading extends React.Component {
     /**
      * Defines the subheader for the heading.
      */
-    subheader: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    subheader: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     /**
      * Defines the subtitle id for the heading.
@@ -58,10 +52,7 @@ class Heading extends React.Component {
     /**
      * Defines the a href for the back link.
      */
-    backLink: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]),
+    backLink: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
     /**
      * Adds a divider below the heading and the content.
@@ -71,13 +62,13 @@ class Heading extends React.Component {
     /**
      * Adds a separator between the title and the subheader.
      */
-    separator: PropTypes.bool
-  }
+    separator: PropTypes.bool,
+  };
 
   static defaultProps = {
     divider: true,
-    separator: false
-  }
+    separator: false,
+  };
 
   /**
    * Returns the help component.
@@ -86,17 +77,19 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get help() {
-    if (!this.props.help && !this.props.helpLink) { return null; }
+    if (!this.props.help && !this.props.helpLink) {
+      return null;
+    }
 
     return (
       <Help
-        className='carbon-heading__help'
-        data-element='help'
-        tooltipAlign='center'
-        tooltipPosition='right'
-        href={ this.props.helpLink }
+        className="carbon-heading__help"
+        data-element="help"
+        tooltipAlign="center"
+        tooltipPosition="right"
+        href={this.props.helpLink}
       >
-        { this.props.help }
+        {this.props.help}
       </Help>
     );
   }
@@ -108,11 +101,13 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get back() {
-    if (!this.props.backLink) { return null; }
+    if (!this.props.backLink) {
+      return null;
+    }
 
     let props;
 
-    if (typeof this.props.backLink === 'string') {
+    if (typeof this.props.backLink === "string") {
       props = { href: this.props.backLink };
     } else {
       props = { onClick: this.props.backLink };
@@ -121,12 +116,12 @@ class Heading extends React.Component {
     return (
       <Link
         // this event allows an element to be focusable on click event on IE
-        onMouseDown={ e => e.currentTarget.focus() }
-        className='carbon-heading__back'
-        data-element='back'
-        { ...props }
+        onMouseDown={(e) => e.currentTarget.focus()}
+        className="carbon-heading__back"
+        data-element="back"
+        {...props}
       >
-        <StyledHeadingIcon type='chevron_left' />
+        <StyledHeadingIcon type="chevron_left" />
       </Link>
     );
   }
@@ -138,14 +133,17 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get subheader() {
-    if (!this.props.subheader) { return null; }
+    if (!this.props.subheader) {
+      return null;
+    }
 
     return (
       <div
-        className='carbon-heading__subheader' data-element='subtitle'
-        id={ this.props.subtitleId }
+        className="carbon-heading__subheader"
+        data-element="subtitle"
+        id={this.props.subtitleId}
       >
-        { this.props.subheader }
+        {this.props.subheader}
       </div>
     );
   }
@@ -157,10 +155,10 @@ class Heading extends React.Component {
    * @return {String}
    */
   get classes() {
-    return classNames('carbon-heading', this.props.className, {
-      'carbon-heading--has-subheader': this.props.subheader,
-      'carbon-heading--has-back': this.props.backLink,
-      'carbon-heading--has-divider': this.props.divider
+    return classNames("carbon-heading", this.props.className, {
+      "carbon-heading--has-subheader": this.props.subheader,
+      "carbon-heading--has-back": this.props.backLink,
+      "carbon-heading--has-divider": this.props.divider,
     });
   }
 
@@ -171,7 +169,9 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get separator() {
-    return this.props.separator ? <hr className='carbon-heading__separator' /> : null;
+    return this.props.separator ? (
+      <hr className="carbon-heading__separator" />
+    ) : null;
   }
 
   /**
@@ -179,36 +179,39 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    if (!this.props.title) { return null; }
+    if (!this.props.title) {
+      return null;
+    }
 
     return (
       <StyledHeading
-        className={ this.classes }
-        divider={ this.props.divider }
-        subheader={ this.props.subheader }
-        { ...tagComponent('heading', this.props) }
+        className={this.classes}
+        divider={this.props.divider}
+        subheader={this.props.subheader}
+        {...tagComponent("heading", this.props)}
       >
-        <div className='carbon-heading__header'>
-          { this.back }
+        <div className="carbon-heading__header">
+          {this.back}
 
-          <div className='carbon-heading__headers'>
-            <div className='carbon-heading__main-header'>
+          <div className="carbon-heading__headers">
+            <div className="carbon-heading__main-header">
               <h1
-                className='carbon-heading__title' data-element='title'
-                id={ this.props.titleId }
+                className="carbon-heading__title"
+                data-element="title"
+                id={this.props.titleId}
               >
-                { this.props.title }
+                {this.props.title}
               </h1>
 
-              { this.help }
+              {this.help}
             </div>
 
-            { this.separator }
-            { this.subheader }
+            {this.separator}
+            {this.subheader}
           </div>
         </div>
 
-        { this.props.children }
+        {this.props.children}
       </StyledHeading>
     );
   }

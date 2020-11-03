@@ -1,1 +1,1 @@
-export { default } from './step-sequence-item.component';
+export { default } from "./step-sequence-item.component";

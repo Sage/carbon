@@ -1,1 +1,1 @@
-export { default } from './hr.component';
+export { default } from "./hr.component";

@@ -1,32 +1,29 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import StyledLoader from '../../../components/loader/loader.style';
-import StyledLoaderSquare from '../../../components/loader/loader-square.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import StyledLoader from "../../../components/loader/loader.style";
+import StyledLoaderSquare from "../../../components/loader/loader-square.style";
 
 const SwitchSliderPanel = styled.div`
-  ${({
-    isLoading,
-    size,
-    theme
-  }) => css`
+  ${({ isLoading, size, theme }) => css`
     border: 0;
     color: ${theme.colors.white};
     margin: auto;
-    margin-top: ${size === 'large' ? '12px' : '5px'};
+    margin-top: ${size === "large" ? "12px" : "5px"};
 
-    &[type='on'] {
+    &[type="on"] {
       margin-left: 9px;
     }
 
-    &[type='off'] {
+    &[type="off"] {
       color: ${theme.text.color};
       margin-right: 6px;
     }
 
-    ${isLoading && css`
+    ${isLoading &&
+    css`
       ${StyledLoader} {
-        {
+         {
           padding: 0 3px 3px 0;
 
           ${StyledLoaderSquare} {
@@ -44,12 +41,11 @@ const SwitchSliderPanel = styled.div`
 SwitchSliderPanel.propTypes = {
   isLoading: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 SwitchSliderPanel.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
-
 
 export default SwitchSliderPanel;

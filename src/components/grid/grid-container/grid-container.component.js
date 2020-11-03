@@ -1,20 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import GridContainerStyle from './grid-container.style';
-import GridItem from '../grid-item';
+import React from "react";
+import PropTypes from "prop-types";
+import GridContainerStyle from "./grid-container.style";
+import GridItem from "../grid-item";
 
 const GridContainer = (props) => {
-  const {
-    children,
-    p,
-    pl,
-    pr,
-    pt,
-    pb,
-    px,
-    py,
-    gridGap
-  } = props;
+  const { children, p, pl, pr, pt, pb, px, py, gridGap } = props;
 
   const styledSystemProps = {
     p,
@@ -22,7 +12,7 @@ const GridContainer = (props) => {
     pr,
     pt,
     pb,
-    gridGap
+    gridGap,
   };
 
   if (px) {
@@ -34,10 +24,7 @@ const GridContainer = (props) => {
   }
 
   return (
-    <GridContainerStyle
-      data-component='grid'
-      { ...styledSystemProps }
-    >
+    <GridContainerStyle data-component="grid" {...styledSystemProps}>
       {children}
     </GridContainerStyle>
   );
@@ -45,7 +32,8 @@ const GridContainer = (props) => {
 
 GridContainer.propTypes = {
   /** Defines the Components to be rendered within the GridContainer. Requires a GridItem */
-  children: PropTypes.oneOfType([GridItem, PropTypes.arrayOf(GridItem)]).isRequired,
+  children: PropTypes.oneOfType([GridItem, PropTypes.arrayOf(GridItem)])
+    .isRequired,
   /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding */
   p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-left */
@@ -67,6 +55,6 @@ GridContainer.propTypes = {
    * */
   py: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Any valid CSS value to override default grid-gap */
-  gridGap: PropTypes.string
+  gridGap: PropTypes.string,
 };
 export default GridContainer;
