@@ -8,9 +8,7 @@ import { StyledLabelContainer } from "../label/label.style";
 import baseTheme from "../../../style/themes/base";
 
 const RadioButtonStyle = styled(CheckboxStyle)`
-  ${({ disabled, fieldHelpInline, reverse, size, theme, inline, mt }) => css`
-    margin-top: ${mt * theme.spacing}px;
-
+  ${({ disabled, fieldHelpInline, reverse, size, theme, inline }) => css`
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;
     }

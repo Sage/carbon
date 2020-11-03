@@ -80,6 +80,7 @@ const RadioButtonGroup = (props) => {
         data-component="radio-button-group"
         role="group"
         inline={inline}
+        legendInline={legendInline}
         styleOverride={styleOverride.content}
       >
         <RadioButtonMapper
@@ -88,17 +89,22 @@ const RadioButtonGroup = (props) => {
           onChange={onChange}
           value={value}
         >
-          {React.Children.map(children, (child) =>
-            React.cloneElement(child, {
+          {React.Children.map(children, (child, i) => {
+            const length = React.Children.count(children);
+            const isLastChild = i === length - 1;
+            const isFirstChild = i === 0;
+            return React.cloneElement(child, {
               inline,
               labelSpacing,
               error: !!error,
               warning: !!warning,
               info: !!info,
               required,
+              mt: !inline && isFirstChild ? "4px" : undefined,
+              mb: isLastChild ? 0 : undefined,
               ...child.props,
-            })
-          )}
+            });
+          })}
         </RadioButtonMapper>
       </RadioButtonGroupStyle>
     </Fieldset>
