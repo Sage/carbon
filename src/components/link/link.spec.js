@@ -1,10 +1,10 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import TestRenderer from 'react-test-renderer';
-import Link from './link.component';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import LinkStyle from './link.style';
-import StyledIcon from '../icon/icon.style';
+import React from "react";
+import { mount } from "enzyme";
+import TestRenderer from "react-test-renderer";
+import Link from "./link.component";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import LinkStyle from "./link.style";
+import StyledIcon from "../icon/icon.style";
 
 const RouterLink = (props) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -18,7 +18,7 @@ const render = (props) => {
   return TestRenderer.create(<Link {...props}>test</Link>);
 };
 
-describe('Link', () => {
+describe("Link", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -29,11 +29,15 @@ describe('Link', () => {
     expect(render()).toMatchSnapshot();
   });
 
-  describe('The `disabled` prop', () => {
-    it('should matches the expected style when true', () => {
-      assertStyleMatch({
-        cursor: 'not-allowed'
-      }, render({ disabled: true }).toJSON(), { modifier: 'a:hover' });
+  describe("The `disabled` prop", () => {
+    it("should matches the expected style when true", () => {
+      assertStyleMatch(
+        {
+          cursor: "not-allowed",
+        },
+        render({ disabled: true }).toJSON(),
+        { modifier: "a:hover" }
+      );
     });
 
     it("should call the events preventDefault function when true and clicked", () => {
