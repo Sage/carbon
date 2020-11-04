@@ -466,9 +466,15 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
       if (!isOpenA) {
         window.scrollTo(0,0);
       }
-      setIsOpenA(!isOpenA);
-      setIsOpenB(!isOpenB);
-      action('open')(!isOpenA);
+      if (!isOpenA && !isOpenB) {
+        setIsOpenA(true);
+        setIsOpenB(true);
+        action('open')(true);
+      }
+      else {
+        setIsOpenA(false);
+        setIsOpenB(false);
+      }
     };
     const StyledButton = styled(Button)`
       position: absolute;
