@@ -69,7 +69,7 @@ RadioButton.propTypes = {
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
