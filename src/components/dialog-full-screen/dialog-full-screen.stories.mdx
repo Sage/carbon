@@ -85,6 +85,44 @@ const MyComponent = ({ isOpen, handleClose }) => (
   </Story>
 </Preview>
 
+### With disableContentPadding
+
+<Preview>
+  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open DialogFullScreen
+          </Button>
+          <DialogFullScreen
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title="Title"
+            subtitle="Subtitle"
+            disableContentPadding
+          >
+            <Form
+              stickyFooter={ true }
+              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
+            >
+              <div>This is an example of a full screen Dialog with a Form as content</div>
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
+              <Textbox label='Surname' />
+              <Textbox label='Birth Place' />
+              <Textbox label='Favourite Colour' />
+              <Textbox label='Address' />
+            </Form>
+          </DialogFullScreen>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### With header children 
 
 <Preview>

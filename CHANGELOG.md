@@ -1,3 +1,22 @@
+## [48.5.0](https://github.com/Sage/carbon/compare/v48.4.0...v48.5.0) (2020-11-06)
+
+
+### Features
+
+* **dialog-full-screen:** add prop `disableContentPadding` ([95d2717](https://github.com/Sage/carbon/commit/95d2717da44720d620eec149b7d646f5799bc092))
+
+## [48.4.0](https://github.com/Sage/carbon/compare/v48.3.1...v48.4.0) (2020-11-06)
+
+
+### Features
+
+* **navigation-bar:** add support for custom spacing props ([242d26e](https://github.com/Sage/carbon/commit/242d26e7261135bfc7cf8ac7dd4cde7e2ee46a56))
+
+
+### Bug Fixes
+
+* **radio-button:** warning when react node passed in label prop ([edbfb8f](https://github.com/Sage/carbon/commit/edbfb8fa023b5a2dcd16eb92037a72bfa61bb758))
+
 ### [48.3.1](https://github.com/Sage/carbon/compare/v48.3.0...v48.3.1) (2020-11-02)
 
 

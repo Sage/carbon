@@ -1,12 +1,21 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import NavigationBar from "./navigation-bar.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar from "./navigation-bar.style";
 
 describe("NavigationBar", () => {
   let wrapper;
+
+  describe("style overrides", () => {
+    testStyledSystemSpacing((props) => (
+      <NavigationBar {...props}>test content</NavigationBar>
+    ));
+  });
 
   it("should render child correctly", () => {
     wrapper = shallow(

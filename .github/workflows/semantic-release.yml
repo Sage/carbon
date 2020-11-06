@@ -12,11 +12,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-18.04
-    env:
-      # A personal access token is required to publish from protected branches
-      GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
@@ -27,3 +23,7 @@ jobs:
         node-version: '12'
     - run: npm ci
     - run: npx semantic-release
+      env:
+        # A personal access token is required to publish from protected branches
+        GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

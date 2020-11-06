@@ -7,18 +7,14 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-18.04
-    env:
-      # A personal access token is required to publish from protected branches
-      GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
     - run: npm ci
-    - run: ASSETS_PREFIX=https://carbon.sage.com npm run build-storybook
+    - run: npm run build-storybook
     - uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}

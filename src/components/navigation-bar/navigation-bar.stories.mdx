@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import NavigationBar from './navigation-bar.component';
 import {Menu, MenuItem} from '../menu';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Navigation Bar" />
 
@@ -50,4 +51,21 @@ If `isLoading={true}` the children will not be visible
   </Story> 
 </Preview>
 
-<Props of={NavigationBar} />
+### With custom spacing
+The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any 
+valid CSS string.
+<Preview>
+  <Story name="with custom spacing" parameters={{ info: { disable: true }}}>
+    <NavigationBar m={2} p={2}>
+      <Menu>
+        <MenuItem>menu item one</MenuItem>
+        <MenuItem>menu item two</MenuItem>
+      </Menu>
+    </NavigationBar> 
+  </Story> 
+</Preview>
+
+<StyledSystemProps
+  of={NavigationBar}
+  spacing
+/>
