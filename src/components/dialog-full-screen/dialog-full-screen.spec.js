@@ -42,6 +42,27 @@ describe("DialogFullScreen", () => {
     });
   });
 
+  describe("disableContentPadding", () => {
+    wrapper = mount(
+      <DialogFullScreen
+        open
+        className="foo"
+        title="my title"
+        onCancel={onCancel}
+        disableContentPadding
+      >
+        <div>test content</div>
+      </DialogFullScreen>
+    );
+
+    assertStyleMatch(
+      {
+        padding: "0",
+      },
+      wrapper.find(StyledContent)
+    );
+  });
+
   describe("modalHTML", () => {
     beforeEach(() => {
       wrapper = mount(

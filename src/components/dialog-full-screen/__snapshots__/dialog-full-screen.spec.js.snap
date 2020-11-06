@@ -170,20 +170,20 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   width: 100%;
 }
 
-.c3.c3.c3.c3 .c10 {
+.c3.c3.c3.c3 .c11 {
   margin-top: -22px;
   margin-top: -14px;
 }
 
-.c3.c3.c3.c3 .c10 a,
-.c3.c3.c3.c3 .c10 button {
+.c3.c3.c3.c3 .c11 a,
+.c3.c3.c3.c3 .c11 button {
   -webkit-text-decoration: none;
   text-decoration: none;
   padding-top: 8px;
 }
 
-.c3.c3.c3.c3 .c10 a:focus,
-.c3.c3.c3.c3 .c10 button:focus {
+.c3.c3.c3.c3 .c11 a:focus,
+.c3.c3.c3.c3 .c11 button:focus {
   background-color: transparent;
   outline: 3px solid #FFB500;
   width: 25px;
@@ -281,17 +281,21 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   height: calc(100% - 0px);
 }
 
-.c9:hover .c5 {
+.c0 + .c9 {
+  height: calc(100% - 0px);
+}
+
+.c10:hover .c5 {
   color: #FFFFFF;
 }
 
-.c9 .c5 {
+.c10 .c5 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c5 svg {
+.c10 .c5 svg {
   margin-top: 0;
 }
 
@@ -512,6 +516,10 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
   height: calc(100% - 0px);
 }
 
+.c2 + .c12 {
+  height: calc(100% - 0px);
+}
+
 .c10 {
   overflow-y: auto;
   padding: 0 16px;
@@ -566,17 +574,17 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
   width: 100%;
 }
 
-.c12:hover .c7 {
+.c13:hover .c7 {
   color: #FFFFFF;
 }
 
-.c12 .c7 {
+.c13 .c7 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c12 .c7 svg {
+.c13 .c7 svg {
   margin-top: 0;
 }
 
@@ -786,6 +794,10 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
   height: calc(100% - 0px);
 }
 
+.c2 + .c12 {
+  height: calc(100% - 0px);
+}
+
 .c10 {
   overflow-y: auto;
   padding: 0 16px;
@@ -840,17 +852,17 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
   width: 100%;
 }
 
-.c12:hover .c7 {
+.c13:hover .c7 {
   color: #FFFFFF;
 }
 
-.c12 .c7 {
+.c13 .c7 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c12 .c7 svg {
+.c13 .c7 svg {
   margin-top: 0;
 }
 
@@ -5158,15 +5170,10 @@ exports[`DialogFullScreen when pagesStyling prop set applies the Pages specific 
                                         "
   overflow-y: auto;
   padding: 0 16px;
-  @media screen and (min-width: 600px) {
-    padding: 0 24px;
-  }
-  @media screen and (min-width: 960px) {
-    padding: 0 32px;
-  }
-  @media screen and (min-width: 1260px) {
-    padding: 0 40px;
-  }
+
+  ",
+                                        [Function],
+                                        "
 
   ",
                                         [Function],
