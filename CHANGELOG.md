@@ -1,3 +1,10 @@
+## [48.6.0](https://github.com/Sage/carbon/compare/v48.5.0...v48.6.0) (2020-11-06)
+
+
+### Features
+
+* **menu-item:** add support for alternate background color variant ([bd14b40](https://github.com/Sage/carbon/commit/bd14b4015eba45a64e2e946ca5facf2ec184ec94))
+
 ## [48.5.0](https://github.com/Sage/carbon/compare/v48.4.0...v48.5.0) (2020-11-06)
 
 
