@@ -206,3 +206,4 @@ Feature: Accessibility tests - Design System folder
   Scenario: Component Toast
     When I open "Design System Toast Test" component page "visual" in no iframe
     Then "Toast" component has no accessibility violations
+    
