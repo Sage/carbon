@@ -1,3 +1,10 @@
+## [48.5.0](https://github.com/Sage/carbon/compare/v48.4.0...v48.5.0) (2020-11-06)
+
+
+### Features
+
+* **dialog-full-screen:** add prop `disableContentPadding` ([95d2717](https://github.com/Sage/carbon/commit/95d2717da44720d620eec149b7d646f5799bc092))
+
 ## [48.4.0](https://github.com/Sage/carbon/compare/v48.3.1...v48.4.0) (2020-11-06)
 
 
