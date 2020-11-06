@@ -26,6 +26,7 @@ const FilterableSelect = React.forwardRef(
       disablePortal,
       listActionButton,
       onListAction,
+      isLoading,
       ...textboxProps
     },
     inputRef
@@ -191,7 +192,7 @@ const FilterableSelect = React.forwardRef(
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -200,15 +201,18 @@ const FilterableSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
 
-      setSelectedValue(newValue);
-      setHighlightedValue(newValue);
+      setSelectedValue((prevValue) => {
+        if (isControlled.current && prevValue && !newValue) {
+          setFilterText("");
+          setTextValue("");
+        }
 
-      if (isControlled.current && !newValue) {
-        setTextValue("");
-      }
+        return newValue;
+      });
+      setHighlightedValue(newValue);
     }, [value, defaultValue, onChange]);
 
     useEffect(() => {
@@ -373,6 +377,7 @@ const FilterableSelect = React.forwardRef(
         disablePortal={disablePortal}
         listActionButton={listActionButton}
         onListAction={handleOnListAction}
+        isLoading={isLoading}
       >
         {children}
       </FilterableSelectList>
@@ -416,6 +421,8 @@ FilterableSelect.propTypes = {
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
+  /** If true the loader animation is displayed in the option list */
+  isLoading: PropTypes.bool,
 };
 
 export default FilterableSelect;
