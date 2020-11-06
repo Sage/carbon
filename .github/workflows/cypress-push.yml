@@ -26,20 +26,20 @@ jobs:
     container: cypress/browsers:node14.7.0-chrome84
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.2.0
+        uses: actions/checkout@v2
       # Restore the previous NPM modules and Cypress binary archives.
       # Any updated archives will be saved automatically after the entire
       # workflow successfully finishes.
       # See https://github.com/actions/cache
       - name: Cache central NPM modules
-        uses: actions/cache@v2.0.0
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Cache Cypress binary
-        uses: actions/cache@v2.0.0
+        uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
@@ -58,7 +58,7 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        uses: cypress-io/github-action@v2.2.6
+        uses: cypress-io/github-action@v2
         with:
           install: false
           start: npm start
