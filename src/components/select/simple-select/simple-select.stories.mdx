@@ -1,26 +1,26 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { useState, useRef } from 'react';
-import { Select, Option } from '../';
-import Button from '../../button';
-import SelectTextbox from '../select-textbox/select-textbox.component';
-import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { useState, useRef } from "react";
+import { Select, Option, OptionGroupHeader } from "../";
+import Button from "../../button";
+import SelectTextbox from "../select-textbox/select-textbox.component";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Select" parameters={{ info: { disable: true }}} />
+<Meta title="Design System/Select" parameters={{ info: { disable: true } }} />
 
 # Simple Select
 
 Select one of available options from the drop-down menu
 
-## Overview 
+## Overview
 
 Simple Select is a Carbon styled equivalent of HTML Select Element.
 
-## Guidance, hints and tips 
+## Guidance, hints and tips
 
 Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
 
-## Quick Start 
+## Quick Start
 
 To use the `Select` component you have to import two components: `<Select />` and `<Option />`
 from `carbon-react/lib/components/select`.
@@ -34,28 +34,28 @@ import { Select, Option } from "carbon-react/lib/components/select";
 <Preview>
   <Story name="basic">
     <Select
-      name='simple'
-      id='simple'
-      label='label'
+      name="simple"
+      id="simple"
+      label="label"
       labelInline
-      onOpen={ action('onOpen') }
-      onChange={ action('onChange', { depth: 2 }) }
-      onClick={ action('onClick', { depth: 2 }) }
-      onFocus={ action('onFocus', { depth: 2 }) }
-      onBlur={ action('onBlur', { depth: 2 }) }
-      onKeyDown={ action('onKeyDown', { depth: 2 }) }
+      onOpen={action("onOpen")}
+      onChange={action("onChange", { depth: 2 })}
+      onClick={action("onClick", { depth: 2 })}
+      onFocus={action("onFocus", { depth: 2 })}
+      onBlur={action("onBlur", { depth: 2 })}
+      onKeyDown={action("onKeyDown", { depth: 2 })}
     >
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -66,23 +66,23 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="required">
-   <Select
-      name='required-select'
-      id='required-select'
-      label='Foreground Color'
+    <Select
+      name="required-select"
+      id="required-select"
+      label="Foreground Color"
       required
     >
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -90,36 +90,38 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Controlled usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ chromatic: { disable: true }}} >
+  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action('value set');
-      };
+        action("value set");
+      }
       function clearValue() {
-        setValue('');
+        setValue("");
       }
       return (
         <div>
-          <Button onClick={ clearValue } mb={ 2 }>clear</Button>
+          <Button onClick={clearValue} mb={2}>
+            clear
+          </Button>
           <Select
-            id='controlled'
-            name='controlled'
-            value={ value }
-            onChange={ onChangeHandler }
+            id="controlled"
+            name="controlled"
+            value={value}
+            onChange={onChangeHandler}
           >
-            <Option text='Amber' value='1' />
-            <Option text='Black' value='2' />
-            <Option text='Blue' value='3' />
-            <Option text='Brown' value='4' />
-            <Option text='Green' value='5' />
-            <Option text='Orange' value='6' />
-            <Option text='Pink' value='7' />
-            <Option text='Purple' value='8' />
-            <Option text='Red' value='9' />
-            <Option text='White' value='10' />
-            <Option text='Yellow' value='11' />
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+            <Option text="Brown" value="4" />
+            <Option text="Green" value="5" />
+            <Option text="Orange" value="6" />
+            <Option text="Pink" value="7" />
+            <Option text="Purple" value="8" />
+            <Option text="Red" value="9" />
+            <Option text="White" value="10" />
+            <Option text="Yellow" value="11" />
           </Select>
         </div>
       );
@@ -130,19 +132,19 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Open on focus:
 
 <Preview>
-  <Story name="openOnFocus" parameters={{ chromatic: { disable: true }}} >
-    <Select name='openOnFocus' id='openOnFocus' openOnFocus>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+  <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
+    <Select name="openOnFocus" id="openOnFocus" openOnFocus>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -151,18 +153,18 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="disabled">
-    <Select name='disabled' id='disabled' defaultValue='3' disabled>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+    <Select name="disabled" id="disabled" defaultValue="3" disabled>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -171,18 +173,18 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="readonly">
-    <Select name='readonly' id='readonly' defaultValue='4' readOnly>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+    <Select name="readonly" id="readonly" defaultValue="4" readOnly>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -191,18 +193,18 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="transparent">
-    <Select name='transparent' id='transparent' defaultValue='4' transparent>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+    <Select name="transparent" id="transparent" defaultValue="4" transparent>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
@@ -210,63 +212,95 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### With disabled portal:
 
 <Preview>
-  <Story name="withDisabledPortal" parameters={{ chromatic: { disable: true }}}>
-    <Select name='withDisabledPortal' id='withDisabledPortal' defaultValue='4' disablePortal>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+  <Story
+    name="withDisabledPortal"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Select
+      name="withDisabledPortal"
+      id="withDisabledPortal"
+      defaultValue="4"
+      disablePortal
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </Select>
+  </Story>
+</Preview>
+
+### Option groups:
+
+<Preview>
+  <Story name="option groups" parameters={{ chromatic: { disable: true } }}>
+    <Select name="optGroups" id="optGroups">
+      <OptionGroupHeader label="Group one" icon="individual" />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <OptionGroupHeader label="Group two" icon="shop" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <OptionGroupHeader label="Group three" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
 
 ### Enabling the adaptive behaviour
+
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
-  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="enabling adaptive behaviour"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <Select
-      name='adaptive'
-      id='adaptive'
-      label='label'
-      defaultValue='4'
+      name="adaptive"
+      id="adaptive"
+      label="label"
+      defaultValue="4"
       adaptiveLabelBreakpoint={960}
     >
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </Select>
   </Story>
 </Preview>
 
-<StyledSystemProps
-  of={ Select }
-  spacing
-/>
+<StyledSystemProps of={Select} spacing />
 
 ## Props:
 
-<Props of={ Select } />
+<Props of={Select} />
 
 ### Props derived from the Textbox Component
 
-<Props of={ SelectTextbox } />
+<Props of={SelectTextbox} />
 
 ### Props of the Option Component
 
-<Props of={ Option } />
+<Props of={Option} />
