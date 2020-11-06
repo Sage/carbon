@@ -7,6 +7,7 @@ import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu-block/submenu.style";
 import { StyledMenuItem } from "./menu.style";
 import MenuDivider from "./menu-divider/menu-divider.component";
+import MenuSegmentTitle from "./menu-segment-title/menu-segment-title.component";
 import VerticalDivider from "../vertical-divider";
 import {
   StyledVerticalWrapper,
@@ -345,6 +346,8 @@ describe("Menu", () => {
             </MenuItem>
             <MenuItem href="/test">B Menu Item Two</MenuItem>
             <MenuItem submenu="B Menu Item Three">
+              <MenuDivider />
+              <MenuSegmentTitle />
               <MenuItem href="#">A Submenu Item One</MenuItem>
               <MenuItem href="#">B Submenu Item Two</MenuItem>
               <MenuDivider />
@@ -377,7 +380,7 @@ describe("Menu", () => {
           .find("a");
       });
 
-      it("should set focus to first item after open submenu", () => {
+      it("should set focus to first focusable item after open submenu", () => {
         menuItemThird.getDOMNode().focus();
         expect(menuItemThird).toBeFocused();
         act(() => {

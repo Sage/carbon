@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import {
-  Menu, MenuItem, SubmenuBlock, MenuDivider
+  Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle
 } from '.';
 
 <Meta
@@ -19,7 +19,7 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
 ## Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
     <div style={{minHeight: '150px'}}>
       <Menu>
         <MenuItem href="#">
@@ -84,7 +84,7 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
 ## Default divider
 
 <Preview>
-  <Story name="default divider">
+  <Story name="default divider" parameters={{ chromatic: { disable: true }}}>
     <div style={{minHeight: '150px'}}>
       <Menu>
         <MenuItem href="#">
@@ -110,11 +110,99 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
   </Story>
 </Preview>
 
+## Default large divider
+
+<Preview>
+  <Story name="default large divider" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '150px'}}>
+      <Menu>
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider size="large" />
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+
+## Default segment title
+
+<Preview>
+  <Story name="default segment title" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '200px'}}>
+      <Menu>
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuSegmentTitle>segment title</MenuSegmentTitle>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Default theme with alternate colour variant
+
+<Preview>
+  <Story name="default theme alternate colour" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '150px'}}>
+      <Menu>
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider variant="alternate" size="large" />
+          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
 
 ## Dark theme
 
 <Preview>
-  <Story name="dark theme">
+  <Story name="dark theme" parameters={{ chromatic: { disable: true }}}>
     <div style={{minHeight: '150px'}}>
       <Menu menuType="dark">
         <MenuItem href="#">
@@ -190,6 +278,94 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
   </Story>
 </Preview>
 
+## Dark theme large divider
+
+<Preview>
+  <Story name="dark theme large divider" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '150px'}}>
+      <Menu menuType="dark">
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider size="large" />
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Dark theme segment title
+
+<Preview>
+  <Story name="dark theme segment title" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '200px'}}>
+      <Menu menuType="dark">
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuSegmentTitle>segment title</MenuSegmentTitle>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Dark theme with alternate colour variant
+
+<Preview>
+  <Story name="dark theme alternate colour" parameters={{ chromatic: { disable: true }}}>
+    <div style={{minHeight: '150px'}}>
+      <Menu menuType="dark">
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider variant="alternate" size="large" />
+          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Menu Props
 
 <Props of={Menu} />
@@ -205,3 +381,7 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
 ## MenuDivider Props
 
 <Props of={MenuDivider} />
+
+## MenuSegmentTitle Props
+
+<Props of={MenuSegmentTitle} />

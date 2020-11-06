@@ -6,12 +6,12 @@ import {
   StyledMenuItem,
 } from "./menu.style";
 import Events from "../../utils/helpers/events";
-import VerticalDivider from "../vertical-divider";
+import MenuItem from "./menu-item";
 
 const Menu = ({ menuType = "light", children }) => {
   const childrenArray = Array.isArray(children) ? children : [children];
   const filteredChildren = childrenArray.filter(
-    (child) => child.type !== VerticalDivider
+    (child) => child.type === MenuItem
   );
   const menuItemsRefs = useRef(
     filteredChildren.map((child) => child.ref || React.createRef())
@@ -103,15 +103,15 @@ const Menu = ({ menuType = "light", children }) => {
           const isFirstElement = index === 0;
           const i = index;
 
-          if (child.type !== VerticalDivider) {
+          if (child.type === MenuItem) {
             index += 1;
           }
 
           return (
-            <StyledMenuItem menuType={menuType}>
+            <StyledMenuItem role="presentation" menuType={menuType}>
               {React.cloneElement(child, {
                 menuType,
-                ...(child.type !== VerticalDivider && {
+                ...(child.type === MenuItem && {
                   ref: menuItemsRefs.current[i],
                   isFirstElement,
                   menuItemIndex: i,

@@ -6,7 +6,7 @@ const SubmenuBlock = ({ children, menuType }) => {
   return (
     <StyledSubmenuBlock data-component="submenu-block">
       {React.Children.map(children, (child) =>
-        React.cloneElement(child, { menuType })
+        React.cloneElement(child, { ...child.props, menuType })
       )}
     </StyledSubmenuBlock>
   );

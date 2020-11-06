@@ -49,4 +49,28 @@ describe("Divider", () => {
       wrapper
     );
   });
+
+  it('should have correct styles for "default" size', () => {
+    wrapper = mount(<Divider />);
+
+    assertStyleMatch(
+      {
+        margin: "0px 16px",
+        height: "1px",
+      },
+      wrapper
+    );
+  });
+
+  it('should have correct styles for "large" size', () => {
+    wrapper = mount(<Divider size="large" />);
+
+    assertStyleMatch(
+      {
+        height: "4px",
+        margin: "0px",
+      },
+      wrapper
+    );
+  });
 });
