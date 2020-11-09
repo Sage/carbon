@@ -28,7 +28,6 @@ Feature: Accessibility tests - Common list
     Then "<data-component>" component has no accessibility violations
     Examples:
       | component          |
-      | flash              |
       | pages              |
 
 @accessibility
