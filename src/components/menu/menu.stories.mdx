@@ -22,7 +22,7 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
   <Story name="default" parameters={{ chromatic: { disable: true }}}>
     <div style={{minHeight: '150px'}}>
       <Menu>
-        <MenuItem href="#">
+        <MenuItem onClick={() => {}}>
           Menu Item One
         </MenuItem>
         <MenuItem href="#">
@@ -44,7 +44,7 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
           </MenuItem>
         </MenuItem>
         <MenuItem submenu="Menu Item Four">
-          <MenuItem href="#">
+          <MenuItem onClick={() => {}}>
             Item Submenu One
           </MenuItem>
           <MenuItem href="#">
@@ -205,14 +205,14 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
   <Story name="dark theme" parameters={{ chromatic: { disable: true }}}>
     <div style={{minHeight: '150px'}}>
       <Menu menuType="dark">
-        <MenuItem href="#">
+        <MenuItem onClick={() => {}}>
           Menu Item One
         </MenuItem>
         <MenuItem href="#">
           Menu Item Two
         </MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
+          <MenuItem onClick={() => {}}>
             Item Submenu One
           </MenuItem>
           <MenuItem href="#">

@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-
-import Dialog from '.';
+import LinkTo from '@storybook/addon-links/react';
+import Box from '../box';
 import Button from '../button';
+import Dialog from '.';
 import Form from '../form';
+import Typography from "../typography"
 import Textbox from '../../__experimental__/components/textbox';
+import {
+  RadioButton,
+  RadioButtonGroup
+} from "../../__experimental__/components/radio-button";
+import Fieldset from "../../__experimental__/components/fieldset";
 
 <Meta
   title="Dialog"
@@ -67,13 +74,75 @@ const MyComponent = ({ isOpen, handleClose }) => (
               leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
               saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
             >
-              <div>This is an example of a dialog with a Form as content</div>
+              <Typography>This is an example of a dialog with a Form as content</Typography>
               <Textbox label='First Name' />
               <Textbox label='Middle Name' />
               <Textbox label='Surname' />
               <Textbox label='Birth Place' />
               <Textbox label='Favourite Colour' />
               <Textbox label='Address' />
+            </Form>
+          </Dialog>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+
+### Editable
+
+When mixing editable and non-editable content, you can use the <LinkTo kind='Design System/Box'>Box</LinkTo> component to highlight the fields that can be changed.
+
+<Preview>
+  <Story name="editable" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Dialog
+          </Button>
+          <Dialog
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+            title="Add an address"
+          >
+            <Form
+              stickyFooter={ true }
+              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
+            >
+              <Typography variant="h3" mb="32px">Basic details</Typography>
+              <RadioButtonGroup
+              legend="How do you want to create this address?"
+              legendInline
+              value="1"
+              legendWidth={40}
+            >
+              <RadioButton
+                value="1"
+                label="Create a new Address"                
+                size="large"
+                disabled
+              />
+              <RadioButton
+                value="2"
+                label="Select an Existing address"                
+                size="large"
+                disabled
+              />
+            </RadioButtonGroup>
+              <Box p="24px" bg="slateTint90" ml="88px">
+                <Textbox labelInline label='Property Name' />
+                <Fieldset>
+                  <Textbox labelInline label='Address Line 1' />
+                  <Textbox labelInline label='Address Line 2' />
+                  <Textbox labelInline label='Town' />
+                  <Textbox labelInline label='City' />
+                  <Textbox labelInline label='Postcode' />
+                </Fieldset>
+              </Box>
             </Form>
           </Dialog>
         </>

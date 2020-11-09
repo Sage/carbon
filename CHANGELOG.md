@@ -1,3 +1,17 @@
+### [48.6.1](https://github.com/Sage/carbon/compare/v48.6.0...v48.6.1) (2020-11-09)
+
+
+### Bug Fixes
+
+* **menu-item:** add height when onclick passed and button renders ([cec05f3](https://github.com/Sage/carbon/commit/cec05f3580a5f5bf9fceb9953349d8a08a72f0f9)), closes [#3308](https://github.com/Sage/carbon/issues/3308)
+
+## [48.6.0](https://github.com/Sage/carbon/compare/v48.5.0...v48.6.0) (2020-11-06)
+
+
+### Features
+
+* **menu-item:** add support for alternate background color variant ([bd14b40](https://github.com/Sage/carbon/commit/bd14b4015eba45a64e2e946ca5facf2ec184ec94))
+
 ## [48.5.0](https://github.com/Sage/carbon/compare/v48.4.0...v48.5.0) (2020-11-06)
 
 

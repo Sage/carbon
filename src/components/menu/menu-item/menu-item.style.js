@@ -32,10 +32,17 @@ const StyledMenuItemWrapper = styled.a`
     }
 
     a,
-    button,
     ${LinkStyle} a,
+    button,
     ${LinkStyle} button {
       padding: 0 16px;
+    }
+
+    button,
+    ${LinkStyle} button {
+      line-height: 40px;
+      height: 40px;
+      margin: 0px;
     }
 
     a,
@@ -134,7 +141,6 @@ const StyledMenuItemWrapper = styled.a`
       a:focus,
       button,
       button:hover,
-      button:focus,
       [data-component="icon"],
       ${LinkStyle} [data-component="icon"] {
         font-weight: 700;
@@ -177,6 +183,10 @@ const StyledMenuItemWrapper = styled.a`
             [data-component="icon"] {
               color: ${theme.colors.white};
             }
+          }
+
+          .carbon-menu-item--has-link button {
+            color: ${theme.colors.white};
           }
         `}
       `}

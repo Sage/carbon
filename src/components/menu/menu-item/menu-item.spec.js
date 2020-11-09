@@ -170,6 +170,25 @@ describe("MenuItem", () => {
           wrapper
         );
       });
+
+      it("should render correct styles if an onClick is provided", () => {
+        wrapper = mount(
+          <MenuItem menuType="dark" onClick={() => {}}>
+            Item one
+          </MenuItem>
+        );
+
+        assertStyleMatch(
+          {
+            padding: "0 16px",
+            height: "40px",
+            lineHeight: "40px",
+            margin: "0px",
+          },
+          wrapper,
+          { modifier: "button" }
+        );
+      });
     });
 
     describe('`menuType="dark"`', () => {
