@@ -2,7 +2,7 @@ Feature: Draggable Context component
   I want to change Draggable Context component
 
   Background: Open Draggable Context component in no iframe
-    Given I open "DraggableContext" component page "default" in no iframe
+    Given I open "DraggableContext Test" component page "default" in no iframe
 
   @positive
   Scenario Outline: Drag record <record> inside Draggable Context to <destinationId> element position

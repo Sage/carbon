@@ -2,7 +2,7 @@ import { draggableRecordByPosition, draggableRecordByText } from '../../locators
 import { dragAndDrop } from '../helper';
 
 When('I drag Draggable Context {string} to {int}', (record, destinationId) => {
-  const startPosition = 130;
+  const startPosition = 20;
   dragAndDrop(draggableRecordByText(record), destinationId, startPosition);
 });
 
