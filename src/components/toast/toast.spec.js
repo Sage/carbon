@@ -10,6 +10,7 @@ import {
 } from './toast.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import IconButton from '../icon-button';
+import ModalManager from '../modal/__internal__/modal-manager';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -17,6 +18,32 @@ describe('Toast', () => {
   guid.mockImplementation(() => 'guid-12345');
 
   let instance, onDismissSpy;
+
+  describe('modal manager', () => {
+    jest.spyOn(ModalManager, 'addModal');
+    jest.spyOn(ModalManager, 'removeModal');
+
+    describe('when component mounts', () => {
+      it('it is added to modal manager', () => {
+        const wrapper = mount(
+          <Toast isCenter onDismiss={ () => {} }>foobar</Toast>
+        );
+        const toast = wrapper.instance().toastRef.current;
+        expect(ModalManager.addModal).toHaveBeenCalledWith(toast);
+      });
+    });
+
+    describe('when component unmounts', () => {
+      it('it is removed from modal manager', () => {
+        const wrapper = mount(
+          <Toast onDismiss={ () => {} }>foobar</Toast>
+        );
+        const toast = wrapper.instance().toastRef.current;
+        wrapper.unmount();
+        expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+      });
+    });
+  });
 
   describe('when toast is closed', () => {
     it('should exists anyway', () => {
@@ -109,6 +136,14 @@ describe('Toast', () => {
           icon.simulate('keyDown', { which: 13, key: 'Enter' });
           expect(onDismiss).toHaveBeenCalled();
         });
+
+        it('timeout is provided', () => {
+          jest.useFakeTimers();
+          const mockFn = jest.fn();
+          wrapper.setProps({ timeout: 2000, onDismiss: mockFn });
+          jest.runTimersToTime(2000);
+          expect(mockFn).toHaveBeenCalledTimes(1);
+        });
       });
 
       describe('does not call onDismiss method when', () => {
@@ -116,6 +151,14 @@ describe('Toast', () => {
           const icon = wrapper.find(IconButton).first();
           icon.simulate('keyDown', { which: 65, key: 'a' });
           expect(onDismiss).not.toHaveBeenCalled();
+        });
+
+        it('timeout is provided but toast is not open', () => {
+          jest.useFakeTimers();
+          const mockFn = jest.fn();
+          wrapper.setProps({ timeout: 2000, open: false, onDismiss: mockFn });
+          jest.runTimersToTime(2000);
+          expect(mockFn).not.toHaveBeenCalled();
         });
       });
     });
@@ -176,7 +219,7 @@ describe('ToastStyle', () => {
     let domNode;
     let escapeKeyEvent;
     let wrapper;
-    const onDismissFn = jest.fn();
+    let onDismissFn;
 
     beforeEach(() => {
       escapeKeyEvent = new KeyboardEvent('keyup', {
@@ -184,6 +227,7 @@ describe('ToastStyle', () => {
         which: 27,
         bubbles: true
       });
+      onDismissFn = jest.fn();
       wrapper = mount(
         <Toast open onDismiss={ onDismissFn } />
       );

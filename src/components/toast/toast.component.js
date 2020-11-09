@@ -27,6 +27,7 @@ class Toast extends React.Component {
   constructor(props) {
     super(props);
     this.toastRef = React.createRef();
+    this.timer = React.createRef();
   }
 
   componentDidMount() {
@@ -39,9 +40,19 @@ class Toast extends React.Component {
     document.removeEventListener('keyup', this.dismissToast);
   }
 
+  componentDidUpdate() {
+    const { timeout, open, onDismiss } = this.props;
+    clearTimeout(this.timer.current);
+
+    if (!timeout || !open) {
+      return;
+    }
+
+    this.timer.current = setTimeout(() => onDismiss(), timeout);
+  }
+
   dismissToast = (ev) => {
     const isTopmost = ModalManager.isTopmost(this.toastRef.current);
-
     if (this.props.onDismiss && Events.isEscKey(ev) && isTopmost) {
       ev.stopImmediatePropagation();
       this.props.onDismiss(ev);
@@ -145,6 +156,8 @@ Toast.propTypes = {
   open: PropTypes.bool,
   /** Callback for when dismissed. */
   onDismiss: PropTypes.func,
+  /** Time for Toast to remain on screen */
+  timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** props used with flash component. Allow to center a component */
   isCenter: PropTypes.bool,
   /** Target Portal ID where the toast will render */
