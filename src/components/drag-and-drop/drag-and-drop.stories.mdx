@@ -1,0 +1,129 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  DraggableContext,
+  WithDrop,
+  WithDrag
+} from "./";
+
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableCell
+} from '../table';
+
+<Meta
+  title="DraggableContext"
+  parameters={{ info: { disable: true }}}
+/>
+
+# DraggableContext
+A draggable context component
+
+## Related Components
+Although the Table component has drag and drop enabled already, any combination of components can be made draggable through the use of the WithDrag and WithDrop components:
+
+## Quick Start
+
+A draggable context is used to define an area in the page where drag and drop can be used.
+
+You also need to use WithDrop and WithDrag
+
+```jsx
+import {
+  DraggableContext,
+  WithDrop,
+  WithDrag
+} from "carbon-react/lib/components/drag-and-drop";
+
+const MyComponent = () => (
+  return (
+    <DraggableContext onDrag={ onItemMoved }>
+      <ol>
+        {items.map((item, index) => {
+          return (
+            <WithDrop index={ index }>
+              <li>
+                <WithDrag><span>{ item.content }</span></WithDrag>
+              </li>
+            </WithDrop>
+          );
+        })}
+      </ol>
+    </DraggableContext>
+  )
+);
+```
+
+### Basic 
+<Preview>
+  <Story name="Basic" id="draggablecontext-test--custom"/>
+</Preview>
+
+### When used with Table component
+
+<Preview>
+  <Story name="With table">
+    {() => {
+      const [state, setState] = useState([{
+        id: '0',
+        name: 'UK'
+      }, {
+        id: '1',
+        name: 'Germany'
+      }, {
+        id: '2',
+        name: 'China'
+      }, {
+        id: '3',
+        name: 'US'
+      }]);
+      const handleDrag = (originalIndex, newIndex) => {
+        const sortedItem = state[originalIndex];
+        const newArr = [...state];
+        newArr.splice(originalIndex, 1);
+        newArr.splice(newIndex, 0, sortedItem);
+        setState(newArr);
+      };
+      return (
+        <DraggableContext
+          onDrag={ handleDrag }
+        >
+          <div>
+            <Table tbody={ false }>
+              <thead>
+                <TableRow as='header'>
+                  <TableHeader />
+                  <TableHeader>Country</TableHeader>
+                </TableRow>
+              </thead>
+              <tbody>
+                {state.map((row, index) => (
+                  <TableRow
+                    key={ row.id }
+                    uniqueID={ row.id }
+                    index={ index }
+                  >
+                    <TableCell>{ row.name }</TableCell>
+                  </TableRow>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </DraggableContext>
+      )
+  }}
+  </Story>
+</Preview>
+
+## Props
+
+### DraggableContext
+<Props of={DraggableContext} />
+
+### WithDrop
+<Props of={WithDrop} />
+
+### WithDrag
+<Props of={WithDrag} />

@@ -9,7 +9,7 @@ const collect = (monitor) => {
   return {
     currentOffset: monitor.getSourceClientOffset(),
     item,
-    draggableNode: item ? item.draggableNode() : null,
+    draggableNode: item && item.draggableNode ? item.draggableNode() : null,
     isDragging: monitor.isDragging(),
   };
 };

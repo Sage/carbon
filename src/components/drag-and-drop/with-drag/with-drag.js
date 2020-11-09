@@ -24,9 +24,25 @@ class WithDrag extends React.Component {
     // and aren't used in this component directly. Therefore
     // disable the ESLint rule react/no-unused-prop-types
     /* eslint-disable react/no-unused-prop-types */
+    /**
+     * @private
+     * @ignore
+     */
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
+    /**
+     * @private
+     * @ignore
+     */
     canDrag: PropTypes.func, // an optional callback to determine if this item can be dragged
+    /**
+     * @private
+     * @ignore
+     */
     beginDrag: PropTypes.func, // an optional callback to trigger when dragging begins
+    /**
+     * @private
+     * @ignore
+     */
     endDrag: PropTypes.func, // an optional callback to trigger when dragging ends
     /* eslint-enable react/no-unused-prop-types */
   };
