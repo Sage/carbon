@@ -332,7 +332,7 @@ SelectList.propTypes = {
   /** Text value to highlight an option */
   filterText: PropTypes.string,
   /** Value of option to be highlighted on component render */
-  highlightedValue: PropTypes.string,
+  highlightedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** A trigger to manually reposition the list */
   repositionTrigger: PropTypes.bool,
   /** True for default text button or a Button Component to be rendered */
