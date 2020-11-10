@@ -1,9 +1,8 @@
 import * as React from 'react';
-import FlatTableRow from '../flat-table-row';
 
 export interface FlatTableHeadProps {
   /** Array of FlatTableRow. */
-  children: Array<typeof FlatTableRow>;
+  children: React.ReactNode;
 }
 
 declare const FlatTableHead: React.FunctionComponent<FlatTableHeadProps>;

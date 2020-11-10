@@ -215,67 +215,79 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
   <Story name="custom sidebar" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
-    return (
-      <div style={ { height: '200px' } }>
-        <Drawer
-          defaultExpanded
-          expandedWidth={ text('expandedWidth', '20%') }
-          animationDuration={ text('animationDuration', '0.5s') }
-          sidebar={ (
-            <FlatTable>
-            <FlatTableHead>
-              <FlatTableRow>
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
-              </FlatTableRow>
-            </FlatTableHead>
-            <FlatTableBody>
-              <FlatTableRow>
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>1</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>5</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Liz Anya</FlatTableCell>
-                <FlatTableCell>Stoke</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Karl Ickbred</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
-              </FlatTableRow>
-            </FlatTableBody>
-          </FlatTable>
-          ) }
-        >
-        content body content body content body content body content body content body content body
-        </Drawer>
-      </div>
-    )
+    <div>
+      <Drawer
+        defaultExpanded
+        expandedWidth={ text('expandedWidth', '35%') }
+        animationDuration={ text('animationDuration', '0.5s') }
+        sidebar={ (
+          <FlatTable height="calc(100vh - 70px)" hasStickyFooter footer={
+            <div
+              style={
+                {
+                  textAlign: "center",
+                  padding: "8px",
+                  border: "1px solid gray",
+                  width: "102%",
+                  minWidth: "518px",
+                  backgroundColor: "#CCD6DB"
+                }
+              }>
+              Here is a footer
+            </div>
+          }>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Liz Anya</FlatTableCell>
+              <FlatTableCell>Stoke</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Karl Ickbred</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+        ) }
+      >
+      content body content body content body content body content body content body content body
+      </Drawer>
+    </div>
   </Story>
 </Preview>
 

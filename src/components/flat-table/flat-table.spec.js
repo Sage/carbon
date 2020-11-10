@@ -13,6 +13,10 @@ import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
+import {
+  StyledFlatTableWrapper,
+  StyledFlatTableFooter,
+} from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
 
@@ -50,7 +54,7 @@ describe("FlatTable", () => {
           color: baseTheme.colors.white,
         },
 
-        wrapper,
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHeader}` }
       );
     });
@@ -64,7 +68,7 @@ describe("FlatTable", () => {
           borderRight: `1px solid ${baseTheme.flatTable.light.border}`,
         },
 
-        wrapper,
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHeader}` }
       );
     });
@@ -78,7 +82,7 @@ describe("FlatTable", () => {
           borderRight: `1px solid ${baseTheme.flatTable.transparentBase.border}`,
         },
 
-        wrapper,
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHeader}` }
       );
     });
@@ -93,7 +97,7 @@ describe("FlatTable", () => {
           borderRight: `1px solid ${baseTheme.flatTable.transparentWhite.border}`,
         },
 
-        wrapper,
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHeader}` }
       );
     });
@@ -103,7 +107,7 @@ describe("FlatTable", () => {
         {
           zIndex: "1002",
         },
-        wrapper,
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }
       );
     });
@@ -112,9 +116,15 @@ describe("FlatTable", () => {
   describe("when FlatTable is a child of Sidebar", () => {
     let wrapper;
     beforeEach(() => {
-      wrapper = TestRenderer.create(
+      wrapper = mount(
         <SidebarContext.Provider value={{ isInSidebar: true }}>
-          <FlatTable>foo</FlatTable>
+          <FlatTable>
+            <tbody>
+              <tr>
+                <td>foo</td>
+              </tr>
+            </tbody>
+          </FlatTable>
         </SidebarContext.Provider>
       );
     });
@@ -132,8 +142,33 @@ describe("FlatTable", () => {
           borderRight: `2px solid ${baseTheme.flatTable.drawerSidebar.headerBackground}`,
           color: `${baseTheme.colors.black}`,
         },
-        wrapper.toJSON(),
+        wrapper.find(StyledFlatTableWrapper),
         { modifier: `${modifierString}` }
+      );
+    });
+  });
+
+  describe("footer", () => {
+    let wrapper;
+
+    const Footer = () => <div>foo</div>;
+
+    it("renders when content is passed in", () => {
+      wrapper = renderFlatTable({ footer: <Footer /> }, mount);
+      expect(wrapper.find(Footer).exists()).toEqual(true);
+    });
+
+    it("renders when content is passed in", () => {
+      wrapper = renderFlatTable(
+        { footer: <Footer />, hasStickyFooter: true },
+        mount
+      );
+      assertStyleMatch(
+        {
+          position: "sticky",
+          bottom: "-40px",
+        },
+        wrapper.find(StyledFlatTableFooter)
       );
     });
   });
