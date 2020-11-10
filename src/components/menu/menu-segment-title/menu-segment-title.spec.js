@@ -50,6 +50,7 @@ describe("Title", () => {
         fontWeight: "700",
         textTransform: "uppercase",
         lineHeight: "12px",
+        cursor: "default",
       },
       wrapper
     );
