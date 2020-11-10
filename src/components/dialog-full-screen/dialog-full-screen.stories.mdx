@@ -21,7 +21,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 
 <Meta
   title="Dialog Full Screen"
-  parameters={{ info: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true}}}
 />
 
 # DialogFullScreen
@@ -59,7 +59,7 @@ const MyComponent = ({ isOpen, handleClose }) => (
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{ chromatic: { disable: true, viewports: [400, 1000, 1400] }}}>
+  <Story name="default" parameters={{viewports: [400, 1000, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -522,7 +522,7 @@ to have a possibility to manage active `Tabs` group
 ### With disableContentPadding
 
 <Preview>
-  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with disableContentPadding">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -560,7 +560,7 @@ to have a possibility to manage active `Tabs` group
 ### With header children 
 
 <Preview>
-  <Story name="with header children" parameters={{ chromatic: { disable: true, viewports: [500, 1400] }}}>
+  <Story name="with header children" parameters={{viewports: [500, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const aboveBreakpoint = useMediaQuery('(min-width: 568px)');
@@ -606,7 +606,7 @@ to have a possibility to manage active `Tabs` group
 ### With hidable header children 
 
 <Preview>
-  <Story name="with hidable header children" parameters={{ chromatic: { disable: true, viewports: [500, 1400] }}}>
+  <Story name="with hidable header children" parameters={{viewports: [500, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const aboveBreakpoint = useMediaQuery('(min-width: 568px)');
@@ -669,7 +669,7 @@ to have a possibility to manage active `Tabs` group
 ### With AppWrapper
 
 <Preview>
-  <Story name="with app wrapper" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with app wrapper">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
