@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
+import { space } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
 const StyledNavigationBar = styled.div`
+  ${space}
   ${({ navigationType, theme }) => css`
     min-height: 40px;
     background-color: ${theme.navigationBar.light.background};

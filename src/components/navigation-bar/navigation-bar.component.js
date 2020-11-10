@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 import AppWrapper from "../app-wrapper/app-wrapper";
 import StyledNavigationBar from "./navigation-bar.style";
 
@@ -8,6 +9,7 @@ const NavigationBar = ({
   isLoading = false,
   children,
   ariaLabel,
+  ...props
 }) => {
   return (
     <StyledNavigationBar
@@ -15,6 +17,7 @@ const NavigationBar = ({
       aria-label={ariaLabel}
       navigationType={navigationType}
       data-component="navigation-bar"
+      {...props}
     >
       <AppWrapper className="carbon-navigation-bar__content">
         {!isLoading && children}
@@ -24,6 +27,8 @@ const NavigationBar = ({
 };
 
 NavigationBar.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
   children: PropTypes.node,
   ariaLabel: PropTypes.string,
   /** color scheme of navigation component */

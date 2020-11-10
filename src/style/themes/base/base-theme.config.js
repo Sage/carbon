@@ -98,12 +98,14 @@ export default (palette) => {
         background: palette.slateTint(90),
         selected: palette.slateTint(85),
         divider: palette.slateTint(80),
+        title: palette.slateTint(25),
       },
 
       dark: {
         divider: palette.slateTint(10),
         submenuBackground: palette.slateShade(50),
         selected: palette.slateTint(10),
+        title: palette.slateTint(60),
       },
     },
 

@@ -19,7 +19,7 @@ describe("MenuItem", () => {
     expect(wrapper.text()).toContain("Item One");
   });
 
-  it("should render additional `carbon-menu-item--has-link` if specify props exsists", () => {
+  it("should render additional `carbon-menu-item--has-link` if specified prop exists", () => {
     wrapper = shallow(<MenuItem href="#">Item One</MenuItem>);
 
     expect(wrapper.props().className).toBe("carbon-menu-item--has-link");
@@ -37,7 +37,7 @@ describe("MenuItem", () => {
     ).toEqual(<CustomRouterLink />);
   });
 
-  describe("props.submenu", () => {
+  describe("submenu", () => {
     it("should render `div` if prop submenu exists", () => {
       wrapper = mount(
         <MenuItem submenu="Item submenu title">
@@ -159,6 +159,36 @@ describe("MenuItem", () => {
           { modifier: `& ${StyledMenuItemWrapper}` }
         );
       });
+
+      it("should render correct styles for alternate variant", () => {
+        wrapper = mount(<MenuItem variant="alternate">Item one</MenuItem>);
+
+        assertStyleMatch(
+          {
+            backgroundColor: `${baseTheme.menu.light.background}`,
+          },
+          wrapper
+        );
+      });
+
+      it("should render correct styles if an onClick is provided", () => {
+        wrapper = mount(
+          <MenuItem menuType="dark" onClick={() => {}}>
+            Item one
+          </MenuItem>
+        );
+
+        assertStyleMatch(
+          {
+            padding: "0 16px",
+            height: "40px",
+            lineHeight: "40px",
+            margin: "0px",
+          },
+          wrapper,
+          { modifier: "button" }
+        );
+      });
     });
 
     describe('`menuType="dark"`', () => {
@@ -208,6 +238,22 @@ describe("MenuItem", () => {
           },
           wrapper,
           { modifier: `& ${StyledMenuItemWrapper}` }
+        );
+      });
+
+      it("should render correct styles for alternate variant", () => {
+        wrapper = mount(
+          <MenuItem menuType="dark" variant="alternate">
+            Item one
+          </MenuItem>
+        );
+
+        assertStyleMatch(
+          {
+            backgroundColor: `${baseTheme.colors.slate}`,
+            color: `${baseTheme.colors.white}`,
+          },
+          wrapper
         );
       });
     });

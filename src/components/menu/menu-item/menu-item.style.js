@@ -9,7 +9,7 @@ import StyledIcon from "../../icon/icon.style";
 import LinkStyle from "../../link/link.style";
 
 const StyledMenuItemWrapper = styled.a`
-  ${({ menuType, theme, selected, hasSubmenu, isOpen }) => css`
+  ${({ menuType, theme, selected, hasSubmenu, isOpen, variant }) => css`
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
@@ -32,10 +32,17 @@ const StyledMenuItemWrapper = styled.a`
     }
 
     a,
-    button,
     ${LinkStyle} a,
+    button,
     ${LinkStyle} button {
       padding: 0 16px;
+    }
+
+    button,
+    ${LinkStyle} button {
+      line-height: 40px;
+      height: 40px;
+      margin: 0px;
     }
 
     a,
@@ -112,6 +119,13 @@ const StyledMenuItemWrapper = styled.a`
       `}
     `}
 
+    ${variant === "alternate" &&
+    css`
+      &&&& {
+        background-color: ${theme.menu.light.background};
+      }
+    `}
+
     ${selected &&
     css`
       background-color: ${theme.menu.light.selected};
@@ -127,7 +141,6 @@ const StyledMenuItemWrapper = styled.a`
       a:focus,
       button,
       button:hover,
-      button:focus,
       [data-component="icon"],
       ${LinkStyle} [data-component="icon"] {
         font-weight: 700;
@@ -171,7 +184,18 @@ const StyledMenuItemWrapper = styled.a`
               color: ${theme.colors.white};
             }
           }
+
+          .carbon-menu-item--has-link button {
+            color: ${theme.colors.white};
+          }
         `}
+      `}
+
+      ${variant === "alternate" &&
+      css`
+        &&&& {
+          background-color: ${theme.colors.slate};
+        }
       `}
     `}
 
@@ -265,7 +289,9 @@ const StyledMenuItemWrapper = styled.a`
 
       ${menuType === "dark" &&
       css`
-        background: ${theme.menu.dark.submenuBackground};
+        background: ${variant === "default"
+          ? theme.menu.dark.submenuBackground
+          : theme.colors.slate};
 
         .carbon-menu-item--has-link:hover {
           background-color: ${theme.colors.primary};
@@ -299,7 +325,9 @@ const StyledMenuItemWrapper = styled.a`
         background-color: ${theme.menu.dark.submenuBackground};
 
         ${StyledMenuItemWrapper} {
-          background-color: transparent;
+          background-color: ${variant === "default"
+            ? "transparent"
+            : theme.menu.dark.alternate};
         }
       }
     `}

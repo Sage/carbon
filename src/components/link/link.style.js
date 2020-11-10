@@ -5,14 +5,12 @@ import StyledIcon from "../icon/icon.style";
 
 const LinkStyle = styled.div`
   display: inline-block;
-
   a,
   button {
     font-size: 14px;
     text-decoration: underline;
     color: ${({ theme }) => theme.colors.primary};
     display: inline-block;
-
     ${StyledIcon} {
       margin-right: 5px;
       position: relative;
@@ -24,27 +22,28 @@ const LinkStyle = styled.div`
           margin-left: 5px;
         `}
     }
-  }
-
-  &:hover {
-    cursor: pointer;
-    color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  ${({ theme }) => css`
-    &:focus {
-      color: ${theme.text.color};
-      background-color: ${theme.colors.focusedLinkBackground};
-      outline: none;
+    &:hover {
+      cursor: pointer;
+      color: ${({ theme }) => theme.colors.secondary};
     }
-  `}
-
-  ${({ disabled, theme }) =>
-    disabled &&
-    css`
-      color: ${theme.disabled.text};
-    `};
-
+    ${({ theme }) => css`
+      &:focus {
+        color: ${theme.text.color};
+        background-color: ${theme.colors.focusedLinkBackground};
+        outline: none;
+      }
+    `}
+    ${({ disabled, theme }) =>
+      disabled &&
+      css`
+        color: ${theme.disabled.text};
+        &:hover,
+        &:focus {
+          cursor: not-allowed;
+          color: ${theme.disabled.text};
+        }
+      `}
+  }
   button {
     background-color: transparent;
     border: none;
