@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const Info = (
   <div>
@@ -15,9 +18,7 @@ const Info = (
 
     <p>To render the Link:</p>
 
-    <StoryCode>
-      {'<Link href="foo">Main Page</Link>'}
-    </StoryCode>
+    <StoryCode>{'<Link href="foo">Main Page</Link>'}</StoryCode>
 
     <p>For additional properties specific to this component, see propTypes.</p>
   </div>

@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import StyledInput from '../input/input.style';
-import { StyledLabelContainer } from '../label/label.style';
-import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
+import styled, { css } from "styled-components";
+import StyledInput from "../input/input.style";
+import { StyledLabelContainer } from "../label/label.style";
+import InputIconToggleStyle from "../input-icon-toggle/input-icon-toggle.style";
 
 const StyledTextarea = styled.div`
   ${StyledInput} {
@@ -11,12 +11,14 @@ const StyledTextarea = styled.div`
     margin-bottom: 5px;
   }
 
-  ${({ labelInline }) => labelInline && css`
-    ${StyledLabelContainer} {
-      align-items: flex-start;
-      padding-top: 8px;
-    }
-  `}
+  ${({ labelInline }) =>
+    labelInline &&
+    css`
+      ${StyledLabelContainer} {
+        align-items: flex-start;
+        padding-top: 8px;
+      }
+    `}
 
   ${InputIconToggleStyle} {
     height: 40px;

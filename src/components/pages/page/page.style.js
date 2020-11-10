@@ -1,21 +1,24 @@
-import styled, { css } from 'styled-components';
-import BaseTheme from '../../../style/themes/base';
-import LinkStyleAnchor from '../../link/link.style';
-import StyledIcon from '../../icon/icon.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
+import styled, { css } from "styled-components";
+import BaseTheme from "../../../style/themes/base";
+import LinkStyleAnchor from "../../link/link.style";
+import StyledIcon from "../../icon/icon.style";
+import { isClassic } from "../../../utils/helpers/style-helper";
 
 const StyledPage = styled.article`
   width: 100%;
   height: 100%;
 
   ${LinkStyleAnchor} {
-    a, button {
+    a,
+    button {
       text-decoration: none;
 
-      ${({ theme }) => !isClassic(theme) && css`
-        height: 25px;
-        margin-top: -12px;
-      `}
+      ${({ theme }) =>
+        !isClassic(theme) &&
+        css`
+          height: 25px;
+          margin-top: -12px;
+        `}
 
       &:hover {
         text-decoration: none;
@@ -28,13 +31,15 @@ const StyledPage = styled.article`
         color: #4d7080;
 
         &:hover {
-          color: #335C6D;
+          color: #335c6d;
         }
 
-        ${({ theme }) => !isClassic(theme) && css`
-          margin-top: 0px;
-          top: 5px;
-        `}
+        ${({ theme }) =>
+          !isClassic(theme) &&
+          css`
+            margin-top: 0px;
+            top: 5px;
+          `}
       }
     }
   }
@@ -49,7 +54,7 @@ const StyledPageContent = styled.div`
 `;
 
 StyledPage.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
 export { StyledPage, StyledPageContent };

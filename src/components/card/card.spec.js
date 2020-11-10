@@ -1,69 +1,84 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import TestRenderer from 'react-test-renderer';
-import Card from './card.component';
-import CardFooter from './card-footer/card-footer.component';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import Icon from '../icon';
-import Link from '../link';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import React from "react";
+import { shallow } from "enzyme";
+import TestRenderer from "react-test-renderer";
+import Card from "./card.component";
+import CardFooter from "./card-footer/card-footer.component";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import Icon from "../icon";
+import Link from "../link";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 
-describe('Card', () => {
-  describe('when the content is added as children', () => {
-    it('then that content should be rendered inside the component', () => {
+describe("Card", () => {
+  describe("when the content is added as children", () => {
+    it("then that content should be rendered inside the component", () => {
       const content = (
-        <div><span>content</span></div>
+        <div>
+          <span>content</span>
+        </div>
       );
       const wrapper = renderCard({
-        children: content
+        children: content,
       });
 
       expect(wrapper.containsMatchingElement(content)).toBe(true);
     });
 
-    describe.each(OptionsHelper.sizesRestricted)('and the "spacing" prop is set to %s', (spacing) => {
-      it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
-        const content = [
-          <div className='mockedContent' key='content1'>content</div>,
-          <div className='mockedContent' key='content2'>content2</div>
-        ];
-        const wrapper = renderCard({
-          children: content,
-          spacing
+    describe.each(OptionsHelper.sizesRestricted)(
+      'and the "spacing" prop is set to %s',
+      (spacing) => {
+        it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
+          const content = [
+            <div className="mockedContent" key="content1">
+              content
+            </div>,
+            <div className="mockedContent" key="content2">
+              content2
+            </div>,
+          ];
+          const wrapper = renderCard({
+            children: content,
+            spacing,
+          });
+          expect(wrapper.find(".mockedContent").at(0).props().spacing).toBe(
+            spacing
+          );
+          expect(wrapper.find(".mockedContent").at(1).props().spacing).toBe(
+            spacing
+          );
         });
-        expect(wrapper.find('.mockedContent').at(0).props().spacing).toBe(spacing);
-        expect(wrapper.find('.mockedContent').at(1).props().spacing).toBe(spacing);
-      });
-    });
+      }
+    );
   });
 
   describe('when the "draggable" prop is set to true', () => {
     it('then a "drag" icon should be rendered', () => {
       const wrapper = renderCard({
-        draggable: true
+        draggable: true,
       });
 
       expect(wrapper.find(Icon).exists()).toBe(true);
-      expect(wrapper.find(Icon).props().type).toBe('drag');
+      expect(wrapper.find(Icon).props().type).toBe("drag");
     });
   });
 
-  describe('CardFooter styling', () => {
-    it('should match the expected styling when it has non-interactive content', () => {
+  describe("CardFooter styling", () => {
+    it("should match the expected styling when it has non-interactive content", () => {
       const cardFooter = TestRenderer.create(
         <CardFooter>
-          <Link icon='link' href='https://carbon.sage.com/'>View Stripe Dashboard</Link>
+          <Link icon="link" href="https://carbon.sage.com/">
+            View Stripe Dashboard
+          </Link>
         </CardFooter>
       );
 
       expect(cardFooter).toMatchSnapshot();
     });
 
-    it('should match the expected styling when it has interactive styling', () => {
+    it("should match the expected styling when it has interactive styling", () => {
       const cardFooter = TestRenderer.create(
         <CardFooter>
-          <div id='non-interactive'>View Stripe Dashboard</div>
+          <div id="non-interactive">View Stripe Dashboard</div>
         </CardFooter>
       );
 
@@ -77,10 +92,10 @@ describe('Card', () => {
         const action = jest.fn();
         const wrapper = renderCard({
           interactive: true,
-          action
+          action,
         });
 
-        wrapper.simulate('click');
+        wrapper.simulate("click");
 
         expect(action).toHaveBeenCalled();
       });
@@ -91,10 +106,10 @@ describe('Card', () => {
           const wrapper = renderCard({
             interactive: true,
             draggable: true,
-            action
+            action,
           });
 
-          wrapper.simulate('click');
+          wrapper.simulate("click");
 
           expect(action).not.toHaveBeenCalled();
         });
@@ -105,43 +120,49 @@ describe('Card', () => {
       it('then the method passed in the "action" prop should not be called', () => {
         const action = jest.fn();
         const wrapper = renderCard({
-          action
+          action,
         });
 
-        wrapper.simulate('click');
+        wrapper.simulate("click");
 
         expect(action).not.toHaveBeenCalled();
       });
     });
   });
 
-  describe('when width is not passed as a prop', () => {
+  describe("when width is not passed as a prop", () => {
     const wrapper = renderCard();
     const elem = wrapper.find('[data-element="card"]');
-    it('width fills containing element', () => {
-      expect(elem).not.toHaveStyleRule('width');
+    it("width fills containing element", () => {
+      expect(elem).not.toHaveStyleRule("width");
     });
   });
 
-  describe('when width is passed as a percentage value', () => {
-    const widthPct = '50%';
+  describe("when width is passed as a percentage value", () => {
+    const widthPct = "50%";
     const wrapper = renderCard({ cardWidth: widthPct }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPct}`, () => {
-      assertStyleMatch({
-        width: widthPct
-      }, wrapper.toJSON());
+      assertStyleMatch(
+        {
+          width: widthPct,
+        },
+        wrapper.toJSON()
+      );
     });
   });
 
-  describe('when width is passed as a pixel value', () => {
-    const widthPx = '500px';
+  describe("when width is passed as a pixel value", () => {
+    const widthPx = "500px";
     const wrapper = renderCard({ cardWidth: widthPx }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPx}`, () => {
-      assertStyleMatch({
-        width: widthPx
-      }, wrapper.toJSON());
+      assertStyleMatch(
+        {
+          width: widthPx,
+        },
+        wrapper.toJSON()
+      );
     });
   });
 
@@ -152,21 +173,32 @@ describe('Card', () => {
       wrapper = renderCard({ interactive: true }, TestRenderer.create);
     });
 
-    it('then the cursor when hovered over the Card should change to pointer', () => {
-      assertStyleMatch({
-        cursor: 'pointer'
-      }, wrapper.toJSON());
+    it("then the cursor when hovered over the Card should change to pointer", () => {
+      assertStyleMatch(
+        {
+          cursor: "pointer",
+        },
+        wrapper.toJSON()
+      );
     });
 
     it.each([
-      ['hovered over', ':hover'],
-      ['focused', ':focus']
-    ])('then the Card when %s should have a specific box-shadow and no outline', (description, selector) => {
-      assertStyleMatch({
-        boxShadow: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
-        outline: 'none'
-      }, wrapper.toJSON(), selector);
-    });
+      ["hovered over", ":hover"],
+      ["focused", ":focus"],
+    ])(
+      "then the Card when %s should have a specific box-shadow and no outline",
+      (description, selector) => {
+        assertStyleMatch(
+          {
+            boxShadow:
+              "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+            outline: "none",
+          },
+          wrapper.toJSON(),
+          selector
+        );
+      }
+    );
   });
 
   describe('when the "draggable" prop is set to true', () => {
@@ -176,32 +208,31 @@ describe('Card', () => {
       wrapper = renderCard({ draggable: true }, TestRenderer.create);
     });
 
-    it('then the cursor when hovered over the Card should change to move', () => {
-      assertStyleMatch({
-        cursor: 'move'
-      }, wrapper.toJSON());
+    it("then the cursor when hovered over the Card should change to move", () => {
+      assertStyleMatch(
+        {
+          cursor: "move",
+        },
+        wrapper.toJSON()
+      );
     });
   });
 
-  it('include correct component and role data tags', () => {
-    const wrapper = renderCard({ dataRole: 'foo' }, shallow);
+  it("include correct component and role data tags", () => {
+    const wrapper = renderCard({ dataRole: "foo" }, shallow);
 
-    rootTagTest(wrapper, 'card', undefined, 'foo');
+    rootTagTest(wrapper, "card", undefined, "foo");
   });
 
-  it('include correct component and role tag when no prop passed', () => {
+  it("include correct component and role tag when no prop passed", () => {
     const wrapper = renderCard({}, shallow);
 
-    rootTagTest(wrapper, 'card', undefined, undefined);
+    rootTagTest(wrapper, "card", undefined, undefined);
   });
 });
 
 function renderCard(props = {}, renderer = shallow) {
   const children = props.children || <div />;
 
-  return renderer(
-    <Card { ...props }>
-      { children }
-    </Card>
-  );
+  return renderer(<Card {...props}>{children}</Card>);
 }

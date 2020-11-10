@@ -1,31 +1,36 @@
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import sizes from '../../__experimental__/components/input/input-sizes.style';
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import sizes from "../../__experimental__/components/input/input-sizes.style";
 import {
   hasTheSameOrientation,
   isVertical,
   isHorizontal,
-  getOppositeDirection
-} from './tooltip.utils';
+  getOppositeDirection,
+} from "./tooltip.utils";
 
 const pointerSize = 7;
 const pointerSideMargin = 8;
 const pointerDistances = {
   right: `left: -${pointerSize + 0.5}px;`,
-  left: 'right: 0;',
+  left: "right: 0;",
   bottom: `top: -${pointerSize + 0.5}px;`,
-  top: 'bottom: 0;'
+  top: "bottom: 0;",
 };
 const pointerCenterAlignments = {
   horizontalCenter: `left: calc(50% - ${pointerSize}px);`,
-  verticalCenter: `top: calc(50% - ${pointerSize}px);`
+  verticalCenter: `top: calc(50% - ${pointerSize}px);`,
 };
 
 const StyledTooltipPointer = styled.span`
   ${({
-    align: pointerAlign, position, theme, type, size, isPartOfInput
+    align: pointerAlign,
+    position,
+    theme,
+    type,
+    size,
+    isPartOfInput,
   }) => css`
     position: absolute;
 
@@ -36,13 +41,15 @@ const StyledTooltipPointer = styled.span`
       height: 0;
     }
 
-    ${!hasTheSameOrientation(position, pointerAlign) && css`
+    ${!hasTheSameOrientation(position, pointerAlign) &&
+    css`
       ${getPointerPosition(position, pointerAlign, isPartOfInput, size)}
 
       &:before {
         ${getPointerBorderStyles(position, theme)}
 
-        ${type === 'error' && css`
+        ${type === "error" &&
+        css`
           border-${position}-color: ${theme.colors.error};
         `}
       }
@@ -52,12 +59,17 @@ const StyledTooltipPointer = styled.span`
   `}
 `;
 
-function getPointerPosition(tooltipPosition, pointerAlign, isPartOfInput, size) {
-  if (isVertical(tooltipPosition) && pointerAlign === 'center') {
+function getPointerPosition(
+  tooltipPosition,
+  pointerAlign,
+  isPartOfInput,
+  size
+) {
+  if (isVertical(tooltipPosition) && pointerAlign === "center") {
     return pointerCenterAlignments.horizontalCenter;
   }
 
-  if (isHorizontal(tooltipPosition) && pointerAlign === 'center') {
+  if (isHorizontal(tooltipPosition) && pointerAlign === "center") {
     return pointerCenterAlignments.verticalCenter;
   }
 
@@ -65,8 +77,10 @@ function getPointerPosition(tooltipPosition, pointerAlign, isPartOfInput, size) 
 }
 
 function getPointerAlignments(isPartOfInput, size) {
-  const horizontalSizeOffset = (isPartOfInput && size) ? sizes[size].tooltipHorizontalOffset : 0;
-  const verticalSizeOffset = (isPartOfInput && size) ? sizes[size].tooltipVerticalOffset : 0;
+  const horizontalSizeOffset =
+    isPartOfInput && size ? sizes[size].tooltipHorizontalOffset : 0;
+  const verticalSizeOffset =
+    isPartOfInput && size ? sizes[size].tooltipVerticalOffset : 0;
   const horizontalSideMargin = pointerSideMargin + horizontalSizeOffset;
   const verticalSideMargin = pointerSideMargin + verticalSizeOffset;
 
@@ -74,20 +88,22 @@ function getPointerAlignments(isPartOfInput, size) {
     left: `left: ${horizontalSideMargin}px;`,
     right: `right: ${2 * pointerSize + horizontalSideMargin}px;`,
     top: `top: ${verticalSideMargin}px`,
-    bottom: `bottom: ${2 * pointerSize + verticalSideMargin}px;`
+    bottom: `bottom: ${2 * pointerSize + verticalSideMargin}px;`,
   };
 }
 
 function getPointerBorderStyles(position, theme) {
   const oppositeDirection = getOppositeDirection(position);
   const defaultStyle = `${pointerSize}px solid transparent`;
-  const oppositeDirectionStyle = 'none';
-  const currentDirectionStyle = `${pointerSize + 1}px solid ${theme.colors.black}`;
+  const oppositeDirectionStyle = "none";
+  const currentDirectionStyle = `${pointerSize + 1}px solid ${
+    theme.colors.black
+  }`;
   const borderStyles = {
     top: defaultStyle,
     right: defaultStyle,
     bottom: defaultStyle,
-    left: defaultStyle
+    left: defaultStyle,
   };
 
   borderStyles[position] = currentDirectionStyle;
@@ -102,7 +118,7 @@ function getPointerBorderStyles(position, theme) {
 }
 
 StyledTooltipPointer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledTooltipPointer.propTypes = {
@@ -110,7 +126,7 @@ StyledTooltipPointer.propTypes = {
   position: PropTypes.oneOf(OptionsHelper.positions),
   theme: PropTypes.object,
   type: PropTypes.string,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
 };
 
 export { pointerSize, pointerSideMargin };

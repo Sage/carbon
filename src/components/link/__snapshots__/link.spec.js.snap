@@ -10,7 +10,7 @@ exports[`Link renders as expected 1`] = `
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #26A826;
+  color: #008200;
   display: inline-block;
 }
 

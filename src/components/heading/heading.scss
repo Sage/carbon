@@ -50,14 +50,6 @@
   .carbon-heading--has-divider & {
     margin-top: -16px;
   }
-
-  [data-component='icon'] {
-    color: $grey-dark-blue-30;
-
-    &:hover {
-      color: $blue;
-    }
-  }
 }
 .carbon-heading__separator {
   border-top: 2px solid $grey-dark-blue-20;

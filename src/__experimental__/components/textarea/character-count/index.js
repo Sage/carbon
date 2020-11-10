@@ -1,1 +1,1 @@
-export { default } from './character-count.component';
+export { default } from "./character-count.component";

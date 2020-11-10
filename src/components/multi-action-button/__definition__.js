@@ -1,9 +1,9 @@
-import MultiActionButton from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
-import buttonDefinition from './../button/__definition__';
+import MultiActionButton from "./";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Definition from "./../../../demo/utils/definition";
+import buttonDefinition from "./../button/__definition__";
 
-let definition = new Definition('multi-action-button', MultiActionButton, {
+let definition = new Definition("multi-action-button", MultiActionButton, {
   description: `Related buttons of equal importance that are shown on hover.`,
   designerNotes: `
 * Offers related actions to the user, but without taking up valuable space by showing them separately.
@@ -20,13 +20,13 @@ let definition = new Definition('multi-action-button', MultiActionButton, {
  `,
   propOptions: {
     as: OptionsHelper.themesBinary,
-    align: OptionsHelper.alignBinary
+    align: OptionsHelper.alignBinary,
   },
   propTypes: {
     as: "String",
     text: "String",
     disabled: "Boolean",
-    align: "String"
+    align: "String",
   },
   propValues: {
     text: "Example Multi Action Button",
@@ -35,7 +35,7 @@ let definition = new Definition('multi-action-button', MultiActionButton, {
     as: "Primary or Secondary theme.",
     text: "Text for the main button.",
     disabled: "When enabled will disable the button.",
-    align: "Aligns the buttons actions either to the left or right."
+    align: "Aligns the buttons actions either to the left or right.",
   },
 });
 

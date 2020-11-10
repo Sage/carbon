@@ -1,1 +1,1 @@
-export { default } from './status.component';
+export { default } from "./status.component";

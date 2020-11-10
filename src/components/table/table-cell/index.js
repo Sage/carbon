@@ -1,1 +1,1 @@
-export { default } from './table-cell.component';
+export { default } from "./table-cell.component";

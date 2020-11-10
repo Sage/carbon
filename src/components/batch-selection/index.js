@@ -1,1 +1,1 @@
-export { default } from './batch-selection.component';
+export { default } from "./batch-selection.component";

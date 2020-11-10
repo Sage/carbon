@@ -1,1 +1,1 @@
-export { default } from './decimal.component';
+export { default } from "./decimal.component";

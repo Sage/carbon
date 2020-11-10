@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -8,7 +11,9 @@ const info = (
 
     <StoryHeader>Implementation</StoryHeader>
 
-    <StoryCode padded>import Textbox from &quot;carbon-react/lib/components/textbox&quot;</StoryCode>
+    <StoryCode padded>
+      import Textbox from &quot;carbon-react/lib/components/textbox&quot;
+    </StoryCode>
 
     <p>To render a Textarea:</p>
     <StoryCode padded>{'<Textbox name="myTexbox" />'}</StoryCode>

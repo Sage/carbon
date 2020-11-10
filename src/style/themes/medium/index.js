@@ -1,4 +1,4 @@
-import { aegeanTheme } from '..';
+import { aegeanTheme } from "..";
 
 export default (() => {
   console.warn(`"Medium Theme" has been renamed to "Aegean".

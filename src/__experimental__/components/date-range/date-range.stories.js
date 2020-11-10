@@ -1,14 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-import { State, Store } from '@sambego/storybook-state';
-import { notes, info } from './documentation';
-import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import DateRange from './date-range.component';
+import React from "react";
+import styled from "styled-components";
+import { storiesOf } from "@storybook/react";
+import { text, boolean } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import { State, Store } from "@sambego/storybook-state";
+import { notes, info } from "./documentation";
+import {
+  dlsThemeSelector,
+  classicThemeSelector,
+} from "../../../../.storybook/theme-selectors";
+import DateRange from "./date-range.component";
 
-import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import getDocGenInfo from "../../../utils/helpers/docgen-info";
 
 const ColumnsWrapper = styled.div`
   display: flex;
@@ -16,34 +19,35 @@ const ColumnsWrapper = styled.div`
 `;
 
 DateRange.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  require("./docgenInfo.json"),
   /date-range\.component(?!spec)/
 );
 
 const store = new Store({
-  value: ['2016-10-01', '2016-10-30']
+  value: ["2016-10-01", "2016-10-30"],
 });
 const handleChange = (evt) => {
   const newValue = [evt.target.value[0].rawValue, evt.target.value[1].rawValue];
   store.set({ value: newValue });
-  action('changed')(evt.target.value);
+  action("changed")(evt.target.value);
 };
 
 function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
-    const startLabel = text('startLabel', '');
-    const endLabel = text('endLabel', '');
-    const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
+    const startLabel = text("startLabel", "");
+    const endLabel = text("endLabel", "");
+    const labelsInline =
+      startLabel || endLabel ? boolean("labelsInline", false) : undefined;
 
     return (
-      <State store={ store }>
+      <State store={store}>
         <DateRange
-          onChange={ handleChange }
-          endLabel={ endLabel }
-          value={ store.get('value') }
-          startLabel={ startLabel }
-          labelsInline={ labelsInline }
-          onBlur={ ev => action('blur')(ev) }
+          onChange={handleChange}
+          endLabel={endLabel}
+          value={store.get("value")}
+          startLabel={startLabel}
+          labelsInline={labelsInline}
+          onBlur={(ev) => action("blur")(ev)}
         />
       </State>
     );
@@ -54,12 +58,12 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     notes: { markdown: notes },
     info: {
       text: info,
-      propTablesExclude: [State]
+      propTablesExclude: [State],
     },
     chromatic: {
-      disable: disableChromatic
+      disable: disableChromatic,
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
   };
 
   return [name, component, metadata];
@@ -67,8 +71,8 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
 function makeValidationStory(name, themeSelector) {
   const component = (labelsInline) => {
-    const startLabel = text('startLabel', 'From');
-    const endLabel = text('endLabel', 'To');
+    const startLabel = text("startLabel", "From");
+    const endLabel = text("endLabel", "To");
 
     return (
       <div>
@@ -76,76 +80,88 @@ function makeValidationStory(name, themeSelector) {
         <h4>Validation as string</h4>
         <h6>On components</h6>
         {[
-          { startError: 'Start Error', endError: 'End Error' },
-          { startWarning: 'Start Warning', endWarning: 'End Warning' },
-          { startInfo: 'Start Info', endInfo: 'End Info' }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-string-component` }>
+          { startError: "Start Error", endError: "End Error" },
+          { startWarning: "Start Warning", endWarning: "End Warning" },
+          { startInfo: "Start Info", endInfo: "End Info" },
+        ].map((validation) => (
+          <State
+            store={store}
+            key={`${Object.keys(validation)[0]}-string-component`}
+          >
             <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
-              { ...validation }
+              onChange={handleChange}
+              endLabel={endLabel}
+              value={store.get("value")}
+              startLabel={startLabel}
+              labelsInline={labelsInline}
+              onBlur={(ev) => action("blur")(ev)}
+              {...validation}
             />
           </State>
         ))}
         <h6>On components - only one input</h6>
         {[
-          { startError: 'Start Error' },
-          { endWarning: 'End Warning' },
-          { startInfo: 'Start Info' }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-string-component` }>
+          { startError: "Start Error" },
+          { endWarning: "End Warning" },
+          { startInfo: "Start Info" },
+        ].map((validation) => (
+          <State
+            store={store}
+            key={`${Object.keys(validation)[0]}-string-component`}
+          >
             <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
-              { ...validation }
+              onChange={handleChange}
+              endLabel={endLabel}
+              value={store.get("value")}
+              startLabel={startLabel}
+              labelsInline={labelsInline}
+              onBlur={(ev) => action("blur")(ev)}
+              {...validation}
             />
           </State>
         ))}
 
         <h6>On labels</h6>
         {[
-          { startError: 'Start Error', endError: 'End Error' },
-          { startWarning: 'Start Warning', endWarning: 'End Warning' },
-          { startInfo: 'Start Info', endInfo: 'End Info' }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-string-label` }>
+          { startError: "Start Error", endError: "End Error" },
+          { startWarning: "Start Warning", endWarning: "End Warning" },
+          { startInfo: "Start Info", endInfo: "End Info" },
+        ].map((validation) => (
+          <State
+            store={store}
+            key={`${Object.keys(validation)[0]}-string-label`}
+          >
             <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
+              onChange={handleChange}
+              endLabel={endLabel}
+              value={store.get("value")}
+              startLabel={startLabel}
+              labelsInline={labelsInline}
+              onBlur={(ev) => action("blur")(ev)}
               validationOnLabel
-              { ...validation }
+              {...validation}
             />
           </State>
         ))}
         <h6>On labels - only one input</h6>
         {[
-          { endError: 'End Error' },
-          { startWarning: 'Start Warning' },
-          { endInfo: 'End Info' }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-string-label` }>
+          { endError: "End Error" },
+          { startWarning: "Start Warning" },
+          { endInfo: "End Info" },
+        ].map((validation) => (
+          <State
+            store={store}
+            key={`${Object.keys(validation)[0]}-string-label`}
+          >
             <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
+              onChange={handleChange}
+              endLabel={endLabel}
+              value={store.get("value")}
+              startLabel={startLabel}
+              labelsInline={labelsInline}
+              onBlur={(ev) => action("blur")(ev)}
               validationOnLabel
-              { ...validation }
+              {...validation}
             />
           </State>
         ))}
@@ -155,38 +171,36 @@ function makeValidationStory(name, themeSelector) {
         {[
           { startError: true, endError: true },
           { startWarning: true, endWarning: true },
-          { startInfo: true, endInfo: true }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-boolean` }>
+          { startInfo: true, endInfo: true },
+        ].map((validation) => (
+          <State store={store} key={`${Object.keys(validation)[0]}-boolean`}>
             <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
-              { ...validation }
+              onChange={handleChange}
+              endLabel={endLabel}
+              value={store.get("value")}
+              startLabel={startLabel}
+              labelsInline={labelsInline}
+              onBlur={(ev) => action("blur")(ev)}
+              {...validation}
             />
           </State>
         ))}
         <h6>On only one input</h6>
-        {[
-          { startError: true },
-          { endWarning: true },
-          { startInfo: true }
-        ].map(validation => (
-          <State store={ store } key={ `${Object.keys(validation)[0]}-boolean` }>
-            <DateRange
-              onChange={ handleChange }
-              endLabel={ endLabel }
-              value={ store.get('value') }
-              startLabel={ startLabel }
-              labelsInline={ labelsInline }
-              onBlur={ ev => action('blur')(ev) }
-              { ...validation }
-            />
-          </State>
-        ))}
+        {[{ startError: true }, { endWarning: true }, { startInfo: true }].map(
+          (validation) => (
+            <State store={store} key={`${Object.keys(validation)[0]}-boolean`}>
+              <DateRange
+                onChange={handleChange}
+                endLabel={endLabel}
+                value={store.get("value")}
+                startLabel={startLabel}
+                labelsInline={labelsInline}
+                onBlur={(ev) => action("blur")(ev)}
+                {...validation}
+              />
+            </State>
+          )
+        )}
       </div>
     );
   };
@@ -205,14 +219,14 @@ function makeValidationStory(name, themeSelector) {
     notes: { markdown: notes },
     info: {
       text: info,
-      propTables: [DateRange]
-    }
+      propTables: [DateRange],
+    },
   };
 
   return [name, columns, metadata];
 }
 
-storiesOf('Experimental/Date Range', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeValidationStory('validations', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+storiesOf("Experimental/Date Range", module)
+  .add(...makeStory("default", dlsThemeSelector))
+  .add(...makeValidationStory("validations", dlsThemeSelector))
+  .add(...makeStory("classic", classicThemeSelector, true));

@@ -1,5 +1,5 @@
 // Globally enable the logger
-let enabled = process.env.NODE_ENV !== 'production';
+let enabled = process.env.NODE_ENV !== "production";
 
 const delays = {};
 const groupedMessages = {};
@@ -19,8 +19,9 @@ const log = (message, type, opts = {}) => {
       }
 
       delays[opts.group] = setTimeout(() => {
-        console[type](groupedMessages[opts.group][0], { // eslint-disable-line no-console
-          all: groupedMessages[opts.group]
+        console[type](groupedMessages[opts.group][0], {
+          // eslint-disable-line no-console
+          all: groupedMessages[opts.group],
         });
       }, 500);
     } else {
@@ -64,24 +65,24 @@ const Logger = {
   },
 
   error: (message, opts) => {
-    log(message, 'error', opts);
+    log(message, "error", opts);
   },
 
   info: (message, opts) => {
-    log(message, 'info', opts);
+    log(message, "info", opts);
   },
 
   log: (message, opts) => {
-    log(message, 'log', opts);
+    log(message, "log", opts);
   },
 
   warn: (message, opts) => {
-    log(message, 'warn', opts);
+    log(message, "warn", opts);
   },
 
   deprecate: (message, opts) => {
-    log(`[Deprecation] ${message}`, 'warn', opts);
-  }
+    log(`[Deprecation] ${message}`, "warn", opts);
+  },
 };
 
 export default Logger;

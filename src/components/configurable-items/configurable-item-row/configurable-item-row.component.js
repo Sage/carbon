@@ -1,27 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withTheme } from 'styled-components';
-import tagComponent from '../../../utils/helpers/tags';
-import { WithDrag, WithDrop } from '../../drag-and-drop';
-import { Checkbox } from '../../../__experimental__/components/checkbox';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { withTheme } from "styled-components";
+import tagComponent from "../../../utils/helpers/tags";
+import { WithDrag, WithDrop } from "../../drag-and-drop";
+import { Checkbox } from "../../../__experimental__/components/checkbox";
 import {
   ConfigurableItemRowStyle,
   ConfigurableItemRowContentWrapperStyle,
-  ConfigurableItemRowIconStyle
-} from './configurable-item-row.style';
-import baseTheme from '../../../style/themes/base';
+  ConfigurableItemRowIconStyle,
+} from "./configurable-item-row.style";
+import baseTheme from "../../../style/themes/base";
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
+    dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
   };
 
   iconHTML() {
     return (
       <div>
-        <ConfigurableItemRowIconStyle type='drag_vertical' />
+        <ConfigurableItemRowIconStyle type="drag_vertical" />
       </div>
     );
   }
@@ -29,9 +29,9 @@ class ConfigurableItemRow extends React.Component {
   icon() {
     return (
       <WithDrag
-        draggableNode={ () => {
+        draggableNode={() => {
           return this._listItem;
-        } }
+        }}
       >
         {this.iconHTML()}
       </WithDrag>
@@ -45,44 +45,42 @@ class ConfigurableItemRow extends React.Component {
   /** Determines if the item has been dragged. */
   dragged(dragAndDropActiveIndex, index) {
     return (
-      this.draggingIsOccurring(dragAndDropActiveIndex)
-      && dragAndDropActiveIndex === index
+      this.draggingIsOccurring(dragAndDropActiveIndex) &&
+      dragAndDropActiveIndex === index
     );
   }
 
   /** Determines if dragging is occurring within the current draggable context. */
   draggingIsOccurring(dragAndDropActiveIndex) {
-    return typeof dragAndDropActiveIndex === 'number';
+    return typeof dragAndDropActiveIndex === "number";
   }
 
   listItemHTML = () => {
-    const {
-      rowIndex, enabled, locked, name, onChange
-    } = this.props;
+    const { rowIndex, enabled, locked, name, onChange } = this.props;
 
     return (
       <div>
         <ConfigurableItemRowStyle
-          data-element='configurable-item-row'
-          isDragged={ this.dragged(
+          data-element="configurable-item-row"
+          isDragged={this.dragged(
             this.context.dragAndDropActiveIndex,
             rowIndex
-          ) }
-          isDragging={ this.draggingIsOccurring(
+          )}
+          isDragging={this.draggingIsOccurring(
             this.context.dragAndDropActiveIndex
-          ) }
-          className={ this.classes() }
-          ref={ (node) => {
+          )}
+          className={this.classes()}
+          ref={(node) => {
             this._listItem = node;
-          } }
+          }}
         >
-          <ConfigurableItemRowContentWrapperStyle data-element='configurable-item-row-content-wrapper'>
+          <ConfigurableItemRowContentWrapperStyle data-element="configurable-item-row-content-wrapper">
             {this.icon()}
             <Checkbox
-              checked={ enabled }
-              disabled={ locked }
-              label={ name }
-              onChange={ onChange }
+              checked={enabled}
+              disabled={locked}
+              label={name}
+              onChange={onChange}
             />
           </ConfigurableItemRowContentWrapperStyle>
         </ConfigurableItemRowStyle>
@@ -93,8 +91,8 @@ class ConfigurableItemRow extends React.Component {
   render() {
     return (
       <WithDrop
-        index={ this.props.rowIndex }
-        { ...tagComponent('configurable-item-row', this.props) }
+        index={this.props.rowIndex}
+        {...tagComponent("configurable-item-row", this.props)}
       >
         {this.listItemHTML()}
       </WithDrop>
@@ -116,11 +114,11 @@ ConfigurableItemRow.propTypes = {
   /** The unique index for the row. */
   rowIndex: PropTypes.number,
   /** An internal prop. Helpful to detect which component should be rendered */
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 ConfigurableItemRow.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 export { ConfigurableItemRow as ConfigurableItemRowWithoutHOC };
 export default withTheme(ConfigurableItemRow);

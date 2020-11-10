@@ -1,1 +1,1 @@
-export { default } from './form-field.component';
+export { default } from "./form-field.component";

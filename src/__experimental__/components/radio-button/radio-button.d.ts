@@ -10,7 +10,7 @@ export interface RadioButtonProps {
   fieldHelpInline?: boolean;
   id?: string;
   inputWidth?: number | string;
-  label?: string;
+  label?: string | React.ReactNode;
   labelAlign?: AlignBinaryType;
   labelWidth?: number | string;
   name?: string;

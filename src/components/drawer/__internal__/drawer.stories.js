@@ -1,57 +1,56 @@
-import React, { useState, useCallback } from 'react';
-import { action } from '@storybook/addon-actions';
-import Drawer from '..';
+import React, { useState, useCallback } from "react";
+import { action } from "@storybook/addon-actions";
+import Drawer from "..";
 import {
   FlatTable,
   FlatTableHead,
   FlatTableBody,
   FlatTableRow,
   FlatTableHeader,
-  FlatTableCell
-} from '../../flat-table';
-
+  FlatTableCell,
+} from "../../flat-table";
 
 export default {
   component: Drawer,
-  title: 'Design System/Drawer/Test',
+  title: "Design System/Drawer/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 };
-
 
 export const Visual = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
-    action('expansionToggled');
+    action("expansionToggled");
   }, [isExpanded]);
   return (
     <div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
-          expandedWidth='40%'
-          animationDuration='0.5s'
-          sidebar={ (
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
           defaultExpanded
-          expandedWidth='20%'
-          animationDuration='0.5s'
-          sidebar={ (
+          expandedWidth="20%"
+          animationDuration="0.5s"
+          sidebar={
             <FlatTable>
               <FlatTableHead>
                 <FlatTableRow>
@@ -138,22 +137,23 @@ export const Visual = () => {
                 </FlatTableRow>
               </FlatTableBody>
             </FlatTable>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
-          expandedWidth='20%'
-          animationDuration='0.5s'
-          sidebar={ (
+          expandedWidth="20%"
+          animationDuration="0.5s"
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
           <FlatTable>
             <FlatTableHead>
@@ -243,70 +243,74 @@ export const Visual = () => {
           </FlatTable>
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
-          expandedWidth='40%'
-          animationDuration='0.5s'
-          expanded={ isExpanded }
-          onChange={ onChangeHandler }
-          sidebar={ (
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          expanded={isExpanded}
+          onChange={onChangeHandler}
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
           defaultExpanded
-          expandedWidth='40%'
-          animationDuration='0.5s'
-          sidebar={ (
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
-          expandedWidth='40%'
-          animationDuration='0.5s'
-          backgroundColor='#FF0000'
-          sidebar={ (
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          backgroundColor="#FF0000"
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
-      <div style={ { height: '200px', marginBottom: '20px' } }>
+      <div style={{ height: "200px", marginBottom: "20px" }}>
         <Drawer
-          title='My custom title'
+          title="My custom title"
           showControls
-          expandedWidth='40%'
-          animationDuration='0.5s'
-          sidebar={ (
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          sidebar={
             <ul>
               <li>link a</li>
               <li>link b</li>
               <li>link c</li>
             </ul>
-          ) }
+          }
         >
-          content body content body content body content body content body content body content body
+          content body content body content body content body content body
+          content body content body
         </Drawer>
       </div>
     </div>
@@ -314,10 +318,10 @@ export const Visual = () => {
 };
 
 Visual.story = {
-  name: 'visual',
+  name: "visual",
   parameters: {
     chromatic: {
-      disable: false
-    }
-  }
+      disable: false,
+    },
+  },
 };

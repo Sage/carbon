@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import { space } from 'styled-system';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
 
-import baseTheme from '../../../style/themes/base';
+import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCell = styled.td`
   ${({ align, theme, rowSpan }) => css`
@@ -13,7 +13,7 @@ const StyledFlatTableCell = styled.td`
     vertical-align: middle;
     white-space: nowrap;
     padding: 0;
-    
+
     > div {
       box-sizing: border-box;
       ${space};
@@ -27,7 +27,8 @@ const StyledFlatTableCell = styled.td`
       border-right: 1px solid ${theme.table.secondary};
     }
 
-    ${rowSpan && css`
+    ${rowSpan &&
+    css`
       &:first-of-type + & {
         border-left: 1px solid ${theme.table.secondary};
       }
@@ -36,7 +37,7 @@ const StyledFlatTableCell = styled.td`
 `;
 
 StyledFlatTableCell.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledFlatTableCell;

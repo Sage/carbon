@@ -4,8 +4,7 @@
  * opacity.
  */
 export default (base) => {
-  const rgb = base.match(/[^#]{2}/g)
-    .map(pair => parseInt(pair, 16));
+  const rgb = base.match(/[^#]{2}/g).map((pair) => parseInt(pair, 16));
 
-  return opacity => `rgba(${rgb.join(',')},${opacity})`;
+  return (opacity) => `rgba(${rgb.join(",")},${opacity})`;
 };

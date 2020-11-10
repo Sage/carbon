@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const Option = ({ text, children, ...props }) => (
-  <div { ...props }>
-    { children || text }
-  </div>
+  <div {...props}>{children || text}</div>
 );
 
 Option.propTypes = {
@@ -15,7 +13,7 @@ Option.propTypes = {
   /** The option's invisible internal value */
   value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   /** if defined, this object can be used to provide optional extra properties */
-  options: PropTypes.object
+  options: PropTypes.object,
 };
 
 export default Option;

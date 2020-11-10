@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import tagComponent from '../../utils/helpers/tags';
-import { validProps } from '../../utils/ether';
-import './app-wrapper.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import tagComponent from "../../utils/helpers/tags";
+import { validProps } from "../../utils/ether";
+import "./app-wrapper.scss";
 
 /**
  * Manages the width and containment of your application.
@@ -24,7 +24,7 @@ class AppWrapper extends React.Component {
      * @property className
      * @type {String}
      */
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   constructor(...args) {
@@ -39,10 +39,7 @@ class AppWrapper extends React.Component {
    * @return {String}
    */
   classes() {
-    return classNames(
-      'carbon-app-wrapper',
-      this.props.className
-    );
+    return classNames("carbon-app-wrapper", this.props.className);
   }
 
   /**
@@ -51,10 +48,11 @@ class AppWrapper extends React.Component {
   render() {
     return (
       <div
-        { ...validProps(this) } className={ this.classes() }
-        { ...tagComponent('app-wrapper', this.props) }
+        {...validProps(this)}
+        className={this.classes()}
+        {...tagComponent("app-wrapper", this.props)}
       >
-        { this.props.children }
+        {this.props.children}
       </div>
     );
   }

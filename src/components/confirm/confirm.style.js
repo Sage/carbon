@@ -1,14 +1,12 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import confirmClassicStyle from './confirm.classic.style';
-import StyledIcon from '../icon/icon.style';
-import baseTheme from '../../style/themes/base';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import StyledIcon from "../icon/icon.style";
+import baseTheme from "../../style/themes/base";
 
 export const StyledConfirmButtons = styled.div`
   margin-top: 48px;
   display: flex;
   justify-content: flex-end;
-  ${confirmClassicStyle}
 `;
 
 export const StyledConfirmHeading = styled.div`
@@ -22,11 +20,19 @@ export const StyledConfirmHeading = styled.div`
   ${StyledIcon} {
     margin-right: 16px;
     margin-bottom: 20px;
-    ${({ type }) => type === 'warning' && css`color: ${baseTheme.colors.warning};`}
-    ${({ type }) => type === 'error' && css`color: ${baseTheme.colors.error};`}
+    ${({ type }) =>
+      type === "warning" &&
+      css`
+        color: ${baseTheme.colors.warning};
+      `}
+    ${({ type }) =>
+      type === "error" &&
+      css`
+        color: ${baseTheme.colors.error};
+      `}
   }
 `;
 
 StyledConfirmHeading.propTypes = {
-  type: PropTypes.oneOf(['error', 'warning'])
+  type: PropTypes.oneOf(["error", "warning"]),
 };

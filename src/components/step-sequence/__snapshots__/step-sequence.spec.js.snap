@@ -30,7 +30,7 @@ exports[`StepSequence renders correctly 1`] = `
 }
 
 .c1::before {
-  content: '';
+  content: "";
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -141,7 +141,7 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
 }
 
 .c1::before {
-  content: '';
+  content: "";
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;

@@ -1,12 +1,12 @@
-import React from 'react';
-import { DragDropContext } from 'react-dnd-legacy';
-import PropTypes from 'prop-types';
-import TouchBackend from 'react-dnd-touch-backend';
-import ReactDOM from 'react-dom';
-import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
-import CustomDragLayer from '../custom-drag-layer';
-import Browser from '../../../utils/helpers/browser';
-import ScrollableParent from '../../../utils/helpers/scrollable-parent';
+import React from "react";
+import { DragDropContext } from "react-dnd-legacy";
+import PropTypes from "prop-types";
+import TouchBackend from "react-dnd-touch-backend";
+import ReactDOM from "react-dom";
+import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
+import CustomDragLayer from "../custom-drag-layer";
+import Browser from "../../../utils/helpers/browser";
+import ScrollableParent from "../../../utils/helpers/scrollable-parent";
 
 class DraggableContext extends React.Component {
   static propTypes = {
@@ -30,8 +30,8 @@ class DraggableContext extends React.Component {
     /**
      * Prop to enable/disable auto scroll on drag
      */
-    autoScroll: PropTypes.bool
-  }
+    autoScroll: PropTypes.bool,
+  };
 
   /**
    * Defines a context object for child components of the draggable context component.
@@ -42,17 +42,17 @@ class DraggableContext extends React.Component {
     dragAndDropBeginDrag: PropTypes.func, // Callback for when dragging begins
     dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
     dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
-    dragAndDropOnDrag: PropTypes.func // Callback for when order is changed
-  }
+    dragAndDropOnDrag: PropTypes.func, // Callback for when order is changed
+  };
 
   static defaultProps = {
     customDragLayer: <CustomDragLayer />,
-    autoScroll: false
-  }
+    autoScroll: false,
+  };
 
   state = {
-    activeIndex: null // {Number} tracks the currently dragged index
-  }
+    activeIndex: null, // {Number} tracks the currently dragged index
+  };
 
   constructor(props) {
     super(props);
@@ -79,7 +79,7 @@ class DraggableContext extends React.Component {
       dragAndDropBeginDrag: this.handleBeginDrag,
       dragAndDropEndDrag: this.handleEndDrag,
       dragAndDropHover: this.handleHover,
-      dragAndDropOnDrag: this.handleDrag
+      dragAndDropOnDrag: this.handleDrag,
     };
   }
 
@@ -89,7 +89,7 @@ class DraggableContext extends React.Component {
    * @method handleHover
    * @return {Void}
    */
-  handleHover = ItemTargetHelper.onHoverUpDown
+  handleHover = ItemTargetHelper.onHoverUpDown;
 
   /**
    * A callback for when auto scroll is triggered
@@ -122,13 +122,13 @@ class DraggableContext extends React.Component {
     const shouldScroll = this.speed === 0 && speed !== 0;
     this.speed = speed;
     if (shouldScroll) this.startScrolling();
-  }
+  };
 
   startScrolling = () => {
     if (!this.frame) {
       this.frame = Browser.getWindow().requestAnimationFrame(this.tick);
     }
-  }
+  };
 
   tick = () => {
     if (!this.speed) {
@@ -145,9 +145,9 @@ class DraggableContext extends React.Component {
       this.element.scrollTop += this.speed * 10;
     }
 
-    window.scrollTo(0, window.scrollY + (this.speed * 10));
+    window.scrollTo(0, window.scrollY + this.speed * 10);
     this.frame = window.requestAnimationFrame(this.tick);
-  }
+  };
 
   /**
    * A callback for when a drag is triggered.
@@ -164,10 +164,10 @@ class DraggableContext extends React.Component {
   handleDrag = (originalIndex, hoverIndex) => {
     this.setState({ activeIndex: hoverIndex });
 
-    if (typeof originalIndex !== 'undefined') {
+    if (typeof originalIndex !== "undefined") {
       this.props.onDrag(originalIndex, hoverIndex);
     }
-  }
+  };
 
   /**
    * A callback for when dragging begins.
@@ -184,9 +184,9 @@ class DraggableContext extends React.Component {
     return {
       index: props.index,
       offsetDiffY: 0,
-      ...props
+      ...props,
     };
-  }
+  };
 
   /**
    * A callback for when a drag ends triggered.
@@ -198,7 +198,7 @@ class DraggableContext extends React.Component {
     // dragging has ended so remove the active index
     this.setState({ activeIndex: null });
     this.speed = 0;
-  }
+  };
 
   /**
    * Renders the component
@@ -206,7 +206,11 @@ class DraggableContext extends React.Component {
   render() {
     return (
       <div
-        onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
+        onMouseMove={
+          this.props.autoScroll && this.state.activeIndex !== null
+            ? this.checkAutoScroll
+            : undefined
+        }
       >
         {this.props.children}
         {this.props.customDragLayer}
@@ -215,4 +219,6 @@ class DraggableContext extends React.Component {
   }
 }
 
-export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(DraggableContext);
+export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(
+  DraggableContext
+);

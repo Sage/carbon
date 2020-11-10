@@ -1,1 +1,1 @@
-export { default } from './sort.component';
+export { default } from "./sort.component";

@@ -25,8 +25,8 @@ class BaseRegistry {
   defaultHandler = {
     call: (data) => {
       return data;
-    }
-  }
+    },
+  };
 
   /**
    * Property to store any registered handlers.
@@ -34,7 +34,7 @@ class BaseRegistry {
    * @property handlers
    * @type {Object}
    */
-  handlers = {}
+  handlers = {};
 
   /**
    * Adds the given handler to the registry.
@@ -46,7 +46,7 @@ class BaseRegistry {
   register = (key, handler) => {
     this.handlers[key] = handler;
     return handler;
-  }
+  };
 
   /**
    * Removes given handler from the registry by key
@@ -56,7 +56,7 @@ class BaseRegistry {
    */
   unregister = (key) => {
     delete this.handlers[key];
-  }
+  };
 
   /**
    * Finds all relevant handlers. Additional params can be passed which will be
@@ -76,10 +76,12 @@ class BaseRegistry {
       }
     });
 
-    if (!handlers.length) { handlers.push(this.defaultHandler); }
+    if (!handlers.length) {
+      handlers.push(this.defaultHandler);
+    }
 
     return handlers;
-  }
+  };
 }
 
 export default BaseRegistry;

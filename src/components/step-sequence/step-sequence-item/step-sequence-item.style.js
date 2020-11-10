@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import baseTheme from '../../../style/themes/base';
-import StyledIcon from '../../icon/icon.style';
+import styled, { css } from "styled-components";
+import baseTheme from "../../../style/themes/base";
+import StyledIcon from "../../icon/icon.style";
 
 const StepSequenceItemStyle = styled.li`
   display: flex;
@@ -11,7 +11,7 @@ const StepSequenceItemStyle = styled.li`
   color: ${({ theme }) => theme.disabled.disabled};
 
   &::before {
-    content: '';
+    content: "";
     flex-grow: 1;
     display: block;
     height: 1px;
@@ -34,37 +34,43 @@ const StepSequenceItemStyle = styled.li`
     }
   }
 
-  ${({ theme, status }) => status === 'current' && css`
-    color: ${theme.text.color};
+  ${({ theme, status }) =>
+    status === "current" &&
+    css`
+      color: ${theme.text.color};
 
-    &::before {
-      background-color: ${theme.colors.withOpacity};
-    }
-  `};
+      &::before {
+        background-color: ${theme.colors.withOpacity};
+      }
+    `};
 
-  ${({ theme, status }) => status === 'complete' && css`
-    color: ${theme.colors.base};
-  
-    &::before {
-      background-color: ${theme.colors.base};
-    }
-  `};
+  ${({ theme, status }) =>
+    status === "complete" &&
+    css`
+      color: ${theme.colors.base};
 
-  ${({ orientation }) => orientation === 'vertical' && css`
-    flex-direction: column;
-    align-items: flex-start;
+      &::before {
+        background-color: ${theme.colors.base};
+      }
+    `};
 
-    &::before {
-      flex-grow: 0;
-      width: 1px;
-      height: 24px;
-      margin: 12px 8px;
-    }
-  `};
+  ${({ orientation }) =>
+    orientation === "vertical" &&
+    css`
+      flex-direction: column;
+      align-items: flex-start;
+
+      &::before {
+        flex-grow: 0;
+        width: 1px;
+        height: 24px;
+        margin: 12px 8px;
+      }
+    `};
 `;
 
 StepSequenceItemStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StepSequenceItemStyle;

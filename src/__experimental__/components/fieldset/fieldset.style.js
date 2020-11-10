@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import FormFieldStyle from '../form-field/form-field.style';
-import fieldsetClassicStyle from './fieldset-classic.style';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import StyledIcon from '../../../components/icon/icon.style';
-import CheckboxStyle from '../checkbox/checkbox.style';
+import styled from "styled-components";
+import FormFieldStyle from "../form-field/form-field.style";
+import fieldsetClassicStyle from "./fieldset-classic.style";
+import ValidationIconStyle from "../../../components/validations/validation-icon.style";
+import StyledIcon from "../../../components/icon/icon.style";
+import CheckboxStyle from "../checkbox/checkbox.style";
 
 const FieldsetStyle = styled.fieldset`
   border: none;
@@ -24,9 +24,9 @@ const FieldsetStyle = styled.fieldset`
 `;
 
 const LegendContainerStyle = styled.div`
-  ${({
-    inline
-  }) => inline && `
+  ${({ inline }) =>
+    inline &&
+    `
   margin-right: 32px;
   height: 34px !important;
   `}
@@ -44,20 +44,14 @@ const LegendContainerStyle = styled.div`
   }
 
   ${ValidationIconStyle} ${StyledIcon}:focus {
-    outline: 2px solid #FFB500;
+    outline: 2px solid #ffb500;
   }
 
   ${({ styleOverride }) => styleOverride};
 `;
 
 const FieldsetContentStyle = styled.div`
-  ${({
-    inline
-  }) => inline && 'display: flex;'}
+  ${({ inline }) => inline && "display: flex;"}
 `;
 
-export {
-  FieldsetStyle,
-  LegendContainerStyle,
-  FieldsetContentStyle
-};
+export { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle };

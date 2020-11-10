@@ -8,7 +8,6 @@ on:
       - '[0-9]+.x'
       - '[0-9]+.x.x'
       - '[0-9]+.[0-9]+.x'
-      - trigger-integration # This branch is used to update checks on PR's from forks
       - 'major/**'
 
 jobs:

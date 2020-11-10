@@ -1,1 +1,1 @@
-export { default } from './pod.component';
+export { default } from "./pod.component";

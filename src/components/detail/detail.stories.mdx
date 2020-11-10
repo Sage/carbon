@@ -1,0 +1,113 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import Detail from './detail.js';
+import Card from '../card';
+import Tile from '../tile'
+import Hr from '../hr';
+
+<Meta title="Detail" parameters={{ info: { disable: true }}} />
+
+# Detail
+Detail is useful to present some important text with prominence, for example, a quote, instruction, or callout.
+
+Make sure that the colour of all text has a contrast ratio of at least 4.5.1, 
+to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard") 
+for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/ "Contrast Checker").
+
+## Quick Start
+Import `Detail` into the project.
+
+```jsx
+import Detail from "carbon-react/lib/components/detail";
+
+const MyComponent = () => (
+  <Detail>
+    This is where the children will live.
+  </Detail>
+);
+
+```
+
+### Default Detail
+This is an example of how the Detail component will look in its default format.
+<Preview>
+  <Story name="default">
+    <Detail>
+      This is where the children will live.
+    </Detail>
+  </Story>
+</Preview>
+
+### Detail with a Footnote
+Detail can also have a footnote by using the `footnote` prop.
+<Preview>
+  <Story name="with Footnote">
+    <Detail footnote="This is a footnote." >
+      This is where the children will live.
+    </Detail>
+  </Story>
+</Preview>
+
+### Default with Icon
+Detail can also have an icon that renders to the left. 
+
+<Preview>
+  <Story name="with icon">
+    <Detail icon='bin' footnote='This is a footnote' >
+      This is where the children will live.
+    </Detail>
+  </Story>
+</Preview>
+
+### Inside of Components
+Detail can be nested inside of components. Inside of this example it is nested inside of the `Card` component.
+
+<Preview>
+  <Story name="inside of card">
+    <Card width='300px'>
+      <div style={{paddingTop: '16px'}}>
+        <Detail>
+          This example of Detail just has children.
+        </Detail>
+      </div>
+      <Hr />
+      <div style={{paddingTop: '8px'}}>
+        <Detail footnote='This is a footnote' >
+          This example of Detail has children and also a footnote.
+        </Detail>
+      </div>
+      <Hr />
+      <div style={{paddingBottom: '16px'}}>
+        <Detail icon='settings' footnote='This is a footnote' >
+          Where as this example of Detail has a footnote and icon.
+        </Detail>
+      </div>
+    </Card>
+  </Story>
+</Preview>
+
+In this example, Detail is nested inside of the `Tile` component.
+<Preview>
+  <Story name="inside of tile">
+    <Tile width={60}>
+      <div style={{paddingTop: '16px'}}>
+        <Detail>
+          This example of Detail just has children.
+        </Detail>
+      </div>
+      <div style={{paddingTop: '8px'}}>
+        <Detail footnote='This is a footnote' >
+          This example of Detail has children and also a footnote.
+        </Detail>
+      </div>
+      <div style={{paddingBottom: '16px'}}>
+        <Detail icon='settings' footnote='This is a footnote' >
+          Where as this example of Detail has a footnote and icon.
+        </Detail>
+      </div>
+    </Tile>
+  </Story>
+</Preview>
+
+
+## Props
+<Props of={Detail} />

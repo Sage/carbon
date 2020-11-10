@@ -12,5 +12,5 @@ export {
   replaceText,
   hasBlockStyle,
   hasInlineStyle,
-  blockStyleFn
-} from './utils';
+  blockStyleFn,
+} from "./utils";

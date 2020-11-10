@@ -7,7 +7,7 @@
     "common": {
         "mint": "rgb(0, 129, 93)",
         "aegean": "rgb(0, 115, 194)",
-        "none": "rgb(38, 168, 38)"
+        "none": "rgb(0, 130, 0)"
     },
     "step-sequence-item": {
         "mint": "rgb(0, 163, 118)",

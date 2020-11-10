@@ -6,8 +6,8 @@
  */
 const ItemTypes = {
   getItemType: (props) => {
-    return props.identifier || 'defaultDragAndDropIdentifier';
-  }
+    return props.identifier || "defaultDragAndDropIdentifier";
+  },
 };
 
 export default ItemTypes;

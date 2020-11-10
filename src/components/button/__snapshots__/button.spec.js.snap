@@ -4,12 +4,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c3 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: #008200;
   background-color: transparent;
 }
 
 .c3:hover {
-  color: #1E861E;
+  color: #006800;
   background-color: transparent;
 }
 
@@ -811,8 +811,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
 }
@@ -875,12 +875,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c3 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: #008200;
   background-color: transparent;
 }
 
 .c3:hover {
-  color: #1E861E;
+  color: #006800;
   background-color: transparent;
 }
 
@@ -926,8 +926,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
 }

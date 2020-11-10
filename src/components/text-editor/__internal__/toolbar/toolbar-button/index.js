@@ -1,1 +1,1 @@
-export { default } from './toolbar-button.component';
+export { default } from "./toolbar-button.component";

@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import BaseTheme from '../../style/themes/base';
-import StyledIcon from '../icon/icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
+import styled, { css } from "styled-components";
+import BaseTheme from "../../style/themes/base";
+import StyledIcon from "../icon/icon.style";
+import { isClassic } from "../../utils/helpers/style-helper";
 
 const ValidationIconStyle = styled.div`
   background: none;
@@ -17,22 +17,26 @@ const ValidationIconStyle = styled.div`
     color: ${({ validationType, theme }) => theme.colors[validationType]};
   }
 
-  ${({ theme }) => isClassic(theme) && css`
-    ${StyledIcon}:focus {
-      outline: none;
-    }
-  `}
+  ${({ theme }) =>
+    isClassic(theme) &&
+    css`
+      ${StyledIcon}:focus {
+        outline: none;
+      }
+    `}
 
-  ${({ theme }) => !isClassic(theme) && css`
-    ${StyledIcon}:focus {
-      outline: solid 2px ${theme.colors.focus};
-    }
-  `}
+  ${({ theme }) =>
+    !isClassic(theme) &&
+    css`
+      ${StyledIcon}:focus {
+        outline: solid 2px ${theme.colors.focus};
+      }
+    `}
 `;
 
 ValidationIconStyle.defaultProps = {
-  validationType: 'error',
-  theme: BaseTheme
+  validationType: "error",
+  theme: BaseTheme,
 };
 
 export default ValidationIconStyle;

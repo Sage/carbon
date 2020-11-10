@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import baseTheme from '../../../style/themes/base';
+import styled from "styled-components";
+import baseTheme from "../../../style/themes/base";
 
 const SidebarHeaderStyle = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
@@ -15,7 +15,7 @@ const SidebarHeaderStyle = styled.div`
 `;
 
 SidebarHeaderStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default SidebarHeaderStyle;

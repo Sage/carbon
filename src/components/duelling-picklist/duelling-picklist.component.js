@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 import {
   StyledDuellingPicklistOverlay,
@@ -7,40 +7,46 @@ import {
   StyledLabelContainer,
   StyledLabel,
   StyledControlsContainer,
-  StyledControl
-} from './duelling-picklist.style';
+  StyledControl,
+} from "./duelling-picklist.style";
 
 const DuellingPicklist = ({
-  children, disabled, leftControls, rightControls, leftLabel, rightLabel
+  children,
+  disabled,
+  leftControls,
+  rightControls,
+  leftLabel,
+  rightLabel,
 }) => {
   const shouldDisplayLabels = leftLabel || rightLabel;
   const shouldDisplayControls = leftControls || rightControls;
 
   return (
-    <StyledDuellingPicklistOverlay disabled={ disabled } data-component='duelling-picklist'>
+    <StyledDuellingPicklistOverlay
+      disabled={disabled}
+      data-component="duelling-picklist"
+    >
       {shouldDisplayLabels && (
         <StyledLabelContainer>
-          <StyledLabel data-element='picklist-left-label'>
+          <StyledLabel data-element="picklist-left-label">
             {leftLabel}
           </StyledLabel>
-          <StyledLabel data-element='picklist-right-label'>
+          <StyledLabel data-element="picklist-right-label">
             {rightLabel}
           </StyledLabel>
         </StyledLabelContainer>
       )}
       {shouldDisplayControls && (
         <StyledControlsContainer>
-          <StyledControl data-element='picklist-left-control'>
+          <StyledControl data-element="picklist-left-control">
             {leftControls}
           </StyledControl>
-          <StyledControl data-element='picklist-right-label'>
+          <StyledControl data-element="picklist-right-label">
             {rightControls}
           </StyledControl>
         </StyledControlsContainer>
       )}
-      <StyledDuellingPicklist>
-        {children}
-      </StyledDuellingPicklist>
+      <StyledDuellingPicklist>{children}</StyledDuellingPicklist>
     </StyledDuellingPicklistOverlay>
   );
 };
@@ -56,7 +62,7 @@ DuellingPicklist.propTypes = {
   /** Left list label */
   leftLabel: PropTypes.string,
   /** Right list label */
-  rightLabel: PropTypes.string
+  rightLabel: PropTypes.string,
 };
 
 export default DuellingPicklist;

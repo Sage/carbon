@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Textbox from '../textbox';
-import { generateGroups, toSum } from './grouped-character.utils';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Textbox from "../textbox";
+import { generateGroups, toSum } from "./grouped-character.utils";
 
 const buildCustomTarget = ({ target }, value) => {
   const { name, id } = target;
   return {
     ...(name && { name }),
     ...(id && { id }),
-    value
+    value,
   };
 };
 
@@ -21,7 +21,7 @@ const GroupedCharacter = ({
   value: externalValue,
   ...rest
 }) => {
-  const [internalValue, setInternalValue] = useState(defaultValue || '');
+  const [internalValue, setInternalValue] = useState(defaultValue || "");
 
   const isControlled = externalValue !== undefined;
 
@@ -29,12 +29,10 @@ const GroupedCharacter = ({
 
   const maxRawLength = groups.reduce(toSum);
 
-  const formatValue = val => generateGroups(groups, val).join(separator);
+  const formatValue = (val) => generateGroups(groups, val).join(separator);
 
-  const sanitizeValue = val => val
-    .split(separator)
-    .join('')
-    .substring(0, maxRawLength);
+  const sanitizeValue = (val) =>
+    val.split(separator).join("").substring(0, maxRawLength);
 
   const value = isControlled ? externalValue : internalValue;
 
@@ -47,11 +45,13 @@ const GroupedCharacter = ({
     const formattedValue = formatValue(rawValue);
 
     const isLastPosition = target.value.length === newCursorPos;
-    const isAtOneBeyondSeparator = formattedValue[selectionEnd - 1] === separator;
+    const isAtOneBeyondSeparator =
+      formattedValue[selectionEnd - 1] === separator;
 
     if (isLastPosition) {
       const targetValSeparatorCount = target.value.split(separator).length - 1;
-      const formatValSeparatorCount = formattedValue.split(separator).length - 1;
+      const formatValSeparatorCount =
+        formattedValue.split(separator).length - 1;
       const separatorDiff = formatValSeparatorCount - targetValSeparatorCount;
       newCursorPos += separatorDiff;
     } else if (isAtOneBeyondSeparator) {
@@ -61,7 +61,7 @@ const GroupedCharacter = ({
 
     ev.target = buildCustomTarget(ev, {
       rawValue,
-      formattedValue
+      formattedValue,
     });
 
     onChange(ev);
@@ -79,7 +79,7 @@ const GroupedCharacter = ({
 
       ev.target = buildCustomTarget(ev, {
         rawValue,
-        formattedValue
+        formattedValue,
       });
       onBlur(ev);
     }
@@ -96,12 +96,12 @@ const GroupedCharacter = ({
 
   return (
     <Textbox
-      { ...rest }
-      value={ value }
-      formattedValue={ formatValue(value) }
-      onChange={ handleChange }
-      onBlur={ handleBlur }
-      onKeyPress={ handleKeyPress }
+      {...rest}
+      value={value}
+      formattedValue={formatValue(value)}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      onKeyPress={handleKeyPress}
     />
   );
 };
@@ -109,8 +109,10 @@ const GroupedCharacter = ({
 GroupedCharacter.propTypes = {
   /** character to be used as separator */
   separator: (props, propName, componentName) => {
-    if (typeof props[propName] !== 'string' || props[propName].length > 1) {
-      return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`);
+    if (typeof props[propName] !== "string" || props[propName].length > 1) {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`
+      );
     }
     return null;
   },
@@ -125,7 +127,7 @@ GroupedCharacter.propTypes = {
   /** on blur handler which receives the event with object as a value containing rawValue and formattedValue */
   onBlur: PropTypes.func,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default GroupedCharacter;

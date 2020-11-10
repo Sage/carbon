@@ -1,9 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const RadioButtonGroupStyle = styled.div`
-  ${({
-    inline
-  }) => inline && 'display: flex;'}
+  ${({ inline }) => inline && "display: flex;"}
 
   ${({ styleOverride }) => styleOverride};
 `;

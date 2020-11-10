@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import {
-  boolean, withKnobs, select, number
-} from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import React, { useState } from "react";
+import { boolean, withKnobs, select, number } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import {
   FlatTable,
   FlatTableHead,
@@ -12,103 +10,98 @@ import {
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
-  Sort
-} from '.';
-import guid from '../../utils/helpers/guid';
+  Sort,
+} from ".";
+import guid from "../../utils/helpers/guid";
 
 export default {
-  title: 'Design System/Flat Table/Test',
+  title: "Design System/Flat Table/Test",
   component: FlatTable,
   decorators: [withKnobs],
   parameters: {
     chromatic: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 };
 
 export const basic = () => {
-  const hasStickyHead = boolean('hasStickyHead', false);
-  const hasHeaderRow = boolean('hasHeaderRow', false);
-  const hasClickableRows = boolean('hasClickableRows', false);
-  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'dark');
-  const firstColumnWidth = number('first column width', 150);
-  const secondColumnWidth = number('second column width', 120);
+  const hasStickyHead = boolean("hasStickyHead", false);
+  const hasHeaderRow = boolean("hasHeaderRow", false);
+  const hasClickableRows = boolean("hasClickableRows", false);
+  const colorTheme = select(
+    "colorTheme",
+    [...OptionsHelper.flatTableThemes],
+    "dark"
+  );
+  const firstColumnWidth = number("first column width", 150);
+  const secondColumnWidth = number("second column width", 120);
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
-    height: 'auto',
-    width: 'auto',
-    overflowX: 'auto'
+    height: "auto",
+    width: "auto",
+    overflowX: "auto",
   };
   let onClickFn;
   let rowWithInputs;
 
   if (hasStickyHead) {
-    tableSizeConstraints.height = '300px';
+    tableSizeConstraints.height = "300px";
   }
 
   if (hasHeaderRow) {
-    tableSizeConstraints.width = '600px';
+    tableSizeConstraints.width = "600px";
   }
 
   if (hasClickableRows) {
-    onClickFn = action('click');
+    onClickFn = action("click");
     rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
   }
 
   return (
-    <div style={ tableSizeConstraints }>
-      <FlatTable
-        colorTheme={ colorTheme }
-        hasStickyHead={ hasStickyHead }
-      >
+    <div style={tableSizeConstraints}>
+      <FlatTable colorTheme={colorTheme} hasStickyHead={hasStickyHead}>
         <FlatTableHead>
-          <FlatTableRow key={ processed.headData.id }>
-            {
-              processed.headData.data.map((cellData, index) => {
-                let Component = FlatTableHeader;
+          <FlatTableRow key={processed.headData.id}>
+            {processed.headData.data.map((cellData, index) => {
+              let Component = FlatTableHeader;
+
+              if (index === 0 && hasHeaderRow) {
+                Component = FlatTableRowHeader;
+              }
+
+              return (
+                <Component
+                  key={cellData.id}
+                  {...(index === 0 && { width: firstColumnWidth })}
+                  {...(index === 1 && { width: secondColumnWidth })}
+                >
+                  {cellData.content}
+                </Component>
+              );
+            })}
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          {rowWithInputs}
+          {processed.bodyData.map((rowData) => (
+            <FlatTableRow key={rowData.id} onClick={onClickFn}>
+              {rowData.bodyData.map((cellData, index) => {
+                let Component = FlatTableCell;
 
                 if (index === 0 && hasHeaderRow) {
                   Component = FlatTableRowHeader;
                 }
 
                 return (
-                  <Component
-                    key={ cellData.id }
-                    { ...(index === 0 && { width: firstColumnWidth }) }
-                    { ...(index === 1 && { width: secondColumnWidth }) }
-                  >
-                    { cellData.content }
+                  <Component key={cellData.id} align={cellData.align}>
+                    {cellData.content}
                   </Component>
                 );
-              })
-            }
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          {rowWithInputs}
-          {
-            processed.bodyData.map(rowData => (
-              <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
-                {
-                  rowData.bodyData.map((cellData, index) => {
-                    let Component = FlatTableCell;
-
-                    if (index === 0 && hasHeaderRow) {
-                      Component = FlatTableRowHeader;
-                    }
-
-                    return (
-                      <Component key={ cellData.id } align={ cellData.align }>
-                        {cellData.content}
-                      </Component>
-                    );
-                  })
-                }
-              </FlatTableRow>
-            ))
-          }
+              })}
+            </FlatTableRow>
+          ))}
         </FlatTableBody>
       </FlatTable>
     </div>
@@ -116,31 +109,35 @@ export const basic = () => {
 };
 
 export const Sortable = () => {
-  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'dark');
+  const colorTheme = select(
+    "colorTheme",
+    [...OptionsHelper.flatTableThemes],
+    "dark"
+  );
 
   const headDataItems = [
-    { name: 'client', isActive: false },
-    { name: 'total', isActive: false }
+    { name: "client", isActive: false },
+    { name: "total", isActive: false },
   ];
 
   const bodyDataItems = [
-    { client: 'Jason Atkinson', total: 1349 },
-    { client: 'Monty Parker', total: 849 },
-    { client: 'Blake Sutton', total: 3840 },
-    { client: 'Tyler Webb', total: 280 }
+    { client: "Jason Atkinson", total: 1349 },
+    { client: "Monty Parker", total: 849 },
+    { client: "Blake Sutton", total: 3840 },
+    { client: "Tyler Webb", total: 280 },
   ];
 
   const [headData, setHeadData] = useState(headDataItems);
-  const [sortType, setSortType] = useState('asc');
+  const [sortType, setSortType] = useState("asc");
   const [sortValue, setSortValue] = useState();
 
   const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
-      if (type === 'asc') {
+      if (type === "asc") {
         return a[sortByValue] - b[sortByValue];
       }
 
-      if (type === 'desc') {
+      if (type === "desc") {
         return b[sortByValue] - a[sortByValue];
       }
 
@@ -155,7 +152,7 @@ export const Sortable = () => {
       const nameA = a[sortByValue].toUpperCase();
       const nameB = b[sortByValue].toUpperCase();
 
-      if (type === 'asc') {
+      if (type === "asc") {
         if (nameA < nameB) {
           return -1;
         }
@@ -165,7 +162,7 @@ export const Sortable = () => {
         }
       }
 
-      if (type === 'desc') {
+      if (type === "desc") {
         if (nameA > nameB) {
           return -1;
         }
@@ -181,7 +178,6 @@ export const Sortable = () => {
     return sortedData;
   };
 
-
   const handleClick = (value) => {
     const tempHeadData = headData;
 
@@ -193,105 +189,146 @@ export const Sortable = () => {
     });
 
     setSortValue(value);
-    setSortType(sortType === 'asc' ? 'desc' : 'asc');
+    setSortType(sortType === "asc" ? "desc" : "asc");
     setHeadData([...tempHeadData]);
   };
 
   const renderSortedData = (sortByValue) => {
     let sortedData = bodyDataItems;
 
-    if (typeof bodyDataItems[0][sortByValue] === 'string') {
+    if (typeof bodyDataItems[0][sortByValue] === "string") {
       sortedData = sortByString(sortedData, sortByValue, sortType);
     }
 
-    if (typeof bodyDataItems[0][sortByValue] === 'number') {
+    if (typeof bodyDataItems[0][sortByValue] === "number") {
       sortedData = sortByNumber(sortedData, sortByValue, sortType);
     }
 
-    return (
-      sortedData.map((dataItem) => {
-        return (
-          <FlatTableRow key={ dataItem.client }>
-            <FlatTableCell>{dataItem.client}</FlatTableCell>
-            <FlatTableCell>{dataItem.total}</FlatTableCell>
-          </FlatTableRow>
-        );
-      })
-    );
+    return sortedData.map((dataItem) => {
+      return (
+        <FlatTableRow key={dataItem.client}>
+          <FlatTableCell>{dataItem.client}</FlatTableCell>
+          <FlatTableCell>{dataItem.total}</FlatTableCell>
+        </FlatTableRow>
+      );
+    });
   };
 
   return (
-    <FlatTable colorTheme={ colorTheme }>
+    <FlatTable colorTheme={colorTheme}>
       <FlatTableHead>
         <FlatTableRow>
-          {
-            headData.map((dataItem) => {
-              return (
-                <FlatTableHeader key={ dataItem.name }>
-                  <Sort
-                    onClick={ () => handleClick(dataItem.name) }
-                    sortType={ dataItem.isActive && sortType }
-                  >
-                    {dataItem.name}
-                  </Sort>
-                </FlatTableHeader>
-              );
-            })
-          }
+          {headData.map((dataItem) => {
+            return (
+              <FlatTableHeader key={dataItem.name}>
+                <Sort
+                  onClick={() => handleClick(dataItem.name)}
+                  sortType={dataItem.isActive && sortType}
+                >
+                  {dataItem.name}
+                </Sort>
+              </FlatTableHeader>
+            );
+          })}
         </FlatTableRow>
       </FlatTableHead>
-      <FlatTableBody>
-        {renderSortedData(sortValue)}
-      </FlatTableBody>
+      <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
     </FlatTable>
   );
 };
 
 Sortable.story = {
-  name: 'Sortable',
+  name: "Sortable",
   parameters: {
     info: { disable: true },
     docs: {
-      page: null
+      page: null,
     },
     chromatic: {
-      disable: false
-    }
-  }
+      disable: true,
+    },
+  },
 };
 
 basic.story = {
-  name: 'Basic',
+  name: "Basic",
   parameters: {
     info: { disable: true },
     docs: {
-      page: null
+      page: null,
     },
     chromatic: {
-      disable: false
-    }
-  }
+      disable: true,
+    },
+  },
 };
+
+const getDay = (i) => {
+  if (i > 28) {
+    return "05";
+  }
+
+  if (i < 10) {
+    return `0${i}`;
+  }
+
+  return `${i}`;
+};
+
+const getMonth = (i) => {
+  if (i > 12) {
+    return "11";
+  }
+
+  if (i < 10) {
+    return `0${i}`;
+  }
+
+  return `${i}`;
+};
+
+const getYear = (i) => 2020 - i;
+
+const names = [
+  "Chris Thompson",
+  "Uri Foster",
+  "Daniel Dopper",
+  "Patrice Jambon",
+  "Ace Walker",
+  "Harriet Lewis",
+  "Lauren Hughes",
+  "Holly Smith",
+];
 
 const headRowData = {
-  client: 'Client',
-  clientType: 'Client Type',
-  categories: 'Categories',
-  products: 'Products',
-  finalAccDue: 'Final Account Due',
-  corpTaxDue: 'Corp Tax Due',
-  vatDue: 'VAT due'
+  employee: "Employee",
+  location: "Location",
+  role: "Role",
+  department: "Department",
+  companyVehicle: "Company vehicle",
+  performanceReview: "Performance review date",
+  employmentStart: "Employment start date",
 };
 
-const rowData = {
-  client: (<><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</>),
-  clientType: 'business',
-  categories: 'Group1, Group2, Group3',
-  products: 'Accounting',
-  finalAccDue: '12/12/20',
-  corpTaxDue: '20/12/20',
-  vatDue: '25/12/20'
-};
+const rowData = (i) => ({
+  employee: (
+    <>
+      <h5 style={{ margin: 0 }}>{names[i]}</h5>000000{i + 10}
+    </>
+  ),
+  location: i % 2 === 0 ? "Newcastle" : "Barcelona",
+  role: i > 2 && i % 2 !== 0 ? "Advisor" : "Manager",
+  department: i > 3 ? "Sales" : "IT",
+  companyVehicle: i > 3 && i % 2 === 0 ? "Yes" : "No",
+  performanceReview:
+    i + 1 <= 12
+      ? `${getDay(i + 1)}/${getMonth(i + 1)}/${getYear(i)}`
+      : "11/05/20",
+  employmentStart:
+    i + 1 < 12
+      ? `${getDay(27 - i)}/${getMonth(12 - i)}/${getYear(i)}`
+      : "11/07/20",
+});
 
 function getRowWithInputs(onClickFn, hasHeaderRow) {
   let firstRow = <FlatTableCell>Row with inputs</FlatTableCell>;
@@ -301,14 +338,26 @@ function getRowWithInputs(onClickFn, hasHeaderRow) {
   }
 
   return (
-    <FlatTableRow key='rowWithInputs' onClick={ onClickFn }>
+    <FlatTableRow key="rowWithInputs" onClick={onClickFn}>
       {firstRow}
-      <FlatTableCell><input /></FlatTableCell>
-      <FlatTableCell><input /></FlatTableCell>
-      <FlatTableCell><input /></FlatTableCell>
-      <FlatTableCell><input /></FlatTableCell>
-      <FlatTableCell><input /></FlatTableCell>
-      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
     </FlatTableRow>
   );
 }
@@ -316,15 +365,15 @@ function getRowWithInputs(onClickFn, hasHeaderRow) {
 function getTableData() {
   return processJsonData({
     labels: headRowData,
-    clients: renderBody(8)
+    clients: renderBody(8),
   });
 }
 
 function renderBody(rowCount) {
   const rows = [...Array(rowCount)];
 
-  return rows.map(() => {
-    return rowData;
+  return rows.map((_, i) => {
+    return rowData(i);
   });
 }
 
@@ -332,30 +381,30 @@ function processJsonData({ labels, clients }) {
   return {
     headData: {
       id: guid(),
-      data: processRowData(labels, 'header')
+      data: processRowData(labels, "header"),
     },
     bodyData: clients.map((row) => {
       return {
         id: guid(),
-        bodyData: processRowData(row, 'cell')
+        bodyData: processRowData(row, "cell"),
       };
-    })
+    }),
   };
 }
 
 function processRowData(row, cellType) {
   return Object.keys(row).map((columnKey) => {
-    let align = 'left';
+    let align = "left";
 
-    if (['finalAccDue', 'corpTaxDue', 'vatDue'].includes(columnKey)) {
-      align = 'right';
+    if (["performanceReview", "employmentStart"].includes(columnKey)) {
+      align = "right";
     }
 
     return {
       id: guid(),
       content: row[columnKey],
       cellType,
-      align
+      align,
     };
   });
 }

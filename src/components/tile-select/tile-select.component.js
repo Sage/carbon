@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import I18n from 'i18n-js';
-import tagComponent from '../../utils/helpers/tags/tags';
+import PropTypes from "prop-types";
+import React from "react";
+import I18n from "i18n-js";
+import tagComponent from "../../utils/helpers/tags/tags";
 
 import {
   StyledTileSelectContainer,
@@ -12,8 +12,8 @@ import {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
-  StyledDeselectButton
-} from './tile-select.style';
+  StyledDeselectButton,
+} from "./tile-select.style";
 
 const TileSelect = (props) => {
   const {
@@ -33,74 +33,63 @@ const TileSelect = (props) => {
     ...rest
   } = props;
 
-  const handleDeselect = () => onChange({
-    target: {
-      ...(name && { name }),
-      ...(id && { id }),
-      value: null,
-      checked: false
-    }
-  });
+  const handleDeselect = () =>
+    onChange({
+      target: {
+        ...(name && { name }),
+        ...(id && { id }),
+        value: null,
+        checked: false,
+      },
+    });
 
   return (
     <StyledTileSelectContainer
-      checked={ checked }
-      className={ className }
-      disabled={ disabled }
-      { ...tagComponent('tile-select', props) }
+      checked={checked}
+      className={className}
+      disabled={disabled}
+      {...tagComponent("tile-select", props)}
     >
       <StyledTileSelectInput
-        onChange={ onChange }
-        onBlur={ onBlur }
-        checked={ checked }
-        name={ name }
-        type={ type }
-        value={ value }
-        disabled={ disabled }
-        aria-checked={ checked }
-        id={ id }
-        { ...rest }
+        onChange={onChange}
+        onBlur={onBlur}
+        checked={checked}
+        name={name}
+        type={type}
+        value={value}
+        disabled={disabled}
+        aria-checked={checked}
+        id={id}
+        {...rest}
       />
-      <StyledTileSelect disabled={ disabled } checked={ checked }>
+      <StyledTileSelect disabled={disabled} checked={checked}>
         <StyledTitleContainer>
-          {title && (
-            <StyledTitle>
-              {title}
-            </StyledTitle>
-          ) }
+          {title && <StyledTitle>{title}</StyledTitle>}
 
-          {subtitle && (
-            <StyledSubtitle>
-              {subtitle}
-            </StyledSubtitle>
-          )}
+          {subtitle && <StyledSubtitle>{subtitle}</StyledSubtitle>}
 
           {titleAdornment && (
-            <StyledAdornment>
-              {titleAdornment}
-            </StyledAdornment>
-          ) }
+            <StyledAdornment>{titleAdornment}</StyledAdornment>
+          )}
         </StyledTitleContainer>
-        <StyledDescription>
-          {description}
-        </StyledDescription>
+        <StyledDescription>{description}</StyledDescription>
       </StyledTileSelect>
       {checked && (
         <StyledDeselectButton
-          buttonType='tertiary'
-          size='small'
-          onClick={ handleDeselect }
+          buttonType="tertiary"
+          size="small"
+          onClick={handleDeselect}
         >
-          {I18n.t('tileSelect.deselect', { defaultValue: 'Deselect' })}
+          {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
         </StyledDeselectButton>
-      ) }
+      )}
     </StyledTileSelectContainer>
   );
 };
 
 TileSelect.defaultProps = {
   checked: false,
-  type: 'checkbox'
+  type: "checkbox",
 };
 
 TileSelect.propTypes = {
@@ -129,8 +118,8 @@ TileSelect.propTypes = {
   /** Custom classname passed to the root element of TileSelect */
   className: PropTypes.string,
   /** Type of the TileSelect input */
-  type: PropTypes.oneOf(['radio', 'checkbox'])
+  type: PropTypes.oneOf(["radio", "checkbox"]),
 };
 
-TileSelect.displayName = 'TileSelect';
+TileSelect.displayName = "TileSelect";
 export default TileSelect;

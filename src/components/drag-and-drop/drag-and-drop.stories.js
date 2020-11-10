@@ -1,44 +1,44 @@
-import React, { useState } from 'react';
-import { boolean } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
+import React, { useState } from "react";
+import { boolean } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
 
-import { DraggableContext, WithDrag, WithDrop } from '.';
+import { DraggableContext, WithDrag, WithDrop } from ".";
 
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell
-} from '../table';
+import { Table, TableHeader, TableRow, TableCell } from "../table";
 
 export default {
-  title: 'DraggableContext/Test',
+  title: "DraggableContext/Test",
   component: DraggableContext,
   parameters: {
     info: {
-      disable: true
+      disable: true,
     },
     chromatic: {
-      disable: true
+      disable: true,
     },
-    knobs: { escapeHTML: false }
-  }
+    knobs: { escapeHTML: false },
+  },
 };
 
 export const Default = () => {
-  const [state, setState] = useState([{
-    id: '0',
-    name: 'UK'
-  }, {
-    id: '1',
-    name: 'Germany'
-  }, {
-    id: '2',
-    name: 'China'
-  }, {
-    id: '3',
-    name: 'US'
-  }]);
+  const [state, setState] = useState([
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ]);
 
   const handleDrag = (originalIndex, newIndex) => {
     const sortedItem = state[originalIndex];
@@ -47,31 +47,24 @@ export const Default = () => {
     newArr.splice(newIndex, 0, sortedItem);
 
     setState(newArr);
-    action('drag')();
+    action("drag")();
   };
-  const autoScroll = boolean('autoScroll', true);
+  const autoScroll = boolean("autoScroll", true);
 
   return (
-    <DraggableContext
-      autoScroll={ autoScroll }
-      onDrag={ handleDrag }
-    >
+    <DraggableContext autoScroll={autoScroll} onDrag={handleDrag}>
       <div>
-        <Table tbody={ false }>
+        <Table tbody={false}>
           <thead>
-            <TableRow as='header'>
+            <TableRow as="header">
               <TableHeader />
               <TableHeader>Country</TableHeader>
             </TableRow>
           </thead>
           <tbody>
             {state.map((row, index) => (
-              <TableRow
-                key={ row.id }
-                uniqueID={ row.id }
-                index={ index }
-              >
-                <TableCell>{ row.name }</TableCell>
+              <TableRow key={row.id} uniqueID={row.id} index={index}>
+                <TableCell>{row.name}</TableCell>
               </TableRow>
             ))}
           </tbody>
@@ -82,19 +75,24 @@ export const Default = () => {
 };
 
 export const Custom = () => {
-  const [state, setState] = useState([{
-    id: '0',
-    name: 'UK'
-  }, {
-    id: '1',
-    name: 'Germany'
-  }, {
-    id: '2',
-    name: 'China'
-  }, {
-    id: '3',
-    name: 'US'
-  }]);
+  const [state, setState] = useState([
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ]);
 
   const handleDrag = (originalIndex, newIndex) => {
     const sortedItem = state[originalIndex];
@@ -103,17 +101,21 @@ export const Custom = () => {
     newArr.splice(newIndex, 0, sortedItem);
 
     setState(newArr);
-    action('drag')();
+    action("drag")();
   };
 
   return (
-    <DraggableContext onDrag={ handleDrag }>
+    <DraggableContext onDrag={handleDrag}>
       <ol>
         {state.map((item, index) => {
           return (
-            <WithDrop index={ index }>
-              <li style={ { listStyle: 'none' } }>
-                <WithDrag><div style={ { userSelect: 'none', padding: 4 } }>{ item.name }</div></WithDrag>
+            <WithDrop index={index}>
+              <li style={{ listStyle: "none" }}>
+                <WithDrag>
+                  <div style={{ userSelect: "none", padding: 4 }}>
+                    {item.name}
+                  </div>
+                </WithDrag>
               </li>
             </WithDrop>
           );

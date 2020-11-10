@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { baseTheme } from '../../style/themes';
+import { baseTheme } from "../../style/themes";
 
 const StyledAnchorNavigation = styled.div`
   display: flex;
@@ -59,40 +59,44 @@ const StyledNavigationItem = styled.li`
     }
 
     &:hover {
-      background-color: ${({ isSelected, theme }) => (!isSelected && theme.anchorNavigation.navItemHoverBackground)}
+      background-color: ${({ isSelected, theme }) =>
+        !isSelected && theme.anchorNavigation.navItemHoverBackground};
     }
 
-    ${({ isSelected, theme }) => isSelected && css`
-      background-color: ${theme.colors.white};
-      border-left-color: ${theme.colors.primary};
-    `}
+    ${({ isSelected, theme }) =>
+      isSelected &&
+      css`
+        background-color: ${theme.colors.white};
+        border-left-color: ${theme.colors.primary};
+      `}
   }
 
   ${({ styleOverride }) => styleOverride}
 `;
 
-const StyledAnchorDivider = styled.div.attrs({ 'data-element': 'anchor-navigation-divider' })`
+const StyledAnchorDivider = styled.div.attrs({
+  "data-element": "anchor-navigation-divider",
+})`
   background-color: ${({ theme }) => theme.anchorNavigation.divider};
   height: 1px;
 
   ${({ styleOverride }) => styleOverride}
 `;
 
-
 StyledAnchorNavigation.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledNavigation.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledNavigationItem.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAnchorDivider.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -100,5 +104,5 @@ export {
   StyledNavigation,
   StyledNavigationItem,
   StyledContent,
-  StyledAnchorDivider
+  StyledAnchorDivider,
 };

@@ -1,36 +1,38 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import {
-  StyledButtonToggleInput
-} from './button-toggle.style';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { StyledButtonToggleInput } from "./button-toggle.style";
 
-import { InputGroupContext } from '../../__internal__/input-behaviour';
+import { InputGroupContext } from "../../__internal__/input-behaviour";
 
 const ButtonToggleInput = React.forwardRef((props, forwardRef) => {
   const { onFocus, onBlur } = useContext(InputGroupContext);
 
   const handleBlur = (ev) => {
-    if (props.onBlur) { props.onBlur(ev); }
+    if (props.onBlur) {
+      props.onBlur(ev);
+    }
     if (onBlur) onBlur(ev);
   };
 
   const handleFocus = (ev) => {
-    if (props.onFocus) { props.onFocus(ev); }
+    if (props.onFocus) {
+      props.onFocus(ev);
+    }
     if (onFocus) onFocus(ev);
   };
 
   return (
     <StyledButtonToggleInput
-      type='radio'
-      name={ props.name }
-      id={ props.guid }
-      disabled={ props.disabled }
-      checked={ props.checked }
-      onChange={ props.onChange }
-      onBlur={ handleBlur }
-      onFocus={ handleFocus }
-      value={ props.value }
-      ref={ forwardRef }
+      type="radio"
+      name={props.name}
+      id={props.guid}
+      disabled={props.disabled}
+      checked={props.checked}
+      onChange={props.onChange}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
+      value={props.value}
+      ref={forwardRef}
     />
   );
 });
@@ -51,7 +53,7 @@ ButtonToggleInput.propTypes = {
   /** Callback triggered by blur event on the input. */
   onBlur: PropTypes.func,
   /** Callback triggered by focus event on the input. */
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
 };
 
 export default ButtonToggleInput;

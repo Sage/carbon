@@ -1,1 +1,1 @@
-export { default } from './message.component';
+export { default } from "./message.component";

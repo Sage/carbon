@@ -1,6 +1,6 @@
-import styled, { css, keyframes } from 'styled-components';
-import baseTheme from '../../../style/themes/base';
-import StyledTabs from '../../tabs/__internal__/tabs.style';
+import styled, { css, keyframes } from "styled-components";
+import baseTheme from "../../../style/themes/base";
+import StyledTabs from "../../tabs/__internal__/tabs.style";
 
 const StyledSidebarTitle = styled.div`
   margin: 24px 36px 24px 24px;
@@ -17,14 +17,17 @@ const StyledDrawerSidebar = styled.div`
   display: none;
   opacity: 0;
 
-  ${({ hasControls, isExpanded }) => hasControls && css`
-    ${StyledTabs} {
-      margin-top: 48px;
-      ${!isExpanded && css`
-        display: none;
-      `}
-    }
-  `}
+  ${({ hasControls, isExpanded }) =>
+    hasControls &&
+    css`
+      ${StyledTabs} {
+        margin-top: 48px;
+        ${!isExpanded &&
+        css`
+          display: none;
+        `}
+      }
+    `}
 `;
 
 const sidebarVisible = () => keyframes`
@@ -38,7 +41,7 @@ const sidebarHidden = () => keyframes`
   100% {opacity: 0; display: none;}
 `;
 
-const drawerOpen = expandedWidth => keyframes`
+const drawerOpen = (expandedWidth) => keyframes`
   0% {
     width: 40px;
     overflow: hidden;
@@ -50,7 +53,7 @@ const drawerOpen = expandedWidth => keyframes`
   }
 `;
 
-const drawerClose = expandedWidth => keyframes`
+const drawerClose = (expandedWidth) => keyframes`
   0% {width: ${expandedWidth};}
   100% {width: 40px;}
 `;
@@ -74,7 +77,8 @@ const StyledDrawerContent = styled.div`
   position: relative;
   overflow: auto;
   border-right: 1px solid ${({ theme }) => theme.drawer.divider};
-  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.drawer.background}};
+  background-color: ${({ backgroundColor, theme }) =>
+    backgroundColor || theme.drawer.background}};
 
   &.open {
     min-width: 52px;
@@ -88,11 +92,12 @@ const StyledDrawerContent = styled.div`
 
   &.opening {
     animation: ${({ animationDuration, expandedWidth }) => css`
-    ${drawerOpen(expandedWidth)} ${animationDuration}
+      ${drawerOpen(expandedWidth)} ${animationDuration}
     `} ease-in-out;
 
     ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
-      animation: ${sidebarVisible} ${({ animationDuration }) => animationDuration} ease-in-out;
+      animation: ${sidebarVisible} ${({ animationDuration }) =>
+  animationDuration} ease-in-out;
     }
   }
 
@@ -110,7 +115,8 @@ const StyledDrawerContent = styled.div`
     `} ease-in-out;
 
     ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
-      animation: ${sidebarHidden} ${({ animationDuration }) => animationDuration} ease-in-out;
+      animation: ${sidebarHidden} ${({ animationDuration }) =>
+  animationDuration} ease-in-out;
     }
   }
 `;
@@ -122,7 +128,8 @@ const StyledButton = styled.button`
   padding: 0;
   width: 24px;
   height: 24px;
-  transition: margin-right ${({ animationDuration }) => animationDuration} ease-in-out;
+  transition: margin-right ${({ animationDuration }) => animationDuration}
+    ease-in-out;
   background-color: transparent;
   border: none;
   z-index: 1;
@@ -135,12 +142,16 @@ const StyledButton = styled.button`
     cursor: pointer;
   }
 
-  animation: ${buttonClose} ${({ animationDuration }) => animationDuration} ease-in-out;
+  animation: ${buttonClose} ${({ animationDuration }) => animationDuration}
+    ease-in-out;
 
-  ${({ isExpanded }) => isExpanded && css`
-    transform: scaleX(-1);
-    animation: ${buttonOpen} ${({ animationDuration }) => animationDuration} ease-in-out;
-  `}
+  ${({ isExpanded }) =>
+    isExpanded &&
+    css`
+      transform: scaleX(-1);
+      animation: ${buttonOpen} ${({ animationDuration }) => animationDuration}
+        ease-in-out;
+    `}
 `;
 
 const StyledDrawerWrapper = styled.div`
@@ -149,11 +160,11 @@ const StyledDrawerWrapper = styled.div`
 `;
 
 StyledDrawerContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledButton.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -162,5 +173,5 @@ export {
   StyledDrawerChildren,
   StyledDrawerSidebar,
   StyledSidebarTitle,
-  StyledButton
+  StyledButton,
 };

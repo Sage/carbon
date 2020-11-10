@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import FormField from '../../__experimental__/components/form-field';
-import ButtonToggleGroupStyle from './button-toggle-group.style';
-import RadioButtonMapper from '../../__experimental__/components/radio-button/radio-button-mapper.component';
-import ValidationIcon from '../validations/validation-icon.component';
-import { InputGroupBehaviour } from '../../__internal__/input-behaviour';
+import React from "react";
+import PropTypes from "prop-types";
+import FormField from "../../__experimental__/components/form-field";
+import ButtonToggleGroupStyle from "./button-toggle-group.style";
+import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
+import ValidationIcon from "../validations/validation-icon.component";
+import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 
-const BaseButtonToggleGroup = ((props) => {
+const BaseButtonToggleGroup = (props) => {
   const {
     name,
     inputWidth,
@@ -18,38 +18,38 @@ const BaseButtonToggleGroup = ((props) => {
     onBlur,
     children,
     value,
-    validationOnLabel
+    validationOnLabel,
   } = props;
 
   const validationProps = {
-    error, warning, info
+    error,
+    warning,
+    info,
   };
   return (
     <InputGroupBehaviour>
-      <FormField useValidationIcon={ validationOnLabel } { ...props }>
+      <FormField useValidationIcon={validationOnLabel} {...props}>
         <ButtonToggleGroupStyle
-          data-component='button-toggle-group'
-          aria-label={ label }
-          role='group'
-          inputWidth={ inputWidth }
-          { ...validationProps }
+          data-component="button-toggle-group"
+          aria-label={label}
+          role="group"
+          inputWidth={inputWidth}
+          {...validationProps}
         >
           <RadioButtonMapper
-            name={ name }
-            onBlur={ onBlur }
-            onChange={ onChange }
-            value={ value }
+            name={name}
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
           >
             {children}
           </RadioButtonMapper>
-          { !validationOnLabel && (
-            <ValidationIcon { ...validationProps } />
-          )}
+          {!validationOnLabel && <ValidationIcon {...validationProps} />}
         </ButtonToggleGroupStyle>
       </FormField>
     </InputGroupBehaviour>
   );
-});
+};
 
 BaseButtonToggleGroup.propTypes = {
   /** Specifies the name prop to be applied to each button in the group */
@@ -95,13 +95,13 @@ BaseButtonToggleGroup.propTypes = {
   /** The value of the Button Toggle Group */
   value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
 };
 
 BaseButtonToggleGroup.defaultProps = {
-  validationOnLabel: false
+  validationOnLabel: false,
 };
 
-BaseButtonToggleGroup.displayName = 'BaseButtonToggleGroup';
+BaseButtonToggleGroup.displayName = "BaseButtonToggleGroup";
 
 export default BaseButtonToggleGroup;

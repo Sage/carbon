@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SplitButton from '../split-button';
-import StyledMultiActionButton from './multi-action-button.style';
-import Button from '../button';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import React from "react";
+import PropTypes from "prop-types";
+import SplitButton from "../split-button";
+import StyledMultiActionButton from "./multi-action-button.style";
+import Button from "../button";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 class MultiActionButton extends SplitButton {
   get multiActionButtonProps() {
     const { iconType, iconPosition, ...props } = this.props;
 
-    props['aria-haspopup'] = 'true';
-    props['aria-expanded'] = this.state.showAdditionalButtons;
-    props['aria-label'] = 'Show more';
-    props['data-element'] = 'toggle-button';
-    props.key = 'toggle-button';
+    props["aria-haspopup"] = "true";
+    props["aria-expanded"] = this.state.showAdditionalButtons;
+    props["aria-label"] = "Show more";
+    props["data-element"] = "toggle-button";
+    props.key = "toggle-button";
     props.onKeyDown = this.handleToggleButtonKeyDown;
 
     return props;
@@ -25,32 +25,32 @@ class MultiActionButton extends SplitButton {
   get renderMainButton() {
     return (
       <Button
-        { ...this.multiActionButtonProps }
-        { ...this.toggleButtonProps }
-        iconPosition='after'
-        iconType='dropdown'
+        {...this.multiActionButtonProps}
+        {...this.toggleButtonProps}
+        iconPosition="after"
+        iconType="dropdown"
       >
-        { this.props.text}
+        {this.props.text}
       </Button>
     );
   }
 
   componentTags = () => {
     return {
-      'data-component': 'multi-action-button',
-      'data-element': this.props['data-element'],
-      'data-role': this.props['data-role']
+      "data-component": "multi-action-button",
+      "data-element": this.props["data-element"],
+      "data-role": this.props["data-role"],
     };
-  }
+  };
 
   render() {
     return (
       <StyledMultiActionButton
-        buttonType={ this.props.buttonType || this.props.as }
-        displayed={ this.state.showAdditionalButtons }
-        align={ this.props.align }
+        buttonType={this.props.buttonType || this.props.as}
+        displayed={this.state.showAdditionalButtons}
+        align={this.props.align}
       >
-        { super.render() }
+        {super.render()}
       </StyledMultiActionButton>
     );
   }
@@ -75,17 +75,17 @@ MultiActionButton.propTypes = {
   /**
    * A custom value for the data-element attribute
    */
-  'data-element': PropTypes.string,
+  "data-element": PropTypes.string,
 
   /**
    * A custom value for the data-element attribute
    */
-  'data-role': PropTypes.string,
+  "data-role": PropTypes.string,
 
   /**
    * Aligns the button's options
    */
-  align: PropTypes.oneOf(OptionsHelper.alignBinary)
+  align: PropTypes.oneOf(OptionsHelper.alignBinary),
 };
 
 export default MultiActionButton;

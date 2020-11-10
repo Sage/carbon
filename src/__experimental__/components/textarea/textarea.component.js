@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import { InputPresentation } from '../input';
-import FormField from '../form-field';
-import CharacterCount from './character-count';
-import Input from '../input/input.component';
-import { InputBehaviour } from '../../../__internal__/input-behaviour';
+import React from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import { InputPresentation } from "../input";
+import FormField from "../form-field";
+import CharacterCount from "./character-count";
+import Input from "../input/input.component";
+import { InputBehaviour } from "../../../__internal__/input-behaviour";
 
-import InputIconToggle from '../input-icon-toggle';
+import InputIconToggle from "../input-icon-toggle";
 
-import guid from '../../../utils/helpers/guid/guid';
-import StyledTextarea from './textarea.style';
+import guid from "../../../utils/helpers/guid/guid";
+import StyledTextarea from "./textarea.style";
 
 const i18nNumberOpts = { precision: 0 };
 
@@ -21,7 +21,7 @@ class Textarea extends React.Component {
 
   id = this.props.id || guid();
 
-  _input = React.createRef()
+  _input = React.createRef();
 
   /**
    * A lifecycle method that is called after initial render.
@@ -29,7 +29,7 @@ class Textarea extends React.Component {
    */
   componentDidMount() {
     if (this.props.expandable) {
-      window.addEventListener('resize', this.expandTextarea);
+      window.addEventListener("resize", this.expandTextarea);
       // Set the min height to the initially rendered height.
       // Without minHeight expandable textareas will only have
       // one line when no content is present.
@@ -41,7 +41,7 @@ class Textarea extends React.Component {
 
   componentWillUnmount() {
     if (this.props.expandable) {
-      window.removeEventListener('resize', this.expandTextarea);
+      window.removeEventListener("resize", this.expandTextarea);
     }
   }
 
@@ -58,47 +58,59 @@ class Textarea extends React.Component {
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
-      textarea.style.height = '0px';
+      textarea.style.height = "0px";
       // Set the height so all content is shown
-      textarea.style.height = `${Math.max(textarea.scrollHeight, this.minHeight)}px`;
+      textarea.style.height = `${Math.max(
+        textarea.scrollHeight,
+        this.minHeight
+      )}px`;
     }
-  }
+  };
 
   renderValidation() {
     const {
-      disabled, readOnly, inputIcon, size, error, warning, info, validationOnLabel
+      disabled,
+      readOnly,
+      inputIcon,
+      size,
+      error,
+      warning,
+      info,
+      validationOnLabel,
     } = this.props;
     return (
       <InputIconToggle
-        disabled={ disabled }
-        readOnly={ readOnly }
-        inputIcon={ inputIcon }
-        size={ size }
-        error={ error }
-        warning={ warning }
-        info={ info }
-        useValidationIcon={ !validationOnLabel }
+        disabled={disabled}
+        readOnly={readOnly}
+        inputIcon={inputIcon}
+        size={size}
+        error={error}
+        warning={warning}
+        info={info}
+        useValidationIcon={!validationOnLabel}
       />
     );
   }
 
   get overLimit() {
-    const value = this.props.value || '';
+    const value = this.props.value || "";
     return value.length > parseInt(this.props.characterLimit, 10);
   }
 
   get characterCount() {
-    const value = this.props.value || '';
+    const value = this.props.value || "";
     const { characterLimit, warnOverLimit } = this.props;
 
-    if (!characterLimit) { return null; }
+    if (!characterLimit) {
+      return null;
+    }
 
     return (
       <CharacterCount
-        isOverLimit={ this.overLimit && warnOverLimit }
-        value={ I18n.toNumber(value.length, i18nNumberOpts) }
-        limit={ I18n.toNumber(characterLimit, i18nNumberOpts) }
-        data-element='character-limit'
+        isOverLimit={this.overLimit && warnOverLimit}
+        value={I18n.toNumber(value.length, i18nNumberOpts)}
+        limit={I18n.toNumber(characterLimit, i18nNumberOpts)}
+        data-element="character-limit"
       />
     );
   }
@@ -124,40 +136,44 @@ class Textarea extends React.Component {
 
     return (
       <InputBehaviour>
-        <StyledTextarea labelInline={ labelInline }>
+        <StyledTextarea labelInline={labelInline}>
           <FormField
-            label={ label }
-            disabled={ disabled }
-            id={ this.id }
-            labelInline={ labelInline }
-            isRequired={ props.required }
-            { ...props }
-            useValidationIcon={ validationOnLabel }
-            adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
+            label={label}
+            disabled={disabled}
+            id={this.id}
+            labelInline={labelInline}
+            isRequired={props.required}
+            {...props}
+            useValidationIcon={validationOnLabel}
+            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           >
             <InputPresentation
-              type='text'
-              size={ size }
-              disabled={ disabled }
-              readOnly={ readOnly }
-              { ...props }
+              type="text"
+              size={size}
+              disabled={disabled}
+              readOnly={readOnly}
+              {...props}
             >
               <Input
-                ref={ this._input }
-                maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
-                onChange={ onChange }
-                disabled={ disabled }
-                readOnly={ readOnly }
-                labelInline={ labelInline }
-                placeholder={ disabled ? '' : placeholder }
-                rows={ rows }
-                cols={ cols }
-                id={ this.id }
-                as='textarea'
-                { ...props }
+                ref={this._input}
+                maxLength={
+                  enforceCharacterLimit && characterLimit
+                    ? characterLimit
+                    : undefined
+                }
+                onChange={onChange}
+                disabled={disabled}
+                readOnly={readOnly}
+                labelInline={labelInline}
+                placeholder={disabled ? "" : placeholder}
+                rows={rows}
+                cols={cols}
+                id={this.id}
+                as="textarea"
+                {...props}
               />
-              { children }
-              { this.renderValidation() }
+              {children}
+              {this.renderValidation()}
             </InputPresentation>
           </FormField>
           {this.characterCount}
@@ -227,7 +243,7 @@ Textarea.propTypes = {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 Textarea.defaultProps = {
@@ -236,7 +252,7 @@ Textarea.defaultProps = {
   enforceCharacterLimit: true,
   readOnly: false,
   warnOverLimit: false,
-  validationOnLabel: false
+  validationOnLabel: false,
 };
 
 export { Textarea as OriginalTextarea };

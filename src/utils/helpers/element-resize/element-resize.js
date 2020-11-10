@@ -1,5 +1,5 @@
-import Bowser from 'bowser';
-import Browser from '../browser';
+import Bowser from "bowser";
+import Browser from "../browser";
 
 /**
  * Creates a child 'object' or document which mimics the size of the given element and is
@@ -20,20 +20,24 @@ const ElementResize = {
    * @param {Function} fn - the callback
    */
   addListener: (element, callback) => {
-    if (!element) { return; }
+    if (!element) {
+      return;
+    }
     // if there is no resize listener on this element yet, create an object to apply the listener to
     if (!element.__resizeTrigger__) {
       element.__resizeListenerCallbacks__ = [];
 
       // ensure that the element has position relative for the child object to work properly
-      if (Browser.getWindow().getComputedStyle(element).position === 'static') {
-        element.style.position = 'relative';
+      if (Browser.getWindow().getComputedStyle(element).position === "static") {
+        element.style.position = "relative";
       }
 
       // creates an object which will support the resize event listener
-      const obj = Browser.getDocument().createElement('object');
+      const obj = Browser.getDocument().createElement("object");
       element.__resizeTrigger__ = obj;
-      obj.setAttribute('style', `
+      obj.setAttribute(
+        "style",
+        `
         display: block;
         opacity: 0;
         position: absolute;
@@ -44,13 +48,14 @@ const ElementResize = {
         overflow: hidden;
         pointer-events: none;
         z-index: -1;
-      `);
+      `
+      );
 
-      obj.setAttribute('aria-label', 'resizable element');
-      obj.setAttribute('tabindex', '-1');
+      obj.setAttribute("aria-label", "resizable element");
+      obj.setAttribute("tabindex", "-1");
       // when the object is ready, add the event listener
       obj.onload = objectLoad(obj, element); // eslint-disable-line no-use-before-define
-      obj.type = 'text/html';
+      obj.type = "text/html";
 
       const isMS = Bowser.msie || Bowser.msedge;
 
@@ -58,7 +63,7 @@ const ElementResize = {
         element.appendChild(obj);
       }
 
-      obj.data = 'about:blank';
+      obj.data = "about:blank";
 
       if (!isMS) {
         element.appendChild(obj);
@@ -79,7 +84,10 @@ const ElementResize = {
   removeListener: (element, callback) => {
     if (element.__resizeListenerCallbacks__) {
       // remove the event listener from the array
-      element.__resizeListenerCallbacks__.splice(element.__resizeListenerCallbacks__.indexOf(callback), 1);
+      element.__resizeListenerCallbacks__.splice(
+        element.__resizeListenerCallbacks__.indexOf(callback),
+        1
+      );
 
       // if there are no event listeners left, time to detach the event
       if (!element.__resizeListenerCallbacks__.length) {
@@ -87,9 +95,11 @@ const ElementResize = {
 
         if (view) {
           // remove the event listener on the object
-          view.removeEventListener('resize', resizeListener); // eslint-disable-line no-use-before-define
+          view.removeEventListener("resize", resizeListener); // eslint-disable-line no-use-before-define
           // remove the fake object
-          element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
+          element.__resizeTrigger__ = !element.removeChild(
+            element.__resizeTrigger__
+          );
         }
       }
     }
@@ -101,7 +111,7 @@ const ElementResize = {
     }
 
     return null;
-  }
+  },
 };
 
 /**
@@ -127,7 +137,7 @@ const objectLoad = (obj, element) => {
       // assign a reference back to the source element in the new object's document
       view.__resizeTrigger__ = element;
       // apply the event listener to the new object's document
-      view.addEventListener('resize', resizeListener);
+      view.addEventListener("resize", resizeListener);
     }
   };
 };
