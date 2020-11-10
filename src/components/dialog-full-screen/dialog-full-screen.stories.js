@@ -33,6 +33,7 @@ export const Default = () => {
   const ariaRole = text("ariaRole", "dialog");
   const formHeight = text("form height", "2000px");
   const stickyFooter = boolean("Form component stickyFooter", false);
+  const disableContentPadding = boolean("disableContentPadding", false);
 
   const handleCancel = () => {
     setIsOpen(false);
@@ -61,6 +62,7 @@ export const Default = () => {
         ariaRole={ariaRole}
         onClick={handleClick}
         showCloseIcon={showCloseIcon}
+        disableContentPadding={disableContentPadding}
       >
         <Form
           stickyFooter={stickyFooter}
