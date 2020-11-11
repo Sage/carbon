@@ -1,3 +1,10 @@
+### [48.6.2](https://github.com/Sage/carbon/compare/v48.6.1...v48.6.2) (2020-11-11)
+
+
+### Bug Fixes
+
+* **menu-divider:** add default cursor to passive submenu elements ([c449531](https://github.com/Sage/carbon/commit/c4495315a7fe909d43360d9ca0439c613fb1a670))
+
 ### [48.6.1](https://github.com/Sage/carbon/compare/v48.6.0...v48.6.1) (2020-11-09)
 
 
