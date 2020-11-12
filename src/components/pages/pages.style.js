@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { slideAnimation, fadeAnimation } from './pages.config';
 import { StyledHeading, StyledHeadingIcon } from '../heading/heading.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 import LinkStyleAnchor from '../link/link.style';
 import BaseTheme from '../../style/themes/base';
 
@@ -14,17 +13,15 @@ const PagesContent = styled.div`
       height: 34px;
       background-color: transparent;
       top: 50px;
-      margin-top: ${({ theme }) => (isClassic(theme) ? '-1px' : '-5px')};
+      margin-top: -5px;
 
-      ${({ theme }) => !isClassic(theme) && css`
         &:focus {
-          outline: solid 3px ${theme.colors.focus};
+          outline: solid 3px ${({ theme }) => theme.colors.focus};
           background-color: transparent;
           width: 26px;
           margin-top: -1px;
           padding-top: 0px;
         }
-      `}
 
 
        > span {

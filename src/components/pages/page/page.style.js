@@ -1,8 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import BaseTheme from '../../../style/themes/base';
 import LinkStyleAnchor from '../../link/link.style';
 import StyledIcon from '../../icon/icon.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
 
 const StyledPage = styled.article`
   width: 100%;
@@ -11,11 +10,9 @@ const StyledPage = styled.article`
   ${LinkStyleAnchor} {
     a, button {
       text-decoration: none;
+      height: 25px;
+      margin-top: -12px;
 
-      ${({ theme }) => !isClassic(theme) && css`
-        height: 25px;
-        margin-top: -12px;
-      `}
 
       &:hover {
         text-decoration: none;
@@ -26,15 +23,12 @@ const StyledPage = styled.article`
         margin-right: 0px;
         top: 5px;
         color: #4d7080;
+        margin-top: 0px;
+        top: 5px;
 
         &:hover {
           color: #335C6D;
         }
-
-        ${({ theme }) => !isClassic(theme) && css`
-          margin-top: 0px;
-          top: 5px;
-        `}
       }
     }
   }

@@ -29,7 +29,6 @@ Feature: Accessibility tests - Common list
     Examples:
       | component          |
       | flash              |
-      | pages              |
 
 @accessibility
 Scenario Outline: Component <component> default story
@@ -87,3 +86,4 @@ Scenario Outline: Component <component> basic story
       | Link          |
       | MenuList      |
       | Mount In App  |
+    # | Pages         |

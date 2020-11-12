@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { shallow, mount } from 'enzyme';
 import BasePages, { Page } from './pages.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-import classicTheme from '../../style/themes/classic';
+import mintTheme from '../../style/themes/mint';
 
 describe('BasePages', () => {
   let wrapper, page;
@@ -11,7 +11,7 @@ describe('BasePages', () => {
   beforeEach(() => {
     wrapper = shallow(
       <BasePages
-        theme={ classicTheme }
+        theme={ mintTheme }
         className='foobar'
         initialPageIndex={ 0 }
       >
@@ -73,7 +73,7 @@ describe('BasePages', () => {
       it('returns 1', () => {
         wrapper = shallow(
           <BasePages
-            theme={ classicTheme }
+            theme={ mintTheme }
             className='foobar'
             initialPageIndex={ 0 }
           >
@@ -95,7 +95,7 @@ describe('BasePages', () => {
   describe('visiblePage', () => {
     const instance = shallow(
       <BasePages
-        theme={ classicTheme }
+        theme={ mintTheme }
         className='foobar'
         initialPageIndex={ 0 }
       >
@@ -112,7 +112,7 @@ describe('BasePages', () => {
     it('has correct class name', () => {
       wrapper = mount(
         <BasePages
-          theme={ classicTheme }
+          theme={ mintTheme }
           className='foobar'
           initialPageIndex={ 0 }
         >
@@ -144,7 +144,7 @@ describe('BasePages', () => {
     describe('on component', () => {
       const tag = shallow(
         <BasePages
-          theme={ classicTheme }
+          theme={ mintTheme }
           data-element='bar'
           data-role='baz'
           initialPageIndex={ 0 }
@@ -161,7 +161,7 @@ describe('BasePages', () => {
     describe('on internal elements', () => {
       wrapper = mount(
         <BasePages
-          theme={ classicTheme }
+          theme={ mintTheme }
           initialPageIndex={ 0 }
         >
           <Page data-element='page' />
@@ -179,7 +179,7 @@ describe('BasePages', () => {
     it('uses a custom name if supplied', () => {
       wrapper = mount(
         <BasePages
-          theme={ classicTheme }
+          theme={ mintTheme }
           transition='foo'
         >
           <Page />
