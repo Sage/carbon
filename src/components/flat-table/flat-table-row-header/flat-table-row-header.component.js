@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { space } from "@styled-system/prop-types";
+import propTypes from "@styled-system/prop-types";
 
 import StyledFlatTableRowHeader from "./flat-table-row-header.style";
 
@@ -21,7 +21,7 @@ const FlatTableRowHeader = ({ align, children, width, py, px, ...rest }) => {
 
 FlatTableRowHeader.propTypes = {
   /** Styled system spacing props */
-  ...space,
+  ...propTypes.space,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),

@@ -1,7 +1,7 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from ".";
 
