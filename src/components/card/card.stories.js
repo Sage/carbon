@@ -1,67 +1,37 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
-import { boolean, select, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import Card from "./card.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
-import { notes, Info } from "./documentation";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
-import Icon from "../icon";
-import Link from "../link";
-import Heading from "../heading";
+import CardRow from "./card-row";
 import CardColumn from "./card-column";
 import CardFooter from "./card-footer";
-import CardRow from "./card-row";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
-import { InternalLink } from "../link/link.component";
+import Link from "../link";
+import Heading from "../heading/heading";
+import Typography from "../typography/typography.component";
+import Icon from "../icon";
 
-Card.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /card.component(?!spec)/
-);
-
-CardColumn.__docgenInfo = getDocGenInfo(
-  require("./card-column/docgenInfo.json"),
-  /card-column.component(?!spec)/
-);
-
-CardFooter.__docgenInfo = getDocGenInfo(
-  require("./card-footer/docgenInfo.json"),
-  /card-footer.component(?!spec)/
-);
-
-CardRow.__docgenInfo = getDocGenInfo(
-  require("./card-row/docgenInfo.json"),
-  /card-row.component(?!spec)/
-);
-
-const cardKnobs = () => {
-  return {
-    key: "one",
-    cardSpacing: select(
-      "card spacing",
-      OptionsHelper.sizesRestricted,
-      Card.defaultProps.spacing
-    ),
-    cardWidth: text("width", "500px"),
-    interactive: boolean("interactive card", false),
-  };
+export default {
+  title: "Design System/Card/Test",
+  component: Card,
+  parameters: {
+    themeSelector: dlsThemeSelector,
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
 };
 
-function getCard(knobs) {
-  const { cardSpacing, cardWidth, interactive } = knobs;
-
+export const Default = () => {
   return (
-    <Card
-      spacing={cardSpacing}
-      cardWidth={cardWidth}
-      interactive={interactive}
-      action={action("action prop triggered")}
-    >
+    <Card interactive action={action("action prop triggered")}>
       <CardRow>
         <CardColumn align="left">
           <Heading title="Stripe - [account name]" divider={false} />
-          <div style={{ fontSize: "16px" }}>user.name@sage.com</div>
+          <Typography variant="h5">user.name@sage.com</Typography>
         </CardColumn>
         <CardColumn align="right">
           <Icon type="image" />
@@ -69,11 +39,11 @@ function getCard(knobs) {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+          <Typography variant="h5" weight="bold">
             Stripe Balance
-          </div>
+          </Typography>
           <Heading title="£ 0.00" divider={false} />
-          <div style={{ fontSize: "12px" }}>LAST ENTRY: 15 DAYS AGO</div>
+          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
       <CardFooter>
@@ -85,66 +55,4 @@ function getCard(knobs) {
       </CardFooter>
     </Card>
   );
-}
-
-function getSmallCard(knobs) {
-  const { border, cardSpacing, cardWidth, interactive } = knobs;
-
-  return (
-    <Card
-      spacing={cardSpacing}
-      border={border}
-      cardWidth={cardWidth}
-      interactive={interactive}
-      action={action("action prop triggered")}
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <div
-            align="left"
-            style={{
-              fontWeight: "bold",
-              fontSize: "16px",
-              marginBottom: "10px",
-            }}
-          >
-            Accounting
-          </div>
-          <span style={{ fontWeight: "bold", fontSize: "12px" }}>£ 6.50 </span>
-          <span style={{ fontSize: "12px" }}>paid by client monthly</span>
-        </CardColumn>
-      </CardRow>
-      <CardFooter>
-        <CardColumn align="left">Promo code</CardColumn>
-        <CardColumn align="right">Manage</CardColumn>
-      </CardFooter>
-    </Card>
-  );
-}
-
-function makeStory(name, themeSelector) {
-  const component = () => {
-    const knobs = cardKnobs();
-
-    return (
-      <div>
-        {getCard(knobs)}
-        {getSmallCard(knobs)}
-      </div>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
-    info: {
-      text: Info,
-      propTablesExclude: [Icon, Link, Heading, InternalLink],
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-  };
-
-  return [name, component, metadata];
-}
-
-storiesOf("Card", module).add(...makeStory("default", dlsThemeSelector));
+};

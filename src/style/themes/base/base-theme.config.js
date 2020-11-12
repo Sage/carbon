@@ -115,7 +115,7 @@ export default (palette) => {
 
     card: {
       footerBackground: palette.slateTint(95),
-      footerBorder: palette.slateTint(90),
+      footerBorder: palette.slateTint(80),
     },
 
     carousel: {
