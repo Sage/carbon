@@ -1,3 +1,10 @@
+## [48.7.0](https://github.com/Sage/carbon/compare/v48.6.3...v48.7.0) (2020-11-12)
+
+
+### Features
+
+* **flat-table:** add support for rendering table footer ([aa5ef93](https://github.com/Sage/carbon/commit/aa5ef93785e7fec2beb877742a4ec8c48d1c35a0))
+
 ### [48.6.3](https://github.com/Sage/carbon/compare/v48.6.2...v48.6.3) (2020-11-12)
 
 

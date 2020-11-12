@@ -14,7 +14,11 @@ const StyledFlatTable = styled.table`
 `;
 
 const StyledFlatTableWrapper = styled.div`
-  height: 100%;
+  ${({ heightDefaulted }) =>
+    !heightDefaulted &&
+    css`
+      height: 100%;
+    `}
 
   ${({ colorTheme, theme }) => {
     switch (colorTheme) {
@@ -78,8 +82,6 @@ const StyledFlatTableWrapper = styled.div`
   ${({ hasStickyHead }) =>
     hasStickyHead &&
     css`
-      overflow-y: auto;
-
       ${StyledFlatTableHeader} {
         position: sticky;
         z-index: ${({ theme }) => theme.zIndex.overlay};
@@ -96,4 +98,17 @@ StyledFlatTableWrapper.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledFlatTableWrapper, StyledFlatTable };
+const StyledFlatTableFooter = styled.div`
+  ${({ hasStickyFooter }) =>
+    hasStickyFooter &&
+    css`
+      position: sticky;
+      bottom: -40px; ;
+    `}
+`;
+
+StyledFlatTableFooter.defaultProps = {
+  theme: baseTheme,
+};
+
+export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };
