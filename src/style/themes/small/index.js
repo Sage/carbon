@@ -1,4 +1,4 @@
-import { mintTheme } from '..';
+import { mintTheme } from "..";
 
 export default (() => {
   console.warn(`"Small Theme" has been renamed to "Mint".

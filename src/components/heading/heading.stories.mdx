@@ -1,0 +1,141 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import Heading from '.';
+import Tile from '../tile';
+import Dl from '../definition-list/dl.component';
+import Dt from '../definition-list/dt.component';
+import Dd from '../definition-list/dd.component';
+import Link from '../link/link.component';
+import Button from '../button/button.component';
+
+<Meta title="Heading" parameters={{ info: { disable: true }}} />
+
+# Heading
+A standard page or section header, with a range of options, such as a help link presented as an icon, a sub-heading, a 'Back' icon, and visual dividers and separators.
+
+Make sure that the colour of all text has a contrast ratio of at least 4.5.1, 
+to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard") for text less than 19px in size. 
+Webaim have a good online Contrast Checker.
+
+## Quick Start
+Import `Heading` into the project.
+
+```jsx
+import Heading from "carbon-react/lib/components/heading";
+
+const MyComponent = () => (
+  <Heading title='This is a Title' />
+);
+```
+
+### Default
+<Preview>
+  <Story name="Default">
+    <Heading title='This is a Title' />
+  </Story>
+</Preview>
+
+### Heading without Divider
+<Preview>
+  <Story name="without Divider">
+      <Heading title='This is a Title' divider={false} />
+  </Story>
+</Preview>
+
+### Heading with Subheader
+<Preview>
+  <Story name="with subheader">
+    <Heading title='This is a Title' subheader='This is a subheader' />
+  </Story>
+</Preview>
+
+### Heading with Subheader and Separator
+<Preview>
+  <Story name="with subheader and separator">
+    <Heading title='This is a Title' subheader='This is a subheader' separator/>
+  </Story>
+</Preview>
+
+### Heading with Subheader and Children
+<Preview>
+  <Story name="with subheader and children">
+    <Heading title='This is a Title' subheader='This is a subheader'>
+      This is content beneath a heading
+    </Heading>
+  </Story>
+</Preview>
+
+### Heading with Children as a Component
+In this example, the Heading component has the Tile component and the Definition List component rendered inside.
+
+<Preview>
+  <Story name="with children as component">
+    <Heading title='This is a Title' subheader='This is a subheader'>
+      <Tile width={95}>
+        <Dl>
+          <Dt>Drink</Dt>
+          <Dd>Coffee</Dd>
+          <Dt>Brew Method</Dt>
+          <Dd>Stove Top Moka Pot</Dd>
+          <Dt>Brand of Coffee</Dt>
+          <Dd>Magic Coffee Beans</Dd>
+          <Dt>Main and Registered Address</Dt>
+          <Dd mb='4px'>Magic Coffee Beans,</Dd>
+          <Dd mb='4px'>In The Middle of Our Street,</Dd>
+          <Dd mb='4px'>Madness,</Dd>
+          <Dd mb='4px'>CO4 3VE</Dd>
+          <Dd>
+            <Button 
+              buttonType='tertiary' 
+              iconType="link" 
+              iconPosition="after"
+              href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+              View in Google Maps
+            </Button> 
+          </Dd>
+        </Dl>
+      </Tile>
+    </Heading>
+  </Story>
+</Preview>
+
+### Heading with Help
+<Preview>
+  <Story name="with help">
+    <div style={{ margin: '16px' }}>
+      <Heading 
+        title='This is a Title' 
+        subheader='This is a subheader' 
+        help='This should be helpful' 
+      />
+    </div>
+  </Story>
+</Preview>
+
+### Heading with Help and Help Link
+<Preview>
+  <Story name="with help link">
+    <div style={{ margin: '16px' }}>
+      <Heading 
+        title='This is a Title' 
+        subheader='This is a subheader' 
+        help='This should be helpful'
+        helpLink='https://carbon.sage.com' 
+      />
+    </div>
+  </Story>
+</Preview>
+
+### Heading with Back Link
+<Preview>
+  <Story name="with back link">
+    <Heading 
+      title='This is a Title' 
+      subheader='This is a subheader' 
+      backLink='https://carbon.sage.com'
+    />
+  </Story>
+</Preview>
+
+## Props
+<Props of={Heading} />

@@ -13,9 +13,9 @@
  * @param {String}
  * @return {Array}
  */
-export default function(str) {
+export default function (str) {
   let result = [];
-  const index = str.indexOf('[');
+  const index = str.indexOf("[");
 
   if (index === -1) {
     // if there are no square brackets

@@ -1,12 +1,12 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Select, Option } from '../';
 import Button from '../../button';
 import SelectTextbox from '../select-textbox/select-textbox.component';
 import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
 
-<Meta title="Design System/Select" />
+<Meta title="Design System/Select" parameters={{ info: { disable: true }}} />
 
 # Simple Select
 
@@ -32,18 +32,18 @@ import { Select, Option } from "carbon-react/lib/components/select";
 ### Basic usage:
 
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}} >
+  <Story name="basic">
     <Select
       name='simple'
       id='simple'
       label='label'
       labelInline
       onOpen={ action('onOpen') }
-      onChange={ action('onChange') }
-      onClick={ action('onClick') }
-      onFocus={ action('onFocus') }
-      onBlur={ action('onBlur') }
-      onKeyDown={ action('onKeyDown') }
+      onChange={ action('onChange', { depth: 2 }) }
+      onClick={ action('onClick', { depth: 2 }) }
+      onFocus={ action('onFocus', { depth: 2 }) }
+      onBlur={ action('onBlur', { depth: 2 }) }
+      onKeyDown={ action('onKeyDown', { depth: 2 }) }
     >
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -65,7 +65,7 @@ import { Select, Option } from "carbon-react/lib/components/select";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="required" parameters={{ info: { disable: true }}} >
+  <Story name="required">
    <Select
       name='required-select'
       id='required-select'
@@ -90,7 +90,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Controlled usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ chromatic: { disable: true }}} >
     {() => {
       const [value, setValue] = useState('');
       function onChangeHandler(event) {
@@ -130,7 +130,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Open on focus:
 
 <Preview>
-  <Story name="openOnFocus" parameters={{ info: { disable: true }}} >
+  <Story name="openOnFocus" parameters={{ chromatic: { disable: true }}} >
     <Select name='openOnFocus' id='openOnFocus' openOnFocus>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -150,7 +150,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Disabled:
 
 <Preview>
-  <Story name="disabled" parameters={{ info: { disable: true }}} >
+  <Story name="disabled">
     <Select name='disabled' id='disabled' defaultValue='3' disabled>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -170,7 +170,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Read Only:
 
 <Preview>
-  <Story name="readonly" parameters={{ info: { disable: true }}} >
+  <Story name="readonly">
     <Select name='readonly' id='readonly' defaultValue='4' readOnly>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
@@ -190,8 +190,28 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Transparent:
 
 <Preview>
-  <Story name="transparent" parameters={{ info: { disable: true }}} >
+  <Story name="transparent">
     <Select name='transparent' id='transparent' defaultValue='4' transparent>
+      <Option text='Amber' value='1' />
+      <Option text='Black' value='2' />
+      <Option text='Blue' value='3' />
+      <Option text='Brown' value='4' />
+      <Option text='Green' value='5' />
+      <Option text='Orange' value='6' />
+      <Option text='Pink' value='7' />
+      <Option text='Purple' value='8' />
+      <Option text='Red' value='9' />
+      <Option text='White' value='10' />
+      <Option text='Yellow' value='11' />
+    </Select>
+  </Story>
+</Preview>
+
+### With disabled portal:
+
+<Preview>
+  <Story name="withDisabledPortal" parameters={{ chromatic: { disable: true }}}>
+    <Select name='withDisabledPortal' id='withDisabledPortal' defaultValue='4' disablePortal>
       <Option text='Amber' value='1' />
       <Option text='Black' value='2' />
       <Option text='Blue' value='3' />
@@ -211,10 +231,10 @@ You can use the `required` prop to indicate if the field is mandatory.
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
-  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }, info: { disable: true }}}>
+  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
     <Select
-      name='transparent'
-      id='transparent'
+      name='adaptive'
+      id='adaptive'
       label='label'
       defaultValue='4'
       adaptiveLabelBreakpoint={960}
@@ -238,6 +258,10 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   of={ Select }
   spacing
 />
+
+## Props:
+
+<Props of={ Select } />
 
 ### Props derived from the Textbox Component
 

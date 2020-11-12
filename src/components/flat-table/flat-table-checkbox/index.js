@@ -1,1 +1,1 @@
-export { default } from './flat-table-checkbox.component';
+export { default } from "./flat-table-checkbox.component";

@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import StyledIcon from '../icon/icon.style';
-import classicIconButtonStyle from './icon-button-classic.style';
-import { baseTheme } from '../../style/themes';
+import styled, { css } from "styled-components";
+import StyledIcon from "../icon/icon.style";
+import classicIconButtonStyle from "./icon-button-classic.style";
+import { baseTheme } from "../../style/themes";
 
 const StyledIconButton = styled.button`
   background: transparent;
@@ -37,7 +37,7 @@ const StyledIconButton = styled.button`
 `;
 
 StyledIconButton.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledIconButton;

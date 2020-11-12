@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { acronymize } from '../../utils/ether/ether';
-import tagComponent from '../../utils/helpers/tags/tags';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { acronymize } from "../../utils/ether/ether";
+import tagComponent from "../../utils/helpers/tags/tags";
 import {
   ProfileStyle,
   ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle
-} from './profile.style';
+  ProfileEmailStyle,
+} from "./profile.style";
 
 class Profile extends React.Component {
   /** Determines whether a `src` prop has been supplied */
@@ -33,20 +33,20 @@ class Profile extends React.Component {
     if (this.hasSrc) {
       return (
         <ProfileAvatarStyle
-          src={ this.props.src }
-          alt={ this.initials }
-          initials={ this.initials }
-          size={ this.props.size }
-          shape='square'
-          data-element='user-image'
+          src={this.props.src}
+          alt={this.initials}
+          initials={this.initials}
+          size={this.props.size}
+          shape="square"
+          data-element="user-image"
         />
       );
     }
     return (
       <ProfileAvatarStyle
-        initials={ this.initials }
-        gravatar={ this.props.email }
-        size={ this.props.size }
+        initials={this.initials}
+        gravatar={this.props.email}
+        size={this.props.size}
       />
     );
   }
@@ -54,12 +54,12 @@ class Profile extends React.Component {
   /** Returns the text portion of the profile. */
   get text() {
     return (
-      <ProfileDetailsStyle size={ this.props.size } hasSrc={ this.hasSrc }>
-        <ProfileNameStyle size={ this.props.size } data-element='name'>
-          { this.props.name }
+      <ProfileDetailsStyle size={this.props.size} hasSrc={this.hasSrc}>
+        <ProfileNameStyle size={this.props.size} data-element="name">
+          {this.props.name}
         </ProfileNameStyle>
-        <ProfileEmailStyle size={ this.props.size } data-element='email'>
-          { this.props.email }
+        <ProfileEmailStyle size={this.props.size} data-element="email">
+          {this.props.email}
         </ProfileEmailStyle>
       </ProfileDetailsStyle>
     );
@@ -68,12 +68,13 @@ class Profile extends React.Component {
   render() {
     return (
       <ProfileStyle
-        large={ this.props.large } className={ this.classes }
-        hasSrc={ this.hasSrc }
-        { ...tagComponent('profile', this.props) }
+        large={this.props.large}
+        className={this.classes}
+        hasSrc={this.hasSrc}
+        {...tagComponent("profile", this.props)}
       >
-        { this.avatar }
-        { this.text }
+        {this.avatar}
+        {this.text}
       </ProfileStyle>
     );
   }
@@ -93,11 +94,11 @@ Profile.propTypes = {
   /** [Legacy] Enable a larger theme for the name. */
   large: PropTypes.bool,
   /** Allow to setup size for the component */
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 Profile.defaultProps = {
-  large: false
+  large: false,
 };
 
 export default Profile;

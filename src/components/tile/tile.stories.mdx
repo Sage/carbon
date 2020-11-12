@@ -2,14 +2,14 @@ import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Tile from '.';
 import Content from '../content';
-import { info, notes } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 import { action } from '@storybook/addon-actions';
 import { Dl, Dt, Dd } from '../definition-list';
 import Link from '../link';
 import Button from '../button';
 import Heading from '../heading';
+import {Accordion} from '../accordion';
 
 <Meta title="Design System/Tile" parameters={{ info: { disable: true }}} />
 
@@ -67,7 +67,6 @@ Please note that it will not have any effect if the Tile orientation is set to `
         <Tile
         as="tile"
         orientation="horizontal"
-        padding="M"
         pixelWidth={0}
         width={75}
         >
@@ -113,7 +112,6 @@ The Tile component can also have inline styling applied to the content.
         <Tile
         as="tile"
         orientation="horizontal"
-        padding="M"
         pixelWidth={0}
         width={0}
         >
@@ -151,8 +149,82 @@ The Tile component can also have inline styling applied to the content.
     </Story>
 </Preview>
 
-## Props of Tile
-<Props of={ Tile } />
+## Tile with different padding and margin
+
+<Preview>
+  <Story name="with different padding and margin">
+    <>
+      <Tile
+        p={0}
+        m={0}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+      <Tile
+        p={1}
+        m={1}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+      <Tile
+        p={2}
+        m={2}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+      <Tile
+        p={3}
+        m={3}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+      <Tile
+        p={4}
+        m={4}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+      <Tile
+        p={5}
+        m={5}
+        as="tile"
+        orientation="horizontal"
+      >
+        <Content width={50}>
+          Example content
+        </Content>
+      </Tile>
+    </>
+  </Story>
+</Preview>
+
+## Tile Props
+
+<StyledSystemProps
+  of={Tile}
+  spacing
+  spacingDefaults={{p: 3}}
+/>
 
 # Tile with Definition List
 The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
@@ -262,6 +334,32 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
           </Button> 
         </Dd>
       </Dl>
+    </Tile>
+  </Story>
+</Preview>
+
+# Tile with Accordion and Definition List
+
+<Preview>
+  <Story parameters={{ chromatic: { disable: true }}} name="Tile with Accordion">
+    <Tile p={0} orientation="horizontal">
+      <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">
+        <Dl dtTextAlign='left' ddTextAlign='right'>
+        <Dt>Coffee Subscription</Dt>
+        <Dd>£7.00 a month</Dd>
+        <Dt>Grind Size</Dt>
+        <Dd>Espresso</Dd>
+        <Dt>Quantity</Dt>
+        <Dd>3kg</Dd>
+        <Dd> 
+          <Button 
+            buttonType='tertiary' 
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+            Have a promo code?
+          </Button> 
+        </Dd>
+      </Dl>
+      </Accordion>  
     </Tile>
   </Story>
 </Preview>

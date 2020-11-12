@@ -1,9 +1,9 @@
-import SplitButton from './';
-import OptionsHelper from './../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
-import buttonDefinition from './../button/__definition__';
+import SplitButton from "./";
+import OptionsHelper from "./../../utils/helpers/options-helper";
+import Definition from "./../../../demo/utils/definition";
+import buttonDefinition from "./../button/__definition__";
 
-let definition = new Definition('split-button', SplitButton, {
+let definition = new Definition("split-button", SplitButton, {
   description: `Related buttons that are shown on hover where one option is more important than the others.`,
   designerNotes: `
 * Offers one more important action to the user, with some related actions also quickly accessible, but without taking up valuable space by showing them all separately.
@@ -22,24 +22,24 @@ let definition = new Definition('split-button', SplitButton, {
   },
   propTypes: {
     as: "String",
-    'data-element': 'String',
-    'data-role': 'String',
+    "data-element": "String",
+    "data-role": "String",
     children: "Node",
     className: "String",
     text: "String",
-    disabled: "Boolean"
+    disabled: "Boolean",
   },
   propValues: {
-    text: "Example Split Button"
+    text: "Example Split Button",
   },
   propDescriptions: {
     as: "Primary or Secondary theme.",
     children: "This component supports children.",
-    'data-element': "Custom value for the data-element attribute",
-    'data-role': "Custom value for the data-role attribute",
+    "data-element": "Custom value for the data-element attribute",
+    "data-role": "Custom value for the data-role attribute",
     className: "Classes to apply to the component.",
     text: "Text for the main button.",
-    disabled: "When enabled will disable the button."
+    disabled: "When enabled will disable the button.",
   },
 });
 

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Heading from '../heading';
-import tagComponent from '../../utils/helpers/tags';
-import './settings-row.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Heading from "../heading";
+import tagComponent from "../../utils/helpers/tags";
+import "./settings-row.scss";
 
 class SettingsRow extends React.Component {
   static propTypes = {
@@ -30,11 +30,11 @@ class SettingsRow extends React.Component {
     /**
      * Shows a divider below the component.
      */
-    divider: PropTypes.bool
+    divider: PropTypes.bool,
   };
 
   static defaultProps = {
-    divider: true
+    divider: true,
   };
 
   /**
@@ -45,8 +45,8 @@ class SettingsRow extends React.Component {
    */
   get classes() {
     return classNames(
-      'carbon-settings-row',
-      { 'carbon-settings-row--has-divider': this.props.divider },
+      "carbon-settings-row",
+      { "carbon-settings-row--has-divider": this.props.divider },
       this.props.className
     );
   }
@@ -62,10 +62,10 @@ class SettingsRow extends React.Component {
 
     return (
       <Heading
-        title={ this.props.title }
-        subheader={ this.props.description }
-        separator={ this.props.description !== undefined }
-        divider={ false }
+        title={this.props.title}
+        subheader={this.props.description}
+        separator={this.props.description !== undefined}
+        divider={false}
       />
     );
   }
@@ -78,9 +78,12 @@ class SettingsRow extends React.Component {
    */
   render() {
     return (
-      <div className={ this.classes } { ...tagComponent('settings-row', this.props) }>
-        <div className='carbon-settings-row__header'>{ this.heading }</div>
-        <div className='carbon-settings-row__input'>{ this.props.children }</div>
+      <div
+        className={this.classes}
+        {...tagComponent("settings-row", this.props)}
+      >
+        <div className="carbon-settings-row__header">{this.heading}</div>
+        <div className="carbon-settings-row__input">{this.props.children}</div>
       </div>
     );
   }

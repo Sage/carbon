@@ -1,20 +1,25 @@
-import styled from 'styled-components';
-import baseTheme from '../../../../style/themes/base';
+import styled from "styled-components";
+import baseTheme from "../../../../style/themes/base";
 
-const StyledCounter = styled.div`
-  ${({ theme }) => `
-    color: ${theme.editor.counter};
-    margin-top: 14px;
-    margin-left: 4px;
-    min-width: 40px;
-    height: 21px;
-    float: right;
-    font-size: 14px;
-  `}
+const StyledCounter = styled.span`
+  color: ${({ theme, hasError }) =>
+    hasError ? `${theme.colors.error};` : `${theme.editor.counter};`}
+  width: 100%;
+`;
+
+const StyledCounterWrapper = styled.div`
+  margin: 16px 16px 0px 4px;
+  min-width: 40px;
+  height: 21px;
+  font-size: 14px;
+  display: flex;
+  float: right;
+  text-align: right;
+  align-items: center;
 `;
 
 StyledCounter.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
-export default StyledCounter;
+export { StyledCounter, StyledCounterWrapper };

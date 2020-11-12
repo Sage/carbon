@@ -303,3 +303,41 @@ export interface SpacingProps {
   px?: number | string;
   py?: number | string;
 }
+
+export interface ColorProps {
+  color?: string;
+  bg?: string;
+  backgroundColor?: string;
+  opacity?: number;
+}
+
+export interface LayoutProps {
+  width?: number | string;
+  height?: number | string;
+  minWidth?: number | string;
+  minHeight?: number | string;
+  maxWidth?: number | string;
+  maxHeight?: number | string;
+  size?: number | string;
+  display?: string;
+  verticalAlign?: string;
+  overflow?: string;
+  overflowX?: string;
+  overflowY?: string;
+}
+
+export interface FlexBoxProps {
+  alignItems?: string;
+  alignContent?: string;
+  justifyItems?: string;
+  justifyContent?: string;
+  felxWrap?: string;
+  flexDirection?: string;
+  flex?: string;
+  flexGrow?: number;
+  flexShrink?: number;
+  flexBasis?: string;
+  justofySelf?: string;
+  alignSelf?: string;
+  order?: number;
+}

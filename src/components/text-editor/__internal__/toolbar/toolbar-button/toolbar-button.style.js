@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import { isDLS } from '../../../../../utils/helpers/style-helper';
-import baseTheme from '../../../../../style/themes/base';
-import StyledIcon from '../../../../icon/icon.style';
+import styled, { css } from "styled-components";
+import { isDLS } from "../../../../../utils/helpers/style-helper";
+import baseTheme from "../../../../../style/themes/base";
+import StyledIcon from "../../../../icon/icon.style";
 
 const StyledToolbarButton = styled.button`
   background-color: inherit;
@@ -16,8 +16,10 @@ const StyledToolbarButton = styled.button`
   }
 
   ${({ theme, isActive }) => css`
-    :focus, :active {
-      ${isDLS(theme) && css`
+    :focus,
+    :active {
+      ${isDLS(theme) &&
+      css`
         outline: 2px solid ${theme.colors.focus};
         outline-offset: -2px;
       `}
@@ -27,14 +29,15 @@ const StyledToolbarButton = styled.button`
       background-color: ${theme.editor.button.hover};
     }
 
-    ${isActive && css`
+    ${isActive &&
+    css`
       background-color: ${theme.editor.button.hover};
     `}
   `}
 `;
 
 StyledToolbarButton.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledToolbarButton;

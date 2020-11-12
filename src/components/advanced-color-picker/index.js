@@ -1,1 +1,1 @@
-export { default } from './advanced-color-picker.component';
+export { default } from "./advanced-color-picker.component";

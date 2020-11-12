@@ -1,29 +1,30 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { baseTheme } from '../../style/themes';
-import Link from '../link';
-import Icon from '../icon';
-import StyledIcon from '../icon/icon.style';
+import { baseTheme } from "../../style/themes";
+import Link from "../link";
+import Icon from "../icon";
+import StyledIcon from "../icon/icon.style";
 
 const StyledPod = styled.div`
   display: flex;
   align-items: flex-start;
   width: 100%;
   text-align: ${({ alignTitle }) => alignTitle};
-  ${({ internalEditButton }) => internalEditButton && 'position: relative'};
+  ${({ internalEditButton }) => internalEditButton && "position: relative"};
 
   &:focus {
     outline: none;
   }
 `;
 
-const blockBackgrounds = (variant, theme) => ({
-  primary: theme.colors.white,
-  secondary: theme.pod.secondaryBackground,
-  tertiary: theme.pod.tertiaryBackground,
-  transparent: 'transparent',
-  tile: theme.colors.white
-}[variant]);
+const blockBackgrounds = (variant, theme) =>
+  ({
+    primary: theme.colors.white,
+    secondary: theme.pod.secondaryBackground,
+    tertiary: theme.pod.tertiaryBackground,
+    transparent: "transparent",
+    tile: theme.colors.white,
+  }[variant]);
 
 const StyledBlock = styled.div`
   ${({
@@ -35,20 +36,24 @@ const StyledBlock = styled.div`
     fullWidth,
     internalEditButton,
     isHovered,
-    isFocused
+    isFocused,
   }) => css`
     box-sizing: border-box;
     background-color: ${blockBackgrounds(variant, theme)};
     width: 100%;
-    ${variant === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
-    ${noBorder ? 'border: none' : `border: 1px solid ${theme.pod.border};`};
-    ${editable && !(fullWidth || internalEditButton) && 'width: auto;'};
-    ${contentTriggersEdit && 'cursor: pointer'};
-    ${(isHovered || isFocused) && css`
+    ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
+    ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border};`};
+    ${editable && !(fullWidth || internalEditButton) && "width: auto;"};
+    ${contentTriggersEdit && "cursor: pointer"};
+    ${(isHovered || isFocused) &&
+    css`
       background-color: ${theme.pod.hoverBackground};
 
-      ${internalEditButton && variant === 'tile' && 'background-color: transparent;'}
-      ${contentTriggersEdit && css`
+      ${internalEditButton &&
+      variant === "tile" &&
+      "background-color: transparent;"}
+      ${contentTriggersEdit &&
+      css`
         background-color: ${theme.colors.primary};
         * {
           color: ${theme.colors.white};
@@ -56,22 +61,22 @@ const StyledBlock = styled.div`
       `}
     `}
 
-    ${isFocused
-      && (!internalEditButton || contentTriggersEdit)
-      && css`
-        outline: 3px solid ${theme.colors.focus};
-        border: none;
-        ${noBorder ? '' : 'padding: 1px'};
-      `};
+    ${isFocused &&
+    (!internalEditButton || contentTriggersEdit) &&
+    css`
+      outline: 3px solid ${theme.colors.focus};
+      border: none;
+      ${noBorder ? "" : "padding: 1px"};
+    `};
   `}
 `;
 
 const contentPaddings = {
-  'extra-small': '6px',
-  small: '10px',
-  medium: '15px',
-  large: '30px 25px',
-  'extra-large': '40px'
+  "extra-small": "6px",
+  small: "10px",
+  medium: "15px",
+  large: "30px 25px",
+  "extra-large": "40px",
 };
 
 const StyledContent = styled.div`
@@ -88,11 +93,11 @@ const StyledDescription = styled.div`
 `;
 
 const footerPaddings = {
-  'extra-small': '6px',
-  small: '10px',
-  medium: '10px 15px',
-  large: '15px 25px',
-  'extra-large': '20px 40px'
+  "extra-small": "6px",
+  small: "10px",
+  medium: "10px 15px",
+  large: "15px 25px",
+  "extra-large": "20px 40px",
 };
 
 const StyledFooter = styled.div`
@@ -102,7 +107,8 @@ const StyledFooter = styled.div`
     border-bottom-right-radius: 4px;
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
 
-    ${variant === 'tile' && css`
+    ${variant === "tile" &&
+    css`
       border-top: 1px solid ${theme.pod.border};
     `};
 
@@ -111,7 +117,9 @@ const StyledFooter = styled.div`
 `;
 
 const StyledEditContainer = styled.div`
-  ${({ internalEditButton }) => internalEditButton && css`
+  ${({ internalEditButton }) =>
+    internalEditButton &&
+    css`
       position: absolute;
       right: 2px;
       top: 2px;
@@ -120,20 +128,21 @@ const StyledEditContainer = styled.div`
 `;
 
 const editPaddings = {
-  'extra-small': 6,
+  "extra-small": 6,
   small: 10,
   medium: 15,
   large: 15,
-  'extra-large': 15
+  "extra-large": 15,
 };
 
-const editBackgrounds = (variant, theme) => ({
-  primary: theme.colors.white,
-  secondary: theme.pod.secondaryBackground,
-  tertiary: theme.pod.tertiaryBackground,
-  transparent: 'transparent',
-  tile: theme.colors.white
-}[variant]);
+const editBackgrounds = (variant, theme) =>
+  ({
+    primary: theme.colors.white,
+    secondary: theme.pod.secondaryBackground,
+    tertiary: theme.pod.tertiaryBackground,
+    transparent: "transparent",
+    tile: theme.colors.white,
+  }[variant]);
 
 const StyledEditAction = styled(Link)`
   ${({
@@ -145,7 +154,7 @@ const StyledEditAction = styled(Link)`
     isHovered,
     displayOnlyOnHover,
     internalEditButton,
-    contentTriggersEdit
+    contentTriggersEdit,
   }) => css`
     && {
       cursor: pointer;
@@ -153,7 +162,8 @@ const StyledEditAction = styled(Link)`
       border: 1px solid ${theme.pod.border};
       margin-left: 8px;
 
-      > a, button {
+      > a,
+      button {
         width: 15px;
         height: 15px;
         padding: ${editPaddings[padding]}px;
@@ -163,34 +173,36 @@ const StyledEditAction = styled(Link)`
       ${StyledIcon} {
         top: -2px;
       }
-      ${noBorder && 'border: none;'}
-      ${internalEditButton && css`
+      ${noBorder && "border: none;"}
+      ${internalEditButton &&
+      css`
         border: none;
         background: transparent;
       `}
 
-      ${displayOnlyOnHover && !(isHovered || isFocused) && 'display: none;'}
-      ${(isHovered || isFocused)
-        && !internalEditButton
-        && css`
-          background-color: ${theme.colors.primary};
+      ${displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
+      ${(isHovered || isFocused) &&
+      !internalEditButton &&
+      css`
+        background-color: ${theme.colors.primary};
+        color: ${theme.colors.white};
+
+        ${StyledIcon} {
           color: ${theme.colors.white};
+        }
+      `}
 
-          ${StyledIcon} {
-            color: ${theme.colors.white};
-          }
-        `}
-
-      ${isFocused
-        && (!internalEditButton || !contentTriggersEdit)
-        && css`
-          outline: 3px solid ${theme.colors.focus};
-          border: none;
-          > a, button {
-            padding: ${editPaddings[padding] + (noBorder || internalEditButton ? 0 : 1)}px;
-          }
-        `};
-
+      ${isFocused &&
+      (!internalEditButton || !contentTriggersEdit) &&
+      css`
+        outline: 3px solid ${theme.colors.focus};
+        border: none;
+        > a,
+        button {
+          padding: ${editPaddings[padding] +
+          (noBorder || internalEditButton ? 0 : 1)}px;
+        }
+      `};
 
       .carbon-link__content {
         clip: rect(1px, 1px, 1px, 1px);
@@ -201,34 +213,29 @@ const StyledEditAction = styled(Link)`
 `;
 
 const headerRightAlignMargins = {
-  'extra-small': 20,
+  "extra-small": 20,
   small: 25,
   medium: 30,
   large: 30,
-  'extra-large': 30
+  "extra-large": 30,
 };
 
 const StyledHeader = styled.div`
-  ${({
-    alignTitle,
-    internalEditButton,
-    padding,
-    isCollapsed
-  }) => css`
+  ${({ alignTitle, internalEditButton, padding, isCollapsed }) => css`
     margin-bottom: 24px;
     text-align: ${alignTitle};
 
-    ${isCollapsed === true
-      && css`
-        margin-bottom: 0;
-        cursor: pointer;
-      `};
+    ${isCollapsed === true &&
+    css`
+      margin-bottom: 0;
+      cursor: pointer;
+    `};
 
-    ${alignTitle === 'right'
-      && internalEditButton
-      && css`
-        margin-right: ${headerRightAlignMargins[padding]}px;
-      `};
+    ${alignTitle === "right" &&
+    internalEditButton &&
+    css`
+      margin-right: ${headerRightAlignMargins[padding]}px;
+    `};
   `}
 `;
 
@@ -244,47 +251,47 @@ const StyledTitle = styled.h4`
   font-weight: 600;
 `;
 
-const StyledArrow = styled(Icon).attrs({ type: 'dropdown' })`
+const StyledArrow = styled(Icon).attrs({ type: "dropdown" })`
   position: relative;
   top: -1px;
-  ${({ isCollapsed }) => isCollapsed && 'transform: rotate(180deg)'};
+  ${({ isCollapsed }) => isCollapsed && "transform: rotate(180deg)"};
 `;
 
 StyledBlock.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledCollapsibleContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledDescription.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledEditAction.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledEditContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledFooter.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledPod.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledHeader.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledSubtitle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledTitle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledArrow.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -299,5 +306,5 @@ export {
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
-  StyledArrow
+  StyledArrow,
 };

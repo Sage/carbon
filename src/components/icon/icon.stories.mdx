@@ -1,5 +1,8 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
 import Icon from './';
+import Box from '../box';
 
 <Meta
   title="Icon"
@@ -51,7 +54,6 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
-
 ### Various fontSizes
 
 <Preview>
@@ -102,16 +104,44 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
-### Various iconColors
+### IconColor variants
 
 <Preview>
-  <Story name="Various iconColors">
+  <Story name="IconColor variants">
     {() => [
       'default',
       'on-light-background',
       'on-dark-background',
       'business-color'
     ].map(iconColor => <Icon type="add" iconColor={iconColor} mr={1} /> )}
+  </Story>
+</Preview>
+
+### Custom colors
+It's possible to change the color of the Icon by using the `color` prop or background color by `bg` prop.
+These props will override `iconColor` and `bgTheme` prop values.
+See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
+
+<Preview>
+  <Story name="Custom colors" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+    {() => {
+      return <>
+        <Box mb={1}>
+          <Icon type="add" color="blackOpacity65" />
+          <Icon type="add" color="brilliantGreenShade20" />
+          <Icon type="add" color="red" />
+          <Icon type="add" color="#123456" />
+          <Icon type="add" color="rgb(0, 123, 10)" />
+        </Box>
+        <Box mb={1}>
+          <Icon type="add" color="white" bg="blackOpacity65" />
+          <Icon type="add" bg="brilliantGreenShade20" />
+          <Icon type="add" bg="red" />
+          <Icon type="add" color="white" bg="#123456" />
+          <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
+        </Box>
+      </>
+    }}
   </Story>
 </Preview>
 

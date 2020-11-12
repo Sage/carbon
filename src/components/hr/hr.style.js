@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { space } from 'styled-system';
-import baseTheme from '../../style/themes/base';
+import styled from "styled-components";
+import { space } from "styled-system";
+import baseTheme from "../../style/themes/base";
 
 const StyledHr = styled.hr`
   ${space}
@@ -11,7 +11,7 @@ const StyledHr = styled.hr`
 `;
 
 StyledHr.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledHr;

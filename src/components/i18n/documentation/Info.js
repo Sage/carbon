@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const Info = (
   <div>
@@ -15,9 +18,7 @@ const Info = (
 
     <p>To render the message:</p>
 
-    <StoryCode padded>
-      {'<I18n scope="foo" />'}
-    </StoryCode>
+    <StoryCode padded>{'<I18n scope="foo" />'}</StoryCode>
 
     <p>For additional properties specific to this component, see propTypes.</p>
   </div>

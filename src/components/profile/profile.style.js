@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import Portrait from '../portrait';
-import baseTheme from '../../style/themes/base';
-import profileConfigSizes from './profile.config';
+import styled, { css } from "styled-components";
+import Portrait from "../portrait";
+import baseTheme from "../../style/themes/base";
+import profileConfigSizes from "./profile.config";
 
 const ProfileNameStyle = styled.span`
   font-weight: bold;
@@ -15,15 +15,19 @@ const ProfileEmailStyle = styled.span`
 
 const ProfileStyle = styled.div`
   white-space: nowrap;
-  ${({ theme }) => css`color: ${theme.text.color}`};
+  ${({ theme }) =>
+    css`
+      color: ${theme.text.color};
+    `};
 
-  display: ${({ hasSrc }) => (hasSrc ? 'flex' : '')};
+  display: ${({ hasSrc }) => (hasSrc ? "flex" : "")};
 `;
 
 const ProfileDetailsStyle = styled.div`
   vertical-align: middle;
   display: inline-block;
-  margin-top: ${({ hasSrc, size }) => (hasSrc ? profileConfigSizes[size].marginTop : '')};
+  margin-top: ${({ hasSrc, size }) =>
+    hasSrc ? profileConfigSizes[size].marginTop : ""};
   line-height: ${({ size }) => profileConfigSizes[size].lineHeight};
   margin-left: ${({ size }) => profileConfigSizes[size].marginLeft};
 `;
@@ -33,22 +37,22 @@ const ProfileAvatarStyle = styled(Portrait)`
 `;
 
 ProfileStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 ProfileNameStyle.defaultProps = {
-  size: 'M',
-  theme: baseTheme
+  size: "M",
+  theme: baseTheme,
 };
 
 ProfileEmailStyle.defaultProps = {
-  size: 'M',
-  theme: baseTheme
+  size: "M",
+  theme: baseTheme,
 };
 
 ProfileDetailsStyle.defaultProps = {
-  size: 'M',
-  theme: baseTheme
+  size: "M",
+  theme: baseTheme,
 };
 
 export {
@@ -56,5 +60,5 @@ export {
   ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle
+  ProfileEmailStyle,
 };

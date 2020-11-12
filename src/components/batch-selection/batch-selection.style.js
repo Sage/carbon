@@ -1,21 +1,17 @@
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import StyledIconButton from '../icon-button/icon-button.style';
-import StyledIcon from '../icon/icon.style';
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import StyledIconButton from "../icon-button/icon-button.style";
+import StyledIcon from "../icon/icon.style";
 
 const StyledBatchSelection = styled.div`
-  ${({
-    disabled,
-    colorTheme,
-    theme,
-    hidden
-  }) => css`
+  ${({ disabled, colorTheme, theme, hidden }) => css`
     align-items: center;
     display: inline-flex;
 
-    ${hidden && 'opacity: 0;'}
+    ${hidden && "opacity: 0;"}
 
-    ${colorTheme === 'dark' && css`
+    ${colorTheme === "dark" &&
+    css`
       background-color: ${theme.colors.slate};
       color: ${theme.colors.white};
 
@@ -24,11 +20,13 @@ const StyledBatchSelection = styled.div`
       }
     `}
 
-    ${colorTheme === 'light' && css`
+    ${colorTheme === "light" &&
+    css`
       background-color: ${theme.batchSelection.lightTheme};
     `}
 
-    ${colorTheme === 'white' && css`
+    ${colorTheme === "white" &&
+    css`
       background-color: ${theme.white};
       box-shadow: ${theme.shadows.depth1};
     `}
@@ -47,7 +45,8 @@ const StyledBatchSelection = styled.div`
       }
     }
 
-    ${disabled && css`
+    ${disabled &&
+    css`
       background: transparent;
       color: ${theme.disabled.disabled};
       cursor: not-allowed;
@@ -65,7 +64,7 @@ const StyledBatchSelection = styled.div`
 `;
 
 StyledBatchSelection.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 const StyledSelectionCount = styled.span`

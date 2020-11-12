@@ -1,23 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyledFlatTableWrapper, StyledFlatTable } from './flat-table.style';
-import { SidebarContext } from '../drawer';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyledFlatTableWrapper, StyledFlatTable } from "./flat-table.style";
+import { SidebarContext } from "../drawer";
 
-const FlatTable = ({
-  children,
-  hasStickyHead,
-  colorTheme
-}) => {
+const FlatTable = ({ children, hasStickyHead, colorTheme }) => {
   return (
     <SidebarContext.Consumer>
-      {context => (
+      {(context) => (
         <StyledFlatTableWrapper
-          isInSidebar={ context && context.isInSidebar }
-          hasStickyHead={ hasStickyHead }
-          colorTheme={ colorTheme }
+          isInSidebar={context && context.isInSidebar}
+          hasStickyHead={hasStickyHead}
+          colorTheme={colorTheme}
         >
-          <StyledFlatTable data-component='flat-table'>
-            { children }
+          <StyledFlatTable data-component="flat-table">
+            {children}
           </StyledFlatTable>
         </StyledFlatTableWrapper>
       )}
@@ -31,11 +27,16 @@ FlatTable.propTypes = {
   /** If true, the header does not scroll with the content */
   hasStickyHead: PropTypes.bool,
   /** `FlatTable` color theme */
-  colorTheme: PropTypes.oneOf(['light', 'transparent-base', 'transparent-white', 'dark'])
+  colorTheme: PropTypes.oneOf([
+    "light",
+    "transparent-base",
+    "transparent-white",
+    "dark",
+  ]),
 };
 
 FlatTable.defaultProps = {
-  colorTheme: 'dark'
+  colorTheme: "dark",
 };
 
 export default FlatTable;

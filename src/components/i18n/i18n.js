@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from 'i18n-js';
-import _marked from 'marked';
-import { assign } from 'lodash';
-import tagComponent from '../../utils/helpers/tags';
+import React from "react";
+import PropTypes from "prop-types";
+import i18n from "i18n-js";
+import _marked from "marked";
+import { assign } from "lodash";
+import tagComponent from "../../utils/helpers/tags";
 
 class I18n extends React.Component {
   static propTypes = {
-
     /**
      * Whether to compile the value as markdown
      */
@@ -26,21 +25,21 @@ class I18n extends React.Component {
     /**
      * Additional options to pass to I18n
      */
-    options: PropTypes.object
-  }
+    options: PropTypes.object,
+  };
 
   static defaultProps = {
-    inline: true
-  }
+    inline: true,
+  };
 
   marked(inline) {
     // Make sure that we sanitize html markup in the MD compiler
     _marked.setOptions({ sanitize: true });
-    return inline ? str => _marked.inlineLexer(str, []) : _marked;
+    return inline ? (str) => _marked.inlineLexer(str, []) : _marked;
   }
 
   renderMarkup(inline, props, translation) {
-    const el = inline ? 'span' : 'div';
+    const el = inline ? "span" : "div";
     return React.createElement(el, props, translation);
   }
 
@@ -50,19 +49,17 @@ class I18n extends React.Component {
    * @method render
    */
   render() {
-    const {
-      markdown, inline, scope, options, ...props
-    } = this.props;
+    const { markdown, inline, scope, options, ...props } = this.props;
     let translation = i18n.t(scope, options);
 
     if (markdown) {
       props.dangerouslySetInnerHTML = {
-        __html: this.marked(inline)(translation)
+        __html: this.marked(inline)(translation),
       };
       translation = null;
     }
 
-    const markupProps = assign({}, props, tagComponent('i18n', this.props));
+    const markupProps = assign({}, props, tagComponent("i18n", this.props));
 
     return this.renderMarkup(inline, markupProps, translation);
   }

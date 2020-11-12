@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import tagComponent from '../../utils/helpers/tags';
-import PreviewStyle from './preview.style';
+import React from "react";
+import PropTypes from "prop-types";
+import tagComponent from "../../utils/helpers/tags";
+import PreviewStyle from "./preview.style";
 
 const Preview = (props) => {
   if (isLoading(props.loading, props.children)) {
@@ -25,15 +25,15 @@ Preview.propTypes = {
   /* Provides more control over when in a loading state. */
   loading: PropTypes.bool,
   /** A custom width */
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 Preview.defaultProps = {
-  lines: 1
+  lines: 1,
 };
 
 function isLoading(loading, children) {
-  if (typeof loading !== 'undefined') {
+  if (typeof loading !== "undefined") {
     return loading;
   }
 
@@ -45,14 +45,14 @@ function createPreview(allProps, index) {
   let { width } = allProps;
 
   if (!width && lines > 1 && lines === index) {
-    width = '80%';
+    width = "80%";
   }
 
   return (
     <PreviewStyle
-      key={ index }
-      style={ { height, width } }
-      { ...tagComponent('preview', allProps) }
+      key={index}
+      style={{ height, width }}
+      {...tagComponent("preview", allProps)}
     />
   );
 }

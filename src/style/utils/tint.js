@@ -1,3 +1,3 @@
-import mix from './mix';
+import mix from "./mix";
 
-export default color => weight => mix('FFFFFF', color, weight);
+export default (color) => (weight) => mix("FFFFFF", color, weight);

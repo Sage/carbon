@@ -1,1 +1,1 @@
-export { default } from './submenu-block.component';
+export { default } from "./submenu-block.component";

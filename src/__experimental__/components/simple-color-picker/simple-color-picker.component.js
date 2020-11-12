@@ -1,18 +1,13 @@
-import React, {
-  useCallback,
-  useState,
-  useRef,
-  useEffect
-} from 'react';
-import PropTypes from 'prop-types';
-import Events from '../../../utils/helpers/events';
-import tagComponent from '../../../utils/helpers/tags/tags';
-import Fieldset from '../../../__internal__/fieldset';
-import SimpleColor from './simple-color';
-import RadioButtonMapper from '../radio-button/radio-button-mapper.component';
-import { StyledContent, StyledColorOptions } from './simple-color-picker.style';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
-import { InputGroupContext } from '../../../__internal__/input-behaviour';
+import React, { useCallback, useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import Events from "../../../utils/helpers/events";
+import tagComponent from "../../../utils/helpers/tags/tags";
+import Fieldset from "../../../__internal__/fieldset";
+import SimpleColor from "./simple-color";
+import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
+import ValidationIcon from "../../../components/validations/validation-icon.component";
+import { InputGroupContext } from "../../../__internal__/input-behaviour";
 
 const SimpleColorPicker = (props) => {
   const {
@@ -30,7 +25,7 @@ const SimpleColorPicker = (props) => {
     maxWidth = 300,
     childWidth = 58,
     validationOnLegend,
-    required
+    required,
   } = props;
 
   const myRef = useRef(null);
@@ -42,18 +37,27 @@ const SimpleColorPicker = (props) => {
   let currentRow = 1;
   let loopCounter = 1;
 
-  const gridItemRefs = useRef(Array.from({
-    length: React.Children.count(children)
-  }, () => React.createRef()));
+  const gridItemRefs = useRef(
+    Array.from(
+      {
+        length: React.Children.count(children),
+      },
+      () => React.createRef()
+    )
+  );
 
   const navigationGrid = React.Children.map(children, (child, index) => {
     const allowUp = currentRow !== 1;
     let allowDown = false;
 
-    if ((currentRow + 1) === rowCount && (blankSlots - itemsPerRow) < 0) {
+    if (currentRow + 1 === rowCount && blankSlots - itemsPerRow < 0) {
       allowDown = true;
       blankSlots += 1;
-    } else if ((currentRow + 1) !== rowCount && currentRow !== rowCount && rowCount > 1) {
+    } else if (
+      currentRow + 1 !== rowCount &&
+      currentRow !== rowCount &&
+      rowCount > 1
+    ) {
       allowDown = true;
     }
 
@@ -76,11 +80,11 @@ const SimpleColorPicker = (props) => {
 
     const childProps = {
       ref: gridItemRefs.current[index],
-      'data-up': allowUp,
-      'data-down': allowDown,
-      'data-item-up': upItem,
-      'data-item-down': downItem,
-      required
+      "data-up": allowUp,
+      "data-down": allowDown,
+      "data-item-up": upItem,
+      "data-item-down": downItem,
+      required,
     };
 
     loopCounter += 1;
@@ -88,54 +92,57 @@ const SimpleColorPicker = (props) => {
     return React.cloneElement(child, childProps);
   });
 
-  const onKeyDownHandler = useCallback((e) => {
-    if (onKeyDown) {
-      onKeyDown(e);
-    }
-
-    const arrowKeys = [
-      Events.isLeftKey(e),
-      Events.isUpKey(e),
-      Events.isRightKey(e),
-      Events.isDownKey(e)
-    ];
-
-    if (!arrowKeys.includes(true)) return;
-
-    e.preventDefault();
-
-    let itemIndex;
-
-    if (Events.isUpKey(e)) {
-      if (e.target.getAttribute('data-up') !== 'true') return;
-      itemIndex = e.target.getAttribute('data-item-up');
-    } else if (Events.isDownKey(e)) {
-      if (e.target.getAttribute('data-down') !== 'true') return;
-      itemIndex = e.target.getAttribute('data-item-down');
-    }
-
-    if (Events.isLeftKey(e) || Events.isRightKey(e)) {
-      const position = (element) => {
-        return e.target.getAttribute('value') === element.props.value;
-      };
-
-      if (Events.isLeftKey(e)) {
-        itemIndex = navigationGrid.findIndex(position) - 1;
-      } else {
-        itemIndex = navigationGrid.findIndex(position) + 1;
+  const onKeyDownHandler = useCallback(
+    (e) => {
+      if (onKeyDown) {
+        onKeyDown(e);
       }
 
-      if (itemIndex < 0) {
-        itemIndex = (navigationGrid.length - 1);
-      } else if (itemIndex > (navigationGrid.length - 1)) {
-        itemIndex = 0;
-      }
-    }
+      const arrowKeys = [
+        Events.isLeftKey(e),
+        Events.isUpKey(e),
+        Events.isRightKey(e),
+        Events.isDownKey(e),
+      ];
 
-    const item = navigationGrid[itemIndex].ref.current;
-    item.focus();
-    item.click();
-  }, [onKeyDown, navigationGrid]);
+      if (!arrowKeys.includes(true)) return;
+
+      e.preventDefault();
+
+      let itemIndex;
+
+      if (Events.isUpKey(e)) {
+        if (e.target.getAttribute("data-up") !== "true") return;
+        itemIndex = e.target.getAttribute("data-item-up");
+      } else if (Events.isDownKey(e)) {
+        if (e.target.getAttribute("data-down") !== "true") return;
+        itemIndex = e.target.getAttribute("data-item-down");
+      }
+
+      if (Events.isLeftKey(e) || Events.isRightKey(e)) {
+        const position = (element) => {
+          return e.target.getAttribute("value") === element.props.value;
+        };
+
+        if (Events.isLeftKey(e)) {
+          itemIndex = navigationGrid.findIndex(position) - 1;
+        } else {
+          itemIndex = navigationGrid.findIndex(position) + 1;
+        }
+
+        if (itemIndex < 0) {
+          itemIndex = navigationGrid.length - 1;
+        } else if (itemIndex > navigationGrid.length - 1) {
+          itemIndex = 0;
+        }
+      }
+
+      const item = navigationGrid[itemIndex].ref.current;
+      item.focus();
+      item.click();
+    },
+    [onKeyDown, navigationGrid]
+  );
 
   const handleClickOutside = (ev) => {
     if (myRef.current && ev.target && !myRef.current.contains(ev.target)) {
@@ -144,11 +151,11 @@ const SimpleColorPicker = (props) => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleClickOutside);
     };
   });
 
@@ -167,13 +174,13 @@ const SimpleColorPicker = (props) => {
     if (focusedElement !== null && focusedElement === ev.target) {
       ev.preventDefault();
 
-    // If a different <SimpleColor> is currently focused
+      // If a different <SimpleColor> is currently focused
     } else if (focusedElement !== null) {
       ev.preventDefault();
       setIsBlurBlocked(false);
       setFocusedElement(ev.target);
 
-    // If no <SimpleColor> is currently focused
+      // If no <SimpleColor> is currently focused
     } else {
       setIsBlurBlocked(true);
       setFocusedElement(ev.target);
@@ -181,47 +188,47 @@ const SimpleColorPicker = (props) => {
   };
 
   const validationProps = {
-    error, warning, info
+    error,
+    warning,
+    info,
   };
 
   return (
     <Fieldset
-      role='radiogroup'
-      legend={ legend }
-      isRequired={ required }
-      { ...(validationOnLegend && validationProps) }
-      { ...tagComponent('simple-color-picker', props) }
+      role="radiogroup"
+      legend={legend}
+      isRequired={required}
+      {...(validationOnLegend && validationProps)}
+      {...tagComponent("simple-color-picker", props)}
     >
       <StyledContent>
         <InputGroupContext.Consumer>
           {({ onMouseEnter, onMouseLeave }) => (
             <StyledColorOptions
-              maxWidth={ maxWidth }
-              childWidth={ childWidth }
-              error={ error }
-              warning={ warning }
-              info={ info }
-              ref={ myRef }
-              onMouseEnter={ onMouseEnter }
-              onMouseLeave={ onMouseLeave }
-              { ...validationProps }
+              maxWidth={maxWidth}
+              childWidth={childWidth}
+              error={error}
+              warning={warning}
+              info={info}
+              ref={myRef}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              {...validationProps}
             >
               <RadioButtonMapper
-                name={ name }
-                value={ value }
-                onChange={ onChange }
-                onMouseDown={ handleOnMouseDown }
-                onKeyDown={ onKeyDownHandler }
-                onBlur={ handleOnBlur }
+                name={name}
+                value={value}
+                onChange={onChange}
+                onMouseDown={handleOnMouseDown}
+                onKeyDown={onKeyDownHandler}
+                onBlur={handleOnBlur}
               >
-                { navigationGrid }
+                {navigationGrid}
               </RadioButtonMapper>
             </StyledColorOptions>
           )}
         </InputGroupContext.Consumer>
-        { !validationOnLegend && (
-          <ValidationIcon { ...validationProps } />
-        )}
+        {!validationOnLegend && <ValidationIcon {...validationProps} />}
       </StyledContent>
     </Fieldset>
   );
@@ -235,7 +242,9 @@ SimpleColorPicker.propTypes = {
 
     React.Children.forEach(prop, (child) => {
       if (SimpleColor.displayName !== child.type.displayName) {
-        error = new Error(`\`${componentName}\` only accepts children of type \`${SimpleColor.displayName}\`.`);
+        error = new Error(
+          `\`${componentName}\` only accepts children of type \`${SimpleColor.displayName}\`.`
+        );
       }
     });
 
@@ -274,7 +283,7 @@ SimpleColorPicker.propTypes = {
   /** prop that represents childWidth */
   childWidth: PropTypes.string,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default SimpleColorPicker;

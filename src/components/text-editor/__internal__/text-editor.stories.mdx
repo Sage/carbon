@@ -116,20 +116,52 @@ It is possible to override the default value for the character limit via the `ch
 will prevent any input that would cause the content length to exceed it.
 
 <Preview>
-  <Story name="with optional character limit">
+  <Story name="with optional character limit" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
-      const [limit, setLimit] = useState(100);
+      const limit = 100;
       const ref = useRef(null);
       return (
-          <div style={{ padding: '4px' }}>
-            <TextEditor
-              onChange={(newValue) => {setValue(newValue)}}
-              value={ value } ref={ ref }
-              onSubmit={ () => {} }
-              labelText='Text Editor Label'
-              characterLimit={ limit }
-            />
+        <div style={{ padding: '4px' }}>
+          <TextEditor
+            onChange={(newValue) => {setValue(newValue)}}
+            value={ value } ref={ ref }
+            onSubmit={ () => {} }
+            labelText='Text Editor Label'
+            characterLimit={ limit }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With validation
+It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`, 
+`warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate 
+this status.
+
+<Preview>
+  <Story name="with validation">
+    {() => {
+      const [value, setValue] = useState(
+        EditorState.createWithContent(ContentState.createFromText('Add content'))
+      );
+      const limit = 16;
+      const contentLength = value.getCurrentContent().getPlainText().length;
+      const ref = useRef(null);
+      return (
+        <div style={{ padding: '4px' }}>
+          <TextEditor
+            onChange={(newValue) => {setValue(newValue)}}
+            value={ value }
+            ref={ ref }
+            labelText='Text Editor Label'
+            characterLimit={ limit }
+            error={ limit - contentLength <= 5 ? 'There is an error' : undefined }
+            warning={ limit - contentLength <= 10 ? 'There is an warning' : undefined }
+            info={ limit - contentLength <= 15 ? 'There is an info' : undefined }
+          />
         </div>
       );
     }}

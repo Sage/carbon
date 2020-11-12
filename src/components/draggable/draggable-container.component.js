@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
-import { DndProvider, useDrop } from 'react-dnd';
-import Backend from 'react-dnd-html5-backend';
-import PropTypes from 'prop-types';
-import DraggableItem from './draggable-item.component';
-import { StyledIcon } from './draggable-item.style';
+import React, { useState } from "react";
+import { DndProvider, useDrop } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
+import PropTypes from "prop-types";
+import DraggableItem from "./draggable-item.component";
+import { StyledIcon } from "./draggable-item.style";
 
 const DropTarget = ({ children, getOrder }) => {
   const [, drop] = useDrop({
-    accept: 'draggableItem',
+    accept: "draggableItem",
     drop() {
       getOrder();
-    }
+    },
   });
 
-  return <div ref={ drop }>{children}</div>;
+  return <div ref={drop}>{children}</div>;
 };
 
 const DraggableContainer = ({ children, getOrder }) => {
-  const [draggableItems, setDraggableItems] = useState(React.Children.toArray(children));
+  const [draggableItems, setDraggableItems] = useState(
+    React.Children.toArray(children)
+  );
 
   const findItem = (id) => {
     const draggableItem = draggableItems.filter((item) => {
@@ -26,7 +28,7 @@ const DraggableContainer = ({ children, getOrder }) => {
 
     return {
       draggableItem,
-      index: draggableItems.indexOf(draggableItem)
+      index: draggableItems.indexOf(draggableItem),
     };
   };
 
@@ -44,28 +46,30 @@ const DraggableContainer = ({ children, getOrder }) => {
       return;
     }
 
-    const draggableItemIds = draggableItems.map(draggableItem => draggableItem.props.id);
+    const draggableItemIds = draggableItems.map(
+      (draggableItem) => draggableItem.props.id
+    );
 
     getOrder(draggableItemIds);
   };
 
   return (
-    <DndProvider backend={ Backend }>
-      <DropTarget getOrder={ getItemsId }>
-        {draggableItems.map(item => (
+    <DndProvider backend={Backend}>
+      <DropTarget getOrder={getItemsId}>
+        {draggableItems.map((item) =>
           React.cloneElement(
             item,
             {
               id: `${item.props.id}`,
               findItem,
-              moveItem
+              moveItem,
             },
             [
               item.props.children,
-              <StyledIcon key={ item.props.id } type='drag' />
+              <StyledIcon key={item.props.id} type="drag" />,
             ]
           )
-        ))}
+        )}
       </DropTarget>
     </DndProvider>
   );
@@ -85,17 +89,19 @@ DraggableContainer.propTypes = {
 
     React.Children.forEach(prop, (child) => {
       if (DraggableItem.displayName !== child.type.displayName) {
-        error = new Error(`\`${componentName}\` only accepts children of type \`${DraggableItem.displayName}\`.`);
+        error = new Error(
+          `\`${componentName}\` only accepts children of type \`${DraggableItem.displayName}\`.`
+        );
       }
     });
 
     return error;
-  }
+  },
 };
 
 DropTarget.propTypes = {
   children: PropTypes.node.isRequired,
-  getOrder: PropTypes.func
+  getOrder: PropTypes.func,
 };
 
 export default DraggableContainer;

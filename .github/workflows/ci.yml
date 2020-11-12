@@ -11,6 +11,7 @@ jobs:
       with:
         node-version: '12'
     - run: npm ci
+    - run: npx prettier --check './src/**/*.js'
     - run: npm run lint
     - run: npm run lint-ts
   test:

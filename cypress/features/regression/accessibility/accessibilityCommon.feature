@@ -78,3 +78,14 @@ Feature: Accessibility tests - Common list
       | step-sequence |
       | icon          |
       | button toggle |
+
+  @accessibility
+  Scenario Outline: Component <component> default_story
+    When I open "<component>" component page "default_story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component  |
+      | AppWrapper |
+      | Detail     |
+      | Heading    |
+      | Help       |

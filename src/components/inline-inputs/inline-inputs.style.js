@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { StyledLabelContainer } from '../../__experimental__/components/label/label.style';
-import baseTheme from '../../style/themes/base';
+import styled from "styled-components";
+import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import baseTheme from "../../style/themes/base";
 
 const StyledInlineInputs = styled.div`
   display: flex;
@@ -100,7 +100,7 @@ const StyledInlineInputs = styled.div`
 `;
 
 StyledInlineInputs.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledInlineInputs;

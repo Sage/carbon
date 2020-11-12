@@ -1,20 +1,20 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Row, Column } from './row';
+import React from "react";
+import { shallow } from "enzyme";
+import { Row, Column } from "./row";
 
-describe('Row', () => {
+describe("Row", () => {
   let wrapper;
 
-  describe('render', () => {
-    it('renders a parent div with calculated CSS classes', () => {
+  describe("render", () => {
+    it("renders a parent div with calculated CSS classes", () => {
       wrapper = shallow(<Row />);
       expect(wrapper).toMatchSnapshot();
     });
   });
 
-  describe('columns', () => {
-    describe('when column number is not passed', () => {
-      it('determines the columns from the number of children', () => {
+  describe("columns", () => {
+    describe("when column number is not passed", () => {
+      it("determines the columns from the number of children", () => {
         wrapper = shallow(
           <Row>
             <Column />
@@ -27,10 +27,10 @@ describe('Row', () => {
       });
     });
 
-    describe('when column number is passed', () => {
-      it('sets the passed column as the number of columns', () => {
+    describe("when column number is passed", () => {
+      it("sets the passed column as the number of columns", () => {
         wrapper = shallow(
-          <Row columns='50'>
+          <Row columns="50">
             <Column />
           </Row>
         );
@@ -38,32 +38,28 @@ describe('Row', () => {
       });
     });
 
-    describe('when a null column is passed', () => {
-      it('ignores the null child', () => {
-        const columns = [<Column key='0' />, <Column key='1' />, null];
+    describe("when a null column is passed", () => {
+      it("ignores the null child", () => {
+        const columns = [<Column key="0" />, <Column key="1" />, null];
 
-        wrapper = shallow(
-          <Row>
-            { columns }
-          </Row>
-        );
+        wrapper = shallow(<Row>{columns}</Row>);
 
         expect(wrapper).toMatchSnapshot();
       });
     });
   });
 
-  describe('gutter', () => {
-    it('applies a gutter class', () => {
+  describe("gutter", () => {
+    it("applies a gutter class", () => {
       wrapper = shallow(<Row />);
-      wrapper.setProps({ gutter: 'small' });
+      wrapper.setProps({ gutter: "small" });
       expect(wrapper).toMatchSnapshot();
     });
   });
 
-  describe('columnDivide', () => {
-    describe('when columnDivide is true', () => {
-      it('passes columnDivide to its children', () => {
+  describe("columnDivide", () => {
+    describe("when columnDivide is true", () => {
+      it("passes columnDivide to its children", () => {
         wrapper = shallow(
           <Row>
             <Column />
@@ -75,14 +71,14 @@ describe('Row', () => {
     });
   });
 
-  describe('columnClasses', () => {
-    it('passes the prop to its children', () => {
+  describe("columnClasses", () => {
+    it("passes the prop to its children", () => {
       wrapper = shallow(
         <Row>
           <Column />
         </Row>
       );
-      wrapper.setProps({ columnClasses: 'myChildClasses' });
+      wrapper.setProps({ columnClasses: "myChildClasses" });
       expect(wrapper).toMatchSnapshot();
     });
   });

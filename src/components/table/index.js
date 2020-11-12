@@ -4,5 +4,5 @@ export {
   TableCell,
   TableHeader,
   TableSubheader,
-  DraggableTableCell
-} from './table.component';
+  DraggableTableCell,
+} from "./table.component";

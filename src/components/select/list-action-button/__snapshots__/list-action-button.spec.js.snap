@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Option renders properly 1`] = `
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: #008200;
+  background-color: transparent;
+}
+
+.c4:hover {
+  color: #006800;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e940";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c2 {
+  padding-left: 24px;
+  padding-right: 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #008200;
+  color: #008200;
+  font-size: 14px;
+  min-height: 40px;
+}
+
+.c2:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c2 ~ .c1 {
+  margin-left: 16px;
+}
+
+.c2:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c2:hover .c3 {
+  color: #FFFFFF;
+}
+
+.c2 .c3 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c2 .c3 svg {
+  margin-top: 0;
+}
+
+.c0 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top: 1px solid #CCD6DB;
+  box-shadow: 0 0px 0 0 rgba(0,0,0,0),0 -8px 8px 0 rgba(0,0,0,0.03);
+}
+
+.c0 .c3 {
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+}
+
+.c0 .c1:hover {
+  background-color: #F2F5F6;
+}
+
+.c0 .c1:hover .c3 {
+  color: rgba(0,0,0,0.9);
+}
+
+<div
+  className="c0"
+>
+  <button
+    className="c1 c2"
+    data-component="button"
+    disabled={false}
+    onClick={[Function]}
+    role="button"
+    size="medium"
+    type="button"
+  >
+    <span>
+      <span
+        data-element="main-text"
+      >
+        Add New Item
+      </span>
+    </span>
+    <span
+      className="c3 c4"
+      data-component="icon"
+      data-element="add"
+      disabled={false}
+      fontSize="small"
+      type="add"
+    />
+  </button>
+</div>
+`;

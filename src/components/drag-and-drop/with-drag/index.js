@@ -1,1 +1,1 @@
-export { default } from './with-drag';
+export { default } from "./with-drag";

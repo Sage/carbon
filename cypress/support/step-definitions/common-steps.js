@@ -352,7 +352,8 @@ Then('label width on preview is {int}', (width) => {
 });
 
 Then('inputWidth on preview is {int}', (width) => {
-  commonDataElementInputPreviewNoIframe().parent().should('have.css', 'flex').should('contain', `${width}%`);
+  commonDataElementInputPreviewNoIframe().parent().parent().should('have.css', 'flex')
+    .should('contain', `${width}%`);
 });
 
 Then('label is inline', () => {

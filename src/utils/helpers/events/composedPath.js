@@ -10,7 +10,8 @@ export default (ev) => {
   // }))
   // In this example composedPath would show that the event started at document.body
   // but it would trigger the eventListener on document
-  let element = (ev.detail && ev.detail.enzymeTestingTarget) || ev.target || null;
+  let element =
+    (ev.detail && ev.detail.enzymeTestingTarget) || ev.target || null;
 
   if (!element || !element.parentElement) {
     return [];

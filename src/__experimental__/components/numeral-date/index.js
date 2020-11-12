@@ -1,1 +1,1 @@
-export { default } from './numeral-date.component';
+export { default } from "./numeral-date.component";

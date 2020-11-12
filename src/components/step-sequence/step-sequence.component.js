@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import StepSequenceStyle from './step-sequence.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import PropTypes from "prop-types";
+import React from "react";
+import StepSequenceStyle from "./step-sequence.style";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 const StepSequence = (props) => {
   return (
-    <StepSequenceStyle data-component='step-sequence' { ...props }>
-      {React.Children.map(props.children, child => (
+    <StepSequenceStyle data-component="step-sequence" {...props}>
+      {React.Children.map(props.children, (child) =>
         React.cloneElement(
           child,
           {
             ...child.props,
-            orientation: props.orientation
+            orientation: props.orientation,
           },
           child.props.children
         )
-      ))}
+      )}
     </StepSequenceStyle>
   );
 };
@@ -24,11 +24,11 @@ StepSequence.propTypes = {
   /** Step sequence items to be rendered */
   children: PropTypes.node,
   /** The direction that step sequence items should be rendered */
-  orientation: PropTypes.oneOf(OptionsHelper.orientation)
+  orientation: PropTypes.oneOf(OptionsHelper.orientation),
 };
 
 StepSequence.defaultProps = {
-  orientation: 'horizontal'
+  orientation: "horizontal",
 };
 
 export default StepSequence;

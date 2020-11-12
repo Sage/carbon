@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Input, InputPresentation } from '../input';
-import InputIconToggle from '../input-icon-toggle';
-import FormField from '../form-field';
-import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import Logger from '../../../utils/logger/logger';
-import { InputBehaviour } from '../../../__internal__/input-behaviour';
-import StyledPrefix from './__internal__/prefix.style';
+import React from "react";
+import PropTypes from "prop-types";
+import { Input, InputPresentation } from "../input";
+import InputIconToggle from "../input-icon-toggle";
+import FormField from "../form-field";
+import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import Logger from "../../../utils/logger/logger";
+import { InputBehaviour } from "../../../__internal__/input-behaviour";
+import StyledPrefix from "./__internal__/prefix.style";
 
 let deprecatedWarnTriggered = false;
 
@@ -27,46 +27,54 @@ const Textbox = ({
   prefix,
   adaptiveLabelBreakpoint,
   required,
+  positionedChildren,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
-    Logger.deprecate('`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed.');
+    Logger.deprecate(
+      "`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed."
+    );
   }
 
   return (
     <InputBehaviour>
       <FormField
-        childOfForm={ childOfForm }
-        isOptional={ isOptional }
-        { ...props }
-        useValidationIcon={ validationOnLabel }
-        labelWidth={ labelWidth }
-        adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
-        styleOverride={ styleOverride }
-        isRequired={ required }
+        childOfForm={childOfForm}
+        isOptional={isOptional}
+        {...props}
+        useValidationIcon={validationOnLabel}
+        labelWidth={labelWidth}
+        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+        styleOverride={styleOverride}
+        isRequired={required}
       >
         <InputPresentation
-          type='text'
-          { ...removeParentProps(props) }
-          styleOverride={ styleOverride.input }
-          inputWidth={ inputWidth || (100 - labelWidth) }
+          type="text"
+          {...removeParentProps(props)}
+          styleOverride={styleOverride.input}
+          inputWidth={inputWidth || 100 - labelWidth}
+          positionedChildren={positionedChildren}
         >
-          { leftChildren }
-          { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
+          {leftChildren}
+          {prefix ? (
+            <StyledPrefix data-element="textbox-prefix">{prefix}</StyledPrefix>
+          ) : null}
           <Input
-            { ...(required && { required }) }
-            { ...removeParentProps(props) }
-            placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
-            aria-invalid={ !!props.error }
-            value={ visibleValue(value, formattedValue) }
+            {...(required && { required })}
+            {...removeParentProps(props)}
+            placeholder={
+              props.disabled || props.readOnly ? "" : props.placeholder
+            }
+            aria-invalid={!!props.error}
+            value={visibleValue(value, formattedValue)}
           />
-          { children }
+          {children}
           <InputIconToggle
-            { ...removeParentProps(props) }
-            useValidationIcon={ !validationOnLabel }
-            onClick={ iconOnClick || props.onClick }
-            inputIcon={ inputIcon }
+            {...removeParentProps(props)}
+            useValidationIcon={!validationOnLabel}
+            onClick={iconOnClick || props.onClick}
+            inputIcon={inputIcon}
           />
         </InputPresentation>
       </FormField>
@@ -75,15 +83,15 @@ const Textbox = ({
 };
 
 function removeParentProps(props) {
-  delete props['data-element'];
-  delete props['data-component'];
-  delete props['data-role'];
+  delete props["data-element"];
+  delete props["data-component"];
+  delete props["data-role"];
   delete props.className;
   return props;
 }
 
 function visibleValue(value, formattedValue) {
-  return (typeof formattedValue === 'string') ? formattedValue : value;
+  return typeof formattedValue === "string" ? formattedValue : value;
 }
 
 Textbox.propTypes = {
@@ -96,7 +104,7 @@ Textbox.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
-    PropTypes.array // Allows the textbox to be used in the Multi-Select component
+    PropTypes.array, // Allows the textbox to be used in the Multi-Select component
   ]),
   /** The unformatted value  */
   rawValue: PropTypes.string,
@@ -154,6 +162,13 @@ Textbox.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Placeholder string to be displayed in input */
   placeholder: PropTypes.string,
+  /**
+   * Container for DatePicker or SelectList components
+   * @private
+   * @ignore
+   *
+   */
+  positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
@@ -170,15 +185,15 @@ Textbox.propTypes = {
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
-  size: 'medium',
+  size: "medium",
   styleOverride: {},
-  validationOnLabel: false
+  validationOnLabel: false,
 };
 
 export { Textbox as OriginalTextbox };

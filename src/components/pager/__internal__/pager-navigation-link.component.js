@@ -1,9 +1,7 @@
-import React, { useRef, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import {
-  StyledPagerLinkStyles
-} from './pager.style';
+import React, { useRef, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import { StyledPagerLinkStyles } from "./pager.style";
 
 const PagerNavigationLink = ({
   type,
@@ -17,21 +15,21 @@ const PagerNavigationLink = ({
   const linkRef = useRef();
   const navLinkConfig = {
     first: {
-      text: I18n.t('pager.first', { defaultValue: 'First' }),
-      destination: '1'
+      text: I18n.t("pager.first", { defaultValue: "First" }),
+      destination: "1",
     },
     last: {
-      text: I18n.t('pager.last', { defaultValue: 'Last' }),
-      destination: pageCount
+      text: I18n.t("pager.last", { defaultValue: "Last" }),
+      destination: pageCount,
     },
     next: {
-      text: I18n.t('pager.next', { defaultValue: 'Next' }),
-      destination: currentPage + 1
+      text: I18n.t("pager.next", { defaultValue: "Next" }),
+      destination: currentPage + 1,
     },
     previous: {
-      text: I18n.t('pager.previous', { defaultValue: 'Previous' }),
-      destination: currentPage - 1
-    }
+      text: I18n.t("pager.previous", { defaultValue: "Previous" }),
+      destination: currentPage - 1,
+    },
   };
 
   const disabled = useCallback(() => {
@@ -40,11 +38,11 @@ const PagerNavigationLink = ({
     }
 
     if (currentPage === 1) {
-      return type === 'previous' || type === 'first';
+      return type === "previous" || type === "first";
     }
 
     if (currentPage === pageCount) {
-      return type === 'next' || type === 'last';
+      return type === "next" || type === "last";
     }
 
     return false;
@@ -65,30 +63,33 @@ const PagerNavigationLink = ({
 
   return (
     <StyledPagerLinkStyles
-      data-element={ `pager-link-${type}` }
-      disabled={ disabled() }
-      onClick={ handleOnCLick }
-      ref={ linkRef }
-      { ...props }
+      data-element={`pager-link-${type}`}
+      disabled={disabled()}
+      onClick={handleOnCLick}
+      ref={linkRef}
+      {...props}
     >
-      { text }
+      {text}
     </StyledPagerLinkStyles>
   );
 };
 
 PagerNavigationLink.propTypes = {
   /** Type of Pagination link to be allowed for navigation */
-  type: PropTypes.oneOf(['next', 'previous', 'first', 'last']).isRequired,
+  type: PropTypes.oneOf(["next", "previous", "first", "last"]).isRequired,
   /** Current visible page */
-  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   /** Count of all the pages  */
-  pageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  pageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   /** Pagination page size */
-  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   /** onClick Callback function */
   onClick: PropTypes.func,
   /** onPagination Callback to process pagination  */
-  onPagination: PropTypes.func
+  onPagination: PropTypes.func,
 };
 
 export default PagerNavigationLink;

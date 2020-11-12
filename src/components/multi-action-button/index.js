@@ -1,1 +1,1 @@
-export { default } from './multi-action-button.component';
+export { default } from "./multi-action-button.component";

@@ -1,4 +1,4 @@
-import Browser from '../browser';
+import Browser from "../browser";
 
 /**
  * A shouldComponentUpdate helper. Run this method with your instance, nextProps and nextState
@@ -14,12 +14,14 @@ const ScrollablePartent = {
       return null;
     }
     const style = Browser.getWindow().getComputedStyle(element);
-    const isElementScrollable = style && style.position !== 'absolute'
-      && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX);
+    const isElementScrollable =
+      style &&
+      style.position !== "absolute" &&
+      /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX);
     if (isElementScrollable) {
       return element;
     }
     return this.searchForScrollableParent(element.parentElement);
-  }
+  },
 };
 export default ScrollablePartent;

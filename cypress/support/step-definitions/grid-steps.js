@@ -42,7 +42,7 @@ Then('pod {int} has width from column {int} to column {int}', (index, colStart, 
 
 Then('grid has {string} set to {int}', (property, value) => {
   switch (property) {
-    case 'margin':
+    case 'padding':
       gridComponent().should('have.css', property, `${value}px`);
       break;
     case 'grid-gap':

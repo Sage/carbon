@@ -3,6 +3,8 @@ import Option from '../option';
 import { SpacingProps } from '../../../utils/helpers/options-helper';
 
 export interface SimpleSelectProps extends SpacingProps {
+  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
+  disablePortal?: boolean;
   /** Id attribute of the input element */
   id?: string;
   /** Name attribute of the input element */

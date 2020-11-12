@@ -1,1 +1,1 @@
-export { default } from './tabs-header.component';
+export { default } from "./tabs-header.component";

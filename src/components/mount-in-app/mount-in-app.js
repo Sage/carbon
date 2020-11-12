@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 
 class MountInApp extends React.Component {
   static propTypes = {
@@ -12,8 +12,8 @@ class MountInApp extends React.Component {
     /**
      * ID of the element in which the children components will be rendered.
      */
-    targetId: PropTypes.string
-  }
+    targetId: PropTypes.string,
+  };
 
   componentDidMount() {
     if (this.targetElement) {
@@ -27,8 +27,8 @@ class MountInApp extends React.Component {
 
   get contentHtml() {
     return (
-      <div data-component='mount-in-app' className='carbon-mount-in-app'>
-        { this.props.children }
+      <div data-component="mount-in-app" className="carbon-mount-in-app">
+        {this.props.children}
       </div>
     );
   }

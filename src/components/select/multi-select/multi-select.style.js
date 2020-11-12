@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import StyledPill from '../../pill/pill.style';
-import { baseTheme } from '../../../style/themes';
+import styled from "styled-components";
+import StyledPill from "../../pill/pill.style";
+import { baseTheme } from "../../../style/themes";
 
 const StyledMultiSelect = styled.div`
   position: relative;
@@ -18,7 +18,7 @@ const StyledSelectPillContainer = styled.div`
 `;
 
 StyledSelectPillContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledMultiSelect;

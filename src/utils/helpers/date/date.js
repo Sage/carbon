@@ -1,14 +1,13 @@
-import I18n from 'i18n-js';
-import moment from 'moment';
-import { merge } from 'lodash';
+import I18n from "i18n-js";
+import moment from "moment";
+import { merge } from "lodash";
 
-const isoDateFormat = 'YYYY-MM-DD';
+const isoDateFormat = "YYYY-MM-DD";
 
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
  */
 const DateHelper = {
-
   /**
    * Sanitizes all valid date separators ( . - 'whitespace' ) replacing them
    * with a slash
@@ -19,8 +18,10 @@ const DateHelper = {
    * @return {String} sanitized input
    */
   sanitizeDateInput: (value) => {
-    if (!value) { return ''; }
-    return value.replace(/[-.\s]/g, '/').toLowerCase();
+    if (!value) {
+      return "";
+    }
+    return value.replace(/[-.\s]/g, "/").toLowerCase();
   },
 
   /**
@@ -55,7 +56,7 @@ const DateHelper = {
    * @param {String} value current value e.g. 2017-08-23
    * @return {Object} The Date object
    */
-  stringToDate: value => moment(value).toDate(),
+  stringToDate: (value) => moment(value).toDate(),
 
   /**
    * Formats the given date string to the specified format
@@ -67,9 +68,7 @@ const DateHelper = {
    * @return {String} formatted date
    */
   formatDateString: (value, formatTo = isoDateFormat) => {
-    return (
-      moment(new Date(value).getTime()).format(formatTo)
-    );
+    return moment(new Date(value).getTime()).format(formatTo);
   },
 
   /**
@@ -100,7 +99,8 @@ const DateHelper = {
    * @return {Boolean}
    */
   withinRange: (value, limit, units) => {
-    const momentValue = DateHelper._parseDate(value), today = moment();
+    const momentValue = DateHelper._parseDate(value),
+      today = moment();
 
     const difference = Math.abs(today.diff(momentValue, units));
     return difference < limit;
@@ -120,7 +120,7 @@ const DateHelper = {
       formats: DateHelper._dateFormats(),
       locale: I18n.locale,
       strict: true,
-      sanitize: true
+      sanitize: true,
     };
   },
 
@@ -132,23 +132,67 @@ const DateHelper = {
    */
   _defaultDateFormats: () => {
     return [
-      'DDMMYYYY', 'DDMMYY', 'DD/MM/YYYY', 'DD/MM/YY',
-      'MMDDYYYY', 'MMDDYY', 'MM/DD/YYYY', 'MM/DD/YY',
-      'DDMMM', 'DD/MMM', 'DDMM', 'DD/MM',
-      'YYYYMMDD', 'YYYY/MM/DD',
-      'D/MM/YYYY', 'D/M/YYYY', 'D/MM/YY', 'D/M/YY',
-      'DD/M/YYYY', 'DD/M/YY', 'DD/M/YY',
-      'D/MMM/YYYY', 'DD/MMM/YYYY', 'DD/MMM/YY',
-      'D/MMMM/YYYY', 'DD/MMMM/YYYY', 'DD/MMMM/YY',
-      'MMM/YYYY', 'MMM/YY', 'MMMM/YYYY', 'MMMM/YY',
-      'Do/MMM/YYYY', 'Do/MMM/YY', 'Do/M/YYYY', 'Do/M/YY',
-      'Do/MM/YYYY', 'Do/MM/YY', 'Do/MMMM/YYYY', 'Do/MMMM/YY',
-      'MMMM/Do/YYYY', 'MMMM/Do/YY', 'MMMM/Do',
-      'MMM/Do/YYYY', 'MMM/Do/YY', 'MMM/Do',
-      'Do/MMM', 'D/MMM', 'D/MM', 'D/M',
-      'Do/MMMM', 'Do/MM', 'Do/M',
-      'D/MMMM', 'DD/MMMM', 'DD/MMM', 'DD/M',
-      'MMM', 'MMMM', 'DD', 'Do', 'D'
+      "DDMMYYYY",
+      "DDMMYY",
+      "DD/MM/YYYY",
+      "DD/MM/YY",
+      "MMDDYYYY",
+      "MMDDYY",
+      "MM/DD/YYYY",
+      "MM/DD/YY",
+      "DDMMM",
+      "DD/MMM",
+      "DDMM",
+      "DD/MM",
+      "YYYYMMDD",
+      "YYYY/MM/DD",
+      "D/MM/YYYY",
+      "D/M/YYYY",
+      "D/MM/YY",
+      "D/M/YY",
+      "DD/M/YYYY",
+      "DD/M/YY",
+      "DD/M/YY",
+      "D/MMM/YYYY",
+      "DD/MMM/YYYY",
+      "DD/MMM/YY",
+      "D/MMMM/YYYY",
+      "DD/MMMM/YYYY",
+      "DD/MMMM/YY",
+      "MMM/YYYY",
+      "MMM/YY",
+      "MMMM/YYYY",
+      "MMMM/YY",
+      "Do/MMM/YYYY",
+      "Do/MMM/YY",
+      "Do/M/YYYY",
+      "Do/M/YY",
+      "Do/MM/YYYY",
+      "Do/MM/YY",
+      "Do/MMMM/YYYY",
+      "Do/MMMM/YY",
+      "MMMM/Do/YYYY",
+      "MMMM/Do/YY",
+      "MMMM/Do",
+      "MMM/Do/YYYY",
+      "MMM/Do/YY",
+      "MMM/Do",
+      "Do/MMM",
+      "D/MMM",
+      "D/MM",
+      "D/M",
+      "Do/MMMM",
+      "Do/MM",
+      "Do/M",
+      "D/MMMM",
+      "DD/MMMM",
+      "DD/MMM",
+      "DD/M",
+      "MMM",
+      "MMMM",
+      "DD",
+      "Do",
+      "D",
     ];
   },
 
@@ -168,24 +212,27 @@ const DateHelper = {
   },
 
   /**
-  * Formats valid for entry
-  *
-  * @private
-  * @method validFormats
-  * @return {Array} formatted date strings
-  */
+   * Formats valid for entry
+   *
+   * @private
+   * @method validFormats
+   * @return {Array} formatted date strings
+   */
   _dateFormats: () => {
-    return I18n.t('date.formats.inputs', { defaultValue: DateHelper._defaultDateFormats() });
+    return I18n.t("date.formats.inputs", {
+      defaultValue: DateHelper._defaultDateFormats(),
+    });
   },
 
   formatDateToCurrentLocale(value) {
-    const defaultDateFormat = 'DD/MM/YYYY';
+    const defaultDateFormat = "DD/MM/YYYY";
 
-    const visibleFormat = I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
+    const visibleFormat = I18n.t("date.formats.javascript", {
+      defaultValue: defaultDateFormat,
+    }).toUpperCase();
 
     return DateHelper.formatValue(value, visibleFormat);
-  }
-
+  },
 };
 
 export default DateHelper;

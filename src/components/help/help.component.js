@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import Icon from '../icon';
-import tagComponent from '../../utils/helpers/tags';
-import StyledHelp from './help.style';
-import Events from '../../utils/helpers/events/events';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import Icon from "../icon";
+import tagComponent from "../../utils/helpers/tags";
+import StyledHelp from "./help.style";
+import Events from "../../utils/helpers/events/events";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 const Help = (props) => {
   const helpElement = useRef(null);
@@ -19,18 +19,18 @@ const Help = (props) => {
     tooltipPosition,
     tooltipAlign,
     isFocused,
-    type
+    type,
   } = props;
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
 
     return function cleanup() {
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   });
 
-  const tagType = as || (href && 'a');
+  const tagType = as || (href && "a");
 
   function handleKeyPress(ev) {
     if (Events.isEscKey(ev)) {
@@ -47,30 +47,30 @@ const Help = (props) => {
 
   return (
     <StyledHelp
-      role='tooltip'
-      className={ className }
-      as={ tagType }
-      href={ href }
-      id={ helpId }
-      target='_blank'
-      rel='noopener noreferrer'
-      ref={ helpElement }
-      onClick={ () => {
+      role="tooltip"
+      className={className}
+      as={tagType}
+      href={href}
+      id={helpId}
+      target="_blank"
+      rel="noopener noreferrer"
+      ref={helpElement}
+      onClick={() => {
         helpElement.current.focus();
-      } }
-      onFocus={ handleFocusBlur(true) }
-      onBlur={ handleFocusBlur(false) }
-      { ...tagComponent('help', props) }
-      tabIndex={ tabIndex }
-      value={ children }
-      aria-label={ children }
+      }}
+      onFocus={handleFocusBlur(true)}
+      onBlur={handleFocusBlur(false)}
+      {...tagComponent("help", props)}
+      tabIndex={tabIndex}
+      value={children}
+      aria-label={children}
     >
       <Icon
-        type={ type }
-        tooltipMessage={ children }
-        tooltipPosition={ tooltipPosition }
-        tooltipAlign={ tooltipAlign }
-        tooltipVisible={ isFocused || isTooltipVisible }
+        type={type}
+        tooltipMessage={children}
+        tooltipPosition={tooltipPosition}
+        tooltipAlign={tooltipAlign}
+        tooltipVisible={isFocused || isTooltipVisible}
       />
     </StyledHelp>
   );
@@ -96,14 +96,14 @@ Help.propTypes = {
   /** A boolean recived from IconWrapper */
   isFocused: PropTypes.bool,
   /** Icon to display, can be received from label component */
-  type: PropTypes.oneOf(OptionsHelper.icons)
+  type: PropTypes.oneOf(OptionsHelper.icons),
 };
 
 Help.defaultProps = {
-  tooltipPosition: 'top',
-  tooltipAlign: 'center',
+  tooltipPosition: "top",
+  tooltipAlign: "center",
   tabIndex: 0,
-  type: 'help'
+  type: "help",
 };
 
 export default Help;

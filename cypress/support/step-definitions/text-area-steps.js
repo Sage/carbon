@@ -1,5 +1,5 @@
 import {
-  textarea, textareaChildren, characterLimitDefaultTextarea, 
+  textarea, textareaChildren, characterLimitDefaultTextarea,
 } from '../../locators/textarea';
 import { getDataElementByValue } from '../../locators';
 
@@ -59,7 +59,7 @@ Then('characterLimit for default Textarea is not set to {word}', (length) => {
 });
 
 Then('Textarea inputWidth is set to {string}', (width) => {
-  textarea().should('have.css', 'flex', `0 0 ${width}%`);
+  textarea().parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 Then('Textarea component is labelInline', () => {

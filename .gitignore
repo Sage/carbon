@@ -17,7 +17,3 @@ src/style-config/assets.scss
 cypress/fixtures/example*
 cypress/screenshots
 .vscode/
-
-#Allure reports
-allure-report
-allure-results

@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Immutable from 'immutable';
-import I18n from 'i18n-js';
-import ActionToolbar from '../action-toolbar';
-import Icon from '../icon';
-import Link from '../link';
-import StyledTable, { StyledInternalTableWrapper } from './table.style';
-import TableRow from './table-row';
-import TableCell from './table-cell';
-import TableHeader from './table-header';
-import TableSubheader from './table-subheader';
-import DraggableTableCell from './draggable-table-cell';
-import Pager from '../pager';
-import Loader from '../loader';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import React from "react";
+import PropTypes from "prop-types";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Immutable from "immutable";
+import I18n from "i18n-js";
+import ActionToolbar from "../action-toolbar";
+import Icon from "../icon";
+import Link from "../link";
+import StyledTable, { StyledInternalTableWrapper } from "./table.style";
+import TableRow from "./table-row";
+import TableCell from "./table-cell";
+import TableHeader from "./table-header";
+import TableSubheader from "./table-subheader";
+import DraggableTableCell from "./draggable-table-cell";
+import Pager from "../pager";
+import Loader from "../loader";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 class Table extends React.Component {
   state = {
-    selectedCount: 0
-  }
+    selectedCount: 0,
+  };
 
   getChildContext = () => {
     return {
@@ -36,9 +36,9 @@ class Table extends React.Component {
       selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
       sortOrder: this.sortOrder,
-      passiveData: this.isPassive
+      passiveData: this.isPassive,
     };
-  }
+  };
 
   componentDidMount() {
     this.resizeTable();
@@ -51,7 +51,7 @@ class Table extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     // if filter has changed, update the data
     if (!Immutable.is(this.props.filter, nextProps.filter)) {
-      this.emitOnChangeCallback('filter', this.emitOptions(nextProps));
+      this.emitOnChangeCallback("filter", this.emitOptions(nextProps));
     }
 
     if (this.props.highlightable && nextProps.highlightable === false) {
@@ -80,18 +80,18 @@ class Table extends React.Component {
     const options = this.emitOptions();
     options.sortedColumn = sortedColumn;
     options.sortOrder = sortOrder;
-    this.emitOnChangeCallback('table', options);
-  }
+    this.emitOnChangeCallback("table", options);
+  };
 
   onPagination = (currentPage, pageSize, element) => {
-    if (this.props.onPageSizeChange && element === 'size') {
+    if (this.props.onPageSizeChange && element === "size") {
       this.props.onPageSizeChange(pageSize);
     }
     const options = this.emitOptions();
     options.currentPage = currentPage;
     options.pageSize = pageSize;
-    this.emitOnChangeCallback('pager', options);
-  }
+    this.emitOnChangeCallback("pager", options);
+  };
 
   get sortedColumn() {
     return this.props.sortedColumn;
@@ -113,23 +113,23 @@ class Table extends React.Component {
     }
 
     this.props.onChange(element, options);
-  }
+  };
 
   attachActionToolbar = (comp) => {
     this.actionToolbarComponent = comp;
-  }
+  };
 
   detachActionToolbar = () => {
     this.actionToolbarComponent = null;
-  }
+  };
 
   attachToTable = (id, row) => {
     this.rows[id] = row;
-  }
+  };
 
   detachFromTable = (id) => {
     delete this.rows[id];
-  }
+  };
 
   refresh = () => {
     this.resetHighlightedRow();
@@ -137,7 +137,7 @@ class Table extends React.Component {
     if (this.actionToolbarComponent) {
       this.actionToolbarComponent.setState({
         total: 0,
-        selected: []
+        selected: [],
       });
     }
 
@@ -145,8 +145,8 @@ class Table extends React.Component {
       const _row = this.rows[key];
       _row.setState({ selected: false });
     }
-    this.emitOnChangeCallback('refresh', this.emitOptions());
-  }
+    this.emitOnChangeCallback("refresh", this.emitOptions());
+  };
 
   resetHighlightedRow = () => {
     if (this.highlightedRow.row && this.rows[this.highlightedRow.row.rowID]) {
@@ -155,9 +155,9 @@ class Table extends React.Component {
 
     this.highlightedRow = {
       id: null,
-      row: null
+      row: null,
     };
-  }
+  };
 
   highlightRow = (id, row) => {
     let state = true;
@@ -174,18 +174,20 @@ class Table extends React.Component {
 
     this.highlightedRow = {
       id,
-      row
+      row,
     };
 
     if (this.props.onHighlight) {
       this.props.onHighlight(id, state, row);
     }
-  }
+  };
 
   selectRow = (id, row, state, skipCallback) => {
     const isSelected = this.selectedRows[id] !== undefined;
 
-    if (state === isSelected) { return; }
+    if (state === isSelected) {
+      return;
+    }
 
     if (this.selectAllComponent) {
       this.selectAllComponent.setState({ selected: false });
@@ -205,14 +207,14 @@ class Table extends React.Component {
 
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: this.selectedRows
+        selected: this.selectedRows,
       });
     }
 
     if (this.props.onSelect && !skipCallback) {
       this.props.onSelect(this.selectedRows);
     }
-  }
+  };
 
   selectAll = (row) => {
     const selectState = !row.state.selected;
@@ -228,24 +230,23 @@ class Table extends React.Component {
 
     this.selectAllComponent = selectState ? row : null;
 
-
     if (this.actionToolbarComponent) {
       const keys = Object.keys(this.selectedRows);
 
       this.actionToolbarComponent.setState({
         total: keys.length,
-        selected: this.selectedRows
+        selected: this.selectedRows,
       });
     }
 
     if (this.props.onSelect) {
       this.props.onSelect(this.selectedRows);
     }
-  }
+  };
 
   checkSelection = (id, row) => {
     const isSelected = this.selectedRows[id] !== undefined,
-        isHighlighted = this.highlightedRow.id === id;
+      isHighlighted = this.highlightedRow.id === id;
 
     if (isSelected !== row.state.selected) {
       row.setState({ selected: isSelected });
@@ -254,10 +255,10 @@ class Table extends React.Component {
     if (isHighlighted !== row.state.highlighted) {
       row.setState({ highlighted: isHighlighted });
     }
-  }
+  };
 
   resetTableHeight() {
-    this._wrapper.style.minHeight = '0';
+    this._wrapper.style.minHeight = "0";
     this.tableHeight = 0;
     setTimeout(() => {
       this.resizeTable();
@@ -265,8 +266,11 @@ class Table extends React.Component {
   }
 
   resizeTable() {
-    if (!this._table) { return; }
-    const shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
+    if (!this._table) {
+      return;
+    }
+    const shrink =
+      this.props.shrink && this._table.offsetHeight < this.tableHeight;
 
     if (shrink || this._table.offsetHeight > this.tableHeight) {
       this.tableHeight = this._table.offsetHeight;
@@ -275,7 +279,9 @@ class Table extends React.Component {
   }
 
   shouldResetTableHeight(prevProps) {
-    return prevProps.size !== this.props.size || prevProps.pageSize > this.pageSize;
+    return (
+      prevProps.size !== this.props.size || prevProps.pageSize > this.pageSize
+    );
   }
 
   selectAllComponent = null;
@@ -300,11 +306,11 @@ class Table extends React.Component {
     return {
       currentPage,
       filter: props.filter ? props.filter.toJS() : {},
-      pageSize: props.pageSize || '',
-      sortOrder: props.sortOrder || '',
-      sortedColumn: props.sortedColumn || ''
+      pageSize: props.pageSize || "",
+      sortOrder: props.sortOrder || "",
+      sortedColumn: props.sortedColumn || "",
     };
-  }
+  };
 
   get pagerProps() {
     return {
@@ -313,7 +319,7 @@ class Table extends React.Component {
       pageSize: this.defaultPageSize,
       pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
       showPageSizeSelection: this.props.showPageSizeSelection,
-      totalRecords: this.props.totalRecords
+      totalRecords: this.props.totalRecords,
     };
   }
 
@@ -322,72 +328,74 @@ class Table extends React.Component {
       return this.props.pageSize;
     }
     if (this.props.pageSizeSelectionOptions) {
-      return this.props.pageSizeSelectionOptions.first().get('id');
+      return this.props.pageSizeSelectionOptions.first().get("id");
     }
-    return '10';
+    return "10";
   }
 
   get pager() {
     if (this.props.paginate) {
-      return (<Pager { ...this.pagerProps } />);
+      return <Pager {...this.pagerProps} />;
     }
     return null;
   }
 
   get isPassive() {
-    return Boolean(this.props.isPassiveData && !this.props.highlightable && !this.props.selectable);
+    return Boolean(
+      this.props.isPassiveData &&
+        !this.props.highlightable &&
+        !this.props.selectable
+    );
   }
 
   get thead() {
     if (this.props.thead) {
-      return (
-        <thead>
-          { this.props.thead }
-        </thead>
-      );
+      return <thead>{this.props.thead}</thead>;
     }
     return null;
   }
 
   get actionToolbar() {
-    if (!this.props.selectable || !this.props.actions) { return null; }
+    if (!this.props.selectable || !this.props.actions) {
+      return null;
+    }
 
     return (
       <ActionToolbar
-        total={ this.state.selectedCount }
-        actions={ this.props.actions }
+        total={this.state.selectedCount}
+        actions={this.props.actions}
       >
-        { this.props.actionToolbarChildren }
+        {this.props.actionToolbarChildren}
       </ActionToolbar>
     );
   }
 
   configureLink = (onConfigure) => {
-    if (!onConfigure) { return null; }
+    if (!onConfigure) {
+      return null;
+    }
 
     return (
       <div>
-        <Link href='#' onClick={ onConfigure }>
-          <Icon type='settings' />
+        <Link href="#" onClick={onConfigure}>
+          <Icon type="settings" />
         </Link>
       </div>
     );
-  }
+  };
 
   get loadingRow() {
     return (
       <TableRow
-        key='__loading__' selectable={ false }
-        highlightable={ false } hideMultiSelect
+        key="__loading__"
+        selectable={false}
+        highlightable={false}
+        hideMultiSelect
       >
-        <TableCell colSpan='42' align='center'>
+        <TableCell colSpan="42" align="center">
           <TransitionGroup>
-            <CSSTransition
-              classNames='table-loading'
-              timeout={ 300 }
-              appear
-            >
-              <Loader size='small' />
+            <CSSTransition classNames="table-loading" timeout={300} appear>
+              <Loader size="small" />
             </CSSTransition>
           </TransitionGroup>
         </TableCell>
@@ -401,12 +409,9 @@ class Table extends React.Component {
     }
 
     return (
-      <TableRow
-        key='__loading__' selectable={ false }
-        highlightable={ false }
-      >
-        <TableCell colSpan='42' align='center'>
-          { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
+      <TableRow key="__loading__" selectable={false} highlightable={false}>
+        <TableCell colSpan="42" align="center">
+          {I18n.t("table.no_data", { defaultValue: "No results to display" })}
         </TableCell>
       </TableRow>
     );
@@ -414,11 +419,12 @@ class Table extends React.Component {
 
   get tableContent() {
     let { children } = this.props,
-        hasChildren = children;
+      hasChildren = children;
 
     if (children && children.count) {
       const numOfChildren = children.count(),
-          onlyChildIsHeader = numOfChildren === 1 && children.first().props.as === 'header';
+        onlyChildIsHeader =
+          numOfChildren === 1 && children.first().props.as === "header";
 
       if (onlyChildIsHeader) {
         if (this._hasRetreivedData) {
@@ -440,30 +446,28 @@ class Table extends React.Component {
     if (this.props.tbody === false) {
       return this.tableContent;
     }
-    return (
-      <tbody>
-        { this.tableContent }
-      </tbody>
-    );
+    return <tbody>{this.tableContent}</tbody>;
   }
 
-  dataState = () => { }
+  dataState = () => {};
 
-  get dataComponent() { return 'table'; }
+  get dataComponent() {
+    return "table";
+  }
 
   componentTags(props) {
     return {
-      'data-component': this.dataComponent,
-      'data-element': props['data-element'],
-      'data-role': props['data-role'],
-      'data-state': this.dataState(),
-      'aria-busy': this.state.ariaBusy
+      "data-component": this.dataComponent,
+      "data-element": props["data-element"],
+      "data-role": props["data-role"],
+      "data-state": this.dataState(),
+      "aria-busy": this.state.ariaBusy,
     };
   }
 
   get caption() {
     if (this.props.caption) {
-      return <caption>{ this.props.caption }</caption>;
+      return <caption>{this.props.caption}</caption>;
     }
 
     return null;
@@ -474,32 +478,36 @@ class Table extends React.Component {
       tableType: this.props.theme,
       size: this.props.size,
       isZebra: this.props.isZebra,
-      paginate: this.props.paginate
+      paginate: this.props.paginate,
     };
 
-    if (this.props['aria-describedby']) {
-      tableProps['aria-describedby'] = this.props['aria-describedby'];
+    if (this.props["aria-describedby"]) {
+      tableProps["aria-describedby"] = this.props["aria-describedby"];
     }
 
     return (
-      <div { ...this.componentTags(this.props) }>
-        { this.actionToolbar }
+      <div {...this.componentTags(this.props)}>
+        {this.actionToolbar}
         <StyledInternalTableWrapper
-          ref={ (wrapper) => { this._wrapper = wrapper; } }
-          paginate={ this.props.paginate }
-          className={ this.props.className }
+          ref={(wrapper) => {
+            this._wrapper = wrapper;
+          }}
+          paginate={this.props.paginate}
+          className={this.props.className}
         >
-          { this.configureLink(this.props.onConfigure) }
+          {this.configureLink(this.props.onConfigure)}
           <StyledTable
-            ref={ (table) => { this._table = table; } }
-            { ...tableProps }
+            ref={(table) => {
+              this._table = table;
+            }}
+            {...tableProps}
           >
-            { this.caption }
-            { this.thead }
-            { this.tbody }
+            {this.caption}
+            {this.thead}
+            {this.tbody}
           </StyledTable>
         </StyledInternalTableWrapper>
-        { this.pager }
+        {this.pager}
       </div>
     );
   }
@@ -557,7 +565,7 @@ Table.propTypes = {
   /** A string to render as the table's caption */
   caption: PropTypes.string,
   /** The HTML id of the element that contains a description of this table. */
-  'aria-describedby': PropTypes.string,
+  "aria-describedby": PropTypes.string,
   /** Renders as 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent' */
   theme: PropTypes.oneOf(OptionsHelper.tableThemes),
   /** Used to define the tables size Renders as:  'compact', 'small', 'medium' and 'large' */
@@ -565,7 +573,7 @@ Table.propTypes = {
   /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool,
   /** Set if data is passive and requires no hover added styling */
-  isPassiveData: PropTypes.bool
+  isPassiveData: PropTypes.bool,
 };
 
 Table.childContextTypes = {
@@ -586,12 +594,12 @@ Table.childContextTypes = {
   highlightable: PropTypes.bool, // table can enable all rows to be highlightable
   sortOrder: PropTypes.string, // the current sort order applied
   sortedColumn: PropTypes.string, // the currently sorted column
-  passiveData: PropTypes.bool // Renders data as passive, without hover styling etc
+  passiveData: PropTypes.bool, // Renders data as passive, without hover styling etc
 };
 
 Table.defaultProps = {
   theme: OptionsHelper.tableThemes[0],
-  size: OptionsHelper.tableSizes[2]
+  size: OptionsHelper.tableSizes[2],
 };
 
 export {
@@ -600,5 +608,5 @@ export {
   TableCell,
   TableHeader,
   TableSubheader,
-  DraggableTableCell
+  DraggableTableCell,
 };

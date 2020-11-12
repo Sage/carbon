@@ -1,54 +1,50 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import notes from './documentation';
-import Heading from './heading';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import React from "react";
+import { text, boolean } from "@storybook/addon-knobs";
+import Heading from "./heading";
 
-Heading.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /heading(?!spec)/
-);
-
-function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    const title = text('title', 'This is a heading');
-    const children = text('children', 'This is content beneath a heading');
-    const subheader = text('subheader', 'This is a subheading');
-    const help = text('help', '');
-    const helpLink = text('helpLink', '');
-    const backLink = text('backLink', '');
-    const divider = boolean('divider', Heading.defaultProps.divider);
-    const separator = boolean('separator', Heading.defaultProps.separator);
-
-    return (
-      <Heading
-        title={ title }
-        subheader={ subheader }
-        help={ help }
-        helpLink={ helpLink }
-        backLink={ backLink }
-        divider={ divider }
-        separator={ separator }
-      >
-        {children}
-      </Heading>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
+export default {
+  title: "Heading/Test",
+  component: Heading,
+  parameters: {
+    info: {
+      disable: true,
+    },
     knobs: { escapeHTML: false },
     chromatic: {
-      disable: disableChromatic
-    }
-  };
+      disabled: true,
+    },
+  },
+};
 
-  return [name, component, metadata];
-}
+export const Basic = () => {
+  const title = text("title", "This is a heading");
+  const children = text("children", "This is content beneath a heading");
+  const subheader = text("subheader", "This is a subheading");
+  const help = text("help", "");
+  const helpLink = text("helpLink", "");
+  const backLink = text("backLink", "");
+  const divider = boolean("divider", Heading.defaultProps.divider);
+  const separator = boolean("separator", Heading.defaultProps.separator);
 
-storiesOf('Heading', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+  return (
+    <Heading
+      title={title}
+      subheader={subheader}
+      help={help}
+      helpLink={helpLink}
+      backLink={backLink}
+      divider={divider}
+      separator={separator}
+    >
+      {children}
+    </Heading>
+  );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

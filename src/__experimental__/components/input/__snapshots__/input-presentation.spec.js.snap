@@ -2,6 +2,17 @@
 
 exports[`InputPresentation classic theme applies custom styling 1`] = `
 .c0 {
+  -webkit-flex: 0 0 %;
+  -ms-flex: 0 0 %;
+  flex: 0 0 %;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c1 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -17,9 +28,7 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
@@ -31,51 +40,66 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   padding-right: 6px;
 }
 
-.c0 .c1:-webkit-autofill {
+.c1 .c2:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c0 .c1 {
+.c1 .c2 {
   height: 27px;
 }
 
-.c0:hover {
+.c1:hover {
   border-color: #99adb6;
   z-index: 2;
 }
 
-.c0:hover .c2 {
+.c1:hover .c3 {
   background-color: #255bc7;
   border-color: #255bc7;
   color: #fff;
 }
 
-.c0:hover .c2:hover {
+.c1:hover .c3:hover {
   background-color: #1e499f;
   border-color: #1e499f;
 }
 
-.c0 input::-ms-clear {
+.c1 input::-ms-clear {
   display: none;
 }
 
-.c0 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+.c1 input::-webkit-contacts-auto-fill-button {
+  display: none !important;
 }
 
 <div
   className="c0"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  role="presentation"
-  size="medium"
 >
-  sample children
+  <div
+    className="c1"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    role="presentation"
+    size="medium"
+  >
+    sample children
+  </div>
 </div>
 `;
 
 exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
 .c0 {
+  -webkit-flex: 0 0 %;
+  -ms-flex: 0 0 %;
+  flex: 0 0 %;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c1 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -91,34 +115,36 @@ exports[`InputPresentation renders presentational div and context provider for i
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
 }
 
-.c0 .c1:-webkit-autofill {
+.c1 .c2:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c0 input::-ms-clear {
+.c1 input::-ms-clear {
   display: none;
 }
 
-.c0 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+.c1 input::-webkit-contacts-auto-fill-button {
+  display: none !important;
 }
 
 <div
   className="c0"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  role="presentation"
-  size="medium"
 >
-  sample children
+  <div
+    className="c1"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    role="presentation"
+    size="medium"
+  >
+    sample children
+  </div>
 </div>
 `;

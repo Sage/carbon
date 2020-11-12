@@ -125,11 +125,11 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-top: 5px;
 }
 
-.c12[type='on'] {
+.c12[type="on"] {
   margin-left: 9px;
 }
 
-.c12[type='off'] {
+.c12[type="off"] {
   color: rgba(0,0,0,0.9);
   margin-right: 6px;
 }
@@ -162,9 +162,9 @@ exports[`Switch base theme renders as expected 1`] = `
   height: 20px;
   position: absolute;
   left: 2px;
-  -webkit-transition: -webkit-transform .4s;
-  -webkit-transition: transform .4s;
-  transition: transform .4s;
+  -webkit-transition: -webkit-transform 0.4s;
+  -webkit-transition: transform 0.4s;
+  transition: transform 0.4s;
   width: 20px;
   z-index: 1;
 }

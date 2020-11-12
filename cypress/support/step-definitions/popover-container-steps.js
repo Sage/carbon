@@ -81,11 +81,6 @@ When('I click popover close icon', () => {
   popoverCloseIcon().click();
 });
 
-Then('opening icon is hide', () => {
-  popoverSettingsIconCover().parent().should('have.attr', 'tabindex', '-1');
-  popoverContainerContent().should('be.visible');
-});
-
 When('I open popover container in NoIFrame', () => {
   popoverSettingsIconNoIFrame().click();
 });

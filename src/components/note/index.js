@@ -1,1 +1,1 @@
-export { default } from './__internal__/note.component';
+export { default } from "./__internal__/note.component";

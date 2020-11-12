@@ -1,1 +1,1 @@
-export { default } from './help.component';
+export { default } from "./help.component";

@@ -1,14 +1,14 @@
-import classNames from 'classnames';
-import escapeStringRegexp from 'escape-string-regexp';
-import React from 'react';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import escapeStringRegexp from "escape-string-regexp";
+import React from "react";
+import PropTypes from "prop-types";
 
-import Link from '../link';
-import Textbox from '../../__experimental__/components/textbox';
+import Link from "../link";
+import Textbox from "../../__experimental__/components/textbox";
 
-import MenuListItem from './menu-list-item';
-import tagComponent from '../../utils/helpers/tags';
-import './menu-list.scss';
+import MenuListItem from "./menu-list-item";
+import tagComponent from "../../utils/helpers/tags";
+import "./menu-list.scss";
 
 class MenuList extends React.Component {
   static propTypes = {
@@ -45,13 +45,13 @@ class MenuList extends React.Component {
     /**
      * The menu title
      */
-    title: PropTypes.string
+    title: PropTypes.string,
   };
 
   static defaultProps = {
     filter: false,
-    collapsible: true
-  }
+    collapsible: true,
+  };
 
   constructor(...args) {
     super(...args);
@@ -67,8 +67,8 @@ class MenuList extends React.Component {
 
   state = {
     filter: null,
-    open: this.props.initiallyOpen || false
-  }
+    open: this.props.initiallyOpen || false,
+  };
 
   /** Actions * */
   onSearch(ev) {
@@ -76,38 +76,37 @@ class MenuList extends React.Component {
   }
 
   toggleChildren() {
-    this.setState(prevState => ({ open: !prevState.open }));
+    this.setState((prevState) => ({ open: !prevState.open }));
   }
 
   /** Helpers * */
 
   showMenuItems() {
-    return (!this.props.title || !this.props.collapsible) || this.state.open;
+    return !this.props.title || !this.props.collapsible || this.state.open;
   }
 
   /** Markup * */
   filterHTML() {
-    if (!this.props.filter) { return null; }
+    if (!this.props.filter) {
+      return null;
+    }
 
     return (
-      <MenuListItem key='filter'>
+      <MenuListItem key="filter">
         <Textbox
-          onChange={ this.onSearch }
-          value={ this.state.filter || '' }
+          onChange={this.onSearch}
+          value={this.state.filter || ""}
           autoFocus
-          inputIcon='search'
-          placeholder={ this.props.filterPlaceholder }
-          size='small'
+          inputIcon="search"
+          placeholder={this.props.filterPlaceholder}
+          size="small"
         />
       </MenuListItem>
     );
   }
 
   mainClasses() {
-    return classNames(
-      'carbon-menu-list',
-      this.props.className
-    );
+    return classNames("carbon-menu-list", this.props.className);
   }
 
   menuItems() {
@@ -115,39 +114,39 @@ class MenuList extends React.Component {
       let items = this.props.children;
 
       if (this.props.filter && this.state.filter) {
-        const regex = new RegExp(escapeStringRegexp(this.state.filter), 'i');
-        items = items.filter(child => child.props.name.search(regex) > -1);
+        const regex = new RegExp(escapeStringRegexp(this.state.filter), "i");
+        items = items.filter((child) => child.props.name.search(regex) > -1);
       }
 
-      return ([
-        this.filterHTML(),
-        items
-      ]);
+      return [this.filterHTML(), items];
     }
     return null;
   }
 
   menuTitle() {
-    if (!this.props.title) { return null; }
+    if (!this.props.title) {
+      return null;
+    }
 
     return (
       <Link
-        className='carbon-menu-list__title'
-        data-element='title'
-        onClick={ this.toggleChildren }
+        className="carbon-menu-list__title"
+        data-element="title"
+        onClick={this.toggleChildren}
       >
-        { this.props.title }
+        {this.props.title}
       </Link>
     );
   }
 
   render() {
     return (
-      <div className={ this.mainClasses() } { ...tagComponent('menu-list', this.props) }>
-        { this.menuTitle() }
-        <ul className='carbon-menu-list__list'>
-          { this.menuItems() }
-        </ul>
+      <div
+        className={this.mainClasses()}
+        {...tagComponent("menu-list", this.props)}
+      >
+        {this.menuTitle()}
+        <ul className="carbon-menu-list__list">{this.menuItems()}</ul>
       </div>
     );
   }
