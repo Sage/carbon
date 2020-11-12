@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { space } from "@styled-system/prop-types";
+import propTypes from "@styled-system/prop-types";
 
 import StyledFlatTableCell from "./flat-table-cell.style";
 
@@ -30,7 +30,7 @@ const FlatTableCell = ({
 
 FlatTableCell.propTypes = {
   /** Styled system spacing props */
-  ...space,
+  ...propTypes.space,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
