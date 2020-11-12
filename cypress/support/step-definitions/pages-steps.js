@@ -28,23 +28,21 @@ When('I close page in IFrame', () => {
 
 Then('I go back', () => {
   backArrow().click();
-  cy.wait(1000, { log: DEBUG_FLAG }); // wait was added due to changing animation
-  cy.focused().click();
 });
 
 Then('other pages except {word} Page are not visible', (word) => {
   switch (word) {
     case 'First':
-      getDataElementByValueIframe('title').should('not.have.text', 'My Second Page');
-      getDataElementByValueIframe('title').should('not.have.text', 'My Third Page');
+      getDataElementByValue('title').should('not.have.text', 'My Second Page');
+      getDataElementByValue('title').should('not.have.text', 'My Third Page');
       break;
     case 'Second':
-      getDataElementByValueIframe('title').should('not.have.text', 'My First Page');
-      getDataElementByValueIframe('title').should('not.have.text', 'My Third Page');
+      getDataElementByValue('title').should('not.have.text', 'My First Page');
+      getDataElementByValue('title').should('not.have.text', 'My Third Page');
       break;
     case 'Third':
-      getDataElementByValueIframe('title').should('not.have.text', 'My First Page');
-      getDataElementByValueIframe('title').should('not.have.text', 'My Second Page');
+      getDataElementByValue('title').should('not.have.text', 'My First Page');
+      getDataElementByValue('title').should('not.have.text', 'My Second Page');
       break;
     default: throw new Error(`Unknown page ${word}`);
   }
