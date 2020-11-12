@@ -1,3 +1,10 @@
+### [48.6.3](https://github.com/Sage/carbon/compare/v48.6.2...v48.6.3) (2020-11-12)
+
+
+### Bug Fixes
+
+* **radio-button:** align legend with first radio-button ([c08ae52](https://github.com/Sage/carbon/commit/c08ae5252f55956bb2d1a0fb8d9af26e84b67d39)), closes [#3269](https://github.com/Sage/carbon/issues/3269)
+
 ### [48.6.2](https://github.com/Sage/carbon/compare/v48.6.1...v48.6.2) (2020-11-11)
 
 

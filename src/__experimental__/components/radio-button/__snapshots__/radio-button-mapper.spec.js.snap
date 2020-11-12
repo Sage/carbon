@@ -65,11 +65,6 @@ Array [
   flex-basis: 100%;
 }
 
-.c0 {
-  margin-top: 8px;
-  margin-top: 8px;
-}
-
 .c0 .c6 {
   padding-top: 1px;
 }
@@ -287,11 +282,6 @@ Array [
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c0 {
-  margin-top: 8px;
-  margin-top: 8px;
 }
 
 .c0 .c6 {
