@@ -12,7 +12,7 @@ const RadioButton = ({
   onChange,
   onBlur,
   value,
-  mt = 1,
+  mt,
   mb = 2,
   ...props
 }) => {

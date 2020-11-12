@@ -26,7 +26,7 @@ const StyledFieldsetContent = styled.div`
 
 const StyledLegendContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 8px;
   ${({ inline, width, align, rightPadding, theme }) =>
     inline &&
@@ -50,6 +50,7 @@ const StyledLegendContainer = styled.div`
     css`
       ::after {
         content: "*";
+        line-height: 24px;
         color: ${theme.colors.asterisk};
         font-weight: 700;
         margin-left: ${theme.spacing}px;
