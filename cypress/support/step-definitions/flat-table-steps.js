@@ -42,7 +42,7 @@ Then('{int} header cells are {string} visible', (count, state) => {
 
 Then('I scroll table content to right bottom', () => {
   cy.viewport(625, 450);
-  flatTable().parent().scrollTo('100%', '100%');
+  flatTable().parent().parent().scrollTo('100%', '100%');
 });
 
 Then('{int} FlatTable rows are {string} visible', (count, state) => {

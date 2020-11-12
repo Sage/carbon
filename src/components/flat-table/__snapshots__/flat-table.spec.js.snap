@@ -154,115 +154,119 @@ exports[`FlatTable when rendered with proper table data should have expected str
 }
 
 <div
-  className="c0"
+  className=""
 >
-  <table
-    className="c1"
-    data-component="flat-table"
+  <div
+    className="c0"
   >
-    <thead
-      className="c2 c3"
+    <table
+      className="c1"
+      data-component="flat-table"
     >
-      <tr
-        className="c4"
-        data-element="flat-table-row"
+      <thead
+        className="c2 c3"
       >
-        <th
-          className="c5 c6"
-          data-element="flat-table-row-header"
+        <tr
+          className="c4"
+          data-element="flat-table-row"
         >
-          <div>
-            row header
-          </div>
-        </th>
-        <th
-          className="c7 c8"
-          data-element="flat-table-header"
+          <th
+            className="c5 c6"
+            data-element="flat-table-row-header"
+          >
+            <div>
+              row header
+            </div>
+          </th>
+          <th
+            className="c7 c8"
+            data-element="flat-table-header"
+          >
+            <div>
+              header1
+            </div>
+          </th>
+          <th
+            className="c7 c8"
+            data-element="flat-table-header"
+          >
+            <div>
+              header2
+            </div>
+          </th>
+          <th
+            className="c7 c8"
+            data-element="flat-table-header"
+          >
+            <div>
+              header3
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          className="c4"
+          data-element="flat-table-row"
         >
-          <div>
-            header1
-          </div>
-        </th>
-        <th
-          className="c7 c8"
-          data-element="flat-table-header"
+          <th
+            className="c5 c6"
+            data-element="flat-table-row-header"
+          >
+            <div>
+              row header
+            </div>
+          </th>
+          <td
+            className="c9 c10"
+            data-element="flat-table-cell"
+          >
+            <div>
+              cell1
+            </div>
+          </td>
+          <td
+            className="c9 c10"
+            data-element="flat-table-cell"
+          >
+            <div>
+              cell2
+            </div>
+          </td>
+          <td
+            className="c9 c11"
+            data-element="flat-table-cell"
+            rowSpan="2"
+          >
+            <div>
+              cell3
+            </div>
+          </td>
+        </tr>
+        <tr
+          className="c4"
+          data-element="flat-table-row"
         >
-          <div>
-            header2
-          </div>
-        </th>
-        <th
-          className="c7 c8"
-          data-element="flat-table-header"
-        >
-          <div>
-            header3
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        className="c4"
-        data-element="flat-table-row"
-      >
-        <th
-          className="c5 c6"
-          data-element="flat-table-row-header"
-        >
-          <div>
-            row header
-          </div>
-        </th>
-        <td
-          className="c9 c10"
-          data-element="flat-table-cell"
-        >
-          <div>
-            cell1
-          </div>
-        </td>
-        <td
-          className="c9 c10"
-          data-element="flat-table-cell"
-        >
-          <div>
-            cell2
-          </div>
-        </td>
-        <td
-          className="c9 c11"
-          data-element="flat-table-cell"
-          rowSpan="2"
-        >
-          <div>
-            cell3
-          </div>
-        </td>
-      </tr>
-      <tr
-        className="c4"
-        data-element="flat-table-row"
-      >
-        <th
-          className="c5 c6"
-          data-element="flat-table-row-header"
-        >
-          <div>
-            row header
-          </div>
-        </th>
-        <td
-          className="c9 c10"
-          colSpan="2"
-          data-element="flat-table-cell"
-        >
-          <div>
-            cell1
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <th
+            className="c5 c6"
+            data-element="flat-table-row-header"
+          >
+            <div>
+              row header
+            </div>
+          </th>
+          <td
+            className="c9 c10"
+            colSpan="2"
+            data-element="flat-table-cell"
+          >
+            <div>
+              cell1
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 `;
