@@ -21,7 +21,16 @@ const INTERVAL = 150;
 
 const MenuItem = React.forwardRef(
   (
-    { children, icon, disabled, onClick: onClickProp, submenu, theme, ...rest },
+    {
+      children,
+      icon,
+      disabled = false,
+      onClick: onClickProp,
+      submenu,
+      theme,
+      placement = "bottom",
+      ...rest
+    },
     ref
   ) => {
     const [containerPosition, setContainerPosition] = useState(null);
@@ -34,13 +43,14 @@ const MenuItem = React.forwardRef(
     const { spacing } = theme;
 
     const alignSubmenu = useCallback(() => {
-      if (checkRef(ref)) {
-        const align =
-          submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
+      if (checkRef(ref) && checkRef(submenuRef)) {
+        const align = submenu && leftAlignSubmenu(ref, submenuRef);
         setIsLeftAligned(align);
-        setContainerPosition(getContainerPosition(ref, submenuRef, spacing));
+        setContainerPosition(
+          getContainerPosition(ref, submenuRef, spacing, placement)
+        );
       }
-    }, [ref, submenu, spacing]);
+    }, [ref, submenu, spacing, placement]);
 
     useLayoutEffect(() => {
       alignSubmenu();
@@ -184,24 +194,23 @@ function checkRef(ref) {
 }
 
 function leftAlignSubmenu(ref, submenuRef) {
-  const parentRect = ref.current.getBoundingClientRect();
+  const itemRect = ref.current.getBoundingClientRect();
   const { offsetWidth } = submenuRef.current;
-  return parentRect.left >= offsetWidth;
+
+  return itemRect.left >= offsetWidth;
 }
 
-function getContainerPosition(ref, submenuRef, spacing) {
-  if (!checkRef(ref) || !checkRef(submenuRef)) {
-    return {};
-  }
-  const parentRect = ref.current.getBoundingClientRect();
-  const { left, right } = parentRect;
-  const { offsetWidth } = submenuRef.current;
-  const position = leftAlignSubmenu(ref, submenuRef)
-    ? -offsetWidth
-    : right - left;
+function getContainerPosition(itemRef, submenuRef, spacing, placement) {
+  const { offsetWidth: parentWidth } = itemRef.current;
+  const { offsetWidth: submenuWidth } = submenuRef.current;
+  const xPositionValue = leftAlignSubmenu(itemRef, submenuRef)
+    ? -submenuWidth
+    : parentWidth;
+  const yPositionName = placement === "top" ? "bottom" : "top";
+
   return {
-    left: position,
-    top: -spacing,
+    left: xPositionValue,
+    [yPositionName]: -spacing,
     right: "auto",
   };
 }
@@ -232,13 +241,11 @@ const propTypes = {
     }
     return error;
   },
+  /** @ignore @private */
+  placement: PropTypes.oneOf(["bottom", "top"]),
 };
 
 ActionPopoverItem.propTypes = { ...propTypes };
-
-ActionPopoverItem.defaultProps = {
-  disabled: false,
-};
 
 // needed to export MenuItem to create prop tables in storybook
 MenuItem.propTypes = { ...propTypes };
