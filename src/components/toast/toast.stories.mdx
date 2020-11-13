@@ -359,6 +359,64 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
+### Dismissible with timeout:
+
+<Preview>
+  <Story
+    name="dismissible-with-timeout"
+    parameters={{ info: { disable: true }}}
+  >
+  {() => {
+    const onDismissClick = (evt) => {
+      if (!isOpen) {
+        window.scrollTo(0,0);
+      }
+      setIsOpen(!isOpen);
+      action('click')(evt);
+    };
+    const [isOpen, setIsOpen] = useState(false);
+    const handleToggle = () => {
+      if (!isOpen) {
+        window.scrollTo(0,0);
+      }
+      setIsOpen(!isOpen);
+      action('open')(!isOpen);
+    };
+    const StyledButton = styled(Button)`
+      position: absolute;
+      display: block;
+      z-index: 9999;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: ${isOpen ? 'green' : 'blue'};
+      border: ${isOpen ? '2px solid green' : '2px solid blue'};
+    `;
+    return (
+      <div id="wrapper-dismissible">
+        <StyledButton
+          id='button-toast-dismissible'
+          key='button'
+          onClick={ handleToggle }
+        >
+          Toggle - Preview is: { isOpen ? 'ON' : 'OFF' }
+        </StyledButton>
+        <Toast
+          variant='warning'
+          id='toast-dismissible'
+          open={ isOpen }
+          onDismiss={ onDismissClick }
+          isCenter={ true }
+          timeout={ 2000 }
+        >
+          My text
+        </Toast>
+      </div>
+    )
+  }}
+  </Story>
+</Preview>
+
 ### Grouped Delayed (stacking):
 
 One second delay
