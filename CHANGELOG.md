@@ -1,3 +1,10 @@
+### [48.7.1](https://github.com/Sage/carbon/compare/v48.7.0...v48.7.1) (2020-11-13)
+
+
+### Bug Fixes
+
+* **flat-table:** fix incorrect type definitions ([d8a8597](https://github.com/Sage/carbon/commit/d8a8597accdd91f2e33052fc04c4255997214fc6))
+
 ## [48.7.0](https://github.com/Sage/carbon/compare/v48.6.3...v48.7.0) (2020-11-12)
 
 
