@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-export interface DtProps {
+import { SpacingProps } from '../../utils/helpers/options-helper';
+export interface DtProps extends SpacingProps {
     /** prop for dt text */
     children: string;
 }
