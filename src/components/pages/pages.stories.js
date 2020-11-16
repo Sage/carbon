@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import DefaultPages from "./pages.component";
+import Pages from ".";
 import Page from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading/heading";
@@ -9,7 +9,7 @@ import Button from "../button";
 
 export default {
   title: "Pages/Test",
-  component: DefaultPages,
+  component: Pages,
   parameters: {
     info: {
       disable: true,
@@ -67,8 +67,8 @@ export const Basic = () => {
   return (
     <div>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen open={isOpen} onCancel={handleCancel}>
-        <DefaultPages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
+      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+        <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
               Go to second page
@@ -86,7 +86,7 @@ export const Basic = () => {
           <Page
             title={<Heading title="My Third Page" backLink={handleBackClick} />}
           />
-        </DefaultPages>
+        </Pages>
       </DialogFullScreen>
     </div>
   );
