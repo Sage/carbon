@@ -12,6 +12,7 @@ import Button from '../button';
 import Box from '../box';
 import IconButton from '../icon-button';
 import VerticalDivider from '../vertical-divider';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Card"
@@ -21,6 +22,7 @@ import VerticalDivider from '../vertical-divider';
 ## Quick start
 ```js
 import Card from "carbon-react/lib/components/card";
+import CardRow from 'carbon-react/lib/components/card/card-row';
 import CardFooter from "carbon-react/lib/components/card/card-footer";
 import CardColumn from "carbon-react/lib/components/card/card-column";
 ```
@@ -56,7 +58,7 @@ they may wrap into a grid depending on the available width and height of their c
               Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
-          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
       <CardFooter>
@@ -90,7 +92,7 @@ they may wrap into a grid depending on the available width and height of their c
               Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
-          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
       <CardFooter>
@@ -124,7 +126,7 @@ they may wrap into a grid depending on the available width and height of their c
               Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
-          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
       <CardFooter>
@@ -138,7 +140,7 @@ they may wrap into a grid depending on the available width and height of their c
   </Story>
 </Preview>
 
-## with cardWidth provided
+## With cardWidth provided
 
 <Preview>
   <Story name="with cardWidth provided">
@@ -158,7 +160,7 @@ they may wrap into a grid depending on the available width and height of their c
               Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
-          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
       <CardFooter>
@@ -182,7 +184,7 @@ Click on the card to see the effect
       return(
         <div>
           <Typography variant="b">Card has been clicked {clickCounter} times</Typography>
-          <Card interactive action={() => setClickCounter(clickCounter + 1)}>
+          <Card interactive action={() => setClickCounter(prevCounter => prevCounter + 1)}>
             <CardRow>
               <CardColumn align="left">
                 <Heading title="Stripe - [account name]" divider={false} />
@@ -198,7 +200,7 @@ Click on the card to see the effect
                     Stripe Balance
                 </Typography>
                 <Heading title="£ 0.00" divider={false} />
-                <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+                <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
               </CardColumn>
             </CardRow>
             <CardFooter>
@@ -296,10 +298,10 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
-## more `<CardFooter />` examples
+## More `<CardFooter />` examples
 
 <Preview>
-  <Story name="more exampels of CardFooter">
+  <Story name="more examples of CardFooter">
     <div>
       <Card>
           <CardFooter p={1}>
@@ -372,4 +374,18 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
+## Props for `<Card />`
+
 <Props of={Card} />
+
+## Props for `<CardRow />`
+
+<Props of={CardRow} />
+
+## Props for `<CardColumn />`
+
+<Props of={CardColumn} />
+
+## Props for `<CardFooter />`
+
+<StyledSystemProps spacing of={CardFooter} />

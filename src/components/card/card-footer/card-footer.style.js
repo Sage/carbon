@@ -20,7 +20,7 @@ const paddingSizes = {
 };
 
 const StyledCardFooter = styled.div`
-  ${space};
+  ${space}
 
   ${({ spacing, theme, variant }) => css`
     background-color: ${variant === "transparent"

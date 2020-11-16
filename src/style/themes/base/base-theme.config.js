@@ -305,6 +305,7 @@ export default (palette) => {
 
     tile: {
       border: palette.slateTint(80),
+      footerBackground: palette.slateTint(95),
       separator: palette.slateTint(90),
     },
 
