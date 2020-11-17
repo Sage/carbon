@@ -46,7 +46,6 @@ Scenario Outline: Component <component> default story
     | multi-action-button |
     | pill                |
     | portrait            |
-    | preview             |
     | profile             |
     | row                 |
     | settingsrow         |
@@ -89,3 +88,4 @@ Scenario Outline: Component <component> default story
       | MenuList      |
       | Mount In App  |
     # | Pages         |
+      | Preview       |
