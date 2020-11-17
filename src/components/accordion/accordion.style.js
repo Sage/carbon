@@ -73,9 +73,20 @@ const StyledAccordionIcon = styled(Icon)`
 const StyledAccordionHeadingsContainer = styled.div`
   display: grid;
   ${({ hasValidationIcon }) =>
-    hasValidationIcon
-      ? "grid-template-columns: auto auto;"
-      : "grid-template-rows: auto auto;"}
+    hasValidationIcon &&
+    css`
+      grid-template-columns: min-content auto;
+
+      ${StyledAccordionSubTitle} {
+        grid-column: span 3;
+      }
+    `}
+
+  ${({ hasValidationIcon }) =>
+    !hasValidationIcon &&
+    css`
+      grid-template-rows: auto auto;
+    `}
 
   ${ValidationIconStyle} {
     height: 20px;
