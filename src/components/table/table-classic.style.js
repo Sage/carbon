@@ -1,13 +1,13 @@
-import { css } from 'styled-components';
-import StyledTableHeader from './table-header/table-header.style';
-import StyledTableRow from './table-row/table-row.style';
-import StyledTableCell from './table-cell/table-cell.style';
-import StyledIcon from '../icon/icon.style';
+import { css } from "styled-components";
+import StyledTableHeader from "./table-header/table-header.style";
+import StyledTableRow from "./table-row/table-row.style";
+import StyledTableCell from "./table-cell/table-cell.style";
+import StyledIcon from "../icon/icon.style";
 
 function applyClassicInternalStyling() {
   return css`
-    background-color: #F2F5F6;
-    border: 1px solid #CCD6DB;
+    background-color: #f2f5f6;
+    border: 1px solid #ccd6db;
   `;
 }
 
@@ -15,7 +15,8 @@ function applyClassicTableStyling(props) {
   return css`
     background-color: #ffffff;
 
-    ${props.tableType === 'secondary' && `
+    ${props.tableType === "secondary" &&
+    `
       ${StyledTableHeader} {
         background-color: #CCD6DB;
         color: #003349;
@@ -42,7 +43,4 @@ function applyClassicTableStyling(props) {
   `;
 }
 
-export {
-  applyClassicInternalStyling,
-  applyClassicTableStyling
-};
+export { applyClassicInternalStyling, applyClassicTableStyling };

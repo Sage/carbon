@@ -1,48 +1,52 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import React from "react";
+import { shallow } from "enzyme";
+import {
+  elementsTagTest,
+  rootTagTest,
+} from "../../utils/helpers/tags/tags-specs";
 
-import Link from './../link';
-import Textbox from './../../__experimental__/components/textbox';
+import Link from "./../link";
+import Textbox from "./../../__experimental__/components/textbox";
 
-import { MenuList } from 'components/menu-list'
+import { MenuList } from "components/menu-list";
 
 const items = [
-   { name: 'One'   },
-   { name: 'Two'   },
-   { name: 'Three' },
-   { name: 'Four'  }
+  { name: "One" },
+  { name: "Two" },
+  { name: "Three" },
+  { name: "Four" },
 ];
 
-describe('MenuList', () => {
-  let itemHTML,
-      wrapper
+describe("MenuList", () => {
+  let itemHTML, wrapper;
 
   itemHTML = items.map((item, index) => {
     return (
-      <li
-        key={ `${item.name}.${index}` }
-        name={ item.name }>
-        { item.name }
+      <li key={`${item.name}.${index}`} name={item.name}>
+        {item.name}
       </li>
     );
   });
 
   describe("basic object", () => {
     it("contains a single ul", () => {
-      let wrapper = shallow(<MenuList>{ itemHTML }</MenuList>);
-      expect(wrapper.find('ul').length).toEqual(1);
+      let wrapper = shallow(<MenuList>{itemHTML}</MenuList>);
+      expect(wrapper.find("ul").length).toEqual(1);
     });
   });
 
   describe("title", () => {
-    let title,
-        wrapper;
+    let title, wrapper;
 
     beforeEach(() => {
       wrapper = shallow(
-        <MenuList initiallyOpen={ false } title='test' filter={ false } collapsible={ false }>
-          { itemHTML }
+        <MenuList
+          initiallyOpen={false}
+          title="test"
+          filter={false}
+          collapsible={false}
+        >
+          {itemHTML}
         </MenuList>
       );
       title = wrapper.find(Link);
@@ -50,41 +54,33 @@ describe('MenuList', () => {
 
     it("is rendered if it is provided", () => {
       expect(title.length).toEqual(1);
-      expect(title.props().children).toEqual('test');
+      expect(title.props().children).toEqual("test");
     });
 
     it("triggers menu toggle on click", () => {
       let instance = wrapper.instance();
-      title.simulate('click');
+      title.simulate("click");
       expect(instance.state.open).toEqual(true);
     });
   });
 
   describe("menu is open conditions", () => {
     it("if no title provided menu items appear", () => {
-      wrapper = shallow(
-        <MenuList>
-          { itemHTML }
-        </MenuList>
-      );
-      expect(wrapper.find('li').length).toEqual(items.length);
+      wrapper = shallow(<MenuList>{itemHTML}</MenuList>);
+      expect(wrapper.find("li").length).toEqual(items.length);
     });
     it("if collapsible is false menu items appear", () => {
-      wrapper = shallow(
-        <MenuList collapsible={ false }>
-          { itemHTML }
-        </MenuList>
-      );
-      expect(wrapper.find('li').length).toEqual(items.length);
+      wrapper = shallow(<MenuList collapsible={false}>{itemHTML}</MenuList>);
+      expect(wrapper.find("li").length).toEqual(items.length);
     });
     it("if state is open menu items appear", () => {
       wrapper = shallow(
-        <MenuList title='testing' collapsible={ true }>
-          { itemHTML }
+        <MenuList title="testing" collapsible={true}>
+          {itemHTML}
         </MenuList>
       );
       wrapper.setState({ open: true });
-      expect(wrapper.find('li').length).toEqual(items.length);
+      expect(wrapper.find("li").length).toEqual(items.length);
     });
   });
 
@@ -93,18 +89,18 @@ describe('MenuList', () => {
 
     beforeAll(() => {
       wrapper = shallow(
-        <MenuList filter={ true } collapsible={ false }>
-          { itemHTML }
+        <MenuList filter={true} collapsible={false}>
+          {itemHTML}
         </MenuList>
       );
 
       filter = wrapper.find(Textbox);
-      filter.simulate('change', { target: { value: 'One' } });
-    })
+      filter.simulate("change", { target: { value: "One" } });
+    });
     it("exists and is autofocused", () => {
       expect(filter.length).toEqual(1);
-      expect(wrapper.find('li').length).toEqual(1);
-      expect(wrapper.state('filter')).toEqual('One');
+      expect(wrapper.find("li").length).toEqual(1);
+      expect(wrapper.state("filter")).toEqual("One");
     });
     it("is autofocused", () => {
       expect(filter.props().autoFocus).toEqual(true);
@@ -113,19 +109,23 @@ describe('MenuList', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<MenuList data-element='bar' data-role='baz'>{ [<div key='1' />] }</MenuList>);
+      let wrapper = shallow(
+        <MenuList data-element="bar" data-role="baz">
+          {[<div key="1" />]}
+        </MenuList>
+      );
 
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'menu-list', 'bar', 'baz');
+      it("include correct component, element and role data tags", () => {
+        rootTagTest(wrapper, "menu-list", "bar", "baz");
       });
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<MenuList title='Test'>{ [<div key='1' />] }</MenuList>);
+      let wrapper = shallow(
+        <MenuList title="Test">{[<div key="1" />]}</MenuList>
+      );
 
-      elementsTagTest(wrapper, [
-        'title'
-      ]);
+      elementsTagTest(wrapper, ["title"]);
     });
   });
 });

@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import Button from '../button';
 
-<Meta title="Design System/Toast" />
+<Meta title="Design System/Toast" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
 
 # Toast
 
@@ -376,15 +376,28 @@ One second delay
     };
     const [isOpenA, setIsOpenA] = useState(false);
     const [isOpenB, setIsOpenB] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const handleToggle = () => {
       if (!isOpenA) {
         window.scrollTo(0,0);
       }
-      setIsOpenA(!isOpenA);
-      setTimeout(() => {
-        setIsOpenB(!isOpenB);
-      }, 1000);
-      action('open')(!isOpenA);
+      if (!isOpenA && !isOpenB) {
+        setIsOpenA(true);
+        setButtonDisabled(true);
+        setTimeout(() => {
+          setIsOpenB(true);
+          setButtonDisabled(false);
+        }, 1000);
+        action('open')(true);
+      }
+      else {
+        setButtonDisabled(true);
+        setIsOpenA(false);
+        setTimeout(() => {
+          setIsOpenB(false);
+          setButtonDisabled(false);
+        }, 1000);
+      }
     };
     const StyledButton = styled(Button)`
       position: absolute;
@@ -402,6 +415,7 @@ One second delay
           id='button-stacked-delayed'
           key='button'
           onClick={ handleToggle }
+          disabled={ buttonDisabled }
         >
           Toggle - Preview is: { isOpenA || isOpenB ? 'ON' : 'OFF' }
         </StyledButton>
@@ -452,9 +466,15 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
       if (!isOpenA) {
         window.scrollTo(0,0);
       }
-      setIsOpenA(!isOpenA);
-      setIsOpenB(!isOpenB);
-      action('open')(!isOpenA);
+      if (!isOpenA && !isOpenB) {
+        setIsOpenA(true);
+        setIsOpenB(true);
+        action('open')(true);
+      }
+      else {
+        setIsOpenA(false);
+        setIsOpenB(false);
+      }
     };
     const StyledButton = styled(Button)`
       position: absolute;

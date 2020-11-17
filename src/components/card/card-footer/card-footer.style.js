@@ -1,21 +1,21 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
-import BaseTheme from '../../../style/themes/base';
-import StyledCardColumn from '../card-column/card-column.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
+import BaseTheme from "../../../style/themes/base";
+import StyledCardColumn from "../card-column/card-column.style";
 
 const { sizesRestricted } = OptionsHelper;
 
 const marginSizes = {
-  small: '0 -24px',
-  medium: '0 -32px',
-  large: '0 -48px'
+  small: "0 -24px",
+  medium: "0 -32px",
+  large: "0 -48px",
 };
 
 const paddingSizes = {
-  small: '16px 24px',
-  medium: '18px 32px',
-  large: '20px 48px'
+  small: "16px 24px",
+  medium: "18px 32px",
+  large: "20px 48px",
 };
 
 const StyledCardFooter = styled.div`
@@ -37,12 +37,12 @@ const StyledCardFooter = styled.div`
 `;
 
 StyledCardFooter.propTypes = {
-  spacing: PropTypes.oneOf(sizesRestricted)
+  spacing: PropTypes.oneOf(sizesRestricted),
 };
 
 StyledCardFooter.defaultProps = {
-  spacing: 'medium',
-  theme: BaseTheme
+  spacing: "medium",
+  theme: BaseTheme,
 };
 
 export default StyledCardFooter;

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { space } from '@styled-system/prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 
-import StyledFlatTableCell from './flat-table-cell.style';
+import StyledFlatTableCell from "./flat-table-cell.style";
 
 const FlatTableCell = ({
   align,
@@ -15,35 +15,33 @@ const FlatTableCell = ({
 }) => {
   return (
     <StyledFlatTableCell
-      align={ align }
-      data-element='flat-table-cell'
-      colSpan={ colspan }
-      rowSpan={ rowspan }
-      py={ py || '10px' }
-      px={ px || 3 }
-      { ...rest }
+      align={align}
+      data-element="flat-table-cell"
+      colSpan={colspan}
+      rowSpan={rowspan}
+      py={py || "10px"}
+      px={px || 3}
+      {...rest}
     >
-      <div>
-        { children }
-      </div>
+      <div>{children}</div>
     </StyledFlatTableCell>
   );
 };
 
 FlatTableCell.propTypes = {
   /** Styled system spacing props */
-  ...space,
+  ...propTypes.space,
   /** Content alignment */
-  align: PropTypes.oneOf(['center', 'left', 'right']),
+  align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   /** Number of columns that a cell should span */
   colspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Number of rows that a cell should span */
-  rowspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  rowspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 FlatTableCell.defaultProps = {
-  align: 'left'
+  align: "left",
 };
 
 export default FlatTableCell;

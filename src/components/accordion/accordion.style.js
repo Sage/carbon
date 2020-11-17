@@ -1,21 +1,37 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
 
-import Icon from '../icon';
-import { baseTheme } from '../../style/themes';
-import ValidationIconStyle from '../validations/validation-icon.style';
+import Icon from "../icon";
+import { baseTheme } from "../../style/themes";
+import ValidationIconStyle from "../validations/validation-icon.style";
 
 const StyledAccordionContainer = styled.div`
+  ${space};
   display: flex;
-  align-items: stretch;
+  align-items: ${({ buttonHeading }) =>
+    buttonHeading ? "flex-start" : "stretch"};
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  width: ${({ width }) => width || '100%'};
-  padding: ${({ customPadding }) => customPadding || 0}px 0;
+  width: ${({ width }) => width || "100%"};
   color: ${({ theme }) => theme.text.color};
-  background-color: ${({ scheme, theme }) => (scheme === 'white' ? theme.colors.white : 'transparent')};
-  ${({ theme }) => (css`border: 1px solid ${theme.accordion.border}`)};
-  ${({ borders }) => (borders === 'default' && css`border-left: none; border-right: none;`)}
+  background-color: ${({ scheme, theme }) =>
+    scheme === "white" ? theme.colors.white : "transparent"};
+  ${({ theme }) =>
+    css`
+      border: 1px solid ${theme.accordion.border};
+    `};
+  ${({ borders }) =>
+    borders === "default" &&
+    css`
+      border-left: none;
+      border-right: none;
+    `};
+  ${({ borders }) =>
+    borders === "none" &&
+    css`
+      border: none;
+    `};
 
   & + & {
     margin-top: -1px;
@@ -27,8 +43,8 @@ const StyledAccordionContainer = styled.div`
 `;
 
 const StyledAccordionTitle = styled.h3`
-  font-size: ${({ size }) => (size === 'small' ? '14' : '20')}px;
-  font-weight: ${({ size }) => (size === 'small' ? 700 : 900)};
+  font-size: ${({ size }) => (size === "small" ? "14" : "20")}px;
+  font-weight: ${({ size }) => (size === "small" ? 700 : 900)};
   line-height: 1;
   user-select: none;
   margin: 0;
@@ -41,19 +57,26 @@ const StyledAccordionSubTitle = styled.span`
 
 const StyledAccordionIcon = styled(Icon)`
   transition: transform 0.3s;
-  margin-right: ${({ iconAlign, theme }) => (iconAlign === 'left' ? theme.spacing * 2 : 0)}px;
+  margin-right: ${({ iconAlign, theme }) =>
+    iconAlign === "left" ? theme.spacing * 2 : 0}px;
   ${({ isExpanded, iconAlign }) => {
-    return !isExpanded && (iconAlign === 'right' ? 'transform: rotate(90deg)' : 'transform: rotate(-90deg)');
+    return (
+      !isExpanded &&
+      (iconAlign === "right"
+        ? "transform: rotate(90deg)"
+        : "transform: rotate(-90deg)")
+    );
   }};
   ${({ styleOverride }) => styleOverride};
 `;
 
 const StyledAccordionHeadingsContainer = styled.div`
   display: grid;
-  ${({ hasValidationIcon }) => (
-    hasValidationIcon ? 'grid-template-columns: auto auto;' : 'grid-template-rows: auto auto;'
-  )}
-  
+  ${({ hasValidationIcon }) =>
+    hasValidationIcon
+      ? "grid-template-columns: auto auto;"
+      : "grid-template-rows: auto auto;"}
+
   ${ValidationIconStyle} {
     height: 20px;
     position: relative;
@@ -62,28 +85,63 @@ const StyledAccordionHeadingsContainer = styled.div`
 `;
 
 const StyledAccordionTitleContainer = styled.div`
-  padding:  ${({ size, theme }) => (size === 'small' ? theme.spacing * 2 : theme.spacing * 3)}px;  
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
+  ${({
+    buttonHeading,
+    buttonWidth,
+    iconAlign,
+    isExpanded,
+    size,
+    styleOverride,
+    theme,
+  }) => css`
+    padding: ${size === "small" ? theme.spacing * 2 : theme.spacing * 3}px;
+    ${space};
+    ${buttonHeading && "padding: 0"}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  ${({ iconAlign }) => (iconAlign === 'left' && css`
-    justify-content: flex-end;
-    flex-direction: row-reverse;
-  `)}
+    ${iconAlign === "left" &&
+    css`
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+    `}
 
-  cursor: pointer;
-  z-index: 1;
+    cursor: pointer;
+    z-index: 1;
 
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
-  }
+    &:focus {
+      outline: ${buttonHeading ? "none" : `2px solid ${theme.colors.focus}`};
+    }
 
-  &:hover {
-    background-color: ${({ theme }) => theme.accordion.background};
-  }
-  ${({ styleOverride }) => styleOverride};
+    ${!buttonHeading &&
+    css`
+      &:hover {
+        background-color: ${theme.accordion.background};
+      }
+    `}
+
+    button {
+      position: relative;
+      ${buttonWidth &&
+      css`
+        width: ${buttonWidth}px;
+      `}
+    }
+
+    button > span:first-child {
+      position: absolute;
+      margin-left: -16px;
+    }
+
+    button > span[data-component="icon"] {
+      position: absolute;
+      right: 16px;
+      transition: transform 0.3s;
+      ${!isExpanded && "transform: rotate(90deg)"};
+    }
+    ${styleOverride};
+  `}
 `;
 
 const StyledAccordionContentContainer = styled.div`
@@ -92,10 +150,11 @@ const StyledAccordionContentContainer = styled.div`
   overflow: hidden;
   transition: all 0.3s;
   ${({ maxHeight, isExpanded }) => css`
-    max-height: ${isExpanded ? `${maxHeight}px` : '0px'};
-    height: ${isExpanded ? `${maxHeight}px` : '0px'};
-    
-    ${!isExpanded && `
+    max-height: ${isExpanded ? `${maxHeight}px` : "0px"};
+    height: ${isExpanded ? `${maxHeight}px` : "0px"};
+
+    ${!isExpanded &&
+    `
       visibility: hidden;
     `}
   `}
@@ -103,26 +162,33 @@ const StyledAccordionContentContainer = styled.div`
 
 const StyledAccordionContent = styled.div`
   padding: 0 ${({ theme }) => theme.spacing * 3}px;
+
+  ${({ disableContentPadding }) =>
+    disableContentPadding &&
+    css`
+      padding: 0;
+    `}
+
   ${({ styleOverride }) => styleOverride};
 `;
 
 StyledAccordionContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAccordionTitleContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAccordionTitle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAccordionIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAccordionContent.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 StyledAccordionContentContainer.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -133,5 +199,5 @@ export {
   StyledAccordionTitle,
   StyledAccordionIcon,
   StyledAccordionContent,
-  StyledAccordionContentContainer
+  StyledAccordionContentContainer,
 };

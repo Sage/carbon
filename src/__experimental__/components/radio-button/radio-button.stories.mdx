@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import { RadioButtonGroup, RadioButton } from '.';
+import Typography from '../../../components/typography';
 
 <Meta
   title="Experimental/RadioButton"
@@ -108,6 +109,7 @@ The spacing between the legend and the radio buttons can be changed with the `le
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       legendInline
+      legendWidth="10"
     >
     <RadioButton 
       id="radio1" 
@@ -479,6 +481,54 @@ With custom wrapper, label and input styles
         label='yearly'
       />
     </RadioButtonGroup>
+  </Story>
+</Preview>
+
+### With custom styled labels
+Labels could be customized using the Typography Component
+
+<Preview>
+  <Story name="With custom styled label">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+      <RadioButton 
+        id="radio1" 
+        value="radio1"
+        label={ (
+          <>
+            <Typography variant='b'>Bold </Typography>
+            <Typography as='span'>regular </Typography>
+            <Typography variant='em'>emphasized</Typography>
+          </>
+        ) }
+      />
+      <RadioButton 
+        id="radio2" 
+        value="radio2" 
+        label={ (
+          <>
+            <Typography variant='b'>Bold </Typography>
+            <Typography as='span'>regular </Typography>
+            <Typography variant='em'>emphasized</Typography>
+          </>
+        ) }
+      />
+      <RadioButton 
+        id="radio3" 
+        value="radio3" 
+        label={ (
+          <>
+            <Typography variant='b'>Bold </Typography>
+            <Typography as='span'>regular </Typography>
+            <Typography variant='em'>emphasized</Typography>
+          </>
+        ) }
+      />
+    </RadioButtonGroup>
+    
   </Story>
 </Preview>
 

@@ -1,1 +1,1 @@
-export { default } from './table-header.component';
+export { default } from "./table-header.component";

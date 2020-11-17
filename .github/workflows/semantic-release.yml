@@ -12,11 +12,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-18.04
-    env:
-      # A personal access token is required to publish from protected branches
-      GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
@@ -26,4 +22,17 @@ jobs:
       with:
         node-version: '12'
     - run: npm ci
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v3.0.1
+      with:
+        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+        git-user-signingkey: true
+        git-commit-gpgsign: true
     - run: npx semantic-release
+      env:
+        # A personal access token is required to publish from protected branches
+        GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GIT_COMMITTER_NAME: Sage Carbon
+        GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }} 

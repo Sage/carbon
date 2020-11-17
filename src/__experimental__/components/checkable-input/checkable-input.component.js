@@ -1,12 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { validProps } from '../../../utils/ether';
-import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
-import { InputBehaviour } from '../../../__internal__/input-behaviour';
+import React from "react";
+import PropTypes from "prop-types";
+import { validProps } from "../../../utils/ether";
+import {
+  StyledCheckableInput,
+  StyledCheckableInputWrapper,
+} from "./checkable-input.style";
+import { InputBehaviour } from "../../../__internal__/input-behaviour";
 
-import FormField from '../form-field';
-import HiddenCheckableInput from './hidden-checkable-input.component';
-import guid from '../../../utils/helpers/guid';
+import FormField from "../form-field";
+import HiddenCheckableInput from "./hidden-checkable-input.component";
+import guid from "../../../utils/helpers/guid";
 
 class CheckableInput extends React.Component {
   constructor(props) {
@@ -15,55 +18,58 @@ class CheckableInput extends React.Component {
   }
 
   render() {
-    const {
-      children, onChange, onBlur, required, ...rest
-    } = this.props;
+    const { children, onChange, onBlur, required, ...rest } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;
-    const isRadio = this.props.inputType === 'radio';
+    const isRadio = this.props.inputType === "radio";
     const formFieldProps = {
       ...validProps(this, [
-        'fieldHelp',
-        'fieldHelpInline',
-        'labelHelp',
-        'labelSpacing',
-        'reverse',
-        'error',
-        'warning',
-        'info',
-        'mb',
-        'labelAlign',
-        'disabled'
+        "fieldHelp",
+        "fieldHelpInline",
+        "labelHelp",
+        "labelSpacing",
+        "reverse",
+        "error",
+        "warning",
+        "info",
+        "mb",
+        "labelAlign",
+        "disabled",
       ]),
       labelId,
       helpId,
       label: rest.inputLabel,
-      labelHelpIcon: 'info',
+      labelHelpIcon: "info",
       labelInline: rest.labelInline,
       name: id,
       id,
       // We don't want an asterisk on each radio control, only the legend
       // However, we still want the input element to receive the required prop
-      isRequired: isRadio ? undefined : required
+      isRequired: isRadio ? undefined : required,
     };
 
-    const {
-      fieldHelp, labelHelp, ...inputProps
-    } = {
-      ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'onBlur', 'tabindex']),
+    const { fieldHelp, labelHelp, ...inputProps } = {
+      ...validProps(this, [
+        "checked",
+        "disabled",
+        "inputType",
+        "onChange",
+        "onBlur",
+        "tabindex",
+      ]),
       labelId,
       helpId,
       id,
-      required
+      required,
     };
 
     return (
-      <StyledCheckableInputWrapper { ...rest }>
+      <StyledCheckableInputWrapper {...rest}>
         <InputBehaviour>
-          <FormField { ...formFieldProps }>
+          <FormField {...formFieldProps}>
             <StyledCheckableInput>
-              <HiddenCheckableInput { ...inputProps } />
+              <HiddenCheckableInput {...inputProps} />
               {children}
             </StyledCheckableInput>
           </FormField>
@@ -125,13 +131,13 @@ CheckableInput.propTypes = {
   /** Margin left, any valid CSS value */
   ml: PropTypes.string,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 CheckableInput.defaultProps = {
   reverse: false,
   labelSpacing: 1,
-  labelInline: true
+  labelInline: true,
 };
 
 export default CheckableInput;

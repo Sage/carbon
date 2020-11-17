@@ -16,7 +16,7 @@ exports[`Input renders with an input 1`] = `
 }
 
 .c0:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 

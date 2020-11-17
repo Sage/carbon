@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MessageStyle from './message.style';
-import TypeIcon from './type-icon/type-icon.component';
-import MessageContent from './message-content/message-content.component';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import tagComponent from '../../utils/helpers/tags';
-import Icon from '../icon';
-import IconButton from '../icon-button';
+import React from "react";
+import PropTypes from "prop-types";
+import MessageStyle from "./message.style";
+import TypeIcon from "./type-icon/type-icon.component";
+import MessageContent from "./message-content/message-content.component";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import tagComponent from "../../utils/helpers/tags";
+import Icon from "../icon";
+import IconButton from "../icon-button";
 
 const Message = (props) => {
   const {
@@ -21,7 +21,7 @@ const Message = (props) => {
     as,
     id,
     className,
-    showCloseIcon
+    showCloseIcon,
   } = props;
 
   const renderCloseIcon = () => {
@@ -29,11 +29,11 @@ const Message = (props) => {
 
     return (
       <IconButton
-        data-element='close'
-        onAction={ onDismiss }
-        variant={ variant || as }
+        data-element="close"
+        onAction={onDismiss}
+        variant={variant || as}
       >
-        <Icon type='close' />
+        <Icon type="close" />
       </IconButton>
     );
   };
@@ -41,38 +41,40 @@ const Message = (props) => {
   return (
     open && (
       <MessageStyle
-        { ...tagComponent('Message', props) }
-        border={ border }
-        className={ className }
-        transparent={ transparent }
-        variant={ variant || as }
-        roundedCorners={ roundedCorners }
-        role='status'
-        id={ id }
+        {...tagComponent("Message", props)}
+        border={border}
+        className={className}
+        transparent={transparent}
+        variant={variant || as}
+        roundedCorners={roundedCorners}
+        role="status"
+        id={id}
       >
         <TypeIcon
-          variant={ variant || as } roundedCorners={ roundedCorners }
-          transparent={ transparent }
+          variant={variant || as}
+          roundedCorners={roundedCorners}
+          transparent={transparent}
         />
         <MessageContent
-          variant={ variant || as } transparent={ transparent }
-          title={ title }
+          variant={variant || as}
+          transparent={transparent}
+          title={title}
         >
           {children}
         </MessageContent>
-        { renderCloseIcon() }
+        {renderCloseIcon()}
       </MessageStyle>
     )
   );
 };
 
 Message.defaultProps = {
-  as: 'info',
+  as: "info",
   border: true,
   open: true,
   roundedCorners: true,
   transparent: false,
-  showCloseIcon: true
+  showCloseIcon: true,
 };
 
 Message.propTypes = {
@@ -99,7 +101,7 @@ Message.propTypes = {
   /** set background to be invisible */
   transparent: PropTypes.bool,
   /** Determines if the close icon is shown */
-  showCloseIcon: PropTypes.bool
+  showCloseIcon: PropTypes.bool,
 };
 
 export default Message;

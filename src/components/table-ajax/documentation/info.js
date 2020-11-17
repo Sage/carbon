@@ -1,5 +1,9 @@
-import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+  StoryCodeBlock,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -8,7 +12,9 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
     <StoryCodeBlock>
       {'import Table from "carbon-react/lib/components/table-ajax"'}
-      {'import { TableRow, TableCell, TableHeader } from "carbon-react/lib/components/table"'}
+      {
+        'import { TableRow, TableCell, TableHeader } from "carbon-react/lib/components/table"'
+      }
     </StoryCodeBlock>
 
     <p>

@@ -1,34 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import StepSequenceItemStyle from './step-sequence-item.style';
-import StepSequenceItemContentStyle from './step-sequence-item-content.style';
-import StepSequenceItemIndicatorStyle from './step-sequence-item-indicator.style';
-import StepSequenceItemHiddenLabelStyle from './step-sequence-item-hidden-label.style';
-import Icon from '../../icon';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import PropTypes from "prop-types";
+import React from "react";
+import StepSequenceItemStyle from "./step-sequence-item.style";
+import StepSequenceItemContentStyle from "./step-sequence-item-content.style";
+import StepSequenceItemIndicatorStyle from "./step-sequence-item-indicator.style";
+import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.style";
+import Icon from "../../icon";
+import OptionsHelper from "../../../utils/helpers/options-helper";
 
 const StepSequenceItem = (props) => {
   const indicatorText = () => (
-    <StepSequenceItemIndicatorStyle>{props.indicator}</StepSequenceItemIndicatorStyle>
+    <StepSequenceItemIndicatorStyle>
+      {props.indicator}
+    </StepSequenceItemIndicatorStyle>
   );
 
-  const icon = () => (props.status === 'complete' ? <Icon type='tick' /> : indicatorText());
+  const icon = () =>
+    props.status === "complete" ? <Icon type="tick" /> : indicatorText();
 
   const hiddenLabel = () => {
-    const {
-      status,
-      hiddenCompleteLabel,
-      hiddenCurrentLabel
-    } = props;
+    const { status, hiddenCompleteLabel, hiddenCurrentLabel } = props;
 
-    if (hiddenCompleteLabel && status === 'complete') {
+    if (hiddenCompleteLabel && status === "complete") {
       return (
-        <StepSequenceItemHiddenLabelStyle>{hiddenCompleteLabel}</StepSequenceItemHiddenLabelStyle>
+        <StepSequenceItemHiddenLabelStyle>
+          {hiddenCompleteLabel}
+        </StepSequenceItemHiddenLabelStyle>
       );
     }
-    if (hiddenCurrentLabel && status === 'current') {
+    if (hiddenCurrentLabel && status === "current") {
       return (
-        <StepSequenceItemHiddenLabelStyle>{hiddenCurrentLabel}</StepSequenceItemHiddenLabelStyle>
+        <StepSequenceItemHiddenLabelStyle>
+          {hiddenCurrentLabel}
+        </StepSequenceItemHiddenLabelStyle>
       );
     }
     return null;
@@ -36,12 +39,14 @@ const StepSequenceItem = (props) => {
 
   return (
     <StepSequenceItemStyle
-      data-component='step-sequence-item'
-      { ...props }
-      key={ `step-seq-item-${props.indicator}` }
+      data-component="step-sequence-item"
+      {...props}
+      key={`step-seq-item-${props.indicator}`}
     >
       {hiddenLabel()}
-      <StepSequenceItemContentStyle>{ icon() } { props.children }</StepSequenceItemContentStyle>
+      <StepSequenceItemContentStyle>
+        {icon()} {props.children}
+      </StepSequenceItemContentStyle>
     </StepSequenceItemStyle>
   );
 };
@@ -58,11 +63,11 @@ StepSequenceItem.propTypes = {
   /** Hidden label to be displayed if item is complete */
   hiddenCompleteLabel: PropTypes.string,
   /** Hidden label to be displayed if item is current */
-  hiddenCurrentLabel: PropTypes.string
+  hiddenCurrentLabel: PropTypes.string,
 };
 
 StepSequenceItem.defaultProps = {
-  status: 'incomplete'
+  status: "incomplete",
 };
 
 export default StepSequenceItem;

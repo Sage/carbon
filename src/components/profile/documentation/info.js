@@ -1,5 +1,8 @@
-import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -9,7 +12,9 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Portrait from &quot;carbon-react/lib/components/profile&quot;</StoryCode>
+    <StoryCode padded>
+      import Portrait from &quot;carbon-react/lib/components/profile&quot;
+    </StoryCode>
   </div>
 );
 

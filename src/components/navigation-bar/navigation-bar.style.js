@@ -1,13 +1,16 @@
-import styled, { css } from 'styled-components';
-import { baseTheme } from '../../style/themes';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
+import { baseTheme } from "../../style/themes";
 
 const StyledNavigationBar = styled.div`
+  ${space}
   ${({ navigationType, theme }) => css`
     min-height: 40px;
     background-color: ${theme.navigationBar.light.background};
     border-bottom: 1px solid ${theme.navigationBar.light.borderBottom};
 
-    ${navigationType === 'dark' && css`
+    ${navigationType === "dark" &&
+    css`
       background-color: ${theme.navigationBar.dark.background};
       border-bottom: 1px solid ${theme.navigationBar.dark.borderBottom};
       color: ${theme.colors.white};
@@ -16,7 +19,7 @@ const StyledNavigationBar = styled.div`
     .carbon-logo {
       margin-right: 10px;
     }
-  
+
     .carbon-navigation-bar__content {
       line-height: 40px;
     }
@@ -31,7 +34,7 @@ const StyledNavigationBar = styled.div`
 `;
 
 StyledNavigationBar.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledNavigationBar;

@@ -1,1 +1,1 @@
-export { default } from './grouped-character.component';
+export { default } from "./grouped-character.component";

@@ -1,1 +1,1 @@
-export { default } from './alert.component';
+export { default } from "./alert.component";

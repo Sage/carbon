@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const renderChild = (child, callback) => {
   if (callback) return callback(child);
@@ -35,13 +35,16 @@ const defaultFilter = (text, filter) => {
  *   filter(children, (child) => <div>{ child }</div>);
  */
 const filterChildren = ({
-  value, filter = defaultFilter, onNoResults
+  value,
+  filter = defaultFilter,
+  onNoResults,
 } = {}) => (children, callback) => {
   const filteredChildren = React.Children.map(children, (child) => {
     if (!child.props.text || !value) return renderChild(child, callback);
     const processedText = child.props.text.toLowerCase();
     const processedValue = value.toLowerCase();
-    if (filter(processedText, processedValue, child.props.value)) return renderChild(child, callback);
+    if (filter(processedText, processedValue, child.props.value))
+      return renderChild(child, callback);
     return null;
   });
 

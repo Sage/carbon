@@ -1,42 +1,37 @@
-import styled from 'styled-components';
-import { slideAnimation, fadeAnimation } from './pages.config';
-import { StyledHeading, StyledHeadingIcon } from '../heading/heading.style';
-import LinkStyleAnchor from '../link/link.style';
-import BaseTheme from '../../style/themes/base';
+import styled from "styled-components";
+import { slideAnimation, fadeAnimation } from "./pages.config";
+import { StyledHeading, StyledHeadingIcon } from "../heading/heading.style";
+import LinkStyleAnchor from "../link/link.style";
+import BaseTheme from "../../style/themes/base";
 
 const PagesContent = styled.div`
   border: none;
-  
+
   &&&& ${LinkStyleAnchor} {
     margin-top: -16px;
-    a, button {
+    a,
+    button {
       height: 34px;
       background-color: transparent;
       top: 50px;
       margin-top: -5px;
-
-        &:focus {
-          outline: solid 3px ${({ theme }) => theme.colors.focus};
-          background-color: transparent;
-          width: 26px;
-          margin-top: -1px;
-          padding-top: 0px;
-        }
-
-
-       > span {
+      &:focus {
+        outline: solid 3px ${({ theme }) => theme.colors.focus};
+        background-color: transparent;
+        width: 26px;
+        margin-top: -1px;
+        padding-top: 0px;
+      }
+      > span {
         display: block;
         height: 26px;
-
-         > span {
+        > span {
           display: block;
           height: 26px;
-
           ${StyledHeadingIcon} {
             margin-top: -9px;
             top: 7px;
             height: 26px;
-
             &:before {
               line-height: 26px;
             }
@@ -45,13 +40,11 @@ const PagesContent = styled.div`
       }
     }
   }
-
   .carbon-app-wrapper {
     min-width: auto;
     max-width: 100%;
-    padding: 4px 0 0 0; 
+    padding: 4px 0 0 0;
   }
-
   ${StyledHeading} {
     padding-left: 40px;
   }
@@ -62,16 +55,12 @@ const PagesWrapperStyle = styled.div`
     overflow: hidden;
     position: relative;
   }
-
   ${slideAnimation};
   ${fadeAnimation};
 `;
 
 PagesContent.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
-export {
-  PagesWrapperStyle,
-  PagesContent
-};
+export { PagesWrapperStyle, PagesContent };

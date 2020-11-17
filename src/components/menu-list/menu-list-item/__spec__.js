@@ -1,10 +1,10 @@
-import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import MenuListItem from './menu-list-item';
-import { shallow } from 'enzyme';
-import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import React from "react";
+import TestUtils from "react-dom/test-utils";
+import MenuListItem from "./menu-list-item";
+import { shallow } from "enzyme";
+import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 
-describe('MenuListItem', () => {
+describe("MenuListItem", () => {
   let instance;
 
   beforeEach(() => {
@@ -15,31 +15,33 @@ describe('MenuListItem', () => {
     );
   });
 
-  it('renders a list item', () => {
-    let item = TestUtils.findRenderedDOMComponentWithTag(instance, 'li');
+  it("renders a list item", () => {
+    let item = TestUtils.findRenderedDOMComponentWithTag(instance, "li");
     expect(item).toBeDefined();
   });
 
-  it('renders children', () => {
+  it("renders children", () => {
     expect(instance.props.children.props.children).toEqual("Im a Child");
   });
 
-  it('adds custom classes to the li if provided', () => {
+  it("adds custom classes to the li if provided", () => {
     let customInstance = TestUtils.renderIntoDocument(
-      <MenuListItem className='custom-class'>
-        Im a Child
-      </MenuListItem>
+      <MenuListItem className="custom-class">Im a Child</MenuListItem>
     );
 
-    let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, 'li');
-    expect(list.classList).toContain('custom-class');
+    let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, "li");
+    expect(list.classList).toContain("custom-class");
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<MenuListItem data-element='bar' data-role='baz'>Test</MenuListItem>);
+    let wrapper = shallow(
+      <MenuListItem data-element="bar" data-role="baz">
+        Test
+      </MenuListItem>
+    );
 
-    it('include correct component, element and role data tags', () => {
-      rootTagTest(wrapper, 'menu-list-item', 'bar', 'baz');
+    it("include correct component, element and role data tags", () => {
+      rootTagTest(wrapper, "menu-list-item", "bar", "baz");
     });
   });
 });

@@ -1,33 +1,34 @@
-import { css } from 'styled-components';
-import StyledTableCell from './table-cell/table-cell.style';
-import StyledTableHeader from './table-header/table-header.style';
-import StyledTableRow from './table-row/table-row.style';
-import tableSizes from './table-sizes.style';
-import StyledIcon from '../icon/icon.style';
+import { css } from "styled-components";
+import StyledTableCell from "./table-cell/table-cell.style";
+import StyledTableHeader from "./table-header/table-header.style";
+import StyledTableRow from "./table-row/table-row.style";
+import tableSizes from "./table-sizes.style";
+import StyledIcon from "../icon/icon.style";
 
 function convertTableType(type) {
-  if (['primary', 'secondary', 'tertiary'].includes(type)) return type;
-  if (type === 'transparent') return 'tertiary';
-  if (type === 'light') return 'secondary';
-  return 'primary';
+  if (["primary", "secondary", "tertiary"].includes(type)) return type;
+  if (type === "transparent") return "tertiary";
+  if (type === "light") return "secondary";
+  return "primary";
 }
 
 function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
-    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.secondary};
+    border: 1px solid
+      ${type === "tertiary" ? "transparent" : theme.table.secondary};
   `;
 }
 
-function applyModernTableStyling({
-  tableType, theme, isZebra, size
-}) {
+function applyModernTableStyling({ tableType, theme, isZebra, size }) {
   const type = convertTableType(tableType);
   const { table } = theme;
   const { height, fontSize, paddingSize } = tableSizes[size];
   return css`
-    background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
+    background-color: ${type === "tertiary"
+      ? "transparent"
+      : theme.colors.white};
     & ${StyledTableRow} {
       height: ${height};
       ${StyledTableCell}, ${StyledTableHeader} {
@@ -36,7 +37,8 @@ function applyModernTableStyling({
         padding-right: ${paddingSize};
       }
 
-      ${isZebra && `
+      ${isZebra &&
+      `
         &:nth-child(2n) {
           ${StyledTableCell} {
             background-color: ${table.zebra};
@@ -50,20 +52,22 @@ function applyModernTableStyling({
         background-color: ${table.primary};
       }
     }
-    ${type !== 'primary' && additionalThemeStyling(type, theme)}
+    ${type !== "primary" && additionalThemeStyling(type, theme)}
   `;
 }
 
 function additionalThemeStyling(type, { text, table, colors }) {
   return css`
-    ${type === 'tertiary' ? 'border-color: transparent;' : ''}
+    ${type === "tertiary" ? "border-color: transparent;" : ""}
     ${StyledTableCell} {
       background-color: ${colors.white};
     }
 
     ${StyledTableHeader} {
-      background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
-      ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
+      background-color: ${type === "secondary"
+        ? table.secondary
+        : "transparent"};
+      ${type === "tertiary" ? "border-left-color: transparent;" : ""}
       color: ${text.color};
 
       ${StyledIcon},
@@ -77,7 +81,4 @@ function additionalThemeStyling(type, { text, table, colors }) {
   `;
 }
 
-export {
-  applyModernTableStyling,
-  applyModernInternalStyling
-};
+export { applyModernTableStyling, applyModernInternalStyling };

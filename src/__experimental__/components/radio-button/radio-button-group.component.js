@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import tagComponent from '../../../utils/helpers/tags';
-import Fieldset from '../../../__internal__/fieldset';
-import RadioButtonGroupStyle from './radio-button-group.style';
-import RadioButtonMapper from './radio-button-mapper.component';
-import Logger from '../../../utils/logger/logger';
-import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
+import tagComponent from "../../../utils/helpers/tags";
+import Fieldset from "../../../__internal__/fieldset";
+import RadioButtonGroupStyle from "./radio-button-group.style";
+import RadioButtonMapper from "./radio-button-mapper.component";
+import Logger from "../../../utils/logger/logger";
+import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 
 let deprecatedWarnTriggered = false;
 
@@ -14,7 +14,9 @@ const RadioButtonGroup = (props) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     // eslint-disable-next-line max-len
-    Logger.deprecate('`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed.');
+    Logger.deprecate(
+      "`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed."
+    );
   }
   const {
     children,
@@ -37,11 +39,15 @@ const RadioButtonGroup = (props) => {
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
     required,
-    styleOverride = {}
+    styleOverride = {},
   } = props;
 
-  const isAboveLegendBreakpoint = useIsAboveBreakpoint(adaptiveLegendBreakpoint);
-  const isAboveSpacingBreakpoint = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
+  const isAboveLegendBreakpoint = useIsAboveBreakpoint(
+    adaptiveLegendBreakpoint
+  );
+  const isAboveSpacingBreakpoint = useIsAboveBreakpoint(
+    adaptiveSpacingBreakpoint
+  );
 
   let inlineLegend = legendInline;
   if (adaptiveLegendBreakpoint) {
@@ -55,42 +61,50 @@ const RadioButtonGroup = (props) => {
 
   return (
     <Fieldset
-      role='radiogroup'
-      legend={ legend }
-      error={ error }
-      warning={ warning }
-      info={ info }
-      inline={ inlineLegend }
-      legendWidth={ legendWidth }
-      legendAlign={ legendAlign }
-      legendSpacing={ legendSpacing }
-      ml={ marginLeft }
-      mb={ mb }
-      styleOverride={ styleOverride }
-      isRequired={ required }
-      { ...tagComponent('radiogroup', props) }
+      role="radiogroup"
+      legend={legend}
+      error={error}
+      warning={warning}
+      info={info}
+      inline={inlineLegend}
+      legendWidth={legendWidth}
+      legendAlign={legendAlign}
+      legendSpacing={legendSpacing}
+      ml={marginLeft}
+      mb={mb}
+      styleOverride={styleOverride}
+      isRequired={required}
+      {...tagComponent("radiogroup", props)}
     >
       <RadioButtonGroupStyle
-        data-component='radio-button-group'
-        role='group'
-        inline={ inline }
-        styleOverride={ styleOverride.content }
+        data-component="radio-button-group"
+        role="group"
+        inline={inline}
+        legendInline={legendInline}
+        styleOverride={styleOverride.content}
       >
         <RadioButtonMapper
-          name={ name }
-          onBlur={ onBlur }
-          onChange={ onChange }
-          value={ value }
+          name={name}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
         >
-          {React.Children.map(children, child => React.cloneElement(child, {
-            inline,
-            labelSpacing,
-            error: !!error,
-            warning: !!warning,
-            info: !!info,
-            required,
-            ...child.props
-          }))}
+          {React.Children.map(children, (child, i) => {
+            const length = React.Children.count(children);
+            const isLastChild = i === length - 1;
+            const isFirstChild = i === 0;
+            return React.cloneElement(child, {
+              inline,
+              labelSpacing,
+              error: !!error,
+              warning: !!warning,
+              info: !!info,
+              required,
+              mt: !inline && isFirstChild ? "4px" : undefined,
+              mb: isLastChild ? 0 : undefined,
+              ...child.props,
+            });
+          })}
         </RadioButtonMapper>
       </RadioButtonGroupStyle>
     </Fieldset>
@@ -129,7 +143,7 @@ RadioButtonGroup.propTypes = {
   /** Percentage width of legend (only when legend is inline)  */
   legendWidth: PropTypes.number,
   /** Text alignment of legend when inline */
-  legendAlign: PropTypes.oneOf(['left', 'right']),
+  legendAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** Margin left, any valid CSS value */
@@ -146,10 +160,10 @@ RadioButtonGroup.propTypes = {
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   }),
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default RadioButtonGroup;

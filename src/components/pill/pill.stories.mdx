@@ -1,5 +1,8 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
 import Pill from '.';
+import Box from '../box';
 
 <Meta title="Design System/Pill" />
 
@@ -17,103 +20,103 @@ An automatic indicator of status, styled with utility colours to carry meaning.
     {() => {
       const noop = () => {};
       return <>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" size="S">neutral</Pill>
-       <Pill pillRole="status" size="S" fill>neutral</Pill>
-       <Pill pillRole="status" size="S" onDelete={noop}>neutral</Pill>
-       <Pill pillRole="status" size="S" onDelete={noop} fill>neutral</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status">neutral</Pill>
-       <Pill pillRole="status" fill>neutral</Pill>
-       <Pill pillRole="status" onDelete={noop}>neutral</Pill>
-       <Pill pillRole="status" onDelete={noop} fill>neutral</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" size="L">neutral</Pill>
-       <Pill pillRole="status" size="L" fill>neutral</Pill>
-       <Pill pillRole="status" size="L" onDelete={noop}>neutral</Pill>
-       <Pill pillRole="status" size="L" onDelete={noop} fill>neutral</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" size="XL">neutral</Pill>
-       <Pill pillRole="status" size="XL" fill>neutral</Pill>
-       <Pill pillRole="status" size="XL" onDelete={noop}>neutral</Pill>
-       <Pill pillRole="status" size="XL" onDelete={noop} fill>neutral</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="positive" size="S">positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="S" fill>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="S" onDelete={noop}>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="S" onDelete={noop} fill>positive</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="positive">positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" fill>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" onDelete={noop}>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" onDelete={noop} fill>positive</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="positive" size="L">positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="L" fill>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="L" onDelete={noop}>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="L" onDelete={noop} fill>positive</Pill>
-       </div>
-        <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="positive" size="XL">positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="XL" fill>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="XL" onDelete={noop}>positive</Pill>
-       <Pill pillRole="status" colorVariant="positive" size="XL" onDelete={noop} fill>positive</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="negative" size="S">negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="S" fill>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="S" onDelete={noop}>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="S" onDelete={noop} fill>negative</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="negative">negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" fill>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" onDelete={noop}>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" onDelete={noop} fill>negative</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="negative" size="L">negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="L" fill>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="L" onDelete={noop}>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="L" onDelete={noop} fill>negative</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="negative" size="XL">negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="XL" fill>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="XL" onDelete={noop}>negative</Pill>
-       <Pill pillRole="status" colorVariant="negative" size="XL" onDelete={noop} fill>negative</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="warning" size="S">warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="S" fill>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="S" onDelete={noop}>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="S" onDelete={noop} fill>warning</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="warning">warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" fill>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" onDelete={noop}>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" onDelete={noop} fill>warning</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="warning" size="L">warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="L" fill>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="L" onDelete={noop}>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="L" onDelete={noop} fill>warning</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill pillRole="status" colorVariant="warning" size="XL">warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="XL" fill>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="XL" onDelete={noop}>warning</Pill>
-       <Pill pillRole="status" colorVariant="warning" size="XL" onDelete={noop} fill>warning</Pill>
-       </div>
-    </>
+        <Box mb={1}>
+          <Pill pillRole="status" size="S">neutral</Pill>
+          <Pill pillRole="status" size="S" fill>neutral</Pill>
+          <Pill pillRole="status" size="S" onDelete={noop}>neutral</Pill>
+          <Pill pillRole="status" size="S" onDelete={noop} fill>neutral</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status">neutral</Pill>
+          <Pill pillRole="status" fill>neutral</Pill>
+          <Pill pillRole="status" onDelete={noop}>neutral</Pill>
+          <Pill pillRole="status" onDelete={noop} fill>neutral</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" size="L">neutral</Pill>
+          <Pill pillRole="status" size="L" fill>neutral</Pill>
+          <Pill pillRole="status" size="L" onDelete={noop}>neutral</Pill>
+          <Pill pillRole="status" size="L" onDelete={noop} fill>neutral</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" size="XL">neutral</Pill>
+          <Pill pillRole="status" size="XL" fill>neutral</Pill>
+          <Pill pillRole="status" size="XL" onDelete={noop}>neutral</Pill>
+          <Pill pillRole="status" size="XL" onDelete={noop} fill>neutral</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="positive" size="S">positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="S" fill>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="S" onDelete={noop}>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="S" onDelete={noop} fill>positive</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="positive">positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" fill>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" onDelete={noop}>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" onDelete={noop} fill>positive</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="positive" size="L">positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="L" fill>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="L" onDelete={noop}>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="L" onDelete={noop} fill>positive</Pill>
+        </Box>
+          <Box mb={1}>
+          <Pill pillRole="status" colorVariant="positive" size="XL">positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="XL" fill>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="XL" onDelete={noop}>positive</Pill>
+          <Pill pillRole="status" colorVariant="positive" size="XL" onDelete={noop} fill>positive</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="negative" size="S">negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="S" fill>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="S" onDelete={noop}>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="S" onDelete={noop} fill>negative</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="negative">negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" fill>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" onDelete={noop}>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" onDelete={noop} fill>negative</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="negative" size="L">negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="L" fill>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="L" onDelete={noop}>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="L" onDelete={noop} fill>negative</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="negative" size="XL">negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="XL" fill>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="XL" onDelete={noop}>negative</Pill>
+          <Pill pillRole="status" colorVariant="negative" size="XL" onDelete={noop} fill>negative</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="warning" size="S">warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="S" fill>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="S" onDelete={noop}>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="S" onDelete={noop} fill>warning</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="warning">warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" fill>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" onDelete={noop}>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" onDelete={noop} fill>warning</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill pillRole="status" colorVariant="warning" size="L">warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="L" fill>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="L" onDelete={noop}>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="L" onDelete={noop} fill>warning</Pill>
+        </Box>
+        <Box>
+          <Pill pillRole="status" colorVariant="warning" size="XL">warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="XL" fill>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="XL" onDelete={noop}>warning</Pill>
+          <Pill pillRole="status" colorVariant="warning" size="XL" onDelete={noop} fill>warning</Pill>
+        </Box>
+      </>
     }}
   </Story>
 </Preview>
@@ -125,31 +128,75 @@ Applied by the user, and indicate something in common. Change the theme to see t
     {() => {
       const noop = () => {};
       return <>
-       <div style={{marginBottom: 8}}>
-       <Pill size="S">tag</Pill>
-       <Pill size="S" fill>tag</Pill>
-       <Pill size="S" onDelete={noop}>tag</Pill>
-       <Pill size="S" onDelete={noop} fill>tag</Pill>
-       </div>
-      <div style={{marginBottom: 8}}>
-       <Pill>tag</Pill>
-       <Pill fill>tag</Pill>
-       <Pill onDelete={noop}>tag</Pill>
-       <Pill onDelete={noop} fill>tag</Pill>
-       </div>
-       <div style={{marginBottom: 8}}>
-       <Pill size="L">tag</Pill>
-       <Pill size="L" fill>tag</Pill>
-       <Pill size="L" onDelete={noop}>tag</Pill>
-       <Pill size="L" onDelete={noop} fill>tag</Pill>
-       </div>
-        <div style={{marginBottom: 8}}>
-       <Pill size="XL">tag</Pill>
-       <Pill size="XL" fill>tag</Pill>
-       <Pill size="XL" onDelete={noop}>tag</Pill>
-       <Pill size="XL" onDelete={noop} fill>tag</Pill>
-       </div>
-    </>
+        <Box mb={1}>
+          <Pill size="S">tag</Pill>
+          <Pill size="S" fill>tag</Pill>
+          <Pill size="S" onDelete={noop}>tag</Pill>
+          <Pill size="S" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill>tag</Pill>
+          <Pill fill>tag</Pill>
+          <Pill onDelete={noop}>tag</Pill>
+          <Pill onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill size="L">tag</Pill>
+          <Pill size="L" fill>tag</Pill>
+          <Pill size="L" onDelete={noop}>tag</Pill>
+          <Pill size="L" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box>
+          <Pill size="XL">tag</Pill>
+          <Pill size="XL" fill>tag</Pill>
+          <Pill size="XL" onDelete={noop}>tag</Pill>
+          <Pill size="XL" onDelete={noop} fill>tag</Pill>
+        </Box>
+      </>
+    }}
+  </Story>
+</Preview>
+
+## Custom colors
+It's possible to change the color of the Pill by using the `borderColor` prop. It will override `colorVariant` value.
+See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
+
+<Preview>
+  <Story name="custom colors" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+    {() => {
+      const noop = () => {};
+      return <>
+        <Box mb={1}>
+          <Pill borderColor="blackOpacity65">tag</Pill>
+          <Pill borderColor="blackOpacity65" fill>tag</Pill>
+          <Pill borderColor="blackOpacity65" onDelete={noop}>tag</Pill>
+          <Pill borderColor="blackOpacity65" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill borderColor="brilliantGreenShade20">tag</Pill>
+          <Pill borderColor="brilliantGreenShade20" fill>tag</Pill>
+          <Pill borderColor="brilliantGreenShade20" onDelete={noop}>tag</Pill>
+          <Pill borderColor="brilliantGreenShade20" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill borderColor="red">tag</Pill>
+          <Pill borderColor="red" fill>tag</Pill>
+          <Pill borderColor="red" onDelete={noop}>tag</Pill>
+          <Pill borderColor="red" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box mb={1}>
+          <Pill borderColor="#123456">tag</Pill>
+          <Pill borderColor="#123456" fill>tag</Pill>
+          <Pill borderColor="#123456" onDelete={noop}>tag</Pill>
+          <Pill borderColor="#123456" onDelete={noop} fill>tag</Pill>
+        </Box>
+        <Box>
+          <Pill borderColor="rgb(0, 123, 10)">tag</Pill>
+          <Pill borderColor="rgb(0, 123, 10)" fill>tag</Pill>
+          <Pill borderColor="rgb(0, 123, 10)" onDelete={noop}>tag</Pill>
+          <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} fill>tag</Pill>
+        </Box>
+      </>
     }}
   </Story>
 </Preview>

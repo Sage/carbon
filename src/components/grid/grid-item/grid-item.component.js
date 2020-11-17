@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-import React from 'react';
-import PropTypes from 'prop-types';
-import GridItemStyle from './grid-item.style';
+import React from "react";
+import PropTypes from "prop-types";
+import GridItemStyle from "./grid-item.style";
 
 const GridItem = (props) => {
   const {
@@ -17,7 +17,7 @@ const GridItem = (props) => {
     pt,
     pb,
     px,
-    py
+    py,
   } = props;
 
   const styledSystemProps = {
@@ -29,7 +29,7 @@ const GridItem = (props) => {
     pl,
     pr,
     pt,
-    pb
+    pb,
   };
 
   if (px) {
@@ -42,8 +42,8 @@ const GridItem = (props) => {
 
   return (
     <GridItemStyle
-      responsiveSettings={ responsiveSettings }
-      { ...styledSystemProps }
+      responsiveSettings={responsiveSettings}
+      {...styledSystemProps}
     >
       {children}
     </GridItemStyle>
@@ -96,9 +96,9 @@ GridItem.propTypes = {
       /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-top */
       pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-bottom */
-      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
-  )
+  ),
 };
 
 export default GridItem;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea when rendered should render default 1`] = `
-.c6 {
+.c7 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -15,33 +15,44 @@ exports[`Textarea when rendered should render default 1`] = `
   width: 30px;
 }
 
-.c6:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+.c7:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
-.c6::-webkit-input-placeholder {
+.c7::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::-moz-placeholder {
+.c7::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:-ms-input-placeholder {
+.c7:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::placeholder {
+.c7::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:invalid,
-.c6:required {
+.c7:invalid,
+.c7:required {
   box-shadow: none;
 }
 
 .c4 {
+  -webkit-flex: 0 0 %;
+  -ms-flex: 0 0 %;
+  flex: 0 0 %;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -57,36 +68,34 @@ exports[`Textarea when rendered should render default 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
 }
 
-.c4 .c5:-webkit-autofill {
+.c5 .c6:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c4 input::-ms-clear {
+.c5 input::-ms-clear {
   display: none;
 }
 
-.c4 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+.c5 input::-webkit-contacts-auto-fill-button {
+  display: none !important;
 }
 
-.c7 .c5:-webkit-autofill {
+.c8 .c6:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c8 .c5:-webkit-autofill {
+.c9 .c6:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c9 .c5:-webkit-autofill {
+.c10 .c6:-webkit-autofill {
   margin-top: 2px;
 }
 
@@ -98,14 +107,14 @@ exports[`Textarea when rendered should render default 1`] = `
   display: block;
 }
 
-.c0 .c5 {
+.c0 .c6 {
   resize: none;
   min-height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.c0 .c10 {
+.c0 .c11 {
   height: 40px;
 }
 
@@ -120,27 +129,31 @@ exports[`Textarea when rendered should render default 1`] = `
     >
       <div
         className="c4"
-        disabled={false}
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        readOnly={false}
-        role="presentation"
-        size="medium"
       >
-        <textarea
-          className="c5 c6"
-          data-element="input"
+        <div
+          className="c5"
           disabled={false}
-          id="guid-12345"
-          name="textarea"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           readOnly={false}
-          type="text"
-        />
+          role="presentation"
+          size="medium"
+        >
+          <textarea
+            className="c6 c7"
+            data-element="input"
+            disabled={false}
+            id="guid-12345"
+            name="textarea"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            readOnly={false}
+            type="text"
+          />
+        </div>
       </div>
     </div>
   </div>

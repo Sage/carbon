@@ -3,15 +3,11 @@
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to content exists and contains html 1`] = `
 .c0 {
   overflow-y: auto;
+  padding: 0 16px;
 }
 
 .c4 + .c0 {
   height: calc(100% - 0px);
-}
-
-.c0 .carbon-app-wrapper {
-  max-width: none;
-  padding: 27px 32px 32px 32px;
 }
 
 .c2 {
@@ -43,8 +39,8 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #26A826;
-  color: #26A826;
+  border-color: #008200;
+  color: #008200;
   font-size: 14px;
   min-height: 40px;
 }
@@ -77,48 +73,61 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   margin-top: 0;
 }
 
+@media screen and (min-width:600px) {
+  .c0 {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .c0 {
+    padding: 0 32px;
+  }
+}
+
+@media screen and (min-width:1260px) {
+  .c0 {
+    padding: 0 40px;
+  }
+}
+
 <div
   class="c0"
   data-element="content"
 >
-  <div
-    class="carbon-app-wrapper"
-    data-component="app-wrapper"
+  <button
+    class="c1 c2"
+    data-component="button"
+    role="button"
+    type="button"
   >
-    <button
-      class="c1 c2"
-      data-component="button"
-      role="button"
-      type="button"
-    >
-      <span>
-        <span
-          data-element="main-text"
-        >
-          Button
-        </span>
+    <span>
+      <span
+        data-element="main-text"
+      >
+        Button
       </span>
-    </button>
-    <button
-      class="c1 c2"
-      data-component="button"
-      role="button"
-      type="button"
-    >
-      <span>
-        <span
-          data-element="main-text"
-        >
-          Button
-        </span>
+    </span>
+  </button>
+  <button
+    class="c1 c2"
+    data-component="button"
+    role="button"
+    type="button"
+  >
+    <span>
+      <span
+        data-element="main-text"
+      >
+        Button
       </span>
-    </button>
-  </div>
+    </span>
+  </button>
 </div>
 `;
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to heading exists 1`] = `
-.c5 {
+.c6 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -139,12 +148,12 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   width: 24px;
 }
 
-.c5:hover {
+.c6:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c5::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -157,37 +166,58 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   display: block;
 }
 
-.c6 {
+.c3 {
   width: 100%;
 }
 
-.c6.c6.c6.c6 .c11 {
+.c3.c3.c3.c3 .c11 {
   margin-top: -22px;
   margin-top: -14px;
 }
 
-.c6.c6.c6.c6 .c11 a,
-.c6.c6.c6.c6 .c11 button {
+.c3.c3.c3.c3 .c11 a,
+.c3.c3.c3.c3 .c11 button {
   -webkit-text-decoration: none;
   text-decoration: none;
   padding-top: 8px;
 }
 
-.c6.c6.c6.c6 .c11 a:focus,
-.c6.c6.c6.c6 .c11 button:focus {
+.c3.c3.c3.c3 .c11 a:focus,
+.c3.c3.c3.c3 .c11 button:focus {
   background-color: transparent;
   outline: 3px solid #FFB500;
   width: 25px;
 }
 
-.c1 {
-  border-bottom: 1px solid #CCD6DB;
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
-.c1 .carbon-app-wrapper {
-  position: relative;
-  max-width: none;
-  padding: 32px;
+.c1 {
+  border-bottom: 1px solid #CCD6DB;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  padding: 0 16px;
+}
+
+.c1 .carbon-heading {
+  width: auto;
 }
 
 .c1 .carbon-heading .carbon-heading__header {
@@ -196,15 +226,13 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  box-sizing: content-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 0;
   padding-bottom: 0;
-  width: 100%;
   border: none;
+  margin: 22px 24px 24px 0;
 }
 
 .c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
@@ -216,40 +244,37 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   margin-left: -5px;
 }
 
-.c3 {
+.c4 {
   background: transparent;
   border: none;
   padding: 0;
 }
 
-.c3:focus {
+.c4:focus {
   color: rgba(0,0,0,0.9);
   background-color: transparent;
   outline: solid 3px #FFB500;
   z-index: 1;
 }
 
-.c3:hover {
+.c4:hover {
   cursor: pointer;
 }
 
-.c3::-moz-focus-inner {
+.c4::-moz-focus-inner {
   border: none;
 }
 
-.c3 .c4 {
+.c4 .c5 {
   position: relative;
 }
 
-.c3 .c4:focus {
+.c4 .c5:focus {
   border: none;
 }
 
-.c7 .c2 {
-  position: absolute;
-  right: 33px;
-  top: 32px;
-  z-index: 1;
+.c0 + .c7 {
+  height: calc(100% - 0px);
 }
 
 .c0 + .c8 {
@@ -260,18 +285,36 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   height: calc(100% - 0px);
 }
 
-.c10:hover .c4 {
+.c10:hover .c5 {
   color: #FFFFFF;
 }
 
-.c10 .c4 {
+.c10 .c5 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c10 .c4 svg {
+.c10 .c5 svg {
   margin-top: 0;
+}
+
+@media screen and (min-width:600px) {
+  .c1 {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .c1 {
+    padding: 0 32px;
+  }
+}
+
+@media screen and (min-width:1260px) {
+  .c1 {
+    padding: 0 40px;
+  }
 }
 
 <div
@@ -279,23 +322,10 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   data-component="full-screen-heading"
 >
   <div
-    class="carbon-app-wrapper"
-    data-component="app-wrapper"
+    class="c2"
   >
-    <button
-      class="c2 c3"
-      data-element="close"
-    >
-      <span
-        class="c4 c5"
-        data-component="icon"
-        data-element="close"
-        font-size="small"
-        type="close"
-      />
-    </button>
     <div
-      class="c6 carbon-heading carbon-heading--has-divider"
+      class="c3 carbon-heading carbon-heading--has-divider"
       data-component="heading"
     >
       <div
@@ -318,5 +348,17 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
       </div>
     </div>
   </div>
+  <button
+    class="c4"
+    data-element="close"
+  >
+    <span
+      class="c5 c6"
+      data-component="icon"
+      data-element="close"
+      font-size="small"
+      type="close"
+    />
+  </button>
 </div>
 `;

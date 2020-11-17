@@ -1,47 +1,56 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags';
-import RadioButtonStyle from './radio-button.style';
-import CheckableInput from '../checkable-input/checkable-input.component';
-import RadioButtonSvg from './radio-button-svg.component';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import tagComponent from "../../../utils/helpers/tags";
+import RadioButtonStyle from "./radio-button.style";
+import CheckableInput from "../checkable-input/checkable-input.component";
+import RadioButtonSvg from "./radio-button-svg.component";
+import OptionsHelper from "../../../utils/helpers/options-helper";
 
 const RadioButton = ({
-  id, label, onChange, onBlur, value, mt = 1, mb = 2, ...props
+  id,
+  label,
+  onChange,
+  onBlur,
+  value,
+  mt,
+  mb = 2,
+  ...props
 }) => {
-  const handleChange = useCallback((ev) => {
-    onChange(ev);
-    // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
-    ev.target.focus();
-  }, [onChange]);
+  const handleChange = useCallback(
+    (ev) => {
+      onChange(ev);
+      // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
+      ev.target.focus();
+    },
+    [onChange]
+  );
 
   const inputProps = {
     ...props,
     onChange: handleChange,
     onBlur,
-    helpTag: 'span',
+    helpTag: "span",
     labelInline: true,
     inputId: id,
     inputLabel: label,
     inputValue: value,
-    inputType: 'radio',
+    inputType: "radio",
     mb,
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
      * opposite way around by default)
      */
-    reverse: !props.reverse
+    reverse: !props.reverse,
   };
-
 
   return (
     <RadioButtonStyle
-      { ...tagComponent('radio-button', props) }
-      mt={ mt }
-      { ...props }
+      {...tagComponent("radio-button", props)}
+      mt={mt}
+      {...props}
     >
-      <CheckableInput { ...inputProps }>
+      <CheckableInput {...inputProps}>
         <RadioButtonSvg />
       </CheckableInput>
     </RadioButtonStyle>
@@ -60,7 +69,7 @@ RadioButton.propTypes = {
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
@@ -89,18 +98,18 @@ RadioButton.propTypes = {
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
-        `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. `
-          + 'This component is meant to be used as a self-closing tag. '
-          + 'You should probably use the label prop instead.'
+        `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. ` +
+          "This component is meant to be used as a self-closing tag. " +
+          "You should probably use the label prop instead."
       );
     }
     return null;
-  }
+  },
 };
 
 RadioButton.defaultProps = {
   reverse: false,
-  labelSpacing: 1
+  labelSpacing: 1,
 };
 
 export { RadioButton as PrivateRadioButton };

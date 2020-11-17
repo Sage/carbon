@@ -1,17 +1,22 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import FieldHelpStyle from '../field-help/field-help.style';
-import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import { StyledLabelContainer } from '../label/label.style';
-import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
-import StyledSwitchSlider from './switch-slider.style';
-import StyledValidationIcon from '../../../components/validations/validation-icon.style';
-import { FieldLineStyle } from '../form-field/form-field.style';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import FieldHelpStyle from "../field-help/field-help.style";
+import HiddenCheckableInputStyle from "../checkable-input/hidden-checkable-input.style";
+import { StyledLabelContainer } from "../label/label.style";
+import { StyledCheckableInput } from "../checkable-input/checkable-input.style";
+import StyledSwitchSlider from "./switch-slider.style";
+import StyledValidationIcon from "../../../components/validations/validation-icon.style";
+import { FieldLineStyle } from "../form-field/form-field.style";
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelSpacing, reverse, size, theme
+    fieldHelpInline,
+    labelInline,
+    labelSpacing,
+    reverse,
+    size,
+    theme,
   }) => css`
     ${FieldLineStyle} {
       display: flex;
@@ -28,8 +33,7 @@ const StyledSwitch = styled.div`
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledSwitchSlider},
-      &:hover + ${StyledSwitchSlider} {
+      &:focus + ${StyledSwitchSlider}, &:hover + ${StyledSwitchSlider} {
         outline: solid 3px ${theme.colors.focus};
       }
     }
@@ -39,7 +43,10 @@ const StyledSwitch = styled.div`
     }
 
     ${StyledLabelContainer} {
-      ${!labelInline && css`padding: 0;`};
+      ${!labelInline &&
+      css`
+        padding: 0;
+      `};
       margin-bottom: 8px;
 
       ${StyledValidationIcon} {
@@ -48,19 +55,23 @@ const StyledSwitch = styled.div`
       }
     }
 
-    ${fieldHelpInline && css`
+    ${fieldHelpInline &&
+    css`
       ${FieldHelpStyle} {
         margin: 0;
       }
     `}
 
-    ${reverse && css`
-      ${!labelInline && css`
+    ${reverse &&
+    css`
+      ${!labelInline &&
+      css`
         ${StyledLabelContainer} {
           margin-top: 8px;
         }
 
-        ${fieldHelpInline && css`
+        ${fieldHelpInline &&
+        css`
           ${FieldHelpStyle} {
             margin-top: 8px;
           }
@@ -68,7 +79,8 @@ const StyledSwitch = styled.div`
       `}
     `}
 
-    ${labelInline && css`
+    ${labelInline &&
+    css`
       ${StyledCheckableInput} {
         flex-basis: auto;
       }
@@ -86,13 +98,15 @@ const StyledSwitch = styled.div`
         margin-top: 0;
       }
 
-      ${reverse && css`
+      ${reverse &&
+      css`
         ${StyledCheckableInput} {
           margin-left: 0;
           margin-top: 0;
         }
 
-        ${!fieldHelpInline && `
+        ${!fieldHelpInline &&
+        `
           ${FieldHelpStyle} {
             margin-left: 60px;
             padding-left: ${labelSpacing * theme.spacing}px;
@@ -100,8 +114,10 @@ const StyledSwitch = styled.div`
         `}
       `}
 
-      ${fieldHelpInline && css`
-        ${!reverse && `
+      ${fieldHelpInline &&
+      css`
+        ${!reverse &&
+        `
           ${StyledCheckableInput} {
             margin-left: 10px;
           }
@@ -118,26 +134,33 @@ const StyledSwitch = styled.div`
       `}
     `}
 
-    ${size === 'large' && css`
+    ${size === "large" &&
+    css`
       ${StyledCheckableInput}, ${HiddenCheckableInputStyle}, ${StyledSwitchSlider} {
         height: 40px;
         width: 78px;
       }
 
-      ${labelInline && !fieldHelpInline && reverse && css`
+      ${labelInline &&
+      !fieldHelpInline &&
+      reverse &&
+      css`
         ${FieldHelpStyle} {
           padding: 10px 0;
         }
       `}
 
-      ${labelInline && css`
+      ${labelInline &&
+      css`
         ${StyledLabelContainer} {
           margin-top: 1px;
           padding-top: 10px;
           padding-bottom: 10px;
         }
 
-        ${!fieldHelpInline && reverse && `
+        ${!fieldHelpInline &&
+        reverse &&
+        `
           ${FieldHelpStyle} {
             margin-left: 78px;
             padding-left: ${labelSpacing * theme.spacing}px;
@@ -154,11 +177,11 @@ StyledSwitch.propTypes = {
   labelInline: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 StyledSwitch.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default StyledSwitch;

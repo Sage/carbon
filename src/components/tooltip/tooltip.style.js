@@ -1,8 +1,8 @@
-import styled, { css, keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { isHorizontal } from './tooltip.utils';
+import styled, { css, keyframes } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { isHorizontal } from "./tooltip.utils";
 
 const fadeIn = keyframes`
   0% {
@@ -26,7 +26,8 @@ const StyledTooltipInner = styled.div`
     white-space: pre-wrap;
     font-weight: 700;
 
-    ${type === 'error' && css`
+    ${type === "error" &&
+    css`
       background-color: ${theme.colors.error};
     `}
   `}
@@ -42,28 +43,26 @@ const StyledTooltipWrapper = styled.div`
   text-align: ${({ align, position }) => getTextAlignment(position, align)};
 `;
 
-
 StyledTooltipInner.propTypes = {
   theme: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 StyledTooltipWrapper.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
-  position: PropTypes.oneOf(OptionsHelper.positions)
+  position: PropTypes.oneOf(OptionsHelper.positions),
 };
 
-
 StyledTooltipWrapper.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledTooltipInner.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 function getTextAlignment(position, align) {
-  let textAlignment = 'center';
+  let textAlignment = "center";
 
   if (isHorizontal(position)) {
     textAlignment = position;

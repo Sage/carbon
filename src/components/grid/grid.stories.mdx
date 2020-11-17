@@ -21,9 +21,9 @@ The Grid system is designed to provide:
 - It uses the [CSS Grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), which is a truly two-dimentional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
 
 ### `GridContainer`
-- Comprised of 12 equal-width columns, including external margins and internal gutters.
+- Comprised of 12 equal-width columns, including external paddings and internal gutters.
 - Allows either percentage or a fixed pixel width.
-- Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's margins and gutters will be based on that size.
+- Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's paddings and gutters will be based on that size.
 
 ### `GridItem`
 The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
@@ -32,10 +32,10 @@ The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoi
 - Unlimited breakpoints provide dynamic adjustment at any viewport width.
 - Can be re-ordered on the page by viewport dimensions.
 
-### Margins
-Margins for the `GridContainer` are set automatically in the CSS, following the values in this table.
+### Paddings
+Paddings for the `GridContainer` are set automatically in the CSS, following the values in this table.
 
-| Breakpoints                | Device Type  | Margins |
+| Breakpoints                | Device Type  | Paddings |
 |----------------------------|--------------|---------|
 | Extra Small (320 to 599px) | Smart Phones | 16px    |
 | Small (600 to 959px)       | Portrait Tablets | 24px |
@@ -193,7 +193,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 <Preview>
   <Story name="custom spacings" parameters={{ info: { disable: true }}} >
-    <GridContainer m='20px' gridGap='5px'>
+    <GridContainer p='20px' gridGap='5px'>
       <GridItem
         p='20px 5px 20px 0'
         gridColumn='1 / 10'
@@ -283,7 +283,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 ## Responsive Settings Example
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
 <Preview>
-  <Story name="responsive-settings" parameters={{ info: { disable: true }}} >
+  <Story name="responsive-settings" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     <GridContainer>
       <GridItem responsiveSettings={[
         {

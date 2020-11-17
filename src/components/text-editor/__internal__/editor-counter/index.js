@@ -1,1 +1,1 @@
-export { default } from './editor-counter.component';
+export { default } from "./editor-counter.component";

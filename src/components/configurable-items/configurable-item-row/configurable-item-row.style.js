@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import Icon from '../../icon';
-import baseTheme from '../../../style/themes/base';
-import { StyledLabelContainer } from '../../../__experimental__/components/label/label.style';
+import styled, { css } from "styled-components";
+import Icon from "../../icon";
+import baseTheme from "../../../style/themes/base";
+import { StyledLabelContainer } from "../../../__experimental__/components/label/label.style";
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: grab;
@@ -29,15 +29,17 @@ const ConfigurableItemRowStyle = styled.li`
     margin: 0px 6px 6px 6px;
   }
 
-  ${({ isDragging, isDragged }) => (isDragging || isDragged)
-    && css`
+  ${({ isDragging, isDragged }) =>
+    (isDragging || isDragged) &&
+    css`
       cursor: grabbing;
       cursor: -moz-grabbing;
       cursor: -webkit-grabbing;
     `}
 
-  ${({ isDragged }) => isDragged
-    && css`
+  ${({ isDragged }) =>
+    isDragged &&
+    css`
       ${ConfigurableItemRowContentWrapperStyle} {
         visibility: hidden;
       }
@@ -45,11 +47,15 @@ const ConfigurableItemRowStyle = styled.li`
 `;
 
 ConfigurableItemRowStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 ConfigurableItemRowIconStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
-export { ConfigurableItemRowStyle, ConfigurableItemRowContentWrapperStyle, ConfigurableItemRowIconStyle };
+export {
+  ConfigurableItemRowStyle,
+  ConfigurableItemRowContentWrapperStyle,
+  ConfigurableItemRowIconStyle,
+};

@@ -144,12 +144,12 @@ Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
 });
 
 Then('Textbox inputWidth is set to {string}', (width) => {
-  textbox().should('have.css', 'flex', `0 0 ${width}%`);
+  textbox().parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 Then('Multiple Textbox inputWidth is set to {string}', (width) => {
-  textboxByPosition(positionOfElement('first')).should('have.css', 'flex', `0 0 ${width}%`);
-  textboxByPosition(positionOfElement('second')).should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('first')).parent().should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('second')).parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 Then('Multiple label width is set to {string}', (width) => {
@@ -199,7 +199,7 @@ Then('Multiple Textbox width is {string}', (width) => {
 });
 
 Then('Multiple label Align on preview is {string}', (direction) => {
-  if(direction === 'left') {
+  if (direction === 'left') {
     labelByPosition(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
     labelByPosition(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
   } else {

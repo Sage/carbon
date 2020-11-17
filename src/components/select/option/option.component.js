@@ -1,27 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StyledOption from './option.style';
+import React from "react";
+import PropTypes from "prop-types";
+import StyledOption from "./option.style";
 
-const Option = ({
-  text,
-  children,
-  onSelect,
-  value,
-  isHighlighted
-}) => {
+const Option = ({ text, children, onSelect, value, isHighlighted }) => {
   function handleClick() {
     onSelect({ text, value });
   }
 
   return (
     <StyledOption
-      aria-selected={ isHighlighted }
-      data-component='option'
-      onClick={ handleClick }
-      isHighlighted={ isHighlighted }
-      role='option'
+      aria-selected={isHighlighted}
+      data-component="option"
+      onClick={handleClick}
+      isHighlighted={isHighlighted}
+      role="option"
     >
-      { children || text }
+      {children || text}
     </StyledOption>
   );
 };
@@ -42,7 +36,7 @@ Option.propTypes = {
    * @private
    * @ignore
    * True if the option is highlighted (prop added by the SelectList component) */
-  isHighlighted: PropTypes.bool
+  isHighlighted: PropTypes.bool,
 };
 
 export default Option;

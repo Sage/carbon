@@ -1,15 +1,15 @@
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import StyledIconButton from '../icon-button/icon-button.style';
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import StyledIconButton from "../icon-button/icon-button.style";
 
 const sidebarSizes = {
-  'extra-small': '150px',
-  small: '250px',
-  'medium-small': '350px',
-  medium: '450px',
-  'medium-large': '550px',
-  large: '650px',
-  'extra-large': '750px'
+  "extra-small": "150px",
+  small: "250px",
+  "medium-small": "350px",
+  medium: "450px",
+  "medium-large": "550px",
+  large: "650px",
+  "extra-large": "750px",
 };
 
 const SidebarStyle = styled.div`
@@ -21,14 +21,18 @@ const SidebarStyle = styled.div`
   padding: 27px 32px 32px 32px;
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
 
-  ${({ size }) => size && css`
+  ${({ size }) =>
+    size &&
+    css`
       width: ${sidebarSizes[size]};
-  `};
+    `};
 
-  ${({ position, theme }) => position && css`
+  ${({ position, theme }) =>
+    position &&
+    css`
       box-shadow: ${theme.shadows.depth3};
       ${position}: 0;
-  `};
+    `};
 
   ${StyledIconButton} {
     position: absolute;
@@ -39,7 +43,7 @@ const SidebarStyle = styled.div`
 `;
 
 SidebarStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export default SidebarStyle;

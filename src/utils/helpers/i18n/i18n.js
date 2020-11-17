@@ -1,15 +1,14 @@
-import BigNumber from 'bignumber.js';
-import I18n from 'i18n-js';
+import BigNumber from "bignumber.js";
+import I18n from "i18n-js";
 
 /**
-* I18n Helper
-*
-* Provides helper methods for I18n.
-*
-* @object I18nHelper
-*/
+ * I18n Helper
+ *
+ * Provides helper methods for I18n.
+ *
+ * @object I18nHelper
+ */
 const I18nHelper = {
-
   /**
    * Returns format from the defined translations.
    *
@@ -19,20 +18,20 @@ const I18nHelper = {
    */
   format: (locale) => {
     return {
-      delimiter: I18n.t('number.format.delimiter', {
-        defaultValue: ','
+      delimiter: I18n.t("number.format.delimiter", {
+        defaultValue: ",",
       }),
-      separator: I18n.t('number.format.separator', {
-        defaultValue: '.'
+      separator: I18n.t("number.format.separator", {
+        defaultValue: ".",
       }),
-      unit: I18n.t('number.currency.format.unit', {
+      unit: I18n.t("number.currency.format.unit", {
         locale,
-        defaultValue: '£'
+        defaultValue: "£",
       }),
-      format: I18n.t('number.currency.format.format', {
+      format: I18n.t("number.currency.format.format", {
         locale,
-        defaultValue: '%u%n'
-      })
+        defaultValue: "%u%n",
+      }),
     };
   },
 
@@ -45,13 +44,13 @@ const I18nHelper = {
    * @return {String} formatted value
    */
   formatDecimal: (valueToFormat = 0, precision = 2, options = {}) => {
-    const locale = options.locale || I18n.locale || 'en';
+    const locale = options.locale || I18n.locale || "en";
     const { separator, delimiter } = I18nHelper.format(locale);
     const num = new BigNumber(valueToFormat);
     const format = {
       decimalSeparator: separator,
       groupSeparator: delimiter,
-      groupSize: 3
+      groupSize: 3,
     };
 
     return num.toFormat(precision, format);
@@ -67,13 +66,16 @@ const I18nHelper = {
    * @return {String} abbreviated, currencified number
    */
   abbreviateCurrency: (num, options = {}) => {
-    const locale = options.locale || I18n.locale || 'en';
-    const sign = num < 0 ? '-' : '';
+    const locale = options.locale || I18n.locale || "en";
+    const sign = num < 0 ? "-" : "";
     const abbr = I18nHelper.abbreviateNumber(num, options);
     const format = I18nHelper.format(locale);
     const unit = options.unit || format.unit;
 
-    return format.format.replace('%u', unit).replace('%n', abbr).replace('%s', sign);
+    return format.format
+      .replace("%u", unit)
+      .replace("%n", abbr)
+      .replace("%s", sign);
   },
 
   /**
@@ -87,12 +89,24 @@ const I18nHelper = {
   abbreviateNumber: (num, options = {}) => {
     const absolute = Math.abs(num);
     if (absolute > 949 && absolute < 999950) {
-      const translation = I18n.t('number.format.abbreviations.thousand', { defaultValue: 'k' });
-      return `${I18nHelper.roundForAbbreviation(num, 100, options)}${translation}`;
+      const translation = I18n.t("number.format.abbreviations.thousand", {
+        defaultValue: "k",
+      });
+      return `${I18nHelper.roundForAbbreviation(
+        num,
+        100,
+        options
+      )}${translation}`;
     }
     if (absolute > 999949) {
-      const translation = I18n.t('number.format.abbreviations.million', { defaultValue: 'm' });
-      return `${I18nHelper.roundForAbbreviation(num, 100000, options)}${translation}`;
+      const translation = I18n.t("number.format.abbreviations.million", {
+        defaultValue: "m",
+      });
+      return `${I18nHelper.roundForAbbreviation(
+        num,
+        100000,
+        options
+      )}${translation}`;
     }
 
     return `${I18nHelper.formatDecimal(num, 2, options)}`;
@@ -106,9 +120,9 @@ const I18nHelper = {
    * @param {Number} number
    */
   humanizeFilesize: (number) => {
-    if (number === 0) return '0 Bytes';
+    if (number === 0) return "0 Bytes";
     const k = 1000;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
     const i = Math.floor(Math.log(number) / Math.log(k));
 
     // Unable to use the exponentiation operator ** as browserify
@@ -130,7 +144,11 @@ const I18nHelper = {
   roundForAbbreviation: (number, divisor, options = {}) => {
     const num = new BigNumber(number);
     const div = new BigNumber(divisor);
-    return I18nHelper.formatDecimal(num.dividedBy(div).integerValue().dividedBy(10), 1, options);
+    return I18nHelper.formatDecimal(
+      num.dividedBy(div).integerValue().dividedBy(10),
+      1,
+      options
+    );
   },
 
   /**
@@ -142,14 +160,14 @@ const I18nHelper = {
    * @return {String} formatted value
    */
   formatCurrency: (valueToFormat = 0, options = {}) => {
-    const locale = options.locale || I18n.locale || 'en';
+    const locale = options.locale || I18n.locale || "en";
     const format = I18nHelper.format(locale);
     let { precision } = options;
     const unit = options.unit || format.unit;
     const structure = options.format || format.format;
 
     // Checking explicitly as 0 is a valid precision
-    if (typeof precision === 'undefined' || precision === null) {
+    if (typeof precision === "undefined" || precision === null) {
       precision = 2;
     }
 
@@ -158,7 +176,7 @@ const I18nHelper = {
       delimiter: format.delimiter,
       separator: format.separator,
       unit,
-      format: structure
+      format: structure,
     });
   },
 
@@ -169,13 +187,13 @@ const I18nHelper = {
    * @param {String} valueWithFormat Formatted value
    * @return {String} value with no format
    */
-  unformatDecimal: (valueWithFormat = '') => {
+  unformatDecimal: (valueWithFormat = "") => {
     const format = I18nHelper.format();
-    const regex = new RegExp(`\\${format.delimiter}`, 'g');
+    const regex = new RegExp(`\\${format.delimiter}`, "g");
 
-    const tmp = valueWithFormat.replace(regex, '', 'g');
-    return tmp.replace(format.separator, '.');
-  }
+    const tmp = valueWithFormat.replace(regex, "", "g");
+    return tmp.replace(format.separator, ".");
+  },
 };
 
 export default I18nHelper;

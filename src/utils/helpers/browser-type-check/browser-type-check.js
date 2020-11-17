@@ -6,10 +6,10 @@ function browserTypeCheck(_window) {
 }
 
 export function isSafari(navigator) {
-  return navigator.vendor.includes('Apple');
+  return navigator.vendor.includes("Apple");
 }
 
 export function isEdge(navigator) {
-  return navigator.userAgent.includes('Edge');
+  return navigator.userAgent.includes("Edge");
 }
 export default browserTypeCheck;

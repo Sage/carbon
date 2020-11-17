@@ -1,18 +1,18 @@
-import styled from 'styled-components';
-import BaseTheme from '../../../style/themes/base';
-import LinkStyleAnchor from '../../link/link.style';
-import StyledIcon from '../../icon/icon.style';
+import styled from "styled-components";
+import BaseTheme from "../../../style/themes/base";
+import LinkStyleAnchor from "../../link/link.style";
+import StyledIcon from "../../icon/icon.style";
 
 const StyledPage = styled.article`
   width: 100%;
   height: 100%;
 
   ${LinkStyleAnchor} {
-    a, button {
+    a,
+    button {
       text-decoration: none;
       height: 25px;
       margin-top: -12px;
-
 
       &:hover {
         text-decoration: none;
@@ -27,7 +27,7 @@ const StyledPage = styled.article`
         top: 5px;
 
         &:hover {
-          color: #335C6D;
+          color: #335c6d;
         }
       }
     }
@@ -43,7 +43,7 @@ const StyledPageContent = styled.div`
 `;
 
 StyledPage.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
 };
 
 export { StyledPage, StyledPageContent };

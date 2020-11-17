@@ -1,11 +1,7 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState
-} from 'react';
-import PropTypes from 'prop-types';
-import StyledTab from './tab.style';
-import tagComponent from '../../../../utils/helpers/tags/tags';
+import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import StyledTab from "./tab.style";
+import tagComponent from "../../../../utils/helpers/tags/tags";
 
 const TabContext = React.createContext({});
 
@@ -14,8 +10,8 @@ const Tab = ({
   className,
   children,
   isTabSelected,
-  position = 'top',
-  role = 'tabpanel',
+  position = "top",
+  role = "tabpanel",
   tabId,
   updateErrors,
   updateWarnings,
@@ -72,16 +68,16 @@ const Tab = ({
   }, [tabId, tabInfos, updateInfos]);
 
   return (
-    <TabContext.Provider value={ { setError, setWarning, setInfo } }>
+    <TabContext.Provider value={{ setError, setWarning, setInfo }}>
       <StyledTab
-        className={ className }
-        role={ role }
-        isTabSelected={ isTabSelected }
-        aria-labelledby={ ariaLabelledby }
-        position={ position }
-        { ...tagComponent('tab', rest) }
+        className={className}
+        role={role}
+        isTabSelected={isTabSelected}
+        aria-labelledby={ariaLabelledby}
+        position={position}
+        {...tagComponent("tab", rest)}
       >
-        { children }
+        {children}
       </StyledTab>
     </TabContext.Provider>
   );
@@ -98,7 +94,7 @@ Tab.propTypes = {
   /** Boolean indicating selected state of Tab. */
   isTabSelected: PropTypes.bool,
   /** The position of the Tab. */
-  position: PropTypes.oneOf(['top', 'left']),
+  position: PropTypes.oneOf(["top", "left"]),
   /** @ignore @private */
   role: PropTypes.string,
   /** @ignore @private */
@@ -118,7 +114,7 @@ Tab.propTypes = {
   /** Additional content to display with title */
   siblings: PropTypes.arrayOf(PropTypes.node),
   /** Position title before or after siblings */
-  titlePosition: PropTypes.oneOf(['before', 'after'])
+  titlePosition: PropTypes.oneOf(["before", "after"]),
 };
 
 export { TabContext };

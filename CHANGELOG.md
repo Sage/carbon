@@ -1,3 +1,231 @@
+### [48.7.1](https://github.com/Sage/carbon/compare/v48.7.0...v48.7.1) (2020-11-13)
+
+
+### Bug Fixes
+
+* **flat-table:** fix incorrect type definitions ([d8a8597](https://github.com/Sage/carbon/commit/d8a8597accdd91f2e33052fc04c4255997214fc6))
+
+## [48.7.0](https://github.com/Sage/carbon/compare/v48.6.3...v48.7.0) (2020-11-12)
+
+
+### Features
+
+* **flat-table:** add support for rendering table footer ([aa5ef93](https://github.com/Sage/carbon/commit/aa5ef93785e7fec2beb877742a4ec8c48d1c35a0))
+
+### [48.6.3](https://github.com/Sage/carbon/compare/v48.6.2...v48.6.3) (2020-11-12)
+
+
+### Bug Fixes
+
+* **radio-button:** align legend with first radio-button ([c08ae52](https://github.com/Sage/carbon/commit/c08ae5252f55956bb2d1a0fb8d9af26e84b67d39)), closes [#3269](https://github.com/Sage/carbon/issues/3269)
+
+### [48.6.2](https://github.com/Sage/carbon/compare/v48.6.1...v48.6.2) (2020-11-11)
+
+
+### Bug Fixes
+
+* **menu-divider:** add default cursor to passive submenu elements ([c449531](https://github.com/Sage/carbon/commit/c4495315a7fe909d43360d9ca0439c613fb1a670))
+
+### [48.6.1](https://github.com/Sage/carbon/compare/v48.6.0...v48.6.1) (2020-11-09)
+
+
+### Bug Fixes
+
+* **menu-item:** add height when onclick passed and button renders ([cec05f3](https://github.com/Sage/carbon/commit/cec05f3580a5f5bf9fceb9953349d8a08a72f0f9)), closes [#3308](https://github.com/Sage/carbon/issues/3308)
+
+## [48.6.0](https://github.com/Sage/carbon/compare/v48.5.0...v48.6.0) (2020-11-06)
+
+
+### Features
+
+* **menu-item:** add support for alternate background color variant ([bd14b40](https://github.com/Sage/carbon/commit/bd14b4015eba45a64e2e946ca5facf2ec184ec94))
+
+## [48.5.0](https://github.com/Sage/carbon/compare/v48.4.0...v48.5.0) (2020-11-06)
+
+
+### Features
+
+* **dialog-full-screen:** add prop `disableContentPadding` ([95d2717](https://github.com/Sage/carbon/commit/95d2717da44720d620eec149b7d646f5799bc092))
+
+## [48.4.0](https://github.com/Sage/carbon/compare/v48.3.1...v48.4.0) (2020-11-06)
+
+
+### Features
+
+* **navigation-bar:** add support for custom spacing props ([242d26e](https://github.com/Sage/carbon/commit/242d26e7261135bfc7cf8ac7dd4cde7e2ee46a56))
+
+
+### Bug Fixes
+
+* **radio-button:** warning when react node passed in label prop ([edbfb8f](https://github.com/Sage/carbon/commit/edbfb8fa023b5a2dcd16eb92037a72bfa61bb758))
+
+### [48.3.1](https://github.com/Sage/carbon/compare/v48.3.0...v48.3.1) (2020-11-02)
+
+
+### Bug Fixes
+
+* **search:** fix story ([4ff48d9](https://github.com/Sage/carbon/commit/4ff48d917321ed122f303df350b3f43dd95036a8))
+* **search:** fix styling ([60a1deb](https://github.com/Sage/carbon/commit/60a1deb0e782797243d2a63f154b06fb421c5bc9))
+* **search:** search icon show in wrong time ([436a4f4](https://github.com/Sage/carbon/commit/436a4f475f34f53f8f4086301c56ed91cea0c0aa))
+* **search:** work in controlled mode ([56f897f](https://github.com/Sage/carbon/commit/56f897f8a62743aa3b03420f55de1cca5926f9c1))
+
+## [48.3.0](https://github.com/Sage/carbon/compare/v48.2.0...v48.3.0) (2020-11-02)
+
+
+### Features
+
+* **icon:** add custom color support ([7b69b04](https://github.com/Sage/carbon/commit/7b69b042e8998b185b1c4767e6f80ba84bca7a44))
+* **pill:** add custom color support ([c542205](https://github.com/Sage/carbon/commit/c5422051419050a6e5c4dd5293fea784f078e293))
+
+## [48.2.0](https://github.com/Sage/carbon/compare/v48.1.0...v48.2.0) (2020-11-02)
+
+
+### Features
+
+* **accordion:** add tertiary button heading styling option ([254f1de](https://github.com/Sage/carbon/commit/254f1de4bcd737c4c0eb3c812309ca89c070f972))
+
+## [48.1.0](https://github.com/Sage/carbon/compare/v48.0.0...v48.1.0) (2020-10-30)
+
+
+### Features
+
+* **date:** add option to disable portal in component ([ec01acf](https://github.com/Sage/carbon/commit/ec01acf6a2f7bddf51b4a24918faa77eba57acbe))
+* **select:** add option to disable portal in component ([b0013bf](https://github.com/Sage/carbon/commit/b0013bfaa79dc7afb8faf18dea7d553a9a1c0b47))
+
+
+### Bug Fixes
+
+* **date:** fix failing snapshots ([1bd4c06](https://github.com/Sage/carbon/commit/1bd4c0670f36f6848c3c6e7bf6387eb2eff431a1))
+* **select:** fix select list positioning mechanism ([ee4686c](https://github.com/Sage/carbon/commit/ee4686cd1ac2e361ef3377d7e4bc956a8da0e232))
+
+## [48.0.0](https://github.com/Sage/carbon/compare/v47.1.2...v48.0.0) (2020-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **accordion:** prop `customPadding` no longer exists, after adding `styled-system` you can add any padding you need to Accordion
+To fix issues you will have to replace
+```
+<Accordion customPadding="50" />
+```
+with
+```
+<Accordion py="50px" />
+```
+to see more information about `styled-system` go visit https://styled-system.com/api
+
+feat(accordion): add prop headerSpacing
+
+headerSpacing prop allow you to use styled-system spacing API for Accordion Title
+
+feat(accordion): add new prop `disableContentPadding`
+* **tile:** - Tile will no longer support for padding prop  like `S, M, L, XL`
+- Tile will now support styled-system values for the padding and margin. You can see more here https://styled-system.com/api
+
+### Features
+
+* **accordion:** add styled-system ([ca27839](https://github.com/Sage/carbon/commit/ca27839f09f27c112eb54cfd0dfb201610800f9a))
+* **tile:** add styled-system ([e2de6fa](https://github.com/Sage/carbon/commit/e2de6fa0886bfa1da52ae2043de49ac3ed725da1))
+
+### [47.1.2](https://github.com/Sage/carbon/compare/v47.1.1...v47.1.2) (2020-10-30)
+
+
+### Bug Fixes
+
+* **theme:** update base/none theme primary color ([173d35f](https://github.com/Sage/carbon/commit/173d35f898097d456ef9ab18aa84c451096f4ada))
+
+### [47.1.1](https://github.com/Sage/carbon/compare/v47.1.0...v47.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **date:** datepicker incorrect weekday short names ([9947e44](https://github.com/Sage/carbon/commit/9947e44e522b0d9b58a5fbd89fcbfb0d57a3d91c))
+* **date:** datepicker weekdays not translated ([0377971](https://github.com/Sage/carbon/commit/037797189f74524dc26da8108d1dede3929ef531)), closes [#3120](https://github.com/Sage/carbon/issues/3120)
+
+## [47.1.0](https://github.com/Sage/carbon/compare/v47.0.0...v47.1.0) (2020-10-28)
+
+
+### Features
+
+* **filterable-select:** add list action button ([c2ef17a](https://github.com/Sage/carbon/commit/c2ef17a05861660f2f49b02081cd97db866ddc2d))
+
+
+### Bug Fixes
+
+* **button:** change forwardref proptype ([9e2599d](https://github.com/Sage/carbon/commit/9e2599d00ea19c3a48692006b8b43601386e4b40))
+
+## [47.0.0](https://github.com/Sage/carbon/compare/v46.0.0...v47.0.0) (2020-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **color:** The `atOpacity` function has been removed from the
+theme palette. To use this utility you should import it directly
+`import atOpacity from “carbon-react/lib/style/utils/at-opacity`.
+
+BREKAING CHANGE: The file “carbon-react/lib/style/index” has been
+removed.
+If you want to use `addOpacity` you can use `atOpacity` directly.
+If you want to use `blackAtOpacity` you can use
+`theme.palette.blackOpacity` or you can use `atOpacity` directly.
+Please note that `blackAtOpacity` previously returned a white opacity
+you can use `theme.palette.whiteOpacity` to keep this behaviour.
+If you want to use `generatePalette` you can import it directly `import
+generatePalette from “carbon-react/lib/style/palette`.
+
+### Features
+
+* **color:** add palette support to color props ([68a32d6](https://github.com/Sage/carbon/commit/68a32d63ac3dba4847becc39327cf9a4c5600f29))
+* **typography:** create typography component ([45c981d](https://github.com/Sage/carbon/commit/45c981d67f8d598a7166f4aa91443b2e64bcd4f5))
+
+
+### Bug Fixes
+
+* **color:** add missing backgroundColor definitions ([2cd3afb](https://github.com/Sage/carbon/commit/2cd3afb90c85f2d3265952ae95c1d3803bbcc05c))
+
+## [46.0.0](https://github.com/Sage/carbon/compare/v45.3.0...v46.0.0) (2020-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grid-container:** change styled system spacing props from margin to padding
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/grid m p`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Bug Fixes
+
+* **grid-container:** margins are not counted in scrollHeight ([81c2e5b](https://github.com/Sage/carbon/commit/81c2e5b7227c54ca63c93a8d89647f6a526c67fa))
+
+## [45.3.0](https://github.com/Sage/carbon/compare/v45.2.1...v45.3.0) (2020-10-27)
+
+
+### Features
+
+* **box:** add new box component ([9d0df49](https://github.com/Sage/carbon/commit/9d0df497857d42a0f1d6c35c3ae2fbea1e9b1dae))
+
+### [45.2.1](https://github.com/Sage/carbon/compare/v45.2.0...v45.2.1) (2020-10-26)
+
+
+### Bug Fixes
+
+* **inputs:** show input icon if info validation is empty string ([cdca91a](https://github.com/Sage/carbon/commit/cdca91aff59ed8e5266ddf8772362ac7a4683a26)), closes [#3137](https://github.com/Sage/carbon/issues/3137)
+
+## [45.2.0](https://github.com/Sage/carbon/compare/v45.1.0...v45.2.0) (2020-10-26)
+
+
+### Features
+
+* **text-editor:** add support for validation icon and error styles ([9c6f114](https://github.com/Sage/carbon/commit/9c6f114faf2afb2ccc9fe4720efa23642739097c))
+
+## [45.1.0](https://github.com/Sage/carbon/compare/v45.0.1...v45.1.0) (2020-10-22)
+
+
+### Features
+
+* **dialogfullscreen:** ability to add content to header ([d972587](https://github.com/Sage/carbon/commit/d972587330eed73deabcfb9eeac87a382d1572d1))
+
 ### [45.0.1](https://github.com/Sage/carbon/compare/v45.0.0...v45.0.1) (2020-10-22)
 
 

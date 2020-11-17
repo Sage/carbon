@@ -1,1 +1,1 @@
-export { default } from './warn-as-deprecated';
+export { default } from "./warn-as-deprecated";

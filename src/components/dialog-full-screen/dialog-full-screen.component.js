@@ -1,15 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Modal from '../modal';
-import Heading from '../heading';
-import AppWrapper from '../app-wrapper';
-import FullScreenHeading from './full-screen-heading';
-import StyledDialogFullScreen from './dialog-full-screen.style';
-import StyledContent from './content.style';
-import Browser from '../../utils/helpers/browser';
-import focusTrap from '../../utils/helpers/focus-trap';
-import IconButton from '../icon-button';
-import Icon from '../icon';
+import React from "react";
+import PropTypes from "prop-types";
+import Modal from "../modal";
+import Heading from "../heading";
+import FullScreenHeading from "../../__internal__/full-screen-heading";
+import StyledDialogFullScreen from "./dialog-full-screen.style";
+import StyledContent from "./content.style";
+import Browser from "../../utils/helpers/browser";
+import focusTrap from "../../utils/helpers/focus-trap";
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -24,7 +21,7 @@ class DialogFullScreen extends Modal {
   }
 
   static state = {
-    headingHeight: undefined
+    headingHeight: undefined,
   };
 
   headingRef = React.createRef();
@@ -36,40 +33,19 @@ class DialogFullScreen extends Modal {
 
   componentTags(props) {
     return {
-      'data-component': 'dialog-full-screen',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
+      "data-component": "dialog-full-screen",
+      "data-element": props["data-element"],
+      "data-role": props["data-role"],
     };
   }
 
   updateHeadingHeight() {
-    if (this.headingRef.current && this.state.headingHeight !== this.headingRef.current.clientHeight) {
+    if (
+      this.headingRef.current &&
+      this.state.headingHeight !== this.headingRef.current.clientHeight
+    ) {
       this.setState({ headingHeight: this.headingRef.current.clientHeight });
     }
-  }
-
-  /**
-   * Returns the computed HTML for the dialog.
-   */
-  get modalHTML() {
-    return (
-      <StyledDialogFullScreen
-        ref={ (d) => { this._dialog = d; } }
-        data-element='dialog-full-screen'
-      >
-        { this.dialogTitle() }
-        <StyledContent
-          hasHeader={ this.props.title !== undefined }
-          headingHeight={ this.state.headingHeight }
-          data-element='content'
-          ref={ this.contentRef }
-        >
-          <AppWrapper>
-            { this.props.children }
-          </AppWrapper>
-        </StyledContent>
-      </StyledDialogFullScreen>
-    );
   }
 
   /**
@@ -79,7 +55,7 @@ class DialogFullScreen extends Modal {
     super.handleOpen();
     this.removeFocusTrap = focusTrap(this._dialog);
     this.originalOverflow = this.document.documentElement.style.overflow;
-    this.document.documentElement.style.overflow = 'hidden';
+    this.document.documentElement.style.overflow = "hidden";
   }
 
   /**
@@ -92,41 +68,59 @@ class DialogFullScreen extends Modal {
     return this.document.documentElement;
   }
 
-  closeIcon() {
-    const { showCloseIcon, onCancel } = this.props;
-    if (!showCloseIcon || !onCancel) return null;
-    return (
-      <IconButton
-        data-element='close'
-        onAction={ onCancel }
-      >
-        <Icon type='close' />
-      </IconButton>
-    );
-  }
-
   /**
    * Returns HTML and text for the dialog title.
    */
   dialogTitle = () => {
     let { title } = this.props;
 
-    if (typeof title === 'string') {
+    if (typeof title === "string") {
       title = (
         <Heading
-          title={ title }
-          titleId='carbon-dialog-title'
-          subheader={ this.props.subtitle }
-          subtitleId='carbon-dialog-subtitle'
+          title={title}
+          titleId="carbon-dialog-title"
+          subheader={this.props.subtitle}
+          subtitleId="carbon-dialog-subtitle"
         />
       );
     }
 
     return (
-      <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
-        { this.closeIcon() }
-        { title }
+      <FullScreenHeading
+        hasContent={title}
+        ref={this.headingRef}
+        showCloseIcon={this.props.showCloseIcon}
+        onCancel={this.props.onCancel}
+      >
+        {title}
+        {this.props.headerChildren}
       </FullScreenHeading>
+    );
+  };
+
+  /**
+   * Returns the computed HTML for the dialog.
+   */
+  get modalHTML() {
+    return (
+      <StyledDialogFullScreen
+        ref={(d) => {
+          this._dialog = d;
+        }}
+        data-element="dialog-full-screen"
+        pagesStyling={this.props.pagesStyling}
+      >
+        {this.dialogTitle()}
+        <StyledContent
+          hasHeader={this.props.title !== undefined}
+          headingHeight={this.state.headingHeight}
+          data-element="content"
+          ref={this.contentRef}
+          disableContentPadding={this.props.disableContentPadding}
+        >
+          {this.props.children}
+        </StyledContent>
+      </StyledDialogFullScreen>
     );
   }
 }
@@ -134,18 +128,25 @@ class DialogFullScreen extends Modal {
 DialogFullScreen.defaultProps = {
   open: false,
   enableBackgroundUI: true,
-  showCloseIcon: true
+  showCloseIcon: true,
 };
 
 DialogFullScreen.propTypes = {
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Sets the open state of the modal */
-  open: PropTypes.bool.isRequired,
-  /** Determines if the background is disabled when the modal is open */
-  enableBackgroundUI: PropTypes.bool,
+  ...Modal.propTypes,
+  /** remove padding from content */
+  disableContentPadding: PropTypes.bool,
+  /** Child elements */
+  children: PropTypes.node,
+  /** Title displayed at top of dialog */
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  /** Subtitle displayed at top of dialog */
+  subtitle: PropTypes.string,
   /** Determines if the close icon is shown */
-  showCloseIcon: PropTypes.bool
+  showCloseIcon: PropTypes.bool,
+  /** Container for components to be displayed in the header */
+  headerChildren: PropTypes.node,
+  /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
+  pagesStyling: PropTypes.bool,
 };
 
 export default DialogFullScreen;

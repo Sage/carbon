@@ -1,11 +1,14 @@
-import styled, { css } from 'styled-components';
-import StyledAdvancedColorPickerCell from './advanced-color-picker-cell.style';
-import { StyledColorOptions } from '../../__experimental__/components/simple-color-picker/simple-color-picker.style';
-import StyledSimpleColor from '../../__experimental__/components/simple-color-picker/simple-color/simple-color.style';
-import { DialogContentStyle, DialogInnerContentStyle } from '../dialog/dialog.style';
-import Dialog from '../dialog/dialog.component';
-import StyledIconButton from '../icon-button/icon-button.style';
-import checkerBoardSvg from '../../__experimental__/components/simple-color-picker/color-sample-box/checker-board.svg';
+import styled, { css } from "styled-components";
+import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
+import { StyledColorOptions } from "../../__experimental__/components/simple-color-picker/simple-color-picker.style";
+import StyledSimpleColor from "../../__experimental__/components/simple-color-picker/simple-color/simple-color.style";
+import {
+  DialogContentStyle,
+  DialogInnerContentStyle,
+} from "../dialog/dialog.style";
+import Dialog from "../dialog/dialog.component";
+import StyledIconButton from "../icon-button/icon-button.style";
+import checkerBoardSvg from "../../__experimental__/components/simple-color-picker/color-sample-box/checker-board.svg";
 
 const StyledAdvancedColorPickerWrapper = styled.div`
   display: inline-block;
@@ -18,15 +21,19 @@ const StyledAdvancedColorPickerPreview = styled.div`
   margin-bottom: 15px;
   border: 1px solid #516562;
 
-  ${({ color }) => color !== 'transparent' && css`
-    background-color: ${color};
-  `}
+  ${({ color }) =>
+    color !== "transparent" &&
+    css`
+      background-color: ${color};
+    `}
 
-  ${({ color }) => color === 'transparent' && css`
-    background-color: #EEEEEE;
-    background-image: url(${checkerBoardSvg});
-    background-size: 10px 10px;
-  `}
+  ${({ color }) =>
+    color === "transparent" &&
+    css`
+      background-color: #eeeeee;
+      background-image: url(${checkerBoardSvg});
+      background-size: 10px 10px;
+    `}
 
   &:hover {
     cursor: initial;
@@ -45,10 +52,10 @@ const DialogStyle = styled(Dialog)`
   ${StyledColorOptions} {
     max-width: 285px;
     ${StyledSimpleColor} {
-      border: 1px solid #3C514E;
+      border: 1px solid #3c514e;
       margin-right: -1px;
       margin-bottom: -1px;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
 
       &:hover {
         transform: scale(1.1);
@@ -70,5 +77,5 @@ export {
   StyledAdvancedColorPickerWrapper,
   StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
-  DialogStyle
+  DialogStyle,
 };

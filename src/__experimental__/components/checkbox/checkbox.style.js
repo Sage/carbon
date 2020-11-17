@@ -1,30 +1,42 @@
-import styled, { css } from 'styled-components';
-import { space } from 'styled-system';
-import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
-import StyledFieldHelp from '../field-help/field-help.style';
-import StyledHiddenCheckableInput from '../checkable-input/hidden-checkable-input.style';
-import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import StyledLabel, { StyledLabelContainer } from '../label/label.style';
-import StyledValidationIcon from '../../../components/validations/validation-icon.style';
-import StyledFormField from '../form-field/form-field.style';
-import StyledIcon from '../../../components/icon/icon.style';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
+import PropTypes from "prop-types";
+import baseTheme from "../../../style/themes/base";
+import { StyledCheckableInput } from "../checkable-input/checkable-input.style";
+import StyledFieldHelp from "../field-help/field-help.style";
+import StyledHiddenCheckableInput from "../checkable-input/hidden-checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../checkable-input/checkable-input-svg-wrapper.style";
+import StyledLabel, { StyledLabelContainer } from "../label/label.style";
+import StyledValidationIcon from "../../../components/validations/validation-icon.style";
+import StyledFormField from "../form-field/form-field.style";
+import StyledIcon from "../../../components/icon/icon.style";
 
 const CheckboxStyle = styled.div`
   ${space}
   ${({
-    disabled, error, warning, info, fieldHelpInline, labelSpacing, inputWidth, reverse, size, theme
+    disabled,
+    error,
+    warning,
+    info,
+    fieldHelpInline,
+    labelSpacing,
+    inputWidth,
+    reverse,
+    size,
+    theme,
   }) => css`
     ${StyledCheckableInput} {
       padding-top: 1px;
     }
 
-    ${StyledCheckableInputSvgWrapper} { height: 16px; }
+    ${StyledCheckableInputSvgWrapper} {
+      height: 16px;
+    }
 
     svg {
       background-color: ${theme.colors.white};
-      ${!disabled && css`
+      ${!disabled &&
+      css`
         border: 1px solid ${theme.colors.border};
 
         ${info && `border: 1px solid ${theme.colors.info};`}
@@ -49,6 +61,7 @@ const CheckboxStyle = styled.div`
       width: 16px;
     }
 
+    // prettier-ignore
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
@@ -72,8 +85,9 @@ const CheckboxStyle = styled.div`
       display: inline-block;
     }
 
-    ${size === 'large' && css`
-      ${StyledCheckableInputSvgWrapper} { 
+    ${size === "large" &&
+    css`
+      ${StyledCheckableInputSvgWrapper} {
         height: 24px;
       }
 
@@ -90,7 +104,8 @@ const CheckboxStyle = styled.div`
         padding-left: ${labelSpacing * theme.spacing}px;
       }
 
-      ${fieldHelpInline && css`
+      ${fieldHelpInline &&
+      css`
         ${StyledFieldHelp}, ${StyledLabelContainer} {
           align-self: center;
         }
@@ -101,7 +116,8 @@ const CheckboxStyle = styled.div`
       fill: ${theme.checkable.checked};
     }
 
-    ${disabled && css`
+    ${disabled &&
+    css`
       svg {
         background-color: ${theme.disabled.input};
         border: 1px solid ${theme.disabled.border};
@@ -116,14 +132,16 @@ const CheckboxStyle = styled.div`
       }
 
       ${StyledCheckableInputSvgWrapper} {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           outline: none;
           cursor: not-allowed;
         }
       }
     `}
 
-    ${fieldHelpInline && `
+    ${fieldHelpInline &&
+    `
       ${StyledFieldHelp} {
         margin-left: 0;
       }
@@ -133,13 +151,16 @@ const CheckboxStyle = styled.div`
       }
     `}
 
-    ${inputWidth !== undefined && inputWidth !== 0 && `
+    ${inputWidth !== undefined &&
+    inputWidth !== 0 &&
+    `
       ${StyledFieldHelp} {
-        ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}% !important;
+        ${reverse ? "margin-right" : "margin-left"}: ${inputWidth}% !important;
       }
     `}
 
-    ${reverse && css`
+    ${reverse &&
+    css`
       ${StyledFieldHelp} {
         margin-left: 0;
         padding-left: 0;
@@ -149,7 +170,8 @@ const CheckboxStyle = styled.div`
         flex: 0 1 auto;
       }
 
-      ${fieldHelpInline && css`
+      ${fieldHelpInline &&
+      css`
         ${StyledCheckableInput} {
           margin-right: 8px;
         }
@@ -163,7 +185,7 @@ const CheckboxStyle = styled.div`
 `;
 
 CheckboxStyle.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 CheckboxStyle.propTypes = {
@@ -174,7 +196,7 @@ CheckboxStyle.propTypes = {
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 const StyledCheckboxGroup = styled.div`
@@ -199,7 +221,7 @@ const StyledCheckboxGroup = styled.div`
 `;
 
 StyledCheckboxGroup.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export { StyledCheckboxGroup };

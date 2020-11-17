@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { baseTheme } from '../../style/themes';
-import Icon from '../icon';
+import styled from "styled-components";
+import { baseTheme } from "../../style/themes";
+import Icon from "../icon";
 
 const StyledDraggableItem = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const StyledDraggableItem = styled.div`
   padding: 8px 0;
   cursor: move;
 
-  opacity: ${({ isDragging }) => (isDragging ? '0' : '1')};
+  opacity: ${({ isDragging }) => (isDragging ? "0" : "1")};
 `;
 
 const StyledIcon = styled(Icon)`
@@ -17,7 +17,7 @@ const StyledIcon = styled(Icon)`
 `;
 
 StyledDraggableItem.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export { StyledDraggableItem, StyledIcon };

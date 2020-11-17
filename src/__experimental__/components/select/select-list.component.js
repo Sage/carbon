@@ -1,9 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import Portal from '../../../components/portal';
-import filterChildren from '../../../utils/filter-children';
-import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
+import React from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import Portal from "../../../components/portal";
+import filterChildren from "../../../utils/filter-children";
+import {
+  ScrollableList,
+  ScrollableListItem,
+} from "../../../components/scrollable-list";
 
 class SelectList extends React.Component {
   list = React.createRef();
@@ -15,11 +18,16 @@ class SelectList extends React.Component {
   positionList = () => {
     if (!this.props.target) return;
     const inputBoundingRect = this.props.target.getBoundingClientRect();
-    const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset}px`;
+    const top = `${
+      inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset
+    }px`;
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
-    this.list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
-  }
+    this.list.current.setAttribute(
+      "style",
+      `left: ${left}; top: ${top}; width: ${width}; position: absolute;`
+    );
+  };
 
   // returns the data structure for the value of an item when selected
   itemId({ value, text, options }) {
@@ -28,14 +36,14 @@ class SelectList extends React.Component {
 
   noResultsText(value) {
     if (value) {
-      return I18n.t('select.no_results_for_term', {
+      return I18n.t("select.no_results_for_term", {
         defaultValue: 'No results for "%{term}"',
-        term: value
+        term: value,
       });
     }
 
-    return I18n.t('select.no_results', {
-      defaultValue: 'No results'
+    return I18n.t("select.no_results", {
+      defaultValue: "No results",
     });
   }
 
@@ -44,10 +52,10 @@ class SelectList extends React.Component {
       value,
       filter,
       onNoResults: () => (
-        <ScrollableListItem isSelectable={ false }>
-          { this.noResultsText(value) }
+        <ScrollableListItem isSelectable={false}>
+          {this.noResultsText(value)}
         </ScrollableListItem>
-      )
+      ),
     });
   }
 
@@ -75,13 +83,13 @@ class SelectList extends React.Component {
 
     // build JSX object
     const newValue = [
-      <span key='beginning'>{ beginning }</span>,
-      <strong key='middle'>{ middle }</strong>,
-      <span key='end'>{ end }</span>
+      <span key="beginning">{beginning}</span>,
+      <strong key="middle">{middle}</strong>,
+      <span key="end">{end}</span>,
     ];
 
     return newValue;
-  }
+  };
 
   render() {
     const {
@@ -95,49 +103,42 @@ class SelectList extends React.Component {
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
-      onSelect
+      onSelect,
     } = this.props;
 
     const filter = this.filter(filterValue, customFilter);
     return (
-      <Portal onReposition={ this.positionList }>
+      <Portal onReposition={this.positionList}>
         <div
-          id={ id }
-          role='presentation'
-          onMouseLeave={ onMouseLeave }
-          onMouseEnter={ onMouseEnter }
-          onMouseDown={ onMouseDown }
-          ref={ this.list }
+          id={id}
+          role="presentation"
+          onMouseLeave={onMouseLeave}
+          onMouseEnter={onMouseEnter}
+          onMouseDown={onMouseDown}
+          ref={this.list}
         >
           <ScrollableList
-            onLazyLoad={ onLazyLoad }
-            onSelect={ onSelect }
-            alwaysHighlight={ alwaysHighlight }
-            isLoopable={ isLoopable }
+            onLazyLoad={onLazyLoad}
+            onSelect={onSelect}
+            alwaysHighlight={alwaysHighlight}
+            isLoopable={isLoopable}
             keyNavigation
           >
-            {
-              filter(children, (child) => {
-                const { text, ...props } = child.props;
-                return (
-                  <ScrollableListItem
-                    id={ this.itemId(child.props) }
-                    isSelectable={ child.props.isSelectable }
-                  >
-                    {
-                      React.cloneElement(
-                        child,
-                        {
-                          children: this.highlightMatches(text, String(filterValue)),
-                          text,
-                          ...props
-                        }
-                      )
-                    }
-                  </ScrollableListItem>
-                );
-              })
-            }
+            {filter(children, (child) => {
+              const { text, ...props } = child.props;
+              return (
+                <ScrollableListItem
+                  id={this.itemId(child.props)}
+                  isSelectable={child.props.isSelectable}
+                >
+                  {React.cloneElement(child, {
+                    children: this.highlightMatches(text, String(filterValue)),
+                    text,
+                    ...props,
+                  })}
+                </ScrollableListItem>
+              );
+            })}
           </ScrollableList>
         </div>
       </Portal>
@@ -169,7 +170,7 @@ SelectList.propTypes = {
   /** A callback for when a child is selected */
   onSelect: PropTypes.func,
   /** Target DOM element to position the dropdown menu list relative to */
-  target: PropTypes.object
+  target: PropTypes.object,
 };
 
 export default SelectList;

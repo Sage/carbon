@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Editor } from 'draft-js';
-import invariant from 'invariant';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Editor } from "draft-js";
+import invariant from "invariant";
 import {
   StyledNote,
   StyledNoteContent,
   StyledInlineControl,
   StyledTitle,
   StyledFooter,
-  StyledFooterContent
-} from './note.style.js';
-import StatusWithTooltip from './status-with-tooltip';
-import { ActionPopover } from '../../action-popover';
+  StyledFooterContent,
+} from "./note.style.js";
+import StatusWithTooltip from "./status-with-tooltip";
+import { ActionPopover } from "../../action-popover";
 
 const Note = ({
   noteContent,
@@ -25,14 +25,16 @@ const Note = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  invariant(width > 0, '<Note> width must be greater than 0');
-  invariant(createdDate, '<Note> createdDate is required');
-  invariant(name, '<Note> name is required');
-  invariant(noteContent, '<Note> noteContent is required');
-  invariant(!status || status.text, '<Note> status.text is required');
-  invariant(!status || status.timeStamp, '<Note> status.timeStamp is required');
-  invariant(!inlineControl || inlineControl.type === ActionPopover,
-    '<Note> inlineControl must be an instance of <ActionPopover>');
+  invariant(width > 0, "<Note> width must be greater than 0");
+  invariant(createdDate, "<Note> createdDate is required");
+  invariant(name, "<Note> name is required");
+  invariant(noteContent, "<Note> noteContent is required");
+  invariant(!status || status.text, "<Note> status.text is required");
+  invariant(!status || status.timeStamp, "<Note> status.timeStamp is required");
+  invariant(
+    !inlineControl || inlineControl.type === ActionPopover,
+    "<Note> inlineControl must be an instance of <ActionPopover>"
+  );
 
   const renderStatus = () => {
     if (!status) {
@@ -42,42 +44,34 @@ const Note = ({
     const { text, timeStamp } = status;
 
     return (
-      <StyledFooterContent data-component='note-status'>
-        <StatusWithTooltip { ...tooltipProps(timeStamp, showTooltip, setShowTooltip) }>
-          { text }
+      <StyledFooterContent data-component="note-status">
+        <StatusWithTooltip
+          {...tooltipProps(timeStamp, showTooltip, setShowTooltip)}
+        >
+          {text}
         </StatusWithTooltip>
       </StyledFooterContent>
     );
   };
 
   return (
-    <StyledNote
-      width={ width }
-      { ...rest }
-      data-component='note'
-    >
-      { title && (
-        <StyledTitle>
-          { title }
-        </StyledTitle>
-      )}
+    <StyledNote width={width} {...rest} data-component="note">
+      {title && <StyledTitle>{title}</StyledTitle>}
 
-      { inlineControl && (
-        <StyledInlineControl>
-          { inlineControl }
-        </StyledInlineControl>
+      {inlineControl && (
+        <StyledInlineControl>{inlineControl}</StyledInlineControl>
       )}
 
       <StyledNoteContent>
-        <Editor readOnly editorState={ noteContent } />
+        <Editor readOnly editorState={noteContent} />
       </StyledNoteContent>
 
-      {(name && createdDate) && (
+      {name && createdDate && (
         <StyledNoteContent>
           <StyledFooter>
-            <StyledFooterContent>{ name }</StyledFooterContent>
-            <StyledFooterContent>{ createdDate }</StyledFooterContent>
-            { renderStatus() }
+            <StyledFooterContent>{name}</StyledFooterContent>
+            <StyledFooterContent>{createdDate}</StyledFooterContent>
+            {renderStatus()}
           </StyledFooter>
         </StyledNoteContent>
       )}
@@ -88,11 +82,11 @@ const Note = ({
 function tooltipProps(id, showTooltip, setShowTooltip) {
   return {
     tooltipMessage: id,
-    tooltipPosition: 'top',
-    tooltipAlign: 'center',
+    tooltipPosition: "top",
+    tooltipAlign: "center",
     tooltipVisible: showTooltip,
     onMouseOver: () => setShowTooltip(true),
-    onMouseLeave: () => setShowTooltip(false)
+    onMouseLeave: () => setShowTooltip(false),
   };
 }
 
@@ -110,7 +104,10 @@ Note.propTypes = {
   /** Adds a created on date to the Note footer */
   createdDate: PropTypes.string.isRequired,
   /** Adds a status and tooltip to the Note footer */
-  status: PropTypes.shape({ text: PropTypes.string.isRequired, timeStamp: PropTypes.string.isRequired })
+  status: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    timeStamp: PropTypes.string.isRequired,
+  }),
 };
 
 export default Note;

@@ -1,1 +1,1 @@
-export { default } from './inline-inputs.component';
+export { default } from "./inline-inputs.component";

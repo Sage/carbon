@@ -1,8 +1,8 @@
 const oppositeDirections = {
-  left: 'right',
-  right: 'left',
-  top: 'bottom',
-  bottom: 'top'
+  left: "right",
+  right: "left",
+  top: "bottom",
+  bottom: "top",
 };
 
 function hasTheSameOrientation(tooltipPosition, pointerAlign) {
@@ -17,11 +17,11 @@ function hasTheSameOrientation(tooltipPosition, pointerAlign) {
 }
 
 function isVertical(property) {
-  return ['top', 'bottom'].includes(property);
+  return ["top", "bottom"].includes(property);
 }
 
 function isHorizontal(property) {
-  return ['left', 'right'].includes(property);
+  return ["left", "right"].includes(property);
 }
 
 function getOppositeDirection(currentDirection) {
@@ -32,5 +32,5 @@ export {
   hasTheSameOrientation,
   isVertical,
   isHorizontal,
-  getOppositeDirection
+  getOppositeDirection,
 };

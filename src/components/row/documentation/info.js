@@ -1,5 +1,9 @@
-import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import React from "react";
+import {
+  StoryHeader,
+  StoryCode,
+  StoryCodeBlock,
+} from "../../../../.storybook/style/storybook-info.styles";
 
 const info = (
   <div>
@@ -9,14 +13,16 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>{'import { Row, Column } from "carbon-react/lib/components/row"'}</StoryCode>
+    <StoryCode padded>
+      {'import { Row, Column } from "carbon-react/lib/components/row"'}
+    </StoryCode>
 
     <p>To render the Row:</p>
     <StoryCodeBlock>
-      {'<Row>'}
-      {'<Column>Column1</Column>'}
-      {'<Column>Column2</Column>'}
-      {'</Row>'}
+      {"<Row>"}
+      {"<Column>Column1</Column>"}
+      {"<Column>Column2</Column>"}
+      {"</Row>"}
     </StoryCodeBlock>
 
     <p>A Rows child must be of type Column.</p>

@@ -1,18 +1,16 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import baseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import baseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 const paddingSizes = {
-  small: '0 24px',
-  medium: '0 32px',
-  large: '0 48px'
+  small: "0 24px",
+  medium: "0 32px",
+  large: "0 48px",
 };
 
 const StyledCard = styled.div`
-  ${({
-    cardWidth, interactive, draggable, spacing, theme
-  }) => css`
+  ${({ cardWidth, interactive, draggable, spacing, theme }) => css`
     background-color: ${theme.colors.white};
     border: none;
     box-shadow: ${theme.shadows.cards};
@@ -24,15 +22,18 @@ const StyledCard = styled.div`
     width: ${cardWidth};
     outline: none;
 
-    ${interactive && css`
+    ${interactive &&
+    css`
       cursor: pointer;
 
-      :hover, :focus {
+      :hover,
+      :focus {
         box-shadow: ${theme.shadows.depth1};
       }
     `}
 
-    ${draggable && css`
+    ${draggable &&
+    css`
       cursor: move;
     `}
 
@@ -41,14 +42,16 @@ const StyledCard = styled.div`
       box-shadow: ${theme.shadows.cardsIE};
     }
 
-    ::-moz-focus-inner {border:0;}
+    ::-moz-focus-inner {
+      border: 0;
+    }
   `}
 `;
 
 StyledCard.defaultProps = {
-  cardWidth: '500px',
-  spacing: 'medium',
-  theme: baseTheme
+  cardWidth: "500px",
+  spacing: "medium",
+  theme: baseTheme,
 };
 
 StyledCard.propTypes = {
@@ -57,7 +60,7 @@ StyledCard.propTypes = {
   interactive: PropTypes.bool,
   draggable: PropTypes.bool,
   spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 export default StyledCard;

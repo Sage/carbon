@@ -7,9 +7,11 @@ export default function updateListScrollTop(indexOfCurrent, list) {
 
   let newPosition = 0;
   const { offsetHeight: listHeight, children: listChildren } = list;
-  const { offsetTop: itemTop, offsetHeight: currentItemHeight } = listChildren[indexOfCurrent];
+  const { offsetTop: itemTop, offsetHeight: currentItemHeight } = listChildren[
+    indexOfCurrent
+  ];
 
-  if ((itemTop + currentItemHeight) > listHeight) {
+  if (itemTop + currentItemHeight > listHeight) {
     newPosition = itemTop + currentItemHeight - listHeight;
   }
 

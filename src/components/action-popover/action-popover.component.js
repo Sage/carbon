@@ -1,19 +1,21 @@
-import React, {
-  useState, useCallback, useEffect, useRef
-} from 'react';
-import PropTypes from 'prop-types';
-import I18n from 'i18n-js';
-import {
-  MenuButton, ButtonIcon
-} from './action-popover.style';
-import Events from '../../utils/helpers/events';
-import createGuid from '../../utils/helpers/guid';
-import ActionPopoverMenu from './action-popover-menu.component';
-import ActionPopoverItem from './action-popover-item.component';
-import ActionPopoverDivider from './action-popover-divider.component';
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import I18n from "i18n-js";
+import { MenuButton, ButtonIcon } from "./action-popover.style";
+import Events from "../../utils/helpers/events";
+import createGuid from "../../utils/helpers/guid";
+import ActionPopoverMenu from "./action-popover-menu.component";
+import ActionPopoverItem from "./action-popover-item.component";
+import ActionPopoverDivider from "./action-popover-divider.component";
 
 const ActionPopover = ({
-  children, id, onOpen, onClose, rightAlignMenu, renderButton, ...rest
+  children,
+  id,
+  onOpen,
+  onClose,
+  rightAlignMenu,
+  renderButton,
+  ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
@@ -22,39 +24,48 @@ const ActionPopover = ({
   const button = useRef();
   const menu = useRef();
 
-  const setOpen = useCallback((value) => {
-    if (value && !isOpen) {
-      onOpen();
-    }
-    if (!value && isOpen) {
-      onClose();
-    }
-    setOpenState(value);
-  }, [isOpen, onOpen, onClose]);
+  const setOpen = useCallback(
+    (value) => {
+      if (value && !isOpen) {
+        onOpen();
+      }
+      if (!value && isOpen) {
+        onClose();
+      }
+      setOpenState(value);
+    },
+    [isOpen, onOpen, onClose]
+  );
 
-  const onButtonClick = useCallback((e) => {
-    e.stopPropagation();
-    const isOpening = !isOpen;
-    setOpen(isOpening);
-    if (!isOpening) {
-      // Closing the menu should focus the MenuButton
-      button.current.focus();
-    }
-  }, [isOpen, setOpen]);
+  const onButtonClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      const isOpening = !isOpen;
+      setOpen(isOpening);
+      if (!isOpening) {
+        // Closing the menu should focus the MenuButton
+        button.current.focus();
+      }
+    },
+    [isOpen, setOpen]
+  );
 
   // Keyboard commands implemented as recommended by WAI-ARIA best practices
   // https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-actions.html
 
-  const onButtonKeyDown = useCallback(((e) => {
-    if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
-      e.preventDefault();
-      onButtonClick(e);
-    } else if (Events.isUpKey(e)) {
-      e.preventDefault();
-      setFocusIndex(items.length - 1);
-      setOpen(true);
-    }
-  }), [items, onButtonClick, setOpen]);
+  const onButtonKeyDown = useCallback(
+    (e) => {
+      if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
+        e.preventDefault();
+        onButtonClick(e);
+      } else if (Events.isUpKey(e)) {
+        e.preventDefault();
+        setFocusIndex(items.length - 1);
+        setOpen(true);
+      }
+    },
+    [items, onButtonClick, setOpen]
+  );
 
   useEffect(() => {
     const handler = (e) => {
@@ -65,7 +76,7 @@ const ActionPopover = ({
         setOpen(false);
       }
     };
-    const event = 'click';
+    const event = "click";
     document.addEventListener(event, handler);
 
     return function cleanup() {
@@ -77,11 +88,11 @@ const ActionPopover = ({
     if (renderButton) {
       return renderButton({
         tabIndex: -1,
-        'data-element': 'action-popover-menu-button'
+        "data-element": "action-popover-menu-button",
       });
     }
 
-    return <ButtonIcon type='ellipsis_vertical' />;
+    return <ButtonIcon type="ellipsis_vertical" />;
   };
 
   const parentID = id || `ActionPopoverButton_${guid}`;
@@ -96,29 +107,31 @@ const ActionPopover = ({
     menuID,
     isOpen,
     setOpen,
-    rightAlignMenu
+    rightAlignMenu,
   };
 
   return (
     <MenuButton
-      id={ parentID }
-      data-component='action-popover-button'
-      role='button'
-      aria-haspopup='true'
-      aria-label={ I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }) }
-      aria-controls={ menuID }
-      aria-expanded={ isOpen }
-      tabIndex={ isOpen ? '-1' : '0' }
-      { ...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen } }
-      ref={ button }
-      { ...rest }
+      id={parentID}
+      data-component="action-popover-button"
+      role="button"
+      aria-haspopup="true"
+      aria-label={I18n.t("actionpopover.aria-label", {
+        defaultValue: "actions",
+      })}
+      aria-controls={menuID}
+      aria-expanded={isOpen}
+      tabIndex={isOpen ? "-1" : "0"}
+      {...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen }}
+      ref={button}
+      {...rest}
     >
-      { menuButton() }
+      {menuButton()}
       <ActionPopoverMenu
-        data-component='action-popover'
-        role='menu'
-        ref={ menu }
-        { ...menuProps }
+        data-component="action-popover"
+        role="menu"
+        ref={menu}
+        {...menuProps}
       >
         {children}
       </ActionPopoverMenu>
@@ -136,28 +149,37 @@ ActionPopover.propTypes = {
   /** Boolean to control whether menu should align to right */
   rightAlignMenu: PropTypes.bool,
   /** Children for popover component */
-  children (props, propName, componentName) {
+  children(props, propName, componentName) {
     let error;
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
-      if (child === null) { return; }
-      if (![ActionPopoverItem.displayName, ActionPopoverDivider.displayName].includes(child.type.displayName)) {
-        error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\``
-        + ` and \`${ActionPopoverDivider.displayName}\`.`);
+      if (child === null) {
+        return;
+      }
+      if (
+        ![
+          ActionPopoverItem.displayName,
+          ActionPopoverDivider.displayName,
+        ].includes(child.type.displayName)
+      ) {
+        error = new Error(
+          `\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\`` +
+            ` and \`${ActionPopoverDivider.displayName}\`.`
+        );
       }
     });
 
     return error;
   },
   /** Render a custom menu button to override default ellipsis icon */
-  renderButton: PropTypes.func
+  renderButton: PropTypes.func,
 };
 
 ActionPopover.defaultProps = {
   id: null,
   onOpen: () => {},
-  onClose: () => {}
+  onClose: () => {},
 };
 
 export default ActionPopover;

@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import StyledIcon from '../icon/icon.style';
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import StyledIcon from "../icon/icon.style";
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const StyledButtonToggleLabel = styled.label`
     border: 1px solid ${theme.colors.border};
     font-size: ${theme.text.size};
     background-color: ${theme.colors.white};
-    
+
     input:checked ~ & {
       color: ${theme.colors.white};
       background-color: ${theme.colors.tertiary};
@@ -44,55 +44,62 @@ const StyledButtonToggleLabel = styled.label`
     }
   `};
 
-  ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`
-    min-width: 104px;
-    height: 102px;
-    padding: 0 16px;
+  ${({ buttonIcon, buttonIconSize }) =>
+    buttonIcon &&
+    buttonIconSize === "large" &&
+    css`
+      min-width: 104px;
+      height: 102px;
+      padding: 0 16px;
 
-    ${StyledButtonToggleContentWrapper} {
-      flex-direction: column;
-    }
-  `}
-
-  ${({ disabled, theme }) => disabled && css`
-    & {
-      background-color: ${theme.disabled.button};
-      border-color: ${theme.disabled.button};
-      color: ${theme.disabled.buttonText};
-      
-      ${StyledIcon} {
-        color: ${theme.disabled.buttonText};
+      ${StyledButtonToggleContentWrapper} {
+        flex-direction: column;
       }
-    }
-    cursor: not-allowed;
-  `};
+    `}
+
+  ${({ disabled, theme }) =>
+    disabled &&
+    css`
+      & {
+        background-color: ${theme.disabled.button};
+        border-color: ${theme.disabled.button};
+        color: ${theme.disabled.buttonText};
+
+        ${StyledIcon} {
+          color: ${theme.disabled.buttonText};
+        }
+      }
+      cursor: not-allowed;
+    `};
 `;
 
 const iconFontSizes = {
   smallIcon: 16,
-  largeIcon: 32
+  largeIcon: 32,
 };
 
 const StyledButtonToggleIcon = styled.div`
   margin-right: 8px;
-  
-  ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
-    margin-right: 0;
-    
-    ${StyledIcon} {
+
+  ${({ buttonIconSize }) =>
+    buttonIconSize === "large" &&
+    css`
       margin-right: 0;
-      margin-bottom: 8px;
-    }
 
-    ${StyledIcon}::before {
-      font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
-    }
+      ${StyledIcon} {
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
 
-    .carbon-icon__svg--credit-card-slash {
-      margin-left: 6px;
-    }
-  `}
+      ${StyledIcon}::before {
+        font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      }
+
+      .carbon-icon__svg--credit-card-slash {
+        margin-left: 6px;
+      }
+    `}
 `;
 
 const StyledButtonToggle = styled.div`
@@ -103,11 +110,13 @@ const StyledButtonToggle = styled.div`
     margin-left: 10px;
   }
 
-  ${({ grouped }) => grouped && css`
-    &:not(:first-of-type) {
-      margin-left: -1px;
-    }
-  `};
+  ${({ grouped }) =>
+    grouped &&
+    css`
+      &:not(:first-of-type) {
+        margin-left: -1px;
+      }
+    `};
 `;
 
 const StyledButtonToggleInput = styled.input`
@@ -118,15 +127,15 @@ const StyledButtonToggleInput = styled.input`
 `;
 
 StyledButtonToggleIcon.propTypes = {
-  buttonIconSize: PropTypes.string
+  buttonIconSize: PropTypes.string,
 };
 
 StyledButtonToggleLabel.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledButtonToggleLabel.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export {
@@ -134,5 +143,5 @@ export {
   StyledButtonToggleLabel,
   StyledButtonToggleIcon,
   StyledButtonToggleInput,
-  StyledButtonToggleContentWrapper
+  StyledButtonToggleContentWrapper,
 };

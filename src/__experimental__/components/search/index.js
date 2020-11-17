@@ -1,1 +1,1 @@
-export { default } from './search.component';
+export { default } from "./search.component";

@@ -1,25 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyledFlatTableWrapper, StyledFlatTable } from './flat-table.style';
-import { SidebarContext } from '../drawer';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  StyledFlatTableWrapper,
+  StyledFlatTable,
+  StyledFlatTableFooter,
+} from "./flat-table.style";
+import { SidebarContext } from "../drawer";
+import Box from "../box";
 
 const FlatTable = ({
   children,
   hasStickyHead,
-  colorTheme
+  colorTheme,
+  footer,
+  hasStickyFooter = false,
+  height,
+  ...props
 }) => {
+  const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   return (
     <SidebarContext.Consumer>
-      {context => (
-        <StyledFlatTableWrapper
-          isInSidebar={ context && context.isInSidebar }
-          hasStickyHead={ hasStickyHead }
-          colorTheme={ colorTheme }
-        >
-          <StyledFlatTable data-component='flat-table'>
-            { children }
-          </StyledFlatTable>
-        </StyledFlatTableWrapper>
+      {(context) => (
+        <>
+          <Box
+            {...props}
+            {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
+            height={addDefaultHeight ? "100%" : height}
+          >
+            <StyledFlatTableWrapper
+              isInSidebar={context && context.isInSidebar}
+              hasStickyHead={hasStickyHead}
+              colorTheme={colorTheme}
+              heightDefaulted={addDefaultHeight}
+            >
+              <StyledFlatTable data-component="flat-table">
+                {children}
+              </StyledFlatTable>
+            </StyledFlatTableWrapper>
+          </Box>
+          {footer && (
+            <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
+              {footer}
+            </StyledFlatTableFooter>
+          )}
+        </>
       )}
     </SidebarContext.Consumer>
   );
@@ -31,11 +55,22 @@ FlatTable.propTypes = {
   /** If true, the header does not scroll with the content */
   hasStickyHead: PropTypes.bool,
   /** `FlatTable` color theme */
-  colorTheme: PropTypes.oneOf(['light', 'transparent-base', 'transparent-white', 'dark'])
+  colorTheme: PropTypes.oneOf([
+    "light",
+    "transparent-base",
+    "transparent-white",
+    "dark",
+  ]),
+  /** Content to be rendered at the foot of the table */
+  footer: PropTypes.node,
+  /** If true, the header does not scroll with the content */
+  hasStickyFooter: PropTypes.bool,
+  /** Set the height of the table */
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 FlatTable.defaultProps = {
-  colorTheme: 'dark'
+  colorTheme: "dark",
 };
 
 export default FlatTable;

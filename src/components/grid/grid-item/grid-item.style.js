@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import { space, grid, flexbox } from 'styled-system';
-import PropTypes from 'prop-types';
-import { baseTheme } from '../../../style/themes';
+import styled, { css } from "styled-components";
+import { space, grid, flexbox } from "styled-system";
+import PropTypes from "prop-types";
+import { baseTheme } from "../../../style/themes";
 
 function responsiveGridItem(responsiveSettings, theme) {
   return responsiveSettings.map((setting) => {
@@ -15,13 +15,13 @@ function responsiveGridItem(responsiveSettings, theme) {
       pl,
       pr,
       pt,
-      pb
+      pb,
     } = setting;
 
     return css`
       @media screen and (max-width: ${maxWidth}) {
-        align-self: ${alignSelf || 'stretch'};
-        justify-self: ${justifySelf || 'stretch'};
+        align-self: ${alignSelf || "stretch"};
+        justify-self: ${justifySelf || "stretch"};
         grid-column: ${gridColumn};
         grid-row: ${gridRow};
         padding: ${getSpacing(p, theme)};
@@ -35,7 +35,7 @@ function responsiveGridItem(responsiveSettings, theme) {
 }
 
 function getSpacing(prop, theme) {
-  if (prop && typeof prop === 'number') {
+  if (prop && typeof prop === "number") {
     return `${theme.space[prop]}px`;
   }
 
@@ -48,9 +48,11 @@ const GridItemStyle = styled.div`
   ${flexbox}
   ${space}
   ${grid}
-  ${({ responsiveSettings, theme }) => responsiveSettings && css`
-    ${responsiveGridItem(responsiveSettings, theme)};
-  `}
+  ${({ responsiveSettings, theme }) =>
+    responsiveSettings &&
+    css`
+      ${responsiveGridItem(responsiveSettings, theme)};
+    `}
 `;
 
 GridItemStyle.propTypes = {
@@ -76,15 +78,15 @@ GridItemStyle.propTypes = {
       pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
-  )
+  ),
 };
 
 GridItemStyle.defaultProps = {
-  gridColumn: '1 / 13',
-  gridRow: 'auto',
-  theme: baseTheme
+  gridColumn: "1 / 13",
+  gridRow: "auto",
+  theme: baseTheme,
 };
 
 export default GridItemStyle;

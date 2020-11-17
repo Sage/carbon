@@ -1,5 +1,5 @@
 /* eslint-disable react/no-did-update-set-state */
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes, css } from "styled-components";
 
 export const wiggleAnimation = keyframes`
   0% {
@@ -21,7 +21,11 @@ export const wiggleAnimation = keyframes`
 
 const StyledWiggle = styled.div`
   transform: translate3d(0, 0, 0);
-  ${p => p.isAnimating && css`animation: 0.4s ${wiggleAnimation} 1 ease-in forwards`};
+  ${(p) =>
+    p.isAnimating &&
+    css`
+      animation: 0.4s ${wiggleAnimation} 1 ease-in forwards;
+    `};
 `;
 
 export default StyledWiggle;

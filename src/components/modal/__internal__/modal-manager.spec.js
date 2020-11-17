@@ -1,18 +1,18 @@
-import ModalManager from './modal-manager';
+import ModalManager from "./modal-manager";
 
-describe('ModalManager', () => {
-  describe('when the addModal method has been called', () => {
-    it('then the element passed in an attribute should be the topmost element', () => {
-      const mockModal = { foo: 'bar' };
+describe("ModalManager", () => {
+  describe("when the addModal method has been called", () => {
+    it("then the element passed in an attribute should be the topmost element", () => {
+      const mockModal = { foo: "bar" };
 
       ModalManager.addModal(mockModal);
       expect(ModalManager.isTopmost(mockModal)).toBe(true);
     });
   });
 
-  describe('when the clearList method has been called', () => {
-    it('then the element passed in an attribute should not be the topmost element', () => {
-      const mockModal = { foo: 'bar' };
+  describe("when the clearList method has been called", () => {
+    it("then the element passed in an attribute should not be the topmost element", () => {
+      const mockModal = { foo: "bar" };
 
       ModalManager.addModal(mockModal);
       expect(ModalManager.isTopmost(mockModal)).toBe(true);
@@ -21,9 +21,9 @@ describe('ModalManager', () => {
     });
   });
 
-  describe('when the removeModal method has been called', () => {
-    it('then the element passed in an attribute should not be the topmost element', () => {
-      const mockModal = { foo: 'bar' };
+  describe("when the removeModal method has been called", () => {
+    it("then the element passed in an attribute should not be the topmost element", () => {
+      const mockModal = { foo: "bar" };
 
       ModalManager.clearList();
       ModalManager.addModal(mockModal);

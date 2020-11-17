@@ -1,19 +1,29 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
+import {
+  InputContext,
+  InputGroupContext,
+} from "../../../__internal__/input-behaviour";
 
 const HiddenCheckableInput = ({
-  helpId, labelId, name, inputType, inputValue, role, tabindex, ...props
+  helpId,
+  labelId,
+  name,
+  inputType,
+  inputValue,
+  role,
+  tabindex,
+  ...props
 }) => {
-  const {
-    onBlur, onFocus, onMouseEnter, onMouseLeave
-  } = useContext(InputContext);
+  const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
+    InputContext
+  );
   const {
     onBlur: onBlurGroup,
     onFocus: onFocusGroup,
     onMouseEnter: onMouseEnterGroup,
-    onMouseLeave: onMouseLeaveGroup
+    onMouseLeave: onMouseLeaveGroup,
   } = useContext(InputGroupContext);
 
   const handleFocus = (ev) => {
@@ -40,19 +50,19 @@ const HiddenCheckableInput = ({
 
   return (
     <HiddenCheckableInputStyle
-      aria-checked={ props.checked }
-      aria-labelledby={ labelId }
-      aria-describedby={ helpId }
-      name={ name }
-      role={ role || inputType }
-      tabIndex={ tabindex }
-      type={ inputType }
-      value={ inputValue }
-      { ...props }
-      onFocus={ handleFocus }
-      onBlur={ handleBlur }
-      onMouseEnter={ handleMouseEnter }
-      onMouseLeave={ handleMouseLeave }
+      aria-checked={props.checked}
+      aria-labelledby={labelId}
+      aria-describedby={helpId}
+      name={name}
+      role={role || inputType}
+      tabIndex={tabindex}
+      type={inputType}
+      value={inputValue}
+      {...props}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     />
   );
 };
@@ -67,7 +77,7 @@ HiddenCheckableInput.propTypes = {
   inputType: PropTypes.string.isRequired,
   inputValue: PropTypes.string,
   role: PropTypes.string,
-  tabindex: PropTypes.number
+  tabindex: PropTypes.number,
 };
 
 export default React.memo(HiddenCheckableInput);

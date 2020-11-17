@@ -1,13 +1,15 @@
-import styled, { css } from 'styled-components';
-import { space } from 'styled-system';
-import { baseTheme } from '../../style/themes';
+import styled, { css } from "styled-components";
+import { space } from "styled-system";
+import { baseTheme } from "../../style/themes";
 
 const StyledVerticalWrapper = styled.div`
   ${space}
-  ${({ height }) => height && css`
-    height: ${(typeof height === 'string' ? `${height};` : `${height}px;`)}
-  `}
-  ${({ displayInline }) => (displayInline ? 'display: inline;' : '')}
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${typeof height === "string" ? `${height};` : `${height}px;`};
+    `}
+  ${({ displayInline }) => (displayInline ? "display: inline;" : "")}
 `;
 
 const StyledDivider = styled.div`
@@ -17,11 +19,11 @@ const StyledDivider = styled.div`
 `;
 
 StyledVerticalWrapper.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 StyledDivider.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
 };
 
 export { StyledVerticalWrapper, StyledDivider };

@@ -1,13 +1,19 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
 
 const RadioButtonMapper = ({
-  children, name, onBlur, onChange, onMouseDown, onKeyDown, value
+  children,
+  name,
+  onBlur,
+  onChange,
+  onMouseDown,
+  onKeyDown,
+  value,
 }) => {
   const anyChecked = useMemo(() => {
     let result = false;
     React.Children.forEach(children, (child) => {
-      if (Object.prototype.hasOwnProperty.call(child.props, 'defaultChecked')) {
+      if (Object.prototype.hasOwnProperty.call(child.props, "defaultChecked")) {
         result = true;
       }
     });
@@ -49,7 +55,7 @@ const RadioButtonMapper = ({
       onBlur,
       onMouseDown,
       onChange: onChangeProp,
-      onKeyDown
+      onKeyDown,
     });
   });
 
@@ -68,7 +74,7 @@ RadioButtonMapper.propTypes = {
   /** Callback fired on key down */
   onKeyDown: PropTypes.func,
   /** Value of the selected RadioButton */
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default RadioButtonMapper;

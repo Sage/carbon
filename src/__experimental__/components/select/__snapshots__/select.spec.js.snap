@@ -139,7 +139,7 @@ Object {
 }
 
 .c2:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
@@ -242,9 +242,7 @@ Object {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 70%;
-  -ms-flex: 0 0 70%;
-  flex: 0 0 70%;
+  width: 100%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
@@ -269,7 +267,7 @@ Object {
 }
 
 .c0 input::-webkit-contacts-auto-fill-button {
-  display: none!important;
+  display: none !important;
 }
 
 <div

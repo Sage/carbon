@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags';
-import SwitchStyle from './switch.style';
-import CheckableInput from '../checkable-input';
-import SwitchSlider from './switch-slider.component';
-import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
+import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import tagComponent from "../../../utils/helpers/tags";
+import SwitchStyle from "./switch.style";
+import CheckableInput from "../checkable-input";
+import SwitchSlider from "./switch-slider.component";
+import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 
 const Switch = ({
   id,
@@ -24,7 +24,9 @@ const Switch = ({
 }) => {
   const isControlled = checked !== undefined;
 
-  const [checkedInternal, setCheckedInternal] = useState(defaultChecked || false);
+  const [checkedInternal, setCheckedInternal] = useState(
+    defaultChecked || false
+  );
 
   const onChangeInternal = useCallback(
     (e) => {
@@ -45,7 +47,7 @@ const Switch = ({
     labelInline: inlineLabel,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
-    reverse: !reverse // switched to preserve backward compatibility
+    reverse: !reverse, // switched to preserve backward compatibility
   };
 
   const inputProps = {
@@ -55,22 +57,23 @@ const Switch = ({
     inputId: id,
     inputLabel: label,
     inputValue: value,
-    inputType: 'checkbox',
-    reverse: !reverse // switched to preserve backward compatibility
+    inputType: "checkbox",
+    reverse: !reverse, // switched to preserve backward compatibility
   };
 
-  const shouldValidationBeOnLabel = labelInline && !reverse ? true : validationOnLabel;
+  const shouldValidationBeOnLabel =
+    labelInline && !reverse ? true : validationOnLabel;
 
   return (
-    <SwitchStyle
-      { ...tagComponent('Switch', props) }
-      { ...switchProps }
-    >
-      <CheckableInput useValidationIcon={ shouldValidationBeOnLabel && !disabled } { ...inputProps }>
+    <SwitchStyle {...tagComponent("Switch", props)} {...switchProps}>
+      <CheckableInput
+        useValidationIcon={shouldValidationBeOnLabel && !disabled}
+        {...inputProps}
+      >
         <SwitchSlider
-          useValidationIcon={ !shouldValidationBeOnLabel && !disabled }
-          { ...switchProps }
-          loading={ loading }
+          useValidationIcon={!shouldValidationBeOnLabel && !disabled}
+          {...switchProps}
+          loading={loading}
         />
       </CheckableInput>
     </SwitchStyle>
@@ -140,13 +143,13 @@ Switch.propTypes = {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 Switch.defaultProps = {
   labelInline: false,
   reverse: true,
-  validationOnLabel: false
+  validationOnLabel: false,
 };
 
 export { Switch as BaseSwitch };

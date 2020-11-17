@@ -12,7 +12,7 @@ exports[`Weekday classic theme applies custom styling 1`] = `
   text-align: center;
   padding: 20px 0 5px;
   background-color: #FFFFFF;
-  color: rgba(0,0,0,.6);
+  color: rgba(0,0,0,0.6);
   font-size: 14px;
   font-weight: 700;
   text-transform: capitalize;

@@ -1,13 +1,15 @@
-import React, {
-  useState, useRef, useEffect, useCallback
-} from 'react';
-import PropTypes from 'prop-types';
-import throttle from 'lodash/throttle';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import throttle from "lodash/throttle";
 
-import Event from '../../utils/helpers/events';
-import { StyledAnchorNavigation, StyledNavigation, StyledContent } from './anchor-navigation.style';
-import AnchorNavigationItem from './anchor-navigation-item.component';
-import Logger from '../../utils/logger/logger';
+import Event from "../../utils/helpers/events";
+import {
+  StyledAnchorNavigation,
+  StyledNavigation,
+  StyledContent,
+} from "./anchor-navigation.style";
+import AnchorNavigationItem from "./anchor-navigation-item.component";
+import Logger from "../../utils/logger/logger";
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
@@ -18,15 +20,27 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     // eslint-disable-next-line max-len
-    Logger.deprecate('`styleOverride` that is used in the `AnchorNavigation` component is deprecated and will soon be removed.');
+    Logger.deprecate(
+      "`styleOverride` that is used in the `AnchorNavigation` component is deprecated and will soon be removed."
+    );
   }
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const sectionRefs = useRef(React.Children.map(stickyNavigation.props.children, child => child.props.target));
+  const sectionRefs = useRef(
+    React.Children.map(
+      stickyNavigation.props.children,
+      (child) => child.props.target
+    )
+  );
 
-  const anchorRefs = useRef(Array.from({
-    length: React.Children.count(stickyNavigation.props.children)
-  }, () => React.createRef()));
+  const anchorRefs = useRef(
+    Array.from(
+      {
+        length: React.Children.count(stickyNavigation.props.children),
+      },
+      () => React.createRef()
+    )
+  );
 
   const contentRef = useRef();
 
@@ -37,35 +51,51 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
   const isUserScrollTimer = useRef();
 
   const setSelectedAnchorBasedOnScroll = useCallback(() => {
-    const sectionsTopOffsets = sectionRefs.current.map(({ current }) => current.getBoundingClientRect().top);
+    const sectionsTopOffsets = sectionRefs.current.map(
+      ({ current }) => current.getBoundingClientRect().top
+    );
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const indexOfSmallestNegativeTopOffset = sectionsTopOffsets.reduce((currentTopIndex, sectionTopOffset, index) => {
-      if (sectionTopOffset - SECTION_VISIBILITY_OFFSET > navTopOffset) return currentTopIndex;
-      return sectionTopOffset > sectionsTopOffsets[currentTopIndex] ? index : currentTopIndex;
-    }, 0);
+    const indexOfSmallestNegativeTopOffset = sectionsTopOffsets.reduce(
+      (currentTopIndex, sectionTopOffset, index) => {
+        if (sectionTopOffset - SECTION_VISIBILITY_OFFSET > navTopOffset)
+          return currentTopIndex;
+        return sectionTopOffset > sectionsTopOffsets[currentTopIndex]
+          ? index
+          : currentTopIndex;
+      },
+      0
+    );
 
     setSelectedIndex(indexOfSmallestNegativeTopOffset);
   }, []);
 
-  const scrollHandler = useCallback(throttle(() => {
-    if (isUserScroll.current) {
-      setSelectedAnchorBasedOnScroll();
-    } else {
-      window.clearTimeout(isUserScrollTimer.current);
-      isUserScrollTimer.current = setTimeout(() => { isUserScroll.current = true; }, SCROLL_THROTTLE + 50);
-    }
-  }, SCROLL_THROTTLE), []);
+  const scrollHandler = useCallback(
+    throttle(() => {
+      if (isUserScroll.current) {
+        setSelectedAnchorBasedOnScroll();
+      } else {
+        window.clearTimeout(isUserScrollTimer.current);
+        isUserScrollTimer.current = setTimeout(() => {
+          isUserScroll.current = true;
+        }, SCROLL_THROTTLE + 50);
+      }
+    }, SCROLL_THROTTLE),
+    []
+  );
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollHandler, true);
-    return () => window.removeEventListener('scroll', scrollHandler, true);
+    window.addEventListener("scroll", scrollHandler, true);
+    return () => window.removeEventListener("scroll", scrollHandler, true);
   }, [scrollHandler]);
 
   const focusFirstFocusableChild = (section) => {
     // eslint-disable-next-line max-len
-    const defaultFocusableSelectors = 'button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
-    const firstFocusableElement = section.querySelector(defaultFocusableSelectors);
+    const defaultFocusableSelectors =
+      'button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
+    const firstFocusableElement = section.querySelector(
+      defaultFocusableSelectors
+    );
     if (firstFocusableElement) {
       firstFocusableElement.focus({ preventScroll: true });
     }
@@ -73,7 +103,11 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
 
   const scrollToSection = (section) => {
     isUserScroll.current = false;
-    section.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+    section.scrollIntoView({
+      block: "start",
+      inline: "nearest",
+      behavior: "smooth",
+    });
   };
 
   const handleClick = (event, index) => {
@@ -112,27 +146,26 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
 
   return (
     <StyledAnchorNavigation
-      ref={ contentRef }
-      data-component='anchor-navigation'
-      styleOverride={ styleOverride.root }
+      ref={contentRef}
+      data-component="anchor-navigation"
+      styleOverride={styleOverride.root}
     >
       <StyledNavigation
-        ref={ navigationRef }
-        data-element='anchor-sticky-navigation'
-        styleOverride={ styleOverride.navigation }
+        ref={navigationRef}
+        data-element="anchor-sticky-navigation"
+        styleOverride={styleOverride.navigation}
       >
-        {React.Children.map(
-          stickyNavigation.props.children,
-          (child, index) => React.cloneElement(child, {
+        {React.Children.map(stickyNavigation.props.children, (child, index) =>
+          React.cloneElement(child, {
             isSelected: index === selectedIndex,
             tabIndex: index === selectedIndex ? 0 : -1,
-            onClick: ev => handleClick(ev, index),
-            onKeyDown: ev => handleKeyDown(ev, index),
-            ref: anchorRefs.current[index]
+            onClick: (ev) => handleClick(ev, index),
+            onKeyDown: (ev) => handleKeyDown(ev, index),
+            ref: anchorRefs.current[index],
           })
         )}
       </StyledNavigation>
-      <StyledContent styleOverride={ styleOverride.content }>
+      <StyledContent styleOverride={styleOverride.content}>
         {children}
       </StyledContent>
     </StyledAnchorNavigation>
@@ -160,13 +193,12 @@ AnchorNavigation.propTypes = {
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  }),
 };
 
 AnchorNavigation.defaultProps = {
-  styleOverride: {}
+  styleOverride: {},
 };
-
 
 export default AnchorNavigation;
