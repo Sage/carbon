@@ -40,7 +40,6 @@ Scenario Outline: Component <component> default story
     | carousel            |
     | card                |
     | configurable-items  |
-    | content             |
     | detail              |
     | draggableContext    |
     | heading             |
@@ -71,6 +70,7 @@ Scenario Outline: Component <component> basic story
     | step-sequence |
     | icon          |
     | button toggle |
+    | content       |
 
  @accessibility
   Scenario Outline: Component <component> default_story
