@@ -15,23 +15,6 @@ const Preview = (props) => {
   return props.children;
 };
 
-Preview.propTypes = {
-  /** Children content to render in the component. */
-  children: PropTypes.node,
-  /** Classes to be applied to the component. */
-  height: PropTypes.string,
-  /** The number of lines to render. */
-  lines: PropTypes.number,
-  /* Provides more control over when in a loading state. */
-  loading: PropTypes.bool,
-  /** A custom width */
-  width: PropTypes.string,
-};
-
-Preview.defaultProps = {
-  lines: 1,
-};
-
 function isLoading(loading, children) {
   if (typeof loading !== "undefined") {
     return loading;
@@ -56,5 +39,22 @@ function createPreview(allProps, index) {
     />
   );
 }
+
+Preview.propTypes = {
+  /** Children content to render in the component. */
+  children: PropTypes.node,
+  /** A custom height to be applied to the component. */
+  height: PropTypes.string,
+  /** The number of lines to render. */
+  lines: PropTypes.number,
+  /* Provides more control over when in a loading state. */
+  loading: PropTypes.bool,
+  /** A custom width */
+  width: PropTypes.string,
+};
+
+Preview.defaultProps = {
+  lines: 1,
+};
 
 export default Preview;

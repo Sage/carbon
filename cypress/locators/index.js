@@ -39,6 +39,7 @@ export const getComponentIFrame = component => cy.iFrame(`[data-component="${com
 
 // component preview locators into iFrame
 export const storyRootNoIframe = () => cy.get(STORY_ROOT);
+export const dlsRootNoIframe = () => cy.get(DLS_ROOT);
 export const icon = () => cy.get(ICON);
 export const getDataElementByValue = element => cy.get(`[data-element="${element}"]`);
 export const getDataElementByValueAndPosition = (element, position) => cy.get(`[data-element="${element}"]`)
