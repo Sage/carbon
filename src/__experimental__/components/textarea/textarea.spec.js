@@ -181,7 +181,7 @@ describe("Textarea", () => {
 
       assertStyleMatch(
         {
-          paddingTop: "8px",
+          paddingTop: "6px",
           alignItems: "flex-start",
         },
         wrapper,
