@@ -1,10 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
 import Link from "./link.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import classicTheme from "../../style/themes/classic";
 import LinkStyle from "./link.style";
 import StyledIcon from "../icon/icon.style";
 
@@ -20,14 +18,6 @@ const render = (props) => {
   return TestRenderer.create(<Link {...props}>test</Link>);
 };
 
-function renderWithTheme(props, theme, renderer = TestRenderer.create) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <Link {...props}>test</Link>
-    </ThemeProvider>
-  );
-}
-
 describe("Link", () => {
   let wrapper;
 
@@ -37,23 +27,6 @@ describe("Link", () => {
 
   it("renders as expected", () => {
     expect(render()).toMatchSnapshot();
-  });
-
-  describe("when component has classic theme", () => {
-    it("should render correct style", () => {
-      expect(
-        renderWithTheme({ to: "foo", routerLink: RouterLink }, classicTheme)
-      ).toMatchSnapshot();
-    });
-
-    it("should render correct style when disabled", () => {
-      expect(
-        renderWithTheme(
-          { disabled: true, to: "foo", routerLink: RouterLink },
-          classicTheme
-        )
-      ).toMatchSnapshot();
-    });
   });
 
   describe("The `disabled` prop", () => {

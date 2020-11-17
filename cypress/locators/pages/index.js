@@ -3,9 +3,9 @@ import {
 } from './locators';
 
 // component preview locators
-export const dataComponentButtonByText = text => cy.iFrame(BUTTON_DATA_COMPONENT).contains(text);
+export const dataComponentButtonByText = text => cy.get(BUTTON_DATA_COMPONENT).contains(text);
 export const closeDataElement = () => cy.get(CLOSE_DATA_ELEMENT);
-export const backArrow = () => cy.iFrame(BACK_ARROW);
+export const backArrow = () => cy.get(BACK_ARROW);
 
 export const closeDataElementIFrame = () => cy.iFrame(CLOSE_DATA_ELEMENT);
 

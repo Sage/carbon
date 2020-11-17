@@ -16,7 +16,7 @@ Then('tooltipPosition is set to {string}', (tooltipPosition) => {
       break;
     case 'left':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'right', '0px');
+        .and('have.css', 'right', '124.703px');
       break;
     case 'right':
       tooltipPointer().should('have.css', 'position', 'absolute')
@@ -46,7 +46,7 @@ Then('tooltipAlign is set to {string}', (tooltipAlign) => {
     case 'right':
       tooltipPointer().should('have.css', 'position', 'absolute')
         .and('have.css', 'top', '-7.5px')
-        .and('have.css', 'right', '22px');
+        .and('have.css', 'right', '124.703px');
       break;
     case 'top':
       tooltipPointer().should('have.css', 'position', 'absolute');
