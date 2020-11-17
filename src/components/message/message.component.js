@@ -11,14 +11,11 @@ import IconButton from "../icon-button";
 const Message = (props) => {
   const {
     open,
-    border,
     transparent,
     title,
     variant,
-    roundedCorners,
     children,
     onDismiss,
-    as,
     id,
     className,
     showCloseIcon,
@@ -28,11 +25,7 @@ const Message = (props) => {
     if (!showCloseIcon || !onDismiss) return null;
 
     return (
-      <IconButton
-        data-element="close"
-        onAction={onDismiss}
-        variant={variant || as}
-      >
+      <IconButton data-element="close" onAction={onDismiss} variant={variant}>
         <Icon type="close" />
       </IconButton>
     );
@@ -42,21 +35,15 @@ const Message = (props) => {
     open && (
       <MessageStyle
         {...tagComponent("Message", props)}
-        border={border}
         className={className}
         transparent={transparent}
-        variant={variant || as}
-        roundedCorners={roundedCorners}
+        variant={variant}
         role="status"
         id={id}
       >
-        <TypeIcon
-          variant={variant || as}
-          roundedCorners={roundedCorners}
-          transparent={transparent}
-        />
+        <TypeIcon variant={variant} transparent={transparent} />
         <MessageContent
-          variant={variant || as}
+          variant={variant}
           transparent={transparent}
           title={title}
         >
@@ -69,10 +56,8 @@ const Message = (props) => {
 };
 
 Message.defaultProps = {
-  as: "info",
-  border: true,
+  variant: "info",
   open: true,
-  roundedCorners: true,
   transparent: false,
   showCloseIcon: true,
 };
@@ -80,10 +65,6 @@ Message.defaultProps = {
 Message.propTypes = {
   /** set type of message based on new DLS standard */
   variant: PropTypes.oneOf(OptionsHelper.colors),
-  /** set type of message. This is legacy property */
-  as: PropTypes.string,
-  /** set border to component */
-  border: PropTypes.bool,
   /** set content to component */
   children: PropTypes.node,
   /** set custom class to component */
@@ -94,8 +75,6 @@ Message.propTypes = {
   open: PropTypes.bool,
   /** function runs when user click dismiss button */
   onDismiss: PropTypes.func,
-  /** set corners to be rounded or sharp */
-  roundedCorners: PropTypes.bool,
   /** set message title */
   title: PropTypes.node,
   /** set background to be invisible */
