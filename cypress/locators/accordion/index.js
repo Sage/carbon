@@ -8,7 +8,7 @@ import {
 // component preview locators
 export const accordionIframe = () => cy.iFrame(ACCORDION_PREVIEW);
 export const accordionTitleContainerInIframe = () => accordionIframe().find(ACCORDION_TITLE_CONTAINER);
-export const accordionIcon = () => accordionTitleContainerInIframe()
+export const accordionIcon = () => accordionTitleContainer()
   .find(ACCORDION_ICON);
 export const accordionTitleContainerByPositionInIfame = index => accordionIframe()
   .find(ACCORDION_TITLE_CONTAINER).eq(index).children();

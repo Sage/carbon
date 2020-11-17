@@ -13,14 +13,18 @@ Feature: Dialog component actions in IFrame
   @positive
   Scenario: Enable escape key
     Given I check disableEscKey checkbox
-    When I uncheck disableEscKey checkbox
-      And I hit ESC key
+     And I uncheck disableEscKey checkbox
+      # add wait due to re-render with new prop
+     And I wait 500
+    When I hit ESC key
     Then Dialog is not visible in IFrame
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
     Given I uncheck showCloseIcon checkbox
     When I check showCloseIcon checkbox
+      # add wait due to re-render with new prop
+      And I wait 500
     Then closeIcon is visible in iframe
       And I click closeIcon in IFrame
       And Dialog is not visible in IFrame

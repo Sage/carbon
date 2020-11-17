@@ -32,6 +32,8 @@ Feature: Experimental Date Input component
   Scenario: Change Date Input component minDate
     Given I open "Experimental Date Input Test" component page "default"
       And I set minDate to today
+      # add wait due to re-render with new prop
+      And I wait 500
       And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
@@ -40,6 +42,8 @@ Feature: Experimental Date Input component
   Scenario: Change Date Input component maxDate
     Given I open "Experimental Date Input Test" component page "default"
       And I set maxDate to today
+      # add wait due to re-render with new prop
+      And I wait 500
       And I set dateInput to today
     When I choose date tomorrow via DayPicker
     Then the date after maxDate is not available

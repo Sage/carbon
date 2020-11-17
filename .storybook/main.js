@@ -19,13 +19,19 @@ module.exports = {
         test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']
       }
     );
-  
+
     config.resolve = {
       alias: {
-        helpers: path.resolve(__dirname, '__helpers__/')
+        helpers: path.resolve(__dirname, '__helpers__/'),
       },
       extensions: ['.js']
     };
+
+    if(process.env.ENABLE_PROFILER){
+      config.resolve.alias['react-dom$'] = 'react-dom/profiling';
+      config.resolve.alias['scheduler/tracing'] = 'scheduler/tracing-profiling';
+    };
+
     return config;
   },
 };

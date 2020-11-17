@@ -62,6 +62,8 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen Test" component page "default"
       And I check disableEscKey checkbox
       And I uncheck disableEscKey checkbox
+      # add wait due to re-render with new prop
+      And I wait 500
     When I hit ESC key
     Then Dialog Full Screen is not visible
 

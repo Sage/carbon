@@ -11,6 +11,7 @@ import { configureActions } from '@storybook/addon-actions';
 import sageTheme from './sageTheme';
 import "../src/utils/css";
 import isChromatic from 'chromatic/isChromatic';
+import React, { Profiler } from 'react';
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
@@ -99,3 +100,39 @@ if (!isChromatic()) {
 }
 addDecorator(withA11y);
 addDecorator(withThemeSelector);
+
+// to be deleted after upgrade Storybook to version 6+
+addDecorator((Story, { id }) => {
+  const callback = (id, phase, actualTime, baseTime, startTime, commitTime) => {
+    // console.log(`Starting gathering performance data for ${id} component`);
+    // console.log(`${id}'s ${phase} phase:`);
+    console.log(`Actual time: ${actualTime} in ${phase} phase`);
+    // console.log(`Base time: ${baseTime}`);
+    // console.log(`Start time: ${startTime}`);
+    // console.log(`Commit time: ${commitTime}`);
+    // console.log(`End of gathering performance data for ${id} component`);
+  };
+  return (
+    <Profiler id={id} onRender={callback}>
+      <Story />
+    </Profiler>
+  );
+});
+
+  // to be used for Performance testing after upgrade Storybook to v 6+
+  // export const decorators = [(Story, { id }) => {
+  //   const callback = (id, phase, actualTime, baseTime, startTime, commitTime) => {
+  //     console.log(`Starting gathering performance data for ${id} component`);
+  //     console.log(`${id}'s ${phase} phase:`);
+  //     console.log(`Actual time: ${actualTime}`);
+  //     console.log(`Base time: ${baseTime}`);
+  //     console.log(`Start time: ${startTime}`);
+  //     console.log(`Commit time: ${commitTime}`);
+  //     console.log(`End of gathering performance data for ${id} component`);
+  //   };
+  //   return (
+  //     <Profiler id={id} onRender={callback}>
+  //       <Story />
+  //     </Profiler>
+  //   );
+  // }];

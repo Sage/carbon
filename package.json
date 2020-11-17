@@ -9,6 +9,7 @@
   "scripts": {
     "docgenInfo": "./script/generate-docgeninfo.sh",
     "start": "start-storybook -p 9001 -s .assets -c .storybook",
+    "start_performance": "ENABLE_PROFILER=true npm start",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
@@ -91,6 +92,7 @@
     "cypress": "^6.2.0",
     "cypress-axe": "^0.8.1",
     "cypress-cucumber-preprocessor": "4.0.0",
+    "cypress-terminal-report": "^2.4.0",
     "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
     "enzyme": "^3.3.0",

@@ -1,33 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'cypress-axe';
 
 export const DEBUG_FLAG = false;
-
-// ***********************************************************
-// This example support/index.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
-// import './commands';
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
-// You can mock if needed. Example below
-// beforeEach(() => {
-//     cy.server();
-//     cy.route('/countries*', {});
-// })
 
 /* returning false here prevents Cypress from failing the test */
 Cypress.on('uncaught:exception', (err, runnable) => false);
@@ -62,3 +36,16 @@ function getItem(selector, counter) {
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 50); });
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
+
+const options = {
+  filterLog: ([type, message, severity]) => {
+    if (['cons:log'].includes(type)) {
+      if (['success'].includes(severity)) {
+        return true;
+      }
+    }
+  },
+};
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('cypress-terminal-report/src/installLogsCollector')(options);

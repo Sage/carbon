@@ -14,6 +14,8 @@ Feature: Confirm component - in iFrame
   Scenario: Enable escape key
     Given I check disableEscKey checkbox
       And I uncheck disableEscKey checkbox
+      # add wait due to re-render with new prop
+      And I wait 500
     When I hit ESC key
     Then Confirm dialog is not visible in iFrame
 

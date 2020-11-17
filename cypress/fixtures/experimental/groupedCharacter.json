@@ -48,5 +48,14 @@
   },
   "inputIconAdd": {
     "inputIcon": "add"
+  },
+  "groups1": {
+    "groups": "[1,2,3]"
+  },
+  "groups2": {
+    "groups": "[5,3,1]"
+  },
+  "groups3": {
+    "groups": "[2,4,2]"
   }
 }

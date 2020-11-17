@@ -77,6 +77,27 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cypress performance run
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          start: npm run start_performance
+           # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:9001'
+          wait-on-timeout: 200
+          record: true
+          parallel: true
+          group: ubuntu-performance
+          quiet: true
+          browser: chrome
+          spec: './cypress/features/performance/performance.spec.js'
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CI: 'true'
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   chromatic:
     runs-on: ubuntu-latest
