@@ -38,7 +38,7 @@ Scenario Outline: Component <component> default story
     | component           |
     | carousel            |
     | configurable-items  |
-    | content             |
+    | detail              |
     | draggableContext    |
     | icon                |
     | loader              |
@@ -80,6 +80,7 @@ Scenario Outline: Component <component> default story
     Examples:
       | component     |
       | AppWrapper    |
+      | Content       |
       | Detail        |
       | Heading       |
       | Help          |
