@@ -1,3 +1,10 @@
+### [49.0.1](https://github.com/Sage/carbon/compare/v49.0.0...v49.0.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* **accordion:** update headings grid to allow subtitle to span columns ([3b2fa89](https://github.com/Sage/carbon/commit/3b2fa89b78b09fce540e6708649e36a8dc8a5e62))
+
 ## [49.0.0](https://github.com/Sage/carbon/compare/v48.7.1...v49.0.0) (2020-11-17)
 
 
