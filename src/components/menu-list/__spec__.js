@@ -8,7 +8,7 @@ import {
 import Link from "./../link";
 import Textbox from "./../../__experimental__/components/textbox";
 
-import { MenuList, MenuListItem } from "components/menu-list";
+import { MenuList } from "components/menu-list";
 
 const items = [
   { name: "One" },

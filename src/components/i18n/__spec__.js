@@ -1,14 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import TestUtils from "react-dom/test-utils";
 import ReactShallowRenderer from "react-test-renderer/shallow";
 import i18n from "i18n-js";
 import I18n from "./i18n.js";
 import { shallow } from "enzyme";
-import {
-  elementsTagTest,
-  rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 
 describe("I18n", () => {
   describe("render", () => {
