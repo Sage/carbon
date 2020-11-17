@@ -153,3 +153,15 @@ You need to add the following to ~/.gitconfig
         pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 ````
 This allows you to review PRs very easily. For example, if you are reviewing [https://github.com/Sage/carbon/pull/2408/](https://github.com/Sage/carbon/pull/2408/), you can use `git pr 2408` which will check out a new branch named pr/2408. This gives you the ability to review, change branches, merge and make experimental changes. The second command `git pr-clean` removes all branches that start with pr/. This is a useful for housekeeping of branches.
+
+#### GPG Verification
+
+We encourage our contributors to verify their commits with a GPG key. Follow these instructions to enable GPG commit signing: [https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/managing-commit-signature-verification](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/managing-commit-signature-verification)
+
+Then add this to your profile (i.e`~/.zshrc` or `~/.bashrc`) so `gpg-agent` can prompt for your passphrase:
+
+`export GPG_TTY=$(tty)`
+
+Then execute this command to sign all of your commits by default:
+
+`$ git config --global commit.gpgsign true`
