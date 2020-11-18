@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Request from "superagent";
+
 import serialize from "../../utils/helpers/serialize";
 import {
   Table,
@@ -24,103 +25,6 @@ class TableAjax extends Table {
    * @property _request
    */
   _request = null;
-
-  static propTypes = {
-    /**
-     * Data used to filter the data
-     *
-     * @property filter
-     * @type {Object}
-     */
-    filter: PropTypes.object,
-
-    /**
-     * A callback function used to format the Ajax
-     * request into the format required endpoint
-     *
-     * @property formatRequest
-     * @type {Function}
-     */
-    formatRequest: PropTypes.func,
-
-    /**
-     * A callback function used to set the Ajax
-     * headers using custom ones provided by the consumer
-     *
-     * Expected return object format
-     * {
-        'Accept': 'application/json',
-        'jwt': 'secret',
-        ...
-       }
-     *
-     * @property getCustomHeaders
-     * @type {Function}
-     */
-    getCustomHeaders: PropTypes.func,
-
-    /**
-     * A callback function used to format the Ajax
-     * response into the format required by the table
-     *
-     * @property formatResponse
-     * @type {Function}
-     */
-    formatResponse: PropTypes.func,
-
-    /**
-     * Setting to true turns on pagination for the table
-     *
-     * @property paginate
-     * @type {Boolean}
-     */
-    paginate: PropTypes.bool,
-
-    /**
-     * Pagination
-     * Page Size of grid (number of visible records)
-     *
-     * @property pageSize
-     * @type {String}
-     */
-    pageSize: PropTypes.string,
-
-    /**
-     * Endpoint to fetch the data for table
-     *
-     * @property path
-     * @type {String}
-     */
-    path: PropTypes.string.isRequired,
-
-    /**
-     * Callback function for XHR request errors
-     *
-     * @property onAjaxError
-     * @type {Function}
-     */
-    onAjaxError: PropTypes.func,
-
-    /**
-     * A prop to allow the override of the default get request and perform a post.
-     * @property postAction
-     * @type {Boolean}
-
-     */
-    postAction: PropTypes.bool,
-
-    /**
-     * Enable the ability to send cookies from the origin.
-     *
-     * @property withCredentials
-     * @type: {Boolean}
-     */
-    withCredentials: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    paginate: true,
-  };
 
   state = {
     /**
@@ -502,5 +406,102 @@ class TableAjax extends Table {
     return "table-ajax";
   }
 }
+
+TableAjax.propTypes = {
+  /**
+   * Data used to filter the data
+   *
+   * @property filter
+   * @type {Object}
+   */
+  filter: PropTypes.object,
+
+  /**
+   * A callback function used to format the Ajax
+   * request into the format required endpoint
+   *
+   * @property formatRequest
+   * @type {Function}
+   */
+  formatRequest: PropTypes.func,
+
+  /**
+   * A callback function used to set the Ajax
+   * headers using custom ones provided by the consumer
+   *
+   * Expected return object format
+   * {
+      'Accept': 'application/json',
+      'jwt': 'secret',
+      ...
+     }
+   *
+   * @property getCustomHeaders
+   * @type {Function}
+   */
+  getCustomHeaders: PropTypes.func,
+
+  /**
+   * A callback function used to format the Ajax
+   * response into the format required by the table
+   *
+   * @property formatResponse
+   * @type {Function}
+   */
+  formatResponse: PropTypes.func,
+
+  /**
+   * Setting to true turns on pagination for the table
+   *
+   * @property paginate
+   * @type {Boolean}
+   */
+  paginate: PropTypes.bool,
+
+  /**
+   * Pagination
+   * Page Size of grid (number of visible records)
+   *
+   * @property pageSize
+   * @type {String}
+   */
+  pageSize: PropTypes.string,
+
+  /**
+   * Endpoint to fetch the data for table
+   *
+   * @property path
+   * @type {String}
+   */
+  path: PropTypes.string.isRequired,
+
+  /**
+   * Callback function for XHR request errors
+   *
+   * @property onAjaxError
+   * @type {Function}
+   */
+  onAjaxError: PropTypes.func,
+
+  /**
+   * A prop to allow the override of the default get request and perform a post.
+   * @property postAction
+   * @type {Boolean}
+
+   */
+  postAction: PropTypes.bool,
+
+  /**
+   * Enable the ability to send cookies from the origin.
+   *
+   * @property withCredentials
+   * @type: {Boolean}
+   */
+  withCredentials: PropTypes.bool,
+};
+
+TableAjax.defaultProps = {
+  paginate: true,
+};
 
 export { TableAjax, TableRow, TableCell, TableHeader, TableSubheader };
