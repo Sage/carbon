@@ -1,3 +1,10 @@
+## [49.1.0](https://github.com/Sage/carbon/compare/v49.0.2...v49.1.0) (2020-11-18)
+
+
+### Features
+
+* **definition-list:** add support for spacing props ([744812b](https://github.com/Sage/carbon/commit/744812b7f28e056055618858e66a9d3f533fa7ce)), closes [#3387](https://github.com/Sage/carbon/issues/3387)
+
 ### [49.0.2](https://github.com/Sage/carbon/compare/v49.0.1...v49.0.2) (2020-11-17)
 
 
