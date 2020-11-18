@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 import StyledTableCell from "../table-cell/table-cell.style";
 
-function applyModernRowStyling(isPassive, { colors, table }) {
+function applyModernRowStyling({ theme: { colors, table }, isPassive }) {
   return css`
     ${StyledTableCell} {
       background-color: ${colors.white};

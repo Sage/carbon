@@ -5,7 +5,6 @@ import OptionsHelper from "../../../utils/helpers/options-helper";
 import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
 import StyledInput from "../../../__experimental__/components/input/input.style";
 import tableSizes from "../table-sizes.style.js";
-import { isClassic } from "../../../utils/helpers/style-helper";
 import StyledIcon from "../../icon/icon.style";
 
 const StyledTableCell = styled.td`
@@ -31,9 +30,7 @@ const StyledTableCell = styled.td`
 
       ${action && applyActionStyling(colors)}
 
-      ${!isClassic(theme) && size
-        ? applyModernPresentationStyling(size, isTextArea, isDate)
-        : ""}
+      ${size ? applyModernPresentationStyling(size, isTextArea, isDate) : ""}
     `;
   }}
 `;
