@@ -42,7 +42,6 @@ StyledDt.defaultProps = {
 };
 
 export const StyledDd = styled.dd`
-  ${space}
   ${({ theme }) => css`
     font-size: 14px
     font-weight: 700;
@@ -61,6 +60,7 @@ export const StyledDd = styled.dd`
       }
     }
   `}
+  ${space}
 `;
 
 StyledDd.defaultProps = {
