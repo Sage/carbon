@@ -2,29 +2,14 @@ Feature: Table component
   I want to check Table component properties
 
   @positive
-  Scenario: Verify the pagination is visible
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
-    Then pagination is visible
-
-  @positive
-  Scenario: I enable selectable
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
-    Then rows are selectable
-
-  @positive
-  Scenario: I disable selectable
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectableFalse" object name
-    Then rows are not selectable
-
-  @positive
   Scenario: Verify action toolbar elements
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
     When I check checkbox on header
-    Then Action Toolbar elemens are visible and have "rgb(0, 129, 93)" color
+    Then Action Toolbar elements are visible and have "rgb(0, 129, 93)" color
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
@@ -35,7 +20,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
@@ -45,17 +30,17 @@ Feature: Table component
       | 3         |
 
   @positive
-  Scenario Outline: Sort <headerName> Column by <sortColumn>
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+  Scenario Outline: Sort <headerName> Column by <sortedColumn>
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then "<headerName>" Table column can be sorted
     Examples:
-      | nameOfObject   | headerName |
-      | sortColumnName | Country    |
-      | sortColumnCode | Code       |
+      | nameOfObject     | headerName |
+      | sortedColumnName | Country    |
+      | sortedColumnCode | Code       |
 
   @positive
   Scenario Outline: Sort Country column in <sortOrder> order
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Country column is sorted in "<sortOrder>" order
     Examples:
       | sortOrder | nameOfObject    |
@@ -64,7 +49,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Sort Code column in <sortOrder> order
-    Given I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Code column is sorted in "<sortOrder>" order
     Examples:
       | sortOrder | nameOfObject |
@@ -73,7 +58,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
       | caption                      | nameOfObject            |
@@ -82,7 +67,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Set theme to <theme>
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then theme on preview is "<theme>"
     Examples:
       | theme     | nameOfObject   |
@@ -92,7 +77,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Change Table header size to <size>
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Table header size on preview is set to "<size>"
     Examples:
       | size    | nameOfObject |
@@ -103,7 +88,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: I enable zebra striping for <position> row in Table
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
+    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
     Then <position> row has zebra striping
     Examples:
       | position |
@@ -116,7 +101,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records
     Examples:
       | pageSizeRecords | nameOfObject |

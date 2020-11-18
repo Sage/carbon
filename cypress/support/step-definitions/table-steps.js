@@ -5,7 +5,9 @@ import {
   tableAjax,
   paginationButtonByIndexInIFrame,
 } from '../../locators/table';
-import { themeColor, tableHeaderSize, positionOfElement, positionOfPaginationButton } from '../helper';
+import {
+  themeColor, tableHeaderSize, positionOfElement, positionOfPaginationButton,
+} from '../helper';
 
 Then('I see {int} records', (records) => {
   if (records === 0) {
@@ -145,7 +147,7 @@ When('I check checkbox on header', () => {
   checkboxInHeader().eq(positionOfElement('first')).click();
 });
 
-Then('Action Toolbar elemens are visible and have {string} color', (color) => {
+Then('Action Toolbar elements are visible and have {string} color', (color) => {
   actionToolbar(positionOfElement('first')).find('span').should('have.attr', 'data-element', 'bin')
     .and('have.css', 'color', color)
     .and('be.visible');
