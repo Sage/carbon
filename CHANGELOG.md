@@ -1,3 +1,10 @@
+## [49.2.0](https://github.com/Sage/carbon/compare/v49.1.0...v49.2.0) (2020-11-18)
+
+
+### Features
+
+* **select:** add option group headers ([83aa90a](https://github.com/Sage/carbon/commit/83aa90a740e20cc9eae30fadfd84dcb62c38e123))
+
 ## [49.1.0](https://github.com/Sage/carbon/compare/v49.0.2...v49.1.0) (2020-11-18)
 
 
