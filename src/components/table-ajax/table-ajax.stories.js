@@ -1,121 +1,73 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React, { useState } from "react";
 import { text, boolean, object } from "@storybook/addon-knobs";
-import { State, Store } from "@sambego/storybook-state";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../.storybook/theme-selectors";
 import { enableMock } from "../../../.storybook/utils/xhr/xhr-mock";
-import { TableAjax, TableRow, TableCell, TableHeader } from "./table-ajax";
-import Button from "../button";
-import MultiActionButton from "../multi-action-button";
-import { info, notes } from "./documentation";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
+import { TableAjax, TableRow, TableCell, TableHeader } from ".";
 
-TableAjax.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /table-ajax(?!spec)/
-);
-
-const store = new Store({
-  sortOrder: "asc",
-  sortedColumn: "",
-  currentPage: "1",
-  countryList: [],
-  children: undefined,
-});
-
-const buildRows = () => (
-  <>
-    <TableRow key="header" as="header">
-      <TableHeader sortable name="name" scope="col">
-        Country
-      </TableHeader>
-      <TableHeader scope="col">Code</TableHeader>
-    </TableRow>
-    {store.get("countryList").map((row) => (
-      <TableRow key={row.id} uniqueID={row.id}>
-        <TableCell>{row.name}</TableCell>
-        <TableCell>{row.value}</TableCell>
-      </TableRow>
-    ))}
-  </>
-);
-
-const handleChange = (data) => {
-  store.set({
-    countryList: data.data[0].items,
-  });
-  setTimeout(() => {
-    store.set({
-      children: buildRows(),
-    });
-  }, 500);
-};
-
-function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    enableMock();
-
-    const pageSize = text("pageSize", "5");
-    const paginate = boolean("paginate", TableAjax.defaultProps.paginate);
-    const customHeaders = object("customHeaders", {
-      Accept: "application/json",
-    });
-
-    return (
-      <State store={store}>
-        <TableAjax
-          actions={{
-            delete: { icon: "bin" },
-            settings: { icon: "settings" },
-          }}
-          actionToolbarChildren={(context) => {
-            return [
-              <Button disabled={context.disabled} key="single-action">
-                Test Action
-              </Button>,
-              <MultiActionButton
-                text="Actions"
-                disabled={context.disabled}
-                key="multi-actions"
-              >
-                <Button>foo</Button>
-                <Button>bar</Button>
-                <Button>qux</Button>
-              </MultiActionButton>,
-            ];
-          }}
-          path="/countries"
-          pageSize={pageSize}
-          paginate={paginate}
-          getCustomHeaders={() => customHeaders}
-          onChange={(data) => handleChange(data)}
-        />
-      </State>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
+export default {
+  title: "Table Ajax/Test",
+  component: TableAjax,
+  parameters: {
+    info: {
+      disable: true,
+    },
     chromatic: {
-      disable: disableChromatic,
       delay: 500,
     },
+    knobs: { escapeHTML: false },
+  },
+};
+
+export const Default = () => {
+  enableMock();
+
+  const pageSize = text("pageSize", "5");
+  const paginate = boolean("paginate", TableAjax.defaultProps.paginate);
+  const customHeaders = object("customHeaders", {
+    Accept: "application/json",
+  });
+
+  const [state, setState] = useState({
+    sortOrder: "asc",
+    sortedColumn: "",
+    currentPage: "1",
+    countryList: [],
+  });
+
+  const buildRows = () => (
+    <>
+      <TableRow key="header" as="header">
+        <TableHeader sortable name="name" scope="col">
+          Country
+        </TableHeader>
+        <TableHeader scope="col">Code</TableHeader>
+      </TableRow>
+      {state.countryList.map((row) => (
+        <TableRow key={row.id} uniqueID={row.id}>
+          <TableCell>{row.name}</TableCell>
+          <TableCell>{row.value}</TableCell>
+        </TableRow>
+      ))}
+    </>
+  );
+
+  const handleChange = (data) => {
+    setTimeout(() => {
+      setState((prevState) => ({
+        ...prevState,
+        countryList: data.data[0].items,
+      }));
+    }, 500);
   };
 
-  return [name, component, metadata];
-}
-
-storiesOf("Table Ajax", module)
-  .addParameters({
-    info: {
-      text: info,
-      propTablesExclude: [State],
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-  })
-  .add(...makeStory("default", dlsThemeSelector))
-  .add(...makeStory("classic", classicThemeSelector, true));
+  return (
+    <TableAjax
+      path="/countries"
+      pageSize={pageSize}
+      paginate={paginate}
+      getCustomHeaders={() => customHeaders}
+      onChange={handleChange}
+    >
+      {state.countryList.length ? buildRows() : null}
+    </TableAjax>
+  );
+};

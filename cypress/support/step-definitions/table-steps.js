@@ -1,6 +1,6 @@
 import {
   rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
-  actionToolbar, checkboxInHeader, actionToolbarButton, pagination, tableBody,
+  actionToolbar, checkboxInHeader, actionToolbarButton, tableBody,
   tableHeaderInIFrame,
   tableAjax,
   paginationButtonByIndexInIFrame,
@@ -170,10 +170,6 @@ Then('Action Toolbar elements are visible and have {string} color', (color) => {
     .and('have.css', 'color', color)
     .and('be.visible')
     .and('contain', 'Test Action');
-});
-
-Then('pagination is visible', () => {
-  pagination().should('be.visible');
 });
 
 Then('I click {string} pagination button in IFrame', (button) => {

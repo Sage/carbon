@@ -1,11 +1,10 @@
 import React from "react";
 import Immutable from "immutable";
-import { TableAjax, TableRow } from "./table-ajax";
 import { shallow, mount } from "enzyme";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
-import Pager from "./../pager";
-
 import Request from "superagent";
+import { TableAjax, TableRow } from ".";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import Pager from "../pager";
 
 /* global jest console */
 
@@ -55,7 +54,7 @@ describe("TableAjax", () => {
         className="foo"
         path="/test"
         onChange={spy}
-        pageSize={"10"}
+        pageSize="10"
       >
         <TableRow />
       </TableAjax>
@@ -169,7 +168,7 @@ describe("TableAjax", () => {
   });
 
   describe("emitOnChangeCallback", () => {
-    let options, request;
+    let options;
 
     beforeEach(() => {
       jest.useFakeTimers();
@@ -183,7 +182,7 @@ describe("TableAjax", () => {
     });
 
     it("resets the select all component", () => {
-      let selectAllComponent = {
+      const selectAllComponent = {
         setState: jasmine.createSpy(),
       };
       instance.selectAllComponent = selectAllComponent;
@@ -322,7 +321,7 @@ describe("TableAjax", () => {
       });
 
       it("resets the select all component", () => {
-        let selectAllComponent = {
+        const selectAllComponent = {
           setState: jasmine.createSpy(),
         };
         instance.selectAllComponent = selectAllComponent;
@@ -414,8 +413,8 @@ describe("TableAjax", () => {
 
     describe("when request is present", () => {
       it("aborts the request", () => {
-        let spy = jasmine.createSpy(),
-          req = { abort: spy };
+        spy = jasmine.createSpy();
+        const req = { abort: spy };
 
         instance._request = req;
         instance.stopTimeout();
@@ -426,32 +425,32 @@ describe("TableAjax", () => {
 
   describe("query params", () => {
     it("returns formatted params for server request", () => {
-      let options = { currentPage: 10, pageSize: 20 };
-      let expected = "page=10&rows=20";
+      const options = { currentPage: 10, pageSize: 20 };
+      const expected = "page=10&rows=20";
       expect(instance.queryParams("", options)).toEqual(expected);
     });
 
     it("returns formatted params for server request with filter", () => {
-      let options = {
+      const options = {
         currentPage: 10,
         pageSize: 20,
         sortOrder: "asc",
         sortedColumn: "name",
         filter: { foo: "bar" },
       };
-      let expected = "foo=bar&page=10&rows=20&sord=asc&sidx=name";
+      const expected = "foo=bar&page=10&rows=20&sord=asc&sidx=name";
       expect(instance.queryParams("", options)).toEqual(expected);
     });
 
     it("returns currentPage as 1 if element is filter", () => {
-      let options = {
+      const options = {
         currentPage: 10,
         pageSize: 20,
         sortOrder: "asc",
         sortedColumn: "name",
         filter: { foo: "bar" },
       };
-      let expected = "foo=bar&page=1&rows=20&sord=asc&sidx=name";
+      const expected = "foo=bar&page=1&rows=20&sord=asc&sidx=name";
       expect(instance.queryParams("filter", options)).toEqual(expected);
     });
   });
@@ -468,7 +467,7 @@ describe("TableAjax", () => {
     });
 
     it("gathers all relevent state variables for endpoint with passed props", () => {
-      let props = {
+      const props = {
         filter: Immutable.fromJS({
           foo: "bar",
         }),
@@ -484,15 +483,13 @@ describe("TableAjax", () => {
   });
 
   describe("handleRequest", () => {
-    let wrapper;
-
     beforeEach(() => {
       wrapper = mount(<TableAjax path="/test" onChange={spy} />);
     });
 
     describe("when props contains a formatRequest function", () => {
       it("calls formatRequest", () => {
-        const mockFormatData = (query) => {
+        const mockFormatData = () => {
           return { foo: "bar" };
         };
 
@@ -500,7 +497,7 @@ describe("TableAjax", () => {
           formatRequest: mockFormatData,
         });
 
-        let options = { currentPage: 10, pageSize: 20 };
+        const options = { currentPage: 10, pageSize: 20 };
         expect(wrapper.instance().queryParams("", options)).toEqual("foo=bar");
       });
     });
@@ -531,7 +528,7 @@ describe("TableAjax", () => {
   });
 
   describe("handleResponse", () => {
-    let wrapper, response;
+    let response;
 
     beforeEach(() => {
       response = {
@@ -599,7 +596,7 @@ describe("TableAjax", () => {
     describe("when passed as a prop", () => {
       it("is called if defined and an Ajax request returns an error", () => {
         const onError = jest.fn();
-        const wrapper = mount(<TableAjax path="/" onAjaxError={onError} />);
+        wrapper = mount(<TableAjax path="/" onAjaxError={onError} />);
         jest.runTimersToTime(251);
         expect(onError).toBeCalledWith(error, response);
 
@@ -613,7 +610,7 @@ describe("TableAjax", () => {
       it("logs the Ajax error as a warning in the console", () => {
         console.warn = jest.fn();
 
-        const wrapper = mount(<TableAjax path="/" />);
+        wrapper = mount(<TableAjax path="/" />);
         jest.runTimersToTime(251);
 
         expect(console.warn).toBeCalled();
@@ -627,7 +624,7 @@ describe("TableAjax", () => {
 
   describe("pagerProps", () => {
     it("gathers all variables that apply to the pager", () => {
-      let props = instance.pagerProps;
+      const props = instance.pagerProps;
       expect(props.currentPage).toEqual("1");
       expect(props.pageSize).toEqual("10");
       expect(props.totalRecords).toEqual(0);
@@ -636,7 +633,7 @@ describe("TableAjax", () => {
 
   describe("tags on component", () => {
     // data-component doesnt exist as prop on mount
-    let wrapper = shallow(
+    const tagWrapper = shallow(
       <TableAjax
         onAjaxError={() => {}}
         data-element="bar"
@@ -646,11 +643,11 @@ describe("TableAjax", () => {
     );
 
     it("includes the correct component, element and role data tags", () => {
-      rootTagTest(wrapper, "table-ajax", "bar", "baz");
+      rootTagTest(tagWrapper, "table-ajax", "bar", "baz");
     });
 
     it('initializes the data-state attribute as "idle"', () => {
-      expect(wrapper.find('[data-state="idle"]').length).toEqual(1);
+      expect(tagWrapper.find('[data-state="idle"]').length).toEqual(1);
     });
   });
 });
