@@ -1,0 +1,40 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import SettingsRow from ".";
+
+<Meta title="SettingsRow" parameters={{ info: { disable: true } }} />
+
+# Settings Row
+
+SettingsRow implements our UX design for settings pages.
+Useful to create a series of rows with a heading, explanatory text, and UI controls in each row.
+A good example is a settings page, or step-by-step wizard.
+
+## Quick Start
+
+```jsx
+import SettingsRow from "carbon-react/lib/components/settings-row";
+```
+
+### Basic
+
+`SettingsRow` accepts a `title` string to be displayed at the top left of the row.
+
+The `description` property accepts a string or JSX object to support flexible layout of elements (e.g. Links, bolded text, paragraphs) in the header column under the title.
+
+The default `divider` line at the bottom of the row may be disabled by setting `divider={ false }`.
+
+All `children` are rendered in the input column to the right of the header column.
+
+<Preview>
+  <Story name="Basic">
+    <SettingsRow description="Description" title="Title">
+      Content for settings
+    </SettingsRow>
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={SettingsRow} />

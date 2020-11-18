@@ -57,7 +57,6 @@ Feature: Accessibility tests - Common list
       | preview             |
       | profile             |
       | row                 |
-      | settingsrow         |
       | split-button        |
       | table-ajax          |
       | table               |
@@ -78,6 +77,7 @@ Feature: Accessibility tests - Common list
       | step-sequence |
       | icon          |
       | button toggle |
+      | settingsrow   |
 
   @accessibility
   Scenario Outline: Component <component> default_story
