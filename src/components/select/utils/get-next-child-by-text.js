@@ -1,14 +1,11 @@
-import { Children } from "react";
-
 /**
  * Recreates HTML Select element functionality of finding first match based on typed characters
  * */
 export default function getNextChildByText(
   textToMatch,
-  children,
+  arrayOfChildren,
   previousIndex = -1
 ) {
-  const arrayOfChildren = Children.toArray(children);
   const lastCharacter = textToMatch.slice(-1);
   const isTheSameCharacter = textToMatch
     .split("")
