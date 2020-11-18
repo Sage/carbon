@@ -3,14 +3,14 @@ import { CSSTransition } from "react-transition-group";
 import { shallow, mount } from "enzyme";
 import BasePages, { Page } from "./pages.component";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
-import classicTheme from "../../style/themes/classic";
+import mintTheme from "../../style/themes/mint";
 
 describe("BasePages", () => {
   let wrapper, page;
 
   beforeEach(() => {
     wrapper = shallow(
-      <BasePages theme={classicTheme} className="foobar" initialPageIndex={0}>
+      <BasePages theme={mintTheme} className="foobar" initialPageIndex={0}>
         <Page title="Page One" />
         <Page title="Page Two" />
         <Page title="Page Three" />
@@ -68,11 +68,7 @@ describe("BasePages", () => {
     describe("when one child", () => {
       it("returns 1", () => {
         wrapper = shallow(
-          <BasePages
-            theme={classicTheme}
-            className="foobar"
-            initialPageIndex={0}
-          >
+          <BasePages theme={mintTheme} className="foobar" initialPageIndex={0}>
             <Page />
           </BasePages>
         );
@@ -90,7 +86,7 @@ describe("BasePages", () => {
 
   describe("visiblePage", () => {
     const instance = shallow(
-      <BasePages theme={classicTheme} className="foobar" initialPageIndex={0}>
+      <BasePages theme={mintTheme} className="foobar" initialPageIndex={0}>
         <Page title="Example Title A" />
       </BasePages>
     );
@@ -103,7 +99,7 @@ describe("BasePages", () => {
 
     it("has correct class name", () => {
       wrapper = mount(
-        <BasePages theme={classicTheme} className="foobar" initialPageIndex={0}>
+        <BasePages theme={mintTheme} className="foobar" initialPageIndex={0}>
           <Page title="Example Title A" />
         </BasePages>
       );
@@ -134,7 +130,7 @@ describe("BasePages", () => {
     describe("on component", () => {
       const tag = shallow(
         <BasePages
-          theme={classicTheme}
+          theme={mintTheme}
           data-element="bar"
           data-role="baz"
           initialPageIndex={0}
@@ -150,7 +146,7 @@ describe("BasePages", () => {
 
     describe("on internal elements", () => {
       wrapper = mount(
-        <BasePages theme={classicTheme} initialPageIndex={0}>
+        <BasePages theme={mintTheme} initialPageIndex={0}>
           <Page data-element="page" />
         </BasePages>
       );
@@ -165,7 +161,7 @@ describe("BasePages", () => {
   describe("transitionName", () => {
     it("uses a custom name if supplied", () => {
       wrapper = mount(
-        <BasePages theme={classicTheme} transition="foo">
+        <BasePages theme={mintTheme} transition="foo">
           <Page />
         </BasePages>
       );

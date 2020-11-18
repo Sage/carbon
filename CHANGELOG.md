@@ -1,3 +1,56 @@
+### [49.0.2](https://github.com/Sage/carbon/compare/v49.0.1...v49.0.2) (2020-11-17)
+
+
+### Bug Fixes
+
+* **textarea:** align label with input text ([ca0c871](https://github.com/Sage/carbon/commit/ca0c8719cb7065da4396f5a8c4f6b11494d6a5dd)), closes [#3224](https://github.com/Sage/carbon/issues/3224)
+
+### [49.0.1](https://github.com/Sage/carbon/compare/v49.0.0...v49.0.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* **accordion:** update headings grid to allow subtitle to span columns ([3b2fa89](https://github.com/Sage/carbon/commit/3b2fa89b78b09fce540e6708649e36a8dc8a5e62))
+
+## [49.0.0](https://github.com/Sage/carbon/compare/v48.7.1...v49.0.0) (2020-11-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pages:** Removal of classic theme from the Pages component. Component no longer supports
+classic theme.
+
+fixes FE-3117
+* **mount-in-app:** Removal of classic theme from the mount in app component. Component no longer
+supports classic theme.
+
+fixes FE-3116
+* **menu-list:** Classic theme has been removed from the MenuList component. This component no
+longer supports the classic theme.
+
+fixes FE-3114
+* **link:** Classic styling has been removed from the link the component. The link component no
+longer supports the classic theme.
+
+fixes FE-3113
+* **menu-list:** Classic theme has been removed from the MenuList component. This component no
+longer supports the classic theme.
+
+fixes FE-3114
+* **link:** Classic styling has been removed from the link the component. The link component no
+longer supports the classic theme.
+
+fixes FE-3113
+
+### Miscellaneous Chores
+
+* **link:** remove classic theme ([4a030e3](https://github.com/Sage/carbon/commit/4a030e37adeb945d367bc48c4d6667a2a3c552b7))
+* **link:** remove classic theme ([0ebf9cc](https://github.com/Sage/carbon/commit/0ebf9cc970eda74b66166972ea01c231da04bf5b))
+* **menu-list:** remove classic theme ([51167c6](https://github.com/Sage/carbon/commit/51167c669fd7b4fc01ca7a0163938a070034fc0e))
+* **menu-list:** remove classic theme ([85786d8](https://github.com/Sage/carbon/commit/85786d89554d76beda8f06ea8c0eed421e6f5f0b))
+* **mount-in-app:** remove classic theme ([9446069](https://github.com/Sage/carbon/commit/94460691c6f8bb3b16fafe6e240270a44ea404c6))
+* **pages:** remove classic theme ([610841f](https://github.com/Sage/carbon/commit/610841f8ae006e2b862bbb4c43a887c552cdbbd8))
+
 ### [48.7.1](https://github.com/Sage/carbon/compare/v48.7.0...v48.7.1) (2020-11-13)
 
 
