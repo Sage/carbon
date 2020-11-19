@@ -57,7 +57,6 @@ Feature: Accessibility tests - Common list
       | preview             |
       | profile             |
       | row                 |
-      | settingsrow         |
       | split-button        |
       | tooltip             |
 
@@ -76,6 +75,7 @@ Feature: Accessibility tests - Common list
       | step-sequence |
       | icon          |
       | button toggle |
+      | settingsrow   |
       | table-ajax    |
       | table         |
 
