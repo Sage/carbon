@@ -1,3 +1,10 @@
+## [49.3.0](https://github.com/Sage/carbon/compare/v49.2.0...v49.3.0) (2020-11-19)
+
+
+### Features
+
+* **action-popover:** add support to place menu above button ([929a438](https://github.com/Sage/carbon/commit/929a438f314de6bd43ba1899495e8cc10d3f7871))
+
 ## [49.2.0](https://github.com/Sage/carbon/compare/v49.1.0...v49.2.0) (2020-11-18)
 
 
