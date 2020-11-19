@@ -1215,6 +1215,62 @@ describe("ActionPopover", () => {
     });
   });
 
+  describe("placement prop set to 'top'", () => {
+    beforeEach(() => {
+      // Mock the parent boundingRect
+      spyOn(Element.prototype, "getBoundingClientRect");
+      Element.prototype.getBoundingClientRect = jest
+        .fn()
+        .mockImplementation(() => ({
+          left: "10",
+          right: "10",
+          bottom: "124",
+          top: "100",
+        }));
+
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover placement="top">
+            <ActionPopoverItem
+              onClick={onClick}
+              submenu={
+                <ActionPopoverMenu onClick={onClick}>
+                  <ActionPopoverItem
+                    key="0"
+                    {...{ onClick: onClickWrapper("sub menu 1") }}
+                  >
+                    Sub Menu 1
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+            >
+              foo
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
+    });
+
+    afterEach(() => {
+      // Clear Mock from parent boundingRect
+      Element.prototype.getBoundingClientRect.mockRestore();
+    });
+
+    it("positions the menu container's bottom to the height of the menu button", () => {
+      assertStyleMatch(
+        {
+          bottom: "24px",
+        },
+        wrapper.find(ActionPopoverMenu)
+      );
+    });
+
+    it("positions the submenu container's bottom inline with the the parent item", () => {
+      const item = wrapper.find(ActionPopoverItem).at(0);
+      expect(item.find(ActionPopoverMenu).props().style.bottom).toEqual(-8);
+    });
+  });
+
   describe("Custom Menu Button", () => {
     it("supports being passed an override component to act as the menu button", () => {
       const popover = enzymeMount(

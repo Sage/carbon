@@ -20,6 +20,8 @@ const Menu = styled.div`
   ${({ rightAlignMenu }) => (rightAlignMenu ? "left: 0;" : "right: 0;")}
   background-color: ${({ theme }) => theme.colors.white};
   z-index: ${({ theme }) => `${theme.zIndex.popover}`};
+  ${({ placement, buttonHeight }) =>
+    placement === "top" && buttonHeight && `bottom: ${buttonHeight}px;`}
 
   ${MenuClassic}
 `;

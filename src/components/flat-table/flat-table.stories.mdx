@@ -17,7 +17,7 @@ import IconButton from '../icon-button';
 import Icon from '../icon';
 import Textbox from '../../__experimental__/components/textbox';
 import Pager from '../pager'
-import { ActionPopover, ActionPopoverItem } from '../action-popover';
+import { ActionPopover, ActionPopoverItem, ActionPopoverMenu } from '../action-popover';
 import { SidebarContext } from '../drawer';
 
 <Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
@@ -860,6 +860,196 @@ Balance performance concerns with the convenience of the user being able to see 
             </FlatTableBody>
           </FlatTable>
         </>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### Paginated with sticky header
+When using the `Pager` and a sticky `FlatTableHead` some of the child elements may have style properties that cause the 
+overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning 
+it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top` 
+of the button control.
+<Preview>
+  <Story name="paginated with sticky header" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [placementUp, setPlacementUp] = useState(true);
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='2'>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='3'>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover placement={placementUp ? "top" : "bottom"}>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+       <FlatTableRow key='4'>
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Stoke</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover placement={placementUp ? "top" : "bottom"}>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+              >
+                action
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='5'>
+          <FlatTableCell>Karl Ickbred</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
+        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
+        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
+        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        setPlacementUp(newPageSize !== 1);
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={{ height: '200px' }}>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={ rows.length }
+                showPageSizeSelection
+                pageSize={ 5 }
+                currentPage={ currentPage }
+                onPagination={ (next, size) => handlePagination(next, size) }
+                pageSizeSelectionOptions={ 
+                  [
+                    { id: '1', name: 1 },
+                    { id: '5', name: 5 },
+                  ]}
+              />
+            }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
       );
     }} 
   </Story>
