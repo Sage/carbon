@@ -1,7 +1,7 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, BrowserRouter as Router } from "react-router-dom";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from ".";
 
@@ -52,12 +52,16 @@ export const knobs = () => {
   const props = getKnobs();
   const { children } = props; // eslint-disable-line react/prop-types
   return (
-    <Button
-      {...props}
-      renderRouterLink={(routerProps) => <RouterLink {...routerProps} />}
-    >
-      {children}
-    </Button>
+    <Router>
+      <Button
+        {...props}
+        renderRouterLink={(routerProps) => (
+          <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
+        )}
+      >
+        {children}
+      </Button>
+    </Router>
   );
 };
 export const asASibling = () => {
@@ -65,18 +69,24 @@ export const asASibling = () => {
   const { children } = props; // eslint-disable-line react/prop-types
   return (
     <div>
-      <Button
-        {...props}
-        renderRouterLink={(routerProps) => <RouterLink {...routerProps} />}
-      >
-        {children}
-      </Button>
-      <Button
-        {...props}
-        renderRouterLink={(routerProps) => <RouterLink {...routerProps} />}
-      >
-        {children}
-      </Button>
+      <Router>
+        <Button
+          {...props}
+          renderRouterLink={(routerProps) => (
+            <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
+          )}
+        >
+          {children}
+        </Button>
+        <Button
+          {...props}
+          renderRouterLink={(routerProps) => (
+            <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
+          )}
+        >
+          {children}
+        </Button>
+      </Router>
     </div>
   );
 };
