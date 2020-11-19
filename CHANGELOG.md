@@ -1,3 +1,31 @@
+## [49.2.0](https://github.com/Sage/carbon/compare/v49.1.0...v49.2.0) (2020-11-18)
+
+
+### Features
+
+* **select:** add option group headers ([83aa90a](https://github.com/Sage/carbon/commit/83aa90a740e20cc9eae30fadfd84dcb62c38e123))
+
+## [49.1.0](https://github.com/Sage/carbon/compare/v49.0.2...v49.1.0) (2020-11-18)
+
+
+### Features
+
+* **definition-list:** add support for spacing props ([744812b](https://github.com/Sage/carbon/commit/744812b7f28e056055618858e66a9d3f533fa7ce)), closes [#3387](https://github.com/Sage/carbon/issues/3387)
+
+### [49.0.2](https://github.com/Sage/carbon/compare/v49.0.1...v49.0.2) (2020-11-17)
+
+
+### Bug Fixes
+
+* **textarea:** align label with input text ([ca0c871](https://github.com/Sage/carbon/commit/ca0c8719cb7065da4396f5a8c4f6b11494d6a5dd)), closes [#3224](https://github.com/Sage/carbon/issues/3224)
+
+### [49.0.1](https://github.com/Sage/carbon/compare/v49.0.0...v49.0.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* **accordion:** update headings grid to allow subtitle to span columns ([3b2fa89](https://github.com/Sage/carbon/commit/3b2fa89b78b09fce540e6708649e36a8dc8a5e62))
+
 ## [49.0.0](https://github.com/Sage/carbon/compare/v48.7.1...v49.0.0) (2020-11-17)
 
 

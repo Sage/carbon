@@ -229,7 +229,7 @@ The default width of 100% can be overriden.
 ### With Box component and different paddings
 
 <Preview>
-  <Story name="with Box component and different paddings" parameters={{ chromatic: { delay: 750 }}}>
+  <Story name="with Box component and different paddings" parameters={{ chromatic: { delay: 3500 }}}>
     {() => {
       const [isOpen, setOpen] = useState(true);
       return(
@@ -419,7 +419,7 @@ The `ValidationIcon` can be displayed in the `Accordion` header by passing in a 
               title='Heading'
               expanded={expanded.three}
               onChange={() => setExpanded((previousState) => ({...previousState, three: !previousState.three})) }
-              subTitle='Sub title'
+              subTitle='This is a longer sub title'
               error={errors.three}
               warning={ warnings.three }
               info={ infos.three }>
@@ -508,7 +508,7 @@ Accordion styles can be easily overriden by providing `styleOverride` prop with 
 
 ### With a definition list
 <Preview>
-  <Story name="with a definition list">
+  <Story name="with a definition list" parameters={{ chromatic: { delay: 3500 }}}>
     <Accordion title='Heading' expanded={true}>
       <Dl>
         <Dt>Drink</Dt>

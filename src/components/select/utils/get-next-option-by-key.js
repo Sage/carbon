@@ -1,13 +1,19 @@
-import React from "react";
+import Option from "../option/option.component";
 
-export function getNextChildByKey(key, children, previousSelectedValue) {
-  const childrenList = React.Children.toArray(children);
-  const currentSelectedIndex = childrenList.findIndex((option) => {
-    return option.props.value === previousSelectedValue;
-  });
+export function getIndexOfMatch(childrenList, valueToMatch) {
+  return childrenList.findIndex((child) => child.props.value === valueToMatch);
+}
+
+export function getNextOptionByKey(key, childrenList, currentSelectedIndex) {
   const lastIndex = childrenList.length - 1;
+  const nextIndex = getNextIndexByKey(key, currentSelectedIndex, lastIndex);
+  let nextChild = childrenList[nextIndex];
 
-  return childrenList[getNextIndexByKey(key, currentSelectedIndex, lastIndex)];
+  if (nextChild && nextChild.type !== Option) {
+    nextChild = getNextOptionByKey(key, childrenList, nextIndex);
+  }
+
+  return nextChild;
 }
 
 export function getNextIndexByKey(key, currentIndex, lastIndex) {
