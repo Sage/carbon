@@ -257,5 +257,76 @@ describe("MenuItem", () => {
         );
       });
     });
+
+    describe("showDropdownArrow", () => {
+      it("shows the arrow by default when there is a submenu", () => {
+        wrapper = mount(
+          <MenuItem submenu="submenu">
+            <MenuItem>Item one</MenuItem>
+          </MenuItem>
+        );
+
+        assertStyleMatch(
+          {
+            paddingRight: "32px",
+          },
+          wrapper,
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}` }
+        );
+
+        assertStyleMatch(
+          {
+            display: "block",
+            marginTop: "-2px",
+            pointerEvents: "none",
+            position: "absolute",
+            right: "16px",
+            top: "50%",
+            zIndex: "2",
+            content: `""`,
+            width: "0",
+            height: "0",
+            borderTop: `5px solid ${baseTheme.colors.slate}`,
+            borderRight: "4px solid transparent",
+            borderBottom: "4px solid transparent",
+            borderLeft: "4px solid transparent",
+          },
+          wrapper,
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` }
+        );
+      });
+
+      it("does not show the arrow when prop is false and there is a submenu", () => {
+        wrapper = mount(
+          <MenuItem submenu="submenu" showDropdownArrow={false}>
+            <MenuItem>Item one</MenuItem>
+          </MenuItem>
+        );
+
+        expect(wrapper).not.toHaveStyleRule("padding-right", "32px", {
+          modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}`,
+        });
+        expect(wrapper).not.toHaveStyleRule(
+          "border-top",
+          `5px solid ${baseTheme.colors.slate}`,
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` }
+        );
+        expect(wrapper).not.toHaveStyleRule(
+          "border-right",
+          "4px solid transparent",
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` }
+        );
+        expect(wrapper).not.toHaveStyleRule(
+          "border-bottom",
+          "4px solid transparent",
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` }
+        );
+        expect(wrapper).not.toHaveStyleRule(
+          "border-left",
+          "4px solid transparent",
+          { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` }
+        );
+      });
+    });
   });
 });
