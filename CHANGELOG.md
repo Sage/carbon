@@ -1,3 +1,10 @@
+## [49.4.0](https://github.com/Sage/carbon/compare/v49.3.0...v49.4.0) (2020-11-20)
+
+
+### Features
+
+* **menu-item:** add prop to hide dropdown arrow for items with submenu ([ef9bc4d](https://github.com/Sage/carbon/commit/ef9bc4d5c449fcdeeb7abbc9616c3b9a1006141a))
+
 ## [49.3.0](https://github.com/Sage/carbon/compare/v49.2.0...v49.3.0) (2020-11-19)
 
 
