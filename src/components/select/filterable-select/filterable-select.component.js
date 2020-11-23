@@ -27,6 +27,7 @@ const FilterableSelect = React.forwardRef(
       listActionButton,
       onListAction,
       isLoading,
+      readOnly,
       ...textboxProps
     },
     inputRef
@@ -162,6 +163,10 @@ const FilterableSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(key)) {
           event.preventDefault();
           setOpen(true);
@@ -169,7 +174,7 @@ const FilterableSelect = React.forwardRef(
 
         fillLastFilterCharacter(key);
       },
-      [fillLastFilterCharacter, onKeyDown, setOpen]
+      [fillLastFilterCharacter, onKeyDown, readOnly, setOpen]
     );
 
     const handleGlobalClick = useCallback(
@@ -344,6 +349,7 @@ const FilterableSelect = React.forwardRef(
       return {
         id,
         name,
+        readOnly,
         inputRef: assignInput,
         selectedValue,
         formattedValue: textValue,
@@ -378,6 +384,7 @@ const FilterableSelect = React.forwardRef(
         listActionButton={listActionButton}
         onListAction={handleOnListAction}
         isLoading={isLoading}
+        readOnly={readOnly}
       >
         {children}
       </FilterableSelectList>
