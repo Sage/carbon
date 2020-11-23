@@ -11,7 +11,7 @@ const FormFieldStyle = styled.div`
     ${({ mb, theme }) =>
       (mb || mb === 0) &&
       css`
-        margin-bottom: ${mb * theme.spacing}px;
+        margin-bottom: ${mb ? `${mb * theme.spacing}px` : 0};
       `};
   }
 
