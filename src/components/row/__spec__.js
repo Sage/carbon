@@ -1,9 +1,61 @@
+import Benchmark from "react-component-benchmark";
 import React from "react";
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import { Row, Column } from "./row";
+
+const printOnCompleteResults = (resultName, results) => {
+  console.log(
+    `${resultName} ... Min: ${Math.round(
+      results.min * 1000
+    )} | Mean: ${Math.round(results.mean * 1000)} | Max: ${Math.round(
+      results.max * 1000
+    )}`
+  );
+};
 
 describe("Row", () => {
   let wrapper;
+  let props;
+  let meanTime;
+
+  beforeEach(() => {
+    meanTime = 0;
+    props = {
+      component: Row,
+      onComplete: jest.fn((results) => {
+        const mappedResults = {
+          max: results.max,
+          min: results.min,
+          median: results.median,
+          mean: results.mean,
+          stdDev: results.stdDev,
+          p70: results.p70,
+          p95: results.p95,
+          p99: results.p99,
+        };
+        meanTime = mappedResults.mean;
+      }),
+      samples: 20,
+    };
+  });
+
+  it("mounts in a reasonable amount of time", () => {
+    props.onComplete = printOnCompleteResults.bind(this, "Row)");
+    const component = mount(<Benchmark {...props} />);
+    component.instance().start();
+  });
+
+  it("updates in a reasonable amount of time", () => {
+    props.onComplete = printOnCompleteResults.bind(this, "Row");
+    const component = mount(<Benchmark {...props} type="update" />);
+    component.instance().start();
+  });
+
+  it("unmounts in a reasonable amount of time", () => {
+    props.onComplete = printOnCompleteResults.bind(this, "Row");
+    const component = mount(<Benchmark {...props} type="unmount" />);
+    component.instance().start();
+  });
 
   describe("render", () => {
     it("renders a parent div with calculated CSS classes", () => {

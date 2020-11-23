@@ -153,6 +153,7 @@
     "moment": "~2.20.1",
     "polished": "^4.0.3",
     "prop-types": "^15.5.8",
+    "react-component-benchmark": "0.0.4",
     "react-day-picker": "~6.1.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
