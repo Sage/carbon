@@ -1,5 +1,6 @@
 import * as React from 'react';
-export interface TextboxProps {
+import { SpacingProps } from '../../../utils/helpers/options-helper';
+export interface TextboxProps extends SpacingProps {
   /**
    * An optional alternative for props.value, this is useful if the
    * real value is an ID but you want to show a human-readable version.
