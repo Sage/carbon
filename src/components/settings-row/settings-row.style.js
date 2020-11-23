@@ -1,8 +1,9 @@
-@import "./../../style-config/colors";
+import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
 
-.carbon-settings-row {
+export const StyledSettingsRow = styled.div`
   clear: both;
-  color: $grey-dark-blue-80;
+  color: ${({ theme }) => theme.palette.slateTint(20)};
   display: flex;
   font-family: Lato;
   font-size: 14px;
@@ -11,8 +12,15 @@
   padding: 0;
   position: relative;
 
+  ${({ hasDivider }) =>
+    hasDivider &&
+    css`
+      border-bottom: 1px solid ${({ theme }) => theme.palette.slateTint(90)};
+      padding-bottom: 30px;
+    `}
+
   .carbon-heading__title {
-    color: $grey-dark-blue;
+    color: ${({ theme }) => theme.palette.slate};
     font-size: 15px;
     font-weight: bold;
     line-height: 18px;
@@ -31,25 +39,24 @@
   + .carbon-settings-row {
     padding-top: 30px;
   }
-}
+`;
 
-.carbon-settings-row--has-divider {
-  border-bottom: 1px solid $grey-dark-blue-10;
-  padding-bottom: 30px;
-}
+StyledSettingsRow.defaultProps = {
+  theme: baseTheme,
+};
 
-.carbon-settings-row__header {
+export const StyledSettingsRowHeader = styled.div`
   box-sizing: border-box;
   clear: both;
   float: left;
   max-width: 325px;
   width: 35%;
-}
+`;
 
-.carbon-settings-row__input {
+export const StyledSettingsRowInput = styled.div`
   box-sizing: border-box;
   clear: both;
   float: left;
   margin-left: 50px;
   width: 100%;
-}
+`;
