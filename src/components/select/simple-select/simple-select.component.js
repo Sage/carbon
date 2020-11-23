@@ -171,6 +171,10 @@ const SimpleSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(event.key)) {
           setSelectedValue((previousSelectedValue) => {
             const currentIndex = getIndexOfMatch(
@@ -201,7 +205,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [childOptions, onKeyDown, onOpen]
+      [childOptions, onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
