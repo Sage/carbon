@@ -28,7 +28,7 @@ export const Default = () => {
 
   const columnAlign = select(
     "columnAlign",
-    OptionsHelper.alignBinary,
+    ["left", "middle", "center", "right"],
     Column.defaultProps.columnAlign
   );
   const columnOffset = text("columnOffset", Column.defaultProps.columnOffset);

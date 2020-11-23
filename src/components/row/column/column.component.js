@@ -49,7 +49,7 @@ Column.propTypes = {
   /** Classes applied by row component to affect all rows */
   columnClasses: PropTypes.string,
   /** Alignment of content within column. */
-  columnAlign: PropTypes.oneOf("left", "center", "middle", "right"),
+  columnAlign: PropTypes.oneOf(["left", "center", "middle", "right"]),
   /** Offset this column by a certain number of columns. */
   columnOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Span this column by a certain number of columns. */

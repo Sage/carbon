@@ -4,6 +4,7 @@ import baseTheme from "../../style/themes/base";
 import StyledColumn from "./column/column.style";
 
 const sizes = {
+  none: 0,
   "extra-small": 2,
   small: 5,
   "medium-small": 10,
