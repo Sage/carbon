@@ -42,6 +42,7 @@ const SimpleSelect = React.forwardRef(
       onBlur,
       disablePortal,
       isLoading,
+      onListScrollBottom,
       ...props
     },
     inputRef
@@ -400,6 +401,7 @@ const SimpleSelect = React.forwardRef(
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
         isLoading={isLoading}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </SelectList>
@@ -447,8 +449,10 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
-  /** If true the loader animation is displayed in the option list */
+  /** If true the loader animation is displayed below the last option */
   isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 SimpleSelect.defaultProps = {

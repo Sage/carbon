@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 
 const StyledSelectList = styled.ul`
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   list-style-type: none;
   max-height: ${(props) => `${props.maxHeight}`};
   margin: 0;
@@ -13,10 +17,11 @@ const StyledSelectList = styled.ul`
   ${({ isLoading }) =>
     isLoading &&
     css`
-      display: flex;
-      align-items: center;
-      min-height: 100px;
+      min-height: 150px;
     `}
+
+  height: ${({ height }) => height};
+  transition: height 0.3s ease-in;
 `;
 
 StyledSelectList.defaultProps = {

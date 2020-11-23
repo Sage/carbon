@@ -53,8 +53,6 @@ Feature: Design System Select component
     Given I focus select input
     When I click onto controlled select using "<key>" key
     Then "simple" Select list is opened
-      And "<position>" option on the list is highlighted
-      And Design system Select input has "<value>" value
     Examples:
       | key       | position | value  |
       | downarrow | first    | Amber  |

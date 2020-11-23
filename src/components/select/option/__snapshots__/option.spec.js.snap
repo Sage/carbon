@@ -3,7 +3,7 @@
 exports[`Option renders properly 1`] = `
 .c0 {
   cursor: pointer;
-  box-sizing: content-box;
+  box-sizing: border-box;
   line-height: 16px;
   padding: 12px 16px;
   width: 100%;
@@ -30,7 +30,7 @@ exports[`Option renders properly 1`] = `
 exports[`Option when no children are provided renders with the text prop as children 1`] = `
 .c0 {
   cursor: pointer;
-  box-sizing: content-box;
+  box-sizing: border-box;
   line-height: 16px;
   padding: 12px 16px;
   width: 100%;

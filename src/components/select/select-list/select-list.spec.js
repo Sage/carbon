@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
@@ -10,6 +10,7 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import Portal from "../../portal";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import Loader from "../../loader";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -316,13 +317,40 @@ describe("SelectList", () => {
   });
 
   describe("when the isLoading prop is provided", () => {
-    it("then a Loader Component should be rendered in the list", () => {
+    it("then a Loader Component should be rendered in the last element of the list", () => {
       const wrapper = renderSelectList({
         isLoading: true,
         onListAction: () => {},
       });
-      expect(wrapper.find(Loader).exists()).toBe(true);
+      expect(wrapper.find("li").last().find(Loader).exists()).toBe(true);
       wrapper.unmount();
+    });
+
+    describe("with empty option list", () => {
+      it("then the height of the dropdown should be 150px", () => {
+        const EmptySelect = () => {
+          const [options] = useState([]);
+
+          return (
+            <SelectList
+              value="red"
+              onSelect={() => {}}
+              onSelectListClose={() => {}}
+              isLoading
+            >
+              {options}
+            </SelectList>
+          );
+        };
+        const wrapper = mount(<EmptySelect />);
+
+        assertStyleMatch(
+          { minHeight: "150px" },
+          wrapper.find(StyledSelectList)
+        );
+
+        wrapper.unmount();
+      });
     });
 
     describe("and there is only one option", () => {
@@ -341,6 +369,81 @@ describe("SelectList", () => {
         expect(wrapper.find(Option).first().prop("hidden")).toBe(true);
         wrapper.unmount();
       });
+    });
+  });
+
+  describe("when the onListScrollBottom prop is provided", () => {
+    const testWrapper = document.createElement("div");
+    const onListScrollBottomFn = jest.fn();
+    let wrapper;
+    let listElement;
+
+    beforeEach(() => {
+      onListScrollBottomFn.mockReset();
+      wrapper = mount(
+        getSelectList({
+          onListScrollBottom: onListScrollBottomFn,
+          onListAction: () => {},
+        }),
+        { attachTo: testWrapper }
+      );
+      listElement = wrapper.find(StyledSelectList).getDOMNode();
+    });
+
+    it("it should have been called when the element is scrolled to the bottom", () => {
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 60);
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 40);
+      listElement.dispatchEvent(new Event("scroll"));
+
+      expect(onListScrollBottomFn).toHaveBeenCalled();
+      wrapper.detach();
+    });
+
+    it("it should not have been called when the element is scrolled but does not reach the bottom", () => {
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 50);
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 40);
+      listElement.dispatchEvent(new Event("scroll"));
+
+      expect(onListScrollBottomFn).not.toHaveBeenCalled();
+      wrapper.detach();
+    });
+  });
+
+  describe("when the children changes in the list", () => {
+    it("height should be set to expected value", () => {
+      const testWrapper = document.createElement("div");
+      const wrapper = mount(
+        getSelectList({
+          onListAction: () => {},
+        }),
+        { attachTo: testWrapper }
+      );
+      const listElement = wrapper.find(StyledSelectList).getDOMNode();
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      wrapper
+        .setProps({
+          children: [
+            <Option value="opt1" text="red" />,
+            <Option value="opt2" text="green" />,
+            <Option value="opt3" text="blue" />,
+            <Option value="opt4" text="white" />,
+            <Option value="opt5" text="yellow" />,
+          ],
+        })
+        .update();
+      assertStyleMatch({ height: "100px" }, wrapper.find(StyledSelectList));
     });
   });
 

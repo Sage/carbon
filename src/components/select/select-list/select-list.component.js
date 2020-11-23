@@ -40,11 +40,13 @@ const SelectList = React.forwardRef(
       disablePortal,
       onListAction,
       isLoading,
+      onListScrollBottom,
       ...listProps
     },
     listContainerRef
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
+    const [listHeight, setListHeight] = useState(0);
     const lastFilter = useRef("");
     const listRef = useRef();
     const listActionButtonRef = useRef();
@@ -182,15 +184,71 @@ const SelectList = React.forwardRef(
       }
     }, [anchorElement, listContainerRef]);
 
+    const handleListScroll = useCallback(
+      (event) => {
+        const element = event.target;
+
+        if (
+          onListScrollBottom &&
+          element.scrollHeight - element.scrollTop === element.clientHeight
+        ) {
+          onListScrollBottom();
+        }
+      },
+      [onListScrollBottom]
+    );
+
+    const handleSelect = useCallback(
+      (optionData) => {
+        onSelect({ ...optionData, selectionType: "click" });
+      },
+      [onSelect]
+    );
+
+    const childrenWithListProps = useMemo(() => {
+      const optionsList = React.Children.map(children, (child, index) => {
+        if (child.type !== Option) {
+          return child;
+        }
+
+        const newProps = {
+          onSelect: handleSelect,
+          isHighlighted: currentOptionsListIndex === index,
+          hidden: isLoading && React.Children.count(children) === 1,
+        };
+
+        return React.cloneElement(child, newProps);
+      });
+
+      if (isLoading) {
+        optionsList.push(
+          <StyledSelectLoaderContainer key="loader">
+            <Loader />
+          </StyledSelectLoaderContainer>
+        );
+      }
+
+      return optionsList;
+    }, [children, currentOptionsListIndex, handleSelect, isLoading]);
+
+    useEffect(() => {
+      if (listRef.current.scrollHeight > 0) {
+        setListHeight(`${listRef.current.scrollHeight}px`);
+      }
+    }, [children]);
+
     useEffect(() => {
       const keyboardEvent = "keydown";
+      const listElement = listRef.current;
 
       document.addEventListener(keyboardEvent, handleGlobalKeydown);
+      listElement.addEventListener("scroll", handleListScroll);
 
       return function cleanup() {
         document.removeEventListener(keyboardEvent, handleGlobalKeydown);
+        listElement.removeEventListener("scroll", handleListScroll);
       };
-    }, [handleGlobalKeydown]);
+    }, [handleGlobalKeydown, handleListScroll]);
 
     useEffect(() => {
       if (!filterText || filterText === lastFilter.current) {
@@ -237,39 +295,6 @@ const SelectList = React.forwardRef(
       updateListScrollTop(indexOfMatch, listRef.current);
     }, [childOptions, highlightedValue]);
 
-    const handleSelect = useCallback(
-      (optionData) => {
-        onSelect({ ...optionData, selectionType: "click" });
-      },
-      [onSelect]
-    );
-
-    const getChildrenWithListProps = useCallback(() => {
-      const optionsList = React.Children.map(children, (child, index) => {
-        if (child.type !== Option) {
-          return child;
-        }
-
-        const newProps = {
-          onSelect: handleSelect,
-          isHighlighted: currentOptionsListIndex === index,
-          hidden: isLoading && React.Children.count(children) === 1,
-        };
-
-        return React.cloneElement(child, newProps);
-      });
-
-      if (isLoading) {
-        optionsList.push(
-          <StyledSelectLoaderContainer key="loader">
-            <Loader />
-          </StyledSelectLoaderContainer>
-        );
-      }
-
-      return optionsList;
-    }, [children, currentOptionsListIndex, handleSelect, isLoading]);
-
     function isNavigationKey(keyEvent) {
       return (
         keyEvent === "ArrowDown" ||
@@ -293,8 +318,9 @@ const SelectList = React.forwardRef(
           ref={listRef}
           tabIndex="0"
           isLoading={isLoading}
+          height={listHeight}
         >
-          {getChildrenWithListProps()}
+          {childrenWithListProps}
         </StyledSelectList>
         {listActionButton && (
           <ListActionButton
@@ -339,8 +365,10 @@ SelectList.propTypes = {
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
-  /** If true the loader animation is displayed */
+  /** If true the loader animation is displayed below the last option */
   isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 export default SelectList;
