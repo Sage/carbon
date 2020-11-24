@@ -106,7 +106,7 @@
     "events": "~1.1.1",
     "flux": "^3.1.1",
     "global": "^4.4.0",
-    "highlight.js": "~9.6.0",
+    "highlight.js": "~10.1.2",
     "husky": "^3.1.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "identity-obj-proxy": "3.0.0",
