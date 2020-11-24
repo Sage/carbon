@@ -232,9 +232,15 @@ const SelectList = React.forwardRef(
     }, [children, currentOptionsListIndex, handleSelect, isLoading]);
 
     useEffect(() => {
-      if (listRef.current.scrollHeight > 0) {
-        setListHeight(`${listRef.current.scrollHeight}px`);
+      let newHeight;
+
+      newHeight = listRef.current.clientHeight;
+
+      if (listActionButtonRef.current) {
+        newHeight += listActionButtonRef.current.parentElement.clientHeight;
       }
+
+      setListHeight(`${newHeight}px`);
     }, [children]);
 
     useEffect(() => {
@@ -308,6 +314,7 @@ const SelectList = React.forwardRef(
       <StyledSelectListContainer
         data-element="select-list-wrapper"
         ref={listContainerRef}
+        height={listHeight}
         {...listProps}
       >
         <StyledSelectList
@@ -318,7 +325,6 @@ const SelectList = React.forwardRef(
           ref={listRef}
           tabIndex="0"
           isLoading={isLoading}
-          height={listHeight}
         >
           {childrenWithListProps}
         </StyledSelectList>
