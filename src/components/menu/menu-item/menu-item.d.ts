@@ -15,6 +15,7 @@ export interface MenuItemProps {
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   target?: string;
   variant?: 'default' | 'alternate';
+  showDropdownArrow?: boolean;
 }
 
 declare const MenuItem: React.ComponentType<MenuItemProps>;

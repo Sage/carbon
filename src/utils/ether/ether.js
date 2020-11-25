@@ -52,21 +52,23 @@ function styleElement(element, attribute, value) {
 }
 
 /**
- * Returns the props of the given instance filtered by
- * the static safeProps or the optional safeProps argument
+ * Returns the props that were passed to a component but excludes the props listed in propTypes
+ *
+ * Optionally includes the safeProps which can be defined as a static property on a Class or passed as the second
+ * argument.
  *
  * @method validProps
  * @param {Object} instance
- * @param {Array?} _safeProps
+ * @param {Array?} safeProps
  * @return {Object} props
  */
-function validProps(input, safeProps) {
-  const klass = input.isReactComponent ? input.constructor : input;
+function validProps(instance, safeProps) {
+  const component = instance.isReactComponent ? instance.constructor : instance;
   const unsafeProps = difference(
-    Object.keys(klass.propTypes),
-    safeProps || klass.safeProps || []
+    Object.keys(component.propTypes),
+    safeProps || component.safeProps || []
   );
-  return omit(input.props, unsafeProps);
+  return omit(instance.props, unsafeProps);
 }
 
 /**
