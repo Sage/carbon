@@ -1,3 +1,10 @@
+## [50.1.0](https://github.com/Sage/carbon/compare/v50.0.0...v50.1.0) (2020-11-25)
+
+
+### Features
+
+* **textbox:** add space props ([334852f](https://github.com/Sage/carbon/commit/334852ff5a667d37e15762b599c4bf91e65b85a4))
+
 ## [50.0.0](https://github.com/Sage/carbon/compare/v49.4.0...v50.0.0) (2020-11-25)
 
 
