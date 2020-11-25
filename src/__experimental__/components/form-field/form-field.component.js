@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
 import FieldHelp from "../field-help";
@@ -38,7 +39,6 @@ const FormField = ({
   isOptional,
   readOnly,
   useValidationIcon,
-  mb,
   adaptiveLabelBreakpoint,
   styleOverride = {},
   isRequired,
@@ -67,11 +67,62 @@ const FormField = ({
     }
   }, [id, context, error, warning, info]);
 
+  // Conditionally add the spacing props, we can't spread ...rest because some of the parent components
+  // incorrectly pass props that are consumed in other components.
+  //
+  // The styled-system/space props need to be conditional, a undefined value is still considered a value and affects the
+  // the behaviour
+  //
+  // FIXME FE-3370
+  const spacingProps = [
+    "m",
+    "margin",
+    "ml",
+    "marginLeft",
+    "mr",
+    "marginRight",
+    "mt",
+    "marginTop",
+    "mb",
+    "marginBottom",
+    "mx",
+    "marginLeft",
+    "mx",
+    "marginRight",
+    "my",
+    "marginTop",
+    "my",
+    "marginBottom",
+    "p",
+    "padding",
+    "pl",
+    "paddingLeft",
+    "pr",
+    "paddingRight",
+    "pt",
+    "paddingTop",
+    "pb",
+    "paddingBottom",
+    "px",
+    "paddingLeft",
+    "px",
+    "paddingRight",
+    "py",
+    "paddingTop",
+    "py",
+    "paddingBottom",
+  ].reduce((prev, curr) => {
+    if (Object.prototype.hasOwnProperty.call(props, curr)) {
+      prev[curr] = props[curr];
+    }
+    return prev;
+  }, {});
+
   return (
     <FormFieldStyle
       {...tagComponent(props["data-component"], props)}
       styleOverride={styleOverride.root}
-      mb={mb}
+      {...spacingProps}
     >
       <FieldLineStyle inline={inlineLabel}>
         {reverse && children}
@@ -141,6 +192,8 @@ const errorPropType = (props, propName, componentName, ...rest) => {
 };
 
 FormField.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
   children: PropTypes.node,
   childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -169,8 +222,6 @@ FormField.propTypes = {
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
-  /** Override form spacing (margin bottom) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */

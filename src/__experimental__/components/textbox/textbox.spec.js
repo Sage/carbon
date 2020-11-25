@@ -2,7 +2,10 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Textbox from ".";
 import InputIconToggle from "../input-icon-toggle";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemSpacing,
+} from "../../../__spec_helper__/test-utils";
 import FormField from "../form-field";
 import InputPresentation from "../input/input-presentation.component";
 import InputPresentationStyle from "../input/input-presentation.style";
@@ -10,6 +13,7 @@ import { StyledLabelContainer } from "../label/label.style";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../label";
+import FormFieldStyle from "../form-field/form-field.style";
 
 jest.mock("../../../utils/helpers/guid", () => () => "mocked-guid");
 
@@ -158,4 +162,11 @@ describe("Textbox", () => {
       ).toEqual(<Component />);
     });
   });
+
+  testStyledSystemSpacing(
+    (props) => <Textbox {...props} />,
+    undefined,
+    (wrapper) => wrapper.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
 });
