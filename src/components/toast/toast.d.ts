@@ -9,6 +9,7 @@ export interface ToastPropTypes {
   'data-component'?: string;
   open?: boolean;
   onDismiss?: () => void;
+  timeout?: string | number;
   isCenter?: boolean;
   targetPortalId?: string;
 }

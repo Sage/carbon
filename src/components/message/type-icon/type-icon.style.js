@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../../style/themes/base";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import typeIconClassicStyle from "./type-icon-classic.style";
 
 const TypeIconStyle = styled.div`
   align-items: center;
@@ -28,13 +27,10 @@ const TypeIconStyle = styled.div`
         }
       }
     `}
-
-  ${typeIconClassicStyle}
 `;
 
 TypeIconStyle.defaultProps = {
   variant: "info",
-  roundedCorners: true,
   theme: BaseTheme,
   transparent: false,
 };
@@ -42,7 +38,6 @@ TypeIconStyle.defaultProps = {
 TypeIconStyle.propTypes = {
   variant: PropTypes.oneOf(OptionsHelper.colors),
   border: PropTypes.bool,
-  roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool,
 };
 

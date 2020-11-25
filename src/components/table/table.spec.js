@@ -13,7 +13,6 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Pager from "../pager";
 import BaseTheme from "../../style/themes/base";
-import ClassicTheme from "../../style/themes/classic";
 import mintTheme from "../../style/themes/mint";
 import Link from "../link";
 
@@ -36,7 +35,7 @@ describe("Table", () => {
     );
 
     instancePager = mount(
-      <ThemeProvider theme={ClassicTheme}>
+      <ThemeProvider theme={BaseTheme}>
         <Table
           className="foo"
           paginate
@@ -920,7 +919,7 @@ describe("Table", () => {
       it("returns the pager", () => {
         expect(
           mount(
-            <ThemeProvider theme={ClassicTheme}>
+            <ThemeProvider theme={BaseTheme}>
               <Table
                 className="foo"
                 paginate
@@ -1142,30 +1141,6 @@ describe("Table", () => {
   });
 
   describe("theme", () => {
-    it("renders to match the expected style for a 'secondary' table", () => {
-      const wrapper = mount(
-        <StyledTable theme={ClassicTheme} tableType="secondary" />
-      );
-
-      const table = wrapper.find("table").hostNodes();
-
-      assertStyleMatch(
-        {
-          backgroundColor: "#ffffff",
-        },
-        table
-      );
-
-      assertStyleMatch(
-        {
-          backgroundColor: "#CCD6DB",
-          color: "#003349",
-        },
-        table,
-        { modifier: `${StyledTableHeader}` }
-      );
-    });
-
     describe.each([
       "primary",
       "dark",
@@ -1217,30 +1192,6 @@ describe("Table", () => {
   });
 
   describe("onConfigure", () => {
-    it("renders to match the expected style for a classic themed configurable table", () => {
-      const wrapper = mount(
-        <StyledInternalTableWrapper onConfigure theme={ClassicTheme} />
-      );
-
-      assertStyleMatch(
-        {
-          backgroundColor: "#f2f5f6",
-          border: "1px solid #ccd6db",
-          borderRadius: "0px",
-          overflow: "visible",
-        },
-        wrapper
-      );
-
-      assertStyleMatch(
-        {
-          borderRadius: "0",
-        },
-        wrapper,
-        { modifier: `${StyledTable}` }
-      );
-    });
-
     describe.each([
       "primary",
       "dark",

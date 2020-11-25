@@ -17,7 +17,7 @@ exports[`Table when the table size is compact renders a table to match the expec
 }
 
 .c0 .c2 .c1,
-.c0 .c2 .sc-htoDjs {
+.c0 .c2 .sc-kAzzGY {
   font-size: 13px;
   padding-left: 8px;
   padding-right: 8px;
@@ -72,7 +72,7 @@ exports[`Table when the table size is small renders a table to match the expecte
 }
 
 .c0 .c2 .c1,
-.c0 .c2 .sc-htoDjs {
+.c0 .c2 .sc-kAzzGY {
   font-size: 14px;
   padding-left: 8px;
   padding-right: 8px;

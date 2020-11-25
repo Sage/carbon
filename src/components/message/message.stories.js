@@ -39,10 +39,6 @@ export const Default = () => {
     "showCloseIcon",
     Message.defaultProps.showCloseIcon
   );
-  const roundedCorners = boolean(
-    "roundedCorners",
-    Message.defaultProps.roundedCorners
-  );
   const onDismiss = (evt) => {
     setIsOpen(false);
     action("click")(evt);
@@ -64,7 +60,6 @@ export const Default = () => {
         onDismiss={onDismiss}
         id={id}
         showCloseIcon={showCloseIcon}
-        roundedCorners={roundedCorners}
       >
         {children}
       </Message>

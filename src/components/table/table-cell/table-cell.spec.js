@@ -9,7 +9,6 @@ import StyledInputPresentation from "../../../__experimental__/components/input/
 import StyledInput from "../../../__experimental__/components/input/input.style";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
-import ClassicTheme from "../../../style/themes/classic";
 import mintTheme from "../../../style/themes/mint";
 import Date from "../../../__experimental__/components/date";
 import TextArea from "../../../__experimental__/components/textarea";
@@ -60,7 +59,7 @@ describe("TableCell", () => {
       wrapper = mount(
         <Table>
           <TableRow>
-            <StyledTableCell theme={ClassicTheme} action />
+            <StyledTableCell action />
           </TableRow>
         </Table>
       );

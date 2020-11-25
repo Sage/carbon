@@ -12,7 +12,7 @@ import DraggableTableCell from "../draggable-table-cell";
 import StyledTable from "../table.style";
 import StyledIcon from "../../icon/icon.style";
 import { Checkbox } from "../../../__experimental__/components/checkbox";
-import { baseTheme, classicTheme } from "../../../style/themes";
+import { baseTheme } from "../../../style/themes";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
@@ -845,65 +845,13 @@ describe("TableRow", () => {
       it("renders a dragged class if the index matches", () => {
         const context = {};
         const row1 = mount(
-          <TableRow index={0} dragAndDropIdentifier="foo" theme={classicTheme}>
+          <TableRow index={0} dragAndDropIdentifier="foo">
             <TableCell>foo</TableCell>
           </TableRow>,
           { context, wrappingComponent: Table }
         );
 
         row1.setContext({ dragAndDropActiveIndex: 0 });
-
-        assertStyleMatch(
-          { backgroundColor: "#f2f5f6" },
-          row1.find(StyledTableRow),
-          { modifier: `&&&&& ${StyledTableCell}` }
-        );
-      });
-    });
-  });
-
-  describe("when the Theme is Classic", () => {
-    let wrapper;
-
-    describe("when selected", () => {
-      it("renders the element to match the expected style", () => {
-        wrapper = mount(
-          <Table>
-            <TableRow uniqueID="foo" selectable selected theme={classicTheme}>
-              <TableCell />
-            </TableRow>
-          </Table>
-        );
-
-        assertStyleMatch(
-          {
-            backgroundColor: "#1573E6",
-            borderBottomColor: "#255BC7",
-            color: "#ffffff",
-          },
-          wrapper.find(TableRow),
-          { modifier: `&&&&:hover ${StyledTableCell}` }
-        );
-      });
-    });
-
-    describe("when highlighted", () => {
-      it("renders the element to match the expected style", () => {
-        wrapper = mount(
-          <Table>
-            <TableRow uniqueID="foo" highlighted theme={classicTheme}>
-              <TableCell />
-            </TableRow>
-          </Table>
-        );
-        assertStyleMatch(
-          {
-            backgroundColor: "#D0E3FA",
-            borderBottomColor: "#1573E6",
-          },
-          wrapper.find(TableRow),
-          { modifier: `&&&& ${StyledTableCell}` }
-        );
       });
     });
   });

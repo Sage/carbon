@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
-import { isClassic } from "../../../utils/helpers/style-helper";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import tableSizes from "../table-sizes.style";
 import StyledIcon from "../../icon/icon.style";
 
 const StyledTableHeader = styled.th`
@@ -17,7 +15,6 @@ const StyledTableHeader = styled.th`
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
-      ${isClassic(theme) ? `height: ${tableSizes.medium.height};` : ""}
       outline: medium none;
       padding: 0 8px;
       position: relative;

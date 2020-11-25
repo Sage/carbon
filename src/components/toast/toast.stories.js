@@ -30,6 +30,7 @@ export const Basic = () => {
   };
 
   const children = text("children", "My text");
+  const timeout = text("timeout", 0);
 
   return (
     <>
@@ -40,6 +41,7 @@ export const Basic = () => {
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
+        timeout={timeout}
       >
         {children}
       </Toast>
