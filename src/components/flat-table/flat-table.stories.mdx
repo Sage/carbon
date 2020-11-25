@@ -17,7 +17,7 @@ import IconButton from '../icon-button';
 import Icon from '../icon';
 import Textbox from '../../__experimental__/components/textbox';
 import Pager from '../pager'
-import { ActionPopover, ActionPopoverItem } from '../action-popover';
+import { ActionPopover, ActionPopoverItem, ActionPopoverMenu } from '../action-popover';
 import { SidebarContext } from '../drawer';
 
 <Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
@@ -69,7 +69,7 @@ import { SidebarContext } from '../drawer';
 
 ### With row headers
 <Preview>
-  <Story name="with row header">
+  <Story name="with row header" parameters={{ chromatic: { disable: true }}}>
     <div style={ { width: '380px', overflowX: 'auto' } }>
       <FlatTable>
         <FlatTableHead>
@@ -216,6 +216,98 @@ Column width can be set by passing number as a `width` prop to the column header
         </FlatTableBody>
       </FlatTable>
     </div>
+  </Story>
+</Preview>
+
+### With stickyFooter prop set to true
+<Preview>
+  <Story name="with sticky footer" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='2'>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='3'>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>,
+       <FlatTableRow key='4'>
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Stoke</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='5'>
+          <FlatTableCell>Karl Ickbred</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
+        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
+        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
+        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
   </Story>
 </Preview>
 
@@ -595,7 +687,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 ### With Selectable and Highlightable Rows
 It is also possible to integrate selection of multiple rows and the highlighting of single rows.
 <Preview>
-  <Story name="selectable and highlightable rows">
+  <Story name="selectable and highlightable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
@@ -741,7 +833,20 @@ Balance performance concerns with the convenience of the user being able to see 
       };
       return (
         <>
-          <FlatTable>
+          <FlatTable footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -754,19 +859,197 @@ Balance performance concerns with the convenience of the user being able to see 
               { renderRows() }
             </FlatTableBody>
           </FlatTable>
-          <Pager
-            totalRecords={ rows.length }
-            showPageSizeSelection
-            pageSize={ 5 }
-            currentPage={ currentPage }
-            onPagination={ (next, size) => handlePagination(next, size) }
-            pageSizeSelectionOptions={ 
-              [
-                { id: '1', name: 1 },
-                { id: '5', name: 5 },
-              ]}
-          />
         </>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### Paginated with sticky header
+When using the `Pager` and a sticky `FlatTableHead` some of the child elements may have style properties that cause the 
+overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning 
+it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top` 
+of the button control.
+<Preview>
+  <Story name="paginated with sticky header" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [placementUp, setPlacementUp] = useState(true);
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='2'>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='3'>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover placement={placementUp ? "top" : "bottom"}>
+              <ActionPopoverItem onClick={() => {}}>
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+       <FlatTableRow key='4'>
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Stoke</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover placement={placementUp ? "top" : "bottom"}>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+              >
+                action
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='5'>
+          <FlatTableCell>Karl Ickbred</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>}
+              >
+                action
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+              >
+                action
+              </ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
+        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
+        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
+        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        setPlacementUp(newPageSize !== 1);
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={{ height: '200px' }}>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={ rows.length }
+                showPageSizeSelection
+                pageSize={ 5 }
+                currentPage={ currentPage }
+                onPagination={ (next, size) => handlePagination(next, size) }
+                pageSizeSelectionOptions={ 
+                  [
+                    { id: '1', name: 1 },
+                    { id: '5', name: 5 },
+                  ]}
+              />
+            }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
       );
     }} 
   </Story>
@@ -806,7 +1089,7 @@ Balance performance concerns with the convenience of the user being able to see 
             <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
             <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
           </BatchSelection>
-          <SidebarContext.Provider value={true}>
+          <SidebarContext.Provider value={{isInSidebar: true}}>
             <FlatTable>
               <FlatTableHead>
                 <FlatTableRow>

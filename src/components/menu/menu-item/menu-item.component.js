@@ -36,6 +36,7 @@ const MenuItem = React.forwardRef(
       setOpenByArrowLeftOrRight,
       setFocusToElement,
       variant = "default",
+      showDropdownArrow = true,
     },
     ref
   ) => {
@@ -444,6 +445,7 @@ const MenuItem = React.forwardRef(
         isOpen={isOpen}
         variant={variant}
         role="menuitem"
+        showDropdownArrow={showDropdownArrow}
       >
         {content()}
       </StyledMenuItemWrapper>
@@ -476,6 +478,8 @@ MenuItem.propTypes = {
   onKeyDown: PropTypes.func,
   /** The target to use for the menu item. */
   target: PropTypes.string,
+  /** Flag to display the dropdown arrow when an item has a submenu */
+  showDropdownArrow: PropTypes.bool,
   /**
    * menu color scheme provided by <Menu />
    * @private

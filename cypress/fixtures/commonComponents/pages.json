@@ -1,11 +1,11 @@
 {
   "pageIndex0": {
-    "pageIndex": 0
+    "initialPageIndex": 0
   },
   "pageIndex1": {
-    "pageIndex": 1
+    "initialPageIndex": 1
   },
   "pageIndex2": {
-    "pageIndex": 2
+    "initialPageIndex": 2
   }
 }

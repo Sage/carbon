@@ -27,38 +27,34 @@ Feature: Accessibility tests - Common list
     When I open component preview no iframe
     Then "<data-component>" component has no accessibility violations
     Examples:
-      | component |
-      | pages     |
+      | component          |
+      | flash              |
 
-  @accessibility
-  Scenario Outline: Component <component> default story
-    When I open "<component>" component page "default" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component           |
-      | app wrapper         |
-      | carousel            |
-      | card                |
-      | configurable-items  |
-      | content             |
-      | detail              |
-      | heading             |
-      | help                |
-      | i18ncomponent       |
-      | icon                |
-      | link                |
-      | loader              |
-      | menulist            |
-      | message             |
-      | mount-in-app        |
-      | multi-action-button |
-      | pill                |
-      | portrait            |
-      | preview             |
-      | profile             |
-      | row                 |
-      | split-button        |
-      | tooltip             |
+@accessibility
+Scenario Outline: Component <component> default story
+  When I open "<component>" component page "default" in no iframe
+  Then "<component>" component has no accessibility violations
+  Examples:
+    | component           |
+    | carousel            |
+    | card                |
+    | configurable-items  |
+    | content             |
+    | draggableContext    |
+    | icon                |
+    | loader              |
+    | message             |
+    | multi-action-button |
+    | pill                |
+    | portrait            |
+    | preview             |
+    | profile             |
+    | row                 |
+    | settingsrow         |
+    | split-button        |
+    | table-ajax          |
+    | table               |
+    | tooltip             |
 
   @accessibility
   Scenario: Draggable Context component with_table story
@@ -84,8 +80,13 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component  |
-      | AppWrapper |
-      | Detail     |
-      | Heading    |
-      | Help       |
+      | component     |
+      | AppWrapper    |
+      | Detail        |
+      | Heading       |
+      | Help          |
+      | I18nComponent |
+      | Link          |
+      | MenuList      |
+      | Mount In App  |
+    # | Pages         |

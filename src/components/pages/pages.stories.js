@@ -1,177 +1,101 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { storiesOf } from "@storybook/react";
+import React, { useState } from "react";
 import { select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { State, Store } from "@sambego/storybook-state";
 import Pages from ".";
 import Page from "./page/page.component";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../.storybook/theme-selectors";
 import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading/heading";
 import Button from "../button";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
-import docgenInfo from "./docgenInfo.json";
 
-Page.__docgenInfo = getDocGenInfo(docgenInfo, /page\.js(?!spec)/);
-
-Pages.__docgenInfo = getDocGenInfo(docgenInfo, /pages(?!spec)/);
-
-const store = new Store({
-  open: false,
-  pageIndex: 0,
-  pageHistory: [],
-  previouspageHistoryPointer: 0,
-  isDisabled: false,
-  transitionTime: 600,
-});
-
-const handleSlide = (_, pageIndex) => {
-  action("slide")(`Page index: ${pageIndex}`);
-
-  if (store.get("isDisabled")) return store.get("previouspageHistoryPointer");
-
-  const newpageHistory = [...store.get("pageHistory"), pageIndex];
-
-  store.set({
-    isDisabled: true,
-    pageHistory: newpageHistory,
-    pageIndex: pageIndex || 0,
-    previouspageHistoryPointer: newpageHistory.length - 1,
-  });
-
-  setTimeout(() => {
-    store.set({ isDisabled: false });
-  }, store.get("transitionTime"));
-
-  return pageIndex;
-};
-
-const handlePreviousSlide = (ev) => {
-  ev.preventDefault();
-  if (store.get("isDisabled")) return;
-  const previouHistoryPointer = store.get("previouspageHistoryPointer");
-  const pointer = previouHistoryPointer - 1 > 0 ? previouHistoryPointer - 1 : 0;
-
-  store.set({
-    isDisabled: true,
-    pageHistory: store.get("pageHistory").slice(0, -1),
-    pageIndex: store.get("pageHistory")[pointer] || 0,
-    previouspageHistoryPointer: pointer,
-  });
-
-  setTimeout(() => {
-    store.set({ isDisabled: false });
-  }, store.get("transitionTime"));
-};
-
-const handleOpen = () => {
-  action("open")();
-  store.set({ open: true });
-};
-
-const handleCancel = () => {
-  action("cancel")();
-  store.set({
-    pageIndex: 0,
-    open: false,
-    pageHistory: [0],
-  });
-};
-
-const CustomState = (props) => {
-  return <State store={store}>{props.children}</State>;
-};
-
-CustomState.propTypes = {
-  children: PropTypes.node,
-};
-
-const DialogState = (props) => new CustomState(props);
-const PageState = (props) => new CustomState(props);
-const indexConfig = [0, 1, 2];
-const pageIndex = () => select("pageIndex", indexConfig, indexConfig[0]);
-
-function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    return (
-      <div>
-        <Button onClick={handleOpen}>Open Preview</Button>
-        <DialogState>
-          <DialogFullScreen
-            open={store.get("open")}
-            onCancel={handleCancel}
-            pagesStyling
-          >
-            <PageState>
-              <Pages pageIndex={handleSlide(null, pageIndex())}>
-                <Page title={<Heading title="My First Page" />}>
-                  <Button
-                    onClick={(ev) => {
-                      handleSlide(ev, 1);
-                    }}
-                  >
-                    Go to second page
-                  </Button>
-                </Page>
-
-                <Page
-                  title={
-                    <Heading
-                      title="My Second Page"
-                      backLink={handlePreviousSlide}
-                    />
-                  }
-                >
-                  <Button
-                    onClick={(ev) => {
-                      handleSlide(ev, 2);
-                    }}
-                  >
-                    Go to third page
-                  </Button>
-                </Page>
-                <Page
-                  title={
-                    <Heading
-                      title="My Third Page"
-                      backLink={handlePreviousSlide}
-                    />
-                  }
-                />
-              </Pages>
-            </PageState>
-          </DialogFullScreen>
-        </DialogState>
-      </div>
-    );
-  };
-
-  const metadata = {
-    themeSelector,
+export default {
+  title: "Pages/Test",
+  component: Pages,
+  parameters: {
     info: {
-      text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [
-        Button,
-        DialogFullScreen,
-        DialogState,
-        PageState,
-        Pages,
-        Page,
-        State,
-      ],
+      disable: true,
     },
+    knobs: { escapeHTML: false },
     chromatic: {
-      disable: disableChromatic,
+      disabled: true,
     },
+  },
+};
+
+export const Basic = () => {
+  const initialpageIndex = select("initialPageIndex", [0, 1, 2]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) || 0);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleCancel = (ev) => {
+    setIsOpen(false);
+    setPageIndex(0);
+    action("cancel")(ev);
   };
 
-  return [name, component, metadata];
-}
+  const handleOpen = (ev) => {
+    setIsOpen(true);
+    if (!initialpageIndex) {
+      setPageIndex(0);
+    } else setPageIndex(Number(initialpageIndex));
+    action("open")(ev);
+  };
 
-storiesOf("Pages", module)
-  .add(...makeStory("default", dlsThemeSelector))
-  .add(...makeStory("classic", classicThemeSelector, true));
+  const handleOnClick = (ev) => {
+    setIsDisabled(true);
+    setPageIndex(pageIndex + 1);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 50);
+    action("click")(ev);
+    action("slide")(`Page index: ${pageIndex + 1}`);
+  };
+
+  const handleBackClick = (ev) => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 50);
+    if (!isDisabled) {
+      ev.preventDefault();
+      setPageIndex(pageIndex - 1);
+      action("click")(ev);
+      action("slide")(`Page index: ${pageIndex + 1}`);
+    }
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open Preview</Button>
+      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+        <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
+          <Page title={<Heading title="My First Page" />}>
+            <Button onClick={handleOnClick} disabled={isDisabled}>
+              Go to second page
+            </Button>
+          </Page>
+          <Page
+            title={
+              <Heading title="My Second Page" backLink={handleBackClick} />
+            }
+          >
+            <Button onClick={handleOnClick} disabled={isDisabled}>
+              Go to third page
+            </Button>
+          </Page>
+          <Page
+            title={<Heading title="My Third Page" backLink={handleBackClick} />}
+          />
+        </Pages>
+      </DialogFullScreen>
+    </div>
+  );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

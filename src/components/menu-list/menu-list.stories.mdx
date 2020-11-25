@@ -1,0 +1,179 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { MenuList, MenuListItem } from '.'
+
+<Meta title="MenuList" parameters={{ info: { disable: true }}} />
+
+# MenuList
+A set of related items that can be shown or hidden.
+
+Children can be shown or hidden by clicking their title. Useful to create simple accordion or menu patterns.
+
+## Quick Start
+Import `MenuList` and `MenuListItem` into the project.
+
+```jsx
+import { MenuList, MenuListItem } from "carbon-react/lib/components/menu-list";
+```
+
+### Default
+<Preview>
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
+    <MenuList>
+      <MenuListItem>
+        Menu Item One
+      </MenuListItem>
+    </MenuList>
+  </Story>
+</Preview>
+
+### MenuList with Title
+A menu list can have a title. A title can be specified by passing a string to the `title` prop.
+
+<Preview>
+  <Story name="with Title">
+    <MenuList title='Title'>
+      <MenuListItem>
+        Menu Item One
+      </MenuListItem>
+    </MenuList>
+  </Story>
+</Preview>
+
+### MenuList with Filter
+A search filter can be applied to a MenuListItem that has a child MenuList with more than one MenuListItem.
+
+<Preview>
+  <Story name="with Filter">
+    {() => {
+      return (
+        <MenuList>
+          <MenuListItem>
+            Menu Item One
+          </MenuListItem>
+          <MenuListItem>
+            <MenuList
+              title='Menu Item Two'
+              filter
+              initiallyOpen
+            >
+              <MenuListItem name='First Sub Item'>
+                First Sub Item
+              </MenuListItem>
+              <MenuListItem name='Second Sub Item'>
+                Second Sub Item
+              </MenuListItem>
+              <MenuListItem name='Third Sub Item'>
+                Third Sub Item
+              </MenuListItem>
+            </MenuList>
+          </MenuListItem>
+          <MenuListItem>
+            Menu Item Three
+          </MenuListItem>
+          <MenuListItem>
+            Menu Item Four
+          </MenuListItem>
+        </MenuList>
+      );
+    }}
+  </Story>
+</Preview>
+
+The search filter can have a placeholder. To achiveve this, simply pass a string to the `filterPlaceholder` prop.
+<Preview>
+  <Story name="with Filter and Placeholder">
+    {() => {
+      return (
+        <MenuList>
+          <MenuListItem>
+            Menu Item One
+          </MenuListItem>
+          <MenuListItem>
+            <MenuList
+              title='Menu Item Two'
+              filter
+              filterPlaceholder='This is the filter palceholder...'
+              initiallyOpen
+            >
+              <MenuListItem name='First Sub Item'>
+                First Sub Item
+              </MenuListItem>
+              <MenuListItem name='Second Sub Item'>
+                Second Sub Item
+              </MenuListItem>
+              <MenuListItem name='Third Sub Item'>
+                Third Sub Item
+              </MenuListItem>
+            </MenuList>
+          </MenuListItem>
+          <MenuListItem>
+            Menu Item Three
+          </MenuListItem>
+          <MenuListItem>
+            Menu Item Four
+          </MenuListItem>
+        </MenuList>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Collapsible MenuList
+Propvided that the MenuList has a title, the MenuList can be collapsible. This can be specified using the `collapisble` prop.
+
+<Preview>
+  <Story name="with Collapsible" parameters={{ chromatic: { disable: true }}}>
+    <MenuList title='Title' collapsible>
+      <MenuListItem>
+        Menu Item One
+      </MenuListItem>
+      <MenuListItem>
+        Menu Item Two
+      </MenuListItem>
+      <MenuListItem>
+        Menu Item Three
+      </MenuListItem>
+    </MenuList>
+  </Story>
+</Preview>
+
+The MenuList can also be non-collapsible. This can be specified using the `collapisble` prop.
+
+<Preview>
+  <Story name="with Collapsible Off" parameters={{ chromatic: { disable: true }}}>
+    <MenuList title='Title' collapsible={false}>
+      <MenuListItem>
+        Menu Item One
+      </MenuListItem>
+      <MenuListItem>
+        Menu Item Two
+      </MenuListItem>
+      <MenuListItem>
+        Menu Item Three
+      </MenuListItem>
+    </MenuList>
+  </Story>
+</Preview>
+
+### Initally Open
+If you require the MenuList to be initially open, simply use the `initiallyOpen` and this functionality can be achieved.
+
+<Preview>
+  <Story name="with Initially Open">
+    <MenuList title='Title' initiallyOpen>
+      <MenuListItem>
+        Menu Item One
+      </MenuListItem>
+    </MenuList>
+  </Story>
+</Preview>
+
+
+## Props
+
+### MenuList Props
+<Props of={MenuList} />
+
+### MenuListItem Props
+<Props of={MenuListItem} />

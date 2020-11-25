@@ -8,6 +8,7 @@ const StyledTitle = styled.div`
     font-weight: 700;
     text-transform: uppercase;
     line-height: 12px;
+    cursor: default;
 
     ${menuType === "light" &&
     css`

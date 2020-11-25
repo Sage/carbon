@@ -1,0 +1,146 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import Link, {InternalLink} from './link.component';
+
+<Meta title="Link" parameters={{ info: { disable: true }}} />
+
+# Link
+Navigates the user to another location.
+
+Avoid using links for commands (performing an action like saving a form) - use them for navigating the user to a new location. 
+If you’re navigating the user away from your site, consider using an icon after the link, and open the link in a new window, so the user doesn’t lose their place.
+To make the meaning of a link clearer, you can add an icon before it. Just name one of the Carbon icons.
+Make your link names meaningful - for example, instead of ‘Click here’, try ‘Download Invoice 001’.
+WCAG guidelines recommend that Color is not used as the only visual means of conveying information, indicating an action. Carbon applies bold weight, but you could also use text decoration.
+
+## Quick Start
+Import `Link` into the project.
+
+```jsx
+import Link from "carbon-react/lib/components/link";
+
+const MyComponent = () => (
+  <Link>
+    This is a link
+  </Link>
+);
+```
+
+### Default
+<Preview>
+  <Story name="Default">
+    <Link>
+      This is a link
+    </Link>
+  </Story>
+</Preview>
+
+### Disabled
+Setting the `disabled` prop to true disables the link.
+
+<Preview>
+  <Story name="with Disabled">
+      <Link disabled>
+        This is a link
+      </Link>
+  </Story>
+</Preview>
+
+### href
+The `href` prop provides the ability for the Link to take the user to a different webpage or another part of the DOM.
+
+<Preview>
+  <Story name="with href" parameters={{ chromatic: { disable: true }}}>
+    <Link href='https://carbon.sage.com'>
+      This is a link
+    </Link>
+  </Story>
+</Preview>
+
+### Icon
+The `icon` prop allows you to render an icon.
+
+<Preview>
+  <Story name="with Icon" parameters={{ chromatic: { disable: true }}}>
+    <Link icon='settings'>
+      This is a link
+    </Link>
+  </Story>
+</Preview>
+
+### Icon Align
+The `iconAlign` prop allows you to control if the icon renders to left or right of the Link.
+
+<Preview>
+  <Story name="with IconAlign">
+    {() => { 
+      return ['left', 'right'].map(align => 
+      <div style={{margin: '64px'}}>
+        <Link icon='settings' iconAlign={`${align}`}>
+          This is a link
+        </Link>
+      </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Tooltip
+By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
+
+<Preview>
+  <Story name="with Tooltip" parameters={{ chromatic: { disable: true }}}>
+    <div style={{margin: '64px'}}>
+      <Link icon='settings' tooltipMessage='This is a tooltip message'>
+        This is a link
+      </Link>
+    </div>
+  </Story>
+</Preview>
+
+### Tooltip Alignment
+The alignment of the tooltip can be controlled using the `tooltipAlign` prop.
+
+<Preview>
+  <Story name="with Tooltip Align" parameters={{ chromatic: { disable: true }}}>
+    {() => { 
+      return [
+        'left', 
+        'right'].map(align => 
+      <div style={{margin: '192px'}}>
+        <Link 
+        icon='settings'
+        tooltipMessage='This is a tooltip message' 
+        tooltipAlign={`${align}`}>
+          This is a link
+        </Link>
+      </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### OnClick
+By passing the `hasOnClick` prop to the Link component, a custom `onClick` function can be passed to the Link component
+
+<Preview>
+  <Story name="with OnClick" parameters={{ chromatic: { disable: true }}}>
+    <Link hasOnClick onClick={ ()=> {} }>
+      This is a link
+    </Link>
+  </Story>
+</Preview>
+
+### Target
+Use the `target` prop to modify the behaviour when the Link component is clicked. In this example, target has been assigned '_blank'.
+
+<Preview>
+  <Story name="with Target" parameters={{ chromatic: { disable: true }}}>
+      <Link href='https://carbon.sage.com' target='_blank'>
+        This is a link
+      </Link>
+  </Story>
+</Preview>
+
+## Props
+<Props of={InternalLink} />

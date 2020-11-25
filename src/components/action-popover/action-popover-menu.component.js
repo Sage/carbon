@@ -19,6 +19,7 @@ const ActionPopoverMenu = React.forwardRef(
       setOpen,
       setFocusIndex,
       setItems,
+      placement = "bottom",
       ...rest
     },
     ref
@@ -148,6 +149,7 @@ const ActionPopoverMenu = React.forwardRef(
             // callback and index to update focusIndex if item hovered and has submenu
             const itemWithRef = React.cloneElement(child, {
               ref: React.createRef(),
+              placement: child.props.submenu ? placement : undefined,
             });
             itemsWithRef.push(itemWithRef);
 
@@ -160,7 +162,15 @@ const ActionPopoverMenu = React.forwardRef(
       // so we use a smaller array which makes keyboard navigation easier as we don't have to filter it on every
       // keypress
       setItems(itemsWithRef);
-    }, [children, focusIndex, isOpen, menuID, setFocusIndex, setItems]);
+    }, [
+      children,
+      placement,
+      focusIndex,
+      isOpen,
+      menuID,
+      setFocusIndex,
+      setItems,
+    ]);
 
     useEffect(() => {
       if (isOpen && focusIndex !== null) {
@@ -179,6 +189,8 @@ const ActionPopoverMenu = React.forwardRef(
         aria-labelledby={parentID}
         role="menu"
         ref={ref}
+        placement={placement}
+        buttonHeight={getButtonHeight(button)}
         {...rest}
       >
         {childrenWithRef}
@@ -186,6 +198,21 @@ const ActionPopoverMenu = React.forwardRef(
     );
   }
 );
+
+function checkRef(ref) {
+  return Boolean(ref && ref.current);
+}
+
+function getButtonHeight(buttonRef) {
+  if (!checkRef(buttonRef)) {
+    return undefined;
+  }
+
+  const buttonRect = buttonRef.current.getBoundingClientRect();
+  const { top, bottom } = buttonRect;
+
+  return bottom - top;
+}
 
 ActionPopoverMenu.propTypes = {
   /** A ref to the parent popover button */
@@ -235,6 +262,8 @@ ActionPopoverMenu.propTypes = {
   setOpen: PropTypes.func,
   /** Callback called on click event */
   onClick: PropTypes.func,
+  /** @ignore @private */
+  placement: PropTypes.oneOf(["bottom", "top"]),
 };
 
 ActionPopoverMenu.displayName = "ActionPopoverMenu";

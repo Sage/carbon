@@ -34,6 +34,7 @@ describe("Divider", () => {
     assertStyleMatch(
       {
         background: baseTheme.menu.light.divider,
+        cursor: "default",
       },
       wrapper
     );

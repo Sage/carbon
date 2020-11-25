@@ -1,0 +1,211 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import DefaultPages from './pages.component';
+import Page from './page/page.component';
+import DialogFullScreen from '../dialog-full-screen';
+import Heading from '../heading/heading';
+import Button from '../button';
+
+<Meta title="Pages" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
+
+# Pages
+Allows to slide to different pages in a full screen dialog.
+
+## Quick Start
+Import `DefaultPages` and `Page` into the project.
+
+```jsx
+import DefaultPages from "carbon-react/lib/components/pages";
+import Page from "carbon-react/lib/components/page/page";
+```
+
+### Default
+<Preview>
+  <Story name="default">
+   {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      const [pageIndex, setPageIndex] = useState(0);
+      const [isDisabled, setIsDisabled] = useState(false);
+      const handleCancel = () => {
+        setIsOpen(false); 
+        setPageIndex(0);
+      };
+      const handleOpen = () => {
+        setIsOpen(true);
+        setPageIndex(0);
+      };
+      const handleOnClick = () => {
+        setIsDisabled(true);
+        setPageIndex(pageIndex + 1);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+      };
+      const handleBackClick = (ev) => {
+        setIsDisabled(true);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+        if (!isDisabled) {
+          ev.preventDefault();
+          setPageIndex(pageIndex - 1);
+        }
+      };
+      return (
+        <div>
+          <Button onClick={ handleOpen }>Open Preview</Button>
+          <DialogFullScreen
+            pagesStyling
+            open={ isOpen }
+            onCancel={ handleCancel }
+          >
+            <DefaultPages pageIndex={ pageIndex }>
+              <Page title={ <Heading title='My First Page' /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to second page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to third page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+            </DefaultPages>
+          </DialogFullScreen>
+        </div>
+      );
+    }};
+  </Story>
+</Preview>
+
+### Pages with Initial Page Index
+<Preview>
+  <Story name="with Initial Page Index">
+   {() => {
+      let initialpageIndex = 1
+      const [isOpen, setIsOpen] = useState(false);
+      const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) ? Number(initialpageIndex) : undefined);
+      const [isDisabled, setIsDisabled] = useState(false);
+      const handleCancel = () => {
+        setIsOpen(false); 
+        setPageIndex(0);
+      };
+      const handleOpen = () => {
+        setIsOpen(true);
+        if (!initialpageIndex) {
+          setPageIndex(0);
+        } else setPageIndex(Number(initialpageIndex));
+      };
+      const handleOnClick = () => {
+        setIsDisabled(true);
+        setPageIndex(pageIndex + 1);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+      };
+      const handleBackClick = (ev) => {
+        setIsDisabled(true);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+        if (!isDisabled) {
+          ev.preventDefault();
+          setPageIndex(pageIndex - 1);
+        }
+      };
+      return (
+        <div>
+          <Button onClick={ handleOpen }>Open Preview</Button>
+          <DialogFullScreen
+            pagesStyling
+            open={ isOpen }
+            onCancel={ handleCancel }
+          >
+            <DefaultPages initialpageIndex={ initialpageIndex } pageIndex={ pageIndex }>
+              <Page title={ <Heading title='My First Page' /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to second page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to third page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+            </DefaultPages>
+          </DialogFullScreen>
+        </div>
+      );
+    }};
+  </Story>
+</Preview>
+
+## Inside DialogFullScreen
+<Preview>
+  <Story name="inside DialogFullScreen">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      const [pageIndex, setPageIndex] = useState('');
+      const [isDisabled, setIsDisabled] = useState(false);
+      const handleCancel = () => {
+        setIsOpen(false); 
+        setPageIndex(0);
+      };
+      const handleOpen = () => {
+        setIsOpen(true);
+        setPageIndex(0);
+      };
+      const handleOnClick = () => {
+        setIsDisabled(true);
+        setPageIndex(pageIndex + 1);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+      };
+      const handleBackClick = (ev) => {
+        setIsDisabled(true);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+        if (!isDisabled) {
+          ev.preventDefault();
+          setPageIndex(pageIndex - 1);
+        }
+      };
+      return (
+        <div>
+          <Button onClick={ handleOpen }>Open Preview</Button>
+          <DialogFullScreen
+            pagesStyling
+            open={ isOpen }
+            onCancel={ handleCancel }
+          >
+            <DefaultPages pageIndex={ pageIndex }>
+              <Page title={ <Heading title='My First Page' /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to second page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
+                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+                  Go to third page
+                </Button>
+              </Page>
+              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+            </DefaultPages>
+          </DialogFullScreen>
+        </div>
+      );
+    }};
+  </Story>
+</Preview>
+
+## Props
+
+### Props for Pages
+<Props of={DefaultPages} />
+
+### Props for Page
+<Props of={Page} />
