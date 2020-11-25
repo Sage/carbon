@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import {
-  applyClassicInternalStyling,
-  applyClassicTableStyling,
-} from "./table-classic.style.js";
+
 import {
   applyModernTableStyling,
   applyModernInternalStyling,
@@ -11,7 +8,6 @@ import {
 import StyledTableRow from "./table-row/table-row.style";
 import StyledLink from "../link/link.style";
 import baseTheme from "../../style/themes/base";
-import { isClassic } from "../../utils/helpers/style-helper";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import StyledTableCell from "./table-cell/table-cell.style.js";
 
@@ -24,10 +20,7 @@ const StyledTable = styled.table`
   width: auto;
   word-break: break-all;
 
-  ${(props) => {
-    if (isClassic(props.theme)) return applyClassicTableStyling(props);
-    return applyModernTableStyling(props);
-  }}
+  ${applyModernTableStyling}
 
   & caption {
     clip: rect(1px, 1px, 1px, 1px);
@@ -55,7 +48,7 @@ function applyPaginationStyle() {
 }
 
 export const StyledInternalTableWrapper = styled.div`
-  ${styleInternalWrapper}
+  ${applyModernInternalStyling}
   border-radius: 0px;
   overflow: visible;
   position: relative;
@@ -105,11 +98,6 @@ export const StyledInternalTableWrapper = styled.div`
       }
     `}
 `;
-
-function styleInternalWrapper(props) {
-  if (isClassic(props.theme)) return applyClassicInternalStyling();
-  return applyModernInternalStyling(props);
-}
 
 StyledTable.propTypes = {
   /** Toggles the type variations of the table */

@@ -23,25 +23,12 @@ Various types are available:
 
 ## Related Components
 
-- Simple positive or negative confirmation? [Try Flash](/?path=/story/flash--default "Flash").
 - Longer, time sensitive message that must be dismissed? [Try Toast](/?path=/docs/design-system-toast--default-story "Toast").
 - Error or warning message that interrupts activity? [Try Alert](/?path=/docs/alert--default-story "Alert").
 
 ## Quick Start
-
-Import the component and use as shown below:
-
 ```jsx
 import Message from "carbon-react/lib/components/message";
-
-const MyComponent = ({ isOpen, handleClose }) => (
-  <Message
-    open={ isOpen }
-    onDismiss={ handleClose }
-  >
-    <SidebarHeader>Sidebar</SidebarHeader>
-  </Message>
-);
 ```
 
 ### Default
@@ -54,7 +41,7 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Message</Button>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
           <Message
             open={ isOpen }
             onDismiss={ () => setIsOpen(false) }
@@ -75,7 +62,7 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Message</Button>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
           <Message
             open={ isOpen }
             onDismiss={ () => setIsOpen(false) }
@@ -97,7 +84,7 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Message</Button>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
           <Message
             open={ isOpen }
             onDismiss={ () => setIsOpen(false) }
@@ -119,7 +106,7 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Message</Button>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
           <Message
             open={ isOpen }
             onDismiss={ () => setIsOpen(false) }

@@ -15,12 +15,36 @@ class WithDrop extends React.Component {
     // and aren't used in this component directly. Therefore
     // disable the ESLint rule react/no-unused-prop-types
     /* eslint-disable react/no-unused-prop-types */
+    /**
+     * @private
+     * @ignore
+     */
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
+    /**
+     * @private
+     * @ignore
+     */
     index: PropTypes.number.isRequired, // identifies the index for this item
+    /**
+     * @private
+     * @ignore
+     */
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
+    /**
+     * @private
+     * @ignore
+     */
     onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
+    /**
+     * @private
+     * @ignore
+     */
     canDrop: PropTypes.func, // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
+    /**
+     * @private
+     * @ignore
+     */
     didDrop: PropTypes.func,
   };
 

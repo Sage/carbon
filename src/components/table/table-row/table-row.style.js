@@ -1,13 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import StyledTableCell from "../table-cell/table-cell.style";
-import StyledTableHeader from "../table-header/table-header.style";
-import {
-  applyClassicDraggedStyling,
-  applyClassicRowStyling,
-  applyClassicSelectedStyling,
-  applyClassicHighlightStyling,
-} from "./table-row-classic.style";
+
 import {
   applyModernRowStyling,
   applyModernSelectedStyling,
@@ -16,39 +10,23 @@ import {
 import baseTheme from "../../../style/themes/base";
 import StyledIcon from "../../icon/icon.style";
 import CheckboxStyle from "../../../__experimental__/components/checkbox/checkbox.style";
-import { isClassic } from "../../../utils/helpers/style-helper";
 
 /**
  * Current version of react-dnd used in DragAndDrop is incompatible
  * with styled-components, this can be uodated once the issue is fixed
  */
 const StyledTableRow = styled.tr`
-  ${applyRowStyling}
+  ${applyModernRowStyling}
+  ${selectableRowStyling}
+  ${highlightRowStyling}
+  ${selectedRowStyling}
+  ${dragRowStyling}
 `;
 
-function applyRowStyling({ isPassive, isSelected, theme }) {
-  return css`
-    ${isClassic(theme)
-      ? applyClassicRowStyling(isPassive, isSelected)
-      : applyModernRowStyling(isPassive, theme)}
-    ${selectableRowStyling}
-    ${highlightRowStyling}
-    ${selectedRowStyling}
-    ${dragRowStyling}
-  `;
-}
-
-function selectableRowStyling({ isSelectable, theme }) {
+function selectableRowStyling({ isSelectable }) {
   return css`
     ${isSelectable &&
     css`
-      ${StyledTableCell}:first-child,
-      ${StyledTableHeader}:first-child {
-        &:not(['data-component=selectable-cell']) {
-          ${isClassic(theme) ? "padding-left: 15px" : ""};
-        }
-      }
-
       ${StyledTableCell}:first-child {
         width: 18px;
       }
@@ -69,9 +47,7 @@ function selectedRowStyling({ isSelected, theme }) {
       &&&&:nth-child(odd),
       &&&&:hover {
         ${StyledTableCell} {
-          ${isClassic(theme)
-            ? applyClassicSelectedStyling()
-            : applyModernSelectedStyling(theme)}
+          ${applyModernSelectedStyling(theme)}
         }
       }
     `}
@@ -87,9 +63,7 @@ function highlightRowStyling({ isClickable, isHighlighted, theme }) {
     css`
       &&&& {
         ${StyledTableCell} {
-          ${isClassic(theme)
-            ? applyClassicHighlightStyling()
-            : applyModernSelectedStyling(theme)}
+          ${applyModernSelectedStyling(theme)}
           position: relative;
 
           &:before {
@@ -104,7 +78,7 @@ function highlightRowStyling({ isClickable, isHighlighted, theme }) {
 
         &:hover {
           ${StyledTableCell} {
-            background-color: ${isClassic(theme) ? "#D0E3FA" : table.selected};
+            background-color: ${table.selected};
           }
         }
       }
@@ -154,14 +128,10 @@ function dragRowStyling({
           }
         }
       }
-
-      &&&&& {
-        ${isClassic(theme) && applyClassicDraggedStyling()}
-      }
     `}
     
     ${StyledTableCell} {
-      ${applyModernDropTargetStyling()}
+      ${applyModernDropTargetStyling}
     }
   `;
 }
