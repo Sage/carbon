@@ -3,7 +3,7 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Change field help text to <fieldHelp>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -12,27 +12,27 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario: Disable and enable Number input component
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "disabledFalse" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "disabledFalse" object name
     Then Number input component is not disabled
 
   @positive
   Scenario: Disable Number input component
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "disabled" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "disabled" object name
     Then Number input component is disabled
 
   @positive
   Scenario: Disable and enable readOnly property for Number input component
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "readOnlyFalse" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "readOnlyFalse" object name
     Then Number input component is not readonly
 
   @positive
   Scenario: Disable readOnly property for Number input component
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "readOnly" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "readOnly" object name
     Then Number input component is readonly
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
       | label                        | nameOfObject          |
@@ -41,7 +41,7 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Change label help text to <labelHelp>
-    Given I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Given I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     When I hover mouse onto help icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -51,17 +51,17 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario: Enable label inline
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "labelInline" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "labelInline" object name
     Then label is inline
 
   @positive
   Scenario: Disable label inline
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "labelInlineFalse" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "labelInlineFalse" object name
     Then NumberInput component labelInline is disabled
 
   @positive
   Scenario Outline: Set input width to <inputWidth>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then inputWidth on preview is <inputWidth>
     Examples:
       | inputWidth | nameOfObject  |
@@ -71,7 +71,7 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Set label width to <labelWidth>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then label width on preview is <labelWidth>
     Examples:
       | labelWidth | nameOfObject  |
@@ -81,7 +81,7 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Set label align to <labelAlign>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
       | labelAlign | nameOfObject    |
@@ -90,7 +90,7 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Set size to <size>
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then Number input component size is set to "<size>" and has min-height set to <minHeight> and paddings set to <px>
     Examples:
       | size   | minHeight | px | nameOfObject |
@@ -100,5 +100,5 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario: Check icon inside of input is visible
-    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "inputIconAdd" object name
+    When I open default "Experimental Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
