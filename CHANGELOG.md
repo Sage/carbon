@@ -1,3 +1,10 @@
+## [50.3.0](https://github.com/Sage/carbon/compare/v50.2.0...v50.3.0) (2020-11-26)
+
+
+### Features
+
+* **tile:** add new `TileFooter` component ([9897490](https://github.com/Sage/carbon/commit/9897490648fd2d16355ed070fce37003ba184b72))
+
 ## [50.2.0](https://github.com/Sage/carbon/compare/v50.1.0...v50.2.0) (2020-11-26)
 
 
