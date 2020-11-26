@@ -1,0 +1,200 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Typography from "../typography";
+import Box from "../box";
+import { Row, Column } from ".";
+
+<Meta title="Row" parameters={{ info: { disable: true } }} />
+
+# Row & Column
+
+Useful to organise the UI of a page into a simple column-based layout.
+
+Configure the number of columns, the margin between them, and toggle separators visibility.
+
+## Quick Start
+
+```jsx
+import { Row, Column } from "carbon-react/lib/components/row";
+```
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Row>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+    </Row>
+  </Story>
+</Preview>
+
+### With separators
+
+<Preview>
+  <Story name="With separators">
+    <Row columnDivide>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+      <Column>Content</Column>
+    </Row>
+  </Story>
+</Preview>
+
+### Gutter sizes
+
+<Preview>
+  <Story name="Gutter sizes">
+    {() =>
+      [
+        "extra-small",
+        "small",
+        "medium-small",
+        "medium",
+        "medium-large",
+        "large",
+        "extra-large",
+      ].map((gutter) => (
+        <div key={gutter}>
+          <Typography variant="h5" mb={1} mt={3}>
+            {gutter}
+          </Typography>
+          <Row gutter={gutter}>
+            {[1, 2, 3, 4, 5, 6].map((value) => (
+              <Column key={value}>
+                <Box bg="primary" color="white">
+                  Content
+                </Box>
+              </Column>
+            ))}
+          </Row>
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### Column alignment
+
+<Preview>
+  <Story name="Column alignment">
+    {() =>
+      ["left", "center", "right"].map((columnAlign) => (
+        <div key={columnAlign}>
+          <Typography variant="h5" mb={1} mt={3}>
+            {columnAlign}
+          </Typography>
+          <Row>
+            {[1, 2, 3, 4, 5, 6].map((value) => (
+              <Column columnAlign={columnAlign} key={value}>
+                <Box bg="primary" color="white">
+                  Content
+                </Box>
+              </Column>
+            ))}
+          </Row>
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### With offset columns
+
+To offset a column besides passing a `columnOffset` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
+
+<Preview>
+  <Story name="With offset columns">
+    <Row columns={7}>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column columnOffset={1}>
+        <Box bg="primary" color="white">
+          Offset by 1 column
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+    </Row>
+  </Story>
+</Preview>
+
+### With columns spanning over more than one column
+
+To span a `Column` over more than one column besides passing a `columnSpan` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
+
+<Preview>
+  <Story name="With columns span">
+    <Row columns={7}>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column columnSpan={2}>
+        <Box bg="primary" color="white">
+          Spanning 2 columns
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+      <Column>
+        <Box bg="primary" color="white">
+          Content
+        </Box>
+      </Column>
+    </Row>
+  </Story>
+</Preview>
+
+## Props:
+
+### Row
+
+<Props of={Row} />
+
+### Column
+
+<Props of={Column} />

@@ -210,6 +210,60 @@ A custom `Button` Component could be passed as the `listActionButton` value.
   </Story>
 </Preview>
 
+### With isLoading prop:
+When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
+
+<Preview>
+  <Story name="with isLoading prop" parameters={{ chromatic: { disable: true }}} > 
+    {() => {
+      let preventLoading = useRef(false);
+      const [value, setValue] = useState('');
+      const [isOpen, setIsOpen] = useState(false);
+      const [isLoading, setIsLoading] = useState(true);
+      const asyncList = [
+        <Option text='Amber' value='amber' key='Amber' />,
+        <Option text='Black' value='black' key='Black' />,
+        <Option text='Blue' value='blue' key='Blue' />,
+        <Option text='Brown' value='brown' key='Brown' />,
+        <Option text='Green' value='green' key='Green' />,
+      ];
+      const [optionList, setOptionList] = useState([]);
+      function loadList() {
+        if (preventLoading.current) {
+          return;
+        }
+        preventLoading.current = true;
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          setOptionList(asyncList)
+        }, 2000);
+      }
+      function clearData() {
+        setOptionList([]);
+        setValue('');
+        preventLoading.current = false;
+      }
+      return (
+        <div>
+          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <FilterableSelect
+            name='isLoading'
+            id='isLoading'
+            label='label'
+            value={ value }
+            onChange={ (event) => setValue(event.target.value) }
+            onOpen={ () => loadList() }
+            isLoading={ isLoading }
+          >
+            { optionList }
+          </FilterableSelect>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.

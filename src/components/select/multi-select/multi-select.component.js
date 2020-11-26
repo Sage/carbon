@@ -105,6 +105,10 @@ const MultiSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(key)) {
           event.preventDefault();
           setOpen();
@@ -115,7 +119,7 @@ const MultiSelect = React.forwardRef(
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       },
-      [filterText, textValue, onKeyDown, setOpen]
+      [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
     );
 
     const handleGlobalClick = useCallback(

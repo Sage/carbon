@@ -44,7 +44,11 @@ const InlineInputs = (props) => {
   }
 
   return (
-    <StyledInlineInputs data-component="inline-inputs" className={className}>
+    <StyledInlineInputs
+      gutter={gutter}
+      data-component="inline-inputs"
+      className={className}
+    >
       {renderLabel()}
       <Row gutter={gutter}>{columnWrapper(renderChildren())}</Row>
     </StyledInlineInputs>
