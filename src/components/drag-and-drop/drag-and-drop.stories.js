@@ -1,46 +1,27 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React, { useState } from "react";
 import { boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { State, Store } from "@sambego/storybook-state";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../.storybook/theme-selectors";
-import notes from "./documentation/notes.md";
-import Info from "./documentation/Info";
-import {
-  DraggableContext,
-  WithDrag,
-  WithDrop,
-  CustomDragLayer,
-} from "./drag-and-drop";
+
+import { DraggableContext, WithDrag, WithDrop } from ".";
 
 import { Table, TableHeader, TableRow, TableCell } from "../table";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
 
-DraggableContext.__docgenInfo = getDocGenInfo(
-  require("./draggable-context/docgenInfo.json"),
-  /draggable-context(?!spec)/
-);
+export default {
+  title: "DraggableContext/Test",
+  component: DraggableContext,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
 
-WithDrag.__docgenInfo = getDocGenInfo(
-  require("./with-drag/docgenInfo.json"),
-  /with-drag(?!spec)/
-);
-
-WithDrop.__docgenInfo = getDocGenInfo(
-  require("./with-drop/docgenInfo.json"),
-  /with-drop(?!spec)/
-);
-
-CustomDragLayer.__docgenInfo = getDocGenInfo(
-  require("./custom-drag-layer/docgenInfo.json"),
-  /custom-drag-layer(?!spec)/
-);
-
-const store = new Store({
-  dndData: [
+export const Default = () => {
+  const [state, setState] = useState([
     {
       id: "0",
       name: "UK",
@@ -57,77 +38,89 @@ const store = new Store({
       id: "3",
       name: "US",
     },
-  ],
-});
+  ]);
 
-const handleDrag = (originalIndex, newIndex) => {
-  const dndData = store.get("dndData");
-  const sortedItem = dndData.slice(originalIndex);
+  const handleDrag = (originalIndex, newIndex) => {
+    const sortedItem = state[originalIndex];
+    const newArr = [...state];
+    newArr.splice(originalIndex, 1);
+    newArr.splice(newIndex, 0, sortedItem);
 
-  dndData.splice(originalIndex, 1);
-  dndData.splice(newIndex, 0, sortedItem[0]);
+    setState(newArr);
+    action("drag")();
+  };
+  const autoScroll = boolean("autoScroll", true);
 
-  store.set({ dndData });
-  action("drag")();
+  return (
+    <DraggableContext autoScroll={autoScroll} onDrag={handleDrag}>
+      <div>
+        <Table tbody={false}>
+          <thead>
+            <TableRow as="header">
+              <TableHeader />
+              <TableHeader>Country</TableHeader>
+            </TableRow>
+          </thead>
+          <tbody>
+            {state.map((row, index) => (
+              <TableRow key={row.id} uniqueID={row.id} index={index}>
+                <TableCell>{row.name}</TableCell>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </DraggableContext>
+  );
 };
 
-const BuildRows = (props) =>
-  props.dndData.map((row, index) => (
-    <TableRow key={row.id} uniqueID={row.id} index={index}>
-      <TableCell>{row.name}</TableCell>
-    </TableRow>
-  ));
+export const Custom = () => {
+  const [state, setState] = useState([
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ]);
 
-function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    const autoScroll = boolean("autoScroll", true);
+  const handleDrag = (originalIndex, newIndex) => {
+    const sortedItem = state[originalIndex];
+    const newArr = [...state];
+    newArr.splice(originalIndex, 1);
+    newArr.splice(newIndex, 0, sortedItem);
 
-    return (
-      <DraggableContext autoScroll={autoScroll} onDrag={handleDrag}>
-        <div>
-          <Table tbody={false}>
-            <thead>
-              <TableRow as="header">
-                <TableHeader />
-                <TableHeader>Country</TableHeader>
-              </TableRow>
-            </thead>
-            <tbody>
-              <State store={store}>
-                <BuildRows />
-              </State>
-            </tbody>
-          </Table>
-        </div>
-      </DraggableContext>
-    );
+    setState(newArr);
+    action("drag")();
   };
 
-  const metadata = {
-    themeSelector,
-    info: { text: Info },
-    notes: { markdown: notes },
-    chromatic: {
-      disable: disableChromatic,
-    },
-  };
-
-  return [name, component, metadata];
-}
-
-storiesOf("DraggableContext", module)
-  .addParameters({
-    info: {
-      propTablesExclude: [
-        BuildRows,
-        Table,
-        TableHeader,
-        TableRow,
-        TableCell,
-        State,
-      ],
-      propTables: [DraggableContext, WithDrag, WithDrop, CustomDragLayer],
-    },
-  })
-  .add(...makeStory("default", dlsThemeSelector))
-  .add(...makeStory("classic", classicThemeSelector, true));
+  return (
+    <DraggableContext onDrag={handleDrag}>
+      <ol>
+        {state.map((item, index) => {
+          return (
+            <WithDrop index={index}>
+              <li style={{ listStyle: "none" }}>
+                <WithDrag>
+                  <div style={{ userSelect: "none", padding: 4 }}>
+                    {item.name}
+                  </div>
+                </WithDrag>
+              </li>
+            </WithDrop>
+          );
+        })}
+      </ol>
+    </DraggableContext>
+  );
+};

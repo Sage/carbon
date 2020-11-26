@@ -1,3 +1,50 @@
+## [50.1.0](https://github.com/Sage/carbon/compare/v50.0.0...v50.1.0) (2020-11-25)
+
+
+### Features
+
+* **textbox:** add space props ([334852f](https://github.com/Sage/carbon/commit/334852ff5a667d37e15762b599c4bf91e65b85a4))
+
+## [50.0.0](https://github.com/Sage/carbon/compare/v49.4.0...v50.0.0) (2020-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **row:** Row and Column components no loger support classic theme, also `.carbon-row` and `.carbon-column` classNames no longer exist, adjust your code accordingly before updating if your code relies on these classes.
+* **table-ajax:** classic theme support has been removed
+* **settings-row:** SettingsRow no longer support classic theme
+* **table:** classic theme support has been removed
+* **message:** Message component no logger support classic theme. Also `<Message as="info" roundedCorners border={false}>My Message</Message>` has been
+removed in favour of `<Message variant="info">My Message</Message>`.
+
+There is a codemod available to assist with this upgrade `npx carbon-codemod message-remove-classic-theme <target>`.
+
+See https://github.com/Sage/carbon-codemod for more information
+* **flash:** Flash component has been removed please use Toast component instead.
+To help with migration please use our codemod `npx carbon-codemod replace-flash-with-toast <target>`
+* **draggable-context:** draggable context components no longer supports classic theme
+
+### Features
+
+* **toast:** add timeout functionality ([8ea5018](https://github.com/Sage/carbon/commit/8ea5018e15b8a6b9c17365d74eaa742630e75326))
+
+
+### Bug Fixes
+
+* **message:** change incorrect type of title prop ([cbccfb6](https://github.com/Sage/carbon/commit/cbccfb60a776b4d157ab471a59cac05433b461f0))
+* **toast:** correct toast propTypes descriptions ([9f07af1](https://github.com/Sage/carbon/commit/9f07af141ac03fcd11b7f9eedc1a2b58d275068f))
+
+
+### Miscellaneous Chores
+
+* **draggable-context:** remove classic theme support ([de92007](https://github.com/Sage/carbon/commit/de92007b514754b21e151255258b5fd4c656ed4b))
+* **flash:** remove flash component ([658af77](https://github.com/Sage/carbon/commit/658af778d78e03123734a81aadfaf348134f7a35))
+* **message:** remove classic theme support ([9d355b2](https://github.com/Sage/carbon/commit/9d355b26ba3762feec82e23a8266a1f8f202ea7d))
+* **row:** remove classic theme support ([280a8b5](https://github.com/Sage/carbon/commit/280a8b5b5be63a0fa9c2957147733c2f908db172))
+* **settings-row:** remove classic theme support ([d8bd20d](https://github.com/Sage/carbon/commit/d8bd20dd456542e6939a60cfb6c9ec65602a635e))
+* **table:** remove classic theme support ([bdd3e07](https://github.com/Sage/carbon/commit/bdd3e07b0f3b7445f1fa7f75f1467c4d86a0e480))
+* **table-ajax:** remove classic theme support ([df425a9](https://github.com/Sage/carbon/commit/df425a907f850646556f6ff2c482a03e771c39b9))
+
 ## [49.4.0](https://github.com/Sage/carbon/compare/v49.3.0...v49.4.0) (2020-11-20)
 
 

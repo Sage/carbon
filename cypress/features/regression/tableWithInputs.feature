@@ -3,17 +3,17 @@ Feature: Table With Inputs component
 
   @positive
   Scenario: I enable selectable
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
     Then rows are selectable
 
   @positive
   Scenario: I disable selectable
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "selectableFalse" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "selectableFalse" object name
     Then rows are not selectable
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
-    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
+    Given I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
@@ -24,7 +24,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
+    Given I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
@@ -34,17 +34,17 @@ Feature: Table With Inputs component
       | 3         |
 
   @positive
-  Scenario Outline: Sort Table <headerName> Column by <sortColumn>
-    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+  Scenario Outline: Sort Table <headerName> Column by <sortedColumn>
+    Given I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then "<headerName>" Table column can be sorted
     Examples:
-      | nameOfObject   | headerName |
-      | sortColumnName | Country    |
-      | sortColumnCode | Code       |
+      | nameOfObject     | headerName |
+      | sortedColumnName | Country    |
+      | sortedColumnCode | Code       |
 
   @positive
   Scenario Outline: Sort Code column in <sortOrder> order
-    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Code column is sorted in "<sortOrder>" order
     Examples:
       | sortOrder | nameOfObject |
@@ -53,7 +53,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
       | caption                      | nameOfObject            |
@@ -62,7 +62,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: TotalRecords is set to <totalRecords> items
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
     Examples:
       | totalRecords | nameOfObject         |
@@ -73,12 +73,12 @@ Feature: Table With Inputs component
 
   @positive
   Scenario: TotalRecords is set to 1 item
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "totalRecords1" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "totalRecords1" object name
     Then totalRecords is set to "1" item
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "" items
     Examples:
       | totalRecords                 | nameOfObject                 |
@@ -87,7 +87,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Set theme to <theme>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then theme on preview is "<theme>"
     Examples:
       | theme     | nameOfObject   |
@@ -97,7 +97,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Change Table header size to <size>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Table header size on preview is set to "<size>"
     Examples:
       | size    | nameOfObject |
@@ -108,7 +108,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: I enable zebra striping for <position> row in Table
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
     Then <position> row has zebra striping
     Examples:
       | position |
@@ -121,7 +121,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Set input type to <inputType>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then input type on preview is set to "<inputType>"
     Examples:
       | inputType | nameOfObject      |
@@ -131,7 +131,7 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default_with_inputs "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records
     Examples:
       | pageSizeRecords | nameOfObject |

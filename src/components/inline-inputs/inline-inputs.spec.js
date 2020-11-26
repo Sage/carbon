@@ -2,6 +2,8 @@ import React from "react";
 import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import { Row, Column } from "../row";
+import StyledRow from "../row/row.style";
+import StyledColumn from "../row/column/column.style";
 import Label from "../../__experimental__/components/label";
 import Textbox from "../../__experimental__/components/textbox";
 import InlineInputs from "./inline-inputs.component";
@@ -68,7 +70,7 @@ describe("Inline Inputs", () => {
           flexGrow: "1",
         },
         wrapper,
-        { modifier: ".carbon-row" }
+        { modifier: `${StyledRow}` }
       );
     });
 
@@ -88,7 +90,7 @@ describe("Inline Inputs", () => {
           marginLeft: "-1px",
         },
         wrapper,
-        { modifier: ".carbon-column + .carbon-column" }
+        { modifier: `${StyledColumn} + ${StyledColumn}` }
       );
     });
   });
