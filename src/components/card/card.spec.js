@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import Card from "./card.component";
 import CardFooter from "./card-footer/card-footer.component";
@@ -8,6 +8,7 @@ import Icon from "../icon";
 import Link from "../link";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import StyledCardFooter from "./card-footer/card-footer.style";
 
 describe("Card", () => {
   describe("when the content is added as children", () => {
@@ -83,6 +84,21 @@ describe("Card", () => {
       );
 
       expect(cardFooter).toMatchSnapshot();
+    });
+
+    it("should render background transparent", () => {
+      const cardFooter = mount(
+        <CardFooter variant="transparent">
+          <div id="non-interactive">View Stripe Dashboard</div>
+        </CardFooter>
+      );
+
+      assertStyleMatch(
+        {
+          backgroundColor: "transparent",
+        },
+        cardFooter.find(StyledCardFooter)
+      );
     });
   });
 
