@@ -1,0 +1,255 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import { SimpleColorPicker, SimpleColor } from ".";
+import Box from "../../../components/box";
+
+<Meta
+  title="Experimental/Simple Color Picker"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Simple Color Picker
+
+- Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+
+## Quick Start
+
+```jsx
+import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simple-color-picker";
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const colors = [
+        { color: "transparent", label: "transparent" },
+        { color: "#0073C1", label: "blue" },
+        { color: "#582C83", label: "purple" },
+        { color: "#E96400", label: "orange" },
+        { color: "#99ADB6", label: "gray" },
+        { color: "#C7384F", label: "flush mahogany" },
+        { color: "#004500", label: "dark green" },
+        { color: "#FFB500", label: "yellow" },
+        { color: "#335C6D", label: "dark blue" },
+        { color: "#00DC00", label: "light blue" },
+      ];
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      return (
+        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+          {colors.map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="Disabled">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      return (
+        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+          {[
+            { color: "transparent", label: "transparent" },
+            { color: "#0073C1", label: "blue" },
+            { color: "#582C83", label: "purple" },
+          ].map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+              disabled
+            />
+          ))}
+        </SimpleColorPicker>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      return (
+        <SimpleColorPicker
+          legend="Legend"
+          required
+          onChange={onChange}
+          value={state}
+        >
+          {[
+            { color: "transparent", label: "transparent" },
+            { color: "#0073C1", label: "blue" },
+            { color: "#582C83", label: "purple" },
+          ].map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="Validations - string - component">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      const colors = [
+        { color: "transparent", label: "transparent" },
+        { color: "#0073C1", label: "blue" },
+        { color: "#582C83", label: "purple" },
+      ];
+      return ["error", "warning", "info"].map((validationType) => (
+        <SimpleColorPicker
+          key={`${validationType}-string-component`}
+          name={`picker-${validationType}-validation`}
+          legend="Legend"
+          onChange={onChange}
+          {...{ [validationType]: "Message" }}
+          value={state}
+        >
+          {colors.map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+      ));
+    }}
+  </Story>
+</Preview>
+
+### As a string, displayed on legend
+
+<Preview>
+  <Story name="Validations - string - legend">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      const colors = [
+        { color: "transparent", label: "transparent" },
+        { color: "#0073C1", label: "blue" },
+        { color: "#582C83", label: "purple" },
+      ];
+      return ["error", "warning", "info"].map((validationType) => (
+        <SimpleColorPicker
+          key={`${validationType}-string-legend`}
+          name={`picker-${validationType}-validation-legend`}
+          legend="Legend"
+          validationOnLegend
+          onChange={onChange}
+          {...{ [validationType]: "Message" }}
+          value={state}
+        >
+          {colors.map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+      ));
+    }}
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="Validations - boolean">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      const colors = [
+        { color: "transparent", label: "transparent" },
+        { color: "#0073C1", label: "blue" },
+        { color: "#582C83", label: "purple" },
+      ];
+      return ["error", "warning", "info"].map((validationType) => (
+        <SimpleColorPicker
+          key={`${validationType}-boolean-component`}
+          name={`picker-${validationType}-validation-boolean`}
+          legend="Legend"
+          onChange={onChange}
+          {...{ [validationType]: true }}
+          value={state}
+        >
+          {colors.map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+      ));
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### SimpleColorPicker
+
+<Props of={SimpleColorPicker} />
+
+### SimpleColor
+
+<Props of={SimpleColor} />

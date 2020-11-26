@@ -1,5 +1,4 @@
 import React from "react";
-import "jest-styled-components";
 import TestRenderer from "react-test-renderer";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import StyledTickIcon from "./tick-icon.style";
