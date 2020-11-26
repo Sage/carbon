@@ -57,6 +57,8 @@ export interface FilterableSelectProps {
   onListAction?: () => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** If true the loader animation is displayed in the option list */
+  isLoading?: boolean;
 }
 
 declare const FilterableSelect: React.ComponentType<FilterableSelectProps>;

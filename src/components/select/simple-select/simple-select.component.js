@@ -41,6 +41,7 @@ const SimpleSelect = React.forwardRef(
       onKeyDown,
       onBlur,
       disablePortal,
+      isLoading,
       ...props
     },
     inputRef
@@ -170,6 +171,10 @@ const SimpleSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(event.key)) {
           setSelectedValue((previousSelectedValue) => {
             const currentIndex = getIndexOfMatch(
@@ -200,7 +205,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [childOptions, onKeyDown, onOpen]
+      [childOptions, onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
@@ -224,7 +229,7 @@ const SimpleSelect = React.forwardRef(
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -233,7 +238,7 @@ const SimpleSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
 
       setSelectedValue(newValue);
@@ -394,6 +399,7 @@ const SimpleSelect = React.forwardRef(
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
+        isLoading={isLoading}
       >
         {children}
       </SelectList>
@@ -441,6 +447,8 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** If true the loader animation is displayed in the option list */
+  isLoading: PropTypes.bool,
 };
 
 SimpleSelect.defaultProps = {
