@@ -392,3 +392,7 @@ When('clear all actions in Actions Tab', () => {
   clickActionsTab();
   clickClear();
 });
+
+When('I wait {int}', (timeout) => {
+  cy.wait(timeout, { log: DEBUG_FLAG });
+});

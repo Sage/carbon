@@ -6,7 +6,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c4.c4.c4 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .c6 {

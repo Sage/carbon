@@ -242,7 +242,7 @@
           "required": false,
           "description": "Size of an input",
           "defaultValue": {
-            "value": "'medium'",
+            "value": "\"medium\"",
             "computed": false
           }
         },
@@ -252,6 +252,13 @@
           },
           "required": false,
           "description": "Placeholder string to be displayed in input"
+        },
+        "positionedChildren": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Container for DatePicker or SelectList components\n@private\n@ignore"
         },
         "iconOnClick": {
           "type": {
@@ -374,7 +381,10 @@
             "computed": false
           }
         }
-      }
+      },
+      "composes": [
+        "@styled-system/prop-types"
+      ]
     }
   ],
   "src/__experimental__/components/textbox/textbox.stories.js": [
