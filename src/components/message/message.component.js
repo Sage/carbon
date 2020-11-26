@@ -8,19 +8,18 @@ import tagComponent from "../../utils/helpers/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 
-const Message = (props) => {
-  const {
-    open,
-    transparent,
-    title,
-    variant,
-    children,
-    onDismiss,
-    id,
-    className,
-    showCloseIcon,
-  } = props;
-
+const Message = ({
+  open = true,
+  transparent = false,
+  title,
+  variant = "info",
+  children,
+  onDismiss,
+  id,
+  className,
+  showCloseIcon = true,
+  ...props
+}) => {
   const renderCloseIcon = () => {
     if (!showCloseIcon || !onDismiss) return null;
 
@@ -55,13 +54,6 @@ const Message = (props) => {
   );
 };
 
-Message.defaultProps = {
-  variant: "info",
-  open: true,
-  transparent: false,
-  showCloseIcon: true,
-};
-
 Message.propTypes = {
   /** set type of message based on new DLS standard */
   variant: PropTypes.oneOf(OptionsHelper.colors),
@@ -79,7 +71,7 @@ Message.propTypes = {
   title: PropTypes.node,
   /** set background to be invisible */
   transparent: PropTypes.bool,
-  /** Determines if the close icon is shown */
+  /** determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
 };
 
