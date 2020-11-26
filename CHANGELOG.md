@@ -1,3 +1,20 @@
+## [50.2.0](https://github.com/Sage/carbon/compare/v50.1.0...v50.2.0) (2020-11-26)
+
+
+### Features
+
+* **filterable-select:** add loader for async ([2953ae0](https://github.com/Sage/carbon/commit/2953ae0aba29525f10f48556b79d1eaa141b9d9f))
+* **select:** add loader for async ([889a9a6](https://github.com/Sage/carbon/commit/889a9a6a69db9431682f2dd5aa6dbce9b218a03b))
+
+
+### Bug Fixes
+
+* **filterable-select:** when readonly pressing a key opens the list ([38fd162](https://github.com/Sage/carbon/commit/38fd162304bc418f0d2e944b7dc91a5dd18071df))
+* **multi-select:** when readonly pressing a key opens the list ([1f2e9c3](https://github.com/Sage/carbon/commit/1f2e9c32eb10657710efe0c03eeb7ede511fbedd))
+* **select:** proptype warning when option has object in value ([2001474](https://github.com/Sage/carbon/commit/20014742bc57b15d76767663aa69d419c6bb9087)), closes [#3327](https://github.com/Sage/carbon/issues/3327)
+* **select:** typescript definitions not exported ([53e7a33](https://github.com/Sage/carbon/commit/53e7a3376d7329166530b7522c1f3ca88d7352e0))
+* **select:** when readonly pressing a key opens the list ([9c5862f](https://github.com/Sage/carbon/commit/9c5862f001bd5bd810a19a548da8a8faa917e12a))
+
 ## [50.1.0](https://github.com/Sage/carbon/compare/v50.0.0...v50.1.0) (2020-11-25)
 
 
