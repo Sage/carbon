@@ -28,6 +28,7 @@ const FilterableSelect = React.forwardRef(
       onListAction,
       isLoading,
       readOnly,
+      onListScrollBottom,
       ...textboxProps
     },
     inputRef
@@ -117,7 +118,7 @@ const FilterableSelect = React.forwardRef(
           (option) => option.props.value === newValue
         );
 
-        if (matchingOption) {
+        if (matchingOption && matchingOption.props.text !== undefined) {
           setTextValue(matchingOption.props.text);
           setFilterText(matchingOption.props.text);
         }
@@ -217,6 +218,7 @@ const FilterableSelect = React.forwardRef(
 
         return newValue;
       });
+
       setHighlightedValue(newValue);
     }, [value, defaultValue, onChange]);
 
@@ -297,6 +299,7 @@ const FilterableSelect = React.forwardRef(
 
         if (!isControlled.current) {
           setSelectedValue(newValue);
+          setHighlightedValue(newValue);
         }
 
         setTextValue(text);
@@ -304,8 +307,6 @@ const FilterableSelect = React.forwardRef(
         if (onChange) {
           onChange(createCustomEvent(newValue));
         }
-
-        setHighlightedValue(newValue);
 
         if (selectionType !== "navigationKey") {
           setOpen(false);
@@ -385,6 +386,7 @@ const FilterableSelect = React.forwardRef(
         onListAction={handleOnListAction}
         isLoading={isLoading}
         readOnly={readOnly}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </FilterableSelectList>
@@ -430,6 +432,8 @@ FilterableSelect.propTypes = {
   onListAction: PropTypes.func,
   /** If true the loader animation is displayed in the option list */
   isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 export default FilterableSelect;
