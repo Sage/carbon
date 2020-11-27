@@ -49,4 +49,6 @@ export const Default = (props) => {
   );
 };
 
-export const AutoFocus = () => <Default autoFocus />;
+Default.story = {
+  name: "default",
+};

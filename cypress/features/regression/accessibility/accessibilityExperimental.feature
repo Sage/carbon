@@ -15,11 +15,18 @@ Feature: Accessibility tests - Experimental folder
       | radiobutton         |
       | simple-color-picker |
       | groupedcharacter    |
-      | number-input        |
       | select              |
       | textbox             |
       | textarea            |
       | switch              |
+
+  @accessibility
+  Scenario Outline: Component <component> default_story
+    When I open "Experimental <component>" component page "default_story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component    |
+      | number-input |
 
   @accessibility
   Scenario Outline: Component <component> validation story

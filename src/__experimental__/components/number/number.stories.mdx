@@ -20,10 +20,10 @@ Capture whole numbers - without a decimal point.
 import Number from "carbon-react/lib/__experimental__/components/number";
 ```
 
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     {() => {
       const [state, setState] = useState("123456");
       const setValue = ({ target }) => {
@@ -38,7 +38,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### Sizes
 
 <Preview>
-  <Story name="Sizes">
+  <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
         <Number
@@ -56,23 +56,58 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### Disabled
 
 <Preview>
-  <Story name="Disabled">
+  <Story name="disabled">
     <Number label="Number" value="123456" disabled />
+  </Story>
+</Preview>
+
+### ReadOnly
+
+<Preview>
+  <Story name="readOnly">
+    <Number label="Number" value="123456" readOnly />
+  </Story>
+</Preview>
+
+### AutoFocus
+
+<Preview>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true }}}>
+    <Number label="Number" value="123456" autoFocus />
   </Story>
 </Preview>
 
 ### With labelInline
 
 <Preview>
-  <Story name="With labelInline">
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
     <Number label="Number" value="123456" labelInline />
+  </Story>
+</Preview>
+
+### With label Align
+
+<Preview>
+  <Story name="with labelAlign">
+    {() => 
+      ['right', 'left'].map((alignment) => (
+        <Number
+          label="Number"
+          labelInline
+          value="123456"
+          inputWidth={50}
+          key={alignment} 
+          labelAlign={alignment}
+        />
+      ))
+    }
   </Story>
 </Preview>
 
 ### With custom labelWidth and inputWidth
 
 <Preview>
-  <Story name="With custom labelWidth and inputWidth">
+  <Story name="with custom labelWidth and inputWidth">
     <Number
       label="Number"
       value="123456"
@@ -86,7 +121,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### With fieldHelp
 
 <Preview>
-  <Story name="With fieldHelp">
+  <Story name="with fieldHelp">
     <Number label="Number" value="123456" fieldHelp="Help" />
   </Story>
 </Preview>
@@ -94,7 +129,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### With labelHelp
 
 <Preview>
-  <Story name="With labelHelp">
+  <Story name="with labelHelp">
     <Number label="Number" value="123456" labelHelp="Help" />
   </Story>
 </Preview>
@@ -104,7 +139,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="Required">
+  <Story name="required">
     <Number label="Number" value="123456" required />
   </Story>
 </Preview>
@@ -122,7 +157,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string
 
 <Preview>
-  <Story name="Validations - string - component">
+  <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-string-component`}>
@@ -148,7 +183,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string, displayed on label
 
 <Preview>
-  <Story name="Validations - string - label">
+  <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-string-label`}>
@@ -176,7 +211,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a boolean
 
 <Preview>
-  <Story name="Validations - boolean">
+  <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-boolean-component`}>
