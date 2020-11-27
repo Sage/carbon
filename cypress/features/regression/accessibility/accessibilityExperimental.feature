@@ -10,7 +10,6 @@ Feature: Accessibility tests - Experimental folder
       | checkbox            |
       | date-range          |
       | date-input          |
-      | decimal-input       |
       | fieldset            |
       | radiobutton         |
       | simple-color-picker |
@@ -21,6 +20,14 @@ Feature: Accessibility tests - Experimental folder
       | textarea            |
       | switch              |
 
+  @accessibility
+  Scenario Outline: Component <component> default_story
+    When I open "Experimental <component>" component page "default_story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component      |
+      | decimal-input  |
+      
   @accessibility
   Scenario Outline: Component <component> validation story
     When I open "Experimental <component>" component page "validations" in no iframe
