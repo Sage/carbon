@@ -63,3 +63,7 @@ export const Default = () => {
     </SimpleColorPicker>
   );
 };
+
+Default.story = {
+  name: "default",
+};
