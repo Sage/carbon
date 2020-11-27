@@ -19,10 +19,10 @@ import Box from "../../../components/box";
 import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simple-color-picker";
 ```
 
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     {() => {
       const [state, setState] = useState("transparent");
       const colors = [
@@ -59,7 +59,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
 ### Disabled
 
 <Preview>
-  <Story name="Disabled">
+  <Story name="disabled">
     {() => {
       const [state, setState] = useState("transparent");
       const onChange = ({ target }) => {
@@ -91,7 +91,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="Required">
+  <Story name="required">
     {() => {
       const [state, setState] = useState("transparent");
       const onChange = ({ target }) => {
@@ -135,7 +135,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string
 
 <Preview>
-  <Story name="Validations - string - component">
+  <Story name="validations - string - component">
     {() => {
       const [state, setState] = useState("transparent");
       const onChange = ({ target }) => {
@@ -172,7 +172,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string, displayed on legend
 
 <Preview>
-  <Story name="Validations - string - legend">
+  <Story name="validations - string - legend">
     {() => {
       const [state, setState] = useState("transparent");
       const onChange = ({ target }) => {
@@ -210,7 +210,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a boolean
 
 <Preview>
-  <Story name="Validations - boolean">
+  <Story name="validations - boolean">
     {() => {
       const [state, setState] = useState("transparent");
       const onChange = ({ target }) => {

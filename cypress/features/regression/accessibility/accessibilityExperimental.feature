@@ -21,6 +21,14 @@ Feature: Accessibility tests - Experimental folder
       | switch           |
 
   @accessibility
+  Scenario Outline: Component <component> default_story
+    When I open "Experimental <component>" component page "default_story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component           |
+      | simple-color-picker |
+
+  @accessibility
   Scenario Outline: Component <component> validation story
     When I open "Experimental <component>" component page "validations" in no iframe
     Then "<component>" component has no accessibility violations
@@ -43,11 +51,3 @@ Feature: Accessibility tests - Experimental folder
   Scenario: Experimental checkbox with asterisk
     When I open "Experimental checkbox" component page "required" in no iframe
     Then "Experimental checkbox with asterisk" component has no accessibility violations
-
-  @accessibility
-  Scenario Outline: Component <component> basic story
-    When I open "Experimental <component>" component page "basic" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component           |
-      | simple-color-picker |
