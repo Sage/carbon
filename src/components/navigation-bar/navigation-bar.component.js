@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
-import StyledNavigationBar, {
-  StyledNavigationBarContent,
-} from "./navigation-bar.style";
+import StyledNavigationBar from "./navigation-bar.style";
 
 const NavigationBar = ({
   navigationType = "light",
@@ -20,9 +18,7 @@ const NavigationBar = ({
       data-component="navigation-bar"
       {...props}
     >
-      <StyledNavigationBarContent>
-        {!isLoading && children}
-      </StyledNavigationBarContent>
+      {!isLoading && children}
     </StyledNavigationBar>
   );
 };
