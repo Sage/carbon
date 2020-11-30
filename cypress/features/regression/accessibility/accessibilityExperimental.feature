@@ -14,7 +14,6 @@ Feature: Accessibility tests - Experimental folder
       | fieldset            |
       | radiobutton         |
       | simple-color-picker |
-      | groupedcharacter    |
       | select              |
       | textbox             |
       | textarea            |
@@ -25,8 +24,9 @@ Feature: Accessibility tests - Experimental folder
     When I open "Experimental <component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component    |
-      | number-input |
+      | component        |
+      | groupedcharacter |
+      | number-input     |
 
   @accessibility
   Scenario Outline: Component <component> validation story
