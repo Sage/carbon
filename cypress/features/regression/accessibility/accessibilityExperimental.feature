@@ -12,7 +12,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | fieldset            |
       | simple-color-picker |
-      | number-input        |
       | select              |
       | textbox             |
       | textarea            |
@@ -25,6 +24,7 @@ Feature: Accessibility tests - Experimental folder
       | component        |
       | checkbox         |
       | groupedcharacter |
+      | number-input     |
       | switch           |
 
   @accessibility

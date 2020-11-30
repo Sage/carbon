@@ -181,7 +181,12 @@ Textbox.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */
   required: PropTypes.bool,
-  /** Allows to override existing component styles */
+  /**
+   * Allows to override existing component styles
+   * @private
+   * @ignore
+   *
+   */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
