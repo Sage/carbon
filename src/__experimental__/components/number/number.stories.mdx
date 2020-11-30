@@ -72,7 +72,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### AutoFocus
 
 <Preview>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true }}}>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
     <Number label="Number" value="123456" autoFocus />
   </Story>
 </Preview>
@@ -80,7 +80,7 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 ### With labelInline
 
 <Preview>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     <Number label="Number" value="123456" labelInline />
   </Story>
 </Preview>
@@ -89,14 +89,14 @@ import Number from "carbon-react/lib/__experimental__/components/number";
 
 <Preview>
   <Story name="with labelAlign">
-    {() => 
-      ['right', 'left'].map((alignment) => (
+    {() =>
+      ["right", "left"].map((alignment) => (
         <Number
           label="Number"
           labelInline
           value="123456"
           inputWidth={50}
-          key={alignment} 
+          key={alignment}
           labelAlign={alignment}
         />
       ))
@@ -238,6 +238,6 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Number
 
-Due to the `Textbox` component being used internally by the `Number` component most of the `Textbox` props can be applied to `Number`
+Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
 
 <Props of={OriginalTextbox} />
