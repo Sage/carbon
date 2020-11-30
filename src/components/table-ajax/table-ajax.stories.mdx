@@ -1,0 +1,165 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { PropsTable } from "@storybook/components";
+
+import countriesList from "../../../.storybook/utils/xhr/data/countries";
+import { enableMock } from "../../../.storybook/utils/xhr/xhr-mock";
+import { Table } from "../table";
+import { TableAjax, TableRow, TableCell, TableHeader } from ".";
+
+<Meta title="Table Ajax" parameters={{ info: { disable: true } }} />
+
+# Table Ajax
+
+This component is the same as [Table](/?path=/docs/table--basic "Table"), but uses Ajax. Ajax loads data from a specified source as needed, rather than data in the page markup.
+
+## Quick Start
+
+```jsx
+import {
+  TableAjax,
+  TableRow,
+  TableCell,
+  TableHeader,
+} from "carbon-react/lib/components/table-ajax";
+```
+
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    {() => {
+      enableMock();
+      const [state, setState] = useState({
+        data: [],
+      });
+      const handleChange = (data) => {
+        setState((prevState) => ({
+          ...prevState,
+          data: data.data[0].items,
+        }));
+      };
+      const buildRows = () => (
+        <>
+          <TableRow as="header">
+            <TableHeader sortable name="name" scope="col">
+              Country
+            </TableHeader>
+            <TableHeader scope="col">Code</TableHeader>
+          </TableRow>
+          {state.data.map((row) => (
+            <TableRow key={row.id} uniqueID={row.id}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.value}</TableCell>
+            </TableRow>
+          ))}
+        </>
+      );
+      return (
+        <TableAjax
+          path="/countries"
+          onChange={handleChange}
+          getCustomHeaders={() => ({
+            Accept: "application/json",
+          })}
+        >
+          {state.data.length ? buildRows() : null}
+        </TableAjax>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### Table Ajax
+
+<PropsTable
+  rows={[
+    {
+      name: "filter",
+      type: { summary: "object" },
+      description: "Data used to filter the data",
+      required: false,
+    },
+    {
+      name: "formatRequest",
+      type: { summary: "function" },
+      description:
+        "A callback function used to format the Ajax request into the format required endpoint",
+      required: false,
+    },
+    {
+      name: "getCustomHeaders",
+      type: { summary: "function" },
+      description: `A callback function used to set the Ajax headers using custom ones provided by the consumer
+    Expected return object format
+    {
+      'Accept': 'application/json',
+      'jwt': 'secret',
+      ...
+    }`,
+      required: false,
+    },
+    {
+      name: "formatResponse",
+      type: { summary: "function" },
+      description:
+        "A callback function used to format the Ajax response into the format required by the table",
+      required: false,
+    },
+    {
+      name: "paginate",
+      type: { summary: "boolean" },
+      description: "Setting to true turns on pagination for the table",
+      required: false,
+      defaultValue: {
+        summary: true,
+      },
+    },
+    {
+      name: "pageSize",
+      type: { summary: "string" },
+      description: "Page Size of grid (number of visible records)",
+      required: false,
+    },
+    {
+      name: "path",
+      type: { summary: "string" },
+      description: "Endpoint to fetch the data for table",
+      required: true,
+    },
+    {
+      name: "onAjaxError",
+      type: { summary: "function" },
+      description: "Callback function for XHR request errors",
+      required: false,
+    },
+    {
+      name: "postAction",
+      type: { summary: "boolean" },
+      description:
+        "A prop to allow the override of the default get request and perform a post.",
+      required: false,
+    },
+    {
+      name: "withCredentials",
+      type: { summary: "boolean" },
+      description: "Enable the ability to send cookies from the origin.",
+      required: false,
+    },
+  ]}
+/>
+<Props of={Table} />
+
+### TableCell
+
+<Props of={TableCell} />
+
+### TableHeader
+
+<Props of={TableHeader} />
+
+### TableRow
+
+<Props of={TableRow} />

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import invariant from "invariant";
@@ -10,7 +16,11 @@ import SelectTextbox, {
 import SelectList from "../select-list/select-list.component";
 import guid from "../../../utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import { getNextChildByKey } from "../utils/get-next-child-by-key";
+import {
+  getNextOptionByKey,
+  getIndexOfMatch,
+} from "../utils/get-next-option-by-key";
+import Option from "../option/option.component";
 
 const SimpleSelect = React.forwardRef(
   (
@@ -31,6 +41,7 @@ const SimpleSelect = React.forwardRef(
       onKeyDown,
       onBlur,
       disablePortal,
+      isLoading,
       ...props
     },
     inputRef
@@ -50,6 +61,10 @@ const SimpleSelect = React.forwardRef(
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState("");
 
+    const childOptions = useMemo(() => React.Children.toArray(children), [
+      children,
+    ]);
+
     const createCustomEvent = useCallback(
       (newValue) => {
         const customEvent = {
@@ -67,8 +82,8 @@ const SimpleSelect = React.forwardRef(
 
     const setMatchingText = useCallback(
       (newValue) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (option) => option.props.value === newValue
+        const matchingOption = childOptions.find(
+          (child) => child.type === Option && child.props.value === newValue
         );
         let newText = "";
 
@@ -78,20 +93,18 @@ const SimpleSelect = React.forwardRef(
 
         setTextValue(newText);
       },
-      [children]
+      [childOptions]
     );
 
     const selectValueStartingWithText = useCallback(
       (newFilterText) => {
         setSelectedValue((previousValue) => {
-          const previousIndex = React.Children.toArray(children).findIndex(
-            (child) => {
-              return child.props.value === previousValue;
-            }
-          );
+          const previousIndex = childOptions.findIndex((child) => {
+            return child.props.value === previousValue;
+          });
           const match = getNextChildByText(
             newFilterText,
-            children,
+            childOptions,
             previousIndex
           );
 
@@ -112,7 +125,7 @@ const SimpleSelect = React.forwardRef(
           return match.props.value;
         });
       },
-      [children, createCustomEvent, onChange]
+      [childOptions, createCustomEvent, onChange]
     );
 
     const handleTextboxChange = useCallback(
@@ -158,12 +171,20 @@ const SimpleSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(event.key)) {
           setSelectedValue((previousSelectedValue) => {
-            const nextElement = getNextChildByKey(
-              key,
-              children,
+            const currentIndex = getIndexOfMatch(
+              childOptions,
               previousSelectedValue
+            );
+            const nextElement = getNextOptionByKey(
+              key,
+              childOptions,
+              currentIndex
             );
 
             setTextValue(nextElement.props.text);
@@ -184,7 +205,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [children, onKeyDown, onOpen]
+      [childOptions, onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
@@ -208,7 +229,7 @@ const SimpleSelect = React.forwardRef(
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -217,7 +238,7 @@ const SimpleSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
 
       setSelectedValue(newValue);
@@ -378,6 +399,7 @@ const SimpleSelect = React.forwardRef(
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
+        isLoading={isLoading}
       >
         {children}
       </SelectList>
@@ -425,6 +447,8 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** If true the loader animation is displayed in the option list */
+  isLoading: PropTypes.bool,
 };
 
 SimpleSelect.defaultProps = {

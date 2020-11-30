@@ -1,22 +1,5 @@
 import { card } from '../../locators/card';
 
-Then('Card component has {int} padding and {int} margin', (leftRight, topBottom) => {
-  card().should('have.css', 'padding', `0px ${leftRight}px`);
-  card().children().should('have.css', 'margin', `${topBottom}px 0px`);
-});
-
-Then('Card component is interactive', () => {
-  card().should('have.css', 'cursor', 'pointer');
-});
-
-Then('Card component has set width to {string}', (width) => {
-  card().should('have.css', 'width', width);
-});
-
-Then('Card component has not set width to {string}', (width) => {
-  card().should('not.have.css', 'width', width);
-});
-
 When('I hover mouse onto Card component', () => {
   card().click('right', { force: true });
   card().trigger('mousemove', { force: true });

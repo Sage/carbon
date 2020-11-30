@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withTheme } from "styled-components";
 import tagComponent from "../../../utils/helpers/tags";
-import { WithDrag, WithDrop } from "../../drag-and-drop/drag-and-drop";
+import { WithDrag, WithDrop } from "../../drag-and-drop";
 import { Checkbox } from "../../../__experimental__/components/checkbox";
 import {
   ConfigurableItemRowStyle,

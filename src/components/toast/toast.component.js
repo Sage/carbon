@@ -25,6 +25,7 @@ class Toast extends React.Component {
   constructor(props) {
     super(props);
     this.toastRef = React.createRef();
+    this.timer = React.createRef();
   }
 
   componentDidMount() {
@@ -37,9 +38,19 @@ class Toast extends React.Component {
     document.removeEventListener("keyup", this.dismissToast);
   }
 
+  componentDidUpdate() {
+    const { timeout, open, onDismiss } = this.props;
+    clearTimeout(this.timer.current);
+
+    if (!timeout || !open) {
+      return;
+    }
+
+    this.timer.current = setTimeout(() => onDismiss(), timeout);
+  }
+
   dismissToast = (ev) => {
     const isTopmost = ModalManager.isTopmost(this.toastRef.current);
-
     if (this.props.onDismiss && Events.isEscKey(ev) && isTopmost) {
       ev.stopImmediatePropagation();
       this.props.onDismiss(ev);
@@ -108,7 +119,7 @@ class Toast extends React.Component {
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
   variant: PropTypes.oneOf(OptionsHelper.colors),
-  /** Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values) */
+  /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
   as: PropTypes.oneOf(OptionsHelper.colors),
   /** Custom className */
   className: PropTypes.string,
@@ -118,13 +129,15 @@ Toast.propTypes = {
   "data-component": PropTypes.string,
   /** The rendered children of the component. */
   children: PropTypes.node,
-  /** Determines if the toast is open. */
+  /** Determines if the Toast is open. */
   open: PropTypes.bool,
   /** Callback for when dismissed. */
   onDismiss: PropTypes.func,
-  /** props used with flash component. Allow to center a component */
+  /** Time for Toast to remain on screen */
+  timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Centers the Toast on the screen */
   isCenter: PropTypes.bool,
-  /** Target Portal ID where the toast will render */
+  /** Target Portal ID where the Toast will render */
   targetPortalId: PropTypes.string,
 };
 

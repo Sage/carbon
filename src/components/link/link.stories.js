@@ -1,7 +1,7 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, BrowserRouter as Router } from "react-router-dom";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Link from "./link.component";
 
@@ -46,26 +46,28 @@ export const Basic = () => {
   const onClick = hasOnClick ? action("click") : undefined;
   const target = text("target", "_blank");
 
-  return (
-    <div style={{ margin: "64px" }}>
-      <Link
-        disabled={disabled}
-        href={href}
-        icon={icon}
-        iconAlign={iconAlign}
-        tabbable={tabbable}
-        to={to}
-        tooltipMessage={tooltipMessage}
-        tooltipPosition={tooltipPosition}
-        tooltipAlign={tooltipAlign}
-        onClick={onClick}
-        routerLink={to ? RouterLink : undefined}
-        target={target}
-      >
-        {children}
-      </Link>
-    </div>
+  const link = (
+    <Link
+      disabled={disabled}
+      href={href}
+      icon={icon}
+      iconAlign={iconAlign}
+      tabbable={tabbable}
+      to={to}
+      tooltipMessage={tooltipMessage}
+      tooltipPosition={tooltipPosition}
+      tooltipAlign={tooltipAlign}
+      onClick={onClick}
+      routerLink={to ? RouterLink : undefined}
+      target={target}
+    >
+      {children}
+    </Link>
   );
+
+  const routerLink = <Router>{link}</Router>;
+
+  return <div style={{ margin: "64px" }}>{to ? routerLink : link}</div>;
 };
 
 Basic.story = {

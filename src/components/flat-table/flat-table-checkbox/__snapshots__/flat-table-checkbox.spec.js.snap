@@ -6,7 +6,7 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
 }
 
 .c5.c5.c5 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .c7 {
@@ -219,7 +219,7 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
 }
 
 .c5.c5.c5 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .c7 {

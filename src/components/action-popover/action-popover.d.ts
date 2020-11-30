@@ -6,6 +6,7 @@ export interface ActionPopoverProps {
   onClose?: () => void;
   rightAlignMenu?: boolean;
   renderButton?: (args: object) => React.ReactNode;
+  placement?: "bottom" | "top";
 }
 
 declare const ActionPopover: React.FunctionComponent<ActionPopoverProps>;

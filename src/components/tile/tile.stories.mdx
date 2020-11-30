@@ -10,6 +10,11 @@ import Link from '../link';
 import Button from '../button';
 import Heading from '../heading';
 import {Accordion} from '../accordion';
+import TileFooter from './tile-footer';
+import Typography from '../typography';
+import Box from '../box';
+import VerticalDivider from '../vertical-divider';
+import Hr from '../hr';
 
 <Meta title="Design System/Tile" parameters={{ info: { disable: true }}} />
 
@@ -19,43 +24,128 @@ Tiles contain static content for visual scanning only, and don't contain control
 ## Quick Start
 ```jsx
 import Tile from 'carbon-react/lib/components/tile';
+import TileFooter from 'carbon-react/lib/components/tile/tile-footer';
 ```
 ## Tile - Default
 By default, the Tile component will have a horizontal layout.
 
 <Preview>
-    <Story name='Default'>
-        <Tile>
-        <Content title="Test Title One">
-            Test Body One
-        </Content>
-        <Content title="Test Title Two">
-            Test Body Two
-        </Content>
-        <Content title="Test Title Three">
-            Test Body Three
-        </Content>
-        </Tile>
-    </Story>
+  <Story name='Default'>
+      <Tile>
+      <Content title="Test Title One">
+          Test Body One
+      </Content>
+      <Content title="Test Title Two">
+          Test Body Two
+      </Content>
+      <Content title="Test Title Three">
+          Test Body Three
+      </Content>
+      </Tile>
+  </Story>
 </Preview>
 
 ## Tile - Vertical
 The Tile component can be also have a vertical layout. 
 
 <Preview>
-    <Story name='Vertical'>
-        <Tile orientation='vertical'>
-        <Content title="Test Title One">
-            Test Body One
+  <Story name='Vertical'>
+      <Tile orientation='vertical'>
+      <Content title="Test Title One">
+          Test Body One
+      </Content>
+      <Content title="Test Title Two">
+          Test Body Two
+      </Content>
+      <Content title="Test Title Three">
+          Test Body Three
+      </Content>
+      </Tile>
+  </Story>
+</Preview>
+
+## Tile with `<TileFooter />`
+
+<Preview>
+  <Story name='with TileFooter'>
+    <div>
+      <Tile orientation='vertical' pixelWidth="400">
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example header
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo tempor.
+            Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi ex voluptate occaecat veniam. 
+            Magna aliqua velit aliquip dolore pariatur nostrud deserunt amet.
+          </Typography>
+          <TileFooter variant="transparent" pt={2}>
+            <Typography pr={2} display="inline" variant="b">
+              Example bold text 
+            </Typography>
+            <Typography display="inline">
+              Example text
+            </Typography>
+          </TileFooter>
         </Content>
-        <Content title="Test Title Two">
-            Test Body Two
+      </Tile>
+      <Box my={3} />
+      <Tile px={0} pb={0} orientation='vertical' pixelWidth="400">
+        <Content>
+          <Box px={3}>
+            <Typography pb={2} variant="h4" fontWeight="bold">
+              Example header
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo tempor.
+              Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi ex voluptate occaecat veniam. 
+              Magna aliqua velit aliquip dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+          <TileFooter p={3}>
+            <Typography pr={2} display="inline" variant="b">
+              Example bold text 
+            </Typography>
+            <Typography display="inline">
+              Example text
+            </Typography>
+          </TileFooter>
         </Content>
-        <Content title="Test Title Three">
-            Test Body Three
+      </Tile>
+      <Box my={3} />
+      <Tile px={0} pb={0} orientation='vertical' pixelWidth="420">
+        <Content>
+          <Box px={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example header
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip
+          </Typography>
+          <Hr />
+          <Typography>
+            Labore ipsum nostrud quis aliquip
+          </Typography>
+          </Box>
+          <TileFooter p={1}>
+            <Box width="100%" alignItems="center" display="flex" justifyContent="center">
+              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary">
+                Edit Button
+              </Button>
+              <VerticalDivider tint={80} py={0} px={2} h={20} /> 
+              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary">
+                Edit Button
+              </Button>
+              <VerticalDivider tint={80} py={0} px={2} h={20} />
+              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary">
+                Edit Button
+              </Button> 
+              </Box>
+          </TileFooter>
         </Content>
-        </Tile>
-    </Story>
+      </Tile>
+    </div>
+  </Story>
 </Preview>
 
 ## Tile with Custom Widths
@@ -218,12 +308,19 @@ The Tile component can also have inline styling applied to the content.
   </Story>
 </Preview>
 
-## Tile Props
+## Props for `<Tile />`
 
 <StyledSystemProps
   of={Tile}
   spacing
   spacingDefaults={{p: 3}}
+/>
+
+## Props for `<TileFooter />`
+
+<StyledSystemProps
+  of={TileFooter}
+  spacing
 />
 
 # Tile with Definition List
@@ -367,10 +464,10 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 ## Props of Definition List:
 
 ### Props of Dl:
-<Props of={ Dl } />
+<StyledSystemProps of={Dl} noHeader spacing />
 
 ### Props of Dd:
-<Props of={ Dd } />
+<StyledSystemProps of={Dd} noHeader spacing />
 
 ### Props of Dt:
-<Props of={ Dt } />
+<StyledSystemProps of={Dt} noHeader spacing />

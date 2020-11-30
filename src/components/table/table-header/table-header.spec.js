@@ -4,12 +4,9 @@ import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { Table, TableRow } from "..";
 import TableHeader from ".";
-import StyledTableHeader from "./table-header.style";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
-import ClassicTheme from "../../../style/themes/classic";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import tableSizes from "../table-sizes.style";
 
 describe("TableHeader", () => {
   let instance, instanceSortable, sortableColumn, sortableHeader, changeSpy;
@@ -324,28 +321,6 @@ describe("TableHeader", () => {
       });
     });
   });
-
-  describe.each(["compact", "small", "medium", "large"])(
-    "when the theme is classic",
-    (size) => {
-      const wrapper = mount(
-        <Table>
-          <TableRow>
-            <TableHeader theme={ClassicTheme} size={size} />
-          </TableRow>
-        </Table>
-      );
-
-      it(`matches the expected style when the size is ${size}`, () => {
-        assertStyleMatch(
-          {
-            height: tableSizes.medium.height,
-          },
-          wrapper.find(StyledTableHeader)
-        );
-      });
-    }
-  );
 
   describe("render", () => {
     let wrapper, th;

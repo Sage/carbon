@@ -8,11 +8,14 @@ import highlightPartOfText from "./highlight-part-of-text";
 /** Filters wrapped component children based on provided filter text and highlights matching content */
 const withFilter = (WrappedComponent) => {
   const FilteredComponent = React.forwardRef(
-    ({ children, filterText, noResultsMessage, ...props }, forwardedRef) => {
+    (
+      { children, filterText, noResultsMessage, isLoading, ...props },
+      forwardedRef
+    ) => {
       const getFilteredChildren = useCallback(() => {
         let filteredElements = children;
 
-        if (filterText) {
+        if (filterText && !isLoading) {
           filteredElements = filterChildren({ value: filterText })(children);
 
           if (!filteredElements) {
@@ -30,10 +33,15 @@ const withFilter = (WrappedComponent) => {
         }
 
         return children;
-      }, [children, filterText, noResultsMessage]);
+      }, [children, filterText, isLoading, noResultsMessage]);
 
       return (
-        <WrappedComponent filterText={filterText} {...props} ref={forwardedRef}>
+        <WrappedComponent
+          filterText={filterText}
+          isLoading={isLoading}
+          {...props}
+          ref={forwardedRef}
+        >
           {getFilteredChildren()}
         </WrappedComponent>
       );
@@ -56,6 +64,7 @@ const withFilter = (WrappedComponent) => {
     children: PropTypes.node,
     filterText: PropTypes.string,
     noResultsMessage: PropTypes.string,
+    isLoading: PropTypes.bool,
   };
 
   return FilteredComponent;

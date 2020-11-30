@@ -16,7 +16,7 @@ const StyledTextarea = styled.div`
     css`
       ${StyledLabelContainer} {
         align-items: flex-start;
-        padding-top: 8px;
+        padding-top: 6px;
       }
     `}
 

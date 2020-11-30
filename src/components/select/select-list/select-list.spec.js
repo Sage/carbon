@@ -3,11 +3,13 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
-import StyledSelectList from "./select-list.style";
+import { StyledSelectList } from "./select-list.style";
 import { baseTheme } from "../../../style/themes";
 import Option from "../option/option.component";
+import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Portal from "../../portal";
 import ListActionButton from "../list-action-button/list-action-button.component";
+import Loader from "../../loader";
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -313,6 +315,35 @@ describe("SelectList", () => {
     });
   });
 
+  describe("when the isLoading prop is provided", () => {
+    it("then a Loader Component should be rendered in the list", () => {
+      const wrapper = renderSelectList({
+        isLoading: true,
+        onListAction: () => {},
+      });
+      expect(wrapper.find(Loader).exists()).toBe(true);
+      wrapper.unmount();
+    });
+
+    describe("and there is only one option", () => {
+      it("that option should have the hidden prop", () => {
+        const wrapper = mount(
+          <SelectList
+            value="red"
+            onSelect={() => {}}
+            onSelectListClose={() => {}}
+            isLoading
+          >
+            <Option value="opt1" text="red" />
+          </SelectList>
+        );
+
+        expect(wrapper.find(Option).first().prop("hidden")).toBe(true);
+        wrapper.unmount();
+      });
+    });
+  });
+
   describe("when the listActionButton prop is provided", () => {
     it("then the ListActionButton should be rendered", () => {
       const wrapper = renderSelectList({
@@ -381,10 +412,46 @@ describe("SelectList", () => {
       expect(wrapper.find(Portal).exists()).toBe(false);
     });
   });
+
+  describe("with option headings", () => {
+    it("renders the select list with headings", () => {
+      const wrapper = renderGroupedSelectList();
+      expect(wrapper.find(OptionGroupHeader).length).toEqual(2);
+    });
+
+    describe("when the down key is pressed", () => {
+      let wrapper;
+      let domNode;
+
+      beforeEach(() => {
+        wrapper = renderGroupedSelectList();
+        domNode = wrapper.getDOMNode();
+        document.body.appendChild(domNode);
+      });
+
+      afterEach(() => {
+        document.body.removeChild(domNode);
+      });
+
+      it("then the first Option should be highlighted", () => {
+        act(() => {
+          domNode.dispatchEvent(downKeyDownEvent);
+        });
+        expect(wrapper.update().find(Option).first()).toHaveStyleRule(
+          "background-color",
+          baseTheme.select.selected
+        );
+      });
+    });
+  });
 });
 
 function renderSelectList(props = {}, renderer = mount) {
   return renderer(getSelectList(props));
+}
+
+function renderGroupedSelectList(props = {}, renderer = mount) {
+  return renderer(getGroupedSelectList(props));
 }
 
 function getSelectList(props) {
@@ -401,6 +468,30 @@ function getSelectList(props) {
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />
+      </SelectList>
+    );
+  };
+
+  return <WrapperComponent />;
+}
+
+function getGroupedSelectList(props) {
+  const defaultProps = {
+    onSelect: () => {},
+    onSelectListClose: () => {},
+  };
+
+  const WrapperComponent = (wrapperProps) => {
+    const mockRef = useRef();
+
+    return (
+      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
+        <OptionGroupHeader label="Heading one" />
+        <Option value="opt1" text="red" />
+        <Option value="opt2" text="green" />
+        <OptionGroupHeader label="Heading two" />
+        <Option value="opt3" text="blue" />
+        <Option value="opt4" text="black" />
       </SelectList>
     );
   };

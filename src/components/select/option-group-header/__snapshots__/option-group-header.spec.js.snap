@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionGroupHeader renders properly 1`] = `
+.c0 {
+  height: 26px;
+  margin: 16px 0 0;
+  padding-left: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 18px;
+  text-align: left;
+  margin: 0;
+  color: rgba(0,0,0,0.55);
+}
+
+.c0 .c1 {
+  margin-right: 4px;
+  margin-left: -5px;
+  color: rgba(0,0,0,0.55);
+}
+
+.c0 .c1:hover {
+  color: rgba(0,0,0,0.55);
+}
+
+<div
+  className="c0"
+>
+  <h4>
+    Heading
+  </h4>
+</div>
+`;
+
+exports[`OptionGroupHeader when icon prop is set then it should display the icon 1`] = `
+.c2 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c2:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c2::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e93c";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c0 {
+  height: 26px;
+  margin: 16px 0 0;
+  padding-left: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 18px;
+  text-align: left;
+  margin: 0;
+  color: rgba(0,0,0,0.55);
+}
+
+.c0 .c1 {
+  margin-right: 4px;
+  margin-left: -5px;
+  color: rgba(0,0,0,0.55);
+}
+
+.c0 .c1:hover {
+  color: rgba(0,0,0,0.55);
+}
+
+<div
+  className="c0"
+>
+  <span
+    className="c1 c2"
+    data-component="icon"
+    data-element="individual"
+    disabled={false}
+    fontSize="small"
+    type="individual"
+  />
+  <h4>
+    Heading
+  </h4>
+</div>
+`;
