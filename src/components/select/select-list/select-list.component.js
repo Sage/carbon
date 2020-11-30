@@ -13,10 +13,7 @@ import {
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import Portal from "../../portal/portal";
-import {
-  getNextIndexByKey,
-  getIndexOfMatch,
-} from "../utils/get-next-option-by-key";
+import getNextIndexByKey from "../utils/get-next-index-by-key";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
@@ -51,14 +48,32 @@ const SelectList = React.forwardRef(
     const listRef = useRef();
     const listActionButtonRef = useRef();
 
-    const childOptions = useMemo(() => React.Children.toArray(children), [
+    const childrenList = useMemo(() => React.Children.toArray(children), [
       children,
     ]);
 
+    const lastOptionIndex = useMemo(() => {
+      let lastIndex = 0;
+
+      childrenList.forEach((element, index) => {
+        if (element.type === Option) {
+          lastIndex = index;
+        }
+      });
+
+      return lastIndex;
+    }, [childrenList]);
+
     const getNextHighlightableItemIndex = useCallback(
-      (key, indexOfHighlighted, lastIndex) => {
-        let nextIndex = getNextIndexByKey(key, indexOfHighlighted, lastIndex);
-        const nextElement = childOptions[nextIndex];
+      (key, indexOfHighlighted) => {
+        const lastIndex = lastOptionIndex;
+        let nextIndex = getNextIndexByKey(
+          key,
+          indexOfHighlighted,
+          lastIndex,
+          isLoading
+        );
+        const nextElement = childrenList[nextIndex];
 
         if (nextElement && nextElement.type !== Option) {
           nextIndex = getNextHighlightableItemIndex(key, nextIndex, lastIndex);
@@ -66,41 +81,42 @@ const SelectList = React.forwardRef(
 
         return nextIndex;
       },
-      [childOptions]
+      [childrenList, lastOptionIndex, isLoading]
+    );
+
+    const getIndexOfMatch = useCallback(
+      (valueToMatch) => {
+        return childrenList.findIndex(
+          (child) => child.props.value === valueToMatch
+        );
+      },
+      [childrenList]
     );
 
     const highlightNextItem = useCallback(
-      (key, optionList) => {
-        const lastIndex = optionList.length - 1;
-        let nextIndex;
+      (key) => {
+        let currentIndex = currentOptionsListIndex;
 
         if (highlightedValue) {
-          const indexOfHighlighted = getIndexOfMatch(
-            childOptions,
-            highlightedValue
-          );
+          const indexOfHighlighted = getIndexOfMatch(highlightedValue);
 
-          nextIndex = getNextHighlightableItemIndex(
-            key,
-            indexOfHighlighted,
-            lastIndex
-          );
-        } else {
-          nextIndex = getNextHighlightableItemIndex(
-            key,
-            currentOptionsListIndex,
-            lastIndex
-          );
+          currentIndex = indexOfHighlighted;
         }
-        const { text, value } = optionList[nextIndex].props;
 
-        setCurrentOptionsListIndex(nextIndex);
-        updateListScrollTop(nextIndex, listRef.current);
+        const nextIndex = getNextHighlightableItemIndex(key, currentIndex);
+
+        if (currentIndex === nextIndex) {
+          return;
+        }
+
+        const { text, value } = childrenList[nextIndex].props;
+
         onSelect({ text, value, selectionType: "navigationKey" });
       },
       [
-        childOptions,
+        childrenList,
         currentOptionsListIndex,
+        getIndexOfMatch,
         getNextHighlightableItemIndex,
         highlightedValue,
         onSelect,
@@ -128,7 +144,6 @@ const SelectList = React.forwardRef(
     const handleGlobalKeydown = useCallback(
       (event) => {
         const { key } = event;
-        const optionList = childOptions;
         const isActionButtonFocused =
           document.activeElement === listActionButtonRef.current;
 
@@ -137,7 +152,7 @@ const SelectList = React.forwardRef(
         } else if (key === "Tab" || key === "Escape") {
           onSelectListClose();
         } else if (key === "Enter" && !isActionButtonFocused) {
-          const currentOption = optionList[currentOptionsListIndex];
+          const currentOption = childrenList[currentOptionsListIndex];
 
           if (!currentOption) {
             onSelectListClose();
@@ -150,11 +165,11 @@ const SelectList = React.forwardRef(
           onSelect({ text, value, selectionType: "enterKey" });
         } else if (isNavigationKey(key)) {
           focusOnAnchor();
-          highlightNextItem(key, optionList);
+          highlightNextItem(key);
         }
       },
       [
-        childOptions,
+        childrenList,
         listActionButton,
         handleActionButtonTab,
         onSelectListClose,
@@ -268,7 +283,7 @@ const SelectList = React.forwardRef(
       setCurrentOptionsListIndex((previousIndex) => {
         const match = getNextChildByText(
           filterText,
-          childOptions,
+          childrenList,
           previousIndex
         );
 
@@ -276,13 +291,13 @@ const SelectList = React.forwardRef(
           return previousIndex;
         }
 
-        const indexOfMatch = getIndexOfMatch(childOptions, match.props.value);
+        const indexOfMatch = getIndexOfMatch(match.props.value);
 
         updateListScrollTop(indexOfMatch, listRef.current);
 
         return indexOfMatch;
       });
-    }, [childOptions, filterText, lastFilter]);
+    }, [childrenList, filterText, getIndexOfMatch, lastFilter]);
 
     useEffect(() => {
       if (!disablePortal) {
@@ -294,12 +309,17 @@ const SelectList = React.forwardRef(
       if (!highlightedValue) {
         return;
       }
-
-      const indexOfMatch = getIndexOfMatch(childOptions, highlightedValue);
+      const indexOfMatch = getIndexOfMatch(highlightedValue);
 
       setCurrentOptionsListIndex(indexOfMatch);
       updateListScrollTop(indexOfMatch, listRef.current);
-    }, [childOptions, highlightedValue]);
+    }, [childrenList, getIndexOfMatch, highlightedValue]);
+
+    useEffect(() => {
+      if (isLoading && currentOptionsListIndex === lastOptionIndex) {
+        listRef.current.scrollTop = listRef.current.scrollHeight;
+      }
+    }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
 
     function isNavigationKey(keyEvent) {
       return (

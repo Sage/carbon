@@ -16,10 +16,6 @@ import SelectTextbox, {
 import SelectList from "../select-list/select-list.component";
 import guid from "../../../utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import {
-  getNextOptionByKey,
-  getIndexOfMatch,
-} from "../utils/get-next-option-by-key";
 import Option from "../option/option.component";
 
 const SimpleSelect = React.forwardRef(
@@ -176,24 +172,6 @@ const SimpleSelect = React.forwardRef(
           return;
         }
 
-        if (!event.defaultPrevented && isNavigationKey(event.key)) {
-          setSelectedValue((previousSelectedValue) => {
-            const currentIndex = getIndexOfMatch(
-              childOptions,
-              previousSelectedValue
-            );
-            const nextElement = getNextOptionByKey(
-              key,
-              childOptions,
-              currentIndex
-            );
-
-            setTextValue(nextElement.props.text);
-
-            return nextElement.props.value;
-          });
-        }
-
         if (key === "Enter" || key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
@@ -206,7 +184,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [childOptions, onKeyDown, onOpen, readOnly]
+      [onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
