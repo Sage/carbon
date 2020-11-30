@@ -229,7 +229,7 @@ The default width of 100% can be overriden.
 ### With Box component and different paddings
 
 <Preview>
-  <Story name="with Box component and different paddings" parameters={{ chromatic: { delay: 3500 }}}>
+  <Story name="with Box component and different paddings" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setOpen] = useState(true);
       return(
@@ -508,7 +508,7 @@ Accordion styles can be easily overriden by providing `styleOverride` prop with 
 
 ### With a definition list
 <Preview>
-  <Story name="with a definition list" parameters={{ chromatic: { delay: 3500 }}}>
+  <Story name="with a definition list" parameters={{ chromatic: { disable: true }}}>
     <Accordion title='Heading' expanded={true}>
       <Dl>
         <Dt>Drink</Dt>
