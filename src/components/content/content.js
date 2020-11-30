@@ -19,7 +19,7 @@ class Content extends React.Component {
     /**
      * The title of the content component.
      */
-    title: PropTypes.string,
+    title: PropTypes.node,
 
     /**
      * Applies a theme to the Content

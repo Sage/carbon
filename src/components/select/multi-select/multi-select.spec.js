@@ -117,6 +117,14 @@ describe("MultiSelect", () => {
           wrapper.find("input").simulate("keydown", { key });
           expect(wrapper.update().find(SelectList).exists()).toBe(true);
         });
+
+        describe("with readOnly prop set to true", () => {
+          it("then the SelectList should not be rendered", () => {
+            wrapper.setProps({ readOnly: true });
+            wrapper.update().find("input").simulate("keydown", { key });
+            expect(wrapper.find(SelectList).exists()).toBe(false);
+          });
+        });
       }
     );
 
@@ -124,6 +132,14 @@ describe("MultiSelect", () => {
       it("the SelectList should not be rendered", () => {
         wrapper.find("input").simulate("keydown", { key: "Enter" });
         expect(wrapper.find(SelectList).exists()).toBe(false);
+      });
+
+      describe("with readOnly prop set to true", () => {
+        it("then the SelectList should not be rendered", () => {
+          wrapper.setProps({ readOnly: true });
+          wrapper.update().find("input").simulate("keydown", { key: "Enter" });
+          expect(wrapper.find(SelectList).exists()).toBe(false);
+        });
       });
     });
   });

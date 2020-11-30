@@ -1,9 +1,30 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { baseTheme } from "../../style/themes";
+import Box from "../box";
 
-const StyledNavigationBar = styled.div`
+const StyledNavigationBar = styled(Box)`
+  margin: 0 auto;
+  padding: 0 40px;
+
   ${space}
+
+  @media only screen and (max-width: 1366px) {
+    padding: 0 30px;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    padding: 0 25px;
+  }
+
+  @media screen {
+    ${space}
+  }
+
+  .carbon-logo {
+    margin-right: 10px;
+  }
+
   ${({ navigationType, theme }) => css`
     min-height: 40px;
     background-color: ${theme.navigationBar.light.background};
@@ -15,22 +36,20 @@ const StyledNavigationBar = styled.div`
       border-bottom: 1px solid ${theme.navigationBar.dark.borderBottom};
       color: ${theme.colors.white};
     `}
-
-    .carbon-logo {
-      margin-right: 10px;
-    }
-
-    .carbon-navigation-bar__content {
-      line-height: 40px;
-    }
-
-    .carbon-navigation-bar__content > * {
-      box-sizing: border-box;
-      display: inline-block;
-      height: 40px;
-      vertical-align: middle;
-    }
   `}
+`;
+
+export const StyledNavigationBarContent = styled.div`
+  line-height: 40px;
+  max-width: 1600px;
+  min-width: 958px;
+
+  & > * {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 40px;
+    vertical-align: middle;
+  }
 `;
 
 StyledNavigationBar.defaultProps = {

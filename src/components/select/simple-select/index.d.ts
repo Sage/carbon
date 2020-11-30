@@ -55,6 +55,8 @@ export interface SimpleSelectProps extends SpacingProps {
   onKeyDown?: () => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** If true the loader animation is displayed in the option list */
+  isLoading?: boolean;
 }
 
 declare const SimpleSelect: React.ComponentType<SimpleSelectProps>;

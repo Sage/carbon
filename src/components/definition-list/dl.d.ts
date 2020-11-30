@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-export interface DlProps {
+import { SpacingProps } from '../../utils/helpers/options-helper';
+export interface DlProps extends SpacingProps {
     /** This string will specify the text align styling of the `<dt></dt>`. */
     dtTextAlign?: 'left' | 'center' | 'right';
 

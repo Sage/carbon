@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledOption from "./option.style";
 
-const Option = ({ text, children, onSelect, value, isHighlighted }) => {
+const Option = ({ text, children, onSelect, value, isHighlighted, hidden }) => {
   function handleClick() {
     onSelect({ text, value });
   }
@@ -14,6 +14,7 @@ const Option = ({ text, children, onSelect, value, isHighlighted }) => {
       onClick={handleClick}
       isHighlighted={isHighlighted}
       role="option"
+      hidden={hidden}
     >
       {children || text}
     </StyledOption>
@@ -37,6 +38,11 @@ Option.propTypes = {
    * @ignore
    * True if the option is highlighted (prop added by the SelectList component) */
   isHighlighted: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   * True when option should be hidden from the view (prop added by the SelectList component) */
+  hidden: PropTypes.bool,
 };
 
 export default Option;

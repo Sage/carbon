@@ -14,26 +14,26 @@
   "highlightableFalse": {
     "highlightable": false
   },
-  "sortColumnName": {
-    "sortColumn": "name"
+  "sortedColumnName": {
+    "sortedColumn": "name"
   },
-  "sortColumnCode": {
-    "sortColumn": "code"
+  "sortedColumnCode": {
+    "sortedColumn": "code"
   },
   "sortCountryDesc": {
-    "sortColumn": "name",
+    "sortedColumn": "name",
     "sortOrder": "desc"
   },
   "sortCountryAsc": {
-    "sortColumn": "name",
+    "sortedColumn": "name",
     "sortOrder": "asc"
   },
   "sortCodeDesc": {
-    "sortColumn": "code",
+    "sortedColumn": "code",
     "sortOrder": "desc"
   },
   "sortCodeAsc": {
-    "sortColumn": "code",
+    "sortedColumn": "code",
     "sortOrder": "asc"
   },
   "captionOtherLanguage": {

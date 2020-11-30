@@ -9,7 +9,15 @@ import StyledIcon from "../../icon/icon.style";
 import LinkStyle from "../../link/link.style";
 
 const StyledMenuItemWrapper = styled.a`
-  ${({ menuType, theme, selected, hasSubmenu, isOpen, variant }) => css`
+  ${({
+    menuType,
+    theme,
+    selected,
+    hasSubmenu,
+    isOpen,
+    variant,
+    showDropdownArrow,
+  }) => css`
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
@@ -86,6 +94,7 @@ const StyledMenuItemWrapper = styled.a`
     }
 
     ${hasSubmenu &&
+    menuType === "light" &&
     css`
       :hover &,
       :hover {
@@ -93,7 +102,7 @@ const StyledMenuItemWrapper = styled.a`
         color: ${theme.colors.black};
 
         a,
-        button,
+        button:not(:hover),
         [data-component="icon"] {
           color: ${theme.colors.black};
         }
@@ -203,33 +212,36 @@ const StyledMenuItemWrapper = styled.a`
     css`
       padding: 0;
 
-      ${StyledSubmenuTitle} {
-        ${StyledMenuItemWrapper} {
-          padding-right: 32px;
+      ${showDropdownArrow &&
+      css`
+        ${StyledSubmenuTitle} {
+          ${StyledMenuItemWrapper} {
+            padding-right: 32px;
 
-          &::before {
-            display: block;
-            margin-top: -2px;
-            pointer-events: none;
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            z-index: 2;
-            content: "";
-            width: 0;
-            height: 0;
-            border-top: 5px solid
-              ${menuType !== "dark" ? theme.colors.slate : theme.colors.white};
-            border-right: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-left: 4px solid transparent;
-          }
+            &::before {
+              display: block;
+              margin-top: -2px;
+              pointer-events: none;
+              position: absolute;
+              right: 16px;
+              top: 50%;
+              z-index: 2;
+              content: "";
+              width: 0;
+              height: 0;
+              border-top: 5px solid
+                ${menuType !== "dark" ? theme.colors.slate : theme.colors.white};
+              border-right: 4px solid transparent;
+              border-bottom: 4px solid transparent;
+              border-left: 4px solid transparent;
+            }
 
-          &:focus::before {
-            border-top-color: ${theme.colors.white};
+            &:focus::before {
+              border-top-color: ${theme.colors.white};
+            }
           }
         }
-      }
+      `}
 
       &:hover {
         ${StyledSubmenu} {

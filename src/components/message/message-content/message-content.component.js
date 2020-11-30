@@ -21,7 +21,7 @@ MessageContent.defaultProps = {
 
 MessageContent.propTypes = {
   variant: PropTypes.oneOf(OptionsHelper.colors),
-  title: PropTypes.string,
+  title: PropTypes.node,
   transparent: PropTypes.bool,
   children: PropTypes.node,
 };

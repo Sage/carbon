@@ -4,13 +4,9 @@ import TypeIconStyle from "./type-icon.style";
 import Icon from "../../icon";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 
-const TypeIcon = ({ variant, roundedCorners, transparent }) => {
+const TypeIcon = ({ variant, transparent }) => {
   return (
-    <TypeIconStyle
-      variant={variant}
-      roundedCorners={roundedCorners}
-      transparent={transparent}
-    >
+    <TypeIconStyle variant={variant} transparent={transparent}>
       <Icon type={variant} bgTheme="none" />
     </TypeIconStyle>
   );
@@ -19,12 +15,10 @@ const TypeIcon = ({ variant, roundedCorners, transparent }) => {
 TypeIcon.defaultProps = {
   variant: "info",
   transparent: false,
-  roundedCorners: true,
 };
 
 TypeIcon.propTypes = {
   variant: PropTypes.oneOf(OptionsHelper.colors),
-  roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool,
 };
 

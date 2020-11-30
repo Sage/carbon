@@ -15,6 +15,7 @@ const ActionPopover = ({
   onClose,
   rightAlignMenu,
   renderButton,
+  placement = "bottom",
   ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
@@ -108,6 +109,7 @@ const ActionPopover = ({
     isOpen,
     setOpen,
     rightAlignMenu,
+    placement,
   };
 
   return (
@@ -174,6 +176,8 @@ ActionPopover.propTypes = {
   },
   /** Render a custom menu button to override default ellipsis icon */
   renderButton: PropTypes.func,
+  /** Set whether the menu should open above or below the button */
+  placement: PropTypes.oneOf(["bottom", "top"]),
 };
 
 ActionPopover.defaultProps = {

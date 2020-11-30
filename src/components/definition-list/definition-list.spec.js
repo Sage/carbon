@@ -2,7 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import mintTheme from "../../style/themes/mint";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/test-utils";
 import { StyledDtDiv, StyledDdDiv } from "./definition-list.style";
 import Dl from "./dl.component";
 import Dt from "./dt.component";
@@ -27,6 +30,45 @@ describe("DefinitionList", () => {
       <ThemeProvider theme={mintTheme}>{definitionObject[id]}</ThemeProvider>
     );
   };
+
+  testStyledSystemSpacing((props) => (
+    <ThemeProvider theme={mintTheme}>
+      <Dl {...props}>
+        <Dt>Description</Dt>
+        <Dd>This is a test</Dd>
+      </Dl>
+    </ThemeProvider>
+  ));
+
+  describe("dt", () => {
+    testStyledSystemSpacing(
+      (props) => (
+        <ThemeProvider theme={mintTheme}>
+          <Dl>
+            <Dt {...props}>Description</Dt>
+            <Dd>This is a test</Dd>
+          </Dl>
+        </ThemeProvider>
+      ),
+      null,
+      (component) => component.find(Dt)
+    );
+  });
+
+  describe("dd", () => {
+    testStyledSystemSpacing(
+      (props) => (
+        <ThemeProvider theme={mintTheme}>
+          <Dl>
+            <Dt>Description</Dt>
+            <Dd {...props}>This is a test</Dd>
+          </Dl>
+        </ThemeProvider>
+      ),
+      null,
+      (component) => component.find(Dd)
+    );
+  });
 
   describe("styles", () => {
     it("matches the expected default styles of Dl", () => {

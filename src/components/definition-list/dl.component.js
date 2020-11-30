@@ -10,6 +10,7 @@ const Dl = ({
   w = 50,
   dtTextAlign = "right",
   ddTextAlign = "left",
+  ...props
 }) => {
   const dlComponent = [];
   const listChildren = React.Children.toArray(children);
@@ -41,7 +42,7 @@ const Dl = ({
   });
 
   return (
-    <StyledDl w={w} data-component="dl">
+    <StyledDl w={w} data-component="dl" {...props}>
       {dlComponent}
     </StyledDl>
   );

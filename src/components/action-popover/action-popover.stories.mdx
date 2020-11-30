@@ -378,6 +378,48 @@ The sub-menu will open to the right side when there is no space to render the su
   />
 </MyPreview>
 
+## with menu opening above
+The menu can also be rendered above the button control by setting using `placement="top"`.
+<Preview>
+  <Story name="with menu opening above" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+    <div style={{ paddingTop: '120px', height: '250px' }}>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover placement="top">
+              <ActionPopoverItem
+                icon='print'
+                onClick={() => {}}
+                submenu={ 
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu> 
+                }
+              >
+                Print
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
+
 ## keyboard navigation 
 ActionPopover and ActionPopoverItem have extensive keyboard support. It is possible to open the menu when the
 ActionPopover is focused: pressing either the "enter" or "down" key will open the menu and focus the first item; 

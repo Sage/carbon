@@ -1,21 +1,22 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
-import { State } from "@sambego/storybook-state";
 import { boolean, text, select, number } from "@storybook/addon-knobs";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../.storybook/theme-selectors";
-import { notes, info } from "./documentation";
 import TableWrapper from "./table-story-helpers/table-story-wrapper.component";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { Table } from ".";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
 
-TableWrapper.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /table\.component(?!spec)/
-);
+export default {
+  title: "Table/Test",
+  component: Table,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
 
 const commonKnobs = ({
   paginate: defaultPaginate = false,
@@ -29,7 +30,7 @@ const commonKnobs = ({
 
   return {
     sortOrder: select("sortOrder", ["", "asc", "desc"], ""),
-    sortColumn: select("sortColumn", ["", "name", "code"], ""),
+    sortedColumn: select("sortedColumn", ["", "name", "code"], ""),
     highlightable,
     selectable,
     isPassiveData:
@@ -38,19 +39,10 @@ const commonKnobs = ({
         : undefined,
     shrink: boolean("shrink", false),
     caption: text("caption", "Country and Country Codes"),
-    totalRecords: number("totalRecords", 50),
+    totalRecords: number("totalRecords", 193),
+    pageSize: !showPageSizeSelection ? number("pageSize", 10) : undefined,
     paginate,
     showPageSizeSelection,
-  };
-};
-
-const classicKnobs = () => {
-  return {
-    theme: select(
-      "tableTheme",
-      [OptionsHelper.tableThemes[0], OptionsHelper.tableThemes[1]],
-      Table.defaultProps.theme
-    ),
   };
 };
 
@@ -84,107 +76,21 @@ const inputKnobs = () => {
   };
 };
 
-storiesOf("Table", module)
-  .addParameters({
-    info: {
-      text: info,
-      propTablesExclude: [State],
-    },
-    notes: { markdown: notes },
-  })
-  .add(
-    "classic",
-    () => {
-      const tableProps = {
-        ...commonKnobs(),
-        ...classicKnobs(),
-      };
+export const Default = () => {
+  const tableProps = {
+    ...commonKnobs(),
+    ...dlsKnobs(),
+  };
 
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: classicThemeSelector,
-      chromatic: {
-        disable: true,
-      },
-    }
-  )
-  .add(
-    "default",
-    () => {
-      const tableProps = {
-        ...commonKnobs(),
-        ...dlsKnobs(),
-      };
+  return <TableWrapper {...tableProps} />;
+};
 
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: dlsThemeSelector,
-      knobs: { escapeHTML: false },
-    }
-  )
-  .add(
-    "classic with inputs",
-    () => {
-      const tableProps = {
-        ...commonKnobs(),
-        ...classicKnobs(),
-        ...inputKnobs(),
-      };
+export const DefaultWithInputs = () => {
+  const tableProps = {
+    ...commonKnobs(),
+    ...dlsKnobs(),
+    ...inputKnobs(),
+  };
 
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: classicThemeSelector,
-      chromatic: {
-        disable: true,
-      },
-    }
-  )
-  .add(
-    "default with inputs",
-    () => {
-      const tableProps = {
-        ...commonKnobs(),
-        ...dlsKnobs(),
-        ...inputKnobs(),
-      };
-
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: dlsThemeSelector,
-      knobs: { escapeHTML: false },
-    }
-  )
-  .add(
-    "default with inputs and paginate",
-    () => {
-      const tableProps = {
-        ...commonKnobs({ paginate: true }),
-        ...dlsKnobs(),
-        ...inputKnobs(),
-      };
-
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: dlsThemeSelector,
-    }
-  )
-  .add(
-    "default with inputs and paginate and page size",
-    () => {
-      const tableProps = {
-        ...commonKnobs({ paginate: true, showPageSizeSelection: true }),
-        ...dlsKnobs(),
-        ...inputKnobs(),
-      };
-
-      return <TableWrapper {...tableProps} />;
-    },
-    {
-      themeSelector: dlsThemeSelector,
-    }
-  );
+  return <TableWrapper {...tableProps} />;
+};

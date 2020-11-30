@@ -434,9 +434,17 @@ describe("Accordion", () => {
         assertStyleMatch(
           {
             display: "grid",
-            gridTemplateColumns: "auto auto",
+            gridTemplateColumns: "min-content auto",
           },
           wrapper.find(StyledAccordionHeadingsContainer)
+        );
+
+        assertStyleMatch(
+          {
+            gridColumn: "span 3",
+          },
+          wrapper.find(StyledAccordionHeadingsContainer),
+          { modifier: `${StyledAccordionSubTitle}` }
         );
 
         assertStyleMatch(
