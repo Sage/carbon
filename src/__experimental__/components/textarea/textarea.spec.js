@@ -189,6 +189,20 @@ describe("Textarea", () => {
       );
     });
   });
+
+  describe("when inputWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      wrapper = renderTextarea({ inputWidth: 30 });
+      expect(wrapper.find(InputPresentation).props().inputWidth).toBe(30);
+    });
+  });
+
+  describe("when inputWidth is not passed", () => {
+    it("inputWidth passed to InputPresentation should equal to 100 - labelWIdth", () => {
+      wrapper = renderTextarea({ labelWidth: 45 });
+      expect(wrapper.find(InputPresentation).props().inputWidth).toBe(55);
+    });
+  });
 });
 
 describe("componentWillUnmount", () => {
