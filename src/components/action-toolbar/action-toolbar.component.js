@@ -40,9 +40,6 @@ import {
  *
  */
 class ActionToolbar extends React.Component {
-  // TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
-  // https://github.com/Sage/carbon/issues/1070
-
   static contextTypes = {
     attachActionToolbar: PropTypes.func, // tracks the action toolbar component
     detachActionToolbar: PropTypes.func, // tracks the action toolbar component
