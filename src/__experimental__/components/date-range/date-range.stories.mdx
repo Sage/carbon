@@ -1,0 +1,147 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import DateRange from ".";
+
+<Meta
+  title="Experimental/Date Range"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Date Range
+
+Captures a start and end date.
+
+Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
+
+## Quick Start
+
+```jsx
+import DateRange from "carbon-react/lib/__experimental__/components/date-range";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+      const handleChange = ({ target }) => {
+        const newValue = [target.value[0].rawValue, target.value[1].rawValue];
+        setState(newValue);
+      };
+      return (
+        <DateRange
+          startLabel="Start"
+          endLabel="End"
+          onChange={handleChange}
+          value={state}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### LabelsInline
+
+<Preview>
+  <Story name="labelsInline">
+    {() => {
+      const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+      const handleChange = ({ target }) => {
+        const newValue = [target.value[0].rawValue, target.value[1].rawValue];
+        setState(newValue);
+      };
+      return (
+        <DateRange
+          startLabel="Start"
+          endLabel="End"
+          onChange={handleChange}
+          value={state}
+          labelsInline
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `startError`, `startWarning`, `startInfo`, `endError`, `endWarning` and `endInfo` props to the component.
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          {...validation}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-label`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          validationOnLabel
+          {...validation}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      [
+        { startError: true, endError: true },
+        { startWarning: true, endWarning: true },
+        { startInfo: true, endInfo: true },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-boolean-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          {...validation}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={DateRange} />

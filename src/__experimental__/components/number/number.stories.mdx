@@ -1,0 +1,243 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Number from ".";
+import { OriginalTextbox } from "../textbox";
+import Box from "../../../components/box";
+
+<Meta
+  title="Experimental/Number Input"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Number
+
+Capture whole numbers - without a decimal point.
+
+## Quick Start
+
+```jsx
+import Number from "carbon-react/lib/__experimental__/components/number";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState("123456");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+        console.log(target.value);
+      };
+      return <Number label="Number" value={state} onChange={setValue} />;
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["small", "medium", "large"].map((size) => (
+        <Number
+          key={`Number - ${size}`}
+          label={`Number - ${size}`}
+          value="123456"
+          size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <Number label="Number" value="123456" disabled />
+  </Story>
+</Preview>
+
+### ReadOnly
+
+<Preview>
+  <Story name="readOnly">
+    <Number label="Number" value="123456" readOnly />
+  </Story>
+</Preview>
+
+### AutoFocus
+
+<Preview>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
+    <Number label="Number" value="123456" autoFocus />
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
+    <Number label="Number" value="123456" labelInline />
+  </Story>
+</Preview>
+
+### With label Align
+
+<Preview>
+  <Story name="with labelAlign">
+    {() =>
+      ["right", "left"].map((alignment) => (
+        <Number
+          label="Number"
+          labelInline
+          value="123456"
+          inputWidth={50}
+          key={alignment}
+          labelAlign={alignment}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### With custom labelWidth and inputWidth
+
+<Preview>
+  <Story name="with custom labelWidth and inputWidth">
+    <Number
+      label="Number"
+      value="123456"
+      labelInline
+      labelWidth={50}
+      inputWidth={50}
+    />
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    <Number label="Number" value="123456" fieldHelp="Help" />
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    <Number label="Number" value="123456" labelHelp="Help" />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    <Number label="Number" value="123456" required />
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Number
+            label="Number"
+            value="123456"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Number
+            label="Number - readOnly"
+            value="123456"
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <Number
+            label="Number"
+            value="123456"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Number
+            label="Number - readOnly"
+            value="123456"
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <Number
+            label="Number"
+            value="123456"
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+          <Number
+            label="Number - readOnly"
+            value="123456"
+            readOnly
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+### Number
+
+Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
+
+<Props of={OriginalTextbox} />

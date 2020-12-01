@@ -1,0 +1,343 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import GroupedCharacter from ".";
+import { OriginalTextbox } from "../textbox";
+import Button from "../../../components/button";
+import Box from "../../../components/box";
+
+<Meta
+  title="Experimental/GroupedCharacter"
+  parameters={{ info: { disable: true } }}
+/>
+
+# GroupedCharacter
+
+Capture data with punctuation inside the field.
+
+Fields can have punctuation within them (most commonly characters like - or /). This gives the user a clue about the format accepted.
+
+## Quick Start
+
+```jsx
+import GroupedCharacter from "carbon-react/lib/__experimental__/components/grouped-character";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState("1231231");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+        console.log(target.value);
+      };
+      return (
+        <GroupedCharacter
+          label="GroupedCharacter"
+          value={state}
+          onChange={setValue}
+          groups={[2, 2, 3]}
+          separator="-"
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["small", "medium", "large"].map((size) => (
+        <GroupedCharacter
+          key={`GroupedCharacter - ${size}`}
+          label={`GroupedCharacter - ${size}`}
+          value="1231231"
+          groups={[2, 2, 3]}
+          separator="-"
+          size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### AutoFocus
+
+<Preview>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true }}}>
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      autoFocus
+    />
+  </Story>
+</Preview>
+
+### LabelAlign
+
+<Preview>
+  <Story name="labelAlign">
+     {() => 
+      ['right', 'left'].map((alignment) => (
+        <GroupedCharacter
+          label="GroupedCharacter"
+          value="1231231"
+          groups={[2, 2, 3]}
+          separator="-"
+          labelInline
+          inputWidth={50}
+          key={alignment} 
+          labelAlign={alignment}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      disabled
+    />
+  </Story>
+</Preview>
+
+### Various separators
+
+<Preview>
+  <Story name="various separators">
+    {() =>
+      [".", ",", " ", "-", "/", "|"].map((separator) => (
+        <GroupedCharacter
+          label="GroupedCharacter"
+          value="1231231"
+          groups={[2, 2, 3]}
+          separator={separator}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### Various groups
+
+<Preview>
+  <Story name="various groups">
+    {() =>
+      [
+        [2, 2, 3],
+        [1, 2, 4],
+        [3, 2, 2],
+        [3, 1, 3],
+      ].map((groups) => (
+        <GroupedCharacter
+          label="GroupedCharacter"
+          value="1231231"
+          groups={groups}
+          separator="-"
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      labelInline
+    />
+  </Story>
+</Preview>
+
+### With custom labelWidth and inputWidth
+
+<Preview>
+  <Story name="with custom labelWidth and inputWidth">
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      labelInline
+      labelWidth={50}
+      inputWidth={50}
+    />
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      fieldHelp="Help"
+    />
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      labelHelp="Help"
+    />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value="1231231"
+      groups={[2, 2, 3]}
+      separator="-"
+      required
+    />
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <GroupedCharacter
+            label="GroupedCharacter"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <GroupedCharacter
+            label="GroupedCharacter - readOnly"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <GroupedCharacter
+            label="GroupedCharacter"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <GroupedCharacter
+            label="GroupedCharacter - readOnly"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <GroupedCharacter
+            label="GroupedCharacter"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+          <GroupedCharacter
+            label="GroupedCharacter - readOnly"
+            value="1231231"
+            groups={[2, 2, 3]}
+            separator="-"
+            readOnly
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+### GroupedCharacter
+
+<Props of={GroupedCharacter} />
+
+### Textbox
+
+Due to the `Textbox` component being used internally by the `GroupedCharacter` component most of the `Textbox` props can be applied to `GroupedCharacter`
+
+<Props of={OriginalTextbox} />
