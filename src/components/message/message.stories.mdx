@@ -3,6 +3,9 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import Message from '.';
 import Button from '../button';
+import Typography, {List, ListItem} from '../typography';
+import Box from '../box';
+import Link from '../link';
 
 <Meta
   title="Message"
@@ -113,6 +116,36 @@ Message variant is `info` by default
             variant="warning"
           >
             Some custom message
+          </Message>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### With rich content
+It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
+<Preview>
+  <Story name="with rich content">
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          <Message
+            open={ isOpen }
+            onDismiss={ () => setIsOpen(false) }
+            variant="warning"
+            title={<Typography variant="h4">Title</Typography>}
+          >
+            Some custom message
+            <Box mt='8px'>
+              <List>
+                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
+                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
+                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
+              </List>
+            </Box>
           </Message>
         </>
       )
