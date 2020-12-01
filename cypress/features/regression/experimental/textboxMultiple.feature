@@ -11,26 +11,6 @@ Feature: Experimental Textbox multiple component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
-  Scenario: Check disabled checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "disabled" object name
-    Then Textbox multiple component is disabled
-
-  @positive
-  Scenario: Uncheck disabled checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "disabledFalse" object name
-    Then Textbox multiple component is not disabled
-
-  @positive
-  Scenario: Enable readOnly checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "readOnly" object name
-    Then Textbox multiple component is readOnly
-
-  @positive
-  Scenario: Disable readOnly checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "readOnlyFalse" object name
-    Then Textbox multiple component is not readOnly
-
-  @positive
   Scenario Outline: Set <prefix> for multiple component
     When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple textbox prefix is set to <prefix>
@@ -69,44 +49,6 @@ Feature: Experimental Textbox multiple component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
-  Scenario: Enable labelInline checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "labelInline" object name
-    Then Multiple Textbox component is labelInline
-
-  @positive
-  Scenario: Disable labelInline checkbox for a Textbox multiple component
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "labelInlineFalse" object name
-    Then Multiple Textbox component is not labelInline
-
-  @positive
-  Scenario Outline: Set labelWidth to <labelWidth>
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then Multiple label width is set to "<labelWidth>"
-    Examples:
-      | labelWidth | nameOfObject  |
-      | 0          | labelWidth0   |
-      | 25         | labelWidth25  |
-      | 100        | labelWidth100 |
-
-  @positive
-  Scenario Outline: Set inputWidth to <inputWidth>
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then Multiple Textbox inputWidth is set to "<inputWidth>"
-    Examples:
-      | inputWidth | nameOfObject  |
-      | 50         | inputWidth50  |
-      | 100        | inputWidth100 |
-
-  @positive
-  Scenario Outline: Set labelAlign to <labelAlign>
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then Multiple label Align on preview is "<labelAlign>"
-    Examples:
-      | labelAlign | nameOfObject    |
-      | left       | labelAlignLeft  |
-      | right      | labelAlignRight |
-
-  @positive
   Scenario Outline: Verify input of Textbox multiple component
     Given I open "Experimental Textbox Test" component page "multiple" in no iframe
     When I type <input> into "first" Textbox
@@ -116,14 +58,3 @@ Feature: Experimental Textbox multiple component
       | input                        |
       | mp150ú¿¡üßä                  |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> |
-
-  @positive
-  Scenario Outline: Set label size to <size>
-    When I open multiple "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then Multiple Textbox height is "<height>"
-      And Multiple Textbox width is "<width>"
-    Examples:
-      | size   | height | width  | nameOfObject |
-      | small  | 30px   | 1348px | sizeSmall    |
-      | medium | 38px   | 1342px | sizeMedium   |
-      | large  | 46px   | 1338px | sizeLarge    |
