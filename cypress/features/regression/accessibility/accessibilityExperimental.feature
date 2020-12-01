@@ -7,8 +7,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-input          |
-      | decimal-input       |
       | fieldset            |
       | simple-color-picker |
       | select              |
@@ -22,6 +20,7 @@ Feature: Accessibility tests - Experimental folder
       | component        |
       | checkbox         |
       | date-range       |
+      | decimal-input    |
       | groupedcharacter |
       | number-input     |
       | switch           |
