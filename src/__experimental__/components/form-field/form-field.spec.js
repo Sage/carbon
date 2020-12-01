@@ -3,8 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import FormField from ".";
 import FieldHelp from "../field-help";
-import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import classicTheme from "../../../style/themes/classic";
+import { FieldLineStyle } from "./form-field.style";
 import Label from "../label/label.component";
 import { TabContext } from "../../../components/tabs/__internal__/tab";
 import { mockMatchMedia } from "../../../__spec_helper__/test-utils";
@@ -15,7 +14,7 @@ const setInfo = jest.fn();
 
 function render(props, renderer = shallow) {
   return renderer(
-    <FormField {...props}>
+    <FormField id="formField" {...props}>
       <input />
     </FormField>
   );
@@ -24,7 +23,7 @@ function render(props, renderer = shallow) {
 function renderWithContext(props) {
   return mount(
     <TabContext.Provider value={{ setError, setWarning, setInfo }}>
-      <FormField {...props}>
+      <FormField id="formField" {...props}>
         <input />
       </FormField>
     </TabContext.Provider>
@@ -158,25 +157,6 @@ describe("FormField", () => {
     });
   });
 
-  describe("classic theme", () => {
-    it("adds custom margin top", () => {
-      const wrapper = renderFormFieldStyle({
-        theme: classicTheme,
-      });
-      expect(wrapper.toJSON()).toMatchSnapshot();
-    });
-
-    describe("when inline", () => {
-      it("renders the FieldHelp component below the childen", () => {
-        const wrapper = renderFormFieldStyle({
-          inline: true,
-        });
-
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
-  });
-
   it.each(["error", "warning", "info"])(
     "validates the %s prop to throw an error if disabled is set as well",
     (validation) => {
@@ -192,7 +172,3 @@ describe("FormField", () => {
     }
   );
 });
-
-function renderFormFieldStyle(props) {
-  return TestRenderer.create(<FormFieldStyle {...props} />);
-}
