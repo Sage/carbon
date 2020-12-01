@@ -9,6 +9,7 @@ import OptionsHelper from "../../../utils/helpers/options-helper";
 export default {
   title: "Experimental/Textbox/Test",
   component: Textbox,
+  includeStories: ["Default", "multiple"],
   parameters: {
     info: {
       disable: true,
