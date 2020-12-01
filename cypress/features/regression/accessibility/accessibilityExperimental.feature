@@ -6,26 +6,26 @@ Feature: Accessibility tests - Experimental folder
     When I open "Experimental <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | fieldset            |
-      | simple-color-picker |
-      | select              |
-      | textbox             |
+      | component        |
+      | fieldset         |
+      | select           |
+      | textbox          |
 
   @accessibility
   Scenario Outline: Component <component> default_story
     When I open "Experimental <component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component        |
-      | checkbox         |
-      | date-range       |
-      | date-input       |
-      | decimal-input    |
-      | groupedcharacter |
-      | number-input     |
-      | switch           |
-      | textarea         |
+      | component           |
+      | checkbox            |
+      | date-range          |
+      | date-input          |
+      | decimal-input       |
+      | groupedcharacter    |
+      | number-input        |
+      | simple-color-picker |
+      | switch              |
+      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validation story
