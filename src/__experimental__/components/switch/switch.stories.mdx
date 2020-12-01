@@ -44,10 +44,10 @@ const MyComponent = () => (
   )
 );
 ```
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
       return (
@@ -65,7 +65,7 @@ const MyComponent = () => (
 ### Sizes
 
 <Preview>
-  <Story name="Sizes">
+  <Story name="sizes">
     {() => {
       return ['small', 'large'].map(size =>
         <Switch
@@ -82,7 +82,7 @@ const MyComponent = () => (
 ### Disabled
 
 <Preview>
-  <Story name="Disabled">
+  <Story name="disabled">
     <Switch label="Disabled switch" disabled />
   </Story>
 </Preview>
@@ -111,7 +111,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Reversed
 
 <Preview>
-  <Story name="Reversed">
+  <Story name="reversed">
     <Switch label="Reversed switch" reverse={false} />
   </Story>
 </Preview>
@@ -137,7 +137,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### With fieldHelp
 
 <Preview>
-  <Story name="With fieldHelp">
+  <Story name="with fieldHelp">
     <>
       <Switch
         label="With fieldHelp"
@@ -155,7 +155,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### With labelHelp
 
 <Preview>
-  <Story name="With labelHelp">
+  <Story name="with labelHelp">
     <Switch
       label="With labelHelp"
       labelHelp="This text provides more information for the label."
@@ -176,7 +176,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string
 
 <Preview>
-  <Story name="Single switch - string validation">
+  <Story name="single switch - string validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <Switch
         id={ `switch${type}` }
@@ -192,7 +192,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string with validationOnLabel
 
 <Preview>
-  <Story name="Single switch - string validation - validationOnLabel">
+  <Story name="single switch - string validation - validationOnLabel">
     {() => ['error', 'warning', 'info'].map(type => (
       <Switch
         id={ `switch${type}-label` }
@@ -208,7 +208,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### As a boolean
 <Preview>
-  <Story name="Single switch - boolean validation">
+  <Story name="single switch - boolean validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <Switch
         id={ `switch_${type}-boolean` }
