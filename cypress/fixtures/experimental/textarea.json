@@ -23,18 +23,6 @@
   "rows300": {
     "rows": 300
   },
-  "disabled": {
-    "disabled": true
-  },
-  "disabledFalse": {
-    "disabled": false
-  },
-  "readOnly": {
-    "readOnly": true
-  },
-  "readOnlyFalse": {
-    "readOnly": false
-  },
   "placeholderOtherLanguage": {
     "placeholder": "mp150ú¿¡üßä"
   },
@@ -80,15 +68,6 @@
   "characterLimit0.1112333": {
     "characterLimit": 0.1112333
   },
-  "inputWidth0": {
-    "inputWidth": 0
-  },
-  "inputWidth50": {
-    "inputWidth": 50
-  },
-  "inputWidth100": {
-    "inputWidth": 100
-  },
   "labelOtherLanguage": {
     "label": "mp150ú¿¡üßä"
   },
@@ -102,39 +81,6 @@
   "labelHelpSpecialCharacter": {
     "label": "label",
     "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "labelInline": {
-    "label": "label",
-    "labelInline": true
-  },
-  "labelInlineFalse": {
-    "label": "label",
-    "labelInline": false
-  },
-  "labelAlignRight": {
-    "label": "label",
-    "labelInline": true,
-    "labelAlign": "right"
-  },
-  "labelAlignLeft": {
-    "label": "label",
-    "labelInline": true,
-    "labelAlign": "left"
-  },
-  "labelWidth0": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 0
-  },
-  "labelWidth25": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 25
-  },
-  "labelWidth100": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 100
   },
   "characterLimit0warnOverLimitenforceCharacterLimitFalse": {
     "characterLimit": 0,

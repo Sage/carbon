@@ -1,8 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import "jest-styled-components";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import classicTheme from "../../../../style/themes/classic";
 import baseTheme from "../../../../style/themes/base";
 import CharacterCount from ".";
 
@@ -42,35 +40,6 @@ describe("CharacterCount", () => {
         },
         wrapper
       );
-    });
-  });
-
-  describe("when is classic theme", () => {
-    beforeEach(() => {
-      wrapper.setProps({ theme: classicTheme, isOverLimit: false });
-    });
-
-    it("should apply classic styling", () => {
-      assertStyleMatch(
-        {
-          textAlign: "right",
-          marginTop: "4px",
-          marginBottom: "4px",
-        },
-        wrapper
-      );
-    });
-
-    describe("when isOverLimit prop is true", () => {
-      it("should be styled for warn over limit", () => {
-        wrapper.setProps({ isOverLimit: true });
-        assertStyleMatch(
-          {
-            color: baseTheme.colors.error,
-          },
-          wrapper
-        );
-      });
     });
   });
 });
