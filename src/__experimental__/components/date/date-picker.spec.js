@@ -10,7 +10,6 @@ import DayPicker from "react-day-picker";
 import Portal from "../../../components/portal/portal";
 import DatePicker from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";
-import classicTheme from "../../../style/themes/classic";
 
 const inputElement = {
   value: "12-12-2012",
@@ -223,14 +222,6 @@ describe("StyledDayPicker", () => {
 
   it("renders presentational div and context provider for its children", () => {
     expect(renderStyledDayPicker({ value: "2019-04-01" })).toMatchSnapshot();
-  });
-
-  describe("classic theme", () => {
-    it("applies custom styling", () => {
-      expect(
-        renderStyledDayPicker({ theme: classicTheme, value: "2019-04-01" })
-      ).toMatchSnapshot();
-    });
   });
 
   describe("i18n", () => {

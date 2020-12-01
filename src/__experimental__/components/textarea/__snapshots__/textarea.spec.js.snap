@@ -42,9 +42,9 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c4 {
-  -webkit-flex: 0 0 %;
-  -ms-flex: 0 0 %;
-  flex: 0 0 %;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
