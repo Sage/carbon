@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import FullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
-import contentClassicStyle from "./content-classic.style";
 
 const StyledContent = styled.div`
   overflow-y: auto;
@@ -44,8 +43,6 @@ const StyledContent = styled.div`
       height: 70px;
     }
   `}
-
-  ${contentClassicStyle}
 `;
 
 StyledContent.defaultProps = {
