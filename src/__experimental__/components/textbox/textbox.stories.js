@@ -102,3 +102,7 @@ export const multiple = () => (
     <Textbox placeholder={text("placeholder")} {...getCommonTextboxProps()} />
   </>
 );
+
+multiple.story = {
+  name: "multiple",
+};
