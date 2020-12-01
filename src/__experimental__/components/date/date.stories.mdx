@@ -1,0 +1,277 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import DateInput, { BaseDateInput } from ".";
+import { OriginalTextbox } from "../textbox";
+import Button from "../../../components/button";
+import Box from "../../../components/box";
+
+<Meta
+  title="Experimental/Date Input"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Date
+
+- If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component.
+- Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.
+- Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, or colon as separators.
+
+## Quick Start
+
+```jsx
+import DateInput from "carbon-react/lib/__experimental__/components/date";
+```
+
+### Dafault
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState("2019-04-04");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <DateInput
+          label="Date"
+          name="date-input"
+          value={state}
+          onChange={setValue}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["small", "medium", "large"].map((size) => (
+        <DateInput
+          key={`Date - ${size}`}
+          label={`Date - ${size}`}
+          value="2016-10-01"
+          size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### AutoFocus
+
+<Preview>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true }}}>
+    <DateInput label="Date" value="2016-10-01" autoFocus />
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <DateInput label="Date" value="2016-10-01" disabled />
+  </Story>
+</Preview>
+
+### ReadOnly
+
+<Preview>
+  <Story name="readOnly">
+    <DateInput label="Date" value="2016-10-01" readOnly />
+  </Story>
+</Preview>
+
+### Empty
+
+<Preview>
+  <Story name="empty">
+    {() => {
+      const [date, setDate] = useState("");
+      const handleDate = ({ target }) => {
+        setDate(target.value.rawValue);
+      };
+      return (
+        <>
+          <Box mb={2}>
+            <Button onClick={() => setDate("")}>Set empty date</Button>
+            <Button onClick={() => setDate("2019-04-01")}>
+              Set 2019-04-01
+            </Button>
+          </Box>
+          <DateInput
+            label="Date"
+            name="dateinput"
+            value={date}
+            onChange={handleDate}
+            allowEmptyValue
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="with labelInline">
+    <DateInput label="Date" value="2016-10-01" labelInline name="dateinput" />
+  </Story>
+</Preview>
+
+### With custom labelWidth
+
+<Preview>
+  <Story name="with custom labelWidth">
+    <DateInput label="Date" value="2016-10-01" labelInline labelWidth={10} />
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    <DateInput
+      label="Date"
+      value="2016-10-01"
+      fieldHelp="Help"
+      name="dateinput"
+    />
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    <DateInput
+      label="Date"
+      value="2016-10-01"
+      labelHelp="Help"
+      name="dateinput"
+    />
+  </Story>
+</Preview>
+
+### With disabled portal
+
+<Preview>
+  <Story name="with disabled portal">
+    <DateInput label="Date" value="2016-10-01" disablePortal />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    <DateInput label="Date" value="2016-10-01" required />
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <DateInput
+            label="Date"
+            value="2016-10-01"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <DateInput
+            label="Date - readOnly"
+            value="2016-10-01"
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <DateInput
+            label="Date"
+            value="2016-10-01"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <DateInput
+            label="Date"
+            value="2016-10-01"
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <DateInput
+            label="Date"
+            value="2016-10-01"
+            {...{ [validationType]: true }}
+          />
+          <DateInput
+            label="Date"
+            value="2016-10-01"
+            readOnly
+            {...{ [validationType]: true }}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+### DateInput
+
+<Props of={BaseDateInput} />
+
+### Textbox
+
+Due to the `Textbox` component being used internally by the `Date` component most of the `Textbox` props are appliable to `Date`
+
+<Props of={OriginalTextbox} />

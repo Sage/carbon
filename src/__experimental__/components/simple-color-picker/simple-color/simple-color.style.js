@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { isClassic } from "../../../../utils/helpers/style-helper";
+import styled from "styled-components";
 
 const StyledSimpleColor = styled.div`
   width: 56px;
@@ -10,13 +9,6 @@ const StyledSimpleColor = styled.div`
   &:hover {
     cursor: pointer;
   }
-
-  ${({ theme }) =>
-    isClassic(theme) &&
-    css`
-      margin-right: 1px;
-      margin-bottom: 1px;
-    `};
 `;
 
 export default StyledSimpleColor;

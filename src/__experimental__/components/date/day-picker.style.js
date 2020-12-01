@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import baseTheme from "../../../style/themes/base";
-import dayPickerClassicStyle from "./day-picker-classic.style";
 
 const StyledDayPicker = styled.div`
   .DayPicker {
@@ -110,8 +109,6 @@ const StyledDayPicker = styled.div`
     background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.white};
   }
-
-  ${dayPickerClassicStyle}
 `;
 
 StyledDayPicker.defaultProps = {

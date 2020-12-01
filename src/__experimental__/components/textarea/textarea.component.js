@@ -131,6 +131,8 @@ class Textarea extends React.Component {
       cols,
       validationOnLabel,
       adaptiveLabelBreakpoint,
+      inputWidth,
+      labelWidth,
       ...props
     } = this.props;
 
@@ -142,6 +144,7 @@ class Textarea extends React.Component {
             disabled={disabled}
             id={this.id}
             labelInline={labelInline}
+            labelWidth={labelWidth}
             isRequired={props.required}
             {...props}
             useValidationIcon={validationOnLabel}
@@ -152,6 +155,9 @@ class Textarea extends React.Component {
               size={size}
               disabled={disabled}
               readOnly={readOnly}
+              inputWidth={
+                typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+              }
               {...props}
             >
               <Input
@@ -204,6 +210,10 @@ Textarea.propTypes = {
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
+  /** Width of a label in percentage. Works only when labelInline is true */
+  labelWidth: PropTypes.number,
+  /** Width of an input in percentage. Works only when labelInline is true */
+  inputWidth: PropTypes.number,
   /** Name of the input */
   name: PropTypes.string,
   /** Callback fired when the user types in the Textarea */
@@ -247,6 +257,7 @@ Textarea.propTypes = {
 };
 
 Textarea.defaultProps = {
+  labelWidth: 30,
   disabled: false,
   expandable: false,
   enforceCharacterLimit: true,
