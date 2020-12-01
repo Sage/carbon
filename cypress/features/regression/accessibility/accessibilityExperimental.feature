@@ -14,7 +14,6 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
       | select              |
       | textbox             |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> default_story
@@ -26,6 +25,7 @@ Feature: Accessibility tests - Experimental folder
       | groupedcharacter |
       | number-input     |
       | switch           |
+      | textarea         |
 
   @accessibility
   Scenario Outline: Component <component> validations story
