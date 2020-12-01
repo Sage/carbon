@@ -20,6 +20,7 @@ Feature: Accessibility tests - Experimental folder
       | component        |
       | checkbox         |
       | date-range       |
+      | date-input       |
       | decimal-input    |
       | groupedcharacter |
       | number-input     |
@@ -27,7 +28,7 @@ Feature: Accessibility tests - Experimental folder
       | textarea         |
 
   @accessibility
-  Scenario Outline: Component <component> validations story
+  Scenario Outline: Component <component> validation story
     When I open "Experimental <component>" component page "validations" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
