@@ -7,7 +7,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
       | date-input          |
       | decimal-input       |
       | fieldset            |
@@ -22,6 +21,7 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component        |
       | checkbox         |
+      | date-range       |
       | groupedcharacter |
       | number-input     |
       | switch           |
@@ -104,6 +104,11 @@ Feature: Accessibility tests - Experimental folder
   Scenario: Experimental checkbox with asterisk
     When I open "Experimental checkbox" component page "required" in no iframe
     Then "Experimental checkbox with asterisk" component has no accessibility violations
+
+  @accessibility
+  Scenario: Component radiobutton with_legend_and_labels story
+    When I open "Experimental radiobutton" component page "with_legend_and_labels" in no iframe
+    Then "radiobutton with_legend_and_labels story" component has no accessibility violations
 
   @accessibility
   Scenario: Experimental RadionButton component with-validations-on-buttons story
