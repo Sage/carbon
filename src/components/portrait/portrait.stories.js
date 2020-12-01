@@ -43,6 +43,6 @@ storiesOf("Portrait", module).add(
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
-    chromatic: { delay: 3500 },
+    chromatic: { disable: true },
   }
 );

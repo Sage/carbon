@@ -5,12 +5,13 @@ import StyledCardFooter from "./card-footer.style";
 
 const { sizesRestricted } = OptionsHelper;
 
-const CardFooter = ({ spacing, children }) => {
+const CardFooter = ({ spacing, children, ...props }) => {
   return (
     <StyledCardFooter
       key="card-footer"
       data-element="card-footer"
       spacing={spacing}
+      {...props}
     >
       {children}
     </StyledCardFooter>

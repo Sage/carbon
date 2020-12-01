@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { space } from "styled-system";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 import BaseTheme from "../../../style/themes/base";
 import StyledCardColumn from "../card-column/card-column.style";
@@ -19,8 +20,12 @@ const paddingSizes = {
 };
 
 const StyledCardFooter = styled.div`
-  ${({ spacing, theme }) => css`
-    background-color: ${theme.card.footerBackground};
+  ${space}
+
+  ${({ spacing, theme, variant }) => css`
+    background-color: ${variant === "transparent"
+      ? "transparent"
+      : theme.card.footerBackground};
     border-top: ${theme.card.footerBorder};
     border-top-width: 1px;
     border-top-style: solid;
