@@ -7,10 +7,6 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from ".";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../.storybook/theme-selectors";
 import { Table, TableRow, TableCell, TableHeader } from "../table";
 
 const submenu = (
@@ -44,7 +40,6 @@ const submenuWithIcons = (
 export default {
   title: "Design System/Action Popover/Test",
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },
@@ -141,94 +136,6 @@ Default.story = {
   },
 };
 
-export const Classic = () => (
-  <div style={{ height: "275px" }}>
-    <Table isZebra>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              disabled
-              icon="graph"
-              submenu={submenu}
-              onClick={action("business")}
-            >
-              Business
-            </ActionPopoverItem>
-            <ActionPopoverItem icon="email" onClick={action("email")}>
-              Email Invoice
-            </ActionPopoverItem>
-            <ActionPopoverItem
-              icon="print"
-              onClick={action("print")}
-              submenu={submenu}
-            >
-              Print Invoice
-            </ActionPopoverItem>
-            <ActionPopoverItem
-              icon="pdf"
-              submenu={submenu}
-              onClick={action("pdf")}
-            >
-              Download PDF
-            </ActionPopoverItem>
-            <ActionPopoverItem icon="csv" onClick={action("csv")}>
-              Download CSV
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem icon="delete" onClick={action("delete")}>
-              Delete
-            </ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Jane</TableCell>
-        <TableCell>Smith</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem icon="csv" onClick={action("csv")}>
-              Download CSV
-            </ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Bob</TableCell>
-        <TableCell>Jones</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              icon="csv"
-              submenu={submenuWithIcons}
-              onClick={action("csv")}
-            >
-              Download CSV
-            </ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
-  </div>
-);
-
-Classic.story = {
-  name: "classic",
-  parameters: {
-    themeSelector: classicThemeSelector,
-    chromatic: {
-      disable: true,
-    },
-  },
-};
-
 export const StylesOverriden = () => (
   <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
     <Table isZebra>
@@ -318,7 +225,6 @@ export const StylesOverriden = () => (
 StylesOverriden.story = {
   name: "styles overriden",
   parameters: {
-    themeSelector: dlsThemeSelector,
     chromatic: {
       disable: false,
     },
