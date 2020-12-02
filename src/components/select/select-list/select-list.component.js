@@ -222,7 +222,7 @@ const SelectList = React.forwardRef(
 
     const childrenWithListProps = useMemo(() => {
       const optionsList = React.Children.map(children, (child, index) => {
-        if (child.type !== Option) {
+        if (!child || child.type !== Option) {
           return child;
         }
 

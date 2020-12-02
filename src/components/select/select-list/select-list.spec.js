@@ -595,6 +595,19 @@ describe("SelectList", () => {
     });
   });
 
+  describe("when non option elements are provided as children", () => {
+    it("then isHighlighted prop should not be set on them", () => {
+      const wrapper = mount(
+        <SelectList onSelect={() => {}} onSelectListClose={() => {}}>
+          {false && ""}
+          <li>not an option element</li>
+        </SelectList>
+      );
+      expect(wrapper.find("li").props().isHighlighted).toBe(undefined);
+      wrapper.unmount();
+    });
+  });
+
   describe("with option headings", () => {
     it("renders the select list with headings", () => {
       const wrapper = renderGroupedSelectList();
