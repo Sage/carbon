@@ -3,12 +3,6 @@ import styled, { ThemeProvider, css, withTheme } from "styled-components";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
-import {
-  MenuClassic,
-  MenuItemClassic,
-  MenuButtonClassic,
-  SubMenuItemIconClassic,
-} from "./action-popover-classic.style";
 import { isSafari } from "../../utils/helpers/browser-type-check";
 
 const Menu = styled.div`
@@ -22,8 +16,6 @@ const Menu = styled.div`
   z-index: ${({ theme }) => `${theme.zIndex.popover}`};
   ${({ placement, buttonHeight }) =>
     placement === "top" && buttonHeight && `bottom: ${buttonHeight}px;`}
-
-  ${MenuClassic}
 `;
 
 const MenuItemFactory = (button) => styled(button)`
@@ -70,8 +62,6 @@ const MenuItemFactory = (button) => styled(button)`
         color: inherit;
       }
     `}
-  
-  ${MenuItemClassic}
 `;
 
 const MenuItemDivider = styled.div.attrs({
@@ -96,8 +86,6 @@ const MenuButton = styled.div`
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.focus};
   }
-
-  ${MenuButtonClassic}
 `;
 
 /**
@@ -148,8 +136,6 @@ const SubMenuItemIcon = styled(ButtonIcon)`
       `}
     `}
   `}
-
-  ${SubMenuItemIconClassic}
 `;
 
 const MenuButtonOverrideWrapper = styled.div`
