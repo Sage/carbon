@@ -1,3 +1,10 @@
+### [50.3.1](https://github.com/Sage/carbon/compare/v50.3.0...v50.3.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **action-popover:** incorrect submenu proptype ([08f4117](https://github.com/Sage/carbon/commit/08f4117c92502f5a73b698f0e78ed10bd26f36fa))
+
 ## [50.3.0](https://github.com/Sage/carbon/compare/v50.2.0...v50.3.0) (2020-11-26)
 
 
