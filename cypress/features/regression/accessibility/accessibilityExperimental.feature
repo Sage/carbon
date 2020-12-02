@@ -6,9 +6,8 @@ Feature: Accessibility tests - Experimental folder
     When I open "Experimental <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component        |
-      | fieldset         |
-      | select           |
+      | component |
+      | select    |
 
   @accessibility
   Scenario Outline: Component <component> default_story
@@ -26,6 +25,7 @@ Feature: Accessibility tests - Experimental folder
       | switch              |
       | textarea            |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Component <component> validation story
@@ -33,7 +33,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
-      | fieldset  |
       | select    |
 
   @accessibility
@@ -50,6 +49,7 @@ Feature: Accessibility tests - Experimental folder
       | number-input        |
       | textarea            |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -65,6 +65,7 @@ Feature: Accessibility tests - Experimental folder
       | number-input        |
       | textarea            |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -80,6 +81,7 @@ Feature: Accessibility tests - Experimental folder
       | number-input        |
       | textarea            |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story
