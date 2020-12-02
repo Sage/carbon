@@ -262,11 +262,11 @@ const SelectList = React.forwardRef(
       const keyboardEvent = "keydown";
       const listElement = listRef.current;
 
-      document.addEventListener(keyboardEvent, handleGlobalKeydown);
+      window.addEventListener(keyboardEvent, handleGlobalKeydown);
       listElement.addEventListener("scroll", handleListScroll);
 
       return function cleanup() {
-        document.removeEventListener(keyboardEvent, handleGlobalKeydown);
+        window.removeEventListener(keyboardEvent, handleGlobalKeydown);
         listElement.removeEventListener("scroll", handleListScroll);
       };
     }, [handleGlobalKeydown, handleListScroll]);
