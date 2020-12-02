@@ -1,10 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import "jest-styled-components";
 import TestRenderer from "react-test-renderer";
+
 import ColorSampleBox from ".";
 import StyledColorSampleBox from "./color-sample-box.style";
-import classicTheme from "../../../../style/themes/classic";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import StyledTickIcon from "../tick-icon/tick-icon.style";
 
@@ -62,37 +61,6 @@ describe("ColorSampleBox", () => {
       const icon = wrapper.find(StyledTickIcon);
       expect(icon.exists()).toBeTruthy();
       expect(icon.props().type).toEqual("tick");
-    });
-  });
-
-  describe("when in classic theme", () => {
-    const noColors = ["transparent", "none"];
-    describe.each(noColors)(
-      "when color is set to transparent or none",
-      (color) => {
-        it("applies border around the tile", () => {
-          wrapper = renderStyles({ theme: classicTheme, color });
-          assertStyleMatch(
-            {
-              borderColor: "#b3c2c8",
-            },
-            wrapper.toJSON()
-          );
-        });
-      }
-    );
-
-    describe("when checked", () => {
-      it("renders the tick icon", () => {
-        wrapper = render({
-          theme: classicTheme,
-          checked: true,
-          color: "#676767",
-        });
-        const icon = wrapper.find(StyledTickIcon);
-        expect(icon.exists()).toBeTruthy();
-        expect(icon.props().type).toEqual("tick");
-      });
     });
   });
 });

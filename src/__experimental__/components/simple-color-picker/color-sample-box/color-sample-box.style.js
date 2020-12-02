@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import colorSampleBoxClassicStyle from "./color-sample-box-classic.style";
+
 import checkerBoardSvg from "./checker-board.svg";
 
 const StyledColorSampleBox = styled.div`
@@ -26,8 +26,6 @@ const StyledColorSampleBox = styled.div`
       background-size: 14px 14px;
       background-position: -2px -2px;
     `}
-
-  ${colorSampleBoxClassicStyle}
 `;
 
 StyledColorSampleBox.propTypes = {

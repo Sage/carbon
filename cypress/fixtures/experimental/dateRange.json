@@ -10,15 +10,5 @@
   },
   "endLabelSpecialCharacter": {
     "endLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "labelsInline": {
-    "startLabel": "label",
-    "endLabel": "label",
-    "labelsInline": true
-  },
-  "labelsInlineFalse": {
-    "startLabel": "label",
-    "endLabel": "label",
-    "labelsInline": false
   }
 }
