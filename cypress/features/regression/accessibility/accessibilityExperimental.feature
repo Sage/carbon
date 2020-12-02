@@ -113,6 +113,6 @@ Feature: Accessibility tests - Experimental folder
     Then "radiobutton with_legend_and_labels story" component has no accessibility violations
 
   @accessibility
-  Scenario: Experimental RadionButton component with-validations-on-buttons story
-    When I open "Experimental RadionButton" component page "with-validations-on-buttons" in no iframe
-    Then "Experimental RadionButton with-validations-on-buttons story" component has no accessibility violations
+  Scenario: Experimental RadioButton component with-validations-on-buttons story
+    When I open "Experimental RadioButton" component page "with-validations-on-buttons" in no iframe
+    Then "Experimental RadioButton with-validations-on-buttons story" component has no accessibility violations
