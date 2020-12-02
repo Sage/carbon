@@ -8,7 +8,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component        |
       | fieldset         |
-      | select           |
       | textbox          |
 
   @accessibility
@@ -34,7 +33,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component |
       | fieldset  |
-      | select    |
       | textbox   |
 
   @accessibility

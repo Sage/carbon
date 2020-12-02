@@ -14,7 +14,7 @@ import GroupedCharacter from "../grouped-character";
 import NumberInput from "../number";
 import DateInput from "../date";
 import { RadioButtonGroup, RadioButton } from "../radio-button";
-import { Select, Option } from "../select";
+import { Select, Option } from "../../../components/select";
 import Switch from "../switch";
 import Textarea from "../textarea";
 
