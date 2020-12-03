@@ -19,13 +19,13 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | number-input        |
       | simple-color-picker |
       | switch              |
       | textarea            |
       | textbox             |
-      | fieldset            |
 
   @accessibility
   Scenario Outline: Component <component> validation story
@@ -44,13 +44,13 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
       | textbox             |
-      | fieldset            |
-
+      
   @accessibility
   Scenario Outline: Component <component> validations string story
     When I open "Experimental <component>" component page "validations string component" in no iframe
@@ -60,12 +60,12 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
       | textbox             |
-      | fieldset            |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -76,12 +76,12 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
       | textbox             |
-      | fieldset            |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story

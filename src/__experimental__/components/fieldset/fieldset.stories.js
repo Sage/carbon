@@ -35,13 +35,6 @@ export const Default = () => {
         labelWidth={30}
       />
       <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-      <Checkbox
-        label="Checkbox"
-        labelAlign="right"
-        labelWidth={30}
-        labelSpacing={2}
-        reverse
-      />
       <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
       <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
       <Textbox
@@ -57,52 +50,3 @@ export const Default = () => {
 Default.story = {
   name: "default",
 };
-
-// function makeValidationsStory(name) {
-//   const component = () => {
-//     return (
-//       <>
-//         {["error", "warning", "info"].map((type) =>
-//           ["Message", true].map((content) => (
-//             <Fieldset
-//               key={`${type}_${content}`}
-//               legend={`${type} validation as ${
-//                 typeof content === "string" ? "string" : "boolean"
-//               }`}
-//             >
-//               <Textbox
-//                 label="Address"
-//                 labelInline
-//                 labelAlign="right"
-//                 {...{ [type]: content }}
-//               />
-//               <Textbox label="Town/City" labelInline labelAlign="right" />
-//               <Select
-//                 label="Province"
-//                 labelInline
-//                 labelAlign="right"
-//                 {...{ [type]: content }}
-//               >
-//                 <Option key="ab" text="Alberta" value="ab" />
-//                 <Option key="on" text="Ontario" value="on" />
-//                 <Option key="qc" text="Quebec" value="qc" />
-//               </Select>
-//               <Textbox
-//                 label="ZIP Code"
-//                 labelInline
-//                 labelAlign="right"
-//                 styleOverride={{ input: { width: "120px", flex: "none" } }}
-//               />
-//             </Fieldset>
-//           ))
-//         )}
-//       </>
-//     );
-//   };
-
-//   const metadata = {
-//     themeSelector: dlsThemeSelector,
-//   };
-
-//   return [name, component, metadata];
-// }
