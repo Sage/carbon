@@ -164,64 +164,6 @@ Object {
   box-shadow: none;
 }
 
-.c3 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-right: -11px;
-  margin-left: -11px;
-  width: 40px;
-}
-
-.c4 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 24px;
-  width: 24px;
-}
-
-.c4:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
-.c4::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e910";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  vertical-align: middle;
-  display: block;
-}
-
 .c5 .c1:-webkit-autofill {
   margin-top: 2px;
 }
@@ -268,6 +210,64 @@ Object {
 
 .c0 input::-webkit-contacts-auto-fill-button {
   display: none !important;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  margin-left: -11px;
+  width: 40px;
 }
 
 <div
