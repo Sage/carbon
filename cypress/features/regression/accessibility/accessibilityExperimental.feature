@@ -8,7 +8,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component        |
       | fieldset         |
-      | textbox          |
 
   @accessibility
   Scenario Outline: Component <component> default_story
@@ -25,6 +24,7 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
       | switch              |
       | textarea            |
+      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validation story
@@ -33,7 +33,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component |
       | fieldset  |
-      | textbox   |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -48,6 +47,7 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
       | number-input        |
       | textarea            |
+      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -62,6 +62,7 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
       | number-input        |
       | textarea            |
+      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -76,6 +77,7 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
       | number-input        |
       | textarea            |
+      | textbox             |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story
@@ -109,6 +111,6 @@ Feature: Accessibility tests - Experimental folder
     Then "radiobutton with_legend_and_labels story" component has no accessibility violations
 
   @accessibility
-  Scenario: Experimental RadionButton component with-validations-on-buttons story
-    When I open "Experimental RadionButton" component page "with-validations-on-buttons" in no iframe
-    Then "Experimental RadionButton with-validations-on-buttons story" component has no accessibility violations
+  Scenario: Experimental RadioButton component with-validations-on-buttons story
+    When I open "Experimental RadioButton" component page "with-validations-on-buttons" in no iframe
+    Then "Experimental RadioButton with-validations-on-buttons story" component has no accessibility violations
