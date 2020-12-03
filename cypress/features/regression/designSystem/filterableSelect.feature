@@ -1,11 +1,9 @@
 Feature: Design System Filterable Select component
   I want to change Design System Filterable Select component properties
 
-  Background: Open Design System Filterable Select component page
-    Given I open "Design System Select filterable" component page "controlled" in no iframe
-
   @positive
   Scenario: Filter by typed character
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I type "A" into input
     Then "first" option on Select list is "Amber"
       And "first" option on the list is highlighted
@@ -14,7 +12,8 @@ Feature: Design System Filterable Select component
 
   @positive
   Scenario Outline: Filterable Select list is not open using keyboard <key>
-    Given I focus select input
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
+      And I focus select input
     When I click onto controlled select using "<key>" key
     Then "filterable" Select list is closed
     Examples:
@@ -24,34 +23,40 @@ Feature: Design System Filterable Select component
 
   @positive
   Scenario: Filterable Select list is not open when has a focus
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I focus select input
     Then "filterable" Select list is closed
 
   @positive
   Scenario: Filterable Select list is not opened by clicking mouse on the text input
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I click on Select input
     Then "filterable" Select list is closed
 
   @positive
   Scenario: Open Filterable Select list by clicking mouse on the dropdown button
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I click on dropdown button
     Then "filterable" Select list is opened
 
   @positive
   Scenario: Close Filterable Select list by clicking out of component
-    Given I click on dropdown button
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
+      And I click on dropdown button
     When I click onto root in Test directory in no iFrame
     Then "filterable" Select list is closed
 
   @positive
   Scenario: Close Filterable Select list by double clicking mouse on the dropdown button
-    Given I click on dropdown button
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
+      And I click on dropdown button
     When I click on dropdown button
     Then "filterable" Select list is closed
 
   @positive
   Scenario: Choose option from the Select list via clicking an option
-    Given I type "Amber" into input
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
+      And I type "Amber" into input
     When I click on "first" option on Select list
     Then Design system Select input has "Amber" value
       And "filterable" Select list is closed
@@ -62,4 +67,19 @@ Feature: Design System Filterable Select component
     When I click on dropdown button
       And I click onto "Add a New Element" button
     Then Dialog is visible
-    
+
+  @positive
+  Scenario: Lazy loading is visible after open the Filterable Select
+    Given I open "Design System Select filterable" component page "with_is_loading_prop" in no iframe
+    When I click on dropdown button
+    Then Lazy loading is visible
+
+  @positive
+  Scenario: Lazy loading is visible after open and scroll to the botton of the Filterable Select
+    Given I open "Design System Select filterable" component page "with infinite scroll" in no iframe
+      And I click on dropdown button
+      And Lazy loading is visible
+      And I wait 2500
+    When I scroll to the "bottom" of Select List
+    Then Lazy loading is visible
+      And Select list "Lazy Loaded A1" option is visible

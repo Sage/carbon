@@ -21,10 +21,13 @@ import {
   selectListInIframe,
   selectOptionInIframe,
   multiSelectDataComponentInIframe,
+  isLoading,
+  selectListText,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
 import { dataComponentButtonByTextNoIFrame } from '../../locators/pages';
+import { loader } from '../../locators/loader';
 
 const transparentBorderColor = 'rgba(0, 0, 0, 0.85)';
 const notTransparentBorderColor = 'rgb(102, 133, 146)';
@@ -253,4 +256,21 @@ When('I click on Select label', () => {
 
 When('I click onto {string} button', (buttonName) => {
   dataComponentButtonByTextNoIFrame(buttonName).click();
+});
+
+When('I click on Select input with lazy loading in no iframe', () => {
+  isLoading().click();
+});
+
+Then('Lazy loading is visible', () => {
+  loader().should('be.visible');
+});
+
+When('I scroll to the {string} of Select List', (direction) => {
+  selectList().scrollTo(direction).wait(250);
+  selectList().scrollTo(direction);
+});
+
+Then('Select list {string} option is visible', (option) => {
+  selectListText(option).should('be.visible');
 });
