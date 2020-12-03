@@ -19,7 +19,8 @@ const Sort = ({ children, onClick, sortType }) => {
   return (
     <>
       <span hidden id={id.current}>
-        {children}, sort type {sortType || "none"}
+        {children}
+        {sortType ? `, sort type ${sortType}` : ", sortable"}
       </span>
       <StyledSort
         type="button"
@@ -42,7 +43,7 @@ const Sort = ({ children, onClick, sortType }) => {
 
 Sort.propTypes = {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
-  sortType: PropTypes.oneOf(["asc", "desc", false]),
+  sortType: PropTypes.oneOf(["ascending", "descending", false]),
   /** Callback fired when the `FlatTableSortHeader` is clicked */
   onClick: PropTypes.func,
   /** The content of `FlatTableSortHeader` */

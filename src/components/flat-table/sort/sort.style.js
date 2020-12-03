@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StyledIcon from "../../icon/icon.style";
 import { baseTheme } from "../../../style/themes";
 
-const StyledSort = styled.th`
+const StyledSort = styled.div`
   display: inline-flex;
   align-items: center;
   padding-left: 2px;

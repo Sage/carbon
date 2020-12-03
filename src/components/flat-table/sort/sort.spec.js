@@ -71,7 +71,7 @@ describe("Sort", () => {
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(true);
   });
 
-  it("should not render `StyledSpaceHoldcer` if `sortTyp`e prop is provided", () => {
+  it("should not render `StyledSpaceHolder` if `sortType` prop is provided", () => {
     wrapper = renderSort({ sortType: "ascending" });
 
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
