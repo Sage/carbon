@@ -4,7 +4,7 @@ import Button from '../../../../src/components/button';
 import Textbox from '../../../../src/__experimental__/components/textbox'
 import NumberInput from '../../../../src/__experimental__/components/number';
 import Decimal from '../../../../src/__experimental__/components/decimal';
-import { Select, Option } from '../../../../src/__experimental__/components/select';
+import { Select, Option } from '../../../../src/components/select';
 import { Wrapper, ContentWrapper } from '../../common.style';
 import { ComponentShowcaseWrapper, StyledDemoWrapper, StyledDemoRow, StyledComponentWrapper } from './demo.style';
 import DemoTable from './demo-table';

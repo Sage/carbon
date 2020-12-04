@@ -1,6 +1,5 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { ThemeProvider } from "styled-components";
 import { mount, shallow } from "enzyme";
 import { InputPresentation } from ".";
 import InputPresentationStyle, {
@@ -10,7 +9,6 @@ import baseTheme from "../../../style/themes/base";
 import sizes from "./input-sizes.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import classicTheme from "../../../style/themes/classic";
 import {
   InputContext,
   InputGroupContext,
@@ -190,41 +188,6 @@ describe("InputPresentation", () => {
       inputProps.onMouseLeave();
     });
   });
-
-  describe("classic theme", () => {
-    it("applies custom styling", () => {
-      expect(
-        renderWithTheme({}, classicTheme, TestRenderer.create)
-      ).toMatchSnapshot();
-    });
-
-    it("applies custom border and outline on focus", () => {
-      assertStyleMatch(
-        {
-          outline: "none",
-          border: "1px solid #255bc7",
-        },
-        renderWithTheme({ hasFocus: true }, classicTheme).find(
-          InputPresentationStyle
-        ),
-        {
-          modifier: "&&",
-        }
-      );
-    });
-
-    it("applies custom background and border color on disabled", () => {
-      assertStyleMatch(
-        {
-          background: "#d9e0e4",
-          borderColor: "#d9e0e4 !important",
-        },
-        renderWithTheme({ disabled: true }, classicTheme).find(
-          InputPresentationStyle
-        )
-      );
-    });
-  });
 });
 
 function render(props, renderer = mount) {
@@ -244,13 +207,5 @@ function renderWithContext(
         <InputPresentation {...props}>sample children</InputPresentation>
       </InputContext.Provider>
     </InputGroupContext.Provider>
-  );
-}
-
-function renderWithTheme(props, theme, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <InputPresentation {...props}>sample children</InputPresentation>
-    </ThemeProvider>
   );
 }

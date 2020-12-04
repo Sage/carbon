@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import sizes from "./input-sizes.style";
-import inputClassicStyling from "./input-presentation-classic.style";
 import StyledInput from "./input.style";
 import StyledInlineInputs from "../../../components/inline-inputs/inline-inputs.style";
 
@@ -64,8 +63,6 @@ const InputPresentationStyle = styled.div`
     `}
 
   ${({ align }) => align === "right" && "flex-direction: row-reverse"}
-
-  ${inputClassicStyling}
 
   input::-ms-clear {
     display: none;
