@@ -20,15 +20,6 @@ Feature: Accessibility tests - Experimental folder
       | textbox             |
 
   @accessibility
-  Scenario Outline: Component <component> validation story
-    When I open "Experimental <component>" component page "validations" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component |
-      | select    |
-      | fieldset  |
-
-  @accessibility
   Scenario Outline: Component <component> validations boolean story
     When I open "Experimental <component>" component page "validations boolean" in no iframe
     Then "<component>" component has no accessibility violations
