@@ -8,7 +8,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component        |
       | fieldset         |
-      | select           |
 
   @accessibility
   Scenario Outline: Component <component> default_story
@@ -34,7 +33,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component |
       | fieldset  |
-      | select    |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story

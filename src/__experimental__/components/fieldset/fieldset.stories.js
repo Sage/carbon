@@ -8,7 +8,7 @@ import {
 import notes from "./documentation";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
-import { Select, Option } from "../select";
+import { Select, Option } from "../../../components/select";
 import { Checkbox } from "../checkbox";
 
 import getDocGenInfo from "../../../utils/helpers/docgen-info";
