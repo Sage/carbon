@@ -665,7 +665,7 @@ Note: parent container background-color is set to red for demonstration purpose.
     const [isExpanded, setIsExpanded] = useState(true);
     const [isFilterOpen, setFilterOpen] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [sortType, setSortType] = useState('desc');
+    const [sortType, setSortType] = useState('descending');
     const [pickedUpData, setPickedUpData] = useState();
     const handleDialogOpen = () => {
       setIsDialogOpen(true);
@@ -707,7 +707,7 @@ Note: parent container background-color is set to red for demonstration purpose.
     const createBodyData = (type) => {
       const data = bodyDataItems;
       const sortedData = data.sort((a, b) => {
-        if (type === 'asc') {
+        if (type === 'ascending') {
           if (a.ColumnA.name < b.ColumnA.name) {
             return -1;
           }
@@ -716,7 +716,7 @@ Note: parent container background-color is set to red for demonstration purpose.
           }
           return 0;
         }
-        if (type === 'desc') {
+        if (type === 'descending') {
           if (a.ColumnA.name > b.ColumnA.name) {
             return -1;
           }
@@ -744,10 +744,10 @@ Note: parent container background-color is set to red for demonstration purpose.
       ));
     };
     const handleSortChange = () => {
-      if (sortType === 'asc') {
-        return setSortType('desc');
+      if (sortType === 'ascending') {
+        return setSortType('descending');
       }
-      return setSortType('asc');
+      return setSortType('ascending');
     };
     return (
       <>
