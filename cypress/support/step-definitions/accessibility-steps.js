@@ -1,3 +1,5 @@
+const { noPreview } = require('../../locators');
+
 const A11YOptions = {
   runOnly: {
     type: 'tag',
@@ -12,6 +14,8 @@ const A11YOptions = {
 };
 
 Then('{string} component has no accessibility violations', () => {
-  cy.injectAxe();
-  cy.checkA11y(null, A11YOptions);
+  noPreview().wait(500).should('not.be.visible').then(() => {
+    cy.injectAxe();
+    cy.checkA11y(null, A11YOptions);
+  });
 });

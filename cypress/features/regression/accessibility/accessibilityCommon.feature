@@ -3,7 +3,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> page auto opened
-    Given I open "<component>" component page "default" in no iframe
+    Given I open "<component>" component page "default story" in no iframe
       And I wait 500
     Then "<component>" component has no accessibility violations
     Examples:

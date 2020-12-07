@@ -18,7 +18,6 @@ import {
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIconIframe,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
   labelByPosition,
