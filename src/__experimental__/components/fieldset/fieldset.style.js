@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import FormFieldStyle from "../form-field/form-field.style";
-import fieldsetClassicStyle from "./fieldset-classic.style";
 import ValidationIconStyle from "../../../components/validations/validation-icon.style";
 import StyledIcon from "../../../components/icon/icon.style";
 import CheckboxStyle from "../checkbox/checkbox.style";
@@ -39,8 +38,6 @@ const LegendContainerStyle = styled.div`
     font-weight: 600;
     line-height: 24px;
     margin-right: 4px;
-
-    ${fieldsetClassicStyle}
   }
 
   ${ValidationIconStyle} ${StyledIcon}:focus {

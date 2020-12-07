@@ -2,14 +2,6 @@ Feature: Accessibility tests - Experimental folder
   I want to check that all components have no violations
 
   @accessibility
-  Scenario Outline: Component <component> default story
-    When I open "Experimental <component>" component page "default" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component        |
-      | fieldset         |
-
-  @accessibility
   Scenario Outline: Component <component> default_story
     When I open "Experimental <component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
@@ -19,20 +11,13 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | number-input        |
       | simple-color-picker |
       | switch              |
       | textarea            |
       | textbox             |
-
-  @accessibility
-  Scenario Outline: Component <component> validation story
-    When I open "Experimental <component>" component page "validations" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component |
-      | fieldset  |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -43,6 +28,7 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
@@ -58,6 +44,7 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
@@ -73,6 +60,7 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
+      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
