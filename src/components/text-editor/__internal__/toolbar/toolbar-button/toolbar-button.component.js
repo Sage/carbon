@@ -28,7 +28,6 @@ class ToolbarButton extends React.Component {
           isActive={this.props.activated}
           aria-label={this.props.ariaLabel}
           {...(!this.props.tabbable && { tabIndex: -1 })}
-          type="button"
         >
           {this.props.children}
         </StyledToolbarButton>
