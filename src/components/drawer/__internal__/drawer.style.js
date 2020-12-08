@@ -121,7 +121,7 @@ const StyledDrawerContent = styled.div`
   }
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({ type: "button" })`
   position: absolute;
   top: 18px;
   right: 6px;

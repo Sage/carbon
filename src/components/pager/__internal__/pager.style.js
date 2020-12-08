@@ -141,7 +141,7 @@ const StyledPagerNavInner = styled.div`
   padding: 0 12px;
 `;
 
-const StyledPagerLinkStyles = styled.button`
+const StyledPagerLinkStyles = styled.button.attrs({ type: "button" })`
   padding: 0 10px;
   font-size: 13px;
   border-width: 0;

@@ -224,7 +224,6 @@ class BaseCarousel extends React.Component {
           {...this.previousButtonProps()}
           data-element="previous"
           aria-label="previous"
-          type="button"
           disabled={isDisabled}
         >
           <CarouselStyledIconLeft type="chevron_down" />
