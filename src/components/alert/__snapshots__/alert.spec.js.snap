@@ -1094,6 +1094,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                               "textboxBorder": "#CCD6DB",
                               "textboxText": "rgba(0,0,0,0.74)",
                             },
+                            "scrollbar": Object {
+                              "dark": Object {
+                                "thumb": "#99ADB6",
+                                "track": "#335C6D",
+                              },
+                              "light": Object {
+                                "thumb": "#668592",
+                                "track": "#F2F5F6",
+                              },
+                            },
                             "search": Object {
                               "active": "#FFDA80",
                               "button": "#255BC7",
@@ -1417,6 +1427,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                     "textboxBackground": "#FAFBFB",
                                     "textboxBorder": "#CCD6DB",
                                     "textboxText": "rgba(0,0,0,0.74)",
+                                  },
+                                  "scrollbar": Object {
+                                    "dark": Object {
+                                      "thumb": "#99ADB6",
+                                      "track": "#335C6D",
+                                    },
+                                    "light": Object {
+                                      "thumb": "#668592",
+                                      "track": "#F2F5F6",
+                                    },
                                   },
                                   "search": Object {
                                     "active": "#FFDA80",
@@ -1801,6 +1821,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                 "textboxBorder": "#CCD6DB",
                                 "textboxText": "rgba(0,0,0,0.74)",
                               },
+                              "scrollbar": Object {
+                                "dark": Object {
+                                  "thumb": "#99ADB6",
+                                  "track": "#335C6D",
+                                },
+                                "light": Object {
+                                  "thumb": "#668592",
+                                  "track": "#F2F5F6",
+                                },
+                              },
                               "search": Object {
                                 "active": "#FFDA80",
                                 "button": "#255BC7",
@@ -2135,6 +2165,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                     "textboxBorder": "#CCD6DB",
                                     "textboxText": "rgba(0,0,0,0.74)",
                                   },
+                                  "scrollbar": Object {
+                                    "dark": Object {
+                                      "thumb": "#99ADB6",
+                                      "track": "#335C6D",
+                                    },
+                                    "light": Object {
+                                      "thumb": "#668592",
+                                      "track": "#F2F5F6",
+                                    },
+                                  },
                                   "search": Object {
                                     "active": "#FFDA80",
                                     "button": "#255BC7",
@@ -2453,6 +2493,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                           "textboxBackground": "#FAFBFB",
                                           "textboxBorder": "#CCD6DB",
                                           "textboxText": "rgba(0,0,0,0.74)",
+                                        },
+                                        "scrollbar": Object {
+                                          "dark": Object {
+                                            "thumb": "#99ADB6",
+                                            "track": "#335C6D",
+                                          },
+                                          "light": Object {
+                                            "thumb": "#668592",
+                                            "track": "#F2F5F6",
+                                          },
                                         },
                                         "search": Object {
                                           "active": "#FFDA80",
@@ -2814,6 +2864,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                       "textboxBorder": "#CCD6DB",
                                       "textboxText": "rgba(0,0,0,0.74)",
                                     },
+                                    "scrollbar": Object {
+                                      "dark": Object {
+                                        "thumb": "#99ADB6",
+                                        "track": "#335C6D",
+                                      },
+                                      "light": Object {
+                                        "thumb": "#668592",
+                                        "track": "#F2F5F6",
+                                      },
+                                    },
                                     "search": Object {
                                       "active": "#FFDA80",
                                       "button": "#255BC7",
@@ -3145,6 +3205,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                             "textboxBorder": "#CCD6DB",
                                             "textboxText": "rgba(0,0,0,0.74)",
                                           },
+                                          "scrollbar": Object {
+                                            "dark": Object {
+                                              "thumb": "#99ADB6",
+                                              "track": "#335C6D",
+                                            },
+                                            "light": Object {
+                                              "thumb": "#668592",
+                                              "track": "#F2F5F6",
+                                            },
+                                          },
                                           "search": Object {
                                             "active": "#FFDA80",
                                             "button": "#255BC7",
@@ -3466,6 +3536,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                                   "textboxBackground": "#FAFBFB",
                                                   "textboxBorder": "#CCD6DB",
                                                   "textboxText": "rgba(0,0,0,0.74)",
+                                                },
+                                                "scrollbar": Object {
+                                                  "dark": Object {
+                                                    "thumb": "#99ADB6",
+                                                    "track": "#335C6D",
+                                                  },
+                                                  "light": Object {
+                                                    "thumb": "#668592",
+                                                    "track": "#F2F5F6",
+                                                  },
                                                 },
                                                 "search": Object {
                                                   "active": "#FFDA80",
@@ -3826,6 +3906,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                               "textboxBackground": "#FAFBFB",
                                               "textboxBorder": "#CCD6DB",
                                               "textboxText": "rgba(0,0,0,0.74)",
+                                            },
+                                            "scrollbar": Object {
+                                              "dark": Object {
+                                                "thumb": "#99ADB6",
+                                                "track": "#335C6D",
+                                              },
+                                              "light": Object {
+                                                "thumb": "#668592",
+                                                "track": "#F2F5F6",
+                                              },
                                             },
                                             "search": Object {
                                               "active": "#FFDA80",
@@ -4306,6 +4396,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                             "textboxBorder": "#CCD6DB",
                                             "textboxText": "rgba(0,0,0,0.74)",
                                           },
+                                          "scrollbar": Object {
+                                            "dark": Object {
+                                              "thumb": "#99ADB6",
+                                              "track": "#335C6D",
+                                            },
+                                            "light": Object {
+                                              "thumb": "#668592",
+                                              "track": "#F2F5F6",
+                                            },
+                                          },
                                           "search": Object {
                                             "active": "#FFDA80",
                                             "button": "#255BC7",
@@ -4626,6 +4726,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                                   "textboxBackground": "#FAFBFB",
                                                   "textboxBorder": "#CCD6DB",
                                                   "textboxText": "rgba(0,0,0,0.74)",
+                                                },
+                                                "scrollbar": Object {
+                                                  "dark": Object {
+                                                    "thumb": "#99ADB6",
+                                                    "track": "#335C6D",
+                                                  },
+                                                  "light": Object {
+                                                    "thumb": "#668592",
+                                                    "track": "#F2F5F6",
+                                                  },
                                                 },
                                                 "search": Object {
                                                   "active": "#FFDA80",
@@ -4993,6 +5103,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                               "textboxBorder": "#CCD6DB",
                                               "textboxText": "rgba(0,0,0,0.74)",
                                             },
+                                            "scrollbar": Object {
+                                              "dark": Object {
+                                                "thumb": "#99ADB6",
+                                                "track": "#335C6D",
+                                              },
+                                              "light": Object {
+                                                "thumb": "#668592",
+                                                "track": "#F2F5F6",
+                                              },
+                                            },
                                             "search": Object {
                                               "active": "#FFDA80",
                                               "button": "#255BC7",
@@ -5330,6 +5450,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                                     "textboxBorder": "#CCD6DB",
                                                     "textboxText": "rgba(0,0,0,0.74)",
                                                   },
+                                                  "scrollbar": Object {
+                                                    "dark": Object {
+                                                      "thumb": "#99ADB6",
+                                                      "track": "#335C6D",
+                                                    },
+                                                    "light": Object {
+                                                      "thumb": "#668592",
+                                                      "track": "#F2F5F6",
+                                                    },
+                                                  },
                                                   "search": Object {
                                                     "active": "#FFDA80",
                                                     "button": "#255BC7",
@@ -5655,6 +5785,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                                           "textboxBackground": "#FAFBFB",
                                                           "textboxBorder": "#CCD6DB",
                                                           "textboxText": "rgba(0,0,0,0.74)",
+                                                        },
+                                                        "scrollbar": Object {
+                                                          "dark": Object {
+                                                            "thumb": "#99ADB6",
+                                                            "track": "#335C6D",
+                                                          },
+                                                          "light": Object {
+                                                            "thumb": "#668592",
+                                                            "track": "#F2F5F6",
+                                                          },
                                                         },
                                                         "search": Object {
                                                           "active": "#FFDA80",
@@ -6005,6 +6145,16 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                                       "textboxBackground": "#FAFBFB",
                                                       "textboxBorder": "#CCD6DB",
                                                       "textboxText": "rgba(0,0,0,0.74)",
+                                                    },
+                                                    "scrollbar": Object {
+                                                      "dark": Object {
+                                                        "thumb": "#99ADB6",
+                                                        "track": "#335C6D",
+                                                      },
+                                                      "light": Object {
+                                                        "thumb": "#668592",
+                                                        "track": "#F2F5F6",
+                                                      },
                                                     },
                                                     "search": Object {
                                                       "active": "#FFDA80",
