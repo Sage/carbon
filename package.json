@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "50.3.1",
+  "version": "51.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -121,7 +121,6 @@
     "react-dnd-test-backend": "^10.0.2",
     "react-dnd-test-utils": "^10.0.2",
     "react-dom": "^16.12.0",
-    "react-highlight": "briancappello/react-highlight#react-v16-compiled",
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^2.6.3",

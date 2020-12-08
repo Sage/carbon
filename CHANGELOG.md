@@ -1,3 +1,23 @@
+## [51.0.0](https://github.com/Sage/carbon/compare/v50.3.1...v51.0.0) (2020-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort:** `asc` and `desc` are no more supported, there are new ones
+`ascending` and `descending`
+
+You will need replace
+`<Sort sortType="asc" />`
+with
+`<Sort sortType="ascending" />`
+
+Or you can use our codemod for replacing prop values
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **sort:** add accessibility for screen readers ([10d0140](https://github.com/Sage/carbon/commit/10d01406496e55dcd0668ef48ff0c4c7626f936a))
+
 ### [50.3.1](https://github.com/Sage/carbon/compare/v50.3.0...v50.3.1) (2020-12-02)
 
 
