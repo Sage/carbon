@@ -57,6 +57,8 @@ export interface SimpleSelectProps extends SpacingProps {
   required?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom?: () => void;
 }
 
 declare const SimpleSelect: React.ComponentType<SimpleSelectProps>;
