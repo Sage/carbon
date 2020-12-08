@@ -1,3 +1,42 @@
+## [53.0.0](https://github.com/Sage/carbon/compare/v52.0.0...v53.0.0) (2020-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **action-popover:** Classic theme styling has been removed
+* **action-toolbar:** Classic theme is no longer supported
+* **dialog-full-screen/full-screen-heading:** removal of classic theme from dialog full screen component.
+
+fixes FE-3633 and FE-3361
+* **dismiss-button:** dismiss-button component is being removed as it is no longer used internally.
+* **action-popover:** Classic theme styling has been removed
+* **action-toolbar:** Classic theme is no longer supported
+* **dialog-full-screen/full-screen-heading:** removal of classic theme from dialog full screen component.
+
+fixes FE-3633 and FE-3361
+* **dismiss-button:** dismiss-button component is being removed as it is no longer used internally.
+* **action-popover:** Classic theme styling has been removed
+* **dialog-full-screen/full-screen-heading:** removal of classic theme from dialog full screen component.
+
+fixes FE-3633 and FE-3361
+* **action-toolbar:** Classic theme is no longer supported
+* **dismiss-button:** dismiss-button component is being removed as it is no longer used internally.
+
+### Miscellaneous Chores
+
+* **action-popover:** remove support for classic theme ([a80eaea](https://github.com/Sage/carbon/commit/a80eaea2902190e0573f0a0d9ae68a6f27fa847f))
+* **action-popover:** remove support for classic theme ([8a60053](https://github.com/Sage/carbon/commit/8a600535bcc4c0f63e5367058340acd15bd0caa4))
+* **action-popover:** remove support for classic theme ([d0bbc44](https://github.com/Sage/carbon/commit/d0bbc44aab016924e14bc3c067cf932bf27d7f97))
+* **action-toolbar:** remove classic theme support ([a4e69c8](https://github.com/Sage/carbon/commit/a4e69c8b91cc51e37d7f4c3d07cf037b9e44ebe0))
+* **action-toolbar:** remove classic theme support ([5221a63](https://github.com/Sage/carbon/commit/5221a63bf4728ae927db72cecde0578bcbb26b9c))
+* **action-toolbar:** remove classic theme support ([96f3e2c](https://github.com/Sage/carbon/commit/96f3e2c459c0d861caa54825f596dac239d0e292))
+* **dialog-full-screen/full-screen-heading:** remove classic theme ([a073d1f](https://github.com/Sage/carbon/commit/a073d1f4c87c821bf978c6b86d9f7c4fbd812b6f))
+* **dialog-full-screen/full-screen-heading:** remove classic theme ([5679196](https://github.com/Sage/carbon/commit/5679196e9e42e41f18b90667f0527d039f06f537))
+* **dialog-full-screen/full-screen-heading:** remove classic theme ([b7e2ad7](https://github.com/Sage/carbon/commit/b7e2ad7b6b23b6590b62cc00973df4e38d6c9934))
+* **dismiss-button:** remove dismiss-button component ([61ea851](https://github.com/Sage/carbon/commit/61ea851e99ebdd533a51b6de07555b0083d252a2)), closes [#2647](https://github.com/Sage/carbon/issues/2647)
+* **dismiss-button:** remove dismiss-button component ([b1d7302](https://github.com/Sage/carbon/commit/b1d73022078e41929bde3cf048a47e98e6111eda)), closes [#2647](https://github.com/Sage/carbon/issues/2647)
+* **dismiss-button:** remove dismiss-button component ([d948ed5](https://github.com/Sage/carbon/commit/d948ed5a084e8871a00ef8fdc5e3017dc15eb311)), closes [#2647](https://github.com/Sage/carbon/issues/2647)
+
 ## [52.0.0](https://github.com/Sage/carbon/compare/v51.0.0...v52.0.0) (2020-12-08)
 
 
