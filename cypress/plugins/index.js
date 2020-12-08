@@ -25,6 +25,10 @@ module.exports = (on, config) => {
       console.log(message);
       return null;
     },
+    table(message) {
+      console.table(message)
+      return null
+    }
   });
   on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.family === 'chromium' && browser.name !== 'electron') {

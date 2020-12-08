@@ -8,20 +8,23 @@ Feature: Accessibility tests - Common list
     Examples:
       | component          |
       | AppWrapper         |
-      | alert              |
-      | confirm            |
+      | Alert              |
+      | Confirm            |
+      | Content            |
       | Detail             |
-      | dialog             |
-      | dialog-full-screen |
+      | Dialog             |
+      | Dialog-full-screen |
       | Heading            |
       | Help               |
       | I18nComponent      |
       | Link               |
-      | message            |
+      | Message            |
       | MenuList           |
       | Mount In App       |
       # | Pages             |
-      | sidebar            |
+      | Preview            |
+      | Row                |
+      | Sidebar            |
 
   @accessibility
   Scenario: Component button toggle
@@ -37,7 +40,7 @@ Feature: Accessibility tests - Common list
     Then "<data-component>" component has no accessibility violations
     Examples:
       | component |
-      | flash     |
+      | Flash     |
 
   @accessibility
   Scenario Outline: Component <component> default story
@@ -45,20 +48,12 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | carousel            |
-      | card                |
-      | configurable-items  |
-      | content             |
-      | draggableContext    |
-      | multi-action-button |
-      | portrait            |
-      | preview             |
-      | profile             |
-      | row                 |
-      | settingsrow         |
-      | split-button        |
-      | table-ajax          |
-      | table               |
+      | Carousel            |
+      | Configurable-items  |
+      | Multi-action-button |
+      | Portrait            |
+      | Profile             |
+      | Split-button        |
 
   @accessibility
   Scenario Outline: Component <component> basic story
@@ -66,12 +61,19 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component     |
-      | showeditpod   |
-      | step-sequence |
-      | icon          |
-      | button toggle |
+      | Showeditpod   |
+      | Step-sequence |
+      | Icon          |
+      | Button toggle |
 
   @accessibility
-  Scenario: Component Tooltip default story
-    When I open "Tooltip Test" component page "default" in no iframe
-    Then "Tooltip Test default story" component has no accessibility violations
+  Scenario Outline: Component <component> default story
+    When I open "<component> Test" component page "default" in no iframe
+    Then "<component> Test default story" component has no accessibility violations
+    Examples:
+      | component        |
+      | Tooltip          |
+      | DraggableContext |
+      | Settingsrow      |
+      | Table-ajax       |
+      | Table            |
