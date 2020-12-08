@@ -4,11 +4,13 @@ import StyledIcon from "../../icon/icon.style";
 import baseTheme from "../../../style/themes/base";
 
 const StyledOptionGroupHeader = styled.div`
+  box-sizing: border-box;
   height: 26px;
   margin: 16px 0 0;
   padding-left: 16px;
   display: flex;
   align-items: center;
+  width: 100%;
 
   h4 {
     font-size: 12px;

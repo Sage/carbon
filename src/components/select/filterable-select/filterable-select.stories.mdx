@@ -264,6 +264,85 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
   </Story>
 </Preview>
 
+### Infinite scroll example:
+The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
+This prop will be called every time a user scrolls to the bottom of the list.
+
+<Preview>
+  <Story name="with infinite scroll" parameters={{ chromatic: { disable: true }}} > 
+    {() => {
+      let preventLoading = useRef(false);
+      let preventLazyLoading = useRef(false);
+      let lazyLoadingCounter = useRef(0);
+      const [value, setValue] = useState('');
+      const [isOpen, setIsOpen] = useState(false);
+      const [isLoading, setIsLoading] = useState(true);
+      const asyncList = [
+        <Option text='Amber' value='amber' key='Amber' />,
+        <Option text='Black' value='black' key='Black' />,
+        <Option text='Blue' value='blue' key='Blue' />,
+        <Option text='Brown' value='brown' key='Brown' />,
+        <Option text='Green' value='green' key='Green' />,
+      ];
+      const getLazyLoaded = () => {
+        const counter = lazyLoadingCounter.current;
+        return [
+          <Option text={`Lazy Loaded A${counter}`} value={`lazyA${counter}`} key={`lazyA${counter}`} />,
+          <Option text={`Lazy Loaded B${counter}`} value={`lazyB${counter}`} key={`lazyB${counter}`} />,
+          <Option text={`Lazy Loaded C${counter}`} value={`lazyC${counter}`} key={`lazyC${counter}`} />,
+        ];
+      };
+      const [optionList, setOptionList] = useState([]);
+      function loadList() {
+        if (preventLoading.current) {
+          return;
+        }
+        preventLoading.current = true;
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          setOptionList(asyncList)
+        }, 2000);
+      }
+      function onLazyLoading() {
+        if (preventLazyLoading.current) {
+          return;
+        }
+        preventLazyLoading.current = true;
+        setIsLoading(true);
+        setTimeout(() => {
+          preventLazyLoading.current = false;
+          lazyLoadingCounter.current += 1;
+          setIsLoading(false);
+          setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
+        }, 2000);
+      }
+      function clearData() {
+        setOptionList([]);
+        setValue('');
+        preventLoading.current = false;
+      }
+      return (
+        <div>
+          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <FilterableSelect
+            name='infiniteScroll'
+            id='infiniteScroll'
+            label='label'
+            value={ value }
+            onChange={ (event) => setValue(event.target.value) }
+            onOpen={ () => loadList() }
+            isLoading={ isLoading }
+            onListScrollBottom={ onLazyLoading }
+          >
+            { optionList }
+          </FilterableSelect>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
