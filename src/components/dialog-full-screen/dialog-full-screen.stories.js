@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import DialogFullScreen from ".";
 import Dialog from "../dialog";
 import Button from "../button";
@@ -11,7 +10,6 @@ export default {
   title: "Dialog Full Screen/Test",
   component: DialogFullScreen,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

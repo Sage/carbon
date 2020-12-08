@@ -1,114 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ActionPopover styles renders correctly for the "classic" theme 1`] = `
-.c0 {
-  visibility: hidden;
-  margin: 0;
-  padding: 5px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 2000;
-  box-shadow: 0 10px 10px 0 rgba(0,20,29,0.1), 0 5px 5px 0 rgba(0,20,29,0.2);
-  padding: 5px 0;
-}
-
-<div
-  className="c0"
-/>
-`;
-
-exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
-.c0 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 15px;
-  position: relative;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-  line-height: 35px;
-  padding: 0 15px 0 10px;
-}
-
-.c0:focus,
-.c0:hover {
-  background-color: #F2F5F6;
-}
-
-.c0:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c0.c0 .c1 {
-  cursor: pointer;
-}
-
-.c0:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 1px #255bc7;
-}
-
-<div
-  className="c0"
-/>
-`;
-
-exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
-.c0 {
-  position: relative;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: auto;
-}
-
-.c0.c0 .c1 {
-  cursor: pointer;
-}
-
-.c0:hover,
-.c0:focus {
-  background-color: #FFFFFF;
-}
-
-.c0:focus {
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus {
-  outline: 1px solid #255bc7;
-}
-
-.c0:hover > span,
-.c0:focus > span {
-  color: #255bc7;
-}
-
-<div
-  className="c0"
-/>
-`;
-
 exports[`ActionPopover submenu left aligned closes the submenu on mouseleave event 1`] = `
 .c3 {
   display: inline-block;
@@ -168,19 +59,11 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   cursor: pointer;
 }
 
-.c7.c7 .c2 {
-  cursor: pointer;
-}
-
-.c8.c8 .c2 {
-  cursor: pointer;
-}
-
 .c4 {
   padding-right: 8px;
 }
 
-.c9.c9 .c2 {
+.c7.c7 .c2 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -223,10 +106,6 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 }
 
 .c0.c0 .c2 {
-  cursor: pointer;
-}
-
-.c10.c10 .c2 {
   cursor: pointer;
 }
 
@@ -336,19 +215,11 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   cursor: pointer;
 }
 
-.c7.c7 .c2 {
-  cursor: pointer;
-}
-
-.c8.c8 .c2 {
-  cursor: pointer;
-}
-
 .c4 {
   padding-right: 8px;
 }
 
-.c9.c9 .c2 {
+.c7.c7 .c2 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -391,10 +262,6 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 }
 
 .c0.c0 .c2 {
-  cursor: pointer;
-}
-
-.c10.c10 .c2 {
   cursor: pointer;
 }
 
