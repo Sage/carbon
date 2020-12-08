@@ -117,6 +117,7 @@ exports[`BatchSelection component should render correctly 1`] = `
     className="c2 c3"
     onClick={[Function]}
     onKeyDown={[Function]}
+    type="button"
   >
     <span
       className="c4 c5"

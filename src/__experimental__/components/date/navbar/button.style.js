@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({ type: "button" })`
   align-items: center;
   display: block;
   border: none;

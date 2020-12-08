@@ -1,3 +1,41 @@
+## [52.0.0](https://github.com/Sage/carbon/compare/v51.0.0...v52.0.0) (2020-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Components that render a button now default to `type=button` instead of `type=submit`. The `Button` component has not changed and you can still override the button type using the `type` prop.
+
+### Bug Fixes
+
+* prevent accidental form submission ([6286f5c](https://github.com/Sage/carbon/commit/6286f5cbc3fcc7a7671ba51a4f6e5900749adbd0)), closes [#3405](https://github.com/Sage/carbon/issues/3405)
+
+## [51.0.0](https://github.com/Sage/carbon/compare/v50.3.1...v51.0.0) (2020-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort:** `asc` and `desc` are no more supported, there are new ones
+`ascending` and `descending`
+
+You will need replace
+`<Sort sortType="asc" />`
+with
+`<Sort sortType="ascending" />`
+
+Or you can use our codemod for replacing prop values
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **sort:** add accessibility for screen readers ([10d0140](https://github.com/Sage/carbon/commit/10d01406496e55dcd0668ef48ff0c4c7626f936a))
+
+### [50.3.1](https://github.com/Sage/carbon/compare/v50.3.0...v50.3.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **action-popover:** incorrect submenu proptype ([08f4117](https://github.com/Sage/carbon/commit/08f4117c92502f5a73b698f0e78ed10bd26f36fa))
+
 ## [50.3.0](https://github.com/Sage/carbon/compare/v50.2.0...v50.3.0) (2020-11-26)
 
 

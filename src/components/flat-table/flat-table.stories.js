@@ -128,16 +128,16 @@ export const Sortable = () => {
   ];
 
   const [headData, setHeadData] = useState(headDataItems);
-  const [sortType, setSortType] = useState("asc");
+  const [sortType, setSortType] = useState("ascending");
   const [sortValue, setSortValue] = useState();
 
   const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
-      if (type === "asc") {
+      if (type === "ascending") {
         return a[sortByValue] - b[sortByValue];
       }
 
-      if (type === "desc") {
+      if (type === "descending") {
         return b[sortByValue] - a[sortByValue];
       }
 
@@ -152,7 +152,7 @@ export const Sortable = () => {
       const nameA = a[sortByValue].toUpperCase();
       const nameB = b[sortByValue].toUpperCase();
 
-      if (type === "asc") {
+      if (type === "ascending") {
         if (nameA < nameB) {
           return -1;
         }
@@ -162,7 +162,7 @@ export const Sortable = () => {
         }
       }
 
-      if (type === "desc") {
+      if (type === "descending") {
         if (nameA > nameB) {
           return -1;
         }
@@ -189,7 +189,7 @@ export const Sortable = () => {
     });
 
     setSortValue(value);
-    setSortType(sortType === "asc" ? "desc" : "asc");
+    setSortType(sortType === "ascending" ? "descending" : "ascending");
     setHeadData([...tempHeadData]);
   };
 

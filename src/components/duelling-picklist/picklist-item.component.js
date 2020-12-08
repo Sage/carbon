@@ -53,7 +53,7 @@ export const PicklistItem = React.forwardRef(
           data-element="picklist-item"
         >
           {children}
-          <StyledButton tabIndex={-1} type={type} onClick={handleClick}>
+          <StyledButton tabIndex={-1} variant={type} onClick={handleClick}>
             <Icon type={type} />
           </StyledButton>
         </StyledPicklistItem>
