@@ -1,3 +1,14 @@
+## [52.0.0](https://github.com/Sage/carbon/compare/v51.0.0...v52.0.0) (2020-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Components that render a button now default to `type=button` instead of `type=submit`. The `Button` component has not changed and you can still override the button type using the `type` prop.
+
+### Bug Fixes
+
+* prevent accidental form submission ([6286f5c](https://github.com/Sage/carbon/commit/6286f5cbc3fcc7a7671ba51a4f6e5900749adbd0)), closes [#3405](https://github.com/Sage/carbon/issues/3405)
+
 ## [51.0.0](https://github.com/Sage/carbon/compare/v50.3.1...v51.0.0) (2020-12-07)
 
 
