@@ -38,7 +38,7 @@ Scenario Outline: Component <component> default story
     | component           |
     | carousel            |
     | configurable-items  |
-    | content             |
+    | detail              |
     | draggableContext    |
     | icon                |
     | loader              |
@@ -46,7 +46,6 @@ Scenario Outline: Component <component> default story
     | multi-action-button |
     | pill                |
     | portrait            |
-    | preview             |
     | profile             |
     | row                 |
     | settingsrow         |
@@ -81,6 +80,7 @@ Scenario Outline: Component <component> default story
     Examples:
       | component     |
       | AppWrapper    |
+      | Content       |
       | Detail        |
       | Heading       |
       | Help          |
@@ -89,3 +89,4 @@ Scenario Outline: Component <component> default story
       | MenuList      |
       | Mount In App  |
     # | Pages         |
+      | Preview       |
