@@ -16,10 +16,6 @@ import SelectTextbox, {
 import SelectList from "../select-list/select-list.component";
 import guid from "../../../utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import {
-  getNextOptionByKey,
-  getIndexOfMatch,
-} from "../utils/get-next-option-by-key";
 import Option from "../option/option.component";
 
 const SimpleSelect = React.forwardRef(
@@ -42,6 +38,7 @@ const SimpleSelect = React.forwardRef(
       onBlur,
       disablePortal,
       isLoading,
+      onListScrollBottom,
       ...props
     },
     inputRef
@@ -175,24 +172,6 @@ const SimpleSelect = React.forwardRef(
           return;
         }
 
-        if (!event.defaultPrevented && isNavigationKey(event.key)) {
-          setSelectedValue((previousSelectedValue) => {
-            const currentIndex = getIndexOfMatch(
-              childOptions,
-              previousSelectedValue
-            );
-            const nextElement = getNextOptionByKey(
-              key,
-              childOptions,
-              currentIndex
-            );
-
-            setTextValue(nextElement.props.text);
-
-            return nextElement.props.value;
-          });
-        }
-
         if (key === "Enter" || key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
@@ -205,7 +184,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [childOptions, onKeyDown, onOpen, readOnly]
+      [onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
@@ -248,10 +227,10 @@ const SimpleSelect = React.forwardRef(
     useEffect(() => {
       const clickEvent = "click";
 
-      document.addEventListener(clickEvent, handleGlobalClick);
+      window.addEventListener(clickEvent, handleGlobalClick);
 
       return function cleanup() {
-        document.removeEventListener(clickEvent, handleGlobalClick);
+        window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
 
@@ -400,6 +379,7 @@ const SimpleSelect = React.forwardRef(
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
         isLoading={isLoading}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </SelectList>
@@ -447,8 +427,10 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
-  /** If true the loader animation is displayed in the option list */
+  /** If true the loader animation is displayed below the last option */
   isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 SimpleSelect.defaultProps = {
