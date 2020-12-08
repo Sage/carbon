@@ -73,8 +73,9 @@ Feature: Accessibility tests - Experimental folder
     Then "Experimental checkbox <story> story" component has no accessibility violations
     Examples:
       | story                              |
-      | group checkbox boolean validation  |
-      | group checkbox string validation   |
+      # Commented because of issue FE-3412
+      #| group checkbox boolean validation  |
+      #| group checkbox string validation   |
       | single checkbox boolean validation |
       | single checkbox string validation  |
 
