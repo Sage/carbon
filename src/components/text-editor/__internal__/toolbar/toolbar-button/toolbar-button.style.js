@@ -3,7 +3,7 @@ import { isDLS } from "../../../../../utils/helpers/style-helper";
 import baseTheme from "../../../../../style/themes/base";
 import StyledIcon from "../../../../icon/icon.style";
 
-const StyledToolbarButton = styled.button`
+const StyledToolbarButton = styled.button.attrs({ type: "button" })`
   background-color: inherit;
   border: none;
   cursor: pointer;

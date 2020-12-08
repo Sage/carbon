@@ -1,34 +1,29 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
-import TestUtils from "react-dom/test-utils";
 import { shallow } from "enzyme";
 import ActionToolbar from ".";
-import { StyledActionToolbarActions } from "./action-toolbar.style";
 import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import classicTheme from "../../style/themes/classic";
-import StyledLink from "../link/link.style";
 
 describe("action toolbar", () => {
   let instance, spy, wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <ActionToolbar actions={{ foo: {}, bar: {} }} className="foo" />
+    wrapper = shallow(
+      <ActionToolbar actions={{ foo: {}, bar: {} }} className="foo" />,
+      { context: {} }
     );
+    instance = wrapper.instance();
   });
 
   describe("componentWillMount", () => {
     describe("if attachActionToolbar exists", () => {
       it("calls attachActionToolbar", () => {
         spy = jasmine.createSpy();
-        instance.context = {
+        wrapper.setContext({
           attachActionToolbar: spy,
-        };
+        });
         instance.UNSAFE_componentWillMount();
         expect(spy).toHaveBeenCalledWith(instance);
       });
@@ -113,21 +108,6 @@ describe("action toolbar", () => {
         selected: {},
         total: 0,
       });
-    });
-  });
-
-  describe("when in classic theme", () => {
-    it("applies proper color for the disabled link icon", () => {
-      wrapper = TestRenderer.create(
-        <StyledActionToolbarActions disabled theme={classicTheme} />
-      );
-      assertStyleMatch(
-        {
-          color: "#b3c2c8",
-        },
-        wrapper.toJSON(),
-        { modifier: `${StyledLink}` }
-      );
     });
   });
 

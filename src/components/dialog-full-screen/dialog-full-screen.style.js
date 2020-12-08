@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import classicDialogFullScreenStyle from "./dialog-full-screen-classic.style";
 import baseTheme from "../../style/themes/base";
 import StyledContent from "./content.style";
 import StyledIconButton from "../icon-button/icon-button.style";
@@ -47,8 +46,6 @@ const StyledDialogFullScreen = styled.div`
         }
       }
     `}
-
-  ${classicDialogFullScreenStyle}
 `;
 
 StyledDialogFullScreen.defaultProps = {

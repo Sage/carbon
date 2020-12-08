@@ -31,14 +31,14 @@ describe("Sort", () => {
     expect(wrapper.find(Icon).exists()).toBe(false);
   });
 
-  it('should render Icon `sort_up` if sortType="asc"', () => {
-    wrapper = renderSort({ sortType: "asc" });
+  it('should render Icon `sort_up` if sortType="ascending"', () => {
+    wrapper = renderSort({ sortType: "ascending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_up");
   });
 
-  it('should render Icon `sort_down` if sortType="desc"', () => {
-    wrapper = renderSort({ sortType: "desc" });
+  it('should render Icon `sort_down` if sortType="descending"', () => {
+    wrapper = renderSort({ sortType: "descending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_down");
   });
@@ -71,8 +71,8 @@ describe("Sort", () => {
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(true);
   });
 
-  it("should not render `StyledSpaceHoldcer` if `sortTyp`e prop is provided", () => {
-    wrapper = renderSort({ sortType: "asc" });
+  it("should not render `StyledSpaceHolder` if `sortType` prop is provided", () => {
+    wrapper = renderSort({ sortType: "ascending" });
 
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
   });
