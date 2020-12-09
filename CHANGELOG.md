@@ -1,3 +1,12 @@
+## [53.1.0](https://github.com/Sage/carbon/compare/v53.0.0...v53.1.0) (2020-12-09)
+
+
+### Features
+
+* **filterable-select:** add infinite scroll callback ([5cd8ef2](https://github.com/Sage/carbon/commit/5cd8ef2e869d69dc89c6883ddfc7d152ec0cd0f3))
+* **select:** add infinite scroll callback ([2836fed](https://github.com/Sage/carbon/commit/2836fedc106e47c39edf82eee640d7d709e2d357))
+* **select:** add list height transition animation ([3fb5fb2](https://github.com/Sage/carbon/commit/3fb5fb25ac6a76fedac1ea8758fed1af1190dea3))
+
 ## [53.0.0](https://github.com/Sage/carbon/compare/v52.0.0...v53.0.0) (2020-12-08)
 
 
