@@ -31,14 +31,14 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   position: fixed;
 }
 
-.c0 .c2 {
+.c0 > .c2 {
   position: absolute;
   right: 33px;
   top: 32px;
   z-index: 1;
 }
 
-.c0 .c2:hover {
+.c0 > .c2:hover {
   color: #255BC7;
 }
 
