@@ -106,4 +106,7 @@ const checkboxComponent = (autoFocus = false) => () => {
 };
 
 export const Default = checkboxComponent();
-export const autoFocus = checkboxComponent(true);
+
+Default.story = {
+  name: "default",
+};

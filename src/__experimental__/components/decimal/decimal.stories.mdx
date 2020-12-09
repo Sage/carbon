@@ -1,0 +1,270 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Decimal from ".";
+import { OriginalTextbox } from "../textbox";
+import Button from "../../../components/button";
+import Box from "../../../components/box";
+
+<Meta
+  title="Experimental/Decimal Input"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Decimal
+
+- Captures a number with a decimal point, or a currency value.
+- For currency values, show currency symbols outside the field rather than inserting one for the user dynamically.
+- Carbon offers a Precision configuration, so you can choose how many decimal places to show.
+- Decimals are usually right-aligned, so that the decimal places of numbers presented in rows line up for easy comparison by the user.
+- Even if the user just enters a string of numbers, consider presenting them into a format with the separators which apply in the user’s country (e.g. £12,345.67 for the UK, and €12 345,67 for France).
+- Where it’s clear a field only accepts numerals, you could disable entry of other characters - but remember to cater for a minus sign if necessary.
+
+## Quick Start
+
+```jsx
+import Decimal from "carbon-react/lib/__experimental__/components/decimal";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return <Decimal label="Decimal" value={state} onChange={setValue} />;
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["small", "medium", "large"].map((size) => (
+        <Decimal
+          key={`Decimal - ${size}`}
+          label={`Decimal - ${size}`}
+          value="0.01"
+          size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <Decimal label="Decimal" value="0.01" disabled />
+  </Story>
+</Preview>
+
+### LabelAlign
+
+<Preview>
+  <Story name="labelAlign">
+     {() => 
+      ['right', 'left'].map((alignment) => (
+        <Decimal
+          label="Decimal"
+          labelInline
+          inputWidth={50}
+          key={alignment} 
+          labelAlign={alignment}
+          value="0.01"
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### ReadOnly
+
+<Preview>
+  <Story name="readOnly">
+    <Decimal label="Decimal" value="0.01" readOnly />
+  </Story>
+</Preview>
+
+### Empty
+
+<Preview>
+  <Story name="empty">
+    <Decimal label="Decimal" allowEmptyValue />
+  </Story>
+</Preview>
+
+### With custom precision
+
+<Preview>
+  <Story name="with custom precision">
+    <Decimal label="Decimal" value="0.0001" precision={4} />
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
+    <Decimal label="Decimal" value="0.01" labelInline />
+  </Story>
+</Preview>
+
+### With custom labelWidth and inputWidth
+
+<Preview>
+  <Story name="with custom labelWidth and inputWidth">
+    <Decimal
+      label="Decimal"
+      value="0.01"
+      labelInline
+      labelWidth={10}
+      inputWidth={90}
+    />
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    <Decimal label="Decimal" value="0.01" fieldHelp="Help" />
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    <Decimal label="Decimal" value="0.01" labelHelp="Help" />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    <Decimal label="Decimal" value="0.01" required />
+  </Story>
+</Preview>
+
+### Left aligned
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="left aligned">
+    <Decimal label="Decimal" value="0.01" align="left" />
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Decimal
+            label="Decimal"
+            value="0.01"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Decimal
+            label="Decimal - readOnly"
+            value="0.01"
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <Decimal
+            label="Decimal"
+            value="0.01"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Decimal
+            label="Decimal - readOnly"
+            value="0.01"
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <Decimal
+            label="Decimal"
+            value="0.01"
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+          <Decimal
+            label="Decimal - readOnly"
+            value="0.01"
+            readOnly
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+### Decimal
+
+<Props of={Decimal} />
+
+### Textbox
+
+Due to the `Textbox` component being used internally by the `Decimal` component most of the `Textbox` props are appliable to `Decimal`
+
+<Props of={OriginalTextbox} />

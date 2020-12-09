@@ -1,6 +1,6 @@
 import React from "react";
 import filterChildren from ".";
-import { Option } from "../../__experimental__/components/select";
+import { Option } from "../../components/select";
 
 const makeChildArray = (children) =>
   children.map((child) => <div text={child} />);

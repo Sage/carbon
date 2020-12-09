@@ -107,7 +107,7 @@ const GroupedCharacter = ({
 };
 
 GroupedCharacter.propTypes = {
-  /** character to be used as separator */
+  /** character to be used as separator - has to be a 1 character string */
   separator: (props, propName, componentName) => {
     if (typeof props[propName] !== "string" || props[propName].length > 1) {
       return new Error(

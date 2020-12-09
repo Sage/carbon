@@ -1,16 +1,4 @@
 {
-  "disabled": {
-    "disabled": true
-  },
-  "disabledFalse": {
-    "disabled": false
-  },
-  "readOnly": {
-    "readOnly": true
-  },
-  "readOnlyFalse": {
-    "readOnly": false
-  },
   "fieldHelpOtherLanguage": {
     "fieldHelp": "mp150ú¿¡üßä"
   },
@@ -23,10 +11,6 @@
   "labelSpecialCharacter": {
     "label": "!@#$%^*()_+-=~[];:.,?{}"
   },
-  "labelInline": {
-    "label": "label",
-    "labelInline": true
-  },
   "labelAlignLeft": {
     "labelAlign": "left",
     "label": "label",
@@ -38,20 +22,5 @@
     "label": "label",
     "labelHelp": "labelHelp",
     "labelInline": true
-  },
-  "labelWidth0": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 0
-  },
-  "labelWidth10": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 10
-  },
-  "labelWidth100": {
-    "label": "label",
-    "labelInline": true,
-    "labelWidth": 100
   }
 }
