@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
 
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import {
   DuellingPicklist,
   Picklist,
@@ -18,7 +17,6 @@ export default {
   title: "Test/DuellingPicklist",
   component: Picklist,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

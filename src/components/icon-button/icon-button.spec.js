@@ -1,10 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import IconButton from ".";
 import Message from "../message/message.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { classicTheme } from "../../style/themes";
 
 describe("IconButton component", () => {
   let wrapper, onDismiss, onBlur;
@@ -14,12 +12,7 @@ describe("IconButton component", () => {
       onDismiss = jest.fn();
       onBlur = jest.fn();
       wrapper = mount(
-        <Message
-          theme={classicTheme}
-          roundedCorners={false}
-          variant="info"
-          onDismiss={onDismiss}
-        >
+        <Message roundedCorners={false} variant="info" onDismiss={onDismiss}>
           Message
         </Message>
       );
@@ -30,30 +23,6 @@ describe("IconButton component", () => {
         assertStyleMatch(
           {
             outline: "solid 3px #FFB500",
-          },
-          wrapper.find(IconButton).first(),
-          { modifier: ":focus" }
-        );
-      });
-    });
-
-    describe("on classicTheme", () => {
-      it("renders correct style for focused IconButton", () => {
-        wrapper = mount(
-          <ThemeProvider theme={classicTheme}>
-            <Message
-              theme={classicTheme}
-              roundedCorners={false}
-              variant="info"
-              onDismiss={onDismiss}
-            >
-              Message
-            </Message>
-          </ThemeProvider>
-        );
-        assertStyleMatch(
-          {
-            outline: "-webkit-focus-ring-color auto 5px",
           },
           wrapper.find(IconButton).first(),
           { modifier: ":focus" }

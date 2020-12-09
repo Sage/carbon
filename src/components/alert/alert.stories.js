@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { boolean, text, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Alert from ".";
@@ -10,7 +9,6 @@ export default {
   title: "Alert/Test",
   component: Alert,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

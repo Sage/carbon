@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { isDLS } from "../../../utils/helpers/style-helper";
 import baseTheme from "../../../style/themes/base";
 import { isSafari } from "../../../utils/helpers/browser-type-check";
 
@@ -55,11 +54,10 @@ StyledEditorContainer.defaultProps = {
 const StyledEditorOutline = styled.div`
   ${({ theme, isFocused, hasError }) => css`
     outline: none;
-    ${isDLS(theme) &&
-    isFocused &&
-    `
+    ${isFocused &&
+    css`
       outline: 3px solid ${theme.colors.focus};
-      outline-offset: ${hasError ? "2px;" : "1px;"}
+      outline-offset: ${hasError ? "2px;" : "1px;"};
     `}
   `}
 `;
