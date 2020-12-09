@@ -1,3 +1,10 @@
+### [53.1.1](https://github.com/Sage/carbon/compare/v53.1.0...v53.1.1) (2020-12-09)
+
+
+### Bug Fixes
+
+* **dialog:** fix styling for pill close icon ([ac11a2d](https://github.com/Sage/carbon/commit/ac11a2df9a6f1b6bec31535b0fc27539da5353d2))
+
 ## [53.1.0](https://github.com/Sage/carbon/compare/v53.0.0...v53.1.0) (2020-12-09)
 
 
