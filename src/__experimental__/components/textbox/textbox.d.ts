@@ -7,7 +7,7 @@ export interface TextboxProps extends SpacingProps {
    */
   formattedValue?: string;
   /** The value of the Textbox */
-  value?: string | object | array;
+  value?: string | object | string[] | object[];
   /** The unformatted value  */
   rawValue?: string;
   /** If true, the component will be disabled */
@@ -15,11 +15,11 @@ export interface TextboxProps extends SpacingProps {
   /** If true, the component will be read-only */
   readOnly?: boolean;
   /** Event handler for the change event */
-  onChange?: function;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event handler for the keyDown event */
-  onKeyDown?: function;
+  onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Defered callback called after the onChange event */
-  onChangeDeferred?: function;
+  onChangeDeferred?: () => void;
   /** Integer to determine timeout for defered callback */
   deferTimeout?: number;
   /** Label */
@@ -50,9 +50,9 @@ export interface TextboxProps extends SpacingProps {
   /** Placeholder string to be displayed in input */
   placeholder?: string;
   /** Optional handler for click event on Textbox icon */
-  iconOnClick?: function;
+  iconOnClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Handler for onClick events */
-  onClick?: function;
+  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Emphasized part of the displayed text */
   prefix?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */

@@ -9,7 +9,7 @@ import Textbox from "../../__experimental__/components/textbox";
 import Button from "../button";
 import DateInput from "../../__experimental__/components/date";
 import { Checkbox } from "../../__experimental__/components/checkbox";
-import { Select, Option } from "../../__experimental__/components/select";
+import { Select, Option } from "../select";
 
 export default {
   title: "Dialog/Test",

@@ -1,41 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormField classic theme adds custom margin top 1`] = `
-.c2 + .c0 {
-  margin-top: 16px;
-}
-
-.c3 + .c0 {
-  margin-top: 16px;
-}
-
-.c1 + .c0 {
-  margin-top: 10px;
-}
-
-<div
-  className="c0 c1"
-/>
-`;
-
-exports[`FormField classic theme when inline renders the FieldHelp component below the childen 1`] = `
-.c1 + .c0 {
-  margin-top: 16px;
-}
-
-.c2 + .c0 {
-  margin-top: 16px;
-}
-
-.c3 + .c0 {
-  margin-top: 10px;
-}
-
-<div
-  className="c0 c1"
-/>
-`;
-
 exports[`FormField default renders children with styling 1`] = `
 .c1 + .c0 {
   margin-top: 16px;
@@ -63,6 +27,7 @@ exports[`FormField with a label renders the label component above the childen 1`
   <Memo(Label)
     align="left"
     help="Help me!"
+    htmlFor="formField"
     inline={true}
     inputSize="small"
     pr={2}

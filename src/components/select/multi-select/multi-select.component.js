@@ -7,9 +7,10 @@ import SelectTextbox, {
 import guid from "../../../utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
 import SelectList from "../select-list/select-list.component";
-import StyledMultiSelect from "./multi-select.style";
+import StyledMultiSelect, {
+  StyledSelectPillContainer,
+} from "./multi-select.style";
 import Pill from "../../pill";
-import { StyledSelectPillContainer } from "../../../__experimental__/components/select/select.style";
 
 const FilterableSelectList = withFilter(SelectList);
 

@@ -40,10 +40,10 @@ const MyComponent = () => (
   )
 );
 ```
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
       return (
@@ -61,7 +61,7 @@ const MyComponent = () => (
 ### Sizes
 
 <Preview>
-  <Story name="Sizes">
+  <Story name="sizes">
     {() => {
       return ['small', 'large'].map(size =>
         <Checkbox
@@ -78,7 +78,7 @@ const MyComponent = () => (
 ### Disabled
 
 <Preview>
-  <Story name="Disabled">
+  <Story name="disabled">
     <Checkbox label="Disabled checkbox" disabled />
   </Story>
 </Preview>
@@ -86,7 +86,7 @@ const MyComponent = () => (
 ### Reversed
 
 <Preview>
-  <Story name="Reversed">
+  <Story name="reversed">
     <Checkbox label="Reversed checkbox" reverse />
   </Story>
 </Preview>
@@ -94,7 +94,7 @@ const MyComponent = () => (
 ### With fieldHelp
 
 <Preview>
-  <Story name="With fieldHelp">
+  <Story name="with fieldHelp">
     <>
       <Checkbox
         label="With fieldHelp"
@@ -112,7 +112,7 @@ const MyComponent = () => (
 ### With labelHelp
 
 <Preview>
-  <Story name="With labelHelp">
+  <Story name="with labelHelp">
     <Checkbox
       label="With labelHelp"
       labelHelp="This text provides more information for the label."
@@ -123,7 +123,7 @@ const MyComponent = () => (
 ### With custom labelWidth
 
 <Preview>
-  <Story name="With custom labelWidth">
+  <Story name="with custom labelWidth">
     <>
       <Checkbox
         label="With custom labelWidth"
@@ -151,7 +151,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string applied to single Checkbox
 
 <Preview>
-  <Story name="Single checkbox - string validation">
+  <Story name="single checkbox - string validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <Checkbox
         id={ `checkbox_${type}` }
@@ -166,7 +166,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### As a boolean applied to single Checkbox
 <Preview>
-  <Story name="Single checkbox - boolean validation">
+  <Story name="single checkbox - boolean validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <Checkbox
         id={ `checkbox_${type}-boolean` }
@@ -181,7 +181,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### As a string applied to CheckboxGroup
 <Preview>
-  <Story name="Group checkbox - string validation">
+  <Story name="group checkbox - string validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <div 
         key={`checkbox-group-${type}`}
@@ -210,7 +210,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### As a boolean applied to CheckboxGroup
 <Preview>
-  <Story name="Group checkbox - boolean validation">
+  <Story name="group checkbox - boolean validation">
     {() => ['error', 'warning', 'info'].map(type => (
       <div 
         key={`checkbox-group-${type}-boolean`}
@@ -243,7 +243,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="Required">
+  <Story name="required">
     {() => {
       const [checked, setChecked] = useState(false);
       return (

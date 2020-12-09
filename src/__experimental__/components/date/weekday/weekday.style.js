@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import baseTheme from "../../../../style/themes/base";
-import weekdayClassicStyle from "./weekday-classic.style";
 
 const StyledWeekday = styled.div`
   &,
@@ -13,8 +12,6 @@ const StyledWeekday = styled.div`
     font-size: 12px;
     text-align: center;
     padding: 20px 0 5px;
-
-    ${weekdayClassicStyle}
   }
 `;
 

@@ -1,0 +1,182 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Fieldset from "./";
+import { RadioButton, RadioButtonGroup } from "../radio-button";
+import { Select, Option } from "../../../components/select";
+import Textbox from "../textbox";
+
+<Meta title="Experimental/Fieldset" parameters={{ info: { disable: true } }} />
+
+# Fieldset
+
+- You can nest any Carbon input into this component.
+- Useful for presenting a series of inputs that are closely related, within a wider Form or Pod (e.g. an address or contact details).
+- Configure Pod and Fieldset components to work together, or choose the pre-configured Show/Edit Pod component.
+
+## Quick Start
+
+```jsx
+import Fieldset from "carbon-react/lib/__experimental__/components/fieldset";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Fieldset legend="Fieldset">
+      <Textbox
+        label="First Name"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+      />
+      <Textbox
+        label="Last Name"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+      />
+      <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
+      <Checkbox
+        label="Checkbox"
+        labelAlign="right"
+        labelWidth={30}
+        labelSpacing={2}
+        reverse
+      />
+      <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
+      <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
+      <Textbox
+        label="Telephone"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+      />
+    </Fieldset>
+  </Story>
+</Preview>
+
+## Validations
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    <>
+      {["error", "warning", "info"].map((type) => (
+        <Fieldset
+          key={`${type}-string-component`}
+          legend={`Fieldset ${type} on component`}
+        >
+          <Textbox
+            label="Address"
+            labelInline
+            labelAlign="right"
+            {...{ [type]: "Message" }}
+          />
+          <Textbox label="Town/City" labelInline labelAlign="right" />
+          <Select
+            label="Province"
+            labelInline
+            labelAlign="right"
+            {...{ [type]: "Message" }}
+          >
+            <Option key="ab" text="Alberta" value="ab" />
+            <Option key="on" text="Ontario" value="on" />
+            <Option key="qc" text="Quebec" value="qc" />
+          </Select>
+          <Textbox
+            label="ZIP Code"
+            labelInline
+            labelAlign="right"
+            styleOverride={{ input: { width: "120px", flex: "none" } }}
+          />
+        </Fieldset>
+      ))}
+    </>
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    <>
+      {["error", "warning", "info"].map((type) => (
+        <Fieldset
+          key={`${type}-string-label`}
+          legend={`Fieldset ${type} on label`}
+        >
+          <Textbox
+            label="Address"
+            labelInline
+            labelAlign="right"
+            validationOnLabel
+            {...{ [type]: "Message" }}
+          />
+          <Textbox label="Town/City" labelInline labelAlign="right" />
+          <Select
+            label="Province"
+            labelInline
+            labelAlign="right"
+            validationOnLabel
+            {...{ [type]: "Message" }}
+          >
+            <Option key="ab" text="Alberta" value="ab" />
+            <Option key="on" text="Ontario" value="on" />
+            <Option key="qc" text="Quebec" value="qc" />
+          </Select>
+          <Textbox
+            label="ZIP Code"
+            labelInline
+            labelAlign="right"
+            styleOverride={{ input: { width: "120px", flex: "none" } }}
+          />
+        </Fieldset>
+      ))}
+    </>
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    <>
+      {["error", "warning", "info"].map((type) => (
+        <Fieldset
+          key={`${type}-boolean`}
+          legend={`Fieldset ${type} as boolean`}
+        >
+          <Textbox
+            label="Address"
+            labelInline
+            labelAlign="right"
+            {...{ [type]: true }}
+          />
+          <Textbox label="Town/City" labelInline labelAlign="right" />
+          <Select
+            label="Province"
+            labelInline
+            labelAlign="right"
+            {...{ [type]: true }}
+          >
+            <Option key="ab" text="Alberta" value="ab" />
+            <Option key="on" text="Ontario" value="on" />
+            <Option key="qc" text="Quebec" value="qc" />
+          </Select>
+          <Textbox
+            label="ZIP Code"
+            labelInline
+            labelAlign="right"
+            styleOverride={{ input: { width: "120px", flex: "none" } }}
+          />
+        </Fieldset>
+      ))}
+    </>
+  </Story>
+</Preview>
+
+### Props
+
+<Props of={Fieldset} />

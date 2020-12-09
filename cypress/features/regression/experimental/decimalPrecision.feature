@@ -3,7 +3,7 @@ Feature: Decimal component - precision
 
   @positive
   Scenario Outline: Check Decimal component input field with <nameOfObject> and input <labelInput>
-    Given I open default "Experimental-Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
+    Given I open default "Experimental-Decimal-Input-Test" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
     When I set Decimal input to <labelInput>
     Then Decimal Input is set to <fieldHelpOutput>
     Examples:

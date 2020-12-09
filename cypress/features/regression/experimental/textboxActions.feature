@@ -2,7 +2,7 @@ Feature: Experimental Textbox component - actions
   I want to change Experimental Textbox component actions
 
   Background: Open Experimental Textbox component page
-    Given I open "Experimental Textbox" component page "default"
+    Given I open "Experimental Textbox Test" component page "default"
 
   @positive
   Scenario: Check iconOnClick event

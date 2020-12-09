@@ -1,3 +1,36 @@
+## [54.0.0](https://github.com/Sage/carbon/compare/v53.1.1...v54.0.0) (2020-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **fieldset:** Fieldset component no longer supports classic theme
+* **select:** Experimental Select component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
+* **select-async:** SelectAsync component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
+Also check an example of how to provide data fetching functionality
+https://carbon.sage.com/?path=/docs/design-system-select--with-is-loading-prop
+* **date:** Date component no longer supports classic theme
+* **textbox:** Textbox no longer supports classic theme
+* **textarea:** Textarea input no longer supports classic theme
+* **grouped-character:** GroupedCharacter no longer supports classic theme
+* **decimal:** Experimental Decimal component no longer supports classic theme
+* **date-range:** DateRange component no longer supports classic theme
+* **simple-color-picker:** SimpleColorPicker component no longer supports classic theme
+* **number:** Number input no longer supports classic theme
+
+### Miscellaneous Chores
+
+* **date:** remove classic theme support ([e856b97](https://github.com/Sage/carbon/commit/e856b97a842133afe21fe708e1920e2b5f2270a5))
+* **date-range:** remove classic theme support ([9283b56](https://github.com/Sage/carbon/commit/9283b5681c2435980b5a5c4bdb462fcbe6e68c1f))
+* **decimal:** remove classic theme support ([7eff047](https://github.com/Sage/carbon/commit/7eff0470110f18586f542ceb5dd42cb961e8c768))
+* **fieldset:** remove classic theme support ([7f30056](https://github.com/Sage/carbon/commit/7f300561658c088e538fc04b697f082b73cd8123))
+* **grouped-character:** remove classic theme support ([ef51f0f](https://github.com/Sage/carbon/commit/ef51f0f8b26cd7c0b831cb55928cb45a56ea7c3b))
+* **number:** remove classic theme support ([5866222](https://github.com/Sage/carbon/commit/58662226e83b50dd931518885d841f20d7bce006))
+* **select:** remove experimental select component ([95961f4](https://github.com/Sage/carbon/commit/95961f47926c4a5653075b781d92dd95f456de27))
+* **select-async:** remove select-async component ([dcaf64c](https://github.com/Sage/carbon/commit/dcaf64c8e00b79d3cfaaab5d89331b51ee09a1c8))
+* **simple-color-picker:** remove classic theme support ([66aa3cb](https://github.com/Sage/carbon/commit/66aa3cb16590e560df734758acab1827e3c99d2f))
+* **textarea:** remove classic theme support ([3cfbbdd](https://github.com/Sage/carbon/commit/3cfbbdde02d0dd96f4a8c99467f7450d657f82ea))
+* **textbox:** remove classic theme support ([c1081fb](https://github.com/Sage/carbon/commit/c1081fb680234d7c14735986403eb141b362e642))
+
 ### [53.1.1](https://github.com/Sage/carbon/compare/v53.1.0...v53.1.1) (2020-12-09)
 
 

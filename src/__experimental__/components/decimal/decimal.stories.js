@@ -1,37 +1,23 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React, { useState } from "react";
 import { number, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { State, Store } from "@sambego/storybook-state";
-import {
-  dlsThemeSelector,
-  classicThemeSelector,
-} from "../../../../.storybook/theme-selectors";
 import Decimal from "./decimal.component";
-import { OriginalTextbox } from "../textbox";
 import { getCommonTextboxProps } from "../textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import { info, notes } from "./documentation";
-import getDocGenInfo from "../../../utils/helpers/docgen-info";
 import guid from "../../../utils/helpers/guid";
 
-OriginalTextbox.__docgenInfo = getDocGenInfo(
-  require("../textbox/docgenInfo.json"),
-  /textbox\.component(?!spec)/
-);
-
-Decimal.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /decimal\.component(?!spec)/
-);
-
-const store = new Store({
-  value: "0.00",
-});
-
-const setValue = (ev) => {
-  action("onChange")(ev);
-  store.set({ value: ev.target.value.rawValue });
+export default {
+  title: "Experimental/Decimal Input/Test",
+  component: Decimal,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
 };
 
 const previous = {
@@ -77,111 +63,25 @@ const commonProps = () => {
   };
 };
 
-const requiredComponent = () => {
-  return (
-    <State store={store}>
-      <Decimal
-        {...commonProps()}
-        {...getCommonTextboxProps({ requiredKnob: false })}
-        value={store.get("value")}
-        onChange={setValue}
-        onBlur={action("onBlur")}
-        required
-      />
-    </State>
-  );
-};
-const defaultComponent = () => {
-  return (
-    <State store={store}>
-      <Decimal
-        {...commonProps()}
-        {...getCommonTextboxProps()}
-        value={store.get("value")}
-        onChange={setValue}
-        onBlur={action("onBlur")}
-      />
-    </State>
-  );
-};
+export const Default = (props) => {
+  const [state, setState] = useState("0.00");
 
-const componentWithValidations = () => {
-  const validationTypes = ["error", "warning", "info"];
-  return (
-    <>
-      <h4>Validation as string</h4>
-      <h6>On component</h6>
-      {validationTypes.map((validation) => (
-        <State store={store} key={`${validation}-string-component`}>
-          <Decimal
-            {...commonProps()}
-            {...getCommonTextboxProps()}
-            {...{ [validation]: "Message" }}
-            value={store.get("value")}
-            onChange={setValue}
-            onBlur={action("onBlur")}
-          />
-        </State>
-      ))}
-      <h6>On label</h6>
-      {validationTypes.map((validation) => (
-        <State store={store} key={`${validation}-string-label`}>
-          <Decimal
-            {...commonProps()}
-            {...getCommonTextboxProps()}
-            {...{ [validation]: "Message" }}
-            validationOnLabel
-            value={store.get("value")}
-            onChange={setValue}
-            onBlur={action("onBlur")}
-          />
-        </State>
-      ))}
-
-      <h4>Validation as boolean</h4>
-      {validationTypes.map((validation) => (
-        <State store={store} key={`${validation}-boolean`}>
-          <Decimal
-            {...commonProps()}
-            {...getCommonTextboxProps()}
-            {...{ [validation]: true }}
-            value={store.get("value")}
-            onChange={setValue}
-            onBlur={action("onBlur")}
-          />
-        </State>
-      ))}
-    </>
-  );
-};
-
-const autoFocusComponent = () => {
-  boolean("autoFocus", true);
-  return defaultComponent();
-};
-
-function makeStory(name, themeSelector, component, disableChromatic = false) {
-  const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-    chromatic: {
-      disable: disableChromatic,
-    },
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
   };
+  return (
+    <Decimal
+      {...commonProps()}
+      {...getCommonTextboxProps()}
+      value={state}
+      onChange={setValue}
+      onBlur={action("onBlur")}
+      {...props}
+    />
+  );
+};
 
-  return [name, component, metadata];
-}
-
-storiesOf("Experimental/Decimal Input", module)
-  .addParameters({
-    info: {
-      text: info,
-      propTables: [Decimal, OriginalTextbox],
-    },
-  })
-  .add(...makeStory("default", dlsThemeSelector, defaultComponent))
-  .add(...makeStory("classic", classicThemeSelector, defaultComponent, true))
-  .add(...makeStory("autoFocus", dlsThemeSelector, autoFocusComponent))
-  .add(...makeStory("validations", dlsThemeSelector, componentWithValidations))
-  .add(...makeStory("required", dlsThemeSelector, requiredComponent));
+Default.story = {
+  name: "default",
+};
