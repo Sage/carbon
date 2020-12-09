@@ -38,7 +38,6 @@ Scenario Outline: Component <component> default story
     | component           |
     | carousel            |
     | configurable-items  |
-    | detail              |
     | draggableContext    |
     | icon                |
     | loader              |
