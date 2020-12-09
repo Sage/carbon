@@ -1,5 +1,4 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import ValidationIcon from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
@@ -7,8 +6,6 @@ import {
   InputContext,
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
-import ClassicTheme from "../../style/themes/classic";
-import "jest-styled-components";
 import Icon from "../icon";
 
 describe("ValidationIcon", () => {
@@ -34,27 +31,11 @@ describe("ValidationIcon", () => {
     }
   );
 
-  it("renders with an icon with classic styling", () => {
-    const wrapper = TestRenderer.create(
-      <ValidationIconStyle theme={ClassicTheme} />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('"tooltipPosition" and "tooltipAlign" props in its icon should be "right" and "center" respectively', () => {
     const wrapper = mount(<ValidationIcon error="error" />);
     const iconProps = wrapper.find(Icon).props();
     expect(iconProps.tooltipPosition).toBe("right");
     expect(iconProps.tooltipAlign).toBe("center");
-  });
-
-  it('does not pass "tooltipPosition" and "tooltipAlign" props to its icon for the classic theme', () => {
-    const wrapper = mount(
-      <ValidationIcon error="error" theme={ClassicTheme} />
-    );
-    const iconProps = wrapper.find(Icon).props();
-    expect(iconProps.tooltipPosition).toBe(undefined);
-    expect(iconProps.tooltipAlign).toBe(undefined);
   });
 
   it("shows the tooltip if input context has focus", () => {

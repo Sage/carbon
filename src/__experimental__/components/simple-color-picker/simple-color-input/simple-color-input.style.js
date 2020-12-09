@@ -2,7 +2,6 @@ import styled from "styled-components";
 import baseTheme from "../../../../style/themes/base";
 import { Input as SimpleColorInput } from "../../input";
 import StyledColorSampleBox from "../color-sample-box/color-sample-box.style";
-import SimpleColorInputClassicStyle from "./simple-color-input-classic.style";
 
 const StyledSimpleColorInput = styled(SimpleColorInput)`
   position: absolute;
@@ -19,8 +18,6 @@ const StyledSimpleColorInput = styled(SimpleColorInput)`
     box-shadow: inset 0px 0px 0px 3px ${({ theme }) => theme.colors.white};
     border: 2px solid ${({ theme }) => theme.colors.focus};
   }
-
-  ${SimpleColorInputClassicStyle}
 `;
 
 StyledSimpleColorInput.defaultProps = {

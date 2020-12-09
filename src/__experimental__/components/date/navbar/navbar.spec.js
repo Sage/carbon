@@ -1,7 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import "jest-styled-components";
+
 import Navbar from "./navbar.component";
 import StyledButton from "./button.style";
 
