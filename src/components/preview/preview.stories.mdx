@@ -1,0 +1,95 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { PropsTable } from "@storybook/components";
+import PreviewComponent from './preview.component';
+
+<Meta title="Preview" parameters={{ info: { disable: true }}} />
+
+# Preview
+Applies a preview loading state animation.
+
+## Quick Start
+Import `Preview` into the project.
+
+```jsx
+import Preview from "carbon-react/lib/components/preview";
+```
+
+### Default
+<Preview>
+  <Story name="default">
+    <PreviewComponent loading/>
+  </Story>
+</Preview>
+
+### Preview with Lines
+<Preview>
+  <Story name="with Lines">
+    <PreviewComponent loading lines={6}/>
+  </Story>
+</Preview>
+
+### Preview with Children
+<Preview>
+  <Story name="with Children">
+    <PreviewComponent>
+      This the where the children are rendered
+    </PreviewComponent>
+  </Story>
+</Preview>
+
+### Preview with Custom Width
+<Preview>
+  <Story name="with Width">
+    <PreviewComponent loading width={"256px"} />
+  </Story>
+</Preview>
+
+### Preview with Custom Height
+<Preview>
+  <Story name="with Height">
+    <PreviewComponent loading height={"256px"} />
+  </Story>
+</Preview>
+
+## Props
+
+### Props for Preview
+<PropsTable
+  rows={[
+    {
+      name: "children",
+      type: { summary: "node" },
+      description: "Children content to render in the component",
+      required: false,
+    },
+    {
+      name: "height",
+      type: { summary: "string" },
+      description:
+        "A custom height to be applied to the component.",
+      required: false,
+    },
+    {
+      name: "lines",
+      type: { summary: "number" },
+      description: "The number of lines to render.",
+      defaultValue: {
+        summary: 1,
+      },
+    },
+    {
+      name: "loading",
+      type: { summary: "boolean" },
+      description:
+        "Provides more control over when in a loading state.",
+      required: false,
+    },
+    {
+      name: "width",
+      type: { summary: "string" },
+      description: "A custom width.",
+      required: false,
+    },
+  ]}
+/>
+

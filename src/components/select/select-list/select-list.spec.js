@@ -1,14 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
-import StyledSelectList from "./select-list.style";
+import { StyledSelectList } from "./select-list.style";
 import { baseTheme } from "../../../style/themes";
 import Option from "../option/option.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Portal from "../../portal";
 import ListActionButton from "../list-action-button/list-action-button.component";
+import Loader from "../../loader";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import StyledSelectListContainer from "./select-list-container.style";
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -42,22 +45,32 @@ const endKeyDownEvent = new KeyboardEvent("keydown", {
 describe("SelectList", () => {
   describe("when a key is pressed", () => {
     let wrapper;
-    let domNode;
-    let onSelectListClose;
-    let onSelect;
+    const testContainer = document.createElement("div");
+    const onSelectListCloseFn = jest.fn();
+    const onSelectFn = jest.fn();
+
+    testContainer.id = "enzymeContainer";
+    document.body.appendChild(testContainer);
 
     beforeEach(() => {
-      onSelectListClose = jest.fn();
-      onSelect = jest.fn();
+      onSelectFn.mockReset();
+      onSelectListCloseFn.mockReset();
       wrapper = mount(
-        getSelectList({ onSelectListClose, onSelect, filterText: "" })
+        getSelectList({
+          onSelectListClose: onSelectListCloseFn,
+          onSelect: onSelectFn,
+          filterText: "",
+        }),
+        { attachTo: testContainer }
       );
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
     });
 
     afterEach(() => {
-      document.body.removeChild(domNode);
+      wrapper.detach();
+    });
+
+    afterAll(() => {
+      document.body.removeChild(testContainer);
     });
 
     describe.each([
@@ -66,16 +79,17 @@ describe("SelectList", () => {
       ["Enter", enterKeyDownEvent],
     ])("and it's the %s key", (keyName, keyEvent) => {
       it("then the onSelectListClose prop should be called", () => {
-        domNode.dispatchEvent(keyEvent);
-        expect(onSelectListClose).toHaveBeenCalled();
+        testContainer.dispatchEvent(keyEvent);
+        expect(onSelectListCloseFn).toHaveBeenCalled();
       });
     });
 
     describe("and it's the Enter key with an option highlighted", () => {
       it("then the onSelect prop should be called with expected data", () => {
         wrapper.setProps({ highlightedValue: "opt3" });
-        domNode.dispatchEvent(enterKeyDownEvent);
-        expect(onSelect).toHaveBeenCalledWith({
+        testContainer.dispatchEvent(enterKeyDownEvent);
+
+        expect(onSelectFn).toHaveBeenCalledWith({
           selectionType: "enterKey",
           text: "blue",
           value: "opt3",
@@ -85,127 +99,117 @@ describe("SelectList", () => {
 
     describe("and it's the Down key", () => {
       describe("with no option highlighted", () => {
-        it("then the first Option should be highlighted", () => {
+        it("then the onSelect prop should be called with expected data", () => {
           act(() => {
-            domNode.dispatchEvent(downKeyDownEvent);
+            testContainer.dispatchEvent(downKeyDownEvent);
           });
-          expect(wrapper.update().find(Option).first()).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
-        });
-      });
 
-      describe("double pressed", () => {
-        it("then the second Option should be highlighted", () => {
-          act(() => {
-            domNode.dispatchEvent(downKeyDownEvent);
+          expect(onSelectFn).toHaveBeenCalledWith({
+            selectionType: "navigationKey",
+            text: "red",
+            value: "opt1",
           });
-          act(() => {
-            domNode.dispatchEvent(downKeyDownEvent);
-          });
-          expect(wrapper.update().find(Option).at(1)).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
         });
       });
 
       describe("with the last option already highlighted", () => {
-        it("then the first Option should be highlighted", () => {
+        it("then the onSelect prop should be called with expected data", () => {
           wrapper.setProps({ highlightedValue: "opt3" });
 
           act(() => {
-            domNode.dispatchEvent(downKeyDownEvent);
+            testContainer.dispatchEvent(downKeyDownEvent);
           });
 
-          expect(wrapper.update().find(Option).first()).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
+          expect(onSelectFn).toHaveBeenCalledWith({
+            selectionType: "navigationKey",
+            text: "red",
+            value: "opt1",
+          });
+        });
+
+        describe("and isLoading prop set to true", () => {
+          it("then the onSelect prop should not have been called", () => {
+            wrapper.setProps({ highlightedValue: "opt3", isLoading: true });
+
+            act(() => {
+              testContainer.dispatchEvent(downKeyDownEvent);
+              testContainer.dispatchEvent(downKeyDownEvent);
+            });
+
+            expect(onSelectFn).not.toHaveBeenCalled();
+          });
         });
       });
     });
 
     describe("and it's the Up key", () => {
       describe("with no option highlighted", () => {
-        it("then the last Option should be highlighted", () => {
+        it("then the onSelect prop should be called with expected data", () => {
           act(() => {
-            domNode.dispatchEvent(upKeyDownEvent);
+            testContainer.dispatchEvent(upKeyDownEvent);
           });
-          expect(wrapper.update().find(Option).last()).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
-        });
-      });
 
-      describe("double pressed", () => {
-        it("then the second Option should be highlighted", () => {
-          act(() => {
-            domNode.dispatchEvent(upKeyDownEvent);
+          expect(onSelectFn).toHaveBeenCalledWith({
+            selectionType: "navigationKey",
+            text: "blue",
+            value: "opt3",
           });
-          act(() => {
-            domNode.dispatchEvent(upKeyDownEvent);
-          });
-          expect(wrapper.update().find(Option).at(1)).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
         });
       });
 
       describe("with the first option already highlighted", () => {
-        it("then the last Option should be highlighted", () => {
+        it("then the onSelect prop should be called with expected data", () => {
           wrapper.setProps({ highlightedValue: "opt1" });
 
           act(() => {
-            domNode.dispatchEvent(upKeyDownEvent);
+            testContainer.dispatchEvent(upKeyDownEvent);
           });
 
-          expect(wrapper.update().find(Option).last()).toHaveStyleRule(
-            "background-color",
-            baseTheme.select.selected
-          );
+          expect(onSelectFn).toHaveBeenCalledWith({
+            selectionType: "navigationKey",
+            text: "blue",
+            value: "opt3",
+          });
         });
       });
     });
 
     describe("and it's the Home key", () => {
-      it("then the first Option should be highlighted", () => {
+      it("then the onSelect prop should be called with expected data", () => {
         act(() => {
-          domNode.dispatchEvent(homeKeyDownEvent);
+          testContainer.dispatchEvent(homeKeyDownEvent);
         });
-        expect(wrapper.update().find(Option).first()).toHaveStyleRule(
-          "background-color",
-          baseTheme.select.selected
-        );
+
+        expect(onSelectFn).toHaveBeenCalledWith({
+          selectionType: "navigationKey",
+          text: "red",
+          value: "opt1",
+        });
       });
     });
 
     describe("and it's the End key", () => {
-      it("then the last Option should be highlighted", () => {
+      it("then the onSelect prop should be called with expected data", () => {
         act(() => {
-          domNode.dispatchEvent(endKeyDownEvent);
+          testContainer.dispatchEvent(endKeyDownEvent);
         });
-        expect(wrapper.update().find(Option).last()).toHaveStyleRule(
-          "background-color",
-          baseTheme.select.selected
-        );
+
+        expect(onSelectFn).toHaveBeenCalledWith({
+          selectionType: "navigationKey",
+          text: "blue",
+          value: "opt3",
+        });
       });
     });
 
     it("does not highlight any option if the other key is pressed", () => {
       act(() => {
-        domNode.dispatchEvent(
+        testContainer.dispatchEvent(
           new KeyboardEvent("keydown", { key: "b", bubbles: true })
         );
       });
-      const options = wrapper.find(Option);
 
-      options.forEach((option) => {
-        expect(option).toHaveStyleRule("background-color", undefined);
-      });
+      expect(onSelectFn).not.toHaveBeenCalled();
     });
   });
 
@@ -258,7 +262,7 @@ describe("SelectList", () => {
 
   describe("when the anchor element is provided", () => {
     let wrapper;
-    let domNode;
+    const testContainer = document.createElement("div");
     const onFocusFn = jest.fn();
     const mockAnchorElement = document.createElement("div");
     const mockInput = document.createElement("input");
@@ -273,15 +277,21 @@ describe("SelectList", () => {
     };
     mockAnchorElement.getBoundingClientRect = getBoundingClientRectMock;
     mockInput.focus = onFocusFn;
+    testContainer.id = "enzymeContainer";
+    document.body.appendChild(testContainer);
 
     beforeEach(() => {
-      wrapper = mount(getSelectList({ anchorElement: mockAnchorElement }));
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
+      wrapper = mount(getSelectList({ anchorElement: mockAnchorElement }), {
+        attachTo: testContainer,
+      });
     });
 
     afterEach(() => {
-      document.body.removeChild(domNode);
+      wrapper.detach();
+    });
+
+    afterAll(() => {
+      document.body.removeChild(testContainer);
     });
 
     it('then the list wrapper should have expected "top", "left" and "width" values', () => {
@@ -307,10 +317,166 @@ describe("SelectList", () => {
       it("then the focus function should have been called on the anchor element", () => {
         onFocusFn.mockClear();
         act(() => {
-          domNode.dispatchEvent(keyEvent);
+          testContainer.dispatchEvent(keyEvent);
         });
         expect(onFocusFn).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe("when the isLoading prop is provided", () => {
+    it("then a Loader Component should be rendered in the last element of the list", () => {
+      const wrapper = renderSelectList({
+        isLoading: true,
+        onListAction: () => {},
+      });
+      expect(wrapper.find("li").last().find(Loader).exists()).toBe(true);
+    });
+
+    describe("with empty option list", () => {
+      it("then the height of the dropdown should be 150px", () => {
+        const EmptySelect = () => {
+          const [options] = useState([]);
+
+          return (
+            <SelectList
+              value="red"
+              onSelect={() => {}}
+              onSelectListClose={() => {}}
+              isLoading
+            >
+              {options}
+            </SelectList>
+          );
+        };
+        const wrapper = mount(<EmptySelect />);
+
+        assertStyleMatch(
+          { minHeight: "150px" },
+          wrapper.find(StyledSelectList)
+        );
+
+        wrapper.unmount();
+      });
+    });
+
+    describe("and there is only one option", () => {
+      it("that option should have the hidden prop", () => {
+        const wrapper = mount(
+          <SelectList
+            value="red"
+            onSelect={() => {}}
+            onSelectListClose={() => {}}
+            isLoading
+          >
+            <Option value="opt1" text="red" />
+          </SelectList>
+        );
+
+        expect(wrapper.find(Option).first().prop("hidden")).toBe(true);
+      });
+    });
+  });
+
+  describe("when the onListScrollBottom prop is provided", () => {
+    const testContainer = document.createElement("div");
+    const onListScrollBottomFn = jest.fn();
+    let wrapper;
+    let listElement;
+
+    testContainer.id = "enzymeContainer";
+    document.body.appendChild(testContainer);
+
+    beforeEach(() => {
+      onListScrollBottomFn.mockReset();
+      wrapper = mount(
+        getSelectList({
+          onListScrollBottom: onListScrollBottomFn,
+          onListAction: () => {},
+        }),
+        { attachTo: testContainer }
+      );
+      listElement = wrapper.find(StyledSelectList).getDOMNode();
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+    });
+
+    afterAll(() => {
+      document.body.removeChild(testContainer);
+    });
+
+    it("it should have been called when the element is scrolled to the bottom", () => {
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 60);
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 40);
+      listElement.dispatchEvent(new Event("scroll"));
+
+      expect(onListScrollBottomFn).toHaveBeenCalled();
+    });
+
+    it("it should not have been called when the element is scrolled but does not reach the bottom", () => {
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 50);
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 40);
+      listElement.dispatchEvent(new Event("scroll"));
+
+      expect(onListScrollBottomFn).not.toHaveBeenCalled();
+    });
+
+    it("it should not have been called when the element is scrolled but does not reach the bottom", () => {
+      jest
+        .spyOn(listElement, "scrollHeight", "get")
+        .mockImplementation(() => 100);
+      wrapper.setProps({ highlightedValue: "opt3", isLoading: true });
+      expect(listElement.scrollTop).toBe(100);
+    });
+  });
+
+  describe("when the children changes in the list", () => {
+    it("container height should be set to expected value", () => {
+      const testContainer = document.createElement("div");
+      testContainer.id = "enzymeContainer";
+      document.body.appendChild(testContainer);
+
+      const wrapper = mount(
+        getSelectList({
+          onListAction: () => {},
+        }),
+        { attachTo: testContainer }
+      );
+      const listElement = wrapper.find(StyledSelectList).getDOMNode();
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 100);
+      wrapper
+        .setProps({
+          children: [
+            <Option value="opt1" text="red" />,
+            <Option value="opt2" text="green" />,
+            <Option value="opt3" text="blue" />,
+            <Option value="opt4" text="white" />,
+            <Option value="opt5" text="yellow" />,
+          ],
+        })
+        .update();
+
+      assertStyleMatch(
+        { height: "100px" },
+        wrapper.find(StyledSelectListContainer)
+      );
+
+      wrapper.detach();
+      document.body.removeChild(testContainer);
     });
   });
 
@@ -326,23 +492,31 @@ describe("SelectList", () => {
 
     describe("when the anchor element is provided", () => {
       let wrapper;
-      let domNode;
+      const testContainer = document.createElement("div");
       const onFocusFn = jest.fn();
       const onSelectFn = jest.fn();
       const expectedSelectValue = { selectionType: "tab" };
 
+      document.body.appendChild(testContainer);
+
       beforeEach(() => {
-        wrapper = renderSelectList({
-          listActionButton: true,
-          onListAction: () => {},
-          onSelect: onSelectFn,
-        });
-        domNode = wrapper.getDOMNode();
-        document.body.appendChild(domNode);
+        wrapper = renderSelectList(
+          {
+            listActionButton: true,
+            onListAction: () => {},
+            onSelect: onSelectFn,
+          },
+          mount,
+          { attachTo: testContainer }
+        );
       });
 
       afterEach(() => {
-        document.body.removeChild(domNode);
+        wrapper.detach();
+      });
+
+      afterAll(() => {
+        document.body.removeChild(testContainer);
       });
 
       it("then the focus function should have been called on the ListActionButton", () => {
@@ -352,7 +526,7 @@ describe("SelectList", () => {
           .find("button")
           .getDOMNode().focus = onFocusFn;
         act(() => {
-          domNode.dispatchEvent(tabKeyDownEvent);
+          testContainer.dispatchEvent(tabKeyDownEvent);
         });
         expect(onFocusFn).toHaveBeenCalled();
       });
@@ -363,10 +537,48 @@ describe("SelectList", () => {
           wrapper.find(ListActionButton).find("button").getDOMNode().focus();
 
           act(() => {
-            domNode.dispatchEvent(tabKeyDownEvent);
+            testContainer.dispatchEvent(tabKeyDownEvent);
           });
           expect(onSelectFn).toHaveBeenCalledWith(expectedSelectValue);
         });
+      });
+    });
+
+    describe("and the children changes in the list", () => {
+      it("container height should be set to expected value", () => {
+        const testWrapper = document.createElement("div");
+        const wrapper = mount(
+          getSelectList({
+            listActionButton: true,
+            onListAction: () => {},
+          }),
+          { attachTo: testWrapper }
+        );
+        const listElement = wrapper.find(StyledSelectList).getDOMNode();
+        const listActionButtonElement = wrapper
+          .find(ListActionButton)
+          .getDOMNode();
+        jest
+          .spyOn(listElement, "clientHeight", "get")
+          .mockImplementation(() => 100);
+        jest
+          .spyOn(listActionButtonElement, "clientHeight", "get")
+          .mockImplementation(() => 50);
+        wrapper
+          .setProps({
+            children: [
+              <Option value="opt1" text="red" />,
+              <Option value="opt2" text="green" />,
+              <Option value="opt3" text="blue" />,
+              <Option value="opt4" text="white" />,
+              <Option value="opt5" text="yellow" />,
+            ],
+          })
+          .update();
+        assertStyleMatch(
+          { height: "150px" },
+          wrapper.find(StyledSelectListContainer)
+        );
       });
     });
   });
@@ -383,6 +595,19 @@ describe("SelectList", () => {
     });
   });
 
+  describe("when non option elements are provided as children", () => {
+    it("then isHighlighted prop should not be set on them", () => {
+      const wrapper = mount(
+        <SelectList onSelect={() => {}} onSelectListClose={() => {}}>
+          {false && ""}
+          <li>not an option element</li>
+        </SelectList>
+      );
+      expect(wrapper.find("li").props().isHighlighted).toBe(undefined);
+      wrapper.unmount();
+    });
+  });
+
   describe("with option headings", () => {
     it("renders the select list with headings", () => {
       const wrapper = renderGroupedSelectList();
@@ -392,9 +617,10 @@ describe("SelectList", () => {
     describe("when the down key is pressed", () => {
       let wrapper;
       let domNode;
+      const onSelectFn = jest.fn();
 
       beforeEach(() => {
-        wrapper = renderGroupedSelectList();
+        wrapper = renderGroupedSelectList({ onSelect: onSelectFn });
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
       });
@@ -403,21 +629,22 @@ describe("SelectList", () => {
         document.body.removeChild(domNode);
       });
 
-      it("then the first Option should be highlighted", () => {
+      it("then the onSelect prop should have been called with expected data", () => {
         act(() => {
           domNode.dispatchEvent(downKeyDownEvent);
         });
-        expect(wrapper.update().find(Option).first()).toHaveStyleRule(
-          "background-color",
-          baseTheme.select.selected
-        );
+        expect(onSelectFn).toHaveBeenCalledWith({
+          selectionType: "navigationKey",
+          text: "red",
+          value: "opt1",
+        });
       });
     });
   });
 });
 
-function renderSelectList(props = {}, renderer = mount) {
-  return renderer(getSelectList(props));
+function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {
+  return renderer(getSelectList(props), enzymeOptions);
 }
 
 function renderGroupedSelectList(props = {}, renderer = mount) {

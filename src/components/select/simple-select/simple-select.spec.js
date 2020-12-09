@@ -327,12 +327,28 @@ describe("SimpleSelect", () => {
           expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
+
+      describe("with readOnly prop set to true", () => {
+        it("then the SelectList should not be rendered", () => {
+          wrapper.setProps({ readOnly: true });
+          wrapper.update().find("input").simulate("keydown", { key });
+          expect(wrapper.find(SelectList).exists()).toBe(false);
+        });
+      });
     });
 
     describe("and a key other than Enter, Up or Down is pressed", () => {
       it("the SelectList should not be rendered", () => {
         wrapper.find("input").simulate("keydown", { key: "b" });
         expect(wrapper.find(SelectList).exists()).toBe(false);
+      });
+
+      describe("with readOnly prop set to true", () => {
+        it("then the SelectList should not be rendered", () => {
+          wrapper.setProps({ readOnly: true });
+          wrapper.update().find("input").simulate("keydown", { key: "Enter" });
+          expect(wrapper.find(SelectList).exists()).toBe(false);
+        });
       });
     });
   });

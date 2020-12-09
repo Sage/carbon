@@ -6,6 +6,7 @@ import {
   SELECT_BASIC,
   OPEN_ON_FOCUS_ID,
   MULTI_SELECT,
+  IS_LOADING_ID,
 } from './locators';
 import { PILL_PREVIEW } from '../pill/locators';
 
@@ -29,3 +30,5 @@ export const openOnFocusID = () => cy.get(OPEN_ON_FOCUS_ID);
 export const multiSelectPill = () => cy.get(PILL_PREVIEW);
 export const multiSelectPillByPosition = index => cy.get(PILL_PREVIEW).eq(index);
 export const multiSelectDataComponent = () => cy.get(MULTI_SELECT);
+export const isLoading = () => cy.get(IS_LOADING_ID);
+export const selectListText = text => cy.get(SELECT_LIST).contains(text);

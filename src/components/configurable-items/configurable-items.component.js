@@ -4,7 +4,7 @@ import classNames from "classnames";
 import I18n from "i18n-js";
 import { withTheme } from "styled-components";
 import tagComponent from "../../utils/helpers/tags/tags";
-import { DraggableContext } from "../drag-and-drop/drag-and-drop";
+import { DraggableContext } from "../drag-and-drop";
 import Button from "../button";
 import {
   ConfigurableItemsStyle,

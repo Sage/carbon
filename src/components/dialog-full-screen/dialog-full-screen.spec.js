@@ -4,7 +4,6 @@ import DialogFullScreen from "./dialog-full-screen.component";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
-import classicTheme from "../../style/themes/classic";
 import Button from "../button";
 import guid from "../../utils/helpers/guid";
 import Heading from "../heading";
@@ -372,57 +371,5 @@ describe("closeIcon", () => {
     const icon = wrapper.find(IconButton).first();
     icon.simulate("keyDown", { which: 65, key: "a" });
     expect(onCancel).not.toHaveBeenCalled();
-  });
-});
-
-describe("Styled FullScreenHeading", () => {
-  describe("classic theme", () => {
-    it("applies custom styling", () => {
-      const wrapper = mount(<FullScreenHeading theme={classicTheme} />);
-      assertStyleMatch(
-        {
-          borderBottomColor: "#ccd6db",
-        },
-        wrapper
-      );
-    });
-  });
-});
-
-describe("Styled StyledDialogFullScreen", () => {
-  describe("classic theme", () => {
-    it("applies custom styling", () => {
-      const wrapper = mount(<StyledDialogFullScreen theme={classicTheme} />);
-      assertStyleMatch(
-        {
-          backgroundColor: "#e6ebed",
-        },
-        wrapper
-      );
-    });
-  });
-});
-
-describe("Styled StyledContent", () => {
-  describe("classic theme", () => {
-    it("applies custom styling", () => {
-      const wrapper = mount(<StyledContent theme={classicTheme} />);
-      assertStyleMatch(
-        {
-          paddingTop: "0",
-          paddingBottom: "30px",
-        },
-        wrapper
-      );
-
-      assertStyleMatch(
-        {
-          maxWidth: "100%",
-          padding: "0",
-        },
-        wrapper,
-        { modifier: ".carbon-app-wrapper" }
-      );
-    });
   });
 });

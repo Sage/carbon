@@ -106,6 +106,10 @@ const MultiSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(key)) {
           event.preventDefault();
           setOpen();
@@ -116,7 +120,7 @@ const MultiSelect = React.forwardRef(
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       },
-      [onKeyDown, filterText, textValue, setOpen, removeSelectedValue]
+      [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
     );
 
     const handleGlobalClick = useCallback(
@@ -210,10 +214,10 @@ const MultiSelect = React.forwardRef(
     useEffect(() => {
       const clickEvent = "click";
 
-      document.addEventListener(clickEvent, handleGlobalClick);
+      window.addEventListener(clickEvent, handleGlobalClick);
 
       return function cleanup() {
-        document.removeEventListener(clickEvent, handleGlobalClick);
+        window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
 

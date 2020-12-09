@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 import { Input, InputPresentation } from "../input";
 import InputIconToggle from "../input-icon-toggle";
 import FormField from "../form-field";
@@ -95,6 +96,8 @@ function visibleValue(value, formattedValue) {
 }
 
 Textbox.propTypes = {
+  /** Styled system spacing props */
+  ...propTypes.space,
   /**
    * An optional alternative for props.value, this is useful if the
    * real value is an ID but you want to show a human-readable version.

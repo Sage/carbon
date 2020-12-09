@@ -33,7 +33,7 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
   transform: rotate(-90deg);
 `;
 
-const CarouselButtonStyle = styled.button`
+const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
   ${({ theme, disabled }) => css`
     border: none;
     width: 40px;

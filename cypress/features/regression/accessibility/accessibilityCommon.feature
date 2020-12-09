@@ -13,7 +13,7 @@ Feature: Accessibility tests - Common list
       | dialog             |
       | dialog-full-screen |
       | sidebar            |
-    
+
   @accessibility
   Scenario: Component button toggle
     When I open "Button-Toggle-Group" component page "basic" in no iframe
@@ -36,23 +36,15 @@ Scenario Outline: Component <component> default story
   Then "<component>" component has no accessibility violations
   Examples:
     | component           |
-    | app wrapper         |
     | carousel            |
-    | card                |
     | configurable-items  |
-    | content             |
-    | detail              |
     | draggableContext    |
-    | heading             |
-    | help                |
-    | i18ncomponent       |
     | icon                |
     | loader              |
     | message             |
     | multi-action-button |
     | pill                |
     | portrait            |
-    | preview             |
     | profile             |
     | row                 |
     | settingsrow         |
@@ -61,24 +53,33 @@ Scenario Outline: Component <component> default story
     | table               |
     | tooltip             |
 
-@accessibility
-Scenario Outline: Component <component> basic story
-  When I open "<component>" component page "basic" in no iframe
-  Then "<component>" component has no accessibility violations
-  Examples:
-    | component     |
-    | showeditpod   |
-    | step-sequence |
-    | icon          |
-    | button toggle |
+  @accessibility
+  Scenario: Draggable Context component with_table story
+    When I open "draggableContext" component page "with_table" in no iframe
+    Then "draggableContext" component has no accessibility violations
 
- @accessibility
+  @accessibility
+  Scenario Outline: Component <component> basic story
+    When I open "<component>" component page "basic" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component     |
+      | showeditpod   |
+      | step-sequence |
+      | icon          |
+      | button toggle |
+      | settingsrow   |
+      | table-ajax    |
+      | table         |
+
+  @accessibility
   Scenario Outline: Component <component> default_story
     When I open "<component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component     |
       | AppWrapper    |
+      | Content       |
       | Detail        |
       | Heading       |
       | Help          |
@@ -87,3 +88,4 @@ Scenario Outline: Component <component> basic story
       | MenuList      |
       | Mount In App  |
     # | Pages         |
+      | Preview       |

@@ -90,7 +90,7 @@ Feature: Accessibility tests - Design System folder
     Then "Form" component has no accessibility violations
 
   @accessibility
-  Scenario: Design System Form component
+  Scenario: Design System Numeral Date component
     When I open "Design System Numeral Date Test" component page "validations" in no iframe
     Then "Numeral Date" component has no accessibility violations
 
@@ -206,3 +206,14 @@ Feature: Accessibility tests - Design System folder
   Scenario: Component Toast
     When I open "Design System Toast Test" component page "visual" in no iframe
     Then "Toast" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Component Card <story>
+    When I open "Design System Card" component page "<story>" in no iframe
+    Then "Card <story>" component has no accessibility violations
+    Examples:
+      | story                         |
+      | default_story                 |
+      | interactive                   |
+      | different_card_footer_padding |
+      | more_examples_of_card_footer  |

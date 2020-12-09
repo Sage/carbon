@@ -27,6 +27,13 @@ describe("Option", () => {
     });
   });
 
+  describe("when hidden prop is set", () => {
+    it("then it should have display set to none", () => {
+      const props = { value: "1", text: "foo", hidden: true };
+      expect(renderOption(props, mount)).toHaveStyleRule("display", "none");
+    });
+  });
+
   describe("when the element is hovered over", () => {
     it("then it should have expected background", () => {
       const props = { value: "1", text: "foo" };

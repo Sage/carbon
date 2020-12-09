@@ -4,7 +4,7 @@ import baseTheme from "../../../style/themes/base";
 
 const StyledOption = styled.li`
   cursor: pointer;
-  box-sizing: content-box;
+  box-sizing: border-box;
   line-height: 16px;
   padding: 12px 16px;
   width: 100%;
@@ -15,6 +15,8 @@ const StyledOption = styled.li`
     css`
       background-color: ${theme.select.selected};
     `}
+
+  ${({ hidden }) => hidden && "display: none;"}
 
   :hover {
     ${({ theme }) =>

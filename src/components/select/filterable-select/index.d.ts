@@ -57,6 +57,10 @@ export interface FilterableSelectProps {
   onListAction?: () => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** If true the loader animation is displayed in the option list */
+  isLoading?: boolean;
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom?: () => void;
 }
 
 declare const FilterableSelect: React.ComponentType<FilterableSelectProps>;

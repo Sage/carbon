@@ -7,7 +7,7 @@ export interface ActionPopoverItemProps {
   icon?: IconTypes;
   disabled?: boolean;
   onClick: () => void;
-  submenu?: typeof ActionPopoverMenu;
+  submenu?: React.ReactNode;
 }
 
 declare const ActionPopoverItem: React.FunctionComponent<ActionPopoverItemProps>;

@@ -26,6 +26,9 @@ const FilterableSelect = React.forwardRef(
       disablePortal,
       listActionButton,
       onListAction,
+      isLoading,
+      readOnly,
+      onListScrollBottom,
       ...textboxProps
     },
     inputRef
@@ -115,7 +118,7 @@ const FilterableSelect = React.forwardRef(
           (option) => option.props.value === newValue
         );
 
-        if (matchingOption) {
+        if (matchingOption && matchingOption.props.text !== undefined) {
           setTextValue(matchingOption.props.text);
           setFilterText(matchingOption.props.text);
         }
@@ -161,6 +164,10 @@ const FilterableSelect = React.forwardRef(
           onKeyDown(event);
         }
 
+        if (readOnly) {
+          return;
+        }
+
         if (!event.defaultPrevented && isNavigationKey(key)) {
           event.preventDefault();
           setOpen(true);
@@ -168,7 +175,7 @@ const FilterableSelect = React.forwardRef(
 
         fillLastFilterCharacter(key);
       },
-      [fillLastFilterCharacter, onKeyDown, setOpen]
+      [fillLastFilterCharacter, onKeyDown, readOnly, setOpen]
     );
 
     const handleGlobalClick = useCallback(
@@ -191,7 +198,7 @@ const FilterableSelect = React.forwardRef(
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -200,15 +207,19 @@ const FilterableSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
 
-      setSelectedValue(newValue);
-      setHighlightedValue(newValue);
+      setSelectedValue((prevValue) => {
+        if (isControlled.current && prevValue && !newValue) {
+          setFilterText("");
+          setTextValue("");
+        }
 
-      if (isControlled.current && !newValue) {
-        setTextValue("");
-      }
+        return newValue;
+      });
+
+      setHighlightedValue(newValue);
     }, [value, defaultValue, onChange]);
 
     useEffect(() => {
@@ -230,10 +241,10 @@ const FilterableSelect = React.forwardRef(
     useEffect(() => {
       const clickEvent = "click";
 
-      document.addEventListener(clickEvent, handleGlobalClick);
+      window.addEventListener(clickEvent, handleGlobalClick);
 
       return function cleanup() {
-        document.removeEventListener(clickEvent, handleGlobalClick);
+        window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
 
@@ -288,6 +299,7 @@ const FilterableSelect = React.forwardRef(
 
         if (!isControlled.current) {
           setSelectedValue(newValue);
+          setHighlightedValue(newValue);
         }
 
         setTextValue(text);
@@ -295,8 +307,6 @@ const FilterableSelect = React.forwardRef(
         if (onChange) {
           onChange(createCustomEvent(newValue));
         }
-
-        setHighlightedValue(newValue);
 
         if (selectionType !== "navigationKey") {
           setOpen(false);
@@ -340,6 +350,7 @@ const FilterableSelect = React.forwardRef(
       return {
         id,
         name,
+        readOnly,
         inputRef: assignInput,
         selectedValue,
         formattedValue: textValue,
@@ -373,6 +384,9 @@ const FilterableSelect = React.forwardRef(
         disablePortal={disablePortal}
         listActionButton={listActionButton}
         onListAction={handleOnListAction}
+        isLoading={isLoading}
+        readOnly={readOnly}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </FilterableSelectList>
@@ -416,6 +430,10 @@ FilterableSelect.propTypes = {
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
+  /** If true the loader animation is displayed in the option list */
+  isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 export default FilterableSelect;

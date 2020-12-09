@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
-import messageClassicStyling from "./message-classic.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 const MessageStyle = styled.div`
@@ -26,22 +25,16 @@ const MessageStyle = styled.div`
     top: 50%;
     transform: translateY(-50%);
   }
-
-  ${messageClassicStyling}
 `;
 
 MessageStyle.defaultProps = {
-  border: true,
   variant: "info",
-  roundedCorners: true,
   theme: BaseTheme,
   transparent: false,
 };
 
 MessageStyle.propTypes = {
   variant: PropTypes.string,
-  border: PropTypes.bool,
-  roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool,
 };
 

@@ -14,7 +14,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c14.c14.c14 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .c7 {

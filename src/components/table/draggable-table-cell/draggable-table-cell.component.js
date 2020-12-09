@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "styled-components";
+
 import WithDrag from "../../drag-and-drop/with-drag";
 import Icon from "../../icon";
-import { isClassic } from "../../../utils/helpers/style-helper";
 import StyledDraggableTableCell from "./draggable-table-cell.style";
 
 /**
@@ -12,7 +11,6 @@ import StyledDraggableTableCell from "./draggable-table-cell.style";
  */
 const DraggableTableCell = (props) => {
   const canDrag = props.canDrag !== false;
-  const theme = React.useContext(ThemeContext) || props.theme;
 
   /**
    * Note: the <div> wrapper is required, otherwise ReactDnD throws an error:
@@ -20,7 +18,7 @@ const DraggableTableCell = (props) => {
    */
   const icon = (
     <div>
-      <Icon type={isClassic(theme) ? "drag_vertical" : "drag"} />
+      <Icon type="drag" />
     </div>
   );
 
@@ -44,9 +42,6 @@ const DraggableTableCell = (props) => {
 };
 
 DraggableTableCell.propTypes = {
-  /** Theme to use when rendering the DraggableTableCell */
-  theme: PropTypes.object,
-
   /** used to associate WithDrags and WithDrops */
   identifier: PropTypes.string,
 

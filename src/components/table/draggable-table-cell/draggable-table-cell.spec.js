@@ -9,7 +9,6 @@ import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
 import mintTheme from "../../../style/themes/mint";
-import classicTheme from "../../../style/themes/classic";
 
 describe("DraggableTableCell", () => {
   let wrapper;
@@ -34,14 +33,6 @@ describe("DraggableTableCell", () => {
   it("renders the correct icon for Modern theme", () => {
     const icon = wrapper.find(Icon);
     expect(icon.props().type).toEqual("drag");
-  });
-
-  it("renders the correct icon for Classic theme", () => {
-    wrapper = shallow(
-      <DraggableTableCell identifier="foo" theme={classicTheme} />
-    );
-    const icon = wrapper.find(Icon);
-    expect(icon.props().type).toEqual("drag_vertical");
   });
 
   it("styles the icon cursor", () => {

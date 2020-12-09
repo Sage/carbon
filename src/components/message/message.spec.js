@@ -9,7 +9,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme, classicTheme } from "../../style/themes";
+import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 
 function render(props) {
@@ -86,85 +86,6 @@ describe("Message", () => {
     });
   });
 
-  describe("when in classic mode", () => {
-    describe("when rendered", () => {
-      it("should match the snapshot", () => {
-        OptionsHelper.colors.forEach((variant) => {
-          const wrapper = render({ theme: classicTheme, variant });
-          expect(wrapper).toMatchSnapshot();
-        });
-      });
-    });
-
-    describe("when transparent prop is set to true", () => {
-      it("should render the message without the border and with background transparent", () => {
-        const wrapper = render({
-          transparent: true,
-          theme: classicTheme,
-          variant: "info",
-        });
-
-        assertStyleMatch(
-          {
-            border: "none",
-            backgroundColor: "transparent",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe("when border prop is set to false", () => {
-      it("should render the message without a border", () => {
-        const wrapper = render({
-          border: false,
-          theme: classicTheme,
-          variant: "info",
-        });
-
-        assertStyleMatch(
-          {
-            border: "none",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe("when roundedCorners prop is set to false", () => {
-      it("should apply no border-radius style", () => {
-        const wrapper = render({
-          roundedCorners: false,
-          theme: classicTheme,
-          variant: "info",
-        });
-
-        assertStyleMatch(
-          {
-            borderRadius: "0px",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe("when roundedCorners prop is not passed", () => {
-      it("should apply proper border-radius style", () => {
-        const wrapper = render({
-          theme: classicTheme,
-          type: "info",
-        });
-
-        assertStyleMatch(
-          {
-            borderRadius: "3px",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-  });
-
   describe("when closeIcon is not provided", () => {
     let wrapper, onDismissCallback;
 
@@ -172,7 +93,6 @@ describe("Message", () => {
       onDismissCallback = jest.fn();
       wrapper = shallow(
         <Message
-          theme={classicTheme}
           roundedCorners={false}
           variant="info"
           onDismiss={onDismissCallback}
@@ -209,7 +129,6 @@ describe("Message", () => {
       onDismissCallback = jest.fn();
       wrapper = shallow(
         <Message
-          theme={classicTheme}
           roundedCorners={false}
           variant="info"
           onDismiss={onDismissCallback}

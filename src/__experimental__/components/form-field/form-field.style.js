@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { space } from "styled-system";
 import BaseTheme from "../../../style/themes/base";
 
 const FormFieldStyle = styled.div`
@@ -7,11 +8,7 @@ const FormFieldStyle = styled.div`
   }
 
   &&& {
-    ${({ mb, theme }) =>
-      (mb || mb === 0) &&
-      css`
-        margin-bottom: ${mb * theme.spacing}px;
-      `};
+    ${space}
   }
 
   ${({ styleOverride }) => styleOverride};

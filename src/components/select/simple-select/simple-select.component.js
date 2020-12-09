@@ -16,10 +16,6 @@ import SelectTextbox, {
 import SelectList from "../select-list/select-list.component";
 import guid from "../../../utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import {
-  getNextOptionByKey,
-  getIndexOfMatch,
-} from "../utils/get-next-option-by-key";
 import Option from "../option/option.component";
 
 const SimpleSelect = React.forwardRef(
@@ -41,6 +37,8 @@ const SimpleSelect = React.forwardRef(
       onKeyDown,
       onBlur,
       disablePortal,
+      isLoading,
+      onListScrollBottom,
       ...props
     },
     inputRef
@@ -170,22 +168,8 @@ const SimpleSelect = React.forwardRef(
           onKeyDown(event);
         }
 
-        if (!event.defaultPrevented && isNavigationKey(event.key)) {
-          setSelectedValue((previousSelectedValue) => {
-            const currentIndex = getIndexOfMatch(
-              childOptions,
-              previousSelectedValue
-            );
-            const nextElement = getNextOptionByKey(
-              key,
-              childOptions,
-              currentIndex
-            );
-
-            setTextValue(nextElement.props.text);
-
-            return nextElement.props.value;
-          });
+        if (readOnly) {
+          return;
         }
 
         if (key === "Enter" || key === " " || isNavigationKey(key)) {
@@ -200,7 +184,7 @@ const SimpleSelect = React.forwardRef(
           });
         }
       },
-      [childOptions, onKeyDown, onOpen]
+      [onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback(
@@ -224,7 +208,7 @@ const SimpleSelect = React.forwardRef(
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -233,7 +217,7 @@ const SimpleSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
 
       setSelectedValue(newValue);
@@ -243,10 +227,10 @@ const SimpleSelect = React.forwardRef(
     useEffect(() => {
       const clickEvent = "click";
 
-      document.addEventListener(clickEvent, handleGlobalClick);
+      window.addEventListener(clickEvent, handleGlobalClick);
 
       return function cleanup() {
-        document.removeEventListener(clickEvent, handleGlobalClick);
+        window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
 
@@ -394,6 +378,8 @@ const SimpleSelect = React.forwardRef(
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
+        isLoading={isLoading}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </SelectList>
@@ -441,6 +427,10 @@ SimpleSelect.propTypes = {
   transparent: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** If true the loader animation is displayed below the last option */
+  isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 SimpleSelect.defaultProps = {

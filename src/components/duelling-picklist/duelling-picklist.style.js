@@ -132,17 +132,17 @@ const colors = {
   },
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({ type: "button" })`
   margin-left: auto;
   height: 40px;
   min-width: 40px;
   border: none;
   cursor: pointer;
-  background-color: ${({ type }) => colors.background[type]};
+  background-color: ${({ variant }) => colors.background[variant]};
   outline: none;
 
   &:hover {
-    background-color: ${({ type }) => colors.hoverBackground[type]};
+    background-color: ${({ variant }) => colors.hoverBackground[variant]};
   }
 
   span {

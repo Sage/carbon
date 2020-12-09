@@ -351,6 +351,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   <button
     class="c4"
     data-element="close"
+    type="button"
   >
     <span
       class="c5 c6"

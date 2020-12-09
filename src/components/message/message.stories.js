@@ -23,26 +23,15 @@ export default {
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const variant = select(
-    "type",
-    OptionsHelper.messages,
-    Message.defaultProps.variant
-  );
+  const variant = select("type", OptionsHelper.messages, "info");
   const title = text("title");
   const id = text("id", "custom-id");
-  const transparent = boolean("transparent", Message.defaultProps.transparent);
+  const transparent = boolean("transparent", false);
   const children = text(
     "children",
     "This is some information from the Message Component."
   );
-  const showCloseIcon = boolean(
-    "showCloseIcon",
-    Message.defaultProps.showCloseIcon
-  );
-  const roundedCorners = boolean(
-    "roundedCorners",
-    Message.defaultProps.roundedCorners
-  );
+  const showCloseIcon = boolean("showCloseIcon", true);
   const onDismiss = (evt) => {
     setIsOpen(false);
     action("click")(evt);
@@ -64,7 +53,6 @@ export const Default = () => {
         onDismiss={onDismiss}
         id={id}
         showCloseIcon={showCloseIcon}
-        roundedCorners={roundedCorners}
       >
         {children}
       </Message>

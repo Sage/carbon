@@ -1,3 +1,3 @@
 // component preview locators
-export const ROW = '.carbon-row';
-export const COLUMN = '.carbon-column';
+export const ROW = '[data-component="row"] ';
+export const COLUMN = '[data-component="column"] ';

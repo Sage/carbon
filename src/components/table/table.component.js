@@ -532,13 +532,13 @@ Table.propTypes = {
   onConfigure: PropTypes.func,
   /** Show the pagination footer */
   paginate: PropTypes.bool,
-  /** Pagination Current Visible Page */
+  /** Pagination - Current Visible Page */
   currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Pagination Page Size of grid (number of visible records) */
+  /** Pagination - Page Size of grid (number of visible records) */
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Pagination Options for pageSize default - 10, 25, 50 */
+  /** Pagination - Options for pageSize - default: 10, 25, 50 */
   pageSizeSelectionOptions: PropTypes.object,
-  /** Pagination Is the page size dropdown visible  */
+  /** Pagination - Is the page size dropdown visible  */
   showPageSizeSelection: PropTypes.bool,
   /** Enables multi-selectable table rows. */
   selectable: PropTypes.bool,
@@ -550,7 +550,7 @@ Table.propTypes = {
   onHighlight: PropTypes.func,
   /** A callback for when the page size changes. */
   onPageSizeChange: PropTypes.func,
-  /** Pagination Total number of records in the grid */
+  /** Pagination - Total number of records in the grid */
   totalRecords: PropTypes.number,
   /** Allow table to shrink in size. */
   shrink: PropTypes.bool,

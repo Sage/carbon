@@ -527,6 +527,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       data-element="pager-link-first"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       First
     </button>
@@ -535,6 +536,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       data-element="pager-link-previous"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       Previous
     </button>
@@ -609,6 +611,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       data-element="pager-link-next"
       disabled={false}
       onClick={[Function]}
+      type="button"
     >
       Next
     </button>
@@ -617,6 +620,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       data-element="pager-link-last"
       disabled={false}
       onClick={[Function]}
+      type="button"
     >
       Last
     </button>
@@ -984,6 +988,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
       data-element="pager-link-first"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       First
     </button>
@@ -992,6 +997,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
       data-element="pager-link-previous"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       Previous
     </button>
@@ -1066,6 +1072,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
       data-element="pager-link-next"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       Next
     </button>
@@ -1074,6 +1081,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
       data-element="pager-link-last"
       disabled={true}
       onClick={[Function]}
+      type="button"
     >
       Last
     </button>
