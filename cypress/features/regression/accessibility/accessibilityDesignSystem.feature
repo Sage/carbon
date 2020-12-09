@@ -132,6 +132,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
+      | Loader    |
       | Pager     |
       | Search    |
 
@@ -206,3 +207,13 @@ Feature: Accessibility tests - Design System folder
   Scenario: Component Toast
     When I open "Design System Toast Test" component page "visual" in no iframe
     Then "Toast" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Design System Pill component <story> page
+    When I open "Design System Pill" component page "<story>" in no iframe
+    Then "Pill <story> story" component has no accessibility violations
+    Examples:
+      | story         |
+      | custom colors |
+      | status        |
+      | tag           |
