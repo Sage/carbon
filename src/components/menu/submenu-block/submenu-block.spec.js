@@ -1,12 +1,31 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
+
 import { MenuItem, SubmenuBlock } from "..";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
-import { StyledSubmenuItem, StyledSubmenu } from "./submenu.style";
+import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
+import { MenuContext } from "../menu.component";
+import StyledSubmenuBlock from "./submenu-block.style";
+import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+
+const menuContextValues = (menuType) => ({
+  menuType,
+  openSubmenu: true,
+});
 
 describe("SubmenuBlock", () => {
   let wrapper;
+
+  const render = (menuType, variant = "default") => {
+    return mount(
+      <MenuContext.Provider value={menuContextValues(menuType)}>
+        <SubmenuBlock variant={variant}>
+          <MenuItem>Item Submenu One</MenuItem>
+        </SubmenuBlock>
+      </MenuContext.Provider>
+    );
+  };
 
   beforeEach(() => {
     wrapper = shallow(
@@ -24,35 +43,25 @@ describe("SubmenuBlock", () => {
     expect(wrapper.prop("data-component")).toBe("submenu-block");
   });
 
-  it('should render correct styles if `menuType="light"`', () => {
-    wrapper = mount(
-      <StyledSubmenu menuType="light">
-        <MenuItem>Item Submenu One</MenuItem>
-      </StyledSubmenu>
-    );
+  it('should render correct styles if `menuType="dark"`', () => {
+    wrapper = render("dark");
 
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.colors.white,
+        backgroundColor: baseTheme.menu.dark.submenuBackground,
       },
-      wrapper,
-      { modifier: `> *:not(${StyledSubmenuItem})` }
+      wrapper.find(StyledSubmenuBlock)
     );
   });
 
-  it('should render correct styles if `menuType="secondary"`', () => {
-    wrapper = mount(
-      <StyledSubmenu menuType="dark">
-        <MenuItem>Item Submenu One</MenuItem>
-      </StyledSubmenu>
-    );
+  it('should render correct styles if `variant="alternate"`', () => {
+    wrapper = render("dark", "alternate");
 
     assertStyleMatch(
       {
-        backgroundColor: "#1b1d21",
+        backgroundColor: "#003349",
       },
-      wrapper,
-      { modifier: `> *:not(${StyledSubmenuItem})` }
+      wrapper.find(StyledMenuItemWrapper)
     );
   });
 
