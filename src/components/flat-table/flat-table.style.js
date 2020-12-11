@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
+import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import { baseTheme } from "../../style/themes";
+import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
 
 const StyledFlatTable = styled.table`
   border-collapse: separate;
@@ -11,7 +13,30 @@ const StyledFlatTable = styled.table`
   border-spacing: 0;
   min-width: 100%;
   width: 100%;
+
+  ${({ isZebra, theme }) =>
+    isZebra &&
+    css`
+      ${StyledFlatTableRow}:nth-child(2n) {
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCell},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${theme.table.zebra};
+        }
+      }
+      ${StyledFlatTableRow}:hover {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${theme.flatTable.hover};
+        }
+      }
+    `}
 `;
+
+StyledFlatTable.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledFlatTableWrapper = styled.div`
   ${({ heightDefaulted }) =>
@@ -71,7 +96,7 @@ const StyledFlatTableWrapper = styled.div`
     isInSidebar &&
     css`
       ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-    ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
+      ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         background-color: ${theme.flatTable.drawerSidebar.headerBackground};
         border-right: 2px solid
           ${theme.flatTable.drawerSidebar.headerBackground};
@@ -88,7 +113,7 @@ const StyledFlatTableWrapper = styled.div`
       }
 
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-    ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
+      ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         z-index: ${({ theme }) => theme.zIndex.overlay + 2};
       }
     `}

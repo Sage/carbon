@@ -28,64 +28,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-right: 24px;
 }
 
-.c6 {
-  background-color: #fff;
-  border: 1px solid #CCD6DB;
-  border-top: none;
-  box-sizing: border-box;
-  left: 0;
-  font-weight: normal;
-  position: -webkit-sticky;
-  position: sticky;
-  text-align: left;
-  top: auto;
-  vertical-align: middle;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.c6 > div {
-  box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.c3 .c5,
-.c3 .c12 {
-  border-left: none;
-  border-right: none;
-  font-weight: 700;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-}
-
-.c3 .c5 > div {
-  padding: 8px 24px;
-}
-
-.c1 {
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  width: 100%;
-}
-
-.c0 {
-  height: 100%;
-}
-
-.c0 .c2 .c12,
-.c0 .c7,
-.c0 .c2 .c5 {
-  background-color: #335C6D;
-  border-right: 1px solid #668592;
-  color: #FFFFFF;
-}
-
 .c10 {
   background-color: #fff;
   border-width: 0;
@@ -144,6 +86,30 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: 1px solid #CCD6DB;
 }
 
+.c6 {
+  background-color: #fff;
+  border: 1px solid #CCD6DB;
+  border-top: none;
+  box-sizing: border-box;
+  left: 0;
+  font-weight: normal;
+  position: -webkit-sticky;
+  position: sticky;
+  text-align: left;
+  top: auto;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.c6 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 .c4 {
   border-collapse: separate;
   border-radius: 0px;
@@ -151,6 +117,40 @@ exports[`FlatTable when rendered with proper table data should have expected str
   min-width: 100%;
   table-layout: fixed;
   width: auto;
+}
+
+.c3 .c5,
+.c3 .c12 {
+  border-left: none;
+  border-right: none;
+  font-weight: 700;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.c3 .c5 > div {
+  padding: 8px 24px;
+}
+
+.c1 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  width: 100%;
+}
+
+.c0 {
+  height: 100%;
+}
+
+.c0 .c2 .c12,
+.c0 .c7,
+.c0 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
 }
 
 <div

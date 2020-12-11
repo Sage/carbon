@@ -15,6 +15,7 @@ const FlatTable = ({
   footer,
   hasStickyFooter = false,
   height,
+  isZebra,
   ...props
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
@@ -33,7 +34,7 @@ const FlatTable = ({
               colorTheme={colorTheme}
               heightDefaulted={addDefaultHeight}
             >
-              <StyledFlatTable data-component="flat-table">
+              <StyledFlatTable data-component="flat-table" isZebra={isZebra}>
                 {children}
               </StyledFlatTable>
             </StyledFlatTableWrapper>
@@ -67,6 +68,8 @@ FlatTable.propTypes = {
   hasStickyFooter: PropTypes.bool,
   /** Set the height of the table */
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Toggles the zebra striping for the table rows */
+  isZebra: PropTypes.bool,
 };
 
 FlatTable.defaultProps = {

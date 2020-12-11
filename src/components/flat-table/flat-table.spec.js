@@ -14,11 +14,14 @@ import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import {
+  StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
+import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
+import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 
 describe("FlatTable", () => {
   describe("when rendered with proper table data", () => {
@@ -144,6 +147,22 @@ describe("FlatTable", () => {
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${modifierString}` }
+      );
+    });
+  });
+
+  describe("when isZebra prop is set to true", () => {
+    it("then every second row should have expected background color", () => {
+      const wrapper = renderFlatTable({ isZebra: true }, mount);
+
+      assertStyleMatch(
+        {
+          backgroundColor: baseTheme.table.zebra,
+        },
+        wrapper.find(StyledFlatTable),
+        {
+          modifier: `${StyledFlatTableRow}:nth-child(2n) ${StyledFlatTableCell}`,
+        }
       );
     });
   });

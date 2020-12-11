@@ -11,6 +11,8 @@ export interface FlatTableProps {
   hasStickyFooter?: boolean;
   /** Set the height of the table */
   height?: string | number;
+  /** Toggles the zebra striping for the table rows */
+  isZebra?: boolean;
 }
 
 declare const FlatTable: React.FunctionComponent<FlatTableProps>;
