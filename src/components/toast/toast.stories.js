@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import Toast from ".";
 import Button from "../button";
 
@@ -9,7 +8,6 @@ export default {
   title: "Design System/Toast/Test",
   component: Toast,
   parameters: {
-    themeSelector: dlsThemeSelector,
     docs: { page: null },
     info: {
       disable: true,

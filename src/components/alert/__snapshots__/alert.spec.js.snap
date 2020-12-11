@@ -4735,10 +4735,6 @@ exports[`Alert Alert matches the snapshot 1`] = `
       border: none;
     }
   }
-
-  ",
-                                                [Function],
-                                                ";
 ",
                                               ],
                                             },

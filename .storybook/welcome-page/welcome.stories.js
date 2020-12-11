@@ -1,25 +1,23 @@
-import React from 'react';
-import Welcome from './welcome.component';
-import { dlsThemeSelector } from '../theme-selectors';
+import React from "react";
+import Welcome from "./welcome.component";
 
 export default {
-  title: 'Welcome',
+  title: "Welcome",
   component: Welcome,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
-      disable: true
+      disable: true,
     },
     docs: {
-      disable: true
+      disable: true,
     },
     options: {
-      showPanel: false
+      showPanel: false,
     },
     chromatic: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 };
 
 export const WelcomePage = () => <Welcome />;

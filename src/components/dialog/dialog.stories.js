@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Dialog from "./dialog.component";
 import Form from "../form";
@@ -15,7 +14,6 @@ export default {
   title: "Dialog/Test",
   component: Dialog,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },
