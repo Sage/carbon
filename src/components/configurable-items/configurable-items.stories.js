@@ -3,7 +3,6 @@ import { storiesOf } from "@storybook/react";
 import { State, Store } from "@sambego/storybook-state";
 import { action } from "@storybook/addon-actions";
 import { cloneDeep } from "lodash";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import notes from "./documentation";
 import { ConfigurableItems, ConfigurableItemRow } from ".";
 import getDocGenInfo from "../../utils/helpers/docgen-info";
@@ -82,7 +81,7 @@ const rows = (data) =>
     );
   });
 
-function makeStory(name, themeSelector) {
+function makeStory(name) {
   const component = () => {
     return (
       <ConfigurableItemsWrapper
@@ -99,7 +98,6 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector,
     notes: { markdown: notes },
     info: {
       propTablesExclude: [State],
@@ -109,6 +107,4 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
-storiesOf("Configurable Items", module).add(
-  ...makeStory("default", dlsThemeSelector)
-);
+storiesOf("Configurable Items", module).add(...makeStory("default"));

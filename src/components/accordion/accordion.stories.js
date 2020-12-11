@@ -1,7 +1,6 @@
 import React from "react";
 import { select, text, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Accordion from "./accordion.component";
 import AccordionGroup from "./accordion-group.component";
@@ -11,7 +10,6 @@ export default {
   title: "Design System/Accordion/Test",
   component: Accordion,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

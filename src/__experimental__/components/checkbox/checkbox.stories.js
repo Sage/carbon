@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 
-import { dlsThemeSelector } from "../../../../.storybook/theme-selectors";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { Checkbox } from ".";
 import AutoFocus from "../../../utils/helpers/auto-focus";
@@ -11,7 +10,6 @@ export default {
   title: "Experimental/Checkbox/Test",
   component: Checkbox,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

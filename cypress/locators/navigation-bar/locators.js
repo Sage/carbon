@@ -1,2 +1,2 @@
 // component preview locators
-export const NAVIGATION_BAR = 'div[data-component="navigation-bar"]';
+export const NAVIGATION_BAR = '[data-component="navigation-bar"]';

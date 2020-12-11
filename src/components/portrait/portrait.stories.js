@@ -2,7 +2,6 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { select, text, boolean } from "@storybook/addon-knobs";
 import { ThemeProvider } from "styled-components";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Portrait from "./portrait.component";
 import { notes, info } from "./documentation";
@@ -39,7 +38,6 @@ storiesOf("Portrait", module).add(
   "default",
   () => <Portrait {...commonKnobs()} {...dlsKnobs()} />,
   {
-    themeSelector: dlsThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },

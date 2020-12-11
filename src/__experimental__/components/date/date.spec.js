@@ -7,7 +7,6 @@ import InputIconToggle from "../input-icon-toggle";
 import DatePicker from "./date-picker.component";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
-import { classicTheme } from "../../../style/themes";
 import DateHelper from "../../../utils/helpers/date/date";
 import { isEdge } from "../../../utils/helpers/browser-type-check";
 import Label from "../label";
@@ -19,13 +18,6 @@ jest.mock("../../../utils/helpers/browser-type-check");
 describe("StyledDateInput", () => {
   it("renders correctly for default theme", () => {
     const wrapper = TestRenderer.create(<StyledDateInput size="large" />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders correctly for the "classic" theme', () => {
-    const wrapper = TestRenderer.create(
-      <StyledDateInput theme={classicTheme} />
-    );
     expect(wrapper).toMatchSnapshot();
   });
 });

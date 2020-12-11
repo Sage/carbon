@@ -4,19 +4,13 @@ import {
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
 import { baseTheme } from "../../style/themes";
+import Box from "../box";
 
-const StyledMenuWrapper = styled.nav`
+const StyledMenuWrapper = styled(Box).attrs({ as: "ul" })`
   line-height: 40px;
-`;
-
-const StyledMenuItemsWrapper = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-`;
-
-const StyledMenuItem = styled.li`
-  display: inline-block;
 
   ${StyledVerticalWrapper} {
     ${({ menuType, theme }) => css`
@@ -38,8 +32,19 @@ const StyledMenuItem = styled.li`
   }
 `;
 
-StyledMenuItem.defaultProps = {
+const StyledMenuItem = styled(Box).attrs({ as: "li" })`
+  ${({ inSubmenu }) => css`
+    ${inSubmenu &&
+    css`
+      display: list-item;
+      margin: 0;
+      padding: 0;
+    `}
+  `}
+`;
+
+StyledMenuWrapper.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledMenuWrapper, StyledMenuItemsWrapper, StyledMenuItem };
+export { StyledMenuWrapper, StyledMenuItem };

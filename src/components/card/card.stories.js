@@ -1,6 +1,5 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import Card from "./card.component";
 import CardRow from "./card-row";
 import CardColumn from "./card-column";
@@ -14,7 +13,6 @@ export default {
   title: "Design System/Card/Test",
   component: Card,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },
