@@ -1,17 +1,21 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import {
-  Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle
-} from '.';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle } from ".";
+import Box from "../box";
+import Navbar from "../navigation-bar";
+import VerticalDivider from "../vertical-divider";
+import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 
-<Meta
-  title="Design System/Menu"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
 ## Quick Start
 
 ```jsx
-import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/components/menu";
+import {
+  Menu,
+  MenuItem,
+  SubmenuBlock,
+  MenuDivider,
+} from "carbon-react/lib/components/menu";
 ```
 
 ## Visuals
@@ -19,37 +23,23 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
 ## Default
 
 <Preview>
-  <Story name="default" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ minHeight: "150px" }}>
       <Menu>
-        <MenuItem onClick={() => {}}>
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
           <MenuDivider />
           <MenuItem icon="settings" href="#">
             Item Submenu Three
           </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Four
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
         </MenuItem>
         <MenuItem submenu="Menu Item Four">
-          <MenuItem onClick={() => {}}>
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -57,25 +47,21 @@ import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/compon
 </Preview>
 
 ## Default selected
-The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow 
+
+The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
 is rendered.
+
 <Preview>
   <Story name="default selected">
-    <div style={{minHeight: '150px'}}>
+    <div style={{ minHeight: "150px" }}>
       <Menu>
         <MenuItem selected href="#">
           Menu Item One
         </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -85,26 +71,16 @@ is rendered.
 ## Default divider
 
 <Preview>
-  <Story name="default divider" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story name="default divider" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ minHeight: "150px" }}>
       <Menu>
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider />
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -114,56 +90,41 @@ is rendered.
 ## Default large divider
 
 <Preview>
-  <Story name="default large divider" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story
+    name="default large divider"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
       <Menu>
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider size="large" />
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
   </Story>
 </Preview>
 
-
 ## Default segment title
 
 <Preview>
-  <Story name="default segment title" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '200px'}}>
+  <Story
+    name="default segment title"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "200px" }}>
       <Menu>
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -173,19 +134,16 @@ is rendered.
 ## Default theme with alternate colour variant
 
 <Preview>
-  <Story name="default theme alternate colour" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story
+    name="default theme alternate colour"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
       <Menu>
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider variant="alternate" size="large" />
           <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
           <MenuItem variant="alternate" href="#">
@@ -200,25 +158,42 @@ is rendered.
   </Story>
 </Preview>
 
+## Submenu direction left
+
+<Preview>
+  <Story
+    name="submenu direction left"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three" submenuDirection="left">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">A really long Item Submenu Four</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Dark theme
 
 <Preview>
-  <Story name="dark theme" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story name="dark theme" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
-        <MenuItem onClick={() => {}}>
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem onClick={() => {}}>
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -229,21 +204,15 @@ is rendered.
 
 <Preview>
   <Story name="dark theme selected">
-    <div style={{minHeight: '150px'}}>
+    <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
         <MenuItem selected href="#">
           Menu Item One
         </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -253,26 +222,19 @@ is rendered.
 ## Dark theme divider
 
 <Preview>
-  <Story name="dark theme divider" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story
+    name="dark theme divider"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider />
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -282,26 +244,19 @@ is rendered.
 ## Dark theme large divider
 
 <Preview>
-  <Story name="dark theme large divider" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story
+    name="dark theme large divider"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider size="large" />
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -311,26 +266,19 @@ is rendered.
 ## Dark theme segment title
 
 <Preview>
-  <Story name="dark theme segment title" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '200px'}}>
+  <Story
+    name="dark theme segment title"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "200px" }}>
       <Menu menuType="dark">
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Three
-          </MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
         </MenuItem>
       </Menu>
     </div>
@@ -340,19 +288,16 @@ is rendered.
 ## Dark theme with alternate colour variant
 
 <Preview>
-  <Story name="dark theme alternate colour" parameters={{ chromatic: { disable: true }}}>
-    <div style={{minHeight: '150px'}}>
+  <Story
+    name="dark theme alternate colour"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
-        <MenuItem href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">
-          Menu Item Two
-        </MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuDivider variant="alternate" size="large" />
           <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
           <MenuItem variant="alternate" href="#">
@@ -367,11 +312,84 @@ is rendered.
   </Story>
 </Preview>
 
+## Full navbar alignment example
+
+<Preview>
+  <Story name="Full navbar alignment example">
+    {() => {
+      return (
+        <div style={{ minHeight: "150px" }}>
+          <Navbar>
+            <SageIcon style={{ alignSelf: "center" }} />
+            <Box>
+              <VerticalDivider displayInline pr={0} />
+            </Box>
+            <Menu display="flex" flex="1">
+              <MenuItem flex="1" onClick={() => {}}>
+                Menu Item One
+              </MenuItem>
+              <MenuItem flex="0 0 auto" href="#">
+                Menu Item Two
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuItem>
+            </Menu>
+          </Navbar>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Split submenu into separate component
+
+If you need to split out a submenu into a separate component, it must be done as shown below in order for the keyboard navigation to work as intended.
+
+<Preview>
+  <Story
+    name="submenu separate component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const MySubMenu = (
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      );
+      return (
+        <div style={{ minHeight: "150px" }}>
+          <Menu>
+            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            {MySubMenu}
+          </Menu>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ## Menu Props
+
+`Menu` extends the `Box` component so it also accepts all `Box` props.
 
 <Props of={Menu} />
 
 ## MenuItem Props
+
+`MenuItem` extends the `Box` component so it also accepts all `Box` props.
 
 <Props of={MenuItem} />
 
