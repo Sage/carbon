@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { boolean, withKnobs, select, number } from "@storybook/addon-knobs";
+import {
+  boolean,
+  withKnobs,
+  select,
+  number,
+  text,
+} from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import {
@@ -29,6 +35,7 @@ export const basic = () => {
   const hasStickyHead = boolean("hasStickyHead", false);
   const hasHeaderRow = boolean("hasHeaderRow", false);
   const hasClickableRows = boolean("hasClickableRows", false);
+  const caption = text("caption", "");
   const colorTheme = select(
     "colorTheme",
     [...OptionsHelper.flatTableThemes],
@@ -61,7 +68,11 @@ export const basic = () => {
 
   return (
     <div style={tableSizeConstraints}>
-      <FlatTable colorTheme={colorTheme} hasStickyHead={hasStickyHead}>
+      <FlatTable
+        colorTheme={colorTheme}
+        hasStickyHead={hasStickyHead}
+        caption={caption}
+      >
         <FlatTableHead>
           <FlatTableRow key={processed.headData.id}>
             {processed.headData.data.map((cellData, index) => {

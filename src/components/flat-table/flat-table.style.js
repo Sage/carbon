@@ -14,6 +14,19 @@ const StyledFlatTable = styled.table`
   min-width: 100%;
   width: 100%;
 
+  ${({ caption }) =>
+    caption &&
+    css`
+      caption {
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        overflow: hidden;
+        width: 1px;
+        position: absolute;
+        top: -99999px;
+      }
+    `}
+
   ${({ isZebra, theme }) =>
     isZebra &&
     css`

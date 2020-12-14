@@ -9,6 +9,7 @@ import { SidebarContext } from "../drawer";
 import Box from "../box";
 
 const FlatTable = ({
+  caption,
   children,
   hasStickyHead,
   colorTheme,
@@ -34,7 +35,12 @@ const FlatTable = ({
               colorTheme={colorTheme}
               heightDefaulted={addDefaultHeight}
             >
-              <StyledFlatTable data-component="flat-table" isZebra={isZebra}>
+              <StyledFlatTable
+                data-component="flat-table"
+                isZebra={isZebra}
+                caption={caption}
+              >
+                {caption ? <caption>{caption}</caption> : null}
                 {children}
               </StyledFlatTable>
             </StyledFlatTableWrapper>
@@ -51,6 +57,8 @@ const FlatTable = ({
 };
 
 FlatTable.propTypes = {
+  /** A string to render as the table's caption */
+  caption: PropTypes.string,
   /** FlatTableHead and FlatTableBody */
   children: PropTypes.node.isRequired,
   /** If true, the header does not scroll with the content */

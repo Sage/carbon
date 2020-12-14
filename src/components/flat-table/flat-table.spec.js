@@ -167,6 +167,16 @@ describe("FlatTable", () => {
     });
   });
 
+  describe("when the caption prop is set", () => {
+    it("then that caption should be rendered in the table", () => {
+      const captionText = "foo";
+      const wrapper = renderFlatTable({ caption: captionText }, mount);
+
+      expect(wrapper.find("caption").exists()).toBe(true);
+      expect(wrapper.find("caption").text()).toBe(captionText);
+    });
+  });
+
   describe("footer", () => {
     let wrapper;
 

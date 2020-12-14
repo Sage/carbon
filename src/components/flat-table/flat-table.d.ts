@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 export interface FlatTableProps {
+  /** A string to render as the table's caption */
+  caption?: string;
   /** FlatTableHead and FlatTableBody */
   children: React.ReactNode;
   /** If true, the header does not scroll with the content */
