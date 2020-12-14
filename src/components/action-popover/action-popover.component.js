@@ -81,10 +81,10 @@ const ActionPopover = ({
       }
     };
     const event = "click";
-    document.addEventListener(event, handler);
+    document.addEventListener(event, handler, { capture: true });
 
     return function cleanup() {
-      document.removeEventListener(event, handler);
+      document.removeEventListener(event, handler, { capture: true });
     };
   }, [setOpen]);
 
