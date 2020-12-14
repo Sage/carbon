@@ -61,7 +61,10 @@ export const Default = () => (
         <TableCell>John</TableCell>
         <TableCell>Doe</TableCell>
         <TableCell>
-          <ActionPopover>
+          <ActionPopover
+            onOpen={action("popover opened")}
+            onClose={action("popover closed")}
+          >
             <ActionPopoverItem
               disabled
               icon="graph"

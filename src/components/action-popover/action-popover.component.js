@@ -7,6 +7,7 @@ import createGuid from "../../utils/helpers/guid";
 import ActionPopoverMenu from "./action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider.component";
+import ActionPopoverContext from "./action-popover-context";
 
 const ActionPopover = ({
   children,
@@ -68,12 +69,14 @@ const ActionPopover = ({
     [items, onButtonClick, setOpen]
   );
 
+  const focusButton = useCallback(() => button.current.focus(), []);
+
   useEffect(() => {
     const handler = (e) => {
-      // If the event came from part of this component, close the menu.
+      // If the event didn't came from part of this component, close the menu.
       // There will be multiple document click listeners but we cant prevent propagation because it will interfere with
       // other instances on the same page
-      if (!Events.composedPath(e).includes(button.current)) {
+      if (!button.current.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -129,14 +132,18 @@ const ActionPopover = ({
       {...rest}
     >
       {menuButton()}
-      <ActionPopoverMenu
-        data-component="action-popover"
-        role="menu"
-        ref={menu}
-        {...menuProps}
+      <ActionPopoverContext.Provider
+        value={{ setOpenPopover: setOpen, focusButton, isOpenPopover: isOpen }}
       >
-        {children}
-      </ActionPopoverMenu>
+        <ActionPopoverMenu
+          data-component="action-popover"
+          role="menu"
+          ref={menu}
+          {...menuProps}
+        >
+          {children}
+        </ActionPopoverMenu>
+      </ActionPopoverContext.Provider>
     </MenuButton>
   );
 };

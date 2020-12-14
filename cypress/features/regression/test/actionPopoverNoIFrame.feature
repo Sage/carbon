@@ -111,11 +111,11 @@ Feature: Action Popover component in noIFrame
     Then Action Popover element is not visible
 
   @positive
-  Scenario: Action Popover is still open after using ESC key if it has a submenu
+  Scenario: Close Action Popover using ESC key if it has a submenu
     Given I click the menu button element in noiFrame
       And I press keyboard "downarrow" key times 2
     When I press ESC onto focused element
-    Then Action Popover element is visible
+    Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it by clicking outside of the component
