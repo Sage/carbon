@@ -1,0 +1,160 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Box from "../box";
+import Typography from "../typography";
+import BaseCarousel, { Carousel, Slide } from "./carousel.component";
+
+<Meta title="Carousel" parameters={{ info: { disable: true } }} />
+
+# Carousel
+
+- Presents a series of images which the user can step through one-by-one, or quickly jump to a particular step.
+- Useful for showcasing a set of new features, for example.
+
+## Quick Start
+
+```jsx
+import { Carousel, Slide } from "carbon-react/lib/components/carousel";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Carousel>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#003349"
+        >
+          <Typography variant="h1" color="#090">
+            Slide 1
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography variant="h1">Slide 2</Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#69418f"
+        >
+          <Typography variant="h1" color="#fff">
+            Slide 3
+          </Typography>
+        </Box>
+      </Slide>
+    </Carousel>
+  </Story>
+</Preview>
+
+### Without buttons
+
+<Preview>
+  <Story name="without buttons">
+    <Carousel enableNextButton={false} enablePreviousButton={false}>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#003349"
+        >
+          <Typography variant="h1" color="#090">
+            Slide 1
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography variant="h1">Slide 2</Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#69418f"
+        >
+          <Typography variant="h1" color="#fff">
+            Slide 3
+          </Typography>
+        </Box>
+      </Slide>
+    </Carousel>
+  </Story>
+</Preview>
+
+### Without slideSelectors
+
+<Preview>
+  <Story name="without slideSelectors">
+    <Carousel enableSlideSelector={false}>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#003349"
+        >
+          <Typography variant="h1" color="#090">
+            Slide 1
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography variant="h1">Slide 2</Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box
+          height={200}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          bg="#69418f"
+        >
+          <Typography variant="h1" color="#fff">
+            Slide 3
+          </Typography>
+        </Box>
+      </Slide>
+    </Carousel>
+  </Story>
+</Preview>
+
+## Props:
+
+### Carousel:
+
+<Props of={BaseCarousel} />
