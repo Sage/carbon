@@ -22,6 +22,8 @@ import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
 import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import cellSizes from "./cell-sizes.style";
 
 describe("FlatTable", () => {
   describe("when rendered with proper table data", () => {
@@ -176,6 +178,56 @@ describe("FlatTable", () => {
       expect(wrapper.find("caption").text()).toBe(captionText);
     });
   });
+
+  describe.each(OptionsHelper.tableSizes)(
+    "when the size prop is set to %s",
+    (size) => {
+      const { fontSize, paddingSize } = cellSizes[size];
+      const expectedStyles = {
+        fontSize,
+        paddingLeft: paddingSize,
+        paddingRight: paddingSize,
+      };
+
+      it("then expected styles should be applied to table cells underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableCell} > div`,
+        });
+      });
+
+      it("then expected styles should be applied to table headers underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableHeader} > div`,
+        });
+      });
+
+      it("then expected styles should be applied to row headers underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableRowHeader} > div`,
+        });
+      });
+
+      it("then the Table Rows should have expected height", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(
+          {
+            height: cellSizes[size].height,
+          },
+          wrapper.find(StyledFlatTable),
+          {
+            modifier: `${StyledFlatTableRow}`,
+          }
+        );
+      });
+    }
+  );
 
   describe("footer", () => {
     let wrapper;

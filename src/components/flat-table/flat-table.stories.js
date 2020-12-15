@@ -43,6 +43,11 @@ export const basic = () => {
   );
   const firstColumnWidth = number("first column width", 150);
   const secondColumnWidth = number("second column width", 120);
+  const size = select(
+    "size",
+    OptionsHelper.tableSizes,
+    FlatTable.defaultProps.size
+  );
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -72,6 +77,7 @@ export const basic = () => {
         colorTheme={colorTheme}
         hasStickyHead={hasStickyHead}
         caption={caption}
+        size={size}
       >
         <FlatTableHead>
           <FlatTableRow key={processed.headData.id}>

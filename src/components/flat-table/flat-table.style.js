@@ -6,6 +6,7 @@ import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import { baseTheme } from "../../style/themes";
 import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
+import cellSizes from "./cell-sizes.style";
 
 const StyledFlatTable = styled.table`
   border-collapse: separate;
@@ -26,6 +27,24 @@ const StyledFlatTable = styled.table`
         top: -99999px;
       }
     `}
+
+  ${({ size }) => {
+    const { height, fontSize, paddingSize } = cellSizes[size];
+
+    return css`
+      ${StyledFlatTableRow} {
+        height: ${height};
+      }
+
+      ${StyledFlatTableCell} > div,
+      ${StyledFlatTableHeader} > div,
+      ${StyledFlatTableRowHeader} > div {
+        font-size: ${fontSize};
+        padding-left: ${paddingSize};
+        padding-right: ${paddingSize};
+      }
+    `;
+  }}
 
   ${({ isZebra, theme }) =>
     isZebra &&
@@ -49,6 +68,7 @@ const StyledFlatTable = styled.table`
 
 StyledFlatTable.defaultProps = {
   theme: baseTheme,
+  size: "medium",
 };
 
 const StyledFlatTableWrapper = styled.div`

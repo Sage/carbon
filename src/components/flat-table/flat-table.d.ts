@@ -15,6 +15,8 @@ export interface FlatTableProps {
   height?: string | number;
   /** Toggles the zebra striping for the table rows */
   isZebra?: boolean;
+  /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
+  size?: 'compact' | 'small' | 'medium' | 'large';
 }
 
 declare const FlatTable: React.FunctionComponent<FlatTableProps>;

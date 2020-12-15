@@ -19,6 +19,7 @@ import Textbox from '../../__experimental__/components/textbox';
 import Pager from '../pager'
 import { ActionPopover, ActionPopoverItem, ActionPopoverMenu } from '../action-popover';
 import { SidebarContext } from '../drawer';
+import Box from '../box';
 
 <Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
 
@@ -1047,6 +1048,53 @@ of the button control.
         </>
       );
     }} 
+  </Story>
+</Preview>
+
+## Table Cell Sizes
+
+<Preview>
+  <Story name="sizes">
+    <div>
+      {["compact", "small", "medium", "large"].map(size => <Box mb={3}>
+        <FlatTable size={size}>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>)}
+    </div>
   </Story>
 </Preview>
 
