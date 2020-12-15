@@ -563,25 +563,25 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
-              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
-              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('three') }highlighted={ highlightedRow === 'three' }>
-              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('four') } highlighted={ highlightedRow === 'four' }>
-              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>5</FlatTableCell>
