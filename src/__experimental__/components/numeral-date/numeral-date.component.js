@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
+import I18n from "i18n-js";
 
 import Events from "../../../utils/helpers/events";
 import OptionsHelper from "../../../utils/helpers/options-helper";
@@ -10,12 +11,36 @@ import guid from "../../../utils/helpers/guid";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 
+const isDayValid = (day) => +day > 0 && +day < 32;
+
+const isMonthValid = (month) => +month > 0 && +month < 13;
+
+const isYearValid = (year) => +year > 1799 && +year < 2201;
+
+const validations = {
+  dd: isDayValid,
+  mm: isMonthValid,
+  yyyy: isYearValid,
+};
+
+const validationMessages = {
+  dd: I18n.t("numeralDate.day", {
+    defaultValue: "Day should be a number within a 1-31 range.",
+  }),
+  mm: I18n.t("numeralDate.month", {
+    defaultValue: "Month should be a number within a 1-12 range.",
+  }),
+  yyyy: I18n.t("numeralDate.year", {
+    defaultValue: "Year should be a number within a 1800-2200 range.",
+  }),
+};
+
 const NumeralDate = ({
   dateFormat = ["dd", "mm", "yyyy"],
   defaultValue,
-  error,
-  info,
-  warning,
+  error = "",
+  info = "",
+  warning = "",
   id,
   name,
   onBlur,
@@ -30,10 +55,16 @@ const NumeralDate = ({
   fieldHelp,
   adaptiveLabelBreakpoint,
   required,
+  enableInternalError,
+  enableInternalWarning,
 }) => {
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
+
+  const refs = useRef(dateFormat.map(() => React.createRef()));
+
+  const [internalMessages, setInternalMessages] = useState({});
 
   useEffect(() => {
     const modeSwitchedMessage =
@@ -85,21 +116,48 @@ const NumeralDate = ({
     }
   };
 
-  const handleBlur = () => {
+  const handleBlur = (datePart) => {
+    const internalValidationEnabled =
+      enableInternalError || enableInternalWarning;
     /* istanbul ignore else */
-    if (onBlur) {
-      onBlur(createCustomEventObject(dateValue));
+    if (validations[datePart] && internalValidationEnabled) {
+      const errorMessage = validations[datePart](dateValue[datePart])
+        ? ""
+        : validationMessages[datePart];
+
+      setInternalMessages((prev) => ({
+        ...prev,
+        [datePart]: errorMessage,
+      }));
     }
+    setTimeout(() => {
+      const hasBlurred = !refs.current.find(
+        (ref) => ref.current === document.activeElement
+      );
+      /* istanbul ignore else */
+      if (onBlur && hasBlurred) {
+        onBlur(createCustomEventObject(dateValue));
+      }
+    }, 5);
   };
 
+  const internalMessage = Object.keys(internalMessages).reduce(
+    (string, key) =>
+      internalMessages[key] ? `${string + internalMessages[key]}\n` : string,
+    ""
+  );
+  const internalError = enableInternalError ? internalMessage + error : error;
+  const internalWarning = enableInternalWarning
+    ? internalMessage + warning
+    : warning;
   return (
     <InputGroupBehaviour>
       <FormField
         label={label}
         useValidationIcon={validationOnLabel}
         id={uniqueId}
-        error={error}
-        warning={warning}
+        error={internalError}
+        warning={internalWarning}
         info={info}
         labelInline={labelInline}
         labelWidth={labelWidth}
@@ -111,7 +169,6 @@ const NumeralDate = ({
       >
         <StyledNumeralDate
           name={name}
-          onBlur={handleBlur}
           onKeyPress={onKeyPress}
           data-component="numeral-date"
         >
@@ -134,15 +191,18 @@ const NumeralDate = ({
                   placeholder={datePart}
                   value={dateValue[datePart]}
                   onChange={(e) => handleChange(e, datePart)}
-                  onBlur={handleBlur}
-                  error={!!error}
-                  warning={!!warning}
+                  inputRef={(ref) => {
+                    refs.current[index] = ref;
+                  }}
+                  onBlur={() => handleBlur(datePart)}
+                  error={!!internalError}
+                  warning={!!internalWarning}
                   info={!!info}
                   {...(required && { required })}
                   {...(isEnd &&
                     !validationOnLabel && {
-                      error,
-                      warning,
+                      error: internalError,
+                      warning: internalWarning,
                       info,
                     })}
                 />
@@ -208,6 +268,10 @@ NumeralDate.propTypes = {
   name: PropTypes.string,
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel: PropTypes.bool,
+  /** When true, enables the internal errors to be displayed */
+  enableInternalError: PropTypes.bool,
+  /** When true, enables the internal warnings to be displayed */
+  enableInternalWarning: PropTypes.bool,
   /** Label */
   label: PropTypes.string,
   /** Text applied to label help tooltip */
