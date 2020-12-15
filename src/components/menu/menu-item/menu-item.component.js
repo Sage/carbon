@@ -13,9 +13,9 @@ import Link from "../../link";
 import Box from "../../box";
 import Events from "../../../utils/helpers/events";
 import { MenuContext } from "../menu.component";
-import Submenu, {
-  SubmenuContext,
-} from "../__internal__/submenu/submenu.component";
+import Submenu from "../__internal__/submenu/submenu.component";
+import SubmenuContext from "../__internal__/submenu/submenu.context";
+
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 

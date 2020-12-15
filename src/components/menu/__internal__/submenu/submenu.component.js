@@ -17,8 +17,8 @@ import Events from "../../../../utils/helpers/events";
 import { MenuContext } from "../../menu.component";
 import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
-
-const SubmenuContext = React.createContext({});
+import ScrollableBlock from "../../scrollable-block";
+import SubmenuContext from "./submenu.context";
 
 const Submenu = React.forwardRef(
   (
@@ -41,9 +41,19 @@ const Submenu = React.forwardRef(
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const submenuRef = useRef();
     const menuContextOpen = menuContext.openSubmenu;
-    const numberOfChildren = useMemo(() => React.Children.count(children), [
-      children,
-    ]);
+
+    const formattedChildren = React.Children.map(children, (child) => {
+      if (child.type === ScrollableBlock) {
+        return [...child.props.children];
+      }
+
+      return child;
+    });
+
+    const numberOfChildren = useMemo(
+      () => React.Children.count(formattedChildren),
+      [formattedChildren]
+    );
 
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
@@ -125,14 +135,16 @@ const Submenu = React.forwardRef(
           if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
             nextIndex = characterNavigation(
               event,
-              React.Children.toArray(children),
+              React.Children.toArray(formattedChildren),
               index
             );
           }
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
-          const nextChild = React.Children.toArray(children)[nextIndex];
+          const nextChild = React.Children.toArray(formattedChildren)[
+            nextIndex
+          ];
           if (nextChild && nextChild.type === MenuItem) {
             setSubmenuFocusIndex(nextIndex);
           } else {
@@ -141,7 +153,7 @@ const Submenu = React.forwardRef(
         }
       },
       [
-        children,
+        formattedChildren,
         closeSubmenu,
         menuContext,
         numberOfChildren,
@@ -215,7 +227,11 @@ const Submenu = React.forwardRef(
               <SubmenuContext.Provider
                 value={{
                   isFocused: submenuFocusIndex === index,
+                  focusIndex: submenuFocusIndex,
                   handleKeyDown,
+                  blockIndex: React.Children.toArray(children).findIndex(
+                    (item) => item.type === ScrollableBlock
+                  ),
                 }}
               >
                 {child}
@@ -253,5 +269,4 @@ Submenu.propTypes = {
   showDropdownArrow: PropTypes.bool,
 };
 
-export { SubmenuContext };
 export default Submenu;
