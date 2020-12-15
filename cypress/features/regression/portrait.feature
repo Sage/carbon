@@ -3,7 +3,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Change Portrait alt to <alt>
-		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait alt on preview is set to <alt>
 		Examples:
 			| alt                          | nameOfObject        |
@@ -68,7 +68,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Set Portrait shape to <shape>
-		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait shape value is set to "<shape>"
 		Examples:
 			| shape  | nameOfObject |
@@ -77,7 +77,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Set Portrait size to <size>
-		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait size has "<sizeInPx>"
 		Examples:
 			| size | sizeInPx | nameOfObject |

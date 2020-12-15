@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import tagComponent from "../../utils/helpers/tags";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import PortraitGravatar from "./portrait-gravatar.component";
 import PortraitInitials from "./portrait-initials.component";
 import { StyledCustomImg, StyledIcon } from "./portrait.style";
@@ -92,7 +92,7 @@ class Portrait extends React.Component {
 
 Portrait.propTypes = {
   /** The size of the Portrait. */
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait),
+  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
   /** A custom image URL. */
   src: (props) => {
     if (props.src && typeof props.src !== "string") {
@@ -110,7 +110,7 @@ Portrait.propTypes = {
   /** The `alt` HTML string. */
   alt: PropTypes.string,
   /** The shape of the Portrait. */
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
+  shape: PropTypes.oneOf(["circle", "square"]),
   /** The initials to render in the Portrait. */
   initials: PropTypes.string,
   /** Use a dark background. */

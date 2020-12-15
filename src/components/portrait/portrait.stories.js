@@ -1,16 +1,30 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
 import { select, text, boolean } from "@storybook/addon-knobs";
-import { ThemeProvider } from "styled-components";
+
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Portrait from "./portrait.component";
-import { notes, info } from "./documentation";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
 
-Portrait.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /portrait\.component(?!spec)/
-);
+export default {
+  title: "Portrait/Test",
+  component: Portrait,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
+
+export const Default = () => {
+  return <Portrait {...commonKnobs()} {...dlsKnobs()} />;
+};
+
+Default.story = {
+  name: "default",
+};
 
 function commonKnobs() {
   const source = select("source", ["src", "gravatar"], "src");
@@ -33,14 +47,3 @@ function dlsKnobs() {
     shape: select("shape", OptionsHelper.shapesPortrait, "square"),
   };
 }
-
-storiesOf("Portrait", module).add(
-  "default",
-  () => <Portrait {...commonKnobs()} {...dlsKnobs()} />,
-  {
-    info: { text: info, propTablesExclude: [ThemeProvider] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-    chromatic: { disable: true },
-  }
-);

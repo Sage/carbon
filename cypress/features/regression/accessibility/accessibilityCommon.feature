@@ -27,31 +27,30 @@ Feature: Accessibility tests - Common list
     When I open component preview no iframe
     Then "<data-component>" component has no accessibility violations
     Examples:
-      | component          |
-      | flash              |
+      | component |
+      | flash     |
 
-@accessibility
-Scenario Outline: Component <component> default story
-  When I open "<component>" component page "default" in no iframe
-  Then "<component>" component has no accessibility violations
-  Examples:
-    | component           |
-    | carousel            |
-    | configurable-items  |
-    | draggableContext    |
-    | icon                |
-    | loader              |
-    | message             |
-    | multi-action-button |
-    | pill                |
-    | portrait            |
-    | profile             |
-    | row                 |
-    | settingsrow         |
-    | split-button        |
-    | table-ajax          |
-    | table               |
-    | tooltip             |
+  @accessibility
+  Scenario Outline: Component <component> default story
+    When I open "<component>" component page "default" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component           |
+      | carousel            |
+      | configurable-items  |
+      | draggableContext    |
+      | icon                |
+      | loader              |
+      | message             |
+      | multi-action-button |
+      | pill                |
+      | profile             |
+      | row                 |
+      | settingsrow         |
+      | split-button        |
+      | table-ajax          |
+      | table               |
+      | tooltip             |
 
   @accessibility
   Scenario: Draggable Context component with_table story
@@ -83,9 +82,10 @@ Scenario Outline: Component <component> default story
       | Detail        |
       | Heading       |
       | Help          |
+      | portrait      |
       | I18nComponent |
       | Link          |
       | MenuList      |
       | Mount In App  |
-    # | Pages         |
+      # | Pages         |
       | Preview       |
