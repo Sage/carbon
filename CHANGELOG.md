@@ -1,3 +1,10 @@
+### [54.0.1](https://github.com/Sage/carbon/compare/v54.0.0...v54.0.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **alert:** fix styling bug with close icon ([13cfc33](https://github.com/Sage/carbon/commit/13cfc336852d43be858548fdfeca5f66a5111213))
+
 ## [54.0.0](https://github.com/Sage/carbon/compare/v53.1.1...v54.0.0) (2020-12-09)
 
 

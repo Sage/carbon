@@ -18,21 +18,3 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
   size="large"
 />
 `;
-
-exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
-.c0 {
-  width: 100%;
-  display: inline-block;
-}
-
-.c0 .c1 {
-  -webkit-flex: none;
-  -ms-flex: none;
-  flex: none;
-  width: 135px;
-}
-
-<div
-  className="c0"
-/>
-`;

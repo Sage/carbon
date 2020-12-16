@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Message from "./message.component";
@@ -10,7 +9,6 @@ export default {
   title: "Message/Test",
   component: Message,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

@@ -2,6 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import IconButton from "../icon-button";
 import Alert from ".";
+import guid from "../../utils/helpers/guid";
+
+jest.mock("../../utils/helpers/guid");
+guid.mockImplementation(() => "guid-12345");
 
 describe("Alert", () => {
   let wrapper, onCancel;
@@ -18,6 +22,12 @@ describe("Alert", () => {
         data-role="baz"
       />
     );
+  });
+
+  describe("Alert", () => {
+    it("matches the snapshot", () => {
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 
   it("include correct component, element and role data tags", () => {

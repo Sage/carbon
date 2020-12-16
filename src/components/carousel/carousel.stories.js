@@ -4,7 +4,6 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
 import { ThemeProvider } from "styled-components";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import notes from "./documentation";
 import BaseCarousel, { Carousel, Slide } from "./carousel.component";
 import getDocGenInfo from "../../utils/helpers/docgen-info";
@@ -79,7 +78,6 @@ storiesOf("Carousel", module)
       );
     },
     {
-      themeSelector: dlsThemeSelector,
       notes: { markdown: notes },
       // disabled because of chromatic lack of possibility to render story
       // Your story couldn’t be captured because it exceeds our 25,000,000px limit.

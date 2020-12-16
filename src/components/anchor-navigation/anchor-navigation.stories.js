@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { State, Store } from "@sambego/storybook-state";
 
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import Textbox from "../../__experimental__/components/textbox";
 import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
@@ -32,7 +31,6 @@ export default {
   title: "Test/AnchorNavigation",
   component: AnchorNavigation,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },
