@@ -260,6 +260,25 @@ describe("FilterableSelect", () => {
       expect(wrapper.update().find(SelectList).prop("filterText")).toBe("Foo");
     });
 
+    describe("and the SelectList is closed and opened again", () => {
+      it("then the filterText prop in SelectList should have been cleared", () => {
+        const changeEventObject = { target: { value: "Foo" } };
+        const wrapper = renderSelect();
+
+        wrapper.find("input").simulate("click");
+        wrapper.find("input").simulate("change", changeEventObject);
+        act(() => {
+          wrapper.find(SelectList).prop("onSelectListClose")();
+        });
+        wrapper
+          .find(Textbox)
+          .find('[type="dropdown"]')
+          .first()
+          .simulate("click");
+        expect(wrapper.update().find(SelectList).prop("filterText")).toBe("");
+      });
+    });
+
     describe("with the onOpen prop passed", () => {
       it("then that prop should be called", () => {
         const onOpenFn = jest.fn();
