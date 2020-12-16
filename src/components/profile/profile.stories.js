@@ -2,7 +2,6 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, select } from "@storybook/addon-knobs";
 import { ThemeProvider } from "styled-components";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import Profile from "./profile.component";
 import { info, notes } from "./documentation";
 
@@ -39,7 +38,6 @@ storiesOf("Profile", module).add(
     );
   },
   {
-    themeSelector: dlsThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },

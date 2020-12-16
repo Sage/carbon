@@ -10,6 +10,9 @@ import OptionsHelper from "../../helpers/options-helper";
 import calculatePosition from "./calculate-position";
 import sizes from "../../../__experimental__/components/input/input-sizes.style";
 import { pointerSideMargin } from "../../../components/tooltip/tooltip-pointer.style";
+import Logger from "../../logger";
+
+let deprecatedWarnTriggered = false;
 
 /**
  * TooltipDecorator.
@@ -101,6 +104,12 @@ const TooltipDecorator = (ComposedComponent) => {
     componentDidMount() {
       if (super.componentDidMount) super.componentDidMount();
       if (this.props.tooltipVisible) this.positionTooltip();
+      if (!deprecatedWarnTriggered && this.props.tooltipMessage) {
+        deprecatedWarnTriggered = true;
+        Logger.deprecate(
+          "The `TooltipDecorator` will soon be deprecated and be replaced with a new implementation of the `Tooltip` component."
+        );
+      }
     }
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
