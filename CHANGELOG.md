@@ -1,3 +1,10 @@
+## [54.1.0](https://github.com/Sage/carbon/compare/v54.0.1...v54.1.0) (2020-12-16)
+
+
+### Features
+
+* **filterable-select:** clear filter on close ([f2e9bc3](https://github.com/Sage/carbon/commit/f2e9bc352ac6c2b948f3670c6090ef8437d70065))
+
 ### [54.0.1](https://github.com/Sage/carbon/compare/v54.0.0...v54.0.1) (2020-12-10)
 
 
