@@ -1,0 +1,62 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Profile from ".";
+
+<Meta title="Profile" parameters={{ info: { disable: true } }} />
+
+# Profile
+
+- Combines the [Portrait](/components/portrait) and [Detail](/components/detail) components in a single configuration.
+- Useful to represent a person, user, or organisation.
+- Use initials rather than an avatar if you prefer.
+- Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
+
+## Quick Start
+
+```jsx
+import Profile from "carbon-react/lib/components/profile";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Profile email="email@email.com" initials="JD" name="John Doe" />
+  </Story>
+</Preview>
+
+### Src
+
+To use an image, simply pass any valid image URL as a `src` prop.
+
+<Preview>
+  <Story name="src">
+    <Profile
+      email="email@email.com"
+      initials="JD"
+      name="John Doe"
+      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+    />
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["XS", "S", "M", "ML", "L", "XL", "XXL"].map((size) => (
+        <Profile
+          email="email@email.com"
+          initials="JD"
+          name="John Doe"
+          size={size}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={Profile} />
