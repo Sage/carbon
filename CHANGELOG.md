@@ -1,3 +1,10 @@
+### [54.1.1](https://github.com/Sage/carbon/compare/v54.1.0...v54.1.1) (2020-12-16)
+
+
+### Bug Fixes
+
+* fix withuniqueid hoc id assignment mechanism ([4d0e161](https://github.com/Sage/carbon/commit/4d0e161cd292f560501f0b2dabcbc12b57141e4f))
+
 ## [54.1.0](https://github.com/Sage/carbon/compare/v54.0.1...v54.1.0) (2020-12-16)
 
 

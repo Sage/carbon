@@ -552,6 +552,7 @@ exports[`Alert Alert matches the snapshot 1`] = `
                     class="c7"
                   >
                     <button
+                      aria-label="Close button"
                       class="c8 c9"
                       data-element="close"
                       type="button"
@@ -703,6 +704,7 @@ exports[`Alert Alert matches the snapshot 1`] = `
                         class="c7"
                       >
                         <button
+                          aria-label="Close button"
                           class="c8 c9"
                           data-element="close"
                           type="button"
@@ -4130,10 +4132,12 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                   className="c7"
                                 >
                                   <ForwardRef
+                                    aria-label="Close button"
                                     data-element="close"
                                     onAction={[Function]}
                                   >
                                     <styled.button
+                                      aria-label="Close button"
                                       data-element="close"
                                       onClick={[Function]}
                                       onKeyDown={[Function]}
@@ -4461,6 +4465,7 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                       }
                                     >
                                       <StyledComponent
+                                        aria-label="Close button"
                                         data-element="close"
                                         forwardedComponent={
                                           Object {
@@ -5163,6 +5168,7 @@ exports[`Alert Alert matches the snapshot 1`] = `
                                         }
                                       >
                                         <button
+                                          aria-label="Close button"
                                           className="c8 c9"
                                           data-element="close"
                                           onClick={[Function]}

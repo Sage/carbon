@@ -132,6 +132,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
+      | Loader    |
       | Pager     |
       | Search    |
 
@@ -217,3 +218,13 @@ Feature: Accessibility tests - Design System folder
       | interactive                   |
       | different_card_footer_padding |
       | more_examples_of_card_footer  |
+
+  @accessibility
+  Scenario Outline: Design System Pill component <story> page
+    When I open "Design System Pill" component page "<story>" in no iframe
+    Then "Pill <story> story" component has no accessibility violations
+    Examples:
+      | story         |
+      | custom colors |
+      | status        |
+      | tag           |

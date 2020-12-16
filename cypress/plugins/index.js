@@ -25,10 +25,15 @@ module.exports = (on, config) => {
       console.log(message);
       return null;
     },
+    table(message) {
+      console.table(message)
+      return null
+    }
   });
   on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.family === 'chromium' && browser.name !== 'electron') {
       launchOptions.args.push('--disable-site-isolation-trials');
+      launchOptions.args.push('--disable-gpu');
       return launchOptions;
     }
     if (browser.name === 'firefox') {
