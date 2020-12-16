@@ -1,0 +1,140 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import MultiActionButton from ".";
+import Button from "../button";
+import Box from "../box";
+
+<Meta title="Multi Action Button" parameters={{ info: { disable: true } }} />
+
+# Multi Action Button
+
+- Offers related actions to the user, but without taking up valuable space by showing them separately.
+- But, users may not always discover them, and could miss out.
+- Useful to show about 5 options or less.
+- Only use this component for commands that are related (e.g. Export PDF, Export CSV).
+- Don’t use this component if one option is more generic or important than the others.
+- Carbon has a Transparent configuration, with subtle visual style, which could be useful to present less important or infrequently used options to the user, without calling attention to them.
+
+## Quick Start
+
+```jsx
+import MultiActionButton from "carbon-react/lib/components/multi-action-button";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Box height={200}>
+      <MultiActionButton text="Multi Action Button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <Box height={200}>
+      <MultiActionButton disabled text="Multi Action Button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
+  </Story>
+</Preview>
+
+### Button types
+
+<Preview>
+  <Story name="button types">
+    <Box height={200}>
+      {["primary", "secondary"].map((buttonType) => (
+        <Box key={buttonType} mb={3}>
+          <MultiActionButton
+            buttonType={buttonType}
+            text={`Multi Action Button - ${buttonType}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </MultiActionButton>
+        </Box>
+      ))}
+    </Box>
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    <Box height={200}>
+      {["small", "medium", "large"].map((size) => (
+        <Box key={size} mb={3}>
+          <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </MultiActionButton>
+        </Box>
+      ))}
+    </Box>
+  </Story>
+</Preview>
+
+### Alignment
+
+<Preview>
+  <Story name="align">
+    <Box height={200}>
+      {["left", "right"].map((align) => (
+        <Box key={align} mb={3}>
+          <MultiActionButton
+            align={align}
+            text={`Multi Action Button - ${align}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </MultiActionButton>
+        </Box>
+      ))}
+    </Box>
+  </Story>
+</Preview>
+
+### Subtext
+
+Subtext only works when `size` is `large`
+
+<Preview>
+  <Story name="subtext">
+    <Box height={200}>
+      <MultiActionButton
+        size="large"
+        subtext="subtext"
+        text="Multi Action Button"
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
+  </Story>
+</Preview>
+
+## Props:
+
+### MultiActionButton
+
+<Props of={MultiActionButton} />
+
+### Button
+
+<Props of={Button} />
