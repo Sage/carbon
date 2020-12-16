@@ -3,14 +3,14 @@ import {
   splitToggleButton,
   additionalButton,
   splitMainButton,
-  splitMainButtonDataComponent, 
+  splitMainButtonDataComponent,
   additionalButtonIFrame,
   splitMainButtonDataComponentIFrame,
 } from '../../locators/split-button';
 import { positionOfElement } from '../helper';
 
 Then('Split Button is expanded', () => {
-  commonButtonPreviewNoIFrameRoot().should('have.length', 6); // 3 expanded buttons, 1 icon button and 1 main button
+  commonButtonPreviewNoIFrameRoot().should('have.length', 5); // 3 expanded buttons, 1 icon button and 1 main button
   splitToggleButton().should('have.attr', 'aria-expanded', 'true');
 });
 
@@ -131,7 +131,7 @@ When('I click {string} element of Split Button component', (element) => {
 When('I click {string} element of Split Button component in IFrame', (element) => {
   if (element === 'first' || element === 'second' || element === 'third') {
     additionalButtonIFrame(positionOfElement(element)).click();
-  } else if (element === 'main-button'){
+  } else if (element === 'main-button') {
     splitMainButtonDataComponentIFrame(positionOfElement('first')).click();
   } else {
     throw new Error('There is no such split button element');

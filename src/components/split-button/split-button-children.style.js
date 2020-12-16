@@ -10,6 +10,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
     min-width: 75%;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
+    z-index: 10000;
 
     ${StyledButton} {
       background-color: ${theme.colors.secondary};

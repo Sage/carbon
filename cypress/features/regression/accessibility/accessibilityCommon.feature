@@ -25,6 +25,7 @@ Feature: Accessibility tests - Common list
       | Preview            |
       | Row                |
       | Sidebar            |
+      | Split-button       |
 
   @accessibility
   Scenario: Component button toggle
@@ -53,7 +54,6 @@ Feature: Accessibility tests - Common list
       | Multi-action-button |
       | Portrait            |
       | Profile             |
-      | Split-button        |
 
   @accessibility
   Scenario Outline: Component <component> basic story
