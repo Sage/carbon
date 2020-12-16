@@ -18,9 +18,20 @@ const FlatTable = ({
   height,
   isZebra,
   size,
+  ariaDescribedby,
   ...props
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
+  const tableStylingProps = {
+    caption,
+    isZebra,
+    size,
+  };
+
+  if (ariaDescribedby) {
+    tableStylingProps["aria-describedby"] = ariaDescribedby;
+  }
+
   return (
     <SidebarContext.Consumer>
       {(context) => (
@@ -38,9 +49,7 @@ const FlatTable = ({
             >
               <StyledFlatTable
                 data-component="flat-table"
-                isZebra={isZebra}
-                caption={caption}
-                size={size}
+                {...tableStylingProps}
               >
                 {caption ? <caption>{caption}</caption> : null}
                 {children}
@@ -59,6 +68,8 @@ const FlatTable = ({
 };
 
 FlatTable.propTypes = {
+  /** The HTML id of the element that contains a description of this table. */
+  ariaDescribedby: PropTypes.string,
   /** A string to render as the table's caption */
   caption: PropTypes.string,
   /** FlatTableHead and FlatTableBody */

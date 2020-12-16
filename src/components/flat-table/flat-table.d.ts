@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 export interface FlatTableProps {
+  /** The HTML id of the element that contains a description of this table. */
+  ariaDescribedby?: string;
   /** A string to render as the table's caption */
   caption?: string;
   /** FlatTableHead and FlatTableBody */

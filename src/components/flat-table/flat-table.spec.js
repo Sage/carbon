@@ -26,6 +26,15 @@ import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import cellSizes from "./cell-sizes.style";
 
 describe("FlatTable", () => {
+  it("ariaDescribedby prop should have been propagated to the table", () => {
+    const customId = "foo";
+    const wrapper = renderFlatTable({ ariaDescribedby: customId }, mount);
+
+    expect(wrapper.find(StyledFlatTable).prop("aria-describedby")).toBe(
+      customId
+    );
+  });
+
   describe("when rendered with proper table data", () => {
     let wrapper;
 

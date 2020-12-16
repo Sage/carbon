@@ -32,6 +32,7 @@ export default {
 };
 
 export const basic = () => {
+  const ariaDescribedby = text("ariaDescribedby", "");
   const hasStickyHead = boolean("hasStickyHead", false);
   const hasHeaderRow = boolean("hasHeaderRow", false);
   const hasClickableRows = boolean("hasClickableRows", false);
@@ -78,6 +79,7 @@ export const basic = () => {
         hasStickyHead={hasStickyHead}
         caption={caption}
         size={size}
+        ariaDescribedby={ariaDescribedby}
       >
         <FlatTableHead>
           <FlatTableRow key={processed.headData.id}>
