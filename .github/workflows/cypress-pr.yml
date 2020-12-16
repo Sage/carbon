@@ -17,12 +17,12 @@ jobs:
       matrix:
         # run 20 copies of the current job in parallel
         containers: [
-            1, 2, 3, 4, 5, 
-            6, 7, 8, 9, 10, 
-            11, 12, 13, 14, 15, 
+            1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10,
+            11, 12, 13, 14, 15,
             16, 17, 18, 19
             ]
-    container: cypress/browsers:node14.7.0-chrome84
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
-          wait-on-timeout: 150
+          wait-on-timeout: 200
           record: true
           parallel: true
           group: ubuntu-regression
@@ -76,10 +76,10 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+
   chromatic:
     # if not a fork
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }} 
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     needs: cypress
     steps:
