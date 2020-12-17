@@ -1,3 +1,10 @@
+## [54.3.0](https://github.com/Sage/carbon/compare/v54.2.0...v54.3.0) (2020-12-17)
+
+
+### Features
+
+* **box:** extend box to support scrollbar style ([1f7f691](https://github.com/Sage/carbon/commit/1f7f6912c17abf9aa843b44e57787cf639e55b9f))
+
 ## [54.2.0](https://github.com/Sage/carbon/compare/v54.1.2...v54.2.0) (2020-12-17)
 
 
