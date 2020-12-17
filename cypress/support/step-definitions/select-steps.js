@@ -130,6 +130,10 @@ When('I type {string} into basic input', (text) => {
   simpleSelectIframe().type(text);
 });
 
+When('I type {string} into simple select input in noIframe', (text) => {
+  simpleSelectNoIframe().type(text);
+});
+
 When('{string} option on Select list is {string}', (position, text) => {
   selectOption(positionOfElement(position)).should('have.text', text);
 });
@@ -165,4 +169,19 @@ When('I scroll to the {string} of Select List', (direction) => {
 
 Then('Select list {string} option is visible', (option) => {
   selectListText(option).should('be.visible');
+});
+
+Then('option list has {int} elements', (count) => {
+  selectList().find('li').should(($lis) => {
+    expect($lis).to.have.length(count);
+  });
+});
+
+Then('visible options on Select list are {string}, {string}, {string}', (firstText, secondText, thirdText) => {
+  selectOption(positionOfElement('first')).should('have.text', firstText)
+    .and('be.visible');
+  selectOption(positionOfElement('second')).should('have.text', secondText)
+    .and('be.visible');
+  selectOption(positionOfElement('third')).should('have.text', thirdText)
+    .and('be.visible');
 });

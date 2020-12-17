@@ -10,13 +10,15 @@ const withUniqueIdProps = (WrappedComponent) => {
 
     static propTypes = {
       forwardedRef: PropTypes.object,
+      id: PropTypes.string,
     };
 
     render() {
-      const { forwardedRef, ...props } = this.props;
+      const { forwardedRef, id, ...props } = this.props;
+
       return (
         <WrappedComponent
-          id={this.id}
+          id={id || this.id}
           name={this.name}
           ref={forwardedRef}
           {...props}
