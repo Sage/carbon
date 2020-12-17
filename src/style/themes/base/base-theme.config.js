@@ -272,6 +272,18 @@ export default (palette) => {
       errorButtonFocus: palette.errorRedShade(20),
     },
 
+    scrollbar: {
+      light: {
+        thumb: palette.slateTint(40),
+        track: palette.slateTint(95),
+      },
+
+      dark: {
+        thumb: palette.slateTint(60),
+        track: palette.slateTint(20),
+      },
+    },
+
     search: {
       active: palette.gold,
       button: "#255BC7",
