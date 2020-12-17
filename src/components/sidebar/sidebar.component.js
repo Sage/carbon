@@ -33,7 +33,11 @@ class Sidebar extends Modal {
 
   handleClose() {
     super.handleClose();
-    this.removeFocusTrap();
+
+    /* istanbul ignore else */
+    if (this.removeFocusTrap) {
+      this.removeFocusTrap();
+    }
   }
 
   componentTags(props) {
