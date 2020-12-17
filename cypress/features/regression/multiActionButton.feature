@@ -11,46 +11,6 @@ Feature: Multi Action Button default component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | textSpecialCharacter |
 
   @positive
-  Scenario Outline: Change buttonType property of Multi Action Button component to <buttonType>
-    When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Multi Action Button has "<background-color>" background-color
-      And Multi Action Button border color is "<border-color>" border-color
-    Examples:
-      | buttonType | background-color | border-color     | nameOfObject        |
-      | primary    | rgb(0, 129, 93)  | rgba(0, 0, 0, 0) | buttonTypePrimary   |
-      | secondary  | rgba(0, 0, 0, 0) | rgb(0, 129, 93)  | buttonTypeSecondary |
-
-  @positive
-  Scenario Outline: Set Multi Action Button size to <size>
-    When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Multi Action Button height is <height>
-    Examples:
-      | size   | height | nameOfObject |
-      | small  | 32     | sizeSmall    |
-      | medium | 40     | sizeMedium   |
-      | large  | 48     | sizeLarge    |
-
-  @positive
-  Scenario Outline: Check <align> property of Multi Action Button component
-    When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
-      And I hover on Multi Action Button
-    Then Multi Action Button align on preview is "<align>"
-    Examples:
-      | align | nameOfObject |
-      | left  | alignLeft    |
-      | right | alignRight   |
-
-  @positive
-  Scenario: Disabled Multi Action Button component
-    When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "disabled" object name
-    Then Multi Action Button state is disabled
-
-  @positive
-  Scenario: Enabled Multi Action Button component
-    When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "disabledFalse" object name
-    Then Multi Action Button state is not disabled
-
-  @positive
   Scenario Outline: Set Multi Action Button subtext to <subtext>
     When I open default "Multi Action Button Test" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Multi Action Button subtext on preview is <subtext>
