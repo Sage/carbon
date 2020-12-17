@@ -1,3 +1,17 @@
+## [54.2.0](https://github.com/Sage/carbon/compare/v54.1.2...v54.2.0) (2020-12-17)
+
+
+### Features
+
+* **search:** add styling for dark theme ([56b3779](https://github.com/Sage/carbon/commit/56b37793627cd0d7b4731fa7bc11c2fddaea367f))
+
+### [54.1.2](https://github.com/Sage/carbon/compare/v54.1.1...v54.1.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **tooltip:** change tooltip text-align to be always left ([8b37b7e](https://github.com/Sage/carbon/commit/8b37b7e1966d153845d7dedff798e921756bd419))
+
 ### [54.1.1](https://github.com/Sage/carbon/compare/v54.1.0...v54.1.1) (2020-12-16)
 
 
