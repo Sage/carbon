@@ -167,7 +167,11 @@ class Dialog extends Modal {
     if (!showCloseIcon || !onCancel) return null;
 
     return (
-      <IconButton data-element="close" onAction={onCancel}>
+      <IconButton
+        data-element="close"
+        aria-label="Close button"
+        onAction={onCancel}
+      >
         <Icon type="close" />
       </IconButton>
     );
