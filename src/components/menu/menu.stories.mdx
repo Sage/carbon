@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import { Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle } from ".";
 import Box from "../box";
-import Navbar from "../navigation-bar";
+import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 
@@ -319,7 +319,7 @@ is rendered.
     {() => {
       return (
         <div style={{ minHeight: "150px" }}>
-          <Navbar>
+          <NavigationBar>
             <SageIcon style={{ alignSelf: "center" }} />
             <Box>
               <VerticalDivider displayInline pr={0} />
@@ -345,7 +345,7 @@ is rendered.
                 <MenuItem href="#">Item Submenu Two</MenuItem>
               </MenuItem>
             </Menu>
-          </Navbar>
+          </NavigationBar>
         </div>
       );
     }}
