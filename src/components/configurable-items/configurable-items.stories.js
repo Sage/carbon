@@ -1,22 +1,21 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { State, Store } from "@sambego/storybook-state";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { cloneDeep } from "lodash";
-import notes from "./documentation";
+
 import { ConfigurableItems, ConfigurableItemRow } from ".";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
 
-const ConfigurableItemsWrapper = (props) => <ConfigurableItems {...props} />;
-ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /configurable-items\.component(?!spec)/
-);
-
-ConfigurableItemRow.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /configurable-item-row\.component(?!spec)/
-);
+export default {
+  title: "Configurable Items/Test",
+  component: ConfigurableItems,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
 
 const defaultConfigurableItemsData = [
   {
@@ -38,73 +37,61 @@ const defaultConfigurableItemsData = [
     key: "3",
   },
 ];
-const store = new Store({
-  configurableItemsData: cloneDeep(defaultConfigurableItemsData),
-});
-const handleDrag = (draggedIndex, hoveredIndex) => {
-  const configurableItemsData = store.get("configurableItemsData");
-  const draggedItem = configurableItemsData[draggedIndex];
 
-  configurableItemsData[draggedIndex] = configurableItemsData[hoveredIndex];
-  configurableItemsData[hoveredIndex] = draggedItem;
+export const Default = () => {
+  const [data, setData] = useState(defaultConfigurableItemsData);
 
-  store.set("configurableItemsData", configurableItemsData);
-  action("dragged")();
-};
-const handleChange = (rowIndex) => {
-  const configurableItemsData = store.get("configurableItemsData");
-  configurableItemsData[rowIndex].enabled = !configurableItemsData[rowIndex]
-    .enabled;
-  store.set({ configurableItemsData });
-  action("changed")();
-};
-const handleSave = (event) => {
-  event.persist();
-
-  action("saved")();
-};
-const handleReset = () => {
-  store.set({ configurableItemsData: cloneDeep(defaultConfigurableItemsData) });
-  action("reset")();
-};
-const rows = (data) =>
-  data.map((column, rowIndex) => {
-    return (
-      <ConfigurableItemRow
-        enabled={column.enabled}
-        key={column.key}
-        locked={column.locked}
-        name={column.name}
-        rowIndex={rowIndex}
-        onChange={() => handleChange(rowIndex)}
-      />
+  const handleDrag = (draggedIndex, hoveredIndex) => {
+    setData((prevData) =>
+      prevData.map((item, index) => {
+        if (index === draggedIndex) {
+          return data[hoveredIndex];
+        }
+        if (index === hoveredIndex) {
+          return data[draggedIndex];
+        }
+        return item;
+      })
     );
-  });
-
-function makeStory(name) {
-  const component = () => {
-    return (
-      <ConfigurableItemsWrapper
-        onDrag={handleDrag}
-        onCancel={action("canceled")}
-        onReset={handleReset}
-        onSave={handleSave}
-      >
-        <State store={store}>
-          {(state) => [rows(state.configurableItemsData)]}
-        </State>
-      </ConfigurableItemsWrapper>
-    );
+    action("dragged")();
   };
 
-  const metadata = {
-    notes: { markdown: notes },
-    info: {
-      propTablesExclude: [State],
-    },
+  const handleChange = (rowIndex) => {
+    setData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex ? { ...item, enabled: !item.enabled } : item
+      )
+    );
+    action("changed")();
   };
 
-  return [name, component, metadata];
-}
+  const handleSave = (event) => {
+    event.persist();
+    action("saved")();
+  };
 
-storiesOf("Configurable Items", module).add(...makeStory("default"));
+  const handleReset = () => {
+    setData(defaultConfigurableItemsData);
+    action("reset")();
+  };
+
+  return (
+    <ConfigurableItems
+      onDrag={handleDrag}
+      onCancel={action("canceled")}
+      onReset={handleReset}
+      onSave={handleSave}
+    >
+      {data.map((column, rowIndex) => (
+        <ConfigurableItemRow
+          enabled={column.enabled}
+          key={column.key}
+          locked={column.locked}
+          name={column.name}
+          rowIndex={rowIndex}
+          onChange={() => handleChange(rowIndex)}
+        />
+      ))}
+    </ConfigurableItems>
+  );
+};
