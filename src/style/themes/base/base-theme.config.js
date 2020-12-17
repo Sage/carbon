@@ -285,10 +285,18 @@ export default (palette) => {
     },
 
     search: {
-      active: palette.goldTint(50),
+      active: palette.gold,
       button: "#255BC7",
-      passive: palette.slateTint(80),
+      passive: palette.slateTint(45),
+      placeholder: palette.slateTint(55),
+      icon: palette.slateTint(55),
+      iconHover: palette.slateTint(20),
       searchActive: "#668592",
+      darkVariantPlaceholder: palette.slateTint(55),
+      darkVariantBorder: palette.slateTint(55),
+      darkVariantText: "#FFFFFF",
+      iconDarkVariant: palette.slateTint(55),
+      iconDarkVariantHover: palette.slateTint(75),
     },
 
     select: {

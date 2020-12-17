@@ -1,17 +1,35 @@
 import styled, { css } from "styled-components";
 import StyledInputPresentation from "../input/input-presentation.style";
+import StyledInput from "../input/input.style";
 import StyledIcon from "../../../components/icon/icon.style";
 import StyledButton from "../../../components/button/button.style";
 import { baseTheme } from "../../../style/themes";
 import StyledFormField from "../form-field/form-field.style";
 
 const StyledSearch = styled.div`
-  ${({ isFocused, searchWidth, searchIsActive, searchHasValue, theme }) => {
+  ${({
+    isFocused,
+    searchWidth,
+    searchIsActive,
+    searchHasValue,
+    showSearchButton,
+    theme,
+    variant,
+  }) => {
+    const darkVariant = variant === "dark";
+    const variantColor = darkVariant
+      ? `${theme.search.darkVariantBorder}`
+      : `${theme.search.passive}`;
+    const iconColor =
+      darkVariant &&
+      ((searchHasValue && isFocused) ||
+        (!searchHasValue && isFocused) ||
+        (!isFocused && searchHasValue && showSearchButton));
     return css`
       width: ${searchWidth ? `${searchWidth}` : "100%"};
       padding-bottom: 2px;
       background-color: transparent;
-      border-bottom: 2px solid ${theme.search.passive};
+      border-bottom: 2px solid ${variantColor};
       display: inline-flex;
       font-size: 14px;
       font-weight: 700;
@@ -19,16 +37,6 @@ const StyledSearch = styled.div`
       :hover {
         border-bottom-color: ${theme.search.active};
         cursor: pointer;
-      }
-      ${
-        !isFocused &&
-        !searchHasValue &&
-        css`
-          ${StyledInputPresentation} {
-            border: 1px solid transparent;
-            color: ${theme.icon.default};
-          }
-        `
       }
       ${
         (isFocused || searchHasValue) &&
@@ -45,10 +53,56 @@ const StyledSearch = styled.div`
         isFocused &&
         !searchIsActive &&
         css`
+          border-color: transparent;
           color: ${theme.icon.defaultHover};
         `
       }
-      
+      ${
+        !isFocused &&
+        searchHasValue &&
+        !showSearchButton &&
+        css`
+          border-bottom: 2px solid ${variantColor};
+          :hover {
+            border-bottom-color: ${theme.search.active};
+            cursor: pointer;
+          }
+        `
+      }
+
+      ${StyledInput} {
+        ::-moz-placeholder {
+              color: ${theme.search.placeholder};
+              opacity: 1;
+            }
+        ::placeholder {
+            color: ${theme.search.placeholder};
+          }
+        ${
+          darkVariant &&
+          css`
+            ::-moz-placeholder {
+              color: ${theme.search.darkVariantPlaceholder};
+              opacity: 1;
+            }
+            ::placeholder {
+              color: ${theme.search.darkVariantPlaceholder};
+            }
+            ${!isFocused &&
+            searchHasValue &&
+            !showSearchButton &&
+            css`
+              color: ${theme.search.darkVariantText};
+            `}
+            ${!isFocused &&
+            !searchHasValue &&
+            css`
+              color: ${theme.search.darkVariantPlaceholder};
+            `}
+          `
+        }
+      }
+
       ${StyledInputPresentation} {
         background-color: ${
           searchHasValue || isFocused ? `${theme.colors.white}` : "transparent"
@@ -59,7 +113,27 @@ const StyledSearch = styled.div`
         padding-bottom: 2px;
         padding-top: 1px; 
         cursor: pointer;
-      }
+          ${
+            !isFocused &&
+            !searchHasValue &&
+            css`
+              border: 1px solid transparent;
+              color: ${theme.icon.default};
+            `
+          }
+          ${
+            !isFocused &&
+            searchHasValue &&
+            !showSearchButton &&
+            css`
+              border: 1px solid transparent;
+              background-color: ${darkVariant
+                ? "transparent"
+                : `${theme.colors.white}`};
+            `
+          }
+        }
+
       ${StyledFormField} {
         flex: 1;
         z-index: ${theme.zIndex.overlay};
@@ -70,12 +144,30 @@ const StyledSearch = styled.div`
         color: ${theme.colors.white};
       }
       ${StyledIcon} {
-        color: ${theme.search.searchActive};
+        color: ${
+          iconColor ? `${theme.search.icon}` : `${theme.search.iconDarkVariant}`
+        };
+        ${
+          !darkVariant &&
+          css`
+            color: ${theme.search.icon};
+          `
+        }
         width: 20px;
         height: 20px;
         cursor: pointer;
         :hover {
-          color: ${theme.icon.default};
+          color: ${
+            iconColor
+              ? `${theme.search.iconHover}`
+              : `${theme.search.iconDarkVariantHover}`
+          };
+          ${
+            !darkVariant &&
+            css`
+              color: ${theme.search.iconHover};
+            `
+          }
         };
       }
     `;
@@ -97,6 +189,7 @@ export const StyledSearchButton = styled.div`
         border-color: ${theme.colors.secondary};
       }
     `}
+
     width: 40px;
     margin: 0px 0px;
     padding-bottom: 3px;

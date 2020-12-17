@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { boolean, text, number, withKnobs } from "@storybook/addon-knobs";
+import {
+  boolean,
+  text,
+  number,
+  select,
+  withKnobs,
+} from "@storybook/addon-knobs";
 
 import { action } from "@storybook/addon-actions";
 import Search from ".";
@@ -38,13 +44,14 @@ export const Basic = () => {
   return (
     <Search
       placeholder={text("placeholder", "Search...")}
-      threshold={number("threshold", Search.defaultProps.threshold)}
+      threshold={number("threshold", 3)}
       searchButton={boolean("searchButton", true)}
       searchWidth={text("searchWidth", undefined)}
       onChange={handleChange}
       onBlur={handleBlur}
       onClick={handleClick}
       value={value}
+      variant={select("variant", ["default", "dark"])}
       name="search_name"
       id="search_id"
     />
