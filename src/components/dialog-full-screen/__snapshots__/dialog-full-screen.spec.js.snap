@@ -132,6 +132,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

@@ -17,6 +17,7 @@ export interface LinkProps {
   children?: React.ReactNode;
   routerLink?: React.ReactNode;
   target?: string;
+  ariaLabel?: string;
 }
 
 declare const Link: React.ComponentType<LinkProps & React.HTMLProps<HTMLLinkElement>>;

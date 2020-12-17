@@ -121,6 +121,21 @@ describe("Link", () => {
         { modifier: `a ${StyledIcon}` }
       );
     });
+
+    it("should render an `Icon` on the right with no margin when no children", () => {
+      wrapper = mount(
+        <Link iconAlign="right" icon="home" href="www.sage.com" />
+      );
+      assertStyleMatch(
+        {
+          marginRight: "0",
+          marginLeft: "0",
+          position: "relative",
+        },
+        TestRenderer.create(wrapper.find(LinkStyle)).toJSON(),
+        { modifier: `a ${StyledIcon}` }
+      );
+    });
   });
 
   describe("when the `onKeyDown` event is triggered", () => {

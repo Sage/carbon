@@ -42,6 +42,7 @@ class InternalLink extends React.Component {
         bgTheme="none"
         iconColor="business-color"
         disabled={this.props.disabled}
+        ariaLabel={this.props.ariaLabel}
       />
     );
   }
@@ -109,13 +110,14 @@ class InternalLink extends React.Component {
   };
 
   render() {
-    const { disabled, className, iconAlign } = this.props;
+    const { disabled, className, iconAlign, children } = this.props;
 
     return (
       <LinkStyle
         disabled={disabled}
         className={className}
         iconAlign={iconAlign}
+        hasContent={Boolean(children)}
         {...tagComponent("link", this.props)}
       >
         {this.createLinkBasedOnType()}
@@ -162,11 +164,14 @@ InternalLink.propTypes = {
    * @private
    */
   innerRef: PropTypes.object,
+  /** Aria label for accessibility purposes */
+  ariaLabel: PropTypes.string,
 };
 
 InternalLink.defaultProps = {
   iconAlign: "left",
   tabbable: true,
+  hasContent: true,
 };
 
 const Link = React.forwardRef((props, ref) => (

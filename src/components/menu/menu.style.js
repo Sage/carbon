@@ -37,8 +37,6 @@ const StyledMenuItem = styled(Box).attrs({ as: "li" })`
     ${inSubmenu &&
     css`
       display: list-item;
-      margin: 0;
-      padding: 0;
     `}
   `}
 `;
