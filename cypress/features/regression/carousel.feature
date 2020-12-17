@@ -2,11 +2,6 @@ Feature: Carousel component
   I want to check Carousel properties
 
   @positive
-  Scenario: Initial slide title is Slide 3
-    When I open default "Carousel Test" component in noIFrame with "carousel" json from "commonComponents" using "default" object name
-    Then slide 2 title is "Slide 3"
-
-  @positive
   Scenario Outline: Set slide index to <index>
     When I open default "Carousel Test" component in noIFrame with "carousel" json from "commonComponents" using "<nameOfObject>" object name
     Then slide <index> title is "<title>"
