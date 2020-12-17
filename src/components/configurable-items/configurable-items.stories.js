@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { ConfigurableItems, ConfigurableItemRow } from ".";
+import Box from "../box";
 
 export default {
   title: "Configurable Items/Test",
@@ -76,22 +77,24 @@ export const Default = () => {
   };
 
   return (
-    <ConfigurableItems
-      onDrag={handleDrag}
-      onCancel={action("canceled")}
-      onReset={handleReset}
-      onSave={handleSave}
-    >
-      {data.map((column, rowIndex) => (
-        <ConfigurableItemRow
-          enabled={column.enabled}
-          key={column.key}
-          locked={column.locked}
-          name={column.name}
-          rowIndex={rowIndex}
-          onChange={() => handleChange(rowIndex)}
-        />
-      ))}
-    </ConfigurableItems>
+    <Box m={5}>
+      <ConfigurableItems
+        onDrag={handleDrag}
+        onCancel={action("canceled")}
+        onReset={handleReset}
+        onSave={handleSave}
+      >
+        {data.map((column, rowIndex) => (
+          <ConfigurableItemRow
+            enabled={column.enabled}
+            key={column.key}
+            locked={column.locked}
+            name={column.name}
+            rowIndex={rowIndex}
+            onChange={() => handleChange(rowIndex)}
+          />
+        ))}
+      </ConfigurableItems>
+    </Box>
   );
 };

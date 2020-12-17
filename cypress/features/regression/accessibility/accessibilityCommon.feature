@@ -10,6 +10,7 @@ Feature: Accessibility tests - Common list
       | AppWrapper         |
       | Alert              |
       | Confirm            |
+      | Configurable-items |
       | Content            |
       | Detail             |
       | Dialog             |
@@ -49,7 +50,6 @@ Feature: Accessibility tests - Common list
     Examples:
       | component           |
       | Carousel            |
-      | Configurable-items  |
       | Multi-action-button |
       | Portrait            |
       | Profile             |
