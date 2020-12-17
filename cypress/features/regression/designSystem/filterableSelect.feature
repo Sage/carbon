@@ -83,3 +83,14 @@ Feature: Design System Filterable Select component
     When I scroll to the "bottom" of Select List
     Then Lazy loading is visible
       And Select list "Lazy Loaded A1" option is visible
+
+  @positive
+  Scenario: Full list options is visible when value is set and select is opened again
+    Given I open "Design System Select filterable" component page "basic" in no iframe
+      And I type "A" into simple select input in noIframe
+      And option list has 3 elements
+      And visible options on Select list are "Amber", "Black", "Orange"
+      And I click on "first" option on Select list
+    When I click on dropdown button
+    Then option list has 11 elements
+      And visible options on Select list are "Amber", "Black", "Blue"

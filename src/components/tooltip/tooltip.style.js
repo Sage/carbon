@@ -2,7 +2,6 @@ import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
-import { isHorizontal } from "./tooltip.utils";
 
 const fadeIn = keyframes`
   0% {
@@ -20,7 +19,7 @@ const StyledTooltipInner = styled.div`
     color: ${theme.colors.white};
     display: inline-block;
     padding: 12px 16px;
-    text-align: center;
+    text-align: left;
     max-width: 300px;
     word-break: normal;
     white-space: pre-wrap;
@@ -40,7 +39,6 @@ const StyledTooltipWrapper = styled.div`
   position: relative;
   animation: ${fadeIn} 0.2s linear;
   z-index: ${({ theme }) => theme.zIndex.popover};
-  text-align: ${({ align, position }) => getTextAlignment(position, align)};
 `;
 
 StyledTooltipInner.propTypes = {
@@ -60,19 +58,5 @@ StyledTooltipWrapper.defaultProps = {
 StyledTooltipInner.defaultProps = {
   theme: baseTheme,
 };
-
-function getTextAlignment(position, align) {
-  let textAlignment = "center";
-
-  if (isHorizontal(position)) {
-    textAlignment = position;
-  }
-
-  if (isHorizontal(align)) {
-    textAlignment = align;
-  }
-
-  return textAlignment;
-}
 
 export { StyledTooltipInner, StyledTooltipWrapper };
