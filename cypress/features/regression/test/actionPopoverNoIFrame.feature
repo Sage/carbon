@@ -159,7 +159,7 @@ Feature: Action Popover component in noIFrame
       | Sub Menu 3 | 2     |
 
   @positive
-  Scenario Outline: Close submenu after press Enter keyboard key
+  Scenario Outline: Close Submenu and Action Popover after press Enter keyboard key
     Given I click the menu button element in noiFrame
       And I press keyboard "downarrow" key times 2
       And I wait 250
@@ -168,6 +168,7 @@ Feature: Action Popover component in noIFrame
       And I press keyboard "downarrow" key times <times>
     When I press "Enter" onto focused element
     Then ActionPopover submenu is not visible
+      And Action Popover element is not visible
     Examples:
       | times |
       | 0     |
@@ -191,7 +192,7 @@ Feature: Action Popover component in noIFrame
       | 2     |
 
   @positive
-  Scenario Outline: Close submenu after press Esc keyboard key
+  Scenario Outline:  Close Submenu and Action Popover after press Esc keyboard key
     Given I click the menu button element in noiFrame
       And I press keyboard "downarrow" key times 2
       And I wait 250
@@ -200,8 +201,25 @@ Feature: Action Popover component in noIFrame
       And I press keyboard "downarrow" key times <times>
     When I press ESC onto focused element
     Then ActionPopover submenu is not visible
+      And Action Popover element is not visible
     Examples:
       | times |
       | 0     |
       | 1     |
       | 2     |
+
+  @positive
+  Scenario Outline:  Close Submenu and Action Popover after clicking on the submenu
+    Given I click the menu button element in noiFrame
+      And I press keyboard "downarrow" key times 2
+      And I wait 250
+      And I press "leftarrow" onto focused element
+      And I wait 250
+      And I press keyboard "downarrow" key times <times>
+    When I click <times> submenu actionPopoverInnerItem in noIframe
+    Then ActionPopover submenu is not visible
+      And Action Popover element is not visible
+    Examples:
+      | times |
+      | 0     |
+      | 1     |
