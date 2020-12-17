@@ -2,44 +2,6 @@ Feature: Split Button component
   I want to test Split Button component properties
 
   @positive
-  Scenario Outline: I select buttonType to <buttonType>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Button background color is "<color>"
-    Examples:
-      | buttonType | color            | nameOfObject        |
-      | primary    | rgb(0, 129, 93)  | buttonTypePrimary   |
-      | secondary  | rgba(0, 0, 0, 0) | buttonTypeSecondary |
-
-  @positive
-  Scenario Outline: I select size to <size>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Split Button is set to "<size>" size and has <px> px height
-    Examples:
-      | size   | px | nameOfObject |
-      | small  | 32 | sizeSmall    |
-      | medium | 40 | sizeMedium   |
-      | large  | 48 | sizeLarge    |
-
-  @positive
-  Scenario: I disable Split Button component
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "disabled" object name
-    Then Button is disabled
-
-  @positive
-  Scenario: I enable Split Button component
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "disabledFalse" object name
-    Then Button is enabled
-
-  @positive
-  Scenario Outline: I set Split Button text align to <align>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Split Button component additional buttons text align is set to "<align>" align
-    Examples:
-      | align | nameOfObject |
-      | left  | alignLeft    |
-      | right | alignRight   |
-
-  @positive
   Scenario Outline: I set text to <text>
     When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button label on preview is <text>
@@ -56,15 +18,6 @@ Feature: Split Button component
       | subtext                      | nameOfObject            |
       | mp150ú¿¡üßä                  | subtextOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtextSpecialCharacter |
-
-  @positive
-  Scenario Outline: I check icon positioning to <iconPosition>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
-    Then Split Button iconPosition is set to "<iconPosition>" and has "warning" icon
-    Examples:
-      | iconPosition | nameOfObject       |
-      | after        | iconPositionAfter  |
-      | before       | iconPositionBefore |
 
   @positive
   Scenario: I expand Split Button component
