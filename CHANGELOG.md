@@ -1,3 +1,11 @@
+### [54.3.1](https://github.com/Sage/carbon/compare/v54.3.0...v54.3.1) (2020-12-18)
+
+
+### Bug Fixes
+
+* **action-popover:** close action popover when submenu item is clicked ([993a07c](https://github.com/Sage/carbon/commit/993a07c5c01f99f4871b1b3df0159a4cfb37ffcc))
+* **action-popover:** incorrect event capturing on outside click ([fedd9c1](https://github.com/Sage/carbon/commit/fedd9c1ed7f747d20727352f5c4492795e66d587))
+
 ## [54.3.0](https://github.com/Sage/carbon/compare/v54.2.0...v54.3.0) (2020-12-17)
 
 
