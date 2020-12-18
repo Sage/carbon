@@ -1,3 +1,10 @@
+### [54.3.2](https://github.com/Sage/carbon/compare/v54.3.1...v54.3.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* **navbar:** remove old styling to allow full width ([03542c0](https://github.com/Sage/carbon/commit/03542c0911b94e2020fad37743b0981e70f30a91))
+
 ### [54.3.1](https://github.com/Sage/carbon/compare/v54.3.0...v54.3.1) (2020-12-18)
 
 
