@@ -1,70 +1,114 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import NavigationBar from './navigation-bar.component';
-import {Menu, MenuItem} from '../menu';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import NavigationBar from "./navigation-bar.component";
+import { Menu, MenuItem } from "../menu";
+import Box from "../box";
+import VerticalDivider from "../vertical-divider";
+import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Navigation Bar" />
 
 # NavigationBar
 
 ### Light Theme
+
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}}>
-    <NavigationBar>
-      Example content
-    </NavigationBar> 
-  </Story> 
+  <Story name="default" parameters={{ info: { disable: true } }}>
+    <NavigationBar>Example content</NavigationBar>
+  </Story>
 </Preview>
 
 ### Light Theme Loading State
-If `isLoading={true}` the children will not be visible 
+
+If `isLoading={true}` the children will not be visible
+
 <Preview>
-  <Story name="isLoading" parameters={{ info: { disable: true }}}>
+  <Story name="isLoading" parameters={{ info: { disable: true } }}>
     <NavigationBar isLoading>
       <Menu>
         <MenuItem>menu item one</MenuItem>
         <MenuItem>menu item two</MenuItem>
       </Menu>
-    </NavigationBar> 
-  </Story> 
+    </NavigationBar>
+  </Story>
 </Preview>
 
 ### Dark Theme
+
 <Preview>
-  <Story name="dark theme"  parameters={{ info: { disable: true }}}>
-    <NavigationBar navigationType="dark">
-      Example content
-    </NavigationBar>  
+  <Story name="dark theme" parameters={{ info: { disable: true } }}>
+    <NavigationBar navigationType="dark">Example content</NavigationBar>
   </Story>
-</Preview> 
+</Preview>
 
 ### Dark Theme Loading State
-If `isLoading={true}` the children will not be visible 
+
+If `isLoading={true}` the children will not be visible
+
 <Preview>
-  <Story name="dark theme isLoading" parameters={{ info: { disable: true }}}>
+  <Story name="dark theme isLoading" parameters={{ info: { disable: true } }}>
     <NavigationBar navigationType="dark" isLoading>
       <Menu>
         <MenuItem>menu item one</MenuItem>
         <MenuItem>menu item two</MenuItem>
       </Menu>
-    </NavigationBar> 
-  </Story> 
+    </NavigationBar>
+  </Story>
 </Preview>
 
 ### With custom spacing
-The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any 
+
+The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any
 valid CSS string.
+
 <Preview>
-  <Story name="with custom spacing" parameters={{ info: { disable: true }}}>
+  <Story name="with custom spacing" parameters={{ info: { disable: true } }}>
     <NavigationBar m={2} py={2} px={7}>
       <Menu>
         <MenuItem>menu item one</MenuItem>
         <MenuItem>menu item two</MenuItem>
       </Menu>
-    </NavigationBar> 
-  </Story> 
+    </NavigationBar>
+  </Story>
 </Preview>
 
-<StyledSystemProps
-  spacing
-/>
+### Set content max width using Box
+
+<Preview>
+  <Story
+    name="content max width using Box"
+    parameters={{ info: { disable: true } }}
+  >
+    <NavigationBar>
+      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+        <SageIcon style={{ alignSelf: "center" }} />
+        <Box>
+          <VerticalDivider displayInline pr={0} />
+        </Box>
+        <Menu display="flex" flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </NavigationBar>
+  </Story>
+</Preview>
+
+<StyledSystemProps spacing />
