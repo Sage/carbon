@@ -52,9 +52,6 @@ import {
 
 ## Default selected
 
-The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
-is rendered.
-
 <Preview>
   <Story name="default selected">
     <div style={{ minHeight: "150px" }}>
@@ -63,7 +60,7 @@ is rendered.
           Menu Item One
         </MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+        <MenuItem submenu="Menu Item Three">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -310,6 +307,26 @@ is rendered.
           <MenuItem variant="alternate" href="#">
             Item Submenu Three
           </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## No dropdown arrow on submenu
+
+The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
+is rendered.
+
+<Preview>
+  <Story name="no submenu dropdown arrow">
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
     </div>
