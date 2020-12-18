@@ -1,3 +1,10 @@
+### [54.3.3](https://github.com/Sage/carbon/compare/v54.3.2...v54.3.3) (2020-12-18)
+
+
+### Bug Fixes
+
+* **submenu:** stop submenu width from flexing with parent ([95066a3](https://github.com/Sage/carbon/commit/95066a33b41afaa6ce9df66db9033fd1ee71bf70))
+
 ### [54.3.2](https://github.com/Sage/carbon/compare/v54.3.1...v54.3.2) (2020-12-18)
 
 
