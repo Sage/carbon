@@ -1,3 +1,10 @@
+### [54.3.4](https://github.com/Sage/carbon/compare/v54.3.3...v54.3.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **menu:** allow null children ([237b62e](https://github.com/Sage/carbon/commit/237b62e30680e724ce59b1376ebf1e22df340bdb)), closes [#3497](https://github.com/Sage/carbon/issues/3497)
+
 ### [54.3.3](https://github.com/Sage/carbon/compare/v54.3.2...v54.3.3) (2020-12-18)
 
 
