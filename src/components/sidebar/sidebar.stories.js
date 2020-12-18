@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import { Sidebar, SidebarHeader } from ".";
 import Button from "../button";
@@ -10,7 +9,6 @@ export default {
   title: "Sidebar/Test",
   component: Sidebar,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

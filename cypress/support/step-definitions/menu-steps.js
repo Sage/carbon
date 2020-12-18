@@ -1,8 +1,8 @@
 import {
   menuPreview,
-  menuListItems,
   submenuBlock,
   innerMenu,
+  submenu,
 } from '../../locators/menu';
 import { positionOfElement } from '../helper';
 
@@ -11,7 +11,7 @@ Then('Menu elements are visible', () => {
 });
 
 When('I hover over third expandable Menu component', () => {
-  menuListItems().trigger('mouseover');
+  submenu().trigger('mouseover');
 });
 
 Then('Menu third expandable element has inner elements', () => {

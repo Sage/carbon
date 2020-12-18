@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { isDLS } from "../../../../../utils/helpers/style-helper";
 import baseTheme from "../../../../../style/themes/base";
 import StyledIcon from "../../../../icon/icon.style";
 
@@ -18,11 +17,8 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })`
   ${({ theme, isActive }) => css`
     :focus,
     :active {
-      ${isDLS(theme) &&
-      css`
-        outline: 2px solid ${theme.colors.focus};
-        outline-offset: -2px;
-      `}
+      outline: 2px solid ${theme.colors.focus};
+      outline-offset: -2px;
     }
 
     :hover {

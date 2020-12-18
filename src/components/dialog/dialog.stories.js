@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Dialog from "./dialog.component";
 import Form from "../form";
@@ -9,13 +8,12 @@ import Textbox from "../../__experimental__/components/textbox";
 import Button from "../button";
 import DateInput from "../../__experimental__/components/date";
 import { Checkbox } from "../../__experimental__/components/checkbox";
-import { Select, Option } from "../../__experimental__/components/select";
+import { Select, Option } from "../select";
 
 export default {
   title: "Dialog/Test",
   component: Dialog,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

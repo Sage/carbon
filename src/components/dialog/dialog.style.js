@@ -72,8 +72,7 @@ const DialogStyle = styled.div`
       min-height: 0px !important;
     `}
 
-
-  ${StyledIconButton} {
+  > ${StyledIconButton} {
     position: absolute;
     right: 33px;
     top: 32px;

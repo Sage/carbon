@@ -6,7 +6,6 @@ import TestRenderer from "react-test-renderer";
 import { mount as enzymeMount } from "enzyme";
 import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
 import mintTheme from "../../style/themes/mint";
-import classic from "../../style/themes/classic";
 
 import {
   ActionPopover,
@@ -15,12 +14,7 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from "./index";
-import {
-  MenuButton,
-  MenuItemFactory,
-  Menu,
-  SubMenuItemIcon,
-} from "./action-popover.style";
+import { MenuButton, Menu, SubMenuItemIcon } from "./action-popover.style";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
@@ -722,42 +716,6 @@ describe("ActionPopover", () => {
         mintTheme.colors.white
       );
     });
-
-    it('renders correctly for the "classic" theme', () => {
-      const MenuStyle = TestRenderer.create(<Menu theme={classic} />);
-      expect(MenuStyle).toMatchSnapshot();
-
-      const MenuItem = MenuItemFactory(({ className }) => (
-        <div className={className} />
-      ));
-      const MenuItemStyle = TestRenderer.create(<MenuItem theme={classic} />);
-      expect(MenuItemStyle).toMatchSnapshot();
-
-      const MenuButtonStyle = TestRenderer.create(
-        <MenuButton theme={classic} />
-      );
-      expect(MenuButtonStyle).toMatchSnapshot();
-    });
-
-    it('MenuButton has proper color when open on "classic" theme', () => {
-      const MenuButtonStyle = TestRenderer.create(
-        <MenuButton theme={classic} isOpen />
-      );
-      assertStyleMatch({ color: "#255BC7" }, MenuButtonStyle.toJSON(), {
-        modifier: "> span",
-      });
-    });
-
-    it.each(["chevron_left", "chevron_right"])(
-      'MenuButton has proper color when open on "classic" theme',
-      (type) => {
-        const StyledSubMenuIcon = TestRenderer.create(
-          <SubMenuItemIcon theme={classic} type={type} />
-        );
-        const key = type === "chevron_left" ? "left" : "right";
-        assertStyleMatch({ [key]: "-6px" }, StyledSubMenuIcon.toJSON());
-      }
-    );
   });
 
   it("validates the children prop", () => {
@@ -1032,8 +990,8 @@ describe("ActionPopover", () => {
         });
       });
 
-      it("returns focus back to parent item when submenu item clicked", () => {
-        const { items } = getElements();
+      it("returns focus back to menu button when submenu item clicked", () => {
+        const { items, menubutton } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
         const submenuItem = submenu.find(ActionPopoverItem).at(0);
@@ -1053,7 +1011,7 @@ describe("ActionPopover", () => {
           submenuItem
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-          expect(item).toBeFocused();
+          expect(menubutton).toBeFocused();
           jest.runAllTimers(); // needed to trigger coverage
         });
       });

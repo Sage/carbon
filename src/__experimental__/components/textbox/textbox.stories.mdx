@@ -1,30 +1,244 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
-import Textbox from '../textbox';
+import Textbox, { OriginalTextbox } from ".";
 
-<Meta
-  title="Design System/Textbox/Test"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Experimental/Textbox" parameters={{ info: { disable: true } }} />
 
-### With styles overriden
-With custom wrapper, label and input styles
+# Textbox
+
+Captures a single line of text.
+
+- Use placeholder text to give the user examples of data formats (e.g. AB123456C for a UK National Insurance number).
+- Use prefixes if your data always begins with a certain sequence (e.g. a UK VAT number usually starts with ‘GB’).
+- If content in a textbox is never editable, think about removing the field border so it appears as static text.
+- You can disable a textbox, but try to avoid this. If you need to, make it clear what the user needs to do in order to activate the textbox.
+- Use wider fields for longer data (e.g. an address line), and narrower fields for shorter data (e.g. a postcode), to give the user a clue about the data expected.
+
+## Quick Start
+
+```jsx
+import Textbox from "carbon-react/lib/__experimental__/components/textbox";
+```
+
+### Default
+
 <Preview>
-  <Story name="styles overriden">
+  <Story name="default">
+    {() => {
+      const [state, setState] = useState("Textbox");
+      const setValue = ({ target }) => {
+        setState(target.value);
+      };
+      return <Textbox label="Textbox" value={state} onChange={setValue} />;
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() =>
+      ["small", "medium", "large"].map((size) => (
+        <Textbox
+          key={`Textbox - ${size}`}
+          label={`Textbox - ${size}`}
+          value="Textbox"
+          size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### AutoFocus
+
+<Preview>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
+    <>
+      <Textbox label="Textbox" value="Textbox" autoFocus />
+      <Textbox label="Textbox" value="Textbox" autoFocus />
+    </>
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <Textbox label="Textbox" value="Textbox" disabled />
+  </Story>
+</Preview>
+
+### ReadOnly
+
+<Preview>
+  <Story name="readOnly">
+    <Textbox label="Textbox" value="Textbox" readOnly />
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
+    <Textbox label="Textbox" value="Textbox" labelInline />
+  </Story>
+</Preview>
+
+### With custom labelWidth and inputWidth
+
+<Preview>
+  <Story name="with custom labelWidth and inputWidth">
     <Textbox
-      label='Label 1'
+      label="Textbox"
+      value="Textbox"
       labelInline
-      labelAlign='right'
-      styleOverride={
-        {
-          root: { background: '#F0F0F0' },
-          input: {
-            flex: 'none',
-            width: '150px',
-          },
-          label: { color: '#B4D455' }
-        }
-      }
+      labelWidth={50}
+      inputWidth={50}
     />
   </Story>
 </Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    <Textbox label="Textbox" value="Textbox" fieldHelp="Help" />
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    <Textbox label="Textbox" value="Textbox" labelHelp="Help" />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    <Textbox label="Textbox" value="Textbox" required />
+  </Story>
+</Preview>
+
+### LabelAlign
+
+<Preview>
+  <Story name="labelAlign">
+    {() =>
+      ["right", "left"].map((alignment) => (
+        <Textbox
+          label="Textbox"
+          value="Textbox"
+          labelInline
+          inputWidth={50}
+          key={alignment}
+          labelAlign={alignment}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string
+
+<Preview>
+  <Story name="validations - string - component">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Textbox
+            label="Textbox"
+            value="Textbox"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Textbox
+            label="Textbox - readOnly"
+            value="Textbox"
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string, displayed on label
+
+<Preview>
+  <Story name="validations - string - label">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <Textbox
+            label="Textbox"
+            value="Textbox"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <Textbox
+            label="Textbox - readOnly"
+            value="Textbox"
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean
+
+<Preview>
+  <Story name="validations - boolean">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <Textbox
+            label="Textbox"
+            value="Textbox"
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+          <Textbox
+            label="Textbox - readOnly"
+            value="Textbox"
+            readOnly
+            {...{ [validationType]: true }}
+            mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+## Props:
+
+### Textbox
+
+<Props of={OriginalTextbox} />

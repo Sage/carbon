@@ -6,7 +6,7 @@ const StyledMultiSelect = styled.div`
   position: relative;
 `;
 
-const StyledSelectPillContainer = styled.div`
+export const StyledSelectPillContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -2,17 +2,29 @@ Feature: Accessibility tests - Common list
   I want to check that all components have no violations
 
   @accessibility
-  Scenario Outline: Component <component> page auto opened
-    Given I open "<component>" component page "default" in no iframe
-      And I wait 500
+  Scenario Outline: Component <component> default story
+    Given I open "<component>" component page "default story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component          |
-      | alert              |
-      | confirm            |
-      | dialog             |
-      | dialog-full-screen |
-      | sidebar            |
+      | AppWrapper         |
+      | Alert              |
+      | Confirm            |
+      | Content            |
+      | Detail             |
+      | Dialog             |
+      | Dialog-full-screen |
+      | Heading            |
+      | Help               |
+      | I18nComponent      |
+      | Link               |
+      | Message            |
+      | MenuList           |
+      | Mount In App       |
+      # | Pages             |
+      | Preview            |
+      | Row                |
+      | Sidebar            |
 
   @accessibility
   Scenario: Component button toggle
@@ -27,38 +39,21 @@ Feature: Accessibility tests - Common list
     When I open component preview no iframe
     Then "<data-component>" component has no accessibility violations
     Examples:
-      | component          |
-      | flash              |
-
-@accessibility
-Scenario Outline: Component <component> default story
-  When I open "<component>" component page "default" in no iframe
-  Then "<component>" component has no accessibility violations
-  Examples:
-    | component           |
-    | carousel            |
-    | configurable-items  |
-    | content             |
-    | draggableContext    |
-    | icon                |
-    | loader              |
-    | message             |
-    | multi-action-button |
-    | pill                |
-    | portrait            |
-    | preview             |
-    | profile             |
-    | row                 |
-    | settingsrow         |
-    | split-button        |
-    | table-ajax          |
-    | table               |
-    | tooltip             |
+      | component |
+      | Flash     |
 
   @accessibility
-  Scenario: Draggable Context component with_table story
-    When I open "draggableContext" component page "with_table" in no iframe
-    Then "draggableContext" component has no accessibility violations
+  Scenario Outline: Component <component> default story
+    When I open "<component>" component page "default" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component           |
+      | Carousel            |
+      | Configurable-items  |
+      | Multi-action-button |
+      | Portrait            |
+      | Profile             |
+      | Split-button        |
 
   @accessibility
   Scenario Outline: Component <component> basic story
@@ -66,26 +61,19 @@ Scenario Outline: Component <component> default story
     Then "<component>" component has no accessibility violations
     Examples:
       | component     |
-      | showeditpod   |
-      | step-sequence |
-      | icon          |
-      | button toggle |
-      | settingsrow   |
-      | table-ajax    |
-      | table         |
+      | Showeditpod   |
+      | Step-sequence |
+      | Icon          |
+      | Button toggle |
 
   @accessibility
-  Scenario Outline: Component <component> default_story
-    When I open "<component>" component page "default_story" in no iframe
-    Then "<component>" component has no accessibility violations
+  Scenario Outline: Component <component> default story
+    When I open "<component> Test" component page "default" in no iframe
+    Then "<component> Test default story" component has no accessibility violations
     Examples:
-      | component     |
-      | AppWrapper    |
-      | Detail        |
-      | Heading       |
-      | Help          |
-      | I18nComponent |
-      | Link          |
-      | MenuList      |
-      | Mount In App  |
-    # | Pages         |
+      | component        |
+      | Tooltip          |
+      | DraggableContext |
+      | Settingsrow      |
+      | Table-ajax       |
+      | Table            |

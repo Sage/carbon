@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { dlsThemeSelector } from "../../../.storybook/theme-selectors";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Confirm from ".";
@@ -10,7 +9,6 @@ export default {
   title: "Confirm/Test",
   component: Confirm,
   parameters: {
-    themeSelector: dlsThemeSelector,
     info: {
       disable: true,
     },

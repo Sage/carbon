@@ -22,6 +22,44 @@ configureActions({
   limit: 20,
 });
 
+const customViewports = {
+  extraSmall: {
+    name: 'Smart Phones',
+    styles: {
+      width: '320px',
+      height: '599px',
+    },
+  },
+  small: {
+    name: 'Portrait Tablets',
+    styles: {
+      width: '600px',
+      height: '959px',
+    },
+  },
+  medium: {
+    name: 'Landscape Tablets & Low-Res Laptops',
+    styles: {
+      width: '960px',
+      height: '1259px',
+    },
+  },
+  large: {
+    name: 'High-Res Laptops & Monitors',
+    styles: {
+      width: '1260px',
+      height: '1920px',
+    },
+  },
+  extraLarge: {
+    name: 'Ultra High-Res Monitors',
+    styles: {
+      width: '1921px',
+      height: '2500px',
+    },
+  },
+};
+
 addParameters({
   options: {
     isFullscreen: false,
@@ -47,6 +85,7 @@ addParameters({
     }
   },
   chromatic: { disable: false },
+  viewport: { viewports: customViewports },
 });
 
 setupI18n();

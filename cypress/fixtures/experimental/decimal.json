@@ -11,12 +11,6 @@
   "labelSpecialCharacter": {
     "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "inputAlignLeft": {
-    "align": "left"
-  },
-  "inputAlignRight": {
-    "align": "right"
-  },
   "labelHelpOtherLanguage": {
     "label": "label",
     "labelHelp": "mp150ú¿¡üßä"
@@ -24,65 +18,6 @@
   "labelHelpSpecialCharacter": {
     "label": "label",
     "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "labelInline": {
-    "label": "label",
-    "labelInline": true
-  },
-  "labelWidth0": {
-    "label": "label",
-    "labelHelp": "label help",
-    "labelInline": true,
-    "labelWidth": 0
-  },
-  "labelWidth10": {
-    "label": "label",
-    "labelHelp": "label help",
-    "labelInline": true,
-    "labelWidth": 10
-  },
-  "labelWidth100": {
-    "label": "label",
-    "labelHelp": "label help",
-    "labelInline": true,
-    "labelWidth": 100
-  },
-  "inputWidth1": {
-    "label": "label",
-    "labelInline": true,
-    "inputWidth": 1
-  },
-  "inputWidth10": {
-    "label": "label",
-    "labelInline": true,
-    "inputWidth": 10
-  },
-  "inputWidth100": {
-    "label": "label",
-    "labelInline": true,
-    "inputWidth": 100
-  },
-  "labelAlignLeft": {
-    "label": "label",
-    "labelInline": true,
-    "labelAlign": "left"
-  },
-  "labelAlignRight": {
-    "label": "label",
-    "labelInline": true,
-    "labelAlign": "right"
-  },
-  "disabled": {
-    "disabled": true
-  },
-  "disabledFalse": {
-    "disabled": false
-  },
-  "readOnly": {
-    "readOnly": true
-  },
-  "readOnlyFalse": {
-    "readOnly": false
   },
   "precision0": {
     "precision": 0

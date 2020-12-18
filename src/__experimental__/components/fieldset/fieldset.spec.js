@@ -1,6 +1,4 @@
 import React from "react";
-import "jest-styled-components";
-import { css } from "styled-components";
 import { shallow, mount } from "enzyme";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
@@ -10,7 +8,6 @@ import {
   FieldsetContentStyle,
 } from "./fieldset.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import classicTheme from "../../../style/themes/classic";
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -35,20 +32,6 @@ describe("Fieldset", () => {
 
     it("is not rendered if omited", () => {
       expect(basicWrapper.find(LegendContainerStyle).exists()).toEqual(false);
-    });
-
-    it("applies classic theme styling", () => {
-      assertStyleMatch(
-        {
-          color: "#003349",
-          fontSize: "14px",
-          fontWeight: "bold",
-          lineHeight: "14px",
-          padding: "0 6px",
-        },
-        mount(<LegendContainerStyle theme={classicTheme} />),
-        { modifier: css`legend` }
-      );
     });
 
     it("applies the correct inline styles", () => {

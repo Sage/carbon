@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import StyledIcon from "../icon/icon.style";
-import classicIconButtonStyle from "./icon-button-classic.style";
 import { baseTheme } from "../../style/themes";
 
 const StyledIconButton = styled.button.attrs({ type: "button" })`
@@ -32,8 +31,6 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
       border: none;
     }
   }
-
-  ${classicIconButtonStyle};
 `;
 
 StyledIconButton.defaultProps = {

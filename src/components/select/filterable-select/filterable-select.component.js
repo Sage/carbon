@@ -28,6 +28,7 @@ const FilterableSelect = React.forwardRef(
       onListAction,
       isLoading,
       readOnly,
+      onListScrollBottom,
       ...textboxProps
     },
     inputRef
@@ -38,24 +39,11 @@ const FilterableSelect = React.forwardRef(
     const listboxRef = useRef();
     const isControlled = useRef(value !== undefined);
     const [textboxRef, setTextboxRef] = useState();
-    const [isOpen, setOpenState] = useState(false);
+    const [isOpen, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState("");
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
-
-    const setOpen = useCallback(
-      (newValue) => {
-        setOpenState((isAlreadyOpen) => {
-          if (!isAlreadyOpen && newValue && onOpen) {
-            onOpen();
-          }
-
-          return newValue;
-        });
-      },
-      [onOpen]
-    );
 
     const createCustomEvent = useCallback(
       (newValue) => {
@@ -117,9 +105,8 @@ const FilterableSelect = React.forwardRef(
           (option) => option.props.value === newValue
         );
 
-        if (matchingOption) {
+        if (matchingOption && matchingOption.props.text !== undefined) {
           setTextValue(matchingOption.props.text);
-          setFilterText(matchingOption.props.text);
         }
       },
       [children]
@@ -136,7 +123,7 @@ const FilterableSelect = React.forwardRef(
         updateValues(newValue, isDeleteEvent);
         setOpen(true);
       },
-      [setOpen, updateValues]
+      [updateValues]
     );
 
     const fillLastFilterCharacter = useCallback(
@@ -174,7 +161,7 @@ const FilterableSelect = React.forwardRef(
 
         fillLastFilterCharacter(key);
       },
-      [fillLastFilterCharacter, onKeyDown, readOnly, setOpen]
+      [fillLastFilterCharacter, onKeyDown, readOnly]
     );
 
     const handleGlobalClick = useCallback(
@@ -189,7 +176,7 @@ const FilterableSelect = React.forwardRef(
           setOpen(false);
         }
       },
-      [setMatchingText, setOpen, selectedValue]
+      [setMatchingText, selectedValue]
     );
 
     useEffect(() => {
@@ -217,8 +204,17 @@ const FilterableSelect = React.forwardRef(
 
         return newValue;
       });
+
       setHighlightedValue(newValue);
     }, [value, defaultValue, onChange]);
+
+    useEffect(() => {
+      if (!isOpen) {
+        setFilterText("");
+      } else if (onOpen) {
+        onOpen();
+      }
+    }, [isOpen, onOpen]);
 
     useEffect(() => {
       const hasListActionButton = listActionButton !== undefined;
@@ -239,10 +235,10 @@ const FilterableSelect = React.forwardRef(
     useEffect(() => {
       const clickEvent = "click";
 
-      document.addEventListener(clickEvent, handleGlobalClick);
+      window.addEventListener(clickEvent, handleGlobalClick);
 
       return function cleanup() {
-        document.removeEventListener(clickEvent, handleGlobalClick);
+        window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
 
@@ -271,16 +267,8 @@ const FilterableSelect = React.forwardRef(
         onClick(event);
       }
 
-      setOpenState((isAlreadyOpen) => {
-        if (isAlreadyOpen) {
-          return false;
-        }
-
-        if (onOpen) {
-          onOpen();
-        }
-
-        return true;
+      setOpen((isAlreadyOpen) => {
+        return !isAlreadyOpen;
       });
     }
 
@@ -289,7 +277,7 @@ const FilterableSelect = React.forwardRef(
         const { text, value: newValue, selectionType } = optionData;
 
         if (selectionType === "tab") {
-          setOpenState(false);
+          setOpen(false);
           textboxRef.focus();
 
           return;
@@ -297,6 +285,7 @@ const FilterableSelect = React.forwardRef(
 
         if (!isControlled.current) {
           setSelectedValue(newValue);
+          setHighlightedValue(newValue);
         }
 
         setTextValue(text);
@@ -305,22 +294,19 @@ const FilterableSelect = React.forwardRef(
           onChange(createCustomEvent(newValue));
         }
 
-        setHighlightedValue(newValue);
-
         if (selectionType !== "navigationKey") {
           setOpen(false);
-          setFilterText(text);
           textboxRef.focus();
           textboxRef.select();
         }
       },
-      [createCustomEvent, onChange, setOpen, textboxRef]
+      [createCustomEvent, onChange, textboxRef]
     );
 
     const onSelectListClose = useCallback(() => {
       setOpen(false);
       setMatchingText(selectedValue);
-    }, [selectedValue, setMatchingText, setOpen]);
+    }, [selectedValue, setMatchingText]);
 
     function findElementWithMatchingText(textToMatch, list) {
       return list.find((child) => {
@@ -333,7 +319,7 @@ const FilterableSelect = React.forwardRef(
     }
 
     function handleOnListAction() {
-      setOpenState(false);
+      setOpen(false);
       onListAction();
     }
 
@@ -385,6 +371,7 @@ const FilterableSelect = React.forwardRef(
         onListAction={handleOnListAction}
         isLoading={isLoading}
         readOnly={readOnly}
+        onListScrollBottom={onListScrollBottom}
       >
         {children}
       </FilterableSelectList>
@@ -430,6 +417,8 @@ FilterableSelect.propTypes = {
   onListAction: PropTypes.func,
   /** If true the loader animation is displayed in the option list */
   isLoading: PropTypes.bool,
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom: PropTypes.func,
 };
 
 export default FilterableSelect;
