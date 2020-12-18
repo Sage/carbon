@@ -7,6 +7,10 @@ import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.j
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
+# Menu
+
+Provides navigation for an app, which can be used via mouse or keyboard.
+
 ## Quick Start
 
 ```jsx
@@ -325,8 +329,14 @@ is rendered.
               <VerticalDivider displayInline pr={0} />
             </Box>
             <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}}>
-                Menu Item One
+              <MenuItem flex="1" onClick={() => {}} submenu="Menu Item One">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
               <MenuItem flex="0 0 auto" href="#">
                 Menu Item Two
