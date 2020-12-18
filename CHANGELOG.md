@@ -1,3 +1,38 @@
+## [54.3.0](https://github.com/Sage/carbon/compare/v54.2.0...v54.3.0) (2020-12-17)
+
+
+### Features
+
+* **box:** extend box to support scrollbar style ([1f7f691](https://github.com/Sage/carbon/commit/1f7f6912c17abf9aa843b44e57787cf639e55b9f))
+
+## [54.2.0](https://github.com/Sage/carbon/compare/v54.1.2...v54.2.0) (2020-12-17)
+
+
+### Features
+
+* **search:** add styling for dark theme ([56b3779](https://github.com/Sage/carbon/commit/56b37793627cd0d7b4731fa7bc11c2fddaea367f))
+
+### [54.1.2](https://github.com/Sage/carbon/compare/v54.1.1...v54.1.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **tooltip:** change tooltip text-align to be always left ([8b37b7e](https://github.com/Sage/carbon/commit/8b37b7e1966d153845d7dedff798e921756bd419))
+
+### [54.1.1](https://github.com/Sage/carbon/compare/v54.1.0...v54.1.1) (2020-12-16)
+
+
+### Bug Fixes
+
+* fix withuniqueid hoc id assignment mechanism ([4d0e161](https://github.com/Sage/carbon/commit/4d0e161cd292f560501f0b2dabcbc12b57141e4f))
+
+## [54.1.0](https://github.com/Sage/carbon/compare/v54.0.1...v54.1.0) (2020-12-16)
+
+
+### Features
+
+* **filterable-select:** clear filter on close ([f2e9bc3](https://github.com/Sage/carbon/commit/f2e9bc352ac6c2b948f3670c6090ef8437d70065))
+
 ### [54.0.1](https://github.com/Sage/carbon/compare/v54.0.0...v54.0.1) (2020-12-10)
 
 

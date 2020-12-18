@@ -9,7 +9,6 @@ import StyledTooltipPointer, {
   pointerSideMargin,
 } from "./tooltip-pointer.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 jest.mock("../../__experimental__/components/input/input-sizes.style", () => ({
   small: {
@@ -88,7 +87,7 @@ describe("Tooltip", () => {
               color: "#FFFFFF",
               display: "inline-block",
               padding: "12px 16px",
-              textAlign: "center",
+              textAlign: "left",
               maxWidth: "300px",
               wordBreak: "normal",
               whiteSpace: "pre-wrap",
@@ -119,25 +118,6 @@ describe("Tooltip", () => {
             },
             renderWrapper()
           );
-        });
-      });
-
-      describe.each(OptionsHelper.positions)(
-        'position === "%s"',
-        (position) => {
-          const align = ["top", "bottom"].includes(position)
-            ? "center"
-            : position;
-
-          it(`sets textAlign to "${align}"`, () => {
-            assertStyleMatch({ textAlign: align }, renderWrapper({ position }));
-          });
-        }
-      );
-
-      describe.each(OptionsHelper.alignBinary)('align === "%s"', (align) => {
-        it(`sets textAlign to "${align}"`, () => {
-          assertStyleMatch({ textAlign: align }, renderWrapper({ align }));
         });
       });
     });

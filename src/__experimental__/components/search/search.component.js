@@ -16,10 +16,12 @@ const Search = ({
   value,
   id,
   name,
-  threshold,
+  threshold = 3,
   searchWidth,
   searchButton,
   placeholder,
+  variant = "default",
+  "aria-label": ariaLabel = "search",
   ...rest
 }) => {
   const isControlled = value !== undefined;
@@ -117,6 +119,7 @@ const Search = ({
   return (
     <StyledSearch
       searchWidth={searchWidth}
+      showSearchButton={searchButton}
       onFocus={handleOnFocus}
       onClick={handleOnFocus}
       onBlur={handleBlur}
@@ -126,6 +129,7 @@ const Search = ({
       id={id}
       data-component="search"
       name={name}
+      variant={variant}
       searchHasValue={
         !isControlled
           ? searchValue && searchValue.length
@@ -138,6 +142,7 @@ const Search = ({
         value={!isControlled ? searchValue : value}
         inputIcon={iconType}
         iconOnClick={handleIconClick}
+        aria-label={ariaLabel}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -162,7 +167,7 @@ Search.propTypes = {
   /** Prop for `controlled` use */
   value: PropTypes.string,
   /** Prop for `onClick` events.
-   * `onClick` events are triggered when the `searchButton` is clicked.  */
+   * `onClick` events are triggered when the `searchButton` is clicked */
   onClick: PropTypes.func,
   /** Prop for `onChange` events */
   onChange: PropTypes.func,
@@ -179,7 +184,7 @@ Search.propTypes = {
   id: PropTypes.string,
   /** Prop for `name` events */
   name: PropTypes.string,
-  /** Prop for active search threshold. This must be a positive number. */
+  /** Prop for active search threshold. This must be a positive number */
   threshold(props, propName) {
     let error;
     if (
@@ -193,8 +198,10 @@ Search.propTypes = {
   },
   /** Prop for a placeholder */
   placeholder: PropTypes.string,
+  /** Prop to specify the styling of the search component */
+  variant: PropTypes.oneOf(["default", "dark"]),
+  /** Prop to specify the aria-label of the search component */
+  "aria-label": PropTypes.string,
 };
-
-Search.defaultProps = { threshold: 3 };
 
 export default Search;
