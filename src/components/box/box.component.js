@@ -1,5 +1,6 @@
 import propTypes from "@styled-system/prop-types";
-import styled from "styled-components";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
 import { space, layout, flexbox } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import color from "../../style/utils/color";
@@ -9,6 +10,23 @@ const Box = styled.div`
   ${layout}
   ${flexbox}
   ${color}
+
+  ${({ scrollVariant, theme }) =>
+    scrollVariant &&
+    css`
+      scrollbar-color: ${theme.scrollbar[scrollVariant].thumb}
+        ${theme.scrollbar[scrollVariant].track};
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: ${theme.scrollbar[scrollVariant].track};
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: ${theme.scrollbar[scrollVariant].thumb};
+      }
+    `}
 `;
 
 Box.propTypes = {
@@ -20,6 +38,8 @@ Box.propTypes = {
   ...propTypes.layout,
   /** Styled system color props */
   ...propTypes.color,
+  /** scroll styling attribute */
+  scrollVariant: PropTypes.oneOf(["light", "dark"]),
 };
 
 Box.defaultProps = {

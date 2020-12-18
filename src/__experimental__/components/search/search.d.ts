@@ -7,6 +7,8 @@ export interface SearchProps extends InputProps {
   id?: string;
   name?: string;
   searchWidth?: string;
+  variant?: string;
+  "aria-label"?: string;
   onChange?: () => void;
 }
 declare const Search: React.ComponentType<SearchProps>;

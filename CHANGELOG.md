@@ -1,3 +1,46 @@
+### [54.3.3](https://github.com/Sage/carbon/compare/v54.3.2...v54.3.3) (2020-12-18)
+
+
+### Bug Fixes
+
+* **submenu:** stop submenu width from flexing with parent ([95066a3](https://github.com/Sage/carbon/commit/95066a33b41afaa6ce9df66db9033fd1ee71bf70))
+
+### [54.3.2](https://github.com/Sage/carbon/compare/v54.3.1...v54.3.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* **navbar:** remove old styling to allow full width ([03542c0](https://github.com/Sage/carbon/commit/03542c0911b94e2020fad37743b0981e70f30a91))
+
+### [54.3.1](https://github.com/Sage/carbon/compare/v54.3.0...v54.3.1) (2020-12-18)
+
+
+### Bug Fixes
+
+* **action-popover:** close action popover when submenu item is clicked ([993a07c](https://github.com/Sage/carbon/commit/993a07c5c01f99f4871b1b3df0159a4cfb37ffcc))
+* **action-popover:** incorrect event capturing on outside click ([fedd9c1](https://github.com/Sage/carbon/commit/fedd9c1ed7f747d20727352f5c4492795e66d587))
+
+## [54.3.0](https://github.com/Sage/carbon/compare/v54.2.0...v54.3.0) (2020-12-17)
+
+
+### Features
+
+* **box:** extend box to support scrollbar style ([1f7f691](https://github.com/Sage/carbon/commit/1f7f6912c17abf9aa843b44e57787cf639e55b9f))
+
+## [54.2.0](https://github.com/Sage/carbon/compare/v54.1.2...v54.2.0) (2020-12-17)
+
+
+### Features
+
+* **search:** add styling for dark theme ([56b3779](https://github.com/Sage/carbon/commit/56b37793627cd0d7b4731fa7bc11c2fddaea367f))
+
+### [54.1.2](https://github.com/Sage/carbon/compare/v54.1.1...v54.1.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **tooltip:** change tooltip text-align to be always left ([8b37b7e](https://github.com/Sage/carbon/commit/8b37b7e1966d153845d7dedff798e921756bd419))
+
 ### [54.1.1](https://github.com/Sage/carbon/compare/v54.1.0...v54.1.1) (2020-12-16)
 
 

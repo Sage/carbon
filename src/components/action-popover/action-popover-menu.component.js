@@ -27,44 +27,6 @@ const ActionPopoverMenu = React.forwardRef(
     const [childrenWithRef, setChildrenWithRef] = useState();
     const timer = useRef();
 
-    useEffect(() => {
-      const event = "click";
-      const menu = ref.current;
-      const handler = (e) => {
-        items.forEach((item, index) => {
-          // loop and check if item clicked is in composedPath and then update focusIndex
-          if (Events.composedPath(e).includes(item.ref.current)) {
-            if (!item.props.disabled) {
-              // if no submenu close menu and focus parent button or item, else update focusIndex
-              if (!item.props.submenu) {
-                clearTimeout(timer.current);
-                timer.current = setTimeout(() => {
-                  setOpen(false);
-                  if (item.ref && item.ref.current) {
-                    item.ref.current.focus();
-                  }
-                }, 0);
-              } else {
-                setFocusIndex(index);
-                items[index].ref.current.focus();
-              }
-            } else {
-              item.ref.current.focus();
-              e.stopPropagation();
-            }
-          }
-        });
-
-        if (onClick) onClick();
-      };
-
-      menu.addEventListener(event, handler);
-
-      return function cleanup() {
-        menu.removeEventListener(event, handler);
-      };
-    }, [focusIndex, items, onClick, ref, setFocusIndex, setOpen, timer]);
-
     const onKeyDown = useCallback(
       (e) => {
         if (Events.isTabKey(e) && Events.isShiftKey(e)) {
@@ -77,16 +39,6 @@ const ActionPopoverMenu = React.forwardRef(
         } else if (Events.isTabKey(e)) {
           // TAB: close menu and allow focus to change to next focusable element
           setOpen(false);
-        } else if (Events.isEscKey(e)) {
-          // ESC: close menu and focus menu button
-          e.preventDefault();
-          setOpen(false);
-          button.current.focus();
-        } else if (Events.isEnterKey(e)) {
-          // ENTER: focus close menu and focus parent
-          setOpen(false);
-          button.current.focus();
-          e.stopPropagation();
         } else if (Events.isDownKey(e)) {
           // DOWN: focus next item or first
           e.preventDefault();
@@ -136,7 +88,7 @@ const ActionPopoverMenu = React.forwardRef(
           }
         }
       },
-      [setOpen, button, focusIndex, items, setFocusIndex]
+      [setOpen, focusIndex, items, setFocusIndex]
     );
 
     // send a global close to other items with sub whenever updateItemIndex triggered?
