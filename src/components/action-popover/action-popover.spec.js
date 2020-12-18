@@ -990,8 +990,8 @@ describe("ActionPopover", () => {
         });
       });
 
-      it("returns focus back to parent item when submenu item clicked", () => {
-        const { items } = getElements();
+      it("returns focus back to menu button when submenu item clicked", () => {
+        const { items, menubutton } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
         const submenuItem = submenu.find(ActionPopoverItem).at(0);
@@ -1011,7 +1011,7 @@ describe("ActionPopover", () => {
           submenuItem
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-          expect(item).toBeFocused();
+          expect(menubutton).toBeFocused();
           jest.runAllTimers(); // needed to trigger coverage
         });
       });
