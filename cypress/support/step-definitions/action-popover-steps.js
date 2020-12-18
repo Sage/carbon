@@ -3,6 +3,7 @@ import {
   actionPopoverButtonNoIframe,
   actionPopoverSubmenu,
   actionPopoverSubmenuNoIFrame,
+  actionPopoverSubmenuByIndex,
 } from '../../locators/action-popover';
 import {
   eventInAction,
@@ -41,6 +42,10 @@ When('I click {int} actionPopoverInnerItem', (element) => {
 
 When('I click {int} submenu actionPopoverInnerItem', (element) => {
   actionPopoverSubmenu(element).click({ force: true });
+});
+
+When('I click {int} submenu actionPopoverInnerItem in noIframe', (element) => {
+  actionPopoverSubmenuByIndex(element).click({ force: true });
 });
 
 When('I press {string} onto {int} actionPopoverInnerItem', (key, element) => {
