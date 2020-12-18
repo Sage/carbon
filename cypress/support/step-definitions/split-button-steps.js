@@ -2,7 +2,6 @@ import { commonButtonPreviewNoIFrameRoot } from '../../locators';
 import {
   splitToggleButton,
   additionalButton,
-  splitMainButton,
   splitMainButtonDataComponent,
   additionalButtonIFrame,
   splitMainButtonDataComponentIFrame,
@@ -12,34 +11,6 @@ import { positionOfElement } from '../helper';
 Then('Split Button is expanded', () => {
   commonButtonPreviewNoIFrameRoot().should('have.length', 5); // 3 expanded buttons, 1 icon button and 1 main button
   splitToggleButton().should('have.attr', 'aria-expanded', 'true');
-});
-
-Then('Split Button is set to {string} size and has {int} px height', (size, height) => {
-  commonButtonPreviewNoIFrameRoot().should('have.css', 'height', `${height}px`);
-  splitToggleButton().should('have.css', 'height', `${height}px`);
-  splitToggleButton().click();
-  additionalButton(positionOfElement('first')).should('have.css', 'height', `${height}px`);
-  additionalButton(positionOfElement('second')).should('have.css', 'height', `${height}px`);
-  additionalButton(positionOfElement('third')).should('have.css', 'height', `${height}px`);
-});
-
-Then('Split Button component additional buttons text align is set to {string} align', (align) => {
-  splitToggleButton().click();
-  additionalButton(positionOfElement('first')).should('have.css', 'text-align', align);
-  additionalButton(positionOfElement('second')).should('have.css', 'text-align', align);
-  additionalButton(positionOfElement('third')).should('have.css', 'text-align', align);
-});
-
-Then('Split Button iconPosition is set to {string} and has {string} icon', (iconPosition, icon) => {
-  if (iconPosition === 'before') {
-    splitMainButton(positionOfElement('second')).should('have.attr', 'data-component', 'icon')
-      .and('have.attr', 'data-element', icon)
-      .and('be.visible');
-  } else {
-    splitMainButton(positionOfElement('third')).should('have.attr', 'data-component', 'icon')
-      .and('have.attr', 'data-element', icon)
-      .and('be.visible');
-  }
 });
 
 Then('Split Button first element has proper background-color {string} and border {string} color and has border-width {int} px', (color, borderColor, px) => {
