@@ -4,14 +4,11 @@ import { baseTheme } from "../../style/themes";
 import Box from "../box";
 
 const StyledNavigationBar = styled(Box).attrs({ as: "nav" })`
-  margin: 0 auto;
   padding: 0 40px;
   display: flex;
   align-items: center;
 
   line-height: 40px;
-  max-width: 1600px;
-  min-width: 958px;
 
   & > * {
     box-sizing: border-box;
@@ -49,19 +46,6 @@ const StyledNavigationBar = styled(Box).attrs({ as: "nav" })`
       color: ${theme.colors.white};
     `}
   `}
-`;
-
-export const StyledNavigationBarContent = styled.div`
-  line-height: 40px;
-  max-width: 1600px;
-  min-width: 958px;
-
-  & > * {
-    box-sizing: border-box;
-    display: inline-block;
-    height: 40px;
-    vertical-align: middle;
-  }
 `;
 
 StyledNavigationBar.defaultProps = {

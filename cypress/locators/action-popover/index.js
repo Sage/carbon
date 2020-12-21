@@ -13,3 +13,5 @@ export const actionPopoverInnerItem = index => cy.iFrame(ACTION_POPOVER_DATA_COM
   .children().eq(index);
 export const actionPopoverSubmenu = index => cy.iFrame(ACTION_POPOVER_SUBMENU)
   .eq(1).children().eq(index);
+export const actionPopoverSubmenuByIndex = index => cy.get(ACTION_POPOVER_SUBMENU)
+  .eq(1).children().eq(index);

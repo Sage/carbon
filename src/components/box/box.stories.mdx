@@ -2,10 +2,10 @@ import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import Box from '.';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
-import Button from '../button';
 import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { PropsTable } from '@storybook/components';
 
-<Meta title="Design System/Box" />
+<Meta title='Design System/Box' />
 
 # Box
 
@@ -16,18 +16,18 @@ import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 ## Overview
 Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
 <Preview>
-  <Story name="spacing" parameters={{ info: { disable: true }}} >
-    <Box m={3} p={3} bg="secondary">
-      <Box height="100px" bg="primary"></Box>
+  <Story name='spacing' parameters={{ info: { disable: true }}} >
+    <Box m={3} p={3} bg='secondary'>
+      <Box height='100px' bg='primary'></Box>
     </Box>
   </Story>
 </Preview>
 
 ## Color
 <Preview>
-  <Story name="color" parameters={{ info: { disable: true }}} >
-    <Box m={3} p={3} bg="secondary">
-      <Box width="100px" height="100px" bg="primary" color="yellow">
+  <Story name='color' parameters={{ info: { disable: true }}} >
+    <Box m={3} p={3} bg='secondary'>
+      <Box width='100px' height='100px' bg='primary' color='yellow'>
         This is some sample text
       </Box>
     </Box>
@@ -36,17 +36,17 @@ Basic component that gives access to a number of styling options. Should be used
 
 ## Flex
 <Preview>
-  <Story name="flex" parameters={{ info: { disable: true }}} >
+  <Story name='flex' parameters={{ info: { disable: true }}} >
     <div>
-      <Box display='flex' flexDirection="row" justifyContent="space-between" alignItems='stretch'm="5px">
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='stretch'm='5px'>
+        <Box width='100px' height='100px' bg='primary'></Box>
+        <Box width='100px' height='100px' bg='primary'></Box>
+        <Box width='100px' height='100px' bg='primary'></Box>
       </Box>
-      <Box display='flex' flexDirection="column" justifyContent="space-between" alignItems='stretch' height="400px" m="5px">
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
+      <Box display='flex' flexDirection='column' justifyContent='space-between' alignItems='stretch' height='400px' m='5px'>
+        <Box width='100px' height='100px' bg='primary'></Box>
+        <Box width='100px' height='100px' bg='primary'></Box>
+        <Box width='100px' height='100px' bg='primary'></Box>
       </Box>
     </div>
   </Story>
@@ -54,16 +54,35 @@ Basic component that gives access to a number of styling options. Should be used
 
 ## Layout
 <Preview>
-  <Story name="layout" parameters={{ info: { disable: true }}} >
-    <Box display='block' size="150px" overflow="hidden">
-      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
-      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
-      <Box width="100px" height="100px" bg="primary" display="inline-block" m="5px"></Box>
+  <Story name='layout' parameters={{ info: { disable: true }}} >
+    <Box display='block' size='150px' overflow='hidden'>
+      <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+      <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+      <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
     </Box>
   </Story>
 </Preview>
 
-## Props
+## Scroll
+Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari
+<Preview>
+  <Story name='scroll' parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
+    <div>
+      <Box display='inline-block' size='150px' overflow='auto' scrollVariant='light' mr='20px'>
+        <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+        <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+        <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+      </Box>
+      <div style={{ backgroundColor: 'rgb(0, 26, 37)', display: 'inline-block' }}>
+        <Box display='inline-block' size='150px' overflow='auto' scrollVariant='dark'>
+          <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+          <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+          <Box width='100px' height='100px' bg='primary' display='inline-block' m='5px'></Box>
+        </Box>
+      </div>
+    </div>
+  </Story>
+</Preview>
 
 <StyledSystemProps
   spacing
@@ -71,3 +90,12 @@ Basic component that gives access to a number of styling options. Should be used
   flexBox
   layout
 />
+<PropsTable rows={[
+  {
+    name: 'scrollVariant',
+    type: { summary: 'dark | light' },
+    description: 'String to denote which style variant to use for scrollbars',
+    required: false,
+    defaultValue: ''
+  }
+]} />
