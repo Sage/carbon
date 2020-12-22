@@ -1,3 +1,10 @@
+### [54.3.5](https://github.com/Sage/carbon/compare/v54.3.4...v54.3.5) (2020-12-22)
+
+
+### Bug Fixes
+
+* **split-button:** fix accessibility issues ([670ab7c](https://github.com/Sage/carbon/commit/670ab7cd249b3a3be4f7eb92a175a7bc3ee2533a))
+
 ### [54.3.4](https://github.com/Sage/carbon/compare/v54.3.3...v54.3.4) (2020-12-18)
 
 
