@@ -22,11 +22,14 @@ Feature: Accessibility tests - Common list
       | MenuList            |
       | Mount In App        |
       # | Pages             |
+      | Portrait            |
       | Preview             |
       | Profile             |
       | Row                 |
+      | Sidebar             |
       | Split-button        |
       | Multi-action-button |
+
 
   @accessibility
   Scenario: Component button toggle
@@ -52,7 +55,6 @@ Feature: Accessibility tests - Common list
       | component           |
       | Carousel            |
       | Configurable-items  |
-      | Portrait            |
 
   @accessibility
   Scenario Outline: Component <component> basic story
