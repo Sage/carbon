@@ -180,7 +180,7 @@ class SplitButton extends Component {
     return childArray.filter(Boolean).map((child, index) => {
       const props = {
         key: index.toString(),
-        role: "menu-item",
+        role: "menuitem",
         ref: (button) => this.addRef(button, index),
         tabIndex: -1,
       };
@@ -200,7 +200,7 @@ class SplitButton extends Component {
     return (
       <StyledSplitButtonChildrenContainer
         role="menu"
-        aria-labelledby={this.buttonLabelId}
+        aria-label={this.props.text}
         data-element="additional-buttons"
         align={this.props.align}
       >

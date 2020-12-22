@@ -23,7 +23,7 @@ import SplitButton from "carbon-react/lib/components/split-button";
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <Box height={200}>
       <SplitButton text="Split button">
         <Button>Button 1</Button>
@@ -77,9 +77,9 @@ import SplitButton from "carbon-react/lib/components/split-button";
       {["small", "medium", "large"].map((size) => (
         <Box key={size} mb={3}>
           <SplitButton size={size} text={`Split button - ${size}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
+            <Button size={size}>Button 1</Button>
+            <Button size={size}>Button 2</Button>
+            <Button size={size}>Button 3</Button>
           </SplitButton>
         </Box>
       ))}
@@ -90,7 +90,7 @@ import SplitButton from "carbon-react/lib/components/split-button";
 ### Alignment
 
 <Preview>
-  <Story name="align">
+  <Story name="align" parameters={{ chromatic: { disable: true } }}>
     <Box height={200}>
       {["left", "right"].map((align) => (
         <Box key={align} mb={3}>
@@ -113,9 +113,9 @@ Subtext only works when `size` is `large`
   <Story name="subtext">
     <Box height={200}>
       <SplitButton size="large" subtext="subtext" text="Split button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
+        <Button size="large">Button 1</Button>
+        <Button size="large">Button 2</Button>
+        <Button size="large">Button 3</Button>
       </SplitButton>
     </Box>
   </Story>
@@ -127,9 +127,8 @@ Subtext only works when `size` is `large`
   <Story name="with icon">
     <Box height={200}>
       {["before", "after"].map((iconPosition) => (
-        <Box key={align} mb={3}>
+        <Box key={iconPosition} mb={3}>
           <SplitButton
-            align={align}
             iconType="add"
             iconPosition={iconPosition}
             text={`Split button - ${iconPosition}`}
