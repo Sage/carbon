@@ -24,7 +24,7 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <Box height={200}>
       <MultiActionButton text="Multi Action Button">
         <Button>Button 1</Button>
@@ -78,9 +78,9 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       {["small", "medium", "large"].map((size) => (
         <Box key={size} mb={3}>
           <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
+            <Button size={size}>Button 1</Button>
+            <Button size={size}>Button 2</Button>
+            <Button size={size}>Button 3</Button>
           </MultiActionButton>
         </Box>
       ))}
@@ -91,7 +91,7 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 ### Alignment
 
 <Preview>
-  <Story name="align">
+  <Story name="align" parameters={{ chromatic: { disable: true } }}>
     <Box height={200}>
       {["left", "right"].map((align) => (
         <Box key={align} mb={3}>
@@ -121,9 +121,9 @@ Subtext only works when `size` is `large`
         subtext="subtext"
         text="Multi Action Button"
       >
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
+        <Button size="large">Button 1</Button>
+        <Button size="large">Button 2</Button>
+        <Button size="large">Button 3</Button>
       </MultiActionButton>
     </Box>
   </Story>

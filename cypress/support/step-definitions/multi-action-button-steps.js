@@ -5,18 +5,9 @@ import {
 import { buttonSubtextPreview } from '../../locators/button';
 
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
-const TEXT_ALIGN = 'text-align';
 
 Then('Multi Action Button text on preview is set to {word}', (text) => {
   multiActionButtonText().should('have.text', text);
-});
-
-Then('Multi Action Button state is disabled', () => {
-  multiActionButton().should('have.attr', 'disabled');
-});
-
-Then('Multi Action Button state is not disabled', () => {
-  multiActionButton().should('not.have.attr', 'disabled');
 });
 
 Then('Multi Action Button has {string} background-color', (color) => {
@@ -28,15 +19,6 @@ Then('Multi Action Button border color is {string} border-color', (borderColor) 
     .and('have.css', 'border-top-color', borderColor)
     .and('have.css', 'border-right-color', borderColor)
     .and('have.css', 'border-left-color', borderColor);
-});
-
-Then('Multi Action Button height is {int}', (height) => {
-  multiActionButton().should('have.css', 'height', `${height}px`);
-});
-
-Then('Multi Action Button align on preview is {string}', (align) => {
-  multiActionButtonList().children()
-    .should('have.css', TEXT_ALIGN, `${align}`);
 });
 
 Then('Multi Action Button subtext on preview is {word}', (subtext) => {
