@@ -16,6 +16,7 @@ function characterNavigation(event, focusableItems, currentFocusedIndex) {
 
   focusableItems.forEach((child, i) => {
     if (
+      child &&
       child.type === MenuItem &&
       getMenuText(child.props).toLowerCase().startsWith(selectedKey)
     ) {
