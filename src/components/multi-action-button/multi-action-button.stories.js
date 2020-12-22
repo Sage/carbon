@@ -1,17 +1,24 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
 import OptionsHelper from "../../utils/helpers/options-helper";
-import { notes, info } from "./documentation";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
 
-MultiActionButton.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /multi-action-button\.component(?!spec)/
-);
+export default {
+  title: "Multi Action Button/Test",
+  component: MultiActionButton,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
 
 const getKnobs = () => {
   return {
@@ -37,28 +44,24 @@ const getKnobs = () => {
   };
 };
 
-storiesOf("Multi Action Button", module).add(
-  "default",
-  () => {
-    const props = getKnobs();
-    const { buttonType, textContent, subtext, ...menuButtonProps } = props;
+export const Default = () => {
+  const knobs = getKnobs();
+  const { buttonType, textContent, subtext, ...menuButtonProps } = knobs;
 
-    return (
-      <MultiActionButton
-        buttonType={buttonType}
-        text={textContent}
-        subtext={subtext}
-        {...menuButtonProps}
-      >
-        <Button {...menuButtonProps}>Example Button</Button>
-        <Button {...menuButtonProps}>Example Button with long text</Button>
-        <Button {...menuButtonProps}>Short</Button>
-      </MultiActionButton>
-    );
-  },
-  {
-    info: { text: info, propTablesExclude: [Button] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-  }
-);
+  return (
+    <MultiActionButton
+      buttonType={buttonType}
+      text={textContent}
+      subtext={subtext}
+      {...menuButtonProps}
+    >
+      <Button {...menuButtonProps}>Example Button</Button>
+      <Button {...menuButtonProps}>Example Button with long text</Button>
+      <Button {...menuButtonProps}>Short</Button>
+    </MultiActionButton>
+  );
+};
+
+Default.story = {
+  name: "default",
+};
