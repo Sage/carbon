@@ -23,8 +23,8 @@ Feature: Accessibility tests - Common list
       | Mount In App        |
       # | Pages             |
       | Preview             |
+      | Profile             |
       | Row                 |
-      | Sidebar             |
       | Split-button        |
       | Multi-action-button |
 
@@ -53,7 +53,6 @@ Feature: Accessibility tests - Common list
       | Carousel            |
       | Configurable-items  |
       | Portrait            |
-      | Profile             |
 
   @accessibility
   Scenario Outline: Component <component> basic story
