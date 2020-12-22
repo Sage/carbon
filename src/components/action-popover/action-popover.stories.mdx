@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import { Basic } from './action-popover.stories';
 import { Preview as MyPreview } from '@storybook/components';
@@ -11,6 +12,14 @@ import {
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
 import Link from '../link';
 import LinkTo from '@storybook/addon-links/react';
+import { 
+  FlatTable, 
+  FlatTableHead, 
+  FlatTableBody, 
+  FlatTableRow, 
+  FlatTableHeader,
+  FlatTableCell,
+} from '../flat-table';
 
 <Meta title="Design System/Action Popover" parameters={{info: { disable: true }, chromatic: { disable: true }}} />
 
@@ -641,6 +650,89 @@ used actions, in this example "manage devices".
         </TableRow>
       </Table>
     </div>
+  </Story>
+</Preview>
+
+## In FlatTable with highlightable rows
+It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+<Preview>
+  <Story name="in FlatTable" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [highlightedRow, setHighlightedRow] = useState('');
+      const handleHighlightRow = (id) => {
+        setHighlightedRow(id);
+      }
+      return (
+         <div style={{ paddingTop: '120px', height: '250px' }}>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover placement="top" onOpen={() => handleHighlightRow('one')}>
+                    <ActionPopoverItem
+                      icon='print'
+                      onClick={() => {}}
+                      submenu={ 
+                        <ActionPopoverMenu>
+                          <ActionPopoverItem onClick={() => {}}>
+                            CSV
+                          </ActionPopoverItem>
+                          <ActionPopoverItem onClick={() => {}}>
+                            PDF
+                          </ActionPopoverItem>
+                        </ActionPopoverMenu> 
+                      }
+                    >
+                      Print
+                    </ActionPopoverItem>
+                    <ActionPopoverDivider />
+                    <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover placement="top" onOpen={() => handleHighlightRow('two')}>
+                    <ActionPopoverItem
+                      icon='print'
+                      onClick={() => {}}
+                      submenu={ 
+                        <ActionPopoverMenu>
+                          <ActionPopoverItem onClick={() => {}}>
+                            CSV
+                          </ActionPopoverItem>
+                          <ActionPopoverItem onClick={() => {}}>
+                            PDF
+                          </ActionPopoverItem>
+                        </ActionPopoverMenu> 
+                      }
+                    >
+                      Print
+                    </ActionPopoverItem>
+                    <ActionPopoverDivider />
+                    <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }}
   </Story>
 </Preview>
 

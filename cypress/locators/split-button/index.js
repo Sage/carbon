@@ -3,9 +3,6 @@ import { SPLIT_TOGGLE_BUTTON, ADDITIONAL_BUTTONS, SPLIT_MAIN_BUTTON } from './lo
 // component preview locators
 export const splitToggleButton = () => cy.get(SPLIT_TOGGLE_BUTTON);
 export const additionalButton = index => cy.get(ADDITIONAL_BUTTONS).children().eq(index);
-export const splitMainButton = index => cy.get(SPLIT_MAIN_BUTTON)
-  .find('button')
-  .find(`span:nth-child(${index})`);
 export const splitMainButtonDataComponent = index => cy.get(SPLIT_MAIN_BUTTON).children().eq(index);
 
 // component functions in IFrame

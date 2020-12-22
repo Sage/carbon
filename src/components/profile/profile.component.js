@@ -94,7 +94,7 @@ Profile.propTypes = {
   /** [Legacy] Enable a larger theme for the name. */
   large: PropTypes.bool,
   /** Allow to setup size for the component */
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
 };
 
 Profile.defaultProps = {
