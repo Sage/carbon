@@ -6,7 +6,6 @@ import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import { validProps } from "../../utils/ether/ether";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
 import guid from "../../utils/helpers/guid";
 
@@ -181,7 +180,7 @@ class SplitButton extends Component {
     return childArray.filter(Boolean).map((child, index) => {
       const props = {
         key: index.toString(),
-        role: "menu-item",
+        role: "menuitem",
         ref: (button) => this.addRef(button, index),
         tabIndex: -1,
       };
@@ -201,7 +200,7 @@ class SplitButton extends Component {
     return (
       <StyledSplitButtonChildrenContainer
         role="menu"
-        aria-labelledby={this.buttonLabelId}
+        aria-label={this.props.text}
         data-element="additional-buttons"
         align={this.props.align}
       >
@@ -232,9 +231,9 @@ class SplitButton extends Component {
 
 SplitButton.propTypes = {
   /** Button type: "primary" | "secondary" */
-  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
+  buttonType: PropTypes.oneOf(["primary", "secondary"]),
   /** Button type: "primary" | "secondary" for legacy theme */
-  as: PropTypes.oneOf(OptionsHelper.themesBinary),
+  as: PropTypes.oneOf(["primary", "secondary"]),
   /** The additional button to display. */
   children: PropTypes.node.isRequired,
   /** A custom value for the data-element attribute */
@@ -244,13 +243,13 @@ SplitButton.propTypes = {
   /** Gives the button a disabled state. */
   disabled: PropTypes.bool,
   /** The size of the buttons in the SplitButton. */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** The text to be displayed in the SplitButton. */
   text: PropTypes.string.isRequired,
   /** Defines an Icon position within the button: "before" | "after" */
-  iconPosition: PropTypes.oneOf(OptionsHelper.buttonIconPositions),
+  iconPosition: PropTypes.oneOf(["before", "after"]),
   /** Set align of the rendered content */
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  align: PropTypes.oneOf(["left", "right"]),
 };
 
 SplitButton.defaultProps = {

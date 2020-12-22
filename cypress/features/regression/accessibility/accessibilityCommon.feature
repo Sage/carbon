@@ -25,6 +25,7 @@ Feature: Accessibility tests - Common list
       | Preview             |
       | Row                 |
       | Sidebar             |
+      | Split-button        |
       | Multi-action-button |
 
   @accessibility
@@ -48,12 +49,11 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component          |
-      | Carousel           |
-      | Configurable-items |
-      | Portrait           |
-      | Profile            |
-      | Split-button       |
+      | component           |
+      | Carousel            |
+      | Configurable-items  |
+      | Portrait            |
+      | Profile             |
 
   @accessibility
   Scenario Outline: Component <component> basic story

@@ -85,7 +85,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Split Button component theme to <theme>
-    When I open default "Split Button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default_story "Split Button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
       And "button" component css "border-color" is set to "<theme>" common
     Examples:
