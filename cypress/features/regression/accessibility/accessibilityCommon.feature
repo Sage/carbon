@@ -9,6 +9,7 @@ Feature: Accessibility tests - Common list
       | component           |
       | AppWrapper          |
       | Alert               |
+      | Carousel            |
       | Confirm             |
       | Content             |
       | Detail              |
@@ -29,7 +30,6 @@ Feature: Accessibility tests - Common list
       | Sidebar             |
       | Split-button        |
       | Multi-action-button |
-
 
   @accessibility
   Scenario: Component button toggle
@@ -53,7 +53,6 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | Carousel            |
       | Configurable-items  |
 
   @accessibility
