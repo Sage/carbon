@@ -291,4 +291,17 @@ describe("Menu", () => {
       });
     });
   });
+
+  describe("with conditionally rendered children", () => {
+    it("should not error when a child is null", () => {
+      wrapper = mount(
+        <Menu menuType="dark">
+          {true && <MenuItem>One</MenuItem>}
+          {false && <MenuItem>Two</MenuItem>}
+        </Menu>
+      );
+
+      expect(wrapper.find(MenuItem).length).toEqual(1);
+    });
+  });
 });

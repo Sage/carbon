@@ -7,6 +7,7 @@ import StyledIcon from "../../../icon/icon.style";
 
 const StyledSubmenuWrapper = styled.div`
   position: relative;
+  width: fit-content;
 `;
 
 const StyledSubmenu = styled.ul`

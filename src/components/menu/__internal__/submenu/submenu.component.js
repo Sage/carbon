@@ -132,7 +132,8 @@ const Submenu = React.forwardRef(
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
-          if (React.Children.toArray(children)[nextIndex].type === MenuItem) {
+          const nextChild = React.Children.toArray(children)[nextIndex];
+          if (nextChild && nextChild.type === MenuItem) {
             setSubmenuFocusIndex(nextIndex);
           } else {
             handleKeyDown(event, nextIndex);

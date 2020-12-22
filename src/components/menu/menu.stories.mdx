@@ -1,11 +1,15 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import { Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle } from ".";
 import Box from "../box";
-import Navbar from "../navigation-bar";
+import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
+
+# Menu
+
+Provides navigation for an app, which can be used via mouse or keyboard.
 
 ## Quick Start
 
@@ -48,9 +52,6 @@ import {
 
 ## Default selected
 
-The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
-is rendered.
-
 <Preview>
   <Story name="default selected">
     <div style={{ minHeight: "150px" }}>
@@ -59,7 +60,7 @@ is rendered.
           Menu Item One
         </MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+        <MenuItem submenu="Menu Item Three">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -312,6 +313,26 @@ is rendered.
   </Story>
 </Preview>
 
+## No dropdown arrow on submenu
+
+The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
+is rendered.
+
+<Preview>
+  <Story name="no submenu dropdown arrow">
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Full navbar alignment example
 
 <Preview>
@@ -319,14 +340,20 @@ is rendered.
     {() => {
       return (
         <div style={{ minHeight: "150px" }}>
-          <Navbar>
+          <NavigationBar>
             <SageIcon style={{ alignSelf: "center" }} />
             <Box>
               <VerticalDivider displayInline pr={0} />
             </Box>
             <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}}>
-                Menu Item One
+              <MenuItem flex="1" onClick={() => {}} submenu="Menu Item One">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
               <MenuItem flex="0 0 auto" href="#">
                 Menu Item Two
@@ -345,7 +372,7 @@ is rendered.
                 <MenuItem href="#">Item Submenu Two</MenuItem>
               </MenuItem>
             </Menu>
-          </Navbar>
+          </NavigationBar>
         </div>
       );
     }}
