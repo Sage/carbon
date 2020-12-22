@@ -2,6 +2,7 @@ import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import {useState} from 'react';
 import Search from '.';
 import Button from '../../../components/button';
+import Box from '../../../components/box';
 
 <Meta title="Design System/Search" />
 
@@ -13,20 +14,18 @@ Import `Search` into the project.
 
 ```jsx
 import Search from 'carbon-react/lib/__experimental__/components/search';
-
-const MyComponent = () => (
-  <Search placeholder="Search..." defaultValue="" searchWidth="" />
-);
 ```
 
-Search component without Search Button and default width. 
+### Search without Search Button and default width 
+
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue=""/>
   </Story>
 </Preview>
 
-Search component can be controlled
+### Search can be controlled
+
 <Preview>
   <Story name="Controlled" parameters={{ info: { disable: true }}} >
     {() => {
@@ -46,52 +45,98 @@ Search component can be controlled
   </Story>
 </Preview>
 
-Search component with Search Button and default width.
+### Search with Search Button and default width
+
 <Preview>
   <Story name="with SearchButton" parameters={{ info: { disable: true }}} >
     <Search defaultValue="Search" searchButton/>
   </Story>
 </Preview>
 
-Search component without Search Button, default width and colour background. 
+### Search without Search Button, default width and colour background
+
 <Preview style={{backgroundColor: '#e6ebed'}}>
   <Story name="default with colour background" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     <Search placeholder="Search..." defaultValue=""/>
   </Story>
 </Preview>
 
-Search component with Search Button, default width and colour background.
+### Search with Search Button, default width and colour background
+
 <Preview style={{backgroundColor: '#e6ebed'}}>
   <Story name="with SearchButton and colour background" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
     <Search placeholder="Search..." defaultValue="Search" searchButton/>
   </Story>
 </Preview>
 
-Search component without Search Button and custom width. In this example the searchWidth prop is 375px.
+### Search without Search Button and custom width 
+In this example the `searchWidth` prop is 375px.
+
 <Preview>
   <Story name="Custom Width using px" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue="" searchWidth="375px"/>
   </Story>
 </Preview>
 
-Search component with Search Button and custom width. In this example the searchWidth prop is 375px.
+### Search with Search Button and custom width 
+In this example the `searchWidth` prop is 375px.
+
 <Preview>
   <Story name="with SearchButton and Custom Width using px" parameters={{ info: { disable: true }}} >
     <Search defaultValue="Search" searchButton searchWidth="375px"/>
   </Story>
 </Preview>
 
-Search component without Search Button and custom width. In this example the searchWidth prop is 70%.
+### Search without Search Button and custom width 
+In this example the `searchWidth` prop is 70%.
+
 <Preview>
   <Story name="Custom Width using %" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue="" searchWidth="70%"/>
   </Story>
 </Preview>
 
-Search component with Search Button and custom width. In this example the searchWidth prop is 70%.
+### Search with Search Button and custom width 
+In this example the `searchWidth` prop is 70%.
+
 <Preview>
   <Story name="with SearchButton and Custom Width using %" parameters={{ info: { disable: true }}} >
     <Search defaultValue="Search" searchButton searchWidth="70%"/>
+  </Story>
+</Preview>
+
+### Search with Alternative Styling
+In this example the `variant` prop is "dark" and `searchButton` is true.
+
+<Preview style={{ backgroundColor: "#003349"}}>
+  <Story name="with Alt Styling" parameters={{ info: { disable: true }}}>
+    <Box width="700px" height="75px" bg="#003349">
+      <div style={{padding: "32px", backgroundColor: "#003349"}}>
+        <Search 
+          placeholder="Search..." 
+          defaultValue="Search" 
+          searchButton
+          variant="dark"
+        />
+      </div>
+    </Box>
+  </Story>
+</Preview>
+
+### Search with Alternative Styling and No Button
+In this example the `variant` prop is "dark" and no search button is present.
+
+<Preview style={{ backgroundColor: "#003349"}}>
+  <Story name="with Alt Styling and no button" parameters={{ info: { disable: true }}}>
+    <Box width="700px" height="75px" bg="#003349">
+      <div style={{padding: "32px", backgroundColor: "#003349"}}>
+        <Search 
+          placeholder="Search..." 
+          defaultValue="" 
+          variant="dark"
+        />
+      </div>
+    </Box>
   </Story>
 </Preview>
 

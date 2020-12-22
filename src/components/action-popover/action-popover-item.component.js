@@ -4,6 +4,7 @@ import React, {
   useLayoutEffect,
   useRef,
   useState,
+  useContext,
 } from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
@@ -16,6 +17,7 @@ import {
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
 import createGuid from "../../utils/helpers/guid";
+import ActionPopoverContext from "./action-popover-context";
 
 const INTERVAL = 150;
 
@@ -33,6 +35,10 @@ const MenuItem = React.forwardRef(
     },
     ref
   ) => {
+    const { setOpenPopover, isOpenPopover, focusButton } = useContext(
+      ActionPopoverContext
+    );
+
     const [containerPosition, setContainerPosition] = useState(null);
     const [guid] = useState(createGuid());
     const [isOpen, setOpen] = useState(false);
@@ -41,6 +47,12 @@ const MenuItem = React.forwardRef(
     const [isLeftAligned, setIsLeftAligned] = useState(true);
     const submenuRef = useRef();
     const { spacing } = theme;
+
+    useEffect(() => {
+      if (!isOpenPopover) {
+        setOpen(false);
+      }
+    }, [isOpenPopover]);
 
     const alignSubmenu = useCallback(() => {
       if (checkRef(ref) && checkRef(submenuRef)) {
@@ -69,17 +81,24 @@ const MenuItem = React.forwardRef(
       (e) => {
         if (!disabled) {
           onClickProp();
-          setOpen(false);
+          setOpenPopover(false);
+          focusButton();
+          e.stopPropagation();
         } else {
+          ref.current.focus();
           e.stopPropagation();
         }
       },
-      [disabled, onClickProp]
+      [disabled, focusButton, onClickProp, ref, setOpenPopover]
     );
 
     const onKeyDown = useCallback(
       (e) => {
-        if (Events.isSpaceKey(e)) {
+        if (Events.isEscKey(e)) {
+          e.stopPropagation();
+          setOpenPopover(false);
+          focusButton();
+        } else if (Events.isSpaceKey(e)) {
           e.preventDefault();
           e.stopPropagation();
         } else if (!disabled) {
@@ -90,7 +109,7 @@ const MenuItem = React.forwardRef(
                 setOpen(true);
                 setFocusIndex(0);
                 e.stopPropagation();
-              } else if (Events.isRightKey(e) || Events.isEscKey(e)) {
+              } else if (Events.isRightKey(e)) {
                 setOpen(false);
                 ref.current.focus();
                 e.stopPropagation();
@@ -102,7 +121,7 @@ const MenuItem = React.forwardRef(
                 setFocusIndex(0);
                 e.stopPropagation();
               }
-              if (Events.isLeftKey(e) || Events.isEscKey(e)) {
+              if (Events.isLeftKey(e)) {
                 setOpen(false);
                 ref.current.focus();
                 e.stopPropagation();
@@ -116,7 +135,15 @@ const MenuItem = React.forwardRef(
           e.stopPropagation();
         }
       },
-      [disabled, isLeftAligned, onClick, ref, submenu]
+      [
+        disabled,
+        focusButton,
+        isLeftAligned,
+        onClick,
+        ref,
+        setOpenPopover,
+        submenu,
+      ]
     );
 
     let timer;
@@ -139,6 +166,7 @@ const MenuItem = React.forwardRef(
         },
         onClick: (e) => {
           setOpen(true);
+          ref.current.focus();
           e.preventDefault();
           e.stopPropagation();
         },

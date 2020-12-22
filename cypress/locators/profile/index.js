@@ -1,9 +1,10 @@
 import {
-  EMAIL, AVATAR, INITIALS, NAME,
+  EMAIL,
+  AVATAR,
+  NAME,
 } from './locators';
 
 // component preview locators
 export const emailPreview = () => cy.get(EMAIL);
 export const avatarPreview = () => cy.get(AVATAR);
-export const initialsPreview = () => cy.get(INITIALS);
 export const namePreview = () => cy.get(NAME);
