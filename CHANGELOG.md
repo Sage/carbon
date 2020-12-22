@@ -1,3 +1,10 @@
+### [54.3.6](https://github.com/Sage/carbon/compare/v54.3.5...v54.3.6) (2020-12-22)
+
+
+### Bug Fixes
+
+* **sidebar:** fix sidebar crashing while closing with enableBackgroundUI ([f5d7c47](https://github.com/Sage/carbon/commit/f5d7c4788047198b3e5fa705e21067e2c07c97ab))
+
 ### [54.3.5](https://github.com/Sage/carbon/compare/v54.3.4...v54.3.5) (2020-12-22)
 
 
