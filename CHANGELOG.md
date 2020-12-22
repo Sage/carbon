@@ -1,3 +1,10 @@
+### [54.3.7](https://github.com/Sage/carbon/compare/v54.3.6...v54.3.7) (2020-12-22)
+
+
+### Bug Fixes
+
+* **carousel:** fix not unique slide selector id ([e2ddd4d](https://github.com/Sage/carbon/commit/e2ddd4d5e08cfe9569ce3e84a7396597fb3d0eb4))
+
 ### [54.3.6](https://github.com/Sage/carbon/compare/v54.3.5...v54.3.6) (2020-12-22)
 
 
