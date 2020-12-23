@@ -11,6 +11,7 @@ export const flatTable = () => cy.get(FLAT_TABLE_COMPONENT);
 export const flatTableHeader = () => flatTable().find('thead tr');
 export const flatTableHeaderCells = () => flatTableHeader().find('th');
 export const flatTableBodyRowByPosition = index => flatTable().find('tbody tr').eq(index);
+export const flatTableBodyRows = () => flatTable().find('tbody tr');
 
 export const flatTableClickableRow = index => cy.get(FLAT_TABLE_COMPONENT).find('tbody tr').eq(index);
 export const flatTableSortable = () => cy.get(FLAT_TABLE_COMPONENT).find('thead tr th div [type=button]');

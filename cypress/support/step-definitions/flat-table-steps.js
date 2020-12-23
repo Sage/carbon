@@ -1,7 +1,7 @@
 import {
   flatTable, flatTableHeaderCells, flatTableBodyRowByPosition,
   flatTableBodyRowByPositionInIframe, flatTableCell,
-  flatTableClickableRow, flatTableSortable,
+  flatTableClickableRow, flatTableSortable, flatTableBodyRows,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -152,4 +152,12 @@ Then('I press {string} on {string} header {int} time(s)', (key, position, count)
       throw new Error('Only Enter or Space key can be applied');
     }
   }
+});
+
+When('I click on the first row', () => {
+  flatTableBodyRows().first().click();
+});
+
+Then('The whole row is highlighted', () => {
+  flatTableBodyRows().first().children().should('have.css', 'background-color', 'rgb(230, 235, 237)');
 });

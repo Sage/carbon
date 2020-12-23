@@ -85,3 +85,9 @@ Feature: Design Systems FlatTable component
       | headerName | position |
       | Client     | first    |
       | total      | second   |
+    
+  @positive
+  Scenario: Row is highlightable and all the elements are highlighted
+    Given I open "Design System Flat Table" component page "highlightable rows" in no iframe
+    When I click on the first row 
+    Then The whole row is highlighted
