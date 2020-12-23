@@ -3,8 +3,8 @@ import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CheckboxGroup from "./checkbox-group.component";
 import { Checkbox } from ".";
-import Icon from "../../../components/icon";
-import Label from "../label";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";
@@ -38,29 +38,33 @@ describe("CheckboxGroup", () => {
     expect(render({}, {}, TestRenderer.create)).toMatchSnapshot();
   });
 
-  describe("group label", () => {
-    it("should have the correct text", () => {
-      const labelText = "My Label";
-      const wrapper = render({ label: labelText });
-      const label = wrapper.find(Label).first();
-
-      expect(label.text()).toEqual(labelText);
+  describe.each([
+    ["legend", "foo"],
+    ["required", true, "isRequired"],
+    ["legendInline", true, "inline"],
+    ["legendWidth", 30],
+    ["legendAlign", "right"],
+    ["legendSpacing", 2],
+  ])("when the %s prop is set", (propName, propValue, expectedPropName) => {
+    it("then it should be passed to the underlying Fieldset component", () => {
+      expect(
+        render({ [propName]: propValue })
+          .find("Fieldset")
+          .prop(expectedPropName || propName)
+      ).toBe(propValue);
     });
   });
 
-  describe("group icon messsage", () => {
-    it("should have the correct text", () => {
-      const wrapper = render();
-      const text = "Choose an option";
+  it("should render correct styles if `legendInline` is provided", () => {
+    const wrapper = render({ legendInline: true });
 
-      wrapper.setProps({
-        labelHelp: text,
-      });
-
-      const icon = wrapper.find(Icon);
-
-      expect(icon.prop("tooltipMessage")).toEqual(text);
-    });
+    assertStyleMatch(
+      {
+        paddingTop: "4px",
+      },
+      wrapper.find(StyledCheckboxGroup),
+      { modifier: `${CheckboxStyle}:first-child` }
+    );
   });
 
   describe("onChange", () => {

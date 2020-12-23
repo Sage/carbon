@@ -138,6 +138,56 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
+# Checkbox Group
+
+<Preview>
+  <Story name="checkbox group">
+    <CheckboxGroup
+      id="checkbox-group"
+      name="checkbox-group"
+      groupName="checkbox-group"
+      legend="Checkbox Group"
+    >
+      {['One', 'Two', 'Three'].map((label) => 
+        <Checkbox
+          id={`checkbox_${name}-${label}`}
+          key={`checkbox_${name}-${label}`}
+          name={`checkbox_${name}-${label}`}
+          label={label}
+        />
+      )}
+    </CheckboxGroup>
+  </Story>
+</Preview>
+
+### With inline legend
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`. 
+
+The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+
+<Preview>
+  <Story name="checkbox group with inline legend">
+    <CheckboxGroup
+      id="checkbox-group-inline"
+      name="checkbox-group-inline"
+      groupName="checkbox-group-inline"
+      legend="Checkbox Group"
+      legendSpacing={2}
+      legendWidth={10}
+      legendInline
+    >
+      {['One', 'Two', 'Three'].map((label) => 
+        <Checkbox
+          id={`checkbox_${name}-${label}`}
+          key={`checkbox_${name}-${label}`}
+          name={`checkbox_${name}-${label}`}
+          label={label}
+        />
+      )}
+    </CheckboxGroup>
+  </Story>
+</Preview>
+
 ## Props:
 
 ### Checkbox

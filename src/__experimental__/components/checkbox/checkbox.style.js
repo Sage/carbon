@@ -218,6 +218,14 @@ const StyledCheckboxGroup = styled.div`
       }
     }
   }
+
+  ${({ legendInline }) =>
+    legendInline &&
+    css`
+      ${CheckboxStyle}:first-child {
+        padding-top: 4px;
+      }
+    `}
 `;
 
 StyledCheckboxGroup.defaultProps = {
