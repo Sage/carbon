@@ -1,17 +1,25 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
 import { text, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+
 import SplitButton from "./split-button.component";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
-import { notes, info } from "./documentation";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
+import Box from "../box";
 
-SplitButton.__docgenInfo = getDocGenInfo(
-  require("./docgenInfo.json"),
-  /split-button\.component(?!spec)/
-);
+export default {
+  title: "Split Button/Test",
+  component: SplitButton,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -57,19 +65,18 @@ const getKnobs = () => {
   };
 };
 
-storiesOf("Split Button", module).add(
-  "default",
-  () => {
-    const props = getKnobs();
-    const {
-      buttonType,
-      dataElement,
-      dataRole,
-      textContent,
-      subtext,
-      ...menuButtonProps
-    } = props;
-    return (
+export const Default = () => {
+  const knobs = getKnobs();
+  const {
+    buttonType,
+    dataElement,
+    dataRole,
+    textContent,
+    subtext,
+    ...menuButtonProps
+  } = knobs;
+  return (
+    <Box height={400} mt={100} ml={100}>
       <SplitButton
         buttonType={buttonType}
         data-element={dataElement}
@@ -83,11 +90,10 @@ storiesOf("Split Button", module).add(
         <Button {...menuButtonProps}>Example Button with long text</Button>
         <Button {...menuButtonProps}>Short</Button>
       </SplitButton>
-    );
-  },
-  {
-    info: { text: info, propTablesExclude: [Button] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-  }
-);
+    </Box>
+  );
+};
+
+Default.story = {
+  name: "default",
+};

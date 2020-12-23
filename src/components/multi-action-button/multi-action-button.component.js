@@ -73,6 +73,11 @@ MultiActionButton.propTypes = {
   disabled: PropTypes.bool,
 
   /**
+   * The size of the MultiActionButton.
+   */
+  size: PropTypes.oneOf(["small", "medium", "large"]),
+
+  /**
    * A custom value for the data-element attribute
    */
   "data-element": PropTypes.string,

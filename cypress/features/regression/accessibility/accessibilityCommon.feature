@@ -6,26 +6,31 @@ Feature: Accessibility tests - Common list
     Given I open "<component>" component page "default story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component          |
-      | AppWrapper         |
-      | Alert              |
-      | Confirm            |
-      | Configurable-items |
-      | Content            |
-      | Detail             |
-      | Dialog             |
-      | Dialog-full-screen |
-      | Heading            |
-      | Help               |
-      | I18nComponent      |
-      | Link               |
-      | Message            |
-      | MenuList           |
-      | Mount In App       |
+      | component           |
+      | AppWrapper          |
+      | Alert               |
+      | Carousel            |
+      | Confirm             |
+      | Configurable-items  |
+      | Content             |
+      | Detail              |
+      | Dialog              |
+      | Dialog-full-screen  |
+      | Heading             |
+      | Help                |
+      | I18nComponent       |
+      | Link                |
+      | Message             |
+      | MenuList            |
+      | Mount In App        |
       # | Pages             |
-      | Preview            |
-      | Row                |
-      | Sidebar            |
+      | Portrait            |
+      | Preview             |
+      | Profile             |
+      | Row                 |
+      | Sidebar             |
+      | Split-button        |
+      | Multi-action-button |
 
   @accessibility
   Scenario: Component button toggle
@@ -42,18 +47,6 @@ Feature: Accessibility tests - Common list
     Examples:
       | component |
       | Flash     |
-
-  @accessibility
-  Scenario Outline: Component <component> default story
-    When I open "<component>" component page "default" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component           |
-      | Carousel            |
-      | Multi-action-button |
-      | Portrait            |
-      | Profile             |
-      | Split-button        |
 
   @accessibility
   Scenario Outline: Component <component> basic story

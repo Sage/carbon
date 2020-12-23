@@ -38,6 +38,7 @@ class BaseCarousel extends React.Component {
     this.nextButtonProps = this.nextButtonProps.bind(this);
     this.numOfSlides = this.numOfSlides.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
+    this.id = guid();
   }
 
   state = {
@@ -191,8 +192,8 @@ class BaseCarousel extends React.Component {
           <CarouselSelectorInputStyle
             disabled={this.state.disabled}
             data-element="selector-input"
-            name="carousel-slide"
-            id={`carousel-slide-${i}`}
+            name={`carousel-slide-${this.id}`}
+            id={`carousel-slide-${i}-${this.id}`}
             type="radio"
             value={i}
             onChange={this.onSlideSelection}
@@ -200,7 +201,7 @@ class BaseCarousel extends React.Component {
           />
           <CarouselSelectorLabelStyle
             data-element="selector-label"
-            htmlFor={`carousel-slide-${i}`}
+            htmlFor={`carousel-slide-${i}-${this.id}`}
           />
         </CarouselSelectorInputWrapperStyle>
       );
