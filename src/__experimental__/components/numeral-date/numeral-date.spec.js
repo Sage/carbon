@@ -176,7 +176,7 @@ describe("NumeralDate", () => {
       ["enableInternalWarning", "warning"],
     ])("internal %s", (internalValidationProp, validationType) => {
       it.each([
-        ["", false],
+        ["", true],
         ["0", false],
         ["1", true],
         ["31", true],
@@ -202,7 +202,7 @@ describe("NumeralDate", () => {
       );
 
       it.each([
-        ["", false],
+        ["", true],
         ["0", false],
         ["1", true],
         ["12", true],
@@ -228,7 +228,7 @@ describe("NumeralDate", () => {
       );
 
       it.each([
-        ["", false],
+        ["", true],
         ["1798", false],
         ["1799", false],
         ["1800", true],
@@ -261,13 +261,13 @@ describe("NumeralDate", () => {
           [internalValidationProp]: true,
         });
         const dayInput = wrapper.find("input").at(0);
-        dayInput.simulate("change", { target: { value: 0 } });
+        dayInput.simulate("change", { target: { value: "0" } });
         dayInput.simulate("blur");
         const monthInput = wrapper.find("input").at(1);
-        monthInput.simulate("change", { target: { value: 0 } });
+        monthInput.simulate("change", { target: { value: "0" } });
         monthInput.simulate("blur");
         const yearInput = wrapper.find("input").at(2);
-        yearInput.simulate("change", { target: { value: 0 } });
+        yearInput.simulate("change", { target: { value: "0" } });
         yearInput.simulate("blur");
         jest.runAllTimers();
         wrapper.update();

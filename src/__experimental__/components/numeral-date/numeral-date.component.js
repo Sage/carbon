@@ -11,11 +11,11 @@ import guid from "../../../utils/helpers/guid";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 
-const isDayValid = (day) => +day > 0 && +day < 32;
+const isDayValid = (day) => (day ? +day > 0 && +day < 32 : true);
 
-const isMonthValid = (month) => +month > 0 && +month < 13;
+const isMonthValid = (month) => (month ? +month > 0 && +month < 13 : true);
 
-const isYearValid = (year) => +year > 1799 && +year < 2201;
+const isYearValid = (year) => (year ? +year > 1799 && +year < 2201 : true);
 
 const validations = {
   dd: isDayValid,
@@ -39,8 +39,8 @@ const NumeralDate = ({
   dateFormat = ["dd", "mm", "yyyy"],
   defaultValue,
   error = "",
-  info = "",
   warning = "",
+  info,
   id,
   name,
   onBlur,
@@ -147,9 +147,11 @@ const NumeralDate = ({
     ""
   );
   const internalError = enableInternalError ? internalMessage + error : error;
+
   const internalWarning = enableInternalWarning
     ? internalMessage + warning
     : warning;
+
   return (
     <InputGroupBehaviour>
       <FormField
@@ -176,15 +178,17 @@ const NumeralDate = ({
             const isEnd = index === dateFormat.length - 1;
             const isMiddle = index === 1;
 
+            const validation = error || warning || info;
+            const isStringValidation = typeof validation === "string";
+            const hasValidationIcon = isStringValidation && validation.length;
+
             return (
               <StyledDateField
                 key={datePart}
                 isYearInput={datePart.length === 4}
                 isMiddle={isMiddle}
                 isEnd={isEnd}
-                hasValidationIcon={
-                  typeof (error || warning || info) === "string"
-                }
+                hasValidationIcon={hasValidationIcon}
               >
                 <Textbox
                   {...(index === 0 && { id: uniqueId })}
