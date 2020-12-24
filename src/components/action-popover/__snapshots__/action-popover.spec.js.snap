@@ -6,6 +6,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   position: relative;
   color: inherit;
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -162,6 +163,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   position: relative;
   color: inherit;
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

@@ -122,7 +122,7 @@ const Submenu = React.forwardRef(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (Events.isAlphabetKey(event)) {
+          if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
             nextIndex = characterNavigation(
               event,
               React.Children.toArray(children),

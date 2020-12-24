@@ -6,6 +6,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   position: relative;
   color: #008200;
   background-color: transparent;
+  vertical-align: middle;
 }
 
 .c6:hover {

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../style/themes";
 import LinkStyle from "../../link/link.style";
+import IconStyle from "../../icon/icon.style";
 
 const StyledMenuItemWrapper = styled.a`
   ${({
@@ -20,7 +21,8 @@ const StyledMenuItemWrapper = styled.a`
     cursor: pointer;
     background-color: ${theme.menu.light.background};
 
-    && a:focus {
+    && a:focus,
+    && button:focus {
       outline: none;
       box-shadow: inset 0 0 0 2px ${theme.colors.focus};
       background: ${theme.colors.primary};
@@ -45,6 +47,7 @@ const StyledMenuItemWrapper = styled.a`
       line-height: 40px;
       height: 40px;
       margin: 0px;
+      text-align: left;
     }
 
     a,
@@ -75,6 +78,10 @@ const StyledMenuItemWrapper = styled.a`
       background: ${theme.colors.primary};
       z-index: 1;
       position: relative;
+    }
+
+    ${IconStyle} {
+      bottom: 1px;
     }
 
     :hover {

@@ -35,6 +35,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -74,6 +75,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
