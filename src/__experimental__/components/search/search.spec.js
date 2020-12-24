@@ -8,6 +8,7 @@ import { StyledSearchButton } from "./search.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledTextInput from "../input/input-presentation.style";
 import Icon from "../../../components/icon";
+import TextBox from "../textbox";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 
 describe("Search", () => {
@@ -427,6 +428,7 @@ describe("Search", () => {
     it("validates children prop types", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
       mount(<Search value="Foo" threshold={-4} />);
+      // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: Threshold must be a positive number.\n    in Search"
       );
@@ -440,6 +442,34 @@ describe("Search", () => {
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapperWithTags, "search");
       });
+    });
+  });
+
+  describe("tab index should be set on clear button", () => {
+    it("when input field is not empty", () => {
+      wrapper = renderWrapper(
+        {
+          defaultValue: "Bar",
+          id: "Search",
+          name: "Search",
+        },
+        mount
+      );
+      const input = wrapper.find(TextBox);
+      expect(input.prop("iconTabIndex")).toEqual(0);
+    });
+
+    it("when input field is empty", () => {
+      wrapper = renderWrapper(
+        {
+          defaultValue: "",
+          id: "Search",
+          name: "Search",
+        },
+        mount
+      );
+      const input = wrapper.find(TextBox);
+      expect(input.prop("iconTabIndex")).toEqual(-1);
     });
   });
 });
