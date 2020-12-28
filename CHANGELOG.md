@@ -1,3 +1,10 @@
+## [54.4.0](https://github.com/Sage/carbon/compare/v54.3.7...v54.4.0) (2020-12-24)
+
+
+### Features
+
+* **menu:** allow icon only, keyboard override and accessiblity props ([6f33d2a](https://github.com/Sage/carbon/commit/6f33d2ac4d353f41d3d0f318471d4b0331c80392)), closes [#3505](https://github.com/Sage/carbon/issues/3505) [#3292](https://github.com/Sage/carbon/issues/3292)
+
 ### [54.3.7](https://github.com/Sage/carbon/compare/v54.3.6...v54.3.7) (2020-12-22)
 
 

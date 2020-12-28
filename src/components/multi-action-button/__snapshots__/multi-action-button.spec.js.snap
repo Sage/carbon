@@ -6,6 +6,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   position: relative;
   color: #008200;
   background-color: transparent;
+  vertical-align: middle;
 }
 
 .c5:hover {
