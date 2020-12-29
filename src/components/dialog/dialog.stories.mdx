@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import LinkTo from '@storybook/addon-links/react';
 import Box from '../box';
@@ -12,6 +12,7 @@ import {
   RadioButtonGroup
 } from "../../__experimental__/components/radio-button";
 import Fieldset from "../../__experimental__/components/fieldset";
+import Loader from '../loader';
 
 <Meta
   title="Dialog"
@@ -96,7 +97,7 @@ When mixing editable and non-editable content, you can use the <LinkTo kind='Des
 <Preview>
   <Story name="editable" parameters={{ chromatic: { disable: true }}}>
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(false);
       return (
         <>
           <Button onClick={ () => setIsOpen(!isOpen) }>
@@ -146,6 +147,64 @@ When mixing editable and non-editable content, you can use the <LinkTo kind='Des
           </Dialog>
         </>
       )
+    }}
+  </Story>
+</Preview>
+
+### With dynamic content 
+
+<Preview>
+  <Story name="dynamic content" parameters={{ chromatic: { disable: true }}}>
+    {()=>{
+      const [isLoading, setIsLoading] = useState(false);
+      const [isOpen, setIsOpen] = useState(false);
+      const [addContent, setAddContent] = useState(false);
+      const handleOpen = () => {
+        setIsLoading(true);
+        setIsOpen(true);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
+      }
+    const content = () => {
+      if (isLoading) {
+        return (
+          <Loader
+            isActive
+            isInsideButton={false}
+            size="small"
+            style={{
+              textAlign: "left"
+            }}
+          />
+        );
+      }
+    return (
+      <>
+        <Textbox label="Textbox 1" labelInline />
+        <Textbox label="Textbox 2" labelInline />
+        <Textbox label="Textbox 3" labelInline />
+        <Textbox label="Textbox 4" labelInline />
+        <Textbox label="Textbox 5" labelInline />
+        <Textbox label="Textbox 6" labelInline />
+        <Textbox label="Textbox 7" labelInline />
+      </>
+    );
+  };
+  return (
+    <>
+    <Button onClick={handleOpen}>Open Dialog</Button>
+        <Dialog
+          size="medium"
+          open={isOpen}
+          title="Dialog with dynamic content"
+          isLoading="isLoading"
+          onCancel={() => setIsOpen(false)}
+        >
+          {content()}
+        </Dialog>
+    </>
+  );
     }}
   </Story>
 </Preview>

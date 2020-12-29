@@ -33,6 +33,13 @@ class Dialog extends Modal {
     }
   }
 
+  componentDidUpdate() {
+    super.componentDidUpdate();
+    if (this.props.open) {
+      this.centerDialog(true);
+    }
+  }
+
   onDialogBlur(ev) {} // eslint-disable-line no-unused-vars
 
   handleOpen() {
@@ -67,7 +74,7 @@ class Dialog extends Modal {
   }
 
   centerDialog = (animating) => {
-    const height = this._dialog.offsetHeight / 2,
+    const height = this._dialog.scrollHeight / 2,
       width = this._dialog.offsetWidth / 2,
       win = this.window;
 
