@@ -28,6 +28,9 @@ export default {
     chromatic: {
       disable: true,
     },
+    knobs: {
+      escapeHTML: false,
+    },
   },
 };
 

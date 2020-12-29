@@ -2,6 +2,7 @@ import {
   flatTable, flatTableHeaderCells, flatTableBodyRowByPosition,
   flatTableBodyRowByPositionInIframe, flatTableCell,
   flatTableClickableRow, flatTableSortable, flatTableBodyRows,
+  flatTableCaption,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -160,4 +161,8 @@ When('I click on the first row', () => {
 
 Then('The whole row is highlighted', () => {
   flatTableBodyRows().first().children().should('have.css', 'background-color', 'rgb(230, 235, 237)');
+});
+
+Then('Flat table caption is set to {word}', (text) => {
+  flatTableCaption().should('have.text', text);
 });
