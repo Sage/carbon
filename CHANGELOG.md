@@ -1,3 +1,10 @@
+## [54.5.0](https://github.com/Sage/carbon/compare/v54.4.0...v54.5.0) (2020-12-30)
+
+
+### Features
+
+* **numeral-date:** add date parts internal validation ([b10a5f8](https://github.com/Sage/carbon/commit/b10a5f8508b2966e0f123b246ec189b6960f2910))
+
 ## [54.4.0](https://github.com/Sage/carbon/compare/v54.3.7...v54.4.0) (2020-12-24)
 
 
