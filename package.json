@@ -65,6 +65,7 @@
     "@storybook/addon-google-analytics": "^5.3.3",
     "@storybook/addon-info": "^5.3.3",
     "@storybook/addon-knobs": "^5.3.3",
+    "@storybook/addon-links": "^6.1.11",
     "@storybook/addon-notes": "^5.3.3",
     "@storybook/addon-viewport": "^5.3.3",
     "@storybook/react": "^5.3.19",
@@ -135,7 +136,6 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
-    "@storybook/addon-links": "^5.3.18",
     "@styled-system/prop-types": "^5.1.5",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.0",
