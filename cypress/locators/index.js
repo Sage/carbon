@@ -2,7 +2,7 @@ import {
   HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
   COMMMON_DATA_ELEMENT_INPUT, LABEL,
-  TAB_LIST, DLS_ROOT, NO_PREVIEW,
+  TAB_LIST, DLS_ROOT, NO_PREVIEW, WARNING_ICON,
 } from './locators';
 
 // actions locators
@@ -41,6 +41,7 @@ export const getComponentIFrame = component => cy.iFrame(`[data-component="${com
 export const storyRootNoIframe = () => cy.get(STORY_ROOT);
 export const dlsRootNoIframe = () => cy.get(DLS_ROOT);
 export const icon = () => cy.get(ICON);
+export const warningIcon = () => cy.get(WARNING_ICON);
 export const getDataElementByValue = element => cy.get(`[data-element="${element}"]`);
 export const getDataElementByValueAndPosition = (element, position) => cy.get(`[data-element="${element}"]`)
   .eq(position);

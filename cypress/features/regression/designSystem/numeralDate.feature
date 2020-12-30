@@ -26,3 +26,29 @@ Feature: Design System Numeral Date component
     Then Date format in "first" input is set to 13
       And Date format in "second" input is set to 02
       And Date format in "third" input is set to 1990
+
+  @positive
+  Scenario Outline: Check visibility of warning on incorrect date entry
+    Given I open "Design System Numeral Date" component page "internal validation warning" in no iframe
+    When I type numeral characters "<string>" in "<position>" inputs and blur
+    Then Warning validation is visible
+    Examples:
+      | position | string |
+      | first    | 0      |
+      | first    | 32     |
+      | second   | 00     |
+      | second   | 13     |
+      | third    | 0000   |
+      | third    | 1799   |
+      | third    | 2201   |
+
+  @positive
+  Scenario Outline: Check numeral date does not display warning when input is empty
+    Given I open "Design System Numeral Date" component page "internal validation warning" in no iframe
+    When I leave "<position>" input empty and blur
+    Then Warning icon should not be visible
+    Examples:
+      | position |
+      | first    |
+      | second   |
+      | third    |
