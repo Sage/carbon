@@ -138,7 +138,7 @@
   "dependencies": {
     "@styled-system/prop-types": "^5.1.5",
     "axios": "^0.21.1",
-    "bignumber.js": "^9.0.0",
+    "bignumber.js": "^9.0.1",
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
     "crypto-js": "~3.1.6",
