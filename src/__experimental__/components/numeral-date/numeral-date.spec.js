@@ -16,6 +16,7 @@ describe("NumeralDate", () => {
   const onBlur = jest.fn();
   const onChange = jest.fn();
   const onKeyDown = jest.fn();
+  jest.useFakeTimers();
 
   const renderWrapper = (props) => {
     const defaultProps = {
@@ -142,7 +143,9 @@ describe("NumeralDate", () => {
         { modifier: `${StyledInputPresentantion}` }
       );
     });
+  });
 
+  describe("validations", () => {
     it("renders validation icon only on last input when validationOnLabel prop is passed as false", () => {
       wrapper = renderWrapper({
         value: { dd: "03", mm: "03", yyyy: "2000" },
@@ -168,6 +171,113 @@ describe("NumeralDate", () => {
         info: "Info",
       });
     });
+    describe.each([
+      ["enableInternalError", "error"],
+      ["enableInternalWarning", "warning"],
+    ])("internal %s", (internalValidationProp, validationType) => {
+      it.each([
+        ["", true],
+        ["0", false],
+        ["1", true],
+        ["31", true],
+        ["32", false],
+        ["33", false],
+      ])(
+        "renders internal validation when day field is blurred and has incorrect value",
+        (value, isValid) => {
+          wrapper = renderWrapper({
+            defaultValue: null,
+            [internalValidationProp]: true,
+          });
+          const input = wrapper.find("input");
+          input.simulate("change", { target: { value } });
+          wrapper.update();
+          input.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+          expect(wrapper.find(Textbox).at(0).props()[validationType]).toBe(
+            isValid ? "" : "Day should be a number within a 1-31 range.\n"
+          );
+        }
+      );
+
+      it.each([
+        ["", true],
+        ["0", false],
+        ["1", true],
+        ["12", true],
+        ["13", false],
+        ["14", false],
+      ])(
+        "renders internal validation when month field is blurred and has incorrect value",
+        (value, isValid) => {
+          wrapper = renderWrapper({
+            defaultValue: null,
+            dateFormat: ["dd", "mm"],
+            [internalValidationProp]: true,
+          });
+          const input = wrapper.find("input").at(1);
+          input.simulate("change", { target: { value } });
+          input.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+          expect(wrapper.find(Textbox).at(1).props()[validationType]).toBe(
+            isValid ? "" : "Month should be a number within a 1-12 range.\n"
+          );
+        }
+      );
+
+      it.each([
+        ["", true],
+        ["1798", false],
+        ["1799", false],
+        ["1800", true],
+        ["2200", true],
+        ["2201", false],
+        ["2202", false],
+      ])(
+        "renders internal validation when year field is blurred and has incorrect value",
+        (value, isValid) => {
+          wrapper = renderWrapper({
+            defaultValue: null,
+            dateFormat: ["dd", "mm", "yyyy"],
+            [internalValidationProp]: true,
+          });
+          const input = wrapper.find("input").at(2);
+          input.simulate("change", { target: { value } });
+          input.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+          expect(wrapper.find(Textbox).at(2).props()[validationType]).toBe(
+            isValid ? "" : "Year should be a number within a 1800-2200 range.\n"
+          );
+        }
+      );
+
+      it("renders multiline internal validation when all fields are blurred with incorrect values", () => {
+        wrapper = renderWrapper({
+          defaultValue: null,
+          dateFormat: ["dd", "mm", "yyyy"],
+          [internalValidationProp]: true,
+        });
+        const dayInput = wrapper.find("input").at(0);
+        dayInput.simulate("change", { target: { value: "0" } });
+        dayInput.simulate("blur");
+        const monthInput = wrapper.find("input").at(1);
+        monthInput.simulate("change", { target: { value: "0" } });
+        monthInput.simulate("blur");
+        const yearInput = wrapper.find("input").at(2);
+        yearInput.simulate("change", { target: { value: "0" } });
+        yearInput.simulate("blur");
+        jest.runAllTimers();
+        wrapper.update();
+        expect(wrapper.find(Textbox).at(2).props()[validationType]).toBe(
+          "Day should be a number within a 1-31 range.\n" +
+            "Month should be a number within a 1-12 range.\n" +
+            "Year should be a number within a 1800-2200 range.\n"
+        );
+      });
+    });
   });
 
   it("has proper default dateFormat prop", () => {
@@ -179,9 +289,10 @@ describe("NumeralDate", () => {
 
   describe("Clicking off the component", () => {
     it("calls onBlur if prop is passed", () => {
-      wrapper = renderWrapper();
+      wrapper = renderWrapper({ defaultValue: undefined });
       const input = wrapper.find("input");
       input.simulate("blur");
+      jest.runAllTimers();
       expect(onBlur).toHaveBeenCalled();
     });
   });

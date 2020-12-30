@@ -1,54 +1,82 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import NumeralDate from '.';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import NumeralDate from ".";
 
-<Meta title="Design System/Numeral Date" parameters={{ info: { disable: true }}} />
+<Meta
+  title="Design System/Numeral Date"
+  parameters={{ info: { disable: true } }}
+/>
 
 # Numeral Date
 
-For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year. 
+For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
 ## Quick Start
+
 Import `NumeralDate` into the project.
 
 ```jsx
-import NumeralDate from "carbon-react/lib/__experimental__/components/numeral-date"
+import NumeralDate from "carbon-react/lib/__experimental__/components/numeral-date";
 
 const MyComponent = () => (
-  <NumeralDate dateFormat={['dd','mm','yyyy']} onChange={ onChange } value={{ dd: '27', mm: '04', yyyy: '1989' }} />
+  <NumeralDate
+    dateFormat={["dd", "mm", "yyyy"]}
+    onChange={onChange}
+    value={{ dd: "27", mm: "04", yyyy: "1989" }}
+  />
 );
 ```
 
 ### Controlled
+
 <Preview>
   <Story name="Controlled">
     {() => {
-      const [value, setValue] = useState({ dd: '', mm: '', yyyy: '' })
-      return <NumeralDate value={ value } onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+      const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+      return (
+        <NumeralDate
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          label="Default"
+          dateFormat={["dd", "mm", "yyyy"]}
+        />
+      );
     }}
   </Story>
 </Preview>
 
 ### Uncontrolled
+
 <Preview>
   <Story name="Uncontrolled">
     {() => {
-      const [value, setValue] = useState()
-      return <NumeralDate defaultValue={{ dd: '01', mm: '02', yyyy: '2020' }} onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+      const [value, setValue] = useState();
+      return (
+        <NumeralDate
+          defaultValue={{ dd: "01", mm: "02", yyyy: "2020" }}
+          onChange={(e) => setValue(e.target.value)}
+          label="Default"
+          dateFormat={["dd", "mm", "yyyy"]}
+        />
+      );
     }}
   </Story>
 </Preview>
 
 ### Allowed date formats
+
 <Preview>
   <Story name="Allowed date formats">
     <>
-      <NumeralDate label="DD/MM/YYYY - default" dateFormat={['dd','mm','yyyy']}/>
-      <NumeralDate label="MM/DD/YYYY" dateFormat={['mm','dd','yyyy']}/>
-      <NumeralDate label="DD/MM" dateFormat={['dd','mm']}/>
-      <NumeralDate label="MM/DD" dateFormat={['mm','dd']}/>
-      <NumeralDate label="MM/YYYY" dateFormat={['mm','yyyy']}/>
+      <NumeralDate
+        label="DD/MM/YYYY - default"
+        dateFormat={["dd", "mm", "yyyy"]}
+      />
+      <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
+      <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
+      <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
+      <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
     </>
   </Story>
 </Preview>
@@ -56,23 +84,27 @@ const MyComponent = () => (
 ### Validations
 
 #### Error
+
 <Preview>
-  <Story name="Date Component has Error" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="Date Component has Error"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <>
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
+        dateFormat={["dd", "mm", "yyyy"]}
         error="This is an error message. It alerts the user to an error"
         label="As string"
       />
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
+        dateFormat={["dd", "mm", "yyyy"]}
         error="This is an error message. It alerts the user to an error"
         label="As string - displayed on a label"
         validationOnLabel
       />
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
-        error={ true }
+        dateFormat={["dd", "mm", "yyyy"]}
+        error={true}
         label="As boolean"
       />
     </>
@@ -80,23 +112,27 @@ const MyComponent = () => (
 </Preview>
 
 #### Warning
+
 <Preview>
-  <Story name="Date Component has Warning" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="Date Component has Warning"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <>
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
+        dateFormat={["dd", "mm", "yyyy"]}
         warning="This is a warning message. It alerts the user to a warning."
         label="As string"
       />
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
+        dateFormat={["dd", "mm", "yyyy"]}
         warning="This is a warning message. It alerts the user to a warning."
         label="As string - displayed on a label"
         validationOnLabel
       />
       <NumeralDate
-        dateFormat={['dd','mm','yyyy']}
-        warning={ true }
+        dateFormat={["dd", "mm", "yyyy"]}
+        warning={true}
         label="As boolean"
       />
     </>
@@ -104,26 +140,79 @@ const MyComponent = () => (
 </Preview>
 
 #### Info
+
 <Preview>
-  <Story name="Date Component has Info" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="Date Component has Info"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <>
-      <NumeralDate 
-        dateFormat={['dd','mm','yyyy']} 
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
         info="This is an info message. It alerts the user to an info."
         label="As string"
       />
-      <NumeralDate 
-        dateFormat={['dd','mm','yyyy']} 
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
         info="This is an info message. It alerts the user to an info."
         label="As string - displayed on a label"
         validationOnLabel
       />
-      <NumeralDate 
-        dateFormat={['dd','mm','yyyy']} 
-        info={ true }
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        info={true}
         label="As boolean"
       />
     </>
+  </Story>
+</Preview>
+
+## Internal validation
+
+`NumeralDate` has an optional internal validation mechanism implemented to check if the date partial values are correct.
+To enable `error` internal validation pass `enableInternalError` and to enable `warning` pass `enableInternalWarning`.
+To override default messages translations can be provided with following keys: `numeralDate.day`, `numeralDate.month`, `numeralDate.year`.
+
+#### As error
+
+When using the internal validations as error it is necessary to also provide an external validation to avoid situations where it is possible to submit a form while `NumeralDate` clearly indicates that the date is incorrect.
+
+<Preview>
+  <Story name="Internal validation - error">
+    {() => {
+      const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+      return (
+        <NumeralDate
+          enableInternalError
+          error="This field is required."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          label="Default"
+          dateFormat={["dd", "mm", "yyyy"]}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+#### As warning
+
+When using the internal validations as warning the external validation is not necessary, in this case internal warnings can be treated as feedback.
+
+<Preview>
+  <Story name="Internal validation - warning">
+    {() => {
+      const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+      return (
+        <NumeralDate
+          enableInternalWarning
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          label="Default"
+          dateFormat={["dd", "mm", "yyyy"]}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -131,8 +220,8 @@ const MyComponent = () => (
 
 <Preview>
   <Story name="Inline label">
-    <NumeralDate 
-      dateFormat={['dd','mm','yyyy']} 
+    <NumeralDate
+      dateFormat={["dd", "mm", "yyyy"]}
       label="Inline"
       labelInline
       labelAlign="right"
@@ -142,12 +231,16 @@ const MyComponent = () => (
 </Preview>
 
 ### Enabling the adaptive behaviour
+
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
-  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
-    <NumeralDate 
-      dateFormat={['dd','mm','yyyy']} 
+  <Story
+    name="enabling adaptive behaviour"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <NumeralDate
+      dateFormat={["dd", "mm", "yyyy"]}
       label="Inline"
       labelAlign="right"
       labelWidth={30}
@@ -161,7 +254,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 <Preview>
   <Story name="With label help">
     <NumeralDate
-      dateFormat={['dd','mm','yyyy']} 
+      dateFormat={["dd", "mm", "yyyy"]}
       label="With label help"
       labelHelp="Label help"
     />
@@ -173,7 +266,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 <Preview>
   <Story name="With field help">
     <NumeralDate
-      dateFormat={['dd','mm','yyyy']} 
+      dateFormat={["dd", "mm", "yyyy"]}
       label="With label help"
       fieldHelp="Field help"
     />
@@ -187,11 +280,11 @@ You can use the `required` prop to indicate if the field is mandatory.
 <Preview>
   <Story name="Required">
     <>
-    <NumeralDate
-      label="Date of Birth"
-      dateFormat={['dd','mm','yyyy']} 
-      required
-    />
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        required
+      />
     </>
   </Story>
 </Preview>
