@@ -16,9 +16,9 @@ exports[`Link renders as expected 1`] = `
 
 .c0 a .c1,
 .c0 button .c1 {
-  margin-right: 5px;
   position: relative;
   vertical-align: middle;
+  margin-right: 5px;
 }
 
 .c0 a:hover,

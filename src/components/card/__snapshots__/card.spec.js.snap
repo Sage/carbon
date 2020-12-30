@@ -39,6 +39,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   position: relative;
   color: #008200;
   background-color: transparent;
+  vertical-align: middle;
 }
 
 .c3:hover {
@@ -93,9 +94,9 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 
 .c1 a .c2,
 .c1 button .c2 {
-  margin-right: 5px;
   position: relative;
   vertical-align: middle;
+  margin-right: 5px;
 }
 
 .c1 a:hover,

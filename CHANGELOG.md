@@ -1,3 +1,52 @@
+## [54.4.0](https://github.com/Sage/carbon/compare/v54.3.7...v54.4.0) (2020-12-24)
+
+
+### Features
+
+* **menu:** allow icon only, keyboard override and accessiblity props ([6f33d2a](https://github.com/Sage/carbon/commit/6f33d2ac4d353f41d3d0f318471d4b0331c80392)), closes [#3505](https://github.com/Sage/carbon/issues/3505) [#3292](https://github.com/Sage/carbon/issues/3292)
+
+### [54.3.7](https://github.com/Sage/carbon/compare/v54.3.6...v54.3.7) (2020-12-22)
+
+
+### Bug Fixes
+
+* **carousel:** fix not unique slide selector id ([e2ddd4d](https://github.com/Sage/carbon/commit/e2ddd4d5e08cfe9569ce3e84a7396597fb3d0eb4))
+
+### [54.3.6](https://github.com/Sage/carbon/compare/v54.3.5...v54.3.6) (2020-12-22)
+
+
+### Bug Fixes
+
+* **sidebar:** fix sidebar crashing while closing with enableBackgroundUI ([f5d7c47](https://github.com/Sage/carbon/commit/f5d7c4788047198b3e5fa705e21067e2c07c97ab))
+
+### [54.3.5](https://github.com/Sage/carbon/compare/v54.3.4...v54.3.5) (2020-12-22)
+
+
+### Bug Fixes
+
+* **split-button:** fix accessibility issues ([670ab7c](https://github.com/Sage/carbon/commit/670ab7cd249b3a3be4f7eb92a175a7bc3ee2533a))
+
+### [54.3.4](https://github.com/Sage/carbon/compare/v54.3.3...v54.3.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **menu:** allow null children ([237b62e](https://github.com/Sage/carbon/commit/237b62e30680e724ce59b1376ebf1e22df340bdb)), closes [#3497](https://github.com/Sage/carbon/issues/3497)
+
+### [54.3.3](https://github.com/Sage/carbon/compare/v54.3.2...v54.3.3) (2020-12-18)
+
+
+### Bug Fixes
+
+* **submenu:** stop submenu width from flexing with parent ([95066a3](https://github.com/Sage/carbon/commit/95066a33b41afaa6ce9df66db9033fd1ee71bf70))
+
+### [54.3.2](https://github.com/Sage/carbon/compare/v54.3.1...v54.3.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* **navbar:** remove old styling to allow full width ([03542c0](https://github.com/Sage/carbon/commit/03542c0911b94e2020fad37743b0981e70f30a91))
+
 ### [54.3.1](https://github.com/Sage/carbon/compare/v54.3.0...v54.3.1) (2020-12-18)
 
 

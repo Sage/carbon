@@ -6,25 +6,30 @@ Feature: Accessibility tests - Common list
     Given I open "<component>" component page "default story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component          |
-      | AppWrapper         |
-      | Alert              |
-      | Confirm            |
-      | Content            |
-      | Detail             |
-      | Dialog             |
-      | Dialog-full-screen |
-      | Heading            |
-      | Help               |
-      | I18nComponent      |
-      | Link               |
-      | Message            |
-      | MenuList           |
-      | Mount In App       |
+      | component           |
+      | AppWrapper          |
+      | Alert               |
+      | Carousel            |
+      | Confirm             |
+      | Content             |
+      | Detail              |
+      | Dialog              |
+      | Dialog-full-screen  |
+      | Heading             |
+      | Help                |
+      | I18nComponent       |
+      | Link                |
+      | Message             |
+      | MenuList            |
+      | Mount In App        |
       # | Pages             |
-      | Preview            |
-      | Row                |
-      | Sidebar            |
+      | Portrait            |
+      | Preview             |
+      | Profile             |
+      | Row                 |
+      | Sidebar             |
+      | Split-button        |
+      | Multi-action-button |
 
   @accessibility
   Scenario: Component button toggle
@@ -48,12 +53,7 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | Carousel            |
       | Configurable-items  |
-      | Multi-action-button |
-      | Portrait            |
-      | Profile             |
-      | Split-button        |
 
   @accessibility
   Scenario Outline: Component <component> basic story

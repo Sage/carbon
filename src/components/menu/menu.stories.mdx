@@ -7,6 +7,10 @@ import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.j
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
+# Menu
+
+Provides navigation for an app, which can be used via mouse or keyboard.
+
 ## Quick Start
 
 ```jsx
@@ -48,9 +52,6 @@ import {
 
 ## Default selected
 
-The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
-is rendered.
-
 <Preview>
   <Story name="default selected">
     <div style={{ minHeight: "150px" }}>
@@ -59,7 +60,7 @@ is rendered.
           Menu Item One
         </MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+        <MenuItem submenu="Menu Item Three">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -183,6 +184,45 @@ is rendered.
   </Story>
 </Preview>
 
+## Default icon
+
+Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item. 
+The menu must have focus for this to work
+
+<Preview>
+  <Story name="default icon">
+    <div style={{minHeight: '250px'}}>
+      <Menu>
+        <MenuItem icon="home" href="#" keyboardOverride="h">
+          Home
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings" keyboardOverride="s">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#" ariaLabel="settings" keyboardOverride="s"/>
+          <MenuItem href="#">
+            Item Submenu Four
+          </MenuItem>
+        </MenuItem>
+        <MenuItem icon="arrow_right" submenu keyboardOverride="a" ariaLabel="Actions">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Dark theme
 
 <Preview>
@@ -292,7 +332,7 @@ is rendered.
     name="dark theme alternate colour"
     parameters={{ chromatic: { disable: true } }}
   >
-    <div style={{ minHeight: "150px" }}>
+    <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
         <MenuItem href="#">Menu Item One</MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
@@ -312,21 +352,86 @@ is rendered.
   </Story>
 </Preview>
 
+## No dropdown arrow on submenu
+
+The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
+is rendered.
+
+<Preview>
+  <Story name="no submenu dropdown arrow">
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem showDropdownArrow={false} submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Dark icon
+
+Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item. 
+The menu must have focus for this to work
+
+<Preview>
+  <Story name="dark icon">
+    <div style={{minHeight: '250px'}}>
+      <Menu menuType="dark">
+        <MenuItem icon="home" href="#" keyboardOverride="h">
+          Home
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings" keyboardOverride="s">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#" ariaLabel="settings" keyboardOverride="s"/>
+          <MenuItem href="#">
+            Item Submenu Four
+          </MenuItem>
+        </MenuItem>
+        <MenuItem icon="arrow_right" submenu keyboardOverride="a" ariaLabel="Actions">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Full navbar alignment example
 
 <Preview>
   <Story name="Full navbar alignment example">
     {() => {
       return (
-        <div style={{ minHeight: "150px" }}>
+        <div style={{ minHeight: "250px" }}>
           <NavigationBar>
             <SageIcon style={{ alignSelf: "center" }} />
             <Box>
               <VerticalDivider displayInline pr={0} />
             </Box>
             <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}}>
-                Menu Item One
+              <MenuItem flex="1" onClick={() => {}} submenu="Menu Item One">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
               <MenuItem flex="0 0 auto" href="#">
                 Menu Item Two
@@ -378,6 +483,32 @@ If you need to split out a submenu into a separate component, it must be done as
         </div>
       );
     }}
+  </Story>
+</Preview>
+
+## Submenu icon and text alignment
+
+In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
+
+<Preview>
+  <Story name="button icon" parameters={{ chromatic: { disable: true } }}>
+    <div style={{minHeight: '250px'}}>
+      <Menu menuType="dark">
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#" icon="settings" onClick={()=> {}}>
+            onClick and Icon
+          </MenuItem>
+          <MenuItem onClick={()=>{}}>
+            <Box ml="21px">onClick</Box>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">href and Icon</MenuItem>
+          <MenuItem href="#">
+            <Box ml="21px">href</Box>
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
   </Story>
 </Preview>
 

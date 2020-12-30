@@ -6,6 +6,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   position: relative;
   color: #008200;
   background-color: transparent;
+  vertical-align: middle;
 }
 
 .c3:hover {
@@ -877,6 +878,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   position: relative;
   color: #008200;
   background-color: transparent;
+  vertical-align: middle;
 }
 
 .c3:hover {

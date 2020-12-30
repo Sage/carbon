@@ -28,9 +28,9 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
 
 .c0 a .c2,
 .c0 button .c2 {
-  margin-right: 5px;
   position: relative;
   vertical-align: middle;
+  margin-right: 0;
 }
 
 .c0 a:hover,

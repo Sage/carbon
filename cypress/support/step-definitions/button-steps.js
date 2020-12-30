@@ -15,20 +15,11 @@ Then('Button as a sibling label on preview is {word}', (label) => {
   buttonDataComponent().eq(positionOfElement('second')).should('have.text', label);
 });
 
-Then('Button is disabled', () => {
-  buttonDataComponent().should('be.disabled')
-    .and('have.attr', 'disabled');
-});
-
 Then('Button as a sibling is disabled', () => {
   buttonDataComponent().eq(positionOfElement('first')).should('be.disabled')
     .and('have.attr', 'disabled');
   buttonDataComponent().eq(positionOfElement('second')).should('be.disabled')
     .and('have.attr', 'disabled');
-});
-
-Then('Button is enabled', () => {
-  buttonDataComponent().should('be.enabled');
 });
 
 Then('Button as a sibling is enabled', () => {
@@ -52,10 +43,6 @@ Then('Button as a sibling subtext on preview is {word}', (subtext) => {
 
 Then('Button font color is {string}', (color) => {
   buttonDataComponent().should('have.css', 'color', color);
-});
-
-Then('Button background color is {string}', (color) => {
-  buttonDataComponent().should('have.css', 'background-color', color);
 });
 
 Then('Button as a sibling background color is {string}', (color) => {

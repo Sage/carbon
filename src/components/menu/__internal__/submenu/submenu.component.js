@@ -122,7 +122,7 @@ const Submenu = React.forwardRef(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (Events.isAlphabetKey(event)) {
+          if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
             nextIndex = characterNavigation(
               event,
               React.Children.toArray(children),
@@ -132,7 +132,8 @@ const Submenu = React.forwardRef(
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
-          if (React.Children.toArray(children)[nextIndex].type === MenuItem) {
+          const nextChild = React.Children.toArray(children)[nextIndex];
+          if (nextChild && nextChild.type === MenuItem) {
             setSubmenuFocusIndex(nextIndex);
           } else {
             handleKeyDown(event, nextIndex);

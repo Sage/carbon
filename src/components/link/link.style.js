@@ -12,14 +12,18 @@ const LinkStyle = styled.div`
     color: ${({ theme }) => theme.colors.primary};
     display: inline-block;
     ${StyledIcon} {
-      margin-right: 5px;
       position: relative;
       vertical-align: middle;
-      ${({ iconAlign }) =>
+      ${({ iconAlign, hasContent }) =>
+        iconAlign === "left" &&
+        css`
+          margin-right: ${hasContent ? "5px" : 0};
+        `}
+      ${({ iconAlign, hasContent }) =>
         iconAlign === "right" &&
         css`
           margin-right: 0;
-          margin-left: 5px;
+          margin-left: ${hasContent ? "5px" : 0};
         `}
     }
     &:hover {
@@ -54,10 +58,12 @@ const LinkStyle = styled.div`
 LinkStyle.defaultProps = {
   theme: baseTheme,
   disabled: false,
+  hasContent: true,
 };
 
 LinkStyle.propTypes = {
   disabled: PropTypes.bool,
+  hasContent: PropTypes.bool,
 };
 
 export default LinkStyle;

@@ -29,4 +29,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </span>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div data-portal-exit=\\"guid-12345\\" class=\\"carbon-portal\\"><span font-size=\\"small\\" type=\\"tick\\" class=\\"sc-bxivhb gXBtCP\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div data-portal-exit=\\"guid-12345\\" class=\\"carbon-portal\\"><span font-size=\\"small\\" type=\\"tick\\" class=\\"sc-bxivhb kqfkdq\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;

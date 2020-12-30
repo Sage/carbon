@@ -1,9 +1,8 @@
 import {
-  emailPreview, avatarPreview, initialsPreview, namePreview,
+  emailPreview,
+  avatarPreview,
+  namePreview,
 } from '../../locators/profile';
-
-const INITIALS_FOLDER = 'initials/';
-const DATA_IMAGE_PREFIX = 'data:image/png;base64,';
 
 Then('email is set to {word}', (email) => {
   emailPreview().should('have.text', email);
@@ -15,16 +14,4 @@ Then('avatar is taken from {string}', (avatarUrl) => {
 
 Then('name is set to {word}', (name) => {
   namePreview().should('have.text', name);
-});
-
-Then('Profile size has {int}', (property) => {
-  initialsPreview().should('have.css', 'height', `${property}px`);
-});
-
-Then('initials is set to {word}', (initials) => {
-  initials = initials.substring(0, 3);
-  cy.fixture(`${INITIALS_FOLDER}${initials}.jpg`, 'base64').then(($initials) => {
-    initialsPreview().children()
-      .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$initials}`);
-  });
 });

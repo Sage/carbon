@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
-import { ThemeProvider } from "styled-components";
-import notes from "./documentation";
-import BaseCarousel, { Carousel, Slide } from "./carousel.component";
-import getDocGenInfo from "../../utils/helpers/docgen-info";
-import docgenInfo from "./docgenInfo.json";
 
-const styleElement = {
+import Box from "../box";
+import Typography from "../typography";
+import BaseCarousel, { Carousel, Slide } from "./carousel.component";
+
+const slideStyle = {
   height: "400px",
   display: "flex",
   alignItems: "center",
@@ -17,73 +15,72 @@ const styleElement = {
   margin: "0 auto",
 };
 
-const ExampleCustomElement = (props) => {
+export default {
+  title: "Carousel/Test",
+  component: Carousel,
+  parameters: {
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
+};
+
+export const Default = () => {
+  const indexConfig = [0, 1, 2, 3, 4];
+  const initialSlideIndex = select(
+    "initialSlideIndex",
+    indexConfig,
+    BaseCarousel.defaultProps.initialSlideIndex
+  );
+  const slideIndex = select("slideIndex", indexConfig, indexConfig[2]);
+
+  const handleClick = () => {
+    action("click")();
+  };
+
   return (
-    <div style={{ ...styleElement, ...props.style }}>{props.children}</div>
+    <Carousel initialSlideIndex={initialSlideIndex} slideIndex={slideIndex}>
+      <Slide>
+        <Box bg="#003349" {...slideStyle}>
+          <Typography variant="h1" color="#090">
+            Slide 1
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide onClick={handleClick}>
+        <Box {...slideStyle}>
+          <Typography variant="h1">Full clickable slide</Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box bg="#69418f" {...slideStyle}>
+          <Typography variant="h1" color="#fff">
+            Slide 3
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box bg="red" {...slideStyle}>
+          <Typography variant="h1" color="#fff">
+            Slide 4
+          </Typography>
+        </Box>
+      </Slide>
+      <Slide>
+        <Box bg="blue" {...slideStyle}>
+          <Typography variant="h1" color="#fff">
+            Slide 5
+          </Typography>
+        </Box>
+      </Slide>
+    </Carousel>
   );
 };
 
-BaseCarousel.__docgenInfo = getDocGenInfo(docgenInfo, /carousel(?!spec)/);
-storiesOf("Carousel", module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Slide, ExampleCustomElement, ThemeProvider],
-      propTables: [BaseCarousel],
-    },
-  })
-
-  .add(
-    "default",
-    () => {
-      const indexConfig = [0, 1, 2, 3, 4];
-      const initialSlideIndex = select(
-        "initialSlideIndex",
-        indexConfig,
-        BaseCarousel.defaultProps.initialSlideIndex
-      );
-      const slideIndex = select("slideIndex", indexConfig, indexConfig[2]);
-
-      const handleClick = () => {
-        action("click")();
-      };
-
-      return (
-        <Carousel initialSlideIndex={initialSlideIndex} slideIndex={slideIndex}>
-          <Slide style={{ textAlign: "center" }}>
-            <ExampleCustomElement style={{ backgroundColor: "#003349" }}>
-              <h1 style={{ textAlign: "center", color: "#090" }}>Slide 1</h1>
-            </ExampleCustomElement>
-          </Slide>
-          <Slide onClick={handleClick}>
-            <ExampleCustomElement>
-              <h1 style={{ textAlign: "center" }}>Full clickable slide</h1>
-            </ExampleCustomElement>
-          </Slide>
-          <Slide>
-            <ExampleCustomElement style={{ backgroundColor: "#69418f" }}>
-              <h1 style={{ color: "#fff" }}>Slide 3</h1>
-            </ExampleCustomElement>
-          </Slide>
-          <Slide>
-            <ExampleCustomElement style={{ backgroundColor: "red" }}>
-              <h1 style={{ color: "#fff" }}>Slide 4</h1>
-            </ExampleCustomElement>
-          </Slide>
-          <Slide>
-            <ExampleCustomElement style={{ backgroundColor: "blue" }}>
-              <h1 style={{ color: "#fff" }}>Slide 5</h1>
-            </ExampleCustomElement>
-          </Slide>
-        </Carousel>
-      );
-    },
-    {
-      notes: { markdown: notes },
-      // disabled because of chromatic lack of possibility to render story
-      // Your story couldn’t be captured because it exceeds our 25,000,000px limit.
-      // Its dimensions are 1,200x25,498px. Possible ways to resolve
-      chromatic: {
-        disable: true,
-      },
-    }
-  );
+Default.story = {
+  name: "default",
+};

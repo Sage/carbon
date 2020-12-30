@@ -6,16 +6,28 @@ function characterNavigation(event, focusableItems, currentFocusedIndex) {
   let firstMatch;
   let nextMatch;
   const selectedKey = event.key.toLowerCase();
+
+  const getNodeText = (node) => {
+    if (node instanceof Array) return node.map(getNodeText).join("");
+    if (typeof node === "object" && node)
+      return getNodeText(node.props.children);
+    return node;
+  };
   const getMenuText = (element) => {
+    if (element.keyboardOverride) {
+      return element.keyboardOverride;
+    }
+
     if (element.submenu) {
       return element.submenu;
     }
 
-    return element.children;
+    return getNodeText(element.children);
   };
 
   focusableItems.forEach((child, i) => {
     if (
+      child &&
       child.type === MenuItem &&
       getMenuText(child.props).toLowerCase().startsWith(selectedKey)
     ) {
@@ -66,7 +78,7 @@ function menuKeyboardNavigation(event, focusableItems, currentFocusedIndex) {
     return focusableItems.length - 1;
   }
 
-  if (Events.isAlphabetKey(event)) {
+  if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
     return characterNavigation(event, focusableItems, currentFocusedIndex);
   }
 
