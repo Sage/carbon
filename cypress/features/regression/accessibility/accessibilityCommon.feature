@@ -14,7 +14,6 @@ Feature: Accessibility tests - Common list
       | Content             |
       | Detail              |
       | Dialog              |
-      | Dialog-full-screen  |
       | Heading             |
       | Help                |
       | I18nComponent       |
@@ -22,7 +21,6 @@ Feature: Accessibility tests - Common list
       | Message             |
       | MenuList            |
       | Mount In App        |
-      # | Pages             |
       | Portrait            |
       | Preview             |
       | Profile             |
@@ -30,6 +28,16 @@ Feature: Accessibility tests - Common list
       | Sidebar             |
       | Split-button        |
       | Multi-action-button |
+
+  @accessibility
+  Scenario Outline: Component <component> default story with open preview
+    Given I open "<component>" component page "default story" in no iframe
+    When I open component preview in noIFrame
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component          |
+      | Dialog Full Screen |
+      | Pages              |
 
   @accessibility
   Scenario: Component button toggle
@@ -41,8 +49,8 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | Configurable-items  |
+      | component          |
+      | Configurable-items |
 
   @accessibility
   Scenario Outline: Component <component> basic story
