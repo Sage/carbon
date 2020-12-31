@@ -144,7 +144,7 @@
     "crypto-js": "~3.3.0",
     "escape-string-regexp": "^4.0.0",
     "immutable": "~3.8.2",
-    "invariant": "^2.0.0",
+    "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "markdown-to-jsx": "^6.11.4",
     "marked": "^0.7.0",
