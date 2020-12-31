@@ -146,7 +146,6 @@
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
-    "markdown-to-jsx": "^6.11.4",
     "marked": "^0.7.0",
     "moment": "~2.20.1",
     "polished": "^4.0.3",
