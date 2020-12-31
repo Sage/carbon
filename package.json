@@ -148,7 +148,7 @@
     "lodash": "^4.17.20",
     "marked": "^0.7.0",
     "moment": "~2.20.1",
-    "polished": "^4.0.3",
+    "polished": "^4.0.5",
     "prop-types": "^15.5.8",
     "react-day-picker": "~6.1.1",
     "react-dnd": "^10.0.2",
