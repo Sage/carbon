@@ -142,7 +142,7 @@
     "bowser": "~1.5.0",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
-    "escape-string-regexp": "~1.0.5",
+    "escape-string-regexp": "^4.0.0",
     "immutable": "~3.8.1",
     "invariant": "^2.0.0",
     "lodash": "^4.17.11",
