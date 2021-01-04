@@ -41,10 +41,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c11 > div {
   box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .c11:first-of-type {
@@ -68,10 +64,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c12 > div {
   box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .c12:first-of-type {

@@ -19,8 +19,8 @@ const FlatTableCell = ({
       data-element="flat-table-cell"
       colSpan={colspan}
       rowSpan={rowspan}
-      py={py || "10px"}
-      px={px || 3}
+      py={py}
+      px={px}
       {...rest}
     >
       <div>{children}</div>
