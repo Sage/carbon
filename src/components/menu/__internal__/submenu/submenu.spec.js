@@ -8,6 +8,7 @@ import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
 import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu from "./submenu.component";
+import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../../style/themes";
 
@@ -746,6 +747,30 @@ describe("Submenu component", () => {
         },
         wrapper.find(StyledSubmenu)
       );
+    });
+  });
+
+  describe("when it has a ScrollableBlock as a child", () => {
+    const renderScrollableBlock = (openSubmenu, menuType, props) => {
+      return mount(
+        <MenuContext.Provider value={menuContextValues(openSubmenu, menuType)}>
+          <Submenu title="title" tabIndex={-1} {...props}>
+            <MenuItem>Apple</MenuItem>
+            <MenuItem>Banana</MenuItem>
+            <ScrollableBlock>
+              <MenuItem>Carrot</MenuItem>
+              <MenuItem>Broccoli</MenuItem>
+            </ScrollableBlock>
+          </Submenu>
+        </MenuContext.Provider>,
+        { attachTo: container }
+      );
+    };
+
+    it("should render all of the underlying menu items", () => {
+      wrapper = renderScrollableBlock(true, "light");
+
+      expect(wrapper.find(MenuItem).length).toEqual(4);
     });
   });
 });

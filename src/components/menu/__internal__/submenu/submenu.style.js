@@ -4,6 +4,7 @@ import LinkStyle from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
+import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style";
 
 const StyledSubmenuWrapper = styled.div`
   position: relative;
@@ -135,7 +136,7 @@ const StyledSubmenu = styled.ul`
       width: 100%;
     }
 
-    > *:not(${StyledMenuItem}) {
+    > *:not(${StyledMenuItem}):not(${StyledScrollableBlock}) {
       padding: 8px 15px 10px;
       background-color: ${theme.colors.white};
 
