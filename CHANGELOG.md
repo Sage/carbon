@@ -1,3 +1,10 @@
+## [54.6.0](https://github.com/Sage/carbon/compare/v54.5.0...v54.6.0) (2021-01-04)
+
+
+### Features
+
+* **menu:** add scrollable block component ([4814977](https://github.com/Sage/carbon/commit/4814977945c7f4ae06556feca7b4ab3df31da8cb))
+
 ## [54.5.0](https://github.com/Sage/carbon/compare/v54.4.0...v54.5.0) (2020-12-30)
 
 
