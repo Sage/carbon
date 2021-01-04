@@ -156,7 +156,6 @@
     "react-dnd-legacy": "npm:react-dnd@^2.6.0",
     "react-dnd-touch-backend": "0.2.7",
     "react-transition-group": "^4.4.1",
-    "regenerator-runtime": "^0.13.2",
     "styled-system": "^5.1.5",
     "superagent": "~3.8.2",
     "wait-on": "^3.2.0"
