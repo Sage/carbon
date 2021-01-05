@@ -131,7 +131,6 @@
     "tslint": "5.20.1",
     "tslint-react": "3.6.0",
     "typescript": "3.2.4",
-    "underscore.string": "~3.3.4",
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
