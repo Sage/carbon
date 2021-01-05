@@ -91,7 +91,7 @@
     "cypress": "5.5.0",
     "cypress-axe": "^0.8.1",
     "cypress-cucumber-preprocessor": "4.0.0",
-    "cz-conventional-changelog": "^3.0.2",
+    "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.14.0",
