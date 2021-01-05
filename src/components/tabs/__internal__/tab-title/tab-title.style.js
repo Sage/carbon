@@ -182,9 +182,11 @@ const StyledTitleContent = styled.div`
     info,
     size,
     isTabSelected,
+    position,
   }) =>
     hasSiblings &&
     !hasCustomLayout &&
+    position === "top" &&
     css`
       ${size === "default" &&
       css`
