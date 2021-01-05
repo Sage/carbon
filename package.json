@@ -82,7 +82,7 @@
     "babel-standalone": "~6.17.0",
     "carbon-state-management": "^1.0.0",
     "chromatic": "^5.5.0",
-    "commitizen": "^4.2.1",
+    "commitizen": "^4.2.2",
     "conventional-changelog-conventionalcommits": "^4.4.0",
     "core-js": "^3.1.4",
     "cpy-cli": "^3.1.1",
