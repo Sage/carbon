@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../../utils/helpers/tags";
-import "./menu-list-item.scss";
+import StyledMenuListItem from "./menu-list-item.style";
 
 class MenuListItem extends React.Component {
   static propTypes = {
@@ -29,12 +29,12 @@ class MenuListItem extends React.Component {
 
   render() {
     return (
-      <li
+      <StyledMenuListItem
         className={this.mainClasses()}
         {...tagComponent("menu-list-item", this.props)}
       >
         {this.props.children}
-      </li>
+      </StyledMenuListItem>
     );
   }
 }
