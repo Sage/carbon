@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../utils/helpers/tags";
 import { validProps } from "../../utils/ether";
-import "./app-wrapper.scss";
+import StyledAppWrapper from "./app-wrapper.style";
 
 /**
  * Manages the width and containment of your application.
@@ -47,13 +47,13 @@ class AppWrapper extends React.Component {
    */
   render() {
     return (
-      <div
+      <StyledAppWrapper
         {...validProps(this)}
         className={this.classes()}
         {...tagComponent("app-wrapper", this.props)}
       >
         {this.props.children}
-      </div>
+      </StyledAppWrapper>
     );
   }
 }

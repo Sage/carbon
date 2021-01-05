@@ -1,6 +1,6 @@
 import React from "react";
 import { text } from "@storybook/addon-knobs";
-import AppWrapper from "./app-wrapper";
+import AppWrapper from "./app-wrapper.component";
 
 export default {
   title: "AppWrapper/Test",
