@@ -8,7 +8,7 @@ import Textbox from "../../__experimental__/components/textbox";
 
 import MenuListItem from "./menu-list-item";
 import tagComponent from "../../utils/helpers/tags";
-import "./menu-list.scss";
+import StyledMenuList from "./menu-list.style";
 
 class MenuList extends React.Component {
   static propTypes = {
@@ -141,15 +141,15 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div
+      <StyledMenuList
         className={this.mainClasses()}
         {...tagComponent("menu-list", this.props)}
       >
         {this.menuTitle()}
         <ul className="carbon-menu-list__list">{this.menuItems()}</ul>
-      </div>
+      </StyledMenuList>
     );
   }
 }
 
-export { MenuListItem, MenuList };
+export default MenuList;
