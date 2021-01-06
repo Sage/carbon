@@ -4,7 +4,8 @@ Feature: Design Systems FlatTable component
   @positive
   Scenario: FlatTable has sticky row
     When I open "Design System Flat Table" component page "with_row_header" in no iframe
-    Then FlatTable rows are sticky
+    Then FlatTable body rows are sticky
+      And FlatTable header first cell is sticky
 
   @positive
   Scenario: FlatTable has sticky header

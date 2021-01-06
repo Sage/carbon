@@ -8,7 +8,7 @@ import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
 import { icon } from '../../locators';
 
-Then('FlatTable rows are sticky', () => {
+Then('FlatTable body rows are sticky', () => {
   cy.wait(500);
   for (let i = 0; i <= 3; i++) {
     const color = 'rgb(204, 214, 219)';
@@ -20,6 +20,12 @@ Then('FlatTable rows are sticky', () => {
   }
 });
 
+Then('FlatTable header first cell is sticky', () => {
+  cy.wait(500);
+  flatTableHeaderCells().first().should('have.css', 'position', 'sticky')
+    .and('be.visible');
+});
+
 Then('FlatTable has sticky header', () => {
   cy.wait(300, { log: DEBUG_FLAG }); // required because element needs to be loaded
   flatTableHeaderCells().each(($el) => {
@@ -28,32 +34,31 @@ Then('FlatTable has sticky header', () => {
   });
 });
 
-Then('{int} header cells are {string} visible', (count, state) => {
-  if (state === 'not') {
-    for (let i = 1; i < count; i++) {
-      flatTableHeaderCells().eq(i).should('not.be.visible');
+Then('First/Last {int} header cells {word} visible', (count, state) => {
+  if (state === 'are') {
+    for (let i = 6; i > (6 - count); i--) {
+      flatTableHeaderCells().eq(i).should('be.visible');
     }
   } else {
-    flatTableHeaderCells().eq(0).should('be.visible');
-    for (let i = count; i <= 6; i++) {
-      flatTableHeaderCells().eq(i).should('be.visible');
+    for (let i = 1; i <= count; i++) {
+      flatTableHeaderCells().eq(i).should('not.be.visible');
     }
   }
 });
 
-Then('I scroll table content to right bottom', () => {
+When('I scroll table content to bottom right', () => {
   cy.viewport(625, 450);
   flatTable().parent().parent().scrollTo('100%', '100%');
 });
 
-Then('{int} FlatTable rows are {string} visible', (count, state) => {
-  if (state === 'not') {
-    for (let i = 1; i < 2; i++) {
-      flatTableBodyRowByPosition(i).should('not.be.visible');
+Then('First/Last {int} FlatTable rows {word} visible', (count, state) => {
+  if (state === 'are') {
+    for (let i = 8; i > (8 - count); i--) {
+      flatTableBodyRowByPosition(i).should('be.visible');
     }
   } else {
-    for (let i = 3; i <= 8; i++) {
-      flatTableBodyRowByPosition(i).should('be.visible');
+    for (let i = 0; i < count; i++) {
+      flatTableBodyRowByPosition(i).should('not.be.visible');
     }
   }
 });
