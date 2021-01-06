@@ -41,7 +41,7 @@
     "draft-js": "^0.11.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "i18n-js": "^3.0.0",
+    "i18n-js": "^3.0.1",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
