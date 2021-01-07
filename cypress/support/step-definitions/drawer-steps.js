@@ -26,11 +26,11 @@ Then('Drawer {word} sidebar text is visible', (drawer) => {
 
 Then('Drawer {word} sidebar text is not visible', (drawer) => {
   drawerSidebarContentInnerElement(drawer, positionOfElement('second')).should('have.text', 'link a')
-    .and('not.be.visible');
+    .should('not.be.visible');
   drawerSidebarContentInnerElement(drawer, positionOfElement('third')).should('have.text', 'link b')
-    .and('not.be.visible');
+    .should('not.be.visible');
   drawerSidebarContentInnerElement(drawer, positionOfElement('fourth')).should('have.text', 'link c')
-    .and('not.be.visible');
+    .should('not.be.visible');
 });
 
 Then('toggle {word} Drawers icon switched orientation to open', (drawer) => {
