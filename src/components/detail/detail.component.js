@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../utils/helpers/tags";
 import Icon from "../icon";
-import "./detail.scss";
+import StyledDetail from "./detail.style";
 
 class Detail extends React.Component {
   static propTypes = {
@@ -35,9 +35,7 @@ class Detail extends React.Component {
    * @return {String}
    */
   get classes() {
-    return classNames("carbon-detail", this.props.className, {
-      "carbon-detail--has-icon": this.props.icon,
-    });
+    return classNames("carbon-detail", this.props.className);
   }
 
   /**
@@ -84,13 +82,17 @@ class Detail extends React.Component {
    */
   render() {
     return (
-      <div className={this.classes} {...tagComponent("detail", this.props)}>
+      <StyledDetail
+        className={this.classes}
+        hasIcon={this.props.icon}
+        {...tagComponent("detail", this.props)}
+      >
         {this.icon()}
 
         <div className="carbon-detail__content">{this.props.children}</div>
 
         {this.footnote()}
-      </div>
+      </StyledDetail>
     );
   }
 }

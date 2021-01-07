@@ -1,7 +1,8 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
-import Detail from "./detail";
 import { shallow } from "enzyme";
+import TestUtils from "react-dom/test-utils";
+
+import Detail from "./detail.component";
 import {
   elementsTagTest,
   rootTagTest,
@@ -18,7 +19,7 @@ describe("Detail", () => {
 
   describe("render", () => {
     it("renders the children", () => {
-      let content = TestUtils.findRenderedDOMComponentWithClass(
+      const content = TestUtils.findRenderedDOMComponentWithClass(
         instance,
         "carbon-detail__content"
       );
@@ -26,11 +27,11 @@ describe("Detail", () => {
     });
 
     it("renders with custom classes", () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(
+      const div = TestUtils.findRenderedDOMComponentWithClass(
         instance,
         "carbon-detail"
       );
-      expect(div.className).toEqual("carbon-detail foo");
+      expect(div.className).toContain("carbon-detail foo");
     });
   });
 
@@ -42,7 +43,7 @@ describe("Detail", () => {
     });
 
     it("renders the footnote", () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(
+      const div = TestUtils.findRenderedDOMComponentWithClass(
         instance,
         "carbon-detail__footnote"
       );
@@ -58,7 +59,7 @@ describe("Detail", () => {
     });
 
     it("renders the icon and additional class", () => {
-      let div = TestUtils.findRenderedDOMComponentWithClass(
+      const div = TestUtils.findRenderedDOMComponentWithClass(
         instance,
         "carbon-detail__icon"
       );
@@ -68,7 +69,7 @@ describe("Detail", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Detail data-element="bar" data-role="baz" />);
+      const wrapper = shallow(<Detail data-element="bar" data-role="baz" />);
 
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapper, "detail", "bar", "baz");
@@ -76,7 +77,7 @@ describe("Detail", () => {
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(<Detail icon="test" footnote="test" />);
+      const wrapper = shallow(<Detail icon="test" footnote="test" />);
 
       elementsTagTest(wrapper, ["icon", "footnote"]);
     });
