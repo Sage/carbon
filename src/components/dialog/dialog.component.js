@@ -74,7 +74,7 @@ class Dialog extends Modal {
   }
 
   centerDialog = (animating) => {
-    const height = this._dialog.scrollHeight / 2,
+    const height = this._dialog.offsetHeight / 2,
       width = this._dialog.offsetWidth / 2,
       win = this.window;
 

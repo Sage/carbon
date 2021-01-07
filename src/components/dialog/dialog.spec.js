@@ -231,7 +231,7 @@ describe("Dialog", () => {
       it("sets top position to 20px", () => {
         instance._dialog = {
           style: {},
-          scrollHeight: 261,
+          offsetHeight: 261,
         };
         instance.centerDialog();
         expect(instance._dialog.style.top).toEqual("20px");
