@@ -1,3 +1,10 @@
+### [54.6.2](https://github.com/Sage/carbon/compare/v54.6.1...v54.6.2) (2021-01-07)
+
+
+### Bug Fixes
+
+* **menuitem:** check for null chldren ([58bf841](https://github.com/Sage/carbon/commit/58bf841be15af1045950483f0ba5a48688d3f0da)), closes [#3540](https://github.com/Sage/carbon/issues/3540)
+
 ### [54.6.1](https://github.com/Sage/carbon/compare/v54.6.0...v54.6.1) (2021-01-06)
 
 
