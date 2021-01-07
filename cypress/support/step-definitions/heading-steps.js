@@ -38,5 +38,5 @@ Then('separator is visible', () => {
 });
 
 Then('separator is not visible', () => {
-  separatorPreview().should('not.be.visible');
+  separatorPreview().should('not.exist');
 });

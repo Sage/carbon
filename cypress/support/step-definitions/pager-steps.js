@@ -21,7 +21,7 @@ Then('pageSize is visible', () => {
 });
 
 Then('pageSize is not visible', () => {
-  pageSelectMainComponent().should('not.be.visible');
+  pageSelectMainComponent().should('not.exist');
 });
 
 Then('I am on 1st of {string} pages', (count) => {
