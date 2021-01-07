@@ -10,7 +10,6 @@ Feature: MenuList component
       | mp150ú¿¡üßä                  | titleOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
-
   @positive
   Scenario Outline: Change MenuList filterPlaceholder to <filterPlaceholder>
     Given I open basic "MenuList Test" component in noIFrame with "menuList" json from "commonComponents" using "<nameOfObject>" object name
