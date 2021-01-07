@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
+import PodContext from "./pod-context";
+
 import {
   StyledBlock,
   StyledCollapsibleContent,
@@ -24,6 +26,8 @@ class Pod extends React.Component {
     isHovered: false,
     isFocused: false,
   };
+
+  static contextType = PodContext;
 
   toggleCollapse = () => {
     this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
@@ -228,6 +232,7 @@ class Pod extends React.Component {
           isHovered={isHovered}
           noBorder={!border}
           variant={variant}
+          height={this.context.heightOfTheLongestPod}
           {...(this.shouldContentHaveEditEvents()
             ? { ...this.editEvents(), tabIndex: "0" }
             : {})}
@@ -262,21 +267,32 @@ Pod.propTypes = {
 
   /**
    * Determines the padding around the pod.
-   * Values: 'none', 'small', 'medium' or 'large'.
    */
-  padding: PropTypes.string,
+  padding: PropTypes.oneOf([
+    "none",
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
 
   /**
    * Prop to apply a theme to the Pod.
-   * Value: primary, secondary, tile
    */
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "tile",
+    "transparent",
+  ]),
 
   /**
    * The collapsed state of the pod
    *
-   * undefined - Pod is not collapsible
-   * true - Pod is closed
+   * undefined - Pod is not collapsible |
+   * true - Pod is closed |
    * false - Pod is open
    */
   collapsed: PropTypes.bool,
@@ -295,7 +311,7 @@ Pod.propTypes = {
   /**
    * Aligns the title to left, right or center
    */
-  alignTitle: PropTypes.string,
+  alignTitle: PropTypes.oneOf(["left", "center", "right"]),
 
   /**
    * Description for the pod
