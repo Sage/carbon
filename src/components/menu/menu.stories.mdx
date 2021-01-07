@@ -200,18 +200,17 @@ The menu must have focus for this to work
   <Story name="default icon">
     <div style={{ minHeight: "250px" }}>
       <Menu>
-        <MenuItem icon="home" href="#" keyboardOverride="h">
+        <MenuItem icon="home" href="#">
           Home
-        </MenuItem>
-        <MenuItem
-          icon="person"
-          href="#"
-          keyboardOverride="a"
-          ariaLabel="Account"
-        />
-        <MenuItem icon="settings" submenu="Settings" keyboardOverride="s">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
           <MenuDivider />
           <MenuItem
             icon="settings"
@@ -393,18 +392,17 @@ The menu must have focus for this to work
   <Story name="dark icon">
     <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
-        <MenuItem icon="home" href="#" keyboardOverride="h">
+        <MenuItem icon="home" href="#">
           Home
-        </MenuItem>
-        <MenuItem
-          icon="person"
-          href="#"
-          keyboardOverride="a"
-          ariaLabel="Account"
-        />
-        <MenuItem icon="settings" submenu="Settings" keyboardOverride="s">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
           <MenuDivider />
           <MenuItem
             icon="settings"

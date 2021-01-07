@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/addon-a11y/register',
     '@storybook/addon-docs',
     '@storybook/addon-google-analytics/register',
+    '@storybook/addon-links',
     './.storybook/theme-selector/register',
   ],
   webpackFinal: async (config, { configType }) => {
