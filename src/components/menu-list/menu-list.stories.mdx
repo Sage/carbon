@@ -48,7 +48,7 @@ import { MenuList, MenuListItem } from "carbon-react/lib/components/menu-list";
 A menu list can have a title. A title can be specified by passing a string to the `title` prop.
 
 <Preview>
-  <Story name="with Title">
+  <Story name="with Title" parameters={{ chromatic: { disable: true } }}>
     <MenuList title="Title">
       <MenuListItem>Menu Item One</MenuListItem>
     </MenuList>
@@ -60,7 +60,7 @@ A menu list can have a title. A title can be specified by passing a string to th
 A search filter can be applied to a MenuListItem that has a child MenuList with more than one MenuListItem.
 
 <Preview>
-  <Story name="with Filter">
+  <Story name="with Filter" parameters={{ chromatic: { disable: true } }}>
     {() => {
       return (
         <MenuList>
@@ -85,7 +85,7 @@ A search filter can be applied to a MenuListItem that has a child MenuList with 
 The search filter can have a placeholder. To achiveve this, simply pass a string to the `filterPlaceholder` prop.
 
 <Preview>
-  <Story name="with Filter and Placeholder">
+  <Story name="with Filter and Placeholder" parameters={{ chromatic: { disable: true } }}>
     {() => {
       return (
         <MenuList>
@@ -146,7 +146,7 @@ The MenuList can also be non-collapsible. This can be specified using the `colla
 If you require the MenuList to be initially open, simply use the `initiallyOpen` and this functionality can be achieved.
 
 <Preview>
-  <Story name="with Initially Open">
+  <Story name="with Initially Open" parameters={{ chromatic: { disable: true } }}>
     <MenuList title="Title" initiallyOpen>
       <MenuListItem>Menu Item One</MenuListItem>
     </MenuList>
