@@ -17,4 +17,4 @@ export const flatTableClickableRow = index => cy.get(FLAT_TABLE_COMPONENT).find(
 export const flatTableSortable = () => cy.get(FLAT_TABLE_COMPONENT).find('thead tr th div [type=button]');
 export const flatTableCell = index => cy.get(FLAT_TABLE_CELL).eq(index);
 
-export const flatTableCaption = () => cy.get(FLAT_TABLE_COMPONENT).find('caption');
+export const flatTableCaption = () => flatTable().find('caption');
