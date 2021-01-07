@@ -43,12 +43,12 @@ Then('{string} Select list is opened', (name) => {
 
 Then('{string} Select list is closed', (name) => {
   selectDataComponent(name).should('have.attr', 'aria-expanded', 'false');
-  selectList().should('not.be.visible');
+  selectList().should('not.exist');
 });
 
 Then('{string} Select list is closed in iframe', (name) => {
   selectDataComponentInIframe(name).should('have.attr', 'aria-expanded', 'false');
-  selectListInIframe().should('not.be.visible');
+  selectListInIframe().should('not.exist');
 });
 
 Then('multi Select list is opened', () => {
@@ -58,12 +58,12 @@ Then('multi Select list is opened', () => {
 
 Then('multi Select list is closed', () => {
   multiSelectDataComponent().should('have.attr', 'aria-expanded', 'false');
-  selectList().should('not.be.visible');
+  selectList().should('not.exist');
 });
 
 Then('multi Select list is closed in iframe', () => {
   multiSelectDataComponentInIframe().should('have.attr', 'aria-expanded', 'false');
-  selectListInIframe().should('not.be.visible');
+  selectListInIframe().should('not.exist');
 });
 
 When('I click on Select input', () => {
