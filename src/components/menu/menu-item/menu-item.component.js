@@ -43,7 +43,7 @@ const MenuItem = ({
   const focusFromSubmenu = submenuContext.isFocused;
 
   const childrenItems = React.Children.map(children, (child) => {
-    if (child.type === SubmenuBlock) {
+    if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
         ? child.props.children
         : [child.props.children];
