@@ -1,3 +1,17 @@
+### [54.6.2](https://github.com/Sage/carbon/compare/v54.6.1...v54.6.2) (2021-01-07)
+
+
+### Bug Fixes
+
+* **menuitem:** check for null chldren ([58bf841](https://github.com/Sage/carbon/commit/58bf841be15af1045950483f0ba5a48688d3f0da)), closes [#3540](https://github.com/Sage/carbon/issues/3540)
+
+### [54.6.1](https://github.com/Sage/carbon/compare/v54.6.0...v54.6.1) (2021-01-06)
+
+
+### Bug Fixes
+
+* **tabs:** prevent padding override for large tabs with siblings ([3387ca0](https://github.com/Sage/carbon/commit/3387ca08d0861553e3ef8e8bc4f85f72a5c4d543))
+
 ## [54.6.0](https://github.com/Sage/carbon/compare/v54.5.0...v54.6.0) (2021-01-04)
 
 

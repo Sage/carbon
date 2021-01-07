@@ -334,7 +334,7 @@ describe("TabTitle", () => {
       );
     });
 
-    it("adjusts padding when isTabSelected is true", () => {
+    it('adjusts padding when isTabSelected is true and position is "top"', () => {
       wrapper = render(
         {
           title: "Tab 1",
@@ -353,6 +353,30 @@ describe("TabTitle", () => {
       ).toEqual("Tab 1");
       assertStyleMatch(
         { paddingBottom: "6px" },
+        wrapper.find(StyledTitleContent)
+      );
+    });
+
+    it('does not adjust padding when isTabSelected is true and position is "left"', () => {
+      wrapper = render(
+        {
+          title: "Tab 1",
+          siblings: [<span>foo</span>, <span>bar</span>],
+          titlePosition: "before",
+          isTabSelected: true,
+          position: "left",
+        },
+        mount
+      );
+
+      expect(wrapper.find(StyledTitleContent).props().hasSiblings).toEqual(
+        true
+      );
+      expect(
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+      ).toEqual("Tab 1");
+      assertStyleMatch(
+        { padding: "10px 16px" },
         wrapper.find(StyledTitleContent)
       );
     });
@@ -400,6 +424,29 @@ describe("TabTitle", () => {
       ).toEqual("Tab 1");
       assertStyleMatch(
         { paddingBottom: "5px" },
+        wrapper.find(StyledTitleContent)
+      );
+    });
+
+    it('renders as expected when size is "large" and position is "left"', () => {
+      wrapper = render(
+        {
+          title: "Tab 1",
+          siblings: [<span>foo</span>, <span>bar</span>],
+          titlePosition: "before",
+          size: "large",
+          position: "left",
+        },
+        mount
+      );
+
+      expect(
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+      ).toEqual("Tab 1");
+      assertStyleMatch(
+        {
+          padding: "22px 24px",
+        },
         wrapper.find(StyledTitleContent)
       );
     });
