@@ -10,11 +10,10 @@ Feature: MenuList component
       | mp150ú¿¡üßä                  | titleOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
-  @ignore
-  # @positive doesn't work on Carbon Demo site
-  Scenario Outline: Change MenuList filterPlaceholder to <text>
+  @positive
+  Scenario Outline: Change MenuList filterPlaceholder to <filterPlaceholder>
     Given I open basic "MenuList Test" component in noIFrame with "menuList" json from "commonComponents" using "<nameOfObject>" object name
-    When I set filterPlaceholder to <filterPlaceholder> word
+      And I click into menu item second element
     Then filterPlaceholder on preview is <filterPlaceholder>
     Examples:
       | filterPlaceholder            | nameOfObject                      |

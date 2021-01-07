@@ -1,7 +1,7 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
-import MenuListItem from "./menu-list-item";
 import { shallow } from "enzyme";
+import TestUtils from "react-dom/test-utils";
+import MenuListItem from "./menu-list-item.component";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 
 describe("MenuListItem", () => {
@@ -16,7 +16,7 @@ describe("MenuListItem", () => {
   });
 
   it("renders a list item", () => {
-    let item = TestUtils.findRenderedDOMComponentWithTag(instance, "li");
+    const item = TestUtils.findRenderedDOMComponentWithTag(instance, "li");
     expect(item).toBeDefined();
   });
 
@@ -25,16 +25,19 @@ describe("MenuListItem", () => {
   });
 
   it("adds custom classes to the li if provided", () => {
-    let customInstance = TestUtils.renderIntoDocument(
+    const customInstance = TestUtils.renderIntoDocument(
       <MenuListItem className="custom-class">Im a Child</MenuListItem>
     );
 
-    let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, "li");
+    const list = TestUtils.findRenderedDOMComponentWithTag(
+      customInstance,
+      "li"
+    );
     expect(list.classList).toContain("custom-class");
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <MenuListItem data-element="bar" data-role="baz">
         Test
       </MenuListItem>
