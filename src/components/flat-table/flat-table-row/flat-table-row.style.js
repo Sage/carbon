@@ -90,7 +90,9 @@ const StyledFlatTableRow = styled.tr`
 
       ${highlighted &&
       `
-        ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
           background-color: ${colorOfHighlighted};
           border-bottom-color: ${colorOfHighlighted};
         }

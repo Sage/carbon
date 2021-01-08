@@ -14,10 +14,6 @@ exports[`FlatTableRow should have expected styles 1`] = `
 
 .c1 > div {
   box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .c1:first-of-type {
