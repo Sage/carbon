@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import TestUtils from "react-dom/test-utils";
 
 import Detail from "./detail.component";
@@ -7,6 +7,12 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  StyledDetailContent,
+  StyledDetailIcon,
+  StyledDetailFootnote,
+} from "./detail.style";
 
 describe("Detail", () => {
   let instance;
@@ -36,34 +42,50 @@ describe("Detail", () => {
   });
 
   describe("with a footnote", () => {
+    let wrapper;
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Detail footnote="extra info">foo</Detail>
-      );
+      wrapper = shallow(<Detail footnote="extra info">foo</Detail>);
     });
 
     it("renders the footnote", () => {
-      const div = TestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        "carbon-detail__footnote"
-      );
-      expect(div.textContent).toEqual("extra info");
+      const footnote = wrapper.find(StyledDetailFootnote);
+      expect(footnote.text()).toEqual("extra info");
     });
   });
 
   describe("with an icon", () => {
+    let wrapper;
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Detail icon="settings">foo</Detail>
+      wrapper = mount(<Detail icon="settings">foo</Detail>);
+    });
+
+    it("renders the icon", () => {
+      const icon = wrapper.find(StyledDetailIcon);
+      expect(icon).toBeDefined();
+    });
+
+    it("should give the content a margin left", () => {
+      assertStyleMatch(
+        { marginLeft: "26px" },
+        wrapper.find(StyledDetailContent)
       );
     });
 
-    it("renders the icon and additional class", () => {
-      const div = TestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        "carbon-detail__icon"
-      );
-      expect(div).toBeDefined();
+    describe("with a footnote", () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Detail icon="settings" footnote="extra info">
+            foo
+          </Detail>
+        );
+      });
+
+      it("should give the footnote a margin left", () => {
+        assertStyleMatch(
+          { marginLeft: "26px" },
+          wrapper.find(StyledDetailFootnote)
+        );
+      });
     });
   });
 

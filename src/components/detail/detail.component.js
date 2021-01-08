@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../utils/helpers/tags";
-import Icon from "../icon";
-import StyledDetail from "./detail.style";
+import {
+  StyledDetail,
+  StyledDetailContent,
+  StyledDetailIcon,
+  StyledDetailFootnote,
+} from "./detail.style";
 
 class Detail extends React.Component {
   static propTypes = {
@@ -50,7 +54,7 @@ class Detail extends React.Component {
     }
 
     return (
-      <Icon
+      <StyledDetailIcon
         className="carbon-detail__icon"
         type={this.props.icon}
         data-element="icon"
@@ -70,9 +74,13 @@ class Detail extends React.Component {
     }
 
     return (
-      <div className="carbon-detail__footnote" data-element="footnote">
+      <StyledDetailFootnote
+        className="carbon-detail__footnote"
+        data-element="footnote"
+        hasIcon={this.props.icon}
+      >
         {this.props.footnote}
-      </div>
+      </StyledDetailFootnote>
     );
   };
 
@@ -89,7 +97,12 @@ class Detail extends React.Component {
       >
         {this.icon()}
 
-        <div className="carbon-detail__content">{this.props.children}</div>
+        <StyledDetailContent
+          className="carbon-detail__content"
+          hasIcon={this.props.icon}
+        >
+          {this.props.children}
+        </StyledDetailContent>
 
         {this.footnote()}
       </StyledDetail>
