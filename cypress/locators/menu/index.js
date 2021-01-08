@@ -1,14 +1,11 @@
 import {
   MENU_PREVIEW,
-  MENU_ITEM,
   SUBMENU,
   SCROLL_BLOCK,
 } from './locators';
 
 // component preview locators
 export const menuPreview = () => cy.get(MENU_PREVIEW);
-export const menuListItems = () => cy.get(MENU_PREVIEW)
-  .find(MENU_ITEM);
 export const submenu = () => cy.get(SUBMENU);
 export const submenuBlock = () => cy.get(SUBMENU)
   .find('ul');
