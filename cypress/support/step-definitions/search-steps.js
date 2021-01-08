@@ -1,7 +1,7 @@
 import {
-  searchInput, searchIcon,
-  searchDefaultInput, searchCrossIcon, searchButton, 
-  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon, searchInputIframe, searchIconIframe,
+  searchInput, searchIconIframe,
+  searchDefaultInput, searchCrossIcon, searchButton,
+  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon, searchInputIframe,
 } from '../../locators/search';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
@@ -52,6 +52,14 @@ When('I click onto search icon', () => {
 
 When('I click inside input', () => {
   searchInputIframe().click();
+});
+
+When('I focus on cross icon', () => {
+  searchCrossIcon().parent().focus();
+});
+
+Then('Cross icon has golden border', () => {
+  searchCrossIcon().parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
 Then('search icon has golden border', () => {

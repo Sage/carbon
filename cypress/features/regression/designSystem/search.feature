@@ -39,3 +39,10 @@ Feature: Design System Search component
     When Type "Search" text into default search input
     Then Search component has input and "cross" as icon
       And Search component input has golden border
+
+  @positive
+  Scenario: Cross icon has gold outline when focused
+    Given I open "Design System Search" component page "default_story" in no iframe
+      And Type "Search" text into default search input
+    When I focus on cross icon
+    Then Cross icon has golden border
