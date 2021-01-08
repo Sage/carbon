@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../../utils/helpers/tags";
-import "./menu-list-item.scss";
+import StyledMenuListItem from "./menu-list-item.style";
+import Logger from "../../../utils/logger/logger";
 
+let deprecatedWarnTriggered = false;
 class MenuListItem extends React.Component {
   static propTypes = {
     /**
@@ -23,18 +25,28 @@ class MenuListItem extends React.Component {
     this.mainClasses = this.mainClasses.bind(this);
   }
 
+  componentDidMount() {
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "The `MenuListItem` component is deprecated and will be removed in a future release."
+      );
+    }
+  }
+
   mainClasses() {
     return classNames("carbon-menu-list-item", this.props.className);
   }
 
   render() {
     return (
-      <li
+      <StyledMenuListItem
         className={this.mainClasses()}
         {...tagComponent("menu-list-item", this.props)}
       >
         {this.props.children}
-      </li>
+      </StyledMenuListItem>
     );
   }
 }

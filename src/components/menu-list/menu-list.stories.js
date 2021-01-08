@@ -1,6 +1,6 @@
 import React from "react";
 import { text, boolean } from "@storybook/addon-knobs";
-import { MenuList, MenuListItem } from "./menu-list";
+import { MenuList, MenuListItem } from ".";
 
 export default {
   title: "MenuList/Test",
