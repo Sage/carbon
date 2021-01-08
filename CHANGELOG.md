@@ -1,3 +1,29 @@
+## [56.0.0](https://github.com/Sage/carbon/compare/v55.0.0...v56.0.0) (2021-01-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **flat-table:** default paddings of flat table cell removed,
+cell should match row height or expand the row,
+cell paddings should depend on FlatTable size prop
+
+### Features
+
+* **flat-table:** add aria-describedby prop ([ab52374](https://github.com/Sage/carbon/commit/ab52374ed0d2bda268e91bf627b5a86ef073d30b))
+* **flat-table:** add caption prop ([617f8a9](https://github.com/Sage/carbon/commit/617f8a9e79d26921254b885e35ef85a6312a68ae))
+* **flat-table:** add size prop to control cell size ([af095f9](https://github.com/Sage/carbon/commit/af095f9c2c9ae03ec70c0700dd21fdf10d2797e6))
+* **flat-table:** add zebra stripes functionality ([f8c32db](https://github.com/Sage/carbon/commit/f8c32dbb82cf6c665c63468e49480b39d51cfa05))
+
+
+### Bug Fixes
+
+* **flat-table:** row header not highlighted ([efc3654](https://github.com/Sage/carbon/commit/efc3654fb51e18ebede9a982a6ba1e5dc0adf300))
+
+
+### Code Refactoring
+
+* **flat-table:** remove flat table cell default paddings ([ef4fa5b](https://github.com/Sage/carbon/commit/ef4fa5b9dddbb7b5cf01563fd7b89f862767bd0d))
+
 ## [55.0.0](https://github.com/Sage/carbon/compare/v54.6.2...v55.0.0) (2021-01-07)
 
 
