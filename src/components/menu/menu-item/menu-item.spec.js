@@ -422,6 +422,21 @@ describe("MenuItem", () => {
     });
   });
 
+  describe("with conditionally rendered children", () => {
+    it("should not error when a child is null", () => {
+      wrapper = mount(
+        <MenuContext.Provider value={{ menuType: "light" }}>
+          <MenuItem submenu="test">
+            {true && <MenuItem>One</MenuItem>}
+            {false && <MenuItem>Two</MenuItem>}
+          </MenuItem>
+        </MenuContext.Provider>
+      );
+
+      expect(wrapper.find(MenuItem).find(MenuItem).length).toEqual(1);
+    });
+  });
+
   describe("icon only menus and submenus", () => {
     it("should render an icon into the menu item", () => {
       wrapper = mount(

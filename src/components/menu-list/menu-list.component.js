@@ -8,8 +8,10 @@ import Textbox from "../../__experimental__/components/textbox";
 
 import MenuListItem from "./menu-list-item";
 import tagComponent from "../../utils/helpers/tags";
-import "./menu-list.scss";
+import StyledMenuList from "./menu-list.style";
+import Logger from "../../utils/logger/logger";
 
+let deprecatedWarnTriggered = false;
 class MenuList extends React.Component {
   static propTypes = {
     /**
@@ -69,6 +71,16 @@ class MenuList extends React.Component {
     filter: null,
     open: this.props.initiallyOpen || false,
   };
+
+  componentDidMount() {
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "The `MenuList` component is deprecated and will be removed in a future release."
+      );
+    }
+  }
 
   /** Actions * */
   onSearch(ev) {
@@ -141,15 +153,15 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div
+      <StyledMenuList
         className={this.mainClasses()}
         {...tagComponent("menu-list", this.props)}
       >
         {this.menuTitle()}
         <ul className="carbon-menu-list__list">{this.menuItems()}</ul>
-      </div>
+      </StyledMenuList>
     );
   }
 }
 
-export { MenuListItem, MenuList };
+export default MenuList;
