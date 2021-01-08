@@ -7,7 +7,7 @@ const iconSize = "16px";
 const StyledDetail = styled.div`
   position: relative;
 
-  + .carbon-detail {
+  + & {
     margin-top: 20px;
   }
 `;

@@ -33,16 +33,6 @@ class Detail extends React.Component {
   };
 
   /**
-   * Returns the classes for the component.
-   *
-   * @method classes
-   * @return {String}
-   */
-  get classes() {
-    return classNames("carbon-detail", this.props.className);
-  }
-
-  /**
    * Returns the markup for the icon if one if specified.
    *
    * @method icon
@@ -53,13 +43,7 @@ class Detail extends React.Component {
       return null;
     }
 
-    return (
-      <StyledDetailIcon
-        className="carbon-detail__icon"
-        type={this.props.icon}
-        data-element="icon"
-      />
-    );
+    return <StyledDetailIcon type={this.props.icon} data-element="icon" />;
   };
 
   /**
@@ -74,11 +58,7 @@ class Detail extends React.Component {
     }
 
     return (
-      <StyledDetailFootnote
-        className="carbon-detail__footnote"
-        data-element="footnote"
-        hasIcon={this.props.icon}
-      >
+      <StyledDetailFootnote data-element="footnote" hasIcon={this.props.icon}>
         {this.props.footnote}
       </StyledDetailFootnote>
     );
@@ -91,14 +71,14 @@ class Detail extends React.Component {
   render() {
     return (
       <StyledDetail
-        className={this.classes}
+        className={classNames("carbon-detail", this.props.className)}
         hasIcon={this.props.icon}
         {...tagComponent("detail", this.props)}
       >
         {this.icon()}
 
         <StyledDetailContent
-          className="carbon-detail__content"
+          data-element="detail-content"
           hasIcon={this.props.icon}
         >
           {this.props.children}

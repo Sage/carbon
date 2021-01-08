@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import TestUtils from "react-dom/test-utils";
 
 import Detail from "./detail.component";
 import {
@@ -9,40 +8,32 @@ import {
 } from "../../utils/helpers/tags/tags-specs";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import {
+  StyledDetail,
   StyledDetailContent,
   StyledDetailIcon,
   StyledDetailFootnote,
 } from "./detail.style";
 
 describe("Detail", () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <Detail className="foo">foo</Detail>
-    );
-  });
+  let wrapper;
 
   describe("render", () => {
+    beforeEach(() => {
+      wrapper = shallow(<Detail className="foo">foo</Detail>);
+    });
+
     it("renders the children", () => {
-      const content = TestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        "carbon-detail__content"
-      );
-      expect(content.textContent).toEqual("foo");
+      expect(wrapper.find(StyledDetailContent).text()).toEqual("foo");
     });
 
     it("renders with custom classes", () => {
-      const div = TestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        "carbon-detail"
+      expect(wrapper.find(StyledDetail).props().className).toContain(
+        "carbon-detail foo"
       );
-      expect(div.className).toContain("carbon-detail foo");
     });
   });
 
   describe("with a footnote", () => {
-    let wrapper;
     beforeEach(() => {
       wrapper = shallow(<Detail footnote="extra info">foo</Detail>);
     });
@@ -54,7 +45,6 @@ describe("Detail", () => {
   });
 
   describe("with an icon", () => {
-    let wrapper;
     beforeEach(() => {
       wrapper = mount(<Detail icon="settings">foo</Detail>);
     });
@@ -91,15 +81,15 @@ describe("Detail", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      const wrapper = shallow(<Detail data-element="bar" data-role="baz" />);
+      const instance = shallow(<Detail data-element="bar" data-role="baz" />);
 
       it("include correct component, element and role data tags", () => {
-        rootTagTest(wrapper, "detail", "bar", "baz");
+        rootTagTest(instance.find(StyledDetail), "detail", "bar", "baz");
       });
     });
 
     describe("on internal elements", () => {
-      const wrapper = shallow(<Detail icon="test" footnote="test" />);
+      wrapper = shallow(<Detail icon="test" footnote="test" />);
 
       elementsTagTest(wrapper, ["icon", "footnote"]);
     });
