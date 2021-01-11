@@ -1,3 +1,10 @@
+## [56.1.0](https://github.com/Sage/carbon/compare/v56.0.1...v56.1.0) (2021-01-11)
+
+
+### Features
+
+* **search:** added keyboard navigation to clear text button ([069dbab](https://github.com/Sage/carbon/commit/069dbabd11378fdad3e214acae5da9d56ca70b70)), closes [#3485](https://github.com/Sage/carbon/issues/3485)
+
 ### [56.0.1](https://github.com/Sage/carbon/compare/v56.0.0...v56.0.1) (2021-01-11)
 
 
