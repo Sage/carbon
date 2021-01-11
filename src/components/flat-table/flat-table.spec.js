@@ -14,13 +14,27 @@ import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import {
+  StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
+import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
+import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import cellSizes from "./cell-sizes.style";
 
 describe("FlatTable", () => {
+  it("ariaDescribedby prop should have been propagated to the table", () => {
+    const customId = "foo";
+    const wrapper = renderFlatTable({ ariaDescribedby: customId }, mount);
+
+    expect(wrapper.find(StyledFlatTable).prop("aria-describedby")).toBe(
+      customId
+    );
+  });
+
   describe("when rendered with proper table data", () => {
     let wrapper;
 
@@ -147,6 +161,82 @@ describe("FlatTable", () => {
       );
     });
   });
+
+  describe("when isZebra prop is set to true", () => {
+    it("then every second row should have expected background color", () => {
+      const wrapper = renderFlatTable({ isZebra: true }, mount);
+
+      assertStyleMatch(
+        {
+          backgroundColor: baseTheme.table.zebra,
+        },
+        wrapper.find(StyledFlatTable),
+        {
+          modifier: `${StyledFlatTableRow}:nth-child(2n) ${StyledFlatTableCell}`,
+        }
+      );
+    });
+  });
+
+  describe("when the caption prop is set", () => {
+    it("then that caption should be rendered in the table", () => {
+      const captionText = "foo";
+      const wrapper = renderFlatTable({ caption: captionText }, mount);
+
+      expect(wrapper.find("caption").exists()).toBe(true);
+      expect(wrapper.find("caption").text()).toBe(captionText);
+    });
+  });
+
+  describe.each(OptionsHelper.tableSizes)(
+    "when the size prop is set to %s",
+    (size) => {
+      const { fontSize, paddingSize } = cellSizes[size];
+      const expectedStyles = {
+        fontSize,
+        paddingLeft: paddingSize,
+        paddingRight: paddingSize,
+      };
+
+      it("then expected styles should be applied to table cells underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableCell} > div`,
+        });
+      });
+
+      it("then expected styles should be applied to table headers underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableHeader} > div`,
+        });
+      });
+
+      it("then expected styles should be applied to row headers underlying div", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(expectedStyles, wrapper.find(StyledFlatTable), {
+          modifier: `${StyledFlatTableRowHeader} > div`,
+        });
+      });
+
+      it("then the Table Rows should have expected height", () => {
+        const wrapper = renderFlatTable({ size }, mount);
+
+        assertStyleMatch(
+          {
+            height: cellSizes[size].height,
+          },
+          wrapper.find(StyledFlatTable),
+          {
+            modifier: `${StyledFlatTableRow}`,
+          }
+        );
+      });
+    }
+  );
 
   describe("footer", () => {
     let wrapper;

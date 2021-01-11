@@ -19,6 +19,7 @@ import Textbox from '../../__experimental__/components/textbox';
 import Pager from '../pager'
 import { ActionPopover, ActionPopoverItem, ActionPopoverMenu } from '../action-popover';
 import { SidebarContext } from '../drawer';
+import Box from '../box';
 
 <Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
 
@@ -353,102 +354,10 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
-
-### With transparent-white theme
-To create a transparent effect for the header, the background-color is set to match a white background
-
+### With zebra stripes
 <Preview>
-  <Story name="transparent-white theme">
-    <div>
-      <FlatTable colorTheme="transparent-white">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>John Smith</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>Jane Smith</FlatTableCell>
-            <FlatTableCell>Newcastle</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  </Story>
-</Preview>
-
-
-### With transparent-base theme
-To create a transparent effect for the header, the background-color is set to match the base app background
-
-<Preview>
-  <Story name="transparent-base theme">
-    <FlatTable colorTheme="transparent-base">
-     <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
-          <FlatTableHeader>Location</FlatTableHeader>
-          <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow onClick={ () => {} }>
-          <FlatTableCell>John Doe</FlatTableCell>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
-          <FlatTableCell>Jane Doe</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
-          <FlatTableCell>John Smith</FlatTableCell>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>1</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
-          <FlatTableCell>Jane Smith</FlatTableCell>
-          <FlatTableCell>Newcastle</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>5</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  </Story>
-</Preview>
-
-### With light theme 
-<Preview>
-  <Story name="light theme">
-    <FlatTable colorTheme="light">
+  <Story name="zebra">
+    <FlatTable isZebra>
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -458,25 +367,25 @@ To create a transparent effect for the header, the background-color is set to ma
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-          <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow>
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
+          <FlatTableRow>
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
+          <FlatTableRow>
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow>
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
@@ -654,25 +563,25 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
-              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
-              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('three') }highlighted={ highlightedRow === 'three' }>
-              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('four') } highlighted={ highlightedRow === 'four' }>
-              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>5</FlatTableCell>
@@ -1139,6 +1048,53 @@ of the button control.
         </>
       );
     }} 
+  </Story>
+</Preview>
+
+## Table Cell Sizes
+
+<Preview>
+  <Story name="sizes">
+    <div>
+      {["compact", "small", "medium", "large"].map(size => <Box mb={3}>
+        <FlatTable size={size}>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>)}
+    </div>
   </Story>
 </Preview>
 

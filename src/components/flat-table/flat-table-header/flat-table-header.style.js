@@ -23,6 +23,11 @@ const StyledFlatTableHeader = styled.th`
       width: ${colWidth}px;
     `};
 
+    /* accomodate for no border in the header first cell */
+    &:first-child {
+      padding-left: 1px;
+    }
+
     > div {
       box-sizing: border-box;
       ${space};

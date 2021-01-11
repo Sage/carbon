@@ -9,15 +9,29 @@ import { SidebarContext } from "../drawer";
 import Box from "../box";
 
 const FlatTable = ({
+  caption,
   children,
   hasStickyHead,
   colorTheme,
   footer,
   hasStickyFooter = false,
   height,
+  isZebra,
+  size,
+  ariaDescribedby,
   ...props
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
+  const tableStylingProps = {
+    caption,
+    isZebra,
+    size,
+  };
+
+  if (ariaDescribedby) {
+    tableStylingProps["aria-describedby"] = ariaDescribedby;
+  }
+
   return (
     <SidebarContext.Consumer>
       {(context) => (
@@ -33,7 +47,11 @@ const FlatTable = ({
               colorTheme={colorTheme}
               heightDefaulted={addDefaultHeight}
             >
-              <StyledFlatTable data-component="flat-table">
+              <StyledFlatTable
+                data-component="flat-table"
+                {...tableStylingProps}
+              >
+                {caption ? <caption>{caption}</caption> : null}
                 {children}
               </StyledFlatTable>
             </StyledFlatTableWrapper>
@@ -50,6 +68,10 @@ const FlatTable = ({
 };
 
 FlatTable.propTypes = {
+  /** The HTML id of the element that contains a description of this table. */
+  ariaDescribedby: PropTypes.string,
+  /** A string to render as the table's caption */
+  caption: PropTypes.string,
   /** FlatTableHead and FlatTableBody */
   children: PropTypes.node.isRequired,
   /** If true, the header does not scroll with the content */
@@ -67,10 +89,15 @@ FlatTable.propTypes = {
   hasStickyFooter: PropTypes.bool,
   /** Set the height of the table */
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Toggles the zebra striping for the table rows */
+  isZebra: PropTypes.bool,
+  /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
+  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
 };
 
 FlatTable.defaultProps = {
   colorTheme: "dark",
+  size: "medium",
 };
 
 export default FlatTable;
