@@ -1,8 +1,9 @@
 import {
-  searchInput, searchIcon,
-  searchDefaultInput, searchCrossIcon, searchButton, 
-  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon, searchInputIframe, searchIconIframe,
+  searchInput, searchIconIframe,
+  searchDefaultInput, searchCrossIcon, searchButton,
+  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon, searchInputIframe,
 } from '../../locators/search';
+import { keyCode } from '../helper';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
   searchDefaultInput().should('have.attr', 'placeholder', placeholder);
@@ -54,6 +55,14 @@ When('I click inside input', () => {
   searchInputIframe().click();
 });
 
+When('I focus on cross icon', () => {
+  searchCrossIcon().parent().focus();
+});
+
+Then('Cross icon has golden border', () => {
+  searchCrossIcon().parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+});
+
 Then('search icon has golden border', () => {
   searchButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
@@ -70,4 +79,8 @@ Then('search icon as button is visible', () => {
 
 Then('search icon as button is not visible', () => {
   searchInnerIcon().should('not.exist');
+});
+
+When('I press onto cross icon using {string} key', (key) => {
+  searchCrossIcon().trigger('keydown', keyCode(key));
 });

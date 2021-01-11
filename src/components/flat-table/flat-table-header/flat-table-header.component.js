@@ -21,8 +21,8 @@ const FlatTableHeader = ({
       colSpan={colspan}
       rowSpan={rowspan}
       colWidth={width}
-      py={py || 1}
-      px={px || 3}
+      py={py}
+      px={px}
       {...rest}
     >
       <div>{children}</div>

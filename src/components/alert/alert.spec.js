@@ -2,7 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import IconButton from "../icon-button";
 import Alert from ".";
+import StyledAlert from "./alert.style";
 import guid from "../../utils/helpers/guid";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils.js";
+import StyledIconButton from "../icon-button/icon-button.style";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -25,8 +28,16 @@ describe("Alert", () => {
   });
 
   describe("Alert", () => {
-    it("matches the snapshot", () => {
-      expect(wrapper).toMatchSnapshot();
+    it("applies expected styles for the close icon", () => {
+      assertStyleMatch(
+        {
+          position: "absolute",
+          right: "33px",
+          top: "25px",
+        },
+        wrapper.find(StyledAlert),
+        { modifier: `&& ${StyledIconButton}` }
+      );
     });
   });
 
