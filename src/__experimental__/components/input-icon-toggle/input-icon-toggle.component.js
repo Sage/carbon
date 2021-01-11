@@ -22,6 +22,7 @@ const InputIconToggle = ({
   info,
   useValidationIcon,
   align,
+  iconTabIndex,
 }) => {
   if (
     useValidationIcon &&
@@ -29,7 +30,7 @@ const InputIconToggle = ({
     shouldDisplayValidationIcon({ error, warning, info })
   ) {
     return (
-      <InputIconToggleStyle size={size}>
+      <InputIconToggleStyle size={size} tabIndex={iconTabIndex}>
         <ValidationIcon
           error={error}
           warning={warning}
@@ -49,6 +50,7 @@ const InputIconToggle = ({
         size={size}
         onClick={onClick}
         onMouseDown={onMouseDown}
+        tabIndex={iconTabIndex}
       >
         <Icon type={type} />
       </InputIconToggleStyle>
@@ -69,6 +71,7 @@ InputIconToggle.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   align: PropTypes.oneOf(["left", "right"]),
   useValidationIcon: PropTypes.bool,
+  iconTabIndex: PropTypes.number,
 };
 
 export default InputIconToggle;

@@ -45,6 +45,7 @@ describe("NumeralDate", () => {
         "['mm', 'dd'], " +
         "['mm', 'yyyy']";
 
+      // eslint-disable-next-line no-console
       const actual = console.error.calls.argsFor(0)[0];
       expect(actual).toMatch(expected);
     });
