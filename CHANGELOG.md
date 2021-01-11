@@ -1,3 +1,10 @@
+### [56.0.1](https://github.com/Sage/carbon/compare/v56.0.0...v56.0.1) (2021-01-11)
+
+
+### Bug Fixes
+
+* **dialog:** dialog centering with dynamic content ([2f15659](https://github.com/Sage/carbon/commit/2f156596b89422246c019a2a49721b5bcb4401d3)), closes [#3470](https://github.com/Sage/carbon/issues/3470)
+
 ## [56.0.0](https://github.com/Sage/carbon/compare/v55.0.0...v56.0.0) (2021-01-08)
 
 
