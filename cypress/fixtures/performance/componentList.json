@@ -1,0 +1,292 @@
+{
+  "alert": {
+    "story": "default story"
+  },
+  "appwrapper": {
+    "story": "default story",
+    "story1": "with background colour",
+    "story2": "without app wrapper"
+  },
+  "button-toggle": {
+    "story": "basic",
+    "story1": "disabled",
+    "story2": "grouped",
+    "story3": "with large icon",
+    "story4": "with small icon"
+  },
+  "button-toggle-group": {
+    "story": "basic",
+    "story1": "controlled",
+    "story2": "fieldhelp inline",
+    "story3": "grouped",
+    "story4": "label inline"
+  },
+  "carousel": {
+    "story":"default story",
+    "story1": "without buttons",
+    "story2": "without slide selectors"
+  },
+  "configurable items": {
+    "story": "default"
+  },
+  "confirm": {
+    "story": "default story"
+  },
+  "content": {
+    "story": "default story",
+    "story1": "with inline",
+    "story2": "with secondary styling"
+  },
+  "design system accordion": {
+    "story": "default story",
+    "story1": "different width",
+    "story2": "full border",
+    "story3": "icon left",
+    "story4": "opening button",
+    "story5": "small",
+    "story6": "styles overriden",
+    "story7": "sub title",
+    "story8": "validation icon",
+    "story9": "with a definition list",
+    "story10": "with box component and different paddings"
+  },
+  "design system action popover": {
+    "story": "keyboard navigation"
+  },
+  "design system advanced color picker": {
+    "story": "default story"
+  },
+  "test anchor navigation": {
+    "story": "page"
+  },
+  "design system badge": {
+    "story": "basic"
+  },
+  "design system batch selection": {
+    "story": "basic"
+  },
+  "design system box": {
+    "story": "flex",
+    "story1": "layout",
+    "story2": "scroll",
+    "story3": "spacing"
+  },
+  "design system button": {
+    "story": "primary",
+    "story1": "secondary",
+    "story2": "tertiary"
+  },
+  "design system card": {
+    "story":"default story",
+    "story1": "more examples of card footer"
+  },
+  "design system draggable": {
+    "story": "basic"
+  },
+  "design system drawer": {
+    "story": "controlled",
+    "story1": "uncontrolled"
+  },
+  "test duellingpicklist": {
+    "story": "basic"
+  },
+  "design system fieldset address fieldset examples": {
+    "story": "canada",
+    "story1": "eu",
+    "story2": "other",
+    "story3": "uk and ireland",
+    "story4": "united states"
+  },
+  "design system flat table": {
+    "story": "basic",
+    "story1": "paginated"
+  },
+  "design system form": {
+    "story": "basic with sticky footer"
+  },
+  "design system grid": {
+    "story": "basic"
+  },
+  "design system hr": {
+    "story": "default story"
+  },
+  "design system loader": {
+    "story":"default story",
+    "story1": "large"
+  },
+  "design system menu": {
+    "story":"default story",
+    "story1": "dark theme alternate colour"
+  },
+  "design system navigation bar": {
+    "story":"default story"
+  },
+  "design system note": {
+    "story": "status"
+  },
+  "design system numeral date": {
+    "story":"default story",
+    "story1": "uncontrolled"
+  },
+  "design system pager": {
+    "story": "page size selection options"
+  },
+  "design system pill test": {
+    "story": "basic"
+  },
+  "design system popover container": {
+    "story": "complex"
+  },
+  "design system search": {
+    "story":"default story",
+    "story1": "with search button and colour background"
+  },
+  "design system select": {
+    "story": "basic"
+  },
+  "design system select filterable": {
+    "story": "basic"
+  },
+  "design system select multiselect": {
+    "story": "basic"
+  },
+  "design system tabs": {
+    "story": "basic",
+    "story1": "with validations sized large positioned left",
+    "story2": "with validations sized large positioned top"
+  },
+  "design system text editor": {
+    "story": "basic",
+    "story1": "with validation"
+  },
+  "design system tile": {
+    "story":"default story"
+  },
+  "design system tile select": {
+    "story": "basic"
+  },
+  "design system toast test": {
+    "story": "visual"
+  },
+  "design system typography": {
+    "story": "variants"
+  },
+  "design system verticaldivider": {
+    "story": "default story"
+  },
+  "detail": {
+    "story":"default story"
+  },
+  "dialog": {
+    "story":"default story"
+  },
+  "dialog full screen": {
+    "story":"default story"
+  },
+  "draggablecontext": {
+    "story": "with-table"
+  },
+  "experimental checkbox": {
+    "story":"default story"
+  },
+  "experimental date input": {
+    "story":"default story"
+  },
+  "experimental date range": {
+    "story":"default story"
+  },
+  "experimental decimal input": {
+    "story":"default story"
+  },
+  "experimental fieldset": {
+    "story":"default story"
+  },
+  "experimental groupedcharacter": {
+    "story":"default story"
+  },
+  "experimental number input": {
+    "story":"default story"
+  },
+  "experimental radiobutton": {
+    "story": "enable adaptive behaviour"
+  },
+  "experimental simple color picker": {
+    "story":"default story"
+  },
+  "experimental switch": {
+    "story":"default story"
+  },
+  "experimental textarea": {
+    "story":"default story"
+  },
+  "experimental textbox": {
+    "story":"default story"
+  },
+  "heading": {
+    "story":"default story"
+  },
+  "help": {
+    "story":"default story"
+  },
+  "i18ncomponent": {
+    "story": "default story"
+  },
+  "icon": {
+    "story": "basic"
+  },
+  "link": {
+    "story": "default story"
+  },
+  "message": {
+    "story":"default story"
+  },
+  "mount in app": {
+    "story":"default story"
+  },
+  "multi action button": {
+    "story":"default story"
+  },
+  "pages": {
+    "story":"default story"
+  },
+  "pod": {
+    "story":"basic"
+  },
+  "portrait": {
+    "story":"default story"
+  },
+  "preview": {
+    "story":"default story"
+  },
+  "profile": {
+    "story":"default story"
+  },
+  "row": {
+    "story":"default story"
+  },
+  "settingsrow": {
+    "story":"basic"
+  },
+  "showeditpod": {
+    "story":"basic"
+  },
+  "sidebar": {
+    "story":"default story"
+  },
+  "split button": {
+    "story":"default story"
+  },
+  "step sequence": {
+    "story":"basic",
+    "story1":"vertical"
+  },
+  "table": {
+    "story":"basic"
+  },
+  "table ajax": {
+    "story":"basic"
+  },
+  "test definition list": {
+    "story": "basic"
+  }
+}

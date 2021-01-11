@@ -70,6 +70,7 @@ jobs:
           group: ubuntu-regression
           quiet: true
           browser: chrome
+          spec: './cypress/features/regression/**'
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -77,6 +78,45 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cypress_performance:
+    runs-on: ubuntu-18.04
+    needs: cypress
+    timeout-minutes: 10
+    container: cypress/browsers:node12.18.3-chrome87-ff82
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Restore the previous NPM modules and Cypress binary archives.
+      # Any updated archives will be saved automatically after the entire
+      # workflow successfully finishes.
+      # See https://github.com/actions/cache
+      - name: Cache central NPM modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Cache Cypress binary
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-
+      - name: install dependencies and verify Cypress
+        env:
+          # make sure every Cypress install prints minimal information
+          CI: 1
+        run: |
+          npm ci
+          npx cypress cache path
+          npx cypress cache list
+          npx cypress verify
+          npx cypress info
+      # because of "record" and "parallel" parameters
+      # these containers will load balance all found tests among themselves
       - name: Cypress performance run
         uses: cypress-io/github-action@v2
         with:
@@ -91,6 +131,7 @@ jobs:
           quiet: true
           browser: chrome
           spec: './cypress/features/performance/performance.spec.js'
+          ci-build-id: ${{ github.run_id }}-performance
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

@@ -104,13 +104,7 @@ addDecorator(withThemeSelector);
 // to be deleted after upgrade Storybook to version 6+
 addDecorator((Story, { id }) => {
   const callback = (id, phase, actualTime, baseTime, startTime, commitTime) => {
-    // console.log(`Starting gathering performance data for ${id} component`);
-    // console.log(`${id}'s ${phase} phase:`);
-    console.log(`Actual time: ${actualTime} in ${phase} phase`);
-    // console.log(`Base time: ${baseTime}`);
-    // console.log(`Start time: ${startTime}`);
-    // console.log(`Commit time: ${commitTime}`);
-    // console.log(`End of gathering performance data for ${id} component`);
+    console.log(`component: ${id}\n phase: ${phase}\n actual time: ${actualTime}\n start time: ${startTime}\n base time: ${baseTime}\n commit time: ${commitTime}`);
   };
   return (
     <Profiler id={id} onRender={callback}>
@@ -122,13 +116,7 @@ addDecorator((Story, { id }) => {
   // to be used for Performance testing after upgrade Storybook to v 6+
   // export const decorators = [(Story, { id }) => {
   //   const callback = (id, phase, actualTime, baseTime, startTime, commitTime) => {
-  //     console.log(`Starting gathering performance data for ${id} component`);
-  //     console.log(`${id}'s ${phase} phase:`);
-  //     console.log(`Actual time: ${actualTime}`);
-  //     console.log(`Base time: ${baseTime}`);
-  //     console.log(`Start time: ${startTime}`);
-  //     console.log(`Commit time: ${commitTime}`);
-  //     console.log(`End of gathering performance data for ${id} component`);
+  //      console.log(`component: ${id}\n phase: ${phase}\n actual time: ${actualTime}\n start time: ${startTime}\n base time: ${baseTime}\n commit time: ${commitTime}`);
   //   };
   //   return (
   //     <Profiler id={id} onRender={callback}>

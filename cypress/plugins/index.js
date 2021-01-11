@@ -48,31 +48,34 @@ module.exports = (on, config) => {
 
   // we can use this standard approach
   const options = {
-    outputRoot: `${config.projectRoot}/cypress/.logs/`,
+    outputRoot: `${config.projectRoot}/cypress/`,
     printLogsToFile: 'always',
     // Used to trim the base path of specs and reduce nesting in the
     // generated output directory.
     specRoot: path.relative(config.fileServerFolder, config.integrationFolder),
     outputTarget: {
-      'cypress-logs|json': 'json',
+      '.logs|json': 'json',
     },
   };
 
   // we can use custom.output approach
-
   // const options = {
   //   outputRoot: `${config.projectRoot}/cypress/.logs/`,
+  //   specRoot: path.relative(config.fileServerFolder, config.integrationFolder),
   //   outputTarget: {
-  //     'custom.output': function (messages) {
-  //       // messages= {[specPath: string]: {[testTitle: string]: [type: string, message: string, severity: string][]}
-
-  //       Object.entries(allMessages).forEach(([spec, tests]) => {
-  //         const dataString = '';
-  //         // .. Process the tests object into desired format ..
-  //         // Insert chunk into file, by default at the end.
-  //         this.writeSpecChunk(spec, dataString);
-  //         // Or before the last two characters.
-  //         this.writeSpecChunk(spec, dataString, -2);
+  //     'log|json': function (messages) {
+  //       // Object.entries(allMessages).forEach(([spec, tests]) => {
+  //       //   const dataString = '';
+  //       //   this.initialContent = 'Specs:\n';
+  //       //   this.chunkSeparator = '\n';
+  //       //   // .. Process the tests object into desired format ..
+  //       //   // Insert chunk into file, by default at the end.
+  //       //   this.writeSpecChunk(spec, dataString);
+  //       // });
+  //       Object.keys(messages).forEach((key) => {
+  //         this.initialContent = 'Specs:\n';
+  //         this.chunkSeparator = '\n';
+  //         this.writeSpecChunk(key, key);
   //       });
   //     },
   //   },
