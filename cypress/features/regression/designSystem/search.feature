@@ -46,3 +46,15 @@ Feature: Design System Search component
       And Type "Search" text into default search input
     When I focus on cross icon
     Then Cross icon has golden border
+
+  @positive
+  Scenario Outline: Clear search input clicking on cross icon via <keyboard>
+    Given I open "Design System Search" component page "default_story" in no iframe
+      And Type "Search" text into default search input
+      And I hit Tab key 1 times in no Iframe
+    When I press onto cross icon using "<keyboard>" key
+    Then search input is empty
+    Examples:
+      | keyboard |
+      | Enter    |
+      | Space    |
