@@ -4,7 +4,8 @@ Feature: Design Systems FlatTable component
   @positive
   Scenario: FlatTable has sticky row
     When I open "Design System Flat Table" component page "with_row_header" in no iframe
-    Then FlatTable rows are sticky
+    Then FlatTable body rows are sticky
+      And FlatTable header first cell is sticky
 
   @positive
   Scenario: FlatTable has sticky header
@@ -85,3 +86,18 @@ Feature: Design Systems FlatTable component
       | headerName | position |
       | Client     | first    |
       | total      | second   |
+    
+  @positive
+  Scenario: Row is highlightable and all the elements are highlighted
+    Given I open "Design System Flat Table" component page "highlightable rows" in no iframe
+    When I click on the first row 
+    Then The whole row is highlighted
+
+  @positive
+  Scenario Outline: Change caption label to <caption>
+    When I open basic "Design System Flat Table Test" component in noIFrame with "flatTable" json from "designSystem" using "<nameOfObject>" object name
+    Then Flat table caption is set to <caption>
+    Examples:
+      | caption                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | captionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |

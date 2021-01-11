@@ -193,6 +193,21 @@ describe("FlatTableRow", () => {
       );
     });
 
+    it('applies a "background-color" to the "FLatTableRowHeader"', () => {
+      wrapper = renderFlatTableRow({
+        highlighted: true,
+        onClick: jest.fn(),
+      });
+      assertStyleMatch(
+        {
+          backgroundColor: baseTheme.flatTable.highlighted,
+          borderBottomColor: baseTheme.flatTable.highlighted,
+        },
+        wrapper,
+        { modifier: `${StyledFlatTableRowHeader}` }
+      );
+    });
+
     describe('when the "selected" prop is also passed as true', () => {
       it('it applies the correct "background-color"', () => {
         wrapper = renderFlatTableRow({
