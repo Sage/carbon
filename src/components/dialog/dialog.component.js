@@ -33,6 +33,13 @@ class Dialog extends Modal {
     }
   }
 
+  componentDidUpdate() {
+    super.componentDidUpdate();
+    if (this.props.open) {
+      this.centerDialog(true);
+    }
+  }
+
   onDialogBlur(ev) {} // eslint-disable-line no-unused-vars
 
   handleOpen() {
