@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../utils/helpers/tags";
-import Icon from "../icon";
-import "./detail.scss";
+import {
+  StyledDetail,
+  StyledDetailContent,
+  StyledDetailIcon,
+  StyledDetailFootnote,
+} from "./detail.style";
 
 class Detail extends React.Component {
   static propTypes = {
@@ -29,18 +33,6 @@ class Detail extends React.Component {
   };
 
   /**
-   * Returns the classes for the component.
-   *
-   * @method classes
-   * @return {String}
-   */
-  get classes() {
-    return classNames("carbon-detail", this.props.className, {
-      "carbon-detail--has-icon": this.props.icon,
-    });
-  }
-
-  /**
    * Returns the markup for the icon if one if specified.
    *
    * @method icon
@@ -51,13 +43,7 @@ class Detail extends React.Component {
       return null;
     }
 
-    return (
-      <Icon
-        className="carbon-detail__icon"
-        type={this.props.icon}
-        data-element="icon"
-      />
-    );
+    return <StyledDetailIcon type={this.props.icon} data-element="icon" />;
   };
 
   /**
@@ -72,9 +58,9 @@ class Detail extends React.Component {
     }
 
     return (
-      <div className="carbon-detail__footnote" data-element="footnote">
+      <StyledDetailFootnote data-element="footnote" hasIcon={this.props.icon}>
         {this.props.footnote}
-      </div>
+      </StyledDetailFootnote>
     );
   };
 
@@ -84,13 +70,22 @@ class Detail extends React.Component {
    */
   render() {
     return (
-      <div className={this.classes} {...tagComponent("detail", this.props)}>
+      <StyledDetail
+        className={classNames("carbon-detail", this.props.className)}
+        hasIcon={this.props.icon}
+        {...tagComponent("detail", this.props)}
+      >
         {this.icon()}
 
-        <div className="carbon-detail__content">{this.props.children}</div>
+        <StyledDetailContent
+          data-element="detail-content"
+          hasIcon={this.props.icon}
+        >
+          {this.props.children}
+        </StyledDetailContent>
 
         {this.footnote()}
-      </div>
+      </StyledDetail>
     );
   }
 }

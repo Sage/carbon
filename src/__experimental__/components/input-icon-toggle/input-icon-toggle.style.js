@@ -15,7 +15,16 @@ const getWidth = (size) => {
   }
 };
 
-const InputIconToggleStyle = styled.span`
+const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
+  // eslint-disable-next-line consistent-return
+  onKeyDown: (e) => {
+    if (onClick && (e.key === " " || e.key === "Enter")) {
+      e.preventDefault();
+      return onClick(e);
+    }
+  },
+  theme: BaseTheme,
+}))`
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -26,6 +35,10 @@ const InputIconToggleStyle = styled.span`
     margin-left: -${sizes[size].horizontalPadding};
     width: ${getWidth(size)};
   `}
+
+  &:focus {
+    outline: solid 3px ${({ theme }) => theme.colors.focus};
+  }
 `;
 
 InputIconToggleStyle.safeProps = ["size", "error", "warning", "info"];

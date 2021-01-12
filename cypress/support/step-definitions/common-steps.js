@@ -4,6 +4,7 @@ import {
   visitComponentUrlWithParameters,
   clickActionsTab,
   clickClear,
+  pressTABKeyInNoIframe,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIconByPosition, backgroundUILocator,
@@ -18,7 +19,6 @@ import {
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIconIframe,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
   labelByPosition,
@@ -260,6 +260,10 @@ When('I hit ESC key', () => {
 
 When('I hit Tab key {int} time(s)', (times) => {
   pressTABKey(times);
+});
+
+When('I hit Tab key {int} time(s) in no Iframe', (times) => {
+  pressTABKeyInNoIframe(times);
 });
 
 When('I disable {word} component', () => {

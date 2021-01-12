@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FlatTable when rendered with proper table data should have expected structure and styles 1`] = `
-.c8 {
+.c9 {
   background-color: transparent;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
@@ -20,97 +20,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c8 > div {
+.c9:first-child {
+  padding-left: 1px;
+}
+
+.c9 > div {
   box-sizing: border-box;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.c6 {
-  background-color: #fff;
-  border: 1px solid #CCD6DB;
-  border-top: none;
-  box-sizing: border-box;
-  left: 0;
-  font-weight: normal;
-  position: -webkit-sticky;
-  position: sticky;
-  text-align: left;
-  top: auto;
-  vertical-align: middle;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.c6 > div {
-  box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.c3 .c5,
-.c3 .c12 {
-  border-left: none;
-  border-right: none;
-  font-weight: 700;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-}
-
-.c3 .c5 > div {
-  padding: 8px 24px;
-}
-
-.c1 {
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  width: 100%;
-}
-
-.c0 {
-  height: 100%;
-}
-
-.c0 .c2 .c12,
-.c0 .c7,
-.c0 .c2 .c5 {
-  background-color: #335C6D;
-  border-right: 1px solid #668592;
-  color: #FFFFFF;
-}
-
-.c10 {
-  background-color: #fff;
-  border-width: 0;
-  border-bottom: 1px solid #CCD6DB;
-  text-overflow: ellipsis;
-  text-align: left;
-  vertical-align: middle;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.c10 > div {
-  box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.c10:first-of-type {
-  border-left: 1px solid #CCD6DB;
-}
-
-.c10:last-of-type {
-  border-right: 1px solid #CCD6DB;
 }
 
 .c11 {
@@ -126,10 +41,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c11 > div {
   box-sizing: border-box;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .c11:first-of-type {
@@ -140,17 +51,106 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-right: 1px solid #CCD6DB;
 }
 
-.c11:first-of-type + .c9 {
+.c12 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.c12 > div {
+  box-sizing: border-box;
+}
+
+.c12:first-of-type {
   border-left: 1px solid #CCD6DB;
 }
 
-.c4 {
+.c12:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c12:first-of-type + .c10 {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c7 {
+  background-color: #fff;
+  border: 1px solid #CCD6DB;
+  border-top: none;
+  box-sizing: border-box;
+  left: 0;
+  font-weight: normal;
+  position: -webkit-sticky;
+  position: sticky;
+  text-align: left;
+  top: auto;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.c7 > div {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c5 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
   min-width: 100%;
   table-layout: fixed;
   width: auto;
+}
+
+.c3 .c6,
+.c3 .c13 {
+  border-left: none;
+  border-right: none;
+  font-weight: 700;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.c1 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  width: 100%;
+}
+
+.c1 .c4 {
+  height: 40px;
+}
+
+.c1 .c10 > div,
+.c1 .c8 > div,
+.c1 .c6 > div {
+  font-size: 14px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0 {
+  height: 100%;
+}
+
+.c0 .c2 .c13,
+.c0 .c8,
+.c0 .c2 .c6 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
 }
 
 <div
@@ -162,16 +162,17 @@ exports[`FlatTable when rendered with proper table data should have expected str
     <table
       className="c1"
       data-component="flat-table"
+      size="medium"
     >
       <thead
         className="c2 c3"
       >
         <tr
-          className="c4"
+          className="c4 c5"
           data-element="flat-table-row"
         >
           <th
-            className="c5 c6"
+            className="c6 c7"
             data-element="flat-table-row-header"
           >
             <div>
@@ -179,7 +180,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </th>
           <th
-            className="c7 c8"
+            className="c8 c9"
             data-element="flat-table-header"
           >
             <div>
@@ -187,7 +188,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </th>
           <th
-            className="c7 c8"
+            className="c8 c9"
             data-element="flat-table-header"
           >
             <div>
@@ -195,7 +196,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </th>
           <th
-            className="c7 c8"
+            className="c8 c9"
             data-element="flat-table-header"
           >
             <div>
@@ -206,11 +207,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
       </thead>
       <tbody>
         <tr
-          className="c4"
+          className="c4 c5"
           data-element="flat-table-row"
         >
           <th
-            className="c5 c6"
+            className="c6 c7"
             data-element="flat-table-row-header"
           >
             <div>
@@ -218,7 +219,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </th>
           <td
-            className="c9 c10"
+            className="c10 c11"
             data-element="flat-table-cell"
           >
             <div>
@@ -226,7 +227,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </td>
           <td
-            className="c9 c10"
+            className="c10 c11"
             data-element="flat-table-cell"
           >
             <div>
@@ -234,7 +235,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </td>
           <td
-            className="c9 c11"
+            className="c10 c12"
             data-element="flat-table-cell"
             rowSpan="2"
           >
@@ -244,11 +245,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
           </td>
         </tr>
         <tr
-          className="c4"
+          className="c4 c5"
           data-element="flat-table-row"
         >
           <th
-            className="c5 c6"
+            className="c6 c7"
             data-element="flat-table-row-header"
           >
             <div>
@@ -256,7 +257,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </div>
           </th>
           <td
-            className="c9 c10"
+            className="c10 c11"
             colSpan="2"
             data-element="flat-table-cell"
           >

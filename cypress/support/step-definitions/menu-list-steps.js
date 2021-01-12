@@ -11,6 +11,10 @@ Then('title on preview is {word}', (title) => {
   getDataElementByValueAndPosition('title', positionOfElement('first')).should('have.text', title);
 });
 
+Then('filterPlaceholder on preview is {word}', (filterPlaceholder) => {
+  menuListSearchInput().should('have.attr', 'placeholder', filterPlaceholder);
+});
+
 When('I click into title', () => {
   getDataElementByValueAndPosition('title', positionOfElement('first')).click();
 });

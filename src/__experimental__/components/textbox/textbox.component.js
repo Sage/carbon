@@ -21,6 +21,7 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  iconTabIndex,
   styleOverride,
   validationOnLabel,
   labelWidth,
@@ -76,6 +77,7 @@ const Textbox = ({
             useValidationIcon={!validationOnLabel}
             onClick={iconOnClick || props.onClick}
             inputIcon={inputIcon}
+            iconTabIndex={iconTabIndex}
           />
         </InputPresentation>
       </FormField>
@@ -174,6 +176,8 @@ Textbox.propTypes = {
   positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
+  /** Overrides the default tabindex of the component */
+  iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Handler for onClick events */
   onClick: PropTypes.func,
   /** Emphasized part of the displayed text */

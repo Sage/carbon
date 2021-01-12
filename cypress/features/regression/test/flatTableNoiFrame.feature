@@ -6,9 +6,10 @@ Feature: FlatTable component
 
 
   @positive
-  Scenario: Header and row of FlatTable are visible after scrolling to the right bottom
-    When I scroll table content to right bottom
-    Then 4 header cells are "" visible
-      And 4 header cells are "not" visible
-      And 6 FlatTable rows are "" visible
-      And 6 FlatTable rows are "not" visible
+  Scenario: Header and row of FlatTable are visible after scrolling to the bottom right
+    When I scroll table content to bottom right
+    Then Last 2 header cells are visible
+      And First 2 header cells aren't visible
+      And Last 4 FlatTable rows are visible
+      And First 3 FlatTable rows aren't visible
+

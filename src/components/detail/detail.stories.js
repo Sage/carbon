@@ -1,7 +1,7 @@
 import React from "react";
 import { select, text } from "@storybook/addon-knobs";
 import OptionsHelper from "../../utils/helpers/options-helper";
-import Detail from "./detail.js";
+import Detail from "./detail.component";
 
 export default {
   title: "Detail/Test",
