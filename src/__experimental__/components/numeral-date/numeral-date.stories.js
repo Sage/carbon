@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { array, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import NumeralDate from ".";
+import Box from "../../../components/box";
 
 export default {
   title: "Design System/Numeral Date/Test",
@@ -32,15 +33,17 @@ export const Basic = () => {
   };
 
   return (
-    <NumeralDate
-      onChange={handleChange}
-      label="Numeral date"
-      onBlur={handleBlur}
-      dateFormat={dateFormat}
-      value={dateValue}
-      name="numeralDate_name"
-      id="numeralDate_id"
-    />
+    <Box mt="120px">
+      <NumeralDate
+        onChange={handleChange}
+        label="Numeral date"
+        onBlur={handleBlur}
+        dateFormat={dateFormat}
+        value={dateValue}
+        name="numeralDate_name"
+        id="numeralDate_id"
+      />
+    </Box>
   );
 };
 

@@ -85,6 +85,13 @@ export function pressTABKey(count) {
   }
 }
 
+export function pressTABKeyInNoIframe(count) {
+  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
+  for (let i = 0; i < count; i++) {
+    cy.get('body').trigger('tab', { force: true });
+  }
+}
+
 export async function asyncWaitForIcon(name) {
   await getElementNoIframe(name);
 }

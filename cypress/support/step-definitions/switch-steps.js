@@ -9,5 +9,4 @@ Then('Switch component is loading', () => {
 
 Then('Switch component is not loading', () => {
   switchInput().should('not.have.attr', 'disabled');
-  switchLoading().should('not.have.attr', 'data-component', 'loader');
 });

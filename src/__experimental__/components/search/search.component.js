@@ -36,7 +36,7 @@ const Search = ({
     initialValue.length >= threshold
   );
 
-  const iconType = useMemo(() => {
+  const [iconType, iconTabIndex] = useMemo(() => {
     const isSearchValueEmpty = !isControlled
       ? searchValue.length === 0
       : value.length === 0;
@@ -48,7 +48,7 @@ const Search = ({
     );
 
     if (!isSearchValueEmpty) {
-      return "cross";
+      return ["cross", 0];
     }
 
     if (
@@ -56,10 +56,10 @@ const Search = ({
       threshold === 0 ||
       (!searchButton && isSearchValueEmpty)
     ) {
-      return "search";
+      return ["search", -1];
     }
 
-    return "";
+    return ["", -1];
   }, [
     isControlled,
     searchValue,
@@ -141,6 +141,7 @@ const Search = ({
         placeholder={placeholder}
         value={!isControlled ? searchValue : value}
         inputIcon={iconType}
+        iconTabIndex={iconTabIndex}
         iconOnClick={handleIconClick}
         aria-label={ariaLabel}
       />

@@ -10,11 +10,12 @@ import classNames from "classnames";
 import StyledMenuItemWrapper from "./menu-item.style";
 import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
+import Box from "../../box";
 import Events from "../../../utils/helpers/events";
 import { MenuContext } from "../menu.component";
-import Submenu, {
-  SubmenuContext,
-} from "../__internal__/submenu/submenu.component";
+import Submenu from "../__internal__/submenu/submenu.component";
+import SubmenuContext from "../__internal__/submenu/submenu.context";
+
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 
@@ -32,6 +33,7 @@ const MenuItem = ({
   onKeyDown,
   variant = "default",
   showDropdownArrow = true,
+  ariaLabel,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -41,7 +43,7 @@ const MenuItem = ({
   const focusFromSubmenu = submenuContext.isFocused;
 
   const childrenItems = React.Children.map(children, (child) => {
-    if (child.type === SubmenuBlock) {
+    if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
         ? child.props.children
         : [child.props.children];
@@ -121,7 +123,7 @@ const MenuItem = ({
           {...rest}
           ref={ref}
           variant={variant}
-          title={submenu}
+          {...(typeof submenu !== "boolean" && { title: submenu })}
           icon={icon}
           submenuDirection={submenuDirection}
           tabbable={menuContext.isFirstElement}
@@ -151,6 +153,7 @@ const MenuItem = ({
         {...elementProps}
         variant={variant}
         role="menuitem"
+        ariaLabel={ariaLabel}
       >
         {children}
       </StyledMenuItemWrapper>
@@ -159,20 +162,40 @@ const MenuItem = ({
 };
 
 MenuItem.propTypes = {
-  /** Children elements */
-  children: PropTypes.node.isRequired,
+  ...Box.propTypes,
+  /** Either prop `icon` must be defined or this node must have children.
+   * @type node
+   */
+  children: (props, propName, ...rest) => {
+    if (!props.icon && !props.children) {
+      return new Error(
+        "Either prop `icon` must be defined or this node must have children."
+      );
+    }
+    return PropTypes.node(props, propName, ...rest);
+  },
   /** Custom className */
   className: PropTypes.string,
   /** onClick handler */
   onClick: PropTypes.func,
-  /** Adds an icon to the menu item. */
-  icon: PropTypes.oneOf(OptionHelper.icons),
+  /** Either prop `icon` must be defined or this node must have children. */
+  icon: (props, propName, ...rest) => {
+    if (!props.icon && !props.children) {
+      return new Error(
+        "Either prop `icon` must be defined or this node must have children."
+      );
+    }
+    return PropTypes.oneOfType([
+      PropTypes.oneOf(OptionHelper.icons),
+      PropTypes.node,
+    ])(props, propName, ...rest);
+  },
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection: PropTypes.string,
   /** Is the menu item the currently selected item. */
   selected: PropTypes.bool,
   /** A title for the menu item that has a submenu. */
-  submenu: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  submenu: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
   /** The href to use for the menu item. */
   href: PropTypes.string,
   /** The to link to use for the menu item. */
@@ -187,6 +210,28 @@ MenuItem.propTypes = {
   showDropdownArrow: PropTypes.bool,
   /** set the colour variant for a menuType */
   variant: PropTypes.oneOf(["default", "alternate"]),
+  /** Either a keyboard override or child text must be provided to facilitate keyboard navigation. */
+  keyboardOverride: (props, propName, ...rest) => {
+    if (props.icon && !props.children && !props.keyboardOverride) {
+      return new Error(
+        "Either a keyboard override or child text must be provided to facilitate keyboard navigation."
+      );
+    }
+    return PropTypes.string(props, propName, ...rest);
+  },
+  /** If no text is provided an ariaLabel should be given to facilitate accessibility. */
+  ariaLabel: (props, ...rest) => {
+    if (
+      !props.children &&
+      typeof props.submenu !== "string" &&
+      !props.ariaLabel
+    ) {
+      return new Error(
+        "If no text is provided an ariaLabel should be given to facilitate accessibility."
+      );
+    }
+    return PropTypes.string(props, ...rest);
+  },
 };
 
 export default MenuItem;

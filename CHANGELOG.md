@@ -1,3 +1,104 @@
+## [57.0.0](https://github.com/Sage/carbon/compare/v56.1.0...v57.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** group-checkbox prop label is renamed to legend
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/checkbox-group label legend`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Code Refactoring
+
+* **checkbox:** modify checkbox-group to use fieldset ([a3da4cc](https://github.com/Sage/carbon/commit/a3da4cc53f00f2e76d2857bbf0ea6a394741be93))
+
+## [56.1.0](https://github.com/Sage/carbon/compare/v56.0.1...v56.1.0) (2021-01-11)
+
+
+### Features
+
+* **search:** added keyboard navigation to clear text button ([069dbab](https://github.com/Sage/carbon/commit/069dbabd11378fdad3e214acae5da9d56ca70b70)), closes [#3485](https://github.com/Sage/carbon/issues/3485)
+
+### [56.0.1](https://github.com/Sage/carbon/compare/v56.0.0...v56.0.1) (2021-01-11)
+
+
+### Bug Fixes
+
+* **dialog:** dialog centering with dynamic content ([2f15659](https://github.com/Sage/carbon/commit/2f156596b89422246c019a2a49721b5bcb4401d3)), closes [#3470](https://github.com/Sage/carbon/issues/3470)
+
+## [56.0.0](https://github.com/Sage/carbon/compare/v55.0.0...v56.0.0) (2021-01-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **flat-table:** default paddings of flat table cell removed,
+cell should match row height or expand the row,
+cell paddings should depend on FlatTable size prop
+
+### Features
+
+* **flat-table:** add aria-describedby prop ([ab52374](https://github.com/Sage/carbon/commit/ab52374ed0d2bda268e91bf627b5a86ef073d30b))
+* **flat-table:** add caption prop ([617f8a9](https://github.com/Sage/carbon/commit/617f8a9e79d26921254b885e35ef85a6312a68ae))
+* **flat-table:** add size prop to control cell size ([af095f9](https://github.com/Sage/carbon/commit/af095f9c2c9ae03ec70c0700dd21fdf10d2797e6))
+* **flat-table:** add zebra stripes functionality ([f8c32db](https://github.com/Sage/carbon/commit/f8c32dbb82cf6c665c63468e49480b39d51cfa05))
+
+
+### Bug Fixes
+
+* **flat-table:** row header not highlighted ([efc3654](https://github.com/Sage/carbon/commit/efc3654fb51e18ebede9a982a6ba1e5dc0adf300))
+
+
+### Code Refactoring
+
+* **flat-table:** remove flat table cell default paddings ([ef4fa5b](https://github.com/Sage/carbon/commit/ef4fa5b9dddbb7b5cf01563fd7b89f862767bd0d))
+
+## [55.0.0](https://github.com/Sage/carbon/compare/v54.6.2...v55.0.0) (2021-01-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **inputicon:** removed InputIcon decorator
+
+### Code Refactoring
+
+* **inputicon:** remove whole decorator ([ebe9dc2](https://github.com/Sage/carbon/commit/ebe9dc20c77e88f49cc1bcee8c9eb80149cf3979))
+
+### [54.6.2](https://github.com/Sage/carbon/compare/v54.6.1...v54.6.2) (2021-01-07)
+
+
+### Bug Fixes
+
+* **menuitem:** check for null chldren ([58bf841](https://github.com/Sage/carbon/commit/58bf841be15af1045950483f0ba5a48688d3f0da)), closes [#3540](https://github.com/Sage/carbon/issues/3540)
+
+### [54.6.1](https://github.com/Sage/carbon/compare/v54.6.0...v54.6.1) (2021-01-06)
+
+
+### Bug Fixes
+
+* **tabs:** prevent padding override for large tabs with siblings ([3387ca0](https://github.com/Sage/carbon/commit/3387ca08d0861553e3ef8e8bc4f85f72a5c4d543))
+
+## [54.6.0](https://github.com/Sage/carbon/compare/v54.5.0...v54.6.0) (2021-01-04)
+
+
+### Features
+
+* **menu:** add scrollable block component ([4814977](https://github.com/Sage/carbon/commit/4814977945c7f4ae06556feca7b4ab3df31da8cb))
+
+## [54.5.0](https://github.com/Sage/carbon/compare/v54.4.0...v54.5.0) (2020-12-30)
+
+
+### Features
+
+* **numeral-date:** add date parts internal validation ([b10a5f8](https://github.com/Sage/carbon/commit/b10a5f8508b2966e0f123b246ec189b6960f2910))
+
+## [54.4.0](https://github.com/Sage/carbon/compare/v54.3.7...v54.4.0) (2020-12-24)
+
+
+### Features
+
+* **menu:** allow icon only, keyboard override and accessiblity props ([6f33d2a](https://github.com/Sage/carbon/commit/6f33d2ac4d353f41d3d0f318471d4b0331c80392)), closes [#3505](https://github.com/Sage/carbon/issues/3505) [#3292](https://github.com/Sage/carbon/issues/3292)
+
 ### [54.3.7](https://github.com/Sage/carbon/compare/v54.3.6...v54.3.7) (2020-12-22)
 
 

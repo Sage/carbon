@@ -8,14 +8,16 @@ export interface MenuItemProps {
   icon?: IconTypes;
   submenuDirection?: string;
   selected?: boolean;
-  submenu?: string | object;
+  submenu?: React.ReactNode | boolean;
   href?: string;
   to?: string;
   routerLink?: React.ReactNode;
+  keyboardOverride?: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   target?: string;
   variant?: 'default' | 'alternate';
   showDropdownArrow?: boolean;
+  ariaLabel?: string;
 }
 
 declare const MenuItem: React.ComponentType<MenuItemProps>;

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { boolean, withKnobs, select, number } from "@storybook/addon-knobs";
+import {
+  boolean,
+  withKnobs,
+  select,
+  number,
+  text,
+} from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import {
@@ -22,13 +28,18 @@ export default {
     chromatic: {
       disable: true,
     },
+    knobs: {
+      escapeHTML: false,
+    },
   },
 };
 
 export const basic = () => {
+  const ariaDescribedby = text("ariaDescribedby", "");
   const hasStickyHead = boolean("hasStickyHead", false);
   const hasHeaderRow = boolean("hasHeaderRow", false);
   const hasClickableRows = boolean("hasClickableRows", false);
+  const caption = text("caption", "");
   const colorTheme = select(
     "colorTheme",
     [...OptionsHelper.flatTableThemes],
@@ -36,6 +47,11 @@ export const basic = () => {
   );
   const firstColumnWidth = number("first column width", 150);
   const secondColumnWidth = number("second column width", 120);
+  const size = select(
+    "size",
+    OptionsHelper.tableSizes,
+    FlatTable.defaultProps.size
+  );
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -61,7 +77,13 @@ export const basic = () => {
 
   return (
     <div style={tableSizeConstraints}>
-      <FlatTable colorTheme={colorTheme} hasStickyHead={hasStickyHead}>
+      <FlatTable
+        colorTheme={colorTheme}
+        hasStickyHead={hasStickyHead}
+        caption={caption}
+        size={size}
+        ariaDescribedby={ariaDescribedby}
+      >
         <FlatTableHead>
           <FlatTableRow key={processed.headData.id}>
             {processed.headData.data.map((cellData, index) => {

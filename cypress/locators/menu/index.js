@@ -2,6 +2,7 @@ import {
   MENU_PREVIEW,
   MENU_ITEM,
   SUBMENU,
+  SCROLL_BLOCK,
 } from './locators';
 
 // component preview locators
@@ -14,3 +15,6 @@ export const submenuBlock = () => cy.get(SUBMENU)
 export const innerMenu = index => submenuBlock()
   .find(`li:nth-child(${index})`)
   .find('div');
+export const scrollBlock = () => cy.get(SUBMENU).find(SCROLL_BLOCK);
+export const lastSubmenuElement = () => submenuBlock()
+  .find('li div').last();

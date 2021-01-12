@@ -15,7 +15,6 @@ Feature: Accessibility tests - Common list
       | Content             |
       | Detail              |
       | Dialog              |
-      | Dialog-full-screen  |
       | Heading             |
       | Help                |
       | I18nComponent       |
@@ -23,7 +22,6 @@ Feature: Accessibility tests - Common list
       | Message             |
       | MenuList            |
       | Mount In App        |
-      # | Pages             |
       | Portrait            |
       | Preview             |
       | Profile             |
@@ -33,20 +31,19 @@ Feature: Accessibility tests - Common list
       | Multi-action-button |
 
   @accessibility
+  Scenario Outline: Component <component> default story with open preview
+    Given I open "<component>" component page "default story" in no iframe
+    When I open component preview in noIFrame
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component          |
+      | Dialog Full Screen |
+      | Pages              |
+
+  @accessibility
   Scenario: Component button toggle
     When I open "Button-Toggle-Group" component page "basic" in no iframe
     Then "Button Toggle Group" component has no accessibility violations
-
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
-  Scenario Outline: Component <component> page with preview button
-    Given I open "<component>" component page "default" in no iframe
-    When I open component preview no iframe
-    Then "<data-component>" component has no accessibility violations
-    Examples:
-      | component |
-      | Flash     |
 
   @accessibility
   Scenario Outline: Component <component> basic story

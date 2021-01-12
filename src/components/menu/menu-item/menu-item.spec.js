@@ -7,11 +7,13 @@ import Link from "../../link";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "./menu-item.style";
-import Submenu, {
-  SubmenuContext,
-} from "../__internal__/submenu/submenu.component";
+import Submenu from "../__internal__/submenu/submenu.component";
+import SubmenuContext from "../__internal__/submenu/submenu.context";
+
 import { MenuContext } from "../menu.component";
 import SubmenuBlock from "../submenu-block";
+import StyledIcon from "../../icon/icon.style";
+import Icon from "../../icon/icon.component";
 
 const events = {
   enter: {
@@ -417,6 +419,101 @@ describe("MenuItem", () => {
 
         expect(wrapper.find(Submenu).props().children.length).toEqual(2);
       });
+    });
+  });
+
+  describe("with conditionally rendered children", () => {
+    it("should not error when a child is null", () => {
+      wrapper = mount(
+        <MenuContext.Provider value={{ menuType: "light" }}>
+          <MenuItem submenu="test">
+            {true && <MenuItem>One</MenuItem>}
+            {false && <MenuItem>Two</MenuItem>}
+          </MenuItem>
+        </MenuContext.Provider>
+      );
+
+      expect(wrapper.find(MenuItem).find(MenuItem).length).toEqual(1);
+    });
+  });
+
+  describe("icon only menus and submenus", () => {
+    it("should render an icon into the menu item", () => {
+      wrapper = mount(
+        <MenuItem icon="settings" ariaLabel="Settings" keyboardOverride="s" />
+      );
+
+      expect(wrapper.find(StyledIcon).first().exists()).toBe(true);
+    });
+
+    it("should render an icon into the submenu item", () => {
+      wrapper = mount(
+        <MenuItem
+          icon="settings"
+          submenu
+          ariaLabel="Settings"
+          keyboardOverride="s"
+        >
+          <MenuItem icon="home" ariaLabel="Home" keyboardOverride="s" />
+        </MenuItem>
+      );
+
+      expect(wrapper.find(StyledIcon).exists()).toBe(true);
+    });
+
+    it("should render an icon into the submenu item with text", () => {
+      wrapper = mount(
+        <MenuItem
+          icon="settings"
+          submenu="Settings"
+          ariaLabel="Settings"
+          keyboardOverride="s"
+        >
+          <MenuItem icon="home" ariaLabel="Home" keyboardOverride="s" />
+        </MenuItem>
+      );
+
+      expect(wrapper.find(StyledIcon).exists()).toBe(true);
+    });
+
+    it("add aria-label when it is set", () => {
+      wrapper = mount(
+        <MenuItem icon="settings" ariaLabel="Settings" keyboardOverride="s" />
+      );
+
+      expect(wrapper.find(Icon).props().ariaLabel).toBe("Settings");
+    });
+
+    it("give error when `aria-label` is not set and menu item has no child text", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      wrapper = mount(<MenuItem icon="settings" keyboardOverride="s" />);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: If no text is provided an ariaLabel" +
+          " should be given to facilitate accessibility.\n    in MenuItem"
+      );
+      global.console.error.mockReset();
+    });
+
+    it("give error when `keyboardOverride` is not set and menu item has no child text", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      wrapper = mount(<MenuItem icon="settings" ariaLabel="Settings" />);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: Either a keyboard override or child" +
+          " text must be provided to facilitate keyboard navigation.\n    in MenuItem"
+      );
+      global.console.error.mockReset();
+    });
+
+    it("give error when no children or icon is given", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      wrapper = mount(<MenuItem keyboardOverride="a" ariaLabel="a" />);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: Either prop `icon` must be defined or this node must have children.\n    in MenuItem"
+      );
+      global.console.error.mockReset();
     });
   });
 });

@@ -123,6 +123,7 @@ const StyledIcon = styled.span`
       position: relative;
       color: ${finalColor};
       background-color: ${bgColor};
+      vertical-align: middle;
 
       &:hover {
         color: ${finalHoverColor};

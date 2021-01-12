@@ -124,6 +124,10 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   width: 40px;
 }
 
+.c14:focus {
+  outline: solid 3px #FFB500;
+}
+
 .c3 .c11 {
   cursor: pointer;
   color: transparent;
@@ -166,6 +170,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
+  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -497,6 +502,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
                 <span
                   className="c13 c14"
                   onClick={[Function]}
+                  onKeyDown={[Function]}
                   onMouseDown={[Function]}
                   size="medium"
                 >

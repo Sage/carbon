@@ -1,6 +1,7 @@
 import React from "react";
 import { characterNavigation, menuKeyboardNavigation } from ".";
 import MenuItem from "../../menu-item";
+import Box from "../../../box";
 
 const getMockEvent = (key, which) => {
   return {
@@ -19,6 +20,10 @@ describe("Menu keyboard navigation", () => {
     <MenuItem>Carrot</MenuItem>,
     <MenuItem>Broccoli</MenuItem>,
     <MenuItem submenu="submenu">Sub item</MenuItem>,
+    <MenuItem keyboardOverride="1">Parsnip</MenuItem>,
+    <MenuItem>
+      <span>Rhubarb</span> <Box>and</Box> Ginger
+    </MenuItem>,
   ];
 
   describe("characterNavigation", () => {
@@ -41,6 +46,28 @@ describe("Menu keyboard navigation", () => {
           0
         );
         expect(result).toEqual(1);
+      });
+    });
+
+    describe("when the keyboard override of a submenu passed in", () => {
+      it("should return the correct index", () => {
+        const result = characterNavigation(
+          getMockEvent("1"),
+          focusableItems,
+          0
+        );
+        expect(result).toEqual(6);
+      });
+    });
+
+    describe("when a character key event passed in", () => {
+      it("should return the correct index when menu contains other nodes", () => {
+        const result = characterNavigation(
+          getMockEvent("r"),
+          focusableItems,
+          0
+        );
+        expect(result).toEqual(7);
       });
     });
 
@@ -98,7 +125,7 @@ describe("Menu keyboard navigation", () => {
           const result = menuKeyboardNavigation(
             getMockEvent("ArrowRight", 39),
             focusableItems,
-            5
+            7
           );
           expect(result).toEqual(0);
         });
@@ -124,7 +151,7 @@ describe("Menu keyboard navigation", () => {
             focusableItems,
             0
           );
-          expect(result).toEqual(5);
+          expect(result).toEqual(7);
         });
       });
     });
@@ -147,7 +174,7 @@ describe("Menu keyboard navigation", () => {
           focusableItems,
           1
         );
-        expect(result).toEqual(5);
+        expect(result).toEqual(7);
       });
     });
 

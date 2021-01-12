@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Modal from "../modal";
 import SidebarStyle from "./sidebar.style";
-import "./sidebar.scss";
 import focusTrap from "../../utils/helpers/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
@@ -63,10 +62,6 @@ class Sidebar extends Modal {
         {this.props.children}
       </SidebarStyle>
     );
-  }
-
-  get transitionName() {
-    return `sidebar--${this.props.position}`;
   }
 }
 

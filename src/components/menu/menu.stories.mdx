@@ -1,5 +1,12 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import { Menu, MenuItem, SubmenuBlock, MenuDivider, MenuSegmentTitle } from ".";
+import {
+  Menu,
+  MenuItem,
+  SubmenuBlock,
+  MenuDivider,
+  MenuSegmentTitle,
+  ScrollableBlock,
+} from ".";
 import Box from "../box";
 import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
@@ -184,6 +191,49 @@ import {
   </Story>
 </Preview>
 
+## Default icon
+
+Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
+The menu must have focus for this to work
+
+<Preview>
+  <Story name="default icon">
+    <div style={{ minHeight: "250px" }}>
+      <Menu>
+        <MenuItem icon="home" href="#">
+          Home
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem
+            icon="settings"
+            href="#"
+            ariaLabel="settings"
+            keyboardOverride="s"
+          />
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem
+          icon="arrow_right"
+          submenu
+          keyboardOverride="a"
+          ariaLabel="Actions"
+        >
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Dark theme
 
 <Preview>
@@ -293,7 +343,7 @@ import {
     name="dark theme alternate colour"
     parameters={{ chromatic: { disable: true } }}
   >
-    <div style={{ minHeight: "150px" }}>
+    <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
         <MenuItem href="#">Menu Item One</MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
@@ -333,13 +383,56 @@ is rendered.
   </Story>
 </Preview>
 
+## Dark icon
+
+Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
+The menu must have focus for this to work
+
+<Preview>
+  <Story name="dark icon">
+    <div style={{ minHeight: "250px" }}>
+      <Menu menuType="dark">
+        <MenuItem icon="home" href="#">
+          Home
+        </MenuItem> 
+        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem
+            icon="settings"
+            href="#"
+            ariaLabel="settings"
+            keyboardOverride="s"
+          />
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem
+          icon="arrow_right"
+          submenu
+          keyboardOverride="a"
+          ariaLabel="Actions"
+        >
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Full navbar alignment example
 
 <Preview>
-  <Story name="Full navbar alignment example">
+  <Story name="full navbar alignment example">
     {() => {
       return (
-        <div style={{ minHeight: "150px" }}>
+        <div style={{ minHeight: "250px" }}>
           <NavigationBar>
             <SageIcon style={{ alignSelf: "center" }} />
             <Box>
@@ -405,6 +498,133 @@ If you need to split out a submenu into a separate component, it must be done as
         </div>
       );
     }}
+  </Story>
+</Preview>
+
+## Submenu icon and text alignment
+
+In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
+
+<Preview>
+  <Story name="button icon" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ minHeight: "250px" }}>
+      <Menu menuType="dark">
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#" icon="settings" onClick={() => {}}>
+            onClick and Icon
+          </MenuItem>
+          <MenuItem onClick={() => {}}>
+            <Box ml="21px">onClick</Box>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            href and Icon
+          </MenuItem>
+          <MenuItem href="#">
+            <Box ml="21px">href</Box>
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Scrollable submenu
+
+A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
+Note that only one `ScrollableBlock` can be used within a single submenu.
+
+<Preview>
+  <Story
+    name="scrollable submenu"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <ScrollableBlock height="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+        <MenuItem submenu="Menu Item Four">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <ScrollableBlock variant="alternate" height="200px">
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Scrollable submenu dark
+
+<Preview>
+  <Story
+    name="scrollable submenu dark"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: "150px" }}>
+      <Menu menuType="dark">
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <ScrollableBlock height="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+        <MenuItem submenu="Menu Item Four">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <ScrollableBlock variant="alternate" height="200px">
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+      </Menu>
+    </div>
   </Story>
 </Preview>
 
