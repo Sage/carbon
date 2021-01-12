@@ -36,13 +36,12 @@ class InternalLink extends React.Component {
     return (
       <Icon
         type={this.props.icon}
-        tooltipMessage={this.props.tooltipMessage}
-        tooltipAlign={this.props.tooltipAlign}
-        tooltipPosition={this.props.tooltipPosition}
         bgTheme="none"
         iconColor="business-color"
         disabled={this.props.disabled}
         ariaLabel={this.props.ariaLabel}
+        tooltipMessage={this.props.tooltipMessage}
+        tooltipPosition={this.props.tooltipPosition}
       />
     );
   }
@@ -153,8 +152,6 @@ InternalLink.propTypes = {
   tooltipMessage: PropTypes.string,
   /** Positions the tooltip with the link. */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
-  /** Aligns the tooltip. */
-  tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A routing component to render when the to prop is set */
   routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Target property in which link should open ie: _blank, _self, _parent, _top */

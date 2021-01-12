@@ -34,4 +34,5 @@ Feature: Badge component
   Scenario: Hover Badge component and verify that cross icon appears
     Given I open Test test_basic "Badge" component in noIFrame with "badge" json from "test" using "counter1" object name
     When I focus onto Badge component
-    Then icon name in noIframe on preview is "cross"
+    Then icon name in noIframe on preview is "badge-cross-icon"
+      And Badge component cross icon has proper color

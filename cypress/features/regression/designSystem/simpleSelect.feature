@@ -21,7 +21,7 @@ Feature: Design System Select component
   Scenario: Close Select list using Tab keyboard
     Given I open "Design System Select" component page "controlled" in no iframe
       And I focus select input
-    When I press "Tab" onto focused element
+    When I press Tab onto focused element
     Then "simple" Select list is closed
 
   @positive

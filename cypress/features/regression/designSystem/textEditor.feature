@@ -34,64 +34,64 @@ Feature: Design System Text Editor component
   @positive
   Scenario: Verify Tab keyboard accessibility for Text Editor
     Given I focus the Text Editor
-    When I press "Tab" onto focused element
+    When I press Tab onto focused element
     Then button "bold" is focused
 
   @positive
   Scenario Outline: Verify that Right Arrow keyboard key after pressing <times> times focus the <buttonType> button in Toolbar
     Given I focus the Text Editor
-      And I press "Tab" onto focused element
+      And I press Tab onto focused element
     When I press keyboard "rightarrow" key times <times>
     Then button "<buttonType>" is focused
     Examples:
       | buttonType  | times |
-      | bold        | 1     |
-      | italic      | 2     |
-      | bullet-list | 3     |
-      | number-list | 4     |
+      | bold        | 0     |
+      | italic      | 1     |
+      | bullet-list | 2     |
+      | number-list | 3     |
 
   @positive
   Scenario Outline: Verify that Left Arrow keyboard key after pressing <times> times focus the <buttonType> button in Toolbar
     Given I focus the Text Editor
-      And I press "Tab" onto focused element
+      And I press Tab onto focused element
     When I press keyboard "leftarrow" key times <times>
     Then button "<buttonType>" is focused
     Examples:
       | buttonType  | times |
-      | bold        | 5     |
-      | italic      | 4     |
-      | bullet-list | 3     |
-      | number-list | 2     |
+      | bold        | 4     |
+      | italic      | 3     |
+      | bullet-list | 2     |
+      | number-list | 1     |
 
   @positive
   Scenario Outline: Verify that Enter keyboard key selects proper <buttonType> button in Toolbar after pressing
     Given I focus the Text Editor
-      And I press "Tab" onto focused element
+      And I press Tab onto focused element
       And I press keyboard "rightarrow" key times <times>
       And I wait 250
     When I press "Enter" onto focused element
     Then button "<buttonType>" is clicked and active
     Examples:
       | buttonType  | times |
-      | bold        | 1     |
-      | italic      | 2     |
-      | bullet-list | 3     |
-      | number-list | 4     |
+      | bold        | 0     |
+      | italic      | 1     |
+      | bullet-list | 2     |
+      | number-list | 3     |
 
   @positive
   Scenario Outline: Verify that Space keyboard key selects proper <buttonType> button in Toolbar after pressing
     Given I focus the Text Editor
-      And I press "Tab" onto focused element
+      And I press Tab onto focused element
       And I press keyboard "rightarrow" key times <times>
       And I wait 250
     When I press "Space" onto focused element
     Then button "<buttonType>" is clicked and active
     Examples:
       | buttonType  | times |
-      | bold        | 1     |
-      | italic      | 2     |
-      | bullet-list | 3     |
-      | number-list | 4     |
+      | bold        | 0     |
+      | italic      | 1     |
+      | bullet-list | 2     |
+      | number-list | 3     |
 
   @positive
   Scenario: Verify when input link - it is shown as formatted link and not as text

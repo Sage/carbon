@@ -17,6 +17,8 @@ import {
   InputGroupContext,
 } from "../../../__internal__/input-behaviour";
 
+jest.mock("@tippyjs/react/headless");
+
 const validationTypes = ["error", "warning", "info"];
 
 describe("Label", () => {

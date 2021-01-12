@@ -13,7 +13,6 @@ export interface LinkProps {
   to?: string;
   tooltipMessage?: string;
   tooltipPosition?: 'bottom' | 'left' | 'right' | 'top';
-  tooltipAlign?: 'bottom' | 'center' | 'left' | 'right' | 'top';
   children?: React.ReactNode;
   routerLink?: React.ReactNode;
   target?: string;

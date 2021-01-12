@@ -15,6 +15,6 @@ Then('detail footnote on preview is {word}', (footnote) => {
 });
 
 Then('icon on preview is {string}', (iconName) => {
-  icon().should('have.attr', 'data-element', iconName)
+  icon().should('have.attr', 'type', iconName)
     .and('be.visible');
 });

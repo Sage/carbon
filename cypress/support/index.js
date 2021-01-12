@@ -2,6 +2,8 @@ import 'cypress-axe';
 
 export const DEBUG_FLAG = false;
 
+require('cypress-plugin-tab');
+
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.

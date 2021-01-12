@@ -1,0 +1,50 @@
+{
+  "tooltipPositionLeft": {
+    "isVisible": true,
+    "tooltipMessage": "sample message",
+    "position": "left"
+  },
+  "tooltipPositionBottom": {
+    "isVisible": true,
+    "tooltipMessage": "sample message",
+    "position": "bottom"
+  },
+  "tooltipPositionRight": {
+    "isVisible": true,
+    "tooltipMessage": "sample message",
+    "position": "right"
+  },
+  "tooltipPositionTop": {
+    "isVisible": true,
+    "tooltipMessage": "sample message",
+    "position": "top"
+  },
+  "tooltipTypeInfo": {
+    "isVisible": true,
+    "type": "info"
+  },
+  "tooltipTypeWarning": {
+    "isVisible": true,
+    "type": "warning"
+  },
+  "tooltipTypeError": {
+    "isVisible": true,
+    "type": "error"
+  },
+  "tooltipSizeM": {
+    "isVisible": true,
+    "size": "medium"
+  },
+  "tooltipSizeL": {
+    "isVisible": true,
+    "size": "large"
+  },
+  "tooltipOtherLanguage": {
+    "isVisible": true,
+    "message": "mp150ú¿¡üßä"
+  },
+  "tooltipSpecialCharacter": {
+    "isVisible": true,
+    "message": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

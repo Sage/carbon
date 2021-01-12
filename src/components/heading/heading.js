@@ -85,7 +85,6 @@ class Heading extends React.Component {
       <Help
         className="carbon-heading__help"
         data-element="help"
-        tooltipAlign="center"
         tooltipPosition="right"
         href={this.props.helpLink}
       >

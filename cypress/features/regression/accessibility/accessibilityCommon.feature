@@ -60,7 +60,6 @@ Feature: Accessibility tests - Common list
     Then "<component> Test default story" component has no accessibility violations
     Examples:
       | component        |
-      | Tooltip          |
       | DraggableContext |
       | Settingsrow      |
       | Table-ajax       |
