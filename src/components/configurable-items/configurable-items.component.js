@@ -13,8 +13,22 @@ import {
 } from "./configurable-items.style";
 import Form from "../form";
 import baseTheme from "../../style/themes/base";
+import Logger from "../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 class ConfigurableItems extends React.Component {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`ConfigurableItems` component is deprecated and will soon be removed."
+      );
+    }
+  }
+
   onReset = (event) => {
     event.preventDefault();
     this.props.onReset();

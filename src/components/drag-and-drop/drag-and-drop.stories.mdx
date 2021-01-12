@@ -1,27 +1,17 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import {
-  DraggableContext,
-  WithDrop,
-  WithDrag
-} from "./";
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { DraggableContext, WithDrop, WithDrag } from "./";
 
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell
-} from '../table';
+import { Table, TableHeader, TableRow, TableCell } from "../table";
 
-<Meta
-  title="DraggableContext"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="DraggableContext" parameters={{ info: { disable: true } }} />
 
 # DraggableContext
+
 A draggable context component
 
 ## Related Components
+
 Although the Table component has drag and drop enabled already, any combination of components can be made draggable through the use of the WithDrag and WithDrop components:
 
 ## Quick Start
@@ -56,29 +46,39 @@ const MyComponent = () => (
 );
 ```
 
-### Basic 
+### Basic
+
+**To see proper functioning of this component please open it in `Canvas` (click on `Canvas` in top tab).**
+
 <Preview>
-  <Story name="Basic" id="draggablecontext-test--custom"/>
+  <Story name="Basic" id="draggablecontext-test--custom" />
 </Preview>
 
 ### When used with Table component
 
+**To see proper functioning of this component please open it in `Canvas` (click on `Canvas` in top tab).**
+
 <Preview>
   <Story name="With table">
     {() => {
-      const [state, setState] = useState([{
-        id: '0',
-        name: 'UK'
-      }, {
-        id: '1',
-        name: 'Germany'
-      }, {
-        id: '2',
-        name: 'China'
-      }, {
-        id: '3',
-        name: 'US'
-      }]);
+      const [state, setState] = useState([
+        {
+          id: "0",
+          name: "UK",
+        },
+        {
+          id: "1",
+          name: "Germany",
+        },
+        {
+          id: "2",
+          name: "China",
+        },
+        {
+          id: "3",
+          name: "US",
+        },
+      ]);
       const handleDrag = (originalIndex, newIndex) => {
         const sortedItem = state[originalIndex];
         const newArr = [...state];
@@ -87,43 +87,40 @@ const MyComponent = () => (
         setState(newArr);
       };
       return (
-        <DraggableContext
-          onDrag={ handleDrag }
-        >
+        <DraggableContext onDrag={handleDrag}>
           <div>
-            <Table tbody={ false }>
+            <Table tbody={false}>
               <thead>
-                <TableRow as='header'>
+                <TableRow as="header">
                   <TableHeader />
                   <TableHeader>Country</TableHeader>
                 </TableRow>
               </thead>
               <tbody>
                 {state.map((row, index) => (
-                  <TableRow
-                    key={ row.id }
-                    uniqueID={ row.id }
-                    index={ index }
-                  >
-                    <TableCell>{ row.name }</TableCell>
+                  <TableRow key={row.id} uniqueID={row.id} index={index}>
+                    <TableCell>{row.name}</TableCell>
                   </TableRow>
                 ))}
               </tbody>
             </Table>
           </div>
         </DraggableContext>
-      )
-  }}
+      );
+    }}
   </Story>
 </Preview>
 
 ## Props
 
 ### DraggableContext
+
 <Props of={DraggableContext} />
 
 ### WithDrop
+
 <Props of={WithDrop} />
 
 ### WithDrag
+
 <Props of={WithDrag} />

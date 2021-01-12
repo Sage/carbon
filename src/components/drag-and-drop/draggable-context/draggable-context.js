@@ -7,6 +7,9 @@ import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
 import CustomDragLayer from "../custom-drag-layer";
 import Browser from "../../../utils/helpers/browser";
 import ScrollableParent from "../../../utils/helpers/scrollable-parent";
+import Logger from "../../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 class DraggableContext extends React.Component {
   static propTypes = {
@@ -56,7 +59,13 @@ class DraggableContext extends React.Component {
 
   constructor(props) {
     super(props);
-
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`DraggableContext` component is deprecated and will soon be removed."
+      );
+    }
     // Default speed of auto scrolling
     this.speed = 0;
 
