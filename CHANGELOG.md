@@ -1,3 +1,18 @@
+## [57.0.0](https://github.com/Sage/carbon/compare/v56.1.0...v57.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** group-checkbox prop label is renamed to legend
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/checkbox-group label legend`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Code Refactoring
+
+* **checkbox:** modify checkbox-group to use fieldset ([a3da4cc](https://github.com/Sage/carbon/commit/a3da4cc53f00f2e76d2857bbf0ea6a394741be93))
+
 ## [56.1.0](https://github.com/Sage/carbon/compare/v56.0.1...v56.1.0) (2021-01-11)
 
 
