@@ -19,7 +19,6 @@ Feature: Accessibility tests - Common list
       | I18nComponent       |
       | Link                |
       | Message             |
-      | MenuList            |
       | Mount In App        |
       | Portrait            |
       | Preview             |
