@@ -6,7 +6,6 @@ import {
   StyledEditorActionControls,
 } from "./toolbar.style";
 import ToolbarButton from "./toolbar-button";
-import Button from "../../../button";
 import Events from "../../../../utils/helpers/events/events";
 import Icon from "../../../icon";
 
@@ -18,9 +17,7 @@ const ORDERED_LIST = "ordered-list-item";
 const Toolbar = ({
   activeControls,
   canFocus,
-  isDisabled,
-  onCancel,
-  onSave,
+  toolbarElements,
   setBlockStyle,
   setInlineStyle,
 }) => {
@@ -144,17 +141,9 @@ const Toolbar = ({
         </ToolbarButton>
       </StyledEditorStyleControls>
 
-      {onSave && (
+      {toolbarElements && (
         <StyledEditorActionControls>
-          <Button
-            buttonType="tertiary"
-            onClick={onCancel ? (ev) => onCancel(ev) : undefined}
-          >
-            Cancel
-          </Button>
-          <Button buttonType="primary" onClick={onSave} disabled={isDisabled}>
-            Save
-          </Button>
+          {toolbarElements}
         </StyledEditorActionControls>
       )}
     </StyledToolbar>
@@ -181,14 +170,12 @@ Toolbar.propTypes = {
   editorState: PropTypes.object,
   /** Sets the form controls ('Save', 'Cancel') to disabled */
   isDisabled: PropTypes.bool,
-  /** Optional callback to handle event after clicking the 'Cancel" button */
-  onCancel: PropTypes.func,
-  /** Optional callback to handle event after clicking the 'Save" button */
-  onSave: PropTypes.func,
   /** Callback to handle setting the inline styles */
   setInlineStyle: PropTypes.func.isRequired,
   /** Callback to handle setting the block styles */
   setBlockStyle: PropTypes.func.isRequired,
+  /** Additional elements to be rendered in the Toolbar, e.g. Save and Cancel Button */
+  toolbarElements: PropTypes.node,
 };
 
 export default Toolbar;

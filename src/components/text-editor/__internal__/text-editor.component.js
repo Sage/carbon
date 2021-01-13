@@ -43,13 +43,12 @@ const TextEditor = React.forwardRef(
       characterLimit = 3000,
       labelText,
       onChange,
-      onCancel,
-      onSave,
       value,
       required,
       error,
       warning,
       info,
+      toolbarElements,
     },
     ref
   ) => {
@@ -321,18 +320,16 @@ const TextEditor = React.forwardRef(
               keyBindingFn={keyBindingFn}
             />
             <Toolbar
-              onSave={onSave}
-              onCancel={onCancel}
               setBlockStyle={(ev, blockType) =>
                 handleBlockStyleChange(ev, blockType)
               }
               setInlineStyle={(ev, inlineStyle, keyboardUsed) =>
                 handleInlineStyleChange(ev, inlineStyle, keyboardUsed)
               }
-              isDisabled={contentLength === 0}
               editorState={editorState}
               activeControls={activeControls}
               canFocus={focusToolbar}
+              toolbarElements={toolbarElements}
             />
           </StyledEditorContainer>
         </StyledEditorOutline>
@@ -348,10 +345,6 @@ TextEditor.propTypes = {
   labelText: PropTypes.string.isRequired,
   /** onChange callback to control value updates */
   onChange: PropTypes.func.isRequired,
-  /** Optional callback to handle event after clicking the 'Cancel" button */
-  onCancel: PropTypes.func,
-  /** Optional callback to handle event after clicking the 'Save" button, passing this will render the form buttons */
-  onSave: PropTypes.func,
   /** The value of the input, this is an EditorState immutable object */
   value: PropTypes.object.isRequired,
   /** Flag to configure component as mandatory */
@@ -362,6 +355,8 @@ TextEditor.propTypes = {
   warning: PropTypes.string,
   /** Message to be displayed when there is an info */
   info: PropTypes.string,
+  /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
+  toolbarElements: PropTypes.node,
 };
 
 export const TextEditorState = EditorState;

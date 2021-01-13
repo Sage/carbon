@@ -4,8 +4,8 @@ export interface TextEditorProps {
   characterLimit?: number;
   labelText: string;
   onChange: (event: object) => void;
-  onCancel?: () => void;
-  onSave?: () => void;
+  /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
+  toolbarElements?: React.ReactNode;
   value: object;
   /** Flag to configure component as mandatory */
   required?: boolean;
