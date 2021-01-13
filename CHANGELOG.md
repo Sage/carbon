@@ -1,3 +1,14 @@
+## [58.0.0](https://github.com/Sage/carbon/compare/v57.0.0...v58.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menulist:** deprecated menu-list and menu-list-item components
+
+### Miscellaneous Chores
+
+* **menulist:** remove component ([f6d2a4b](https://github.com/Sage/carbon/commit/f6d2a4b6a5966e985525a57f6481f554f2a0b8dd))
+
 ## [57.0.0](https://github.com/Sage/carbon/compare/v56.1.0...v57.0.0) (2021-01-12)
 
 
