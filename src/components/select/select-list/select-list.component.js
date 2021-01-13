@@ -12,7 +12,7 @@ import {
 } from "./select-list.style";
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import Portal from "../../portal/portal";
+import StyledPortal from "../../portal/portal.style";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import StyledSelectListContainer from "./select-list-container.style";
@@ -362,7 +362,9 @@ const SelectList = React.forwardRef(
       return selectList;
     }
 
-    return <Portal onReposition={repositionList}>{selectList}</Portal>;
+    return (
+      <StyledPortal onReposition={repositionList}>{selectList}</StyledPortal>
+    );
   }
 );
 

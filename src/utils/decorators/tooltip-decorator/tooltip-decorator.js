@@ -3,7 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { assign } from "lodash";
 import Tooltip from "../../../components/tooltip";
-import Portal from "../../../components/portal";
 import chainFunctions from "../../helpers/chain-functions";
 import { styleElement } from "../../ether";
 import OptionsHelper from "../../helpers/options-helper";
@@ -11,6 +10,7 @@ import calculatePosition from "./calculate-position";
 import sizes from "../../../__experimental__/components/input/input-sizes.style";
 import { pointerSideMargin } from "../../../components/tooltip/tooltip-pointer.style";
 import Logger from "../../logger";
+import StyledPortal from "../../../components/portal/portal.style";
 
 let deprecatedWarnTriggered = false;
 
@@ -332,7 +332,7 @@ const TooltipDecorator = (ComposedComponent) => {
       return (
         this.props.tooltipMessage &&
         this.isVisible() && (
-          <Portal key="tooltip">
+          <StyledPortal key="tooltip">
             <Tooltip
               align={this.state.tooltipAlign || this.props.tooltipAlign}
               data-element="tooltip"
@@ -351,7 +351,7 @@ const TooltipDecorator = (ComposedComponent) => {
             >
               {this.props.tooltipMessage}
             </Tooltip>
-          </Portal>
+          </StyledPortal>
         )
       );
     }
