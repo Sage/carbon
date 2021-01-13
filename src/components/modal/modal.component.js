@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Events from "../../utils/helpers/events";
 import Browser from "../../utils/helpers/browser";
-import Portal from "../portal";
+import StyledPortal from "../portal/portal.style";
 import ModalManager from "./__internal__/modal-manager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 /**
@@ -132,7 +132,7 @@ class Modal extends React.Component {
     }
 
     return (
-      <Portal key="1">
+      <StyledPortal key="1">
         <StyledModal
           className={this.mainClasses}
           {...this.componentTags(this.props)}
@@ -164,7 +164,7 @@ class Modal extends React.Component {
             )}
           </TransitionGroup>
         </StyledModal>
-      </Portal>
+      </StyledPortal>
     );
   }
 }
