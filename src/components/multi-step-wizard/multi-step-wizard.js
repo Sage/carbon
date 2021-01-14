@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import Step from "./step";
-import "./multi-step-wizard.scss";
+import {
+  StyledMultiStepWizard,
+  StyledMultiStepWizardContent,
+} from "./multi-step-wizard.style";
 
 /**
  * A MultiStepWizard widget.
@@ -303,16 +305,6 @@ class MultiStepWizard extends React.Component {
   }
 
   /**
-   * Returns classes for the wizard.
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames("multi-step-wizard", this.props.className);
-  }
-
-  /**
    * Renders the component.
    *
    * @method render
@@ -320,9 +312,11 @@ class MultiStepWizard extends React.Component {
    */
   render() {
     return (
-      <div className={this.mainClasses}>
-        <div className="multi-step-wizard__content">{this.wizardStepsHTML}</div>
-      </div>
+      <StyledMultiStepWizard className={this.props.className}>
+        <StyledMultiStepWizardContent>
+          {this.wizardStepsHTML}
+        </StyledMultiStepWizardContent>
+      </StyledMultiStepWizard>
     );
   }
 }

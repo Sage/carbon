@@ -1,0 +1,17 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import MultiStepWizard from "./multi-step-wizard";
+
+<Meta
+  title="Test/Multi Step Wizard"
+  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+/>
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }/>
+  </Story>
+</Preview>
