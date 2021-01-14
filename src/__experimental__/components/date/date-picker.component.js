@@ -6,7 +6,7 @@ import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
 import Browser from "../../../utils/helpers/browser/browser";
 import DateHelper from "../../../utils/helpers/date/date";
-import Portal from "../../../components/portal/portal";
+import StyledPortal from "../../../components/portal/portal.style";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
 import StyledDayPicker from "./day-picker.style";
@@ -75,13 +75,13 @@ const DatePicker = (props) => {
   }
 
   return (
-    <Portal
+    <StyledPortal
       onReposition={() =>
         setContainerPosition(getContainerPosition(window, props.inputElement))
       }
     >
       {picker}
-    </Portal>
+    </StyledPortal>
   );
 };
 

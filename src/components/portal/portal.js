@@ -4,7 +4,6 @@ import ReactDOM, { createPortal } from "react-dom";
 import guid from "../../utils/helpers/guid";
 import Browser from "../../utils/helpers/browser";
 import ScrollableParent from "../../utils/helpers/scrollable-parent";
-import "./portal.scss";
 
 class Portal extends React.Component {
   static propTypes = {
