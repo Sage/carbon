@@ -37,12 +37,14 @@ const StyledBlock = styled.div`
     internalEditButton,
     isHovered,
     isFocused,
+    height,
   }) => css`
     box-sizing: border-box;
     background-color: ${blockBackgrounds(variant, theme)};
     width: 100%;
+    ${height && `height: ${height}px`};
     ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
-    ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border};`};
+    ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
     ${editable && !(fullWidth || internalEditButton) && "width: auto;"};
     ${contentTriggersEdit && "cursor: pointer"};
     ${(isHovered || isFocused) &&
