@@ -1,3 +1,10 @@
+## [58.1.0](https://github.com/Sage/carbon/compare/v58.0.0...v58.1.0) (2021-01-18)
+
+
+### Features
+
+* add new `pod-manager` component ([8c418cd](https://github.com/Sage/carbon/commit/8c418cd3a7eb6df8af3db20867a71b9eccbfb1c6)), closes [#3046](https://github.com/Sage/carbon/issues/3046)
+
 ## [58.0.0](https://github.com/Sage/carbon/compare/v57.0.0...v58.0.0) (2021-01-12)
 
 
