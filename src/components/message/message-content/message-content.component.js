@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Content from "../../content/content";
+import Content from "../../content/content.component.js";
 import MessageContentStyle from "./message-content.style";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 

@@ -6,11 +6,7 @@ exports[`MessageContent when rendered should render correctly 1`] = `
   variant="info"
 >
   <Content
-    align="left"
-    as="primary"
-    bodyFullWidth={false}
     className="message-content"
-    inline={false}
   >
     children
   </Content>

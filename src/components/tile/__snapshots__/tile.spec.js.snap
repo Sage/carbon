@@ -26,17 +26,17 @@ exports[`Tile renders base styles 1`] = `
   border-left: solid 1px #E6EBED;
 }
 
-.c3 + .c1 {
+.c7 + .c1 {
   margin-top: 0;
   border-top: solid 1px #E6EBED;
 }
 
-.c4 + .c1 {
+.c8 + .c1 {
   margin-top: 0;
   border-left: solid 1px #E6EBED;
 }
 
-.c5 + .c1 {
+.c9 + .c1 {
   margin-top: 0;
   border-top: solid 1px #E6EBED;
 }
@@ -56,6 +56,28 @@ exports[`Tile renders base styles 1`] = `
   width: 100%;
 }
 
+.c4 {
+  text-align: left;
+}
+
+.c4 + .c3 {
+  margin-top: 15px;
+}
+
+.c5 {
+  display: block;
+  font-weight: bold;
+  text-align: left;
+}
+
+.c6 {
+  display: block;
+  margin-top: 2px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-weight: normal;
+}
+
 <div
   className="c0"
   data-component="tile"
@@ -64,18 +86,16 @@ exports[`Tile renders base styles 1`] = `
     className="c1 c2"
   >
     <div
-      className="carbon-content carbon-content--primary carbon-content--align-left"
+      className="c3 c4"
       data-component="content"
     >
       <div
-        className="carbon-content__title"
-        data-element="title"
-        style={Object {}}
+        className="c5"
+        data-element="content-title"
       />
       <div
-        className="carbon-content__body"
-        data-element="body"
-        style={Object {}}
+        className="c6"
+        data-element="content-body"
       >
         Child 1
       </div>
@@ -85,18 +105,16 @@ exports[`Tile renders base styles 1`] = `
     className="c1 c2"
   >
     <div
-      className="carbon-content carbon-content--primary carbon-content--align-left"
+      className="c3 c4"
       data-component="content"
     >
       <div
-        className="carbon-content__title"
-        data-element="title"
-        style={Object {}}
+        className="c5"
+        data-element="content-title"
       />
       <div
-        className="carbon-content__body"
-        data-element="body"
-        style={Object {}}
+        className="c6"
+        data-element="content-body"
       >
         Child 2
       </div>
