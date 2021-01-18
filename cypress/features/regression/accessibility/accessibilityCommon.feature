@@ -11,6 +11,7 @@ Feature: Accessibility tests - Common list
       | Alert               |
       | Carousel            |
       | Confirm             |
+      | Configurable-items  |
       | Content             |
       | Detail              |
       | Dialog              |
@@ -19,7 +20,6 @@ Feature: Accessibility tests - Common list
       | I18nComponent       |
       | Link                |
       | Message             |
-      | MenuList            |
       | Mount In App        |
       | Portrait            |
       | Preview             |
@@ -43,14 +43,6 @@ Feature: Accessibility tests - Common list
   Scenario: Component button toggle
     When I open "Button-Toggle-Group" component page "basic" in no iframe
     Then "Button Toggle Group" component has no accessibility violations
-
-  @accessibility
-  Scenario Outline: Component <component> default story
-    When I open "<component>" component page "default" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component          |
-      | Configurable-items |
 
   @accessibility
   Scenario Outline: Component <component> basic story

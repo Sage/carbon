@@ -2,42 +2,68 @@ import React from "react";
 import PropTypes from "prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import { StyledCheckboxGroup } from "./checkbox.style";
-import FormField from "../form-field";
-import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
+import Fieldset from "../../../__internal__/fieldset";
 
 const CheckboxGroup = (props) => {
-  const { children, groupName, error, warning, info } = props;
-
-  const groupLabelId = `${groupName}-label`;
+  const {
+    children,
+    groupName,
+    legend,
+    error,
+    warning,
+    info,
+    mb,
+    required,
+    legendInline,
+    legendWidth,
+    legendAlign,
+    legendSpacing,
+  } = props;
 
   return (
-    <InputGroupBehaviour>
+    <Fieldset
+      legend={legend}
+      inline={legendInline}
+      legendWidth={legendWidth}
+      legendAlign={legendAlign}
+      legendSpacing={legendSpacing}
+      error={error}
+      warning={warning}
+      info={info}
+      mb={mb}
+      isRequired={required}
+      {...tagComponent("checkboxgroup", props)}
+    >
       <StyledCheckboxGroup
-        aria-labelledby={groupLabelId}
-        role="checkbox"
-        error={error}
-        warning={warning}
-        info={info}
-        {...tagComponent("checkboxgroup", props)}
+        data-component="checkbox-group"
+        legendInline={legendInline}
       >
-        <FormField {...props}>
-          {React.Children.map(children, (child) =>
-            React.cloneElement(child, {
-              inputName: groupName,
-              error: !!error,
-              warning: !!warning,
-              info: !!info,
-              ...child.props,
-            })
-          )}
-        </FormField>
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, {
+            inputName: groupName,
+            error: !!error,
+            warning: !!warning,
+            info: !!info,
+            ...child.props,
+          })
+        )}
       </StyledCheckboxGroup>
-    </InputGroupBehaviour>
+    </Fieldset>
   );
 };
 
 CheckboxGroup.propTypes = {
-  /** The RadioButton objects to be rendered in the group */
+  /** The content for the CheckboxGroup Legend */
+  legend: PropTypes.string,
+  /** When true, legend is placed in line with the checkboxes */
+  legendInline: PropTypes.bool,
+  /** Percentage width of legend (only when legend is inline)  */
+  legendWidth: PropTypes.number,
+  /** Text alignment of legend when inline */
+  legendAlign: PropTypes.oneOf(["left", "right"]),
+  /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  legendSpacing: PropTypes.oneOf([1, 2]),
+  /** The Checkboxes to be rendered in the group */
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
@@ -57,6 +83,8 @@ CheckboxGroup.propTypes = {
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool,
 };
 
 export default CheckboxGroup;

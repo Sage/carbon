@@ -48,7 +48,7 @@ export function clickClear() {
 
 export function dragAndDrop(draggableElement, destinationPosition, startFromHight) {
   const ROW_HIGHT = 45;
-  const TEN_PIXEL_MOVE = 15;
+  const TEN_PIXEL_MOVE = 10;
 
   console.log(startFromHight);
   draggableElement
@@ -82,6 +82,13 @@ export function pressTABKey(count) {
   // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
   for (let i = 0; i < count; i++) {
     cy.iFrame('body').trigger('tab', { force: true });
+  }
+}
+
+export function pressTABKeyInNoIframe(count) {
+  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
+  for (let i = 0; i < count; i++) {
+    cy.get('body').trigger('tab', { force: true });
   }
 }
 

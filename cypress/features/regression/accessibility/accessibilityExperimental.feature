@@ -69,13 +69,12 @@ Feature: Accessibility tests - Experimental folder
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story
-    When I open "Experimental checkbox" component page "<story>" in no iframe
+    When I open "Experimental checkbox validations" component page "<story>" in no iframe
     Then "Experimental checkbox <story> story" component has no accessibility violations
     Examples:
       | story                              |
-      # Commented because of issue FE-3412
-       #| group checkbox boolean validation  |
-       #| group checkbox string validation   |
+      | group checkbox boolean validation  |
+      | group checkbox string validation   |
       | single checkbox boolean validation |
       | single checkbox string validation  |
 
@@ -91,7 +90,7 @@ Feature: Accessibility tests - Experimental folder
 
   @accessibility
   Scenario: Experimental checkbox with asterisk
-    When I open "Experimental checkbox" component page "required" in no iframe
+    When I open "Experimental checkbox validations" component page "required" in no iframe
     Then "Experimental checkbox with asterisk" component has no accessibility violations
 
   @accessibility

@@ -1,3 +1,36 @@
+## [58.0.0](https://github.com/Sage/carbon/compare/v57.0.0...v58.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menulist:** deprecated menu-list and menu-list-item components
+
+### Miscellaneous Chores
+
+* **menulist:** remove component ([f6d2a4b](https://github.com/Sage/carbon/commit/f6d2a4b6a5966e985525a57f6481f554f2a0b8dd))
+
+## [57.0.0](https://github.com/Sage/carbon/compare/v56.1.0...v57.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** group-checkbox prop label is renamed to legend
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/checkbox-group label legend`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Code Refactoring
+
+* **checkbox:** modify checkbox-group to use fieldset ([a3da4cc](https://github.com/Sage/carbon/commit/a3da4cc53f00f2e76d2857bbf0ea6a394741be93))
+
+## [56.1.0](https://github.com/Sage/carbon/compare/v56.0.1...v56.1.0) (2021-01-11)
+
+
+### Features
+
+* **search:** added keyboard navigation to clear text button ([069dbab](https://github.com/Sage/carbon/commit/069dbabd11378fdad3e214acae5da9d56ca70b70)), closes [#3485](https://github.com/Sage/carbon/issues/3485)
+
 ### [56.0.1](https://github.com/Sage/carbon/compare/v56.0.0...v56.0.1) (2021-01-11)
 
 

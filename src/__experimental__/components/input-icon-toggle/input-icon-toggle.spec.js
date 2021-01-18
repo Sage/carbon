@@ -1,6 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 
 import Icon from "components/icon";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
@@ -164,6 +165,35 @@ describe("InputIconToggle", () => {
           render({ size: size[0] }, TestRenderer.create).toJSON()
         );
       });
+    });
+  });
+
+  describe("default onKeydown handler", () => {
+    it.each([
+      ["Enter", 13],
+      [" ", 32],
+    ])(
+      "prevents default when pressing `%s` and onClick is set",
+      (key, which) => {
+        const wrapper = render(
+          { inputIcon: "dropdown", onClick: () => {} },
+          mount
+        );
+        const event = { key, which, preventDefault: jest.fn() };
+        act(() => {
+          wrapper.simulate("keydown", event);
+        });
+        expect(event.preventDefault).toHaveBeenCalled();
+      }
+    );
+
+    it("does not prevent default if onClick is not set", () => {
+      const wrapper = render({ inputIcon: "dropdown" }, mount);
+      const event = { key: " ", which: 32, preventDefault: jest.fn() };
+      act(() => {
+        wrapper.simulate("keydown", event);
+      });
+      expect(event.preventDefault).not.toHaveBeenCalled();
     });
   });
 });

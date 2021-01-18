@@ -121,11 +121,11 @@ The alignment of the tooltip can be controlled using the `tooltipAlign` prop.
 </Preview>
 
 ### OnClick
-By passing the `hasOnClick` prop to the Link component, a custom `onClick` function can be passed to the Link component
+A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
 <Preview>
-  <Story name="with OnClick" parameters={{ chromatic: { disable: true }}}>
-    <Link hasOnClick onClick={ ()=> {} }>
+  <Story name="with onClick" parameters={{ chromatic: { disable: true }}}>
+    <Link onClick={ ()=> {} }>
       This is a link
     </Link>
   </Story>
