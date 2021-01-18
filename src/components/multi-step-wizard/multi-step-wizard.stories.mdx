@@ -12,6 +12,6 @@ import MultiStepWizard from "./multi-step-wizard";
 
 <Preview>
   <Story name="default">
-    <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>] }/>
+    <MultiStepWizard steps={ [<div>Step 1</div>, <div>Step 2</div>]} onSubmit={() => console.log("Submit the wizard!")} />
   </Story>
 </Preview>
