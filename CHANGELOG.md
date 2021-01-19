@@ -1,3 +1,15 @@
+## [59.0.0](https://github.com/Sage/carbon/compare/v58.1.0...v59.0.0) (2021-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **text-editor:** remove cancel and save buttons from the toolbar,
+use toolbarElements prop to render custom elements such as these buttons
+
+### Code Refactoring
+
+* **text-editor:** allow user to render toolbar action controls ([d27b878](https://github.com/Sage/carbon/commit/d27b878d70d8526ef3d21d8c8577175da40d3589)), closes [#3444](https://github.com/Sage/carbon/issues/3444)
+
 ## [58.1.0](https://github.com/Sage/carbon/compare/v58.0.0...v58.1.0) (2021-01-18)
 
 
