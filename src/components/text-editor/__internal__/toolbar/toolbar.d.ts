@@ -2,9 +2,8 @@ import * as React from 'react';
 
 export interface ToolbarProps {
   activeControls: object;
-  isDisabled?: boolean;
-  onCancel?: () => void;
-  onSave: () => void;
+  /** Additional elements to be rendered, e.g. Save and Cancel Button */
+  toolbarElements?: React.ReactNode;
   setInlineStyle: (args: number) => any;
   setBlockStyle: (args: number) => any;
 }
