@@ -1,7 +1,9 @@
 import {
-  podPreview, podContent,
-  podSubTitle, podDescription, podFooter, 
+  podContent,
+  podSubTitle, podDescription,
   podEditIframe,
+  podEdit, podFooter,
+  podPreview,
 } from '../../locators/pod';
 import { getDataElementByValue } from '../../locators';
 
@@ -31,4 +33,16 @@ Then('I click onEdit icon in Iframe', () => {
 
 Then('Pod component has triggerEditOnContent property', () => {
   podPreview().should('have.css', 'cursor', 'pointer');
+});
+
+When('I check that onEdit icon is not visible', () => {
+  podEdit().should('not.be.visible');
+});
+
+When('I hover mouse onto pod', () => {
+  podPreview().first().trigger('mouseover');
+});
+
+Then('The onEdit icon is visible', () => {
+  podEdit().should('be.visible');
 });

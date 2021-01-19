@@ -213,32 +213,4 @@ describe("MultiStepWizard", () => {
       });
     });
   });
-
-  describe("mainClasses", () => {
-    it("returns the main class", () => {
-      expect(instance.mainClasses).toContain("multi-step-wizard");
-    });
-
-    describe("when passing custom classNames", () => {
-      it("adds it to the main class", () => {
-        instance = TestUtils.renderIntoDocument(
-          <MultiStepWizard
-            steps={[<div>Step 1</div>, <div>Step 2</div>]}
-            onSubmit={spySubmitHandler}
-            className="taxReturn"
-          />
-        );
-        expect(instance.mainClasses).toContain("taxReturn");
-      });
-    });
-  });
-
-  describe("render", () => {
-    it("creates a div for the component", () => {
-      let div1 = TestUtils.scryRenderedDOMComponentsWithTag(instance, "div")[0],
-        div2 = TestUtils.scryRenderedDOMComponentsWithTag(instance, "div")[1];
-      expect(div1.className).toContain("multi-step-wizard");
-      expect(div2.className).toEqual("multi-step-wizard__content");
-    });
-  });
 });

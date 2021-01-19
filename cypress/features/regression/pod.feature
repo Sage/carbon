@@ -46,10 +46,17 @@ Feature: Pod component
       | mp150ú¿¡üßä                  | footerOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | footerSpecialCharacter |
 
-  @positive
+@positive
   Scenario: Check the triggerEditOnContent checkbox
     When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "triggerEditOnContent" object name
     Then Pod component has triggerEditOnContent property
+
+  @positive
+  Scenario: Edit button is visible on hover
+    Given I open "Pod" component page "with display edit button on hover" in no iframe
+    When I check that onEdit icon is not visible
+      And I hover mouse onto pod
+    Then The onEdit icon is visible
 
   @positive
   Scenario: Check the edit event

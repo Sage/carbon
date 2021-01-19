@@ -25,6 +25,8 @@ import {
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import { baseTheme } from "../../style/themes";
+import PodManager from "./pod-manager.component";
+import PodContext from "./pod-context";
 
 describe("Pod", () => {
   let instance;
@@ -66,6 +68,23 @@ describe("Pod", () => {
       wrapper.setProps({ title: "Title" });
       expect(wrapper.find(StyledArrow).exists()).toBeFalsy();
     });
+  });
+
+  describe("PodManager", () => {
+    wrapper = mount(
+      <PodManager>
+        <PodContext.Provider value={{ heightOfTheLongestPod: "100" }}>
+          <Pod>test</Pod>
+        </PodContext.Provider>
+      </PodManager>
+    );
+
+    assertStyleMatch(
+      {
+        height: "100px",
+      },
+      wrapper.find(StyledBlock)
+    );
   });
 
   describe("collapsability", () => {
