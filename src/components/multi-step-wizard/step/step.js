@@ -3,9 +3,17 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import I18n from "i18n-js";
 
-import Button from "../../button";
-import Icon from "../../icon";
-import "./step.scss";
+import {
+  StyledStep,
+  StyledStepContent,
+  StyledStepButton,
+  StyledStepIndicatorBar,
+  StyledStepIndicatorBackground,
+  StyledStepIndicatorIconContainer,
+  StepIndicatorIconPlaceholder,
+  StepIndicatorIconContent,
+  StyledStepIndicatorIcon,
+} from "./step.style";
 
 /**
  * A Step widget.
@@ -232,10 +240,10 @@ class Step extends React.Component {
    */
   get stepHTML() {
     return (
-      <div className="multi-step-wizard-step__content">
+      <StyledStepContent>
         {this.props.children}
         {this.buttonHTML}
-      </div>
+      </StyledStepContent>
     );
   }
 
@@ -254,48 +262,42 @@ class Step extends React.Component {
 
     if (this.isLastStep) {
       submitButton = (
-        <Button
-          as="primary"
-          className="multi-step-wizard-step__button submit"
+        <StyledStepButton
+          buttonType="primary"
           data-element="submit"
           onClick={this.handleOnSubmit}
         >
           {I18n.t("wizards.multi_step_wizard.buttons.submit", {
             defaultValue: "Submit",
           })}
-        </Button>
+        </StyledStepButton>
       );
     } else {
       nextButton = (
-        <Button
-          as="primary"
-          className="multi-step-wizard-step__button next"
+        <StyledStepButton
+          buttonType="primary"
           data-element="next"
           onClick={this.handleOnNext}
         >
           {I18n.t("wizards.multi_step_wizard.buttons.next", {
             defaultValue: "Next",
           })}
-        </Button>
+        </StyledStepButton>
       );
     }
 
     if (!this.isFirstStep) {
       backButton = (
-        <Button
-          className="multi-step-wizard-step__button back"
-          data-element="back"
-          onClick={this.handleOnBack}
-        >
+        <StyledStepButton data-element="back" onClick={this.handleOnBack}>
           {I18n.t("wizards.multi_step_wizard.buttons.back", {
             defaultValue: "Back",
           })}
-        </Button>
+        </StyledStepButton>
       );
     }
 
     return (
-      <div className="multi-step-wizard-step__buttons">
+      <div>
         {nextButton}
         {submitButton}
         {backButton}
@@ -312,12 +314,7 @@ class Step extends React.Component {
    */
   get indicatorHTML() {
     if (this.stepProcessed) {
-      return (
-        <Icon
-          type="white-tick"
-          className="multi-step-wizard-step__white-tick"
-        />
-      );
+      return <StyledStepIndicatorIcon type="white-tick" />;
     }
     return <div>{this.props.stepNumber}</div>;
   }
@@ -359,17 +356,9 @@ class Step extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      "multi-step-wizard-step",
       `multi-step-wizard-step-${this.props.stepNumber}`,
-      `multi-step-wizard-step--${this.indicatorStatus}`,
-      {
-        "multi-step-wizard-step--disabled": this.stepDisabled,
-        "multi-step-wizard-step--pending--disabled":
-          this.stepDisabled && this.indicatorStatus === "pending",
-        "multi-step-wizard-step--processed--disabled":
-          this.stepDisabled && this.indicatorStatus === "processed",
-        "multi-step-wizard-step-final": this.isLastStep,
-      },
+      { "multi-step-wizard-step-final": this.isLastStep },
+
       this.props.className
     );
   }
@@ -382,23 +371,29 @@ class Step extends React.Component {
   render() {
     if (this.wizard) {
       return (
-        <div className={this.mainClasses}>
-          <div
-            className={`multi-step-wizard-step__indicator-bar ${this.indicatorStatus}`}
+        <StyledStep
+          disabled={this.stepDisabled}
+          isLastStep={this.isLastStep}
+          isStepProcessed={this.stepProcessed}
+        >
+          <StyledStepIndicatorBar
+            className={this.indicatorStatus}
+            isStepProcessed={this.stepProcessed}
           >
-            <div className="multi-step-wizard-step__indicator-background" />
-          </div>
-          <div className="multi-step-wizard-step__indicator-icon">
-            <div className="multi-step-wizard-step__indicator-placeholder">
-              <div
-                className={`multi-step-wizard-step__indicator-icon__content ${this.indicatorStatus}`}
+            <StyledStepIndicatorBackground />
+          </StyledStepIndicatorBar>
+          <StyledStepIndicatorIconContainer>
+            <StepIndicatorIconPlaceholder>
+              <StepIndicatorIconContent
+                className={this.indicatorStatus}
+                isStepProcessed={this.stepProcessed}
               >
                 {this.indicatorHTML}
-              </div>
-            </div>
-          </div>
+              </StepIndicatorIconContent>
+            </StepIndicatorIconPlaceholder>
+          </StyledStepIndicatorIconContainer>
           {this.stepHTML}
-        </div>
+        </StyledStep>
       );
     }
 

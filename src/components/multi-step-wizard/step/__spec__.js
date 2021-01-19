@@ -286,9 +286,6 @@ describe("Step", () => {
           expect(submitButton).toBeDefined();
           expect(backButton).toBeDefined();
           expect(extraButtons).toEqual([]);
-
-          expect(submitButton.props.className).toContain("submit");
-          expect(backButton.props.className).toContain("back");
         });
       });
 
@@ -308,9 +305,6 @@ describe("Step", () => {
           expect(submitButton).toBeUndefined();
           expect(backButton).toBeDefined();
           expect(extraButtons).toEqual([]);
-
-          expect(nextButton.props.className).toContain("next");
-          expect(backButton.props.className).toContain("back");
         });
       });
 
@@ -326,8 +320,6 @@ describe("Step", () => {
           expect(submitButton).toBeUndefined();
           expect(backButton).toBeUndefined();
           expect(extraButtons).toEqual([]);
-
-          expect(nextButton.props.className).toContain("next");
         });
       });
     });
@@ -394,24 +386,6 @@ describe("Step", () => {
       expect(instance.mainClasses).toContain("multi-step-wizard-step-1");
     });
 
-    it("adds a className if the step is pending", () => {
-      instance = TestUtils.renderIntoDocument(
-        <Step stepNumber={2}>Demo Step</Step>
-      );
-      instance.context = stepContext;
-      expect(instance.mainClasses).toContain("multi-step-wizard-step--pending");
-    });
-
-    it("adds a className if the step is disabled", () => {
-      instance = TestUtils.renderIntoDocument(
-        <Step stepNumber={2}>Demo Step</Step>
-      );
-      instance.context = stepContext;
-      expect(instance.mainClasses).toContain(
-        "multi-step-wizard-step--disabled"
-      );
-    });
-
     it("adds a className if the step is the last step", () => {
       instance = TestUtils.renderIntoDocument(
         <Step stepNumber={3}>Demo Step</Step>
@@ -434,10 +408,10 @@ describe("Step", () => {
         let wrapper = shallow(<Step stepNumber={1}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
-        let next = wrapper.find(".next");
 
         it("includes correct tags for the button", () => {
-          expect(next.prop("data-element")).toEqual("next");
+          let next = wrapper.find("[data-element='next']");
+          expect(next.exists()).toBe(true);
         });
       });
 
@@ -445,10 +419,10 @@ describe("Step", () => {
         let wrapper = shallow(<Step stepNumber={2}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
-        let back = wrapper.find(".back");
 
         it("includes correct tags for the button", () => {
-          expect(back.prop("data-element")).toEqual("back");
+          let back = wrapper.find("[data-element='back']");
+          expect(back.exists()).toBe(true);
         });
       });
 
@@ -456,10 +430,10 @@ describe("Step", () => {
         let wrapper = shallow(<Step stepNumber={3}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
-        let submit = wrapper.find(".submit");
 
         it("includes correct tags for the button", () => {
-          expect(submit.prop("data-element")).toEqual("submit");
+          let submit = wrapper.find("[data-element='submit']");
+          expect(submit.exists()).toBe(true);
         });
       });
     });
