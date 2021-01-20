@@ -1,4 +1,5 @@
 import Option from "../option/option.component";
+import isExpectedValue from "./is-expected-value";
 
 export default function isExpectedOption(element, expectedValue) {
   if (
@@ -9,13 +10,5 @@ export default function isExpectedOption(element, expectedValue) {
     return false;
   }
 
-  if (
-    typeof element.props.value === "object" &&
-    element.props.value.id !== null &&
-    element.props.value.id !== undefined
-  ) {
-    return element.props.value.id === expectedValue.id;
-  }
-
-  return element.props.value === expectedValue;
+  return isExpectedValue(element.props.value, expectedValue);
 }
