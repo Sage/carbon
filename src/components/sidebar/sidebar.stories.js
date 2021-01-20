@@ -56,7 +56,9 @@ export const Default = () => {
         <SidebarHeader>Header Content</SidebarHeader>
         <div>
           <Button as="primary">Test</Button>
-          <Button as="secondary">Last</Button>
+          <Button as="secondary" ml={2}>
+            Last
+          </Button>
         </div>
         Main Content
       </Sidebar>
