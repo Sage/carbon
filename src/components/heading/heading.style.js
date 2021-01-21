@@ -26,6 +26,7 @@ const StyledHeading = styled.div`
       margin-top: ${divider && !subheader ? "-14px" : ""};
     `}
   }
+  position: relative;
 `;
 
 StyledHeading.defaultProps = {
@@ -38,10 +39,6 @@ const StyledHeadingIcon = styled(Icon)`
   top: 50%;
   z-index: 1002;
   position: absolute;
-
-  .carbon-heading--has-divider & {
-    margin-top: -8px;
-  }
 
   &,
   &.${StyledIcon} {
@@ -64,4 +61,71 @@ StyledHeadingIcon.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledHeadingIcon, StyledHeading };
+const StyledSubHeader = styled.div`
+  margin-top: 5px;
+`;
+
+StyledSubHeader.defaultProps = {
+  theme: baseTheme,
+};
+
+const StyledHeader = styled.div`
+  position: relative;
+`;
+
+StyledHeader.defaultProps = {
+  theme: baseTheme,
+};
+
+const StyledDivider = styled.hr`
+  width: inherit;
+  border: 0;
+  height: 1px;
+  background: ${({ theme }) => theme.hr.background};
+  margin: 15px 0 20px;
+`;
+
+StyledDivider.defaultProps = {
+  theme: baseTheme,
+};
+
+const StyledSeparator = styled.hr`
+  border-top: 2px solid ${({ theme }) => theme.palette.slateTint(80)};
+  margin: 10px 0 8px;
+  text-align: left;
+  width: 50px;
+`;
+
+StyledSeparator.defaultProps = {
+  theme: baseTheme,
+};
+
+const StyledHeaders = styled.div`
+  margin-left: ${({ back }) => (back ? "30px" : "")};
+`;
+
+const StyledHeaderLink = styled.div`
+  margin-top: -14px;
+  top: 50%;
+  position: absolute;
+`;
+
+const StyledHeaderHelp = styled.div`
+  display: inline-block;
+  margin-left: 10px;
+  position: relative;
+  top: -3px;
+  height: 22px;
+`;
+
+export {
+  StyledHeadingIcon,
+  StyledHeading,
+  StyledSubHeader,
+  StyledHeader,
+  StyledDivider,
+  StyledSeparator,
+  StyledHeaders,
+  StyledHeaderLink,
+  StyledHeaderHelp,
+};

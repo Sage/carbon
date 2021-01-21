@@ -145,7 +145,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 `;
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to heading exists 1`] = `
-.c6 {
+.c9 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -167,12 +167,12 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   width: 24px;
 }
 
-.c6:hover {
+.c9:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c6::before {
+.c9::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -185,27 +185,54 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   display: block;
 }
 
-.c3 {
-  width: 100%;
+.c5 {
+  font-family: "Lato";
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+  color: rgba(0,0,0,0.90);
 }
 
-.c3.c3.c3.c3 .c11 {
+.c3 {
+  width: 100%;
+  position: relative;
+}
+
+.c3.c3.c3.c3 .c14 {
   margin-top: -22px;
   margin-top: -14px;
 }
 
-.c3.c3.c3.c3 .c11 a,
-.c3.c3.c3.c3 .c11 button {
+.c3.c3.c3.c3 .c14 a,
+.c3.c3.c3.c3 .c14 button {
   -webkit-text-decoration: none;
   text-decoration: none;
   padding-top: 8px;
 }
 
-.c3.c3.c3.c3 .c11 a:focus,
-.c3.c3.c3.c3 .c11 button:focus {
+.c3.c3.c3.c3 .c14 a:focus,
+.c3.c3.c3.c3 .c14 button:focus {
   background-color: transparent;
   outline: 3px solid #FFB500;
   width: 25px;
+}
+
+.c4 {
+  position: relative;
+}
+
+.c6 {
+  width: inherit;
+  border: 0;
+  height: 1px;
+  background: #CCD6DB;
+  margin: 15px 0 20px;
 }
 
 .c2 {
@@ -263,58 +290,58 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   margin-left: -5px;
 }
 
-.c4 {
+.c7 {
   background: transparent;
   border: none;
   padding: 0;
 }
 
-.c4:focus {
+.c7:focus {
   color: rgba(0,0,0,0.9);
   background-color: transparent;
   outline: solid 3px #FFB500;
   z-index: 1;
 }
 
-.c4:hover {
+.c7:hover {
   cursor: pointer;
 }
 
-.c4::-moz-focus-inner {
+.c7::-moz-focus-inner {
   border: none;
 }
 
-.c4 .c5 {
+.c7 .c8 {
   position: relative;
 }
 
-.c4 .c5:focus {
+.c7 .c8:focus {
   border: none;
 }
 
-.c7:hover .c5 {
+.c10:hover .c8 {
   color: #FFFFFF;
 }
 
-.c7 .c5 {
+.c10 .c8 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c7 .c5 svg {
+.c10 .c8 svg {
   margin-top: 0;
 }
 
-.c0 + .c8 {
+.c0 + .c11 {
   height: calc(100% - 0px);
 }
 
-.c0 + .c9 {
+.c0 + .c12 {
   height: calc(100% - 0px);
 }
 
-.c0 + .c10 {
+.c0 + .c13 {
   height: calc(100% - 0px);
 }
 
@@ -344,36 +371,41 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
     class="c2"
   >
     <div
-      class="c3 carbon-heading carbon-heading--has-divider"
+      class="c3"
       data-component="heading"
     >
       <div
-        class="carbon-heading__header"
+        class="c4"
       >
         <div
-          class="carbon-heading__headers"
+          class=""
         >
           <div
-            class="carbon-heading__main-header"
+            class=""
           >
-            <h1
-              class="carbon-heading__title"
+            <span
+              class="c5"
+              color="blackOpacity90"
               data-element="title"
+              text-decoration="none"
             >
               my custom heading
-            </h1>
+            </span>
           </div>
         </div>
       </div>
+      <hr
+        class="c6"
+      />
     </div>
   </div>
   <button
-    class="c4"
+    class="c7"
     data-element="close"
     type="button"
   >
     <span
-      class="c5 c6"
+      class="c8 c9"
       data-component="icon"
       data-element="close"
       font-size="small"

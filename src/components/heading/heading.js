@@ -1,11 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import Box from "../box";
 import Help from "../help";
 import Link from "../link";
+import Typography from "../typography";
 import tagComponent from "../../utils/helpers/tags";
-import "./heading.scss";
-import { StyledHeading, StyledHeadingIcon } from "./heading.style";
+import {
+  StyledHeading,
+  StyledHeadingIcon,
+  StyledSubHeader,
+  StyledHeader,
+  StyledSeparator,
+  StyledDivider,
+  StyledHeaders,
+  StyledHeaderLink,
+  StyledHeaderHelp,
+} from "./heading.style";
 
 class Heading extends React.Component {
   static propTypes = {
@@ -82,14 +92,15 @@ class Heading extends React.Component {
     }
 
     return (
-      <Help
-        className="carbon-heading__help"
-        data-element="help"
-        tooltipPosition="right"
-        href={this.props.helpLink}
-      >
-        {this.props.help}
-      </Help>
+      <StyledHeaderHelp>
+        <Help
+          data-element="help"
+          tooltipPosition="right"
+          href={this.props.helpLink}
+        >
+          {this.props.help}
+        </Help>
+      </StyledHeaderHelp>
     );
   }
 
@@ -113,15 +124,16 @@ class Heading extends React.Component {
     }
 
     return (
-      <Link
-        // this event allows an element to be focusable on click event on IE
-        onMouseDown={(e) => e.currentTarget.focus()}
-        className="carbon-heading__back"
-        data-element="back"
-        {...props}
-      >
-        <StyledHeadingIcon type="chevron_left" />
-      </Link>
+      <StyledHeaderLink>
+        <Link
+          // this event allows an element to be focusable on click event on IE
+          onMouseDown={(e) => e.currentTarget.focus()}
+          data-element="back"
+          {...props}
+        >
+          <StyledHeadingIcon type="chevron_left" divider={this.props.divider} />
+        </Link>
+      </StyledHeaderLink>
     );
   }
 
@@ -137,28 +149,10 @@ class Heading extends React.Component {
     }
 
     return (
-      <div
-        className="carbon-heading__subheader"
-        data-element="subtitle"
-        id={this.props.subtitleId}
-      >
+      <StyledSubHeader data-element="subtitle" id={this.props.subtitleId}>
         {this.props.subheader}
-      </div>
+      </StyledSubHeader>
     );
-  }
-
-  /**
-   * Returns the classes for the component.
-   *
-   * @method classes
-   * @return {String}
-   */
-  get classes() {
-    return classNames("carbon-heading", this.props.className, {
-      "carbon-heading--has-subheader": this.props.subheader,
-      "carbon-heading--has-back": this.props.backLink,
-      "carbon-heading--has-divider": this.props.divider,
-    });
   }
 
   /**
@@ -168,9 +162,17 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get separator() {
-    return this.props.separator ? (
-      <hr className="carbon-heading__separator" />
-    ) : null;
+    return this.props.separator ? <StyledSeparator /> : null;
+  }
+
+  /**
+   * Returns the separator if enabled and needed.
+   *
+   * @method divider
+   * @return {Object} JSX
+   */
+  get divider() {
+    return this.props.divider ? <StyledDivider /> : null;
   }
 
   /**
@@ -184,32 +186,31 @@ class Heading extends React.Component {
 
     return (
       <StyledHeading
-        className={this.classes}
         divider={this.props.divider}
         subheader={this.props.subheader}
         {...tagComponent("heading", this.props)}
       >
-        <div className="carbon-heading__header">
+        <StyledHeader>
           {this.back}
 
-          <div className="carbon-heading__headers">
-            <div className="carbon-heading__main-header">
-              <h1
-                className="carbon-heading__title"
+          <StyledHeaders back={this.props.backLink}>
+            <Box>
+              <Typography
+                variant="h1"
+                as="span"
+                lineHeight="32px"
                 data-element="title"
                 id={this.props.titleId}
               >
                 {this.props.title}
-              </h1>
-
+              </Typography>
               {this.help}
-            </div>
-
+            </Box>
             {this.separator}
             {this.subheader}
-          </div>
-        </div>
-
+          </StyledHeaders>
+        </StyledHeader>
+        {this.divider}
         {this.props.children}
       </StyledHeading>
     );
