@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Pages from ".";
 import Page from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
-import Heading from "../heading/heading";
+import Heading from "../heading";
 import Button from "../button";
 
 export default {

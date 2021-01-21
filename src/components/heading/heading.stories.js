@@ -1,6 +1,6 @@
 import React from "react";
 import { text, boolean } from "@storybook/addon-knobs";
-import Heading from "./heading";
+import Heading from "./heading.component";
 
 export default {
   title: "Heading/Test",
