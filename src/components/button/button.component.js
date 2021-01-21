@@ -14,17 +14,11 @@ const renderStyledButton = (buttonProps) => {
     iconType,
     theme,
     forwardRef,
-    href,
     px,
     size,
     noWrap,
     ...styleProps
   } = buttonProps;
-
-  // added to support legacy link buttons
-  if (href) {
-    styleProps.href = href;
-  }
 
   let paddingX;
 
@@ -41,7 +35,6 @@ const renderStyledButton = (buttonProps) => {
 
   return (
     <StyledButton
-      as={!disabled && href ? "a" : "button"} // legacy link button feature
       buttonType={buttonType}
       disabled={disabled}
       role="button"
@@ -60,7 +53,7 @@ const renderStyledButton = (buttonProps) => {
 };
 
 const Button = (props) => {
-  const { disabled, to, iconType, renderRouterLink, size, subtext } = props;
+  const { size, subtext } = props;
 
   const { as, buttonType, ...rest } = props;
 
@@ -71,15 +64,6 @@ const Button = (props) => {
 
   if (subtext.length > 0 && size !== "large") {
     throw new Error("subtext prop has no effect unless the button is large");
-  }
-
-  // added to support legacy link buttons
-  if (!disabled && to && renderRouterLink) {
-    return renderRouterLink({
-      to,
-      type: iconType,
-      children: renderStyledButton(propsWithoutAs),
-    });
   }
 
   return renderStyledButton(propsWithoutAs);
@@ -155,12 +139,6 @@ Button.propTypes = {
   forwardRef: PropTypes.object,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
-  /** Legacy - used to transform button into anchor */
-  href: PropTypes.string,
-  /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
-  to: PropTypes.string,
-  /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
-  renderRouterLink: PropTypes.func,
   /** Apply fullWidth style to the button */
   fullWidth: PropTypes.bool,
   /** If provided, the text inside a button will not wrap */

@@ -13,11 +13,6 @@ import {
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
 
-const RouterLink = (props) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a {...props} />;
-};
-
 const render = (props, renderer = shallow) => {
   return renderer(<Button {...props} />);
 };
@@ -518,31 +513,6 @@ describe("Button", () => {
       ).dive();
 
       rootTagTest(wrapper, "button", "bar", "baz");
-    });
-  });
-
-  // Legacy functionalities
-  describe("render", () => {
-    describe("with href", () => {
-      const wrapper = render({
-        href: "/foo",
-        children: "Anchor",
-      });
-
-      it("renders an anchor element instead of a button", () => {
-        expect(wrapper.find(StyledButton).props().as).toEqual("a");
-      });
-    });
-
-    describe("with to", () => {
-      const wrapper = render({
-        to: "/foo",
-        children: "To",
-        renderRouterLink: (routerProps) => <RouterLink {...routerProps} />,
-      });
-      it("renders a Button inside a Router Link component", () => {
-        expect(wrapper.type()).toEqual(RouterLink);
-      });
     });
   });
 

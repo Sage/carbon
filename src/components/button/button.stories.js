@@ -1,7 +1,6 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { Link as RouterLink, BrowserRouter as Router } from "react-router-dom";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from ".";
 
@@ -42,8 +41,6 @@ const getKnobs = () => {
       OptionsHelper.buttonTypes,
       Button.defaultProps.as
     ),
-    href: text("href"),
-    to: text("to"),
     destructive: boolean("destructive", false),
     noWrap: boolean("noWrap", false),
     ...getIconKnobs(),
@@ -52,43 +49,17 @@ const getKnobs = () => {
 export const knobs = () => {
   const props = getKnobs();
   const { children } = props; // eslint-disable-line react/prop-types
-  return (
-    <Router>
-      <Button
-        {...props}
-        renderRouterLink={(routerProps) => (
-          <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
-        )}
-      >
-        {children}
-      </Button>
-    </Router>
-  );
+  return <Button {...props}>{children}</Button>;
 };
 export const asASibling = () => {
   const props = getKnobs();
   const { children } = props; // eslint-disable-line react/prop-types
   return (
     <div>
-      <Router>
-        <Button
-          {...props}
-          renderRouterLink={(routerProps) => (
-            <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
-          )}
-        >
-          {children}
-        </Button>
-        <Button
-          {...props}
-          renderRouterLink={(routerProps) => (
-            <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
-          )}
-          ml={2}
-        >
-          {children}
-        </Button>
-      </Router>
+      <Button {...props}>{children}</Button>
+      <Button {...props} ml={2}>
+        {children}
+      </Button>
     </div>
   );
 };
