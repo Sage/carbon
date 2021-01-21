@@ -129,3 +129,16 @@ describe('Performance testing for modals', () => {
     });
   });
 });
+
+// const test = {
+//   type: 'cons:log',
+//   severity: 'success',
+//   message: 'component: alert--default-story, phase: mount, actual time: 15.650000117602758, start time: 601.8350000085775, base time: 14.250000109313987, commit time: 618.6950000119396',
+// };
+
+// describe('console.log', () => {
+//   it('Test', () => {
+//     const parsedData = parseJsonData(test);
+//     splitString(parsedData);
+//   });
+// });
