@@ -1,3 +1,10 @@
+### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **date:** fix date crashing when allowEmptyValue is set ([f6fb41c](https://github.com/Sage/carbon/commit/f6fb41c24aebe78950c987274b78a8f04a6ee448))
+
 ### [59.0.1](https://github.com/Sage/carbon/compare/v59.0.0...v59.0.1) (2021-01-21)
 
 
