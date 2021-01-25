@@ -1,3 +1,11 @@
+## [59.1.0](https://github.com/Sage/carbon/compare/v59.0.2...v59.1.0) (2021-01-25)
+
+
+### Features
+
+* **action-popover:** render content in portal ([9c12819](https://github.com/Sage/carbon/commit/9c1281907bc06e24ae5a6a88bac2b08b493e6d51))
+* add new internal popover component ([5df1eb6](https://github.com/Sage/carbon/commit/5df1eb6e951a8972caf2aea43a2429e1fbdd8582))
+
 ### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
 
 
