@@ -81,7 +81,7 @@
     "babel-loader": "8.1.0",
     "babel-standalone": "~6.17.0",
     "carbon-state-management": "^1.0.0",
-    "chromatic": "^5.5.0",
+    "chromatic": "^5.6.1",
     "commitizen": "^4.2.2",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.1.4",
