@@ -2,11 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
-import TestRenderer from "react-test-renderer";
 import { mount as enzymeMount } from "enzyme";
+
 import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
 import mintTheme from "../../style/themes/mint";
-
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -15,6 +14,7 @@ import {
   ActionPopoverMenuButton,
 } from "./index";
 import { MenuButton, Menu, SubMenuItemIcon } from "./action-popover.style";
+import Popover from "../../__internal__/popover";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
@@ -177,14 +177,13 @@ describe("ActionPopover", () => {
     return { button, icon };
   }
 
-  function createNodeMock() {
-    return {
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      focus: jest.fn(),
-    };
+  function openMenu() {
+    act(() => {
+      wrapper.find(MenuButton).simulate("click");
+      jest.runAllTimers();
+      wrapper.update();
+    });
   }
-  const options = { createNodeMock };
 
   beforeEach(() => {
     container = document.createElement("div");
@@ -217,7 +216,8 @@ describe("ActionPopover", () => {
 
   it("has proper data attributes applied to elements", () => {
     render();
-    const { menubutton, menu, divider } = getElements();
+    openMenu();
+    const { menu, divider, menubutton } = getElements();
     rootTagTest(menubutton, "action-popover-button");
     rootTagTest(menu, "action-popover");
     expect(divider.getDOMNode().getAttribute("data-element")).toBe(
@@ -234,14 +234,7 @@ describe("ActionPopover", () => {
   it("renders with the menu closed by default", () => {
     render();
     const { menu } = getElements();
-    assertStyleMatch(
-      {
-        visibility: "hidden",
-      },
-      menu
-    );
-    expect(onOpen).not.toHaveBeenCalledTimes(1);
-    expect(onClose).not.toHaveBeenCalledTimes(1);
+    expect(menu.exists()).toBe(false);
   });
 
   it("renders when there is no onOpen, onClose provided", () => {
@@ -253,15 +246,27 @@ describe("ActionPopover", () => {
     }).not.toThrow();
   });
 
-  it('opens with the menu left position assigned so it is to right of the button if the "rightAlignMenu" prop is true', () => {
-    render({ rightAlignMenu: true });
-    const { menu } = getElements();
-    assertStyleMatch(
-      {
-        right: undefined,
-        left: "0",
-      },
-      menu
+  describe("Popover - ", () => {
+    it.each([
+      ["top", false, "top-end"],
+      ["top", true, "top-start"],
+      ["bottom", false, "bottom-end"],
+      ["bottom", true, "bottom-start"],
+    ])(
+      "applies proper placement prop to Popover component",
+      (placement, rightAlignMenu, result) => {
+        const myWrapper = enzymeMount(
+          <ThemeProvider theme={mintTheme}>
+            <ActionPopover
+              placement={placement}
+              rightAlignMenu={rightAlignMenu}
+            />
+          </ThemeProvider>
+        );
+
+        myWrapper.find(MenuButton).simulate("click");
+        expect(myWrapper.find(Popover).props().placement).toBe(result);
+      }
     );
   });
 
@@ -275,9 +280,7 @@ describe("ActionPopover", () => {
   ])("%s", (group, prefix, mutator) => {
     beforeEach(() => {
       render();
-      const { menubutton } = getElements();
-
-      menubutton.simulate("click");
+      openMenu();
     });
 
     describe("MenuItem", () => {
@@ -292,12 +295,7 @@ describe("ActionPopover", () => {
 
       it(`${prefix} closes the menu`, () => {
         const { menu } = getElements();
-        assertStyleMatch(
-          {
-            visibility: "hidden",
-          },
-          menu
-        );
+        expect(menu.exists()).toBe(false);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
 
@@ -346,6 +344,7 @@ describe("ActionPopover", () => {
         const { menubutton } = getElements();
         stopPropagation = jest.fn();
         menubutton.simulate("click", { stopPropagation });
+        jest.runAllTimers();
       });
 
       it("Clicking opens the menu", () => {
@@ -379,12 +378,7 @@ describe("ActionPopover", () => {
           wrapper.update();
         });
         const { menu } = getElements();
-        assertStyleMatch(
-          {
-            visibility: "hidden",
-          },
-          menu
-        );
+        expect(menu.exists()).toBe(false);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
     });
@@ -395,37 +389,31 @@ describe("ActionPopover", () => {
         // is filtering based on what element is clicked
         // In a normal situation the React SyntheticEvent will bubble and trigger a handler which will close the menu
         // This triggers a DOMEvent bypassing the SyntheticEvent listeners
-        render();
-        const { menubutton, items } = getElements();
+        renderWithSubmenu();
+        openMenu();
 
-        menubutton.simulate("click");
+        const { items, menu } = getElements();
+
+        expect(menu.exists()).toBe(true);
 
         act(() => {
           document.dispatchEvent(
             new CustomEvent("click", {
               detail: {
-                enzymeTestingTarget: items.first().getDOMNode(),
+                enzymeTestingTarget: items.at(1).getDOMNode(),
               },
             })
           );
         });
 
-        act(() => {
-          wrapper.update();
-        });
-
-        const { menu } = getElements();
-
-        expect(
-          getComputedStyle(menu.getDOMNode()).getPropertyValue("display")
-        ).toBe("block");
+        expect(menu.exists()).toBe(true);
       });
 
       it("Clicking elsewhere on the document closes the menu", () => {
         render();
-        const { menubutton } = getElements();
+        openMenu();
 
-        menubutton.simulate("click");
+        expect(getElements().menu.exists()).toBe(true);
 
         act(() => {
           document.dispatchEvent(
@@ -441,13 +429,7 @@ describe("ActionPopover", () => {
           wrapper.update();
         });
 
-        const { menu } = getElements();
-        assertStyleMatch(
-          {
-            visibility: "hidden",
-          },
-          menu
-        );
+        expect(getElements().menu.exists()).toBe(false);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
     });
@@ -464,12 +446,7 @@ describe("ActionPopover", () => {
           simulate.keydown[`press${key}`](menubutton);
 
           const { menu } = getElements();
-          assertStyleMatch(
-            {
-              display: "block",
-            },
-            menu
-          );
+          expect(menu.exists()).toBe(true);
           expect(onOpen).toHaveBeenCalledTimes(1);
         }
       );
@@ -478,20 +455,22 @@ describe("ActionPopover", () => {
         "Pressing %s key selects the first item",
         (key) => {
           render();
-          const { menubutton, items } = getElements();
-
+          const { menubutton } = getElements();
           simulate.keydown[`press${key}`](menubutton);
+          jest.runAllTimers();
 
+          const { items } = getElements();
           expect(items.first()).toBeFocused();
         }
       );
 
       it("Pressing UpArrow selects the last item", () => {
         render();
-        const { menubutton, items } = getElements();
-
+        const { menubutton } = getElements();
         simulate.keydown.pressUpArrow(menubutton);
+        jest.runAllTimers();
 
+        const { items } = getElements();
         expect(items.last()).toBeFocused();
       });
     });
@@ -524,12 +503,7 @@ describe("ActionPopover", () => {
 
         const { menu } = getElements();
 
-        assertStyleMatch(
-          {
-            visibility: "hidden",
-          },
-          menu
-        );
+        expect(menu.exists()).toBe(false);
         expect(onClose).toHaveBeenCalledTimes(1);
         jest.runAllTimers();
         // FIXME: Test pressing Tab moves focus to the next element
@@ -557,15 +531,20 @@ describe("ActionPopover", () => {
           "",
           (items) => {
             simulate.keydown.pressDownArrow(items.first());
+            jest.runAllTimers();
             expect(items.at(1)).toBeFocused();
 
             simulate.keydown.pressDownArrow(items.at(1));
+            jest.runAllTimers();
             expect(items.at(2)).toBeFocused();
+            jest.runAllTimers();
 
             simulate.keydown.pressDownArrow(items.at(2));
+            jest.runAllTimers();
             expect(items.at(3)).toBeFocused();
 
             simulate.keydown.pressDownArrow(items.at(3));
+            jest.runAllTimers();
             expect(items.at(0)).toBeFocused();
             // we're checking that we can focus the disabled item, this is intentional behaviour
             expect(items.at(0).prop("disabled")).toBe(true);
@@ -580,9 +559,11 @@ describe("ActionPopover", () => {
           "if the focus on the last item",
           (items) => {
             simulate.keydown.pressEnd(items.first());
+            jest.runAllTimers();
             expect(items.last()).toBeFocused();
 
             simulate.keydown.pressDownArrow(items.last());
+            jest.runAllTimers();
             expect(items.first()).toBeFocused();
           },
         ],
@@ -596,12 +577,17 @@ describe("ActionPopover", () => {
             simulate.keydown.pressDownArrow(items.at(2));
 
             simulate.keydown.pressUpArrow(items.at(3));
+            jest.runAllTimers();
+
             expect(items.at(2)).toBeFocused();
 
             simulate.keydown.pressUpArrow(items.at(2));
+            jest.runAllTimers();
+
             expect(items.at(1)).toBeFocused();
 
             simulate.keydown.pressUpArrow(items.at(1));
+            jest.runAllTimers();
             expect(items.first()).toBeFocused();
           },
         ],
@@ -611,7 +597,7 @@ describe("ActionPopover", () => {
           "if the focus is on the first item",
           (items) => {
             simulate.keydown.pressUpArrow(items.first());
-
+            jest.runAllTimers();
             expect(items.last()).toBeFocused();
           },
         ],
@@ -633,7 +619,7 @@ describe("ActionPopover", () => {
           "",
           (items) => {
             simulate.keydown.pressEnd(items.first());
-
+            jest.runAllTimers();
             expect(items.last()).toBeFocused();
           },
         ],
@@ -641,8 +627,7 @@ describe("ActionPopover", () => {
         "Pressing %s focuses the %s item %s",
         (key, direction, condition, mutator) => {
           render();
-          const { menubutton } = getElements();
-          simulate.keydown.pressDownArrow(menubutton);
+          openMenu();
           const { items } = getElements();
 
           mutator(items);
@@ -651,39 +636,36 @@ describe("ActionPopover", () => {
 
       it("Pressing Space does nothing", () => {
         render();
-        const { menubutton } = getElements();
-        simulate.keydown.pressDownArrow(menubutton);
+        openMenu();
         const { items } = getElements();
 
         simulate.keydown.pressSpace(items.at(0));
 
         const { menu } = getElements();
         expect(items.at(0)).toBeFocused();
-        assertStyleMatch(
-          {
-            display: "block",
-          },
-          menu
-        );
+        expect(menu.exists()).toBe(true);
       });
 
       it("Pressing a-z selects the next item in the list starting with the letter that was pressed", () => {
         render();
-        const { menubutton } = getElements();
-        simulate.keydown.pressDownArrow(menubutton);
+        openMenu();
+
         const { items } = getElements();
 
         // moves to first element starting with P
         simulate.keydown.pressP(items.first());
+        jest.runAllTimers();
         expect(items.at(2)).toBeFocused();
 
         // moves to first element starting with D
         simulate.keydown.pressD(items.at(2));
+        jest.runAllTimers();
         expect(items.at(3)).toBeFocused();
 
         // moves to next element starting with D, it loops to the start
         // we're checking that we can focus the disabled item, this is intentional behaviour
         simulate.keydown.pressD(items.at(3));
+        jest.runAllTimers();
         expect(items.at(0)).toBeFocused();
         expect(items.at(0).prop("disabled")).toBe(true);
         expect(items.at(0).getDOMNode().getAttribute("aria-disabled")).toBe(
@@ -692,10 +674,12 @@ describe("ActionPopover", () => {
 
         // does nothing when there are no matches
         simulate.keydown.pressZ(items.at(0));
+        jest.runAllTimers();
         expect(items.at(0)).toBeFocused();
 
         // does nothing when a number key is pressed
         simulate.keydown.press1(items.at(0));
+        jest.runAllTimers();
         expect(items.at(0)).toBeFocused();
       });
     });
@@ -720,14 +704,16 @@ describe("ActionPopover", () => {
 
   it("validates the children prop", () => {
     jest.spyOn(global.console, "error").mockImplementation(() => {});
-    ReactDOM.render(
+    const tempWrapper = enzymeMount(
       <ThemeProvider theme={mintTheme}>
         <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
           <p>invalid children</p>
         </ActionPopover>
-      </ThemeProvider>,
-      container
+      </ThemeProvider>
     );
+    tempWrapper.find(MenuButton).simulate("click");
+    jest.runAllTimers();
     // eslint-disable-next-line no-console
     expect(console.error).toHaveBeenCalledWith(
       "Warning: Failed prop type: `ActionPopover` only accepts children of" +
@@ -741,6 +727,7 @@ describe("ActionPopover", () => {
       beforeEach(() => renderWithSubmenu());
 
       it("renders an icon to indicate when a item has a submenu and is left aligned", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         const submenuIcon = item.find(SubMenuItemIcon);
@@ -754,86 +741,50 @@ describe("ActionPopover", () => {
       });
 
       it("opens the submenu on mouseenter", () => {
-        wrapper = TestRenderer.create(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverItem
-              key="item-email"
-              icon="email"
-              submenu={
-                <ActionPopoverMenu onClick={onClick}>
-                  <ActionPopoverItem
-                    key="0"
-                    {...{ onClick: onClickWrapper("sub menu 1") }}
-                  >
-                    Sub Menu 1
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
-              {...{ onClick: onClickWrapper("email") }}
-            >
-              Email Invoice
-            </ActionPopoverItem>
-          </ThemeProvider>,
-          options
-        );
-        const item = wrapper.root.findByType(ActionPopoverItem);
+        openMenu();
+        const { items } = getElements();
 
-        TestRenderer.act(() => {
-          item
-            .findByType("div")
-            .props.onMouseEnter({ stopPropagation: () => {} });
+        act(() => {
+          items.at(1).simulate("mouseenter");
           jest.runAllTimers();
+          wrapper.update();
         });
 
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        const item = wrapper.find(ActionPopoverItem).at(1);
+        expect(item.find(ActionPopoverMenu).props().isOpen).toBe(true);
       });
 
       it("closes the submenu on mouseleave event", () => {
-        wrapper = TestRenderer.create(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverItem
-              key="item-email"
-              icon="email"
-              submenu={
-                <ActionPopoverMenu onClick={onClick}>
-                  <ActionPopoverItem
-                    key="0"
-                    {...{ onClick: onClickWrapper("sub menu 1") }}
-                  >
-                    Sub Menu 1
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
-              {...{ onClick: onClickWrapper("email") }}
-            >
-              Email Invoice
-            </ActionPopoverItem>
-          </ThemeProvider>,
-          options
-        );
-        const item = wrapper.root.findByType(ActionPopoverItem);
+        openMenu();
+        const { items } = getElements();
 
-        TestRenderer.act(() => {
-          item
-            .findByType("div")
-            .props.onMouseEnter({ stopPropagation: () => {} });
+        act(() => {
+          items.at(1).simulate("mouseenter");
           jest.runAllTimers();
+          wrapper.update();
         });
-        TestRenderer.act(() => {
-          item
-            .findByType("div")
-            .props.onMouseLeave({ stopPropagation: () => {} });
+
+        const item = wrapper.find(ActionPopoverItem).at(1);
+        expect(item.find(ActionPopoverMenu).props().isOpen).toBe(true);
+
+        act(() => {
+          items.at(1).simulate("mouseleave");
           jest.runAllTimers();
+          wrapper.update();
         });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+
+        const newItem = wrapper.find(ActionPopoverItem).at(1);
+        expect(newItem.find(ActionPopoverMenu).props().isOpen).toBe(false);
       });
 
       it("opens the submenu and focuses first item when left key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
           simulate.keydown.pressLeftArrow(item);
         });
+        jest.runAllTimers();
         act(() => {
           expect(
             item
@@ -846,14 +797,17 @@ describe("ActionPopover", () => {
       });
 
       it("closes the submenu and returns focus to parent item when right key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
           simulate.keydown.pressLeftArrow(item);
         });
+        jest.runAllTimers();
         act(() => {
           simulate.keydown.pressRightArrow(item);
         });
+        jest.runAllTimers();
         act(() => {
           expect(
             item
@@ -867,13 +821,16 @@ describe("ActionPopover", () => {
       });
 
       it("does not close the submenu unless right or esc key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
           simulate.keydown.pressLeftArrow(item);
+          jest.runAllTimers();
         });
         act(() => {
-          simulate.keydown.pressD(item);
+          simulate.keydown.pressZ(item);
+          jest.runAllTimers();
         });
 
         act(() => {
@@ -888,6 +845,7 @@ describe("ActionPopover", () => {
       });
 
       it("opens the submenu when the enter key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
@@ -897,6 +855,7 @@ describe("ActionPopover", () => {
       });
 
       it("opens the submenu when the item is clicked", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
@@ -906,6 +865,7 @@ describe("ActionPopover", () => {
       });
 
       it("closes the submenu when a submenu item is clicked", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
@@ -922,6 +882,9 @@ describe("ActionPopover", () => {
       });
 
       it("closes the submenu when the escape key is pressed", () => {
+        const { menubutton } = getElements();
+        menubutton.simulate("click");
+        jest.runAllTimers();
         const { items } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
@@ -969,6 +932,7 @@ describe("ActionPopover", () => {
       });
 
       it("updates the focus when an item with a submenu is clicked and does not close the menu", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1).getDOMNode();
 
@@ -981,6 +945,7 @@ describe("ActionPopover", () => {
       });
 
       it("removes focus from an item when clicked if it has no submenu", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(2).getDOMNode();
 
@@ -991,7 +956,8 @@ describe("ActionPopover", () => {
       });
 
       it("returns focus back to menu button when submenu item clicked", () => {
-        const { items, menubutton } = getElements();
+        openMenu();
+        const { items } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
         const submenuItem = submenu.find(ActionPopoverItem).at(0);
@@ -1004,6 +970,7 @@ describe("ActionPopover", () => {
 
         act(() => {
           simulate.keydown.pressLeftArrow(item);
+          jest.runAllTimers();
           expect(item).not.toBeFocused();
         });
 
@@ -1011,12 +978,14 @@ describe("ActionPopover", () => {
           submenuItem
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+          const { menubutton } = getElements();
           expect(menubutton).toBeFocused();
           jest.runAllTimers(); // needed to trigger coverage
         });
       });
 
       it("focus is maintained on disabled submenu item when clicked", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
@@ -1095,6 +1064,7 @@ describe("ActionPopover", () => {
       });
 
       it("renders an icon to indicate when a item has a submenu and is right aligned", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         const submenuIcon = item.find(SubMenuItemIcon);
@@ -1108,12 +1078,14 @@ describe("ActionPopover", () => {
       });
 
       it("opens the submenu and focuses the first item when right key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
 
         act(() => {
           simulate.keydown.pressRightArrow(item);
         });
+        jest.runAllTimers();
 
         act(() => {
           expect(
@@ -1127,6 +1099,7 @@ describe("ActionPopover", () => {
       });
 
       it("closes the submenu and returns focus to parent item when left key is pressed", () => {
+        openMenu();
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
@@ -1214,21 +1187,12 @@ describe("ActionPopover", () => {
       Element.prototype.getBoundingClientRect.mockRestore();
     });
 
-    it("positions the menu container's bottom to the height of the menu button", () => {
-      assertStyleMatch(
-        {
-          bottom: "24px",
-        },
-        wrapper.find(ActionPopoverMenu)
-      );
-    });
-
     it("positions the submenu container's bottom inline with the the parent item", () => {
+      openMenu();
       const item = wrapper.find(ActionPopoverItem).at(0);
       expect(item.find(ActionPopoverMenu).props().style.bottom).toEqual(-8);
     });
   });
-
   describe("Custom Menu Button", () => {
     it("supports being passed an override component to act as the menu button", () => {
       const popover = enzymeMount(

@@ -11,11 +11,8 @@ const Menu = styled.div`
   padding: ${({ theme }) => `${theme.spacing}px 0`};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
   position: absolute;
-  ${({ rightAlignMenu }) => (rightAlignMenu ? "left: 0;" : "right: 0;")}
   background-color: ${({ theme }) => theme.colors.white};
   z-index: ${({ theme }) => `${theme.zIndex.popover}`};
-  ${({ placement, buttonHeight }) =>
-    placement === "top" && buttonHeight && `bottom: ${buttonHeight}px;`}
 `;
 
 const MenuItemFactory = (button) => styled(button)`
