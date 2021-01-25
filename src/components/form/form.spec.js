@@ -16,6 +16,7 @@ import FormSummary from "./form-summary.component";
 import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
+import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 
 describe("Form", () => {
   let wrapper;
@@ -46,6 +47,41 @@ describe("Form", () => {
     expect(
       ElementResizeSpy.mock.calls.filter((call) => call[0] === formNode)
     ).toHaveLength(1);
+  });
+
+  describe("When `fieldSpacing` applied", () => {
+    wrapper = mount(<StyledForm />);
+
+    it("as default", () => {
+      assertStyleMatch(
+        {
+          marginTop: "0",
+          marginBottom: "24px",
+        },
+        wrapper,
+        {
+          modifier: `
+            ${FieldsetStyle}
+          `,
+        }
+      );
+    });
+
+    it("as custom value", () => {
+      wrapper = mount(<StyledForm fieldSpacing={2} />);
+      assertStyleMatch(
+        {
+          marginTop: "0",
+          marginBottom: "16px",
+        },
+        wrapper,
+        {
+          modifier: `
+            ${FieldsetStyle}
+          `,
+        }
+      );
+    });
   });
 
   describe("when stickyFooter prop is true", () => {

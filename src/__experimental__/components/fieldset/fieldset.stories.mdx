@@ -4,6 +4,7 @@ import Fieldset from "./";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Select, Option } from "../../../components/select";
 import Textbox from "../textbox";
+import Form from '../../../components/form';
 
 <Meta title="Experimental/Fieldset" parameters={{ info: { disable: true } }} />
 
@@ -53,6 +54,45 @@ import Fieldset from "carbon-react/lib/__experimental__/components/fieldset";
         labelWidth={30}
       />
     </Fieldset>
+  </Story>
+</Preview>
+
+### Fieldset in Form 
+
+<Preview>
+  <Story name="in form - default">
+     <Form>
+        <Textbox label="Separate Field" labelInline />
+        <Fieldset>
+          <Textbox label="Fieldset 1 Field 1" labelInline />
+          <Textbox label="Fieldset 1 Field 2" labelInline />
+        </Fieldset>
+        <Fieldset>
+          <Textbox label="Fieldset 2 Field 1" labelInline />
+          <Textbox label="Fieldset 2 Field 2" labelInline />
+        </Fieldset>
+        <Textbox label="Separate Field" labelInline />
+      </Form>
+  </Story>
+</Preview>
+
+### `fieldSpacing`
+You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
+
+<Preview>
+  <Story name="in form - fieldSpacing">
+     <Form fieldSpacing={1}>
+        <Textbox label="Separate Field" labelInline />
+        <Fieldset>
+          <Textbox label="Fieldset 1 Field 1" labelInline />
+          <Textbox label="Fieldset 1 Field 2" labelInline />
+        </Fieldset>
+        <Fieldset>
+          <Textbox label="Fieldset 2 Field 1" labelInline />
+          <Textbox label="Fieldset 2 Field 2" labelInline />
+        </Fieldset>
+        <Textbox label="Separate Field" labelInline />
+      </Form>
   </Story>
 </Preview>
 
