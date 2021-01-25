@@ -45,6 +45,7 @@ const getKnobs = () => {
     href: text("href"),
     to: text("to"),
     destructive: boolean("destructive", false),
+    noWrap: boolean("noWrap", false),
     ...getIconKnobs(),
   };
 };
@@ -185,6 +186,61 @@ export const darkBackgroundButtonsIconsAfter = generateButtons(
   "darkBackground",
   "after"
 );
+
+export const noWrapButtons = () => {
+  const noWrap = boolean("noWrap", true);
+  return (
+    <>
+      {OptionsHelper.buttonTypes.map((buttonType) => {
+        return OptionsHelper.sizesRestricted.map((size) => {
+          return (
+            <div style={{ width: 100 }}>
+              <Button buttonType={buttonType} noWrap={noWrap} size={size}>
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size={size}
+                iconType="bin"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size={size}
+                iconType="bin"
+                iconPosition="after"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size="large"
+                iconType="bin"
+                subtext="Even longer button subtext"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size="large"
+                iconType="bin"
+                iconPosition="after"
+                subtext="Even longer button subtext"
+              >
+                Long button text
+              </Button>
+            </div>
+          );
+        });
+      })}
+    </>
+  );
+};
 
 export const fullWidthButtons = () => {
   return (
