@@ -10,6 +10,7 @@ import ToolbarButton from "./toolbar/toolbar-button";
 import EditorCounter from "./editor-counter";
 import IconButton from "../../icon-button";
 import Icon from "../../icon";
+import Button from "../../button";
 
 <Meta
   title="Design System/Text Editor"
@@ -118,8 +119,10 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
             }}
             value={value}
             ref={ref}
-            onSave={() => {}}
-            onCancel={() => {}}
+            toolbarElements={[
+              <Button buttonType="tertiary" onClick={ () => console.log('cancel') }>Cancel</Button>,
+              <Button buttonType='primary' type="button" onClick={ () => console.log('save') }>Save</Button>
+            ]}
             labelText="Text Editor Label"
           />
         </div>

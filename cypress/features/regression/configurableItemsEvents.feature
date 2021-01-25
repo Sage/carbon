@@ -2,7 +2,7 @@ Feature: Configurable Items component
   I want to change Configurable Items component events
 
   Background: Open Configurable Items component page
-    Given I open "Configurable Items" component page "default"
+    Given I open "Configurable Items Test" component page "default"
       And clear all actions in Actions Tab
 
   @positive

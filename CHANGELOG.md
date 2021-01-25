@@ -1,3 +1,70 @@
+## [59.1.0](https://github.com/Sage/carbon/compare/v59.0.2...v59.1.0) (2021-01-25)
+
+
+### Features
+
+* **action-popover:** render content in portal ([9c12819](https://github.com/Sage/carbon/commit/9c1281907bc06e24ae5a6a88bac2b08b493e6d51))
+* add new internal popover component ([5df1eb6](https://github.com/Sage/carbon/commit/5df1eb6e951a8972caf2aea43a2429e1fbdd8582))
+
+### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **date:** fix date crashing when allowEmptyValue is set ([f6fb41c](https://github.com/Sage/carbon/commit/f6fb41c24aebe78950c987274b78a8f04a6ee448))
+
+### [59.0.1](https://github.com/Sage/carbon/compare/v59.0.0...v59.0.1) (2021-01-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** filter disabled inputs in query selector ([d616577](https://github.com/Sage/carbon/commit/d6165777ed5ff55e72d6f981d3f623a351eb6b05))
+
+## [59.0.0](https://github.com/Sage/carbon/compare/v58.1.0...v59.0.0) (2021-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **text-editor:** remove cancel and save buttons from the toolbar,
+use toolbarElements prop to render custom elements such as these buttons
+
+### Code Refactoring
+
+* **text-editor:** allow user to render toolbar action controls ([d27b878](https://github.com/Sage/carbon/commit/d27b878d70d8526ef3d21d8c8577175da40d3589)), closes [#3444](https://github.com/Sage/carbon/issues/3444)
+
+## [58.1.0](https://github.com/Sage/carbon/compare/v58.0.0...v58.1.0) (2021-01-18)
+
+
+### Features
+
+* add new `pod-manager` component ([8c418cd](https://github.com/Sage/carbon/commit/8c418cd3a7eb6df8af3db20867a71b9eccbfb1c6)), closes [#3046](https://github.com/Sage/carbon/issues/3046)
+
+## [58.0.0](https://github.com/Sage/carbon/compare/v57.0.0...v58.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menulist:** deprecated menu-list and menu-list-item components
+
+### Miscellaneous Chores
+
+* **menulist:** remove component ([f6d2a4b](https://github.com/Sage/carbon/commit/f6d2a4b6a5966e985525a57f6481f554f2a0b8dd))
+
+## [57.0.0](https://github.com/Sage/carbon/compare/v56.1.0...v57.0.0) (2021-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** group-checkbox prop label is renamed to legend
+
+There is a codemod available to assist with this upgrade
+`npx carbon-codemod rename-prop <target> carbon-react/lib/components/checkbox-group label legend`
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Code Refactoring
+
+* **checkbox:** modify checkbox-group to use fieldset ([a3da4cc](https://github.com/Sage/carbon/commit/a3da4cc53f00f2e76d2857bbf0ea6a394741be93))
+
 ## [56.1.0](https://github.com/Sage/carbon/compare/v56.0.1...v56.1.0) (2021-01-11)
 
 

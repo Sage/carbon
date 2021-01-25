@@ -1,43 +1,43 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { Menu } from "./action-popover.style";
 import Events from "../../utils/helpers/events";
 import ActionPopoverItem from "./action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider.component";
+import ActionPopoverContext from "./action-popover-context";
 
 const ActionPopoverMenu = React.forwardRef(
   (
     {
-      button,
       parentID,
       children,
       focusIndex,
       isOpen,
-      items,
       menuID,
       onClick,
       setOpen,
       setFocusIndex,
-      setItems,
       placement = "bottom",
       ...rest
     },
     ref
   ) => {
-    const [childrenWithRef, setChildrenWithRef] = useState();
-    const timer = useRef();
+    const { focusButton } = useContext(ActionPopoverContext);
+
+    const items = useMemo(
+      () =>
+        React.Children.toArray(children).filter(
+          (child) => child && child.type === ActionPopoverItem
+        ),
+      [children]
+    );
 
     const onKeyDown = useCallback(
       (e) => {
-        if (Events.isTabKey(e) && Events.isShiftKey(e)) {
-          // SHIFT+TAB: close menu and allow focus to change to the previous focusable element, but not the button
-          // allow the event to propagate before re-rendering, this will prevent the button from gaining focus
-          clearTimeout(timer.current);
-          timer.current = setTimeout(() => {
-            setOpen(false);
-          }, 0);
-        } else if (Events.isTabKey(e)) {
+        if (Events.isTabKey(e)) {
+          e.preventDefault();
           // TAB: close menu and allow focus to change to next focusable element
+          focusButton();
           setOpen(false);
         } else if (Events.isDownKey(e)) {
           // DOWN: focus next item or first
@@ -88,49 +88,23 @@ const ActionPopoverMenu = React.forwardRef(
           }
         }
       },
-      [setOpen, focusIndex, items, setFocusIndex]
+      [focusButton, setOpen, focusIndex, items, setFocusIndex]
     );
 
-    // send a global close to other items with sub whenever updateItemIndex triggered?
-    useEffect(() => {
-      const itemsWithRef = [];
-      // childrenWith a clone of children with refs added so we can focus the dom element
-      setChildrenWithRef(
-        React.Children.toArray(children).map((child) => {
-          if (child.type === ActionPopoverItem) {
-            // callback and index to update focusIndex if item hovered and has submenu
-            const itemWithRef = React.cloneElement(child, {
-              ref: React.createRef(),
-              placement: child.props.submenu ? placement : undefined,
-            });
-            itemsWithRef.push(itemWithRef);
+    const clonedChildren = useMemo(() => {
+      let index = 0;
+      return React.Children.map(children, (child) => {
+        if (child && child.type === ActionPopoverItem) {
+          index += 1;
+          return React.cloneElement(child, {
+            focusItem: isOpen && focusIndex === index - 1,
+            placement: child.props.submenu ? placement : undefined,
+          });
+        }
 
-            return itemWithRef;
-          }
-          return child;
-        })
-      );
-      // items is used to manage focus, we don't want the focus index to count items that are not focusable
-      // so we use a smaller array which makes keyboard navigation easier as we don't have to filter it on every
-      // keypress
-      setItems(itemsWithRef);
-    }, [
-      children,
-      placement,
-      focusIndex,
-      isOpen,
-      menuID,
-      setFocusIndex,
-      setItems,
-    ]);
-
-    useEffect(() => {
-      if (isOpen && focusIndex !== null) {
-        items[focusIndex].ref.current.focus();
-      } else if (focusIndex !== null) {
-        setFocusIndex(0);
-      }
-    }, [isOpen, items, focusIndex, setFocusIndex]);
+        return child;
+      });
+    }, [children, focusIndex, isOpen, placement]);
 
     return (
       <Menu
@@ -141,37 +115,15 @@ const ActionPopoverMenu = React.forwardRef(
         aria-labelledby={parentID}
         role="menu"
         ref={ref}
-        placement={placement}
-        buttonHeight={getButtonHeight(button)}
         {...rest}
       >
-        {childrenWithRef}
+        {clonedChildren}
       </Menu>
     );
   }
 );
 
-function checkRef(ref) {
-  return Boolean(ref && ref.current);
-}
-
-function getButtonHeight(buttonRef) {
-  if (!checkRef(buttonRef)) {
-    return undefined;
-  }
-
-  const buttonRect = buttonRef.current.getBoundingClientRect();
-  const { top, bottom } = buttonRect;
-
-  return bottom - top;
-}
-
 ActionPopoverMenu.propTypes = {
-  /** A ref to the parent popover button */
-  button: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
   /** Unique ID for the menu's parent */
   parentID: PropTypes.string,
   /** Children for the menu */
@@ -204,12 +156,8 @@ ActionPopoverMenu.propTypes = {
   menuID: PropTypes.string,
   /** Flag to indicate whether a menu should open */
   isOpen: PropTypes.bool,
-  /** List of the items in a menu */
-  items: PropTypes.array,
   /** Callback to set the index of the focused item */
   setFocusIndex: PropTypes.func,
-  /** Callback to register the items in a menu */
-  setItems: PropTypes.func,
   /** Callback to set the isOpen flag */
   setOpen: PropTypes.func,
   /** Callback called on click event */

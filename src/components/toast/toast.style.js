@@ -6,6 +6,9 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
 
 const StyledPortal = styled(Portal)`
+  position: absolute;
+  top: 0;
+
   ${({ isCenter }) =>
     isCenter &&
     css`

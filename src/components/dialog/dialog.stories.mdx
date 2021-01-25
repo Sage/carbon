@@ -115,24 +115,24 @@ When mixing editable and non-editable content, you can use the <LinkTo kind='Des
             >
               <Typography variant="h3" mb="32px">Basic details</Typography>
               <RadioButtonGroup
-              legend="How do you want to create this address?"
-              legendInline
-              value="1"
-              legendWidth={40}
-            >
-              <RadioButton
+                legend="How do you want to create this address?"
+                legendInline
                 value="1"
-                label="Create a new Address"                
-                size="large"
-                disabled
-              />
-              <RadioButton
-                value="2"
-                label="Select an Existing address"                
-                size="large"
-                disabled
-              />
-            </RadioButtonGroup>
+                legendWidth={40}
+              >
+                <RadioButton
+                  value="1"
+                  label="Create a new Address"                
+                  size="large"
+                  disabled
+                />
+                <RadioButton
+                  value="2"
+                  label="Select an Existing address"                
+                  size="large"
+                  disabled
+                />
+              </RadioButtonGroup>
               <Box p="24px" bg="slateTint90" ml="88px">
                 <Textbox labelInline label='Property Name' />
                 <Fieldset>

@@ -81,7 +81,9 @@ describe("Toolbar", () => {
           width: "50%",
           minWidth: "60px",
         },
-        render({ onSave: () => {} }).find(StyledEditorActionControls)
+        render({ toolbarElements: <Button>foo</Button> }).find(
+          StyledEditorActionControls
+        )
       );
 
       assertStyleMatch(
@@ -89,16 +91,10 @@ describe("Toolbar", () => {
           width: "62px",
           minHeight: "33px",
         },
-        render({ onSave: () => {} }).find(StyledEditorActionControls),
+        render({ toolbarElements: <Button>foo</Button> }).find(
+          StyledEditorActionControls
+        ),
         { modifier: `${StyledButton}` }
-      );
-
-      assertStyleMatch(
-        {
-          fontSize: "16px",
-        },
-        render({ onSave: () => {} }).find(StyledEditorActionControls),
-        { modifier: `${StyledButton}:first-of-type` }
       );
     });
   });
@@ -377,50 +373,15 @@ describe("Toolbar", () => {
       });
     });
 
-    describe("Action Buttons", () => {
-      let saveButton, cancelButton;
-      describe("with no `onSave` prop", () => {
-        it("will not render", () => {
-          wrapper = render();
-          saveButton = wrapper
-            .find(Button)
-            .findWhere((n) => n.text() === "Save");
-          cancelButton = wrapper
-            .find(Button)
-            .findWhere((n) => n.text() === "Cancel");
-          expect(saveButton.exists()).toBeFalsy();
-          expect(cancelButton.exists()).toBeFalsy();
-        });
-      });
+    describe("when an element has been passed in the toolbarElements prop", () => {
+      const exampleButton = <Button data-element="toolbar-button">foo</Button>;
 
-      describe("with `onSave` prop", () => {
-        const onSave = jest.fn();
-        const onCancel = jest.fn();
+      it("then that element should be rendered", () => {
+        wrapper = render({ toolbarElements: exampleButton });
 
-        beforeEach(() => {
-          wrapper = render({ onSave, onCancel });
-          saveButton = wrapper
-            .find(Button)
-            .findWhere((n) => n.text() === "Save");
-          cancelButton = wrapper
-            .find(Button)
-            .findWhere((n) => n.text() === "Cancel");
-        });
-
-        it("will render", () => {
-          expect(saveButton.exists()).toBeTruthy();
-          expect(cancelButton.exists()).toBeTruthy();
-        });
-
-        it("calls the `onSave` callback when the `Save` button is clicked", () => {
-          saveButton.hostNodes().first().props().onClick();
-          expect(onSave).toHaveBeenCalled();
-        });
-
-        it("calls the `onCancel` callback when the `Cancel` button is clicked", () => {
-          cancelButton.hostNodes().first().props().onClick();
-          expect(onCancel).toHaveBeenCalled();
-        });
+        expect(wrapper.find("[data-element='toolbar-button']").exists()).toBe(
+          true
+        );
       });
     });
   });

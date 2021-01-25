@@ -167,8 +167,7 @@ Feature: Action Popover component in noIFrame
       And I wait 250
       And I press keyboard "downarrow" key times <times>
     When I press "Enter" onto focused element
-    Then ActionPopover submenu is not visible
-      And Action Popover element is not visible
+    Then Action Popover element is not visible
     Examples:
       | times |
       | 0     |
@@ -200,8 +199,7 @@ Feature: Action Popover component in noIFrame
       And I wait 250
       And I press keyboard "downarrow" key times <times>
     When I press ESC onto focused element
-    Then ActionPopover submenu is not visible
-      And Action Popover element is not visible
+    Then Action Popover element is not visible
     Examples:
       | times |
       | 0     |
@@ -217,8 +215,7 @@ Feature: Action Popover component in noIFrame
       And I wait 250
       And I press keyboard "downarrow" key times <times>
     When I click <times> submenu actionPopoverInnerItem in noIframe
-    Then ActionPopover submenu is not visible
-      And Action Popover element is not visible
+    Then Action Popover element is not visible
     Examples:
       | times |
       | 0     |

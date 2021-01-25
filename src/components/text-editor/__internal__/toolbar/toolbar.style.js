@@ -46,10 +46,6 @@ const StyledEditorActionControls = styled.div`
     width: 62px;
     min-height: 33px;
   }
-
-  ${StyledButton}:first-of-type {
-    font-size: 16px;
-  }
 `;
 
 StyledEditorActionControls.defaultProps = {
