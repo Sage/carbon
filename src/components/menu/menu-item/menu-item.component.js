@@ -23,13 +23,11 @@ const MenuItem = ({
   submenu,
   children,
   href,
-  to,
   onClick,
   target,
   submenuDirection = "right",
   icon,
   selected,
-  routerLink,
   onKeyDown,
   variant = "default",
   showDropdownArrow = true,
@@ -90,15 +88,14 @@ const MenuItem = ({
   const classes = useMemo(
     () =>
       classNames({
-        "carbon-menu-item--has-link": href || to || onClick,
+        "carbon-menu-item--has-link": href || onClick,
       }),
-    [href, to, onClick]
+    [href, onClick]
   );
 
   const elementProps = {
     className: classes,
     href,
-    to,
     target,
     onClick,
     icon,
@@ -106,10 +103,6 @@ const MenuItem = ({
     menuType: menuContext.menuType,
     tabbable: menuContext.isFirstElement,
   };
-
-  if (!submenu) {
-    elementProps.routerLink = routerLink;
-  }
 
   if (submenu) {
     return (
@@ -198,10 +191,6 @@ MenuItem.propTypes = {
   submenu: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
   /** The href to use for the menu item. */
   href: PropTypes.string,
-  /** The to link to use for the menu item. */
-  to: PropTypes.string,
-  /** The link element to use when providing the to value */
-  routerLink: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   /** onKeyDown handler */
   onKeyDown: PropTypes.func,
   /** The target to use for the menu item. */
