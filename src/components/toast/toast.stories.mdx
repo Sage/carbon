@@ -1,10 +1,8 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import styled from 'styled-components';
 import Toast from '.';
-import { useState, useEffect } from 'react';
-import { select, text, boolean } from '@storybook/addon-knobs';
+import { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import Button from '../button';
 
 <Meta title="Design System/Toast" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
@@ -299,6 +297,61 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       </div>
     )
   }}
+  </Story>
+</Preview>
+
+### Custom max width:
+
+<Preview>
+  <Story name="custom-max-width" parameters={{ info: { disable: true } }}>
+    {() => {
+      const onDismissClick = (evt) => {
+        setIsOpen(!isOpen);
+        action("click")(evt);
+      };
+      const [isOpen, setIsOpen] = useState(false);
+      const handleToggle = () => {
+        if (!isOpen) {
+          window.scrollTo(0, 0);
+        }
+        setIsOpen(!isOpen);
+        action("open")(!isOpen);
+      };
+      const StyledButton = styled(Button)`
+        position: absolute;
+        display: block;
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: ${isOpen ? "green" : "blue"};
+        border: ${isOpen ? "2px solid green" : "2px solid blue"};
+      `;
+      return (
+        <div id="wrapper-custom-width">
+          <StyledButton
+            id="button-custom-width"
+            key="button"
+            onClick={handleToggle}
+          >
+            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+          </StyledButton>
+          <Toast
+            variant="warning"
+            id="toast-custom-width"
+            open={isOpen}
+            onDismiss={onDismissClick}
+            isCenter={true}
+            maxWidth="550px"
+          >
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+            cupiditate doloremque earum, excepturi ipsum libero provident sint?
+            Animi aperiam atque consectetur error, facilis minima perferendis
+            perspiciatis quas quo, soluta voluptatibus?
+          </Toast>
+        </div>
+      );
+    }}
   </Story>
 </Preview>
 

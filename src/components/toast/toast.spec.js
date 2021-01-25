@@ -189,6 +189,13 @@ describe("Toast", () => {
       elementsTagTest(wrapper.find(IconButton).first().find("span"), ["close"]);
     });
   });
+
+  describe("when toast has specified maximum width", () => {
+    it("should render ToastStyle with correct maxWidth", () => {
+      const wrapper = mount(<Toast maxWidth="200px" />).find(ToastStyle);
+      assertStyleMatch({ maxWidth: "200px" }, wrapper);
+    });
+  });
 });
 
 describe("ToastStyle", () => {
@@ -196,7 +203,7 @@ describe("ToastStyle", () => {
     assertStyleMatch(
       {
         boxShadow:
-          "0 10px 30px 0 rgba(0,20,29,.1),0 30px 60px 0 rgba(0,20,29,.1)",
+          "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
         lineHeight: "22px",
         marginTop: "30px",
         maxWidth: "300px",
