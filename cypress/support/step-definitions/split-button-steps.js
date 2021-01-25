@@ -1,4 +1,3 @@
-import { commonButtonPreviewNoIFrameRoot } from '../../locators';
 import {
   splitToggleButton,
   additionalButton,
@@ -9,7 +8,9 @@ import {
 import { positionOfElement } from '../helper';
 
 Then('Split Button is expanded', () => {
-  commonButtonPreviewNoIFrameRoot().should('have.length', 5); // 3 expanded buttons, 1 icon button and 1 main button
+  additionalButton(0).should('be.visible');
+  additionalButton(1).should('be.visible');
+  additionalButton(2).should('be.visible');
   splitToggleButton().should('have.attr', 'aria-expanded', 'true');
 });
 
