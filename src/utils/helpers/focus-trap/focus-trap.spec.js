@@ -218,5 +218,41 @@ describe("focusTrap", () => {
         expect(document.activeElement).toMatchObject(wrapper);
       });
     });
+
+    describe("and some children elements are disabled", () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = mount(
+          <TestComponent>
+            <button type="button">Test button One</button>
+            <button type="button" disabled>
+              Disabled button One
+            </button>
+            <button type="button">Test button Two</button>
+            <button type="button" disabled>
+              Disabled button two
+            </button>
+          </TestComponent>,
+          { attachTo: htmlElement }
+        );
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
+      it("only focuses those that are not", () => {
+        document.querySelectorAll("button")[0].focus();
+        document.dispatchEvent(tabKey);
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(2)
+        );
+        document.dispatchEvent(tabKey);
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(0)
+        );
+      });
+    });
   });
 });

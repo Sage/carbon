@@ -1,3 +1,17 @@
+### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **date:** fix date crashing when allowEmptyValue is set ([f6fb41c](https://github.com/Sage/carbon/commit/f6fb41c24aebe78950c987274b78a8f04a6ee448))
+
+### [59.0.1](https://github.com/Sage/carbon/compare/v59.0.0...v59.0.1) (2021-01-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** filter disabled inputs in query selector ([d616577](https://github.com/Sage/carbon/commit/d6165777ed5ff55e72d6f981d3f623a351eb6b05))
+
 ## [59.0.0](https://github.com/Sage/carbon/compare/v58.1.0...v59.0.0) (2021-01-19)
 
 
