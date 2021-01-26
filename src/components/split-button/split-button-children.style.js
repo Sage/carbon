@@ -4,10 +4,8 @@ import StyledButton from "../button/button.style";
 
 const StyledSplitButtonChildrenContainer = styled.div`
   ${({ theme, align }) => css`
-    position: absolute;
-    right: 0;
     background-color: ${theme.colors.secondary};
-    min-width: 75%;
+    min-width: ${({ minWidth }) => minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
 

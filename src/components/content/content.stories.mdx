@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import Content from './content.js';
+import Content from './content.component.js';
 
-<Meta title="Content" parameters={{ info: { disable: true }}} />
+<Meta title="Design System/Content" parameters={{ info: { disable: true }}} />
 
 # Content
 Text content with simple styles and useful to show simple text content in a common arrangement.
@@ -10,34 +10,32 @@ contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www
 for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/).
 
 ## Quick Start
-
-```jsx
+```js 
 import Content from "carbon-react/lib/components/content";
 ```
 
-## Default Content
+## Default content
 <Preview>
   <Story name="default">
-    <Content title='Title' as='primary'>
+    <Content title='Title' variant='primary'>
       This is an example of some content
     </Content>
   </Story>
 </Preview>
 
-## Inline Content
+## Inline content
 <Preview>
-  <Story name="with Inline">
+  <Story name="inline">
     <Content title='Title' inline>
       This is an example of some content
     </Content>
   </Story>
 </Preview>
 
-
-## Secondary Styling
+## Secondary styling
 <Preview>
-  <Story name="with Secondary Styling">
-    <Content title='Title' as='secondary'>
+  <Story name="secondary styling">
+    <Content title='Title' variant='secondary'>
       This is an example of some content
     </Content>
   </Story>

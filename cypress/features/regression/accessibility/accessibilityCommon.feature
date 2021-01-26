@@ -12,7 +12,6 @@ Feature: Accessibility tests - Common list
       | Carousel            |
       | Confirm             |
       | Configurable-items  |
-      | Content             |
       | Detail              |
       | Dialog              |
       | Heading             |

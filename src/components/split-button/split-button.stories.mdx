@@ -3,6 +3,7 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import SplitButton from ".";
 import Button from "../button";
 import Box from "../box";
+import { Accordion } from "../accordion";
 
 <Meta title="Split Button" parameters={{ info: { disable: true } }} />
 
@@ -24,13 +25,11 @@ import SplitButton from "carbon-react/lib/components/split-button";
 
 <Preview>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
-    <Box height={200}>
-      <SplitButton text="Split button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
+    <SplitButton text="Split button">
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </SplitButton>
   </Story>
 </Preview>
 
@@ -38,13 +37,11 @@ import SplitButton from "carbon-react/lib/components/split-button";
 
 <Preview>
   <Story name="disabled">
-    <Box height={200}>
-      <SplitButton disabled text="Split button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
+    <SplitButton disabled text="Split button">
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </SplitButton>
   </Story>
 </Preview>
 
@@ -52,20 +49,18 @@ import SplitButton from "carbon-react/lib/components/split-button";
 
 <Preview>
   <Story name="button types">
-    <Box height={200}>
-      {["primary", "secondary"].map((buttonType) => (
-        <Box key={buttonType} mb={3}>
-          <SplitButton
-            buttonType={buttonType}
-            text={`Split button - ${buttonType}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </Box>
+    {["primary", "secondary"].map((buttonType) => (
+      <Box key={buttonType} mb={3}>
+        <SplitButton
+          buttonType={buttonType}
+          text={`Split button - ${buttonType}`}
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -73,17 +68,15 @@ import SplitButton from "carbon-react/lib/components/split-button";
 
 <Preview>
   <Story name="sizes">
-    <Box height={200}>
-      {["small", "medium", "large"].map((size) => (
-        <Box key={size} mb={3}>
-          <SplitButton size={size} text={`Split button - ${size}`}>
-            <Button size={size}>Button 1</Button>
-            <Button size={size}>Button 2</Button>
-            <Button size={size}>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </Box>
+    {["small", "medium", "large"].map((size) => (
+      <Box key={size} mb={3}>
+        <SplitButton size={size} text={`Split button - ${size}`}>
+          <Button size={size}>Button 1</Button>
+          <Button size={size}>Button 2</Button>
+          <Button size={size}>Button 3</Button>
+        </SplitButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -91,17 +84,15 @@ import SplitButton from "carbon-react/lib/components/split-button";
 
 <Preview>
   <Story name="align" parameters={{ chromatic: { disable: true } }}>
-    <Box height={200}>
-      {["left", "right"].map((align) => (
-        <Box key={align} mb={3}>
-          <SplitButton align={align} text={`Split button - ${align}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </Box>
+    {["left", "right"].map((align) => (
+      <Box key={align} mb={3}>
+        <SplitButton align={align} text={`Split button - ${align}`}>
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -111,13 +102,11 @@ Subtext only works when `size` is `large`
 
 <Preview>
   <Story name="subtext">
-    <Box height={200}>
-      <SplitButton size="large" subtext="subtext" text="Split button">
-        <Button size="large">Button 1</Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </SplitButton>
-    </Box>
+    <SplitButton size="large" subtext="subtext" text="Split button">
+      <Button size="large">Button 1</Button>
+      <Button size="large">Button 2</Button>
+      <Button size="large">Button 3</Button>
+    </SplitButton>
   </Story>
 </Preview>
 
@@ -125,21 +114,38 @@ Subtext only works when `size` is `large`
 
 <Preview>
   <Story name="with icon">
-    <Box height={200}>
-      {["before", "after"].map((iconPosition) => (
-        <Box key={iconPosition} mb={3}>
-          <SplitButton
-            iconType="add"
-            iconPosition={iconPosition}
-            text={`Split button - ${iconPosition}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </Box>
+    {["before", "after"].map((iconPosition) => (
+      <Box key={iconPosition} mb={3}>
+        <SplitButton
+          iconType="add"
+          iconPosition={iconPosition}
+          text={`Split button - ${iconPosition}`}
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    ))}
+  </Story>
+</Preview>
+
+## In overflow: hidden container
+
+<Preview>
+  <Story
+    name="in overflow hidden container"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Accordion title="Heading">
+      <Box p={4}>
+        <SplitButton size="large" subtext="subtext" text="Split button">
+          <Button size="large">Button 1</Button>
+          <Button size="large">Button 2</Button>
+          <Button size="large">Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Accordion>
   </Story>
 </Preview>
 
