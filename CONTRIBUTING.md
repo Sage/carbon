@@ -34,7 +34,7 @@ Carbon is an [open source](https://opensource.com/resources/what-open-source) li
 
 ## Getting Started with Carbon
 
-In order to help you get started with Carbon, we have written two helpful documents. The [dev-environemt-setup](docs/dev-environment-setup.md) document will provide you with the information you require to get your development environment started. The second document is our [getting-started](docs/getting-started.md) guide and this is aimed at someone who already has a development environment setup but wants to add Carbon to their existing project.
+In order to help you get started with Carbon, we have written two helpful documents. The [dev-environment-setup](docs/dev-environment-setup.md) document will provide you with the information you require to get your development environment started. The second document is our [getting-started](docs/getting-started.md) guide and this is aimed at someone who already has a development environment setup but wants to add Carbon to their existing project.
 
 ## I have a question
  - Internal **Sage** contributors are invited to post in our #carbon Slack channel, in the first instance. 
