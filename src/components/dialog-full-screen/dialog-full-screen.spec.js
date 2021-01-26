@@ -11,6 +11,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
+import { StyledHeader, StyledHeading } from "../heading/heading.style";
 
 jest.mock("../../utils/helpers/guid");
 
@@ -296,6 +297,7 @@ describe("DialogFullScreen", () => {
 
       assertStyleMatch(
         {
+          margin: "0",
           position: "absolute",
           right: "33px",
           top: "32px",
@@ -317,20 +319,19 @@ describe("DialogFullScreen", () => {
         {
           width: "auto",
           paddingTop: "4px",
-          marginBottom: "34px",
         },
         wrapper,
-        { modifier: ".carbon-heading" }
+        { modifier: `${StyledHeading}` }
       );
 
       assertStyleMatch(
         {
           width: "100%",
           boxSizing: "content-box",
-          margin: "0 0 0 8px",
+          margin: "0 0 0 3px",
         },
         wrapper,
-        { modifier: ".carbon-heading .carbon-heading__header" }
+        { modifier: `${StyledHeading} ${StyledHeader}` }
       );
     });
   });

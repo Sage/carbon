@@ -1,9 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Box from "../box";
-import Help from "../help";
-import Link from "../link";
-import Typography from "../typography";
 import tagComponent from "../../utils/helpers/tags";
 import {
   StyledHeading,
@@ -11,10 +7,11 @@ import {
   StyledSubHeader,
   StyledHeader,
   StyledSeparator,
-  StyledDivider,
-  StyledHeaders,
-  StyledHeaderLink,
   StyledHeaderHelp,
+  StyledHeadingTitle,
+  StyledDivider,
+  StyledHeaderContent,
+  StyledHeadingBackButton,
 } from "./heading.style";
 
 class Heading extends React.Component {
@@ -92,14 +89,12 @@ class Heading extends React.Component {
     }
 
     return (
-      <StyledHeaderHelp>
-        <Help
-          data-element="help"
-          tooltipPosition="right"
-          href={this.props.helpLink}
-        >
-          {this.props.help}
-        </Help>
+      <StyledHeaderHelp
+        data-element="help"
+        tooltipPosition="right"
+        href={this.props.helpLink}
+      >
+        {this.props.help}
       </StyledHeaderHelp>
     );
   }
@@ -124,16 +119,14 @@ class Heading extends React.Component {
     }
 
     return (
-      <StyledHeaderLink>
-        <Link
-          // this event allows an element to be focusable on click event on IE
-          onMouseDown={(e) => e.currentTarget.focus()}
-          data-element="back"
-          {...props}
-        >
-          <StyledHeadingIcon type="chevron_left" divider={this.props.divider} />
-        </Link>
-      </StyledHeaderLink>
+      <StyledHeadingBackButton
+        // this event allows an element to be focusable on click event on IE
+        onMouseDown={(e) => e.currentTarget.focus()}
+        data-element="back"
+        {...props}
+      >
+        <StyledHeadingIcon type="chevron_left" divider={this.props.divider} />
+      </StyledHeadingBackButton>
     );
   }
 
@@ -172,7 +165,7 @@ class Heading extends React.Component {
    * @return {Object} JSX
    */
   get divider() {
-    return this.props.divider ? <StyledDivider /> : null;
+    return this.props.divider ? <StyledDivider data-element="divider" /> : null;
   }
 
   /**
@@ -185,30 +178,26 @@ class Heading extends React.Component {
     }
 
     return (
-      <StyledHeading
-        divider={this.props.divider}
-        subheader={this.props.subheader}
-        {...tagComponent("heading", this.props)}
-      >
-        <StyledHeader>
+      <StyledHeading {...tagComponent("heading", this.props)}>
+        <StyledHeader
+          data-element="header-container"
+          divider={this.props.divider}
+          subheader={this.props.subheader}
+        >
           {this.back}
-
-          <StyledHeaders back={this.props.backLink}>
-            <Box>
-              <Typography
-                variant="h1"
-                as="span"
-                lineHeight="32px"
-                data-element="title"
-                id={this.props.titleId}
-              >
-                {this.props.title}
-              </Typography>
-              {this.help}
-            </Box>
+          <StyledHeaderContent>
+            <StyledHeadingTitle
+              variant="h1"
+              as="span"
+              data-element="title"
+              id={this.props.titleId}
+            >
+              {this.props.title}
+            </StyledHeadingTitle>
+            {this.help}
             {this.separator}
             {this.subheader}
-          </StyledHeaders>
+          </StyledHeaderContent>
         </StyledHeader>
         {this.divider}
         {this.props.children}

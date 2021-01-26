@@ -145,7 +145,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 `;
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to heading exists 1`] = `
-.c9 {
+.c14 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -167,12 +167,12 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   width: 24px;
 }
 
-.c9:hover {
+.c14:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c9::before {
+.c14::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -185,7 +185,38 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   display: block;
 }
 
-.c5 {
+.c9 {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  width: inherit;
+  border: 0;
+  height: 1px;
+  background: #CCD6DB;
+}
+
+.c4 {
+  width: 100%;
+}
+
+.c7 {
+  display: inline-block;
+  width: 100%;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.c8 {
   font-family: "Lato";
   font-style: normal;
   font-size: 24px;
@@ -193,46 +224,44 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   text-transform: none;
   -webkit-text-decoration: none;
   text-decoration: none;
-  line-height: 32px;
+  line-height: 31px;
   margin: 0;
   padding: 0;
   color: rgba(0,0,0,0.90);
+  line-height: 32px;
 }
 
-.c3 {
-  width: 100%;
-  position: relative;
-}
-
-.c3.c3.c3.c3 .c14 {
-  margin-top: -22px;
-  margin-top: -14px;
-}
-
-.c3.c3.c3.c3 .c14 a,
-.c3.c3.c3.c3 .c14 button {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-top: 8px;
-}
-
-.c3.c3.c3.c3 .c14 a:focus,
-.c3.c3.c3.c3 .c14 button:focus {
-  background-color: transparent;
-  outline: 3px solid #FFB500;
-  width: 25px;
-}
-
-.c4 {
-  position: relative;
-}
-
-.c6 {
-  width: inherit;
-  border: 0;
-  height: 1px;
-  background: #CCD6DB;
+.c10 {
   margin: 15px 0 20px;
+}
+
+.c12 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c12:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c12:hover {
+  cursor: pointer;
+}
+
+.c12::-moz-focus-inner {
+  border: none;
+}
+
+.c12 .c13 {
+  position: relative;
+}
+
+.c12 .c13:focus {
+  border: none;
 }
 
 .c2 {
@@ -255,93 +284,66 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
   padding: 0 16px;
 }
 
-.c1 .carbon-heading {
+.c1 .c3 {
   width: auto;
+  margin-bottom: 24px;
 }
 
-.c1 .carbon-heading .carbon-heading__header {
+.c1 .c3 .c5 {
   background-color: transparent;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   padding-bottom: 0;
-  border: none;
-  margin: 22px 24px 24px 0;
+  margin: 22px 24px 0 0;
 }
 
-.c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
-  font-size: 24px;
+.c1 .c11 {
+  margin-top: 26px;
 }
 
-.c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
-  margin-top: -8px;
-  margin-left: -5px;
+.c15 .c3 {
+  width: auto;
+  margin-bottom: 24px;
 }
 
-.c7 {
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-.c7:focus {
-  color: rgba(0,0,0,0.9);
+.c15 .c3 .c5 {
   background-color: transparent;
-  outline: solid 3px #FFB500;
-  z-index: 1;
+  padding-bottom: 0;
+  margin: 22px 24px 0 0;
 }
 
-.c7:hover {
-  cursor: pointer;
+.c15 .c11 {
+  margin-top: 26px;
 }
 
-.c7::-moz-focus-inner {
-  border: none;
-}
-
-.c7 .c8 {
-  position: relative;
-}
-
-.c7 .c8:focus {
-  border: none;
-}
-
-.c10:hover .c8 {
+.c16:hover .c13 {
   color: #FFFFFF;
 }
 
-.c10 .c8 {
+.c16 .c13 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c10 .c8 svg {
+.c16 .c13 svg {
   margin-top: 0;
 }
 
-.c0 + .c11 {
+.c0 + .c17 {
   height: calc(100% - 0px);
 }
 
-.c0 + .c12 {
+.c0 + .c18 {
   height: calc(100% - 0px);
 }
 
-.c0 + .c13 {
+.c0 + .c19 {
   height: calc(100% - 0px);
 }
 
@@ -371,41 +373,40 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
     class="c2"
   >
     <div
-      class="c3"
+      class="c3 c4"
       data-component="heading"
     >
       <div
-        class="c4"
+        class="c5 c6"
+        data-element="header-container"
       >
         <div
-          class=""
+          class="c7"
         >
-          <div
-            class=""
+          <span
+            class="c8"
+            color="blackOpacity90"
+            data-element="title"
+            text-decoration="none"
           >
-            <span
-              class="c5"
-              color="blackOpacity90"
-              data-element="title"
-              text-decoration="none"
-            >
-              my custom heading
-            </span>
-          </div>
+            my custom heading
+          </span>
         </div>
       </div>
       <hr
-        class="c6"
+        class="c9 c10"
+        data-component="hr"
+        data-element="divider"
       />
     </div>
   </div>
   <button
-    class="c7"
+    class="c11 c12"
     data-element="close"
     type="button"
   >
     <span
-      class="c8 c9"
+      class="c13 c14"
       data-component="icon"
       data-element="close"
       font-size="small"

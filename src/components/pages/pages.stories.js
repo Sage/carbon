@@ -69,14 +69,18 @@ export const Default = () => {
       <Button onClick={handleOpen}>Open Preview</Button>
       <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
-          <Page title={<Heading title="My First Page" />}>
+          <Page title={<Heading title="My First Page" divider={false} />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
               Go to second page
             </Button>
           </Page>
           <Page
             title={
-              <Heading title="My Second Page" backLink={handleBackClick} />
+              <Heading
+                title="My Second Page"
+                backLink={handleBackClick}
+                divider={false}
+              />
             }
           >
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -84,7 +88,13 @@ export const Default = () => {
             </Button>
           </Page>
           <Page
-            title={<Heading title="My Third Page" backLink={handleBackClick} />}
+            title={
+              <Heading
+                title="My Third Page"
+                backLink={handleBackClick}
+                divider={false}
+              />
+            }
           />
         </Pages>
       </DialogFullScreen>

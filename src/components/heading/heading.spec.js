@@ -3,12 +3,11 @@ import { shallow, mount } from "enzyme";
 import Heading from "./heading.component";
 import {
   StyledSubHeader,
-  StyledDivider,
   StyledSeparator,
+  StyledHeadingTitle,
 } from "./heading.style";
 import Help from "../help";
 import Link from "../link";
-import Typeography from "../typography";
 import {
   elementsTagTest,
   rootTagTest,
@@ -16,9 +15,8 @@ import {
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
-import { PagesContent } from "../pages/pages.style";
-import LinkStyleAnchor from "../link/link.style";
 import mintTheme from "../../style/themes/mint";
+import Hr from "../hr";
 
 describe("Heading", () => {
   it("renders a h1 with the title", () => {
@@ -32,7 +30,7 @@ describe("Heading", () => {
         backLink="/foobar"
       />
     );
-    expect(wrapper.find(Typeography).text()).toEqual("foo");
+    expect(wrapper.find(StyledHeadingTitle).text()).toEqual("foo");
   });
 
   it("renders a help component", () => {
@@ -59,7 +57,7 @@ describe("Heading", () => {
     expect(link.prop("href")).toEqual("/foobar");
   });
 
-  it("renders a back link as a button with focus support on Internet Explorer", () => {
+  it("renders a back link as a button with an outline", () => {
     const wrapper = mount(
       <DefaultPages>
         <Page title={<Heading title="My Second Page" backLink={() => {}} />}>
@@ -73,10 +71,10 @@ describe("Heading", () => {
 
     assertStyleMatch(
       {
-        outline: `solid 3px ${mintTheme.colors.focus}`,
+        outline: `3px solid ${mintTheme.colors.focus}`,
       },
-      wrapper.find(PagesContent),
-      { modifier: `&&&& ${LinkStyleAnchor} button:focus` }
+      link,
+      { modifier: `button:focus` }
     );
   });
 
@@ -97,21 +95,21 @@ describe("Heading", () => {
   describe("no subheader", () => {
     it("returns nothing", () => {
       const wrapper = mount(<Heading />);
-      expect(wrapper.find(StyledSubHeader).length).toEqual(0);
+      expect(wrapper.find(StyledSubHeader).exists()).toBe(false);
     });
   });
 
   describe("no divider", () => {
     it("returns nothing", () => {
       const wrapper = mount(<Heading title="foo" divider={false} />);
-      expect(wrapper.find(StyledDivider).length).toEqual(0);
+      expect(wrapper.find(Hr).exists()).toBe(false);
     });
   });
 
   describe("no title", () => {
     it("returns nothing", () => {
       const wrapper = mount(<Heading />);
-      expect(wrapper.find(Typeography).length).toEqual(0);
+      expect(wrapper.find(StyledHeadingTitle).length).toEqual(0);
     });
   });
 
