@@ -43,3 +43,10 @@ Feature: Multi Action Button default component
       And clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Invoking Multi Action Button component in a hidden container
+    Given I open "Multi Action Button" component page "in_overflow_hidden_container" in no iframe
+      And I expand accordionRow using "Enter" key
+    When I hover on Multi Action Button
+    Then Multi Action Button in a hidden container is expanded and contains three items

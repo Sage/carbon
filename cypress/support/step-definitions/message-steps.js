@@ -4,7 +4,7 @@ import {
 import { getDataElementByValue } from '../../locators';
 
 Then('Message title on preview is set to {word}', (text) => {
-  getDataElementByValue('title').should('have.text', text);
+  getDataElementByValue('content-title').should('have.text', text);
 });
 
 Then('Message type on preview is {string}', (type) => {

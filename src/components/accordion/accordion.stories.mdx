@@ -467,7 +467,7 @@ Accordion adjust it's height properly when it's content is being dynamically cha
       return (
         <>
           <Button onClick={ () => modifyContentCount(1) }>Add content</Button>
-          <Button onClick={ () => modifyContentCount(-1) }>Remove content</Button>
+          <Button onClick={ () => modifyContentCount(-1) } ml={2}>Remove content</Button>
           <Accordion title="Title">
             {Array.from({ length: contentCount }).map((_, index) => <div key={ index }>Content</div>)}
           </Accordion>

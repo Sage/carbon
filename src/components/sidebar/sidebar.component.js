@@ -6,9 +6,15 @@ import SidebarStyle from "./sidebar.style";
 import focusTrap from "../../utils/helpers/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import Browser from "../../utils/helpers/browser";
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
+  constructor(args) {
+    super(args);
+    this.document = Browser.getDocument();
+  }
+
   get mainClasses() {
     return classNames("carbon-sidebar", this.props.className);
   }
@@ -25,6 +31,7 @@ class Sidebar extends Modal {
 
   handleOpen() {
     super.handleOpen();
+    this.document.documentElement.style.overflow = "hidden";
     if (!this.props.enableBackgroundUI) {
       this.removeFocusTrap = focusTrap(this.sideBarRef);
     }
@@ -32,7 +39,7 @@ class Sidebar extends Modal {
 
   handleClose() {
     super.handleClose();
-
+    this.document.documentElement.style.overflow = "";
     /* istanbul ignore else */
     if (this.removeFocusTrap) {
       this.removeFocusTrap();

@@ -1,7 +1,6 @@
 import React, {
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
   useContext,
@@ -20,202 +19,218 @@ import createGuid from "../../utils/helpers/guid";
 import ActionPopoverContext from "./action-popover-context";
 
 const INTERVAL = 150;
+const DEFER_TIMEOUT = 30;
 
-const MenuItem = React.forwardRef(
-  (
-    {
-      children,
-      icon,
-      disabled = false,
-      onClick: onClickProp,
-      submenu,
-      theme,
-      placement = "bottom",
-      ...rest
+const MenuItem = ({
+  children,
+  icon,
+  disabled = false,
+  onClick: onClickProp,
+  submenu,
+  theme,
+  placement = "bottom",
+  focusItem,
+  ...rest
+}) => {
+  const { setOpenPopover, isOpenPopover, focusButton } = useContext(
+    ActionPopoverContext
+  );
+
+  const [containerPosition, setContainerPosition] = useState(null);
+  const [guid] = useState(createGuid());
+  const [isOpen, setOpen] = useState(false);
+  const [focusIndex, setFocusIndex] = useState(0);
+  const [isLeftAligned, setIsLeftAligned] = useState(true);
+  const submenuRef = useRef();
+  const ref = useRef();
+  const refTimer = useRef();
+  const mouseEnterTimer = useRef();
+  const mouseLeaveTimer = useRef();
+  const { spacing } = theme;
+
+  useEffect(() => {
+    if (!isOpenPopover) {
+      setOpen(false);
+    }
+  }, [isOpenPopover]);
+
+  const alignSubmenu = useCallback(() => {
+    if (checkRef(ref) && checkRef(submenuRef)) {
+      const align = submenu && leftAlignSubmenu(ref, submenuRef);
+      setIsLeftAligned(align);
+      setContainerPosition(
+        getContainerPosition(ref, submenuRef, spacing, placement)
+      );
+    }
+  }, [submenu, spacing, placement]);
+
+  const setRef = useCallback(
+    (element) => {
+      clearTimeout(refTimer.current);
+      refTimer.current = setTimeout(() => {
+        ref.current = element;
+        alignSubmenu();
+        if (focusItem && element) {
+          element.focus();
+        }
+      }, DEFER_TIMEOUT);
     },
-    ref
-  ) => {
-    const { setOpenPopover, isOpenPopover, focusButton } = useContext(
-      ActionPopoverContext
-    );
+    [alignSubmenu, focusItem]
+  );
 
-    const [containerPosition, setContainerPosition] = useState(null);
-    const [guid] = useState(createGuid());
-    const [isOpen, setOpen] = useState(false);
-    const [focusIndex, setFocusIndex] = useState(0);
-    const [items, setItems] = useState([]);
-    const [isLeftAligned, setIsLeftAligned] = useState(true);
-    const submenuRef = useRef();
-    const { spacing } = theme;
-
-    useEffect(() => {
-      if (!isOpenPopover) {
-        setOpen(false);
-      }
-    }, [isOpenPopover]);
-
-    const alignSubmenu = useCallback(() => {
-      if (checkRef(ref) && checkRef(submenuRef)) {
-        const align = submenu && leftAlignSubmenu(ref, submenuRef);
-        setIsLeftAligned(align);
-        setContainerPosition(
-          getContainerPosition(ref, submenuRef, spacing, placement)
-        );
-      }
-    }, [ref, submenu, spacing, placement]);
-
-    useLayoutEffect(() => {
-      alignSubmenu();
-    }, [alignSubmenu]);
-
-    useEffect(() => {
-      const event = "resize";
-      window.addEventListener(event, alignSubmenu);
-
-      return function cleanup() {
-        window.removeEventListener(event, alignSubmenu);
-      };
-    }, [alignSubmenu]);
-
-    const onClick = useCallback(
-      (e) => {
-        if (!disabled) {
-          onClickProp();
-          setOpenPopover(false);
-          focusButton();
-          e.stopPropagation();
-        } else {
-          ref.current.focus();
-          e.stopPropagation();
-        }
-      },
-      [disabled, focusButton, onClickProp, ref, setOpenPopover]
-    );
-
-    const onKeyDown = useCallback(
-      (e) => {
-        if (Events.isEscKey(e)) {
-          e.stopPropagation();
-          setOpenPopover(false);
-          focusButton();
-        } else if (Events.isSpaceKey(e)) {
-          e.preventDefault();
-          e.stopPropagation();
-        } else if (!disabled) {
-          if (submenu) {
-            if (isLeftAligned) {
-              // LEFT: open if has submenu and left aligned otherwise close submenu
-              if (Events.isLeftKey(e) || Events.isEnterKey(e)) {
-                setOpen(true);
-                setFocusIndex(0);
-                e.stopPropagation();
-              } else if (Events.isRightKey(e)) {
-                setOpen(false);
-                ref.current.focus();
-                e.stopPropagation();
-              }
-            } else {
-              // RIGHT: open if has submenu and right aligned otherwise close submenu
-              if (Events.isRightKey(e) || Events.isEnterKey(e)) {
-                setOpen(true);
-                setFocusIndex(0);
-                e.stopPropagation();
-              }
-              if (Events.isLeftKey(e)) {
-                setOpen(false);
-                ref.current.focus();
-                e.stopPropagation();
-              }
-            }
-            e.preventDefault();
-          } else if (Events.isEnterKey(e)) {
-            onClick(e);
-          }
-        } else if (Events.isEnterKey(e)) {
-          e.stopPropagation();
-        }
-      },
-      [
-        disabled,
-        focusButton,
-        isLeftAligned,
-        onClick,
-        ref,
-        setOpenPopover,
-        submenu,
-      ]
-    );
-
-    let timer;
-    const itemSubmenuProps = {
-      ...(!disabled && {
-        onMouseEnter: (e) => {
-          clearTimeout(timer);
-          setFocusIndex(null);
-          timer = setTimeout(() => {
-            setOpen(true);
-          }, INTERVAL);
-          e.stopPropagation();
-        },
-        onMouseLeave: (e) => {
-          clearTimeout(timer);
-          timer = setTimeout(() => {
-            setOpen(false);
-          }, INTERVAL);
-          e.stopPropagation();
-        },
-        onClick: (e) => {
-          setOpen(true);
-          ref.current.focus();
-          e.preventDefault();
-          e.stopPropagation();
-        },
-      }),
-      "aria-haspopup": "true",
-      "aria-label": I18n.t("actionpopover.aria-label", {
-        defaultValue: "actions",
-      }),
-      "aria-controls": `ActionPopoverMenu_${guid}`,
-      "aria-expanded": isOpen,
+  useEffect(() => {
+    return function cleanup() {
+      clearTimeout(refTimer.current);
+      clearTimeout(mouseEnterTimer.current);
+      clearTimeout(mouseLeaveTimer.current);
     };
+  }, []);
 
-    return (
-      <div
-        {...rest}
-        {...{ ref, onClick, onKeyDown }}
-        {...(disabled && { "aria-disabled": true })}
-        type="button"
-        tabIndex="0"
-        role="menuitem"
-        {...(submenu && itemSubmenuProps)}
-      >
-        {submenu &&
-          React.cloneElement(submenu, {
-            button: ref,
-            parentID: `ActionPopoverItem_${guid}`,
-            menuID: `ActionPopoverMenu_${guid}`,
-            "data-element": "action-popover-submenu",
-            isOpen,
-            ref: submenuRef,
-            style: containerPosition,
-            setOpen,
-            setFocusIndex,
-            focusIndex,
-            items,
-            setItems,
-          })}
-        {submenu && checkRef(ref) && isLeftAligned && (
-          <SubMenuItemIcon type="chevron_left" />
-        )}
-        {icon && <MenuItemIcon type={icon} />}
-        {children}
-        {submenu && checkRef(ref) && !isLeftAligned && (
-          <SubMenuItemIcon type="chevron_right" />
-        )}
-      </div>
-    );
-  }
-);
+  useEffect(() => {
+    const event = "resize";
+    window.addEventListener(event, alignSubmenu);
+
+    return function cleanup() {
+      window.removeEventListener(event, alignSubmenu);
+    };
+  }, [alignSubmenu]);
+
+  const onClick = useCallback(
+    (e) => {
+      if (!disabled) {
+        onClickProp();
+        setOpenPopover(false);
+        focusButton();
+        e.stopPropagation();
+      } else {
+        ref.current.focus();
+        e.stopPropagation();
+      }
+    },
+    [disabled, focusButton, onClickProp, ref, setOpenPopover]
+  );
+
+  const onKeyDown = useCallback(
+    (e) => {
+      if (Events.isEscKey(e)) {
+        e.stopPropagation();
+        setOpenPopover(false);
+        focusButton();
+      } else if (Events.isSpaceKey(e)) {
+        e.preventDefault();
+        e.stopPropagation();
+      } else if (!disabled) {
+        if (submenu) {
+          if (isLeftAligned) {
+            // LEFT: open if has submenu and left aligned otherwise close submenu
+            if (Events.isLeftKey(e) || Events.isEnterKey(e)) {
+              setOpen(true);
+              setFocusIndex(0);
+              e.stopPropagation();
+            } else if (Events.isRightKey(e)) {
+              setOpen(false);
+              ref.current.focus();
+              e.stopPropagation();
+            }
+          } else {
+            // RIGHT: open if has submenu and right aligned otherwise close submenu
+            if (Events.isRightKey(e) || Events.isEnterKey(e)) {
+              setOpen(true);
+              setFocusIndex(0);
+              e.stopPropagation();
+            }
+            if (Events.isLeftKey(e)) {
+              setOpen(false);
+              ref.current.focus();
+              e.stopPropagation();
+            }
+          }
+          e.preventDefault();
+        } else if (Events.isEnterKey(e)) {
+          onClick(e);
+        }
+      } else if (Events.isEnterKey(e)) {
+        e.stopPropagation();
+      }
+    },
+    [
+      disabled,
+      focusButton,
+      isLeftAligned,
+      onClick,
+      ref,
+      setOpenPopover,
+      submenu,
+    ]
+  );
+
+  const itemSubmenuProps = {
+    ...(!disabled && {
+      onMouseEnter: (e) => {
+        clearTimeout(mouseEnterTimer.current);
+        setFocusIndex(null);
+        mouseEnterTimer.current = setTimeout(() => {
+          setOpen(true);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+      onMouseLeave: (e) => {
+        clearTimeout(mouseLeaveTimer.current);
+        mouseLeaveTimer.current = setTimeout(() => {
+          setOpen(false);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+      onClick: (e) => {
+        setOpen(true);
+        ref.current.focus();
+        e.preventDefault();
+        e.stopPropagation();
+      },
+    }),
+    "aria-haspopup": "true",
+    "aria-label": I18n.t("actionpopover.aria-label", {
+      defaultValue: "actions",
+    }),
+    "aria-controls": `ActionPopoverMenu_${guid}`,
+    "aria-expanded": isOpen,
+  };
+
+  return (
+    <div
+      {...rest}
+      ref={setRef}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      type="button"
+      tabIndex="0"
+      role="menuitem"
+      {...(disabled && { "aria-disabled": true })}
+      {...(submenu && itemSubmenuProps)}
+    >
+      {submenu &&
+        React.cloneElement(submenu, {
+          parentID: `ActionPopoverItem_${guid}`,
+          menuID: `ActionPopoverMenu_${guid}`,
+          "data-element": "action-popover-submenu",
+          isOpen,
+          ref: submenuRef,
+          style: containerPosition,
+          setOpen,
+          setFocusIndex,
+          focusIndex,
+        })}
+      {submenu && checkRef(ref) && isLeftAligned && (
+        <SubMenuItemIcon type="chevron_left" />
+      )}
+      {icon && <MenuItemIcon type={icon} />}
+      {children}
+      {submenu && checkRef(ref) && !isLeftAligned && (
+        <SubMenuItemIcon type="chevron_right" />
+      )}
+    </div>
+  );
+};
 
 function checkRef(ref) {
   return Boolean(ref && ref.current);
@@ -271,6 +286,8 @@ const propTypes = {
   },
   /** @ignore @private */
   placement: PropTypes.oneOf(["bottom", "top"]),
+  /** @ignore @private */
+  focusItem: PropTypes.bool,
 };
 
 ActionPopoverItem.propTypes = { ...propTypes };

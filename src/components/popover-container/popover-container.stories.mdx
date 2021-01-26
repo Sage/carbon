@@ -96,7 +96,7 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
           return (
             <div style={{height: 150}}>
             <Button onClick={ onOpen }>Open Popover</Button>
-            <Button onClick={ onClose }>Close Popover</Button>
+            <Button onClick={ onClose } ml={2}>Close Popover</Button>
             <br />
             <PopoverContainer
               title='Controlled'
@@ -122,7 +122,7 @@ You can easly use many different components to create your own compisition.
         <Link>This is example link text</Link>
         <div style={ { padding: '25px 0 15px 0' } }>
           <Button>Small</Button>
-          <Button>Compact</Button>
+          <Button ml={2}>Compact</Button>
         </div>
         <DraggableContainer>
           <DraggableItem key='1' id={ 1 }>

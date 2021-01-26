@@ -1,8 +1,16 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  useRef,
+} from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+
 import { MenuButton, ButtonIcon } from "./action-popover.style";
 import Events from "../../utils/helpers/events";
+import Popover from "../../__internal__/popover";
 import createGuid from "../../utils/helpers/guid";
 import ActionPopoverMenu from "./action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item.component";
@@ -21,10 +29,31 @@ const ActionPopover = ({
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
-  const [items, setItems] = useState([]);
   const [guid] = useState(createGuid());
   const button = useRef();
   const menu = useRef();
+
+  const itemCount = useMemo(() => {
+    return React.Children.toArray(children).filter(
+      (child) => child.type === ActionPopoverItem
+    ).length;
+  }, [children]);
+
+  const mappedPlacement = useMemo(() => {
+    if (placement === "top" && !rightAlignMenu) {
+      return "top-end";
+    }
+
+    if (placement === "top" && rightAlignMenu) {
+      return "top-start";
+    }
+
+    if (placement === "bottom" && rightAlignMenu) {
+      return "bottom-start";
+    }
+
+    return "bottom-end";
+  }, [placement, rightAlignMenu]);
 
   const setOpen = useCallback(
     (value) => {
@@ -59,24 +88,31 @@ const ActionPopover = ({
     (e) => {
       if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
         e.preventDefault();
-        onButtonClick(e);
+        e.stopPropagation();
+        setFocusIndex(0);
+        setOpen(true);
       } else if (Events.isUpKey(e)) {
         e.preventDefault();
-        setFocusIndex(items.length - 1);
+        e.stopPropagation();
+        setFocusIndex(itemCount - 1);
         setOpen(true);
       }
     },
-    [items, onButtonClick, setOpen]
+    [itemCount, setOpen]
   );
 
   const focusButton = useCallback(() => button.current.focus(), []);
 
   useEffect(() => {
-    const handler = (e) => {
+    const handler = ({ target }) => {
       // If the event didn't came from part of this component, close the menu.
       // There will be multiple document click listeners but we cant prevent propagation because it will interfere with
       // other instances on the same page
-      if (!button.current.contains(e.target)) {
+      if (
+        !button.current.contains(target) &&
+        menu.current &&
+        !menu.current.contains(target)
+      ) {
         setOpen(false);
       }
     };
@@ -106,8 +142,6 @@ const ActionPopover = ({
     parentID,
     setFocusIndex,
     focusIndex,
-    setItems,
-    items,
     menuID,
     isOpen,
     setOpen,
@@ -135,14 +169,18 @@ const ActionPopover = ({
       <ActionPopoverContext.Provider
         value={{ setOpenPopover: setOpen, focusButton, isOpenPopover: isOpen }}
       >
-        <ActionPopoverMenu
-          data-component="action-popover"
-          role="menu"
-          ref={menu}
-          {...menuProps}
-        >
-          {children}
-        </ActionPopoverMenu>
+        {isOpen && (
+          <Popover placement={mappedPlacement} reference={button}>
+            <ActionPopoverMenu
+              data-component="action-popover"
+              role="menu"
+              ref={menu}
+              {...menuProps}
+            >
+              {children}
+            </ActionPopoverMenu>
+          </Popover>
+        )}
       </ActionPopoverContext.Provider>
     </MenuButton>
   );
@@ -184,13 +222,16 @@ ActionPopover.propTypes = {
   /** Render a custom menu button to override default ellipsis icon */
   renderButton: PropTypes.func,
   /** Set whether the menu should open above or below the button */
-  placement: PropTypes.oneOf(["bottom", "top"]),
+  placement: PropTypes.oneOf(["top", "bottom"]),
 };
+
+const onOpen = () => {};
+const onClose = () => {};
 
 ActionPopover.defaultProps = {
   id: null,
-  onOpen: () => {},
-  onClose: () => {},
+  onOpen,
+  onClose,
 };
 
 export default ActionPopover;

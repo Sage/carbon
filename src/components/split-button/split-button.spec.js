@@ -3,6 +3,7 @@ import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
 import SplitButton from "./split-button.component";
+import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
@@ -16,7 +17,6 @@ import MediumTheme from "../../style/themes/medium";
 import { assertStyleMatch, keyboard } from "../../__spec_helper__/test-utils";
 import "jest-styled-components";
 import guid from "../../utils/helpers/guid";
-import StyledSplitButtonToggle from "./split-button-toggle.style";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -155,7 +155,7 @@ describe("SplitButton", () => {
 
   describe("when children are Button Components", () => {
     it("then they should change to Buttons with forwarded refs", () => {
-      wrapper = render();
+      wrapper = render({}, singleButton, mount);
       simulateFocusOnToggle(wrapper);
 
       expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
@@ -168,14 +168,14 @@ describe("SplitButton", () => {
 
   describe("when children are not Button Components", () => {
     it("then child elements should be redered as they are", () => {
-      const spanElement = <span className="" />;
-      wrapper = render({}, spanElement);
+      const spanElement = <span className="span-element" />;
+      wrapper = render({}, spanElement, mount);
       simulateFocusOnToggle(wrapper);
 
       const element = wrapper
-        .find('[data-element="additional-buttons"]')
-        .childAt(0);
-      expect(element.type()).toBe("span");
+        .find(StyledSplitButtonChildrenContainer)
+        .find(".span-element");
+      expect(element.exists()).toBe(true);
     });
 
     afterEach(() => {
@@ -325,9 +325,10 @@ describe("SplitButton", () => {
           {
             text: "mainButton",
           },
-          <Button>Second Button</Button>
+          <Button>Second Button</Button>,
+          mount
         );
-        toggle = wrapper.find('[data-element="toggle-button"]');
+        toggle = wrapper.find(StyledSplitButtonToggle);
       });
 
       it("changes showAdditionalButtons state", () => {
@@ -336,8 +337,8 @@ describe("SplitButton", () => {
       });
 
       it("when disabled it does not change the state", () => {
-        wrapper = render({ disabled: true });
-        toggle = wrapper.find('[data-element="toggle-button"]');
+        wrapper = render({ disabled: true }, singleButton, mount);
+        toggle = wrapper.find(StyledSplitButtonToggle);
         toggle.simulate("mouseenter");
         expect(wrapper.state().showAdditionalButtons).toEqual(false);
       });
@@ -345,7 +346,7 @@ describe("SplitButton", () => {
       it("when disabled it has the expected styling", () => {
         wrapper = render({ disabled: true }, singleButton, mount);
 
-        toggle = wrapper.find('[data-element="toggle-button"]').hostNodes();
+        toggle = wrapper.find(StyledSplitButtonToggle);
         assertStyleMatch(
           {
             background: "transparent",
@@ -364,9 +365,9 @@ describe("SplitButton", () => {
     describe("mouse leave split-button", () => {
       let mainButton;
       beforeEach(() => {
-        wrapper = render();
-        mainButton = wrapper.find('[data-element="main-button"]');
-        toggle = wrapper.find('[data-element="toggle-button"]');
+        wrapper = render({}, singleButton, mount);
+        mainButton = wrapper.find(Button);
+        toggle = wrapper.find(StyledSplitButtonToggle);
       });
 
       it("changes showAdditionalButtons state", () => {
@@ -411,9 +412,10 @@ describe("SplitButton", () => {
             <Button onClick={handleSecondButton} key="testKey">
               Second Button
             </Button>,
-          ]
+          ],
+          mount
         );
-        toggle = wrapper.find('[data-element="toggle-button"]');
+        toggle = wrapper.find(StyledSplitButtonToggle);
       });
 
       it("the handler should be called on the main button", () => {
@@ -657,6 +659,25 @@ describe("SplitButton", () => {
     afterEach(() => {
       wrapper.unmount();
     });
+  });
+
+  it("should set proper width of ButtonContainer", () => {
+    spyOn(Element.prototype, "getBoundingClientRect");
+    Element.prototype.getBoundingClientRect = jest
+      .fn()
+      .mockImplementation(() => ({ width: 200 }));
+
+    wrapper = render({}, singleButton, mount);
+    simulateFocusOnToggle(wrapper);
+
+    assertStyleMatch(
+      { minWidth: `${0.75 * 200}px` },
+      wrapper.find(StyledSplitButtonChildrenContainer)
+    );
+
+    jest.clearAllMocks();
+
+    wrapper.unmount();
   });
 });
 

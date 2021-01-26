@@ -15,7 +15,7 @@ Then('Action Popover element is visible', () => {
 });
 
 Then('Action Popover element is not visible', () => {
-  actionPopover().should('not.be.visible');
+  actionPopover().should('not.exist');
 });
 
 When('I click the menu button element in noiFrame', () => {

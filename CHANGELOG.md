@@ -1,3 +1,67 @@
+### [61.0.1](https://github.com/Sage/carbon/compare/v61.0.0...v61.0.1) (2021-01-26)
+
+
+### Bug Fixes
+
+* **sidebar:** disable scroll on document if sidebar is open ([738304a](https://github.com/Sage/carbon/commit/738304ac4452a274d8b57d126b20d7d4a206a2ec)), closes [#3541](https://github.com/Sage/carbon/issues/3541)
+
+## [61.0.0](https://github.com/Sage/carbon/compare/v60.1.0...v61.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** The margin left 16px styling applied to the sibling buttons has been removed. An
+add-prop codemod has been created to help facilitate the adding of the margin left spacing prop and
+the value to the buttons in your project.
+
+### Miscellaneous Chores
+
+* **button:** remove sibling styling for button ([164fab8](https://github.com/Sage/carbon/commit/164fab85185ae5567939d0e5b4360be2837adc01)), closes [#3392](https://github.com/Sage/carbon/issues/3392)
+
+## [60.1.0](https://github.com/Sage/carbon/compare/v60.0.0...v60.1.0) (2021-01-26)
+
+
+### Features
+
+* **multi-action-button:** render content in portal ([66d452c](https://github.com/Sage/carbon/commit/66d452c89daaa417ccfdff549ad98f78e35ab965))
+* **split-button:** render content in portal ([fee50f5](https://github.com/Sage/carbon/commit/fee50f5f922f0a84276d8a88ecc1c62a83611c25))
+* add new internal popover component ([de2962b](https://github.com/Sage/carbon/commit/de2962b7acd8237b8365c6404343291a5aae7376))
+
+## [60.0.0](https://github.com/Sage/carbon/compare/v59.1.0...v60.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **content:** prop `as` has been replaced with `variant` as `as` prop is reserved for Styled Components.
+To update your code you can use the following codemod
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+
+### Code Refactoring
+
+* **content:** update to be functional ([93c4e86](https://github.com/Sage/carbon/commit/93c4e8645867e529941b62ba5a0b16d24601f867))
+
+## [59.1.0](https://github.com/Sage/carbon/compare/v59.0.2...v59.1.0) (2021-01-25)
+
+
+### Features
+
+* **action-popover:** render content in portal ([9c12819](https://github.com/Sage/carbon/commit/9c1281907bc06e24ae5a6a88bac2b08b493e6d51))
+* add new internal popover component ([5df1eb6](https://github.com/Sage/carbon/commit/5df1eb6e951a8972caf2aea43a2429e1fbdd8582))
+
+### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **date:** fix date crashing when allowEmptyValue is set ([f6fb41c](https://github.com/Sage/carbon/commit/f6fb41c24aebe78950c987274b78a8f04a6ee448))
+
+### [59.0.1](https://github.com/Sage/carbon/compare/v59.0.0...v59.0.1) (2021-01-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** filter disabled inputs in query selector ([d616577](https://github.com/Sage/carbon/commit/d6165777ed5ff55e72d6f981d3f623a351eb6b05))
+
 ## [59.0.0](https://github.com/Sage/carbon/compare/v58.1.0...v59.0.0) (2021-01-19)
 
 

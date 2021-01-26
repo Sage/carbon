@@ -192,21 +192,40 @@ describe("DatePicker", () => {
   describe('when the "inputDate" prop have been changed to a different date', () => {
     beforeEach(() => {
       wrapper = render({ inputElement, inputDate: firstDate }, mount);
+      jest.resetAllMocks();
+    });
+    describe("and provided date is valid", () => {
+      it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
+        const dayPicker = wrapper.find(DayPicker).instance();
+        const showMonthSpy = spyOn(dayPicker, "showMonth");
+        act(() => {
+          wrapper.setProps({ inputDate: secondDate });
+          global.innerWidth = 100;
+          global.innerHeight = 100;
+
+          // Trigger the window resize event.
+          global.dispatchEvent(new Event("resize"));
+        });
+
+        expect(showMonthSpy).toHaveBeenCalledWith(new Date(secondDate));
+      });
     });
 
-    it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
-      const dayPicker = wrapper.find(DayPicker).instance();
-      const showMonthSpy = spyOn(dayPicker, "showMonth");
-      act(() => {
-        wrapper.setProps({ inputDate: secondDate });
-        global.innerWidth = 100;
-        global.innerHeight = 100;
+    describe("and provided date is invalid", () => {
+      it('then "showMonth" method on the "DayPicker" should have been called with previous valid date', () => {
+        const dayPicker = wrapper.find(DayPicker).instance();
+        const showMonthSpy = spyOn(dayPicker, "showMonth");
+        act(() => {
+          wrapper.setProps({ inputDate: "12/42/3213" });
+          global.innerWidth = 100;
+          global.innerHeight = 100;
 
-        // Trigger the window resize event.
-        global.dispatchEvent(new Event("resize"));
+          // Trigger the window resize event.
+          global.dispatchEvent(new Event("resize"));
+        });
+
+        expect(showMonthSpy).toHaveBeenCalledWith(new Date(firstDate));
       });
-
-      expect(showMonthSpy).toHaveBeenCalledWith(moment(secondDate).toDate());
     });
   });
 });
