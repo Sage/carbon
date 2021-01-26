@@ -16,8 +16,8 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
   <Story name="primary" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="primary" size="small">Small</Button>
-      <Button buttonType="primary">Medium</Button>
-      <Button buttonType="primary" size="large">Large</Button>
+      <Button buttonType="primary" ml={2}>Medium</Button>
+      <Button buttonType="primary" size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -27,8 +27,8 @@ Primary buttons can be destructive.
   <Story name="primary/destructive" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="primary" destructive size="small">Small</Button>
-      <Button buttonType="primary" destructive >Medium</Button>
-      <Button buttonType="primary" destructive size="large">Large</Button>
+      <Button buttonType="primary" destructive ml={2}>Medium</Button>
+      <Button buttonType="primary" destructive size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -38,8 +38,8 @@ Primary buttons can be disabled.
   <Story name="primary/disabled" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="primary" disabled size="small">Small</Button>
-      <Button buttonType="primary" disabled>Medium</Button>
-      <Button buttonType="primary" disabled size="large">Large</Button>
+      <Button buttonType="primary" disabled ml={2}>Medium</Button>
+      <Button buttonType="primary" disabled size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -49,8 +49,8 @@ Primary buttons can have an icon positioned before or after the text.
   <Story name="primary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="primary" iconType="print">Medium</Button>
-    <Button buttonType="primary" destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button buttonType="primary" disabled iconType="print" iconPosition="after">Medium</Button>
+    <Button buttonType="primary" destructive iconType="delete" iconPosition="after" ml={2}>Medium</Button>
+    <Button buttonType="primary" disabled iconType="print" iconPosition="after" ml={2}>Medium</Button>
     </>
   </Story>
 </Preview>
@@ -72,8 +72,8 @@ Secondary buttons are transparent, rather than white.
   <Story name="secondary" parameters={{ info: { disable: true }}} >
     <>
       <Button size="small" >Small</Button>
-      <Button>Medium</Button>
-      <Button size="large">Large</Button>
+      <Button ml={2}>Medium</Button>
+      <Button size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -83,8 +83,8 @@ Secondary buttons can be destructive.
   <Story name="secondary/destructive" parameters={{ info: { disable: true }}} >
     <>
       <Button destructive size="small">Small</Button>
-      <Button destructive >Medium</Button>
-      <Button destructive size="large">Large</Button>
+      <Button destructive ml={2}>Medium</Button>
+      <Button destructive size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -94,8 +94,8 @@ Secondary buttons can be disabled.
   <Story name="secondary/disabled" parameters={{ info: { disable: true }}} >
     <>
       <Button size="small" disabled>Small</Button>
-      <Button disabled>Medium</Button>
-      <Button size="large" disabled>Large</Button>
+      <Button disabled ml={2}>Medium</Button>
+      <Button size="large" disabled ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -105,8 +105,8 @@ Secondary buttons can have an icon positioned before or after the text.
   <Story name="secondary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button iconType="print">Medium</Button>
-    <Button destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button disabled iconType="print" iconPosition="after">Medium</Button>
+    <Button destructive iconType="delete" iconPosition="after" ml={2}>Medium</Button>
+    <Button disabled iconType="print" iconPosition="after" ml={2}>Medium</Button>
     </>
   </Story>
 </Preview>
@@ -128,8 +128,8 @@ Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel�
   <Story name="tertiary" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="tertiary" size="small">Small</Button>
-      <Button buttonType="tertiary">Medium</Button>
-      <Button buttonType="tertiary" size="large">Large</Button>
+      <Button buttonType="tertiary" ml={2}>Medium</Button>
+      <Button buttonType="tertiary" size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -139,8 +139,8 @@ Tertiary buttons can be destructive.
   <Story name="tertiary/destructive" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="tertiary" destructive size="small">Small</Button>
-      <Button buttonType="tertiary" destructive >Medium</Button>
-      <Button buttonType="tertiary" destructive size="large">Large</Button>
+      <Button buttonType="tertiary" destructive ml={2}>Medium</Button>
+      <Button buttonType="tertiary" destructive size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -150,8 +150,8 @@ Tertiary buttons can be disabled.
   <Story name="tertiary/disabled" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="tertiary" disabled size="small">Small</Button>
-      <Button buttonType="tertiary" disabled>Medium</Button>
-      <Button buttonType="tertiary" disabled size="large">Large</Button>
+      <Button buttonType="tertiary" disabled ml={2}>Medium</Button>
+      <Button buttonType="tertiary" disabled size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -161,8 +161,8 @@ Tertiary buttons can have an icon positioned before or after the text.
   <Story name="tertiary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="tertiary" iconType="print">Medium</Button>
-    <Button buttonType="tertiary" destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button buttonType="tertiary" disabled iconType="print" iconPosition="after">Medium</Button>
+    <Button buttonType="tertiary" destructive iconType="delete" iconPosition="after" ml={2}>Medium</Button>
+    <Button buttonType="tertiary" disabled iconType="print" iconPosition="after" ml={2}>Medium</Button>
     </>
   </Story>
 </Preview>
@@ -183,8 +183,8 @@ Dashed buttons are used for adding new content that replaces empty states.
   <Story name="dashed" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="dashed" size="small">Small</Button>
-      <Button buttonType="dashed">Medium</Button>
-      <Button buttonType="dashed" size="large">Large</Button>
+      <Button buttonType="dashed" ml={2}>Medium</Button>
+      <Button buttonType="dashed" size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -194,8 +194,8 @@ Dashed buttons can be disabled.
   <Story name="dashed/disabled" parameters={{ info: { disable: true }}} >
     <>
       <Button buttonType="dashed" disabled size="small">Small</Button>
-      <Button buttonType="dashed" disabled>Medium</Button>
-      <Button buttonType="dashed" disabled size="large">Large</Button>
+      <Button buttonType="dashed" disabled ml={2}>Medium</Button>
+      <Button buttonType="dashed" disabled size="large" ml={2}>Large</Button>
     </>
   </Story>
 </Preview>
@@ -205,9 +205,9 @@ Dashed buttons can have an icon positioned before or after the text.
   <Story name="dashed/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="dashed" iconType="add" size="small">Small</Button>
-    <Button buttonType="dashed" iconType="add" iconPosition="after">Medium</Button>
-    <Button buttonType="dashed" disabled iconType="add" size="small">Small</Button>
-    <Button buttonType="dashed" disabled iconType="add" iconPosition="after">Medium</Button>
+    <Button buttonType="dashed" iconType="add" iconPosition="after" ml={2}>Medium</Button>
+    <Button buttonType="dashed" disabled iconType="add" size="small" ml={2}>Small</Button>
+    <Button buttonType="dashed" disabled iconType="add" iconPosition="after" ml={2}>Medium</Button>
     </>
   </Story>
 </Preview>
