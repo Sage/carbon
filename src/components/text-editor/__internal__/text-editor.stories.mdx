@@ -121,7 +121,7 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
             ref={ref}
             toolbarElements={[
               <Button buttonType="tertiary" onClick={ () => console.log('cancel') }>Cancel</Button>,
-              <Button buttonType='primary' type="button" onClick={ () => console.log('save') }>Save</Button>
+              <Button buttonType='primary' type="button" onClick={ () => console.log('save') } ml={2}>Save</Button>
             ]}
             labelText="Text Editor Label"
           />

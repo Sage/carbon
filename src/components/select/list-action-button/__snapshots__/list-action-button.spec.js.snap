@@ -66,10 +66,6 @@ exports[`Option renders properly 1`] = `
   outline: solid 3px #FFB500;
 }
 
-.c2 ~ .c1 {
-  margin-left: 16px;
-}
-
 .c2:hover {
   background: #006300;
   border-color: #006300;

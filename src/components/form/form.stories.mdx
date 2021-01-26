@@ -163,14 +163,14 @@ Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` 
       leftSideButtons={ 
         <>
           <Button onClick={ () => console.log('cancel') }>Other</Button>
-          <Button onClick={ () => console.log('cancel') }>Cancel</Button>
+          <Button onClick={ () => console.log('cancel') } ml={2}>Cancel</Button>
         </> 
       }
       saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
       rightSideButtons={ 
         <>
           <Button onClick={ () => console.log('cancel') }>Reset</Button>
-          <Button onClick={ () => console.log('cancel') }>Other</Button>
+          <Button onClick={ () => console.log('cancel') } ml={2}>Other</Button>
         </> 
       }
     >
@@ -188,14 +188,14 @@ When `buttonAlignment` prop is set as `left`, buttons are aligned to the left si
        leftSideButtons={ 
         <>
           <Button onClick={ () => console.log('cancel') }>Other</Button>
-          <Button onClick={ () => console.log('cancel') }>Cancel</Button>
+          <Button onClick={ () => console.log('cancel') } ml={2}>Cancel</Button>
         </> 
       }
       saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
       rightSideButtons={ 
         <>
           <Button onClick={ () => console.log('cancel') }>Reset</Button>
-          <Button onClick={ () => console.log('cancel') }>Other</Button>
+          <Button onClick={ () => console.log('cancel') } ml={2}>Other</Button>
         </> 
       }
       buttonAlignment='left'

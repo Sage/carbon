@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
-.c3 {
+.c2 {
   display: inline-block;
   position: relative;
   color: #008200;
@@ -9,12 +9,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
 }
 
-.c3:hover {
+.c2:hover {
   color: #006800;
   background-color: transparent;
 }
 
-.c3::before {
+.c2::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -27,763 +27,595 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
-.c4 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c4:hover .c2 {
+.c3:hover .c1 {
   color: #FFFFFF;
 }
 
-.c4 .c2 {
+.c3 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c4 .c2 svg {
+.c3 .c1 svg {
   margin-top: 0;
 }
 
-.c5 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c5:hover .c2 {
+.c4:hover .c1 {
   color: #FFFFFF;
 }
 
-.c5 .c2 {
+.c4 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c5 .c2 svg {
+.c4 .c1 svg {
   margin-top: 0;
 }
 
-.c6 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c6:hover .c2 {
+.c5:hover .c1 {
   color: #FFFFFF;
 }
 
-.c6 .c2 {
+.c5 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c6 .c2 svg {
+.c5 .c1 svg {
   margin-top: 0;
 }
 
-.c7 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c7:hover .c2 {
+.c6:hover .c1 {
   color: #FFFFFF;
 }
 
-.c7 .c2 {
+.c6 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c7 .c2 svg {
+.c6 .c1 svg {
   margin-top: 0;
 }
 
-.c8 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c8:hover .c2 {
+.c7:hover .c1 {
   color: #FFFFFF;
 }
 
-.c8 .c2 {
+.c7 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c8 .c2 svg {
+.c7 .c1 svg {
   margin-top: 0;
 }
 
-.c9 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c9:hover .c2 {
+.c8:hover .c1 {
   color: #FFFFFF;
 }
 
-.c9 .c2 {
+.c8 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c2 svg {
+.c8 .c1 svg {
   margin-top: 0;
 }
 
-.c10 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c10:hover .c2 {
+.c9:hover .c1 {
   color: #FFFFFF;
 }
 
-.c10 .c2 {
+.c9 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c10 .c2 svg {
+.c9 .c1 svg {
   margin-top: 0;
 }
 
-.c11 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c11:hover .c2 {
+.c10:hover .c1 {
   color: #FFFFFF;
 }
 
-.c11 .c2 {
+.c10 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c11 .c2 svg {
+.c10 .c1 svg {
   margin-top: 0;
 }
 
-.c12 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c12:hover .c2 {
+.c11:hover .c1 {
   color: #FFFFFF;
 }
 
-.c12 .c2 {
+.c11 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c12 .c2 svg {
+.c11 .c1 svg {
   margin-top: 0;
 }
 
-.c13 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c13:hover .c2 {
+.c12:hover .c1 {
   color: #FFFFFF;
 }
 
-.c13 .c2 {
+.c12 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c13 .c2 svg {
+.c12 .c1 svg {
   margin-top: 0;
 }
 
-.c14 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c14:hover .c2 {
+.c13:hover .c1 {
   color: #FFFFFF;
 }
 
-.c14 .c2 {
+.c13 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c14 .c2 svg {
+.c13 .c1 svg {
   margin-top: 0;
 }
 
-.c15 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c15:hover .c2 {
+.c14:hover .c1 {
   color: #FFFFFF;
 }
 
-.c15 .c2 {
+.c14 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c15 .c2 svg {
+.c14 .c1 svg {
   margin-top: 0;
 }
 
-.c16 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c16:hover .c2 {
+.c15:hover .c1 {
   color: #FFFFFF;
 }
 
-.c16 .c2 {
+.c15 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c16 .c2 svg {
+.c15 .c1 svg {
   margin-top: 0;
 }
 
-.c17 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c17:hover .c2 {
+.c16:hover .c1 {
   color: #FFFFFF;
 }
 
-.c17 .c2 {
+.c16 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c17 .c2 svg {
+.c16 .c1 svg {
   margin-top: 0;
 }
 
-.c18 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c18:hover .c2 {
+.c17:hover .c1 {
   color: #FFFFFF;
 }
 
-.c18 .c2 {
+.c17 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c18 .c2 svg {
+.c17 .c1 svg {
   margin-top: 0;
 }
 
-.c19 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c19:hover .c2 {
+.c18:hover .c1 {
   color: #FFFFFF;
 }
 
-.c19 .c2 {
+.c18 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c19 .c2 svg {
+.c18 .c1 svg {
   margin-top: 0;
 }
 
-.c20 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c20:hover .c2 {
+.c19:hover .c1 {
   color: #FFFFFF;
 }
 
-.c20 .c2 {
+.c19 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c20 .c2 svg {
+.c19 .c1 svg {
   margin-top: 0;
 }
 
-.c21 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c21:hover .c2 {
+.c20:hover .c1 {
   color: #FFFFFF;
 }
 
-.c21 .c2 {
+.c20 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c21 .c2 svg {
+.c20 .c1 svg {
   margin-top: 0;
 }
 
-.c22 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c22:hover .c2 {
+.c21:hover .c1 {
   color: #FFFFFF;
 }
 
-.c22 .c2 {
+.c21 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c22 .c2 svg {
+.c21 .c1 svg {
   margin-top: 0;
 }
 
-.c23 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c23:hover .c2 {
+.c22:hover .c1 {
   color: #FFFFFF;
 }
 
-.c23 .c2 {
+.c22 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c23 .c2 svg {
+.c22 .c1 svg {
   margin-top: 0;
 }
 
-.c24 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c24:hover .c2 {
+.c23:hover .c1 {
   color: #FFFFFF;
 }
 
-.c24 .c2 {
+.c23 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c24 .c2 svg {
+.c23 .c1 svg {
   margin-top: 0;
 }
 
-.c25 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c25:hover .c2 {
+.c24:hover .c1 {
   color: #FFFFFF;
 }
 
-.c25 .c2 {
+.c24 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c25 .c2 svg {
+.c24 .c1 svg {
   margin-top: 0;
 }
 
-.c26 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c26:hover .c2 {
+.c25:hover .c1 {
   color: #FFFFFF;
 }
 
-.c26 .c2 {
+.c25 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c26 .c2 svg {
+.c25 .c1 svg {
   margin-top: 0;
 }
 
-.c27 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c27:hover .c2 {
+.c26:hover .c1 {
   color: #FFFFFF;
 }
 
-.c27 .c2 {
+.c26 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c27 .c2 svg {
+.c26 .c1 svg {
   margin-top: 0;
 }
 
-.c28 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c28:hover .c2 {
+.c27:hover .c1 {
   color: #FFFFFF;
 }
 
-.c28 .c2 {
+.c27 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c28 .c2 svg {
+.c27 .c1 svg {
   margin-top: 0;
 }
 
-.c29 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c29:hover .c2 {
+.c28:hover .c1 {
   color: #FFFFFF;
 }
 
-.c29 .c2 {
+.c28 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c29 .c2 svg {
+.c28 .c1 svg {
   margin-top: 0;
 }
 
-.c30 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c30:hover .c2 {
+.c29:hover .c1 {
   color: #FFFFFF;
 }
 
-.c30 .c2 {
+.c29 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c30 .c2 svg {
+.c29 .c1 svg {
   margin-top: 0;
 }
 
-.c31 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c31:hover .c2 {
+.c30:hover .c1 {
   color: #FFFFFF;
 }
 
-.c31 .c2 {
+.c30 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c31 .c2 svg {
+.c30 .c1 svg {
   margin-top: 0;
 }
 
-.c32 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c32:hover .c2 {
+.c31:hover .c1 {
   color: #FFFFFF;
 }
 
-.c32 .c2 {
+.c31 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c32 .c2 svg {
+.c31 .c1 svg {
   margin-top: 0;
 }
 
-.c33 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c33:hover .c2 {
+.c32:hover .c1 {
   color: #FFFFFF;
 }
 
-.c33 .c2 {
+.c32 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c33 .c2 svg {
+.c32 .c1 svg {
   margin-top: 0;
 }
 
-.c34 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c34:hover .c2 {
+.c33:hover .c1 {
   color: #FFFFFF;
 }
 
-.c34 .c2 {
+.c33 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c34 .c2 svg {
+.c33 .c1 svg {
   margin-top: 0;
 }
 
-.c35 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c35:hover .c2 {
+.c34:hover .c1 {
   color: #FFFFFF;
 }
 
-.c35 .c2 {
+.c34 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c35 .c2 svg {
+.c34 .c1 svg {
   margin-top: 0;
 }
 
-.c36 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c36:hover .c2 {
+.c35:hover .c1 {
   color: #FFFFFF;
 }
 
-.c36 .c2 {
+.c35 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c36 .c2 svg {
+.c35 .c1 svg {
   margin-top: 0;
 }
 
-.c37 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c37:hover .c2 {
+.c36:hover .c1 {
   color: #FFFFFF;
 }
 
-.c37 .c2 {
+.c36 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c37 .c2 svg {
+.c36 .c1 svg {
   margin-top: 0;
 }
 
-.c38 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c38:hover .c2 {
+.c37:hover .c1 {
   color: #FFFFFF;
 }
 
-.c38 .c2 {
+.c37 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c38 .c2 svg {
+.c37 .c1 svg {
   margin-top: 0;
 }
 
-.c39 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c39:hover .c2 {
+.c38:hover .c1 {
   color: #FFFFFF;
 }
 
-.c39 .c2 {
+.c38 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c39 .c2 svg {
+.c38 .c1 svg {
   margin-top: 0;
 }
 
-.c40 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c40:hover .c2 {
+.c39:hover .c1 {
   color: #FFFFFF;
 }
 
-.c40 .c2 {
+.c39 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c40 .c2 svg {
+.c39 .c1 svg {
   margin-top: 0;
 }
 
-.c41 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c41:hover .c2 {
+.c40:hover .c1 {
   color: #FFFFFF;
 }
 
-.c41 .c2 {
+.c40 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c41 .c2 svg {
+.c40 .c1 svg {
   margin-top: 0;
 }
 
-.c42 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c42:hover .c2 {
+.c41:hover .c1 {
   color: #FFFFFF;
 }
 
-.c42 .c2 {
+.c41 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c42 .c2 svg {
+.c41 .c1 svg {
   margin-top: 0;
 }
 
-.c43 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c43:hover .c2 {
+.c42:hover .c1 {
   color: #FFFFFF;
 }
 
-.c43 .c2 {
+.c42 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c43 .c2 svg {
+.c42 .c1 svg {
   margin-top: 0;
 }
 
-.c44 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c44:hover .c2 {
+.c43:hover .c1 {
   color: #FFFFFF;
 }
 
-.c44 .c2 {
+.c43 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c44 .c2 svg {
+.c43 .c1 svg {
   margin-top: 0;
 }
 
-.c45 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c45:hover .c2 {
+.c44:hover .c1 {
   color: #FFFFFF;
 }
 
-.c45 .c2 {
+.c44 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c45 .c2 svg {
+.c44 .c1 svg {
   margin-top: 0;
 }
 
-.c1 {
+.c0 {
   padding-left: 24px;
   padding-right: 24px;
   -webkit-align-items: center;
@@ -818,36 +650,32 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   min-height: 40px;
 }
 
-.c1:focus {
+.c0:focus {
   outline: solid 3px #FFB500;
 }
 
-.c1 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c1:hover {
+.c0:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c1:hover .c2 {
+.c0:hover .c1 {
   color: #FFFFFF;
 }
 
-.c1 .c2 {
+.c0 .c1 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c1 .c2 svg {
+.c0 .c1 svg {
   margin-top: 0;
 }
 
 <button
-  className="c0 c1"
+  className="c0"
   data-component="button"
   disabled={false}
   role="button"
@@ -862,7 +690,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
     </span>
   </span>
   <span
-    className="c2 c3"
+    className="c1 c2"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -873,7 +701,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 `;
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
-.c3 {
+.c2 {
   display: inline-block;
   position: relative;
   color: #008200;
@@ -881,12 +709,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
 }
 
-.c3:hover {
+.c2:hover {
   color: #006800;
   background-color: transparent;
 }
 
-.c3::before {
+.c2::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -899,7 +727,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
-.c1 {
+.c0 {
   padding-left: 24px;
   padding-right: 24px;
   -webkit-align-items: center;
@@ -934,774 +762,606 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   min-height: 40px;
 }
 
-.c1:focus {
+.c0:focus {
   outline: solid 3px #FFB500;
 }
 
-.c1 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c1:hover {
+.c0:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c1:hover .c2 {
+.c0:hover .c1 {
   color: #FFFFFF;
 }
 
-.c1 .c2 {
+.c0 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c1 .c2 svg {
+.c0 .c1 svg {
   margin-top: 0;
 }
 
-.c4 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c4:hover .c2 {
+.c3:hover .c1 {
   color: #FFFFFF;
 }
 
-.c4 .c2 {
+.c3 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c4 .c2 svg {
+.c3 .c1 svg {
   margin-top: 0;
 }
 
-.c5 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c5:hover .c2 {
+.c4:hover .c1 {
   color: #FFFFFF;
 }
 
-.c5 .c2 {
+.c4 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c5 .c2 svg {
+.c4 .c1 svg {
   margin-top: 0;
 }
 
-.c6 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c6:hover .c2 {
+.c5:hover .c1 {
   color: #FFFFFF;
 }
 
-.c6 .c2 {
+.c5 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c6 .c2 svg {
+.c5 .c1 svg {
   margin-top: 0;
 }
 
-.c7 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c7:hover .c2 {
+.c6:hover .c1 {
   color: #FFFFFF;
 }
 
-.c7 .c2 {
+.c6 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c7 .c2 svg {
+.c6 .c1 svg {
   margin-top: 0;
 }
 
-.c8 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c8:hover .c2 {
+.c7:hover .c1 {
   color: #FFFFFF;
 }
 
-.c8 .c2 {
+.c7 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c8 .c2 svg {
+.c7 .c1 svg {
   margin-top: 0;
 }
 
-.c9 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c9:hover .c2 {
+.c8:hover .c1 {
   color: #FFFFFF;
 }
 
-.c9 .c2 {
+.c8 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c2 svg {
+.c8 .c1 svg {
   margin-top: 0;
 }
 
-.c10 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c10:hover .c2 {
+.c9:hover .c1 {
   color: #FFFFFF;
 }
 
-.c10 .c2 {
+.c9 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c10 .c2 svg {
+.c9 .c1 svg {
   margin-top: 0;
 }
 
-.c11 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c11:hover .c2 {
+.c10:hover .c1 {
   color: #FFFFFF;
 }
 
-.c11 .c2 {
+.c10 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c11 .c2 svg {
+.c10 .c1 svg {
   margin-top: 0;
 }
 
-.c12 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c12:hover .c2 {
+.c11:hover .c1 {
   color: #FFFFFF;
 }
 
-.c12 .c2 {
+.c11 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c12 .c2 svg {
+.c11 .c1 svg {
   margin-top: 0;
 }
 
-.c13 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c13:hover .c2 {
+.c12:hover .c1 {
   color: #FFFFFF;
 }
 
-.c13 .c2 {
+.c12 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c13 .c2 svg {
+.c12 .c1 svg {
   margin-top: 0;
 }
 
-.c14 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c14:hover .c2 {
+.c13:hover .c1 {
   color: #FFFFFF;
 }
 
-.c14 .c2 {
+.c13 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c14 .c2 svg {
+.c13 .c1 svg {
   margin-top: 0;
 }
 
-.c15 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c15:hover .c2 {
+.c14:hover .c1 {
   color: #FFFFFF;
 }
 
-.c15 .c2 {
+.c14 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c15 .c2 svg {
+.c14 .c1 svg {
   margin-top: 0;
 }
 
-.c16 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c16:hover .c2 {
+.c15:hover .c1 {
   color: #FFFFFF;
 }
 
-.c16 .c2 {
+.c15 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c16 .c2 svg {
+.c15 .c1 svg {
   margin-top: 0;
 }
 
-.c17 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c17:hover .c2 {
+.c16:hover .c1 {
   color: #FFFFFF;
 }
 
-.c17 .c2 {
+.c16 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c17 .c2 svg {
+.c16 .c1 svg {
   margin-top: 0;
 }
 
-.c18 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c18:hover .c2 {
+.c17:hover .c1 {
   color: #FFFFFF;
 }
 
-.c18 .c2 {
+.c17 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c18 .c2 svg {
+.c17 .c1 svg {
   margin-top: 0;
 }
 
-.c19 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c19:hover .c2 {
+.c18:hover .c1 {
   color: #FFFFFF;
 }
 
-.c19 .c2 {
+.c18 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c19 .c2 svg {
+.c18 .c1 svg {
   margin-top: 0;
 }
 
-.c20 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c20:hover .c2 {
+.c19:hover .c1 {
   color: #FFFFFF;
 }
 
-.c20 .c2 {
+.c19 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c20 .c2 svg {
+.c19 .c1 svg {
   margin-top: 0;
 }
 
-.c21 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c21:hover .c2 {
+.c20:hover .c1 {
   color: #FFFFFF;
 }
 
-.c21 .c2 {
+.c20 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c21 .c2 svg {
+.c20 .c1 svg {
   margin-top: 0;
 }
 
-.c22 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c22:hover .c2 {
+.c21:hover .c1 {
   color: #FFFFFF;
 }
 
-.c22 .c2 {
+.c21 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c22 .c2 svg {
+.c21 .c1 svg {
   margin-top: 0;
 }
 
-.c23 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c23:hover .c2 {
+.c22:hover .c1 {
   color: #FFFFFF;
 }
 
-.c23 .c2 {
+.c22 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c23 .c2 svg {
+.c22 .c1 svg {
   margin-top: 0;
 }
 
-.c24 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c24:hover .c2 {
+.c23:hover .c1 {
   color: #FFFFFF;
 }
 
-.c24 .c2 {
+.c23 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c24 .c2 svg {
+.c23 .c1 svg {
   margin-top: 0;
 }
 
-.c25 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c25:hover .c2 {
+.c24:hover .c1 {
   color: #FFFFFF;
 }
 
-.c25 .c2 {
+.c24 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c25 .c2 svg {
+.c24 .c1 svg {
   margin-top: 0;
 }
 
-.c26 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c26:hover .c2 {
+.c25:hover .c1 {
   color: #FFFFFF;
 }
 
-.c26 .c2 {
+.c25 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c26 .c2 svg {
+.c25 .c1 svg {
   margin-top: 0;
 }
 
-.c27 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c27:hover .c2 {
+.c26:hover .c1 {
   color: #FFFFFF;
 }
 
-.c27 .c2 {
+.c26 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c27 .c2 svg {
+.c26 .c1 svg {
   margin-top: 0;
 }
 
-.c28 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c28:hover .c2 {
+.c27:hover .c1 {
   color: #FFFFFF;
 }
 
-.c28 .c2 {
+.c27 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c28 .c2 svg {
+.c27 .c1 svg {
   margin-top: 0;
 }
 
-.c29 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c29:hover .c2 {
+.c28:hover .c1 {
   color: #FFFFFF;
 }
 
-.c29 .c2 {
+.c28 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c29 .c2 svg {
+.c28 .c1 svg {
   margin-top: 0;
 }
 
-.c30 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c30:hover .c2 {
+.c29:hover .c1 {
   color: #FFFFFF;
 }
 
-.c30 .c2 {
+.c29 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c30 .c2 svg {
+.c29 .c1 svg {
   margin-top: 0;
 }
 
-.c31 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c31:hover .c2 {
+.c30:hover .c1 {
   color: #FFFFFF;
 }
 
-.c31 .c2 {
+.c30 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c31 .c2 svg {
+.c30 .c1 svg {
   margin-top: 0;
 }
 
-.c32 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c32:hover .c2 {
+.c31:hover .c1 {
   color: #FFFFFF;
 }
 
-.c32 .c2 {
+.c31 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c32 .c2 svg {
+.c31 .c1 svg {
   margin-top: 0;
 }
 
-.c33 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c33:hover .c2 {
+.c32:hover .c1 {
   color: #FFFFFF;
 }
 
-.c33 .c2 {
+.c32 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c33 .c2 svg {
+.c32 .c1 svg {
   margin-top: 0;
 }
 
-.c34 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c34:hover .c2 {
+.c33:hover .c1 {
   color: #FFFFFF;
 }
 
-.c34 .c2 {
+.c33 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c34 .c2 svg {
+.c33 .c1 svg {
   margin-top: 0;
 }
 
-.c35 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c35:hover .c2 {
+.c34:hover .c1 {
   color: #FFFFFF;
 }
 
-.c35 .c2 {
+.c34 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c35 .c2 svg {
+.c34 .c1 svg {
   margin-top: 0;
 }
 
-.c36 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c36:hover .c2 {
+.c35:hover .c1 {
   color: #FFFFFF;
 }
 
-.c36 .c2 {
+.c35 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c36 .c2 svg {
+.c35 .c1 svg {
   margin-top: 0;
 }
 
-.c37 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c37:hover .c2 {
+.c36:hover .c1 {
   color: #FFFFFF;
 }
 
-.c37 .c2 {
+.c36 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c37 .c2 svg {
+.c36 .c1 svg {
   margin-top: 0;
 }
 
-.c38 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c38:hover .c2 {
+.c37:hover .c1 {
   color: #FFFFFF;
 }
 
-.c38 .c2 {
+.c37 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c38 .c2 svg {
+.c37 .c1 svg {
   margin-top: 0;
 }
 
-.c39 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c39:hover .c2 {
+.c38:hover .c1 {
   color: #FFFFFF;
 }
 
-.c39 .c2 {
+.c38 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c39 .c2 svg {
+.c38 .c1 svg {
   margin-top: 0;
 }
 
-.c40 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c40:hover .c2 {
+.c39:hover .c1 {
   color: #FFFFFF;
 }
 
-.c40 .c2 {
+.c39 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c40 .c2 svg {
+.c39 .c1 svg {
   margin-top: 0;
 }
 
-.c41 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c41:hover .c2 {
+.c40:hover .c1 {
   color: #FFFFFF;
 }
 
-.c41 .c2 {
+.c40 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c41 .c2 svg {
+.c40 .c1 svg {
   margin-top: 0;
 }
 
-.c42 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c42:hover .c2 {
+.c41:hover .c1 {
   color: #FFFFFF;
 }
 
-.c42 .c2 {
+.c41 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c42 .c2 svg {
+.c41 .c1 svg {
   margin-top: 0;
 }
 
-.c43 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c43:hover .c2 {
+.c42:hover .c1 {
   color: #FFFFFF;
 }
 
-.c43 .c2 {
+.c42 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c43 .c2 svg {
+.c42 .c1 svg {
   margin-top: 0;
 }
 
-.c44 ~ .c0 {
-  margin-left: 16px;
-}
-
-.c44:hover .c2 {
+.c43:hover .c1 {
   color: #FFFFFF;
 }
 
-.c44 .c2 {
+.c43 .c1 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c44 .c2 svg {
+.c43 .c1 svg {
   margin-top: 0;
 }
 
 <button
-  className="c0 c1"
+  className="c0"
   data-component="button"
   disabled={false}
   role="button"
@@ -1709,7 +1369,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   type="button"
 >
   <span
-    className="c2 c3"
+    className="c1 c2"
     data-component="icon"
     data-element="filter"
     disabled={false}
