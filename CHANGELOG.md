@@ -1,3 +1,16 @@
+## [61.0.0](https://github.com/Sage/carbon/compare/v60.1.0...v61.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** The margin left 16px styling applied to the sibling buttons has been removed. An
+add-prop codemod has been created to help facilitate the adding of the margin left spacing prop and
+the value to the buttons in your project.
+
+### Miscellaneous Chores
+
+* **button:** remove sibling styling for button ([164fab8](https://github.com/Sage/carbon/commit/164fab85185ae5567939d0e5b4360be2837adc01)), closes [#3392](https://github.com/Sage/carbon/issues/3392)
+
 ## [60.1.0](https://github.com/Sage/carbon/compare/v60.0.0...v60.1.0) (2021-01-26)
 
 
