@@ -1,3 +1,12 @@
+## [60.1.0](https://github.com/Sage/carbon/compare/v60.0.0...v60.1.0) (2021-01-26)
+
+
+### Features
+
+* **multi-action-button:** render content in portal ([66d452c](https://github.com/Sage/carbon/commit/66d452c89daaa417ccfdff549ad98f78e35ab965))
+* **split-button:** render content in portal ([fee50f5](https://github.com/Sage/carbon/commit/fee50f5f922f0a84276d8a88ecc1c62a83611c25))
+* add new internal popover component ([de2962b](https://github.com/Sage/carbon/commit/de2962b7acd8237b8365c6404343291a5aae7376))
+
 ## [60.0.0](https://github.com/Sage/carbon/compare/v59.1.0...v60.0.0) (2021-01-26)
 
 

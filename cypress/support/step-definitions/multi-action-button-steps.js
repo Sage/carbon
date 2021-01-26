@@ -4,8 +4,6 @@ import {
 } from '../../locators/multi-action-button';
 import { buttonSubtextPreview } from '../../locators/button';
 
-const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
-
 Then('Multi Action Button text on preview is set to {word}', (text) => {
   multiActionButtonText().should('have.text', text);
 });
@@ -34,6 +32,13 @@ When('I hover on Multi Action Button', () => {
 });
 
 Then('Multi Action Button is expanded and contains three items', () => {
-  multiActionButtonList().should('have.length', 3);
-  multiActionButtonList().invoke('text').should('contain', MULTI_ACTION_BUTTON_INNER_TEXT);
+  multiActionButtonList().eq(0).should('have.text', 'Example Button').and('be.visible');
+  multiActionButtonList().eq(1).should('have.text', 'Example Button with long text').and('be.visible');
+  multiActionButtonList().eq(2).should('have.text', 'Short').and('be.visible');
+});
+
+Then('Multi Action Button in a hidden container is expanded and contains three items', () => {
+  multiActionButtonList().eq(0).should('have.text', 'Button 1').and('be.visible');
+  multiActionButtonList().eq(1).should('have.text', 'Button 2').and('be.visible');
+  multiActionButtonList().eq(2).should('have.text', 'Button 3').and('be.visible');
 });
