@@ -56,14 +56,7 @@ function additionalIconStyle({ iconType }) {
   return "16px;";
 }
 
-function stylingForType({
-  disabled,
-  buttonType,
-  theme,
-  size,
-  destructive,
-  fullWidth,
-}) {
+function stylingForType({ disabled, buttonType, theme, size, destructive }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -72,13 +65,6 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-
-    ${!fullWidth &&
-    css`
-      & ~ & {
-        margin-left: 16px;
-      }
-    `}
 
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
 

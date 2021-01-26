@@ -165,3 +165,7 @@ Then add this to your profile (i.e`~/.zshrc` or `~/.bashrc`) so `gpg-agent` can 
 Then execute this command to sign all of your commits by default:
 
 `$ git config --global commit.gpgsign true`
+
+Restart of gpg-agent may be required. Use the command below to kill it (it will start next time its needed):
+
+`$ gpgconf --kill gpg-agent`

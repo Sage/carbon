@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SplitButton for business themes renders styles correctly 1`] = `
-.c6 {
+.c5 {
   display: inline-block;
   position: relative;
   color: #008200;
@@ -9,12 +9,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   vertical-align: middle;
 }
 
-.c6:hover {
+.c5:hover {
   color: #006800;
   background-color: transparent;
 }
 
-.c6::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -25,24 +25,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   line-height: 16px;
   vertical-align: middle;
   display: block;
-}
-
-.c7 ~ .c1 {
-  margin-left: 16px;
-}
-
-.c7:hover .c5 {
-  color: #FFFFFF;
-}
-
-.c7 .c5 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c7 .c5 svg {
-  margin-top: 0;
 }
 
 .c2 {
@@ -84,27 +66,37 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   outline: solid 3px #FFB500;
 }
 
-.c2 ~ .c1 {
-  margin-left: 16px;
-}
-
 .c2:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c2:hover .c5 {
+.c2:hover .c4 {
   color: #FFFFFF;
 }
 
-.c2 .c5 {
+.c2 .c4 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c2 .c5 svg {
+.c2 .c4 svg {
+  margin-top: 0;
+}
+
+.c6:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c6 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c6 .c4 svg {
   margin-top: 0;
 }
 
@@ -123,7 +115,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin: -1px;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -158,47 +150,96 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   padding: 0 10px;
 }
 
-.c4:focus {
+.c3:focus {
   outline: solid 3px #FFB500;
 }
 
-.c4 ~ .c3 {
-  margin-left: 16px;
-}
-
-.c4:hover {
+.c3:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c4:hover .c5 {
+.c3:hover .c4 {
   color: #FFFFFF;
 }
 
-.c4 .c5 {
+.c3 .c4 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c4 .c5 svg {
+.c3 .c4 svg {
   margin-top: 0;
 }
 
-.c1 + .c4 {
+.c1 + .c3 {
   margin-left: 0;
 }
 
-.c1 + .c4:focus {
+.c1 + .c3:focus {
   margin-left: -3px;
 }
 
-.c1 + .c4 .c5 {
+.c1 + .c3 .c4 {
+  margin-left: 0;
+}
+
+.c7:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c7 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c7 .c4 svg {
+  margin-top: 0;
+}
+
+.c7,
+.c7 .c4 {
+  color: #FFFFFF;
+}
+
+.c1 + .c7 {
+  margin-left: 0;
+}
+
+.c1 + .c7:focus {
+  margin-left: -3px;
+}
+
+.c1 + .c7 .c4 {
   margin-left: 0;
 }
 
 .c8 .c1 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 1000;
+}
+
+.c8 .c1:focus,
+.c8 .c1:hover {
+  background-color: #004500;
+}
+
+.c8 .c1 + .c11 .c1 {
+  margin-top: 3px;
+}
+
+.c9 .c1 {
   background-color: #006046;
   border: 1px solid #006046;
   color: #FFFFFF;
@@ -210,16 +251,16 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 1000;
 }
 
-.c8 .c1:focus,
-.c8 .c1:hover {
+.c9 .c1:focus,
+.c9 .c1:hover {
   background-color: #00402E;
 }
 
-.c8 .c1 + .c10 .c1 {
+.c9 .c1 + .c11 .c1 {
   margin-top: 3px;
 }
 
-.c9 .c1 {
+.c10 .c1 {
   background-color: #005C9A;
   border: 1px solid #005C9A;
   color: #FFFFFF;
@@ -231,12 +272,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 1000;
 }
 
-.c9 .c1:focus,
-.c9 .c1:hover {
+.c10 .c1:focus,
+.c10 .c1:hover {
   background-color: #004472;
 }
 
-.c9 .c1 + .c10 .c1 {
+.c10 .c1 + .c11 .c1 {
   margin-top: 3px;
 }
 
@@ -273,7 +314,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     aria-expanded={false}
     aria-haspopup="true"
     aria-label="Show more"
-    className="c1 c3 c4"
+    className="c1 c3"
     data-element="toggle-button"
     disabled={false}
     onBlur={[Function]}
@@ -284,7 +325,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     size="medium"
   >
     <span
-      className="c5 c6"
+      className="c4 c5"
       data-component="icon"
       data-element="dropdown"
       disabled={false}

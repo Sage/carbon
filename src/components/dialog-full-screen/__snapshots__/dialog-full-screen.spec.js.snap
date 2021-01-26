@@ -6,11 +6,11 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   padding: 0 16px;
 }
 
-.c4 + .c0 {
+.c3 + .c0 {
   height: calc(100% - 0px);
 }
 
-.c2 {
+.c1 {
   padding-left: 24px;
   padding-right: 24px;
   -webkit-align-items: center;
@@ -45,31 +45,27 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   min-height: 40px;
 }
 
-.c2:focus {
+.c1:focus {
   outline: solid 3px #FFB500;
 }
 
-.c2 ~ .c1 {
-  margin-left: 16px;
-}
-
-.c2:hover {
+.c1:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c2:hover .c3 {
+.c1:hover .c2 {
   color: #FFFFFF;
 }
 
-.c2 .c3 {
+.c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c2 .c3 svg {
+.c1 .c2 svg {
   margin-top: 0;
 }
 
@@ -96,7 +92,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   data-element="content"
 >
   <button
-    class="c1 c2"
+    class="c1"
     data-component="button"
     role="button"
     type="button"
@@ -110,7 +106,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
     </span>
   </button>
   <button
-    class="c1 c2"
+    class="c1"
     data-component="button"
     role="button"
     type="button"

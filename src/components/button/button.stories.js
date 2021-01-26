@@ -83,6 +83,7 @@ export const asASibling = () => {
           renderRouterLink={(routerProps) => (
             <RouterLink {...routerProps} style={{ textDecoration: "none" }} />
           )}
+          ml={2}
         >
           {children}
         </Button>
@@ -101,7 +102,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}`}
               >
-                <Button key="basic" size={size} {...props}>
+                <Button key="basic" size={size} {...props} ml={2}>
                   {size}
                 </Button>
                 {size === "large" && (
@@ -110,6 +111,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                     size={size}
                     subtext="line two"
                     {...props}
+                    ml={2}
                   >
                     {size}
                   </Button>
@@ -120,7 +122,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}-destructive`}
               >
-                <Button key="basic" size={size} destructive {...props}>
+                <Button key="basic" size={size} destructive {...props} ml={2}>
                   {size}
                 </Button>
                 {size === "large" && (
@@ -130,6 +132,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                     destructive
                     subtext="line two"
                     {...props}
+                    ml={2}
                   >
                     {size}
                   </Button>
@@ -140,7 +143,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}-disabled`}
               >
-                <Button key="basic" size={size} disabled {...props}>
+                <Button key="basic" size={size} disabled {...props} ml={2}>
                   {size}
                 </Button>
                 {size === "large" && (
@@ -150,6 +153,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                     disabled
                     subtext="line two"
                     {...props}
+                    ml={2}
                   >
                     {size}
                   </Button>
@@ -191,7 +195,7 @@ export const fullWidthButtons = () => {
           <React.Fragment key={`${buttonType}-${buttonType}`}>
             {OptionsHelper.sizesRestricted.map((size) => (
               <React.Fragment key={`${buttonType}-${buttonType}-${size}`}>
-                <Button key="basic" size={size} {...props}>
+                <Button key="basic" size={size} {...props} ml={2}>
                   {size}
                 </Button>
                 <Button key="basic-icon" size={size} {...props} iconType="bin">
@@ -203,6 +207,7 @@ export const fullWidthButtons = () => {
                   {...props}
                   iconType="bin"
                   iconPosition="after"
+                  ml={2}
                 >
                   {size}
                 </Button>
@@ -213,6 +218,7 @@ export const fullWidthButtons = () => {
                       size={size}
                       subtext="line two"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -222,6 +228,7 @@ export const fullWidthButtons = () => {
                       subtext="line two"
                       iconType="bin"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -232,6 +239,7 @@ export const fullWidthButtons = () => {
                       iconType="bin"
                       iconPosition="after"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -243,7 +251,7 @@ export const fullWidthButtons = () => {
               <React.Fragment
                 key={`${buttonType}-${buttonType}-${size}-destructive`}
               >
-                <Button key="basic" size={size} destructive {...props}>
+                <Button key="basic" size={size} destructive {...props} ml={2}>
                   {size}
                 </Button>
                 <Button
@@ -252,6 +260,7 @@ export const fullWidthButtons = () => {
                   destructive
                   iconType="bin"
                   {...props}
+                  ml={2}
                 >
                   {size}
                 </Button>
@@ -273,6 +282,7 @@ export const fullWidthButtons = () => {
                       destructive
                       subtext="line two"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -283,6 +293,7 @@ export const fullWidthButtons = () => {
                       subtext="line two"
                       iconType="bin"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -294,6 +305,7 @@ export const fullWidthButtons = () => {
                       iconType="bin"
                       iconPosition="after"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -305,7 +317,7 @@ export const fullWidthButtons = () => {
               <React.Fragment
                 key={`${buttonType}-${buttonType}-${size}-disabled`}
               >
-                <Button key="basic" size={size} disabled {...props}>
+                <Button key="basic" size={size} disabled {...props} ml={2}>
                   {size}
                 </Button>
                 <Button
@@ -324,6 +336,7 @@ export const fullWidthButtons = () => {
                   iconType="bin"
                   iconPosition="after"
                   {...props}
+                  ml={2}
                 >
                   {size}
                 </Button>
@@ -335,6 +348,7 @@ export const fullWidthButtons = () => {
                       disabled
                       subtext="line two"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -345,6 +359,7 @@ export const fullWidthButtons = () => {
                       subtext="line two"
                       iconType="bin"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>
@@ -356,6 +371,7 @@ export const fullWidthButtons = () => {
                       iconType="bin"
                       iconPosition="after"
                       {...props}
+                      ml={2}
                     >
                       {size}
                     </Button>

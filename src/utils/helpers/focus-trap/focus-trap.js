@@ -33,7 +33,7 @@ function trap(firstFocusableElement, lastFocusableElement, bespokeTrap, ev) {
 
 // eslint-disable-next-line max-len
 const defaultFocusableSelectors =
-  'button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
+  'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const focusTrap = (
   element,
