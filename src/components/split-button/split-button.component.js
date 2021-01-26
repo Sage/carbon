@@ -8,6 +8,9 @@ import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import { validProps } from "../../utils/ether/ether";
 import Events from "../../utils/helpers/events";
 import guid from "../../utils/helpers/guid";
+import Popover from "../../__internal__/popover";
+
+const CONTENT_WIDTH_RATIO = 0.75;
 
 class SplitButton extends Component {
   constructor(props) {
@@ -18,13 +21,15 @@ class SplitButton extends Component {
     this.isToggleButtonFocused = false;
     this.userInputType =
       "ontouchstart" in document.documentElement ? "touchstart" : "click";
+
+    this.splitButtonNode = React.createRef();
+    this.buttonContainer = React.createRef();
   }
 
   state = {
     showAdditionalButtons: false,
+    minWidth: 0,
   };
-
-  splitButtonNode = React.createRef();
 
   focusToggleButton = () => {
     this.isToggleButtonFocused = true;
@@ -33,7 +38,12 @@ class SplitButton extends Component {
 
   showButtons = () => {
     document.addEventListener(this.userInputType, this.handleClickOutside);
-    this.setState({ showAdditionalButtons: true });
+    this.setState({
+      showAdditionalButtons: true,
+      minWidth:
+        CONTENT_WIDTH_RATIO *
+        this.splitButtonNode.current.getBoundingClientRect().width,
+    });
 
     if (!this.listening) {
       document.addEventListener("keydown", this.handleKeyDown);
@@ -53,8 +63,12 @@ class SplitButton extends Component {
     }
   };
 
-  handleClickOutside = (ev) => {
-    if (!this.splitButtonNode.current.contains(ev.target)) {
+  handleClickOutside = ({ target }) => {
+    if (
+      !this.splitButtonNode.current.contains(target) &&
+      this.buttonContainer.current &&
+      !this.buttonContainer.current.contains(target)
+    ) {
       this.hideButtons();
     }
   };
@@ -198,14 +212,18 @@ class SplitButton extends Component {
     if (!this.state.showAdditionalButtons) return null;
 
     return (
-      <StyledSplitButtonChildrenContainer
-        role="menu"
-        aria-label={this.props.text}
-        data-element="additional-buttons"
-        align={this.props.align}
-      >
-        {children}
-      </StyledSplitButtonChildrenContainer>
+      <Popover placement="bottom-end" reference={this.splitButtonNode}>
+        <StyledSplitButtonChildrenContainer
+          role="menu"
+          aria-label={this.props.text}
+          data-element="additional-buttons"
+          align={this.props.align}
+          minWidth={this.state.minWidth}
+          ref={this.buttonContainer}
+        >
+          {children}
+        </StyledSplitButtonChildrenContainer>
+      </Popover>
     );
   }
 
