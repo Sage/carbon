@@ -132,6 +132,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
+      | Content   |
       | Loader    |
       | Pager     |
       | Search    |

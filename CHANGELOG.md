@@ -1,3 +1,16 @@
+## [60.0.0](https://github.com/Sage/carbon/compare/v59.1.0...v60.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **content:** prop `as` has been replaced with `variant` as `as` prop is reserved for Styled Components.
+To update your code you can use the following codemod
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+
+### Code Refactoring
+
+* **content:** update to be functional ([93c4e86](https://github.com/Sage/carbon/commit/93c4e8645867e529941b62ba5a0b16d24601f867))
+
 ## [59.1.0](https://github.com/Sage/carbon/compare/v59.0.2...v59.1.0) (2021-01-25)
 
 
