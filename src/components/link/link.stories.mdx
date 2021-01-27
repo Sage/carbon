@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import LinkTo from "@storybook/addon-links/react";
 import Link, { InternalLink } from "./link.component";
 
 <Meta title="Link" parameters={{ info: { disable: true } }} />
@@ -7,6 +8,8 @@ import Link, { InternalLink } from "./link.component";
 # Link
 
 Navigates the user to another location.
+
+To use `Link` with a routing library see our documentation on this here: <LinkTo kind='Documentation/Usage with routing'>Usage with routing</LinkTo>
 
 Avoid using links for commands (performing an action like saving a form) - use them for navigating the user to a new location.
 If you’re navigating the user away from your site, consider using an icon after the link, and open the link in a new window, so the user doesn’t lose their place.
@@ -106,7 +109,7 @@ A custom `onClick` function can be passed to the Link component to render it as 
 
 ### Target
 
-Use the `target` prop to modify the behaviour when the Link component is clicked. In this example, target has been assigned '\_blank'.
+Use the `target` prop to modify the behaviour when the Link component is clicked. In this example, target has been assigned `_blank`.
 
 <Preview>
   <Story name="with Target" parameters={{ chromatic: { disable: true } }}>
