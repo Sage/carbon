@@ -1,3 +1,12 @@
+## [61.1.0](https://github.com/Sage/carbon/compare/v61.0.1...v61.1.0) (2021-01-27)
+
+
+### Features
+
+* **filterable-select:** implement object id property comparison ([a2bd662](https://github.com/Sage/carbon/commit/a2bd662ec3e7e8394569eec2d3f51ba28e5f7994))
+* **multi-select:** implement object id property comparison ([e68aa57](https://github.com/Sage/carbon/commit/e68aa57abbe2fd26de83f1c6c7e2092bbcf04b77))
+* **select:** implement object id property comparison ([32026b3](https://github.com/Sage/carbon/commit/32026b3a61a776ad2e76f8b941f7faeafccd01e9))
+
 ### [61.0.1](https://github.com/Sage/carbon/compare/v61.0.0...v61.0.1) (2021-01-26)
 
 
