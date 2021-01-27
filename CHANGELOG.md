@@ -1,3 +1,10 @@
+### [61.0.1](https://github.com/Sage/carbon/compare/v61.0.0...v61.0.1) (2021-01-26)
+
+
+### Bug Fixes
+
+* **sidebar:** disable scroll on document if sidebar is open ([738304a](https://github.com/Sage/carbon/commit/738304ac4452a274d8b57d126b20d7d4a206a2ec)), closes [#3541](https://github.com/Sage/carbon/issues/3541)
+
 ## [61.0.0](https://github.com/Sage/carbon/compare/v60.1.0...v61.0.0) (2021-01-26)
 
 
