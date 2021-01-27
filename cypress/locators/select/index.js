@@ -18,7 +18,6 @@ export const selectOption = index => cy.get(SELECT_OPTIONS).eq(index);
 export const dropdownButton = () => cy.get(DROPDOWN_BUTTON);
 export const simpleSelectNoIframe = () => cy.get(SELECT_BASIC);
 
-
 // component preview locators into iFrame
 export const simpleSelectIframe = () => cy.iFrame(SELECT_BASIC);
 export const dropdownButtonInIframe = () => cy.iFrame(DROPDOWN_BUTTON);

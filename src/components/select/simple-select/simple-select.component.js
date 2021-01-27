@@ -16,7 +16,7 @@ import SelectTextbox, {
 import SelectList from "../select-list/select-list.component";
 import guid from "../../../utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import Option from "../option/option.component";
+import isExpectedOption from "../utils/is-expected-option";
 
 const SimpleSelect = React.forwardRef(
   (
@@ -79,8 +79,8 @@ const SimpleSelect = React.forwardRef(
 
     const setMatchingText = useCallback(
       (newValue) => {
-        const matchingOption = childOptions.find(
-          (child) => child.type === Option && child.props.value === newValue
+        const matchingOption = childOptions.find((child) =>
+          isExpectedOption(child, newValue)
         );
         let newText = "";
 
@@ -96,9 +96,9 @@ const SimpleSelect = React.forwardRef(
     const selectValueStartingWithText = useCallback(
       (newFilterText) => {
         setSelectedValue((previousValue) => {
-          const previousIndex = childOptions.findIndex((child) => {
-            return child.props.value === previousValue;
-          });
+          const previousIndex = childOptions.findIndex((child) =>
+            isExpectedOption(child, previousValue)
+          );
           const match = getNextChildByText(
             newFilterText,
             childOptions,

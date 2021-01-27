@@ -29,9 +29,9 @@ export interface MultiSelectProps {
   /** Placeholder string to be displayed in input */
   placeholder?: string;
   /** The selected value(s), when the component is operating in controlled mode */
-  value?: string | object;
+  value?: string[] | object[];
   /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue?: string | object;
+  defaultValue?: string[] | object[];
   /** Child components (such as Option) for the SelectList */
   children: Array<typeof Option>;
   /** If true the Component opens on focus */
