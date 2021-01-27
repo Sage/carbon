@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   return (
     <Dl data-component="definition-list">
       <Dt>Name</Dt>
@@ -30,7 +30,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: false,

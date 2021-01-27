@@ -20,13 +20,13 @@ import Tooltip from "carbon-react/lib/components/tooltip";
 ```
 
 ### Basic usage
-To use the Tooltip, pass in the component you want it to display on in via the `children` prop, any component passed in 
-must support `forwardRef`. By default the Tooltip does not need to be controlled and will display when the target element 
-is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the 
+To use the Tooltip, pass in the component you want it to display on in via the `children` prop, any component passed in
+must support `forwardRef`. By default the Tooltip does not need to be controlled and will display when the target element
+is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the
 tooltip and it and the `children` prop are required.
 
 <Preview>
-  <Story name="basic">
+  <Story name="default">
     {() => {
       const Component = forwardRef(({ children }, ref) => (
         <button

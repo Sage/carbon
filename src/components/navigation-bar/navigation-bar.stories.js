@@ -17,13 +17,14 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text("children", "Example content");
 
   return <NavigationBar>{children}</NavigationBar>;
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

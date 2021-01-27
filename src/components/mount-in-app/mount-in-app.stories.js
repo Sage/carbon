@@ -15,7 +15,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   return (
     <div>
       <div id="carbon-demo">Some content to be replaced.</div>
@@ -26,7 +26,8 @@ export const basic = () => {
   );
 };
 
-basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

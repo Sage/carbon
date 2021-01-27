@@ -32,3 +32,12 @@ export const Default = () => {
     </SettingsRow>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

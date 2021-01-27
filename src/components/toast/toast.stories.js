@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   const onDismissClick = (evt) => {
     setIsOpen(!isOpen);
@@ -47,7 +47,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

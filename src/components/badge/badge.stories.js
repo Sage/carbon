@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const counter = number("counter", 1);
   const handleClick = () => {
     action("click")();
@@ -32,7 +32,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

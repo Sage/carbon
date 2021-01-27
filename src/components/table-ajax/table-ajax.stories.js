@@ -71,3 +71,12 @@ export const Default = () => {
     </TableAjax>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

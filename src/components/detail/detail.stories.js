@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const icon = select("icon", [null, ...OptionsHelper.icons], null);
   const footnote = text("footnote", "This detail may require a footnote.");
   const children = text("children", "An example of a detail.");
@@ -29,7 +29,8 @@ export const basic = () => {
   );
 };
 
-basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

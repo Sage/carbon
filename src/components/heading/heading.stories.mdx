@@ -13,7 +13,7 @@ import Button from '../button/button.component';
 # Heading
 A standard page or section header, with a range of options, such as a help link presented as an icon, a sub-heading, a 'Back' icon, and visual dividers and separators.
 
-Make sure that the colour of all text has a contrast ratio of at least 4.5.1, 
+Make sure that the colour of all text has a contrast ratio of at least 4.5.1,
 to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard") for text less than 19px in size. 
 Webaim have a good online Contrast Checker.
 
@@ -30,7 +30,7 @@ const MyComponent = () => (
 
 ### Default
 <Preview>
-  <Story name="Default">
+  <Story name="default">
     <Heading title='This is a Title' />
   </Story>
 </Preview>
@@ -85,13 +85,13 @@ In this example, the Heading component has the Tile component and the Definition
           <Dd mb='4px'>Madness,</Dd>
           <Dd mb='4px'>CO4 3VE</Dd>
           <Dd>
-            <Button 
-              buttonType='tertiary' 
-              iconType="link" 
+            <Button
+              buttonType='tertiary'
+              iconType="link"
               iconPosition="after"
               href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
               View in Google Maps
-            </Button> 
+            </Button>
           </Dd>
         </Dl>
       </Tile>
@@ -103,10 +103,10 @@ In this example, the Heading component has the Tile component and the Definition
 <Preview>
   <Story name="with help">
     <div style={{ margin: '16px' }}>
-      <Heading 
-        title='This is a Title' 
-        subheader='This is a subheader' 
-        help='This should be helpful' 
+      <Heading
+        title='This is a Title'
+        subheader='This is a subheader'
+        help='This should be helpful'
       />
     </div>
   </Story>
@@ -116,11 +116,11 @@ In this example, the Heading component has the Tile component and the Definition
 <Preview>
   <Story name="with help link">
     <div style={{ margin: '16px' }}>
-      <Heading 
-        title='This is a Title' 
-        subheader='This is a subheader' 
+      <Heading
+        title='This is a Title'
+        subheader='This is a subheader'
         help='This should be helpful'
-        helpLink='https://carbon.sage.com' 
+        helpLink='https://carbon.sage.com'
       />
     </div>
   </Story>
@@ -129,9 +129,9 @@ In this example, the Heading component has the Tile component and the Definition
 ### Heading with Back Link
 <Preview>
   <Story name="with back link">
-    <Heading 
-      title='This is a Title' 
-      subheader='This is a subheader' 
+    <Heading
+      title='This is a Title'
+      subheader='This is a subheader'
       backLink='https://carbon.sage.com'
     />
   </Story>

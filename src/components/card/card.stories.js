@@ -54,3 +54,12 @@ export const Default = () => {
     </Card>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const props = {
     disabled: boolean("disabled", false),
     hidden: boolean("hidden", false),
@@ -43,8 +43,8 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  name: "Basic",
+Default.story = {
+  name: "default",
   parameters: {
     info: { disable: true },
     docs: {

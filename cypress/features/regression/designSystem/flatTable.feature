@@ -35,7 +35,7 @@ Feature: Design Systems FlatTable component
     Examples:
       | position | headerName |
       | first    | Client     |
-      | second   | total      | 
+      | second   | total      |
 
   @positive
   Scenario Outline: <headerName> flat table header has focus
@@ -86,16 +86,16 @@ Feature: Design Systems FlatTable component
       | headerName | position |
       | Client     | first    |
       | total      | second   |
-    
+
   @positive
   Scenario: Row is highlightable and all the elements are highlighted
     Given I open "Design System Flat Table" component page "highlightable rows" in no iframe
-    When I click on the first row 
+    When I click on the first row
     Then The whole row is highlighted
 
   @positive
   Scenario Outline: Change caption label to <caption>
-    When I open basic "Design System Flat Table Test" component in noIFrame with "flatTable" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Design System Flat Table Test" component in noIFrame with "flatTable" json from "designSystem" using "<nameOfObject>" object name
     Then Flat table caption is set to <caption>
     Examples:
       | caption                      | nameOfObject            |

@@ -7,7 +7,7 @@ import {
 } from './locators';
 
 // component preview locators
-export const popoverSettingsIconBasic = () => cy.get(POPOVER_CONTAINER_DATA_COMPONENT);
+export const popoverSettingsIcon = () => cy.get(POPOVER_CONTAINER_DATA_COMPONENT);
 export const popoverSettingsIconRightAligned = () => cy.get(POPOVER_CONTAINER_DATA_COMPONENT);
 export const popoverSettingsIconCover = () => cy.get(POPOVER_SETTINGS_ICON);
 export const popoverContainerContent = () => cy.get(POPOVER_CONTAINER_CONTENT);

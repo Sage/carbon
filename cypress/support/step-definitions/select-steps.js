@@ -28,7 +28,7 @@ When('I focus select input', () => {
   simpleSelectID().focus();
 });
 
-When('I focus basic Select input', () => {
+When('I focus default Select input', () => {
   simpleSelectIframe().focus();
 });
 
@@ -70,7 +70,7 @@ When('I click on Select input', () => {
   simpleSelectID().click();
 });
 
-When('I click on basic Select input', () => {
+When('I click on default Select input', () => {
   simpleSelectIframe().click();
 });
 
@@ -86,7 +86,7 @@ When('I click onto controlled select using {string} key', (key) => {
   simpleSelectID().trigger('keydown', keyCode(key));
 });
 
-When('I click onto basic select using {string} key', (key) => {
+When('I click onto default select using {string} key', (key) => {
   simpleSelectIframe().trigger('keydown', keyCode(key));
 });
 
@@ -126,7 +126,7 @@ When('Type {string} text into multi select input and select the value', (text) =
   simpleSelectID().type(`${text}{downarrow}{enter}`);
 });
 
-When('I type {string} into basic input', (text) => {
+When('I type {string} into default input', (text) => {
   simpleSelectIframe().type(text);
 });
 

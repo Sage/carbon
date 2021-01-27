@@ -2,7 +2,7 @@ import {
   popoverContainerContent,
   popoverContainerTitle,
   popoverContainerContentSecondInnerElement,
-  popoverSettingsIconBasic,
+  popoverSettingsIcon,
   popoverCloseIcon,
   popoverSettingsIconRightAligned,
   popoverSettingsIconCover,
@@ -11,7 +11,7 @@ import {
 import { keyCode } from '../helper';
 
 When('I open popover container', () => {
-  popoverSettingsIconBasic().click();
+  popoverSettingsIcon().click();
 });
 
 When('I open popover container in open component', () => {
@@ -20,7 +20,7 @@ When('I open popover container in open component', () => {
 
 Then('Popover container is visible', () => {
   popoverContainerContent().should('exist');
-  popoverSettingsIconBasic().should('exist');
+  popoverSettingsIcon().should('exist');
   popoverContainerContent().should('be.visible');
   popoverContainerContent().should('have.css', 'background-color', 'rgb(255, 255, 255)')
     .and('have.css', 'box-shadow', 'rgba(0, 20, 29, 0.2) 0px 5px 5px 0px, rgba(0, 20, 29, 0.1) 0px 10px 10px 0px')
@@ -48,7 +48,7 @@ Then('Popover title on preview is set to {word}', (title) => {
 
 Then('opening icon is on the {string} side', (side) => {
   if (side === 'left') {
-    popoverSettingsIconBasic().parent().should('not.have.css', 'float', 'right');
+    popoverSettingsIcon().parent().should('not.have.css', 'float', 'right');
   } else {
     popoverSettingsIconRightAligned().parent().should('have.css', 'float', 'right');
     popoverSettingsIconRightAligned().children().should('have.attr', 'aria-label', 'Right Aligned');
@@ -57,8 +57,8 @@ Then('opening icon is on the {string} side', (side) => {
 
 Then('Popover component is opened the {string} side', (side) => {
   if (side === 'left') {
-    popoverSettingsIconBasic().click();
-    popoverSettingsIconBasic().should('have.css', 'right', '0px');
+    popoverSettingsIcon().click();
+    popoverSettingsIcon().should('have.css', 'right', '0px');
   } else {
     popoverSettingsIconRightAligned().click();
     popoverSettingsIconRightAligned().should('have.css', 'right', '0px');
@@ -70,7 +70,7 @@ Then('Popover container is not visible', () => {
 });
 
 When('I click onto popover setting icon using {string} key', (key) => {
-  popoverSettingsIconBasic().trigger('keydown', keyCode(key));
+  popoverSettingsIcon().trigger('keydown', keyCode(key));
 });
 
 Then('I press onto closeIcon using {string} key', (key) => {

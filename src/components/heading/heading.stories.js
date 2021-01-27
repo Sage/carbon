@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const title = text("title", "This is a heading");
   const children = text("children", "This is content beneath a heading");
   const subheader = text("subheader", "This is a subheading");
@@ -41,7 +41,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

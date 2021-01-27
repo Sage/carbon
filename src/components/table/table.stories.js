@@ -94,3 +94,12 @@ export const DefaultWithInputs = () => {
 
   return <TableWrapper {...tableProps} />;
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

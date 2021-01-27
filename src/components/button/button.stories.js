@@ -399,6 +399,7 @@ export default {
 };
 
 primaryButtonsIconsBefore.story = {
+  name: "primary buttons icons before",
   parameters: {
     chromatic: {
       disable: false,
@@ -407,6 +408,7 @@ primaryButtonsIconsBefore.story = {
 };
 
 primaryButtonsIconsAfter.story = {
+  name: "primary buttons icons after",
   parameters: {
     chromatic: {
       disable: false,
@@ -415,6 +417,7 @@ primaryButtonsIconsAfter.story = {
 };
 
 secondaryButtonsIconsBefore.story = {
+  name: "secondary buttons icons before",
   parameters: {
     chromatic: {
       disable: false,
@@ -423,6 +426,7 @@ secondaryButtonsIconsBefore.story = {
 };
 
 secondaryButtonsIconsAfter.story = {
+  name: "secondary buttons icons after",
   parameters: {
     chromatic: {
       disable: false,
@@ -431,6 +435,7 @@ secondaryButtonsIconsAfter.story = {
 };
 
 tertiaryButtonsIconsBefore.story = {
+  name: "tertiary buttons icons before",
   parameters: {
     chromatic: {
       disable: false,
@@ -439,6 +444,7 @@ tertiaryButtonsIconsBefore.story = {
 };
 
 tertiaryButtonsIconsAfter.story = {
+  name: "tertiary buttons icons after",
   parameters: {
     chromatic: {
       disable: false,
@@ -447,6 +453,7 @@ tertiaryButtonsIconsAfter.story = {
 };
 
 dashedButtonsIconsBefore.story = {
+  name: "dashed buttons icons before",
   parameters: {
     chromatic: {
       disable: false,
@@ -455,6 +462,7 @@ dashedButtonsIconsBefore.story = {
 };
 
 dashedButtonsIconsAfter.story = {
+  name: "dashed buttons icons after",
   parameters: {
     chromatic: {
       disable: false,
@@ -463,6 +471,7 @@ dashedButtonsIconsAfter.story = {
 };
 
 darkBackgroundButtonsIconsBefore.story = {
+  name: "darkBackground buttons icons before",
   parameters: {
     chromatic: {
       disable: false,
@@ -471,6 +480,7 @@ darkBackgroundButtonsIconsBefore.story = {
 };
 
 darkBackgroundButtonsIconsAfter.story = {
+  name: "darkBackground buttons icons after",
   parameters: {
     chromatic: {
       disable: false,
@@ -479,6 +489,7 @@ darkBackgroundButtonsIconsAfter.story = {
 };
 
 asASibling.story = {
+  name: "as a sibling",
   parameters: {
     chromatic: {
       disable: true,
@@ -488,6 +499,7 @@ asASibling.story = {
 };
 
 knobs.story = {
+  name: "knobs",
   parameters: {
     chromatic: {
       disable: true,
@@ -497,6 +509,7 @@ knobs.story = {
 };
 
 fullWidthButtons.story = {
+  name: "full width buttons",
   parameters: {
     chromatic: {
       disable: false,

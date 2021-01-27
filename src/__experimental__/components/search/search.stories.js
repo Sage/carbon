@@ -25,7 +25,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [value, setValue] = useState("");
 
   const handleChange = (ev) => {
@@ -58,7 +58,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,
