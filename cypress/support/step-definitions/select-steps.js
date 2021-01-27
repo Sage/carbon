@@ -19,7 +19,7 @@ import {
   selectListText,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
-import { label } from '../../locators';
+import { label, getDataElementByValue } from '../../locators';
 import { dataComponentButtonByTextNoIFrame } from '../../locators/pages';
 import { loader } from '../../locators/loader';
 
@@ -184,4 +184,8 @@ Then('visible options on Select list are {string}, {string}, {string}', (firstTe
     .and('be.visible');
   selectOption(positionOfElement('third')).should('have.text', thirdText)
     .and('be.visible');
+});
+
+Then('Select input has {string} value', (text) => {
+  getDataElementByValue('input').should('have.attr', 'value', text);
 });

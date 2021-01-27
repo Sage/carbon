@@ -77,3 +77,16 @@ Feature: Design System Select component
     When I scroll to the "bottom" of Select List
     Then Lazy loading is visible
       And Select list "Lazy Loaded A1" option is visible
+
+  @positive
+  Scenario: Check that using an object as a value displays the correct options
+    Given I open "Design System Select" component page "with object as value" in no iframe
+    When I click on dropdown button
+    Then visible options on Select list are "Amber", "Black", "Blue"
+
+  @positive
+  Scenario: Check that options can be selected and displayed correctly when using an object as a value
+    Given I open "Design System Select" component page "with object as value" in no iframe
+     And I click on dropdown button
+    When I click on "first" option on Select list
+    Then Select input has "Amber" value

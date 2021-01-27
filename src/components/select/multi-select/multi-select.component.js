@@ -11,6 +11,8 @@ import StyledMultiSelect, {
   StyledSelectPillContainer,
 } from "./multi-select.style";
 import Pill from "../../pill";
+import isExpectedOption from "../utils/is-expected-option";
+import isExpectedValue from "../utils/is-expected-value";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -154,19 +156,20 @@ const MultiSelect = React.forwardRef(
       }
 
       return selectedValue.map((singleValue, index) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (option) => option.props.value === singleValue
+        const matchingOption = React.Children.toArray(children).find((child) =>
+          isExpectedOption(child, singleValue)
         );
+        const matchingOptionText = matchingOption.props.text;
 
         return (
-          <StyledSelectPillContainer key={singleValue}>
+          <StyledSelectPillContainer key={matchingOptionText}>
             <Pill
               onDelete={
                 canDelete ? () => removeSelectedValue(index) : undefined
               }
-              title={matchingOption.props.text}
+              title={matchingOptionText}
             >
-              {matchingOption.props.text}
+              {matchingOptionText}
             </Pill>
           </StyledSelectPillContainer>
         );
@@ -277,7 +280,10 @@ const MultiSelect = React.forwardRef(
     function handleTextboxMouseDown(event) {
       isMouseDownReported.current = true;
 
-      if (event.target.attributes["data-element"].value === "input") {
+      if (
+        event.target.attributes["data-element"] &&
+        event.target.attributes["data-element"].value === "input"
+      ) {
         isMouseDownOnInput.current = true;
       }
     }
@@ -333,8 +339,11 @@ const MultiSelect = React.forwardRef(
         setSelectedValue((previousValue) => {
           textboxRef.focus();
           isMouseDownReported.current = false;
+          const isAlreadySelected =
+            previousValue.findIndex((val) => isExpectedValue(val, newValue)) !==
+            -1;
 
-          if (previousValue.findIndex((val) => val === newValue) !== -1) {
+          if (isAlreadySelected) {
             return previousValue;
           }
 
@@ -349,6 +358,7 @@ const MultiSelect = React.forwardRef(
           return valueList;
         });
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [createCustomEvent, onChange, textboxRef]
     );
 
@@ -471,9 +481,15 @@ MultiSelect.propTypes = {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
   disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
-  value: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
   /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue: PropTypes.arrayOf(PropTypes.string),
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
   /** Child components (such as Option) for the SelectList */
   children: PropTypes.node.isRequired,
   /** A custom callback for when the dropdown menu opens */

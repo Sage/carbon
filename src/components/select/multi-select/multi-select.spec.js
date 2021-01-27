@@ -220,7 +220,9 @@ describe("MultiSelect", () => {
           const wrapper = renderSelect({ defaultValue: ["opt2", "opt1"] });
           wrapper.find("input").simulate("change", changeEventObject);
 
-          wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
+          act(() => {
+            wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
+          });
           expect(wrapper.update().find(Pill)).toHaveLength(3);
           wrapper.find("input").simulate("keyDown", keyDownEventObject);
           expect(wrapper.find(Pill)).toHaveLength(2);
@@ -546,6 +548,30 @@ describe("MultiSelect", () => {
             openOnFocus: true,
             defaultValue: ["opt1"],
           });
+
+          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find(Option).first().simulate("click");
+          });
+          expect(onChangeFn).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("and that Option value is an object and it is already selected", () => {
+        it("then that prop should not be called", () => {
+          const onChangeFn = jest.fn();
+          const wrapper = mount(
+            <MultiSelect
+              name="testSelect"
+              id="testSelect"
+              openOnFocus
+              defaultValue={[{ id: "id1", value: "opt1" }]}
+            >
+              <Option value={{ id: "id1", value: "opt1" }} text="red" />
+              <Option value={{ id: "id2", value: "opt2" }} text="green" />
+              <Option value={{ id: "id3", value: "opt3" }} text="blue" />
+            </MultiSelect>
+          );
 
           wrapper.find("input").simulate("focus");
           act(() => {
