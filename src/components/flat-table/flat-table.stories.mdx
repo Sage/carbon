@@ -271,10 +271,8 @@ Column width can be set by passing number as a `width` prop to the column header
         return rows.slice(start, end);
       };
       const handlePagination = (newPage, newPageSize) => {
-        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
-        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
-        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
-        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
         setRecordsRange({ start, end });
         setCurrentPage(newPage);
       };
@@ -733,10 +731,8 @@ Balance performance concerns with the convenience of the user being able to see 
         return rows.slice(start, end);
       };
       const handlePagination = (newPage, newPageSize) => {
-        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
-        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
-        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
-        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
         setRecordsRange({ start, end });
         setCurrentPage(newPage);
       };
@@ -919,10 +915,8 @@ of the button control.
         return rows.slice(start, end);
       };
       const handlePagination = (newPage, newPageSize) => {
-        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
-        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
-        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
-        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
         setPlacementUp(newPageSize !== 1);
         setRecordsRange({ start, end });
         setCurrentPage(newPage);
