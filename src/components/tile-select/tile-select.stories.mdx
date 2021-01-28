@@ -1,9 +1,9 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { useState } from 'react';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
-import { TileSelect, TileSelectGroup } from '.';
+import { TileSelect, TileSelectGroup } from ".";
 import Pill from "../pill/"
-import Icon from '../icon';
+import Icon from "../icon";
 
 <Meta
   title="Design System/Tile Select"
@@ -91,7 +91,7 @@ These props are then internally distributed on each of the `TileSelects` making 
             disabled
             title="Title" 
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
             description="Short and descriptive description"
           />
           <TileSelect 
@@ -159,7 +159,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             disabled
             title="Title" 
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
             description="Short and descriptive description"
             checked={value3}
             onChange={e => setValue3(e.target.checked)}

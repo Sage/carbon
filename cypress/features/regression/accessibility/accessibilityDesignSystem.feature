@@ -229,3 +229,8 @@ Feature: Accessibility tests - Design System folder
       | custom colors |
       | status        |
       | tag           |
+
+  @accessibility
+  Scenario: Tooltip component default story
+    When I open "Design System Tooltip Test" component page "default" in no iframe
+    Then "Design System Tooltip Test default" component has no accessibility violations

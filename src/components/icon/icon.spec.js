@@ -3,7 +3,6 @@ import TestRenderer from "react-test-renderer";
 import { mount, shallow } from "enzyme";
 import { shade } from "polished";
 
-import Tooltip from "../tooltip";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Icon from "./icon.component";
@@ -15,11 +14,13 @@ import browserTypeCheck, {
   isSafari,
 } from "../../utils/helpers/browser-type-check";
 import { toColor } from "../../style/utils/color.js";
+import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/browser-type-check");
+jest.mock("@tippyjs/react/headless");
 
-function render(props) {
-  return shallow(<Icon type="add" {...props} />);
+function render(props, renderer = shallow) {
+  return renderer(<Icon type="add" {...props} />);
 }
 
 function renderStyles(props) {
@@ -39,7 +40,7 @@ describe("Icon component", () => {
     "mismatched pairs of props and icons retrieved",
     (mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
-        const wrapper = render({ type: mismatchedPair.prop });
+        const wrapper = render({ type: mismatchedPair.prop }, mount);
         const elemExists = wrapper
           .find(`[data-element="${mismatchedPair.rendersAs}"]`)
           .exists();
@@ -115,7 +116,7 @@ describe("Icon component", () => {
   });
 
   describe("with custom class name", () => {
-    it("renders with a custom classname", () => {
+    it("renders with a custom className", () => {
       const wrapper = render({ className: "testClass" });
       expect(wrapper.find(".testClass").length).toEqual(1);
     });
@@ -131,7 +132,7 @@ describe("Icon component", () => {
     ];
     describe.each(correctColors)("when color prop is provided", (color) => {
       it("takes precedence over iconColor and renders properly colored Icon", () => {
-        const wrapper = mount(<Icon color={color} />);
+        const wrapper = mount(<Icon type="home" color={color} />);
         assertStyleMatch(
           {
             color: toColor(baseTheme, color),
@@ -141,7 +142,7 @@ describe("Icon component", () => {
       });
 
       it("renders properly colored Icon when hovered", () => {
-        const wrapper = mount(<Icon color={color} />);
+        const wrapper = mount(<Icon color={color} type="message" />);
         assertStyleMatch(
           {
             color: shade(0.2, toColor(baseTheme, color)),
@@ -153,7 +154,7 @@ describe("Icon component", () => {
     });
     describe.each(correctColors)("when bg prop is provided", (color) => {
       it("takes precedence over bgTheme and renders properly colored Icon", () => {
-        const wrapper = mount(<Icon bg={color} />);
+        const wrapper = mount(<Icon bg={color} type="message" />);
         assertStyleMatch(
           {
             backgroundColor: toColor(baseTheme, color),
@@ -163,7 +164,7 @@ describe("Icon component", () => {
       });
 
       it("renders properly colored Icon when hovered", () => {
-        const wrapper = mount(<Icon bg={color} />);
+        const wrapper = mount(<Icon bg={color} type="message" />);
         assertStyleMatch(
           {
             backgroundColor: shade(0.2, toColor(baseTheme, color)),
@@ -178,7 +179,7 @@ describe("Icon component", () => {
     describe.each(wrongColors)("when wrong color prop is provided", (color) => {
       it("throws an error", () => {
         jest.spyOn(global.console, "error");
-        mount(<Icon color={color} />);
+        mount(<Icon color={color} type="message" />);
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalled();
       });
@@ -186,7 +187,7 @@ describe("Icon component", () => {
     describe.each(wrongColors)("when wrong bg prop is provided", (color) => {
       it("throws an error", () => {
         jest.spyOn(global.console, "error");
-        mount(<Icon bg={color} />);
+        mount(<Icon bg={color} type="message" />);
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalled();
       });
@@ -205,7 +206,7 @@ describe("Icon component", () => {
     });
 
     describe.each(["error", "info", "business"])(
-      "whent the background theme is %s",
+      "when the background theme is %s",
       (whiteIconBackground) => {
         it("renders a white icon", () => {
           const wrapper = renderStyles({ bgTheme: whiteIconBackground });
@@ -281,7 +282,7 @@ describe("Icon component", () => {
         it('sets the height and width style properties of bgSize to same as "large"', () => {
           const wrapper = renderStyles({
             fontSize: "large",
-            bgTheme: "foo",
+            bgTheme: "business",
             bgSize: "small",
           });
           assertStyleMatch(
@@ -457,17 +458,6 @@ describe("Icon component", () => {
     });
   });
 
-  describe("when passed a tooltipMessage", () => {
-    it("renders a tooltip", () => {
-      const wrapper = mount(
-        <Icon type="info" tooltipMessage="Helpful content" />
-      );
-      wrapper.setState({ isVisible: true });
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip.length).toEqual(1);
-    });
-  });
-
   describe("tags", () => {
     describe("on component", () => {
       const wrapper = shallow(<Icon type="tick" data-role="baz" />);
@@ -475,20 +465,39 @@ describe("Icon component", () => {
         rootTagTest(wrapper.find(StyledIcon), "icon", "tick", "baz");
       });
     });
-    describe("on internal elements", () => {
+  });
+
+  describe("tooltip", () => {
+    it("renders when a tooltipMessage is passed", () => {
+      const wrapper = mount(<Icon type="home" tooltipMessage="foo" />);
+      expect(wrapper.find(Tooltip).props().message).toEqual("foo");
+    });
+
+    it.each(["top", "bottom", "left", "right"])(
+      "renders in a given tooltipPosition",
+      (position) => {
+        const wrapper = mount(
+          <Icon type="home" tooltipMessage="foo" tooltipPosition={position} />
+        );
+
+        expect(wrapper.find(Tooltip).props().position).toEqual(position);
+      }
+    );
+
+    it("supports being controlled via tooltipVisible prop", () => {
       const wrapper = mount(
-        <Icon
-          tooltipMessage="Test"
-          tooltipAlign="left"
-          tooltipPosition="top"
-          type="tick"
-        />
+        <Icon type="home" tooltipMessage="foo" tooltipVisible />
       );
-      wrapper.setState({ isVisible: true });
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip.props().align).toEqual("left");
-      expect(tooltip.props().position).toEqual("top");
-      expect(tooltip.props().children).toEqual("Test");
+
+      expect(wrapper.find(Tooltip).props().isVisible).toEqual(true);
+    });
+
+    it("does not display when icon is disabled", () => {
+      const wrapper = mount(
+        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />
+      );
+
+      expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
     });
   });
 });
