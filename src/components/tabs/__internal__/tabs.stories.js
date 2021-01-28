@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   return (
     <Tabs
       align={select("align", ["left", "right"], "left")}
@@ -83,7 +83,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

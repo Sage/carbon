@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const size = select(
     "size",
     OptionsHelper.sizesBinary,
@@ -43,7 +43,8 @@ export const Basic = () => {
   return <Loader size={size} />;
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

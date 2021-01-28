@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   // eslint-disable-next-line dot-notation
   i18n.translations.en["my"] = {
     example: "# My __example__ translation.",
@@ -30,7 +30,8 @@ export const Basic = () => {
   return <I18nComponent markdown={markdown} inline={inline} scope={scope} />;
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

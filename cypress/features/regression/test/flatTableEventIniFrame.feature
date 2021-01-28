@@ -2,7 +2,7 @@ Feature: FlatTable component
   I want to check FlatTable component properties
 
   Background: Open FlatTable component page
-    Given I open "Design System Flat Table Test" component page "basic"
+    Given I open "Design System Flat Table Test" component page "default"
 
   @positive
   Scenario: Click event

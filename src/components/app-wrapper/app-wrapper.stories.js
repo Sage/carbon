@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text(
     "children",
     "This component will wrap its children within the width constraints of your application."
@@ -25,7 +25,8 @@ export const Basic = () => {
   return <AppWrapper>{children}</AppWrapper>;
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

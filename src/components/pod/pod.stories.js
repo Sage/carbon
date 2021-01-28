@@ -72,3 +72,12 @@ export const Default = () => {
     </Pod>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

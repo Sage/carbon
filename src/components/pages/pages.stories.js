@@ -21,7 +21,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const initialpageIndex = select("initialPageIndex", [0, 1, 2]);
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) || 0);
@@ -92,7 +92,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

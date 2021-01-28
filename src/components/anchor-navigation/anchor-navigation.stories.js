@@ -40,7 +40,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const ref1 = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
@@ -209,7 +209,8 @@ export const WithOverridenStyles = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: false,
@@ -218,6 +219,7 @@ Basic.story = {
 };
 
 InFullScreenDialog.story = {
+  name: "in full screen dialog",
   parameters: {
     chromatic: {
       disable: false,
@@ -226,6 +228,7 @@ InFullScreenDialog.story = {
 };
 
 WithOverridenStyles.story = {
+  name: "with overriden styles",
   parameters: {
     chromatic: {
       disable: false,

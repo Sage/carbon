@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text("children", "This is help text");
   const tooltipPosition = children
     ? select(
@@ -38,7 +38,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

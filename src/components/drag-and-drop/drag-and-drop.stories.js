@@ -124,3 +124,11 @@ export const Custom = () => {
     </DraggableContext>
   );
 };
+
+Default.story = {
+  name: "default",
+};
+
+Custom.story = {
+  name: "custom",
+};

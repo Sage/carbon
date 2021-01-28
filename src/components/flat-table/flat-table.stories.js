@@ -34,7 +34,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const ariaDescribedby = text("ariaDescribedby", "");
   const hasStickyHead = boolean("hasStickyHead", false);
   const hasHeaderRow = boolean("hasHeaderRow", false);
@@ -260,7 +260,7 @@ export const Sortable = () => {
 };
 
 Sortable.story = {
-  name: "Sortable",
+  name: "sortable",
   parameters: {
     info: { disable: true },
     docs: {
@@ -272,8 +272,8 @@ Sortable.story = {
   },
 };
 
-basic.story = {
-  name: "Basic",
+Default.story = {
+  name: "default",
   parameters: {
     info: { disable: true },
     docs: {

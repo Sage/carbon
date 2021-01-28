@@ -3,7 +3,7 @@ Feature: Badge component
 
   @positive
   Scenario Outline: Set Badge component to <counter>
-    When I open Test test_basic "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
+    When I open Test test_default "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
     Then Badge component counter is set to <counter>
     Examples:
       | counter | nameOfObject |
@@ -12,7 +12,7 @@ Feature: Badge component
 
   @positive
   Scenario Outline: Set Badge component to 3 digits to <counter>
-    When I open Test test_basic "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
+    When I open Test test_default "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
     Then Badge component counter is set to 99
     Examples:
       | counter | nameOfObject |
@@ -21,7 +21,7 @@ Feature: Badge component
 
   @negative
   Scenario Outline: Set Badge component to out of scope to <counter>
-    When I open Test test_basic "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
+    When I open Test test_default "Badge" component in noIFrame with "badge" json from "test" using "<nameOfObject>" object name
     Then Badge component counter does not exist
     Examples:
       | counter                      | nameOfObject            |
@@ -32,7 +32,7 @@ Feature: Badge component
 
   @positive
   Scenario: Hover Badge component and verify that cross icon appears
-    Given I open Test test_basic "Badge" component in noIFrame with "badge" json from "test" using "counter1" object name
+    Given I open Test test_default "Badge" component in noIFrame with "badge" json from "test" using "counter1" object name
     When I focus onto Badge component
     Then icon name in noIframe on preview is "badge-cross-icon"
       And Badge component cross icon has proper color

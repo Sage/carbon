@@ -15,7 +15,7 @@ export default {
     },
   },
 };
-export const basic = () => {
+export const Default = () => {
   const children = text("children", "Text rendered as children component.");
   const height = text("height");
   const lines = number("lines", Preview.defaultProps.lines);
@@ -29,7 +29,8 @@ export const basic = () => {
   );
 };
 
-basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,

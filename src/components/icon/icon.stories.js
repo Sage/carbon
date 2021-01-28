@@ -165,9 +165,19 @@ export const All = () => (
 );
 
 All.story = {
+  name: "all",
   parameters: {
     chromatic: {
       disable: false,
+    },
+  },
+};
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
     },
   },
 };

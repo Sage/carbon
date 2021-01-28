@@ -156,3 +156,12 @@ export const Default = () => {
     </div>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

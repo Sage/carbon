@@ -3,7 +3,7 @@ Feature: Design Systems Batch selection component
 
   @positive
   Scenario Outline: I focus <buttonIndex> inner element for Batch selection component
-    Given I open "Design System Batch selection" component page "basic" in no iframe
+    Given I open "Design System Batch selection" component page "default story" in no iframe
     When I focus Batch selection "<buttonIndex>" button
     Then Batch selection component "<buttonIndex>" button is focused
     Examples:

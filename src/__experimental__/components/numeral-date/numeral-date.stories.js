@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [dateValue, setDateValue] = useState({ dd: "", mm: "", yyyy: "" });
   const dateFormat = array("dateFormat", ["dd", "mm", "yyyy"]);
 
@@ -96,7 +96,8 @@ export const Validations = () => {
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,
@@ -105,6 +106,7 @@ Basic.story = {
 };
 
 Validations.story = {
+  name: "validations",
   parameters: {
     chromatic: {
       disable: false,

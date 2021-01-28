@@ -98,3 +98,12 @@ export const Default = () => {
     </Box>
   );
 };
+
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

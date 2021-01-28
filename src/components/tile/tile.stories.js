@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const percentageOpts = {
     range: true,
     min: 0,
@@ -78,7 +78,8 @@ export const Basic = () => {
   return <Tile {...tileProps}>{tileContent}</Tile>;
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: true,
