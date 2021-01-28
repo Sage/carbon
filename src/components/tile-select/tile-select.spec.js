@@ -18,6 +18,8 @@ import {
 } from "./tile-select.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
+jest.mock("@tippyjs/react/headless");
+
 const radioValues = ["val1", "val2", "val3"];
 
 describe("TileSelect", () => {

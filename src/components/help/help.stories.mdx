@@ -41,58 +41,11 @@ Hover over the help component to see the different positions.
   <Story name="with Tooltip Position">
     {() => {
       return ['right', 'left', 'top', 'bottom'].map(position =>
-        <div style={ { margin: '64px' } }>
-          <Help tooltipPosition={`${position}`} isFocused={true}>
-            This tooltip is positioned {`${position}`}
+        <div style={ { margin: '64px 300px' } }>
+          <Help tooltipPosition={position} isFocused={true}>
+            {`This tooltip is positioned ${position}`}
           </Help>
         </div>
-      )
-    }}
-  </Story>
-</Preview>
-
-### Help with Tooltip Align
-The tooltip alignment can be `center`, `bottom`, `left`, `right` or `top`.
-Hover over the help component to see the different alignments.
-
-<Preview>
-  <Story name="with Tooltip Align">
-    {() => {
-      return [
-        'center',
-        'left',
-        'right'
-        ].map(align =>
-        <div style={ { margin: '64px' } }>
-          <Help 
-          tooltipPosition='top' 
-          tooltipAlign={`${align}`}
-          isFocused={true}>
-            This tooltip is aligned {`${align}`} 
-          </Help>
-        </div>        
-      )
-    }}
-  </Story>
-</Preview>
-
-`tooltipAlign` top and `tooltipAlign` bottom only accepts `tooltipPosition` left or right. In this example, tooltipPosition is set to `right`.
-Hover over the help component to see the different alignments.
-<Preview>
-  <Story name="with Tooltip Align Top">
-    {() => {
-      return [
-        'top',
-        'bottom'
-        ].map(align =>
-        <div style={ { margin: '64px' } }>
-          <Help 
-          tooltipPosition='right' 
-          tooltipAlign={`${align}`}
-          isFocused={true}>
-            This tooltip is aligned {`${align}`} 
-          </Help>
-        </div>        
       )
     }}
   </Story>
@@ -111,7 +64,7 @@ Using the `type` prop, different icons can be specified. In this example type ha
         ].map(icon =>
         <div style={ { margin: '64px' } }>
           <Help type={`${icon}`}>
-            This is the Help component with the {`${icon}`} icon
+            {`This is the Help component with the ${icon} icon`}
           </Help>
         </div>        
       )

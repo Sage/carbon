@@ -79,16 +79,14 @@ export function pressESCKey() {
 }
 
 export function pressTABKey(count) {
-  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
   for (let i = 0; i < count; i++) {
-    cy.iFrame('body').trigger('tab', { force: true });
+    cy.iFrame('body').tab();
   }
 }
 
 export function pressTABKeyInNoIframe(count) {
-  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
   for (let i = 0; i < count; i++) {
-    cy.get('body').trigger('tab', { force: true });
+    cy.get('body').tab();
   }
 }
 

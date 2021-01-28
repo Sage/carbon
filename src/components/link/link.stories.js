@@ -35,13 +35,6 @@ export const Basic = () => {
         OptionsHelper.positions[0]
       )
     : undefined;
-  const tooltipAlign = tooltipMessage
-    ? select(
-        "tooltipAlign",
-        OptionsHelper.alignAroundEdges,
-        OptionsHelper.alignAroundEdges[0]
-      )
-    : undefined;
   const hasOnClick = boolean("onClick", false);
   const onClick = hasOnClick ? action("click") : undefined;
   const target = text("target", "_blank");
@@ -56,7 +49,6 @@ export const Basic = () => {
       to={to}
       tooltipMessage={tooltipMessage}
       tooltipPosition={tooltipPosition}
-      tooltipAlign={tooltipAlign}
       onClick={onClick}
       routerLink={to ? RouterLink : undefined}
       target={target}

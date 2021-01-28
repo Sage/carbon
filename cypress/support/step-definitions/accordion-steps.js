@@ -31,11 +31,11 @@ Then('Accordion iconAlign property on preview is set to {string}', (iconAlign) =
 
 Then('Accordion row is {string} then iconType property on preview is set to {string}', (state, iconType) => {
   if (state === 'closed') {
-    accordionIcon().should('have.attr', 'data-element', iconType)
+    accordionIcon().should('have.attr', 'type', iconType)
       .and('be.visible')
       .and('have.css', 'transform', 'matrix(6.12323e-17, 1, -1, 6.12323e-17, 0, 0)');
   } else {
-    accordionIcon().should('have.attr', 'data-element', iconType)
+    accordionIcon().should('have.attr', 'type', iconType)
       .and('be.visible')
       .and('not.have.css', 'transform', 'matrix(6.12323e-17, 1, -1, 6.12323e-17, 0, 0)');
   }

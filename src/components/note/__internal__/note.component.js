@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Editor } from "draft-js";
 import invariant from "invariant";
@@ -23,8 +23,6 @@ const Note = ({
   status,
   ...rest
 }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
   invariant(width > 0, "<Note> width must be greater than 0");
   invariant(createdDate, "<Note> createdDate is required");
   invariant(name, "<Note> name is required");
@@ -45,11 +43,7 @@ const Note = ({
 
     return (
       <StyledFooterContent data-component="note-status">
-        <StatusWithTooltip
-          {...tooltipProps(timeStamp, showTooltip, setShowTooltip)}
-        >
-          {text}
-        </StatusWithTooltip>
+        <StatusWithTooltip tooltipMessage={timeStamp}>{text}</StatusWithTooltip>
       </StyledFooterContent>
     );
   };
@@ -78,17 +72,6 @@ const Note = ({
     </StyledNote>
   );
 };
-
-function tooltipProps(id, showTooltip, setShowTooltip) {
-  return {
-    tooltipMessage: id,
-    tooltipPosition: "top",
-    tooltipAlign: "center",
-    tooltipVisible: showTooltip,
-    onMouseOver: () => setShowTooltip(true),
-    onMouseLeave: () => setShowTooltip(false),
-  };
-}
 
 Note.propTypes = {
   /**  The rich text content to display in the Note */

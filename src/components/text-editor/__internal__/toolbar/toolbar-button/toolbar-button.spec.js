@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import { assertStyleMatch } from "../../../../../__spec_helper__/test-utils";
 import mintTheme from "../../../../../style/themes/mint";
 import ToolbarButton from "./toolbar-button.component";
-import Tooltip from "../../../../tooltip";
 import StyledIcon from "../../../../icon/icon.style";
 
 const onKeyDown = jest.fn();
@@ -18,6 +17,7 @@ const render = (props = {}, theme = mintTheme, renderer = mount) => {
     onMouseDown,
     onMouseOver,
     onMouseLeave,
+    ariaLabel: "foo",
   };
   return renderer(
     <ThemeProvider theme={theme}>
@@ -78,38 +78,6 @@ describe("ToolbarButton", () => {
         },
         render({ activated: true })
       );
-    });
-  });
-
-  describe("Tooltip", () => {
-    const ToolBarButtonWithToolTip = (props) => {
-      const defaultProps = {
-        onKeyDown,
-        onMouseDown,
-        onMouseOver,
-        onMouseLeave,
-        tooltipMessage: "foo",
-        tooltipPosition: "top",
-        tooltipAlign: "center",
-        tooltipVisible: false,
-      };
-      return (
-        <ToolbarButton {...defaultProps} {...props}>
-          foo
-        </ToolbarButton>
-      );
-    };
-
-    it("is displayed when `tooltipVisible` is true", () => {
-      const wrapper = mount(<ToolBarButtonWithToolTip tooltipVisible />);
-
-      expect(wrapper.find(Tooltip).exists()).toBeTruthy();
-    });
-
-    it("is hidden when `tooltipVisible` is false", () => {
-      const wrapper = mount(<ToolBarButtonWithToolTip />);
-
-      expect(wrapper.find(Tooltip).exists()).toBeFalsy();
     });
   });
 });

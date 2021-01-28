@@ -14,6 +14,9 @@ export interface IconProps {
   mr?: number;
   ml?: number;
   ariaLabel?: string;
+  tooltipMessage?: string;
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  tooltipVisible?: boolean;
 }
 
 declare const Icon: React.ComponentType<IconProps>;

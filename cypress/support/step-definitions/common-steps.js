@@ -315,14 +315,17 @@ When('I press {string} onto focused element', (key) => {
   cy.focused().trigger('keydown', keyCode(key));
 });
 
+When('I press Tab onto focused element', () => {
+  cy.focused().tab();
+})
+
 When('I press ESC onto focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
   cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
 When('I press ShiftTab onto focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+  cy.focused().tab({ shift: true });
 });
 
 Then('focused element inner content is set to {string}', (text) => {
