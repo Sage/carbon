@@ -1,3 +1,15 @@
+## [62.0.0](https://github.com/Sage/carbon/compare/v61.1.0...v62.0.0) (2021-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tooltip:** The `TooltipDecorator` has been removed, and the interface for `Tooltip` has been
+updated
+
+### Features
+
+* **tooltip:** add tippyjs wrapper and remove decorator ([8114ae2](https://github.com/Sage/carbon/commit/8114ae2390d41b173c02fed7f2eaeb5ce3c05705))
+
 ## [61.1.0](https://github.com/Sage/carbon/compare/v61.0.1...v61.1.0) (2021-01-27)
 
 
