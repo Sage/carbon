@@ -78,3 +78,9 @@ Feature: Dialog component
   Scenario: Verify test_default story color
     When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
     Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border
+
+  @positive
+  Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
+    Given I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
+    When I scroll to the bottom of the dialog
+    Then The footer is not sticky
