@@ -1,4 +1,5 @@
 import React from "react";
+import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import FlatTableCheckbox from "./flat-table-checkbox.component";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
@@ -49,6 +50,14 @@ describe("FlatTableCheckbox", () => {
         .findByType(Checkbox)
         .props.onClick({ stopPropagation: mockClick });
       expect(mockClick).toHaveBeenCalled();
+    });
+  });
+
+  describe("when selectable prop is false", () => {
+    it("should not render the checkbox", () => {
+      const wrapper = mount(<FlatTableCheckbox selectable={false} />);
+
+      expect(wrapper.find(Checkbox).exists()).toEqual(false);
     });
   });
 });
