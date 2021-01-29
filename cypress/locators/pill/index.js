@@ -1,4 +1,4 @@
-import { PILL_PREVIEW, PILL_CLOSE_ICON } from './locators';
+import { PILL_PREVIEW, PILL_CLOSE_ICON } from "./locators";
 
 // component preview locators
 export const pillPreview = () => cy.get(PILL_PREVIEW);

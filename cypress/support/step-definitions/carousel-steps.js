@@ -3,38 +3,37 @@ import {
   nextArrowButton,
   previousArrowButton,
   slideIFrame,
-} from '../../locators/carousel';
+} from "../../locators/carousel";
 
 function clickCarouselButton(direction) {
   switch (direction) {
-    case 'left':
+    case "left":
       previousArrowButton().click();
       break;
-    case 'right':
+    case "right":
       nextArrowButton().click();
       break;
-    default: throw new Error('Direction can be only left or right');
+    default:
+      throw new Error("Direction can be only left or right");
   }
 }
 
-Then('slide {int} title is {string}', (index, title) => {
-  slide(index).should('have.text', title);
+Then("slide {int} title is {string}", (index, title) => {
+  slide(index).should("have.text", title);
 });
 
-Then('I move carousel {string}', (direction) => {
+Then("I move carousel {string}", (direction) => {
   clickCarouselButton(direction);
 });
 
-Then('previous button is disabled', () => {
-  previousArrowButton().should('be.disabled')
-    .and('have.attr', 'disabled');
+Then("previous button is disabled", () => {
+  previousArrowButton().should("be.disabled").and("have.attr", "disabled");
 });
 
-Then('next button is disabled', () => {
-  nextArrowButton().should('be.disabled')
-    .and('have.attr', 'disabled');
+Then("next button is disabled", () => {
+  nextArrowButton().should("be.disabled").and("have.attr", "disabled");
 });
 
-When('I click clickable slide', () => {
+When("I click clickable slide", () => {
   slideIFrame(1).click();
 });

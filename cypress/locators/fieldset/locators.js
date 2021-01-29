@@ -1,2 +1,4 @@
 // component preview locators
-export const LEGEND_PREVIEW = 'legend[data-element="legend"]';
+const LEGEND_PREVIEW = 'legend[data-element="legend"]';
+
+export default LEGEND_PREVIEW;

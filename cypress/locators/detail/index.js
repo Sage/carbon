@@ -1,6 +1,4 @@
-import {
-  CHILDREN_PREVIEW, FOOTNOTE_PREVIEW,
-} from './locators';
+import { CHILDREN_PREVIEW, FOOTNOTE_PREVIEW } from "./locators";
 
 // component preview locators
 export const childrenPreview = () => cy.get(CHILDREN_PREVIEW);

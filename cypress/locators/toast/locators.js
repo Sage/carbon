@@ -1,2 +1,4 @@
 // component preview locators
-export const TOAST_PREVIEW = '[data-component="toast"]';
+const TOAST_PREVIEW = '[data-component="toast"]';
+
+export default TOAST_PREVIEW;

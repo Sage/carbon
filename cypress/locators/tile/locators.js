@@ -1,2 +1,4 @@
 // knobs locators
-export const TILE = '[data-component="tile"]';
+const TILE = '[data-component="tile"]';
+
+export default TILE;

@@ -1,2 +1,4 @@
 // component preview locators
-export const I18N_PREVIEW = '[data-component="i18n"]';
+const I18N_PREVIEW = '[data-component="i18n"]';
+
+export default I18N_PREVIEW;
