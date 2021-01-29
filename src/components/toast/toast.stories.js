@@ -13,6 +13,9 @@ export default {
       disable: true,
     },
     knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true,
+    },
   },
 };
 
@@ -49,11 +52,6 @@ export const Default = () => {
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };
 
 export const Visual = () => {

@@ -392,7 +392,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disable: false,
     },
     knobs: { escapeHTML: false },
   },
@@ -400,92 +400,42 @@ export default {
 
 primaryButtonsIconsBefore.story = {
   name: "primary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 primaryButtonsIconsAfter.story = {
   name: "primary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 secondaryButtonsIconsBefore.story = {
   name: "secondary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 secondaryButtonsIconsAfter.story = {
   name: "secondary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 tertiaryButtonsIconsBefore.story = {
   name: "tertiary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 tertiaryButtonsIconsAfter.story = {
   name: "tertiary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 dashedButtonsIconsBefore.story = {
   name: "dashed buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 dashedButtonsIconsAfter.story = {
   name: "dashed buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 darkBackgroundButtonsIconsBefore.story = {
   name: "darkBackground buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 darkBackgroundButtonsIconsAfter.story = {
   name: "darkBackground buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 asASibling.story = {
@@ -510,9 +460,4 @@ knobs.story = {
 
 fullWidthButtons.story = {
   name: "full width buttons",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };

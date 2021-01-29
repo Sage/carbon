@@ -35,7 +35,7 @@ export default {
       disable: true,
     },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
@@ -222,7 +222,7 @@ InFullScreenDialog.story = {
   name: "in full screen dialog",
   parameters: {
     chromatic: {
-      disable: false,
+      disable: true,
     },
   },
 };

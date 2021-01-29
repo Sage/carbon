@@ -13,9 +13,6 @@ export default {
       disable: true,
     },
     knobs: { escapeHTML: false },
-    chromatic: {
-      disabled: true,
-    },
   },
 };
 

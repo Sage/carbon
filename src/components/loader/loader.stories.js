@@ -11,9 +11,6 @@ export default {
     info: {
       disable: true,
     },
-    chromatic: {
-      pauseAnimationAtEnd: true,
-    },
     knobs: { escapeHTML: false },
   },
 };
