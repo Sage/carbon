@@ -50,8 +50,5 @@ Default.story = {
     docs: {
       page: null,
     },
-    chromatic: {
-      disable: true,
-    },
   },
 };
