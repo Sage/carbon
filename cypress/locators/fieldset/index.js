@@ -1,4 +1,6 @@
-import { LEGEND_PREVIEW } from './locators';
+import LEGEND_PREVIEW from "./locators";
 
 // component preview locators
-export const legendPreview = () => cy.get(LEGEND_PREVIEW);
+const legendPreview = () => cy.get(LEGEND_PREVIEW);
+
+export default legendPreview;

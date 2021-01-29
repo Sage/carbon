@@ -1,2 +1,4 @@
 // component preview locators
-export const SWITCH_DATA_COMPONENT = '[data-component="Switch"]';
+const SWITCH_DATA_COMPONENT = '[data-component="Switch"]';
+
+export default SWITCH_DATA_COMPONENT;
