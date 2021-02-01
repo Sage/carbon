@@ -1,3 +1,10 @@
+## [63.1.0](https://github.com/Sage/carbon/compare/v63.0.2...v63.1.0) (2021-02-01)
+
+
+### Features
+
+* **toast:** allow custom max width for the toast ([f582d3a](https://github.com/Sage/carbon/commit/f582d3ab4f103c748c847bbd07fe808ec0bf7d6c))
+
 ### [63.0.2](https://github.com/Sage/carbon/compare/v63.0.1...v63.0.2) (2021-02-01)
 
 
