@@ -18,7 +18,7 @@ export const StyledForm = styled.form`
   ${({ stickyFooter }) =>
     stickyFooter &&
     css`
-      padding-bottom: 72px;
+      padding-bottom: 100px;
     `}
 `;
 
@@ -59,10 +59,10 @@ export const StyledFormFooter = styled.div`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter, theme }) =>
-    stickyFooter &&
+  ${({ stickyFooter, theme }) => css`
+    ${stickyFooter &&
     css`
-      animation: ${FormButtonAnimation} 0.25s ease-out;
+      animation: ${FormButtonAnimation} 0.25s ease;
       background-color: ${theme.colors.white};
       box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
       box-sizing: border-box;
@@ -73,6 +73,7 @@ export const StyledFormFooter = styled.div`
       width: 100%;
       z-index: 1000;
     `}
+  `}
 `;
 
 StyledForm.propTypes = {

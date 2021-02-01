@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
 
 import ElementResize from "../../utils/helpers/element-resize";
-
 import FormSummary from "./form-summary.component";
 import {
   StyledForm,
@@ -31,26 +30,20 @@ const Form = ({
   const [isFooterSticky, setIsFooterSticky] = useState(false);
 
   const formRef = useRef();
-
   const formFooterRef = useRef();
-
   const stickyListenersAddedRef = useRef(false);
 
   const checkStickyFooter = useCallback(
     throttle(() => {
-      const footerHeight = formFooterRef.current.offsetHeight;
-      const topVisibilityOffset = 40;
-      const { top, bottom } = formRef.current.getBoundingClientRect();
+      const footerHeight = 40;
+      const { bottom } = formRef.current.getBoundingClientRect();
 
       const isBottomBelowScreen =
         bottom - footerHeight / 2 > window.innerHeight;
-      const isBottomAboveScreen =
-        bottom + footerHeight / 2 < window.innerHeight;
-      const isTopAboveScreen = top + topVisibilityOffset < window.innerHeight;
 
-      if (isBottomBelowScreen && isTopAboveScreen) {
+      if (isBottomBelowScreen) {
         setIsFooterSticky(true);
-      } else if (isBottomAboveScreen || !isTopAboveScreen) {
+      } else {
         setIsFooterSticky(false);
       }
     }, SCROLL_THROTTLE),
