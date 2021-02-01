@@ -1,3 +1,10 @@
+### [63.0.2](https://github.com/Sage/carbon/compare/v63.0.1...v63.0.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **message:** add aria label for close button ([7f0fa70](https://github.com/Sage/carbon/commit/7f0fa705f0c9bd1818ead98727e7dde003770e73)), closes [#3406](https://github.com/Sage/carbon/issues/3406)
+
 ### [63.0.1](https://github.com/Sage/carbon/compare/v63.0.0...v63.0.1) (2021-02-01)
 
 
