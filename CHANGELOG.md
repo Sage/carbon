@@ -1,3 +1,10 @@
+### [62.0.1](https://github.com/Sage/carbon/compare/v62.0.0...v62.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect behaviour when page count is zero ([1ecff03](https://github.com/Sage/carbon/commit/1ecff0388a7d33f79e2c01f6884b2b0eedf8854f))
+
 ## [62.0.0](https://github.com/Sage/carbon/compare/v61.1.0...v62.0.0) (2021-01-28)
 
 
