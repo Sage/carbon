@@ -6,7 +6,7 @@ import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
 import Browser from "../../utils/helpers/browser";
-import focusTrap from "../../utils/helpers/focus-trap";
+import FocusTrap from "../../__internal__/focus-trap";
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -53,7 +53,6 @@ class DialogFullScreen extends Modal {
    */
   handleOpen() {
     super.handleOpen();
-    this.removeFocusTrap = focusTrap(this._dialog);
     this.originalOverflow = this.document.documentElement.style.overflow;
     this.document.documentElement.style.overflow = "hidden";
   }
@@ -63,7 +62,6 @@ class DialogFullScreen extends Modal {
    */
   handleClose() {
     super.handleClose();
-    this.removeFocusTrap();
     this.document.documentElement.style.overflow = this.originalOverflow;
     return this.document.documentElement;
   }
@@ -103,24 +101,26 @@ class DialogFullScreen extends Modal {
    */
   get modalHTML() {
     return (
-      <StyledDialogFullScreen
-        ref={(d) => {
-          this._dialog = d;
-        }}
-        data-element="dialog-full-screen"
-        pagesStyling={this.props.pagesStyling}
-      >
-        {this.dialogTitle()}
-        <StyledContent
-          hasHeader={this.props.title !== undefined}
-          headingHeight={this.state.headingHeight}
-          data-element="content"
-          ref={this.contentRef}
-          disableContentPadding={this.props.disableContentPadding}
+      <FocusTrap>
+        <StyledDialogFullScreen
+          ref={(d) => {
+            this._dialog = d;
+          }}
+          data-element="dialog-full-screen"
+          pagesStyling={this.props.pagesStyling}
         >
-          {this.props.children}
-        </StyledContent>
-      </StyledDialogFullScreen>
+          {this.dialogTitle()}
+          <StyledContent
+            hasHeader={this.props.title !== undefined}
+            headingHeight={this.state.headingHeight}
+            data-element="content"
+            ref={this.contentRef}
+            disableContentPadding={this.props.disableContentPadding}
+          >
+            {this.props.children}
+          </StyledContent>
+        </StyledDialogFullScreen>
+      </FocusTrap>
     );
   }
 }

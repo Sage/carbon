@@ -20,14 +20,12 @@ export default {
 
 const commonKnobs = () => {
   const tooltipMessage = text("tooltipMessage", "");
+
   return {
     tooltipMessage,
     type: select("type", OptionsHelper.icons, "add"),
     tooltipPosition: tooltipMessage
       ? select("tooltipPosition", OptionsHelper.positions, "top")
-      : undefined,
-    tooltipAlign: tooltipMessage
-      ? select("tooltipAlign", OptionsHelper.alignAroundEdges, "top")
       : undefined,
   };
 };
@@ -40,6 +38,7 @@ const dlsKnobs = () => {
     Icon.defaultProps.fontSize
   );
   const canSizeBg = bgTheme !== "none" && fontSize !== " large";
+
   return {
     bgTheme,
     fontSize,
@@ -166,9 +165,14 @@ export const All = () => (
 );
 
 All.story = {
+  name: "all",
   parameters: {
     chromatic: {
       disable: false,
     },
   },
+};
+
+Default.story = {
+  name: "default",
 };

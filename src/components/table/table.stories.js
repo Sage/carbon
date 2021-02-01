@@ -94,3 +94,7 @@ export const DefaultWithInputs = () => {
 
   return <TableWrapper {...tableProps} />;
 };
+
+Default.story = {
+  name: "default",
+};

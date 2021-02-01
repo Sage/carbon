@@ -14,21 +14,17 @@ export default {
     chromatic: {
       disable: true,
     },
+    knobs: { escapeHTML: false },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const title = text("title", "Title");
   const open = boolean("open", true);
 
   return <PopoverContainer title={title} open={open} />;
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-    knobs: { escapeHTML: false },
-  },
+Default.story = {
+  name: "default",
 };

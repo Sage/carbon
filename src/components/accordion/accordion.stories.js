@@ -15,12 +15,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   return (
     <Accordion
       iconType={select("iconType", ["chevron_down", "dropdown"])}
@@ -57,18 +57,10 @@ export const Grouped = () => (
   </AccordionGroup>
 );
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };
 
 Grouped.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "grouped",
 };

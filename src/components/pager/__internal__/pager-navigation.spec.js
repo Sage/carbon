@@ -160,5 +160,25 @@ describe("Pager Navigation", () => {
       input.simulate("keyup", { which: 13, target: { value: "asdfghjk" } });
       expect(setCurrentPage).toHaveBeenCalledWith(1);
     });
+
+    it("resets value to 0 if there are 0 pages", () => {
+      const onPagination = jest.fn();
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: 0,
+          onPagination,
+          setCurrentPage: () => {},
+          pageCount: 0,
+        },
+        mount
+      );
+
+      const input = wrapper.find("input");
+      input.simulate("change", { target: { value: 2 } });
+      input.simulate("blur", { target: { value: 2 } });
+      expect(input.props().value).toBe("0");
+      expect(onPagination).toHaveBeenCalledWith(0, 10, "input");
+    });
   });
 });

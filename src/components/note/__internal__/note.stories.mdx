@@ -23,11 +23,11 @@ import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 To use `Note`, use the import path above and pass the content via the `noteContent` prop by utilising the static 
 methods provided by the `draft-js` (see the import above) framework https://draftjs.org/docs/api-reference-content-state#static-methods.
 
-### Basic Usage:
-In its basic form, the component can render plain text content by passing a value via the `noteContent` prop using 
+### Default Usage:
+In its default form, the component can render plain text content by passing a value via the `noteContent` prop using 
 `EditorState.createWithContent(ContentState.createFromText(''))` to ensure the value is in the correct format.
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}}>
+  <Story name="default" parameters={{ info: { disable: true }}}>
     {() => {
       const noteContent = EditorState.createWithContent(ContentState.createFromText('Here is some plain text content'));
       return (

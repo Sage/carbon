@@ -22,7 +22,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 ### Default
 
 <Preview>
-  <Story name="Default">
+  <Story name="default">
     <Row>
       <Column>Content</Column>
       <Column>Content</Column>
@@ -37,7 +37,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 ### With separators
 
 <Preview>
-  <Story name="With separators">
+  <Story name="with separators">
     <Row columnDivide>
       <Column>Content</Column>
       <Column>Content</Column>
@@ -52,7 +52,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 ### Gutter sizes
 
 <Preview>
-  <Story name="Gutter sizes">
+  <Story name="gutter sizes">
     {() =>
       [
         "extra-small",
@@ -85,7 +85,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 ### Column alignment
 
 <Preview>
-  <Story name="Column alignment">
+  <Story name="column alignment">
     {() =>
       ["left", "center", "right"].map((columnAlign) => (
         <div key={columnAlign}>
@@ -112,7 +112,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 To offset a column besides passing a `columnOffset` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
 
 <Preview>
-  <Story name="With offset columns">
+  <Story name="with offset columns">
     <Row columns={7}>
       <Column>
         <Box bg="primary" color="white">
@@ -153,7 +153,7 @@ To offset a column besides passing a `columnOffset` prop on wanted `Column` it i
 To span a `Column` over more than one column besides passing a `columnSpan` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
 
 <Preview>
-  <Story name="With columns span">
+  <Story name="with columns span">
     <Row columns={7}>
       <Column>
         <Box bg="primary" color="white">

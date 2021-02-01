@@ -392,93 +392,54 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disable: false,
     },
     knobs: { escapeHTML: false },
   },
 };
 
 primaryButtonsIconsBefore.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "primary buttons icons before",
 };
 
 primaryButtonsIconsAfter.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "primary buttons icons after",
 };
 
 secondaryButtonsIconsBefore.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "secondary buttons icons before",
 };
 
 secondaryButtonsIconsAfter.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "secondary buttons icons after",
 };
 
 tertiaryButtonsIconsBefore.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "tertiary buttons icons before",
 };
 
 tertiaryButtonsIconsAfter.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "tertiary buttons icons after",
 };
 
 dashedButtonsIconsBefore.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "dashed buttons icons before",
 };
 
 dashedButtonsIconsAfter.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "dashed buttons icons after",
 };
 
 darkBackgroundButtonsIconsBefore.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "darkBackground buttons icons before",
 };
 
 darkBackgroundButtonsIconsAfter.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "darkBackground buttons icons after",
 };
 
 asASibling.story = {
+  name: "as a sibling",
   parameters: {
     chromatic: {
       disable: true,
@@ -488,6 +449,7 @@ asASibling.story = {
 };
 
 knobs.story = {
+  name: "knobs",
   parameters: {
     chromatic: {
       disable: true,
@@ -497,9 +459,5 @@ knobs.story = {
 };
 
 fullWidthButtons.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+  name: "full width buttons",
 };

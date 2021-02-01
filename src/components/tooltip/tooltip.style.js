@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const fadeIn = keyframes`
   0% {
@@ -13,50 +12,71 @@ const fadeIn = keyframes`
   }
 `;
 
-const StyledTooltipInner = styled.div`
-  ${({ theme, type }) => css`
-    background-color: ${theme.colors.black};
+const tooltipColor = (type, theme) =>
+  type === "error" ? theme.colors.error : theme.colors.black;
+
+const tooltipOffset = (position, inputSize, isPartOfInput) => {
+  if (!isPartOfInput) {
+    return { [position]: "1px" };
+  }
+
+  switch (inputSize) {
+    case "small":
+      return `
+        ${position}: 5px;
+        @-moz-document url-prefix() { 
+          ${position}: 7px;
+        }
+      `;
+    case "large":
+      return `
+        ${position}: -3px;
+        @-moz-document url-prefix() { 
+          ${position}: -1px;
+        }
+      `;
+    default:
+      return `
+        ${position}: 1px;
+        @-moz-document url-prefix() { 
+          ${position}: 4px;
+        }
+      `;
+  }
+};
+
+const StyledTooltipWrapper = styled.div`
+  ${({ position, size, theme, type, isPartOfInput, inputSize }) => css`
+    bottom: auto;
+    right: auto;
+    max-width: 300px;
+    position: relative;
+    animation: ${fadeIn} 0.2s linear;
+    z-index: ${theme.zIndex.popover};
+    text-align: left;
     color: ${theme.colors.white};
     display: inline-block;
-    padding: 12px 16px;
-    text-align: left;
-    max-width: 300px;
+    padding: 8px 12px;
     word-break: normal;
     white-space: pre-wrap;
-    font-weight: 700;
-
-    ${type === "error" &&
-    css`
-      background-color: ${theme.colors.error};
-    `}
+    font-size: ${size === "medium" ? "14px" : "16px"};
+    line-height: 1.5rem;
+    font-weight: 400;
+    background-color: ${tooltipColor(type, theme)};
+    ${tooltipOffset(position, inputSize, isPartOfInput)};
   `}
 `;
 
-const StyledTooltipWrapper = styled.div`
-  bottom: auto;
-  right: auto;
-  max-width: 300px;
-  position: relative;
-  animation: ${fadeIn} 0.2s linear;
-  z-index: ${({ theme }) => theme.zIndex.popover};
-`;
-
-StyledTooltipInner.propTypes = {
-  theme: PropTypes.object,
-  type: PropTypes.string,
-};
-
 StyledTooltipWrapper.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
-  position: PropTypes.oneOf(OptionsHelper.positions),
+  type: PropTypes.string,
+  size: PropTypes.oneOf(["medium", "large"]),
 };
 
 StyledTooltipWrapper.defaultProps = {
   theme: baseTheme,
+  size: "M",
+  inputSize: "medium",
+  position: "top",
 };
 
-StyledTooltipInner.defaultProps = {
-  theme: baseTheme,
-};
-
-export { StyledTooltipInner, StyledTooltipWrapper };
+export default StyledTooltipWrapper;

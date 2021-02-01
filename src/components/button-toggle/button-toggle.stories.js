@@ -3,7 +3,27 @@ import { text, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import ButtonToggle from "./button-toggle.component";
 
-export const basic = () => {
+export default {
+  title: "Button Toggle/Test",
+  component: ButtonToggle,
+  decorators: [withKnobs],
+  parameters: {
+    docs: {
+      page: null,
+    },
+    info: {
+      disable: true,
+    },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      escapeHTML: false,
+    },
+  },
+};
+
+export const Default = () => {
   const children = text("children", "Option");
 
   return (
@@ -39,26 +59,6 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  name: "basic",
-};
-
-export default {
-  title: "Button Toggle/Test",
-  component: ButtonToggle,
-  decorators: [withKnobs],
-  parameters: {
-    docs: {
-      page: null,
-    },
-    info: {
-      disable: true,
-    },
-    chromatic: {
-      disable: true,
-    },
-    knobs: {
-      escapeHTML: false,
-    },
-  },
+Default.story = {
+  name: "default",
 };

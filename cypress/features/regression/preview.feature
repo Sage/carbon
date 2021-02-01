@@ -3,7 +3,7 @@ Feature: Preview default component
 
   @positive
   Scenario Outline: Change Preview children to <children>
-    When I open basic "Preview Test" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Preview Test" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview children is set to <children>
     Examples:
       | children                     | nameOfObject             |

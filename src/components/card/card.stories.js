@@ -54,3 +54,7 @@ export const Default = () => {
     </Card>
   );
 };
+
+Default.story = {
+  name: "default",
+};

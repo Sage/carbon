@@ -1,5 +1,5 @@
-import { mountInAppPreview } from '../../locators/mount-in-app';
+import mountInAppPreview from "../../locators/mount-in-app";
 
-Then('Mount in App component is visible', () => {
-  mountInAppPreview().should('be.visible');
+Then("Mount in App component is visible", () => {
+  mountInAppPreview().should("be.visible");
 });

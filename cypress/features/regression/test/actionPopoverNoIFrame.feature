@@ -88,7 +88,7 @@ Feature: Action Popover component in noIFrame
   @positive
   Scenario: Open Action Popover and close it using Tab key
     When I click the menu button element in noiFrame
-      And I press "Tab" onto focused element
+      And I press Tab onto focused element
     Then Action Popover element is not visible
 
   @positive

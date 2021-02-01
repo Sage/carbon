@@ -1,3 +1,33 @@
+## [63.0.0](https://github.com/Sage/carbon/compare/v62.0.1...v63.0.0) (2021-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **focus-trap:** the focus trap util function has been removed
+
+### Bug Fixes
+
+* **focus-trap:** add focus trap component and remove util function ([cde1081](https://github.com/Sage/carbon/commit/cde1081c14c38eb782ea68437f90b385bdaea914))
+
+### [62.0.1](https://github.com/Sage/carbon/compare/v62.0.0...v62.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect behaviour when page count is zero ([1ecff03](https://github.com/Sage/carbon/commit/1ecff0388a7d33f79e2c01f6884b2b0eedf8854f))
+
+## [62.0.0](https://github.com/Sage/carbon/compare/v61.1.0...v62.0.0) (2021-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tooltip:** The `TooltipDecorator` has been removed, and the interface for `Tooltip` has been
+updated
+
+### Features
+
+* **tooltip:** add tippyjs wrapper and remove decorator ([8114ae2](https://github.com/Sage/carbon/commit/8114ae2390d41b173c02fed7f2eaeb5ce3c05705))
+
 ## [61.1.0](https://github.com/Sage/carbon/compare/v61.0.1...v61.1.0) (2021-01-27)
 
 

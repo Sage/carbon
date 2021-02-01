@@ -12,12 +12,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   // eslint-disable-next-line dot-notation
   i18n.translations.en["my"] = {
     example: "# My __example__ translation.",
@@ -30,10 +30,6 @@ export const Basic = () => {
   return <I18nComponent markdown={markdown} inline={inline} scope={scope} />;
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

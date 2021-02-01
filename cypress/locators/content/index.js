@@ -1,8 +1,4 @@
-import {
-  CONTENT_PREVIEW,
-  CONTENT_TITLE,
-  CONTENT_BODY,
-} from './locators';
+import { CONTENT_PREVIEW, CONTENT_TITLE, CONTENT_BODY } from "./locators";
 
 // component preview locators
 export const contentPreview = () => cy.get(CONTENT_PREVIEW);
