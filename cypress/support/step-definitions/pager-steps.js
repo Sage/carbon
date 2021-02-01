@@ -86,3 +86,7 @@ Then("pagination input has golden border", () => {
     .parent()
     .should("have.css", "outline-color", "rgb(255, 181, 0)");
 });
+
+Then('Current page input is set to {int}', (int) => {
+  currentPageInput().should('have.attr', 'value', int);
+});
