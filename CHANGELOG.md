@@ -1,3 +1,14 @@
+## [63.0.0](https://github.com/Sage/carbon/compare/v62.0.1...v63.0.0) (2021-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **focus-trap:** the focus trap util function has been removed
+
+### Bug Fixes
+
+* **focus-trap:** add focus trap component and remove util function ([cde1081](https://github.com/Sage/carbon/commit/cde1081c14c38eb782ea68437f90b385bdaea914))
+
 ### [62.0.1](https://github.com/Sage/carbon/compare/v62.0.0...v62.0.1) (2021-02-01)
 
 
