@@ -81,6 +81,7 @@ Feature: Dialog component
 
   @positive
   Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
-    Given I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
+    Given I open "Design System Form" component page "In dialog with sticky footer" in no iframe
+      And I click on Open Preview button
     When I scroll to the bottom of the dialog
     Then The footer is not sticky

@@ -2,6 +2,7 @@ import {
   alertDialogPreview as dialogPreview,
   dialogStickyFormFooterButton,
   dialogStickyFormFooter,
+  openPreviewButton,
 } from "../../locators/dialog/index";
 import { backgroundUILocatorIFrame, dlsRoot } from "../../locators/index";
 import { positionOfElement } from "../helper";
@@ -75,4 +76,8 @@ When("I scroll to the bottom of the dialog", () => {
 
 Then("The footer is not sticky", () => {
   dialogStickyFormFooter().should("not.have.class", "sticky");
+});
+
+When("I click on Open Preview button", () => {
+  openPreviewButton().click();
 });
