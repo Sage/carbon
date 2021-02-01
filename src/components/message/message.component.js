@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import I18n from "i18n-js";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
@@ -17,6 +18,7 @@ const Message = ({
   onDismiss,
   id,
   className,
+  closeButtonAriaLabel,
   showCloseIcon = true,
   ...props
 }) => {
@@ -24,7 +26,17 @@ const Message = ({
     if (!showCloseIcon || !onDismiss) return null;
 
     return (
-      <IconButton data-element="close" onAction={onDismiss} variant={variant}>
+      <IconButton
+        data-element="close"
+        aria-label={
+          closeButtonAriaLabel ||
+          I18n.t("message.close-button-aria-label", {
+            defaultValue: "Close",
+          })
+        }
+        onAction={onDismiss}
+        variant={variant}
+      >
         <Icon type="close" />
       </IconButton>
     );
@@ -73,6 +85,8 @@ Message.propTypes = {
   transparent: PropTypes.bool,
   /** determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
+  /** set custom aria label for message close button */
+  closeButtonAriaLabel: PropTypes.string,
 };
 
 export default Message;
