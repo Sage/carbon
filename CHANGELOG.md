@@ -1,3 +1,10 @@
+### [63.0.1](https://github.com/Sage/carbon/compare/v63.0.0...v63.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **dialog:** fix sticky footer transition ([f6d1360](https://github.com/Sage/carbon/commit/f6d13605de157f1f6a76cda6d193b72bb192c490)), closes [#3563](https://github.com/Sage/carbon/issues/3563)
+
 ## [63.0.0](https://github.com/Sage/carbon/compare/v62.0.1...v63.0.0) (2021-02-01)
 
 
