@@ -32,10 +32,10 @@ import {
 } from "carbon-react/lib/components/table";
 ```
 
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     <Table>
       <TableRow as="header">
         <TableHeader>Country</TableHeader>
@@ -57,7 +57,7 @@ import {
 ### With Inputs
 
 <Preview>
-  <Story name="With inputs">
+  <Story name="with inputs">
     <Table>
       <TableRow as="header">
         <TableHeader>Country</TableHeader>
@@ -81,7 +81,7 @@ import {
 ### Themes
 
 <Preview>
-  <Story name="Themes">
+  <Story name="themes">
     {() =>
       ["primary", "secondary", "tertiary"].map((theme) => (
         <div key={theme}>
@@ -112,7 +112,7 @@ import {
 ### Sizes
 
 <Preview>
-  <Story name="Sizes">
+  <Story name="sizes">
     {() =>
       ["compact", "small", "medium", "large"].map((size) => (
         <div key={size}>
@@ -143,7 +143,7 @@ import {
 ### Zebra
 
 <Preview>
-  <Story name="Zebra">
+  <Story name="zebra">
     <Table isZebra>
       <TableRow as="header">
         <TableHeader>Country</TableHeader>
@@ -165,7 +165,7 @@ import {
 ### Pagination
 
 <Preview>
-  <Story name="Pagination">
+  <Story name="pagination">
     {() => {
       const data = countriesList.toJS();
       const [state, setState] = useState({
@@ -213,7 +213,7 @@ import {
 ### Sortable
 
 <Preview>
-  <Story name="Sortable">
+  <Story name="sortable">
     {() => {
       const [state, setState] = useState({
         sortOrder: "asc",
@@ -264,7 +264,7 @@ import {
 ### Selectable
 
 <Preview>
-  <Story name="Selectable">
+  <Story name="selectable">
     {() => (
       <Table
         selectable
@@ -321,7 +321,7 @@ import {
 ### Highlightable
 
 <Preview parameters={{ chromatic: { disable: true } }}>
-  <Story name="Highlightable">
+  <Story name="highlightable">
     <Table highlightable onHighlight={(id) => console.log(id)}>
       <TableRow as="header" uniqueID="header">
         <TableHeader>Country</TableHeader>

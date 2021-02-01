@@ -7,6 +7,7 @@ import SelectTextbox, {
 import guid from "../../../utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
 import SelectList from "../select-list/select-list.component";
+import isExpectedOption from "../utils/is-expected-option";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -101,8 +102,8 @@ const FilterableSelect = React.forwardRef(
 
     const setMatchingText = useCallback(
       (newValue) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (option) => option.props.value === newValue
+        const matchingOption = React.Children.toArray(children).find((child) =>
+          isExpectedOption(child, newValue)
         );
 
         if (matchingOption && matchingOption.props.text !== undefined) {

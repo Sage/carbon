@@ -32,6 +32,7 @@ const ValidationIcon = ({
     hasFocus: groupHasFocus,
     hasMouseOver: groupHasMouseOver,
   } = useContext(InputGroupContext);
+  const [triggeredByIcon, setTriggeredByIcon] = React.useState(false);
 
   const validationType = getValidationType({ error, warning, info });
 
@@ -48,21 +49,26 @@ const ValidationIcon = ({
       role="tooltip"
       aria-label={validationMessage}
       onClick={onClick}
+      onMouseOver={() => setTriggeredByIcon(true)}
+      onMouseLeave={() => setTriggeredByIcon(false)}
+      onFocus={() => setTriggeredByIcon(true)}
+      onBlur={() => setTriggeredByIcon(false)}
     >
       <Icon
         key={`${validationType}-icon`}
-        tooltipType={validationType}
-        tooltipMessage={validationMessage}
-        tooltipVisible={
-          hasFocus || hasMouseOver || groupHasFocus || groupHasMouseOver
-        }
         type={validationType}
-        size={size}
         tabIndex={tabIndex}
+        tooltipMessage={validationMessage}
         tooltipPosition={tooltipPosition}
-        tooltipAlign="center"
-        isThemeModern
+        tooltipVisible={
+          hasFocus ||
+          hasMouseOver ||
+          groupHasFocus ||
+          groupHasMouseOver ||
+          triggeredByIcon
+        }
         isPartOfInput={isPartOfInput}
+        inputSize={size}
       />
     </ValidationIconStyle>
   );

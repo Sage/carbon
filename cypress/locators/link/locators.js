@@ -1,2 +1,4 @@
 // component preview locators
-export const LINK_PREVIEW = '[data-component="link"]';
+const LINK_PREVIEW = '[data-component="link"]';
+
+export default LINK_PREVIEW;

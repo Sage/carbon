@@ -3,5 +3,5 @@ Feature: Mount in App default component
 
   @positive
   Scenario: Mount in App is visible
-    When I open "Mount in App Test" component page "basic"
+    When I open "Mount in App Test" component page "default"
     Then Mount in App component is visible

@@ -1,65 +1,97 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TooltipDecorator from "../../utils/decorators/tooltip-decorator";
-import { validProps } from "../../utils/ether";
 import tagComponent from "../../utils/helpers/tags";
 import StyledIcon from "./icon.style";
+import Tooltip from "../tooltip";
 
-class Icon extends React.Component {
-  /** Return component props */
-  get componentProps() {
-    return validProps(this);
-  }
+const Icon = React.forwardRef(
+  (
+    {
+      bg,
+      bgShape,
+      bgSize,
+      bgTheme,
+      className,
+      color,
+      disabled,
+      fontSize,
+      iconColor,
+      type,
+      ml,
+      mr,
+      tooltipMessage,
+      tooltipPosition,
+      tooltipVisible,
+      tabIndex,
+      isPartOfInput,
+      inputSize,
+      ...rest
+    },
+    ref
+  ) => {
+    /** Return Icon type with overrides */
+    const iconType = () => {
+      // switch tweaks icon names for actual icons in the set
+      switch (type) {
+        case "help":
+          return "question";
+        case "maintenance":
+          return "settings";
+        case "new":
+          return "gift";
+        case "success":
+          return "tick";
+        case "messages":
+        case "email":
+          return "message";
+        default:
+          return type;
+      }
+    };
 
-  /** Return Icon type with overrides */
-  get type() {
-    // switch tweaks icon names for actual icons in the set
-    switch (this.props.type) {
-      case "help":
-        return "question";
-      case "maintenance":
-        return "settings";
-      case "new":
-        return "gift";
-      case "success":
-        return "tick";
-      case "messages":
-      case "email":
-        return "message";
-      default:
-        return this.props.type;
-    }
-  }
-
-  /** Renders the component. */
-  render() {
-    return [
+    const icon = (
       <StyledIcon
-        bgSize={this.props.bgSize}
-        bgShape={this.props.bgShape}
-        bgTheme={this.props.bgTheme}
-        fontSize={this.props.fontSize}
-        iconColor={this.props.iconColor}
-        disabled={this.props.disabled}
-        color={this.props.color}
-        bg={this.props.bg}
-        type={this.type}
+        ref={ref}
+        bgSize={bgSize}
+        bgShape={bgShape}
+        bgTheme={bgTheme}
+        fontSize={fontSize}
+        iconColor={iconColor}
+        disabled={disabled}
+        color={color}
+        bg={bg}
+        type={iconType()}
         key="icon"
-        className={this.props.className || null}
-        {...this.componentProps}
-        {...tagComponent("icon", this.props)}
-        ref={(comp) => {
-          this._target = comp;
-        }}
-        data-element={this.type}
-        mr={this.props.mr}
-        ml={this.props.ml}
-        aria-label={this.props.ariaLabel}
-      />,
-      this.tooltipHTML,
-    ];
+        className={className || null}
+        {...tagComponent("icon", rest)}
+        data-element={iconType()}
+        mr={mr}
+        ml={ml}
+        tabIndex={tabIndex}
+        {...rest}
+      />
+    );
+
+    if (tooltipMessage) {
+      const visible = disabled ? false : tooltipVisible;
+
+      return (
+        <Tooltip
+          message={tooltipMessage}
+          position={tooltipPosition}
+          type={type}
+          isVisible={visible}
+          isPartOfInput={isPartOfInput}
+          inputSize={inputSize}
+        >
+          {icon}
+        </Tooltip>
+      );
+    }
+
+    return icon;
   }
-}
+);
 
 Icon.propTypes = {
   /** Add classes to this component */
@@ -100,6 +132,18 @@ Icon.propTypes = {
   ml: PropTypes.number,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
+  /** The message string to be displayed in the tooltip */
+  tooltipMessage: PropTypes.string,
+  /** The position to display the tooltip */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Control whether the tooltip is visible */
+  tooltipVisible: PropTypes.bool,
+  /** @ignore @private */
+  isPartOfInput: PropTypes.bool,
+  /** @ignore @private */
+  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+  /** @ignore @private */
+  tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.number]),
 };
 
 Icon.defaultProps = {
@@ -108,4 +152,4 @@ Icon.defaultProps = {
   disabled: false,
 };
 
-export default TooltipDecorator(Icon);
+export default Icon;

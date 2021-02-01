@@ -28,6 +28,12 @@ const PagerNavigation = ({
   const currentPageId = `Pager_${guid.current}`;
 
   const handlePageInputChange = (ev) => {
+    if (pageCount === 0) {
+      setCurrentPage(0);
+      onPagination(0, pageSize, "input");
+      return "0";
+    }
+
     if (Number(ev.target.value) <= 0 || Number.isNaN(Number(ev.target.value))) {
       setCurrentPage(1);
       onPagination(1, pageSize, "input");

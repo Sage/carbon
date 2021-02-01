@@ -1,7 +1,4 @@
-import {
-  PORTRAIT_PREVIEW,
-  PORTRAIT_INITIALS
-} from './locators';
+import { PORTRAIT_PREVIEW, PORTRAIT_INITIALS } from "./locators";
 
 // component preview locators
 export const portraitPreview = () => cy.get(PORTRAIT_PREVIEW);

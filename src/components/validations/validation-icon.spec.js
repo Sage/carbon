@@ -6,7 +6,9 @@ import {
   InputContext,
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
-import Icon from "../icon";
+import Tooltip from "../tooltip";
+
+jest.mock("@tippyjs/react/headless");
 
 describe("ValidationIcon", () => {
   it.each([
@@ -31,33 +33,62 @@ describe("ValidationIcon", () => {
     }
   );
 
-  it('"tooltipPosition" and "tooltipAlign" props in its icon should be "right" and "center" respectively', () => {
+  it('tooltips "position" prop should be "right"', () => {
     const wrapper = mount(<ValidationIcon error="error" />);
-    const iconProps = wrapper.find(Icon).props();
-    expect(iconProps.tooltipPosition).toBe("right");
-    expect(iconProps.tooltipAlign).toBe("center");
+    const tooltipProps = wrapper.find(Tooltip).props();
+    expect(tooltipProps.position).toBe("right");
   });
 
   it("shows the tooltip if input context has focus", () => {
-    const icon = renderWithInputContext({ hasFocus: true }).find("Icon");
-    expect(icon.props().tooltipVisible).toEqual(true);
+    const tooltip = renderWithInputContext({ hasFocus: true }).find(Tooltip);
+    expect(tooltip.props().isVisible).toEqual(true);
   });
 
   it("shows the tooltip if input context has mouse over", () => {
-    const icon = renderWithInputContext({ hasMouseOver: true }).find("Icon");
-    expect(icon.props().tooltipVisible).toEqual(true);
+    const tooltip = renderWithInputContext({ hasMouseOver: true }).find(
+      Tooltip
+    );
+    expect(tooltip.props().isVisible).toEqual(true);
   });
 
   it("shows the tooltip if input group context has focus", () => {
-    const icon = renderWithInputContext({}, { hasFocus: true }).find("Icon");
-    expect(icon.props().tooltipVisible).toEqual(true);
+    const tooltip = renderWithInputContext({}, { hasFocus: true }).find(
+      Tooltip
+    );
+    expect(tooltip.props().isVisible).toEqual(true);
   });
 
   it("shows the tooltip if input group context has mouse over", () => {
-    const icon = renderWithInputContext({}, { hasMouseOver: true }).find(
-      "Icon"
+    const tooltip = renderWithInputContext({}, { hasMouseOver: true }).find(
+      Tooltip
     );
-    expect(icon.props().tooltipVisible).toEqual(true);
+    expect(tooltip.props().isVisible).toEqual(true);
+  });
+
+  it("shows the Tooltip if the Help component has mouse over event", () => {
+    const wrapper = mount(<ValidationIcon error="Message" />);
+    wrapper.simulate("mouseover");
+    expect(wrapper.find(Tooltip).props().isVisible).toEqual(true);
+  });
+
+  it("hides the Tooltip if the Help component has mouse leave event", () => {
+    const wrapper = mount(<ValidationIcon error="Message" />);
+    wrapper.simulate("mouseover");
+    wrapper.simulate("mouseleave");
+    expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
+  });
+
+  it("shows the Tooltip if the Help component has focus event", () => {
+    const wrapper = mount(<ValidationIcon error="Message" />);
+    wrapper.simulate("focus");
+    expect(wrapper.find(Tooltip).props().isVisible).toEqual(true);
+  });
+
+  it("hides the Tooltip if the Help component has blur event", () => {
+    const wrapper = mount(<ValidationIcon error="Message" />);
+    wrapper.simulate("focus");
+    wrapper.simulate("blur");
+    expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
   });
 });
 

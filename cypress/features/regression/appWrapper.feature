@@ -3,7 +3,7 @@ Feature: App Wrapper component
 
   @positive
   Scenario Outline: Change App Wrapper children to <children>
-    When I open Basic "AppWrapper Test" component in noIFrame with "appWrapper" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "AppWrapper Test" component in noIFrame with "appWrapper" json from "commonComponents" using "<nameOfObject>" object name
     Then App Wrapper children on preview is <children>
     Examples:
       | children                     | nameOfObject             |

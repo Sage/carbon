@@ -1,4 +1,4 @@
 // component preview locators
-export const CONTENT_PREVIEW = '.carbon-content';
-export const CONTENT_TITLE = '.carbon-content__title';
-export const CONTENT_BODY = '.carbon-content__body';
+export const CONTENT_PREVIEW = '[data-component="content"]';
+export const CONTENT_TITLE = '[data-element="content-title"]';
+export const CONTENT_BODY = '[data-element="content-body"]';

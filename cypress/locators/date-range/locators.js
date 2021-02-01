@@ -1,2 +1,4 @@
 // component preview locators
-export const LABEL_PREVIEW = 'div[data-component="date-range"]';
+const LABEL_PREVIEW = 'div[data-component="date-range"]';
+
+export default LABEL_PREVIEW;

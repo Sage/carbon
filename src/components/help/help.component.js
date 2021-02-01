@@ -9,6 +9,7 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 const Help = (props) => {
   const helpElement = useRef(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
+
   const {
     className,
     href,
@@ -17,7 +18,6 @@ const Help = (props) => {
     tabIndex,
     as,
     tooltipPosition,
-    tooltipAlign,
     isFocused,
     type,
   } = props;
@@ -60,6 +60,8 @@ const Help = (props) => {
       }}
       onFocus={handleFocusBlur(true)}
       onBlur={handleFocusBlur(false)}
+      onMouseOver={handleFocusBlur(true)}
+      onMouseLeave={handleFocusBlur(false)}
       {...tagComponent("help", props)}
       tabIndex={tabIndex}
       value={children}
@@ -69,7 +71,6 @@ const Help = (props) => {
         type={type}
         tooltipMessage={children}
         tooltipPosition={tooltipPosition}
-        tooltipAlign={tooltipAlign}
         tooltipVisible={isFocused || isTooltipVisible}
       />
     </StyledHelp>
@@ -89,11 +90,9 @@ Help.propTypes = {
   as: PropTypes.string,
   /** Position of tooltip relative to target */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
-  /** Aligment of pointer */
-  tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A path for the anchor */
   href: PropTypes.string,
-  /** A boolean recived from IconWrapper */
+  /** A boolean received from IconWrapper */
   isFocused: PropTypes.bool,
   /** Icon to display, can be received from label component */
   type: PropTypes.oneOf(OptionsHelper.icons),
@@ -101,7 +100,6 @@ Help.propTypes = {
 
 Help.defaultProps = {
   tooltipPosition: "top",
-  tooltipAlign: "center",
   tabIndex: 0,
   type: "help",
 };

@@ -9,6 +9,7 @@ import { MenuItem } from './action-popover-item.component';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
+import { Accordion } from '../accordion'
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
 import Link from '../link';
 import LinkTo from '@storybook/addon-links/react';
@@ -40,7 +41,7 @@ left, right, or above the element that generates it.
 - Content in the popover is usually left aligned.
 
 ## Related Components
-- Data entry rather than an action? <LinkTo kind='Design System/Select' story='basic'>Try Select</LinkTo>.
+- Data entry rather than an action? <LinkTo kind='Design System/Select' story='default-story'>Try Select</LinkTo>.
 - Only a single action? <LinkTo kind='Design System/Button' story='primary'>Try Button</LinkTo>.
 - Doesn’t relate to a single table row or tile? <LinkTo kind='Split Button' story='default'>Try Split Button</LinkTo>, or 
 <LinkTo kind='Multi Action Button' story='default'>Multi Action Button</LinkTo>.
@@ -649,6 +650,58 @@ used actions, in this example "manage devices".
           </TableCell>
         </TableRow>
       </Table>
+    </div>
+  </Story>
+</Preview>
+
+## in overflow hidden container
+
+<Preview>
+  <Story name="in overflow hidden container">
+    <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+      <Accordion title='Heading'>
+        <Table isZebra>
+          <TableRow>
+            <TableHeader colSpan='3'>Devices</TableHeader>
+          </TableRow>
+          <TableRow>
+            <TableCell>Mobile Phone</TableCell>
+            <TableCell>Online</TableCell>
+            <TableCell>
+              <ActionPopover>
+                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
+                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Tablet</TableCell>
+            <TableCell>Online</TableCell>
+            <TableCell>
+              <ActionPopover>
+                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
+                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Desktop</TableCell>
+            <TableCell>Online</TableCell>
+            <TableCell>
+              <ActionPopover>
+                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
+                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+        </Table>
+      </Accordion>
     </div>
   </Story>
 </Preview>

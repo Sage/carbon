@@ -4,7 +4,9 @@ import TestRenderer from "react-test-renderer";
 import Link from "./link.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import LinkStyle from "./link.style";
+import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
+import Tooltip from "../tooltip";
 
 const RouterLink = (props) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -95,7 +97,7 @@ describe("Link", () => {
     });
 
     it("should render an `Icon` correctly with the `basket` value", () => {
-      expect(wrapper.find("Icon").props().type).toEqual("basket");
+      expect(wrapper.find(Icon).props().type).toEqual("basket");
     });
 
     it("should render an `Icon` on the left side of the component by default", () => {
@@ -135,6 +137,19 @@ describe("Link", () => {
         TestRenderer.create(wrapper.find(LinkStyle)).toJSON(),
         { modifier: `a ${StyledIcon}` }
       );
+    });
+
+    it("should render a `Tooltip` if tooltipMessage is passed", () => {
+      wrapper = mount(
+        <Link
+          iconAlign="right"
+          icon="home"
+          href="www.sage.com"
+          tooltipMessage="foo"
+        />
+      );
+
+      expect(wrapper.find(Tooltip).exists()).toBeTruthy();
     });
   });
 

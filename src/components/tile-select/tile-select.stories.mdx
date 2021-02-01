@@ -1,9 +1,9 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { useState } from 'react';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
-import { TileSelect, TileSelectGroup } from '.';
+import { TileSelect, TileSelectGroup } from ".";
 import Pill from "../pill/"
-import Icon from '../icon';
+import Icon from "../icon";
 
 <Meta
   title="Design System/Tile Select"
@@ -29,13 +29,13 @@ const MyComponent = () => (
     description="Pick one of the available options"
     onChange={(e) => setValue(e.target.value)}
   >
-    <TileSelect 
+    <TileSelect
       value="1"
       title="Title"
       subtitle="Subtitle"
       description="Short and descriptive description"
     />
-    <TileSelect 
+    <TileSelect
       value="2"
       title="Title"
       subtitle="Subtitle"
@@ -56,7 +56,7 @@ In this mode all input props like `onChange`, `onBlur`, `name` and currently sel
 These props are then internally distributed on each of the `TileSelects` making the whole composed group act like a single form field.
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     {() => {
       const [value, setValue] = useState(null);
       return (
@@ -67,7 +67,7 @@ These props are then internally distributed on each of the `TileSelects` making 
           description="Pick one of the available options"
           onChange={(e) => setValue(e.target.value)}
         >
-          <TileSelect 
+          <TileSelect
             value="1"
             id="1"
             aria-label="1"
@@ -75,7 +75,7 @@ These props are then internally distributed on each of the `TileSelects` making 
             subtitle="Subtitle"
             description="Short and descriptive description"
           />
-          <TileSelect 
+          <TileSelect
             value="2"
             id="2"
             aria-label="2"
@@ -84,17 +84,17 @@ These props are then internally distributed on each of the `TileSelects` making 
             titleAdornment={<Pill>Message</Pill>}
             description="Short and descriptive description"
           />
-          <TileSelect 
+          <TileSelect
             value="3"
             id="3"
             aria-label="3"
             disabled
-            title="Title" 
+            title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
             description="Short and descriptive description"
           />
-          <TileSelect 
+          <TileSelect
             value="4"
             id="4"
             aria-label="4"
@@ -117,7 +117,7 @@ In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` 
 In this mode `TileSelectGroup` serves only a visual purpose - it only renders `legend` and `description` props and applies spacing to each of the `TileSelects`
 
 <Preview>
-  <Story name="Single Select">
+  <Story name="single Select">
     {() => {
       const [value1, setValue1] = useState(false);
       const [value2, setValue2] = useState(false);
@@ -129,7 +129,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
           description="Pick any number of available options"
           multiSelect
         >
-          <TileSelect 
+          <TileSelect
             value="1"
             name="multi-1"
             id="multi-1"
@@ -157,9 +157,9 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             id="multi-3"
             aria-label="multi-3"
             disabled
-            title="Title" 
+            title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
             description="Short and descriptive description"
             checked={value3}
             onChange={e => setValue3(e.target.checked)}
@@ -188,11 +188,11 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
 Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed directly on the `TileSelect`.
 
 <Preview>
-  <Story name="Single tile">
+  <Story name="single tile">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
       return (
-        <TileSelect 
+        <TileSelect
           value="1"
           id="single-1"
           aria-label="single-1"

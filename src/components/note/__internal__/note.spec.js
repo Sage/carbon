@@ -12,9 +12,8 @@ import {
   StyledFooterContent,
 } from "./note.style";
 import { ActionPopover, ActionPopoverItem } from "../../action-popover";
-import StatusWithTooltip from "./status-with-tooltip";
+import StyledStatusIconWrapper from "./status-with-tooltip/status.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import Tooltip from "../../tooltip";
 
 function render(props = {}) {
   const defaultProps = {
@@ -212,20 +211,10 @@ describe("Note", () => {
         createdDate,
         status: { text: "foo", timeStamp: "123" },
       });
-      const status = wrapper.find(StatusWithTooltip);
+      const statusIcon = wrapper.find(StyledStatusIconWrapper);
       expect(wrapper.find(StyledFooterContent)).toHaveLength(3);
-      expect(status.exists()).toBeTruthy();
-      expect(status.text()).toEqual("foo");
-
-      status.simulate("mouseover");
-      expect(
-        wrapper.find(StatusWithTooltip).find(Tooltip).exists()
-      ).toBeTruthy();
-
-      status.simulate("mouseleave");
-      expect(
-        wrapper.find(StatusWithTooltip).find(Tooltip).exists()
-      ).toBeFalsy();
+      expect(statusIcon.exists()).toBeTruthy();
+      expect(statusIcon.text()).toEqual("foo");
     });
   });
 

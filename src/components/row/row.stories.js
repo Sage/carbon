@@ -68,3 +68,7 @@ export const Default = () => {
     </Row>
   );
 };
+
+Default.story = {
+  name: "default",
+};

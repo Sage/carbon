@@ -126,6 +126,7 @@ SelectTextbox.propTypes = {
     PropTypes.string,
     PropTypes.object,
     PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
   ]),
 };
 

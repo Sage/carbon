@@ -1,4 +1,6 @@
-import { TILE } from './locators';
+import TILE from "./locators";
 
 // component preview locators
-export const tile = () => cy.get(TILE);
+const tile = () => cy.get(TILE);
+
+export default tile;

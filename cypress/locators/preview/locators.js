@@ -1,2 +1,4 @@
 // component preview locators
-export const PREVIEW = 'span[data-component="preview"]';
+const PREVIEW = 'span[data-component="preview"]';
+
+export default PREVIEW;

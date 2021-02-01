@@ -72,3 +72,7 @@ export const Default = () => {
     </Pod>
   );
 };
+
+Default.story = {
+  name: "default",
+};

@@ -26,8 +26,8 @@ Feature: Accessibility tests - Design System folder
     Then "Advanced Color Picker" component has no accessibility violations
 
   @accessibility
-  Scenario Outline: Component <component> basic default page
-    When I open "Test <component>" component page "basic" in no iframe
+  Scenario Outline: Component <component> default page
+    When I open "Test <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
@@ -40,9 +40,9 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System Numeral Date Test" component page "<story>" in no iframe
     Then "Numeral Date <story>" component has no accessibility violations
     Examples:
-      | story       |
-      | basic       |
-      | validations |
+      | story         |
+      | default_story |
+      | validations   |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page
@@ -97,14 +97,14 @@ Feature: Accessibility tests - Design System folder
   @ignore
   # ignored because of accessibility issues after
   # changing state of components -> FE-2894
-  Scenario: Design System Popover Container component basic page
-    Given I open "Design System Popover Container" component page "basic" in no iframe
+  Scenario: Design System Popover Container component default page
+    Given I open "Design System Popover Container" component page "default_story" in no iframe
     When I open popover container in NoIFrame
     Then "Popover Container" component has no accessibility violations
 
   @accessibility
-  Scenario Outline: Design System <component> component basic page
-    When I open "Design System <component>" component page "basic" in no iframe
+  Scenario Outline: Design System <component> component default page
+    When I open "Design System <component>" component page "default_story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component         |
@@ -132,6 +132,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
+      | Content   |
       | Loader    |
       | Pager     |
       | Search    |
@@ -147,8 +148,8 @@ Feature: Accessibility tests - Design System folder
       | transparent |
 
   @accessibility
-  Scenario: Design System Select component basic page
-    Given I open "Design System Select" component page "basic" in no iframe
+  Scenario: Design System Select component default_story page
+    Given I open "Design System Select" component page "default_story" in no iframe
     When I click on Select input in noIframe
     Then "Select" component has no accessibility violations
 
@@ -191,7 +192,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Component Tabs
-    When I open "Design System Tabs" component page "basic" in no iframe
+    When I open "Design System Tabs" component page "default_story" in no iframe
     Then "Tabs" component has no accessibility violations
 
   @accessibility
@@ -228,3 +229,8 @@ Feature: Accessibility tests - Design System folder
       | custom colors |
       | status        |
       | tag           |
+
+  @accessibility
+  Scenario: Tooltip component default story
+    When I open "Design System Tooltip Test" component page "default" in no iframe
+    Then "Design System Tooltip Test default" component has no accessibility violations

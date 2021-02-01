@@ -54,6 +54,8 @@ StyledEditorContainer.defaultProps = {
 const StyledEditorOutline = styled.div`
   ${({ theme, isFocused, hasError }) => css`
     outline: none;
+    min-width: 320px;
+
     ${isFocused &&
     css`
       outline: 3px solid ${theme.colors.focus};

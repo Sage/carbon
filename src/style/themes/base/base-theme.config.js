@@ -183,6 +183,10 @@ export default (palette) => {
       textboxText: palette.blackOpacity(0.74),
     },
 
+    content: {
+      secondaryColor: palette.slateTint(40),
+    },
+
     definitionList: {
       dtTextDark: palette.blackOpacity(0.9),
       dtTextLight: palette.blackOpacity(0.65),

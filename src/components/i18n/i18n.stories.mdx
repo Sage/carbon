@@ -30,42 +30,42 @@ const MyComponent = () => (
 ```
 
 ### Default
-<Preview>  
+<Preview>
   <Story name="default">
-    {() => {        
+    {() => {
       i18n.translations.en['my'] = {
       example: '# My __example__ translation.'
-      }; 
+      };
       return (
-      <div style={{margin: '16px'}}> 
+      <div style={{margin: '16px'}}>
         <I18nComponent scope='my.example'/>
       </div>
-      )     
+      )
     }}
   </Story>
   <Story name="markdown">
-    {() => {        
+    {() => {
       i18n.translations.en['my'] = {
       example: '# My __example__ translation.'
-      }; 
+      };
       return (
-      <div style={{}}> 
+      <div style={{}}>
         <I18nComponent markdown={true} inline={false} scope='my.example'/>
       </div>
-      )         
-    }} 
+      )
+    }}
   </Story>
   <Story name="inline">
-    {() => {        
+    {() => {
       i18n.translations.en['my'] = {
       example: '# My __example__ translation.'
-      }; 
+      };
       return (
-      <div style={{margin: '16px'}}> 
+      <div style={{margin: '16px'}}>
         <I18nComponent markdown={true} inline={true} scope='my.example'/>
       </div>
-      )         
-    }} 
+      )
+    }}
   </Story>
 </Preview>
 
@@ -75,10 +75,10 @@ const MyComponent = () => (
     {() => {
         i18n.translations.en['my'] = {
         example: '# My __example__ translation.'
-      }; 
+      };
       return (
         <I18nComponent markdown={true} inline={false} scope='my.example'/>
-      )         
+      )
     }}
   </Story>
 </Preview>
@@ -89,10 +89,10 @@ const MyComponent = () => (
     {() => {
         i18n.translations.en['my'] = {
         example: '# My __example__ translation.'
-      }; 
+      };
       return (
         <I18nComponent markdown inline scope='my.example'/>
-      )         
+      )
     }}
   </Story>
 </Preview>

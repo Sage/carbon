@@ -29,10 +29,10 @@ from `carbon-react/lib/components/select`.
 import { Select, Option } from "carbon-react/lib/components/select";
 ```
 
-### Basic usage:
+### Default usage:
 
 <Preview>
-  <Story name="basic">
+  <Story name="default">
     <Select
       name="simple"
       id="simple"
@@ -130,24 +130,26 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### With object as value:
-Option values could be passed as objects. Useful when custom data is associated with an option.
+Option values could be passed as objects, useful when custom data is associated with an option.
+When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
+If there is no `id` prop specified on an object, then the exact objects will be compared.
 
 <Preview>
   <Story name="with object as value" parameters={{ chromatic: { disable: true }}} >
     {() => {
-      const [value, setValue] = useState({});
+      const [value, setValue] = useState({ id: 'Green', value: 5, text: 'Green' });
       const optionList = useRef([
-        <Option text='Amber' key='Amber' value={ { value: 1, text: 'Amber' } } />,
-        <Option text='Black' key='Black' value={ { value: 2, text: 'Black' } } />,
-        <Option text='Blue' key='Blue' value={ { value: 3, text: 'Blue' } } />,
-        <Option text='Brown' key='Brown' value={ { value: 4, text: 'Brown' } } />,
-        <Option text='Green' key='Green' value={ { value: 5, text: 'Green' } } />,
-        <Option text='Orange' key='Orange' value={ { value: 6, text: 'Orange' } } />,
-        <Option text='Pink' key='Pink' value={ { value: 7, text: 'Pink' } } />,
-        <Option text='Purple' key='Purple' value={ { value: 8, text: 'Purple' } } />,
-        <Option text='Red' key='Red' value={ { value: 9, text: 'Red' } } />,
-        <Option text='White' key='White' value={ { value: 10, text: 'White' } } />,
-        <Option text='Yellow' key='Yellow' value={ { value: 11, text: 'Yellow' } } />
+        <Option text='Amber' key='Amber' value={ { id: 'Amber', value: 1, text: 'Amber' } } />,
+        <Option text='Black' key='Black' value={ { id: 'Black', value: 2, text: 'Black' } } />,
+        <Option text='Blue' key='Blue' value={ { id: 'Blue', value: 3, text: 'Blue' } } />,
+        <Option text='Brown' key='Brown' value={ { id: 'Brown', value: 4, text: 'Brown' } } />,
+        <Option text='Green' key='Green' value={ { id: 'Green', value: 5, text: 'Green' } } />,
+        <Option text='Orange' key='Orange' value={ { id: 'Orange', value: 6, text: 'Orange' } } />,
+        <Option text='Pink' key='Pink' value={ { id: 'Pink', value: 7, text: 'Pink' } } />,
+        <Option text='Purple' key='Purple' value={ { id: 'Purple', value: 8, text: 'Purple' } } />,
+        <Option text='Red' key='Red' value={ { id: 'Red', value: 9, text: 'Red' } } />,
+        <Option text='White' key='White' value={ { id: 'White', value: 10, text: 'White' } } />,
+        <Option text='Yellow' key='Yellow' value={ { id: 'Yellow', value: 11, text: 'Yellow' } } />
       ]);
       function onChangeHandler(event) {
         setValue(event.target.value);

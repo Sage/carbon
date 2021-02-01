@@ -33,7 +33,7 @@ import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 By default, the Tile component will have a horizontal layout.
 
 <Preview>
-  <Story name="Default">
+  <Story name="default">
     <Tile>
       <Content title="Test Title One">Test Body One</Content>
       <Content title="Test Title Two">Test Body Two</Content>
@@ -47,7 +47,7 @@ By default, the Tile component will have a horizontal layout.
 The Tile component can be also have a vertical layout.
 
 <Preview>
-  <Story name="Vertical">
+  <Story name="vertical">
     <Tile orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
       <Content title="Test Title Two">Test Body Two</Content>
@@ -134,6 +134,7 @@ The Tile component can be also have a vertical layout.
                 iconPosition="after"
                 iconType="edit"
                 buttonType="tertiary"
+                ml={2}
               >
                 Edit Button
               </Button>
@@ -143,6 +144,7 @@ The Tile component can be also have a vertical layout.
                 iconPosition="after"
                 iconType="edit"
                 buttonType="tertiary"
+                ml={2}
               >
                 Edit Button
               </Button>
@@ -160,7 +162,7 @@ The Tile component can also have custom widths. Any child wrapped by a Tile comp
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
 
 <Preview>
-  <Story name="Custom Widths">
+  <Story name="custom Widths">
     <Tile as="tile" orientation="horizontal" pixelWidth={0} width={75}>
       <Content
         align="left"
@@ -295,7 +297,7 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 ```
 
 <Preview>
-  <Story name="Tile with Definition List - default">
+  <Story name="tile with Definition List - default">
     <Tile width={95}>
       <Dl>
         <Dt>Drink</Dt>
@@ -337,7 +339,7 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
 <Preview>
-  <Story name="Tile with Definition List with custom width">
+  <Story name="tile with Definition List with custom width">
     <Tile width={95}>
       <Dl w={40}>
         <Dt>Drink</Dt>
@@ -379,7 +381,7 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
 In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
 
 <Preview>
-  <Story name="Tile with Definition with List Custom Text Alignments">
+  <Story name="tile with Definition with List Custom Text Alignments">
     <Tile width={40}>
       <Dl w={40} dtTextAlign="left" ddTextAlign="right">
         <Dt>Coffee Subscription</Dt>
@@ -406,7 +408,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 <Preview>
   <Story
     parameters={{ chromatic: { disable: true } }}
-    name="Tile with Accordion"
+    name="tile with Accordion"
   >
     <Tile p={0} orientation="horizontal">
       <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">

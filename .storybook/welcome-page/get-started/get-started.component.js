@@ -21,6 +21,7 @@ const GetStarted = () => (
         href="https://github.com/Sage/carbon/blob/master/docs/getting-started.stories.mdx"
         size='large'
         target='_blank'
+        ml={2}
       >
         { I18n.t('navigation.github.download') }
       </Button>

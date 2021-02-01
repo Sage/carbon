@@ -15,7 +15,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const handleUpdate = (items) => {
     action("onUpdate")(items);
   };
@@ -38,10 +38,6 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+Default.story = {
+  name: "default",
 };

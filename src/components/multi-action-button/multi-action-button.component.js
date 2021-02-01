@@ -6,6 +6,20 @@ import Button from "../button";
 import OptionsHelper from "../../utils/helpers/options-helper";
 
 class MultiActionButton extends SplitButton {
+  showButtons = () => {
+    document.addEventListener(this.userInputType, this.handleClickOutside);
+    this.setState({
+      showAdditionalButtons: true,
+      minWidth: this.splitButtonNode.current.getBoundingClientRect().width,
+    });
+
+    /* istanbul ignore else */
+    if (!this.listening) {
+      document.addEventListener("keydown", this.handleKeyDown);
+      this.listening = true;
+    }
+  };
+
   get multiActionButtonProps() {
     const { iconType, iconPosition, ...props } = this.props;
 

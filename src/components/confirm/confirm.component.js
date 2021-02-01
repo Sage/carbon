@@ -30,6 +30,7 @@ class Confirm extends Dialog {
           data-element="confirm"
           buttonType="primary"
           destructive={this.props.destructive}
+          ml={2}
         >
           {this.props.confirmLabel ||
             I18n.t("confirm.yes", { defaultValue: "Yes" })}
