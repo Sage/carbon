@@ -62,6 +62,7 @@ const DialogStyle = styled.div`
       left: auto;
       width: ${dialogSizes[size]};
       position: fixed;
+      padding: 16px 35px;
     }
   `}
 
