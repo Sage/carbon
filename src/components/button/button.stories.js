@@ -41,6 +41,7 @@ const getKnobs = () => {
       OptionsHelper.buttonTypes,
       Button.defaultProps.as
     ),
+    href: text("href"),
     destructive: boolean("destructive", false),
     noWrap: boolean("noWrap", false),
     ...getIconKnobs(),

@@ -50,6 +50,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -136,6 +137,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -294,6 +296,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     data-component="button"
     data-element="main-button"
     disabled={false}
+    draggable={false}
     id="guid-12345"
     onFocus={[Function]}
     onMouseEnter={[Function]}

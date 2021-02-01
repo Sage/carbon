@@ -638,6 +638,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -678,6 +679,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   className="c0"
   data-component="button"
   disabled={false}
+  draggable={false}
   role="button"
   size="medium"
   type="button"
@@ -750,6 +752,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -1364,6 +1367,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   className="c0"
   data-component="button"
   disabled={false}
+  draggable={false}
   role="button"
   size="medium"
   type="button"

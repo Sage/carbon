@@ -1,7 +1,9 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import Icon from "components/icon";
+import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
+
+import Icon from "components/icon";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import BaseTheme from "../../style/themes/base";
@@ -552,5 +554,53 @@ describe("Button", () => {
         );
       }
     );
+  });
+
+  describe("using href prop to render as an anchor", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<Button href="/">Test</Button>);
+    });
+
+    it("should render as an <a> element", () => {
+      expect(wrapper.find("a").exists()).toEqual(true);
+    });
+
+    describe("when space key pressed", () => {
+      it("should click the link", () => {
+        const preventDefaultSpy = jest.fn();
+
+        act(() => {
+          wrapper.find(StyledButton).at(0).props().onKeyDown({
+            key: " ",
+            which: 32,
+            preventDefault: preventDefaultSpy,
+          });
+        });
+
+        wrapper.update();
+
+        expect(preventDefaultSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe("when other key pressed", () => {
+      it("should not click the link", () => {
+        const preventDefaultSpy = jest.fn();
+
+        act(() => {
+          wrapper.find(StyledButton).at(0).props().onKeyDown({
+            key: "ArrowLeft",
+            which: 37,
+            preventDefault: jest.fn(),
+          });
+        });
+
+        wrapper.update();
+
+        expect(preventDefaultSpy).not.toHaveBeenCalled();
+      });
+    });
   });
 });

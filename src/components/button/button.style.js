@@ -22,6 +22,7 @@ const StyledButton = styled.button`
     `}
     justify-content: center;
     vertical-align: middle;
+    outline-offset: 0;
     ${stylingForType}
   `}
 

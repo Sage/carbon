@@ -50,6 +50,7 @@ exports[`Option renders properly 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -125,6 +126,7 @@ exports[`Option renders properly 1`] = `
     className="c1 c2"
     data-component="button"
     disabled={false}
+    draggable={false}
     onClick={[Function]}
     role="button"
     size="medium"
