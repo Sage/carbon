@@ -260,15 +260,6 @@ describe("Decimal", () => {
         global.console.error.mockReset();
       });
 
-      it.each(["12.85.1", "12.,85", "12a.85", "12,85"])(
-        "throws if the defaultValue is not a number (%s)",
-        (defaultValue) => {
-          expect(() => {
-            render({ defaultValue });
-          }).toThrow(`The supplied decimal (${defaultValue}) is not a number`);
-        }
-      );
-
       it("throws if the precision is greater than 15", () => {
         // Legacy restriction, probably something to do with the i18n implementation
         expect(() => {
@@ -1555,27 +1546,6 @@ describe("Decimal", () => {
           });
         }
       );
-
-      describe("invariant", () => {
-        beforeEach(() => {
-          jest.spyOn(global.console, "error").mockImplementation(() => {});
-        });
-
-        afterEach(() => {
-          global.console.error.mockReset();
-        });
-
-        it.each(["12,85,1", "12.85.1", "12a.85", "12,85"])(
-          "throws if the defaultValue is not a number (%s)",
-          (defaultValue) => {
-            expect(() => {
-              render({ defaultValue });
-            }).toThrow(
-              `The supplied decimal (${defaultValue}) is not a number`
-            );
-          }
-        );
-      });
     });
 
     it("calls the onKeyPress callback", () => {
@@ -1647,6 +1617,46 @@ describe("Decimal", () => {
       expect(onChange).not.toHaveBeenCalled();
       expect(value()).toBe("");
       expect(hiddenValue()).toBe("");
+    });
+
+    it.each(["^", "ˇ", "˝", "¨", "¯", "´", "~"])(
+      "handles (%s) symbol without error",
+      (deadKey) => {
+        const onBlur = jest.fn();
+        render({ value: "0.00", onBlur });
+        setProps({ value: `${deadKey}` });
+        blur();
+        expect(onBlur).toHaveBeenCalled();
+        expect(value()).toBe("0.00");
+        expect(hiddenValue()).toBe("0.00");
+      }
+    );
+
+    it.each([
+      "ŵ",
+      "ê",
+      "û",
+      "î",
+      "ô",
+      "â",
+      "á",
+      "ã",
+      "æ",
+      "ç",
+      "ë",
+      "í",
+      "ñ",
+      "ö",
+      "õ",
+      "ø",
+    ])("handles accented letter (%s) without error", (accentedLetter) => {
+      const onBlur = jest.fn();
+      render({ value: "20.00", onBlur });
+      setProps({ value: `${accentedLetter}` });
+      blur();
+      expect(onBlur).toHaveBeenCalled();
+      expect(value()).toBe("20.00");
+      expect(hiddenValue()).toBe("20.00");
     });
 
     it("formats a empty value prop when firing events (allowEmptyValue)", () => {

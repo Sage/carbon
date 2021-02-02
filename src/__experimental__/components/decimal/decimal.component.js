@@ -247,7 +247,7 @@ class Decimal extends React.Component {
   removeDelimiters = (value) => {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
-    const delimiterMatcher = new RegExp(`[${delimiter}]*`, "g");
+    const delimiterMatcher = new RegExp(`[${delimiter}^´¨˙~]*`, "g");
     const noDelimiters = value.replace(delimiterMatcher, "");
     return noDelimiters;
   };
@@ -256,10 +256,13 @@ class Decimal extends React.Component {
    * Format a user defined value
    */
   formatValue = (value) => {
-    invariant(
-      !this.isNaN(value),
-      `The supplied decimal (${value}) is not a number`
-    );
+    const isValid = this.isValidDecimal(value);
+    if (!isValid) {
+      const valueToDecimal = this.isNaN(value)
+        ? this.state.visibleValue
+        : I18nHelper.formatDecimal(value, this.getSafePrecisionProp());
+      return valueToDecimal;
+    }
     if (value === "") {
       return value;
     }

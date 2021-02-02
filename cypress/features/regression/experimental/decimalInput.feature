@@ -35,6 +35,6 @@ Feature: Decimal input component
     When I set Decimal input to <label>
     Then Decimal input is not set to <label>
     Examples:
-      | label                     |
-      | mpú¿¡üßä                  |
-      | !@#$%^*()_+=~[];:?{}&"'<> |
+      | label                       |
+      | mpú¿¡üßä                    |
+      | !@#$%^*()_+=~[];:?{}&"'<>^´ |
