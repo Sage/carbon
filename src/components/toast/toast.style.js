@@ -22,12 +22,16 @@ const StyledPortal = styled(Portal)`
 
 const animationName = ".toast";
 const ToastStyle = styled(MessageStyle)`
-  box-shadow: 0 10px 30px 0 rgba(0,20,29,.1), 0 30px 60px 0 rgba(0,20,29,.1);
-  line-height: 22px;
-  margin-top: 30px;
-  max-width: 300px;
-  position: relative;
-  margin-right: ${({ isCenter }) => (isCenter ? "auto" : "30px")};
+  ${({ maxWidth, isCenter }) => css`
+    box-shadow: 0 10px 30px 0 rgba(0, 20, 29, 0.1),
+      0 30px 60px 0 rgba(0, 20, 29, 0.1);
+    line-height: 22px;
+    margin-top: 30px;
+    max-width: ${!maxWidth ? "300px" : maxWidth};
+    position: relative;
+    margin-right: ${isCenter ? "auto" : "30px"};
+  `}
+ 
 
   &${animationName}-appear,
   &${animationName}-enter {

@@ -157,7 +157,7 @@ If you want to lay out information where each item has more than one piece of da
 ### Documenting component props
 In order to generate prop tables for components you should use the `StyledSystemProps` component which generates the tables for you. As shown below, you pass your component into the `of` prop and this will generate the prop table for your component. 
 
-It will also generate a second prop table containing all of the spacing props added to the component by `styled-system` if you add the `spacing` prop. To set the defaults for these spacing props, set the `spacingDefault` prop as shown below.  
+It will also generate a second prop table containing all of the spacing props added to the component by `styled-system` if you add the `spacing` prop. To set the defaults for these spacing props, set the `defaults` prop as shown below.  
 
 ```
 import StyledSystemProps from '{path to}/.storybook/utils/styled-system-props';
@@ -165,7 +165,7 @@ import StyledSystemProps from '{path to}/.storybook/utils/styled-system-props';
 <StyledSystemProps 
   of={MyComponent}
   spacing
-  spacingDefault={{ ml: '10%', mt: 3 }}
+  defaults={{ ml: '10%', mt: 3 }}
 />
 ```
 

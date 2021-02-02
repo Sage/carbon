@@ -2,6 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { shallow, mount } from "enzyme";
+import I18n from "i18n-js";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import MessageStyle from "./message.style";
 import Message from "./message.component";
@@ -14,6 +15,10 @@ import IconButton from "../icon-button";
 
 function render(props) {
   return TestRenderer.create(<MessageStyle {...props}>Message</MessageStyle>);
+}
+
+function getCloseButtonLabel(wrapper) {
+  return wrapper.find(IconButton).prop("aria-label");
 }
 
 describe("Message", () => {
@@ -155,6 +160,53 @@ describe("Message", () => {
       it("when onDismiss and showCloseIcon props are provided", () => {
         expect(wrapper.find(IconButton).exists()).toBeTruthy();
         expect(onDismissCallback).toBeCalledTimes(0);
+      });
+    });
+
+    describe("closeIcon has proper aria label set", () => {
+      it("should render with 'Close' label by default", () => {
+        expect(getCloseButtonLabel(wrapper)).toEqual("Close");
+      });
+      it("should render with custom close button label if provided", () => {
+        wrapper.setProps({ closeButtonAriaLabel: "test" });
+        expect(getCloseButtonLabel(wrapper)).toEqual("test");
+      });
+    });
+  });
+
+  describe("i18n", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = shallow(<Message onDismiss={jest.fn()}>Message</Message>);
+    });
+
+    it("has default translation", () => {
+      expect(getCloseButtonLabel(wrapper)).toBe("Close");
+    });
+
+    describe("translation", () => {
+      const { translations, locale } = I18n;
+      beforeAll(() => {
+        I18n.locale = "fr";
+        I18n.translations = {
+          ...translations,
+          fr: {
+            ...translations.fr,
+            message: {
+              "close-button-aria-label": "test",
+            },
+          },
+        };
+      });
+
+      afterAll(() => {
+        I18n.translations = translations;
+        I18n.locale = locale;
+      });
+
+      it("can use i18n", () => {
+        expect(getCloseButtonLabel(wrapper)).toBe("test");
       });
     });
   });
