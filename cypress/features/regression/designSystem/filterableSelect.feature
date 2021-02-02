@@ -94,3 +94,15 @@ Feature: Design System Filterable Select component
     When I click on dropdown button
     Then option list has 11 elements
       And visible options on Select list are "Amber", "Black", "Blue"
+
+  @positive
+  Scenario: Select dropdown list is visible when click on it with openOnFocus attr is set to true
+    Given I open "Design System Select filterable" component page "open on focus" in no iframe
+    When I click openOnFocus Select input
+    Then "filterable" Select list is opened
+
+  @positive
+  Scenario: Select dropdown list is visible when focus on it with openOnFocus attr is set to true
+    Given I open "Design System Select filterable" component page "open on focus" in no iframe
+    When I focus openOnFocus Select input
+    Then "filterable" Select list is opened

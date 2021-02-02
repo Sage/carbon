@@ -1,3 +1,10 @@
+## [63.2.0](https://github.com/Sage/carbon/compare/v63.1.0...v63.2.0) (2021-02-02)
+
+
+### Features
+
+* **filterable-select:** add open on focus functionality ([a249a23](https://github.com/Sage/carbon/commit/a249a23eb799c8503d6b66fd98dfa6ce6e92d592))
+
 ## [63.1.0](https://github.com/Sage/carbon/compare/v63.0.2...v63.1.0) (2021-02-01)
 
 

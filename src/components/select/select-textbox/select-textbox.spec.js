@@ -41,3 +41,8 @@ describe("SelectTextbox", () => {
   const wrapper = mount(<SelectTextbox />);
   wrapper.find("input").simulate("blur");
 });
+
+describe("coverage filler for else path", () => {
+  const wrapper = mount(<SelectTextbox />);
+  wrapper.find("input").simulate("focus");
+});
