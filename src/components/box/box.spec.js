@@ -16,6 +16,20 @@ describe("Box", () => {
   testStyledSystemLayout((props) => <Box {...props} />);
   testStyledSystemFlexBox((props) => <Box {...props} />);
 
+  it.each(["break-word", "anywhere"])(
+    "overflowWrap sets the expected style on the wrapper",
+    (overflowValue) => {
+      const wrapper = mount(<Box overflowWrap={overflowValue} />);
+
+      assertStyleMatch(
+        {
+          overflowWrap: overflowValue,
+        },
+        wrapper
+      );
+    }
+  );
+
   it.each(["light", "dark"])(
     "has styles applied when scrollVariant is set to %s",
     (scrollVariant) => {

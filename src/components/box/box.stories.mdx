@@ -63,6 +63,25 @@ Basic component that gives access to a number of styling options. Should be used
   </Story>
 </Preview>
 
+## OverflowWrap
+Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
+<Preview>
+  <Story name='overflow wrap' parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+    <div style={{ display: "inline-flex" }}>
+      <div style={{ border: "solid 1px #00815D", width: "min-content", marginRight: "20px" }}>
+        <Box p={1} overflowWrap="break-word" width="100px">
+          WithOverflowWrap
+        </Box>
+      </div>
+      <div style={{ border: "solid 1px #00815D", width: "min-content" }}>
+        <Box p={1} width="100px">
+          WithoutOverflowWrap
+        </Box>
+      </div>
+    </div>
+  </Story>
+</Preview>
+
 ## Scroll
 Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari
 <Preview>
@@ -91,6 +110,13 @@ Use the `scrollVariant` prop to indicate which theme scrollbar you would like to
   layout
 />
 <PropsTable rows={[
+  {
+    name: 'overflowWrap',
+    type: { summary: 'break-word | anywhere' },
+    description: 'String to set Box content break strategy. Note "anywhere" is not supported in Safari and IE11',
+    required: false,
+    defaultValue: ''
+  },
   {
     name: 'scrollVariant',
     type: { summary: 'dark | light' },
