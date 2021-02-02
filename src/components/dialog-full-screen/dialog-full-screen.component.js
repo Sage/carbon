@@ -79,6 +79,7 @@ class DialogFullScreen extends Modal {
           titleId="carbon-dialog-title"
           subheader={this.props.subtitle}
           subtitleId="carbon-dialog-subtitle"
+          divider={false}
         />
       );
     }

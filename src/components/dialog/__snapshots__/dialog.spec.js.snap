@@ -33,6 +33,7 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
 }
 
 .c0 > .c2 {
+  margin: 0;
   position: absolute;
   right: 33px;
   top: 32px;

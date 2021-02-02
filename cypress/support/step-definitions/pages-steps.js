@@ -26,11 +26,11 @@ When("I go to {word} page", (word) => {
 });
 
 When("I close page", () => {
-  closeDataElement().click({ multiple: true });
+  closeDataElement().click();
 });
 
 When("I close page in IFrame", () => {
-  closeDataElementIFrame().click({ multiple: true });
+  closeDataElementIFrame().click({force: true});
   cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
 });
 

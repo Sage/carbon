@@ -3,6 +3,7 @@ import baseTheme from "../../style/themes/base";
 import StyledContent from "./content.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
+import { StyledHeader, StyledHeading } from "../heading/heading.style";
 
 const StyledDialogFullScreen = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
@@ -22,9 +23,11 @@ const StyledDialogFullScreen = styled.div`
     css`
       ${StyledContent} {
         padding: 0;
+        margin-top: -25px;
       }
 
       ${StyledIconButton} {
+        margin: 0;
         position: absolute;
         right: 33px;
         top: 32px;
@@ -35,12 +38,12 @@ const StyledDialogFullScreen = styled.div`
         padding: 32px 32px 0;
       }
 
-      .carbon-heading {
+      ${StyledHeading} {
         width: auto;
         padding-top: 4px;
-        margin-bottom: 34px;
-        .carbon-heading__header {
-          margin: 0 0 0 8px;
+
+        ${StyledHeader} {
+          margin: 0 0 0 3px;
           box-sizing: content-box;
           width: 100%;
         }

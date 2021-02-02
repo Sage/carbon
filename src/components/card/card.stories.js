@@ -5,7 +5,7 @@ import CardRow from "./card-row";
 import CardColumn from "./card-column";
 import CardFooter from "./card-footer";
 import Link from "../link";
-import Heading from "../heading/heading";
+import Heading from "../heading";
 import Typography from "../typography/typography.component";
 import Icon from "../icon";
 
