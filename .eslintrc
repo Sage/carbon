@@ -24,6 +24,9 @@
     "max-len": "off",
     "max-params": ["error", 5],
     "multiline-ternary": "off",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-restricted-syntax": "off",
@@ -107,7 +110,7 @@
     "jasmine": true,
     "cypress/globals": true
   },
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["plugin:no-unsanitized/DOM", "airbnb", "prettier", "prettier/react"],
   "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
     "jest": false,
