@@ -22,7 +22,7 @@ export interface RadioButtonGroupProps {
   /** Callback fired when each RadioButton is blurred */
   onBlur?: (ev: React.SyntheticEvent) => void;
   /** Callback fired when the user selects a RadioButton */
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** value of the selected RadioButton */
   value?: string;
   /** When true, RadioButtons are in line */
