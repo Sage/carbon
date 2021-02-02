@@ -35,6 +35,10 @@ When("I focus openOnFocus Select input", () => {
   openOnFocusID().focus();
 });
 
+When("I click openOnFocus Select input", () => {
+  openOnFocusID().click();
+});
+
 Then("{string} Select list is opened", (name) => {
   selectDataComponent(name).should("have.attr", "aria-expanded", "true");
   selectList().should("be.visible");
