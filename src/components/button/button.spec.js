@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import Icon from "components/icon";
 import TestRenderer from "react-test-renderer";
 import Button from "./button.component";
@@ -286,6 +286,13 @@ describe("Button", () => {
       wrapper,
       { modifier: `:hover ${StyledIcon}` }
     );
+  });
+
+  describe('when "noWrap" prop is passed', () => {
+    it("renders with property whiteSpace: nowrap set", () => {
+      const wrapper = mount(<Button noWrap>Button</Button>);
+      assertStyleMatch({ whiteSpace: "nowrap" }, wrapper);
+    });
   });
 
   describe('when the "disabled" prop is passed', () => {

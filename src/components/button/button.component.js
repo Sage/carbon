@@ -17,6 +17,7 @@ const renderStyledButton = (buttonProps) => {
     href,
     px,
     size,
+    noWrap,
     ...styleProps
   } = buttonProps;
 
@@ -48,6 +49,7 @@ const renderStyledButton = (buttonProps) => {
       iconType={iconType}
       size={size}
       px={px || paddingX}
+      noWrap={noWrap}
       {...tagComponent("button", buttonProps)}
       {...styleProps}
       ref={forwardRef}
@@ -161,6 +163,8 @@ Button.propTypes = {
   renderRouterLink: PropTypes.func,
   /** Apply fullWidth style to the button */
   fullWidth: PropTypes.bool,
+  /** If provided, the text inside a button will not wrap */
+  noWrap: PropTypes.bool,
 };
 
 Button.defaultProps = {
