@@ -1,10 +1,10 @@
-import { CLOSE_ICON_BUTTON } from '../locators';
+import { CLOSE_ICON_BUTTON } from "../locators";
 import {
   DIALOG,
   CANCEL_BUTTON,
   CONFIRM_BUTTON,
   DIALOG_SUBTITLE,
-} from './locators';
+} from "./locators";
 
 // component preview locators
 export const dialogPreview = () => cy.get(DIALOG);

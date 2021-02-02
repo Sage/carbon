@@ -10,12 +10,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   return (
     <div>
       <div id="carbon-demo">Some content to be replaced.</div>
@@ -26,10 +26,6 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

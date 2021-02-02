@@ -1,4 +1,4 @@
-import { ROW, COLUMN } from './locators';
+import { ROW, COLUMN } from "./locators";
 
 // component preview locators
 export const row = () => cy.get(ROW);

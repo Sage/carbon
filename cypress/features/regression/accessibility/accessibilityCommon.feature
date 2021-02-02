@@ -9,6 +9,8 @@ Feature: Accessibility tests - Common list
       | component           |
       | AppWrapper          |
       | Alert               |
+      | Button toggle       |
+      | Button Toggle Group |
       | Carousel            |
       | Confirm             |
       | Configurable-items  |
@@ -16,6 +18,7 @@ Feature: Accessibility tests - Common list
       | Dialog              |
       | Heading             |
       | Help                |
+      | Icon                |
       | I18nComponent       |
       | Link                |
       | Message             |
@@ -24,35 +27,21 @@ Feature: Accessibility tests - Common list
       | Preview             |
       | Profile             |
       | Row                 |
+      | Showeditpod         |
       | Sidebar             |
       | Split-button        |
+      | Step-sequence       |
       | Multi-action-button |
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
-    Given I open "<component>" component page "default story" in no iframe
+    Given I open "<component>" component page "default_story" in no iframe
     When I open component preview in noIFrame
     Then "<component>" component has no accessibility violations
     Examples:
       | component          |
       | Dialog Full Screen |
       | Pages              |
-
-  @accessibility
-  Scenario: Component button toggle
-    When I open "Button-Toggle-Group" component page "basic" in no iframe
-    Then "Button Toggle Group" component has no accessibility violations
-
-  @accessibility
-  Scenario Outline: Component <component> basic story
-    When I open "<component>" component page "basic" in no iframe
-    Then "<component>" component has no accessibility violations
-    Examples:
-      | component     |
-      | Showeditpod   |
-      | Step-sequence |
-      | Icon          |
-      | Button toggle |
 
   @accessibility
   Scenario Outline: Component <component> default story

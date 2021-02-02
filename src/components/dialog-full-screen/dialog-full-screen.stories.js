@@ -123,3 +123,11 @@ export const Nested = () => {
     </>
   );
 };
+
+Default.story = {
+  name: "default",
+};
+
+Nested.story = {
+  name: "nested",
+};

@@ -4,7 +4,7 @@ import { object, withKnobs } from "@storybook/addon-knobs";
 import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 
-export const basic = () => {
+export const Default = () => {
   const group = "GridItem";
   const viewportSettings = "viewport settings";
   const groupID1 = `${group} 1`;
@@ -152,8 +152,8 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  name: "basic",
+Default.story = {
+  name: "default",
   parameters: {
     info: { disable: true },
     docs: { page: null },

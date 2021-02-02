@@ -1,15 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to content exists and contains html 1`] = `
-.c0 {
-  overflow-y: auto;
-  padding: 0 16px;
-}
-
-.c3 + .c0 {
-  height: calc(100% - 0px);
-}
-
 .c1 {
   padding-left: 24px;
   padding-right: 24px;
@@ -67,6 +58,37 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 
 .c1 .c2 svg {
   margin-top: 0;
+}
+
+.c0 {
+  overflow-y: auto;
+  padding: 0 16px;
+}
+
+.c0 .c4.sticky {
+  padding: 16px;
+}
+
+.c3 + .c0 {
+  height: calc(100% - 0px);
+}
+
+@media screen and (min-width:600px) {
+  .c0 .c4.sticky {
+    padding: 16px 24px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .c0 .c4.sticky {
+    padding: 16px 32px;
+  }
+}
+
+@media screen and (min-width:1260px) {
+  .c0 .c4.sticky {
+    padding: 16px 40px;
+  }
 }
 
 @media screen and (min-width:600px) {
@@ -270,8 +292,18 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   border: none;
 }
 
-.c0 + .c7 {
-  height: calc(100% - 0px);
+.c7:hover .c5 {
+  color: #FFFFFF;
+}
+
+.c7 .c5 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c7 .c5 svg {
+  margin-top: 0;
 }
 
 .c0 + .c8 {
@@ -282,18 +314,8 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   height: calc(100% - 0px);
 }
 
-.c10:hover .c5 {
-  color: #FFFFFF;
-}
-
-.c10 .c5 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c10 .c5 svg {
-  margin-top: 0;
+.c0 + .c10 {
+  height: calc(100% - 0px);
 }
 
 @media screen and (min-width:600px) {

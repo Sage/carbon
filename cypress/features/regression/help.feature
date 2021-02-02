@@ -3,7 +3,7 @@ Feature: Help component
 
   @positive
   Scenario Outline: Change children to <children>
-    When I open Basic "Help Test" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Help Test" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to <children>
     Examples:
@@ -14,7 +14,7 @@ Feature: Help component
 
   @positive
   Scenario Outline: Change href to <href>
-    When I open Basic "Help Test" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Help Test" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
     Then Help href on preview is set to <href>
     Examples:
       | href                         | nameOfObject         |

@@ -86,7 +86,7 @@ Feature: Design System Filterable Select component
 
   @positive
   Scenario: Full list options is visible when value is set and select is opened again
-    Given I open "Design System Select filterable" component page "basic" in no iframe
+    Given I open "Design System Select filterable" component page "default story" in no iframe
       And I type "A" into simple select input in noIframe
       And option list has 3 elements
       And visible options on Select list are "Amber", "Black", "Orange"

@@ -21,12 +21,12 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
 
 To use `PopoverContainer`, import the `PopoverContainer` and pass the content as children.
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}} >
+  <Story name="default" parameters={{ info: { disable: true }}} >
     <div style={{height: 100}}>
       <PopoverContainer>
       Contents
       </PopoverContainer>
-      
+         
       </div>
   </Story>
 </Preview>
@@ -38,7 +38,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
     <div style={{height: 100}}>
       <PopoverContainer title="With a title" open={true}>
       Contents
-      </PopoverContainer>   
+      </PopoverContainer>
       </div>
   </Story>
 </Preview>
@@ -113,7 +113,7 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
 
 ### Complex content
 
-You can easly use many different components to create your own compisition.
+You can easily use many different components to create your own composition.
 
 <Preview>
   <Story name="complex" parameters={{ info: { disable: true }}}>

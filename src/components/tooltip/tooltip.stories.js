@@ -10,10 +10,10 @@ export default {
     info: {
       disable: true,
     },
+    knobs: { escapeHTML: false },
     chromatic: {
       disable: true,
     },
-    knobs: { escapeHTML: false },
   },
 };
 
@@ -70,4 +70,8 @@ export const Default = () => {
       </Tooltip>
     </div>
   );
+};
+
+Default.story = {
+  name: "default",
 };

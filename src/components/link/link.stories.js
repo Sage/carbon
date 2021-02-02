@@ -14,12 +14,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text("children", "Link");
   const disabled = boolean("disabled", false);
   const href = text("href");
@@ -62,10 +62,6 @@ export const Basic = () => {
   return <div style={{ margin: "64px" }}>{to ? routerLink : link}</div>;
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

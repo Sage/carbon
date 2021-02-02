@@ -16,12 +16,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const initialpageIndex = select("initialPageIndex", [0, 1, 2]);
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) || 0);
@@ -92,10 +92,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

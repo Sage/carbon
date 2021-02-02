@@ -3,7 +3,7 @@ Feature: Tabs component
 
   @positive
   Scenario Outline: Tab <id> content is set and visible
-    Given I open Test test_basic "Tabs" component in noIFrame with "tabs" json from "test" using "default" object name
+    Given I open Test test_default "Tabs" component in noIFrame with "tabs" json from "test" using "default" object name
     When I open Tab <id>
     Then Tab <id> content is visible
     Examples:
@@ -12,4 +12,4 @@ Feature: Tabs component
       | 2  |
       | 3  |
       | 4  |
-      | 5  | 
+      | 5  |

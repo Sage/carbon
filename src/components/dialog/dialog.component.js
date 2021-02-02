@@ -13,7 +13,7 @@ import {
   DialogInnerContentStyle,
 } from "./dialog.style";
 import tagComponent from "../../utils/helpers/tags";
-import focusTrap from "../../utils/helpers/focus-trap";
+import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 
@@ -48,22 +48,10 @@ class Dialog extends Modal {
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener("resize", this.centerDialog);
-
-    if (!this.props.disableFocusTrap) {
-      this.removeFocusTrap = focusTrap(
-        this._dialog,
-        !this.props.disableAutoFocus,
-        this.props.focusFirstElement,
-        this.props.bespokeFocusTrap
-      );
-    }
   }
 
   handleClose() {
     super.handleClose();
-    if (this.removeFocusTrap) {
-      this.removeFocusTrap();
-    }
     this.appliedFixedBottom = false;
     this.document.documentElement.style.overflow = "";
     this.window.removeEventListener("resize", this.centerDialog);
@@ -196,35 +184,7 @@ class Dialog extends Modal {
     return null;
   }
 
-  get modalHTML() {
-    let { height } = this.props;
-
-    if (height && !height.match(/px$/)) {
-      height = `${height}px`;
-    }
-
-    const dialogProps = {
-      style: {
-        minHeight: height,
-      },
-      size: this.props.size,
-      fixedBottom: this.appliedFixedBottom,
-      height: this.props.height,
-      theme: this.props.theme,
-    };
-
-    if (this.props.ariaRole) {
-      dialogProps.role = this.props.ariaRole;
-    }
-
-    if (this.props.title) {
-      dialogProps["aria-labelledby"] = "carbon-dialog-title";
-    }
-
-    if (this.props.subtitle) {
-      dialogProps["aria-describedby"] = "carbon-dialog-subtitle";
-    }
-
+  renderDialog = (dialogProps) => {
     return (
       <DialogStyle
         ref={(dialog) => {
@@ -257,6 +217,50 @@ class Dialog extends Modal {
         </DialogContentStyle>
         {this.closeIcon}
       </DialogStyle>
+    );
+  };
+
+  get modalHTML() {
+    let { height } = this.props;
+
+    if (height && !height.match(/px$/)) {
+      height = `${height}px`;
+    }
+
+    const dialogProps = {
+      style: {
+        minHeight: height,
+      },
+      size: this.props.size,
+      fixedBottom: this.appliedFixedBottom,
+      height: this.props.height,
+      theme: this.props.theme,
+    };
+
+    if (this.props.ariaRole) {
+      dialogProps.role = this.props.ariaRole;
+    }
+
+    if (this.props.title) {
+      dialogProps["aria-labelledby"] = "carbon-dialog-title";
+    }
+
+    if (this.props.subtitle) {
+      dialogProps["aria-describedby"] = "carbon-dialog-subtitle";
+    }
+
+    if (this.props.disableFocusTrap) {
+      return this.renderDialog(dialogProps);
+    }
+
+    return (
+      <FocusTrap
+        autoFocus={!this.props.disableAutoFocus}
+        focusFirstElement={this.props.focusFirstElement}
+        bespokeTrap={this.props.bespokeFocusTrap}
+      >
+        {this.renderDialog(dialogProps)}
+      </FocusTrap>
     );
   }
 }

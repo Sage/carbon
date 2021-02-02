@@ -20,7 +20,7 @@ Rather than a checkbox to accept legal terms, consider labelling a button ‘Acc
 
 ## Related Components
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
-- Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--basic "Select").
+- Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--default-story "Select").
 - Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
 
 ## Quick Start
@@ -49,7 +49,7 @@ const MyComponent = () => (
       return (
         <Checkbox
           label="Example checkbox"
-          name="checkbox-basic"
+          name="checkbox-default"
           checked={isChecked}
           onChange={ e => setIsChecked(e.target.checked) }
         />
@@ -67,7 +67,7 @@ const MyComponent = () => (
         <Checkbox
           label={size}
           key={ `checkbox-${size}` }
-          name={ `checkbox-basic` }
+          name={ `checkbox-default` }
           size={size}
         />
       )

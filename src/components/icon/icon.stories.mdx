@@ -28,10 +28,10 @@ const MyComponent = () => (
 );
 ```
 
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
+  <Story name="default">
     <Icon type="add" />
   </Story>
 </Preview>
@@ -39,7 +39,7 @@ const MyComponent = () => (
 ### Disabled
 
 <Preview>
-  <Story name="Disabled">
+  <Story name="disabled">
     <Icon type="add" disabled />
   </Story>
 </Preview>
@@ -49,7 +49,7 @@ The Icon supports rendering tooltips internally, just pass a string to `tooltipM
 such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 
 <Preview>
-  <Story name="With tooltip">
+  <Story name="with tooltip">
     <div style={{ margin: 60 }}>
       <Icon type="add" tooltipMessage="Hey I'm a tooltip!" />
     </div>
@@ -59,7 +59,7 @@ such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 ### Various fontSizes
 
 <Preview>
-  <Story name="Various fontSizes">
+  <Story name="various fontSizes">
     <>
       <Icon type="add" fontSize="small" />
       <Icon type="add" fontSize="large" />
@@ -70,7 +70,7 @@ such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 ### Various bgThemes
 
 <Preview>
-  <Story name="Various bgThemes">
+  <Story name="various bgThemes">
     {() => [
       'info',
       'error',
@@ -85,7 +85,7 @@ such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 ### Various bgShapes
 
 <Preview>
-  <Story name="Various bgShapes">
+  <Story name="various bgShapes">
     {() => [
       'circle',
       'rounded-rect',
@@ -97,7 +97,7 @@ such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 ### Various bgSizes
 
 <Preview>
-  <Story name="Various bgSizes">
+  <Story name="various bgSizes">
     {() => [
       'small',
       'medium',
@@ -109,7 +109,7 @@ such as `tooltipPosition` and `tooltipVisible` are also surfaced.
 ### IconColor variants
 
 <Preview>
-  <Story name="IconColor variants">
+  <Story name="iconColor variants">
     {() => [
       'default',
       'on-light-background',
@@ -125,7 +125,7 @@ These props will override `iconColor` and `bgTheme` prop values.
 See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
 
 <Preview>
-  <Story name="Custom colors" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+  <Story name="custom colors" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
     {() => {
       return <>
         <Box mb={1}>

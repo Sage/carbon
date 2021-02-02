@@ -37,7 +37,7 @@ import TextEditor, {
 } from "carbon-react/lib/components/text-editor";
 ```
 
-### Basic usage:
+### Default usage:
 
 In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial
 editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links
@@ -48,7 +48,7 @@ toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a 
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
-  <Story name="basic">
+  <Story name="default">
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
       return (

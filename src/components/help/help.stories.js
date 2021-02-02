@@ -12,12 +12,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text("children", "This is help text");
   const tooltipPosition = children
     ? select(
@@ -38,10 +38,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

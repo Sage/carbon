@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Modal from "../modal";
 import SidebarStyle from "./sidebar.style";
-import focusTrap from "../../utils/helpers/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Browser from "../../utils/helpers/browser";
+import FocusTrap from "../../__internal__/focus-trap";
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
@@ -32,18 +32,11 @@ class Sidebar extends Modal {
   handleOpen() {
     super.handleOpen();
     this.document.documentElement.style.overflow = "hidden";
-    if (!this.props.enableBackgroundUI) {
-      this.removeFocusTrap = focusTrap(this.sideBarRef);
-    }
   }
 
   handleClose() {
     super.handleClose();
     this.document.documentElement.style.overflow = "";
-    /* istanbul ignore else */
-    if (this.removeFocusTrap) {
-      this.removeFocusTrap();
-    }
   }
 
   componentTags(props) {
@@ -54,8 +47,7 @@ class Sidebar extends Modal {
     };
   }
 
-  /** Returns the computed HTML for the sidebar. */
-  get modalHTML() {
+  renderSidebar = () => {
     return (
       <SidebarStyle
         ref={(element) => {
@@ -69,6 +61,14 @@ class Sidebar extends Modal {
         {this.props.children}
       </SidebarStyle>
     );
+  };
+
+  /** Returns the computed HTML for the sidebar. */
+  get modalHTML() {
+    if (this.props.enableBackgroundUI) {
+      return this.renderSidebar();
+    }
+    return <FocusTrap>{this.renderSidebar()}</FocusTrap>;
   }
 }
 
