@@ -343,6 +343,7 @@ export default (palette) => {
     },
 
     zIndex: {
+      smallOverlay: 10,
       overlay: 1000,
       popover: 2000,
       modal: 3000,

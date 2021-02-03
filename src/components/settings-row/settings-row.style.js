@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 import baseTheme from "../../style/themes/base";
+import {
+  StyledHeader,
+  StyledHeadingTitle,
+  StyledSeparator,
+} from "../heading/heading.style";
 
 export const StyledSettingsRow = styled.div`
   clear: both;
@@ -19,7 +24,11 @@ export const StyledSettingsRow = styled.div`
       padding-bottom: 30px;
     `}
 
-  .carbon-heading__title {
+  ${StyledHeader} {
+    margin-bottom: 0;
+  }
+
+  ${StyledHeadingTitle} {
     color: ${({ theme }) => theme.palette.slate};
     font-size: 15px;
     font-weight: bold;
@@ -28,15 +37,11 @@ export const StyledSettingsRow = styled.div`
     text-transform: uppercase;
   }
 
-  .carbon-heading__separator {
-    margin: 0 0 17px;
+  ${StyledSeparator} {
+    margin-bottom: 17px;
   }
 
-  .carbon-heading--has-subheader .carbon-heading__header {
-    padding: 0;
-  }
-
-  + .carbon-settings-row {
+  + & {
     padding-top: 30px;
   }
 `;

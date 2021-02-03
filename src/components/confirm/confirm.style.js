@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
+import { StyledHeadingTitle } from "../heading/heading.style";
 
 export const StyledConfirmButtons = styled.div`
   margin-top: 48px;
@@ -13,7 +14,7 @@ export const StyledConfirmHeading = styled.div`
   display: flex;
   align-items: center;
 
-  .carbon-heading__title {
+  ${StyledHeadingTitle} {
     padding: 0px;
   }
 

@@ -1,3 +1,17 @@
+### [63.3.1](https://github.com/Sage/carbon/compare/v63.3.0...v63.3.1) (2021-02-03)
+
+
+### Bug Fixes
+
+* **menu, search:** update zIndex ([e136f60](https://github.com/Sage/carbon/commit/e136f60dfe8da0579045c600c256f652fd29dcac))
+
+## [63.3.0](https://github.com/Sage/carbon/compare/v63.2.0...v63.3.0) (2021-02-02)
+
+
+### Features
+
+* **button:** add noWrap prop ([ab675ad](https://github.com/Sage/carbon/commit/ab675ad812f7139b8c205d607ff7ecdca067237e)), closes [#3503](https://github.com/Sage/carbon/issues/3503)
+
 ## [63.2.0](https://github.com/Sage/carbon/compare/v63.1.0...v63.2.0) (2021-02-02)
 
 
