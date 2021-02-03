@@ -12,7 +12,7 @@ import {
   DialogTitleStyle,
 } from "./dialog.style";
 import Button from "../button";
-import Heading from "../heading/heading";
+import Heading from "../heading";
 import { Row, Column } from "../row";
 import ElementResize from "../../utils/helpers/element-resize/element-resize";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";

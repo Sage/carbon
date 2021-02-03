@@ -1,3 +1,56 @@
+## [63.3.0](https://github.com/Sage/carbon/compare/v63.2.0...v63.3.0) (2021-02-02)
+
+
+### Features
+
+* **button:** add noWrap prop ([ab675ad](https://github.com/Sage/carbon/commit/ab675ad812f7139b8c205d607ff7ecdca067237e)), closes [#3503](https://github.com/Sage/carbon/issues/3503)
+
+## [63.2.0](https://github.com/Sage/carbon/compare/v63.1.0...v63.2.0) (2021-02-02)
+
+
+### Features
+
+* **filterable-select:** add open on focus functionality ([a249a23](https://github.com/Sage/carbon/commit/a249a23eb799c8503d6b66fd98dfa6ce6e92d592))
+
+## [63.1.0](https://github.com/Sage/carbon/compare/v63.0.2...v63.1.0) (2021-02-01)
+
+
+### Features
+
+* **toast:** allow custom max width for the toast ([f582d3a](https://github.com/Sage/carbon/commit/f582d3ab4f103c748c847bbd07fe808ec0bf7d6c))
+
+### [63.0.2](https://github.com/Sage/carbon/compare/v63.0.1...v63.0.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **message:** add aria label for close button ([7f0fa70](https://github.com/Sage/carbon/commit/7f0fa705f0c9bd1818ead98727e7dde003770e73)), closes [#3406](https://github.com/Sage/carbon/issues/3406)
+
+### [63.0.1](https://github.com/Sage/carbon/compare/v63.0.0...v63.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **dialog:** fix sticky footer transition ([f6d1360](https://github.com/Sage/carbon/commit/f6d13605de157f1f6a76cda6d193b72bb192c490)), closes [#3563](https://github.com/Sage/carbon/issues/3563)
+
+## [63.0.0](https://github.com/Sage/carbon/compare/v62.0.1...v63.0.0) (2021-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **focus-trap:** the focus trap util function has been removed
+
+### Bug Fixes
+
+* **focus-trap:** add focus trap component and remove util function ([cde1081](https://github.com/Sage/carbon/commit/cde1081c14c38eb782ea68437f90b385bdaea914))
+
+### [62.0.1](https://github.com/Sage/carbon/compare/v62.0.0...v62.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect behaviour when page count is zero ([1ecff03](https://github.com/Sage/carbon/commit/1ecff0388a7d33f79e2c01f6884b2b0eedf8854f))
+
 ## [62.0.0](https://github.com/Sage/carbon/compare/v61.1.0...v62.0.0) (2021-01-28)
 
 

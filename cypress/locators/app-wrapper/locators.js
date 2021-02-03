@@ -1,2 +1,4 @@
 // component preview locators
-export const APP_WRAPPER_PREVIEW = '.carbon-app-wrapper';
+const APP_WRAPPER_PREVIEW = ".carbon-app-wrapper";
+
+export default APP_WRAPPER_PREVIEW;

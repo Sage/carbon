@@ -1,2 +1,4 @@
 // component preview locators
-export const MOUNT_PREVIEW = 'div[data-component="mount-in-app"]';
+const MOUNT_PREVIEW = 'div[data-component="mount-in-app"]';
+
+export default MOUNT_PREVIEW;

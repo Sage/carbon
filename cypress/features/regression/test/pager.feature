@@ -115,5 +115,13 @@ Feature: Pager component
 
   @positive
   Scenario: Pagination input has golden border
+    Given I open "Design System Pager" component page "default_story" in no iframe
     When I click on pagination input
     Then pagination input has golden border
+
+  @positive
+  Scenario: Current page displays 0 when zero pages
+    Given I open "Design System Pager" component page "loading_state" in no iframe
+      And I click on pagination input
+    When I hit Tab key 1 time in no Iframe
+    Then Current page input is set to 0

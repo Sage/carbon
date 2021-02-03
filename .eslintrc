@@ -24,6 +24,9 @@
     "max-len": "off",
     "max-params": ["error", 5],
     "multiline-ternary": "off",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-restricted-syntax": "off",
@@ -88,29 +91,35 @@
         "ignoreDestructuring": false
       }
     ],
-    "no-restricted-imports": ["error", { "paths": [{
-      "name": "styled-system",
-      "importNames": ["color"],
-      "message": "Please use the default export from 'src/style/utils/color' instead."
-      }]
-    }]
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "styled-system",
+            "importNames": ["color"],
+            "message": "Please use the default export from 'src/style/utils/color' instead."
+          }
+        ]
+      }
+    ]
   },
   "env": {
     "es6": true,
     "browser": true,
-    "jasmine": true
+    "jasmine": true,
+    "cypress/globals": true
   },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
-  "plugins": ["react", "react-hooks"],
+  "extends": ["plugin:no-unsanitized/DOM", "airbnb", "prettier", "prettier/react"],
+  "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
     "jest": false,
     "global": false,
     "process": false,
-    "test": false
+    "test": false,
+    "Given": true,
+    "When": true,
+    "Then": true,
+    "And": true
   }
 }
-

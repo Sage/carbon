@@ -1,2 +1,4 @@
 // component preview locators
-export const HELP_ICON_PREVIEW = 'a[data-component="help"]';
+const HELP_ICON_PREVIEW = 'a[data-component="help"]';
+
+export default HELP_ICON_PREVIEW;

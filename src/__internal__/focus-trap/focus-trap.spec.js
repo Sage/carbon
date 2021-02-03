@@ -1,29 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { mount } from "enzyme";
-import focusTrap from "./focus-trap";
+import FocusTrap from "./focus-trap.component";
 
 jest.useFakeTimers();
 
-// eslint-disable-next-line
-const TestComponent = ({ children, focusFirstElement, autoFocus }) => {
-  useEffect(() => {
-    const removeFocusTrap = focusTrap(
-      document.getElementById("myComponent"),
-      autoFocus,
-      focusFirstElement
-    );
-
-    return () => removeFocusTrap();
-  });
-
-  return (
-    <a href="test" id="myComponent">
-      {children}
-    </a>
-  );
-};
-
-describe("focusTrap", () => {
+describe("FocusTrap", () => {
   const element = document.createElement("div");
   const htmlElement = document.body.appendChild(element);
   const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
@@ -39,10 +20,12 @@ describe("focusTrap", () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <TestComponent focusFirstElement autoFocus={false}>
-          <button type="button">Test button One</button>
-          <input type="text" />
-        </TestComponent>,
+        <FocusTrap autoFocus={false}>
+          <div id="myComponent">
+            <button type="button">Test button One</button>
+            <input type="text" />
+          </div>
+        </FocusTrap>,
         { attachTo: htmlElement }
       );
     });
@@ -52,29 +35,34 @@ describe("focusTrap", () => {
     });
 
     it("should not focus the first focusable element by default", () => {
-      expect(document.activeElement).toMatchObject(wrapper.find("body").at(0));
+      expect(document.activeElement).toMatchObject(
+        document.querySelectorAll("body")[0]
+      );
     });
   });
 
-  describe("and element has callback function for focus", () => {
+  describe("when a focusFirstElement callback is provided", () => {
     let wrapper, onFocus;
 
     beforeEach(() => {
-      onFocus = jest.fn();
+      onFocus = jest
+        .fn()
+        .mockImplementation(() =>
+          document.querySelectorAll("button")[0].focus()
+        );
       wrapper = mount(
-        <TestComponent focusFirstElement={onFocus}>
-          <button type="button">Test button One</button>
-          <button type="button">Test button Two</button>
-        </TestComponent>,
+        <FocusTrap focusFirstElement={onFocus}>
+          <div id="myComponent">
+            <button type="button">Test button One</button>
+            <button type="button">Test button Two</button>
+          </div>
+        </FocusTrap>,
         { attachTo: htmlElement }
       );
     });
 
-    afterEach(() => {
-      wrapper.unmount();
-    });
-
-    it("should focus first focusable item", () => {
+    it("should call the function and focus first element", () => {
+      expect(onFocus).toHaveBeenCalled();
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
@@ -99,7 +87,7 @@ describe("focusTrap", () => {
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
-      document.dispatchEvent(tabKey);
+      document.dispatchEvent(shiftTabKey);
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(1)
       );
@@ -117,22 +105,55 @@ describe("focusTrap", () => {
     });
   });
 
-  describe("when focusTrap is used to an element", () => {
+  describe("when a bespokeTrap is provided", () => {
+    let bespokeFn;
+
+    beforeEach(() => {
+      bespokeFn = jest.fn();
+      mount(
+        <FocusTrap bespokeTrap={bespokeFn}>
+          <div id="myComponent">
+            <button type="button">Test button One</button>
+            <button type="button">Test button Two</button>
+          </div>
+        </FocusTrap>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    it("calls the function with expected arguments on TAB press", () => {
+      document.dispatchEvent(tabKey);
+      expect(bespokeFn).toHaveBeenCalledWith(
+        tabKey,
+        document.querySelectorAll("button")[0],
+        document.querySelectorAll("button")[1]
+      );
+    });
+
+    it("calls the function with expected arguments on SHIFT + TAB press", () => {
+      document.dispatchEvent(shiftTabKey);
+      expect(bespokeFn).toHaveBeenCalledWith(
+        shiftTabKey,
+        document.querySelectorAll("button")[0],
+        document.querySelectorAll("button")[1]
+      );
+    });
+  });
+
+  describe("when FocusTrap wraps an element", () => {
     describe("and element has focusable items inside", () => {
       let wrapper;
 
       beforeEach(() => {
         wrapper = mount(
-          <TestComponent>
-            <button type="button">Test button One</button>
-            <button type="button">Test button Two</button>
-          </TestComponent>,
+          <FocusTrap>
+            <div id="myComponent">
+              <button type="button">Test button One</button>
+              <button type="button">Test button Two</button>
+            </div>
+          </FocusTrap>,
           { attachTo: htmlElement }
         );
-      });
-
-      afterEach(() => {
-        wrapper.unmount();
       });
 
       it("should focus first focusable item", () => {
@@ -195,15 +216,13 @@ describe("focusTrap", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <TestComponent>
-            <p>Test content</p>
-          </TestComponent>,
+          <FocusTrap>
+            <div id="myComponent">
+              <p>Test content</p>
+            </div>
+          </FocusTrap>,
           { attachTo: htmlElement }
         );
-      });
-
-      afterEach(() => {
-        wrapper.unmount();
       });
 
       it("should block tabbing if `tab` pressed", () => {
@@ -224,22 +243,20 @@ describe("focusTrap", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <TestComponent>
-            <button type="button">Test button One</button>
-            <button type="button" disabled>
-              Disabled button One
-            </button>
-            <button type="button">Test button Two</button>
-            <button type="button" disabled>
-              Disabled button two
-            </button>
-          </TestComponent>,
+          <FocusTrap>
+            <div id="myComponent">
+              <button type="button">Test button One</button>
+              <button type="button" disabled>
+                Disabled button One
+              </button>
+              <button type="button">Test button Two</button>
+              <button type="button" disabled>
+                Disabled button two
+              </button>
+            </div>
+          </FocusTrap>,
           { attachTo: htmlElement }
         );
-      });
-
-      afterEach(() => {
-        wrapper.unmount();
       });
 
       it("only focuses those that are not", () => {

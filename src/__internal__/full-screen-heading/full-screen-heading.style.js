@@ -1,4 +1,9 @@
 import styled, { css } from "styled-components";
+import {
+  StyledHeader,
+  StyledHeading,
+} from "../../components/heading/heading.style";
+import StyledIconButton from "../../components/icon-button/icon-button.style";
 import baseTheme from "../../style/themes/base";
 
 export const StyledHeaderContainer = styled.div`
@@ -14,7 +19,7 @@ const StyledFullScreenHeading = styled.div`
     `}
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
 
   padding: 0 16px;
   @media screen and (min-width: 600px) {
@@ -27,25 +32,19 @@ const StyledFullScreenHeading = styled.div`
     padding: 0 40px;
   }
 
-  .carbon-heading {
+  ${StyledHeading} {
     width: auto;
-    .carbon-heading__header {
+    margin-bottom: 24px;
+
+    ${StyledHeader} {
       background-color: transparent;
-      align-items: center;
-      display: flex;
       padding-bottom: 0;
-      border: none;
-      margin: 22px 24px 24px 0;
-
-      .icon-chevron_left:before {
-        font-size: 24px;
-      }
-
-      .carbon-heading__back {
-        margin-top: -8px;
-        margin-left: -5px;
-      }
+      margin: 22px 24px 0 0;
     }
+  }
+
+  ${StyledIconButton} {
+    margin-top: 26px;
   }
 `;
 

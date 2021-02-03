@@ -1,9 +1,6 @@
-import {
-  portraitPreview,
-  portraitInitials
-} from '../../locators/portrait';
+import { portraitPreview, portraitInitials } from "../../locators/portrait";
 
-Then('Portrait alt on preview is set to {word}', (text) => {
-  portraitPreview().should('have.attr', 'alt', `${text}`);
-  portraitInitials().children().should('have.attr', 'alt', `${text}`);
+Then("Portrait alt on preview is set to {word}", (text) => {
+  portraitPreview().should("have.attr", "alt", `${text}`);
+  portraitInitials().children().should("have.attr", "alt", `${text}`);
 });

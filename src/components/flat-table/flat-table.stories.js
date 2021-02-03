@@ -266,9 +266,6 @@ Sortable.story = {
     docs: {
       page: null,
     },
-    chromatic: {
-      disable: true,
-    },
   },
 };
 
@@ -278,9 +275,6 @@ Default.story = {
     info: { disable: true },
     docs: {
       page: null,
-    },
-    chromatic: {
-      disable: true,
     },
   },
 };
