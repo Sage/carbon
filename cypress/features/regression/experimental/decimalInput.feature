@@ -28,13 +28,13 @@ Feature: Decimal input component
       | label                        | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
-      
+
   @positive
-  Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
+  Scenario Outline: Check Decimal component input field will not accept characters except numbers to <input>
     Given I open "Experimental Decimal Input Test" component page "default" in no iframe
-    When I set Decimal input to <label>
-    Then Decimal input is not set to <label>
+    When I set Decimal input to <input>
+    Then Decimal input is not set to <input>
     Examples:
-      | label                       |
+      | input                       |
       | mpú¿¡üßä                    |
       | !@#$%^*()_+=~[];:?{}&"'<>^´ |
