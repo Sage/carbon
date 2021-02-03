@@ -28,7 +28,7 @@ const MyComponent = () => (
 
 ### Default
 <Preview>
-  <Story name="Default">
+  <Story name="default">
     <Link>
       This is a link
     </Link>
@@ -73,8 +73,8 @@ The `iconAlign` prop allows you to control if the icon renders to left or right 
 
 <Preview>
   <Story name="with IconAlign">
-    {() => { 
-      return ['left', 'right'].map(align => 
+    {() => {
+      return ['left', 'right'].map(align =>
       <div style={{margin: '64px'}}>
         <Link icon='settings' iconAlign={`${align}`}>
           This is a link
@@ -95,28 +95,6 @@ By rendering an icon and providing a string to the `tooltipMessage` prop, a tool
         This is a link
       </Link>
     </div>
-  </Story>
-</Preview>
-
-### Tooltip Alignment
-The alignment of the tooltip can be controlled using the `tooltipAlign` prop.
-
-<Preview>
-  <Story name="with Tooltip Align" parameters={{ chromatic: { disable: true }}}>
-    {() => { 
-      return [
-        'left', 
-        'right'].map(align => 
-      <div style={{margin: '192px'}}>
-        <Link 
-        icon='settings'
-        tooltipMessage='This is a tooltip message' 
-        tooltipAlign={`${align}`}>
-          This is a link
-        </Link>
-      </div>
-      )
-    }}
   </Story>
 </Preview>
 

@@ -3,6 +3,7 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import MultiActionButton from ".";
 import Button from "../button";
 import Box from "../box";
+import { Accordion } from "../accordion";
 
 <Meta title="Multi Action Button" parameters={{ info: { disable: true } }} />
 
@@ -25,13 +26,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Preview>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
-    <Box height={200}>
-      <MultiActionButton text="Multi Action Button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </MultiActionButton>
-    </Box>
+    <MultiActionButton text="Multi Action Button">
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
   </Story>
 </Preview>
 
@@ -39,13 +38,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Preview>
   <Story name="disabled">
-    <Box height={200}>
-      <MultiActionButton disabled text="Multi Action Button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </MultiActionButton>
-    </Box>
+    <MultiActionButton disabled text="Multi Action Button">
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
   </Story>
 </Preview>
 
@@ -53,20 +50,18 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Preview>
   <Story name="button types">
-    <Box height={200}>
-      {["primary", "secondary"].map((buttonType) => (
-        <Box key={buttonType} mb={3}>
-          <MultiActionButton
-            buttonType={buttonType}
-            text={`Multi Action Button - ${buttonType}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </MultiActionButton>
-        </Box>
-      ))}
-    </Box>
+    {["primary", "secondary"].map((buttonType) => (
+      <Box key={buttonType} mb={3}>
+        <MultiActionButton
+          buttonType={buttonType}
+          text={`Multi Action Button - ${buttonType}`}
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -74,17 +69,15 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Preview>
   <Story name="sizes">
-    <Box height={200}>
-      {["small", "medium", "large"].map((size) => (
-        <Box key={size} mb={3}>
-          <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-            <Button size={size}>Button 1</Button>
-            <Button size={size}>Button 2</Button>
-            <Button size={size}>Button 3</Button>
-          </MultiActionButton>
-        </Box>
-      ))}
-    </Box>
+    {["small", "medium", "large"].map((size) => (
+      <Box key={size} mb={3}>
+        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
+          <Button size={size}>Button 1</Button>
+          <Button size={size}>Button 2</Button>
+          <Button size={size}>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -92,20 +85,18 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Preview>
   <Story name="align" parameters={{ chromatic: { disable: true } }}>
-    <Box height={200}>
-      {["left", "right"].map((align) => (
-        <Box key={align} mb={3}>
-          <MultiActionButton
-            align={align}
-            text={`Multi Action Button - ${align}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </MultiActionButton>
-        </Box>
-      ))}
-    </Box>
+    {["left", "right"].map((align) => (
+      <Box key={align} mb={3}>
+        <MultiActionButton
+          align={align}
+          text={`Multi Action Button - ${align}`}
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    ))}
   </Story>
 </Preview>
 
@@ -115,17 +106,38 @@ Subtext only works when `size` is `large`
 
 <Preview>
   <Story name="subtext">
-    <Box height={200}>
-      <MultiActionButton
-        size="large"
-        subtext="subtext"
-        text="Multi Action Button"
-      >
-        <Button size="large">Button 1</Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </MultiActionButton>
-    </Box>
+    <MultiActionButton
+      size="large"
+      subtext="subtext"
+      text="Multi Action Button"
+    >
+      <Button size="large">Button 1</Button>
+      <Button size="large">Button 2</Button>
+      <Button size="large">Button 3</Button>
+    </MultiActionButton>
+  </Story>
+</Preview>
+
+## In overflow: hidden container
+
+<Preview>
+  <Story
+    name="in overflow hidden container"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Accordion title="Heading">
+      <Box p={4}>
+        <MultiActionButton
+          size="large"
+          subtext="subtext"
+          text="Multi Action Button"
+        >
+          <Button size="large">Button 1</Button>
+          <Button size="large">Button 2</Button>
+          <Button size="large">Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    </Accordion>
   </Story>
 </Preview>
 

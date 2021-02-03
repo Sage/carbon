@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Pages from ".";
 import Page from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
-import Heading from "../heading/heading";
+import Heading from "../heading";
 import Button from "../button";
 
 export default {
@@ -16,12 +16,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const initialpageIndex = select("initialPageIndex", [0, 1, 2]);
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) || 0);
@@ -69,14 +69,18 @@ export const Basic = () => {
       <Button onClick={handleOpen}>Open Preview</Button>
       <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
-          <Page title={<Heading title="My First Page" />}>
+          <Page title={<Heading title="My First Page" divider={false} />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
               Go to second page
             </Button>
           </Page>
           <Page
             title={
-              <Heading title="My Second Page" backLink={handleBackClick} />
+              <Heading
+                title="My Second Page"
+                backLink={handleBackClick}
+                divider={false}
+              />
             }
           >
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -84,7 +88,13 @@ export const Basic = () => {
             </Button>
           </Page>
           <Page
-            title={<Heading title="My Third Page" backLink={handleBackClick} />}
+            title={
+              <Heading
+                title="My Third Page"
+                backLink={handleBackClick}
+                divider={false}
+              />
+            }
           />
         </Pages>
       </DialogFullScreen>
@@ -92,10 +102,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

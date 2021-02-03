@@ -7,6 +7,8 @@ import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
 
+jest.mock("@tippyjs/react/headless");
+
 describe("Help", () => {
   let wrapper;
 
@@ -19,6 +21,7 @@ describe("Help", () => {
 
   describe("render", () => {
     let icon;
+    let tooltip;
 
     it('renders an icon with "help" type', () => {
       wrapper = renderHelp();
@@ -28,23 +31,21 @@ describe("Help", () => {
 
     it("passes the children as a prop", () => {
       const mockMessage = "Help Message";
-      wrapper = shallow(<Help>{mockMessage}</Help>);
-      icon = wrapper.find(Icon);
-      expect(icon.props().tooltipMessage).toBe(mockMessage);
+      wrapper = mount(<Help>{mockMessage}</Help>);
+      tooltip = wrapper.find(Tooltip);
+      expect(tooltip.props().message).toBe(mockMessage);
     });
 
     it("passes the tooltipPosition if provided", () => {
       const mockPosition = "right";
-      wrapper = renderHelp({ tooltipPosition: mockPosition });
-      icon = wrapper.find(Icon);
-      expect(icon.props().tooltipPosition).toBe(mockPosition);
-    });
+      const mockMessage = "Help Message";
 
-    it("passes the pointerAlign if provided", () => {
-      const mockAlignment = "left";
-      wrapper = renderHelp({ tooltipAlign: mockAlignment });
-      icon = wrapper.find(Icon);
-      expect(icon.props().tooltipAlign).toBe(mockAlignment);
+      wrapper = mount(
+        <Help tooltipPosition={mockPosition}>{mockMessage}</Help>
+      );
+
+      tooltip = wrapper.find(Tooltip);
+      expect(tooltip.props().position).toBe(mockPosition);
     });
 
     it("passes the type if provided", () => {
@@ -54,7 +55,7 @@ describe("Help", () => {
       expect(icon.props().type).toBe(mockType);
     });
 
-    it("check the default type if not provided", () => {
+    it("checks the default type if not provided", () => {
       const mockType = "help";
       wrapper = renderHelp();
       icon = wrapper.find(Icon);
@@ -66,6 +67,14 @@ describe("Help", () => {
       wrapper = renderHelp({ href: mockHref }, mount);
       expect(wrapper.find("a").exists()).toBe(true);
       wrapper.unmount();
+    });
+
+    it("does not render a tooltip if no children are passed", () => {
+      wrapper = shallow(<Help />);
+      icon = wrapper.find(Icon);
+      tooltip = wrapper.find(Tooltip);
+      expect(icon.props().type).toBe("help");
+      expect(tooltip.exists()).toBeFalsy();
     });
   });
 
@@ -93,15 +102,15 @@ describe("Help", () => {
       wrapper.find(StyledHelp).simulate("focus");
     });
 
-    it("the tooltip should be rendered", () => {
-      expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+    it("the tooltip should be visible", () => {
+      expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
     });
 
     describe("and then the Help component is blurred", () => {
       it("the tooltip should not be rendered", () => {
-        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
         wrapper.find(StyledHelp).simulate("blur");
-        expect(wrapper.update().find(Tooltip).exists()).toBe(false);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(false);
       });
     });
 
@@ -110,6 +119,29 @@ describe("Help", () => {
       wrapper.find(StyledHelp).simulate("blur", { preventDefault });
       wrapper.find(StyledHelp).simulate("focus", { preventDefault });
       expect(preventDefault).not.toBeCalled();
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+  });
+
+  describe("when the Help receives a mouse over event", () => {
+    beforeEach(() => {
+      wrapper = renderHelp({}, mount);
+      wrapper.find(StyledHelp).simulate("mouseover");
+    });
+
+    it("sets the tooltip to visible", () => {
+      expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
+    });
+
+    describe("and then the Help component receives a mouse leave event", () => {
+      it("the tooltip should not be rendered", () => {
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
+        wrapper.find(StyledHelp).simulate("mouseleave");
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(false);
+      });
     });
 
     afterEach(() => {
@@ -143,21 +175,21 @@ describe("Help", () => {
 
     describe("and it's the Esc key", () => {
       it("the tooltip should not be rendered", () => {
-        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
         act(() => {
           domNode.dispatchEvent(escapeKeyDownEvent);
         });
-        expect(wrapper.update().find(Tooltip).exists()).toBe(false);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(false);
       });
     });
 
     describe("and it's a key other than the Esc", () => {
       it("the tooltip should be rendered", () => {
-        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
         act(() => {
           domNode.dispatchEvent(enterKeyDownEvent);
         });
-        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        expect(wrapper.update().find(Tooltip).props().isVisible).toEqual(true);
       });
     });
 

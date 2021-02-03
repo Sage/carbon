@@ -20,12 +20,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [value, setValue] = useState("");
 
   const handleChange = (ev) => {
@@ -58,10 +58,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

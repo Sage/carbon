@@ -12,12 +12,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const children = text("children", "This is help text");
   const tooltipPosition = children
     ? select(
@@ -26,34 +26,18 @@ export const Basic = () => {
         Help.defaultProps.tooltipPosition
       )
     : undefined;
-  const tooltipAlign = children
-    ? select(
-        "tooltipAlign",
-        OptionsHelper.alignAroundEdges,
-        Help.defaultProps.tooltipAlign
-      )
-    : undefined;
   const href = text("href", "http://www.sage.com");
   const type = select("type", OptionsHelper.icons, "help");
 
   return (
     <div style={{ marginLeft: "125px" }}>
-      <Help
-        tooltipPosition={tooltipPosition}
-        tooltipAlign={tooltipAlign}
-        href={href}
-        type={type}
-      >
+      <Help tooltipPosition={tooltipPosition} href={href} type={type}>
         {children}
       </Help>
     </div>
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

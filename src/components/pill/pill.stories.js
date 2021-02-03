@@ -39,7 +39,7 @@ export default {
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const {
     children,
     colorVariant,
@@ -65,4 +65,8 @@ export const basic = () => {
       {children}
     </Pill>
   );
+};
+
+Default.story = {
+  name: "default",
 };

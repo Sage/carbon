@@ -1,2 +1,4 @@
 // component preview locators
-export const LOADER = '[data-component="loader"]';
+const LOADER = '[data-component="loader"]';
+
+export default LOADER;

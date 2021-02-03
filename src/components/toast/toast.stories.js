@@ -13,10 +13,13 @@ export default {
       disable: true,
     },
     knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true,
+    },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   const onDismissClick = (evt) => {
     setIsOpen(!isOpen);
@@ -47,12 +50,8 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };
 
 export const Visual = () => {

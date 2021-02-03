@@ -20,13 +20,10 @@ export default {
     info: {
       disable: true,
     },
-    chromatic: {
-      disable: true,
-    },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const mockData = useMemo(() => {
     const arr = [];
     for (let i = 0; i < 20; i++) {
@@ -186,13 +183,14 @@ export const InDialog = () => {
         title="Dueling Picklist"
         size="large"
       >
-        <Basic />
+        <Default />
       </Dialog>
     </>
   );
 };
 
-Basic.story = {
+Default.story = {
+  name: "default",
   parameters: {
     chromatic: {
       disable: false,
@@ -201,9 +199,10 @@ Basic.story = {
 };
 
 InDialog.story = {
+  name: "in dialog",
   parameters: {
     chromatic: {
-      disable: false,
+      disable: true,
     },
   },
 };

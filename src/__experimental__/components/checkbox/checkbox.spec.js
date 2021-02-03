@@ -1,7 +1,6 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import "jest-styled-components";
 import { css } from "styled-components";
 import Checkbox from "./checkbox.component";
 import CheckableInput from "../checkable-input/checkable-input.component";
@@ -17,6 +16,7 @@ import {
   mockMatchMedia,
 } from "../../../__spec_helper__/test-utils";
 import Label from "../label";
+import Tooltip from "../../../components/tooltip";
 
 jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -496,6 +496,16 @@ describe("Checkbox", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("labelHelp text", () => {
+    it("should be displayed in tooltip message", () => {
+      const text = "foo";
+      const wrapper = render({ label: "foo", labelHelp: text }, mount);
+      const tooltip = wrapper.find(Tooltip);
+
+      expect(tooltip.prop("message")).toEqual(text);
     });
   });
 });

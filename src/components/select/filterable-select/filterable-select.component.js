@@ -7,6 +7,7 @@ import SelectTextbox, {
 import guid from "../../../utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
 import SelectList from "../select-list/select-list.component";
+import isExpectedOption from "../utils/is-expected-option";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -22,11 +23,15 @@ const FilterableSelect = React.forwardRef(
       onChange,
       onClick,
       onKeyDown,
+      onFocus,
+      onBlur,
+      openOnFocus,
       noResultsMessage,
       disablePortal,
       listActionButton,
       onListAction,
       isLoading,
+      disabled,
       readOnly,
       onListScrollBottom,
       ...textboxProps
@@ -38,6 +43,9 @@ const FilterableSelect = React.forwardRef(
     const containerRef = useRef();
     const listboxRef = useRef();
     const isControlled = useRef(value !== undefined);
+    const isMouseDownReported = useRef(false);
+    const isInputFocused = useRef(false);
+    const isMouseDownOnInput = useRef(false);
     const [textboxRef, setTextboxRef] = useState();
     const [isOpen, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
@@ -101,8 +109,8 @@ const FilterableSelect = React.forwardRef(
 
     const setMatchingText = useCallback(
       (newValue) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (option) => option.props.value === newValue
+        const matchingOption = React.Children.toArray(children).find((child) =>
+          isExpectedOption(child, newValue)
         );
 
         if (matchingOption && matchingOption.props.text !== undefined) {
@@ -170,6 +178,8 @@ const FilterableSelect = React.forwardRef(
           containerRef.current && !containerRef.current.contains(event.target);
         const notInList =
           listboxRef.current && !listboxRef.current.contains(event.target);
+
+        isMouseDownReported.current = false;
 
         if (notInContainer && notInList) {
           setMatchingText(selectedValue);
@@ -246,31 +256,17 @@ const FilterableSelect = React.forwardRef(
       const textStartsWithFilter = textValue
         .toLowerCase()
         .startsWith(filterText.toLowerCase());
+      const isTextboxActive = !disabled && !readOnly;
 
       if (
+        isTextboxActive &&
         textboxRef &&
         textValue.length > filterText.length &&
         textStartsWithFilter
       ) {
         textboxRef.selectionStart = filterText.length;
       }
-    }, [textValue, filterText, textboxRef]);
-
-    function handleTextboxClick(event) {
-      if (onClick) {
-        onClick(event);
-      }
-    }
-
-    function handleDropdownIconClick(event) {
-      if (onClick) {
-        onClick(event);
-      }
-
-      setOpen((isAlreadyOpen) => {
-        return !isAlreadyOpen;
-      });
-    }
+    }, [textValue, filterText, textboxRef, disabled, readOnly]);
 
     const onSelectOption = useCallback(
       (optionData) => {
@@ -308,6 +304,81 @@ const FilterableSelect = React.forwardRef(
       setMatchingText(selectedValue);
     }, [selectedValue, setMatchingText]);
 
+    function handleTextboxClick(event) {
+      isMouseDownReported.current = false;
+
+      if (onClick) {
+        onClick(event);
+      }
+    }
+
+    function handleDropdownIconClick(event) {
+      isMouseDownReported.current = false;
+
+      if (onClick) {
+        onClick(event);
+      }
+
+      setOpen((isAlreadyOpen) => {
+        return !isAlreadyOpen;
+      });
+    }
+
+    function handleTextboxFocus(event) {
+      const triggerFocus = () => onFocus(event);
+
+      if (openOnFocus) {
+        setOpen((isAlreadyOpen) => {
+          if (isAlreadyOpen) {
+            return true;
+          }
+
+          if (onOpen) {
+            onOpen();
+          }
+          if (onFocus && !isInputFocused.current) {
+            triggerFocus();
+            isInputFocused.current = true;
+          }
+
+          if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+            return false;
+          }
+
+          return true;
+        });
+      } else if (onFocus && !isInputFocused.current) {
+        triggerFocus();
+        isInputFocused.current = true;
+      }
+    }
+
+    function handleTextboxBlur(event) {
+      isMouseDownOnInput.current = false;
+
+      if (isMouseDownReported.current) {
+        return;
+      }
+
+      isInputFocused.current = false;
+
+      if (onBlur) {
+        onBlur(event);
+      }
+    }
+
+    function handleTextboxMouseDown(event) {
+      isMouseDownReported.current = true;
+
+      if (event.target.attributes["data-element"].value === "input") {
+        isMouseDownOnInput.current = true;
+      }
+    }
+
+    function handleListMouseDown() {
+      isMouseDownReported.current = true;
+    }
+
     function findElementWithMatchingText(textToMatch, list) {
       return list.find((child) => {
         const { text } = child.props;
@@ -335,14 +406,18 @@ const FilterableSelect = React.forwardRef(
       return {
         id,
         name,
+        disabled,
         readOnly,
         inputRef: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick,
+        onFocus: handleTextboxFocus,
+        onBlur: handleTextboxBlur,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
+        onMouseDown: handleTextboxMouseDown,
         ...textboxProps,
       };
     }
@@ -363,6 +438,7 @@ const FilterableSelect = React.forwardRef(
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
+        onMouseDown={handleListMouseDown}
         filterText={filterText}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
@@ -409,6 +485,8 @@ FilterableSelect.propTypes = {
   children: PropTypes.node.isRequired,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** If true the Component opens on focus */
+  openOnFocus: PropTypes.bool,
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage: PropTypes.string,
   /** True for default text button or a Button Component to be rendered */

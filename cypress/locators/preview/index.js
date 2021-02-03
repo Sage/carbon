@@ -1,4 +1,6 @@
-import { PREVIEW } from './locators';
+import PREVIEW from "./locators";
 
 // component preview locators
-export const preview = () => cy.get(PREVIEW);
+const preview = () => cy.get(PREVIEW);
+
+export default preview;

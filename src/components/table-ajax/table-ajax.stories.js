@@ -71,3 +71,7 @@ export const Default = () => {
     </TableAjax>
   );
 };
+
+Default.story = {
+  name: "default",
+};

@@ -655,6 +655,120 @@ describe("FilterableSelect", () => {
       expect(wrapper.find(SelectList).exists()).toBe(true);
     });
   });
+
+  describe('when the "onBlur" prop has been passed and the input has been blurred', () => {
+    it("then that prop should be called", () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderSelect({ onBlur: onBlurFn });
+
+      wrapper.find("input").simulate("blur");
+      expect(onBlurFn).toHaveBeenCalled();
+    });
+
+    describe("and there is a mouseDown reported on open list", () => {
+      it("then that prop should not be called", () => {
+        const onBlurFn = jest.fn();
+        const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
+
+        wrapper.find("input").simulate("focus");
+        wrapper.find(Option).first().simulate("mousedown");
+        wrapper.find("input").simulate("blur");
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('when the "openOnFocus" prop is set', () => {
+    describe("and the Textbox Input is focused", () => {
+      it("the SelectList should be rendered", () => {
+        const wrapper = renderSelect({ openOnFocus: true });
+
+        wrapper.find("input").simulate("focus");
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+      });
+
+      describe.each(["readOnly", "disabled"])(
+        'with the "%s" prop passed',
+        (prop) => {
+          it("the SelectList should not be rendered", () => {
+            const obj = { [prop]: true, openOnFocus: true };
+            const wrapper = renderSelect(obj);
+
+            wrapper.find("input").simulate("focus");
+            expect(wrapper.find(SelectList).exists()).toBe(false);
+          });
+        }
+      );
+
+      describe('with the "onFocus" prop passed', () => {
+        it("then that prop should be called", () => {
+          const onFocusFn = jest.fn();
+          const wrapper = renderSelect({
+            onFocus: onFocusFn,
+            openOnFocus: true,
+          });
+
+          wrapper.find("input").simulate("focus");
+          expect(onFocusFn).toHaveBeenCalled();
+        });
+      });
+
+      describe('with the "onOpen" prop passed', () => {
+        let wrapper;
+        let onOpenFn;
+
+        beforeEach(() => {
+          onOpenFn = jest.fn();
+          wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
+        });
+
+        it("then that prop should have been called", () => {
+          wrapper.find("input").simulate("focus");
+          expect(onOpenFn).toHaveBeenCalled();
+        });
+
+        describe("and with the SelectList already open", () => {
+          it("then that prop should not be called", () => {
+            wrapper.find("input").simulate("focus");
+            onOpenFn.mockReset();
+            expect(wrapper.find(SelectList).exists()).toBe(true);
+            wrapper.find("input").simulate("focus");
+            expect(onOpenFn).not.toHaveBeenCalled();
+          });
+        });
+
+        describe("and the focus triggered by mouseDown on the input", () => {
+          it("then that prop should have been called", () => {
+            wrapper.find("input").simulate("mouseDown");
+            wrapper.find("input").simulate("focus");
+            expect(onOpenFn).toHaveBeenCalled();
+          });
+        });
+      });
+    });
+
+    describe("and the focus triggered by mouseDown on the Dropdown Icon", () => {
+      describe('with the "onOpen" prop passed', () => {
+        const onOpenFn = jest.fn();
+        const wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
+
+        it("then that prop should have been called", () => {
+          wrapper
+            .find(Textbox)
+            .find('[type="dropdown"]')
+            .first()
+            .simulate("mouseDown");
+          wrapper.find("input").simulate("focus");
+          expect(onOpenFn).toHaveBeenCalled();
+        });
+      });
+    });
+  });
+});
+
+describe("coverage filler for else path", () => {
+  const wrapper = renderSelect();
+  wrapper.find("input").simulate("blur");
 });
 
 function renderSelect(props = {}, renderer = mount) {

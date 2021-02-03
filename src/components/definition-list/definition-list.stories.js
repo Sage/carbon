@@ -13,12 +13,12 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: false,
     },
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   return (
     <Dl data-component="definition-list">
       <Dt>Name</Dt>
@@ -30,10 +30,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
+Default.story = {
+  name: "default",
 };

@@ -1,2 +1,4 @@
 // component preview locators
-export const GRID_COMPONENT = '[data-component="grid"]';
+const GRID_COMPONENT = '[data-component="grid"]';
+
+export default GRID_COMPONENT;

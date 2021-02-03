@@ -14,7 +14,7 @@ export interface RadioButtonProps {
   labelAlign?: AlignBinaryType;
   labelWidth?: number | string;
   name?: string;
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   reverse?: boolean;
   size?: SizesType;
   value: string;

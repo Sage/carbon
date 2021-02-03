@@ -132,6 +132,26 @@ describe("MultiActionButton", () => {
       );
     });
   });
+
+  it("should set proper width of ButtonContainer", () => {
+    spyOn(Element.prototype, "getBoundingClientRect");
+    Element.prototype.getBoundingClientRect = jest
+      .fn()
+      .mockImplementation(() => ({ width: 200 }));
+    wrapper = render({}, mount);
+
+    const toggleButton = wrapper.find('button[data-element="toggle-button"]');
+    toggleButton.simulate("focus");
+
+    assertStyleMatch(
+      { minWidth: "200px" },
+      wrapper.find(StyledSplitButtonChildrenContainer)
+    );
+
+    jest.clearAllMocks();
+
+    wrapper.unmount();
+  });
 });
 
 function render(props, renderer = shallow) {

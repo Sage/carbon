@@ -9,6 +9,12 @@ import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style
 const StyledSubmenuWrapper = styled.div`
   position: relative;
   width: fit-content;
+
+  ${({ isSubmenuOpen, theme }) =>
+    isSubmenuOpen &&
+    css`
+      z-index: ${theme.zIndex.popover};
+    `}
 `;
 
 const StyledSubmenu = styled.ul`
@@ -20,7 +26,6 @@ const StyledSubmenu = styled.ul`
     margin: 0;
     padding: 0;
     position: absolute;
-    z-index: 10;
     background-color: ${theme.colors.white};
     min-width: 100%;
 
@@ -154,6 +159,10 @@ const StyledSubmenu = styled.ul`
 `;
 
 StyledSubmenu.defaultProps = {
+  theme: baseTheme,
+};
+
+StyledSubmenuWrapper.defaultProps = {
   theme: baseTheme,
 };
 

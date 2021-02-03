@@ -16,7 +16,7 @@ Import `Search` into the project.
 import Search from 'carbon-react/lib/__experimental__/components/search';
 ```
 
-### Search without Search Button and default width 
+### Search without Search Button and default width
 
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
@@ -27,17 +27,17 @@ import Search from 'carbon-react/lib/__experimental__/components/search';
 ### Search can be controlled
 
 <Preview>
-  <Story name="Controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ info: { disable: true }}} >
     {() => {
       const [value, setValue] = useState('');
       return (
       <div>
         <Button onClick={() => setValue('')}>Clear value</Button>
-        <Button onClick={() => setValue('test value')}>Set value</Button>
-        <Search id="test" name="test" placeholder="Search..." 
+        <Button onClick={() => setValue('test value')} ml={2}>Set value</Button>
+        <Search id="test" name="test" placeholder="Search..."
         onChange={(e)=> setValue(e.target.value)}
         value={value}
-        searchButton   
+        searchButton
         />
       </div>
     )
@@ -69,16 +69,16 @@ import Search from 'carbon-react/lib/__experimental__/components/search';
   </Story>
 </Preview>
 
-### Search without Search Button and custom width 
+### Search without Search Button and custom width
 In this example the `searchWidth` prop is 375px.
 
 <Preview>
-  <Story name="Custom Width using px" parameters={{ info: { disable: true }}} >
+  <Story name="custom Width using px" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue="" searchWidth="375px"/>
   </Story>
 </Preview>
 
-### Search with Search Button and custom width 
+### Search with Search Button and custom width
 In this example the `searchWidth` prop is 375px.
 
 <Preview>
@@ -87,16 +87,16 @@ In this example the `searchWidth` prop is 375px.
   </Story>
 </Preview>
 
-### Search without Search Button and custom width 
+### Search without Search Button and custom width
 In this example the `searchWidth` prop is 70%.
 
 <Preview>
-  <Story name="Custom Width using %" parameters={{ info: { disable: true }}} >
+  <Story name="custom Width using %" parameters={{ info: { disable: true }}} >
     <Search placeholder="Search..." defaultValue="" searchWidth="70%"/>
   </Story>
 </Preview>
 
-### Search with Search Button and custom width 
+### Search with Search Button and custom width
 In this example the `searchWidth` prop is 70%.
 
 <Preview>
@@ -112,9 +112,9 @@ In this example the `variant` prop is "dark" and `searchButton` is true.
   <Story name="with Alt Styling" parameters={{ info: { disable: true }}}>
     <Box width="700px" height="75px" bg="#003349">
       <div style={{padding: "32px", backgroundColor: "#003349"}}>
-        <Search 
-          placeholder="Search..." 
-          defaultValue="Search" 
+        <Search
+          placeholder="Search..."
+          defaultValue="Search"
           searchButton
           variant="dark"
         />
@@ -130,9 +130,9 @@ In this example the `variant` prop is "dark" and no search button is present.
   <Story name="with Alt Styling and no button" parameters={{ info: { disable: true }}}>
     <Box width="700px" height="75px" bg="#003349">
       <div style={{padding: "32px", backgroundColor: "#003349"}}>
-        <Search 
-          placeholder="Search..." 
-          defaultValue="" 
+        <Search
+          placeholder="Search..."
+          defaultValue=""
           variant="dark"
         />
       </div>

@@ -1,0 +1,211 @@
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { useState, forwardRef } from "react";
+import Tooltip from ".";
+import Icon from "../icon";
+import Button from "../button";
+
+<Meta
+  title="Design System/Tooltip"
+  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+/>
+
+# Tooltip
+
+The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will 
+flip if there is no space in its default placement; and the arrow and tooltip will track the target element when a user scrolls 
+or the window resizes.
+
+```jsx
+import Tooltip from "carbon-react/lib/components/tooltip";
+```
+
+### Basic usage
+To use the Tooltip, pass in the component you want it to display on in via the `children` prop, any component passed in
+must support `forwardRef`. By default the Tooltip does not need to be controlled and will display when the target element
+is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the
+tooltip and it and the `children` prop are required.
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <div style={{ padding: "60px" }}>
+          <Tooltip message="I am a tooltip!">
+            <Component>target</Component>
+          </Tooltip>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Controlled
+The Tooltip can also be controlled via the `isVisible` prop.
+
+<Preview>
+  <Story name="controlled">
+    {() => {
+      const [isVisible, setIsVisible] = useState(false);
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <>
+          <div style={{display:"flex"}}>
+            <Button onClick={() => setIsVisible(!isVisible)}>Toggle tooltip</Button>
+          </div>
+          <div style={{ padding: "60px" }}>
+            <Tooltip message="I am a tooltip!" isVisible={isVisible}>
+              <Component>target</Component>
+            </Tooltip>
+          </div>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Positioning
+The Tooltip supports four `position`s: "top", "bottom", "left" and "right". However, if there is no room for it to display 
+in this position it will attempt to flip and dynamically place itself in the opposite position. The Tooltip will also track 
+the target element when a user scrolls. The flipping and tracking features can be seen by adjusting the window size 
+(ideally in the canvas tab) and scrolling.
+
+<Preview>
+  <Story name="positioning">
+    {() => {
+      const [position, setPosition] = useState("top");
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <>
+          <div style={{ display:"flex" }}>
+            <Button onClick={() => setPosition("top")}>Top Position</Button>
+            <Button onClick={() => setPosition("bottom")}>Bottom Position</Button>
+            <Button onClick={() => setPosition("left")}>Left Position</Button>
+            <Button onClick={() => setPosition("right")}>Right Position</Button>
+          </div>
+          <div style={{ padding: "60px 60px 60px 160px" }}>
+            <Tooltip message="I am a tooltip!" isVisible position={position}>
+              <Component>target</Component>
+            </Tooltip>
+          </div>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Large tooltip
+<Preview>
+  <Story name="large tooltip">
+    {() => {
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <div style={{ padding: "60px" }}>
+          <Tooltip message="I am a tooltip!" size="large">
+            <Component>target</Component>
+          </Tooltip>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Types
+The `Tooltip` can be rendered as two different `type`s which will alter the colour of the background: "error" 
+or if no value is passed it will default to a black background.
+
+<Preview>
+  <Story name="types">
+     {() => {
+      const [type, setType] = useState(undefined);
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <>
+          <div style={{display:"flex"}}>
+            <Button onClick={() => setType(undefined)}>Default Type</Button>
+            <Button onClick={() => setType("error")}>Error Type</Button>
+          </div>
+          <div style={{ padding: "60px" }}>
+            <Tooltip message="I am a tooltip!" type={type}>
+              <Component>target</Component>
+            </Tooltip>
+          </div>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Tooltip Props
+
+<Props of={Tooltip} />

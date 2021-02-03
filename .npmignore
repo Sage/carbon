@@ -7,7 +7,6 @@
 .idea
 .travis.yml
 .vscode
-check-version.js
 CONTRIBUTING.md
 gulpfile.js
 jest.conf.json

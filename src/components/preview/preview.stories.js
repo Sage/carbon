@@ -11,11 +11,11 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
-export const basic = () => {
+export const Default = () => {
   const children = text("children", "Text rendered as children component.");
   const height = text("height");
   const lines = number("lines", Preview.defaultProps.lines);
@@ -29,10 +29,6 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

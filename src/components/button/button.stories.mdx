@@ -1,230 +1,414 @@
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import Button from '.';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import Button from ".";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Button" />
+<Meta title="Design System/Button" parameters={{ info: { disable: true } }} />
 
 # Button
 
 ```javascript
-  import Button from 'carbon-react/lib/components/button';
+import Button from "carbon-react/lib/components/button";
 ```
 
 ## Primary Buttons
+
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
+
 <Preview>
-  <Story name="primary" parameters={{ info: { disable: true }}} >
+  <Story name="primary">
     <>
-      <Button buttonType="primary" size="small">Small</Button>
-      <Button buttonType="primary">Medium</Button>
-      <Button buttonType="primary" size="large">Large</Button>
+      <Button buttonType="primary" size="small">
+        Small
+      </Button>
+      <Button buttonType="primary" ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="primary" size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Primary buttons can be destructive.
+
 <Preview>
-  <Story name="primary/destructive" parameters={{ info: { disable: true }}} >
+  <Story name="primary/destructive">
     <>
-      <Button buttonType="primary" destructive size="small">Small</Button>
-      <Button buttonType="primary" destructive >Medium</Button>
-      <Button buttonType="primary" destructive size="large">Large</Button>
+      <Button buttonType="primary" destructive size="small">
+        Small
+      </Button>
+      <Button buttonType="primary" destructive ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="primary" destructive size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Primary buttons can be disabled.
+
 <Preview>
-  <Story name="primary/disabled" parameters={{ info: { disable: true }}} >
+  <Story name="primary/disabled">
     <>
-      <Button buttonType="primary" disabled size="small">Small</Button>
-      <Button buttonType="primary" disabled>Medium</Button>
-      <Button buttonType="primary" disabled size="large">Large</Button>
+      <Button buttonType="primary" disabled size="small">
+        Small
+      </Button>
+      <Button buttonType="primary" disabled ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="primary" disabled size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Primary buttons can have an icon positioned before or after the text.
+
 <Preview>
-  <Story name="primary/icon" parameters={{ info: { disable: true }}} >
-  <>
-    <Button buttonType="primary" iconType="print">Medium</Button>
-    <Button buttonType="primary" destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button buttonType="primary" disabled iconType="print" iconPosition="after">Medium</Button>
+  <Story name="primary/icon">
+    <>
+      <Button buttonType="primary" iconType="print">
+        Medium
+      </Button>
+      <Button
+        buttonType="primary"
+        destructive
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        buttonType="primary"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
     </>
   </Story>
 </Preview>
 
 Primary buttons can be `fullWidth`.
+
 <Preview>
-  <Story name="primary/full-width" parameters={{ info: { disable: true }}} >
+  <Story name="primary/full-width">
     <>
-      <Button buttonType="primary" fullWidth>Full Width</Button>
+      <Button buttonType="primary" fullWidth>
+        Full Width
+      </Button>
     </>
   </Story>
 </Preview>
 
+Primary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+<Preview>
+  <Story name="primary/noWrap">
+    <Button buttonType="primary" noWrap>
+      Long button text
+    </Button>
+  </Story>
+</Preview>
+
 ## Secondary Buttons
+
 Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
 
 <Preview>
-  <Story name="secondary" parameters={{ info: { disable: true }}} >
+  <Story name="secondary">
     <>
-      <Button size="small" >Small</Button>
-      <Button>Medium</Button>
-      <Button size="large">Large</Button>
+      <Button size="small">Small</Button>
+      <Button ml={2}>Medium</Button>
+      <Button size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Secondary buttons can be destructive.
+
 <Preview>
-  <Story name="secondary/destructive" parameters={{ info: { disable: true }}} >
+  <Story name="secondary/destructive">
     <>
-      <Button destructive size="small">Small</Button>
-      <Button destructive >Medium</Button>
-      <Button destructive size="large">Large</Button>
+      <Button destructive size="small">
+        Small
+      </Button>
+      <Button destructive ml={2}>
+        Medium
+      </Button>
+      <Button destructive size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Secondary buttons can be disabled.
+
 <Preview>
-  <Story name="secondary/disabled" parameters={{ info: { disable: true }}} >
+  <Story name="secondary/disabled">
     <>
-      <Button size="small" disabled>Small</Button>
-      <Button disabled>Medium</Button>
-      <Button size="large" disabled>Large</Button>
+      <Button size="small" disabled>
+        Small
+      </Button>
+      <Button disabled ml={2}>
+        Medium
+      </Button>
+      <Button size="large" disabled ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Secondary buttons can have an icon positioned before or after the text.
+
 <Preview>
-  <Story name="secondary/icon" parameters={{ info: { disable: true }}} >
-  <>
-    <Button iconType="print">Medium</Button>
-    <Button destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button disabled iconType="print" iconPosition="after">Medium</Button>
+  <Story name="secondary/icon">
+    <>
+      <Button iconType="print">Medium</Button>
+      <Button destructive iconType="delete" iconPosition="after" ml={2}>
+        Medium
+      </Button>
+      <Button disabled iconType="print" iconPosition="after" ml={2}>
+        Medium
+      </Button>
     </>
   </Story>
 </Preview>
 
 Secondary buttons can be `fullWidth`.
+
 <Preview>
-  <Story name="secondary/full-width" parameters={{ info: { disable: true }}} >
+  <Story name="secondary/full-width">
     <>
-      <Button buttonType="secondary" fullWidth>Full Width</Button>
+      <Button buttonType="secondary" fullWidth>
+        Full Width
+      </Button>
     </>
   </Story>
 </Preview>
 
+Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+<Preview>
+  <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }}>
+    <Button buttonType="secondary" noWrap>
+      Long button text
+    </Button>
+  </Story>
+</Preview>
 
 ## Tertiary Buttons
+
 Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
 
 <Preview>
-  <Story name="tertiary" parameters={{ info: { disable: true }}} >
+  <Story name="tertiary">
     <>
-      <Button buttonType="tertiary" size="small">Small</Button>
-      <Button buttonType="tertiary">Medium</Button>
-      <Button buttonType="tertiary" size="large">Large</Button>
+      <Button buttonType="tertiary" size="small">
+        Small
+      </Button>
+      <Button buttonType="tertiary" ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="tertiary" size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Tertiary buttons can be destructive.
+
 <Preview>
-  <Story name="tertiary/destructive" parameters={{ info: { disable: true }}} >
+  <Story name="tertiary/destructive">
     <>
-      <Button buttonType="tertiary" destructive size="small">Small</Button>
-      <Button buttonType="tertiary" destructive >Medium</Button>
-      <Button buttonType="tertiary" destructive size="large">Large</Button>
+      <Button buttonType="tertiary" destructive size="small">
+        Small
+      </Button>
+      <Button buttonType="tertiary" destructive ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="tertiary" destructive size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Tertiary buttons can be disabled.
+
 <Preview>
-  <Story name="tertiary/disabled" parameters={{ info: { disable: true }}} >
+  <Story name="tertiary/disabled">
     <>
-      <Button buttonType="tertiary" disabled size="small">Small</Button>
-      <Button buttonType="tertiary" disabled>Medium</Button>
-      <Button buttonType="tertiary" disabled size="large">Large</Button>
+      <Button buttonType="tertiary" disabled size="small">
+        Small
+      </Button>
+      <Button buttonType="tertiary" disabled ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="tertiary" disabled size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Tertiary buttons can have an icon positioned before or after the text.
+
 <Preview>
-  <Story name="tertiary/icon" parameters={{ info: { disable: true }}} >
-  <>
-    <Button buttonType="tertiary" iconType="print">Medium</Button>
-    <Button buttonType="tertiary" destructive iconType="delete" iconPosition="after">Medium</Button>
-    <Button buttonType="tertiary" disabled iconType="print" iconPosition="after">Medium</Button>
+  <Story name="tertiary/icon">
+    <>
+      <Button buttonType="tertiary" iconType="print">
+        Medium
+      </Button>
+      <Button
+        buttonType="tertiary"
+        destructive
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        buttonType="tertiary"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
     </>
   </Story>
 </Preview>
 
 Tertiary buttons can be `fullWidth`.
+
 <Preview>
-  <Story name="tertiary/full-width" parameters={{ info: { disable: true }}} >
+  <Story name="tertiary/full-width">
     <>
-      <Button buttonType="tertiary" fullWidth>Full Width</Button>
+      <Button buttonType="tertiary" fullWidth>
+        Full Width
+      </Button>
     </>
   </Story>
 </Preview>
 
+Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
+
+<Preview>
+  <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }}>
+    <Button buttonType="tertiary" noWrap>
+      Long button text
+    </Button>
+  </Story>
+</Preview>
+
 ## Dashed Buttons
+
 Dashed buttons are used for adding new content that replaces empty states.
 
 <Preview>
-  <Story name="dashed" parameters={{ info: { disable: true }}} >
+  <Story name="dashed">
     <>
-      <Button buttonType="dashed" size="small">Small</Button>
-      <Button buttonType="dashed">Medium</Button>
-      <Button buttonType="dashed" size="large">Large</Button>
+      <Button buttonType="dashed" size="small">
+        Small
+      </Button>
+      <Button buttonType="dashed" ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="dashed" size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Dashed buttons can be disabled.
+
 <Preview>
-  <Story name="dashed/disabled" parameters={{ info: { disable: true }}} >
+  <Story name="dashed/disabled">
     <>
-      <Button buttonType="dashed" disabled size="small">Small</Button>
-      <Button buttonType="dashed" disabled>Medium</Button>
-      <Button buttonType="dashed" disabled size="large">Large</Button>
+      <Button buttonType="dashed" disabled size="small">
+        Small
+      </Button>
+      <Button buttonType="dashed" disabled ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="dashed" disabled size="large" ml={2}>
+        Large
+      </Button>
     </>
   </Story>
 </Preview>
 
 Dashed buttons can have an icon positioned before or after the text.
+
 <Preview>
-  <Story name="dashed/icon" parameters={{ info: { disable: true }}} >
-  <>
-    <Button buttonType="dashed" iconType="add" size="small">Small</Button>
-    <Button buttonType="dashed" iconType="add" iconPosition="after">Medium</Button>
-    <Button buttonType="dashed" disabled iconType="add" size="small">Small</Button>
-    <Button buttonType="dashed" disabled iconType="add" iconPosition="after">Medium</Button>
+  <Story name="dashed/icon">
+    <>
+      <Button buttonType="dashed" iconType="add" size="small">
+        Small
+      </Button>
+      <Button buttonType="dashed" iconType="add" iconPosition="after" ml={2}>
+        Medium
+      </Button>
+      <Button buttonType="dashed" disabled iconType="add" size="small" ml={2}>
+        Small
+      </Button>
+      <Button
+        buttonType="dashed"
+        disabled
+        iconType="add"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
     </>
   </Story>
 </Preview>
 
 Dashed buttons can be `fullWidth`.
+
 <Preview>
-  <Story name="dashed/full-width" parameters={{ info: { disable: true }}} >
-    <Button buttonType="dashed" fullWidth>Full Width</Button>
+  <Story name="dashed/full-width">
+    <Button buttonType="dashed" fullWidth>
+      Full Width
+    </Button>
+  </Story>
+</Preview>
+
+Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
+
+<Preview>
+  <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }}>
+    <Button buttonType="dashed" noWrap>
+      Long button text
+    </Button>
   </Story>
 </Preview>
 
 ## Shared Props
-Options shared between all of the above types of buttons. When setting padding we recommend using either the `p`, `py` 
+
+Options shared between all of the above types of buttons. When setting padding we recommend using either the `p`, `py`
 or `px` props to ensure the spacing within the button is applied evenly.
 
 <StyledSystemProps
   of={Button}
   spacing
-  spacingDefaults={{ pt: '1px', pb: '1px', px: '24px' }}
+  defaults={{ pt: "1px", pb: "1px", px: "24px" }}
 />

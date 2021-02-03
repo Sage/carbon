@@ -1,3 +1,148 @@
+### [63.3.1](https://github.com/Sage/carbon/compare/v63.3.0...v63.3.1) (2021-02-03)
+
+
+### Bug Fixes
+
+* **menu, search:** update zIndex ([e136f60](https://github.com/Sage/carbon/commit/e136f60dfe8da0579045c600c256f652fd29dcac))
+
+## [63.3.0](https://github.com/Sage/carbon/compare/v63.2.0...v63.3.0) (2021-02-02)
+
+
+### Features
+
+* **button:** add noWrap prop ([ab675ad](https://github.com/Sage/carbon/commit/ab675ad812f7139b8c205d607ff7ecdca067237e)), closes [#3503](https://github.com/Sage/carbon/issues/3503)
+
+## [63.2.0](https://github.com/Sage/carbon/compare/v63.1.0...v63.2.0) (2021-02-02)
+
+
+### Features
+
+* **filterable-select:** add open on focus functionality ([a249a23](https://github.com/Sage/carbon/commit/a249a23eb799c8503d6b66fd98dfa6ce6e92d592))
+
+## [63.1.0](https://github.com/Sage/carbon/compare/v63.0.2...v63.1.0) (2021-02-01)
+
+
+### Features
+
+* **toast:** allow custom max width for the toast ([f582d3a](https://github.com/Sage/carbon/commit/f582d3ab4f103c748c847bbd07fe808ec0bf7d6c))
+
+### [63.0.2](https://github.com/Sage/carbon/compare/v63.0.1...v63.0.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **message:** add aria label for close button ([7f0fa70](https://github.com/Sage/carbon/commit/7f0fa705f0c9bd1818ead98727e7dde003770e73)), closes [#3406](https://github.com/Sage/carbon/issues/3406)
+
+### [63.0.1](https://github.com/Sage/carbon/compare/v63.0.0...v63.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **dialog:** fix sticky footer transition ([f6d1360](https://github.com/Sage/carbon/commit/f6d13605de157f1f6a76cda6d193b72bb192c490)), closes [#3563](https://github.com/Sage/carbon/issues/3563)
+
+## [63.0.0](https://github.com/Sage/carbon/compare/v62.0.1...v63.0.0) (2021-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **focus-trap:** the focus trap util function has been removed
+
+### Bug Fixes
+
+* **focus-trap:** add focus trap component and remove util function ([cde1081](https://github.com/Sage/carbon/commit/cde1081c14c38eb782ea68437f90b385bdaea914))
+
+### [62.0.1](https://github.com/Sage/carbon/compare/v62.0.0...v62.0.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect behaviour when page count is zero ([1ecff03](https://github.com/Sage/carbon/commit/1ecff0388a7d33f79e2c01f6884b2b0eedf8854f))
+
+## [62.0.0](https://github.com/Sage/carbon/compare/v61.1.0...v62.0.0) (2021-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tooltip:** The `TooltipDecorator` has been removed, and the interface for `Tooltip` has been
+updated
+
+### Features
+
+* **tooltip:** add tippyjs wrapper and remove decorator ([8114ae2](https://github.com/Sage/carbon/commit/8114ae2390d41b173c02fed7f2eaeb5ce3c05705))
+
+## [61.1.0](https://github.com/Sage/carbon/compare/v61.0.1...v61.1.0) (2021-01-27)
+
+
+### Features
+
+* **filterable-select:** implement object id property comparison ([a2bd662](https://github.com/Sage/carbon/commit/a2bd662ec3e7e8394569eec2d3f51ba28e5f7994))
+* **multi-select:** implement object id property comparison ([e68aa57](https://github.com/Sage/carbon/commit/e68aa57abbe2fd26de83f1c6c7e2092bbcf04b77))
+* **select:** implement object id property comparison ([32026b3](https://github.com/Sage/carbon/commit/32026b3a61a776ad2e76f8b941f7faeafccd01e9))
+
+### [61.0.1](https://github.com/Sage/carbon/compare/v61.0.0...v61.0.1) (2021-01-26)
+
+
+### Bug Fixes
+
+* **sidebar:** disable scroll on document if sidebar is open ([738304a](https://github.com/Sage/carbon/commit/738304ac4452a274d8b57d126b20d7d4a206a2ec)), closes [#3541](https://github.com/Sage/carbon/issues/3541)
+
+## [61.0.0](https://github.com/Sage/carbon/compare/v60.1.0...v61.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** The margin left 16px styling applied to the sibling buttons has been removed. An
+add-prop codemod has been created to help facilitate the adding of the margin left spacing prop and
+the value to the buttons in your project.
+
+### Miscellaneous Chores
+
+* **button:** remove sibling styling for button ([164fab8](https://github.com/Sage/carbon/commit/164fab85185ae5567939d0e5b4360be2837adc01)), closes [#3392](https://github.com/Sage/carbon/issues/3392)
+
+## [60.1.0](https://github.com/Sage/carbon/compare/v60.0.0...v60.1.0) (2021-01-26)
+
+
+### Features
+
+* **multi-action-button:** render content in portal ([66d452c](https://github.com/Sage/carbon/commit/66d452c89daaa417ccfdff549ad98f78e35ab965))
+* **split-button:** render content in portal ([fee50f5](https://github.com/Sage/carbon/commit/fee50f5f922f0a84276d8a88ecc1c62a83611c25))
+* add new internal popover component ([de2962b](https://github.com/Sage/carbon/commit/de2962b7acd8237b8365c6404343291a5aae7376))
+
+## [60.0.0](https://github.com/Sage/carbon/compare/v59.1.0...v60.0.0) (2021-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **content:** prop `as` has been replaced with `variant` as `as` prop is reserved for Styled Components.
+To update your code you can use the following codemod
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+
+### Code Refactoring
+
+* **content:** update to be functional ([93c4e86](https://github.com/Sage/carbon/commit/93c4e8645867e529941b62ba5a0b16d24601f867))
+
+## [59.1.0](https://github.com/Sage/carbon/compare/v59.0.2...v59.1.0) (2021-01-25)
+
+
+### Features
+
+* **action-popover:** render content in portal ([9c12819](https://github.com/Sage/carbon/commit/9c1281907bc06e24ae5a6a88bac2b08b493e6d51))
+* add new internal popover component ([5df1eb6](https://github.com/Sage/carbon/commit/5df1eb6e951a8972caf2aea43a2429e1fbdd8582))
+
+### [59.0.2](https://github.com/Sage/carbon/compare/v59.0.1...v59.0.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **date:** fix date crashing when allowEmptyValue is set ([f6fb41c](https://github.com/Sage/carbon/commit/f6fb41c24aebe78950c987274b78a8f04a6ee448))
+
+### [59.0.1](https://github.com/Sage/carbon/compare/v59.0.0...v59.0.1) (2021-01-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** filter disabled inputs in query selector ([d616577](https://github.com/Sage/carbon/commit/d6165777ed5ff55e72d6f981d3f623a351eb6b05))
+
 ## [59.0.0](https://github.com/Sage/carbon/compare/v58.1.0...v59.0.0) (2021-01-19)
 
 

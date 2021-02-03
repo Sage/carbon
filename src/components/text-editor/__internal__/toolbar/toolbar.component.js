@@ -8,6 +8,7 @@ import {
 import ToolbarButton from "./toolbar-button";
 import Events from "../../../../utils/helpers/events/events";
 import Icon from "../../../icon";
+import Tooltip from "../../../tooltip";
 
 const BOLD = "BOLD";
 const ITALIC = "ITALIC";
@@ -21,15 +22,14 @@ const Toolbar = ({
   setBlockStyle,
   setInlineStyle,
 }) => {
-  const [showTooltip, setShowTooltip] = useState("");
   const controlRefs = [useRef(), useRef(), useRef(), useRef()];
   const [focusIndex, setFocusIndex] = useState(0);
   const [tabbable, setTabbable] = useState(true);
+  const [activeTooltip, setActiveTooltip] = useState("");
 
   const handleInlineStyleChange = useCallback(
     (ev, inlineType) => {
       setInlineStyle(ev, inlineType);
-      setShowTooltip("");
     },
     [setInlineStyle]
   );
@@ -37,7 +37,6 @@ const Toolbar = ({
   const handleBlockType = useCallback(
     (ev, blockType) => {
       setBlockStyle(ev, blockType);
-      setShowTooltip("");
     },
     [setBlockStyle]
   );
@@ -56,8 +55,10 @@ const Toolbar = ({
         setTabbable(true);
       } else if (Events.isLeftKey(ev)) {
         if (focusIndex === null || focusIndex === 0) {
+          controlRefs[3].current.focus();
           setFocusIndex(3);
         } else {
+          controlRefs[focusIndex - 1].current.focus();
           setFocusIndex(focusIndex - 1);
         }
         setTabbable(false);
@@ -65,21 +66,26 @@ const Toolbar = ({
         if (focusIndex === 3) {
           setFocusIndex(0);
         } else {
+          controlRefs[focusIndex + 1].current.focus();
           setFocusIndex(focusIndex + 1);
         }
         setTabbable(false);
       }
     },
-    [focusIndex, handleBlockType, handleInlineStyleChange]
+    [controlRefs, focusIndex, handleBlockType, handleInlineStyleChange]
   );
 
   useEffect(() => {
     if (focusIndex === null) {
       setTabbable(true);
-    } else if (canFocus && focusIndex !== null) {
-      controlRefs[focusIndex].current._target.focus();
     }
-  }, [canFocus, controlRefs, focusIndex, tabbable]);
+  }, [focusIndex]);
+
+  useEffect(() => {
+    if (!canFocus) {
+      setFocusIndex(null);
+    }
+  }, [canFocus]);
 
   const isTabbable = useCallback(
     (index) => {
@@ -87,7 +93,7 @@ const Toolbar = ({
         return false;
       }
 
-      return controlRefs[index].current._target === document.activeElement;
+      return controlRefs[index].current === document.activeElement;
     },
     [controlRefs]
   );
@@ -95,50 +101,86 @@ const Toolbar = ({
   return (
     <StyledToolbar data-component="text-editor-toolbar">
       <StyledEditorStyleControls>
-        <ToolbarButton
-          ariaLabel="bold"
-          onKeyDown={(ev) => handleKeyDown(ev, BOLD)}
-          onMouseDown={(ev) => handleInlineStyleChange(ev, BOLD)}
-          activated={activeControls.BOLD}
-          ref={controlRefs[0]}
-          tabbable={tabbable}
-          {...tooltipProps("Bold", showTooltip, setShowTooltip)}
+        <Tooltip
+          isVisible={activeTooltip === "Bold"}
+          message="Bold"
+          position="top"
         >
-          <Icon type="bold" />
-        </ToolbarButton>
-        <ToolbarButton
-          ariaLabel="italic"
-          onKeyDown={(ev) => handleKeyDown(ev, ITALIC)}
-          onMouseDown={(ev) => handleInlineStyleChange(ev, ITALIC)}
-          activated={activeControls.ITALIC}
-          ref={controlRefs[1]}
-          tabbable={isTabbable(1)}
-          {...tooltipProps("Italic", showTooltip, setShowTooltip)}
+          <ToolbarButton
+            ariaLabel="bold"
+            onKeyDown={(ev) => handleKeyDown(ev, BOLD)}
+            onMouseDown={(ev) => handleInlineStyleChange(ev, BOLD)}
+            activated={activeControls.BOLD}
+            ref={controlRefs[0]}
+            tabbable={tabbable}
+            onMouseOver={() => setActiveTooltip("Bold")}
+            onMouseLeave={() => setActiveTooltip("")}
+            onFocus={() => setActiveTooltip("Bold")}
+            onBlur={() => setActiveTooltip("")}
+          >
+            <Icon type="bold" />
+          </ToolbarButton>
+        </Tooltip>
+        <Tooltip
+          isVisible={activeTooltip === "Italic"}
+          message="Italic"
+          position="top"
         >
-          <Icon type="italic" />
-        </ToolbarButton>
-        <ToolbarButton
-          ariaLabel="bullet-list"
-          onKeyDown={(ev) => handleKeyDown(ev, UNORDERED_LIST)}
-          onMouseDown={(ev) => handleBlockType(ev, UNORDERED_LIST)}
-          activated={activeControls[UNORDERED_LIST]}
-          ref={controlRefs[2]}
-          tabbable={isTabbable(2)}
-          {...tooltipProps("Bulleted List", showTooltip, setShowTooltip)}
+          <ToolbarButton
+            ariaLabel="italic"
+            onKeyDown={(ev) => handleKeyDown(ev, ITALIC)}
+            onMouseDown={(ev) => handleInlineStyleChange(ev, ITALIC)}
+            activated={activeControls.ITALIC}
+            ref={controlRefs[1]}
+            tabbable={isTabbable(1)}
+            onMouseOver={() => setActiveTooltip("Italic")}
+            onMouseLeave={() => setActiveTooltip("")}
+            onFocus={() => setActiveTooltip("Italic")}
+            onBlur={() => setActiveTooltip("")}
+          >
+            <Icon type="italic" />
+          </ToolbarButton>
+        </Tooltip>
+        <Tooltip
+          isVisible={activeTooltip === "Bulleted List"}
+          message="Bulleted List"
+          position="top"
         >
-          <Icon type="bullet_list_dotted" />
-        </ToolbarButton>
-        <ToolbarButton
-          ariaLabel="number-list"
-          onKeyDown={(ev) => handleKeyDown(ev, ORDERED_LIST)}
-          onMouseDown={(ev) => handleBlockType(ev, ORDERED_LIST)}
-          activated={activeControls[ORDERED_LIST]}
-          ref={controlRefs[3]}
-          tabbable={isTabbable(3)}
-          {...tooltipProps("Numbered List", showTooltip, setShowTooltip)}
+          <ToolbarButton
+            ariaLabel="bullet-list"
+            onKeyDown={(ev) => handleKeyDown(ev, UNORDERED_LIST)}
+            onMouseDown={(ev) => handleBlockType(ev, UNORDERED_LIST)}
+            activated={activeControls[UNORDERED_LIST]}
+            ref={controlRefs[2]}
+            tabbable={isTabbable(2)}
+            onMouseOver={() => setActiveTooltip("Bulleted List")}
+            onMouseLeave={() => setActiveTooltip("")}
+            onFocus={() => setActiveTooltip("Bulleted List")}
+            onBlur={() => setActiveTooltip("")}
+          >
+            <Icon type="bullet_list_dotted" />
+          </ToolbarButton>
+        </Tooltip>
+        <Tooltip
+          isVisible={activeTooltip === "Numbered List"}
+          message="Numbered List"
+          position="top"
         >
-          <Icon type="bullet_list_numbers" />
-        </ToolbarButton>
+          <ToolbarButton
+            ariaLabel="number-list"
+            onKeyDown={(ev) => handleKeyDown(ev, ORDERED_LIST)}
+            onMouseDown={(ev) => handleBlockType(ev, ORDERED_LIST)}
+            activated={activeControls[ORDERED_LIST]}
+            ref={controlRefs[3]}
+            tabbable={isTabbable(3)}
+            onMouseOver={() => setActiveTooltip("Numbered List")}
+            onMouseLeave={() => setActiveTooltip("")}
+            onFocus={() => setActiveTooltip("Numbered List")}
+            onBlur={() => setActiveTooltip("")}
+          >
+            <Icon type="bullet_list_numbers" />
+          </ToolbarButton>
+        </Tooltip>
       </StyledEditorStyleControls>
 
       {toolbarElements && (
@@ -150,26 +192,11 @@ const Toolbar = ({
   );
 };
 
-function tooltipProps(id, showTooltip, setShowTooltip) {
-  return {
-    tooltipMessage: id,
-    tooltipPosition: "top",
-    tooltipAlign: "center",
-    tooltipVisible: showTooltip === id,
-    onMouseOver: () => setShowTooltip(id),
-    onMouseLeave: () => setShowTooltip(""),
-  };
-}
-
 Toolbar.propTypes = {
   /** Used to override the active status of the inline controls */
   activeControls: PropTypes.object.isRequired,
   /** Flag to trigger control focusing */
   canFocus: PropTypes.bool,
-  /** Used to allow toolbar to determine active controls */
-  editorState: PropTypes.object,
-  /** Sets the form controls ('Save', 'Cancel') to disabled */
-  isDisabled: PropTypes.bool,
   /** Callback to handle setting the inline styles */
   setInlineStyle: PropTypes.func.isRequired,
   /** Callback to handle setting the block styles */

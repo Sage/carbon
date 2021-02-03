@@ -1,70 +1,93 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { StyledTooltipInner, StyledTooltipWrapper } from "./tooltip.style";
-import StyledTooltipPointer from "./tooltip-pointer.style";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import Tippy from "@tippyjs/react/headless";
+import StyledTooltip from "./tooltip.style";
+import StyledPointer from "./tooltip-pointer.style";
 import tagComponent from "../../utils/helpers/tags/tags";
 
-class Tooltip extends React.Component {
-  static propTypes = {
-    /**
-     * Sets alignment of pointer on tooltip
-     */
-    align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
-    /** Children elements */
-    children: PropTypes.node,
-    /** The id attribute to use for the tooltip */
-    id: PropTypes.string,
-    /** Whether to to show the Tooltip */
-    isVisible: PropTypes.bool,
-    /**
-     * Sets position of the tooltip
-     */
-    position: PropTypes.oneOf(OptionsHelper.positions),
-    /** Sets a onMouseEnter function */
-    onMouseEnter: PropTypes.func,
-    /** Sets a onMouseLeave function */
-    onMouseLeave: PropTypes.func,
-    /** Defines the message type */
-    type: PropTypes.string,
-  };
+const TOOLTIP_DELAY = 100;
 
-  static defaultProps = {
-    align: "center",
-    position: "top",
-    isVisible: false,
-  };
+const Tooltip = React.forwardRef(
+  (
+    {
+      children,
+      isVisible,
+      position = "top",
+      message,
+      type,
+      size = "medium",
+      isPartOfInput,
+      inputSize,
+      id,
+      ...rest
+    },
+    ref
+  ) => {
+    const tooltipRef = useRef(ref || null);
 
-  get tooltipHTML() {
-    const { children, onMouseEnter, onMouseLeave, ...commonProps } = this.props;
+    const tooltip = (attrs, content) => {
+      const currentPosition = attrs["data-placement"] || position;
+
+      return (
+        <StyledTooltip
+          data-element="tooltip"
+          role="tooltip"
+          tabIndex="-1"
+          type={type}
+          size={size}
+          id={id}
+          {...tagComponent("tooltip", rest)}
+          isPartOfInput={isPartOfInput}
+          inputSize={inputSize}
+          {...attrs}
+          position={currentPosition}
+          ref={tooltipRef}
+        >
+          <StyledPointer
+            key="pointer"
+            type={type}
+            {...attrs}
+            position={currentPosition}
+            data-popper-arrow=""
+            data-element="tooltip-pointer"
+          />
+          <div>{content}</div>
+        </StyledTooltip>
+      );
+    };
 
     return (
-      <StyledTooltipWrapper
-        role="tooltip"
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        {...commonProps}
-        {...tagComponent("tooltip", this.props)}
+      <Tippy
+        placement={position}
+        delay={TOOLTIP_DELAY}
+        {...(isVisible !== undefined && { visible: isVisible })}
+        render={(attrs) => tooltip(attrs, message)}
       >
-        <StyledTooltipInner {...commonProps}>
-          <>
-            {children}
-            <StyledTooltipPointer
-              key="pointer"
-              {...commonProps}
-              data-element="tooltip-pointer"
-            />
-          </>
-        </StyledTooltipInner>
-      </StyledTooltipWrapper>
+        {children}
+      </Tippy>
     );
   }
+);
 
-  render() {
-    return this.props.isVisible && this.props.children
-      ? this.tooltipHTML
-      : null;
-  }
-}
+Tooltip.propTypes = {
+  /** The message to be displayed within the tooltip */
+  message: PropTypes.node.isRequired,
+  /** The id attribute to use for the tooltip */
+  id: PropTypes.string,
+  /** Whether to to show the Tooltip */
+  isVisible: PropTypes.bool,
+  /** Sets position of the tooltip */
+  position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Defines the message type */
+  type: PropTypes.string,
+  /** Children elements */
+  children: PropTypes.node.isRequired,
+  /** Defines the size of the tooltip content */
+  size: PropTypes.oneOf(["medium", "large"]),
+  /** @ignore @private */
+  isPartOfInput: PropTypes.bool,
+  /** @ignore @private */
+  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+};
 
 export default Tooltip;

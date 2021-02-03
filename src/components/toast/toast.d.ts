@@ -12,6 +12,7 @@ export interface ToastPropTypes {
   timeout?: string | number;
   isCenter?: boolean;
   targetPortalId?: string;
+  maxWidth?: string;
 }
 
 declare const Toast: React.FunctionComponent<ToastPropTypes>;

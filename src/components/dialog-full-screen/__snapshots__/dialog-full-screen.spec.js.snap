@@ -1,16 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to content exists and contains html 1`] = `
-.c0 {
-  overflow-y: auto;
-  padding: 0 16px;
-}
-
-.c4 + .c0 {
-  height: calc(100% - 0px);
-}
-
-.c2 {
+.c1 {
   padding-left: 24px;
   padding-right: 24px;
   -webkit-align-items: center;
@@ -45,32 +36,59 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   min-height: 40px;
 }
 
-.c2:focus {
+.c1:focus {
   outline: solid 3px #FFB500;
 }
 
-.c2 ~ .c1 {
-  margin-left: 16px;
-}
-
-.c2:hover {
+.c1:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c2:hover .c3 {
+.c1:hover .c2 {
   color: #FFFFFF;
 }
 
-.c2 .c3 {
+.c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c2 .c3 svg {
+.c1 .c2 svg {
   margin-top: 0;
+}
+
+.c0 {
+  overflow-y: auto;
+  padding: 0 16px;
+}
+
+.c0 .c4.sticky {
+  padding: 16px;
+}
+
+.c3 + .c0 {
+  height: calc(100% - 0px);
+}
+
+@media screen and (min-width:600px) {
+  .c0 .c4.sticky {
+    padding: 16px 24px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .c0 .c4.sticky {
+    padding: 16px 32px;
+  }
+}
+
+@media screen and (min-width:1260px) {
+  .c0 .c4.sticky {
+    padding: 16px 40px;
+  }
 }
 
 @media screen and (min-width:600px) {
@@ -96,7 +114,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   data-element="content"
 >
   <button
-    class="c1 c2"
+    class="c1"
     data-component="button"
     role="button"
     type="button"
@@ -110,7 +128,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
     </span>
   </button>
   <button
-    class="c1 c2"
+    class="c1"
     data-component="button"
     role="button"
     type="button"
@@ -127,7 +145,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 `;
 
 exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and the ref to heading exists 1`] = `
-.c6 {
+.c14 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -149,12 +167,12 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   width: 24px;
 }
 
-.c6:hover {
+.c14:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c6::before {
+.c14::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -167,27 +185,83 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   display: block;
 }
 
-.c3 {
+.c9 {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  width: inherit;
+  border: 0;
+  height: 1px;
+  background: #CCD6DB;
+}
+
+.c4 {
   width: 100%;
 }
 
-.c3.c3.c3.c3 .c11 {
-  margin-top: -22px;
-  margin-top: -14px;
+.c7 {
+  display: inline-block;
+  width: 100%;
 }
 
-.c3.c3.c3.c3 .c11 a,
-.c3.c3.c3.c3 .c11 button {
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.c8 {
+  font-family: "Lato";
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: none;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-top: 8px;
+  line-height: 31px;
+  margin: 0;
+  padding: 0;
+  color: rgba(0,0,0,0.90);
+  line-height: 32px;
 }
 
-.c3.c3.c3.c3 .c11 a:focus,
-.c3.c3.c3.c3 .c11 button:focus {
+.c10 {
+  margin: 15px 0 20px;
+}
+
+.c12 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c12:focus {
+  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: 3px solid #FFB500;
-  width: 25px;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c12:hover {
+  cursor: pointer;
+}
+
+.c12::-moz-focus-inner {
+  border: none;
+}
+
+.c12 .c13 {
+  position: relative;
+}
+
+.c12 .c13:focus {
+  border: none;
 }
 
 .c2 {
@@ -210,94 +284,67 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
   padding: 0 16px;
 }
 
-.c1 .carbon-heading {
+.c1 .c3 {
   width: auto;
+  margin-bottom: 24px;
 }
 
-.c1 .carbon-heading .carbon-heading__header {
+.c1 .c3 .c5 {
   background-color: transparent;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   padding-bottom: 0;
-  border: none;
-  margin: 22px 24px 24px 0;
+  margin: 22px 24px 0 0;
 }
 
-.c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
-  font-size: 24px;
+.c1 .c11 {
+  margin-top: 26px;
 }
 
-.c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
-  margin-top: -8px;
-  margin-left: -5px;
+.c15 .c3 {
+  width: auto;
+  margin-bottom: 24px;
 }
 
-.c4 {
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-.c4:focus {
-  color: rgba(0,0,0,0.9);
+.c15 .c3 .c5 {
   background-color: transparent;
-  outline: solid 3px #FFB500;
-  z-index: 1;
+  padding-bottom: 0;
+  margin: 22px 24px 0 0;
 }
 
-.c4:hover {
-  cursor: pointer;
+.c15 .c11 {
+  margin-top: 26px;
 }
 
-.c4::-moz-focus-inner {
-  border: none;
-}
-
-.c4 .c5 {
-  position: relative;
-}
-
-.c4 .c5:focus {
-  border: none;
-}
-
-.c0 + .c7 {
-  height: calc(100% - 0px);
-}
-
-.c0 + .c8 {
-  height: calc(100% - 0px);
-}
-
-.c0 + .c9 {
-  height: calc(100% - 0px);
-}
-
-.c10:hover .c5 {
+.c16:hover .c13 {
   color: #FFFFFF;
 }
 
-.c10 .c5 {
+.c16 .c13 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c10 .c5 svg {
+.c16 .c13 svg {
   margin-top: 0;
+}
+
+.c0 + .c17 {
+  height: calc(100% - 0px);
+}
+
+.c0 + .c18 {
+  height: calc(100% - 0px);
+}
+
+.c0 + .c19 {
+  height: calc(100% - 0px);
 }
 
 @media screen and (min-width:600px) {
@@ -326,36 +373,40 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
     class="c2"
   >
     <div
-      class="c3 carbon-heading carbon-heading--has-divider"
+      class="c3 c4"
       data-component="heading"
     >
       <div
-        class="carbon-heading__header"
+        class="c5 c6"
+        data-element="header-container"
       >
         <div
-          class="carbon-heading__headers"
+          class="c7"
         >
-          <div
-            class="carbon-heading__main-header"
+          <span
+            class="c8"
+            color="blackOpacity90"
+            data-element="title"
+            text-decoration="none"
           >
-            <h1
-              class="carbon-heading__title"
-              data-element="title"
-            >
-              my custom heading
-            </h1>
-          </div>
+            my custom heading
+          </span>
         </div>
       </div>
+      <hr
+        class="c9 c10"
+        data-component="hr"
+        data-element="divider"
+      />
     </div>
   </div>
   <button
-    class="c4"
+    class="c11 c12"
     data-element="close"
     type="button"
   >
     <span
-      class="c5 c6"
+      class="c13 c14"
       data-component="icon"
       data-element="close"
       font-size="small"

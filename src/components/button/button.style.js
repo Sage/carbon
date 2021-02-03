@@ -10,14 +10,20 @@ import StyledIcon from "../icon/icon.style";
 
 const StyledButton = styled.button`
   ${space}
-  align-items: center;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  display: inline-flex;
-  flex-direction: column;
-  flex-flow: wrap;
-  justify-content: center;
-  vertical-align: middle;
-  ${stylingForType}
+  ${({ disabled, noWrap }) => css`
+    align-items: center;
+    cursor: ${disabled ? "not-allowed" : "pointer"};
+    display: inline-flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    ${noWrap &&
+    css`
+      white-space: nowrap;
+    `}
+    justify-content: center;
+    vertical-align: middle;
+    ${stylingForType}
+  `}
 
   &&& {
     ${({ mb, theme }) =>
@@ -56,14 +62,7 @@ function additionalIconStyle({ iconType }) {
   return "16px;";
 }
 
-function stylingForType({
-  disabled,
-  buttonType,
-  theme,
-  size,
-  destructive,
-  fullWidth,
-}) {
+function stylingForType({ disabled, buttonType, theme, size, destructive }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -72,13 +71,6 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-
-    ${!fullWidth &&
-    css`
-      & ~ & {
-        margin-left: 16px;
-      }
-    `}
 
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
 

@@ -1,52 +1,24 @@
 import styled from "styled-components";
 import { slideAnimation, fadeAnimation } from "./pages.config";
-import { StyledHeading, StyledHeadingIcon } from "../heading/heading.style";
-import LinkStyleAnchor from "../link/link.style";
 import BaseTheme from "../../style/themes/base";
+import { StyledDivider, StyledHeading } from "../heading/heading.style";
 
 const PagesContent = styled.div`
   border: none;
 
-  &&&& ${LinkStyleAnchor} {
-    margin-top: -16px;
-    a,
-    button {
-      height: 34px;
-      background-color: transparent;
-      top: 50px;
-      margin-top: -5px;
-      &:focus {
-        outline: solid 3px ${({ theme }) => theme.colors.focus};
-        background-color: transparent;
-        width: 26px;
-        margin-top: -1px;
-        padding-top: 0px;
-      }
-      > span {
-        display: block;
-        height: 26px;
-        > span {
-          display: block;
-          height: 26px;
-          ${StyledHeadingIcon} {
-            margin-top: -9px;
-            top: 7px;
-            height: 26px;
-            &:before {
-              line-height: 26px;
-            }
-          }
-        }
-      }
-    }
-  }
   .carbon-app-wrapper {
     min-width: auto;
     max-width: 100%;
     padding: 4px 0 0 0;
   }
+
   ${StyledHeading} {
-    padding-left: 40px;
+    padding-left: 45px;
+    margin-bottom: 34px;
+  }
+
+  ${StyledDivider} {
+    display: none;
   }
 `;
 

@@ -131,3 +131,7 @@ export const Default = () => {
     </ShowEditPod>
   );
 };
+
+Default.story = {
+  name: "default",
+};

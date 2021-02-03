@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "59.0.0",
+  "version": "63.3.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -18,7 +18,7 @@
     "lint": "eslint ./src",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
-    "prepublishOnly": "node check-version.js && npm run precompile",
+    "prepublishOnly": "npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "build-storybook -c .storybook -s .assets",
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
@@ -63,7 +63,7 @@
     "@storybook/addon-actions": "^5.3.3",
     "@storybook/addon-docs": "^5.3.3",
     "@storybook/addon-google-analytics": "^5.3.3",
-    "@storybook/addon-info": "^5.3.3",
+    "@storybook/addon-info": "^5.3.6",
     "@storybook/addon-knobs": "^5.3.3",
     "@storybook/addon-links": "^6.1.11",
     "@storybook/addon-notes": "^5.3.3",
@@ -81,7 +81,7 @@
     "babel-loader": "8.1.0",
     "babel-standalone": "~6.17.0",
     "carbon-state-management": "^1.0.0",
-    "chromatic": "^5.5.0",
+    "chromatic": "^5.6.1",
     "commitizen": "^4.2.2",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.1.4",
@@ -91,6 +91,7 @@
     "cypress": "^6.2.0",
     "cypress-axe": "^0.8.1",
     "cypress-cucumber-preprocessor": "4.0.0",
+    "cypress-plugin-tab": "^1.0.5",
     "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
     "enzyme": "^3.3.0",
@@ -102,6 +103,7 @@
     "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-no-unsanitized": "^3.1.4",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "events": "~1.1.1",
@@ -134,7 +136,9 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
+    "@popperjs/core": "^2.6.0",
     "@styled-system/prop-types": "^5.1.5",
+    "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "bowser": "~1.5.0",
@@ -179,7 +183,7 @@
     }
   },
   "lint-staged": {
-    "./src/**/*.{js,jsx}": [
+    "./**/*.{js,jsx}": [
       "prettier --write",
       "eslint"
     ]

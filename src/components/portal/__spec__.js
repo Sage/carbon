@@ -17,12 +17,7 @@ describe("Portal", () => {
     beforeEach(() => {
       wrapper = mount(
         <Portal>
-          <Icon
-            tooltipMessage="Test"
-            tooltipAlign="left"
-            tooltipPosition="top"
-            type="tick"
-          />
+          <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
         </Portal>
       );
     });
@@ -44,12 +39,7 @@ describe("Portal", () => {
     it("will mount second portal", () => {
       const wrapper2 = mount(
         <Portal>
-          <Icon
-            tooltipMessage="Test"
-            tooltipAlign="left"
-            tooltipPosition="top"
-            type="tick"
-          />
+          <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
         </Portal>
       );
 
@@ -63,12 +53,7 @@ describe("Portal", () => {
       wrapper.unmount();
       const wrapper2 = mount(
         <Portal>
-          <Icon
-            tooltipMessage="Test"
-            tooltipAlign="left"
-            tooltipPosition="top"
-            type="tick"
-          />
+          <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
         </Portal>
       );
       wrapper2.unmount();
@@ -78,12 +63,7 @@ describe("Portal", () => {
     it("to match snapshot ", () => {
       const wrapper2 = shallow(
         <Portal>
-          <Icon
-            tooltipMessage="Test"
-            tooltipAlign="left"
-            tooltipPosition="top"
-            type="tick"
-          />
+          <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
         </Portal>
       );
       expect(wrapper2).toMatchSnapshot();
@@ -104,12 +84,7 @@ describe("Portal", () => {
 
         wrapper = mount(
           <Portal>
-            <Icon
-              tooltipMessage="Test"
-              tooltipAlign="left"
-              tooltipPosition="top"
-              type="tick"
-            />
+            <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
           </Portal>
         );
       });
@@ -156,12 +131,7 @@ describe("Portal", () => {
         spyOn(parentDiv, "removeEventListener");
         wrapper = mount(
           <Portal onReposition={repositionCb}>
-            <Icon
-              tooltipMessage="Test"
-              tooltipAlign="left"
-              tooltipPosition="top"
-              type="tick"
-            />
+            <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
           </Portal>
         );
       });
@@ -220,12 +190,7 @@ describe("Portal", () => {
     spyOn(Browser, "getWindow").and.returnValue(undefined);
     const noDOMWrapper = mount(
       <Portal>
-        <Icon
-          tooltipMessage="Test"
-          tooltipAlign="left"
-          tooltipPosition="top"
-          type="tick"
-        />
+        <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
       </Portal>
     );
     expect(noDOMWrapper.html()).toBe(null);
@@ -244,12 +209,7 @@ describe("Portal", () => {
 
       wrapper = mount(
         <Portal onReposition={repositionCb}>
-          <Icon
-            tooltipMessage="Test"
-            tooltipAlign="left"
-            tooltipPosition="top"
-            type="tick"
-          />
+          <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
         </Portal>
       );
     });

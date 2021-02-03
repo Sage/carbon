@@ -1,9 +1,9 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
-import Content from "./content.js";
+import Content from "./content.component.js";
 
 export default {
-  title: "Content/Test",
+  title: "Design System/Content/Test",
   component: Content,
   parameters: {
     info: {
@@ -11,15 +11,15 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
 
-export const basic = () => {
+export const Default = () => {
   const children = text("children", "An example of some content.");
   const title = text("title", "Content Component");
-  const knobAs = select("as", ["primary", "secondary"]);
+  const variant = select("variant", ["primary", "secondary"]);
   const inline = boolean("inline", false);
   const align = select("align", ["left", "center", "right"]);
   const titleWidth = inline ? text("titleWidth", "") : undefined;
@@ -28,7 +28,7 @@ export const basic = () => {
   return (
     <Content
       title={title}
-      as={knobAs}
+      variant={variant}
       inline={inline}
       align={align}
       titleWidth={titleWidth}
@@ -39,11 +39,6 @@ export const basic = () => {
   );
 };
 
-basic.story = {
-  name: "basic",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };

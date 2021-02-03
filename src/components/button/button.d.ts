@@ -20,6 +20,7 @@ export interface ButtonProps extends SpacingProps {
   renderRouterLink?: (args: object) => React.ReactNode;
   forwardRef?: () => void;
   onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
+  noWrap?: boolean;
 }
 declare const Button: React.ComponentType<ButtonProps | React.HTMLProps<HTMLButtonElement>>;
 export default Button;

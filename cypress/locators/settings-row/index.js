@@ -1,6 +1,8 @@
 import {
-  SETTINGS_ROW_COMPONENT, SETTINGS_ROW_CHILDREN, SETTINGS_ROW_DESCRIPTION,
-} from './locators';
+  SETTINGS_ROW_COMPONENT,
+  SETTINGS_ROW_CHILDREN,
+  SETTINGS_ROW_DESCRIPTION,
+} from "./locators";
 
 // component preview locators
 export const settingsRowPreview = () => cy.get(SETTINGS_ROW_COMPONENT);

@@ -37,8 +37,8 @@ More guidance is available for each of the individual inputs you might place ins
 ## Related Components
 
 - Editing a number of closely related inputs? [Try Fieldset](/?path=/docs/design-system-fieldset-address-fieldset-examples--canada "Fieldset").
-- Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--basic-with-sticky-footer "Form").
-- Viewing content that’s grouped together visually? [Try Pod](/?path=/docs/pod--basic "Pod").
+- Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--default-with-sticky-footer "Form").
+- Viewing content that’s grouped together visually? [Try Pod](/?path=/docs/pod--default-story "Pod").
 
 ## Quick Start
 
@@ -56,11 +56,11 @@ const MyComponent = () => (
 );
 ```
 
-### Basic
+### Default
 
 <Preview>
-  <Story name="Basic">
-    <ShowEditPod 
+  <Story name="default">
+    <ShowEditPod
       title="Title"
       onEdit={() => {}}
       onDelete={() => {}}
@@ -85,10 +85,10 @@ const MyComponent = () => (
 ### Buttons alignment
 
 <Preview>
-  <Story name="Buttons alignment">
+  <Story name="buttons alignment">
     {() => ['left', 'right'].map(buttonAlign =>
       <>
-        <ShowEditPod 
+        <ShowEditPod
           title={buttonAlign}
           editing={true}
           onDelete={() => {}}
@@ -117,8 +117,8 @@ const MyComponent = () => (
 ### With borders
 
 <Preview>
-  <Story name="With borders">
-    <ShowEditPod 
+  <Story name="with borders">
+    <ShowEditPod
       title="With borders"
       onEdit={() => {}}
       onDelete={() => {}}
@@ -144,7 +144,7 @@ const MyComponent = () => (
 ### Various variants
 
 <Preview>
-  <Story name="Various variants">
+  <Story name="various variants">
     {() => [
       'primary',
       'secondary',
@@ -153,7 +153,7 @@ const MyComponent = () => (
       'transparent'
     ].map(variant =>
       <>
-        <ShowEditPod 
+        <ShowEditPod
           title={variant}
           onEdit={() => {}}
           onDelete={() => {}}
@@ -182,7 +182,7 @@ const MyComponent = () => (
 ### Custom transition
 
 <Preview>
-  <Story name="Custom transition" parameters={{ chromatic: { disable: true }}}>
+  <Story name="custom transition" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const StyledContainer = styled.div`
         .custom-transition-name-enter {
@@ -206,7 +206,7 @@ const MyComponent = () => (
         `
       return (
         <StyledContainer>
-          <ShowEditPod 
+          <ShowEditPod
             title="Title"
             onEdit={() => {}}
             onDelete={() => {}}

@@ -3,7 +3,7 @@ Feature: Detail component
 
   @positive
   Scenario Outline: Change Detail children to <children>
-    When I open Basic "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
     Then detail children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -12,7 +12,7 @@ Feature: Detail component
 
   @positive
   Scenario Outline: Change Detail footnote to <footnote>
-    When I open Basic "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "<nameOfObject>" object name
     Then detail footnote on preview is <footnote>
     Examples:
       | footnote                     | nameOfObject             |
@@ -21,5 +21,5 @@ Feature: Detail component
 
   @positive
   Scenario: Change Detail icon to chevron_up
-    When I open Basic "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "iconChervonUp" object name
+    When I open default "Detail Test" component in noIFrame with "detail" json from "commonComponents" using "iconChervonUp" object name
     Then icon on preview is "chevron_up"

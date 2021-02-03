@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const Basic = () => {
+export const Default = () => {
   const [state, setState] = useState({
     open: false,
     selectedColor: null,
@@ -87,10 +87,6 @@ export const Basic = () => {
   );
 };
 
-Basic.story = {
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
+Default.story = {
+  name: "default",
 };
