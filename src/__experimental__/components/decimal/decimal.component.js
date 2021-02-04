@@ -257,6 +257,10 @@ class Decimal extends React.Component {
    */
   formatValue = (value) => {
     const isValid = this.isValidDecimal(value);
+    invariant(
+      !this.isNaN(value) || Events.isAccentKey(value),
+      `The supplied decimal (${value}) is not a number`
+    );
     if (!isValid) {
       const valueToDecimal = this.isNaN(value)
         ? this.state.visibleValue

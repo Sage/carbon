@@ -260,6 +260,15 @@ describe("Decimal", () => {
         global.console.error.mockReset();
       });
 
+      it.each(["12.85.1", "12.,85", "12a.85", "12,85"])(
+        "throws if the defaultValue is not a number (%s)",
+        (defaultValue) => {
+          expect(() => {
+            render({ defaultValue });
+          }).toThrow(`The supplied decimal (${defaultValue}) is not a number`);
+        }
+      );
+
       it("throws if the precision is greater than 15", () => {
         // Legacy restriction, probably something to do with the i18n implementation
         expect(() => {
@@ -1628,7 +1637,6 @@ describe("Decimal", () => {
         blur();
         expect(onBlur).toHaveBeenCalled();
         expect(value()).toBe("0.00");
-        expect(hiddenValue()).toBe("0.00");
       }
     );
 
@@ -1656,7 +1664,7 @@ describe("Decimal", () => {
       blur();
       expect(onBlur).toHaveBeenCalled();
       expect(value()).toBe("20.00");
-      expect(hiddenValue()).toBe("20.00");
+      expect(onBlur).not.toThrow();
     });
 
     it("formats a empty value prop when firing events (allowEmptyValue)", () => {
