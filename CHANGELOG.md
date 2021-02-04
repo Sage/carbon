@@ -1,3 +1,10 @@
+## [63.4.0](https://github.com/Sage/carbon/compare/v63.3.1...v63.4.0) (2021-02-04)
+
+
+### Features
+
+* **box:** add overflowwrap prop to support breaking content that overflows ([915bf5e](https://github.com/Sage/carbon/commit/915bf5ec00aefb5bbf684a1ef043dd3201b0933f))
+
 ### [63.3.1](https://github.com/Sage/carbon/compare/v63.3.0...v63.3.1) (2021-02-03)
 
 
