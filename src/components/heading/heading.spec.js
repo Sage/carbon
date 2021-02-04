@@ -1,9 +1,13 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import Heading from "./heading";
-import Help from "./../help";
-import Link from "./../link";
+import Heading from "./heading.component";
+import {
+  StyledSubHeader,
+  StyledSeparator,
+  StyledHeadingTitle,
+} from "./heading.style";
+import Help from "../help";
+import Link from "../link";
 import {
   elementsTagTest,
   rootTagTest,
@@ -11,15 +15,12 @@ import {
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
-import { PagesContent } from "../pages/pages.style";
-import LinkStyleAnchor from "../link/link.style";
 import mintTheme from "../../style/themes/mint";
+import Hr from "../hr";
 
 describe("Heading", () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
+  it("renders a h1 with the title", () => {
+    const wrapper = mount(
       <Heading
         className="custom"
         title="foo"
@@ -29,21 +30,13 @@ describe("Heading", () => {
         backLink="/foobar"
       />
     );
-  });
-
-  it("renders a h1 with the title", () => {
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "carbon-heading__title"
-    );
-    expect(div.textContent).toEqual("foo");
+    expect(wrapper.find(StyledHeadingTitle).text()).toEqual("foo");
   });
 
   it("renders a help component", () => {
     const wrapper = mount(<Heading title="Test" help="bar" helpLink="/bar" />);
     const help = wrapper.find(Help);
 
-    expect(help.props().className).toEqual("carbon-heading__help");
     expect(help.props().href).toEqual("/bar");
   });
 
@@ -56,15 +49,15 @@ describe("Heading", () => {
         help="bar"
         helpLink="/bar"
         backLink="/foobar"
+        divider={false}
       />
     );
 
     const link = wrapper.find(Link);
-    expect(link.prop("className")).toEqual("carbon-heading__back");
     expect(link.prop("href")).toEqual("/foobar");
   });
 
-  it("renders a back link as a button with focus support on Internet Explorer", () => {
+  it("renders a back link as a button with an outline", () => {
     const wrapper = mount(
       <DefaultPages>
         <Page title={<Heading title="My Second Page" backLink={() => {}} />}>
@@ -78,65 +71,52 @@ describe("Heading", () => {
 
     assertStyleMatch(
       {
-        outline: `solid 3px ${mintTheme.colors.focus}`,
+        outline: `3px solid ${mintTheme.colors.focus}`,
       },
-      wrapper.find(PagesContent),
-      { modifier: `&&&& ${LinkStyleAnchor} button:focus` }
+      link,
+      { modifier: `button:focus` }
     );
   });
 
   it("renders a subheader", () => {
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "carbon-heading__subheader"
+    const wrapper = mount(
+      <Heading
+        className="custom"
+        title="foo"
+        subheader="subheader"
+        help="bar"
+        helpLink="/bar"
+        backLink="/foobar"
+      />
     );
-    expect(div.textContent).toEqual("subheader");
+    expect(wrapper.find(StyledSubHeader).text()).toEqual("subheader");
   });
 
   describe("no subheader", () => {
     it("returns nothing", () => {
-      instance = TestUtils.renderIntoDocument(<Heading />);
-      expect(
-        TestUtils.scryRenderedDOMComponentsWithClass(
-          instance,
-          "carbon-heading__subheader"
-        ).length
-      ).toEqual(0);
+      const wrapper = mount(<Heading />);
+      expect(wrapper.find(StyledSubHeader).exists()).toBe(false);
     });
   });
 
   describe("no divider", () => {
     it("returns nothing", () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title="foo" divider={false} />
-      );
-      expect(
-        TestUtils.scryRenderedDOMComponentsWithClass(
-          instance,
-          "carbon-heading--has-divider"
-        ).length
-      ).toEqual(0);
+      const wrapper = mount(<Heading title="foo" divider={false} />);
+      expect(wrapper.find(Hr).exists()).toBe(false);
     });
   });
 
   describe("no title", () => {
     it("returns nothing", () => {
-      instance = TestUtils.renderIntoDocument(<Heading />);
-      expect(
-        TestUtils.scryRenderedDOMComponentsWithClass(
-          instance,
-          "carbon-heading__title"
-        ).length
-      ).toEqual(0);
+      const wrapper = mount(<Heading />);
+      expect(wrapper.find(StyledHeadingTitle).length).toEqual(0);
     });
   });
 
   describe("no help", () => {
     it("returns no help component", () => {
-      instance = TestUtils.renderIntoDocument(<Heading title="foo" />);
-      expect(
-        TestUtils.scryRenderedComponentsWithType(instance, Help).length
-      ).toEqual(0);
+      const wrapper = mount(<Heading title="foo" />);
+      expect(wrapper.find(Help).length).toEqual(0);
     });
   });
 
@@ -145,17 +125,14 @@ describe("Heading", () => {
       const wrapper = mount(<Heading title="Test" helpLink="/bar" />);
       const help = wrapper.find(Help);
 
-      expect(help.props().className).toEqual("carbon-heading__help");
       expect(help.props().href).toEqual("/bar");
     });
   });
 
   describe("no back href", () => {
     it("returns no back link", () => {
-      instance = TestUtils.renderIntoDocument(<Heading title="foo" />);
-      expect(
-        TestUtils.scryRenderedComponentsWithType(instance, Link).length
-      ).toEqual(0);
+      const wrapper = mount(<Heading title="foo" />);
+      expect(wrapper.find(Link).length).toEqual(0);
     });
   });
 
@@ -172,14 +149,8 @@ describe("Heading", () => {
 
   describe("with separator", () => {
     it("renders a separator after the title", () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title="foo" separator />
-      );
-      const separator = TestUtils.findRenderedDOMComponentWithTag(
-        instance,
-        "hr"
-      );
-      expect(separator.className).toEqual("carbon-heading__separator");
+      const wrapper = mount(<Heading title="foo" separator />);
+      expect(wrapper.find(StyledSeparator).length).toEqual(1);
     });
   });
 

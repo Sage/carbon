@@ -10,14 +10,20 @@ import StyledIcon from "../icon/icon.style";
 
 const StyledButton = styled.button`
   ${space}
-  align-items: center;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  display: inline-flex;
-  flex-direction: column;
-  flex-flow: wrap;
-  justify-content: center;
-  vertical-align: middle;
-  ${stylingForType}
+  ${({ disabled, noWrap }) => css`
+    align-items: center;
+    cursor: ${disabled ? "not-allowed" : "pointer"};
+    display: inline-flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    ${noWrap &&
+    css`
+      white-space: nowrap;
+    `}
+    justify-content: center;
+    vertical-align: middle;
+    ${stylingForType}
+  `}
 
   &&& {
     ${({ mb, theme }) =>

@@ -5,8 +5,6 @@ import {
 } from "../../locators/heading";
 import { helpIcon, link, getDataElementByValue } from "../../locators";
 
-const DIVIDER = "carbon-heading--has-divider";
-
 Then("heading children on preview is {word}", (children) => {
   headingPreview().invoke("text").should("contain", children);
 });
@@ -25,14 +23,6 @@ Then("link on preview is {word}", (helpLink) => {
 
 Then("backLink on preview is {word}", (backLink) => {
   link().children().should("have.attr", "href", backLink);
-});
-
-Then("Heading divider is visible", () => {
-  headingPreview().should("have.class", DIVIDER);
-});
-
-Then("divider is not visible", () => {
-  headingPreview().should("not.have.class", DIVIDER);
 });
 
 Then("separator is visible", () => {
