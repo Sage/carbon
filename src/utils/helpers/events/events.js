@@ -367,6 +367,42 @@ const Events = {
       composedPath(ev)
     );
   },
+
+  /**
+   * Determines if the key pressed is an accent key
+   *
+   * @method isAccentKey
+   * @param {Event} ev A JavaScript event
+   * @returns {Boolean} true if end key
+   * */
+  isAccentKey: (ev) => {
+    return (
+      ev.includes("ŵ") ||
+      ev.includes("ê") ||
+      ev.includes("û") ||
+      ev.includes("î") ||
+      ev.includes("ô") ||
+      ev.includes("â") ||
+      ev.includes("á") ||
+      ev.includes("ã") ||
+      ev.includes("é") ||
+      ev.includes("æ") ||
+      ev.includes("ç") ||
+      ev.includes("ë") ||
+      ev.includes("í") ||
+      ev.includes("ñ") ||
+      ev.includes("ö") ||
+      ev.includes("õ") ||
+      ev.includes("ø") ||
+      ev.includes("^") ||
+      ev.includes("ˇ") ||
+      ev.includes("˝") ||
+      ev.includes("¨") ||
+      ev.includes("¯") ||
+      ev.includes("´") ||
+      ev.includes("~")
+    );
+  },
 };
 
 export default Events;
