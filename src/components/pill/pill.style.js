@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { shade, meetsContrastGuidelines } from "polished";
+import { margin } from "styled-system";
 
 import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
@@ -18,6 +19,7 @@ function addStyleToPillIcon(fontSize) {
 }
 
 const PillStyle = styled.span`
+  ${margin};
   ${({
     colorVariant,
     borderColor,
@@ -26,8 +28,6 @@ const PillStyle = styled.span`
     isDeletable,
     pillRole,
     size,
-    ml,
-    mr,
   }) => {
     const isStatus = pillRole === "status";
     const { colors, text } = baseTheme;
@@ -273,15 +273,6 @@ const PillStyle = styled.span`
           }
         `}
       `}
-
-      ${ml &&
-      css`
-        margin-left: ${ml * theme.spacing}px;
-      `};
-      ${mr &&
-      css`
-        margin-right: ${mr * theme.spacing}px;
-      `};
     `;
   }}
 `;

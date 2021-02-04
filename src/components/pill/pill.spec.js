@@ -6,10 +6,11 @@ import { shade } from "polished";
 
 import Pill from "./pill.component";
 import styleConfig from "./pill.style.config";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import { baseTheme } from "../../style/themes";
@@ -19,7 +20,7 @@ const modernStyleTypes = ["neutral", "negative", "positive", "warning"];
 
 describe("Pill", () => {
   const render = (props, renderer = mount) => {
-    return renderer(<Pill {...props} />);
+    return renderer(<Pill {...props}>My Text</Pill>);
   };
 
   describe("when the children prop is passed to the component", () => {
@@ -267,32 +268,6 @@ describe("Pill", () => {
                 },
                 wrapper
               );
-            });
-          });
-
-          describe("when the mr prop is passed", () => {
-            it("renders with proper margin-right", () => {
-              const wrapper = render(
-                {
-                  children: "My Text",
-                  mr: 2,
-                },
-                TestRenderer.create
-              ).toJSON();
-              assertStyleMatch({ marginRight: "16px" }, wrapper);
-            });
-          });
-
-          describe("when the ml prop is passed", () => {
-            it("renders with proper margin-left", () => {
-              const wrapper = render(
-                {
-                  children: "My Text",
-                  ml: 2,
-                },
-                TestRenderer.create
-              ).toJSON();
-              assertStyleMatch({ marginLeft: "16px" }, wrapper);
             });
           });
 
@@ -552,5 +527,9 @@ describe("Pill", () => {
         });
       }
     );
+  });
+
+  describe("styled system", () => {
+    testStyledSystemMargin((props) => <Pill {...props}>test content</Pill>);
   });
 });
