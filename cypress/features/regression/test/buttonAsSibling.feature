@@ -3,7 +3,7 @@ Feature: Button as a sibling component
 
   @positive
   Scenario Outline: Set Button as a sibling size to <size>
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling height is <height>
     Examples:
       | size   | height | nameOfObject |
@@ -13,7 +13,7 @@ Feature: Button as a sibling component
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling subtext on preview is <subtext>
     Examples:
       | subtext                      | nameOfObject            |
@@ -22,7 +22,7 @@ Feature: Button as a sibling component
 
   @positive
   Scenario Outline: Set Button as a sibling Type as <buttonType>
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button font color is "<font-color>"
       And Button as a sibling background color is "<background>"
     Examples:
@@ -34,7 +34,7 @@ Feature: Button as a sibling component
 
   @positive
   Scenario Outline: Set Button as a sibling component label to <label>
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling label on preview is <label>
     Examples:
       | label                        | nameOfObject             |
@@ -43,17 +43,17 @@ Feature: Button as a sibling component
 
   @positive
   Scenario: Disable Button as a sibling
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "disabled" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "disabled" object name
     Then Button as a sibling is disabled
 
   @positive
   Scenario: Enable Button as a sibling
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "disabledFalse" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "disabledFalse" object name
     Then Button as a sibling is enabled
 
   @positive
   Scenario Outline: Change Button icon position to <iconPosition>
-    When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
+    When I open Test as-a-sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling icon position is set to "<iconPosition>"
     Examples:
       | iconPosition | nameOfObject       |

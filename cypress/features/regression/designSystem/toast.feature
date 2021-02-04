@@ -22,7 +22,7 @@ Feature: Toast Design System component
 
   @positive
   Scenario Outline: Change Toast variant to <variant>
-    Given I open "Design System Toast" component page "variant_<variant>" in no iframe
+    Given I open "Design System Toast" component page "variant <variant>" in no iframe
     When I click on "button-variant-<variant>" Toggle Preview
     Then Toast icon is set to "<icon>"
     Examples:
@@ -34,7 +34,7 @@ Feature: Toast Design System component
 
   @positive
   Scenario Outline: Verify Toast <variant> color
-    Given I open "Design System Toast" component page "variant_<variant>" in no iframe
+    Given I open "Design System Toast" component page "variant <variant>" in no iframe
     When I click on "button-variant-<variant>" Toggle Preview
     Then Toast has background-color "<color>" and border "<color>" color
     Examples:
@@ -52,7 +52,7 @@ Feature: Toast Design System component
 
   @positive
   Scenario: Confirm that default Toast has no close icon
-    Given I open "Design System Toast" component page "default_story" in no iframe
+    Given I open "Design System Toast" component page "default story" in no iframe
     When I click on "button-default" Toggle Preview
     Then Toast component has no close icon
 
@@ -64,6 +64,6 @@ Feature: Toast Design System component
 
   @positive
   Scenario: Confirm that Toast is not centered by default
-    Given I open "Design System Toast" component page "default_story" in no iframe
+    Given I open "Design System Toast" component page "default story" in no iframe
     When I click on "button-default" Toggle Preview
     Then Toast is not centred

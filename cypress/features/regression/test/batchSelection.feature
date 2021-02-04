@@ -3,12 +3,12 @@ Feature: Batch selection component
 
   @positive
   Scenario: Hide Batch selection component
-    When I open Test test_default "Batch Selection" component in noIFrame with "batchSelection" json from "test" using "hidden" object name
+    When I open Test default "Batch Selection" component in noIFrame with "batchSelection" json from "test" using "hidden" object name
     Then Batch selection component is hidden
 
   @positive
   Scenario Outline: Set selectedCount Batch selection component to <selectedCount>
-    When I open Test test_default "Batch Selection" component in noIFrame with "batchSelection" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Batch Selection" component in noIFrame with "batchSelection" json from "test" using "<nameOfObject>" object name
     Then Batch selection component selectedCount is set to "<selectedCount>"
     Examples:
       | selectedCount | nameOfObject     |

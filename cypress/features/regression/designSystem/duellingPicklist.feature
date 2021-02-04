@@ -7,7 +7,7 @@ Feature: Design System Duelling Picklist Component
   @positive
   Scenario: All items are unassigned
     # commented because of BDD default scenario Given - When - Then
-    # Given I open Design Systems page "duellingpicklist" component docs page
+    # Given I open "Test DuellingPicklist" component page "default" in no iframe
     Then unassigned picklist has 20 items
       And assigned picklist is empty
 

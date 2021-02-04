@@ -46,7 +46,7 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario: Invoking Multi Action Button component in a hidden container
-    Given I open "Multi Action Button" component page "in_overflow_hidden_container" in no iframe
+    Given I open "Multi Action Button" component page "in overflow hidden container" in no iframe
       And I expand accordionRow using "Enter" key
     When I hover on Multi Action Button
     Then Multi Action Button in a hidden container is expanded and contains three items

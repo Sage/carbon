@@ -46,13 +46,13 @@ Feature: Design System Multi Select component
 
   @positive
   Scenario: Open on focus multi Select component is opened when has a focus
-    Given I open "Design System Select multiselect" component page "open_on_focus" in no iframe
+    Given I open "Design System Select multiselect" component page "open on focus" in no iframe
     When I focus openOnFocus Select input
     Then multi Select list is opened
 
   @positive
   Scenario: Open on focus Multi Select list by clicking mouse on the dropdown button
-    Given I open "Design System Select multiselect" component page "open_on_focus" in no iframe
+    Given I open "Design System Select multiselect" component page "open on focus" in no iframe
     When I click on dropdown button
     Then multi Select list is opened
 
