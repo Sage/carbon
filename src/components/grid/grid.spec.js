@@ -141,10 +141,33 @@ describe("Grid", () => {
         </GridContainer>
       );
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        // eslint-disable-next-line max-len
-        "Warning: Failed prop type: Invalid prop `children` supplied to `GridContainer`."
+      expect(console.error).toHaveBeenCalled();
+      global.console.error.mockReset();
+    });
+
+    it("is a valid proptype if children is only one GridItem", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      enzymeMount(
+        <GridContainer id="testContainer">
+          <GridItem><p>1</p></GridItem>
+        </GridContainer>
       );
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
+      global.console.error.mockReset();
+    });
+
+    it("is a valid proptpe if children is multiple GridItems", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      enzymeMount(
+        <GridContainer id="testContainer">
+          <GridItem><p>1</p></GridItem>
+          <GridItem><p>2</p></GridItem>
+          <GridItem><p>3</p></GridItem>
+      </GridContainer>
+      );
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
       global.console.error.mockReset();
     });
 
