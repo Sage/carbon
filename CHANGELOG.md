@@ -1,3 +1,10 @@
+### [63.4.1](https://github.com/Sage/carbon/compare/v63.4.0...v63.4.1) (2021-02-05)
+
+
+### Bug Fixes
+
+* **fieldset:** support spacing between fieldset in form ([33d4126](https://github.com/Sage/carbon/commit/33d41264fd1ccec69e7d93d2ad4a593945b67305))
+
 ## [63.4.0](https://github.com/Sage/carbon/compare/v63.3.1...v63.4.0) (2021-02-04)
 
 
