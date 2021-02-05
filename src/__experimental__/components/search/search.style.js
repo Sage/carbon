@@ -71,15 +71,9 @@ const StyledSearch = styled.div`
       }
 
       ${StyledInput} {
-        ::-moz-placeholder {
-              color: ${theme.search.placeholder};
-              opacity: 1;
-            }
-        ::placeholder {
-            color: ${theme.search.placeholder};
-          }
         ${
           darkVariant &&
+          !isFocused &&
           css`
             ::-moz-placeholder {
               color: ${theme.search.darkVariantPlaceholder};
@@ -88,6 +82,12 @@ const StyledSearch = styled.div`
             ::placeholder {
               color: ${theme.search.darkVariantPlaceholder};
             }
+          `
+        }
+
+        ${
+          darkVariant &&
+          css`
             ${!isFocused &&
             searchHasValue &&
             !showSearchButton &&
