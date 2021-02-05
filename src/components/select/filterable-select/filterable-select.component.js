@@ -6,6 +6,7 @@ import SelectTextbox, {
 } from "../select-textbox/select-textbox.component";
 import guid from "../../../utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
+import StyledSelect from "../select.style";
 import SelectList from "../select-list/select-list.component";
 import isExpectedOption from "../utils/is-expected-option";
 
@@ -454,11 +455,15 @@ const FilterableSelect = React.forwardRef(
     );
 
     return (
-      <div
+      <StyledSelect
         data-component="filterable-select"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         ref={containerRef}
+        hasTextCursor
+        readOnly={readOnly}
+        disabled={disabled}
+        {...textboxProps}
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
@@ -468,7 +473,7 @@ const FilterableSelect = React.forwardRef(
           {...getTextboxProps()}
         />
         {!disablePortal && isOpen && selectList}
-      </div>
+      </StyledSelect>
     );
   }
 );
