@@ -24,6 +24,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -116,6 +117,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   <button
     class="c1"
     data-component="button"
+    draggable="false"
     role="button"
     type="button"
   >
@@ -130,6 +132,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
   <button
     class="c1"
     data-component="button"
+    draggable="false"
     role="button"
     type="button"
   >

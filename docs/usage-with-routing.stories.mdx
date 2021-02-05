@@ -1,0 +1,133 @@
+<Meta title="Documentation/Usage with routing" />
+
+# Using Carbon components with routing libraries
+
+## Contents
+
+- [Usage with React Router v5](#usage-with-react-router-v5)
+- [Usage with React Router v6](#usage-with-react-router-v6)
+- [Supported components](#supported-components)
+
+## Introduction
+
+There is no code in Carbon to implement a specific routing library, we aim to let the user decide which library to use.
+
+React Router is one of the most popular routing libraries so we have provided examples below to help with implementing Carbon components as links using both v5 and v6 of this library. There are small but important differences in the implementation of each version.
+
+## Usage with React Router v5
+
+An example of how to use the Carbon `Button` and `Link` components as links with React Router v5 is shown below, this can be applied to any of the supported Carbon components.
+Note the use of the `useHistory` hook from `react-router-dom`.
+
+```jsx
+import React, { useCallback } from "react";
+import Button from "carbon-react/lib/components/button";
+import Link from "carbon-react/lib/components/link";
+
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+
+const CarbonButtonWithReactRouter = ({ to, children }) => {
+  const history = useHistory();
+  const onClick = useCallback(() => {
+    history.push(to);
+  }, [to, history]);
+
+  return <Button onClick={onClick}>{children}</Button>;
+};
+
+const CarbonLinkWithReactRouter = ({ to, children }) => {
+  const history = useHistory();
+  const onClick = useCallback(() => {
+    history.push(to);
+  }, [to, history]);
+
+  return <Link onClick={onClick}>{children}</Link>;
+};
+
+const Home = () => (
+  <div>
+    <CarbonButtonWithReactRouter to="settings">
+      Settings
+    </CarbonButtonWithReactRouter>
+  </div>
+);
+
+const Settings = () => (
+  <div>
+    <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
+  </div>
+);
+
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" element={<Home />} />
+      <Route path="/settings" element={<Settings />} />
+    </Switch>
+  </BrowserRouter>
+);
+```
+
+## Usage with React Router v6
+
+An example of how to use the Carbon `Button` and `Link` components as links with React Router v6 is shown below, this can be applied to any of the supported Carbon components.
+Note the use of the `useNavigate` hook from `react-router-dom`.
+
+```jsx
+import React, { useCallback } from "react";
+import Button from "carbon-react/lib/components/button";
+import Link from "carbon-react/lib/components/link";
+
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+
+const CarbonButtonWithReactRouter = ({ to, children }) => {
+  const navigate = useNavigate();
+  const onClick = useCallback(() => {
+    navigate(to);
+  }, [to, navigate]);
+
+  return <Button onClick={onClick}>{children}</Button>;
+};
+
+const CarbonLinkWithReactRouter = ({ to, children }) => {
+  const navigate = useNavigate();
+  const onClick = useCallback(() => {
+    navigate(to);
+  }, [to, navigate]);
+
+  return <Link onClick={onClick}>{children}</Link>;
+};
+
+const Home = () => (
+  <div>
+    <CarbonButtonWithReactRouter to="settings">
+      Settings
+    </CarbonButtonWithReactRouter>
+  </div>
+);
+
+const Settings = () => (
+  <div>
+    <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
+  </div>
+);
+
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="settings" element={<Settings />} />
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+## Supported components
+
+There are many components that you can use this method with, including:
+
+- `ActionPopoverItem`
+- `Button`
+- `Link`
+- `MenuItem`
+- `Tab`

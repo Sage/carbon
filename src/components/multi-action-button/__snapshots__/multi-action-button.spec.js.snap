@@ -50,6 +50,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  outline-offset: 0;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -132,6 +133,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
       data-component="button"
       data-element="toggle-button"
       disabled={false}
+      draggable={false}
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}

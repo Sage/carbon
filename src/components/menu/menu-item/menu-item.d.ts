@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { IconTypes } from '../../../utils/helpers/options-helper/options-helper';
+import * as React from "react";
+import { IconTypes } from "../../../utils/helpers/options-helper/options-helper";
 
 export interface MenuItemProps {
   children: React.ReactNode;
@@ -10,12 +10,10 @@ export interface MenuItemProps {
   selected?: boolean;
   submenu?: React.ReactNode | boolean;
   href?: string;
-  to?: string;
-  routerLink?: React.ReactNode;
   keyboardOverride?: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   target?: string;
-  variant?: 'default' | 'alternate';
+  variant?: "default" | "alternate";
   showDropdownArrow?: boolean;
   ariaLabel?: string;
 }

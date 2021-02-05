@@ -22,6 +22,7 @@ const StyledButton = styled.button`
     `}
     justify-content: center;
     vertical-align: middle;
+    outline-offset: 0;
     ${stylingForType}
   `}
 
@@ -109,8 +110,6 @@ StyledButton.propTypes = {
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
-  /** Used to transform button into anchor */
-  href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, ""]),
   /** Defines an Icon type within the button (see Icon for options) */
@@ -119,8 +118,6 @@ StyledButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
-  /** Used to transform button into anchor */
-  to: PropTypes.string,
 };
 
 export default StyledButton;
