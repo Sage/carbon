@@ -1,3 +1,25 @@
+## [64.0.0](https://github.com/Sage/carbon/compare/v63.4.1...v64.0.0) (2021-02-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu-item:** remove routerLink and to props from MenuItem.
+See the documentation at https://carbon.sage.com/?path=/docs/documentation-usage-with-routing--page
+for how to implement this functionality
+* **link:** remove routerLink and to props from Link.
+See the documentation at https://carbon.sage.com/?path=/docs/documentation-usage-with-routing--page
+for how to implement this functionality.
+Also the onClick prop will no longer render the link as a button element
+* **button:** remove renderRouterLink, href and to props from Button.
+See the documentation at https://carbon.sage.com/?path=/docs/documentation-usage-with-routing--page
+for how to implement this functionality
+
+### Code Refactoring
+
+* **button:** remove router link props ([b37d3fd](https://github.com/Sage/carbon/commit/b37d3fd200a194e0b7ceca37d594983e37f7d3fb))
+* **link:** remove router link props ([50931cf](https://github.com/Sage/carbon/commit/50931cf270ce34e4ef58d34d6ddd2b0df087aea9))
+* **menu-item:** remove router link props ([4198eff](https://github.com/Sage/carbon/commit/4198eff14f595fe63732f0691103df6ae3bc2e57))
+
 ### [63.4.1](https://github.com/Sage/carbon/compare/v63.4.0...v63.4.1) (2021-02-05)
 
 
