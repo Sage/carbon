@@ -53,7 +53,7 @@ const MyComponent = ({ isOpen, handleClose, handleConfirm }) => (
 <Preview>
   <Story name="default" parameters={{ chromatic: { disable: true }}}>
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(false);
       return (
         <>
           <Button onClick={ () => setIsOpen(!isOpen) }>
@@ -62,6 +62,172 @@ const MyComponent = ({ isOpen, handleClose, handleConfirm }) => (
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+
+### Single action
+
+<Preview>
+  <Story name="single action" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+
+### Destructive buttons
+
+<Preview>
+  <Story name="destructive" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            destructive
+            cancelButtonType="tertiary"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disable confirm button
+
+<Preview>
+  <Story name="disableConfirm" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            destructive
+            disableConfirm
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disable cancel button
+
+<Preview>
+  <Story name="disableCancel" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            showCloseIcon
+            disableCancel
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Change cancel button type
+Allows to set variant which is supported in `<Button />` and it will be applied to the `cancel` button
+
+<Preview>
+  <Story name="cancelButtonType" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            cancelButtonType="tertiary"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Confirm button loading
+
+<Preview>
+  <Story name="isLoadingConfirm" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            isLoadingConfirm
             open={ isOpen }
             onConfirm={ () => setIsOpen(false) }
             onCancel={ () => setIsOpen(false) }

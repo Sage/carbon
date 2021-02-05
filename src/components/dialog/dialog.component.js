@@ -26,6 +26,7 @@ class Dialog extends Modal {
     this.onDialogBlur = this.onDialogBlur.bind(this);
     this.document = Browser.getDocument();
     this.window = Browser.getWindow();
+    this.isCloseIconDisabled = false;
   }
 
   componentDidMount() {
@@ -171,6 +172,7 @@ class Dialog extends Modal {
         data-element="close"
         aria-label="Close button"
         onAction={onCancel}
+        disabled={this.isCloseIconDisabled}
       >
         <Icon type="close" />
       </IconButton>
