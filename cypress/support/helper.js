@@ -16,9 +16,7 @@ function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? (url += iFrame) : (url += story);
   return (
-    url +
-    stringToURL(component) +
-    (Cypress.env(suffix) || `--${stringToURL(suffix)}`)
+    `${url}${stringToURL(component)}--${stringToURL(suffix)}`
   );
 }
 

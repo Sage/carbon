@@ -85,7 +85,7 @@ Feature: Split Button component
 
   @positive
   Scenario: Invoking Split Button component in a hidden container
-    Given I open "Split Button" component page "in_overflow_hidden_container" in no iframe
+    Given I open "Split Button" component page "in overflow hidden container" in no iframe
       And I expand accordionRow using "Enter" key
     When I hover mouse onto "dropdown" icon in no iFrame
     Then Split Button is expanded

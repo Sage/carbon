@@ -64,7 +64,7 @@ Feature: Design System Select component
 
   @positive
   Scenario: Lazy loading is visible after open the Simple Select
-    Given I open "Design System Select" component page "with_is_loading_prop" in no iframe
+    Given I open "Design System Select" component page "with is loading prop" in no iframe
     When I click on Select input with lazy loading in no iframe
     Then Lazy loading is visible
 

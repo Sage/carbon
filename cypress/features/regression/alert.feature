@@ -3,12 +3,12 @@ Feature: Alert component
 
   @positive
   Scenario: CloseIcon has the border outline
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "default" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Alert component title to <title>
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -17,7 +17,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -26,7 +26,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component children to <children>
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -35,23 +35,23 @@ Feature: Alert component
 
   @positive
   Scenario: Enable background UI
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUI" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUIFalse" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "disableEscKey" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "disableEscKey" object name
       And I press ESC onto focused element
     Then Alert is visible in NoIFrame
 
   @positive
   Scenario Outline: Set height for Alert dialog to <height>
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
       | height | nameOfObject |
@@ -61,7 +61,7 @@ Feature: Alert component
 
   @negative
   Scenario Outline: Set out of scope characters to height for Alert dialog
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
       | height | nameOfObject |
@@ -70,7 +70,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Set Alert size to <sizeName>
-    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx | nameOfObject    |

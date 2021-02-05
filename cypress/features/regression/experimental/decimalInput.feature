@@ -28,7 +28,7 @@ Feature: Decimal input component
       | label                        | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
-      
+
   @positive
   Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
     Given I open "Experimental Decimal Input Test" component page "default" in no iframe

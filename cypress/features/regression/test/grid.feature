@@ -2,7 +2,7 @@ Feature: Grid component
   I want to check Grid component properties
 
   Background: Open Grid component page
-    Given I open Test test_default "Grid" component in noIFrame with "grid" json from "test" using "default" object name
+    Given I open Test default "Grid" component in noIFrame with "grid" json from "test" using "default" object name
 
   @positive
   Scenario Outline: Set viewport to default and check size of <podTitle>

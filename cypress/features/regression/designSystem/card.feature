@@ -3,7 +3,7 @@ Feature: Design System Card component
 
   @positive
   Scenario: Verify the shadow whithout interactive card
-    Given I open "Design System Card" component page "default_story" in no iframe
+    Given I open "Design System Card" component page "default story" in no iframe
     Then Card component has non-interactive shadow
 
   @positive

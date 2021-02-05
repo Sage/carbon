@@ -63,14 +63,14 @@ Feature: Design System Filterable Select component
 
   @positive
   Scenario: Selecting the action button opens up a dialog box
-    Given I open "Design System Select filterable" component page "with_action_button" in no iframe
+    Given I open "Design System Select filterable" component page "with action button" in no iframe
     When I click on dropdown button
       And I click onto "Add a New Element" button
     Then Dialog is visible
 
   @positive
   Scenario: Lazy loading is visible after open the Filterable Select
-    Given I open "Design System Select filterable" component page "with_is_loading_prop" in no iframe
+    Given I open "Design System Select filterable" component page "with is loading prop" in no iframe
     When I click on dropdown button
     Then Lazy loading is visible
 
