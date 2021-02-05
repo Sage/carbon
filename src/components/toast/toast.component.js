@@ -72,12 +72,21 @@ class Toast extends React.Component {
   toastContent() {
     if (!this.props.open) return null;
 
-    const { isCenter, variant, id, as, onDismiss, children } = this.props;
+    const {
+      isCenter,
+      variant,
+      id,
+      as,
+      onDismiss,
+      children,
+      maxWidth,
+    } = this.props;
 
     const toastProps = {
       isCenter,
       variant: variant || as,
       id,
+      maxWidth,
     };
 
     return (
@@ -139,6 +148,8 @@ Toast.propTypes = {
   isCenter: PropTypes.bool,
   /** Target Portal ID where the Toast will render */
   targetPortalId: PropTypes.string,
+  /** Maximum toast width */
+  maxWidth: PropTypes.string,
 };
 
 Toast.defaultProps = {

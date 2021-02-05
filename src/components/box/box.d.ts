@@ -3,6 +3,7 @@ import { SpacingProps, ColorProps, LayoutProps, FlexBoxProps } from '../../utils
 
 export interface BoxProps extends SpacingProps, ColorProps, LayoutProps, FlexBoxProps {
     as?: React.ElementType;
+    overflowWrap?: "break-word" | "anywhere";
     scrollVariant?: 'light' | 'dark';
 }
 

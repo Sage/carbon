@@ -45,6 +45,7 @@ const getKnobs = () => {
     href: text("href"),
     to: text("to"),
     destructive: boolean("destructive", false),
+    noWrap: boolean("noWrap", false),
     ...getIconKnobs(),
   };
 };
@@ -185,6 +186,61 @@ export const darkBackgroundButtonsIconsAfter = generateButtons(
   "darkBackground",
   "after"
 );
+
+export const noWrapButtons = () => {
+  const noWrap = boolean("noWrap", true);
+  return (
+    <>
+      {OptionsHelper.buttonTypes.map((buttonType) => {
+        return OptionsHelper.sizesRestricted.map((size) => {
+          return (
+            <div style={{ width: 100 }}>
+              <Button buttonType={buttonType} noWrap={noWrap} size={size}>
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size={size}
+                iconType="bin"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size={size}
+                iconType="bin"
+                iconPosition="after"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size="large"
+                iconType="bin"
+                subtext="Even longer button subtext"
+              >
+                Long button text
+              </Button>
+              <Button
+                buttonType={buttonType}
+                noWrap={noWrap}
+                size="large"
+                iconType="bin"
+                iconPosition="after"
+                subtext="Even longer button subtext"
+              >
+                Long button text
+              </Button>
+            </div>
+          );
+        });
+      })}
+    </>
+  );
+};
 
 export const fullWidthButtons = () => {
   return (
@@ -392,7 +448,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disable: false,
     },
     knobs: { escapeHTML: false },
   },
@@ -400,92 +456,42 @@ export default {
 
 primaryButtonsIconsBefore.story = {
   name: "primary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 primaryButtonsIconsAfter.story = {
   name: "primary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 secondaryButtonsIconsBefore.story = {
   name: "secondary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 secondaryButtonsIconsAfter.story = {
   name: "secondary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 tertiaryButtonsIconsBefore.story = {
   name: "tertiary buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 tertiaryButtonsIconsAfter.story = {
   name: "tertiary buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 dashedButtonsIconsBefore.story = {
   name: "dashed buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 dashedButtonsIconsAfter.story = {
   name: "dashed buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 darkBackgroundButtonsIconsBefore.story = {
   name: "darkBackground buttons icons before",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 darkBackgroundButtonsIconsAfter.story = {
   name: "darkBackground buttons icons after",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
 
 asASibling.story = {
@@ -510,9 +516,4 @@ knobs.story = {
 
 fullWidthButtons.story = {
   name: "full width buttons",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };

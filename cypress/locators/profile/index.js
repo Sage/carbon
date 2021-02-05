@@ -1,8 +1,4 @@
-import {
-  EMAIL,
-  AVATAR,
-  NAME,
-} from './locators';
+import { EMAIL, AVATAR, NAME } from "./locators";
 
 // component preview locators
 export const emailPreview = () => cy.get(EMAIL);

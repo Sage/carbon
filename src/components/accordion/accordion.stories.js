@@ -15,7 +15,7 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
@@ -59,18 +59,8 @@ export const Grouped = () => (
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };
 
 Grouped.story = {
   name: "grouped",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

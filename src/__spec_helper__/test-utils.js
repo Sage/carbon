@@ -116,7 +116,7 @@ const carbonThemesJestTable = carbonThemeList.map((theme) => [
   theme,
 ]);
 
-const spacingProps = [
+const marginProps = [
   ["m", "margin"],
   ["ml", "marginLeft"],
   ["mr", "marginRight"],
@@ -126,6 +126,9 @@ const spacingProps = [
   ["mx", "marginRight"],
   ["my", "marginTop"],
   ["my", "marginBottom"],
+];
+
+const paddingProps = [
   ["p", "padding"],
   ["pl", "paddingLeft"],
   ["pr", "paddingRight"],
@@ -181,7 +184,7 @@ const getDefaultValue = (value) => {
   return value;
 };
 
-const testStyledSystemSpacing = (
+const testStyledSystemMargin = (
   component,
   defaults,
   styleContainer,
@@ -226,6 +229,38 @@ const testStyledSystemSpacing = (
         expect(StyleElement).not.toHaveStyleRule("margin");
       }
     });
+  });
+
+  describe.each(marginProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`then that ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: 2 };
+        wrapper = mount(component({ ...props }));
+
+        expect(
+          assertStyleMatch(
+            { [propName]: "16px" },
+            styleContainer ? styleContainer(wrapper) : wrapper,
+            assertOpts
+          )
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemPadding = (
+  component,
+  defaults,
+  styleContainer,
+  assertOpts
+) => {
+  describe("default props", () => {
+    const wrapper = mount(component());
+    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct paddings", () => {
       let padding;
@@ -266,7 +301,7 @@ const testStyledSystemSpacing = (
     });
   });
 
-  describe.each(spacingProps)(
+  describe.each(paddingProps)(
     'when a custom spacing is specified using the "%s" styled system props',
     (styledSystemProp, propName) => {
       it(`then that ${propName} should have been set correctly`, () => {
@@ -285,6 +320,16 @@ const testStyledSystemSpacing = (
       });
     }
   );
+};
+
+const testStyledSystemSpacing = (
+  component,
+  defaults,
+  styleContainer,
+  assertOpts
+) => {
+  testStyledSystemMargin(component, defaults, styleContainer, assertOpts);
+  testStyledSystemPadding(component, defaults, styleContainer, assertOpts);
 };
 
 const testStyledSystemColor = (component, styleContainer) => {
@@ -364,6 +409,8 @@ export {
   carbonThemesJestTable,
   mockMatchMedia,
   testStyledSystemSpacing,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,

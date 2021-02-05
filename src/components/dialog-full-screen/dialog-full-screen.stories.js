@@ -126,18 +126,8 @@ export const Nested = () => {
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };
 
 Nested.story = {
   name: "nested",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

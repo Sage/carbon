@@ -43,9 +43,6 @@ export default {
     info: {
       disable: true,
     },
-    chromatic: {
-      disable: true,
-    },
   },
 };
 

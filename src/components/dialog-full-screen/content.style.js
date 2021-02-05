@@ -1,9 +1,24 @@
 import styled, { css } from "styled-components";
 import FullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
+import { StyledFormFooter } from "../form/form.style";
 
 const StyledContent = styled.div`
   overflow-y: auto;
   padding: 0 16px;
+
+  ${StyledFormFooter}.sticky {
+    padding: 16px;
+
+    @media screen and (min-width: 600px) {
+      padding: 16px 24px;
+    }
+    @media screen and (min-width: 960px) {
+      padding: 16px 32px;
+    }
+    @media screen and (min-width: 1260px) {
+      padding: 16px 40px;
+    }
+  }
 
   ${({ disableContentPadding }) => css`
     ${!disableContentPadding &&

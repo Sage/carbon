@@ -61,9 +61,4 @@ export const Default = () => {
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

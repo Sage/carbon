@@ -20,9 +20,6 @@ export default {
     info: {
       disable: true,
     },
-    chromatic: {
-      disable: true,
-    },
   },
 };
 
@@ -205,7 +202,7 @@ InDialog.story = {
   name: "in dialog",
   parameters: {
     chromatic: {
-      disable: false,
+      disable: true,
     },
   },
 };

@@ -29,9 +29,11 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   margin-left: -35px;
   left: auto;
   position: fixed;
+  padding: 16px 35px;
 }
 
 .c0 > .c2 {
+  margin: 0;
   position: absolute;
   right: 33px;
   top: 32px;

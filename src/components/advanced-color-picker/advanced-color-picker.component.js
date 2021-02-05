@@ -26,7 +26,7 @@ const AdvancedColorPicker = ({
   const isOpen = open || false;
   const [dialogOpen, setDialogOpen] = useState();
   const currentColor = selectedColor || defaultColor;
-  const selectedColorRef = useRef();
+  const [selectedColorRef, setSelectedColorRef] = useState();
 
   const gridItemRefs = useRef(
     Array.from(
@@ -48,8 +48,7 @@ const AdvancedColorPicker = ({
   useEffect(() => {
     if (dialogOpen || isOpen) {
       const selected = colors.find((c) => currentColor === c.value);
-      selectedColorRef.current = selected.ref.current;
-      selected.ref.current.focus();
+      setSelectedColorRef(selected.ref.current);
     }
   }, [colors, currentColor, dialogOpen, isOpen]);
 
@@ -59,12 +58,12 @@ const AdvancedColorPicker = ({
         /* istanbul ignore else */
         if (e.shiftKey) {
           /* istanbul ignore else */
-          if (document.activeElement === selectedColorRef.current) {
+          if (document.activeElement === selectedColorRef) {
             lastFocusableElement.focus();
             e.preventDefault();
           }
         } else if (document.activeElement === lastFocusableElement) {
-          selectedColorRef.current.focus();
+          selectedColorRef.focus();
           e.preventDefault();
         }
       }
@@ -97,13 +96,13 @@ const AdvancedColorPicker = ({
   const handleOnChange = useCallback(
     (e) => {
       const selected = colors.find((c) => e.target.value === c.value);
-      selectedColorRef.current = selected.ref.current;
+      setSelectedColorRef(selected.ref.current);
 
       if (onChange) {
         onChange(e);
       }
     },
-    [onChange, colors, selectedColorRef]
+    [onChange, colors]
   );
 
   const handleOnKeyDown = useCallback(
@@ -149,6 +148,7 @@ const AdvancedColorPicker = ({
         size="auto"
         onCancel={handleOnClose}
         bespokeFocusTrap={handleFocus}
+        focusFirstElement={selectedColorRef}
       >
         <StyledAdvancedColorPickerPreview
           data-element="color-picker-preview"

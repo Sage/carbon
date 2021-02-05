@@ -197,6 +197,7 @@ const Submenu = React.forwardRef(
         onMouseOver={() => setSubmenuOpen(true)}
         onMouseLeave={() => closeSubmenu()}
         ref={submenuRef}
+        isSubmenuOpen={submenuOpen}
       >
         <StyledMenuItemWrapper
           {...rest}

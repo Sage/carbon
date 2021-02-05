@@ -1,6 +1,6 @@
 import React from "react";
 import { text, boolean } from "@storybook/addon-knobs";
-import Heading from "./heading";
+import Heading from "./heading.component";
 
 export default {
   title: "Heading/Test",
@@ -11,7 +11,7 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: true,
     },
   },
 };
@@ -43,9 +43,4 @@ export const Default = () => {
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

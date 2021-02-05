@@ -2,7 +2,7 @@ import {
   HEADING_PREVIEW,
   SUBHEADER_PREVIEW,
   SEPARATOR_PREVIEW,
-} from './locators';
+} from "./locators";
 
 // component preview locators
 export const headingPreview = () => cy.get(HEADING_PREVIEW);

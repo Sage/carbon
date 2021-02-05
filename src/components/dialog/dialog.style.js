@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 import baseTheme from "../../style/themes/base";
 import { StyledForm, StyledFormFooter } from "../form/form.style";
+import { StyledHeading, StyledHeadingTitle } from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 const dialogSizes = {
@@ -62,6 +63,7 @@ const DialogStyle = styled.div`
       left: auto;
       width: ${dialogSizes[size]};
       position: fixed;
+      padding: 16px 35px;
     }
   `}
 
@@ -73,6 +75,7 @@ const DialogStyle = styled.div`
     `}
 
   > ${StyledIconButton} {
+    margin: 0;
     position: absolute;
     right: 33px;
     top: 32px;
@@ -89,18 +92,17 @@ const DialogTitleStyle = styled.div`
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
-  .carbon-heading--has-divider .carbon-heading__header {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
+  ${StyledHeading} {
+    margin-bottom: 20px;
 
-  .carbon-heading__title {
-    color: ${({ theme }) => theme.text.color};
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: ${({ hasSubtitle }) => !hasSubtitle && "4px 0px"};
+    ${StyledHeadingTitle} {
+      color: ${({ theme }) => theme.text.color};
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: ${({ hasSubtitle }) => !hasSubtitle && "4px 0px"};
+    }
   }
 `;
 

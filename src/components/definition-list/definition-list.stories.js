@@ -13,7 +13,7 @@ export default {
     },
     knobs: { escapeHTML: false },
     chromatic: {
-      disabled: true,
+      disable: false,
     },
   },
 };
@@ -32,9 +32,4 @@ export const Default = () => {
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
 };
