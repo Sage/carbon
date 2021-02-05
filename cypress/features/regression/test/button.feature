@@ -3,7 +3,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
-    When I open Test test_knobs "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
+    When I open Test knobs "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
     Then Button subtext on preview is <subtext>
     Examples:
       | subtext                      | nameOfObject            |
@@ -12,7 +12,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button component label to <label>
-    When I open Test test_knobs "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
+    When I open Test knobs "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
     Then Button label on preview is <label>
     Examples:
       | label                        | nameOfObject             |
