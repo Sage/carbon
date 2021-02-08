@@ -21,19 +21,19 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c7::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c7::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c7:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c7::placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c7:invalid,
