@@ -1,3 +1,23 @@
+## [65.0.0](https://github.com/Sage/carbon/compare/v64.0.0...v65.0.0) (2021-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** Setting padding is no longer possible through styled-system props.
+Please use only margin styled system props
+
+### Features
+
+* **filterable-select:** add margin styled-system props ([865b38f](https://github.com/Sage/carbon/commit/865b38fb708b00087276cb7ddf9b874ea6dc9dde))
+* **multi-select:** add margin styled-system props ([0d9812e](https://github.com/Sage/carbon/commit/0d9812ee03fc5f3680694f726644e96f0c2b641a))
+* **select:** add margin styled system props ([44ede21](https://github.com/Sage/carbon/commit/44ede2126a4e538227e1db7afc3890756e1726b3))
+
+
+### Bug Fixes
+
+* **search:** change placeholder color ([0165eeb](https://github.com/Sage/carbon/commit/0165eebac22dfbbb599dda683ef44e6129a6c2cf))
+* **select:** change placeholder color ([e27136d](https://github.com/Sage/carbon/commit/e27136d0f165417029efcf19298d026731ac7bd9))
+
 ## [64.0.0](https://github.com/Sage/carbon/compare/v63.4.1...v64.0.0) (2021-02-05)
 
 
