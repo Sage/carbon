@@ -17,9 +17,7 @@ Feature: Accessibility tests - Design System folder
     When I expand Design System accordionRow via click in NoIFrame
     Then "Accordion default page" component has no accessibility violations
 
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
+  @accessibility
   Scenario: Design System Advanced Color Picker component default story page
     Given I open "Design System Advanced Color Picker" component page "default story" in no iframe
     When I open Advanced Color Picker in noIFrame
@@ -34,15 +32,14 @@ Feature: Accessibility tests - Design System folder
       | Anchornavigation |
       | duellingpicklist |
 
-  @ignore
-  # ignored because of accessibility issues (FE-3177)
+  @accessibility
   Scenario Outline: Numeral Date component <story> story
     When I open "Design System Numeral Date Test" component page "<story>" in no iframe
     Then "Numeral Date <story>" component has no accessibility violations
     Examples:
-      | story         |
-      | default story |
-      | validations   |
+      | story       |
+      | default     |
+      | validations |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page
@@ -94,9 +91,7 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System Numeral Date Test" component page "validations" in no iframe
     Then "Numeral Date" component has no accessibility violations
 
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
+  @accessibility
   Scenario: Design System Popover Container component default page
     Given I open "Design System Popover Container" component page "default story" in no iframe
     When I open popover container in NoIFrame
