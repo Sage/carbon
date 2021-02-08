@@ -3,7 +3,7 @@ Feature: Button Toggle component
 
   @positive
   Scenario Outline: Set Button Toggle childen to <label>
-    When I open test_default "Button Toggle" component in noIFrame with "buttonToggle" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Button Toggle Test" component in noIFrame with "buttonToggle" json from "commonComponents" using "<nameOfObject>" object name
     Then Button Toggle label on preview is <label>
     Examples:
       | label                        | nameOfObject             |

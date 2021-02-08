@@ -35,7 +35,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
-    Given I open "<component>" component page "default_story" in no iframe
+    Given I open "<component>" component page "default story" in no iframe
     When I open component preview in noIFrame
     Then "<component>" component has no accessibility violations
     Examples:

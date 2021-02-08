@@ -11,7 +11,7 @@ Feature: Drawer component
     Examples:
       | drawer        | drawerID          | class  | visibility  |
       | controlled    | controlled-drawer | open   | visible     |
-      | with_controls | with-controls     | closed | not visible |
+      | with controls | with-controls     | closed | not visible |
 
   @positive
   Scenario Outline: Verify chevron orientation when is clicked twice for <drawer> Drawer
@@ -22,17 +22,17 @@ Feature: Drawer component
       And Drawer <drawerID> sidebar text is <visibility>
     Examples:
       | drawer        | drawerID          | class  | visibility  |
-      | with-controls | with-controls     | open   | visible     |
+      | with controls | with-controls     | open   | visible     |
       | controlled    | controlled-drawer | closed | not visible |
 
   @positive
   Scenario: Confirm that animationDuration is set to 2 second
-    Given I open "Design System Drawer" component page "two_second_animation" in no iframe
+    Given I open "Design System Drawer" component page "two second animation" in no iframe
     When I click on two-second-animation-drawer Drawers arrow 1 time
     Then Drawer two-second-animation-drawer animationDuration is set to "2s"
 
   @positive
   Scenario: Confirm that animationDuration is set to 3 seconds
-    Given I open "Design System Drawer" component page "three_second_animation" in no iframe
+    Given I open "Design System Drawer" component page "three second animation" in no iframe
     When I click on three-second-animation-drawer Drawers arrow 1 time
     Then Drawer three-second-animation-drawer animationDuration is set to "3s"

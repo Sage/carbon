@@ -130,26 +130,78 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### With object as value:
+
 Option values could be passed as objects, useful when custom data is associated with an option.
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
 <Preview>
-  <Story name="with object as value" parameters={{ chromatic: { disable: true }}} >
+  <Story
+    name="with object as value"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
-      const [value, setValue] = useState({ id: 'Green', value: 5, text: 'Green' });
+      const [value, setValue] = useState({
+        id: "Green",
+        value: 5,
+        text: "Green",
+      });
       const optionList = useRef([
-        <Option text='Amber' key='Amber' value={ { id: 'Amber', value: 1, text: 'Amber' } } />,
-        <Option text='Black' key='Black' value={ { id: 'Black', value: 2, text: 'Black' } } />,
-        <Option text='Blue' key='Blue' value={ { id: 'Blue', value: 3, text: 'Blue' } } />,
-        <Option text='Brown' key='Brown' value={ { id: 'Brown', value: 4, text: 'Brown' } } />,
-        <Option text='Green' key='Green' value={ { id: 'Green', value: 5, text: 'Green' } } />,
-        <Option text='Orange' key='Orange' value={ { id: 'Orange', value: 6, text: 'Orange' } } />,
-        <Option text='Pink' key='Pink' value={ { id: 'Pink', value: 7, text: 'Pink' } } />,
-        <Option text='Purple' key='Purple' value={ { id: 'Purple', value: 8, text: 'Purple' } } />,
-        <Option text='Red' key='Red' value={ { id: 'Red', value: 9, text: 'Red' } } />,
-        <Option text='White' key='White' value={ { id: 'White', value: 10, text: 'White' } } />,
-        <Option text='Yellow' key='Yellow' value={ { id: 'Yellow', value: 11, text: 'Yellow' } } />
+        <Option
+          text="Amber"
+          key="Amber"
+          value={{ id: "Amber", value: 1, text: "Amber" }}
+        />,
+        <Option
+          text="Black"
+          key="Black"
+          value={{ id: "Black", value: 2, text: "Black" }}
+        />,
+        <Option
+          text="Blue"
+          key="Blue"
+          value={{ id: "Blue", value: 3, text: "Blue" }}
+        />,
+        <Option
+          text="Brown"
+          key="Brown"
+          value={{ id: "Brown", value: 4, text: "Brown" }}
+        />,
+        <Option
+          text="Green"
+          key="Green"
+          value={{ id: "Green", value: 5, text: "Green" }}
+        />,
+        <Option
+          text="Orange"
+          key="Orange"
+          value={{ id: "Orange", value: 6, text: "Orange" }}
+        />,
+        <Option
+          text="Pink"
+          key="Pink"
+          value={{ id: "Pink", value: 7, text: "Pink" }}
+        />,
+        <Option
+          text="Purple"
+          key="Purple"
+          value={{ id: "Purple", value: 8, text: "Purple" }}
+        />,
+        <Option
+          text="Red"
+          key="Red"
+          value={{ id: "Red", value: 9, text: "Red" }}
+        />,
+        <Option
+          text="White"
+          key="White"
+          value={{ id: "White", value: 10, text: "White" }}
+        />,
+        <Option
+          text="Yellow"
+          key="Yellow"
+          value={{ id: "Yellow", value: 11, text: "Yellow" }}
+        />,
       ]);
       function onChangeHandler(event) {
         setValue(event.target.value);
@@ -159,14 +211,16 @@ If there is no `id` prop specified on an object, then the exact objects will be 
       }
       return (
         <div>
-          <Button onClick={ clearValue } mb={ 2 }>clear</Button>
+          <Button onClick={clearValue} mb={2}>
+            clear
+          </Button>
           <Select
-            id='with-object'
-            name='with-object'
-            value={ value }
-            onChange={ onChangeHandler }
+            id="with-object"
+            name="with-object"
+            value={value}
+            onChange={onChangeHandler}
           >
-            { optionList.current }
+            {optionList.current}
           </Select>
         </div>
       );
@@ -175,23 +229,29 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 </Preview>
 
 ### With isLoading prop:
+
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Preview>
-  <Story name="with isLoading prop" parameters={{ chromatic: { disable: true }}} > 
+  <Story
+    name="with isLoading prop"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       let preventLoading = useRef(false);
-      const [value, setValue] = useState('black');
+      const [value, setValue] = useState("black");
       const [isOpen, setIsOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
       const asyncList = [
-        <Option text='Amber' value='amber' key='Amber' />,
-        <Option text='Black' value='black' key='Black' />,
-        <Option text='Blue' value='blue' key='Blue' />,
-        <Option text='Brown' value='brown' key='Brown' />,
-        <Option text='Green' value='green' key='Green' />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
       ];
-      const [optionList, setOptionList] = useState([<Option text='Black' value='black' key='Black' />]);
+      const [optionList, setOptionList] = useState([
+        <Option text="Black" value="black" key="Black" />,
+      ]);
       function loadList() {
         if (preventLoading.current) {
           return;
@@ -200,27 +260,29 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
-          setOptionList(asyncList)
+          setOptionList(asyncList);
         }, 2000);
       }
       function clearData() {
-        setOptionList([<Option text='Black' value='black' key='Black' />]);
-        setValue('black');
+        setOptionList([<Option text="Black" value="black" key="Black" />]);
+        setValue("black");
         preventLoading.current = false;
       }
       return (
         <div>
-          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <Button onClick={clearData} mb={2}>
+            reset
+          </Button>
           <Select
-            name='isLoading'
-            id='isLoading'
-            label='label'
-            value={ value }
-            onChange={ (event) => setValue(event.target.value) }
-            onOpen={ () => loadList() }
-            isLoading={ isLoading }
+            name="isLoading"
+            id="isLoading"
+            label="label"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onOpen={() => loadList()}
+            isLoading={isLoading}
           >
-            { optionList }
+            {optionList}
           </Select>
         </div>
       );
@@ -229,31 +291,47 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
 </Preview>
 
 ### Infinite scroll example:
+
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
 <Preview>
-  <Story name="with infinite scroll" parameters={{ chromatic: { disable: true }}} > 
+  <Story
+    name="with infinite scroll"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       let preventLoading = useRef(false);
       let preventLazyLoading = useRef(false);
       let lazyLoadingCounter = useRef(0);
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       const [isOpen, setIsOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
       const asyncList = [
-        <Option text='Amber' value='amber' key='Amber' />,
-        <Option text='Black' value='black' key='Black' />,
-        <Option text='Blue' value='blue' key='Blue' />,
-        <Option text='Brown' value='brown' key='Brown' />,
-        <Option text='Green' value='green' key='Green' />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
       ];
       const getLazyLoaded = () => {
         const counter = lazyLoadingCounter.current;
         return [
-          <Option text={`Lazy Loaded A${counter}`} value={`lazyA${counter}`} key={`lazyA${counter}`} />,
-          <Option text={`Lazy Loaded B${counter}`} value={`lazyB${counter}`} key={`lazyB${counter}`} />,
-          <Option text={`Lazy Loaded C${counter}`} value={`lazyC${counter}`} key={`lazyC${counter}`} />,
+          <Option
+            text={`Lazy Loaded A${counter}`}
+            value={`lazyA${counter}`}
+            key={`lazyA${counter}`}
+          />,
+          <Option
+            text={`Lazy Loaded B${counter}`}
+            value={`lazyB${counter}`}
+            key={`lazyB${counter}`}
+          />,
+          <Option
+            text={`Lazy Loaded C${counter}`}
+            value={`lazyC${counter}`}
+            key={`lazyC${counter}`}
+          />,
         ];
       };
       const [optionList, setOptionList] = useState([]);
@@ -265,7 +343,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
-          setOptionList(asyncList)
+          setOptionList(asyncList);
         }, 2000);
       }
       function onLazyLoading() {
@@ -283,23 +361,25 @@ This prop will be called every time a user scrolls to the bottom of the list.
       }
       function clearData() {
         setOptionList([]);
-        setValue('');
+        setValue("");
         preventLoading.current = false;
       }
       return (
         <div>
-          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <Button onClick={clearData} mb={2}>
+            reset
+          </Button>
           <Select
-            name='infiniteScroll'
-            id='infiniteScroll'
-            label='label'
-            value={ value }
-            onChange={ (event) => setValue(event.target.value) }
-            onOpen={ () => loadList() }
-            isLoading={ isLoading }
-            onListScrollBottom={ onLazyLoading }
+            name="infiniteScroll"
+            id="infiniteScroll"
+            label="label"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onOpen={() => loadList()}
+            isLoading={isLoading}
+            onListScrollBottom={onLazyLoading}
           >
-            { optionList }
+            {optionList}
           </Select>
         </div>
       );
@@ -469,7 +549,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   </Story>
 </Preview>
 
-<StyledSystemProps of={Select} spacing />
+<StyledSystemProps of={Select} margin />
 
 ### Props derived from the Textbox Component
 

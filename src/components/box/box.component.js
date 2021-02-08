@@ -11,6 +11,12 @@ const Box = styled.div`
   ${flexbox}
   ${color}
 
+  ${({ overflowWrap }) =>
+    overflowWrap &&
+    css`
+      overflow-wrap: ${overflowWrap};
+    `}
+
   ${({ scrollVariant, theme }) =>
     scrollVariant &&
     css`
@@ -38,6 +44,8 @@ Box.propTypes = {
   ...propTypes.layout,
   /** Styled system color props */
   ...propTypes.color,
+  /** String to set Box content break strategy. Note "anywhere" is not supported in Safari and IE11 */
+  overflowWrap: PropTypes.oneOf(["break-word", "anywhere"]),
   /** scroll styling attribute */
   scrollVariant: PropTypes.oneOf(["light", "dark"]),
 };

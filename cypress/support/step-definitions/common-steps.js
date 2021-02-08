@@ -53,7 +53,7 @@ Given(
   "I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
     visitComponentUrlWithParameters(
-      component,
+      `${component}-test`,
       type,
       "design-system-",
       json,

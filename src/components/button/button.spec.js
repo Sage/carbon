@@ -1,7 +1,9 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import Icon from "components/icon";
+import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
+
+import Icon from "components/icon";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import BaseTheme from "../../style/themes/base";
@@ -12,11 +14,6 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
-
-const RouterLink = (props) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a {...props} />;
-};
 
 const render = (props, renderer = shallow) => {
   return renderer(<Button {...props} />);
@@ -521,31 +518,6 @@ describe("Button", () => {
     });
   });
 
-  // Legacy functionalities
-  describe("render", () => {
-    describe("with href", () => {
-      const wrapper = render({
-        href: "/foo",
-        children: "Anchor",
-      });
-
-      it("renders an anchor element instead of a button", () => {
-        expect(wrapper.find(StyledButton).props().as).toEqual("a");
-      });
-    });
-
-    describe("with to", () => {
-      const wrapper = render({
-        to: "/foo",
-        children: "To",
-        renderRouterLink: (routerProps) => <RouterLink {...routerProps} />,
-      });
-      it("renders a Button inside a Router Link component", () => {
-        expect(wrapper.type()).toEqual(RouterLink);
-      });
-    });
-  });
-
   describe('when the iconType is "services"', () => {
     it("applies the expected style to the icon", () => {
       const buttonWithServiceIcon = render(
@@ -582,5 +554,53 @@ describe("Button", () => {
         );
       }
     );
+  });
+
+  describe("using href prop to render as an anchor", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<Button href="/">Test</Button>);
+    });
+
+    it("should render as an <a> element", () => {
+      expect(wrapper.find("a").exists()).toEqual(true);
+    });
+
+    describe("when space key pressed", () => {
+      it("should click the link", () => {
+        const preventDefaultSpy = jest.fn();
+
+        act(() => {
+          wrapper.find(StyledButton).at(0).props().onKeyDown({
+            key: " ",
+            which: 32,
+            preventDefault: preventDefaultSpy,
+          });
+        });
+
+        wrapper.update();
+
+        expect(preventDefaultSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe("when other key pressed", () => {
+      it("should not click the link", () => {
+        const preventDefaultSpy = jest.fn();
+
+        act(() => {
+          wrapper.find(StyledButton).at(0).props().onKeyDown({
+            key: "ArrowLeft",
+            which: 37,
+            preventDefault: jest.fn(),
+          });
+        });
+
+        wrapper.update();
+
+        expect(preventDefaultSpy).not.toHaveBeenCalled();
+      });
+    });
   });
 });

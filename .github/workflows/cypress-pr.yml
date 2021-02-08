@@ -63,7 +63,7 @@ jobs:
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
-          wait-on-timeout: 200
+          wait-on-timeout: 250
           record: true
           parallel: true
           group: ubuntu-regression

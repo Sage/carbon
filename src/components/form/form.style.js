@@ -7,9 +7,10 @@ import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import OptionsHelper from "../../utils/helpers/options-helper";
+import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 
 export const StyledForm = styled.form`
-  & ${StyledFormField}, ${StyledFieldset}, > ${StyledButton} {
+  & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) =>
       theme.spacing * fieldSpacing}px;

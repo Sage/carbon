@@ -21,8 +21,8 @@ Feature: Design System Numeral Date component
       | third    | 12345  | 1234   |
 
   @positive
-  Scenario: Set Numeral Date component date format to <dateFormat>
-    When I open Test test_default "Numeral Date" component in noIFrame with "numeralDate" json from "test" using "dateFormat" object name
+  Scenario: Set Numeral Date component date format to "13,02,1990"
+    When I open Test default "Numeral Date" component in noIFrame with "numeralDate" json from "test" using "dateFormat" object name
     Then Date format in "first" input is set to 13
       And Date format in "second" input is set to 02
       And Date format in "third" input is set to 1990

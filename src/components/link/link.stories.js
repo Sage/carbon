@@ -1,7 +1,6 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { Link as RouterLink, BrowserRouter as Router } from "react-router-dom";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Link from "./link.component";
 
@@ -26,7 +25,6 @@ export const Default = () => {
   const icon = select("icon", ["", ...OptionsHelper.icons], "");
   const iconAlign = select("iconAlign", OptionsHelper.alignBinary, "left");
   const tabbable = boolean("tabbable", true);
-  const to = text("to", "");
   const tooltipMessage = icon ? text("tooltipMessage", "") : undefined;
   const tooltipPosition = tooltipMessage
     ? select(
@@ -46,20 +44,16 @@ export const Default = () => {
       icon={icon}
       iconAlign={iconAlign}
       tabbable={tabbable}
-      to={to}
       tooltipMessage={tooltipMessage}
       tooltipPosition={tooltipPosition}
       onClick={onClick}
-      routerLink={to ? RouterLink : undefined}
       target={target}
     >
       {children}
     </Link>
   );
 
-  const routerLink = <Router>{link}</Router>;
-
-  return <div style={{ margin: "64px" }}>{to ? routerLink : link}</div>;
+  return <div style={{ margin: "64px" }}>{link}</div>;
 };
 
 Default.story = {

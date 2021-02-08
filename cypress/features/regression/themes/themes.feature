@@ -13,7 +13,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button Toggle component theme to <theme>
-    When I open default_story "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default-story "Button Toggle" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
       And I click "button-toggle" component
     Then Button Toggle component css background color is set to "<theme>"
     Examples:
@@ -44,7 +44,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Loader component theme to <theme>
-    When I open Test test_default "Loader" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open Test default "Loader" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Loader component css background color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
@@ -54,7 +54,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Multiaction Button component theme to <theme>
-    When I open default_story "Multi action button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default-story "Multi action button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
       And "button" component css "border-color" is set to "<theme>" common
     Examples:
@@ -85,7 +85,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Split Button component theme to <theme>
-    When I open default_story "Split Button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default-story "Split Button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
       And "button" component css "border-color" is set to "<theme>" common
     Examples:
@@ -106,7 +106,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Tabs component theme to <theme>
-    When I open Test test_default "Tabs" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open Test default "Tabs" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "select-tab" element css "border-bottom-color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |

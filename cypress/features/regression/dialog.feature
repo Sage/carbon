@@ -3,7 +3,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Set height for Dialog to <height>
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog height is set to <height>
     Examples:
       | height | nameOfObject |
@@ -13,7 +13,7 @@ Feature: Dialog component
 
   @negative
   Scenario Outline: Set out of scope characters to <height>
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog height is not set to <height>
     Examples:
       | height                       | nameOfObject           |
@@ -23,7 +23,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Change Dialog component title to <title>
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -32,7 +32,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -41,7 +41,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx | nameOfObject    |
@@ -55,28 +55,28 @@ Feature: Dialog component
 
   @positive
   Scenario: Disable ShowCloseIcon
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIconFalse" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIconFalse" object name
     Then closeIcon is not visible
 
   @positive
   Scenario: Enable background UI
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
   @positive
   Scenario: Disable background UI
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUIFalse" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Background UI is disabled
 
   # Sticky form footer tests
   @positive
   Scenario: Verify that stickyFormFooter is visible
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
     Then Dialog stickyFormFooter is visible
 
   @positive
-  Scenario: Verify test_default story color
-    When I open test_default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
+  Scenario: Verify default story color
+    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
     Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border
 
   @positive

@@ -3,7 +3,7 @@ Feature: Search component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I open Test test_default "Search" component in noIFrame with "search" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Search" component in noIFrame with "search" json from "test" using "<nameOfObject>" object name
     Then Search component placeholder is set to <placeholder>
     Examples:
       | placeholder                  | nameOfObject                |

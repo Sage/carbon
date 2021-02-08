@@ -8,10 +8,6 @@ import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
 
-const RouterLink = (props) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a {...props} />;
-};
 function renderLink(props, renderer = mount) {
   return renderer(<Link {...props}>Link Component</Link>);
 }
@@ -80,14 +76,6 @@ describe("Link", () => {
       wrapper.setProps({ href: "#" });
 
       expect(wrapper.find("a")).toHaveLength(1);
-    });
-  });
-
-  describe("when component received a `to` prop", () => {
-    it("should render a `<RouterLink />` element", () => {
-      wrapper.setProps({ to: "route", routerLink: RouterLink });
-
-      expect(wrapper.find(RouterLink)).toHaveLength(1);
     });
   });
 
@@ -164,11 +152,9 @@ describe("Link", () => {
 
     it("should trigger an `onKeyDown` prop", () => {
       wrapper.setProps({
-        to: "testRoute",
         onKeyDown: onKeyDownFn,
-        routerLink: RouterLink,
       });
-      wrapper.find(RouterLink).simulate("keydown", { keyCode: 13 });
+      wrapper.find("a").simulate("keydown", { keyCode: 13 });
 
       expect(onKeyDownFn).toHaveBeenCalled();
     });
@@ -179,36 +165,30 @@ describe("Link", () => {
           href: "#",
           onKeyDown: onKeyDownFn,
           onClick: onClickFn,
-          to: "foo",
-          routerLink: RouterLink,
         });
-        wrapper.find("a").simulate("keydown", { which: 13 });
+        wrapper.find("button").simulate("keydown", { which: 13 });
 
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
 
-    describe("and a `to` props has been received", () => {
+    describe("and a `onClick` prop has been received", () => {
       it("should trigger `onClick` prop", () => {
         wrapper.setProps({
-          to: "testRoute",
           onClick: onClickFn,
-          routerLink: RouterLink,
         });
-        wrapper.find(RouterLink).simulate("keydown", { which: 13 });
+        wrapper.find("button").simulate("keydown", { which: 13 });
 
         expect(onClickFn).toHaveBeenCalled();
       });
     });
 
-    describe("and component received a `to` prop but a `onClick` props is not available", () => {
+    describe("when a key is pressed but no onClick prop received", () => {
       beforeEach(() => {
         wrapper.setProps({
-          to: "testRoute",
           onKeyDown: onKeyDownFn,
-          routerLink: RouterLink,
         });
-        wrapper.find(RouterLink).simulate("keydown", { which: 13 });
+        wrapper.find("a").simulate("keydown", { which: 13 });
       });
 
       it("should trigger `onKeyDown` prop", () => {

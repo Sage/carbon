@@ -21,19 +21,19 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 }
 
 .c12::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c12::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c12:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c12::placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c12:invalid,
@@ -128,36 +128,20 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   outline: solid 3px #FFB500;
 }
 
+.c3 {
+  position: relative;
+}
+
 .c3 .c11 {
   cursor: pointer;
-  color: transparent;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-shadow: 0 0 0 rgba(0,0,0,0.9);
-  padding-left: 11px;
-}
-
-.c3 .c11::-webkit-input-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c3 .c11::-moz-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c3 .c11:-ms-input-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c3 .c11::placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
 .c3 .c9 {
   cursor: pointer;
-  padding-left: 0;
   padding-right: 0;
 }
 
@@ -215,6 +199,10 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 
 .c4 {
   height: 26px;
+}
+
+.c4 .c9 {
+  padding-left: 0;
 }
 
 .c0 {
@@ -662,19 +650,19 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 }
 
 .c15::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c15::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c15:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c15::placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c15:invalid,
@@ -748,34 +736,14 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 
 .c17 .c14 {
   cursor: pointer;
-  color: transparent;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-shadow: 0 0 0 rgba(0,0,0,0.9);
-  padding-left: 11px;
-}
-
-.c17 .c14::-webkit-input-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c17 .c14::-moz-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c17 .c14:-ms-input-placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
-}
-
-.c17 .c14::placeholder {
-  text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
 .c17 .c12 {
   cursor: pointer;
-  padding-left: 0;
   padding-right: 0;
 }
 
@@ -785,6 +753,10 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 
 .c10 {
   display: block;
+}
+
+.c18 .c12 {
+  padding-left: 0;
 }
 
 .c0 {
@@ -889,7 +861,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   width: 13px;
 }
 
-.c1 .c12 .c18 {
+.c1 .c12 .c19 {
   margin-left: 0;
   width: 20px;
   height: 24px;

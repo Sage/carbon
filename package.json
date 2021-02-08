@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "63.3.1",
+  "version": "65.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -123,7 +123,6 @@
     "react-dnd-test-backend": "^10.0.2",
     "react-dnd-test-utils": "^10.0.2",
     "react-dom": "^16.12.0",
-    "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
     "sass-loader": "7.0.3",

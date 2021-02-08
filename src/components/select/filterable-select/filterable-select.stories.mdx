@@ -1,22 +1,26 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { useState, useRef } from 'react';
-import Button from '../../button';
-import Dialog from '../../dialog';
-import { FilterableSelect, Option } from '../';
-import SelectTextbox from '../select-textbox/select-textbox.component';
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { useState, useRef } from "react";
+import Button from "../../button";
+import Dialog from "../../dialog";
+import { FilterableSelect, Option } from "../";
+import SelectTextbox from "../select-textbox/select-textbox.component";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Select/Filterable" parameters={{ info: { disable: true }}} />
+<Meta
+  title="Design System/Select/Filterable"
+  parameters={{ info: { disable: true } }}
+/>
 
 # Filterable Select
 
 Select one of available options from the drop-down menu using filter
 
-## Overview 
+## Overview
 
 Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with Inline Autocomplete.
 
-## Guidance, hints and tips 
+## Guidance, hints and tips
 
 Always insert `Option` Components inside the `FilterableSelect`, analogous to the `<select>` and `<option>` HTML Elements.
 
@@ -32,28 +36,28 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 <Preview>
   <Story name="default">
     <FilterableSelect
-      name='simple'
-      id='simple'
-      label='label'
+      name="simple"
+      id="simple"
+      label="label"
       labelInline
-      onOpen={ action('onOpen') }
-      onChange={ action('onChange') }
-      onClick={ action('onClick') }
-      onFocus={ action('onFocus') }
-      onBlur={ action('onBlur') }
-      onKeyDown={ action('onKeyDown') }
+      onOpen={action("onOpen")}
+      onChange={action("onChange")}
+      onClick={action("onClick")}
+      onFocus={action("onFocus")}
+      onBlur={action("onBlur")}
+      onKeyDown={action("onKeyDown")}
     >
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
 </Preview>
@@ -61,36 +65,38 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### Controlled Usage:
 
 <Preview>
-  <Story name="controlled" parameters={{ chromatic: { disable: true }}}>
+  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action('value set');
-      };
+        action("value set");
+      }
       function clearValue() {
-        setValue('');
+        setValue("");
       }
       return (
         <div>
-          <Button onClick={ clearValue } mb={ 2 }>clear</Button>
+          <Button onClick={clearValue} mb={2}>
+            clear
+          </Button>
           <FilterableSelect
-            id='controlled'
-            name='controlled'
-            value={ value }
-            onChange={ onChangeHandler }
+            id="controlled"
+            name="controlled"
+            value={value}
+            onChange={onChangeHandler}
           >
-            <Option text='Amber' value='1' />
-            <Option text='Black' value='2' />
-            <Option text='Blue' value='3' />
-            <Option text='Brown' value='4' />
-            <Option text='Green' value='5' />
-            <Option text='Orange' value='6' />
-            <Option text='Pink' value='7' />
-            <Option text='Purple' value='8' />
-            <Option text='Red' value='9' />
-            <Option text='White' value='10' />
-            <Option text='Yellow' value='11' />
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+            <Option text="Brown" value="4" />
+            <Option text="Green" value="5" />
+            <Option text="Orange" value="6" />
+            <Option text="Pink" value="7" />
+            <Option text="Purple" value="8" />
+            <Option text="Red" value="9" />
+            <Option text="White" value="10" />
+            <Option text="Yellow" value="11" />
           </FilterableSelect>
         </div>
       );
@@ -122,18 +128,18 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 
 <Preview>
   <Story name="disabled">
-    <FilterableSelect name='disabled' id='disabled' defaultValue='3' disabled>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+    <FilterableSelect name="disabled" id="disabled" defaultValue="3" disabled>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
 </Preview>
@@ -142,18 +148,18 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 
 <Preview>
   <Story name="readonly">
-    <FilterableSelect name='readonly' id='readonly' defaultValue='4' readOnly>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+    <FilterableSelect name="readonly" id="readonly" defaultValue="4" readOnly>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
 </Preview>
@@ -161,45 +167,61 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ### With disabled portal:
 
 <Preview>
-  <Story name="withDisabledPortal" parameters={{ chromatic: { disable: true }}} >
-    <FilterableSelect disablePortal name='withDisabledPortal' id='withDisabledPortal' defaultValue='4'>
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+  <Story
+    name="withDisabledPortal"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <FilterableSelect
+      disablePortal
+      name="withDisabledPortal"
+      id="withDisabledPortal"
+      defaultValue="4"
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
 </Preview>
 
 ### With Action Button:
+
 Default Action Button will be rendered when the `listActionButton` prop is set to `true` on the Component.
 
-A custom `Button` Component could be passed as the `listActionButton` value. 
+A custom `Button` Component could be passed as the `listActionButton` value.
 
 <Preview>
-  <Story name="with action button" parameters={{ chromatic: { disable: true }}} > 
+  <Story
+    name="with action button"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       const [isOpen, setIsOpen] = useState(false);
       const [optionList, setOptionList] = useState([
-        <Option text='Amber' value='amber' key='Amber' />,
-        <Option text='Black' value='black' key='Black' />,
-        <Option text='Blue' value='blue' key='Blue' />,
-        <Option text='Brown' value='brown' key='Brown' />,
-        <Option text='Green' value='green' key='Green' />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
       ]);
       function addNew() {
         const counter = optionList.length.toString();
         setOptionList((optionList) => [
           ...optionList,
-          <Option text={ `New${counter}` } value={ `val${counter}` } key={ `New${counter}` }/>
+          <Option
+            text={`New${counter}`}
+            value={`val${counter}`}
+            key={`New${counter}`}
+          />,
         ]);
         setIsOpen(false);
         setValue(`val${counter}`);
@@ -207,22 +229,26 @@ A custom `Button` Component could be passed as the `listActionButton` value.
       return (
         <>
           <FilterableSelect
-            name='action'
-            id='action'
-            label='label'
-            value={ value }
-            onChange={ (event) => setValue(event.target.value) }
-            listActionButton={<Button iconType='add' iconPosition='after'>Add a New Element</Button>}
-            onListAction={ () => setIsOpen(true) }
+            name="action"
+            id="action"
+            label="label"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            listActionButton={
+              <Button iconType="add" iconPosition="after">
+                Add a New Element
+              </Button>
+            }
+            onListAction={() => setIsOpen(true)}
           >
-            { optionList }
+            {optionList}
           </FilterableSelect>
           <Dialog
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Dialog component triggered on action'
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Dialog component triggered on action"
           >
-            <Button onClick={ addNew }>Add new</Button>
+            <Button onClick={addNew}>Add new</Button>
           </Dialog>
         </>
       );
@@ -231,21 +257,25 @@ A custom `Button` Component could be passed as the `listActionButton` value.
 </Preview>
 
 ### With isLoading prop:
+
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Preview>
-  <Story name="with isLoading prop" parameters={{ chromatic: { disable: true }}} > 
+  <Story
+    name="with isLoading prop"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       let preventLoading = useRef(false);
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       const [isOpen, setIsOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
       const asyncList = [
-        <Option text='Amber' value='amber' key='Amber' />,
-        <Option text='Black' value='black' key='Black' />,
-        <Option text='Blue' value='blue' key='Blue' />,
-        <Option text='Brown' value='brown' key='Brown' />,
-        <Option text='Green' value='green' key='Green' />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
       ];
       const [optionList, setOptionList] = useState([]);
       function loadList() {
@@ -256,27 +286,29 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
-          setOptionList(asyncList)
+          setOptionList(asyncList);
         }, 2000);
       }
       function clearData() {
         setOptionList([]);
-        setValue('');
+        setValue("");
         preventLoading.current = false;
       }
       return (
         <div>
-          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <Button onClick={clearData} mb={2}>
+            reset
+          </Button>
           <FilterableSelect
-            name='isLoading'
-            id='isLoading'
-            label='label'
-            value={ value }
-            onChange={ (event) => setValue(event.target.value) }
-            onOpen={ () => loadList() }
-            isLoading={ isLoading }
+            name="isLoading"
+            id="isLoading"
+            label="label"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onOpen={() => loadList()}
+            isLoading={isLoading}
           >
-            { optionList }
+            {optionList}
           </FilterableSelect>
         </div>
       );
@@ -285,31 +317,47 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
 </Preview>
 
 ### Infinite scroll example:
+
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
 <Preview>
-  <Story name="with infinite scroll" parameters={{ chromatic: { disable: true }}} > 
+  <Story
+    name="with infinite scroll"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       let preventLoading = useRef(false);
       let preventLazyLoading = useRef(false);
       let lazyLoadingCounter = useRef(0);
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       const [isOpen, setIsOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
       const asyncList = [
-        <Option text='Amber' value='amber' key='Amber' />,
-        <Option text='Black' value='black' key='Black' />,
-        <Option text='Blue' value='blue' key='Blue' />,
-        <Option text='Brown' value='brown' key='Brown' />,
-        <Option text='Green' value='green' key='Green' />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
       ];
       const getLazyLoaded = () => {
         const counter = lazyLoadingCounter.current;
         return [
-          <Option text={`Lazy Loaded A${counter}`} value={`lazyA${counter}`} key={`lazyA${counter}`} />,
-          <Option text={`Lazy Loaded B${counter}`} value={`lazyB${counter}`} key={`lazyB${counter}`} />,
-          <Option text={`Lazy Loaded C${counter}`} value={`lazyC${counter}`} key={`lazyC${counter}`} />,
+          <Option
+            text={`Lazy Loaded A${counter}`}
+            value={`lazyA${counter}`}
+            key={`lazyA${counter}`}
+          />,
+          <Option
+            text={`Lazy Loaded B${counter}`}
+            value={`lazyB${counter}`}
+            key={`lazyB${counter}`}
+          />,
+          <Option
+            text={`Lazy Loaded C${counter}`}
+            value={`lazyC${counter}`}
+            key={`lazyC${counter}`}
+          />,
         ];
       };
       const [optionList, setOptionList] = useState([]);
@@ -321,7 +369,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
-          setOptionList(asyncList)
+          setOptionList(asyncList);
         }, 2000);
       }
       function onLazyLoading() {
@@ -339,23 +387,25 @@ This prop will be called every time a user scrolls to the bottom of the list.
       }
       function clearData() {
         setOptionList([]);
-        setValue('');
+        setValue("");
         preventLoading.current = false;
       }
       return (
         <div>
-          <Button onClick={ clearData } mb={ 2 }>reset</Button>
+          <Button onClick={clearData} mb={2}>
+            reset
+          </Button>
           <FilterableSelect
-            name='infiniteScroll'
-            id='infiniteScroll'
-            label='label'
-            value={ value }
-            onChange={ (event) => setValue(event.target.value) }
-            onOpen={ () => loadList() }
-            isLoading={ isLoading }
-            onListScrollBottom={ onLazyLoading }
+            name="infiniteScroll"
+            id="infiniteScroll"
+            label="label"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onOpen={() => loadList()}
+            isLoading={isLoading}
+            onListScrollBottom={onLazyLoading}
           >
-            { optionList }
+            {optionList}
           </FilterableSelect>
         </div>
       );
@@ -370,47 +420,99 @@ You can use the `required` prop to indicate if the field is mandatory.
 <Preview>
   <Story name="required">
     <FilterableSelect
-      name='required-select'
-      id='required-select'
-      label='Foreground Color'
+      name="required-select"
+      id="required-select"
+      label="Foreground Color"
       required
     >
-      <Option text='Amber' value='1' />
-      <Option text='Black' value='2' />
-      <Option text='Blue' value='3' />
-      <Option text='Brown' value='4' />
-      <Option text='Green' value='5' />
-      <Option text='Orange' value='6' />
-      <Option text='Pink' value='7' />
-      <Option text='Purple' value='8' />
-      <Option text='Red' value='9' />
-      <Option text='White' value='10' />
-      <Option text='Yellow' value='11' />
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
 </Preview>
 
 ### With object as value:
+
 Option values could be passed as objects, useful when custom data is associated with an option.
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
 <Preview>
-  <Story name="with object as value" parameters={{ chromatic: { disable: true }}} >
+  <Story
+    name="with object as value"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
-      const [value, setValue] = useState({ id: 'Green', value: 5, text: 'Green' });
+      const [value, setValue] = useState({
+        id: "Green",
+        value: 5,
+        text: "Green",
+      });
       const optionList = useRef([
-        <Option text='Amber' key='Amber' value={ { id: 'Amber', value: 1, text: 'Amber' } } />,
-        <Option text='Black' key='Black' value={ { id: 'Black', value: 2, text: 'Black' } } />,
-        <Option text='Blue' key='Blue' value={ { id: 'Blue', value: 3, text: 'Blue' } } />,
-        <Option text='Brown' key='Brown' value={ { id: 'Brown', value: 4, text: 'Brown' } } />,
-        <Option text='Green' key='Green' value={ { id: 'Green', value: 5, text: 'Green' } } />,
-        <Option text='Orange' key='Orange' value={ { id: 'Orange', value: 6, text: 'Orange' } } />,
-        <Option text='Pink' key='Pink' value={ { id: 'Pink', value: 7, text: 'Pink' } } />,
-        <Option text='Purple' key='Purple' value={ { id: 'Purple', value: 8, text: 'Purple' } } />,
-        <Option text='Red' key='Red' value={ { id: 'Red', value: 9, text: 'Red' } } />,
-        <Option text='White' key='White' value={ { id: 'White', value: 10, text: 'White' } } />,
-        <Option text='Yellow' key='Yellow' value={ { id: 'Yellow', value: 11, text: 'Yellow' } } />
+        <Option
+          text="Amber"
+          key="Amber"
+          value={{ id: "Amber", value: 1, text: "Amber" }}
+        />,
+        <Option
+          text="Black"
+          key="Black"
+          value={{ id: "Black", value: 2, text: "Black" }}
+        />,
+        <Option
+          text="Blue"
+          key="Blue"
+          value={{ id: "Blue", value: 3, text: "Blue" }}
+        />,
+        <Option
+          text="Brown"
+          key="Brown"
+          value={{ id: "Brown", value: 4, text: "Brown" }}
+        />,
+        <Option
+          text="Green"
+          key="Green"
+          value={{ id: "Green", value: 5, text: "Green" }}
+        />,
+        <Option
+          text="Orange"
+          key="Orange"
+          value={{ id: "Orange", value: 6, text: "Orange" }}
+        />,
+        <Option
+          text="Pink"
+          key="Pink"
+          value={{ id: "Pink", value: 7, text: "Pink" }}
+        />,
+        <Option
+          text="Purple"
+          key="Purple"
+          value={{ id: "Purple", value: 8, text: "Purple" }}
+        />,
+        <Option
+          text="Red"
+          key="Red"
+          value={{ id: "Red", value: 9, text: "Red" }}
+        />,
+        <Option
+          text="White"
+          key="White"
+          value={{ id: "White", value: 10, text: "White" }}
+        />,
+        <Option
+          text="Yellow"
+          key="Yellow"
+          value={{ id: "Yellow", value: 11, text: "Yellow" }}
+        />,
       ]);
       function onChangeHandler(event) {
         setValue(event.target.value);
@@ -420,14 +522,16 @@ If there is no `id` prop specified on an object, then the exact objects will be 
       }
       return (
         <div>
-          <Button onClick={ clearValue } mb={ 2 }>clear</Button>
+          <Button onClick={clearValue} mb={2}>
+            clear
+          </Button>
           <FilterableSelect
-            id='with-object'
-            name='with-object'
-            value={ value }
-            onChange={ onChangeHandler }
+            id="with-object"
+            name="with-object"
+            value={value}
+            onChange={onChangeHandler}
           >
-            { optionList.current }
+            {optionList.current}
           </FilterableSelect>
         </div>
       );
@@ -437,12 +541,12 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 ## Props:
 
-<Props of={ FilterableSelect } />
+<StyledSystemProps of={FilterableSelect} margin />
 
 ### Props derived from the Textbox Component
 
-<Props of={ SelectTextbox } />
+<Props of={SelectTextbox} />
 
 ### Props of the Option Component
 
-<Props of={ Option } />
+<Props of={Option} />

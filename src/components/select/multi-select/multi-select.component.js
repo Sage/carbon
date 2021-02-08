@@ -7,9 +7,8 @@ import SelectTextbox, {
 import guid from "../../../utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
 import SelectList from "../select-list/select-list.component";
-import StyledMultiSelect, {
-  StyledSelectPillContainer,
-} from "./multi-select.style";
+import StyledSelect from "../select.style";
+import StyledSelectPillContainer from "./multi-select.style";
 import Pill from "../../pill";
 import isExpectedOption from "../utils/is-expected-option";
 import isExpectedValue from "../utils/is-expected-value";
@@ -457,11 +456,15 @@ const MultiSelect = React.forwardRef(
     );
 
     return (
-      <StyledMultiSelect
+      <StyledSelect
         data-component="multiselect"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         ref={containerRef}
+        disabled={disabled}
+        readOnly={readOnly}
+        hasTextCursor
+        {...textboxProps}
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
@@ -471,7 +474,7 @@ const MultiSelect = React.forwardRef(
           {...getTextboxProps()}
         />
         {!disablePortal && isOpen && selectList}
-      </StyledMultiSelect>
+      </StyledSelect>
     );
   }
 );

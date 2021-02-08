@@ -1,10 +1,22 @@
-import * as React from 'react';
-import { SpacingProps } from '../../utils/helpers/options-helper';
-import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
+import * as React from "react";
+import { SpacingProps } from "../../utils/helpers/options-helper";
+import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
 
 export interface ButtonProps extends SpacingProps {
-  as?: 'primary' | 'secondary' | 'tertiary' | 'dashed' | 'destructive' | 'darkBackground';
-  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'dashed' | 'destructive' | 'darkBackground';
+  as?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "dashed"
+    | "destructive"
+    | "darkBackground";
+  buttonType?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "dashed"
+    | "destructive"
+    | "darkBackground";
   disabled?: boolean;
   destructive?: boolean;
   fullWidth?: boolean;
@@ -12,15 +24,20 @@ export interface ButtonProps extends SpacingProps {
   mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Margin left, any valid CSS value */
   ml?: string;
-  size?: 'small' | 'medium' | 'large';
-  iconPosition?: 'before' | 'after';
+  size?: "small" | "medium" | "large";
+  iconPosition?: "before" | "after";
   iconType?: IconTypes;
   subtext?: string;
   children?: React.ReactNode;
-  renderRouterLink?: (args: object) => React.ReactNode;
+  /** Used to transform button into anchor */
+  href?: string;
   forwardRef?: () => void;
   onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
   noWrap?: boolean;
 }
-declare const Button: React.ComponentType<ButtonProps | React.HTMLProps<HTMLButtonElement>>;
+
+declare const Button: React.ComponentType<
+  ButtonProps | React.HTMLProps<HTMLButtonElement>
+>;
+
 export default Button;
