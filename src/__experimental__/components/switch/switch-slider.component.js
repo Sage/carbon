@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
+
 import Loader from "../../../components/loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../components/validations/validation-icon.component";
+import Context from "../../../__internal__/I18nContext";
 
 const SwitchSlider = (props) => {
   const {
@@ -17,9 +18,10 @@ const SwitchSlider = (props) => {
     info,
     useValidationIcon,
   } = props;
+  const t = useContext(Context);
 
-  const on = I18n.t("switch.on", { defaultValue: "ON" }).toUpperCase();
-  const off = I18n.t("switch.off", { defaultValue: "OFF" }).toUpperCase();
+  const on = t("switch.on", "ON").toUpperCase();
+  const off = t("switch.off", "OFF").toUpperCase();
 
   const panelContent = checked ? on : off;
 
