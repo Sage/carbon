@@ -28,7 +28,7 @@ import Tile from "carbon-react/lib/components/tile";
 import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 ```
 
-## Tile - Default
+## Default
 
 By default, the Tile component will have a horizontal layout.
 
@@ -42,7 +42,7 @@ By default, the Tile component will have a horizontal layout.
   </Story>
 </Preview>
 
-## Tile - Vertical
+## Vertical
 
 The Tile component can be also have a vertical layout.
 
@@ -56,7 +56,7 @@ The Tile component can be also have a vertical layout.
   </Story>
 </Preview>
 
-## Tile with `<TileFooter />`
+## With TileFooter
 
 <Preview>
   <Story name="with TileFooter">
@@ -156,7 +156,7 @@ The Tile component can be also have a vertical layout.
   </Story>
 </Preview>
 
-## Tile with Custom Widths
+## With custom widths
 
 The Tile component can also have custom widths. Any child wrapped by a Tile component can be passed an optional `width` prop - this is a percent value, dictating the width of the child element within the tile.
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
@@ -198,7 +198,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
   </Story>
 </Preview>
 
-## Tile with Inline Styling
+## With inline styling
 
 The Tile component can also have inline styling applied to the content.
 
@@ -239,7 +239,7 @@ The Tile component can also have inline styling applied to the content.
   </Story>
 </Preview>
 
-## Tile with different padding and margin
+## With different padding and margin
 
 <Preview>
   <Story name="with different padding and margin">
@@ -266,15 +266,15 @@ The Tile component can also have inline styling applied to the content.
   </Story>
 </Preview>
 
-## Props for `<Tile />`
+## Props for Tile
 
 <StyledSystemProps of={Tile} spacing spacingDefaults={{ p: 3 }} />
 
-## Props for `<TileFooter />`
+## Props for TileFooter
 
 <StyledSystemProps of={TileFooter} spacing />
 
-# Tile with Definition List
+# With Definition List
 
 The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
 the same tags used in HTML5 but instead they are React elements.
@@ -297,7 +297,7 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 ```
 
 <Preview>
-  <Story name="tile with Definition List - default">
+  <Story name="with Definition List - default">
     <Tile width={95}>
       <Dl>
         <Dt>Drink</Dt>
@@ -334,12 +334,12 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
   </Story>
 </Preview>
 
-## Tile with Definition List and Custom `StyledDtDiv` Width
+## With Definition List and custom `StyledDtDiv` width
 
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
 <Preview>
-  <Story name="tile with Definition List with custom width">
+  <Story name="with Definition List and custom width">
     <Tile width={95}>
       <Dl w={40}>
         <Dt>Drink</Dt>
@@ -376,12 +376,12 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
   </Story>
 </Preview>
 
-## Tile with Definition List with Custom Text Alignments
+## With Definition List with custom text alignment
 
 In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
 
 <Preview>
-  <Story name="tile with Definition with List Custom Text Alignments">
+  <Story name="with Definition and custom text alignment">
     <Tile width={40}>
       <Dl w={40} dtTextAlign="left" ddTextAlign="right">
         <Dt>Coffee Subscription</Dt>
@@ -403,13 +403,10 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   </Story>
 </Preview>
 
-# Tile with Accordion and Definition List
+## With Accordion and Definition List
 
 <Preview>
-  <Story
-    parameters={{ chromatic: { disable: true } }}
-    name="tile with Accordion"
-  >
+  <Story parameters={{ chromatic: { disable: true } }} name="with Accordion">
     <Tile p={0} orientation="horizontal">
       <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">
         <Dl dtTextAlign="left" ddTextAlign="right">
@@ -429,6 +426,42 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
           </Dd>
         </Dl>
       </Accordion>
+    </Tile>
+  </Story>
+</Preview>
+
+## With Accordion and TileFooter
+
+<Preview>
+  <Story
+    parameters={{ chromatic: { disable: true } }}
+    name="with Accordion and TileFooter"
+  >
+    <Tile p={0} orientation="vertical">
+      <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">
+        <Dl dtTextAlign="left" ddTextAlign="right">
+          <Dt>Coffee Subscription</Dt>
+          <Dd>£7.00 a month</Dd>
+          <Dt>Grind Size</Dt>
+          <Dd>Espresso</Dd>
+          <Dt>Quantity</Dt>
+          <Dd>3kg</Dd>
+          <Dd>
+            <Button
+              buttonType="tertiary"
+              href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
+            >
+              Have a promo code?
+            </Button>
+          </Dd>
+        </Dl>
+      </Accordion>
+      <TileFooter p={3}>
+        <Typography pr={2} display="inline" variant="b">
+          Example footer text
+        </Typography>
+        <Typography display="inline">Example text</Typography>
+      </TileFooter>
     </Tile>
   </Story>
 </Preview>
