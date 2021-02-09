@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import React from "react";
 import { text, number, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
@@ -10,6 +9,8 @@ const getKnobs = () => {
   return {
     ml: number("ml", 0),
     mr: number("mr", 0),
+    mt: number("mt", 0),
+    mb: number("mb", 0),
     children: text("children", "Pill"),
     borderColor: text("borderColor", undefined),
     fill: boolean("fill", Pill.defaultProps.fill),
@@ -50,6 +51,8 @@ export const Default = () => {
     size,
     ml,
     mr,
+    mt,
+    mb,
   } = getKnobs();
   return (
     <Pill
@@ -61,6 +64,8 @@ export const Default = () => {
       size={size}
       ml={ml}
       mr={mr}
+      mt={mt}
+      mb={mb}
     >
       {children}
     </Pill>

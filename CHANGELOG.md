@@ -1,3 +1,10 @@
+## [65.2.0](https://github.com/Sage/carbon/compare/v65.1.0...v65.2.0) (2021-02-09)
+
+
+### Features
+
+* **pill:** add styled system props to Pill - FE-3563 ([796da16](https://github.com/Sage/carbon/commit/796da165b3640daa2b01647f75d4e7866e083b5c))
+
 ## [65.1.0](https://github.com/Sage/carbon/compare/v65.0.0...v65.1.0) (2021-02-09)
 
 

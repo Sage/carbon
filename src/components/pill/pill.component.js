@@ -2,12 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledPill from "./pill.style";
 import Icon from "../icon";
-import { validProps } from "../../utils/ether/ether";
-import tagComponent from "../../utils/helpers/tags/tags";
+import { validProps } from "../../utils/ether";
+import tagComponent from "../../utils/helpers/tags";
 import IconButton from "../icon-button";
 
 class Pill extends React.Component {
-  static safeProps = ["onClick"];
+  static marginSpaceProps = ["m", "mt", "mr", "mb", "ml", "mx", "my"];
+
+  static getMarginSpacePropTypes() {
+    return Pill.marginSpaceProps.reduce((prev, curr) => {
+      prev[curr] = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+      return prev;
+    }, {});
+  }
+
+  static safeProps = ["onClick", ...this.marginSpaceProps];
 
   renderCloseIcon() {
     const { onDelete } = this.props;
@@ -27,9 +36,8 @@ class Pill extends React.Component {
       pillRole,
       children,
       size,
-      ml,
-      mr,
     } = this.props;
+
     return (
       <StyledPill
         {...validProps(this)}
@@ -38,8 +46,6 @@ class Pill extends React.Component {
         isDeletable={onDelete}
         pillRole={pillRole}
         size={size}
-        ml={ml}
-        mr={mr}
         borderColor={borderColor}
         {...tagComponent("pill", this.props)}
       >
@@ -51,6 +57,8 @@ class Pill extends React.Component {
 }
 
 Pill.propTypes = {
+  /** Styled system margin spacing props */
+  ...Pill.getMarginSpacePropTypes(),
   /** Change the color of a status pill. */
   colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
   /** Override color variant, provide any color from palette or any valid css color value. */
@@ -66,10 +74,6 @@ Pill.propTypes = {
   /** Callback function for when the remove icon is clicked. */
   onDelete: PropTypes.func,
   size: PropTypes.oneOf(["S", "M", "L", "XL"]),
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr: PropTypes.number,
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml: PropTypes.number,
 };
 
 Pill.defaultProps = {
