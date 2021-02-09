@@ -293,8 +293,7 @@ export type SizesType = 'small' | 'large';
 
 export type ThemesBinary = 'primary' | 'secondary';
 
-export interface SpacingProps {
-  /** Margins */
+export interface MarginSpacingProps {
   m?: number | string;
   mt?: number | string;
   mr?: number | string;
@@ -302,7 +301,9 @@ export interface SpacingProps {
   ml?: number | string;
   mx?: number | string;
   my?: number | string;
-  /** Paddings */
+}
+
+export interface PaddingSpacingProps {
   p?: number | string;
   pt?: number | string;
   pr?: number | string;
@@ -311,6 +312,8 @@ export interface SpacingProps {
   px?: number | string;
   py?: number | string;
 }
+
+export interface SpacingProps extends MarginSpacingProps, PaddingSpacingProps {}
 
 export interface ColorProps {
   color?: string;
