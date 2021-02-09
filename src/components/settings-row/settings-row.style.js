@@ -10,7 +10,6 @@ export const StyledSettingsRow = styled.div`
   clear: both;
   color: ${({ theme }) => theme.palette.slateTint(20)};
   display: flex;
-  font-family: Lato;
   font-size: 14px;
   justify-content: space-between;
   margin: 0;

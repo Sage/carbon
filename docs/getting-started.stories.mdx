@@ -37,6 +37,23 @@ There is a peer dependency on `draft-js` any project intending to use either the
 npm install draft-js@^0.11.5
 ```
 
+#### Global stylesheet
+We recommend using our global stylesheet which could be imported:
+
+```
+import GlobalStyle from 'carbon-react/lib/style/global-style';
+```
+
+then the `GlobalStyle` component could be placed next to the content of the app:
+```
+  <App>
+    <GlobalStyle />
+    .
+    .
+    .
+  </App>
+```
+
 #### Fonts
 ##### CDN
 `carbon-react` requires the `Lato` and `CarbonIcons` fonts to display correctly.
@@ -45,7 +62,6 @@ To embed the `Lato` font, copy the code below into the `<head>` of your HTML.
 ```
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900" rel="stylesheet">
 ``` 
-The `CarbonIcons` font is not available on a CDN.
 
 ##### Self Hosted
 Please be aware that the Google Fonts CDN provides the optimal stylesheet based on the browser `user-agent` string to limit "flash of unstyled text". It's important that you fully understand the [technical considerations](https://developers.google.com/fonts/docs/technical_considerations) before hosting any font yourself.
