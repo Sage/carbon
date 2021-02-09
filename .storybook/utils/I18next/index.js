@@ -2,8 +2,7 @@ import React from "react";
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import I18nProvider from "../../../src/components/I18nProvider";
-import en from "./en.json";
-import fr from "./fr.json";
+import en from "../../locales/en/app.json";
 
 const match = window.location.href.match(/locale=(.[^&]*)/);
 const locale = match ? match[1] : "en";
@@ -13,15 +12,10 @@ i18n.use(initReactI18next).init({
     en: {
       app: en,
     },
-    fr: {
-      carbon: fr,
-    },
   },
+  defaultNS: "app",
+  fallbackLng: "en",
   lng: locale,
-  ns: ["app"],
-  interpolation: {
-    escapeValue: false,
-  },
 });
 
 const I18next = ({ children }) => {
