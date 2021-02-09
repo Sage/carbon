@@ -1,3 +1,10 @@
+## [65.1.0](https://github.com/Sage/carbon/compare/v65.0.0...v65.1.0) (2021-02-09)
+
+
+### Features
+
+* **icon:** 6 new icons, chevrons, expand and square dot, new glyphs for euro, pound and services ([837eb74](https://github.com/Sage/carbon/commit/837eb742bcdebdf0b1774cc732a30ac6a97d8124))
+
 ## [65.0.0](https://github.com/Sage/carbon/compare/v64.0.0...v65.0.0) (2021-02-08)
 
 
