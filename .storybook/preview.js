@@ -1,9 +1,11 @@
+import React from "react";
 import { addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withInfo } from "@storybook/addon-info";
 import { withA11y } from "@storybook/addon-a11y";
 import withGlobalStyles from "./with-global-styles";
 import setupI18n from "./utils/i18n/config";
+import I18next from "./utils/I18next";
 import "./utils/i18n/en";
 import "./style/story-root.css";
 import { withThemeSelector } from "./theme-selector";
@@ -91,6 +93,8 @@ addParameters({
 
 setupI18n();
 addDecorator(withGlobalStyles);
+addDecorator((storyFn) => <I18next>{storyFn()}</I18next>);
+
 addDecorator(withKnobs);
 if (!isChromatic()) {
   addDecorator(
