@@ -18,10 +18,6 @@ module.exports = {
     "./.storybook/theme-selector/register",
   ],
   webpackFinal: async (config, { configType }) => {
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: ["style-loader", "css-loader", "sass-loader"],
-    });
     config.resolve = {
       alias: {
         helpers: path.resolve(__dirname, "__helpers__/"),

@@ -5,7 +5,7 @@ import { withA11y } from "@storybook/addon-a11y";
 import withGlobalStyles from "./with-global-styles";
 import setupI18n from "./utils/i18n/config";
 import "./utils/i18n/en";
-import "./style/story-root.scss";
+import "./style/story-root.css";
 import { withThemeSelector } from "./theme-selector";
 import { addParameters } from "@storybook/react";
 import { configureActions } from "@storybook/addon-actions";
