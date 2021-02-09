@@ -51,7 +51,7 @@ class InternalLink extends React.Component {
   }
 
   get componentProps() {
-    const props = {
+    return {
       onKeyDown: this.onKeyDown,
       onMouseDown: this.props.onMouseDown,
       disabled: this.props.disabled,
@@ -59,15 +59,8 @@ class InternalLink extends React.Component {
       tabIndex: this.tabIndex,
       target: this.props.target,
       ref: this.props.innerRef,
+      href: this.props.href,
     };
-
-    if (this.props.to) {
-      props.to = this.props.to;
-    } else {
-      props.href = this.props.href;
-    }
-
-    return props;
   }
 
   handleClick = (ev) => {
@@ -95,9 +88,7 @@ class InternalLink extends React.Component {
   createLinkBasedOnType = () => {
     let type = "a";
 
-    if (this.props.to && this.props.routerLink) {
-      type = this.props.routerLink;
-    } else if (this.props.onClick) {
+    if (this.props.onClick) {
       type = "button";
     }
 
@@ -146,14 +137,10 @@ InternalLink.propTypes = {
   onMouseDown: PropTypes.func,
   /** Whether to include the link in the tab order of the page */
   tabbable: PropTypes.bool,
-  /** Using `to` an passing in a component to the `routerLink` prop will render a routing link instead of a web href. */
-  to: PropTypes.string,
   /** A message to display as a tooltip to the link. */
   tooltipMessage: PropTypes.string,
   /** Positions the tooltip with the link. */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
-  /** A routing component to render when the to prop is set */
-  routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
   target: PropTypes.string,
   /** Ref to be forwarded

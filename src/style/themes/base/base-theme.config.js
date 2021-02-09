@@ -173,7 +173,7 @@ export default (palette) => {
 
     text: {
       color: palette.blackOpacity(0.9),
-      placeholder: palette.blackOpacity(0.3),
+      placeholder: palette.blackOpacity(0.55),
       size: "14px",
     },
 
@@ -292,7 +292,6 @@ export default (palette) => {
       active: palette.gold,
       button: "#255BC7",
       passive: palette.slateTint(45),
-      placeholder: palette.slateTint(55),
       icon: palette.slateTint(55),
       iconHover: palette.slateTint(20),
       searchActive: "#668592",

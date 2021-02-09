@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import MultiSelect from "./multi-select.component";
 import Textbox from "../../../__experimental__/components/textbox";
 import SelectTextbox from "../select-textbox/select-textbox.component";
@@ -11,6 +12,8 @@ import Pill from "../../pill";
 import Label from "../../../__experimental__/components/label";
 
 describe("MultiSelect", () => {
+  testStyledSystemMargin((props) => getSelect(props));
+
   it("the input ref should be forwarded", () => {
     let mockRef;
 

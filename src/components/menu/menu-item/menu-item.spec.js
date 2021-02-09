@@ -103,18 +103,6 @@ describe("MenuItem", () => {
     );
   });
 
-  it("should provide prop `routerLink` correctly", () => {
-    const CustomRouterLink = () => <a href="/test">custom link</a>;
-
-    wrapper = mount(
-      <MenuItem routerLink={<CustomRouterLink />}>Item</MenuItem>
-    );
-
-    expect(
-      wrapper.find(StyledMenuItemWrapper).first().props().routerLink
-    ).toEqual(<CustomRouterLink />);
-  });
-
   describe("submenu", () => {
     it("should render Submenu if prop submenu is set", () => {
       wrapper = mount(
@@ -130,20 +118,6 @@ describe("MenuItem", () => {
       wrapper = mount(<MenuItem>Item One</MenuItem>);
 
       expect(wrapper.find(Link).exists()).toBe(true);
-    });
-
-    it("should not provide prop `routerLink` if prop `submenu` exists", () => {
-      const CustomRouterLink = () => <a href="/test">custom link</a>;
-
-      wrapper = mount(
-        <MenuItem submenu="submenu" routerLink={<CustomRouterLink />}>
-          <MenuItem>Submenu Item</MenuItem>
-        </MenuItem>
-      );
-
-      expect(
-        wrapper.find(StyledMenuItemWrapper).first().props().routerLink
-      ).toBe(undefined);
     });
 
     it('should render nested `<MenuItem />` with `submenuDirection="right"` as default if prop submenu exists', () => {

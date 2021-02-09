@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import FilterableSelect from "./filterable-select.component";
 import Textbox from "../../../__experimental__/components/textbox";
@@ -11,6 +12,8 @@ import Button from "../../button";
 import Label from "../../../__experimental__/components/label";
 
 describe("FilterableSelect", () => {
+  testStyledSystemMargin((props) => getSelect(props));
+
   it('the Textbox should have type of "text"', () => {
     const wrapper = renderSelect();
 

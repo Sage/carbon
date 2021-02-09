@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import SimpleSelect from "./simple-select.component";
 import Textbox from "../../../__experimental__/components/textbox";
@@ -46,7 +46,7 @@ describe("SimpleSelect", () => {
     expect(wrapper.find(Textbox).prop("type")).toBe("select");
   });
 
-  testStyledSystemSpacing((props) => getSelect(props));
+  testStyledSystemMargin((props) => getSelect(props));
 
   it("the input ref should be forwarded", () => {
     let mockRef;
@@ -69,18 +69,6 @@ describe("SimpleSelect", () => {
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
 
-  it("the input text should have proper paddings", () => {
-    const wrapper = renderSelect();
-
-    assertStyleMatch(
-      {
-        paddingLeft: "11px",
-      },
-      wrapper,
-      { modifier: `${StyledInput}` }
-    );
-  });
-
   it("the input toggle icon should have proper left margin", () => {
     const wrapper = renderSelect();
 
@@ -98,7 +86,6 @@ describe("SimpleSelect", () => {
 
     assertStyleMatch(
       {
-        paddingLeft: "0",
         paddingRight: "0",
       },
       wrapper,
@@ -113,18 +100,9 @@ describe("SimpleSelect", () => {
       {
         cursor: "pointer",
         userSelect: "none",
-        textShadow: `0 0 0 ${baseTheme.text.color}`,
       },
       wrapper,
       { modifier: `${StyledInput}` }
-    );
-
-    assertStyleMatch(
-      {
-        textShadow: `0 0 0 ${baseTheme.text.placeholder}`,
-      },
-      wrapper,
-      { modifier: `${StyledInput}::placeholder` }
     );
   });
 

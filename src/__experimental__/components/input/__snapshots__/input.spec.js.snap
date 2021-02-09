@@ -21,19 +21,19 @@ exports[`Input renders with an input 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c0::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c0:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c0::placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c0:invalid,

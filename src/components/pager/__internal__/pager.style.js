@@ -7,6 +7,10 @@ import baseTheme from "../../../style/themes/base";
 
 const StyledSelect = styled(Select)`
   height: 26px;
+
+  ${StyledInputPresentation} {
+    padding-left: 0;
+  }
 `;
 
 const StyledPagerContainer = styled.div`
