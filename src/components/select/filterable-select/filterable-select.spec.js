@@ -596,28 +596,56 @@ describe("FilterableSelect", () => {
     });
 
     describe("when a printable character has been typed in the Textbox", () => {
-      beforeEach(() => {
-        wrapper.find("input").simulate("change", { target: { value: "b" } });
-        wrapper.update();
-      });
-
-      it("then the onChange function should have been called with with the expected value", () => {
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
-      });
-
-      describe("and an an empty value has been passed", () => {
-        it("then the textbox displayed value should be cleared", () => {
-          expect(wrapper.find(Textbox).props().formattedValue).toBe("blue");
-          wrapper.setProps({ value: "" });
-          expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
-            ""
-          );
+      describe("and the first filtered option starts with that character", () => {
+        beforeEach(() => {
+          wrapper.find("input").simulate("change", { target: { value: "b" } });
+          wrapper.update();
         });
 
-        it("then the textbox value should be cleared", () => {
-          expect(wrapper.find(Textbox).props().value).toBe("opt1");
-          wrapper.setProps({ value: "" });
-          expect(wrapper.update().find(Textbox).props().value).toBe(undefined);
+        it("then the onChange function should have been called with with the expected value", () => {
+          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        });
+
+        describe("and an an empty value has been passed", () => {
+          it("then the textbox displayed value should be cleared", () => {
+            expect(wrapper.find(Textbox).props().formattedValue).toBe("blue");
+            wrapper.setProps({ value: "" });
+            expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
+              ""
+            );
+          });
+
+          it("then the textbox value should be cleared", () => {
+            expect(wrapper.find(Textbox).props().value).toBe("opt1");
+            wrapper.setProps({ value: "" });
+            expect(wrapper.update().find(Textbox).props().value).toBe(
+              undefined
+            );
+          });
+        });
+      });
+
+      describe("and the first filtered option does not start with that character", () => {
+        beforeEach(() => {
+          wrapper.find("input").simulate("change", { target: { value: "l" } });
+          wrapper.update();
+        });
+
+        it("then the onChange function should have been called with with the expected value", () => {
+          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        });
+
+        it("then the Textbox visible value should be changed to that character", () => {
+          expect(wrapper.find(Textbox).prop("formattedValue")).toBe("l");
+          wrapper.unmount();
+        });
+
+        describe("and the value changes without changing the filter text", () => {
+          it("then the Textbox visible value should still be set to that character", () => {
+            wrapper.setProps({ value: "opt3" });
+            expect(wrapper.find(Textbox).prop("formattedValue")).toBe("l");
+            wrapper.unmount();
+          });
         });
       });
     });

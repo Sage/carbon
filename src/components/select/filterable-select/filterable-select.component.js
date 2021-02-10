@@ -71,8 +71,6 @@ const FilterableSelect = React.forwardRef(
 
     const updateValues = useCallback(
       (newFilterText, isDeleteEvent) => {
-        setFilterText(newFilterText);
-
         setSelectedValue((previousValue) => {
           const match = findElementWithMatchingText(newFilterText, children);
 
@@ -109,16 +107,23 @@ const FilterableSelect = React.forwardRef(
     );
 
     const setMatchingText = useCallback(
-      (newValue) => {
+      (newValue, isClosing) => {
         const matchingOption = React.Children.toArray(children).find((child) =>
           isExpectedOption(child, newValue)
         );
 
-        if (matchingOption && matchingOption.props.text !== undefined) {
+        if (!matchingOption || matchingOption.props.text === undefined) {
+          setTextValue("");
+        } else if (
+          isClosing ||
+          matchingOption.props.text
+            .toLowerCase()
+            .startsWith(filterText.toLowerCase())
+        ) {
           setTextValue(matchingOption.props.text);
         }
       },
-      [children]
+      [children, filterText]
     );
 
     const handleTextboxChange = useCallback(
@@ -130,6 +135,7 @@ const FilterableSelect = React.forwardRef(
           event.nativeEvent.inputType === "delete";
 
         updateValues(newValue, isDeleteEvent);
+        setFilterText(newValue);
         setOpen(true);
       },
       [updateValues]
@@ -183,7 +189,7 @@ const FilterableSelect = React.forwardRef(
         isMouseDownReported.current = false;
 
         if (notInContainer && notInList) {
-          setMatchingText(selectedValue);
+          setMatchingText(selectedValue, true);
           setOpen(false);
         }
       },
@@ -208,16 +214,17 @@ const FilterableSelect = React.forwardRef(
       );
 
       setSelectedValue((prevValue) => {
-        if (isControlled.current && prevValue && !newValue) {
-          setFilterText("");
-          setTextValue("");
+        if (isControlled.current && prevValue !== newValue) {
+          setMatchingText(newValue);
         }
 
         return newValue;
       });
 
       setHighlightedValue(newValue);
-    }, [value, defaultValue, onChange]);
+      // prevent value update on filter change
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value, defaultValue, onChange, children]);
 
     useEffect(() => {
       if (!isOpen) {
@@ -302,7 +309,7 @@ const FilterableSelect = React.forwardRef(
 
     const onSelectListClose = useCallback(() => {
       setOpen(false);
-      setMatchingText(selectedValue);
+      setMatchingText(selectedValue, true);
     }, [selectedValue, setMatchingText]);
 
     function handleTextboxClick(event) {
