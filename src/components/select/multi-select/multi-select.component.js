@@ -35,6 +35,7 @@ const MultiSelect = React.forwardRef(
       noResultsMessage,
       placeholder,
       disablePortal,
+      isLoading,
       ...textboxProps
     },
     inputRef
@@ -158,7 +159,8 @@ const MultiSelect = React.forwardRef(
         const matchingOption = React.Children.toArray(children).find((child) =>
           isExpectedOption(child, singleValue)
         );
-        const matchingOptionText = matchingOption.props.text;
+
+        const matchingOptionText = matchingOption && matchingOption.props.text;
 
         return (
           <StyledSelectPillContainer key={matchingOptionText}>
@@ -450,6 +452,7 @@ const MultiSelect = React.forwardRef(
         noResultsMessage={noResultsMessage}
         repositionTrigger={repositionTrigger}
         disablePortal={disablePortal}
+        isLoading={isLoading}
       >
         {children}
       </FilterableSelectList>
@@ -501,6 +504,8 @@ MultiSelect.propTypes = {
   openOnFocus: PropTypes.bool,
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage: PropTypes.string,
+  /** If true the loader animation is displayed in the option list */
+  isLoading: PropTypes.bool,
 };
 
 export default MultiSelect;
