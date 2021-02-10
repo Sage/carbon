@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 export interface PagerPropTypes {
-  onPagination: () => void;
-  onNext?: () => void;
-  onFirst?: () => void;
-  onPrevious?: () => void;
-  onLast?: () => void;
+  onPagination: (pageSize: number, currentPage: number) => void;
+  onNext?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onFirst?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onPrevious?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onLast?: (ev: React.MouseEvent<HTMLElement>) => void;
   currentPage?: number | string;
   totalRecords?: number | string;
   pageSize?: number | string;

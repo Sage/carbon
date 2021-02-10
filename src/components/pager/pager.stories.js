@@ -44,7 +44,7 @@ export const Default = () => {
   const pageSize = select(
     "pageSize",
     {
-      1: 1,
+      one: 1,
       10: 10,
       25: 25,
       50: 50,
