@@ -50,6 +50,10 @@ export type IconTypes =
 | 'chevron_left'
 | 'chevron_right'
 | 'chevron_up'
+| 'chevron_down_thick'
+| 'chevron_left_thick'
+| 'chevron_right_thick'
+| 'chevron_up_thick'
 | 'circles_connection'
 | 'clock'
 | 'close'
@@ -83,6 +87,8 @@ export type IconTypes =
 | 'ellipsis_vertical'
 | 'error'
 | 'error_square'
+| 'euro'
+| 'expand'
 | 'factory'
 | 'favourite'
 | 'favourite_lined'
@@ -141,6 +147,7 @@ export type IconTypes =
 | 'play_circle'
 | 'plus'
 | 'plus_large'
+| 'pound'
 | 'print'
 | 'progress'
 | 'progressed'
@@ -160,6 +167,7 @@ export type IconTypes =
 | 'spanner'
 | 'split'
 | 'split_container'
+| 'square_dot'
 | 'stacked_boxes'
 | 'stacked_squares'
 | 'submitted'
@@ -285,8 +293,7 @@ export type SizesType = 'small' | 'large';
 
 export type ThemesBinary = 'primary' | 'secondary';
 
-export interface SpacingProps {
-  /** Margins */
+export interface MarginSpacingProps {
   m?: number | string;
   mt?: number | string;
   mr?: number | string;
@@ -294,7 +301,9 @@ export interface SpacingProps {
   ml?: number | string;
   mx?: number | string;
   my?: number | string;
-  /** Paddings */
+}
+
+export interface PaddingSpacingProps {
   p?: number | string;
   pt?: number | string;
   pr?: number | string;
@@ -303,6 +312,8 @@ export interface SpacingProps {
   px?: number | string;
   py?: number | string;
 }
+
+export interface SpacingProps extends MarginSpacingProps, PaddingSpacingProps {}
 
 export interface ColorProps {
   color?: string;

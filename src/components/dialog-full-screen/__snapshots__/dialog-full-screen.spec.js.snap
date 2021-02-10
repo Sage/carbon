@@ -220,7 +220,6 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 }
 
 .c8 {
-  font-family: "Lato";
   font-style: normal;
   font-size: 24px;
   font-weight: 900;

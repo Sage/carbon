@@ -1,3 +1,31 @@
+## [66.0.0](https://github.com/Sage/carbon/compare/v65.2.0...v66.0.0) (2021-02-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* The global css has been removed you should
+change `import "carbon-react/lib/utils/css";` to be `import GlobalStyle
+from 'carbon-react/lib/style/global-style';` and render `<GlobalStyle
+/>` as part of your root component.
+
+### Miscellaneous Chores
+
+* remove global scss ([1a28578](https://github.com/Sage/carbon/commit/1a285788da2a1465d43a41160be7e5ebff201639))
+
+## [65.2.0](https://github.com/Sage/carbon/compare/v65.1.0...v65.2.0) (2021-02-09)
+
+
+### Features
+
+* **pill:** add styled system props to Pill - FE-3563 ([796da16](https://github.com/Sage/carbon/commit/796da165b3640daa2b01647f75d4e7866e083b5c))
+
+## [65.1.0](https://github.com/Sage/carbon/compare/v65.0.0...v65.1.0) (2021-02-09)
+
+
+### Features
+
+* **icon:** 6 new icons, chevrons, expand and square dot, new glyphs for euro, pound and services ([837eb74](https://github.com/Sage/carbon/commit/837eb742bcdebdf0b1774cc732a30ac6a97d8124))
+
 ## [65.0.0](https://github.com/Sage/carbon/compare/v64.0.0...v65.0.0) (2021-02-08)
 
 

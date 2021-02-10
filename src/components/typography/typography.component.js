@@ -147,7 +147,6 @@ const Typography = styled.span.attrs(
     };
   }
 )`
-  font-family: "Lato";
   ${({
     size,
     weight,
