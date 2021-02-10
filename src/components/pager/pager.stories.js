@@ -1,7 +1,7 @@
 import React from "react";
 import { text, boolean, select, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import Pager from "..";
+import Pager from ".";
 
 export default {
   title: "Design System/Pager/Test",
@@ -40,20 +40,17 @@ export const Default = () => {
   };
 
   const totalRecords = text("totalRecords", "100");
-  const showPageSizeSelection = boolean(
-    "showPageSizeSelection",
-    Pager.defaultProps.showPageSizeSelection
-  );
+  const showPageSizeSelection = boolean("showPageSizeSelection", false);
   const pageSize = select(
     "pageSize",
     {
-      one: 1,
+      1: 1,
       10: 10,
       25: 25,
       50: 50,
       100: 100,
     },
-    Pager.defaultProps.pageSize
+    10
   );
   const currentPage = text("currentPage", "1");
   const variant = select(
@@ -64,6 +61,16 @@ export const Default = () => {
     },
     "default"
   );
+  const showPageSizeLabelBefore = boolean("showPageSizeLabelBefore", true);
+  const showPageSizeLabelAfter = boolean("showPageSizeLabelAfter", true);
+  const showTotalRecords = boolean("showTotalRecords", true);
+  const showFirstAndLastButtons = boolean("showFirstAndLastButtons", true);
+  const showPreviousAndNextButtons = boolean(
+    "showPreviousAndNextButtons",
+    true
+  );
+  const showPageCount = boolean("showPageCount", true);
+
   return (
     <Pager
       showPageSizeSelection={showPageSizeSelection}
@@ -83,6 +90,12 @@ export const Default = () => {
         { id: "100", name: 100 },
       ]}
       variant={variant}
+      showPageSizeLabelBefore={showPageSizeLabelBefore}
+      showPageSizeLabelAfter={showPageSizeLabelAfter}
+      showTotalRecords={showTotalRecords}
+      showFirstAndLastButtons={showFirstAndLastButtons}
+      showPreviousAndNextButtons={showPreviousAndNextButtons}
+      showPageCount={showPageCount}
     />
   );
 };

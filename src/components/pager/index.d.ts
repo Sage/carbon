@@ -1,2 +1,2 @@
-export { default } from './__internal__/pager';
-export * from './__internal__/pager';
+export { default } from './pager';
+export * from './pager';

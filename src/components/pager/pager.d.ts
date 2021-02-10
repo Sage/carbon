@@ -11,6 +11,12 @@ export interface PagerPropTypes {
   pageSize?: number | string;
   showPageSizeSelection?: boolean;
   pageSizeSelectionOptions?: object;
+  showPageSizeLabelBefore?: boolean;
+  showPageSizeLabelAfter?: boolean;
+  showTotalRecords?: boolean;
+  showFirstAndLastButtons?: boolean;
+  showPreviousAndNextButtons?: boolean;
+  showPageCount?: boolean;
   variant?: "default" | "alternate";
 }
 
