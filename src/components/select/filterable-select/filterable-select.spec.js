@@ -160,6 +160,10 @@ describe("FilterableSelect", () => {
           target: { value: "blu" },
           nativeEvent: { inputType: deleteEventType },
         };
+        const mockClearEvent = {
+          target: { value: "" },
+          nativeEvent: { inputType: deleteEventType },
+        };
 
         it("the value should not be changed", () => {
           wrapper.find("input").simulate("focus");
@@ -167,6 +171,16 @@ describe("FilterableSelect", () => {
           expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
           wrapper.find("input").simulate("change", mockDeleteEvent);
           expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
+        });
+
+        describe("and the filter is cleared", () => {
+          it("the value should also be cleared", () => {
+            wrapper.find("input").simulate("focus");
+            wrapper.find("input").simulate("change", mockChangeEvent);
+            expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
+            wrapper.find("input").simulate("change", mockClearEvent);
+            expect(wrapper.find(Textbox).prop("value")).toBe("");
+          });
         });
       }
     );

@@ -73,8 +73,9 @@ const FilterableSelect = React.forwardRef(
       (newFilterText, isDeleteEvent) => {
         setSelectedValue((previousValue) => {
           const match = findElementWithMatchingText(newFilterText, children);
+          const isFilterCleared = isDeleteEvent && newFilterText === "";
 
-          if (!match) {
+          if (!match || isFilterCleared) {
             setTextValue(newFilterText);
 
             return "";
@@ -255,7 +256,7 @@ const FilterableSelect = React.forwardRef(
       setMatchingText(value || defaultValue);
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [children]);
+    }, [value, children]);
 
     useEffect(() => {
       const clickEvent = "click";
