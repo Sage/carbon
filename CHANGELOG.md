@@ -1,3 +1,10 @@
+### [66.0.2](https://github.com/Sage/carbon/compare/v66.0.1...v66.0.2) (2021-02-11)
+
+
+### Bug Fixes
+
+* **grid-container:** children proptype definition ([5342d4e](https://github.com/Sage/carbon/commit/5342d4e737e6dbfb3c774b54096887fad678d1cd)), closes [#3272](https://github.com/Sage/carbon/issues/3272)
+
 ### [66.0.1](https://github.com/Sage/carbon/compare/v66.0.0...v66.0.1) (2021-02-10)
 
 
