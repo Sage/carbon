@@ -30,6 +30,8 @@ export const getCommonTextboxProps = (
   const config = {
     inputWidthEnabled: true,
     requiredKnob: true,
+    disablePrefix: false,
+    disableInputIcon: false,
     ...overrides,
   };
 
@@ -41,7 +43,7 @@ export const getCommonTextboxProps = (
   };
   const disabled = boolean("disabled", disabledDefault);
   const readOnly = boolean("readOnly", readOnlyDefault);
-  const prefix = text("prefix", "");
+  const prefix = !config.disablePrefix ? text("prefix", "") : undefined;
   const autoFocus = boolean("autoFocus", autoFocusDefault);
   const fieldHelp = text("fieldHelp");
   const label = text("label", "Label");
@@ -64,7 +66,9 @@ export const getCommonTextboxProps = (
 
   const onClick = action("onClick");
   const iconOnClick = action("iconOnClick");
-  const inputIcon = select("inputIcon", ["", ...OptionsHelper.icons]);
+  const inputIcon = !config.disableInputIcon
+    ? select("inputIcon", ["", ...OptionsHelper.icons])
+    : undefined;
 
   const required = config.requiredKnob ? boolean("required", false) : undefined;
 
