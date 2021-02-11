@@ -30,9 +30,13 @@ const GridContainer = (props) => {
   );
 };
 
+const gridItemType = PropTypes.shape({
+  type: PropTypes.oneOf([GridItem]),
+});
+
 GridContainer.propTypes = {
   /** Defines the Components to be rendered within the GridContainer. Requires a GridItem */
-  children: PropTypes.oneOfType([GridItem, PropTypes.arrayOf(GridItem)])
+  children: PropTypes.oneOfType([gridItemType, PropTypes.arrayOf(gridItemType)])
     .isRequired,
   /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding */
   p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
