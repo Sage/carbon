@@ -70,6 +70,7 @@ export type IconTypes =
 | 'delete'
 | 'delivery'
 | 'disputed'
+| 'disconnect'
 | 'document_right_align'
 | 'document_tick'
 | 'document_vertical_lines'
