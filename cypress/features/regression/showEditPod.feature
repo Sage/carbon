@@ -11,7 +11,7 @@ Feature: Show Edit Pod component
   Scenario: Verify edit dialog has not a border for a Show Edit Pod component
     When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "borderFalse" object name
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border "rgba(0, 0, 0, 0.85)" color
+    Then Show Edit Pod component has border "rgba(0, 0, 0, 0.9)" color
 
   @positive
   Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>

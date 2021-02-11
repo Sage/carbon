@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { shade } from "polished";
 
-import "../../style/fonts/fonts.css";
 import iconUnicodes from "./icon-unicodes";
 import baseTheme from "../../style/themes/base";
 import generatePalette from "../../style/palette";

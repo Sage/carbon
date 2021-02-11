@@ -1,3 +1,24 @@
+### [66.0.1](https://github.com/Sage/carbon/compare/v66.0.0...v66.0.1) (2021-02-10)
+
+
+### Bug Fixes
+
+* exclude specified knobs for DateInput ([6dbc378](https://github.com/Sage/carbon/commit/6dbc378511cb147f7332dcd33d13ec4826273122))
+
+## [66.0.0](https://github.com/Sage/carbon/compare/v65.2.0...v66.0.0) (2021-02-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* The global css has been removed you should
+change `import "carbon-react/lib/utils/css";` to be `import GlobalStyle
+from 'carbon-react/lib/style/global-style';` and render `<GlobalStyle
+/>` as part of your root component.
+
+### Miscellaneous Chores
+
+* remove global scss ([1a28578](https://github.com/Sage/carbon/commit/1a285788da2a1465d43a41160be7e5ebff201639))
+
 ## [65.2.0](https://github.com/Sage/carbon/compare/v65.1.0...v65.2.0) (2021-02-09)
 
 
