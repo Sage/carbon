@@ -197,7 +197,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | story                             |
       | default story                     |
-      | tile with definition list default |
+      | with definition list default      |
 
   @accessibility
   Scenario: Component Toast
