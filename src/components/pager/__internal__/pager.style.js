@@ -198,7 +198,6 @@ const StyledPagerSummary = styled.div`
 
 StyledPagerContainer.defaultProps = {
   theme: baseTheme,
-  variant: "default",
 };
 
 StyledPagerSizeOptions.defaultProps = {

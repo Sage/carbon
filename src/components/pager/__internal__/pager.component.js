@@ -212,6 +212,7 @@ Pager.defaultProps = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  variant: "default",
 };
 
 export default Pager;
