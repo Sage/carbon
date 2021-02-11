@@ -74,10 +74,16 @@ const FilterableSelect = React.forwardRef(
         setSelectedValue((previousValue) => {
           const match = findElementWithMatchingText(newFilterText, children);
 
-          if (!match || isDeleteEvent) {
+          if (!match) {
             setTextValue(newFilterText);
 
-            return previousValue;
+            return "";
+          }
+
+          if (isDeleteEvent) {
+            setTextValue(newFilterText);
+
+            return match.props.value;
           }
 
           if (onChange) {

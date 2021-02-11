@@ -148,6 +148,28 @@ describe("FilterableSelect", () => {
         );
       });
     });
+
+    describe.each(["deleteContentBackward", "deleteContentForward", "delete"])(
+      'and the "%s" change event is a delete event type',
+      (deleteEventType) => {
+        const mockChangeEvent = {
+          target: { value: "blue" },
+          nativeEvent: { inputType: deleteEventType },
+        };
+        const mockDeleteEvent = {
+          target: { value: "blu" },
+          nativeEvent: { inputType: deleteEventType },
+        };
+
+        it("the value should not be changed", () => {
+          wrapper.find("input").simulate("focus");
+          wrapper.find("input").simulate("change", mockChangeEvent);
+          expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
+          wrapper.find("input").simulate("change", mockDeleteEvent);
+          expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
+        });
+      }
+    );
   });
 
   describe("when the Textbox Input has been clicked", () => {
@@ -404,8 +426,8 @@ describe("FilterableSelect", () => {
       expect(wrapper.update().find(SelectList).exists()).toBe(false);
     });
 
-    describe("and the visible text was changed", () => {
-      it("then the formattedValue prop in Textbox should be reverted to previous value", () => {
+    describe("and the changed visible text is not matching any option", () => {
+      it("then the formattedValue prop in Textbox should be cleared", () => {
         const selectedOptionTextValue = "green";
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({
@@ -427,9 +449,7 @@ describe("FilterableSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelectListClose")();
         });
-        expect(wrapper.update().find(Textbox).prop("formattedValue")).toBe(
-          selectedOptionTextValue
-        );
+        expect(wrapper.update().find(Textbox).prop("formattedValue")).toBe("");
       });
     });
   });
