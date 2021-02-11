@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import Loader from "../../../components/loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../components/validations/validation-icon.component";
-import Context from "../../../__internal__/I18nContext";
+import useTranslation from "../../../hooks/__internal__/useTranslation";
 
 const SwitchSlider = (props) => {
   const {
@@ -18,7 +18,7 @@ const SwitchSlider = (props) => {
     info,
     useValidationIcon,
   } = props;
-  const t = useContext(Context);
+  const t = useTranslation();
 
   const on = t("switch.on", "ON").toUpperCase();
   const off = t("switch.off", "OFF").toUpperCase();

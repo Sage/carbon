@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import i18n from "i18next";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import Switch, { BaseSwitch } from "./switch.component";
 
@@ -17,6 +18,13 @@ export default {
     knobs: { escapeHTML: false },
   },
 };
+
+i18n.addResourceBundle("fr", "carbon", {
+  switch: {
+    on: "sur",
+    off: "de",
+  },
+});
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(false);

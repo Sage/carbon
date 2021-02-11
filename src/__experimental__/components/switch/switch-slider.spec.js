@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { css, ThemeProvider } from "styled-components";
@@ -10,6 +11,7 @@ import Loader from "../../../components/loader/loader.component";
 import SwitchSlider from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import { baseTheme } from "../../../style/themes";
+import I18next from "../../../__spec_helper__/I18next";
 
 describe("SwitchSlider", () => {
   describe("base theme", () => {
@@ -268,14 +270,28 @@ describe("SwitchSlider", () => {
   );
 });
 
-function render(props) {
-  return TestRenderer.create(<SwitchSlider {...props} />);
+function RenderWrapper({ lng, ...props }) {
+  return (
+    <I18next lng={lng}>
+      <SwitchSlider {...props} />
+    </I18next>
+  );
+}
+
+RenderWrapper.propTypes = {
+  lng: PropTypes.string.isRequired,
+};
+
+function render(props, lng = "en") {
+  return TestRenderer.create(<RenderWrapper lng={lng} {...props} />);
 }
 
 function renderWithTheme(props, theme, renderer = TestRenderer.create) {
   return renderer(
-    <ThemeProvider theme={theme}>
-      <SwitchSlider {...props} />
-    </ThemeProvider>
+    <I18next>
+      <ThemeProvider theme={theme}>
+        <SwitchSlider {...props} />
+      </ThemeProvider>
+    </I18next>
   );
 }
