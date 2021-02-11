@@ -1,4 +1,22 @@
 import styled, { css } from "styled-components";
+import { baseTheme } from "../../../style/themes";
+
+const overhang = 4;
+
+const StyledPopoverContainer = styled.div`
+  position: absolute;
+  z-index: ${({ theme }) => theme.zIndex.popover};
+  height: ${({ height }) => height};
+  width: calc(100% + ${2 * overhang}px);
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `};
+`;
+
+StyledPopoverContainer.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledSelectList = styled.ul`
   box-sizing: border-box;
@@ -34,4 +52,8 @@ const StyledSelectLoaderContainer = styled.li`
   width: 100%;
 `;
 
-export { StyledSelectList, StyledSelectLoaderContainer };
+export {
+  StyledSelectList,
+  StyledSelectLoaderContainer,
+  StyledPopoverContainer,
+};
