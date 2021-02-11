@@ -47,6 +47,27 @@ describe("FilterableSelect", () => {
 
       expect(wrapper.find(Textbox).prop("formattedValue")).toBe("green");
     });
+
+    describe("without available matching option", () => {
+      it("then the formatted value should be set to corresponding option text when it's available", () => {
+        const wrapper = mount(
+          <FilterableSelect
+            name="testSelect"
+            id="testSelect"
+            defaultValue="opt2"
+          >
+            <Option value="opt1" text="blue" key="blue" />
+          </FilterableSelect>
+        );
+
+        wrapper.setProps({
+          children: [<Option value="opt2" text="red" key="red" />],
+        });
+        wrapper.update();
+
+        expect(wrapper.find(Textbox).prop("formattedValue")).toBe("red");
+      });
+    });
   });
 
   describe("when the inputRef function prop is specified", () => {

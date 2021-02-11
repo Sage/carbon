@@ -247,8 +247,9 @@ const FilterableSelect = React.forwardRef(
 
     useEffect(() => {
       setMatchingText(value || defaultValue);
+      // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [children]);
 
     useEffect(() => {
       const clickEvent = "click";
