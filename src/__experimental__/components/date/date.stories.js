@@ -32,7 +32,11 @@ export const Default = (props) => {
 
   return (
     <DateInput
-      {...getCommonTextboxProps({ inputWidthEnabled: false })}
+      {...getCommonTextboxProps({
+        inputWidthEnabled: false,
+        disablePrefix: true,
+        disableInputIcon: true,
+      })}
       name="dateinput"
       autoFocus={autoFocus}
       minDate={minDate}
