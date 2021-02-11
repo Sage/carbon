@@ -43,6 +43,7 @@ exports[`Tile renders base styles 1`] = `
 
 .c0 {
   padding: 24px;
+  box-sizing: border-box;
   background-color: #FFFFFF;
   border: 1px solid #CCD6DB;
   display: -webkit-box;
