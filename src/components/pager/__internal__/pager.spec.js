@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import "jest-styled-components";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
 import I18n from "i18n-js";
@@ -401,6 +400,17 @@ describe("Pager", () => {
             justifyContent: "space-between",
             alignItems: "center",
             borderTopWidth: "0",
+          },
+          wrapper
+        );
+      });
+
+      it("matches the expected style", () => {
+        const wrapper = render({ ...props, variant: "alternate" }, mount);
+
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.pager.alternate,
           },
           wrapper
         );

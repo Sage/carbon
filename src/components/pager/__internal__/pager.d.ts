@@ -11,6 +11,7 @@ export interface PagerPropTypes {
   pageSize?: number | string;
   showPageSizeSelection?: boolean;
   pageSizeSelectionOptions?: object;
+  variant?: "default" | "alternate";
 }
 
 declare const Pager: React.FunctionComponent<PagerPropTypes>;
