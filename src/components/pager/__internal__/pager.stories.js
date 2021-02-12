@@ -56,7 +56,14 @@ export const Default = () => {
     Pager.defaultProps.pageSize
   );
   const currentPage = text("currentPage", "1");
-
+  const variant = select(
+    "variant",
+    {
+      default: "default",
+      alternate: "alternate",
+    },
+    "default"
+  );
   return (
     <Pager
       showPageSizeSelection={showPageSizeSelection}
@@ -75,6 +82,7 @@ export const Default = () => {
         { id: "50", name: 50 },
         { id: "100", name: 100 },
       ]}
+      variant={variant}
     />
   );
 };
