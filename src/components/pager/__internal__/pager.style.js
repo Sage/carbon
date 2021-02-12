@@ -23,7 +23,7 @@ const StyledPagerContainer = styled.div`
   height: 39px;
   max-height: 39px;
 
-  ${({ theme }) => {
+  ${({ theme, variant }) => {
     return (
       theme.table &&
       theme.colors &&
@@ -31,7 +31,9 @@ const StyledPagerContainer = styled.div`
         border-width: 1px 1px 1px 1px;
         border-style: none solid solid solid;
         border-color: ${theme.table.secondary};
-        background-color: ${theme.table.zebra};
+        background-color: ${variant === "alternate"
+          ? theme.pager.alternate
+          : theme.table.zebra};
 
         .carbon-input-icon {
           border: none;
