@@ -137,7 +137,7 @@ Switch.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
