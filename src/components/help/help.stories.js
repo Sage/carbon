@@ -28,10 +28,18 @@ export const Default = () => {
     : undefined;
   const href = text("href", "http://www.sage.com");
   const type = select("type", OptionsHelper.icons, "help");
+  const tooltipBgColor = text("tooltipBgColor", undefined);
+  const tooltipFontColor = text("tooltipFontColor", undefined);
 
   return (
     <div style={{ marginLeft: "125px" }}>
-      <Help tooltipPosition={tooltipPosition} href={href} type={type}>
+      <Help
+        tooltipPosition={tooltipPosition}
+        href={href}
+        type={type}
+        tooltipBgColor={tooltipBgColor}
+        tooltipFontColor={tooltipFontColor}
+      >
         {children}
       </Help>
     </div>
