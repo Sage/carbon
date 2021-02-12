@@ -59,7 +59,7 @@ export const ThemeSwitcher = memo(
         setThemeName(themeName);
         addons.getChannel().emit(FORCE_RE_RENDER);
       },
-      right: <ThemeIcon background={modernThemes[themeName].colors.base} />,
+      right: <ThemeIcon background={modernThemes[themeName].colors.primary} />,
     }));
 
     return (

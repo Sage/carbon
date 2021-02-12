@@ -1,24 +1,34 @@
 import styled, { css } from "styled-components";
+
 import MessageStyle from "../message/message.style";
 import MessageContentStyle from "../message/message-content/message-content.style";
 import TypeIcon from "../message/type-icon/type-icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
+import baseTheme from "../../style/themes/base";
 
 const StyledPortal = styled(Portal)`
-  position: absolute;
-  top: 0;
+  ${({ theme }) => css`
+    position: absolute;
+    top: 0;
 
-  ${({ isCenter }) =>
-    isCenter &&
-    css`
-      display: flex;
-      position: absolute;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    `}
+    z-index: ${theme.zIndex.notification};
+
+    ${({ isCenter }) =>
+      isCenter &&
+      css`
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      `}
+  `}
 `;
+
+StyledPortal.defaultProps = {
+  theme: baseTheme,
+};
 
 const animationName = ".toast";
 const ToastStyle = styled(MessageStyle)`
