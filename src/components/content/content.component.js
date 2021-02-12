@@ -14,10 +14,12 @@ const Content = ({
   align = "left",
   titleWidth,
   bodyFullWidth = false,
+  ...rest
 }) => (
   <StyledContent
     align={align}
     bodyFullWidth={bodyFullWidth}
+    {...rest}
     data-component="content"
   >
     <StyledContentTitle
