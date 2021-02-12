@@ -94,7 +94,6 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableRowHeader},
         ${StyledFlatTableCheckbox} {
           background-color: ${colorOfHighlighted};
-          border-bottom-color: ${colorOfHighlighted};
         }
 
         :hover {
@@ -110,7 +109,6 @@ const StyledFlatTableRow = styled.tr`
       `
         ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
           background-color: ${colorOfSelected};
-          border-bottom-color: ${colorOfSelected};
         }
 
         :hover {
