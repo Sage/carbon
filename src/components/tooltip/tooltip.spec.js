@@ -91,6 +91,43 @@ describe("Tooltip", () => {
           }
         );
       });
+
+      describe("color props", () => {
+        it("overrides default background when a valid css string is passed via 'bgColor'", () => {
+          assertStyleMatch(
+            { backgroundColor: "pink" },
+            render({ bgColor: "pink" }).find(StyledTooltipWrapper)
+          );
+
+          assertStyleMatch(
+            { borderTop: "8px solid pink" },
+            render({ bgColor: "pink" }).find(StyledTooltipPointer)
+          );
+        });
+
+        it("overrides the type prop if background color passed via 'bgColor'", () => {
+          assertStyleMatch(
+            { backgroundColor: "pink" },
+            render({ type: "error", bgColor: "pink" }).find(
+              StyledTooltipWrapper
+            )
+          );
+
+          assertStyleMatch(
+            { borderTop: "8px solid pink" },
+            render({ type: "error", bgColor: "pink" }).find(
+              StyledTooltipPointer
+            )
+          );
+        });
+
+        it("overrides default font color when a valid css string is passed via 'fontColor'", () => {
+          assertStyleMatch(
+            { color: "pink" },
+            render({ fontColor: "pink" }).find(StyledTooltipWrapper)
+          );
+        });
+      });
     });
 
     describe("when the tooltip targets a component that is a part of an input", () => {

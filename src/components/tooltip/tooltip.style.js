@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
+import { toColor } from "../../style/utils/color";
 
 const fadeIn = keyframes`
   0% {
@@ -12,8 +13,10 @@ const fadeIn = keyframes`
   }
 `;
 
-const tooltipColor = (type, theme) =>
-  type === "error" ? theme.colors.error : theme.colors.black;
+const tooltipColor = (type, theme, bgColor) => {
+  if (bgColor) return toColor(theme, bgColor);
+  return type === "error" ? theme.colors.error : theme.colors.black;
+};
 
 const tooltipOffset = (position, inputSize, isPartOfInput) => {
   if (!isPartOfInput) {
@@ -46,7 +49,16 @@ const tooltipOffset = (position, inputSize, isPartOfInput) => {
 };
 
 const StyledTooltipWrapper = styled.div`
-  ${({ position, size, theme, type, isPartOfInput, inputSize }) => css`
+  ${({
+    position,
+    size,
+    theme,
+    type,
+    isPartOfInput,
+    inputSize,
+    bgColor,
+    fontColor,
+  }) => css`
     bottom: auto;
     right: auto;
     max-width: 300px;
@@ -54,7 +66,7 @@ const StyledTooltipWrapper = styled.div`
     animation: ${fadeIn} 0.2s linear;
     z-index: ${theme.zIndex.popover};
     text-align: left;
-    color: ${theme.colors.white};
+    color: ${fontColor ? toColor(theme, fontColor) : theme.colors.white};
     display: inline-block;
     padding: 8px 12px;
     word-break: break-word;
@@ -62,7 +74,7 @@ const StyledTooltipWrapper = styled.div`
     font-size: ${size === "medium" ? "14px" : "16px"};
     line-height: 1.5rem;
     font-weight: 400;
-    background-color: ${tooltipColor(type, theme)};
+    background-color: ${tooltipColor(type, theme, bgColor)};
     ${tooltipOffset(position, inputSize, isPartOfInput)};
   `}
 `;
