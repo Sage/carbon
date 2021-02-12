@@ -174,19 +174,19 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c5::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c5::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c5:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c5::placeholder {
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.55);
 }
 
 .c5:invalid,

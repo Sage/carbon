@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 
-import StyledSimpleSelect from "./simple-select.style";
+import StyledSelect from "../select.style";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -386,7 +386,7 @@ const SimpleSelect = React.forwardRef(
     );
 
     return (
-      <StyledSimpleSelect
+      <StyledSelect
         data-component="simple-select"
         transparent={transparent}
         disabled={disabled}
@@ -404,7 +404,7 @@ const SimpleSelect = React.forwardRef(
           positionedChildren={disablePortal && isOpen && selectList}
         />
         {!disablePortal && isOpen && selectList}
-      </StyledSimpleSelect>
+      </StyledSelect>
     );
   }
 );

@@ -2,11 +2,7 @@ import styled from "styled-components";
 import StyledPill from "../../pill/pill.style";
 import { baseTheme } from "../../../style/themes";
 
-const StyledMultiSelect = styled.div`
-  position: relative;
-`;
-
-export const StyledSelectPillContainer = styled.div`
+const StyledSelectPillContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,4 +17,4 @@ StyledSelectPillContainer.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledMultiSelect;
+export default StyledSelectPillContainer;

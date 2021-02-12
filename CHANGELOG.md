@@ -1,3 +1,72 @@
+### [66.0.3](https://github.com/Sage/carbon/compare/v66.0.2...v66.0.3) (2021-02-11)
+
+
+### Bug Fixes
+
+* **toast:** add z-index to toast portal ([2f8215c](https://github.com/Sage/carbon/commit/2f8215c5c5ba00fafbf1a6dc45511ad4425dbab0)), closes [#3640](https://github.com/Sage/carbon/issues/3640) [#3627](https://github.com/Sage/carbon/issues/3627)
+
+### [66.0.2](https://github.com/Sage/carbon/compare/v66.0.1...v66.0.2) (2021-02-11)
+
+
+### Bug Fixes
+
+* **grid-container:** children proptype definition ([5342d4e](https://github.com/Sage/carbon/commit/5342d4e737e6dbfb3c774b54096887fad678d1cd)), closes [#3272](https://github.com/Sage/carbon/issues/3272)
+
+### [66.0.1](https://github.com/Sage/carbon/compare/v66.0.0...v66.0.1) (2021-02-10)
+
+
+### Bug Fixes
+
+* exclude specified knobs for DateInput ([6dbc378](https://github.com/Sage/carbon/commit/6dbc378511cb147f7332dcd33d13ec4826273122))
+
+## [66.0.0](https://github.com/Sage/carbon/compare/v65.2.0...v66.0.0) (2021-02-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* The global css has been removed you should
+change `import "carbon-react/lib/utils/css";` to be `import GlobalStyle
+from 'carbon-react/lib/style/global-style';` and render `<GlobalStyle
+/>` as part of your root component.
+
+### Miscellaneous Chores
+
+* remove global scss ([1a28578](https://github.com/Sage/carbon/commit/1a285788da2a1465d43a41160be7e5ebff201639))
+
+## [65.2.0](https://github.com/Sage/carbon/compare/v65.1.0...v65.2.0) (2021-02-09)
+
+
+### Features
+
+* **pill:** add styled system props to Pill - FE-3563 ([796da16](https://github.com/Sage/carbon/commit/796da165b3640daa2b01647f75d4e7866e083b5c))
+
+## [65.1.0](https://github.com/Sage/carbon/compare/v65.0.0...v65.1.0) (2021-02-09)
+
+
+### Features
+
+* **icon:** 6 new icons, chevrons, expand and square dot, new glyphs for euro, pound and services ([837eb74](https://github.com/Sage/carbon/commit/837eb742bcdebdf0b1774cc732a30ac6a97d8124))
+
+## [65.0.0](https://github.com/Sage/carbon/compare/v64.0.0...v65.0.0) (2021-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** Setting padding is no longer possible through styled-system props.
+Please use only margin styled system props
+
+### Features
+
+* **filterable-select:** add margin styled-system props ([865b38f](https://github.com/Sage/carbon/commit/865b38fb708b00087276cb7ddf9b874ea6dc9dde))
+* **multi-select:** add margin styled-system props ([0d9812e](https://github.com/Sage/carbon/commit/0d9812ee03fc5f3680694f726644e96f0c2b641a))
+* **select:** add margin styled system props ([44ede21](https://github.com/Sage/carbon/commit/44ede2126a4e538227e1db7afc3890756e1726b3))
+
+
+### Bug Fixes
+
+* **search:** change placeholder color ([0165eeb](https://github.com/Sage/carbon/commit/0165eebac22dfbbb599dda683ef44e6129a6c2cf))
+* **select:** change placeholder color ([e27136d](https://github.com/Sage/carbon/commit/e27136d0f165417029efcf19298d026731ac7bd9))
+
 ## [64.0.0](https://github.com/Sage/carbon/compare/v63.4.1...v64.0.0) (2021-02-05)
 
 

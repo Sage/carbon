@@ -3,15 +3,16 @@ import { addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withInfo } from "@storybook/addon-info";
 import { withA11y } from "@storybook/addon-a11y";
-import { addParameters } from "@storybook/react";
-import { configureActions } from "@storybook/addon-actions";
-import "./utils/i18n/en";
+import withGlobalStyles from "./with-global-styles";
 import setupI18n from "./utils/i18n/config";
 import I18next from "./utils/I18next";
-import "./style/story-root.scss";
+import "./utils/i18n/en";
+import "./style/story-root.css";
 import { withThemeSelector } from "./theme-selector";
+import { addParameters } from "@storybook/react";
+import { configureActions } from "@storybook/addon-actions";
 import sageTheme from "./sageTheme";
-import "../src/utils/css";
+import "./style/fonts.css";
 import isChromatic from "chromatic/isChromatic";
 
 // Temporary fix for issue mentioned in FE-2565 ticket
@@ -92,7 +93,7 @@ addParameters({
 
 setupI18n();
 addDecorator((storyFn) => <I18next>{storyFn()}</I18next>);
-
+addDecorator(withGlobalStyles);
 addDecorator(withKnobs);
 if (!isChromatic()) {
   addDecorator(

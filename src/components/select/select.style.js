@@ -1,25 +1,18 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { margin } from "styled-system";
 
-import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
-import InputIconToggleStyle from "../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style";
-import { baseTheme } from "../../../style/themes";
-import sizes from "../../../__experimental__/components/input/input-sizes.style";
+import InputPresentationStyle from "../../__experimental__/components/input/input-presentation.style";
+import StyledInput from "../../__experimental__/components/input/input.style";
+import InputIconToggleStyle from "../../__experimental__/components/input-icon-toggle/input-icon-toggle.style";
+import { baseTheme } from "../../style/themes";
 
-const StyledSimpleSelect = styled.div`
-  ${space}
+const StyledSelect = styled.div`
+  position: relative;
+  ${margin}
 
   ${StyledInput} {
-    cursor: pointer;
-    color: transparent;
+    cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "pointer")};
     user-select: none;
-    text-shadow: 0 0 0 ${({ theme }) => theme.text.color};
-    padding-left: ${({ size }) => sizes[size].horizontalPadding};
-
-    ::placeholder {
-      text-shadow: 0 0 0 ${({ theme }) => theme.text.placeholder};
-    }
 
     ${({ disabled }) =>
       disabled &&
@@ -32,15 +25,14 @@ const StyledSimpleSelect = styled.div`
     ${({ readOnly }) =>
       readOnly &&
       css`
-        cursor: default;
+        cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "default")};
         color: ${({ theme }) => theme.readOnly.textboxText};
         text-shadow: none;
       `}
   }
 
   ${InputPresentationStyle} {
-    cursor: pointer;
-    padding-left: 0;
+    cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "pointer")};
     padding-right: 0;
 
     ${({ disabled }) =>
@@ -52,7 +44,7 @@ const StyledSimpleSelect = styled.div`
     ${({ readOnly }) =>
       readOnly &&
       css`
-        cursor: default;
+        cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "default")};
       `}
   }
 
@@ -80,9 +72,9 @@ const StyledSimpleSelect = styled.div`
     `}
 `;
 
-StyledSimpleSelect.defaultProps = {
+StyledSelect.defaultProps = {
   size: "medium",
   theme: baseTheme,
 };
 
-export default StyledSimpleSelect;
+export default StyledSelect;
