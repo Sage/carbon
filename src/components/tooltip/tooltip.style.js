@@ -57,7 +57,7 @@ const StyledTooltipWrapper = styled.div`
     color: ${theme.colors.white};
     display: inline-block;
     padding: 8px 12px;
-    word-break: normal;
+    word-break: break-word;
     white-space: pre-wrap;
     font-size: ${size === "medium" ? "14px" : "16px"};
     line-height: 1.5rem;
@@ -74,7 +74,7 @@ StyledTooltipWrapper.propTypes = {
 
 StyledTooltipWrapper.defaultProps = {
   theme: baseTheme,
-  size: "M",
+  size: "medium",
   inputSize: "medium",
   position: "top",
 };

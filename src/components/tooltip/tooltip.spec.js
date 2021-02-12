@@ -56,7 +56,7 @@ describe("Tooltip", () => {
               color: "#FFFFFF",
               display: "inline-block",
               padding: "8px 12px",
-              wordBreak: "normal",
+              wordBreak: "break-word",
               whiteSpace: "pre-wrap",
               fontSize: "14px",
               lineHeight: "1.5rem",
