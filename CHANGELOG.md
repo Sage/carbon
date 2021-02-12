@@ -1,3 +1,10 @@
+## [66.2.0](https://github.com/Sage/carbon/compare/v66.1.0...v66.2.0) (2021-02-12)
+
+
+### Features
+
+* **multi-select:** add isLoading prop ([1924d68](https://github.com/Sage/carbon/commit/1924d68993d96fdc3ee3b85278150457b04f726e))
+
 ## [66.1.0](https://github.com/Sage/carbon/compare/v66.0.3...v66.1.0) (2021-02-12)
 
 
