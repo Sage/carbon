@@ -96,3 +96,9 @@ Feature: Design System Multi Select component
     Then Multi select "first" pill has "Amber" value
       And Multi select "second" pill has "Black" value
       And Multi select "third" pill has "Green" value
+
+  @positive
+  Scenario: Lazy loading is visible after open the Multi Select
+    Given I open "Design System Select multiselect" component page "with is loading prop" in no iframe
+    When I click on dropdown button
+    Then Lazy loading is visible
