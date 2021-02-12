@@ -5,7 +5,7 @@ import StyledTileFooter from "./tile-footer.style";
 
 const TileFooter = ({ variant, children, ...props }) => {
   return (
-    <StyledTileFooter variant={variant} {...props}>
+    <StyledTileFooter data-component="tile-footer" variant={variant} {...props}>
       {children}
     </StyledTileFooter>
   );

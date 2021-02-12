@@ -122,8 +122,9 @@ Our CI resources are finite, it's important that we only trigger a CI build when
 that you trigger.
 1. Work on a branch until you want to trigger CI, don't create a draft PR until you are ready to run CI.
 1. Create a draft PR when you want to trigger CI.
-1. Convert it to a regular PR when you want a peer review.
+1. Keep the PR as draft when you want a peer review.
 1. Address any peer review comments in as many commits as required, but only push them once you're finished addressing all comments.
+1. Once your PR has been has been approved by at least two carbon-devs and is ready for UX QA or QA, you should convert the PR to a regular PR.
 1. Don't press the "Update Branch" button unless you're about to merge the branch. Once you have pressed "Update Branch" you shouldn't work on anything else
 until that branch is merged.
 

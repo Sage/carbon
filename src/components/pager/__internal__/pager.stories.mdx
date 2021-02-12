@@ -10,7 +10,7 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
-<Meta title="Design System/Pager" />
+<Meta title="Design System/Pager" parameters={{ info: { disable: true }}}/>
 
 # Pager
 Pagination Component.
@@ -18,7 +18,7 @@ Pagination Component.
 ### Default usage:
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
+  <Story name="default">
     {() => {
       const totalRecords = text('totalRecords', '100');
       const showPageSizeSelection = boolean(
@@ -59,7 +59,7 @@ Pagination Component.
 ### With disabled Page Size Selection:
 
 <Preview>
-  <Story name="disabled-page-size" parameters={{ info: { disable: true }}} >
+  <Story name="disabled-page-size">
     <Pager
       totalRecords={ 100 }
       onPagination={ () => {} }
@@ -71,7 +71,7 @@ Pagination Component.
 When no totalRecords provided.
 
 <Preview>
-  <Story name="loading-state" parameters={{ info: { disable: true }}} >
+  <Story name="loading-state">
     <Pager
       onPagination={ () => {} }
     />
@@ -82,7 +82,7 @@ When no totalRecords provided.
 Shows 1, 2 or 5 items per page.
 
 <Preview>
-  <Story name="page-size-selection-options" parameters={{ info: { disable: true }}} >
+  <Story name="page-size-selection-options">
     <Pager
       onPagination={ () => {} }
       totalRecords={ 100 }
@@ -103,7 +103,7 @@ Shows 1, 2 or 5 items per page.
 Due to the fact that it is last page, next and last links are disabled.
 
 <Preview>
-  <Story name="current-page-last-page" parameters={{ info: { disable: true }}} >
+  <Story name="current-page-last-page">
     <Pager
       onPagination={ () => {} }
       totalRecords={ 100 }
@@ -116,12 +116,27 @@ Due to the fact that it is last page, next and last links are disabled.
 ### With currentPage pre-set to page 5
 
 <Preview>
-  <Story name="current-page" parameters={{ info: { disable: true }}} >
+  <Story name="current-page">
     <Pager
       onPagination={ () => {} }
       totalRecords={ 100 }
       showPageSizeSelection={ true }
       currentPage={ 5 }
+    />
+  </Story>
+</Preview>
+
+### Alternate background
+
+<Preview>
+  <Story name="alternate">
+    <Pager
+      totalRecords={ 100 }
+      showPageSizeSelection
+      pageSize={ 10 }
+      currentPage={ 1 }
+      onPagination={ () => {} }
+      variant="alternate"
     />
   </Story>
 </Preview>
