@@ -1,3 +1,10 @@
+## [66.1.0](https://github.com/Sage/carbon/compare/v66.0.3...v66.1.0) (2021-02-12)
+
+
+### Features
+
+* **pager:** add alternate variant styling ([d750304](https://github.com/Sage/carbon/commit/d750304f5b983c5dbc608c10b878289147307078))
+
 ### [66.0.3](https://github.com/Sage/carbon/compare/v66.0.2...v66.0.3) (2021-02-11)
 
 
