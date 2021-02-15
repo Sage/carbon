@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
-import { isSafari } from "../../../utils/helpers/browser-type-check";
+import baseTheme from "../../style/themes/base";
+import { isSafari } from "../../utils/helpers/browser-type-check";
 
 const lineHeight = 21;
 
