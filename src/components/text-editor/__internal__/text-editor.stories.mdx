@@ -239,6 +239,29 @@ Maybe try writing a little bit less?`
   </Story>
 </Preview>
 
+### With custom row height
+THe `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2 
+which is multiplied by the line-height (21px). 
+<Preview>
+  <Story name="with custom row height">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      return (
+        <div style={{ padding: "4px" }}>
+          <TextEditor
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            value={value}
+            labelText="Text Editor Label"
+            rows={2}
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Text Editor Props
 
 <Props of={TextEditor} />

@@ -168,6 +168,20 @@ describe("TextEditor", () => {
         wrapper.find(StyledEditorOutline)
       );
     });
+
+    it.each([2, 3, 4])(
+      "match the expected min-height when the a value of %s is passed to rows",
+      (rows) => {
+        wrapper = render({ rows });
+
+        assertStyleMatch(
+          {
+            minHeight: `${rows * 21}px`,
+          },
+          wrapper.find(StyledEditorContainer)
+        );
+      }
+    );
   });
 
   describe("Modifying the Editor state", () => {
@@ -878,6 +892,14 @@ describe("TextEditor", () => {
         },
         wrapper.find(StyledEditorOutline)
       );
+    });
+
+    describe("custom row prop type", () => {
+      it("throws an error if value less than 2 passed", () => {
+        jest.spyOn(global.console, "error");
+        wrapper = render({ rows: 1 });
+        expect(console.error).toHaveBeenCalled();
+      });
     });
   });
 
