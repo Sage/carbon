@@ -1,3 +1,17 @@
+### [66.2.2](https://github.com/Sage/carbon/compare/v66.2.1...v66.2.2) (2021-02-12)
+
+
+### Bug Fixes
+
+* **tile:** add box sizing to container to ensure it respects  parent width ([6abeccb](https://github.com/Sage/carbon/commit/6abeccbeea02bd777237449fd2ecb43efb48c7f9)), closes [#3458](https://github.com/Sage/carbon/issues/3458)
+
+### [66.2.1](https://github.com/Sage/carbon/compare/v66.2.0...v66.2.1) (2021-02-12)
+
+
+### Bug Fixes
+
+* **content:** add support for passing data tags to root of component ([64c4543](https://github.com/Sage/carbon/commit/64c454343f869e1c637e6c39941154846abcf7d7)), closes [#3661](https://github.com/Sage/carbon/issues/3661)
+
 ## [66.2.0](https://github.com/Sage/carbon/compare/v66.1.0...v66.2.0) (2021-02-12)
 
 
