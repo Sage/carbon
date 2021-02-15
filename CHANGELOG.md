@@ -1,3 +1,10 @@
+### [66.2.3](https://github.com/Sage/carbon/compare/v66.2.2...v66.2.3) (2021-02-15)
+
+
+### Bug Fixes
+
+* **switch:** make value prop optional ([48c8962](https://github.com/Sage/carbon/commit/48c8962355288f6883d8f55226a35c3a9dee7818)), closes [#3265](https://github.com/Sage/carbon/issues/3265)
+
 ### [66.2.2](https://github.com/Sage/carbon/compare/v66.2.1...v66.2.2) (2021-02-12)
 
 
