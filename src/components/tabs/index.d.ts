@@ -1,2 +1,2 @@
-export { Tabs, Tab }from './__internal__/tabs';
-export * from './__internal__/tabs';
+export { Tabs, Tab }from './tabs';
+export * from './tabs';

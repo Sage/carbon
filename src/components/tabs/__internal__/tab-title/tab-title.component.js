@@ -8,6 +8,8 @@ import {
 import tagComponent from "../../../../utils/helpers/tags/tags";
 import ValidationIcon from "../../../validations/validation-icon.component";
 import createGuid from "../../../../utils/helpers/guid";
+import Icon from "../../../icon";
+import Events from "../../../../utils/helpers/events/events";
 
 const TabTitle = React.forwardRef(
   (
@@ -32,23 +34,44 @@ const TabTitle = React.forwardRef(
       noRightBorder = false,
       customLayout,
       isInSidebar,
+      href,
+      onKeyDown,
       ...tabTitleProps
     },
     ref
   ) => {
     const keys = useRef([]);
+    const isHref = !!href;
 
     if (siblings && !keys.current.length) {
       siblings.forEach(() => keys.current.push(createGuid()));
     }
 
-    const handleClick = (ev) => {
+    const handleKeyDown = (ev) => {
       ev.stopPropagation();
+
+      if (href && Events.isEnterOrSpaceKey(ev)) {
+        return window.open(href, "_blank");
+      }
+
+      return onKeyDown(ev);
+    };
+
+    const handleClick = (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
       const customEvent = {
         ...ev,
         target: { ...ev.target, dataset: { tabid: dataTabId } },
       };
-      onClick(customEvent);
+
+      if (href) {
+        onClick(customEvent);
+        return window.open(href, "_blank");
+      }
+
+      return onClick(customEvent);
     };
 
     const renderContent = () => {
@@ -104,8 +127,10 @@ const TabTitle = React.forwardRef(
         isInSidebar={isInSidebar}
         {...tabTitleProps}
         {...tagComponent("tab-header", tabTitleProps)}
+        onKeyDown={handleKeyDown}
       >
         <StyledTitleContent
+          {...(isHref && { href, target: "_blank", as: "a" })}
           error={error}
           warning={warning}
           info={info}
@@ -121,6 +146,7 @@ const TabTitle = React.forwardRef(
           alternateStyling={alternateStyling || isInSidebar}
         >
           {renderContent()}
+          {isHref && <Icon type="link" />}
 
           <StyledLayoutWrapper hasCustomSibling={!!customLayout}>
             {error && (
@@ -178,6 +204,7 @@ TabTitle.propTypes = {
   noRightBorder: PropTypes.bool,
   customLayout: PropTypes.node,
   isInSidebar: PropTypes.bool,
+  href: PropTypes.string,
 };
 
 export default TabTitle;

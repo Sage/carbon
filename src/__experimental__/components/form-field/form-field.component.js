@@ -7,7 +7,7 @@ import FieldHelp from "../field-help";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import tagComponent from "../../../utils/helpers/tags";
 import Logger from "../../../utils/logger/logger";
-import { TabContext } from "../../../components/tabs/__internal__/tab";
+import { TabContext } from "../../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 
 let deprecatedWarnTriggered = false;

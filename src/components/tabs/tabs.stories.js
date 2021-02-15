@@ -79,6 +79,15 @@ export const Default = () => {
       >
         Content for tab 5
       </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-6"
+        title="Tab 6"
+        key="tab-6"
+        href="https://carbon.sage.com/"
+      />
     </Tabs>
   );
 };
