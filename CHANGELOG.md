@@ -1,3 +1,61 @@
+## [66.4.0](https://github.com/Sage/carbon/compare/v66.3.0...v66.4.0) (2021-02-16)
+
+
+### Features
+
+* **pager:** add props to conditional render elements and smart render buttons ([90be09b](https://github.com/Sage/carbon/commit/90be09b3c6a77a81748f737ea8529cf64a908137)), closes [#3425](https://github.com/Sage/carbon/issues/3425)
+
+## [66.3.0](https://github.com/Sage/carbon/compare/v66.2.3...v66.3.0) (2021-02-16)
+
+
+### Features
+
+* **select:** add cypress test ([556dd08](https://github.com/Sage/carbon/commit/556dd088dc060f3b51b4e95f47b15fff67d70842))
+
+
+### Bug Fixes
+
+* **filterable-select:** display value cleared on click when in a modal ([a45932f](https://github.com/Sage/carbon/commit/a45932f3883694146e62e97ea020541c71163827))
+* **filterable-select:** predefined text value not displayed when options loaded asynchronously ([8a14890](https://github.com/Sage/carbon/commit/8a1489096e4eb938c048c37225c7396c3568c6fd)), closes [#3431](https://github.com/Sage/carbon/issues/3431)
+* **filterable-select:** value not cleared when filter does not match any option ([b6599d3](https://github.com/Sage/carbon/commit/b6599d35383b90676572cbcd9ee125ca1fe0e8dd))
+* **filterable-select:** value not cleared when filter is deleted ([af4495d](https://github.com/Sage/carbon/commit/af4495dc5b53f4665cff9807f4cab87c0a475eda))
+* **select:** display value cleared on click when in a modal ([c40f7d8](https://github.com/Sage/carbon/commit/c40f7d8eb641899e797e98dca1da505a5b597016)), closes [#3557](https://github.com/Sage/carbon/issues/3557)
+
+### [66.2.3](https://github.com/Sage/carbon/compare/v66.2.2...v66.2.3) (2021-02-15)
+
+
+### Bug Fixes
+
+* **switch:** make value prop optional ([48c8962](https://github.com/Sage/carbon/commit/48c8962355288f6883d8f55226a35c3a9dee7818)), closes [#3265](https://github.com/Sage/carbon/issues/3265)
+
+### [66.2.2](https://github.com/Sage/carbon/compare/v66.2.1...v66.2.2) (2021-02-12)
+
+
+### Bug Fixes
+
+* **tile:** add box sizing to container to ensure it respects  parent width ([6abeccb](https://github.com/Sage/carbon/commit/6abeccbeea02bd777237449fd2ecb43efb48c7f9)), closes [#3458](https://github.com/Sage/carbon/issues/3458)
+
+### [66.2.1](https://github.com/Sage/carbon/compare/v66.2.0...v66.2.1) (2021-02-12)
+
+
+### Bug Fixes
+
+* **content:** add support for passing data tags to root of component ([64c4543](https://github.com/Sage/carbon/commit/64c454343f869e1c637e6c39941154846abcf7d7)), closes [#3661](https://github.com/Sage/carbon/issues/3661)
+
+## [66.2.0](https://github.com/Sage/carbon/compare/v66.1.0...v66.2.0) (2021-02-12)
+
+
+### Features
+
+* **multi-select:** add isLoading prop ([1924d68](https://github.com/Sage/carbon/commit/1924d68993d96fdc3ee3b85278150457b04f726e))
+
+## [66.1.0](https://github.com/Sage/carbon/compare/v66.0.3...v66.1.0) (2021-02-12)
+
+
+### Features
+
+* **pager:** add alternate variant styling ([d750304](https://github.com/Sage/carbon/commit/d750304f5b983c5dbc608c10b878289147307078))
+
 ### [66.0.3](https://github.com/Sage/carbon/compare/v66.0.2...v66.0.3) (2021-02-11)
 
 

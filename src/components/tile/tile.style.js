@@ -57,8 +57,8 @@ const TileContent = styled.div`
 
 const StyledTile = styled.div`
   ${({ isHorizontal, pixelWidth, tileTheme, theme, width }) => css`
-    ${space};
-    
+    ${space}
+    box-sizing: border-box;
     background-color: ${
       tileTheme === "tile" ? theme.colors.white : "transparent"
     };

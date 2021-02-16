@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import mintTheme from "../../style/themes/mint";
 import Content from "./content.component.js";
 import {
@@ -10,6 +10,7 @@ import {
 } from "./content.style.js";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 
 describe("Content", () => {
   let wrapper;
@@ -196,6 +197,19 @@ describe("Content", () => {
           },
           wrapper.find(StyledContentBody)
         );
+      });
+    });
+  });
+
+  describe("tags", () => {
+    describe("on component", () => {
+      it("include correct component, element and role data tags", () => {
+        wrapper = shallow(
+          <Content data-element="bar" data-role="baz">
+            <div />
+          </Content>
+        );
+        rootTagTest(wrapper, "content", "bar", "baz");
       });
     });
   });

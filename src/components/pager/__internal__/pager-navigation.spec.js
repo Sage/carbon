@@ -1,8 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import "jest-styled-components";
 import PagerNavigation from "./pager-navigation.component";
-import { StyledPagerLinkStyles } from "./pager.style";
+import { StyledPagerLinkStyles, StyledPagerNavInner } from "../pager.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
 import StyledInput from "../../../__experimental__/components/input/input.style";
@@ -13,7 +12,7 @@ const pageSizeSelectionOptions = [
   { id: "50", name: 50 },
 ];
 
-function render(props, renderType = shallow) {
+function render(props = {}, renderType = shallow) {
   props.setCurrentThemeName = () => {};
   return renderType(<PagerNavigation {...props} />);
 }
@@ -25,8 +24,6 @@ describe("Pager Navigation", () => {
     onPagination: () => true,
     pageSize: 10,
     pageCount: 10,
-    showPageSizeSelection: true,
-    pageSizeSelectionOptions,
   };
 
   it("renders the Pager Navigation correctly with the Mint Theme", () => {
@@ -75,7 +72,7 @@ describe("Pager Navigation", () => {
 
   describe("onClick", () => {
     it("does not trigger if link is disabled", () => {
-      const onLast = jest.fn();
+      const onFirst = jest.fn();
       const wrapper = render(
         {
           onPagination: () => true,
@@ -83,16 +80,16 @@ describe("Pager Navigation", () => {
           showPageSizeSelection: true,
           pageSizeSelectionOptions,
           currentPage: 1,
-          pageCount: 1,
+          pageCount: 3,
           totalRecords: 1,
-          onLast,
+          onFirst,
         },
         mount
       );
       const navLinks = wrapper.find(StyledPagerLinkStyles);
-      const last = navLinks.last();
-      last.simulate("click");
-      expect(onLast).toBeCalledTimes(0);
+      const first = navLinks.first();
+      first.simulate("click");
+      expect(onFirst).toBeCalledTimes(0);
     });
   });
 
@@ -179,6 +176,61 @@ describe("Pager Navigation", () => {
       input.simulate("blur", { target: { value: 2 } });
       expect(input.props().value).toBe("0");
       expect(onPagination).toHaveBeenCalledWith(0, 10, "input");
+    });
+  });
+
+  describe("conditional rendering", () => {
+    it("hides the page count input when 'showPageCount' is false", () => {
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: 1,
+          setCurrentPage: () => {},
+          pageCount: 3,
+          showPageCount: false,
+        },
+        mount
+      );
+
+      const navButtons = wrapper.find("button");
+      expect(navButtons.length).toEqual(4);
+      expect(wrapper.find(StyledPagerNavInner).exists()).toBeFalsy();
+    });
+
+    it("hides the `First` and `Last` buttons when 'showFirstAndLastButtons' is false", () => {
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: 1,
+          setCurrentPage: () => {},
+          pageCount: 3,
+          showFirstAndLastButtons: false,
+        },
+        mount
+      );
+
+      const navButtons = wrapper.find("button");
+      expect(navButtons.length).toEqual(2);
+      expect(navButtons.first().text()).toEqual("Previous");
+      expect(navButtons.last().text()).toEqual("Next");
+    });
+
+    it("hides the `Previous` and `Next` buttons when 'showPreviousAndNextButtons' is false", () => {
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: 1,
+          setCurrentPage: () => {},
+          pageCount: 3,
+          showPreviousAndNextButtons: false,
+        },
+        mount
+      );
+
+      const navButtons = wrapper.find("button");
+      expect(navButtons.length).toEqual(2);
+      expect(navButtons.first().text()).toEqual("First");
+      expect(navButtons.last().text()).toEqual("Last");
     });
   });
 });
