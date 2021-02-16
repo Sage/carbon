@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
-import { StyledPagerLinkStyles } from "./pager.style";
+import { StyledPagerLinkStyles } from "../pager.style";
 
 const PagerNavigationLink = ({
   type,
@@ -10,7 +10,6 @@ const PagerNavigationLink = ({
   pageSize,
   onClick,
   onPagination,
-  ...props
 }) => {
   const linkRef = useRef();
   const navLinkConfig = {
@@ -33,10 +32,6 @@ const PagerNavigationLink = ({
   };
 
   const disabled = useCallback(() => {
-    if (pageCount === 1 || pageCount === 0) {
-      return true;
-    }
-
     if (currentPage === 1) {
       return type === "previous" || type === "first";
     }
@@ -67,7 +62,6 @@ const PagerNavigationLink = ({
       disabled={disabled()}
       onClick={handleOnCLick}
       ref={linkRef}
-      {...props}
     >
       {text}
     </StyledPagerLinkStyles>
