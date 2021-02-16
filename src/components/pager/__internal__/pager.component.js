@@ -22,6 +22,7 @@ const Pager = ({
   onFirst,
   onPrevious,
   onLast,
+  variant,
   ...props
 }) => {
   const [pageCount, setPageCount] = useState(1);
@@ -149,7 +150,7 @@ const Pager = ({
   };
 
   return (
-    <StyledPagerContainer data-component="pager">
+    <StyledPagerContainer data-component="pager" variant={variant}>
       <StyledPagerSizeOptions>{pageSizeOptions()}</StyledPagerSizeOptions>
       <PagerNavigation
         {...props}
@@ -196,6 +197,8 @@ Pager.propTypes = {
       name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
   ),
+  /** What variant the Pager background should be */
+  variant: PropTypes.oneOf(["default", "alternate"]),
 };
 
 Pager.defaultProps = {
@@ -209,6 +212,7 @@ Pager.defaultProps = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  variant: "default",
 };
 
 export default Pager;

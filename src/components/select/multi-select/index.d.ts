@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Option from '../option';
+import * as React from "react";
+import Option from "../option";
 
 export interface MultiSelectProps {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -25,7 +25,7 @@ export interface MultiSelectProps {
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth?: number;
   /** Size of an input */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /** Placeholder string to be displayed in input */
   placeholder?: string;
   /** The selected value(s), when the component is operating in controlled mode */
@@ -52,6 +52,8 @@ export interface MultiSelectProps {
   onKeyDown?: () => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** If true the loader animation is displayed in the option list */
+  isLoading?: boolean;
 }
 
 declare const MultiSelect: React.ComponentType<MultiSelectProps>;
