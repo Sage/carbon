@@ -1,3 +1,10 @@
+## [66.4.0](https://github.com/Sage/carbon/compare/v66.3.0...v66.4.0) (2021-02-16)
+
+
+### Features
+
+* **pager:** add props to conditional render elements and smart render buttons ([90be09b](https://github.com/Sage/carbon/commit/90be09b3c6a77a81748f737ea8529cf64a908137)), closes [#3425](https://github.com/Sage/carbon/issues/3425)
+
 ## [66.3.0](https://github.com/Sage/carbon/compare/v66.2.3...v66.3.0) (2021-02-16)
 
 
