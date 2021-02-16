@@ -1,3 +1,19 @@
+## [66.3.0](https://github.com/Sage/carbon/compare/v66.2.3...v66.3.0) (2021-02-16)
+
+
+### Features
+
+* **select:** add cypress test ([556dd08](https://github.com/Sage/carbon/commit/556dd088dc060f3b51b4e95f47b15fff67d70842))
+
+
+### Bug Fixes
+
+* **filterable-select:** display value cleared on click when in a modal ([a45932f](https://github.com/Sage/carbon/commit/a45932f3883694146e62e97ea020541c71163827))
+* **filterable-select:** predefined text value not displayed when options loaded asynchronously ([8a14890](https://github.com/Sage/carbon/commit/8a1489096e4eb938c048c37225c7396c3568c6fd)), closes [#3431](https://github.com/Sage/carbon/issues/3431)
+* **filterable-select:** value not cleared when filter does not match any option ([b6599d3](https://github.com/Sage/carbon/commit/b6599d35383b90676572cbcd9ee125ca1fe0e8dd))
+* **filterable-select:** value not cleared when filter is deleted ([af4495d](https://github.com/Sage/carbon/commit/af4495dc5b53f4665cff9807f4cab87c0a475eda))
+* **select:** display value cleared on click when in a modal ([c40f7d8](https://github.com/Sage/carbon/commit/c40f7d8eb641899e797e98dca1da505a5b597016)), closes [#3557](https://github.com/Sage/carbon/issues/3557)
+
 ### [66.2.3](https://github.com/Sage/carbon/compare/v66.2.2...v66.2.3) (2021-02-15)
 
 
