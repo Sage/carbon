@@ -527,13 +527,13 @@ describe("SimpleSelect", () => {
 
   describe("when the onSelect is called in the SelectList", () => {
     const navigationKeyOptionObject = {
-      value: "Foo",
-      text: "Bar",
+      value: "opt2",
+      text: "green",
       selectionType: "navigationKey",
     };
     const clickOptionObject = {
-      value: "Foo",
-      text: "Bar",
+      value: "opt2",
+      text: "green",
       selectionType: "click",
     };
     const textboxProps = {
@@ -543,7 +543,7 @@ describe("SimpleSelect", () => {
     const expectedEventObject = {
       target: {
         ...textboxProps,
-        value: "Foo",
+        value: "opt2",
       },
     };
 
@@ -561,18 +561,31 @@ describe("SimpleSelect", () => {
     });
 
     describe('with "selectionType" as "navigationKey"', () => {
-      it("the SelectList should be open and the value should be selected", () => {
-        const wrapper = renderSelect();
+      const wrapper = renderSelect();
 
+      beforeAll(() => {
         wrapper.find("input").simulate("click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
         wrapper.update();
+      });
+
+      it("the SelectList should be open", () => {
         expect(wrapper.find(SelectList).exists()).toBe(true);
-        expect(wrapper.find(Textbox).prop("value")).toBe("Foo");
-        expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Bar");
+      });
+
+      it("the expected value should be selected", () => {
+        expect(wrapper.find(Textbox).prop("value")).toBe(
+          navigationKeyOptionObject.value
+        );
+      });
+
+      it("the expected text should be displayed in the Textbox", () => {
+        expect(wrapper.find(Textbox).prop("formattedValue")).toBe(
+          navigationKeyOptionObject.text
+        );
       });
     });
 
