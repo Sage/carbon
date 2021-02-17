@@ -512,6 +512,10 @@ fullWidthButtons.story = {
   name: "full width buttons",
 };
 
+noWrapButtons.story = {
+  name: "no wrap buttons",
+};
+
 iconOnlyButtons.story = {
   name: "icon only buttons",
   parameters: {
