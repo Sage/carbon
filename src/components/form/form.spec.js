@@ -17,6 +17,7 @@ import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import "../../__spec_helper__/I18next";
 
 describe("Form", () => {
   let wrapper;
