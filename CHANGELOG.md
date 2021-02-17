@@ -1,3 +1,10 @@
+### [66.6.1](https://github.com/Sage/carbon/compare/v66.6.0...v66.6.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* **date:** change onBlur event parameters ([16d186d](https://github.com/Sage/carbon/commit/16d186d09794863c7d042fa8b3c7ae20262b0bf7)), closes [#3132](https://github.com/Sage/carbon/issues/3132)
+
 ## [66.6.0](https://github.com/Sage/carbon/compare/v66.5.0...v66.6.0) (2021-02-17)
 
 
