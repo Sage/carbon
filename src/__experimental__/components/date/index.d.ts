@@ -1,2 +1,1 @@
-export { default as DateInput } from "./date";
-export * from "./date";
+export { default } from "./date";
