@@ -1,3 +1,10 @@
+## [66.5.0](https://github.com/Sage/carbon/compare/v66.4.1...v66.5.0) (2021-02-17)
+
+
+### Features
+
+* **button:** icon only button ([cd03584](https://github.com/Sage/carbon/commit/cd035845a772b7fb6331809c845f5b1facb56337)), closes [#3236](https://github.com/Sage/carbon/issues/3236)
+
 ### [66.4.1](https://github.com/Sage/carbon/compare/v66.4.0...v66.4.1) (2021-02-17)
 
 
