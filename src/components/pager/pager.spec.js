@@ -1,21 +1,21 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import "jest-styled-components";
-import { ThemeProvider } from "styled-components";
-import TestRenderer from "react-test-renderer";
 import I18n from "i18n-js";
-import guid from "../../../utils/helpers/guid";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import baseTheme from "../../../style/themes/base";
-import mintTheme from "../../../style/themes/mint";
+import guid from "../../utils/helpers/guid";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import baseTheme from "../../style/themes/base";
 import Pager from "./pager.component";
-import Select from "../../select/simple-select/simple-select.component";
-import SelectList from "../../select/select-list/select-list.component";
-import { StyledPagerLinkStyles } from "./pager.style";
-import NumberInput from "../../../__experimental__/components/number";
+import Select from "../select/simple-select/simple-select.component";
+import SelectList from "../select/select-list/select-list.component";
+import {
+  StyledPagerLinkStyles,
+  StyledPagerSizeOptionsInner,
+  StyledPagerSummary,
+} from "./pager.style";
+import NumberInput from "../../__experimental__/components/number";
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const pageSizeSelectionOptions = [
@@ -25,12 +25,8 @@ const pageSizeSelectionOptions = [
   { id: "100", name: 100 },
 ];
 
-function render(props, renderType = mount) {
-  return renderType(
-    <ThemeProvider theme={props.theme || baseTheme}>
-      <Pager {...props} />
-    </ThemeProvider>
-  );
+function render(props = {}, renderType = mount) {
+  return renderType(<Pager onPagination={jest.fn()} {...props} />);
 }
 
 describe("Pager", () => {
@@ -42,8 +38,13 @@ describe("Pager", () => {
     pageSizeSelectionOptions,
   };
 
+  it("sets total records to 0 by default", () => {
+    const wrapper = render();
+    expect(wrapper.find(StyledPagerSummary).text()).toBe("0 items");
+  });
+
   describe("Navigate correctly on link click", () => {
-    let onPagination, onNext, onPrevious, onFirst, onLast;
+    let wrapper, onPagination, onNext, onPrevious, onFirst, onLast;
 
     beforeEach(() => {
       onPagination = jest.fn();
@@ -52,6 +53,8 @@ describe("Pager", () => {
       onFirst = jest.fn();
       onLast = jest.fn();
     });
+
+    afterEach(() => wrapper.unmount());
 
     const getWrapper = (otherProps) =>
       render(
@@ -68,7 +71,7 @@ describe("Pager", () => {
       );
 
     it("disables the next and last link if on last page", () => {
-      const wrapper = getWrapper({ currentPage: 10 });
+      wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const last = navLinks.last();
       const next = navLinks.at(2);
@@ -78,7 +81,7 @@ describe("Pager", () => {
     });
 
     it("disables the prev and first link if on first page", () => {
-      const wrapper = getWrapper({ currentPage: 1 });
+      wrapper = getWrapper({ currentPage: 1 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const first = navLinks.first();
       const prev = navLinks.at(1);
@@ -87,22 +90,22 @@ describe("Pager", () => {
       expect(onPagination).not.toHaveBeenCalled();
     });
 
-    it("disables navigation if theres only one page", () => {
-      const wrapper = getWrapper({ currentPage: 1, totalRecords: 5 });
+    it("does not render the navigation buttons if theres only one page", () => {
+      wrapper = getWrapper({ currentPage: 1, totalRecords: 5 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
-      const first = navLinks.first();
-      const prev = navLinks.at(1);
-      const next = navLinks.at(2);
-      const last = navLinks.last();
-      first.simulate("click");
-      prev.simulate("click");
-      next.simulate("click");
-      last.simulate("click");
-      expect(onPagination).not.toHaveBeenCalled();
+      expect(navLinks.exists()).toBeFalsy();
+    });
+
+    it("does not render the 'First' and 'Last' navigation buttons if theres only two pages", () => {
+      wrapper = getWrapper({ currentPage: 1, totalRecords: 20 });
+      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      expect(navLinks.length).toEqual(2);
+      expect(navLinks.first().find("button").text()).toEqual("Previous");
+      expect(navLinks.last().find("button").text()).toEqual("Next");
     });
 
     it("changes page correctly on clicking first link", () => {
-      const wrapper = getWrapper({ currentPage: 10 });
+      wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const first = navLinks.first();
       first.simulate("click");
@@ -110,7 +113,7 @@ describe("Pager", () => {
     });
 
     it("changes page correctly on clicking prev link", () => {
-      const wrapper = getWrapper({ currentPage: 3 });
+      wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const prev = navLinks.at(1);
       prev.simulate("click");
@@ -118,7 +121,7 @@ describe("Pager", () => {
     });
 
     it("changes page correctly on clicking next link", () => {
-      const wrapper = getWrapper({ currentPage: 3 });
+      wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const next = navLinks.at(2);
       next.simulate("click");
@@ -126,7 +129,7 @@ describe("Pager", () => {
     });
 
     it("next link is disabled on when on last page", () => {
-      const wrapper = getWrapper({ currentPage: 10 });
+      wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const next = navLinks.at(2);
       assertStyleMatch(
@@ -138,7 +141,7 @@ describe("Pager", () => {
     });
 
     it("changes page correctly on clicking last link", () => {
-      const wrapper = getWrapper({ currentPage: 3 });
+      wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const last = navLinks.last();
       last.simulate("click");
@@ -205,25 +208,86 @@ describe("Pager", () => {
     expect(input.prop("value")).toBe("10");
   });
 
-  it("renders the Pager without pageSizeSelection", () => {
-    const wrapper = render(
-      {
+  describe("conditional rendering of elements", () => {
+    let wrapper;
+
+    afterEach(() => wrapper.unmount());
+
+    it("does not renders pageSizeSelection by default", () => {
+      wrapper = render({
         totalRecords: 100,
         pageSize: 10,
-        showPageSizeSelection: false,
         onPagination: () => true,
-      },
-      TestRenderer.create
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
+      });
+      expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeFalsy();
+    });
 
-  it("renders the Pager correctly with the Mint Theme", () => {
-    const wrapper = render(
-      { ...props, theme: mintTheme, onPagination: () => true },
-      TestRenderer.create
-    );
-    expect(wrapper).toMatchSnapshot();
+    it("renders the pageSize Select when 'showPageSizeSelection' is true", () => {
+      wrapper = render({ ...props, onPagination: () => true });
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.firstChild.textContent
+      ).toEqual(
+        wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
+      );
+      expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.lastChild.textContent
+      ).toEqual(
+        wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
+      );
+    });
+
+    it("does not render the label before pageSize Select when 'showPageSizeLabelBefore' is false", () => {
+      wrapper = render({
+        ...props,
+        showPageSizeLabelBefore: false,
+        onPagination: () => true,
+      });
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.firstChild
+      ).toEqual(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+      );
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.lastChild.textContent
+      ).toEqual(
+        wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
+      );
+    });
+
+    it("does not render the label after pageSize Select when 'showPageSizeLabelAfter' is false", () => {
+      wrapper = render({
+        ...props,
+        showPageSizeLabelAfter: false,
+        onPagination: () => true,
+      });
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.firstChild.textContent
+      ).toEqual(
+        wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
+      );
+      expect(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+          .parentElement.lastChild
+      ).toEqual(
+        wrapper.find("div[data-component='simple-select']").getDOMNode()
+      );
+    });
+
+    it("does not render the total number of records 'showTotalRecords' is false", () => {
+      wrapper = render({
+        ...props,
+        showTotalRecords: false,
+        onPagination: () => true,
+      });
+
+      expect(wrapper.find(StyledPagerSummary).text()).toBe("");
+    });
   });
 
   describe("callbacks work as expected", () => {
@@ -401,6 +465,17 @@ describe("Pager", () => {
             justifyContent: "space-between",
             alignItems: "center",
             borderTopWidth: "0",
+          },
+          wrapper
+        );
+      });
+
+      it("matches the expected style", () => {
+        const wrapper = render({ ...props, variant: "alternate" }, mount);
+
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.pager.alternate,
           },
           wrapper
         );

@@ -40,10 +40,15 @@ const StyledButton = styled.button`
       width: 100%;
     `}
 
-  ${({ iconPosition, theme }) => css`
+  ${({ iconOnly, iconPosition, theme }) => css`
     ${StyledIcon} {
-      margin-left: ${iconPosition === "before" ? "0px" : `${theme.spacing}px`};
-      margin-right: ${iconPosition === "before" ? `${theme.spacing}px` : "0px"};
+      margin-left: ${!iconOnly && iconPosition === "after"
+        ? `${theme.spacing}px`
+        : "0px"};
+      margin-right: ${!iconOnly && iconPosition === "before"
+        ? `${theme.spacing}px`
+        : "0px"};
+      margin-bottom: ${iconOnly ? "1px" : "0px"};
       height: ${additionalIconStyle};
       svg {
         margin-top: 0;

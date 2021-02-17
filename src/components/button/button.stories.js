@@ -214,6 +214,28 @@ export const noWrapButtons = () => {
   );
 };
 
+export const iconOnlyButtons = () => {
+  const binIcon = "bin";
+  return (
+    <>
+      {OptionsHelper.buttonTypes.map((buttonType) => {
+        return OptionsHelper.sizesRestricted.map((size) => {
+          return (
+            <div style={{ width: 100 }}>
+              <Button
+                buttonType={buttonType}
+                size={size}
+                iconType={binIcon}
+                aria-label={binIcon}
+              />
+            </div>
+          );
+        });
+      })}
+    </>
+  );
+};
+
 export const fullWidthButtons = () => {
   return (
     <>
@@ -488,4 +510,18 @@ knobs.story = {
 
 fullWidthButtons.story = {
   name: "full width buttons",
+};
+
+noWrapButtons.story = {
+  name: "no wrap buttons",
+};
+
+iconOnlyButtons.story = {
+  name: "icon only buttons",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+    knobs: { escapeHTML: false },
+  },
 };

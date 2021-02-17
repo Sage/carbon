@@ -216,3 +216,7 @@ Then(
 Then("Select input has {string} value", (text) => {
   getDataElementByValue("input").should("have.attr", "value", text);
 });
+
+Then("Select input has no value", () => {
+  getDataElementByValue("input").should("have.attr", "value", "");
+});

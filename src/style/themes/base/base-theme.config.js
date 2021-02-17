@@ -231,6 +231,7 @@ export default (palette) => {
     pager: {
       active: "rgba(0,0,0,0.90)",
       disabled: "rgba(0,0,0,0.3)",
+      alternate: palette.slateTint(93),
     },
 
     icon: {
