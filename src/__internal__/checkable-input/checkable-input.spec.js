@@ -3,19 +3,21 @@ import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import "jest-styled-components";
 import { css } from "styled-components";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";
-import FieldHelpStyle from "../field-help/field-help.style";
-import { FieldLineStyle } from "../form-field/form-field.style";
-import Label from "../label";
+import FieldHelpStyle from "../../__experimental__/components/field-help/field-help.style";
+import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
+import Label from "../../__experimental__/components/label";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
-import LabelStyle, { StyledLabelContainer } from "../label/label.style";
+import LabelStyle, {
+  StyledLabelContainer,
+} from "../../__experimental__/components/label/label.style";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
-import StyledHelp from "../../../components/help/help.style";
-import baseTheme from "../../../style/themes/base";
+import StyledHelp from "../../components/help/help.style";
+import baseTheme from "../../style/themes/base";
 
 function render(props) {
   return TestRenderer.create(<StyledCheckableInputWrapper {...props} />);
