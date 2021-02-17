@@ -1,3 +1,10 @@
+## [66.6.0](https://github.com/Sage/carbon/compare/v66.5.0...v66.6.0) (2021-02-17)
+
+
+### Features
+
+* **heading:** add pills container ([4464a20](https://github.com/Sage/carbon/commit/4464a202253641623966bbe15bcc11f573a85d6c))
+
 ## [66.5.0](https://github.com/Sage/carbon/compare/v66.4.1...v66.5.0) (2021-02-17)
 
 
