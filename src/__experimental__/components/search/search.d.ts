@@ -1,4 +1,5 @@
 import * as React from "react";
+
 export interface SearchProps {
   /** Prop for `uncontrolled` use */
   defaultValue?: string;
