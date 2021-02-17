@@ -4,14 +4,38 @@ import tagComponent from "../../../utils/helpers/tags";
 import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+
+const radioButtonGroupPassedProps = {
+  /** Props to be passed from RadioButtonGroup */
+  inline: PropTypes.bool,
+  required: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+};
 
 const RadioButton = ({
+  checked,
+  disabled,
+  fieldHelp,
+  fieldHelpInline,
   id,
+  inline,
+  inputWidth,
   label,
+  labelAlign,
+  labelSpacing,
+  labelWidth,
+  name,
   onChange,
   onBlur,
   value,
+  reverse,
+  required,
+  size,
+  error,
+  warning,
+  info,
   mt,
   mb = 2,
   ...props
@@ -19,18 +43,33 @@ const RadioButton = ({
   const handleChange = useCallback(
     (ev) => {
       onChange(ev);
-      // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
+      // trigger focus, as Safari doesn't focus radioButtons on click by default
       ev.target.focus();
     },
     [onChange]
   );
 
+  const commonProps = {
+    disabled,
+    fieldHelpInline,
+    inputWidth,
+    labelSpacing,
+    error,
+    warning,
+    info,
+  };
+
   const inputProps = {
-    ...props,
+    ...commonProps,
+    checked,
+    fieldHelp,
+    name,
     onChange: handleChange,
     onBlur,
     helpTag: "span",
+    labelAlign,
     labelInline: true,
+    labelWidth,
     inputId: id,
     inputLabel: label,
     inputValue: value,
@@ -41,14 +80,18 @@ const RadioButton = ({
      * in the desired order (other elements which use FormField render their sub-components the
      * opposite way around by default)
      */
-    reverse: !props.reverse,
+    reverse: !reverse,
+    required,
   };
 
   return (
     <RadioButtonStyle
+      inline={inline}
+      reverse={reverse}
+      size={size}
+      {...commonProps}
       {...tagComponent("radio-button", props)}
       mt={mt}
-      {...props}
     >
       <CheckableInput {...inputProps}>
         <RadioButtonSvg />
@@ -62,6 +105,8 @@ RadioButton.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
+  /** The fieldHelp content to display for the input */
+  fieldHelp: PropTypes.node,
   /** Displays fieldHelp inline with the radio button */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
@@ -71,7 +116,7 @@ RadioButton.propTypes = {
   /** The content of the label for the input */
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  labelAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
@@ -88,7 +133,7 @@ RadioButton.propTypes = {
    * Set the size of the radio button to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  size: PropTypes.oneOf(["small", "large"]),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
   /** Margin top, given number will be multiplied by base spacing unit (8) */
@@ -105,6 +150,7 @@ RadioButton.propTypes = {
     }
     return null;
   },
+  ...radioButtonGroupPassedProps,
 };
 
 RadioButton.defaultProps = {

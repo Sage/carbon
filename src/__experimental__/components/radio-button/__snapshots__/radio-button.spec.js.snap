@@ -419,7 +419,6 @@ exports[`RadioButton base renders as expected 1`] = `
       role="group"
     >
       <div
-        checked={false}
         className="c1"
         data-component="radio-button"
       >

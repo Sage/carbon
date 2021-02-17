@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
 
-import { RadioButtonGroup, RadioButton } from '.';
+import { RadioButtonGroup, RadioButton, PrivateRadioButton } from '.';
 import Typography from '../../../components/typography';
 
 <Meta
@@ -533,6 +534,13 @@ Labels could be customized using the Typography Component
 </Preview>
 
 ## Props
+
+### RadioButton
+<StyledSystemProps
+  of={ PrivateRadioButton }
+  margin
+  noHeader
+/>
 
 ### RadioButtonGroup
 <Props of={RadioButtonGroup} />

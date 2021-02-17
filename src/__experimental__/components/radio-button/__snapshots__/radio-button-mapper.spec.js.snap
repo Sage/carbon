@@ -6,10 +6,6 @@ Array [
   margin-top: 16px;
 }
 
-.c3.c3.c3 {
-  margin-bottom: 16px;
-}
-
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -63,6 +59,10 @@ Array [
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
+}
+
+.c0 {
+  margin-bottom: 16px;
 }
 
 .c0 .c6 {
@@ -121,6 +121,10 @@ Array [
   fill: rgba(0,0,0,0.90);
 }
 
+.c0:last-of-type {
+  margin-bottom: 0;
+}
+
 .c0 .c10 {
   padding: 0;
 }
@@ -157,10 +161,8 @@ Array [
 }
 
 <div
-    checked={false}
     className="c0"
     data-component="radio-button"
-    name="test-group"
   >
     <div
       checked={false}
@@ -225,10 +227,6 @@ Array [
   margin-top: 16px;
 }
 
-.c3.c3.c3 {
-  margin-bottom: 16px;
-}
-
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -282,6 +280,10 @@ Array [
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
+}
+
+.c0 {
+  margin-bottom: 16px;
 }
 
 .c0 .c6 {
@@ -340,6 +342,10 @@ Array [
   fill: rgba(0,0,0,0.90);
 }
 
+.c0:last-of-type {
+  margin-bottom: 0;
+}
+
 .c0 .c10 {
   padding: 0;
 }
@@ -376,10 +382,8 @@ Array [
 }
 
 <div
-    checked={false}
     className="c0"
     data-component="radio-button"
-    name="test-group"
   >
     <div
       checked={false}
