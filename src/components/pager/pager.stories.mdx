@@ -1,0 +1,251 @@
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import Pager from ".";
+import { useState } from "react";
+import {
+  text,
+  boolean,
+  select,
+  withKnobs,
+  object
+} from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import useMediaQuery from "../../hooks/useMediaQuery/index.js"
+
+<Meta title="Design System/Pager" parameters={{info: { disable: true }}}/>
+
+# Pager
+Pagination Component.
+
+## Quick Start
+
+```jsx
+import Pager from "carbon-react/lib/components/pager"
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const totalRecords = text("totalRecords", "100");
+      const showPageSizeSelection = boolean(
+        "showPageSizeSelection",
+        false
+      );
+      const pageSize = select("pageSize", {
+        one: 1,
+        10: 10,
+        25: 25,
+        50: 50,
+        100: 100
+      }, 10);
+      const currentPage = text("currentPage", "1");
+      const pageSizeSelectionOptions = object("pageSizeSelectionOptions",
+        [
+          { id: "1", name: 1 },
+          { id: "10", name: 10 },
+          { id: "25", name: 25 },
+          { id: "50", name: 50 },
+          { id: "100", name: 100 }
+        ]
+      );
+      return (
+        <Pager
+          totalRecords={ totalRecords }
+          showPageSizeSelection={ showPageSizeSelection }
+          pageSize={ pageSize }
+          currentPage={ currentPage }
+          onPagination={ () => {} }
+          pageSizeSelectionOptions={ pageSizeSelectionOptions }
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With disabled Page Size Selection
+
+<Preview>
+  <Story name="disabled page size">
+    <Pager
+      totalRecords={ 100 }
+      onPagination={ () => {} }
+    />
+  </Story>
+</Preview>
+
+### Hiding Pager elements
+Unlike with hiding the page size select component, the remaining elements that make up the `Pager` are rendered by 
+default: in order for them to be hidden you must pass `false` to the corresponding `show...` prop (see prop table below). 
+In the example below the `First` and `Last` buttons and `totalRecords` label have been hidden by setting the 
+`showFirstAndLastButtons` and `showTotalRecords` props to false.
+
+<Preview>
+  <Story name="hiding pager elements">
+    <Pager
+      totalRecords={ 100 }
+      onPagination={ () => {} }
+      showFirstAndLastButtons={ false }
+      showTotalRecords={ false }
+      showPageSizeSelection={ true }
+    />
+  </Story>
+</Preview>
+
+### Smart elements
+The examples below demonstrate the `Pager`'s smart functionality. In the first there are only enough records for one page, 
+and as such the navigation buttons are not neccessary and therefore not rendered. In the second example there are only enough 
+records for two pages, the `First` and `Last` buttons are not needed and as a result will not render. 
+
+<Preview>
+  <Story name="smart functionality">
+    <>
+      <Pager
+        totalRecords={ 10 }
+        onPagination={ () => {} }
+      />
+      <br/>
+      <Pager
+        totalRecords={ 20 }
+        onPagination={ () => {} }
+      />
+    </>
+  </Story>
+</Preview>
+
+### Loading state
+When no totalRecords provided.
+
+<Preview>
+  <Story name="loading state">
+    <Pager
+      onPagination={ () => {} }
+    />
+  </Story>
+</Preview>
+
+### Custom pageSizeSelectionOptions
+Shows 1, 2 or 5 items per page.
+
+<Preview>
+  <Story name="page size selection options" parameters={{chromatic: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      pageSizeSelectionOptions={
+        [
+          { id: "1", name: 1 },
+          { id: "2", name: 2 },
+          { id: "5", name: 5 }
+        ]
+      }
+      pageSize={ 1 }
+    />
+  </Story>
+</Preview>
+
+### With currentPage pre-set to last page
+Due to the fact that it is last page, next and last links are disabled.
+
+<Preview>
+  <Story name="current page last page" parameters={{chromatic: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      currentPage={ 10 }
+    />
+  </Story>
+</Preview>
+
+### With currentPage pre-set to page 5
+
+<Preview>
+  <Story name="current page" parameters={{chromatic: { disable: true }}} >
+    <Pager
+      onPagination={ () => {} }
+      totalRecords={ 100 }
+      showPageSizeSelection={ true }
+      currentPage={ 5 }
+    />
+  </Story>
+</Preview>
+
+### Custom responsive example
+The`show...` props can also be used to implement responsive behaviour in the `Pager`. Below is an example that will 
+conditionally render the interanl elements as the screen size is adjusted. This example is best viewed in the Canvas tab 
+using full-screen mode with device or viewport emulation.
+ 
+<Preview>
+  <Story name="using custom responsive settings" parameters={{chromatic: { disable: true }}} >
+    {() => {
+      const query1 = useMediaQuery('(max-width: 1000px)');
+      const query2 = useMediaQuery('(max-width: 900px)');
+      const query3 = useMediaQuery('(max-width: 800px)');
+      const query4 = useMediaQuery('(max-width: 700px)');
+      const query5 = useMediaQuery('(max-width: 600px)');
+      const responsiveProps = () => {
+        if (query5) {
+          return {
+            showPageSizeSelection: false,
+            showTotalRecords: false,
+            showFirstAndLastButtons: false
+          };
+        }
+        if (query4) {
+          return {
+            showFirstAndLastButtons: false,
+            showTotalRecords: false,
+            showPageSizeLabelBefore: false,
+            showPageSizeLabelAfter: false
+          };
+        }
+        if (query3) {
+          return {
+            showFirstAndLastButtons: false,
+            showTotalRecords: false,
+            showPageSizeLabelBefore: false,
+            showPageSizeLabelAfter: false
+          };
+        }
+        if (query2) {
+          return {
+            showFirstAndLastButtons: false,
+            showTotalRecords: false
+          };
+        }
+        if (query1) {
+          return {
+            showPageSizeSelection: true,
+            showFirstAndLastButtons: false          };
+        }
+        return {
+          showPageSizeSelection: true
+        };
+      }
+      return (
+        <Pager
+          totalRecords={ 1000 }
+          pageSize={ 10 }
+          currentPage={ 1 }
+          onPagination={ () => {} }
+          { ...responsiveProps() }
+          pageSizeSelectionOptions={ [
+            { id: "1", name: 1 },
+            { id: "10", name: 10 },
+            { id: "25", name: 25 },
+            { id: "50", name: 50 },
+            { id: "100", name: 100 }
+          ] }
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+## Props
+
+### Pager
+
+<Props of={Pager} />
