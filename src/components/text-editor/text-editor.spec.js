@@ -3,30 +3,30 @@ import { Editor, Modifier } from "draft-js";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import mintTheme from "../../../style/themes/mint";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import mintTheme from "../../style/themes/mint";
 import TextEditor, {
   TextEditorContentState,
   TextEditorState,
 } from "./text-editor.component";
-import EditorLink from "./editor-link/editor-link.component";
+import EditorLink from "./__internal__/editor-link/editor-link.component";
 import {
   StyledEditorOutline,
   StyledEditorContainer,
 } from "./text-editor.style";
-import ToolbarButton from "./toolbar/toolbar-button/toolbar-button.component";
-import Counter from "./editor-counter";
-import Toolbar from "./toolbar";
-import guid from "../../../utils/helpers/guid";
-import Label from "../../../__experimental__/components/label";
-import LabelWrapper from "./label-wrapper";
-import ValidationIcon from "../../validations";
-import { isSafari } from "../../../utils/helpers/browser-type-check";
+import ToolbarButton from "./__internal__/toolbar/toolbar-button/toolbar-button.component";
+import Counter from "./__internal__/editor-counter";
+import Toolbar from "./__internal__/toolbar";
+import guid from "../../utils/helpers/guid/guid";
+import Label from "../../__experimental__/components/label";
+import LabelWrapper from "./__internal__/label-wrapper";
+import ValidationIcon from "../validations";
+import { isSafari } from "../../utils/helpers/browser-type-check";
 
-jest.mock("../../../utils/helpers/browser-type-check");
+jest.mock("../../utils/helpers/browser-type-check");
 isSafari.mockImplementation(() => false);
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const createContent = (text) => {
@@ -168,6 +168,20 @@ describe("TextEditor", () => {
         wrapper.find(StyledEditorOutline)
       );
     });
+
+    it.each([2, 3, 4])(
+      "match the expected min-height when the a value of %s is passed to rows",
+      (rows) => {
+        wrapper = render({ rows });
+
+        assertStyleMatch(
+          {
+            minHeight: `${rows * 21}px`,
+          },
+          wrapper.find(StyledEditorContainer)
+        );
+      }
+    );
   });
 
   describe("Modifying the Editor state", () => {
@@ -878,6 +892,20 @@ describe("TextEditor", () => {
         },
         wrapper.find(StyledEditorOutline)
       );
+    });
+  });
+
+  describe("custom row prop type", () => {
+    it("throws an error if value less than 2 passed", () => {
+      jest.spyOn(global.console, "error");
+      wrapper = render({ rows: 1 });
+      expect(console.error).toHaveBeenCalled();
+    });
+
+    it("throws an error if value is not a number", () => {
+      jest.spyOn(global.console, "error");
+      wrapper = render({ rows: "foo" });
+      expect(console.error).toHaveBeenCalled();
     });
   });
 
