@@ -69,6 +69,18 @@ StyledHeadingBackButton.defaultProps = {
 
 const StyledHeadingTitle = styled(Typography)`
   line-height: 32px;
+  ${({ withMargin }) =>
+    withMargin
+      ? css`
+          margin-right: 16px;
+        `
+      : null}
+`;
+
+const StyledHeadingPills = styled.span`
+  line-height: 32px;
+  display: inline-block;
+  vertical-align: top;
 `;
 
 const StyledSubHeader = styled.div`
@@ -110,7 +122,8 @@ StyledSeparator.defaultProps = {
 
 const StyledHeaderHelp = styled(Help)`
   display: inline-block;
-  margin-left: 10px;
+  margin-left: -6px;
+  margin-right: 16px;
   position: relative;
   top: -4px;
   height: 22px;
@@ -127,4 +140,5 @@ export {
   StyledDivider,
   StyledHeaderContent,
   StyledHeadingBackButton,
+  StyledHeadingPills,
 };

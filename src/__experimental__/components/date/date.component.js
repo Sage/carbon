@@ -120,7 +120,7 @@ class BaseDateInput extends React.Component {
           this.state.visibleValue
         );
         const event = this.buildCustomEvent(
-          { target: this.input },
+          { target: this.input, type: "blur" },
           isoFormattedValueString(dateWithSlashes)
         );
         this.props.onBlur(event);
@@ -315,6 +315,7 @@ class BaseDateInput extends React.Component {
   };
 
   buildCustomEvent = (ev, isoFormattedValue) => {
+    const { type } = ev;
     const { id, name, value } = ev.target;
     const { lastValidEventValues } = this.state;
     const validRawValue = DateHelper.isValidDate(isoFormattedValue);
@@ -330,6 +331,7 @@ class BaseDateInput extends React.Component {
           formattedValue: DateHelper.formatDateToCurrentLocale(value),
         }),
         ...(validRawValue && { rawValue: isoFormattedValue }),
+        ...(type === "blur" && { formattedValue: value, rawValue: value }),
       },
     };
     return ev;

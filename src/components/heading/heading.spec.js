@@ -5,6 +5,7 @@ import {
   StyledSubHeader,
   StyledSeparator,
   StyledHeadingTitle,
+  StyledHeadingPills,
 } from "./heading.style";
 import Help from "../help";
 import Link from "../link";
@@ -17,6 +18,7 @@ import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
 import mintTheme from "../../style/themes/mint";
 import Hr from "../hr";
+import Pill from "../pill";
 
 describe("Heading", () => {
   it("renders a h1 with the title", () => {
@@ -92,6 +94,39 @@ describe("Heading", () => {
     expect(wrapper.find(StyledSubHeader).text()).toEqual("subheader");
   });
 
+  it("renders passed components inside pills container when provided", () => {
+    const testPills = [
+      <Pill key="1">test pill 1</Pill>,
+      <Pill key="2">test pill 2</Pill>,
+    ];
+    const wrapper = shallow(<Heading title="test" pills={testPills} />);
+    expect(wrapper.find(StyledHeadingPills).children()).toHaveLength(2);
+    expect(wrapper.find(Pill)).toHaveLength(2);
+  });
+
+  describe("renders title with margin ", () => {
+    it("if pills provided", () => {
+      const wrapper = mount(
+        <Heading title="Test" pills={<Pill>Pill</Pill>} />
+      ).find(StyledHeadingTitle);
+      assertStyleMatch({ marginRight: "16px" }, wrapper);
+    });
+
+    it("if help provided", () => {
+      const wrapper = mount(<Heading title="Test" help="Help" />).find(
+        StyledHeadingTitle
+      );
+      assertStyleMatch({ marginRight: "16px" }, wrapper);
+    });
+
+    it("if pills and help provided", () => {
+      const wrapper = mount(
+        <Heading title="Test" help="Help" pills={<Pill>Pill</Pill>} />
+      ).find(StyledHeadingTitle);
+      assertStyleMatch({ marginRight: "16px" }, wrapper);
+    });
+  });
+
   describe("no subheader", () => {
     it("returns nothing", () => {
       const wrapper = mount(<Heading />);
@@ -117,6 +152,13 @@ describe("Heading", () => {
     it("returns no help component", () => {
       const wrapper = mount(<Heading title="foo" />);
       expect(wrapper.find(Help).length).toEqual(0);
+    });
+  });
+
+  describe("no pills", () => {
+    it("returns no pills wrapper", () => {
+      const wrapper = mount(<Heading title="test" />);
+      expect(wrapper.find(StyledHeadingPills).exists()).toBe(false);
     });
   });
 
@@ -173,10 +215,11 @@ describe("Heading", () => {
           helpLink="test"
           subheader="Sub Title"
           title="Test"
+          pills={<Pill>Test</Pill>}
         />
       );
 
-      elementsTagTest(wrapper, ["back", "help", "subtitle", "title"]);
+      elementsTagTest(wrapper, ["back", "help", "subtitle", "title", "pills"]);
     });
   });
 });

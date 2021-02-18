@@ -1,3 +1,38 @@
+## [66.7.0](https://github.com/Sage/carbon/compare/v66.6.1...v66.7.0) (2021-02-18)
+
+
+### Features
+
+* **help:** add support for tooltip background and font color overrides ([c169979](https://github.com/Sage/carbon/commit/c16997917ce6184ec67d31eb0510bf90e723a0a2))
+* **icon:** add support for tooltip background and font color overrides ([d4f5db9](https://github.com/Sage/carbon/commit/d4f5db934c27ea44b688f35a169ddb79c461e9be))
+* **tooltip:** add support for background and font color overrides ([f607f77](https://github.com/Sage/carbon/commit/f607f77c973c71c79198b20d3609c68782f5da24))
+
+
+### Bug Fixes
+
+* **tooltip:** ensure long text strings wrap instead of overflow ([de44e2b](https://github.com/Sage/carbon/commit/de44e2b34bc3ce8f347b71fe552edc1ed2f9d981))
+
+### [66.6.1](https://github.com/Sage/carbon/compare/v66.6.0...v66.6.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* **date:** change onBlur event parameters ([16d186d](https://github.com/Sage/carbon/commit/16d186d09794863c7d042fa8b3c7ae20262b0bf7)), closes [#3132](https://github.com/Sage/carbon/issues/3132)
+
+## [66.6.0](https://github.com/Sage/carbon/compare/v66.5.0...v66.6.0) (2021-02-17)
+
+
+### Features
+
+* **heading:** add pills container ([4464a20](https://github.com/Sage/carbon/commit/4464a202253641623966bbe15bcc11f573a85d6c))
+
+## [66.5.0](https://github.com/Sage/carbon/compare/v66.4.1...v66.5.0) (2021-02-17)
+
+
+### Features
+
+* **button:** icon only button ([cd03584](https://github.com/Sage/carbon/commit/cd035845a772b7fb6331809c845f5b1facb56337)), closes [#3236](https://github.com/Sage/carbon/issues/3236)
+
 ### [66.4.1](https://github.com/Sage/carbon/compare/v66.4.0...v66.4.1) (2021-02-17)
 
 
