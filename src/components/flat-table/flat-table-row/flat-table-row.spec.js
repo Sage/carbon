@@ -151,7 +151,6 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           backgroundColor: baseTheme.flatTable.selected,
-          borderBottomColor: baseTheme.flatTable.selected,
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -186,7 +185,6 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           backgroundColor: baseTheme.flatTable.highlighted,
-          borderBottomColor: baseTheme.flatTable.highlighted,
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -201,7 +199,6 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           backgroundColor: baseTheme.flatTable.highlighted,
-          borderBottomColor: baseTheme.flatTable.highlighted,
         },
         wrapper,
         { modifier: `${StyledFlatTableRowHeader}` }
@@ -304,7 +301,6 @@ describe("FlatTableRow", () => {
           assertStyleMatch(
             {
               backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
-              borderBottomColor: baseTheme.flatTable.drawerSidebar.selected,
             },
             wrapper,
             { modifier: `${el}` }
@@ -339,7 +335,6 @@ describe("FlatTableRow", () => {
           assertStyleMatch(
             {
               backgroundColor: baseTheme.flatTable.drawerSidebar.highlighted,
-              borderBottomColor: baseTheme.flatTable.drawerSidebar.highlighted,
             },
             wrapper,
             { modifier: `${el}` }
@@ -375,7 +370,6 @@ describe("FlatTableRow", () => {
             assertStyleMatch(
               {
                 backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
-                borderBottomColor: baseTheme.flatTable.drawerSidebar.selected,
               },
               wrapper,
               { modifier: `${el}` }

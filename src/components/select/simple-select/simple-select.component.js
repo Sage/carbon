@@ -77,22 +77,6 @@ const SimpleSelect = React.forwardRef(
       [name, id]
     );
 
-    const setMatchingText = useCallback(
-      (newValue) => {
-        const matchingOption = childOptions.find((child) =>
-          isExpectedOption(child, newValue)
-        );
-        let newText = "";
-
-        if (matchingOption) {
-          newText = matchingOption.props.text;
-        }
-
-        setTextValue(newText);
-      },
-      [childOptions]
-    );
-
     const selectValueStartingWithText = useCallback(
       (newFilterText) => {
         setSelectedValue((previousValue) => {
@@ -187,21 +171,23 @@ const SimpleSelect = React.forwardRef(
       [onKeyDown, onOpen, readOnly]
     );
 
-    const handleGlobalClick = useCallback(
-      (event) => {
-        const notInContainer =
-          containerRef.current && !containerRef.current.contains(event.target);
+    const handleGlobalClick = useCallback((event) => {
+      const notInContainer =
+        containerRef.current && !containerRef.current.contains(event.target);
 
-        if (notInContainer && !isClickTriggeredBySelect.current) {
-          setMatchingText(selectedValue);
-          setOpenState(false);
+      if (notInContainer && !isClickTriggeredBySelect.current) {
+        setOpenState((previousValue) => {
+          if (!previousValue) {
+            return false;
+          }
+
           filterText.current = "";
-        }
+          return false;
+        });
+      }
 
-        isClickTriggeredBySelect.current = false;
-      },
-      [setMatchingText, selectedValue]
-    );
+      isClickTriggeredBySelect.current = false;
+    }, []);
 
     useEffect(() => {
       const newValue = value || defaultValue;
@@ -221,8 +207,20 @@ const SimpleSelect = React.forwardRef(
       );
 
       setSelectedValue(newValue);
-      setMatchingText(newValue);
-    }, [value, defaultValue, setMatchingText, onChange]);
+    }, [value, defaultValue, onChange]);
+
+    useEffect(() => {
+      const matchingOption = childOptions.find((child) =>
+        isExpectedOption(child, selectedValue)
+      );
+      let newText = "";
+
+      if (matchingOption) {
+        newText = matchingOption.props.text;
+      }
+
+      setTextValue(newText);
+    }, [selectedValue, childOptions]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -329,7 +327,6 @@ const SimpleSelect = React.forwardRef(
     function onSelectListClose() {
       setOpenState(false);
       filterText.current = "";
-      setMatchingText(selectedValue);
     }
 
     function isNavigationKey(key) {
