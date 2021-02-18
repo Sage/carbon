@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
+import i18n from "i18next";
+import round from "lodash/round";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { InputPresentation } from "../input";
 import FormField from "../form-field";
@@ -14,6 +15,11 @@ import guid from "../../../utils/helpers/guid/guid";
 import StyledTextarea from "./textarea.style";
 
 const i18nNumberOpts = { precision: 0 };
+function formatNumber(value) {
+  return new Intl.NumberFormat(i18n.language).format(
+    round(value, i18nNumberOpts.precision)
+  );
+}
 
 class Textarea extends React.Component {
   // Minimum height of the textarea
@@ -108,8 +114,8 @@ class Textarea extends React.Component {
     return (
       <CharacterCount
         isOverLimit={this.overLimit && warnOverLimit}
-        value={I18n.toNumber(value.length, i18nNumberOpts)}
-        limit={I18n.toNumber(characterLimit, i18nNumberOpts)}
+        value={formatNumber(value.length)}
+        limit={formatNumber(characterLimit)}
         data-element="character-limit"
       />
     );
