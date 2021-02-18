@@ -3,15 +3,15 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
-import { StyledSelectList } from "./select-list.style";
+import { StyledSelectList, StyledPopoverContainer } from "./select-list.style";
 import { baseTheme } from "../../../style/themes";
 import Option from "../option/option.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
-import Portal from "../../portal";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSelectListContainer from "./select-list-container.style";
+import Popover from "../../../__internal__/popover";
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -269,10 +269,7 @@ describe("SelectList", () => {
     mockAnchorElement.appendChild(mockInput);
     const getBoundingClientRectMock = () => {
       return {
-        top: 100,
-        left: 100,
         width: 200,
-        height: 50,
       };
     };
     mockAnchorElement.getBoundingClientRect = getBoundingClientRectMock;
@@ -294,18 +291,11 @@ describe("SelectList", () => {
       document.body.removeChild(testContainer);
     });
 
-    it('then the list wrapper should have expected "top", "left" and "width" values', () => {
-      const listWrapperSelector = 'div[data-element="select-list-wrapper"]';
-      expect(
-        wrapper.find("Portal").find(listWrapperSelector).getDOMNode().style.top
-      ).toBe("150px");
-      expect(
-        wrapper.find("Portal").find(listWrapperSelector).getDOMNode().style.left
-      ).toBe("96px");
-      expect(
-        wrapper.find("Portal").find(listWrapperSelector).getDOMNode().style
-          .width
-      ).toBe("208px");
+    it('then the popover container should have expected "width" value', () => {
+      assertStyleMatch(
+        { width: "208px" },
+        wrapper.find(StyledPopoverContainer)
+      );
     });
 
     describe.each([
@@ -475,6 +465,11 @@ describe("SelectList", () => {
         wrapper.find(StyledSelectListContainer)
       );
 
+      assertStyleMatch(
+        { height: "100px" },
+        wrapper.find(StyledPopoverContainer)
+      );
+
       wrapper.detach();
       document.body.removeChild(testContainer);
     });
@@ -583,15 +578,27 @@ describe("SelectList", () => {
     });
   });
 
-  describe("portal", () => {
-    it("renders SelectList as a child of portal by default", () => {
+  describe("popover", () => {
+    it("renders SelectList as a child of Popover with disablePortal=undefined by default", () => {
       const wrapper = renderSelectList();
-      expect(wrapper.find(Portal).find(StyledSelectList).exists()).toBe(true);
+      expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
+      expect(wrapper.find(Popover).props().disablePortal).toBe(undefined);
     });
 
-    it("does not render portal when disablePortal is passed", () => {
+    it("renders SelectList as a child of Popover with disablePortal=true when disablePortal prop is passed", () => {
       const wrapper = renderSelectList({ disablePortal: true });
-      expect(wrapper.find(Portal).exists()).toBe(false);
+      expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
+      expect(wrapper.find(Popover).props().disablePortal).toBe(true);
+    });
+
+    it("renders StyledSelectListContainer with bottom:0 style when placement is passed as top", () => {
+      const wrapper = mount(<StyledSelectListContainer placement="top" />);
+      assertStyleMatch(
+        {
+          bottom: "0",
+        },
+        wrapper
+      );
     });
   });
 
