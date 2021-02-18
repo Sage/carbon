@@ -1,3 +1,10 @@
+## [66.8.0](https://github.com/Sage/carbon/compare/v66.7.0...v66.8.0) (2021-02-18)
+
+
+### Features
+
+* **text-editor:** add rows prop to support custom min  height ([966d405](https://github.com/Sage/carbon/commit/966d405be3e4b9aff3b28d01633a2108b7996c63)), closes [#3632](https://github.com/Sage/carbon/issues/3632)
+
 ## [66.7.0](https://github.com/Sage/carbon/compare/v66.6.1...v66.7.0) (2021-02-18)
 
 
