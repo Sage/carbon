@@ -181,9 +181,9 @@ Search.propTypes = {
   searchWidth: PropTypes.string,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
-  /** Prop for `id` events */
+  /** Prop for `id` */
   id: PropTypes.string,
-  /** Prop for `name` events */
+  /** Prop for `name` */
   name: PropTypes.string,
   /** Prop for active search threshold. This must be a positive number */
   threshold(props, propName) {
