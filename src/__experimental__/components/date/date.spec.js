@@ -293,7 +293,7 @@ describe("Date", () => {
       });
 
       describe("and the rawValue is invalid", () => {
-        it("then it should return the previous valid date values", () => {
+        it("then it should return the previous valid date values if not triggered by blur", () => {
           simulateFocusOnInput(wrapper);
           const event = {
             target: {
@@ -308,6 +308,26 @@ describe("Date", () => {
               .instance()
               .buildCustomEvent(event, "foo").target.value
           ).toEqual({ formattedValue: firstDate, rawValue: "2019-08-12" });
+        });
+
+        it("then it should return input invalid value if triggered by blur", () => {
+          const event = {
+            type: "blur",
+            target: {
+              name: "foo",
+              id: "foo",
+              value: "invalid_value",
+            },
+          };
+          expect(
+            wrapper
+              .find(BaseDateInput)
+              .instance()
+              .buildCustomEvent(event, "foo").target.value
+          ).toEqual({
+            formattedValue: "invalid_value",
+            rawValue: "invalid_value",
+          });
         });
       });
     });
