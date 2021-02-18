@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const HiddenCheckableInput = ({
   helpId,

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import SwitchStyle from "./switch.style";
-import CheckableInput from "../checkable-input";
+import CheckableInput from "../../../__internal__/checkable-input";
 import SwitchSlider from "./switch-slider.component";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 
