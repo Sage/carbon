@@ -13,6 +13,7 @@ import StyledTable from "../table.style";
 import StyledIcon from "../../icon/icon.style";
 import { Checkbox } from "../../../__experimental__/components/checkbox";
 import { baseTheme } from "../../../style/themes";
+import I18next from "../../../__spec_helper__/I18next";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
@@ -866,26 +867,28 @@ describe("TableRow", () => {
 
   function render() {
     wrapper = mount(
-      <ThemeProvider {...{ theme: baseTheme }}>
-        <Table>
-          <TableRow>
-            <TableHeader>First Name</TableHeader>
-            <TableHeader>Last Name</TableHeader>
-            <TableHeader>&nbsp;</TableHeader>
-          </TableRow>
-          <TableRow>
-            <TableCell>John</TableCell>
-            <TableCell>Doe</TableCell>
-            <TableCell>
-              <ActionPopover {...{ onOpen, onClose }}>
-                <ActionPopoverItem icon="email">
-                  Email Invoice
-                </ActionPopoverItem>
-              </ActionPopover>
-            </TableCell>
-          </TableRow>
-        </Table>
-      </ThemeProvider>,
+      <I18next>
+        <ThemeProvider {...{ theme: baseTheme }}>
+          <Table>
+            <TableRow>
+              <TableHeader>First Name</TableHeader>
+              <TableHeader>Last Name</TableHeader>
+              <TableHeader>&nbsp;</TableHeader>
+            </TableRow>
+            <TableRow>
+              <TableCell>John</TableCell>
+              <TableCell>Doe</TableCell>
+              <TableCell>
+                <ActionPopover {...{ onOpen, onClose }}>
+                  <ActionPopoverItem icon="email">
+                    Email Invoice
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </TableCell>
+            </TableRow>
+          </Table>
+        </ThemeProvider>
+      </I18next>,
       { attachTo: container }
     );
   }

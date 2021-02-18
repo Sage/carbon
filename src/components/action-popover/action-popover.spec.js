@@ -19,6 +19,7 @@ import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
 import guid from "../../utils/helpers/guid";
+import I18next from "../../__spec_helper__/I18next";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -83,13 +84,15 @@ describe("ActionPopover", () => {
     };
 
     renderer(
-      <ThemeProvider theme={mintTheme}>
-        <React.Fragment>
-          <input id="before" />
-          <ActionPopover {...defaultProps} {...props} />
-          <input id="after" />
-        </React.Fragment>
-      </ThemeProvider>
+      <I18next>
+        <ThemeProvider theme={mintTheme}>
+          <React.Fragment>
+            <input id="before" />
+            <ActionPopover {...defaultProps} {...props} />
+            <input id="after" />
+          </React.Fragment>
+        </ThemeProvider>
+      </I18next>
     );
   }
 
@@ -152,13 +155,15 @@ describe("ActionPopover", () => {
     };
 
     renderer(
-      <ThemeProvider theme={mintTheme}>
-        <React.Fragment>
-          <input id="before" />
-          <ActionPopover {...defaultProps} {...props} />
-          <input id="after" />
-        </React.Fragment>
-      </ThemeProvider>
+      <I18next>
+        <ThemeProvider theme={mintTheme}>
+          <React.Fragment>
+            <input id="before" />
+            <ActionPopover {...defaultProps} {...props} />
+            <input id="after" />
+          </React.Fragment>
+        </ThemeProvider>
+      </I18next>
     );
   }
 
@@ -256,12 +261,14 @@ describe("ActionPopover", () => {
       "applies proper placement prop to Popover component",
       (placement, rightAlignMenu, result) => {
         const myWrapper = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopover
-              placement={placement}
-              rightAlignMenu={rightAlignMenu}
-            />
-          </ThemeProvider>
+          <I18next>
+            <ThemeProvider theme={mintTheme}>
+              <ActionPopover
+                placement={placement}
+                rightAlignMenu={rightAlignMenu}
+              />
+            </ThemeProvider>
+          </I18next>
         );
 
         myWrapper.find(MenuButton).simulate("click");
@@ -705,12 +712,14 @@ describe("ActionPopover", () => {
   it("validates the children prop", () => {
     jest.spyOn(global.console, "error").mockImplementation(() => {});
     const tempWrapper = enzymeMount(
-      <ThemeProvider theme={mintTheme}>
-        <ActionPopover>
-          <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
-          <p>invalid children</p>
-        </ActionPopover>
-      </ThemeProvider>
+      <I18next>
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
+            <p>invalid children</p>
+          </ActionPopover>
+        </ThemeProvider>
+      </I18next>
     );
     tempWrapper.find(MenuButton).simulate("click");
     jest.runAllTimers();
@@ -906,16 +915,18 @@ describe("ActionPopover", () => {
 
       it("does not open a submenu if an item is disabled", () => {
         const item = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverItem
-              icon="email"
-              disabled
-              submenu={<ActionPopoverMenu />}
-              {...{ onClick: onClickWrapper("email") }}
-            >
-              Foo
-            </ActionPopoverItem>
-          </ThemeProvider>
+          <I18next>
+            <ThemeProvider theme={mintTheme}>
+              <ActionPopoverItem
+                icon="email"
+                disabled
+                submenu={<ActionPopoverMenu />}
+                {...{ onClick: onClickWrapper("email") }}
+              >
+                Foo
+              </ActionPopoverItem>
+            </ThemeProvider>
+          </I18next>
         ).find(ActionPopoverItem);
 
         expect(item.props().submenu).toBeTruthy();
@@ -1013,26 +1024,28 @@ describe("ActionPopover", () => {
     describe('when the "focusIndex" prop is null', () => {
       it("does not focus the first of the items", () => {
         const item = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverMenu
-              onClick={onClick}
-              setItems={jest.fn()}
-              ref={{
-                current: {
-                  addEventListener: jest.fn(),
-                  removeEventListener: jest.fn(),
-                },
-              }}
-              focusIndex={null}
-            >
-              <ActionPopoverItem
-                key="0"
-                {...{ onClick: onClickWrapper("sub menu 1") }}
+          <I18next>
+            <ThemeProvider theme={mintTheme}>
+              <ActionPopoverMenu
+                onClick={onClick}
+                setItems={jest.fn()}
+                ref={{
+                  current: {
+                    addEventListener: jest.fn(),
+                    removeEventListener: jest.fn(),
+                  },
+                }}
+                focusIndex={null}
               >
-                Sub Menu 1
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          </ThemeProvider>
+                <ActionPopoverItem
+                  key="0"
+                  {...{ onClick: onClickWrapper("sub menu 1") }}
+                >
+                  Sub Menu 1
+                </ActionPopoverItem>
+              </ActionPopoverMenu>
+            </ThemeProvider>
+          </I18next>
         ).find(ActionPopoverItem);
         expect(item).not.toBeFocused();
         assertStyleMatch(
@@ -1124,17 +1137,19 @@ describe("ActionPopover", () => {
     it("validates the submenu prop", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
       ReactDOM.render(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover>
-            <ActionPopoverItem
-              submenu={<p>foo</p>}
-              icon="pdf"
-              onClick={jest.fn()}
-            >
-              item
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>,
+        <I18next>
+          <ThemeProvider theme={mintTheme}>
+            <ActionPopover>
+              <ActionPopoverItem
+                submenu={<p>foo</p>}
+                icon="pdf"
+                onClick={jest.fn()}
+              >
+                item
+              </ActionPopoverItem>
+            </ActionPopover>
+          </ThemeProvider>
+        </I18next>,
         container
       );
       // eslint-disable-next-line no-console
@@ -1160,25 +1175,27 @@ describe("ActionPopover", () => {
         }));
 
       wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover placement="top">
-            <ActionPopoverItem
-              onClick={onClick}
-              submenu={
-                <ActionPopoverMenu onClick={onClick}>
-                  <ActionPopoverItem
-                    key="0"
-                    {...{ onClick: onClickWrapper("sub menu 1") }}
-                  >
-                    Sub Menu 1
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
-            >
-              foo
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <I18next>
+          <ThemeProvider theme={mintTheme}>
+            <ActionPopover placement="top">
+              <ActionPopoverItem
+                onClick={onClick}
+                submenu={
+                  <ActionPopoverMenu onClick={onClick}>
+                    <ActionPopoverItem
+                      key="0"
+                      {...{ onClick: onClickWrapper("sub menu 1") }}
+                    >
+                      Sub Menu 1
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
+              >
+                foo
+              </ActionPopoverItem>
+            </ActionPopover>
+          </ThemeProvider>
+        </I18next>
       );
     });
 
@@ -1196,23 +1213,25 @@ describe("ActionPopover", () => {
   describe("Custom Menu Button", () => {
     it("supports being passed an override component to act as the menu button", () => {
       const popover = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover
-            renderButton={(props) => (
-              <ActionPopoverMenuButton
-                buttonType="tertiary"
-                iconType="dropdown"
-                iconPosition="after"
-                size="small"
-                {...props}
-              >
-                Foo
-              </ActionPopoverMenuButton>
-            )}
-          >
-            <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <I18next>
+          <ThemeProvider theme={mintTheme}>
+            <ActionPopover
+              renderButton={(props) => (
+                <ActionPopoverMenuButton
+                  buttonType="tertiary"
+                  iconType="dropdown"
+                  iconPosition="after"
+                  size="small"
+                  {...props}
+                >
+                  Foo
+                </ActionPopoverMenuButton>
+              )}
+            >
+              <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
+            </ActionPopover>
+          </ThemeProvider>
+        </I18next>
       ).find(ActionPopover);
 
       const menuButton = popover.find(ActionPopoverMenuButton);
