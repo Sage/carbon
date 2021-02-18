@@ -1,9 +1,6 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 import HiddenCheckableInput from "./hidden-checkable-input.component";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";

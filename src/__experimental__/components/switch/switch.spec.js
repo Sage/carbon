@@ -7,10 +7,10 @@ import { mount } from "enzyme";
 import I18n from "i18n-js";
 
 import Switch from ".";
-import CheckableInput from "../checkable-input";
-import { StyledCheckableInput } from "../checkable-input/checkable-input.style";
+import CheckableInput from "../../../__internal__/checkable-input";
+import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
 import FieldHelpStyle from "../field-help/field-help.style";
-import HiddenCheckableInputStyle from "../checkable-input/hidden-checkable-input.style";
+import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledLabelContainer } from "../label/label.style";
 import StyledSwitchSlider from "./switch-slider.style";
 import guid from "../../../utils/helpers/guid";
