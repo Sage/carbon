@@ -1,2 +1,2 @@
-export { default } from './__internal__/text-editor';
-export * from './__internal__/text-editor';
+export { default } from './text-editor';
+export * from './text-editor';

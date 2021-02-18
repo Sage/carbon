@@ -21,17 +21,17 @@ import {
   hasInlineStyle,
   hasBlockStyle,
   blockStyleFn,
-} from "./utils";
+} from "./__internal__/utils";
 import {
   StyledEditorOutline,
   StyledEditorContainer,
 } from "./text-editor.style";
-import Counter from "./editor-counter";
-import Toolbar from "./toolbar";
-import Label from "../../../__experimental__/components/label";
-import Events from "../../../utils/helpers/events/events";
-import createGuid from "../../../utils/helpers/guid";
-import LabelWrapper from "./label-wrapper";
+import Counter from "./__internal__/editor-counter";
+import Toolbar from "./__internal__/toolbar";
+import Label from "../../__experimental__/components/label";
+import Events from "../../utils/helpers/events/events";
+import createGuid from "../../utils/helpers/guid";
+import LabelWrapper from "./__internal__/label-wrapper";
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const INLINE_STYLES = ["BOLD", "ITALIC"];
@@ -49,6 +49,7 @@ const TextEditor = React.forwardRef(
       warning,
       info,
       toolbarElements,
+      rows,
     },
     ref
   ) => {
@@ -297,6 +298,7 @@ const TextEditor = React.forwardRef(
             data-component="text-editor-container"
             ariaLabelledBy={labelId.current}
             hasError={!!error}
+            rows={rows}
           >
             <Counter
               limit={characterLimit}
@@ -357,6 +359,19 @@ TextEditor.propTypes = {
   info: PropTypes.string,
   /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
   toolbarElements: PropTypes.node,
+  /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
+  rows: (props, propName) => {
+    if (
+      props[propName] &&
+      (typeof props[propName] !== "number" || props[propName] < 2)
+    ) {
+      return new Error(
+        `Prop \`${propName}\` must be a number value greater than 2 to override the min-height of the \`TextEditor\``
+      );
+    }
+
+    return null;
+  },
 };
 
 export const TextEditorState = EditorState;
