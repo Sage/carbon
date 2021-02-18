@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 import { createPopper } from "@popperjs/core";
@@ -8,9 +8,14 @@ import Popover, { alignSameWidthPopoverFunction } from "./popover.component";
 jest.mock("@popperjs/core");
 
 const Component = (props) => {
-  const ref = React.createRef();
+  const [ref, setRef] = useState({});
+
+  const setRefCallback = useCallback((reference) => {
+    setRef({ current: reference });
+  }, []);
+
   return (
-    <div ref={ref} id="popover-container">
+    <div ref={setRefCallback} id="popover-container">
       <Popover placement="bottom-start" {...props} reference={ref}>
         <div id="popover-children" />
       </Popover>

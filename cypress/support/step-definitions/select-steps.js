@@ -36,7 +36,7 @@ When("I focus openOnFocus Select input", () => {
 });
 
 When("I click openOnFocus Select input", () => {
-  openOnFocusID().click();
+  openOnFocusID().click({ force: true });
 });
 
 Then("{string} Select list is opened", (name) => {
