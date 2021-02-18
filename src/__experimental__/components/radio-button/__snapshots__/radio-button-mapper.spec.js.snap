@@ -125,6 +125,10 @@ Array [
   margin-bottom: 0;
 }
 
+.c0.c0 .c2 {
+  margin: 0;
+}
+
 .c0 .c10 {
   padding: 0;
 }
@@ -344,6 +348,10 @@ Array [
 
 .c0:last-of-type {
   margin-bottom: 0;
+}
+
+.c0.c0 .c2 {
+  margin: 0;
 }
 
 .c0 .c10 {

@@ -5,10 +5,6 @@ exports[`RadioButton base renders as expected 1`] = `
   margin-top: 16px;
 }
 
-.c4.c4.c4 {
-  margin-bottom: 0;
-}
-
 .c6 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -129,6 +125,10 @@ exports[`RadioButton base renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c14.c14 .c3 {
+  margin: 0;
+}
+
 .c14 .c11 {
   padding: 0;
 }
@@ -197,6 +197,10 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c15 .c9:checked ~ .c11 svg path {
   fill: rgba(0,0,0,0.90);
+}
+
+.c15.c15 .c3 {
+  margin: 0;
 }
 
 .c15 .c11 {
@@ -273,6 +277,10 @@ exports[`RadioButton base renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
+.c16.c16 .c3 {
+  margin: 0;
+}
+
 .c16 .c11 {
   padding: 0;
 }
@@ -303,7 +311,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c1 {
-  margin-top: 4px;
+  margin-bottom: 16px;
 }
 
 .c1 .c7 {
@@ -360,6 +368,14 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c1 .c9:checked ~ .c11 svg path {
   fill: rgba(0,0,0,0.90);
+}
+
+.c1:last-of-type {
+  margin-bottom: 0;
+}
+
+.c1.c1 .c3 {
+  margin: 0;
 }
 
 .c1 .c11 {

@@ -1,9 +1,15 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
+import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const radioButtonGroupPassedProps = {
   /** Props to be passed from RadioButtonGroup */
@@ -36,10 +42,9 @@ const RadioButton = ({
   error,
   warning,
   info,
-  mt,
-  mb = 2,
   ...props
 }) => {
+  const marginProps = filterStyledSystemMarginProps(props);
   const handleChange = useCallback(
     (ev) => {
       onChange(ev);
@@ -74,7 +79,6 @@ const RadioButton = ({
     inputLabel: label,
     inputValue: value,
     inputType: "radio",
-    mb,
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
@@ -90,8 +94,8 @@ const RadioButton = ({
       reverse={reverse}
       size={size}
       {...commonProps}
+      {...marginProps}
       {...tagComponent("radio-button", props)}
-      mt={mt}
     >
       <CheckableInput {...inputProps}>
         <RadioButtonSvg />
@@ -101,6 +105,7 @@ const RadioButton = ({
 };
 
 RadioButton.propTypes = {
+  ...marginPropTypes,
   /** Set the value of the radio button */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -136,10 +141,6 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(["small", "large"]),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
-  /** Margin top, given number will be multiplied by base spacing unit (8) */
-  mt: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
