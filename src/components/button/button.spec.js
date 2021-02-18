@@ -50,6 +50,20 @@ describe("Button", () => {
     );
   });
 
+  describe("when iconType specified with no children", () => {
+    it("icon matches the style for an icon only button", () => {
+      const wrapper = mount(<Button iconType="bin" />);
+
+      assertStyleMatch(
+        {
+          marginBottom: "1px",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}` }
+      );
+    });
+  });
+
   describe.each(Object.entries(sizesPadding))(
     "spacing for %s button",
     (size, px) => {
@@ -105,6 +119,28 @@ describe("Button", () => {
             });
           }
         );
+      }
+    );
+  });
+
+  describe("When icon type is specified and button has no children", () => {
+    describe.each(OptionsHelper.buttonTypes)(
+      "and the button type is %s",
+      (buttonType) => {
+        let wrapper;
+        beforeEach(() => {
+          wrapper = render({
+            iconType: "filter",
+            buttonType,
+          }).dive();
+        });
+
+        it("contains an Icon", () => {
+          const assertion =
+            wrapper.find(Icon).exists() &&
+            wrapper.find(Icon).props().type === "filter";
+          expect(assertion).toEqual(true);
+        });
       }
     );
   });
@@ -515,6 +551,17 @@ describe("Button", () => {
       ).dive();
 
       rootTagTest(wrapper, "button", "bar", "baz");
+    });
+  });
+
+  describe("aria-label", () => {
+    it("should be present when button has only an icon", () => {
+      const wrapper = shallow(
+        <Button aria-label="Bin" iconType="bin" />
+      ).dive();
+
+      const ariaLink = wrapper.find('[aria-label="Bin"]');
+      expect(ariaLink.exists()).toBe(true);
     });
   });
 

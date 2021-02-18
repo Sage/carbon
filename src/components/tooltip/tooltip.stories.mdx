@@ -206,6 +206,39 @@ or if no value is passed it will default to a black background.
   </Story>
 </Preview>
 
+### Color overrides
+The `Tooltip` background and font color can be overridden via the `bgColor` and `fontColor` props and accept any valid 
+css value. Any values passed to the `bgColor` prop will override the color applied by the `type`
+
+<Preview>
+  <Story name="color overrides">
+     {() => {
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <div style={{ padding: "60px" }}>
+          <Tooltip message="I am a tooltip!" bgColor="lightblue" fontColor="black">
+            <Component>target</Component>
+          </Tooltip>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Tooltip Props
 
 <Props of={Tooltip} />

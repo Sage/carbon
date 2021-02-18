@@ -17,6 +17,8 @@ export interface TooltipProps {
     size?: 'medium' | 'large';
     isPartOfInput?: boolean;
     inputSize?: 'small' | 'medium' | 'large';
+    bgColor?: string;
+    fontColor?: string;
 }
 
 declare const Tooltip: React.FunctionComponent<TooltipProps>;

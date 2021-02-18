@@ -1,6 +1,7 @@
 import React from "react";
 import { text, boolean } from "@storybook/addon-knobs";
 import Heading from "./heading.component";
+import Pill from "../pill";
 
 export default {
   title: "Heading/Test",
@@ -35,6 +36,17 @@ export const Default = () => {
       backLink={backLink}
       divider={divider}
       separator={separator}
+      pills={[
+        <Pill mr={2} key="1">
+          test pill 1
+        </Pill>,
+        <Pill mr={2} key="2" size="L">
+          test pill 2
+        </Pill>,
+        <Pill mr={2} key="3" size="XL">
+          test pill 3
+        </Pill>,
+      ]}
     >
       {children}
     </Heading>

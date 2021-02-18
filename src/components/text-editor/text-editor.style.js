@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
-import { isSafari } from "../../../utils/helpers/browser-type-check";
+import baseTheme from "../../style/themes/base";
+import { isSafari } from "../../utils/helpers/browser-type-check";
+
+const lineHeight = 21;
 
 const StyledEditorContainer = styled.div`
-  ${({ theme, hasError }) => css`
-    min-height: 220px;
+  ${({ theme, hasError, rows }) => css`
+    min-height: ${rows ? `${rows * lineHeight}` : "220"}px;
     min-width: 320px;
 
     div.DraftEditor-root {
@@ -20,7 +22,7 @@ const StyledEditorContainer = styled.div`
       height: 100%;
       min-width: 290px;
       background-color: ${theme.colors.white};
-      line-height: 21px;
+      line-height: ${lineHeight}px;
 
       ${!isSafari(navigator) &&
       css`

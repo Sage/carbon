@@ -16,7 +16,6 @@ Feature: Tile component
     Then Tile pixel width is set to <pixelWidth>
     Examples:
       | pixelWidth | nameOfObject   |
-      | 1          | pixelWidth1    |
       | 100        | pixelWidth100  |
       | 1999       | pixelWidth1999 |
 

@@ -5,7 +5,7 @@ import {
   StyledPagerNavigation,
   StyledPagerNavInner,
   StyledPagerNoSelect,
-} from "./pager.style";
+} from "../pager.style";
 import NumberInput from "../../../__experimental__/components/number";
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
@@ -22,10 +22,20 @@ const PagerNavigation = ({
   onLast,
   onPagination,
   pageCount,
-  ...props
+  showFirstAndLastButtons = true,
+  showPreviousAndNextButtons = true,
+  showPageCount = true,
 }) => {
   const guid = useRef(createGuid());
   const currentPageId = `Pager_${guid.current}`;
+  const hasOnePage = pageCount <= 1;
+  const hasTwoPages = pageCount === 2;
+  const pagerNavigationProps = {
+    currentPage,
+    pageSize,
+    pageCount,
+    onPagination,
+  };
 
   const handlePageInputChange = (ev) => {
     if (pageCount === 0) {
@@ -55,59 +65,71 @@ const PagerNavigation = ({
     setCurrentPage(e.target.value);
   };
 
-  const pagerNavigationLinkProps = {
-    currentPage,
-    pageSize,
-    pageCount,
-    onPagination,
-  };
+  const renderButtonsBeforeCount = () => (
+    <>
+      {!hasTwoPages && showFirstAndLastButtons && (
+        <PagerNavigationLink
+          type="first"
+          onClick={onFirst}
+          {...pagerNavigationProps}
+        />
+      )}
+      {showPreviousAndNextButtons && (
+        <PagerNavigationLink
+          type="previous"
+          onClick={onPrevious}
+          {...pagerNavigationProps}
+        />
+      )}
+    </>
+  );
+
+  const renderButtonsAfterCount = () => (
+    <>
+      {showPreviousAndNextButtons && (
+        <PagerNavigationLink
+          type="next"
+          onClick={onNext}
+          {...pagerNavigationProps}
+        />
+      )}
+      {!hasTwoPages && showFirstAndLastButtons && (
+        <PagerNavigationLink
+          type="last"
+          onClick={onLast}
+          {...pagerNavigationProps}
+        />
+      )}
+    </>
+  );
 
   return (
-    <StyledPagerNavigation {...props}>
-      <PagerNavigationLink
-        type="first"
-        onClick={onFirst}
-        {...pagerNavigationLinkProps}
-      />
-      <PagerNavigationLink
-        type="previous"
-        onClick={onPrevious}
-        {...pagerNavigationLinkProps}
-      />
-      <StyledPagerNavInner>
-        <StyledPagerNoSelect>
-          {I18n.t("pager.page_x", { defaultValue: "Page " })}
-        </StyledPagerNoSelect>
-        <Label htmlFor={currentPageId}>
-          <NumberInput
-            value={currentPage.toString()}
-            data-element="current-page"
-            onChange={handleCurrentPageChange}
-            onBlur={handlePageInputChange}
-            id={currentPageId}
-            onKeyUp={(ev) => {
-              if (!Events.isEnterKey(ev)) {
-                return false;
+    <StyledPagerNavigation>
+      {!hasOnePage && renderButtonsBeforeCount()}
+      {showPageCount && (
+        <StyledPagerNavInner>
+          <StyledPagerNoSelect>
+            {I18n.t("pager.page_x", { defaultValue: "Page " })}
+          </StyledPagerNoSelect>
+          <Label htmlFor={currentPageId}>
+            <NumberInput
+              value={currentPage.toString()}
+              data-element="current-page"
+              onChange={handleCurrentPageChange}
+              onBlur={handlePageInputChange}
+              id={currentPageId}
+              onKeyUp={(ev) =>
+                Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
               }
-              return handlePageInputChange(ev);
-            }}
-          />
-        </Label>
-        <StyledPagerNoSelect>
-          {I18n.t("pager.of_y", { defaultValue: " of " })}
-          {pageCount}
-        </StyledPagerNoSelect>
-      </StyledPagerNavInner>
-      <PagerNavigationLink
-        type="next"
-        onClick={onNext}
-        {...pagerNavigationLinkProps}
-      />
-      <PagerNavigationLink
-        type="last"
-        onClick={onLast}
-        {...pagerNavigationLinkProps}
-      />
+            />
+          </Label>
+          <StyledPagerNoSelect>
+            {I18n.t("pager.of_y", { defaultValue: " of " })}
+            {pageCount}
+          </StyledPagerNoSelect>
+        </StyledPagerNavInner>
+      )}
+      {!hasOnePage && renderButtonsAfterCount()}
     </StyledPagerNavigation>
   );
 };
@@ -122,16 +144,22 @@ PagerNavigation.propTypes = {
   pageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets the current page being shown */
   setCurrentPage: PropTypes.func,
-  /** onFirst Callback trigered when first link is triggered */
+  /** onFirst Callback triggered when first link is triggered */
   onFirst: PropTypes.func,
-  /** onPrevious Callback trigered when previous link is triggered */
+  /** onPrevious Callback triggered when previous link is triggered */
   onPrevious: PropTypes.func,
-  /** onNext Callback trigered when next link is triggered */
+  /** onNext Callback triggered when next link is triggered */
   onNext: PropTypes.func,
-  /** onLast Callback trigered when last link is triggered */
+  /** onLast Callback triggered when last link is triggered */
   onLast: PropTypes.func,
-  /** onPagination Callback trigered when a change is triggered */
+  /** onPagination Callback triggered when a change is triggered */
   onPagination: PropTypes.func,
+  /** Should the `First` and `Last` navigation buttons be shown */
+  showFirstAndLastButtons: PropTypes.bool,
+  /** Should the `Next` and `Previous` navigation buttons be shown */
+  showPreviousAndNextButtons: PropTypes.bool,
+  /** Should the page count input be shown */
+  showPageCount: PropTypes.bool,
 };
 
 export default PagerNavigation;

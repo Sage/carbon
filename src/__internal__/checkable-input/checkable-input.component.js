@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { validProps } from "../../../utils/ether";
+
+import { validProps } from "../../utils/ether";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
-import { InputBehaviour } from "../../../__internal__/input-behaviour";
-
-import FormField from "../form-field";
+import { InputBehaviour } from "../input-behaviour";
+import FormField from "../../__experimental__/components/form-field";
 import HiddenCheckableInput from "./hidden-checkable-input.component";
-import guid from "../../../utils/helpers/guid";
+import guid from "../../utils/helpers/guid";
 
 class CheckableInput extends React.Component {
   constructor(props) {

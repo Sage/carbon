@@ -106,3 +106,9 @@ Feature: Design System Filterable Select component
     Given I open "Design System Select filterable" component page "open on focus" in no iframe
     When I focus openOnFocus Select input
     Then "filterable" Select list is opened
+
+  @positive
+  Scenario: Value is cleared when the filter does not match any options 
+    Given I open "Design System Select filterable" component page "controlled" in no iframe
+    When I select value "xzw"
+    Then Select input has no value

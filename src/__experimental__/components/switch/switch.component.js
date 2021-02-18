@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import SwitchStyle from "./switch.style";
-import CheckableInput from "../checkable-input";
+import CheckableInput from "../../../__internal__/checkable-input";
 import SwitchSlider from "./switch-slider.component";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 
@@ -137,7 +137,7 @@ Switch.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
