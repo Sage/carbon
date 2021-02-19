@@ -1,3 +1,10 @@
+### [66.10.2](https://github.com/Sage/carbon/compare/v66.10.1...v66.10.2) (2021-02-19)
+
+
+### Bug Fixes
+
+* **date:** set format based on translation ([024f338](https://github.com/Sage/carbon/commit/024f338ce7c1df99589ab9154c8aaf8c0071fdb0))
+
 ### [66.10.1](https://github.com/Sage/carbon/compare/v66.10.0...v66.10.1) (2021-02-19)
 
 
