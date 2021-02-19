@@ -1,3 +1,10 @@
+## [66.10.0](https://github.com/Sage/carbon/compare/v66.9.0...v66.10.0) (2021-02-19)
+
+
+### Features
+
+* **tab:** allows Tab to be a link ([96e1597](https://github.com/Sage/carbon/commit/96e1597faeb3912f811729ae972b0d50eb6a4e6d))
+
 ## [66.9.0](https://github.com/Sage/carbon/compare/v66.8.0...v66.9.0) (2021-02-18)
 
 
