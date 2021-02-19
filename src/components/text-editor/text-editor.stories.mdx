@@ -1,16 +1,10 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { useState, useRef } from "react";
-import EditorLink from "./editor-link";
 import TextEditor, {
   TextEditorState as EditorState,
   TextEditorContentState as ContentState,
 } from "./text-editor.component";
-import Toolbar from "./toolbar";
-import ToolbarButton from "./toolbar/toolbar-button";
-import EditorCounter from "./editor-counter";
-import IconButton from "../../icon-button";
-import Icon from "../../icon";
-import Button from "../../button";
+import Button from "../button";
 
 <Meta
   title="Design System/Text Editor"
@@ -232,6 +226,30 @@ Maybe try writing a little bit less?`
             labelText="Text Editor Label"
             characterLimit={limit}
             error={error}
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With custom row height
+The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2 
+which is multiplied by the line-height (21px). 
+
+<Preview>
+  <Story name="with custom row height">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      return (
+        <div style={{ padding: "4px" }}>
+          <TextEditor
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            value={value}
+            labelText="Text Editor Label"
+            rows={2}
           />
         </div>
       );

@@ -1,6 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
+import { SpacingProps } from "../../../utils/helpers/options-helper";
 
-interface CheckboxProps {
+interface CheckboxProps extends SpacingProps {
   checked?: boolean;
   disabled?: boolean;
   fieldHelp?: React.ReactNode;
@@ -13,6 +14,7 @@ interface CheckboxProps {
   labelWidth?: number | string;
   labelSpacing?: 1 | 2;
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
   reverse?: boolean;
   size?: string;
   value: string;

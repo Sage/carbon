@@ -8,11 +8,52 @@ import Textbox from "../../../__experimental__/components/textbox";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
+import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__experimental__/components/label";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
+
+  describe("when an HTML element is clicked", () => {
+    let wrapper;
+    let domNode;
+
+    beforeEach(() => {
+      wrapper = mount(getSelect({ openOnFocus: true }));
+      domNode = wrapper.getDOMNode();
+      document.body.appendChild(domNode);
+    });
+
+    describe("and that element is part of the Select", () => {
+      it("then the SelectList should be open", () => {
+        wrapper.find("input").simulate("focus");
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+        act(() => {
+          wrapper
+            .find(StyledSelectList)
+            .getDOMNode()
+            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+        expect(wrapper.update().find(SelectList).exists()).toBe(true);
+      });
+    });
+
+    describe("and that element is not part of the Select", () => {
+      it("then the SelectList should be closed", () => {
+        wrapper.find("input").simulate("focus");
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+        act(() => {
+          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      });
+    });
+
+    afterEach(() => {
+      document.body.removeChild(domNode);
+    });
+  });
 
   it("the input ref should be forwarded", () => {
     let mockRef;
@@ -596,46 +637,6 @@ describe("MultiSelect", () => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
       expect(wrapper.update().find(SelectList).exists()).toBe(false);
-    });
-  });
-
-  describe("when an HTML element is clicked", () => {
-    let wrapper;
-    let domNode;
-
-    beforeEach(() => {
-      wrapper = mount(getSelect({ openOnFocus: true }));
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
-    });
-
-    describe("and that element is part of the Select", () => {
-      it("then the SelectList should be open", () => {
-        wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
-        act(() => {
-          wrapper
-            .find(SelectList)
-            .getDOMNode()
-            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(wrapper.update().find(SelectList).exists()).toBe(true);
-      });
-    });
-
-    describe("and that element is not part of the Select", () => {
-      it("then the SelectList should be closed", () => {
-        wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
-        act(() => {
-          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
-      });
-    });
-
-    afterEach(() => {
-      document.body.removeChild(domNode);
     });
   });
 

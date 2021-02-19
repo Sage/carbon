@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import StyledTab from "./tab.style";
-import tagComponent from "../../../../utils/helpers/tags/tags";
+import tagComponent from "../../../utils/helpers/tags/tags";
 
 const TabContext = React.createContext({});
 
@@ -16,6 +16,7 @@ const Tab = ({
   updateErrors,
   updateWarnings,
   updateInfos,
+  href,
   ...rest
 }) => {
   const [tabErrors, setTabErrors] = useState({});
@@ -77,7 +78,7 @@ const Tab = ({
         position={position}
         {...tagComponent("tab", rest)}
       >
-        {children}
+        {!href && children}
       </StyledTab>
     </TabContext.Provider>
   );
@@ -115,6 +116,8 @@ Tab.propTypes = {
   siblings: PropTypes.arrayOf(PropTypes.node),
   /** Position title before or after siblings */
   titlePosition: PropTypes.oneOf(["before", "after"]),
+  /** Allows Tab to be a link */
+  href: PropTypes.string,
 };
 
 export { TabContext };

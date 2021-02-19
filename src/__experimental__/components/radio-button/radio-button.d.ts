@@ -1,5 +1,8 @@
-import * as React from 'react';
-import { AlignBinaryType, SizesType } from '../../../utils/helpers/options-helper/options-helper';
+import * as React from "react";
+import {
+  AlignBinaryType,
+  SizesType,
+} from "../../../utils/helpers/options-helper/options-helper";
 
 export interface RadioButtonProps {
   checked?: boolean;
@@ -12,12 +15,16 @@ export interface RadioButtonProps {
   inputWidth?: number | string;
   label?: string | React.ReactNode;
   labelAlign?: AlignBinaryType;
+  labelSpacing?: 1 | 2;
   labelWidth?: number | string;
   name?: string;
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.SyntheticEvent) => void;
   reverse?: boolean;
   size?: SizesType;
   value: string;
+  mt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 }
 
 declare const RadioButton: React.FunctionComponent<RadioButtonProps>;

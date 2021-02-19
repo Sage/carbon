@@ -1,11 +1,11 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { useState, useRef } from 'react';
 import { Tabs, Tab } from './tabs.component'
-import { Checkbox } from '../../../__experimental__/components/checkbox';
-import Icon from '../../icon';
-import Pill from '../../pill';
-import { Row, Column } from '../../row';
-import { ActionPopover, ActionPopoverItem } from '../../action-popover';
+import { Checkbox } from '../../__experimental__/components/checkbox';
+import Icon from '../icon';
+import Pill from '../pill';
+import { Row, Column } from '../row';
+import { ActionPopover, ActionPopoverItem } from '../action-popover';
 
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
@@ -284,6 +284,53 @@ The tabs widget also allows you to select a tab on page load. By default this is
               key='tab-5'
             >
               Content for tab 5
+            </Tab>
+          </Tabs>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With Link as a Tab
+To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
+
+<Preview>
+  <Story name="with link as a tab">
+    {() => {
+      return (
+        <div style={{ padding: '4px' }}>
+          <Tabs selectedTabId='tab-2' align='left' position='top'>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-1'
+              title='Tab 1'
+              key='tab-1'
+            >
+              Content for tab 1
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-2'
+              title='Tab 2'
+              key='tab-2'
+              href="https://carbon.sage.com/"
+            >
+              Content for tab 2
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-3'
+              title='Tab 3'
+              key='tab-3'
+            >
+             Content for tab 3
             </Tab>
           </Tabs>
         </div>

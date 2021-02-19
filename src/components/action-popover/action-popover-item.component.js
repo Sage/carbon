@@ -19,7 +19,6 @@ import createGuid from "../../utils/helpers/guid";
 import ActionPopoverContext from "./action-popover-context";
 
 const INTERVAL = 150;
-const DEFER_TIMEOUT = 30;
 
 const MenuItem = ({
   children,
@@ -43,7 +42,6 @@ const MenuItem = ({
   const [isLeftAligned, setIsLeftAligned] = useState(true);
   const submenuRef = useRef();
   const ref = useRef();
-  const refTimer = useRef();
   const mouseEnterTimer = useRef();
   const mouseLeaveTimer = useRef();
   const { spacing } = theme;
@@ -64,23 +62,16 @@ const MenuItem = ({
     }
   }, [submenu, spacing, placement]);
 
-  const setRef = useCallback(
-    (element) => {
-      clearTimeout(refTimer.current);
-      refTimer.current = setTimeout(() => {
-        ref.current = element;
-        alignSubmenu();
-        if (focusItem && element) {
-          element.focus();
-        }
-      }, DEFER_TIMEOUT);
-    },
-    [alignSubmenu, focusItem]
-  );
+  useEffect(() => {
+    alignSubmenu();
+
+    if (focusItem && ref.current) {
+      ref.current.focus();
+    }
+  }, [alignSubmenu, focusItem]);
 
   useEffect(() => {
     return function cleanup() {
-      clearTimeout(refTimer.current);
       clearTimeout(mouseEnterTimer.current);
       clearTimeout(mouseLeaveTimer.current);
     };
@@ -199,7 +190,7 @@ const MenuItem = ({
   return (
     <div
       {...rest}
-      ref={setRef}
+      ref={ref}
       onClick={onClick}
       onKeyDown={onKeyDown}
       type="button"
