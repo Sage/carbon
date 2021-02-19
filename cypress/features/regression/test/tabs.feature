@@ -13,3 +13,8 @@ Feature: Tabs component
       | 3  |
       | 4  |
       | 5  |
+
+  @positive
+  Scenario: Check that Tab has link properties
+    Given I open "Design System Tabs" component page "with link as a tab" in no iframe
+    Then Second Tab has a link property

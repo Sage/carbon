@@ -8,13 +8,13 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
-import Event from "../../../utils/helpers/events/events";
-import tagComponent from "../../../utils/helpers/tags/tags";
-import Browser from "../../../utils/helpers/browser/browser";
+import Event from "../../utils/helpers/events/events";
+import tagComponent from "../../utils/helpers/tags/tags";
+import Browser from "../../utils/helpers/browser/browser";
 import StyledTabs from "./tabs.style";
-import TabsHeader from "./tabs-header";
-import TabTitle from "./tab-title";
-import { SidebarContext } from "../../drawer";
+import TabsHeader from "./__internal__/tabs-header";
+import TabTitle from "./__internal__/tab-title";
+import { SidebarContext } from "../drawer";
 
 const Tabs = ({
   align = "left",
@@ -205,6 +205,7 @@ const Tabs = ({
         errorMessage,
         warningMessage,
         infoMessage,
+        href,
         customLayout,
       } = child.props;
       const refId = `${tabId}-tab`;
@@ -252,6 +253,7 @@ const Tabs = ({
           ref={(node) => addRef(node)}
           tabIndex={isTabSelected(tabId) ? "0" : "-1"}
           title={title}
+          href={href}
           isTabSelected={isTabSelected(tabId)}
           error={tabHasError}
           warning={tabHasWarning}

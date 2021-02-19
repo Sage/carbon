@@ -16,6 +16,7 @@ export interface TabProps {
   infoMessage: string;
   siblings?: React.ReactNode[];
   titlePosition?: 'before' | 'after';
+  href?: string;
 }
 
 declare const Tab: React.ComponentType<TabProps>;
