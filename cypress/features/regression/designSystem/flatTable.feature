@@ -101,3 +101,39 @@ Feature: Design Systems FlatTable component
       | caption                      | nameOfObject            |
       | mp150ú¿¡üßä                  | captionOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
+
+  @position
+  Scenario Outline: I can open the accordion by clicking on the <position> cell in a row when expandable area prop is set to wholeRow 
+    Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
+    When I click on the <position> cell in the first row
+    Then The subrows are visible
+    Examples:
+      | position |
+      | first    |
+      | second   |
+      | third    |
+      | fourth   |
+
+    Scenario Outline: I can not open the accordion by clicking on the <position> cell in a row when the expandable area prop is set to firstColumn
+      Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+      When I click on the <position> cell in the first row
+      Then The subrows are not visible
+      Examples:
+      | position |
+      | second   |
+      | third    |
+      | fourth   |
+    
+    Scenario: I can open the accordion by clicking on the first cell in a row when the expandable area prop is set to firstColumn
+      Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+      When I click on the first cell 
+      Then The subrows are visible
+
+    Scenario: The subrows have the correct backround colour
+      Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
+      Then The subrows have the correct background colour
+
+    Scenario: The subrows have the correct shadow effect between subrow and parent row
+      Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
+      Then There is a shadow effect between the parent row and first subrow
+        
