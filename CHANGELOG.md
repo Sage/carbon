@@ -1,3 +1,10 @@
+### [66.10.1](https://github.com/Sage/carbon/compare/v66.10.0...v66.10.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** handle radio button focus ([ce3cc9b](https://github.com/Sage/carbon/commit/ce3cc9bfd0f456a663380af5f6cdcd035cb4e930)), closes [#3623](https://github.com/Sage/carbon/issues/3623)
+
 ## [66.10.0](https://github.com/Sage/carbon/compare/v66.9.0...v66.10.0) (2021-02-19)
 
 
