@@ -1,3 +1,22 @@
+## [66.9.0](https://github.com/Sage/carbon/compare/v66.8.0...v66.9.0) (2021-02-18)
+
+
+### Features
+
+* **select:** add popperjs positioning mechanism ([9bd1a74](https://github.com/Sage/carbon/commit/9bd1a74962903c0b3c8f9c2455227701e210afec))
+
+
+### Bug Fixes
+
+* **multi-select:** fix closing multi-select when deleting pills ([80c95de](https://github.com/Sage/carbon/commit/80c95defa941128402a159c97cb19e8bf5d9f53a))
+
+## [66.8.0](https://github.com/Sage/carbon/compare/v66.7.0...v66.8.0) (2021-02-18)
+
+
+### Features
+
+* **text-editor:** add rows prop to support custom min  height ([966d405](https://github.com/Sage/carbon/commit/966d405be3e4b9aff3b28d01633a2108b7996c63)), closes [#3632](https://github.com/Sage/carbon/issues/3632)
+
 ## [66.7.0](https://github.com/Sage/carbon/compare/v66.6.1...v66.7.0) (2021-02-18)
 
 

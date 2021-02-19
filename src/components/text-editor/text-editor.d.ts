@@ -12,6 +12,7 @@ export interface TextEditorProps {
   error?: string;
   warning?: string;
   info?: string;
+  rows?: number;
 }
 
 declare const TextEditor: React.FunctionComponent<TextEditorProps>;
