@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import NumeralDate from "./numeral-date.component";
@@ -9,29 +9,38 @@ import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledInputPresentantion from "../input/input-presentation.style";
 import FormField from "../form-field";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
+import I18next from "../../../__spec_helper__/I18next";
 import Label from "../label";
 
-describe("NumeralDate", () => {
-  let wrapper;
-  const onBlur = jest.fn();
-  const onChange = jest.fn();
-  const onKeyDown = jest.fn();
-  jest.useFakeTimers();
+let wrapper;
+const onBlur = jest.fn();
+const onChange = jest.fn();
+const onKeyDown = jest.fn();
+jest.useFakeTimers();
 
-  const renderWrapper = (props) => {
-    const defaultProps = {
-      dateFormat: ["dd"],
-      defaultValue: { dd: "30" },
-      onBlur,
-      onChange,
-      onKeyDown,
-      id: "numeralDate_id",
-      name: "numeralDate_name",
-    };
-
-    return mount(<NumeralDate {...defaultProps} {...props} />);
+const Wrapper = (props) => {
+  const defaultProps = {
+    dateFormat: ["dd"],
+    defaultValue: { dd: "30" },
+    onBlur,
+    onChange,
+    onKeyDown,
+    id: "numeralDate_id",
+    name: "numeralDate_name",
   };
 
+  return (
+    <I18next>
+      <NumeralDate {...defaultProps} {...props} />
+    </I18next>
+  );
+};
+
+const renderWrapper = (props) => {
+  return mount(<Wrapper {...props} />);
+};
+
+describe("NumeralDate", () => {
   describe("propTypes", () => {
     it("does not allow an incorrect dateFormat prop", () => {
       spyOn(global.console, "error");
@@ -53,7 +62,7 @@ describe("NumeralDate", () => {
 
   describe("invariant", () => {
     it("throws when component changes from uncontrolled to controlled", () => {
-      wrapper = renderWrapper({ value: undefined });
+      wrapper = renderWrapper();
       expect(() => {
         wrapper.setProps({ value: { dd: "02" } });
       }).toThrow(
@@ -388,12 +397,15 @@ describe("NumeralDate", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      const wrapperWithTags = shallow(
-        <NumeralDate
-          dateFormat={["dd", "mm", "yyyy"]}
-          value={{ dd: "12", mm: "", yyyy: "" }}
-        />
+      const wrapperWithTags = mount(
+        <I18next>
+          <NumeralDate
+            dateFormat={["dd", "mm", "yyyy"]}
+            value={{ dd: "12", mm: "", yyyy: "" }}
+          />
+        </I18next>
       );
+
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapperWithTags.find(StyledNumeralDate), "numeral-date");
       });
