@@ -1,3 +1,10 @@
+### [66.11.1](https://github.com/Sage/carbon/compare/v66.11.0...v66.11.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **date-range:** allow empty values for start and end dates ([01eb5bc](https://github.com/Sage/carbon/commit/01eb5bc1cb58fb4a084fc2b9e85009960621d20c)), closes [#3501](https://github.com/Sage/carbon/issues/3501)
+
 ## [66.11.0](https://github.com/Sage/carbon/compare/v66.10.2...v66.11.0) (2021-02-19)
 
 
