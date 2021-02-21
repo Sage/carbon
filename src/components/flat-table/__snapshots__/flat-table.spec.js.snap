@@ -170,6 +170,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
         <tr
           className="c4 c5"
           data-element="flat-table-row"
+          onClick={[Function]}
         >
           <th
             className="c6 c7"
@@ -209,6 +210,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
         <tr
           className="c4 c5"
           data-element="flat-table-row"
+          onClick={[Function]}
         >
           <th
             className="c6 c7"
@@ -222,7 +224,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c10 c11"
             data-element="flat-table-cell"
           >
-            <div>
+            <div
+              className=""
+            >
               cell1
             </div>
           </td>
@@ -230,7 +234,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c10 c11"
             data-element="flat-table-cell"
           >
-            <div>
+            <div
+              className=""
+            >
               cell2
             </div>
           </td>
@@ -239,7 +245,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             data-element="flat-table-cell"
             rowSpan="2"
           >
-            <div>
+            <div
+              className=""
+            >
               cell3
             </div>
           </td>
@@ -247,6 +255,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
         <tr
           className="c4 c5"
           data-element="flat-table-row"
+          onClick={[Function]}
         >
           <th
             className="c6 c7"
@@ -261,7 +270,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             colSpan="2"
             data-element="flat-table-cell"
           >
-            <div>
+            <div
+              className=""
+            >
               cell1
             </div>
           </td>

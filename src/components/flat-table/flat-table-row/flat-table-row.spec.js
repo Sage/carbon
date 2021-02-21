@@ -1,16 +1,20 @@
 import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
+import { act } from "react-dom/test-utils";
+
 import FlatTableRow from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import StyledFlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.style";
-import StyledFlatTableCell from "../flat-table-cell/flat-table-cell.style";
+import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 import { SidebarContext } from "../../drawer";
+import FlatTableCheckbox from "../flat-table-checkbox";
+import StyledIcon from "../../icon/icon.style";
 
 describe("FlatTableRow", () => {
   it("should have expected styles", () => {
@@ -387,6 +391,154 @@ describe("FlatTableRow", () => {
             { modifier: `:hover ${modifierString}` }
           );
         });
+      });
+    });
+  });
+
+  describe("when the row is expandable", () => {
+    const SubRows = [
+      <FlatTableRow>
+        <FlatTableCell>sub1cell1</FlatTableCell>
+        <FlatTableCell>sub1cell2</FlatTableCell>
+      </FlatTableRow>,
+      <FlatTableRow>
+        <FlatTableCell>sub2cell1</FlatTableCell>
+        <FlatTableCell>sub2cell2</FlatTableCell>
+      </FlatTableRow>,
+    ];
+
+    it("should have the sub rows closed by default", () => {
+      const wrapper = renderFlatTableRow({
+        expandable: true,
+        subRows: SubRows,
+      });
+
+      expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+    });
+
+    describe("when clicked", () => {
+      it("should expand the sub rows", () => {
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: SubRows,
+        });
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+      });
+
+      describe("when onClick prop set", () => {
+        it("should call the onClick function", () => {
+          const onClickFn = jest.fn();
+          const wrapper = renderFlatTableRow({
+            expandable: true,
+            subRows: SubRows,
+            onClick: onClickFn,
+          });
+
+          act(() => {
+            wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+          });
+
+          wrapper.update();
+
+          expect(onClickFn).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("when expanded prop set to true", () => {
+      it("should render the sub rows open", () => {
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: SubRows,
+          expanded: true,
+        });
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+      });
+    });
+
+    describe("when first child of sub row is a checkbox", () => {
+      it("should add the expandable icon to the second child", () => {
+        const CheckboxSubRows = [
+          <FlatTableRow>
+            <FlatTableCheckbox />
+            <FlatTableCell>sub1cell2</FlatTableCell>
+          </FlatTableRow>,
+          <FlatTableRow>
+            <FlatTableCheckbox />
+            <FlatTableCell>sub2cell2</FlatTableCell>
+          </FlatTableRow>,
+        ];
+
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow expandable subRows={CheckboxSubRows} expanded>
+                <FlatTableCheckbox />
+                <FlatTableCell>cell2</FlatTableCell>
+              </FlatTableRow>
+            </tbody>
+          </table>
+        );
+
+        expect(
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .find(StyledIcon)
+            .exists()
+        ).toEqual(true);
+      });
+    });
+
+    describe("when expandableArea prop is set to 'firstColumn'", () => {
+      let wrapper;
+      beforeEach(() => {
+        wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: SubRows,
+          expandableArea: "firstColumn",
+        });
+      });
+
+      it("should set the cursor to default for all but the first column", () => {
+        assertStyleMatch({ cursor: "default" }, wrapper);
+        assertStyleMatch({ cursor: "pointer" }, wrapper, {
+          modifier: `td:nth-child(1)`,
+        });
+      });
+
+      it("should expand the sub rows when first column clicked", () => {
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .props()
+            .onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+      });
+
+      it("should not expand the sub rows when other column clicked", () => {
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
       });
     });
   });

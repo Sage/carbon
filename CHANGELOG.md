@@ -1,3 +1,31 @@
+## [66.11.0](https://github.com/Sage/carbon/compare/v66.10.2...v66.11.0) (2021-02-19)
+
+
+### Features
+
+* **flat-table:** add expandable rows option ([9701362](https://github.com/Sage/carbon/commit/9701362ba12e1a4e26881981848d1cb500473c92))
+
+### [66.10.2](https://github.com/Sage/carbon/compare/v66.10.1...v66.10.2) (2021-02-19)
+
+
+### Bug Fixes
+
+* **date:** set format based on translation ([024f338](https://github.com/Sage/carbon/commit/024f338ce7c1df99589ab9154c8aaf8c0071fdb0))
+
+### [66.10.1](https://github.com/Sage/carbon/compare/v66.10.0...v66.10.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** handle radio button focus ([ce3cc9b](https://github.com/Sage/carbon/commit/ce3cc9bfd0f456a663380af5f6cdcd035cb4e930)), closes [#3623](https://github.com/Sage/carbon/issues/3623)
+
+## [66.10.0](https://github.com/Sage/carbon/compare/v66.9.0...v66.10.0) (2021-02-19)
+
+
+### Features
+
+* **tab:** allows Tab to be a link ([96e1597](https://github.com/Sage/carbon/commit/96e1597faeb3912f811729ae972b0d50eb6a4e6d))
+
 ## [66.9.0](https://github.com/Sage/carbon/compare/v66.8.0...v66.9.0) (2021-02-18)
 
 

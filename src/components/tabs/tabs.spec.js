@@ -2,16 +2,13 @@
 import React, { useEffect, useContext } from "react";
 import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
+import TabTitle from "./__internal__/tab-title/tab-title.component";
 import { Tabs, Tab } from "./tabs.component";
 import { TabContext } from "./tab/index";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import StyledTabs from "./tabs.style";
-import {
-  assertStyleMatch,
-  simulate,
-} from "../../../__spec_helper__/test-utils";
-import TabTitle from "./tab-title/tab-title.component";
-import { SidebarContext } from "../../drawer";
+import { assertStyleMatch, simulate } from "../../__spec_helper__/test-utils";
+import { SidebarContext } from "../drawer";
 
 function render(props) {
   return mount(
