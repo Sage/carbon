@@ -3,8 +3,9 @@ import {
   AlignBinaryType,
   SizesType,
 } from "../../../utils/helpers/options-helper/options-helper";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface RadioButtonProps {
+export interface RadioButtonProps extends MarginSpacingProps {
   checked?: boolean;
   disabled?: boolean;
   error?: boolean | string;
@@ -23,8 +24,6 @@ export interface RadioButtonProps {
   reverse?: boolean;
   size?: SizesType;
   value: string;
-  mt?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 }
 
 declare const RadioButton: React.FunctionComponent<RadioButtonProps>;
