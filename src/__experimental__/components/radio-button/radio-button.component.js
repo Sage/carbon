@@ -5,7 +5,7 @@ import tagComponent from "../../../utils/helpers/tags";
 import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
-import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

@@ -2,6 +2,7 @@ import React from "react";
 import { mount, shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import Card from "./card.component";
+import CardRow from "./card-row/card-row.component";
 import CardFooter from "./card-footer/card-footer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
@@ -50,6 +51,55 @@ describe("Card", () => {
         });
       }
     );
+
+    describe("when spacing prop is not set, styled-system props are used", () => {
+      it("there is only one child row", () => {
+        const cardRows = [
+          <CardRow className="mockedContent" key="content1">
+            content
+          </CardRow>,
+        ];
+        const wrapper = renderCard({
+          children: cardRows,
+        });
+        expect(
+          wrapper.find(".mockedContent").at(0).props().pt
+        ).not.toBeUndefined();
+      });
+
+      it("there is multiple child rows", () => {
+        const cardRows = [
+          <CardRow className="mockedContent" key="content1">
+            content
+          </CardRow>,
+          <CardRow className="mockedContent" key="content2">
+            content
+          </CardRow>,
+        ];
+        const wrapper = renderCard({
+          children: cardRows,
+        });
+
+        expect(
+          wrapper.find(".mockedContent").at(0).props().py
+        ).not.toBeUndefined();
+      });
+
+      it("there is one footer row child", () => {
+        const cardFooter = [
+          <CardFooter className="mockedContent" key="content1">
+            content
+          </CardFooter>,
+        ];
+        const wrapper = renderCard({
+          children: cardFooter,
+        });
+
+        expect(
+          wrapper.find(".mockedContent").at(0).props()[("py", "pt")]
+        ).toBeUndefined();
+      });
+    });
   });
 
   describe('when the "draggable" prop is set to true', () => {
