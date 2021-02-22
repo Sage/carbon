@@ -1,0 +1,969 @@
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  FlatTableCheckbox,
+  Sort,
+} from ".";
+import BatchSelection from "../batch-selection";
+import IconButton from "../icon-button";
+import Icon from "../icon";
+import Pager from "../pager";
+
+<Meta
+  title="Design System/Flat Table/Expandable"
+  parameters={{ info: { disable: true } }}
+/>
+
+## Flat Table expandable options
+
+### Default
+
+Flat table rows can be made expandable, with any number of sub rows.
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Expandable by first column only
+
+Only clicking on the first column can expand the row with this option set.
+
+<Preview>
+  <Story
+    name="expandable by first column only"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow
+              expandable
+              subRows={SubRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              subRows={SubRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              subRows={SubRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              subRows={SubRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With initially expanded rows
+
+Set the rows to be open by default.
+
+<Preview>
+  <Story name="initially expanded">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows} expanded>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows} expanded>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows} expanded>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows} expanded>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With row headers
+
+Rows with row headers can also be made expandable.
+
+<Preview>
+  <Story name="row headers">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableRowHeader>Child one</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableRowHeader>Child two</FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <div style={{ width: "380px", overflowX: "auto" }}>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableRowHeader>Name</FlatTableRowHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With pagination
+
+Tables with pagination can have expandable rows.
+
+<Preview>
+  <Story name="paginated">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const rows = [
+        <FlatTableRow key="0" expandable subRows={SubRows}>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="1" expandable subRows={SubRows}>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="2" expandable subRows={SubRows}>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="3" expandable subRows={SubRows}>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="4" expandable subRows={SubRows}>
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Stoke</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="5" expandable subRows={SubRows}>
+          <FlatTableCell>Karl Ickbred</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <>
+          <FlatTable
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
+                ]}
+              />
+            }
+          >
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With parent and children selectable
+
+By writing your own selectable logic, both parent and child rows can be made selectable.
+
+<Preview>
+  <Story name="both parent and chidren selectable">
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({
+        one: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        two: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        three: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        four: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+      });
+      const [highlightedRow, setHighlightedRow] = useState("");
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => {
+          newState[key] = {
+            parent: !selectAll,
+            subOne: !selectAll,
+            subTwo: !selectAll,
+          };
+        });
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (row, subRow) => {
+        if (selectedRows[row][subRow]) {
+          setSelectAll(false);
+        }
+        setSelectedRows({
+          ...selectedRows,
+          [row]: {
+            ...selectedRows[row],
+            [subRow]: !selectedRows[row][subRow],
+          },
+        });
+      };
+      const handleHighlightRow = (id) => {
+        if (highlightedRow === id) {
+          setHighlightedRow("");
+        } else {
+          setHighlightedRow(id);
+        }
+      };
+      const selectedCount = Object.values(selectedRows).reduce(
+        (acc, values) => {
+          const count = Object.keys(values).filter((key) =>
+            Boolean(values[key])
+          ).length;
+          return acc + count;
+        },
+        0
+      );
+      const subRows = (row) => {
+        return [
+          <FlatTableRow
+            selected={selectedRows[row].subOne}
+            onClick={() => handleHighlightRow(`${row}.subOne`)}
+            highlighted={highlightedRow === `${row}.subOne`}
+          >
+            <FlatTableCheckbox
+              checked={selectedRows[row].subOne}
+              onChange={() => handleSelectRow(row, "subOne")}
+            />
+            <FlatTableCell>Child one</FlatTableCell>
+            <FlatTableCell>York</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell>2</FlatTableCell>
+          </FlatTableRow>,
+          <FlatTableRow
+            selected={selectedRows[row].subTwo}
+            onClick={() => handleHighlightRow(`${row}.subTwo`)}
+            highlighted={highlightedRow === `${row}.subTwo`}
+          >
+            <FlatTableCheckbox
+              checked={selectedRows[row].subTwo}
+              onChange={() => handleSelectRow(row, "subTwo")}
+            />
+            <FlatTableCell>Child two</FlatTableCell>
+            <FlatTableCell>Edinburgh</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>1</FlatTableCell>
+          </FlatTableRow>,
+        ];
+      };
+      return (
+        <>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
+          </BatchSelection>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableCheckbox
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
+                />
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("one")}
+                selected={selectedRows.one.parent}
+                highlighted={highlightedRow === "one"}
+                expandable
+                subRows={subRows("one")}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.one.parent}
+                  onChange={() => handleSelectRow("one", "parent")}
+                />
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("two")}
+                selected={selectedRows.two.parent}
+                highlighted={highlightedRow === "two"}
+                expandable
+                subRows={subRows("two")}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.two.parent}
+                  onChange={() => handleSelectRow("two", "parent")}
+                />
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("three")}
+                selected={selectedRows.three.parent}
+                highlighted={highlightedRow === "three"}
+                expandable
+                subRows={subRows("three")}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.three.parent}
+                  onChange={() => handleSelectRow("three", "parent")}
+                />
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("four")}
+                selected={selectedRows.four.parent}
+                highlighted={highlightedRow === "four"}
+                expandable
+                subRows={subRows("four")}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.four.parent}
+                  onChange={() => handleSelectRow("four", "parent")}
+                />
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Parent only selectable
+
+By writing your own selectable logic, the parent rows only can be made selectable.
+
+<Preview>
+  <Story
+    name="parent only selectable"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({
+        one: false,
+        two: false,
+        three: false,
+        four: false,
+      });
+      const [highlightedRow, setHighlightedRow] = useState("");
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach(
+          (key) => (newState[key] = !selectAll)
+        );
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (id) => {
+        if (selectedRows[id]) {
+          setSelectAll(false);
+        }
+        setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
+      };
+      const selectedCount = Object.keys(selectedRows).filter((key) =>
+        Boolean(selectedRows[key])
+      ).length;
+      const handleHighlightRow = (id) => {
+        if (highlightedRow === id) {
+          setHighlightedRow("");
+        } else {
+          setHighlightedRow(id);
+        }
+      };
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCheckbox
+            selectable={false}
+            checked={selectedRows.one}
+            onChange={() => handleSelectRow("one")}
+          />
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCheckbox
+            selectable={false}
+            checked={selectedRows.one}
+            onChange={() => handleSelectRow("one")}
+          />
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
+          </BatchSelection>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableCheckbox
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
+                />
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("one")}
+                selected={selectedRows.one}
+                highlighted={highlightedRow === "one"}
+                expandable
+                subRows={SubRows}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.one}
+                  onChange={() => handleSelectRow("one")}
+                />
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("two")}
+                selected={selectedRows.two}
+                highlighted={highlightedRow === "two"}
+                expandable
+                subRows={SubRows}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.two}
+                  onChange={() => handleSelectRow("two")}
+                />
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("three")}
+                selected={selectedRows.three}
+                highlighted={highlightedRow === "three"}
+                expandable
+                subRows={SubRows}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.three}
+                  onChange={() => handleSelectRow("three")}
+                />
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("four")}
+                selected={selectedRows.four}
+                highlighted={highlightedRow === "four"}
+                expandable
+                subRows={SubRows}
+              >
+                <FlatTableCheckbox
+                  checked={selectedRows.four}
+                  onChange={() => handleSelectRow("four")}
+                />
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Children only selectable
+
+By writing your own selectable logic, the child rows only can be made selectable.
+
+<Preview>
+  <Story name="children only selectable">
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({
+        one: {
+          subOne: false,
+          subTwo: false,
+        },
+        two: {
+          subOne: false,
+          subTwo: false,
+        },
+        three: {
+          subOne: false,
+          subTwo: false,
+        },
+        four: {
+          subOne: false,
+          subTwo: false,
+        },
+      });
+      const [highlightedRow, setHighlightedRow] = useState("");
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => {
+          newState[key] = {
+            subOne: !selectAll,
+            subTwo: !selectAll,
+          };
+        });
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (row, subRow) => {
+        if (selectedRows[row][subRow]) {
+          setSelectAll(false);
+        }
+        setSelectedRows({
+          ...selectedRows,
+          [row]: {
+            ...selectedRows[row],
+            [subRow]: !selectedRows[row][subRow],
+          },
+        });
+      };
+      const handleHighlightRow = (id) => {
+        if (highlightedRow === id) {
+          setHighlightedRow("");
+        } else {
+          setHighlightedRow(id);
+        }
+      };
+      const selectedCount = Object.values(selectedRows).reduce(
+        (acc, values) => {
+          const count = Object.keys(values).filter((key) =>
+            Boolean(values[key])
+          ).length;
+          return acc + count;
+        },
+        0
+      );
+      const subRows = (row) => {
+        return [
+          <FlatTableRow
+            selected={selectedRows[row].subOne}
+            onClick={() => handleHighlightRow(`${row}.subOne`)}
+            highlighted={highlightedRow === `${row}.subOne`}
+          >
+            <FlatTableCheckbox
+              checked={selectedRows[row].subOne}
+              onChange={() => handleSelectRow(row, "subOne")}
+            />
+            <FlatTableCell>Child one</FlatTableCell>
+            <FlatTableCell>York</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell>2</FlatTableCell>
+          </FlatTableRow>,
+          <FlatTableRow
+            selected={selectedRows[row].subTwo}
+            onClick={() => handleHighlightRow(`${row}.subTwo`)}
+            highlighted={highlightedRow === `${row}.subTwo`}
+          >
+            <FlatTableCheckbox
+              checked={selectedRows[row].subTwo}
+              onChange={() => handleSelectRow(row, "subTwo")}
+            />
+            <FlatTableCell>Child two</FlatTableCell>
+            <FlatTableCell>Edinburgh</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>1</FlatTableCell>
+          </FlatTableRow>,
+        ];
+      };
+      return (
+        <>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
+          </BatchSelection>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableCheckbox
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
+                />
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("one")}
+                highlighted={highlightedRow === "one"}
+                expandable
+                subRows={subRows("one")}
+              >
+                <FlatTableCheckbox selectable={false} />
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("two")}
+                highlighted={highlightedRow === "two"}
+                expandable
+                subRows={subRows("two")}
+              >
+                <FlatTableCheckbox selectable={false} />
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("three")}
+                highlighted={highlightedRow === "three"}
+                expandable
+                subRows={subRows("three")}
+              >
+                <FlatTableCheckbox selectable={false} />
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("four")}
+                highlighted={highlightedRow === "four"}
+                expandable
+                subRows={subRows("four")}
+              >
+                <FlatTableCheckbox selectable={false} />
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### FlatTableRow
+
+<Props of={FlatTableRow} />

@@ -107,11 +107,11 @@ Tab.propTypes = {
   /** @ignore @private */
   updateInfos: PropTypes.func,
   /** Message displayed when Tab has error */
-  errorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
   /** Message displayed when Tab has warning */
-  warningMessage: PropTypes.string.isRequired,
+  warningMessage: PropTypes.string,
   /** Message displayed when Tab has warning */
-  infoMessage: PropTypes.string.isRequired,
+  infoMessage: PropTypes.string,
   /** Additional content to display with title */
   siblings: PropTypes.arrayOf(PropTypes.node),
   /** Position title before or after siblings */

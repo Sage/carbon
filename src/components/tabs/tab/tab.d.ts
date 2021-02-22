@@ -11,9 +11,9 @@ export interface TabProps {
   ariaLabelledby?: string;
   updateErrors?: () => void;
   updateWarnings?: () => void;
-  errorMessage: string;
-  warningMessage: string;
-  infoMessage: string;
+  errorMessage?: string;
+  warningMessage?: string;
+  infoMessage?: string;
   siblings?: React.ReactNode[];
   titlePosition?: 'before' | 'after';
   href?: string;

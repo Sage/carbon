@@ -1,4 +1,8 @@
-import { FLAT_TABLE_COMPONENT, FLAT_TABLE_CELL } from "./locators";
+import {
+  FLAT_TABLE_COMPONENT,
+  FLAT_TABLE_CELL,
+  FLAT_TABLE_SUBROW,
+} from "./locators";
 
 // component preview locators
 export const flatTableInIframe = () => cy.iFrame(FLAT_TABLE_COMPONENT);
@@ -19,5 +23,9 @@ export const flatTableClickableRow = (index) =>
 export const flatTableSortable = () =>
   cy.get(FLAT_TABLE_COMPONENT).find("thead tr th div [type=button]");
 export const flatTableCell = (index) => cy.get(FLAT_TABLE_CELL).eq(index);
+
+export const flatTableSubrows = () => cy.get(FLAT_TABLE_SUBROW);
+export const flatTableSubrowByPosition = (index) =>
+  flatTableSubrows().eq(index);
 
 export const flatTableCaption = () => flatTable().find("caption");

@@ -38,12 +38,15 @@ exports[`FlatTableRow should have expected styles 1`] = `
     <tr
       className="c0"
       data-element="flat-table-row"
+      onClick={[Function]}
     >
       <td
         className="c1"
         data-element="flat-table-cell"
       >
-        <div>
+        <div
+          className=""
+        >
           cell1
         </div>
       </td>
@@ -51,7 +54,9 @@ exports[`FlatTableRow should have expected styles 1`] = `
         className="c1"
         data-element="flat-table-cell"
       >
-        <div>
+        <div
+          className=""
+        >
           cell2
         </div>
       </td>

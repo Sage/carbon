@@ -8,6 +8,8 @@ import {
   flatTableSortable,
   flatTableBodyRows,
   flatTableCaption,
+  flatTableSubrowByPosition,
+  flatTableSubrows,
 } from "../../locators/flat-table";
 import DEBUG_FLAG from "..";
 import { positionOfElement } from "../helper";
@@ -209,4 +211,36 @@ Then("The whole row is highlighted", () => {
 
 Then("Flat table caption is set to {word}", (text) => {
   flatTableCaption().should("have.text", text);
+});
+
+When("I click on the {word} cell in the first row", (position) => {
+  flatTableCell(positionOfElement(position)).click();
+});
+
+Then("The subrows are visible", () => {
+  flatTableSubrows().should("be.visible");
+});
+
+Then("The subrows are not visible", () => {
+  flatTableSubrows().should("not.exist");
+});
+
+When("I click on the first cell", () => {
+  flatTableCell(0).click();
+});
+
+Then("The subrows have the correct background colour", () => {
+  flatTableSubrows()
+    .children()
+    .should("have.css", "background-color", "rgb(250, 251, 251)");
+});
+
+Then("There is a shadow effect between the parent row and first subrow", () => {
+  flatTableSubrowByPosition(0)
+    .children()
+    .should(
+      "have.css",
+      "box-shadow",
+      "rgba(0, 20, 29, 0.1) 0px 6px 4px -4px inset"
+    );
 });
