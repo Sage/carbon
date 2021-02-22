@@ -1,3 +1,10 @@
+### [66.12.1](https://github.com/Sage/carbon/compare/v66.12.0...v66.12.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* **select:** incorrect typescript children types ([b436fea](https://github.com/Sage/carbon/commit/b436feadad57d92a5b6ae640b88ae33dc9ba9f99))
+
 ## [66.12.0](https://github.com/Sage/carbon/compare/v66.11.1...v66.12.0) (2021-02-22)
 
 
