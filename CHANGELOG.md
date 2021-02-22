@@ -1,3 +1,10 @@
+## [66.12.0](https://github.com/Sage/carbon/compare/v66.11.1...v66.12.0) (2021-02-22)
+
+
+### Features
+
+* **radio-button:** allow use of all styled system margin props ([4698606](https://github.com/Sage/carbon/commit/46986061d1bddef119d95c2d60eb83e0d9f1e1d5))
+
 ### [66.11.1](https://github.com/Sage/carbon/compare/v66.11.0...v66.11.1) (2021-02-21)
 
 
