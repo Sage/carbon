@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import tagComponent from "../../utils/helpers/tags";
+import useTranslation from "../../hooks/__internal__/useTranslation";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 
@@ -22,6 +22,8 @@ const Message = ({
   showCloseIcon = true,
   ...props
 }) => {
+  const t = useTranslation();
+
   const renderCloseIcon = () => {
     if (!showCloseIcon || !onDismiss) return null;
 
@@ -29,10 +31,7 @@ const Message = ({
       <IconButton
         data-element="close"
         aria-label={
-          closeButtonAriaLabel ||
-          I18n.t("message.close-button-aria-label", {
-            defaultValue: "Close",
-          })
+          closeButtonAriaLabel || t("message.close-button-aria-label", "Close")
         }
         onAction={onDismiss}
         variant={variant}

@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
-import { shallow, mount } from "enzyme";
-import I18n from "i18n-js";
+import { mount } from "enzyme";
+import i18n from "i18next";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import MessageStyle from "./message.style";
 import Message from "./message.component";
@@ -10,8 +11,25 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../__spec_helper__/test-utils";
+import I18next from "../../__spec_helper__/I18next";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
+
+function RenderWrapper({ lng, ...props }) {
+  return (
+    <I18next lng={lng}>
+      <Message {...props} />
+    </I18next>
+  );
+}
+
+RenderWrapper.defaultProps = {
+  lng: "en",
+};
+
+RenderWrapper.propTypes = {
+  lng: PropTypes.string,
+};
 
 function render(props) {
   return TestRenderer.create(<MessageStyle {...props}>Message</MessageStyle>);
@@ -25,7 +43,7 @@ describe("Message", () => {
   describe.each(carbonThemesJestTable)("rendered", (themeName, theme) => {
     let wrapper;
     beforeEach(() => {
-      wrapper = shallow(<Message theme={theme}>Message</Message>);
+      wrapper = mount(<RenderWrapper theme={theme}>Message</RenderWrapper>);
     });
 
     it(`should have the expected style for ${themeName}`, () => {
@@ -36,7 +54,7 @@ describe("Message", () => {
           justifyContent: "flex-start",
           alignContent: "center",
         },
-        mount(<Message theme={theme}>Message</Message>)
+        mount(<RenderWrapper theme={theme}>Message</RenderWrapper>)
       );
     });
 
@@ -48,9 +66,9 @@ describe("Message", () => {
     it("renders the close icon when onDismiss function is provided", () => {
       const onDismiss = jest.fn();
       wrapper = mount(
-        <Message onDismiss={onDismiss} theme={theme}>
+        <RenderWrapper onDismiss={onDismiss} theme={theme}>
           Message
-        </Message>
+        </RenderWrapper>
       );
       const closeIcon = wrapper.find(IconButton).first();
       expect(closeIcon.exists()).toEqual(true);
@@ -96,14 +114,14 @@ describe("Message", () => {
 
     beforeEach(() => {
       onDismissCallback = jest.fn();
-      wrapper = shallow(
-        <Message
+      wrapper = mount(
+        <RenderWrapper
           roundedCorners={false}
           variant="info"
           onDismiss={onDismissCallback}
         >
           Message
-        </Message>
+        </RenderWrapper>
       );
     });
 
@@ -132,15 +150,15 @@ describe("Message", () => {
 
     beforeEach(() => {
       onDismissCallback = jest.fn();
-      wrapper = shallow(
-        <Message
+      wrapper = mount(
+        <RenderWrapper
           roundedCorners={false}
           variant="info"
           onDismiss={onDismissCallback}
           showCloseIcon
         >
           Message
-        </Message>
+        </RenderWrapper>
       );
     });
 
@@ -178,7 +196,11 @@ describe("Message", () => {
     let wrapper;
 
     beforeEach(() => {
-      wrapper = shallow(<Message onDismiss={jest.fn()}>Message</Message>);
+      wrapper = mount(
+        <RenderWrapper lng="fr" onDismiss={jest.fn()}>
+          Message
+        </RenderWrapper>
+      );
     });
 
     it("has default translation", () => {
@@ -186,23 +208,12 @@ describe("Message", () => {
     });
 
     describe("translation", () => {
-      const { translations, locale } = I18n;
       beforeAll(() => {
-        I18n.locale = "fr";
-        I18n.translations = {
-          ...translations,
-          fr: {
-            ...translations.fr,
-            message: {
-              "close-button-aria-label": "test",
-            },
+        i18n.addResourceBundle("fr", "carbon", {
+          message: {
+            "close-button-aria-label": "test",
           },
-        };
-      });
-
-      afterAll(() => {
-        I18n.translations = translations;
-        I18n.locale = locale;
+        });
       });
 
       it("can use i18n", () => {

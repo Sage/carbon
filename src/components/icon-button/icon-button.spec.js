@@ -3,6 +3,7 @@ import { mount } from "enzyme";
 import IconButton from ".";
 import Message from "../message/message.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import I18next from "../../__spec_helper__/I18next";
 
 describe("IconButton component", () => {
   let wrapper, onDismiss, onBlur;
@@ -12,9 +13,11 @@ describe("IconButton component", () => {
       onDismiss = jest.fn();
       onBlur = jest.fn();
       wrapper = mount(
-        <Message roundedCorners={false} variant="info" onDismiss={onDismiss}>
-          Message
-        </Message>
+        <I18next>
+          <Message roundedCorners={false} variant="info" onDismiss={onDismiss}>
+            Message
+          </Message>
+        </I18next>
       );
     });
 
@@ -70,14 +73,16 @@ describe("IconButton component", () => {
     describe("when component does not handle onBlur", () => {
       it("does not call onBlur callback", () => {
         wrapper = mount(
-          <Message
-            roundedCorners={false}
-            variant="info"
-            onDismiss={onDismiss}
-            onBlur={onBlur}
-          >
-            Message
-          </Message>
+          <I18next>
+            <Message
+              roundedCorners={false}
+              variant="info"
+              onDismiss={onDismiss}
+              onBlur={onBlur}
+            >
+              Message
+            </Message>
+          </I18next>
         );
         const foundIconButton = wrapper.find(IconButton).first();
         foundIconButton.simulate("click");
