@@ -1,3 +1,10 @@
+### [66.12.3](https://github.com/Sage/carbon/compare/v66.12.2...v66.12.3) (2021-02-23)
+
+
+### Bug Fixes
+
+* **date-input:** incorrect year in datepicker when date is not valid ([608164e](https://github.com/Sage/carbon/commit/608164e27c92fc2577da530073ec6910bc3c9f21))
+
 ### [66.12.2](https://github.com/Sage/carbon/compare/v66.12.1...v66.12.2) (2021-02-23)
 
 
