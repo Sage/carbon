@@ -242,11 +242,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Variant Centered:
+### Variant Left Aligned:
 
 <Preview>
   <Story
-    name="centered"
+    name="left aligned"
     parameters={{ info: { disable: true }}}
   >
   {() => {
@@ -272,9 +272,9 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       border: ${isOpen ? '2px solid green' : '2px solid blue'};
     `;
     return (
-      <div id="wrapper-centered">
+      <div id="wrapper-left-aligned">
         <StyledButton
-          id='button-variant-centered'
+          id='button-left-aligned'
           key='button'
           onClick={ handleToggle }
         >
@@ -282,10 +282,10 @@ Please note, by clicking a `toggle preview` button it will open example toast at
         </StyledButton>
         <Toast
           variant='warning'
-          id='toast-centered'
+          id='toast-left-aligned'
           open={ isOpen }
           onDismiss={ onDismissClick }
-          isCenter={ true }
+          isCenter={ false }
         >
           My text
         </Toast>

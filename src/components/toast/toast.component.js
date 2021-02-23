@@ -156,7 +156,7 @@ Toast.defaultProps = {
   as: "warning",
   onDismiss: null,
   open: true,
-  isCenter: false,
+  isCenter: true,
 };
 
 export default Toast;
