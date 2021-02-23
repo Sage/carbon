@@ -22,6 +22,8 @@ const Icon = React.forwardRef(
       tooltipMessage,
       tooltipPosition,
       tooltipVisible,
+      tooltipBgColor,
+      tooltipFontColor,
       tabIndex,
       isPartOfInput,
       inputSize,
@@ -83,6 +85,8 @@ const Icon = React.forwardRef(
           isVisible={visible}
           isPartOfInput={isPartOfInput}
           inputSize={inputSize}
+          bgColor={tooltipBgColor}
+          fontColor={tooltipFontColor}
         >
           {icon}
         </Tooltip>
@@ -138,6 +142,10 @@ Icon.propTypes = {
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   /** Control whether the tooltip is visible */
   tooltipVisible: PropTypes.bool,
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipBgColor: PropTypes.string,
+  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipFontColor: PropTypes.string,
   /** @ignore @private */
   isPartOfInput: PropTypes.bool,
   /** @ignore @private */

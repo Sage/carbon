@@ -55,7 +55,6 @@ const MultiSelect = React.forwardRef(
     const [selectedValue, setSelectedValue] = useState([]);
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
-    const [repositionTrigger, setRepositionTrigger] = useState(false);
     const [placeholderOverride, setPlaceholderOverride] = useState();
 
     const setOpen = useCallback(() => {
@@ -99,6 +98,25 @@ const MultiSelect = React.forwardRef(
       [children, setOpen]
     );
 
+    const removeSelectedValue = useCallback(
+      (index) => {
+        setSelectedValue((previousValue) => {
+          isClickTriggeredBySelect.current = true;
+          if (previousValue.length === 0) {
+            return previousValue;
+          }
+          const newValue = [...previousValue];
+          newValue.splice(index, 1);
+          if (isControlled.current && onChange) {
+            onChange(createCustomEvent(newValue));
+            return newValue;
+          }
+          return newValue;
+        });
+      },
+      [createCustomEvent, onChange]
+    );
+
     const handleTextboxKeydown = useCallback(
       (event) => {
         const { key } = event;
@@ -136,7 +154,10 @@ const MultiSelect = React.forwardRef(
         const notInContainer =
           containerRef.current && !containerRef.current.contains(event.target);
 
-        if (notInContainer && !isClickTriggeredBySelect.current) {
+        const notInList =
+          listboxRef.current && !listboxRef.current.contains(event.target);
+
+        if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
           setTextValue("");
           setFilterText("");
           setHighlightedValue("");
@@ -229,10 +250,6 @@ const MultiSelect = React.forwardRef(
       if (!isControlled.current && onChange) {
         onChange(createCustomEvent(selectedValue));
       }
-
-      setRepositionTrigger((previousValue) => {
-        return !previousValue;
-      });
     }, [createCustomEvent, onChange, selectedValue]);
 
     function handleTextboxClick(event) {
@@ -379,25 +396,6 @@ const MultiSelect = React.forwardRef(
       });
     }
 
-    function removeSelectedValue(index) {
-      setSelectedValue((previousValue) => {
-        if (previousValue.length === 0) {
-          return previousValue;
-        }
-
-        const newValue = [...previousValue];
-        newValue.splice(index, 1);
-
-        if (isControlled.current && onChange) {
-          onChange(createCustomEvent(newValue));
-
-          return previousValue;
-        }
-
-        return newValue;
-      });
-    }
-
     function assignInput(input) {
       setTextboxRef(input.current);
 
@@ -450,7 +448,6 @@ const MultiSelect = React.forwardRef(
         filterText={filterText}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
-        repositionTrigger={repositionTrigger}
         disablePortal={disablePortal}
         isLoading={isLoading}
       >

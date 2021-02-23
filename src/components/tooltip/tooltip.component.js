@@ -19,6 +19,8 @@ const Tooltip = React.forwardRef(
       isPartOfInput,
       inputSize,
       id,
+      bgColor,
+      fontColor,
       ...rest
     },
     ref
@@ -42,6 +44,8 @@ const Tooltip = React.forwardRef(
           {...attrs}
           position={currentPosition}
           ref={tooltipRef}
+          bgColor={bgColor}
+          fontColor={fontColor}
         >
           <StyledPointer
             key="pointer"
@@ -50,6 +54,7 @@ const Tooltip = React.forwardRef(
             position={currentPosition}
             data-popper-arrow=""
             data-element="tooltip-pointer"
+            bgColor={bgColor}
           />
           <div>{content}</div>
         </StyledTooltip>
@@ -84,6 +89,10 @@ Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
   /** Defines the size of the tooltip content */
   size: PropTypes.oneOf(["medium", "large"]),
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  bgColor: PropTypes.string,
+  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  fontColor: PropTypes.string,
   /** @ignore @private */
   isPartOfInput: PropTypes.bool,
   /** @ignore @private */

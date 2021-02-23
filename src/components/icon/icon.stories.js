@@ -27,6 +27,8 @@ const commonKnobs = () => {
     tooltipPosition: tooltipMessage
       ? select("tooltipPosition", OptionsHelper.positions, "top")
       : undefined,
+    tooltipBgColor: text("tooltipBgColor", undefined),
+    tooltipFontColor: text("tooltipFontColor", undefined),
   };
 };
 

@@ -20,6 +20,8 @@ const Help = (props) => {
     tooltipPosition,
     isFocused,
     type,
+    tooltipBgColor,
+    tooltipFontColor,
   } = props;
 
   useEffect(() => {
@@ -72,6 +74,8 @@ const Help = (props) => {
         tooltipMessage={children}
         tooltipPosition={tooltipPosition}
         tooltipVisible={isFocused || isTooltipVisible}
+        tooltipBgColor={tooltipBgColor}
+        tooltipFontColor={tooltipFontColor}
       />
     </StyledHelp>
   );
@@ -96,6 +100,10 @@ Help.propTypes = {
   isFocused: PropTypes.bool,
   /** Icon to display, can be received from label component */
   type: PropTypes.oneOf(OptionsHelper.icons),
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipBgColor: PropTypes.string,
+  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipFontColor: PropTypes.string,
 };
 
 Help.defaultProps = {

@@ -5,7 +5,7 @@ import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-hea
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import { baseTheme } from "../../style/themes";
-import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
+import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 
 const StyledFlatTable = styled.table`

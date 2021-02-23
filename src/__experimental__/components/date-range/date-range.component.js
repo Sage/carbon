@@ -23,11 +23,15 @@ class DateRange extends React.Component {
   state = {
     startDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
-      rawValue: DateHelper.formatValue(this.startDate || this.today),
+      rawValue: DateHelper.formatValue(
+        this.startDate || (!this.isControlled ? this.today : "")
+      ),
     },
     endDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
-      rawValue: DateHelper.formatValue(this.endDate || this.today),
+      rawValue: DateHelper.formatValue(
+        this.endDate || (!this.isControlled ? this.today : "")
+      ),
     },
   };
 
