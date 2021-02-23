@@ -1,3 +1,10 @@
+### [66.12.2](https://github.com/Sage/carbon/compare/v66.12.1...v66.12.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* **dialog:** correct calculation to apply fixed bottom ([e1e5fd5](https://github.com/Sage/carbon/commit/e1e5fd536ff229461ff9b716c7c17ba46db009ab)), closes [#3257](https://github.com/Sage/carbon/issues/3257)
+
 ### [66.12.1](https://github.com/Sage/carbon/compare/v66.12.0...v66.12.1) (2021-02-22)
 
 
