@@ -5,6 +5,7 @@ import Textbox from "../../__experimental__/components/textbox";
 import SidebarStyle from "./sidebar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
 
 describe("Sidebar", () => {
   let wrapper, spy;
@@ -83,6 +84,18 @@ describe("Sidebar", () => {
         expect(wrapper.find(".carbon-sidebar__close").length).toEqual(0);
       });
     });
+
+    describe("header", () => {
+      it("does not render header if not provided", () => {
+        wrapper = mount(<Sidebar open />);
+        expect(wrapper.find(SidebarHeader).exists()).toBe(false);
+      });
+
+      it("does render header if provided", () => {
+        wrapper = mount(<Sidebar open header="test header" />);
+        expect(wrapper.find(SidebarHeader).contains("test header")).toBe(true);
+      });
+    });
   });
 
   describe("cancel icon", () => {
@@ -114,10 +127,12 @@ describe("SidebarStyle", () => {
     it("should render correct style", () => {
       assertStyleMatch(
         {
-          width: "150px",
+          width: "214px",
           boxShadow:
             "0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)",
           right: "0",
+          display: "flex",
+          flexDirection: "column",
         },
         wrapper
       );
