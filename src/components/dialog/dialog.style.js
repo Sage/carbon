@@ -71,7 +71,6 @@ const DialogStyle = styled.div`
     fixedBottom &&
     css`
       bottom: 0;
-      min-height: 0px !important;
     `}
 
   > ${StyledIconButton} {
@@ -110,8 +109,12 @@ const DialogContentStyle = styled.div`
   box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
-  padding: 0px 35px 30px;
   width: 100%;
+
+  ${({ paddingBottom }) =>
+    css`
+      padding: 0px 35px ${paddingBottom}px;
+    `}
 
   ${({ fixedBottom }) =>
     fixedBottom &&
