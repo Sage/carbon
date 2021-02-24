@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 import Fieldset from "../../__experimental__/components/fieldset";
 import { Input } from "../../__experimental__/components/input";
-import Button from "../button";
 import tint from "../../style/utils/tint";
-
 import { LegendContainerStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
 
@@ -101,11 +99,21 @@ const StyledTitleContainer = styled.div`
   position: relative;
 `;
 
-const StyledDeselectButton = styled(Button)`
-  position: absolute;
-  top: 16px;
-  right: 8px;
-  z-index: 200;
+const StyledDeselectWrapper = styled.div`
+  ${({ hasActionAdornment, theme }) => css`
+    position: absolute;
+    top: ${2 * theme.spacing}px;
+    right: ${theme.spacing}px;
+    z-index: 200;
+
+    ${hasActionAdornment &&
+    `
+      margin-right: ${2 * theme.spacing}px;
+      display: flex;
+      align-items: center;
+      min-height: ${4 * theme.spacing}px;
+    `}
+  `}
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
@@ -147,6 +155,9 @@ StyledTileSelectInput.defaultProps = {
 StyledDescription.defaultProps = {
   theme: baseTheme,
 };
+StyledDeselectWrapper.defaultProps = {
+  theme: baseTheme,
+};
 
 export {
   StyledTileSelectFieldset,
@@ -159,5 +170,5 @@ export {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
-  StyledDeselectButton,
+  StyledDeselectWrapper,
 };
