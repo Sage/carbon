@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import Fieldset from "../../../__internal__/fieldset";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import RadioButtonMapper from "./radio-button-mapper.component";
 import Logger from "../../../utils/logger/logger";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
+import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
 
 let deprecatedWarnTriggered = false;
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const RadioButtonGroup = (props) => {
   if (!deprecatedWarnTriggered) {
@@ -33,8 +38,6 @@ const RadioButtonGroup = (props) => {
     legendWidth,
     legendAlign,
     legendSpacing,
-    ml,
-    mb,
     labelSpacing = 1,
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
@@ -42,9 +45,12 @@ const RadioButtonGroup = (props) => {
     styleOverride = {},
   } = props;
 
+  const marginProps = filterStyledSystemMarginProps(props);
+
   const isAboveLegendBreakpoint = useIsAboveBreakpoint(
     adaptiveLegendBreakpoint
   );
+
   const isAboveSpacingBreakpoint = useIsAboveBreakpoint(
     adaptiveSpacingBreakpoint
   );
@@ -54,7 +60,7 @@ const RadioButtonGroup = (props) => {
     inlineLegend = isAboveLegendBreakpoint;
   }
 
-  let marginLeft = ml;
+  let marginLeft = marginProps.ml;
   if (adaptiveSpacingBreakpoint && !isAboveSpacingBreakpoint) {
     marginLeft = undefined;
   }
@@ -70,17 +76,17 @@ const RadioButtonGroup = (props) => {
       legendWidth={legendWidth}
       legendAlign={legendAlign}
       legendSpacing={legendSpacing}
-      ml={marginLeft}
-      mb={mb}
       styleOverride={styleOverride}
       isRequired={required}
       {...tagComponent("radiogroup", props)}
+      {...marginProps}
+      ml={marginLeft}
     >
       <RadioButtonGroupStyle
         data-component="radio-button-group"
         role="group"
         inline={inline}
-        legendInline={legendInline}
+        legendInline={inlineLegend}
         styleOverride={styleOverride.content}
       >
         <RadioButtonMapper
@@ -89,10 +95,7 @@ const RadioButtonGroup = (props) => {
           onChange={onChange}
           value={value}
         >
-          {React.Children.map(children, (child, i) => {
-            const length = React.Children.count(children);
-            const isLastChild = i === length - 1;
-            const isFirstChild = i === 0;
+          {React.Children.map(children, (child) => {
             return React.cloneElement(child, {
               inline,
               labelSpacing,
@@ -100,8 +103,6 @@ const RadioButtonGroup = (props) => {
               warning: !!warning,
               info: !!info,
               required,
-              mt: !inline && isFirstChild ? "4px" : undefined,
-              mb: isLastChild ? 0 : undefined,
               ...child.props,
             });
           })}
@@ -112,6 +113,7 @@ const RadioButtonGroup = (props) => {
 };
 
 RadioButtonGroup.propTypes = {
+  ...marginPropTypes,
   /** The RadioButton objects to be rendered in the group */
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
@@ -146,10 +148,6 @@ RadioButtonGroup.propTypes = {
   legendAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
-  /** Margin left, any valid CSS value */
-  ml: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7]),
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */

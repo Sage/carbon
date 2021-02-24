@@ -21,6 +21,11 @@ export const Default = () => {
   const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
   const startLabel = text("startLabel", "");
   const endLabel = text("endLabel", "");
+  const allowEmptyValueOnStartDate = boolean(
+    "allowEmptyValue on start date",
+    true
+  );
+  const allowEmptyValueOnEndDate = boolean("allowEmptyValue on end date", true);
   const labelsInline =
     startLabel || endLabel ? boolean("labelsInline", false) : undefined;
 
@@ -41,6 +46,12 @@ export const Default = () => {
       startLabel={startLabel}
       labelsInline={labelsInline}
       onBlur={(ev) => action("blur")(ev)}
+      startDateProps={{
+        allowEmptyValue: allowEmptyValueOnStartDate,
+      }}
+      endDateProps={{
+        allowEmptyValue: allowEmptyValueOnEndDate,
+      }}
     />
   );
 };

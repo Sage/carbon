@@ -72,6 +72,10 @@ describe("DateHelper", () => {
           expect(
             DateHelper.formatValue("01/31/2015", "DD/MM/YYYY", { locale: "us" })
           ).toEqual("31/01/2015");
+
+          expect(
+            DateHelper.formatValue("03/04/2015", "DD/MM/YYYY", { locale: "us" })
+          ).toEqual("03/04/2015");
         });
       });
 

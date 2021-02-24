@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Option from '../option';
+import { OptionProps } from '../option';
 import { SpacingProps } from '../../../utils/helpers/options-helper';
 
 export interface SimpleSelectProps extends SpacingProps {
@@ -34,7 +34,7 @@ export interface SimpleSelectProps extends SpacingProps {
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | object;
   /** Child components (such as Option) for the SelectList */
-  children: Array<typeof Option>;
+  children: Array<React.ReactElement<OptionProps>> | React.ReactElement<OptionProps>;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** A custom message to be displayed when any option does not match the filter text */

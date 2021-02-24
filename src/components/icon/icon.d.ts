@@ -17,6 +17,8 @@ export interface IconProps {
   tooltipMessage?: string;
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   tooltipVisible?: boolean;
+  tooltipBgColor?: string;
+  tooltipFontColor?: string;
 }
 
 declare const Icon: React.ComponentType<IconProps>;

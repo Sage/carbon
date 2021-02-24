@@ -27,6 +27,8 @@ const props = () => {
     position: select("position", OptionsHelper.positions, "top"),
     type: select("type", ["error", "default"], "default"),
     size: select("size", ["medium", "large"], "medium"),
+    bgColor: text("bgColor", undefined),
+    fontColor: text("fontColor", undefined),
   };
 };
 
