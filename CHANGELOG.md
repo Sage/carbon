@@ -1,3 +1,59 @@
+### [66.12.3](https://github.com/Sage/carbon/compare/v66.12.2...v66.12.3) (2021-02-23)
+
+
+### Bug Fixes
+
+* **date-input:** incorrect year in datepicker when date is not valid ([608164e](https://github.com/Sage/carbon/commit/608164e27c92fc2577da530073ec6910bc3c9f21))
+
+### [66.12.2](https://github.com/Sage/carbon/compare/v66.12.1...v66.12.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* **dialog:** correct calculation to apply fixed bottom ([e1e5fd5](https://github.com/Sage/carbon/commit/e1e5fd536ff229461ff9b716c7c17ba46db009ab)), closes [#3257](https://github.com/Sage/carbon/issues/3257)
+
+### [66.12.1](https://github.com/Sage/carbon/compare/v66.12.0...v66.12.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* **select:** incorrect typescript children types ([b436fea](https://github.com/Sage/carbon/commit/b436feadad57d92a5b6ae640b88ae33dc9ba9f99))
+
+## [66.12.0](https://github.com/Sage/carbon/compare/v66.11.1...v66.12.0) (2021-02-22)
+
+
+### Features
+
+* **radio-button:** allow use of all styled system margin props ([4698606](https://github.com/Sage/carbon/commit/46986061d1bddef119d95c2d60eb83e0d9f1e1d5))
+
+### [66.11.1](https://github.com/Sage/carbon/compare/v66.11.0...v66.11.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **date-range:** allow empty values for start and end dates ([01eb5bc](https://github.com/Sage/carbon/commit/01eb5bc1cb58fb4a084fc2b9e85009960621d20c)), closes [#3501](https://github.com/Sage/carbon/issues/3501)
+
+## [66.11.0](https://github.com/Sage/carbon/compare/v66.10.2...v66.11.0) (2021-02-19)
+
+
+### Features
+
+* **flat-table:** add expandable rows option ([9701362](https://github.com/Sage/carbon/commit/9701362ba12e1a4e26881981848d1cb500473c92))
+
+### [66.10.2](https://github.com/Sage/carbon/compare/v66.10.1...v66.10.2) (2021-02-19)
+
+
+### Bug Fixes
+
+* **date:** set format based on translation ([024f338](https://github.com/Sage/carbon/commit/024f338ce7c1df99589ab9154c8aaf8c0071fdb0))
+
+### [66.10.1](https://github.com/Sage/carbon/compare/v66.10.0...v66.10.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** handle radio button focus ([ce3cc9b](https://github.com/Sage/carbon/commit/ce3cc9bfd0f456a663380af5f6cdcd035cb4e930)), closes [#3623](https://github.com/Sage/carbon/issues/3623)
+
 ## [66.10.0](https://github.com/Sage/carbon/compare/v66.9.0...v66.10.0) (2021-02-19)
 
 

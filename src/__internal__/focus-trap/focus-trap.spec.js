@@ -1,6 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
+
 import FocusTrap from "./focus-trap.component";
+import {
+  RadioButton,
+  RadioButtonGroup,
+} from "../../__experimental__/components/radio-button";
 
 jest.useFakeTimers();
 
@@ -266,6 +271,154 @@ describe("FocusTrap", () => {
           wrapper.find("button").at(2)
         );
         document.dispatchEvent(tabKey);
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(0)
+        );
+      });
+    });
+  });
+
+  describe("when first focusable elements are radio buttons", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <FocusTrap>
+          <div id="myComponent">
+            <RadioButtonGroup
+              name="mybuttongroup"
+              legend="How do you want to create this address?"
+              legendInline
+              onChange={() => jest.fn()}
+              value="1"
+              legendWidth={40}
+            >
+              <RadioButton
+                value="1"
+                label="Create a new Address"
+                size="large"
+              />
+              <RadioButton
+                value="2"
+                label="Select an Existing address"
+                size="large"
+              />
+            </RadioButtonGroup>
+            <button type="button">Test button One</button>
+            <button type="button">Test button Two</button>
+          </div>
+        </FocusTrap>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    describe("when focus on the first button and shift-tab pressed", () => {
+      it("should loop focus to the last focusable element", () => {
+        document.dispatchEvent(tabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(0)
+        );
+
+        document.dispatchEvent(shiftTabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(0)
+        );
+      });
+    });
+
+    describe("when focus on first radio button shift-tab pressed", () => {
+      it("should loop focus to the last focusable element", () => {
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(0)
+        );
+
+        document.dispatchEvent(shiftTabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(1)
+        );
+      });
+    });
+
+    describe("when focus on second radio button shift-tab pressed", () => {
+      it("should loop focus to the last focusable element", () => {
+        document.querySelectorAll('input[type="radio"]')[1].focus();
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(1)
+        );
+
+        document.dispatchEvent(shiftTabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(1)
+        );
+      });
+    });
+  });
+
+  describe("when trap contains radio buttons", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <FocusTrap>
+          <div id="myComponent">
+            <button type="button">Test button One</button>
+            <RadioButtonGroup
+              name="mybuttongroup"
+              legend="How do you want to create this address?"
+              legendInline
+              onChange={() => jest.fn()}
+              value="1"
+              legendWidth={40}
+            >
+              <RadioButton
+                value="1"
+                label="Create a new Address"
+                size="large"
+              />
+              <RadioButton
+                value="2"
+                label="Select an Existing address"
+                size="large"
+              />
+            </RadioButtonGroup>
+            <button type="button">Test button Two</button>
+          </div>
+        </FocusTrap>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    describe("when focus on first radio button shift-tab pressed", () => {
+      it("should loop focus to the last focusable element", () => {
+        document.dispatchEvent(tabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(0)
+        );
+
+        document.dispatchEvent(shiftTabKey);
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find("button").at(0)
+        );
+      });
+    });
+
+    describe("when focus on second radio button shift-tab pressed", () => {
+      it("should loop focus to the last focusable element", () => {
+        document.querySelectorAll('input[type="radio"]')[1].focus();
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(1)
+        );
+
+        document.dispatchEvent(shiftTabKey);
+
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );

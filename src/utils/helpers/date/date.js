@@ -3,6 +3,7 @@ import moment from "moment";
 import { merge } from "lodash";
 
 const isoDateFormat = "YYYY-MM-DD";
+const defaultDateFormat = "DD/MM/YYYY";
 
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
@@ -205,10 +206,15 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {Moment}
    */
-  _parseDate: (value, options) => {
+  _parseDate(value, options) {
     const opts = merge(DateHelper._defaultMomentOptions(), options);
     const val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
-    return moment(val, opts.formats, opts.locale, opts.strict);
+    return moment(
+      val,
+      [this._visibleFormat(), ...opts.formats],
+      opts.locale,
+      opts.strict
+    );
   },
 
   /**
@@ -224,14 +230,15 @@ const DateHelper = {
     });
   },
 
-  formatDateToCurrentLocale(value) {
-    const defaultDateFormat = "DD/MM/YYYY";
-
-    const visibleFormat = I18n.t("date.formats.javascript", {
+  _visibleFormat: () =>
+    I18n.t("date.formats.javascript", {
       defaultValue: defaultDateFormat,
-    }).toUpperCase();
+    }).toUpperCase(),
 
-    return DateHelper.formatValue(value, visibleFormat);
+  formatDateToCurrentLocale(value) {
+    return DateHelper.formatValue(value, this._visibleFormat(), {
+      formats: [this._visibleFormat()],
+    });
   },
 };
 
