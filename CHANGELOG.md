@@ -1,3 +1,24 @@
+## [66.5.0](https://github.com/Sage/carbon/compare/v66.4.1...v66.5.0) (2021-02-17)
+
+
+### Features
+
+* **button:** icon only button ([cd03584](https://github.com/Sage/carbon/commit/cd035845a772b7fb6331809c845f5b1facb56337)), closes [#3236](https://github.com/Sage/carbon/issues/3236)
+
+### [66.4.1](https://github.com/Sage/carbon/compare/v66.4.0...v66.4.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* **flat-table-row:** remove border bottom colour overrides ([9e0b424](https://github.com/Sage/carbon/commit/9e0b424657f20e1948a0598896beaf07fd055aa7)), closes [#3522](https://github.com/Sage/carbon/issues/3522)
+
+## [66.4.0](https://github.com/Sage/carbon/compare/v66.3.0...v66.4.0) (2021-02-16)
+
+
+### Features
+
+* **pager:** add props to conditional render elements and smart render buttons ([90be09b](https://github.com/Sage/carbon/commit/90be09b3c6a77a81748f737ea8529cf64a908137)), closes [#3425](https://github.com/Sage/carbon/issues/3425)
+
 ## [66.3.0](https://github.com/Sage/carbon/compare/v66.2.3...v66.3.0) (2021-02-16)
 
 

@@ -54,6 +54,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 .c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -330,6 +331,7 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 .c16 .c13 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 

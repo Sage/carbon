@@ -80,6 +80,7 @@ exports[`Option renders properly 1`] = `
 .c2 .c3 {
   margin-left: 8px;
   margin-right: 0px;
+  margin-bottom: 0px;
   height: 16px;
 }
 

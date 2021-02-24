@@ -34,6 +34,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c3 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -48,6 +49,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c4 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -62,6 +64,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c5 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -76,6 +79,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c6 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -90,6 +94,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c7 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -104,6 +109,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c8 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -118,6 +124,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c9 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -132,6 +139,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c10 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -146,6 +154,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c11 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -160,6 +169,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c12 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -174,6 +184,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c13 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -188,6 +199,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c14 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -202,6 +214,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c15 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -216,6 +229,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c16 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -230,6 +244,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c17 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -244,6 +259,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c18 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -258,6 +274,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c19 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -271,7 +288,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c20 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
 }
 
@@ -286,6 +304,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c21 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -300,6 +319,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c22 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -314,6 +334,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c23 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -328,6 +349,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c24 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -342,6 +364,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c25 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -356,6 +379,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c26 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -370,6 +394,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c27 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -384,6 +409,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c28 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -398,6 +424,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c29 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -412,6 +439,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c30 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -426,6 +454,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c31 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -440,6 +469,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c32 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -454,6 +484,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c33 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -468,6 +499,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c34 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -482,6 +514,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c35 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -496,6 +529,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c36 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -510,6 +544,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c37 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -524,6 +559,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c38 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -538,6 +574,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c39 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -552,6 +589,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c40 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -566,6 +604,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c41 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -580,6 +619,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c42 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -594,6 +634,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c43 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -608,10 +649,26 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c44 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
 .c44 .c1 svg {
+  margin-top: 0;
+}
+
+.c45:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c45 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c45 .c1 svg {
   margin-top: 0;
 }
 
@@ -668,6 +725,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 .c1 {
   margin-left: 8px;
   margin-right: 0px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -782,6 +840,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -796,6 +855,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c3 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -810,6 +870,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c4 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -824,6 +885,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c5 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -838,6 +900,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c6 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -852,6 +915,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c7 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -866,6 +930,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c8 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -880,6 +945,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c9 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -894,6 +960,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c10 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -908,6 +975,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c11 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -922,6 +990,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c12 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -936,6 +1005,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c13 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -950,6 +1020,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c14 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -964,6 +1035,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c15 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -978,6 +1050,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c16 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -992,6 +1065,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c17 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1006,6 +1080,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c18 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1019,7 +1094,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c19 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
 }
 
@@ -1034,6 +1110,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c20 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1048,6 +1125,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c21 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1062,6 +1140,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c22 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1076,6 +1155,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c23 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1090,6 +1170,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c24 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1104,6 +1185,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c25 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1118,6 +1200,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c26 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1132,6 +1215,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c27 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1146,6 +1230,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c28 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1160,6 +1245,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c29 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1174,6 +1260,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c30 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1188,6 +1275,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c31 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1202,6 +1290,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c32 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1216,6 +1305,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c33 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1230,6 +1320,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c34 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1244,6 +1335,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c35 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1258,6 +1350,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c36 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1272,6 +1365,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c37 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1286,6 +1380,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c38 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1300,6 +1395,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c39 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1314,6 +1410,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c40 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1328,6 +1425,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c41 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1342,6 +1440,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c42 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
@@ -1356,10 +1455,26 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c43 .c1 {
   margin-left: 0px;
   margin-right: 8px;
+  margin-bottom: 0px;
   height: 16px;
 }
 
 .c43 .c1 svg {
+  margin-top: 0;
+}
+
+.c44:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c44 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c44 .c1 svg {
   margin-top: 0;
 }
 

@@ -17,6 +17,7 @@ export interface ButtonProps extends SpacingProps {
     | "dashed"
     | "destructive"
     | "darkBackground";
+  "aria-label"?: string;
   disabled?: boolean;
   destructive?: boolean;
   fullWidth?: boolean;
@@ -34,6 +35,8 @@ export interface ButtonProps extends SpacingProps {
   forwardRef?: () => void;
   onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
   noWrap?: boolean;
+  iconTooltipMessage?: string;
+  iconTooltipPosition?: string;
 }
 
 declare const Button: React.ComponentType<
