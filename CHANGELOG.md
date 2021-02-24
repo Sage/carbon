@@ -1,3 +1,10 @@
+## [66.13.0](https://github.com/Sage/carbon/compare/v66.12.4...v66.13.0) (2021-02-24)
+
+
+### Features
+
+* **tile-select:** add props to  override action button and render sibling adornment ([8f84c27](https://github.com/Sage/carbon/commit/8f84c27306f674b1f13e602d5e9a95700ca32f2d))
+
 ### [66.12.4](https://github.com/Sage/carbon/compare/v66.12.3...v66.12.4) (2021-02-24)
 
 
