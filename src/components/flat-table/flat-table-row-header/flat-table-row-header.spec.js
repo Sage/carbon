@@ -54,5 +54,18 @@ describe("FlatTableRowHeader", () => {
         expect(onClickFn).toHaveBeenCalled();
       });
     });
+
+    describe("and onKeyDown prop is set", () => {
+      it("should call the onKeyDown function when a key is pressed", () => {
+        const onKeyDownFn = jest.fn();
+        const wrapper = mount(
+          <FlatTableRowHeader expandable onKeyDown={onKeyDownFn} />
+        );
+
+        wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
+
+        expect(onKeyDownFn).toHaveBeenCalled();
+      });
+    });
   });
 });

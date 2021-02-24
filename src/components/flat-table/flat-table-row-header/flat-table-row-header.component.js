@@ -13,6 +13,7 @@ const FlatTableRowHeader = ({
   px,
   expandable = false,
   onClick,
+  onKeyDown,
   ...rest
 }) => {
   return (
@@ -22,7 +23,9 @@ const FlatTableRowHeader = ({
       colWidth={width}
       py={py || "10px"}
       px={px || 3}
-      onClick={expandable && onClick ? () => onClick() : undefined}
+      onClick={expandable && onClick ? onClick : undefined}
+      tabIndex={expandable && onClick ? 0 : undefined}
+      onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
       {...rest}
     >
       <div>
@@ -51,6 +54,11 @@ FlatTableRowHeader.propTypes = {
    * @ignore
    */
   onClick: PropTypes.func,
+  /**
+   * @private
+   * @ignore
+   */
+  onKeyDown: PropTypes.func,
 };
 
 FlatTableRowHeader.defaultProps = {
