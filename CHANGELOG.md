@@ -1,3 +1,10 @@
+### [66.12.4](https://github.com/Sage/carbon/compare/v66.12.3...v66.12.4) (2021-02-24)
+
+
+### Bug Fixes
+
+* **text-editor:** update import path ([d851b72](https://github.com/Sage/carbon/commit/d851b7228828df9330e387710fbbd0ceaf950c57))
+
 ### [66.12.3](https://github.com/Sage/carbon/compare/v66.12.2...v66.12.3) (2021-02-23)
 
 
