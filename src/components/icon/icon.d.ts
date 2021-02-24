@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Positions } from "../../utils/helpers/options-helper";
 export interface IconProps {
   /** Icon type */
   type: string;
@@ -28,13 +28,15 @@ export interface IconProps {
   /** The message string to be displayed in the tooltip */
   tooltipMessage?: string;
   /** The position to display the tooltip */
-  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  tooltipPosition?: Positions;
   /** Control whether the tooltip is visible */
   tooltipVisible?: boolean;
   /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipBgColor?: string;
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
+  /** Overrides the default flip behaviour of the Tooltip */
+  tooltipFlipOverrides?: Positions[];
 }
 
 declare const Icon: React.ComponentType<IconProps>;
