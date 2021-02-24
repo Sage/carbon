@@ -1,10 +1,11 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
+import PropTypes from "prop-types";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { css, ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
-import I18n from "i18n-js";
+import i18n from "i18next";
 
 import Switch from ".";
 import CheckableInput from "../checkable-input";
@@ -25,6 +26,7 @@ import SwitchSliderPanel from "./switch-slider-panel.style";
 import SwitchStyle from "./switch.style";
 import SwitchSlider from "./switch-slider.component";
 import Label from "../label";
+import I18next from "../../../__spec_helper__/I18next";
 
 jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -62,7 +64,9 @@ describe("Switch", () => {
 
     it("reacts properly to checked prop change", () => {
       const wrapper = render({ checked: true }, mount);
-      expect(wrapper.find(CheckableInput).prop("checked")).toBe(true);
+      expect(wrapper.find(Switch).find(CheckableInput).prop("checked")).toBe(
+        true
+      );
       act(() => {
         wrapper.setProps({ checked: false });
       });
@@ -83,57 +87,6 @@ describe("Switch", () => {
         wrapper.find(CheckableInput).prop("onChange")(event);
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
-    });
-  });
-
-  const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();
-
-  describe("i18n", () => {
-    const { translations, locale } = I18n;
-    beforeAll(() => {
-      I18n.translations = {
-        ...translations,
-        fr: {
-          ...translations.fr,
-          switch: {
-            on: "sur",
-            off: "de",
-          },
-        },
-      };
-    });
-
-    afterAll(() => {
-      I18n.translations = translations;
-      I18n.locale = locale;
-    });
-
-    describe("default translation", () => {
-      it("has default translation for on", () => {
-        const wrapper = render({ checked: true }, mount);
-        expect(getLabel(wrapper)).toBe("ON");
-      });
-
-      it("has default translation for off", () => {
-        const wrapper = render({ checked: false }, mount);
-        expect(getLabel(wrapper)).toBe("OFF");
-      });
-    });
-
-    describe("translation", () => {
-      beforeAll(() => {
-        I18n.locale = "fr";
-      });
-
-      it("can use i18n for on", () => {
-        const wrapper = render({ checked: true }, mount);
-        expect(getLabel(wrapper)).toBe("SUR");
-      });
-
-      it("can use i18n for off", () => {
-        const wrapper = render({ checked: false }, mount);
-        expect(getLabel(wrapper)).toBe("DE");
-      });
     });
   });
 
@@ -582,14 +535,65 @@ describe("Switch", () => {
   });
 });
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<Switch name="my-switch" value="test" {...props} />);
+describe("i18n", () => {
+  const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();
+
+  beforeAll(() => {
+    i18n.addResourceBundle("fr", "carbon", {
+      switch: {
+        on: "sur",
+        off: "de",
+      },
+    });
+  });
+
+  describe("default translation", () => {
+    it("has default translation for on", () => {
+      const wrapper = render({ checked: true }, mount);
+      expect(getLabel(wrapper)).toBe("ON");
+    });
+
+    it("has default translation for off", () => {
+      const wrapper = render({ checked: false }, mount);
+      expect(getLabel(wrapper)).toBe("OFF");
+    });
+  });
+
+  describe("translation", () => {
+    it("can use i18n for on", () => {
+      const wrapper = render({ checked: true }, mount, "fr");
+      expect(getLabel(wrapper)).toBe("SUR");
+    });
+
+    it("can use i18n for off", () => {
+      const wrapper = render({ checked: false }, mount, "fr");
+      expect(getLabel(wrapper)).toBe("DE");
+    });
+  });
+});
+
+function RenderWrapper({ lng, ...props }) {
+  return (
+    <I18next lng={lng}>
+      <Switch name="my-switch" value="test" {...props} />
+    </I18next>
+  );
+}
+
+RenderWrapper.propTypes = {
+  lng: PropTypes.string.isRequired,
+};
+
+function render(props, renderer = TestRenderer.create, lng = "en") {
+  return renderer(<RenderWrapper lng={lng} {...props} />);
 }
 
 function renderWithTheme(props, theme, renderer = TestRenderer.create) {
   return renderer(
-    <ThemeProvider theme={theme}>
-      <Switch name="my-switch" value="test" {...props} />
-    </ThemeProvider>
+    <I18next>
+      <ThemeProvider theme={theme}>
+        <Switch name="my-switch" value="test" {...props} />
+      </ThemeProvider>
+    </I18next>
   );
 }
