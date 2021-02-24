@@ -1,3 +1,10 @@
+### [66.13.1](https://github.com/Sage/carbon/compare/v66.13.0...v66.13.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* **numeral-date:** prevent error being thrown when default date format is used ([3f9c535](https://github.com/Sage/carbon/commit/3f9c535210d194d39e41fcb96b17399e34b49e82)), closes [#3264](https://github.com/Sage/carbon/issues/3264)
+
 ## [66.13.0](https://github.com/Sage/carbon/compare/v66.12.4...v66.13.0) (2021-02-24)
 
 
