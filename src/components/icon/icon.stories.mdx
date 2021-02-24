@@ -46,12 +46,14 @@ const MyComponent = () => (
 
 ### With tooltip
 The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props, 
-such as `tooltipPosition` and `tooltipVisible` are also surfaced.
+such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontColor` are also surfaced.
 
 <Preview>
   <Story name="with tooltip">
-    <div style={{ margin: 60 }}>
-      <Icon type="add" tooltipMessage="Hey I'm a tooltip!" />
+    <div style={{ margin: 60, display: "inline" }}>
+      <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
+      <Icon mr={4} ml={4} type="add" tooltipMessage="Hey I'm a tooltip with a different position!" tooltipPosition="bottom" />
+      <Icon ml={8} type="add" tooltipMessage="Hey I'm a tooltip with a different color!" tooltipBgColor="lightblue" tooltipFontColor="black" />
     </div>
   </Story>
 </Preview>

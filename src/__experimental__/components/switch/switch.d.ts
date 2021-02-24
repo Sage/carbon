@@ -1,7 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface SwitchProps {
   checked?: boolean;
+  defaultChecked?: boolean;
   disabled?: boolean;
   fieldHelp?: string;
   fieldHelpInline?: boolean;
@@ -11,12 +12,13 @@ export interface SwitchProps {
   labelHelp?: string;
   labelAlign?: string;
   labelInline?: boolean;
+  labelSpacing?: 1 | 2;
   labelWidth?: number | string;
   loading?: boolean;
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   reverse?: boolean;
   size?: string;
-  theme?: object;
   value?: string;
   /* Indicate that error has occurred
   Pass string to display icon, tooltip and red border
@@ -30,6 +32,11 @@ export interface SwitchProps {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info?: boolean | string;
+  /** When true, validation icon will be placed on label instead of being placed by the input */
+  validationOnLabel?: boolean;
+  /** Override tab index on the validation and help icon */
+  helpTabIndex?: number | string;
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Flag to configure component as mandatory */

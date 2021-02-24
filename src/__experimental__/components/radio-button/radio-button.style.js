@@ -1,14 +1,26 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import CheckboxStyle from "../checkbox/checkbox.style";
 import FieldHelpStyle from "../field-help/field-help.style";
-import HiddenCheckableInputStyle from "../checkable-input/hidden-checkable-input.style";
-import { StyledCheckableInput } from "../checkable-input/checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../checkable-input/checkable-input-svg-wrapper.style";
+import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
+import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { StyledLabelContainer } from "../label/label.style";
 import baseTheme from "../../../style/themes/base";
+import FormFieldStyle from "../form-field/form-field.style";
 
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({ disabled, fieldHelpInline, reverse, size, theme, inline }) => css`
+    margin-bottom: ${theme.space[2]}px;
+
+    :last-of-type {
+      margin-bottom: 0;
+    }
+
+    && ${FormFieldStyle} {
+      margin: 0;
+    }
+
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;
     }
@@ -96,6 +108,8 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       }
     `}
   `}
+
+  ${margin};
 `;
 
 RadioButtonStyle.defaultProps = {

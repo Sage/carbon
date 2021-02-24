@@ -11,3 +11,10 @@ Then("Tab {int} content is visible", (id) => {
     .should("be.visible")
     .and("have.text", `${TAB_CONTENT}${id}`);
 });
+
+Then("Second Tab has a link property", () => {
+  tabById(2)
+    .find("a")
+    .should("have.attr", "href", "https://carbon.sage.com/")
+    .and("have.attr", "target", "_blank");
+});

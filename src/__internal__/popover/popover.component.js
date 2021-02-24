@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
@@ -36,8 +36,9 @@ const Popover = ({
   modifiers,
 }) => {
   const elementDOM = useRef();
-  if (!elementDOM.current) {
+  if (!elementDOM.current && !disablePortal) {
     elementDOM.current = document.createElement("div");
+    document.body.appendChild(elementDOM.current);
   }
   const popperInstance = useRef();
   const popperRef = useRef();
@@ -54,41 +55,62 @@ const Popover = ({
     popperElementRef = popperRef;
   }
 
-  useEffect(() => {
-    popperInstance.current = createPopper(
-      reference.current,
-      popperElementRef.current,
-      {
-        placement,
-        onFirstUpdate,
-        modifiers: [
-          alignSameWidthPopper,
-          {
-            name: "computeStyles",
-            options: {
-              gpuAcceleration: false,
-            },
-          },
-          ...(modifiers || []),
-        ],
+  /* istanbul ignore next */
+  const observer = useRef(
+    new ResizeObserver(() => {
+      if (popperInstance.current) {
+        popperInstance.current.update();
       }
-    );
+    })
+  );
+
+  useEffect(() => {
+    const observerRef = observer.current;
+    const referenceRef = reference.current;
+    observer.current.observe(referenceRef);
 
     return () => {
-      popperInstance.current.destroy();
-      popperInstance.current = null;
+      observerRef.unobserve(referenceRef);
+      observerRef.disconnect();
+    };
+  }, [reference]);
+
+  useLayoutEffect(() => {
+    if (reference.current) {
+      popperInstance.current = createPopper(
+        reference.current,
+        popperElementRef.current,
+        {
+          placement,
+          onFirstUpdate,
+          modifiers: [
+            alignSameWidthPopper,
+            {
+              name: "computeStyles",
+              options: {
+                gpuAcceleration: false,
+              },
+            },
+            ...(modifiers || []),
+          ],
+        }
+      );
+    }
+
+    return () => {
+      if (popperInstance.current) {
+        popperInstance.current.destroy();
+        popperInstance.current = null;
+      }
     };
   }, [modifiers, onFirstUpdate, placement, popperElementRef, reference]);
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (!disablePortal) {
-      const portalElement = elementDOM.current;
-      document.body.appendChild(portalElement);
-      return () => {
-        document.body.removeChild(portalElement);
-      };
-    }
+    return () => {
+      if (!disablePortal) {
+        document.body.removeChild(elementDOM.current);
+      }
+    };
   }, [disablePortal]);
 
   if (disablePortal) {
@@ -124,7 +146,7 @@ Popover.propTypes = {
   modifiers: PropTypes.array,
   // Optional onFirstUpdate funcition, for more information go to:
   // https://popper.js.org/docs/v2/constructors/#modifiers
-  onFirstUpdate: PropTypes.array,
+  onFirstUpdate: PropTypes.func,
   // When true, children are not rendered in portal
   disablePortal: PropTypes.bool,
   // Reference element, children will be positioned in relation to this element - should be a ref

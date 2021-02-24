@@ -134,6 +134,11 @@ export default (palette) => {
         border: palette.slateTint(40),
       },
 
+      subRow: {
+        background: palette.slateTint(98),
+        shadow: "rgba(0, 20, 29, 0.1)",
+      },
+
       transparentWhite: {
         headerBackground: "#fff",
         border: "#fff",

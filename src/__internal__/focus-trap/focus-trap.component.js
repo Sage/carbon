@@ -7,8 +7,12 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 
-const defaultFocusableSelectors =
-  'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
+import {
+  defaultFocusableSelectors,
+  nextNonRadioElementIndex,
+  isRadio,
+  setElementFocus,
+} from "./focus-trap-utils";
 
 const FocusTrap = ({
   children,
@@ -21,15 +25,6 @@ const FocusTrap = ({
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
-
-  function setElementFocus(element) {
-    if (typeof element === "function") {
-      element();
-    } else {
-      const el = element.current || element;
-      el.focus();
-    }
-  }
 
   const hasNewInputs = useCallback(
     (candidate) => {
@@ -68,17 +63,31 @@ const FocusTrap = ({
         return;
       }
 
+      const { activeElement } = document;
+
       if (ev.key === "Tab") {
         if (!focusableElements.length) {
           /* Block the trap */
           ev.preventDefault();
         } else if (ev.shiftKey) {
           /* shift + tab */
-          if (document.activeElement === firstElement) {
+          if (activeElement === firstElement) {
             lastElement.focus();
             ev.preventDefault();
           }
-        } else if (document.activeElement === lastElement) {
+
+          // If current element is radio button -
+          // find next non radio button element
+          if (isRadio(activeElement)) {
+            const nextIndex = nextNonRadioElementIndex(
+              activeElement,
+              focusableElements
+            );
+
+            setElementFocus(focusableElements[nextIndex]);
+            ev.preventDefault();
+          }
+        } else if (activeElement === lastElement) {
           firstElement.focus();
           ev.preventDefault();
         }

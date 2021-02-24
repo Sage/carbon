@@ -71,7 +71,7 @@ Then("Button as a sibling background color is {string}", (color) => {
 });
 
 When("I click on {string}", (element) => {
-  buttonDataComponentIFrame(element).click();
+  buttonDataComponentIFrame(element).click({ force: true });
 });
 
 When("I click on {string} as a sibling", (element) => {

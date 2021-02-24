@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../style/themes";
-import StyledFlatTableCell from "../flat-table-cell/flat-table-cell.style";
+import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
+import StyledIcon from "../../icon/icon.style";
 
 const StyledFlatTableRow = styled.tr`
   border-collapse: separate;
@@ -51,7 +52,27 @@ const StyledFlatTableRow = styled.tr`
       }
     `}
 
-  ${({ selected, highlighted, isInSidebar, theme }) => {
+  ${({ isFirstColumnInteractive, firstCellIndex }) =>
+    isFirstColumnInteractive &&
+    css`
+      cursor: default;
+
+      td:nth-child(${firstCellIndex + 1}),
+      th:nth-child(${firstCellIndex + 1}) {
+        cursor: pointer;
+      }
+    `}
+
+  ${({
+    expandable,
+    selected,
+    highlighted,
+    isExpanded,
+    isInSidebar,
+    isSubRow,
+    isFirstSubRow,
+    theme,
+  }) => {
     const colorOfSelected = isInSidebar
       ? theme.flatTable.drawerSidebar.selected
       : theme.flatTable.selected;
@@ -88,8 +109,49 @@ const StyledFlatTableRow = styled.tr`
         }
       `}
 
+      ${expandable &&
+      css`
+        ${StyledIcon} {
+          transition: transform 0.3s;
+          ${!isExpanded &&
+          css`
+            transform: rotate(-90deg);
+          `}
+        }
+
+        ${StyledFlatTableCell}:first-child > div,
+        ${StyledFlatTableRowHeader}:first-child > div,
+        ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
+          padding-left: 4px;
+        }
+      `}
+
+      ${isSubRow &&
+      css`
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${theme.flatTable.subRow.background};
+        }
+
+        ${StyledFlatTableCell}:first-child > div,
+        ${StyledFlatTableRowHeader}:first-child > div,
+        ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
+          padding-left: 30px;
+        }
+      `}
+
+      ${isFirstSubRow &&
+      css`
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
+          box-shadow: inset 0 6px 4px -4px ${theme.flatTable.subRow.shadow};
+        }
+      `}
+
       ${highlighted &&
-      `
+      css`
         ${StyledFlatTableCell},
         ${StyledFlatTableRowHeader},
         ${StyledFlatTableCheckbox} {

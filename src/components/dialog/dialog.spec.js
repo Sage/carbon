@@ -542,11 +542,10 @@ describe("Dialog", () => {
   });
 
   describe("when fixedBottom is passed to the DialogStyle", () => {
-    it("should render matched snapshot", () => {
+    it("should add the correct styles to DialogStyle", () => {
       assertStyleMatch(
         {
           bottom: "0",
-          minHeight: "0px !important",
         },
         TestRenderer.create(<DialogStyle open fixedBottom />).toJSON()
       );

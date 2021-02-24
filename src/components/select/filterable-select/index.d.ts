@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from '../../button';
-import Option from '../option';
+import { OptionProps } from '../option';
 
 export interface FilterableSelectProps {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -34,7 +34,7 @@ export interface FilterableSelectProps {
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | object;
   /** Child components (such as Option) for the SelectList */
-  children: Array<typeof Option>;
+  children: Array<React.ReactElement<OptionProps>> | React.ReactElement<OptionProps>;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** A custom message to be displayed when any option does not match the filter text */

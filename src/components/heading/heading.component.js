@@ -12,6 +12,7 @@ import {
   StyledDivider,
   StyledHeaderContent,
   StyledHeadingBackButton,
+  StyledHeadingPills,
 } from "./heading.style";
 
 class Heading extends React.Component {
@@ -70,6 +71,11 @@ class Heading extends React.Component {
      * Adds a separator between the title and the subheader.
      */
     separator: PropTypes.bool,
+
+    /**
+     * Pills that will be added after the title.
+     */
+    pills: PropTypes.node,
   };
 
   static defaultProps = {
@@ -169,6 +175,20 @@ class Heading extends React.Component {
   }
 
   /**
+   * Returns pills if provided
+   *
+   * @method pills
+   * @return {Object} JSX
+   */
+  get pills() {
+    return this.props.pills ? (
+      <StyledHeadingPills data-element="pills">
+        {this.props.pills}
+      </StyledHeadingPills>
+    ) : null;
+  }
+
+  /**
    * @method render
    * @return {Object} JSX
    */
@@ -187,6 +207,7 @@ class Heading extends React.Component {
           {this.back}
           <StyledHeaderContent>
             <StyledHeadingTitle
+              withMargin={this.props.pills || this.props.help}
               variant="h1"
               as="span"
               data-element="title"
@@ -195,6 +216,7 @@ class Heading extends React.Component {
               {this.props.title}
             </StyledHeadingTitle>
             {this.help}
+            {this.pills}
             {this.separator}
             {this.subheader}
           </StyledHeaderContent>

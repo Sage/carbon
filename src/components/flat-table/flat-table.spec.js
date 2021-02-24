@@ -20,7 +20,7 @@ import {
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
-import StyledFlatTableCell from "./flat-table-cell/flat-table-cell.style";
+import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import cellSizes from "./cell-sizes.style";

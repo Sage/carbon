@@ -17,6 +17,8 @@ import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 
+const contentBottomPadding = 30;
+
 class Dialog extends Modal {
   constructor(args) {
     super(args);
@@ -113,8 +115,10 @@ class Dialog extends Modal {
     if (!this._innerContent) return false;
 
     const contentHeight =
-        this._innerContent.offsetHeight + this._innerContent.offsetTop,
-      windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
+      this._innerContent.offsetHeight +
+      this._innerContent.offsetTop +
+      contentBottomPadding;
+    const windowHeight = this.window.innerHeight - this._dialog.offsetTop;
 
     return contentHeight > windowHeight;
   };
@@ -203,6 +207,7 @@ class Dialog extends Modal {
           ref={(content) => {
             this._content = content;
           }}
+          paddingBottom={contentBottomPadding}
           height={this.props.height}
           fixedBottom={this.appliedFixedBottom}
         >

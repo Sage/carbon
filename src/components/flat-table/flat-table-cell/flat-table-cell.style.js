@@ -36,8 +36,20 @@ const StyledFlatTableCell = styled.td`
   `}
 `;
 
+const StyledCellContent = styled.div`
+  ${({ expandable }) => css`
+     {
+      ${expandable &&
+      css`
+        display: flex;
+        align-items: center;
+      `}
+    }
+  `}
+`;
+
 StyledFlatTableCell.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledFlatTableCell;
+export { StyledFlatTableCell, StyledCellContent };

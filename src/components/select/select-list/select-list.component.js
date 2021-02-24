@@ -2,6 +2,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useLayoutEffect,
   useRef,
   useMemo,
 } from "react";
@@ -9,10 +10,11 @@ import PropTypes from "prop-types";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
+  StyledPopoverContainer,
 } from "./select-list.style";
+import Popover from "../../../__internal__/popover";
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
-import StyledPortal from "../../portal/portal.style";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import StyledSelectListContainer from "./select-list-container.style";
@@ -20,6 +22,13 @@ import Loader from "../../loader";
 import Option from "../option/option.component";
 
 const overhang = 4;
+
+const popoverModifiers = [
+  {
+    name: "preventOverflow",
+    enabled: false,
+  },
+];
 
 const SelectList = React.forwardRef(
   (
@@ -33,7 +42,6 @@ const SelectList = React.forwardRef(
       filterText,
       anchorElement,
       highlightedValue,
-      repositionTrigger,
       disablePortal,
       onListAction,
       isLoading,
@@ -44,9 +52,22 @@ const SelectList = React.forwardRef(
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [listHeight, setListHeight] = useState(0);
+    const [listWidth, setListWidth] = useState(null);
+    const [placement, setPlacement] = useState("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
     const listActionButtonRef = useRef();
+
+    const setPlacementCallback = useCallback((popper) => {
+      setPlacement(popper.placement);
+    }, []);
+
+    const anchorRef = useMemo(
+      () => ({
+        current: anchorElement,
+      }),
+      [anchorElement]
+    );
 
     const childrenList = useMemo(() => React.Children.toArray(children), [
       children,
@@ -180,25 +201,6 @@ const SelectList = React.forwardRef(
       ]
     );
 
-    const repositionList = useCallback(() => {
-      if (anchorElement) {
-        const inputBoundingRect = anchorElement.getBoundingClientRect();
-
-        const top = `${
-          window.pageYOffset + inputBoundingRect.top + inputBoundingRect.height
-        }px`;
-        const width = `${inputBoundingRect.width + 2 * overhang}px`;
-        const left = `${
-          window.pageXOffset + inputBoundingRect.left - overhang
-        }px`;
-
-        listContainerRef.current.setAttribute(
-          "style",
-          `top: ${top}; width: ${width}; left: ${left}`
-        );
-      }
-    }, [anchorElement, listContainerRef]);
-
     const handleListScroll = useCallback(
       (event) => {
         const element = event.target;
@@ -246,7 +248,15 @@ const SelectList = React.forwardRef(
       return optionsList;
     }, [children, currentOptionsListIndex, handleSelect, isLoading]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+      if (!disablePortal && anchorElement) {
+        const inputBoundingRect = anchorElement.getBoundingClientRect();
+        const width = `${inputBoundingRect.width + 2 * overhang}px`;
+        setListWidth(width);
+      }
+    }, [disablePortal, anchorElement]);
+
+    useLayoutEffect(() => {
       let newHeight;
 
       newHeight = listRef.current.clientHeight;
@@ -300,12 +310,6 @@ const SelectList = React.forwardRef(
     }, [childrenList, filterText, getIndexOfMatch, lastFilter]);
 
     useEffect(() => {
-      if (!disablePortal) {
-        repositionList();
-      }
-    }, [disablePortal, repositionList, repositionTrigger]);
-
-    useEffect(() => {
       if (!highlightedValue) {
         return;
       }
@@ -330,40 +334,46 @@ const SelectList = React.forwardRef(
       );
     }
 
-    const selectList = (
-      <StyledSelectListContainer
-        data-element="select-list-wrapper"
-        ref={listContainerRef}
-        height={listHeight}
-        {...listProps}
-      >
-        <StyledSelectList
-          id={id}
-          aria-labelledby={labelId}
-          data-element="select-list"
-          role="listbox"
-          ref={listRef}
-          tabIndex="0"
-          isLoading={isLoading}
-        >
-          {childrenWithListProps}
-        </StyledSelectList>
-        {listActionButton && (
-          <ListActionButton
-            ref={listActionButtonRef}
-            listActionButton={listActionButton}
-            onListAction={onListAction}
-          />
-        )}
-      </StyledSelectListContainer>
-    );
-
-    if (disablePortal) {
-      return selectList;
-    }
-
     return (
-      <StyledPortal onReposition={repositionList}>{selectList}</StyledPortal>
+      <Popover
+        placement="bottom"
+        disablePortal={disablePortal}
+        reference={anchorRef}
+        onFirstUpdate={setPlacementCallback}
+        modifiers={popoverModifiers}
+      >
+        <StyledPopoverContainer
+          height={listHeight}
+          width={listWidth}
+          ref={listContainerRef}
+        >
+          <StyledSelectListContainer
+            data-element="select-list-wrapper"
+            height={listHeight}
+            placement={placement}
+            {...listProps}
+          >
+            <StyledSelectList
+              id={id}
+              aria-labelledby={labelId}
+              data-element="select-list"
+              role="listbox"
+              ref={listRef}
+              tabIndex="0"
+              isLoading={isLoading}
+            >
+              {childrenWithListProps}
+            </StyledSelectList>
+            {listActionButton && (
+              <ListActionButton
+                ref={listActionButtonRef}
+                listActionButton={listActionButton}
+                onListAction={onListAction}
+              />
+            )}
+          </StyledSelectListContainer>
+        </StyledPopoverContainer>
+      </Popover>
     );
   }
 );
@@ -387,8 +397,6 @@ SelectList.propTypes = {
   filterText: PropTypes.string,
   /** Value of option to be highlighted on component render */
   highlightedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  /** A trigger to manually reposition the list */
-  repositionTrigger: PropTypes.bool,
   /** True for default text button or a Button Component to be rendered */
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
   /** A callback for when the Action Button is triggered */

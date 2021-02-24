@@ -375,6 +375,23 @@ describe("DateRange Uncontrolled behaviour", () => {
     expect(wrapper.find(Textbox).at(0).prop("rawValue")).toBe(mockedTodayDate);
     expect(wrapper.find(Textbox).at(1).prop("rawValue")).toBe(mockedTodayDate);
   });
+
+  it("input values of both Date Inputs defaults to empty date if none provided and allowEmptyValue is passed to endDate and startDate", () => {
+    const wrapper = renderDateRange(
+      {
+        value: ["", ""],
+        startDateProps: {
+          allowEmptyValue: true,
+        },
+        endDateProps: {
+          allowEmptyValue: true,
+        },
+      },
+      mount
+    );
+    expect(wrapper.find(Textbox).at(0).prop("rawValue")).toBe("");
+    expect(wrapper.find(Textbox).at(1).prop("rawValue")).toBe("");
+  });
 });
 
 describe("StyledDateRange", () => {

@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
-import StyledFlatTableCell from "./flat-table-cell.style";
+import {
+  StyledFlatTableCell,
+  StyledCellContent,
+} from "./flat-table-cell.style";
+import Icon from "../../icon";
 
 const FlatTableCell = ({
   align,
@@ -11,6 +15,8 @@ const FlatTableCell = ({
   rowspan,
   py,
   px,
+  expandable = false,
+  onClick,
   ...rest
 }) => {
   return (
@@ -21,9 +27,13 @@ const FlatTableCell = ({
       rowSpan={rowspan}
       py={py}
       px={px}
+      onClick={expandable && onClick ? () => onClick() : undefined}
       {...rest}
     >
-      <div>{children}</div>
+      <StyledCellContent expandable={expandable}>
+        {expandable && <Icon type="chevron_down_thick" />}
+        {children}
+      </StyledCellContent>
     </StyledFlatTableCell>
   );
 };
@@ -38,6 +48,16 @@ FlatTableCell.propTypes = {
   colspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Number of rows that a cell should span */
   rowspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * @private
+   * @ignore
+   */
+  expandable: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   */
+  onClick: PropTypes.func,
 };
 
 FlatTableCell.defaultProps = {

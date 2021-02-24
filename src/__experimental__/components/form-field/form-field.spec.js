@@ -5,7 +5,7 @@ import FormField from ".";
 import FieldHelp from "../field-help";
 import { FieldLineStyle } from "./form-field.style";
 import Label from "../label/label.component";
-import { TabContext } from "../../../components/tabs/__internal__/tab";
+import { TabContext } from "../../../components/tabs/tab";
 import { mockMatchMedia } from "../../../__spec_helper__/test-utils";
 
 const setError = jest.fn();

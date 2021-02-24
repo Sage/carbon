@@ -1,24 +1,24 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface DayMonthDate {
-   dd: string;
-   mm: string;
+  dd: string;
+  mm: string;
 }
 
 interface MonthYearDate {
-   mm: string;
-   yyyy: string;
+  mm: string;
+  yyyy: string;
 }
 
 interface FullDate extends DayMonthDate {
-   yyyy: string;
+  yyyy: string;
 }
 
 interface NumeralDateEvent {
   target: {
-    name: string,
-    id: string,
-    value: DayMonthDate | MonthYearDate |  FullDate,
+    name: string;
+    id: string;
+    value: DayMonthDate | MonthYearDate | FullDate;
   };
 }
 
@@ -30,7 +30,12 @@ export interface NumeralDateProps {
   ['dd', 'mm'],
   ['mm', 'dd'],
   ['mm', 'yyyy'] */
-  dateFormat?: ['dd', 'mm', 'yyyy'] | ['mm', 'dd', 'yyyy'] | ['dd', 'mm'] | ['mm', 'dd'] | ['mm', 'yyyy'];
+  dateFormat?:
+    | ["dd", "mm", "yyyy"]
+    | ["mm", "dd", "yyyy"]
+    | ["dd", "mm"]
+    | ["mm", "dd"]
+    | ["mm", "yyyy"];
   /** Default value for use in uncontrolled mode  */
   defaultValue?: object;
   /**  Value for use in controlled mode  */
@@ -57,6 +62,10 @@ export interface NumeralDateProps {
   name?: string;
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
+  /** When true, enables the internal errors to be displayed */
+  enableInternalError?: boolean;
+  /** When true, enables the internal warnings to be displayed */
+  enableInternalWarning?: boolean;
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
@@ -64,7 +73,7 @@ export interface NumeralDateProps {
   /** When true, label is placed in line with an input */
   labelInline?: boolean;
   /** Label alignment. Works only when labelInline is true */
-  labelAlign?: 'left' | 'right';
+  labelAlign?: "left" | "right";
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth?: number;
   /** Help content to be displayed under an input */
