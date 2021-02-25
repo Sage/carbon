@@ -87,10 +87,6 @@
     "open": true,
     "showCloseIcon": false
   },
-  "destructive": {
-    "open": true,
-    "destructive": true
-  },
   "iconError": {
     "open": true,
     "iconType": "error"
@@ -98,8 +94,5 @@
   "iconWarning": {
     "open": true,
     "iconType": "warning"
-  },
-  "iconEmpty": {
-    "open": true
   }
 }

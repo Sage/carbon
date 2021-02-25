@@ -42,6 +42,14 @@ export const Default = () => {
   const cancelLabel = text("cancelLabel", "");
   const destructive = boolean("destructive", false);
   const iconType = select("iconType", ["error", "warning", null], null);
+  const isLoadingConfirm = boolean("isLoadingConfirm", false);
+  const disableConfirm = boolean("disableConfirm", false);
+  const disableCancel = boolean("disableCancel", false);
+  const cancelButtonType = select(
+    "cancelButtonType",
+    ["primary", "secondary", "tertiary"],
+    "secondary"
+  );
 
   const handleCancel = () => {
     action("cancel")();
@@ -78,6 +86,10 @@ export const Default = () => {
         onCancel={handleCancel}
         destructive={destructive}
         iconType={iconType}
+        isLoadingConfirm={isLoadingConfirm}
+        disableConfirm={disableConfirm}
+        disableCancel={disableCancel}
+        cancelButtonType={cancelButtonType}
       >
         {children}
       </Confirm>

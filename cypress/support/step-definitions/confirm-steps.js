@@ -65,9 +65,17 @@ Then("Confirm dialog size property on preview is {int}", (size) => {
   dialogPreview().should("have.css", "width", `${size}px`);
 });
 
-Then("Button type is {word}", (buttonType) => {
+Then("confirm button type is set to {string}", (buttonType) => {
   if (buttonType === "destructive") {
     confirmButton().should("have.css", "background-color", "rgb(199, 56, 79)");
+  } else if (buttonType === "isLoadingConfirm") {
+    confirmButton().should("be.disabled").and("have.attr", "disabled");
+    confirmButton()
+      .children()
+      .children()
+      .children()
+      .should("have.attr", "data-component", "loader")
+      .and("be.visible");
   } else {
     confirmButton().should("have.css", "background-color", "rgb(0, 129, 93)");
   }
@@ -80,5 +88,29 @@ Then("{word} icon is displayed on the header", (iconType) => {
     icon()
       .eq(positionOfElement("first"))
       .should("have.attr", "data-element", iconType);
+  }
+});
+
+Then("cancel button type is set to {string}", (cancelButtonType) => {
+  if (cancelButtonType === "tertiary") {
+    cancelButton()
+      .should("have.css", "color", "rgb(0, 129, 93)")
+      .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
+  } else if (cancelButtonType === "destructive") {
+    cancelButton()
+      .should("have.css", "color", "rgb(199, 56, 79)")
+      .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
+  } else {
+    throw new Error(`cancelButtonType couldn't be set to ${cancelButtonType}`);
+  }
+});
+
+Then("{string} button is disabled", (confirmButtonType) => {
+  if (confirmButtonType === "cancel") {
+    cancelButton().should("be.disabled").and("have.attr", "disabled");
+  } else if (confirmButtonType === "confirm") {
+    confirmButton().should("be.disabled").and("have.attr", "disabled");
+  } else {
+    throw new Error("confirmButton could be cancel or confirm only");
   }
 });
