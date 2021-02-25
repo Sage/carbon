@@ -70,6 +70,24 @@ describe("DefinitionList", () => {
     );
   });
 
+  describe("if composed with React Fragment", () => {
+    it("should render correctly", () => {
+      wrapper = mount(
+        <Dl>
+          <Dt>Title</Dt>
+          <Dd>Description</Dd>
+          <>
+            <Dt>Title inside of React Fragment</Dt>
+            <Dd>Description inside of React Fragment</Dd>
+          </>
+        </Dl>
+      );
+
+      expect(wrapper.find(Dt).at(1).exists()).toBe(true);
+      expect(wrapper.find(Dd).at(1).exists()).toBe(true);
+    });
+  });
+
   describe("styles", () => {
     it("matches the expected default styles of Dl", () => {
       wrapper = renderWrapper("Dl", {});
