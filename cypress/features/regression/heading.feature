@@ -55,3 +55,8 @@ Feature: Heading component
       | backLink                     | nameOfObject             |
       | mp150ú¿¡üßä                  | backLinkOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | backLinkSpecialCharacter |
+
+  @positive
+  Scenario: Heading title has h1 HTML tag
+    Given I open "Heading" component page "default story" in no iframe
+    Then Heading title has h1 HTML tag

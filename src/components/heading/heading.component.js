@@ -148,7 +148,12 @@ class Heading extends React.Component {
     }
 
     return (
-      <StyledSubHeader data-element="subtitle" id={this.props.subtitleId}>
+      <StyledSubHeader
+        data-element="subtitle"
+        id={this.props.subtitleId}
+        hasBackLink={!!this.props.backLink}
+        hasSeparator={this.props.separator}
+      >
         {this.props.subheader}
       </StyledSubHeader>
     );
@@ -203,13 +208,13 @@ class Heading extends React.Component {
           data-element="header-container"
           divider={this.props.divider}
           subheader={this.props.subheader}
+          hasBackLink={!!this.props.backLink}
         >
           {this.back}
           <StyledHeaderContent>
             <StyledHeadingTitle
               withMargin={this.props.pills || this.props.help}
               variant="h1"
-              as="span"
               data-element="title"
               id={this.props.titleId}
             >
@@ -217,9 +222,9 @@ class Heading extends React.Component {
             </StyledHeadingTitle>
             {this.help}
             {this.pills}
-            {this.separator}
-            {this.subheader}
           </StyledHeaderContent>
+          {this.separator}
+          {this.subheader}
         </StyledHeader>
         {this.divider}
         {this.props.children}

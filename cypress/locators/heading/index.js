@@ -8,3 +8,4 @@ import {
 export const headingPreview = () => cy.get(HEADING_PREVIEW);
 export const subheaderPreview = () => cy.get(SUBHEADER_PREVIEW);
 export const separatorPreview = () => cy.get(SEPARATOR_PREVIEW);
+export const headingTitle = () => headingPreview().find("div > h1");
