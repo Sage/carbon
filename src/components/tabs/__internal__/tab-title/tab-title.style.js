@@ -71,6 +71,11 @@ const StyledTitleContent = styled.div`
       css`
         padding-bottom: 6px;
       `}
+      ${hasSiblings &&
+      !(error || warning || info) &&
+      css`
+        min-height: 22px;
+      `}
     `}
 
     ${size === "large" &&
@@ -495,7 +500,6 @@ const StyledLayoutWrapper = styled.div`
 
       ${({ theme }) => css`
         position: relative;
-        top: -1px;
         ${hasCustomSibling &&
         css`
           left: 4px;
