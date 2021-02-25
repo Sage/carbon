@@ -1,3 +1,10 @@
+### [66.13.2](https://github.com/Sage/carbon/compare/v66.13.1...v66.13.2) (2021-02-25)
+
+
+### Bug Fixes
+
+* **dl:** support for conditional rendering ([00c7101](https://github.com/Sage/carbon/commit/00c7101ecf29423b591e1fd4eaedf169f7f545a1))
+
 ### [66.13.1](https://github.com/Sage/carbon/compare/v66.13.0...v66.13.1) (2021-02-24)
 
 
