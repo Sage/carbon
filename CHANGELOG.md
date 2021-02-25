@@ -1,3 +1,10 @@
+## [66.15.0](https://github.com/Sage/carbon/compare/v66.14.0...v66.15.0) (2021-02-25)
+
+
+### Features
+
+* **confim:** add new props ([504b60f](https://github.com/Sage/carbon/commit/504b60f162156f5e3434331a75b08fa2ea7bbfe8))
+
 ## [66.14.0](https://github.com/Sage/carbon/compare/v66.13.3...v66.14.0) (2021-02-25)
 
 
