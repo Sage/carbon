@@ -1,3 +1,10 @@
+### [66.13.3](https://github.com/Sage/carbon/compare/v66.13.2...v66.13.3) (2021-02-25)
+
+
+### Bug Fixes
+
+* **heading:** remove as prop from heading title wrapper ([a1a6a90](https://github.com/Sage/carbon/commit/a1a6a90a37a735cdbd91d53c4a8a32e27f554425))
+
 ### [66.13.2](https://github.com/Sage/carbon/compare/v66.13.1...v66.13.2) (2021-02-25)
 
 
