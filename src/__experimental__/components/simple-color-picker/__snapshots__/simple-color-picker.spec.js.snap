@@ -326,7 +326,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
             color="#0073C1"
           >
             <span
-              checked={true}
               className="c10 c11"
               color="#0073C1"
               data-component="icon"
