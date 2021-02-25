@@ -4,6 +4,8 @@ import { useState } from "react";
 import { TileSelect, TileSelectGroup } from ".";
 import Pill from "../pill/"
 import Icon from "../icon";
+import Button from "../button";
+import I18n from "i18n-js";
 
 <Meta
   title="Design System/Tile Select"
@@ -19,37 +21,11 @@ To use this component, import the `TileSelect` and `TileSelectGroup` if you want
 
 ```jsx
 import { TileSelectGroup, TileSelect } from "carbon-react/lib/components/radio-tile"
-
-const MyComponent = () => (
-  const [value, setValue] = useState(null);
-  <TileSelectGroup
-    name="MyInputName"
-    value={value}
-    legend="Tile Select"
-    description="Pick one of the available options"
-    onChange={(e) => setValue(e.target.value)}
-  >
-    <TileSelect
-      value="1"
-      title="Title"
-      subtitle="Subtitle"
-      description="Short and descriptive description"
-    />
-    <TileSelect
-      value="2"
-      title="Title"
-      subtitle="Subtitle"
-      titleAdornment={<Pill>Message</Pill>}
-      description="Short and descriptive description"
-    />
-  </TileSelectGroup>
-);
 ```
 
 ## Examples
 
 ### Single Select
-
 By default, when grouped with the `TileSelectGroup`, this component operates in single select mode and `TileSelect` inputs are of type `radio`.
 
 In this mode all input props like `onChange`, `onBlur`, `name` and currently selected `value` are meant to be passed on the `TileSelectGroup`.
@@ -109,6 +85,142 @@ These props are then internally distributed on each of the `TileSelects` making 
   </Story>
 </Preview>
 
+#### Custom action button
+It is possible to overide the default action button via the `customActionButton` prop. It is a render prop which allows 
+access to the `onClick` functionality.
+
+<Preview>
+  <Story name="with custom action button">
+    {() => {
+      const [value, setValue] = useState(null);
+      const [activated, setActivated] = useState(false);
+      const [removed, setRemoved] = useState(false);
+      return (
+        <TileSelectGroup
+          name="Tile Select"
+          value={value}
+          legend="Tile Select"
+          description="Pick one of the available options"
+          onChange={(e) => setValue(e.target.value)}
+        >
+          <TileSelect
+            value="1"
+            id="1"
+            aria-label="1"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Pill pillRole="status" colorVariant="neutral">{activated ? "Active" : "Inactive"}</Pill>}
+            description="Short and descriptive description"
+            customActionButton={activated ? undefined : (onClick) => (
+              <Button
+                onClick={() => {
+                  setValue("1");
+                  setActivated(true);
+                }}
+                buttonType="tertiary"
+                type="button"
+                size="small"
+              >
+                {I18n.t("tileSelect.reactivate", { defaultValue: "Reactivate" })}
+              </Button>
+            )}
+          />
+          <TileSelect
+            value="2"
+            id="2"
+            aria-label="2"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={removed ? undefined : <Pill pillRole="status" colorVariant="neutral">Active</Pill>}
+            description="Short and descriptive description"
+            customActionButton={(onClick) => (
+              <Button
+                onClick={() => {
+                  setRemoved(true);
+                  onClick();
+                }}
+                buttonType="tertiary"
+                type="button"
+                size="small"
+                destructive
+                disabled={removed}
+              >
+                {I18n.t("tileSelect.remove", { defaultValue: "Remove" })}
+              </Button>
+            )}
+          />
+        </TileSelectGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
+#### Action button adornment
+It is possible to render an additional adornment next to the action button through the `actionButtonAdornment` prop.
+
+<Preview>
+  <Story name="with action button adornment">
+    {() => {
+      const [value, setValue] = useState(null);
+      return (
+        <TileSelectGroup
+          name="Tile Select"
+          value={value}
+          legend="Tile Select"
+          description="Pick one of the available options"
+          onChange={(e) => setValue(e.target.value)}
+        >
+          <TileSelect
+            value="1"
+            id="1"
+            aria-label="1"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Pill pillRole="status" colorVariant="neutral">Inactive</Pill>}
+            description="Short and descriptive description"
+            customActionButton={(onClick) => (
+              <Button
+                onClick={() => setValue("1")}
+                buttonType="tertiary"
+                type="button"
+                px={1}
+                size="small"
+                disabled
+              >
+                {I18n.t("tileSelect.reactivate", { defaultValue: "Reactivate" })}
+              </Button>
+            )}
+            actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be reactivated at this time" />}
+          />
+          <TileSelect
+            value="2"
+            id="2"
+            aria-label="2"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+            customActionButton={(onClick) => (
+              <Button
+                onClick={onClick}
+                buttonType="tertiary"
+                type="button"
+                px={1}
+                size="small"
+                destructive
+                disabled
+              >
+                {I18n.t("tileSelect.remove", { defaultValue: "Remove" })}
+              </Button>
+            )}
+            actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be removed at this time" />}
+          />
+        </TileSelectGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Multi select
 To enable multi select mode on a `TileSelectGroup` `multiSelect` boolean prop has to be passed as `true`, `TileSelects` in this mode are of type `checkbox`.
 
@@ -117,7 +229,7 @@ In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` 
 In this mode `TileSelectGroup` serves only a visual purpose - it only renders `legend` and `description` props and applies spacing to each of the `TileSelects`
 
 <Preview>
-  <Story name="single Select">
+  <Story name="multi Select">
     {() => {
       const [value1, setValue1] = useState(false);
       const [value2, setValue2] = useState(false);

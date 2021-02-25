@@ -51,26 +51,29 @@ const Icon = React.forwardRef(
       }
     };
 
+    const styleProps = {
+      bg,
+      bgTheme,
+      bgSize,
+      bgShape,
+      color,
+      disabled,
+      fontSize,
+      iconColor,
+      mr,
+      ml,
+      tabIndex,
+      type: iconType(),
+    };
+
     const icon = (
       <StyledIcon
         ref={ref}
-        bgSize={bgSize}
-        bgShape={bgShape}
-        bgTheme={bgTheme}
-        fontSize={fontSize}
-        iconColor={iconColor}
-        disabled={disabled}
-        color={color}
-        bg={bg}
-        type={iconType()}
         key="icon"
         className={className || null}
-        {...tagComponent("icon", rest)}
         data-element={iconType()}
-        mr={mr}
-        ml={ml}
-        tabIndex={tabIndex}
-        {...rest}
+        {...tagComponent("icon", rest)}
+        {...styleProps}
       />
     );
 
@@ -98,7 +101,11 @@ const Icon = React.forwardRef(
 );
 
 Icon.propTypes = {
-  /** Add classes to this component */
+  /**
+   * @private
+   * @ignore
+   * Add classes to this component
+   * */
   className: PropTypes.string,
   /** Icon type */
   type: PropTypes.string.isRequired,

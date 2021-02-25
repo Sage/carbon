@@ -18,15 +18,9 @@ Import `NumeralDate` into the project.
 
 ```jsx
 import NumeralDate from "carbon-react/lib/__experimental__/components/numeral-date";
-
-const MyComponent = () => (
-  <NumeralDate
-    dateFormat={["dd", "mm", "yyyy"]}
-    onChange={onChange}
-    value={{ dd: "27", mm: "04", yyyy: "1989" }}
-  />
-);
 ```
+
+## Examples
 
 ### Controlled
 
@@ -39,7 +33,6 @@ const MyComponent = () => (
           value={value}
           onChange={(e) => setValue(e.target.value)}
           label="Default"
-          dateFormat={["dd", "mm", "yyyy"]}
         />
       );
     }}

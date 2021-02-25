@@ -14,36 +14,51 @@ const Dl = ({
 }) => {
   const dlComponent = [];
   const listChildren = React.Children.toArray(children);
-  let dtLabel;
-  let ddContent = [];
+  let key = "";
 
-  listChildren.forEach((child, index) => {
-    if (child.type === Dt) {
-      dtLabel = child;
-    }
+  const composeDlComponent = (array) => {
+    let dtLabel;
+    let ddContent = [];
+    let isLastChild;
+    let nextItemIsNotDd;
 
-    if (child.type === Dd) {
-      ddContent.push(child);
-    }
-    const isLastChild = index === listChildren.length - 1;
-    const nextItemIsDt = !isLastChild && listChildren[index + 1].type === Dt;
+    array.forEach((child, index) => {
+      if (child.type === React.Fragment) {
+        composeDlComponent(child.props.children);
+      } else {
+        if (child.type === Dt) {
+          dtLabel = child;
+        }
+        if (child.type === Dd) {
+          ddContent.push(child);
+        }
 
-    if (dtLabel && (nextItemIsDt || isLastChild)) {
-      dlComponent.push(
-        <React.Fragment key={child.props.key || index}>
-          <StyledDtDiv dtTextAlign={dtTextAlign}>{dtLabel}</StyledDtDiv>
+        isLastChild = index === listChildren.length - 1;
+        nextItemIsNotDd =
+          !isLastChild &&
+          [Dt, React.Fragment].includes(listChildren[index + 1].type);
 
-          <StyledDdDiv ddTextAlign={ddTextAlign}>{ddContent}</StyledDdDiv>
-        </React.Fragment>
-      );
-      dtLabel = undefined;
-      ddContent = [];
-    }
-  });
+        if (dtLabel && (nextItemIsNotDd || isLastChild)) {
+          key = `${key + 1}`;
+
+          dlComponent.push(
+            <React.Fragment key={child.props.key || key}>
+              <StyledDtDiv dtTextAlign={dtTextAlign}>{dtLabel}</StyledDtDiv>
+              <StyledDdDiv ddTextAlign={ddTextAlign}>{ddContent}</StyledDdDiv>
+            </React.Fragment>
+          );
+
+          ddContent = [];
+        }
+      }
+    });
+
+    return dlComponent;
+  };
 
   return (
     <StyledDl w={w} data-component="dl" {...props}>
-      {dlComponent}
+      {composeDlComponent(listChildren)}
     </StyledDl>
   );
 };

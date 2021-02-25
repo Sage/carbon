@@ -86,7 +86,7 @@ they may wrap into a grid depending on the available width and height of their c
           <Icon type="image" />
         </CardColumn>
       </CardRow>
-      <CardRow>
+      <CardRow pt={2} pb={2}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
               Stripe Balance
@@ -120,7 +120,7 @@ they may wrap into a grid depending on the available width and height of their c
           <Icon type="image" />
         </CardColumn>
       </CardRow>
-      <CardRow>
+      <CardRow pt={4} pb={4}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
               Stripe Balance
@@ -214,6 +214,49 @@ Click on the card to see the effect
       </div>
       )
     }}
+  </Story>
+</Preview>
+
+## Different `<CardRow />` padding
+
+<Preview>
+  <Story name="different CardRow padding" parameters={{ chromatic: { disable: true }}}>
+    <Card >
+      <CardRow pt={2} pb={0}>
+        <CardColumn align="left">
+          <Heading title="Stripe - [account name]" divider={false} />
+          <Typography variant="h5">user.name@sage.com</Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography variant="h5" weight="bold">
+              Stripe Balance
+          </Typography>
+          <Heading title="£ 0.00" divider={false} />
+          <Typography>LAST ENTRY: 5 DAYS AGO</Typography>
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography variant="h5" weight="bold">
+              Stripe Balance
+          </Typography>
+          <Heading title="£ 0.00" divider={false} />
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        </CardColumn>
+      </CardRow>
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            View Stripe Dashboard
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    </Card>
   </Story>
 </Preview>
 
@@ -380,7 +423,7 @@ Click on the card to see the effect
 
 ## Props for `<CardRow />`
 
-<Props of={CardRow} />
+<StyledSystemProps padding of={CardRow} />
 
 ## Props for `<CardColumn />`
 

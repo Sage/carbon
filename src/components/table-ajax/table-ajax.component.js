@@ -11,7 +11,20 @@ import {
 } from "../table";
 import Logger from "../../utils/logger";
 
+let deprecatedWarnTriggered = false;
+
 class TableAjax extends Table {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`TableAjax` component is deprecated and will soon be removed."
+      );
+    }
+  }
+
   /**
    * Timeout for firing ajax request
    *

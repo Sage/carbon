@@ -9,6 +9,9 @@ import {
   StyledActionToolbarTotal,
   StyledActionToolbarActions,
 } from "./action-toolbar.style";
+import Logger from "../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 /**
  * A ActionToolbar widget.
@@ -51,6 +54,13 @@ class ActionToolbar extends React.Component {
     this.actions = this.actions.bind(this);
     this.isActive = this.isActive.bind(this);
     this.buildAction = this.buildAction.bind(this);
+
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      Logger.deprecate(
+        "`ActionToolbar` component is deprecated and will soon be removed."
+      );
+    }
   }
 
   state = {
