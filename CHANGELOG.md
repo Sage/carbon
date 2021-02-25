@@ -1,3 +1,10 @@
+## [66.14.0](https://github.com/Sage/carbon/compare/v66.13.3...v66.14.0) (2021-02-25)
+
+
+### Features
+
+* **card:** add styled-system padding props ([6cc3cd6](https://github.com/Sage/carbon/commit/6cc3cd69d619f9531a6421a82dd5ff4c59b2bc8a)), closes [#3519](https://github.com/Sage/carbon/issues/3519)
+
 ### [66.13.3](https://github.com/Sage/carbon/compare/v66.13.2...v66.13.3) (2021-02-25)
 
 
