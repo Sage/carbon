@@ -95,10 +95,6 @@ describe("Dialog", () => {
             "resize",
             instance.centerDialog
           );
-          expect(mockWindow.addEventListener).toHaveBeenCalledWith(
-            "keyup",
-            instance.closeModal
-          );
           expect(ElementResize.addListener).toHaveBeenCalledWith(
             instance._innerContent,
             instance.applyFixedBottom
@@ -135,10 +131,6 @@ describe("Dialog", () => {
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith(
             "resize",
             instance.centerDialog
-          );
-          expect(mockWindow.removeEventListener).toHaveBeenCalledWith(
-            "keyup",
-            instance.closeModal
           );
           expect(ElementResize.removeListener).toHaveBeenCalledWith(
             instance._innerContent,

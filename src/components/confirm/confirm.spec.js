@@ -9,6 +9,9 @@ import Button from "../button/button.component";
 import { baseTheme, mintTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
+import Loader from "../loader";
+import IconButton from "../icon-button";
+import StyledIconButton from "../icon-button/icon-button.style";
 
 describe("Confirm", () => {
   let wrapper, onCancel, onConfirm;
@@ -98,8 +101,113 @@ describe("Confirm", () => {
       });
     });
 
+    describe("when `disableCancel` prop is provided", () => {
+      let domNode;
+      let escapeKeyEvent;
+      const onCancelFn = jest.fn();
+
+      beforeEach(() => {
+        escapeKeyEvent = new KeyboardEvent("keyup", {
+          key: "Escape",
+          which: 27,
+          bubbles: true,
+        });
+        wrapper = mount(
+          <Confirm
+            disableCancel
+            onConfirm={() => {}}
+            open
+            onCancel={onCancelFn}
+          />
+        );
+        domNode = wrapper.getDOMNode();
+        document.body.appendChild(domNode);
+      });
+
+      afterEach(() => {
+        document.body.removeChild(domNode);
+        onCancelFn.mockReset();
+      });
+
+      it("should not close the modal if ESC key is pressed", () => {
+        domNode.dispatchEvent(escapeKeyEvent);
+        expect(onCancelFn).not.toHaveBeenCalled();
+      });
+
+      it("should change color of the close Icon", () => {
+        wrapper = mount(
+          <Confirm
+            disableCancel
+            showCloseIcon
+            onConfirm={() => {}}
+            open
+            onCancel={onCancelFn}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            color: baseTheme.icon.disabled,
+          },
+          wrapper.find(StyledIconButton),
+          { modifier: `${StyledIcon}` }
+        );
+      });
+    });
+
+    describe("if `isLoadingConfirm` button is provided", () => {
+      it("should not render confirm button", () => {
+        wrapper = mount(<Confirm onConfirm={() => {}} isLoadingConfirm open />);
+
+        expect(wrapper.find(Loader).exists()).toBe(true);
+      });
+    });
+
+    describe("if `cancelButtonType` is tertiary", () => {
+      it("should render confirm button with left margin 3px", () => {
+        wrapper = mount(
+          <Confirm cancelButtonType="tertiary" onConfirm={() => {}} open />
+        );
+
+        assertStyleMatch(
+          {
+            marginLeft: "3px",
+          },
+          wrapper.find('[data-element="confirm"]')
+        );
+      });
+    });
+
+    it("should not render IconButton if `disableCancel` is provided", () => {
+      wrapper = mount(
+        <Confirm
+          shlowCloseIcon
+          onClose={() => {}}
+          onConfirm={() => {}}
+          open
+          disableCancel
+        />
+      );
+
+      expect(wrapper.find(IconButton).exists()).toBe(false);
+    });
+
+    it("should not render IconButton if `disableCancel` is provided", () => {
+      wrapper = mount(
+        <Confirm
+          shlowCloseIcon
+          onClose={() => {}}
+          onConfirm={() => {}}
+          open
+          disableCancel
+        />
+      );
+
+      expect(wrapper.find(IconButton).exists()).toBe(false);
+    });
+
     describe("when custom labels are not defined", () => {
-      wrapper = mount(<Confirm />);
+      wrapper = mount(<Confirm open onConfirm={() => {}} />);
 
       it("returns default values", () => {
         expect(

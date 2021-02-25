@@ -44,3 +44,22 @@ Feature: Confirm component - in iFrame
     Given clear all actions in Actions Tab
     When I click on a cancelButton
     Then cancel action was called in Actions Tab
+
+  @positive
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via click on cancel button
+    Given I check disableCancel checkbox
+    When I click on a cancelButton
+    Then Confirm dialog is visible
+
+  @positive
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via ESC key
+    Given I check disableCancel checkbox
+    When I hit ESC key
+    Then Confirm dialog is visible
+
+  @ignore
+  # test ignored until we resolve issue with close icon
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via click on close icon
+    Given I check disableCancel checkbox
+    When I click closeIcon in IFrame
+    Then Confirm dialog is visible
