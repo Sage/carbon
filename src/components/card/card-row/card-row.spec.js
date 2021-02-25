@@ -2,7 +2,10 @@ import React from "react";
 import { shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CardRow from "./card-row.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/test-utils";
 import "jest-styled-components";
 
 describe("CardRow", () => {
@@ -22,21 +25,26 @@ describe("CardRow", () => {
   });
 
   describe.each([
-    ["small", "16px 0"],
-    ["medium", "24px 0"],
-    ["large", "32px 0"],
+    ["small", "16px"],
+    ["medium", "24px"],
+    ["large", "32px"],
   ])('when the "spacing" prop is set to %s', (size, expectedVal) => {
     const wrapper = renderCardRow({ spacing: size }, TestRenderer.create);
 
-    it(`then the margin should be set to ${expectedVal}`, () => {
+    it(`then the padding should be set to ${expectedVal}`, () => {
       assertStyleMatch(
         {
-          margin: expectedVal,
+          paddingTop: expectedVal,
+          paddingBottom: expectedVal,
         },
         wrapper.toJSON()
       );
     });
   });
+});
+
+describe("when the styled system padding is set", () => {
+  testStyledSystemPadding((props) => <CardRow {...props}>Test</CardRow>);
 });
 
 function renderCardRow(props = {}, renderer = shallow) {
