@@ -20,7 +20,7 @@ const CardFooter = ({ spacing, children, ...props }) => {
 
 CardFooter.propTypes = {
   children: PropTypes.node.isRequired,
-  /** size of card for applying padding (small | medium | large) */
+  /** Predefined size of CardFooter for applying padding (small | medium | large). For more granular control these can be over-ridden by Spacing props from styled-system (see table below). */
   spacing: PropTypes.oneOf(sizesRestricted),
 };
 

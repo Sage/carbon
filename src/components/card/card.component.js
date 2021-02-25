@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import StyledCard from "./card.style";
 import Icon from "../icon";
+import CardRow from "./card-row/card-row.component";
+import CardFooter from "./card-footer/card-footer.component";
 
 const { sizesRestricted } = OptionsHelper;
 
@@ -22,9 +24,27 @@ const Card = ({
   };
 
   const renderChildren = () => {
-    return React.Children.map(children, (child) =>
-      React.cloneElement(child, { spacing })
-    );
+    return React.Children.map(children, (child, index) => {
+      if (index === 0) {
+        const childProps = {
+          spacing,
+          ...child.props,
+        };
+
+        if (child.type !== CardFooter) {
+          const pad =
+            React.Children.toArray(children).filter(
+              (row) => row.type === CardRow
+            ).length === 1
+              ? "pt"
+              : "py";
+
+          childProps[pad] = 0;
+        }
+        return React.cloneElement(child, childProps);
+      }
+      return React.cloneElement(child, { spacing });
+    });
   };
 
   const onClickHandler = interactive ? handleClick : null;

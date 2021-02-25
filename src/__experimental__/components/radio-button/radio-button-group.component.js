@@ -7,7 +7,7 @@ import RadioButtonGroupStyle from "./radio-button-group.style";
 import RadioButtonMapper from "./radio-button-mapper.component";
 import Logger from "../../../utils/logger/logger";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
-import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 let deprecatedWarnTriggered = false;
 
