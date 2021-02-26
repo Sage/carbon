@@ -57,13 +57,13 @@ Feature: Toast Design System component
     Then Toast component has no close icon
 
   @positive
-  Scenario: Confirm that isCenter property centers Toast
-    Given I open "Design System Toast" component page "centered" in no iframe
-    When I click on "button-variant-centered" Toggle Preview
-    Then Toast is centred
+  Scenario: Confirm that when isCenter property is false Toast is left aligned
+    Given I open "Design System Toast" component page "left aligned" in no iframe
+    When I click on "button-left-aligned" Toggle Preview
+    Then Toast is not centred
 
   @positive
-  Scenario: Confirm that Toast is not centered by default
+  Scenario: Confirm that Toast is centered by default
     Given I open "Design System Toast" component page "default story" in no iframe
     When I click on "button-default" Toggle Preview
-    Then Toast is not centred
+    Then Toast is centred
