@@ -11,14 +11,30 @@ import StyledIcon from "../../icon/icon.style";
 
 describe("FlatTableRowHeader", () => {
   testStyledSystemPadding(
-    (props) => <FlatTableRowHeader {...props} />,
+    (props) => (
+      <table>
+        <thead>
+          <tr>
+            <FlatTableRowHeader {...props} />
+          </tr>
+        </thead>
+      </table>
+    ),
     { py: "10px", px: 3 },
     null,
     { modifier: "&&& > div" }
   );
 
   it("renders with proper width style rule when width prop is passed", () => {
-    const wrapper = mount(<FlatTableRowHeader width={40} />);
+    const wrapper = mount(
+      <table>
+        <thead>
+          <tr>
+            <FlatTableRowHeader width={40} />
+          </tr>
+        </thead>
+      </table>
+    );
     assertStyleMatch(
       {
         width: "40px",
@@ -37,7 +53,15 @@ describe("FlatTableRowHeader", () => {
 
   describe("when expandable prop is true", () => {
     it("should render an arrow icon", () => {
-      const wrapper = mount(<FlatTableRowHeader expandable />);
+      const wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableRowHeader expandable />
+            </tr>
+          </thead>
+        </table>
+      );
 
       expect(wrapper.find(StyledIcon).exists()).toEqual(true);
     });
@@ -46,7 +70,13 @@ describe("FlatTableRowHeader", () => {
       it("should call the onClick function when it is clicked", () => {
         const onClickFn = jest.fn();
         const wrapper = mount(
-          <FlatTableRowHeader expandable onClick={onClickFn} />
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader expandable onClick={onClickFn} />
+              </tr>
+            </thead>
+          </table>
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onClick();
