@@ -46,6 +46,7 @@ exports[`Link renders as expected 1`] = `
   disabled={false}
 >
   <a
+    href="www.foo.com"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex="0"
