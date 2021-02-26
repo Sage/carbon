@@ -1,14 +1,16 @@
-import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
-import { PropsTable } from '@storybook/components';
-import Pod from '../pod';
-import { GridContainer, GridItem } from '.';
-import { Dl, Dt, Dd } from '../definition-list';
-import Button from '../button';
+import { Meta, Preview, Story, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable } from "@storybook/components";
+import Pod from "../pod";
+import { GridContainer, GridItem } from ".";
+import { Dl, Dt, Dd } from "../definition-list";
+import Button from "../button";
 
 <Meta title="Design System/Grid" />
 
 # Grid
+
 ## The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
+
 The Grid system is designed to provide:
 
 - A common language for designers and developers to use when discussing layout.
@@ -17,15 +19,18 @@ The Grid system is designed to provide:
 - Position and width calculated dynamically.
 
 ## How it works
+
 - The Grid system is implemented with the `GridContainer` and `GridItem` components that provide two types of layout.
 - It uses the [CSS Grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), which is a truly two-dimentional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
 
 ### `GridContainer`
+
 - Comprised of 12 equal-width columns, including external paddings and internal gutters.
 - Allows either percentage or a fixed pixel width.
 - Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's paddings and gutters will be based on that size.
 
 ### `GridItem`
+
 The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
 
 - Can be defined at any width between 1 and 12, each unit corresponding to a column of the `GridContainer`.
@@ -33,56 +38,48 @@ The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoi
 - Can be re-ordered on the page by viewport dimensions.
 
 ### Paddings
+
 Paddings for the `GridContainer` are set automatically in the CSS, following the values in this table.
 
-| Breakpoints                | Device Type  | Paddings |
-|----------------------------|--------------|---------|
-| Extra Small (320 to 599px) | Smart Phones | 16px    |
-| Small (600 to 959px)       | Portrait Tablets | 24px |
-| Medium (960 to 1259px) | Landscape Tablets & Low-Res Laptops | 32px |
-| Large (1260 to 1920px) | High-Res Laptops & Monitors | 40px |
-| Extra Large (1921px and above) | Ultra High-Res Monitors |40px |
+| Breakpoints                    | Device Type                         | Paddings |
+| ------------------------------ | ----------------------------------- | -------- |
+| Extra Small (320 to 599px)     | Smart Phones                        | 16px     |
+| Small (600 to 959px)           | Portrait Tablets                    | 24px     |
+| Medium (960 to 1259px)         | Landscape Tablets & Low-Res Laptops | 32px     |
+| Large (1260 to 1920px)         | High-Res Laptops & Monitors         | 40px     |
+| Extra Large (1921px and above) | Ultra High-Res Monitors             | 40px     |
 
 ### Gutters
+
 Gutters for the `GridItem` are set automatically in the CSS, following the values in this table.
 
-| Breakpoints                | Device Type  | Gutters |
-|----------------------------|--------------|---------|
-| Extra Small (320 to 599px) | Smart Phones | 16px    |
-| Small (600 to 959px)       | Portrait Tablets | 16px |
-| Medium (960 to 1259px) | Landscape Tablets & Low-Res Laptops | 24px |
-| Large (1260 to 1920px) | High-Res Laptops & Monitors | 24px |
-| Extra Large (1921px and above) | Ultra High-Res Monitors |40px |
+| Breakpoints                    | Device Type                         | Gutters |
+| ------------------------------ | ----------------------------------- | ------- |
+| Extra Small (320 to 599px)     | Smart Phones                        | 16px    |
+| Small (600 to 959px)           | Portrait Tablets                    | 16px    |
+| Medium (960 to 1259px)         | Landscape Tablets & Low-Res Laptops | 24px    |
+| Large (1260 to 1920px)         | High-Res Laptops & Monitors         | 24px    |
+| Extra Large (1921px and above) | Ultra High-Res Monitors             | 40px    |
 
 ## Default example
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
+  <Story name="default" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem alignSelf="stretch" justifySelf="stretch">
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           1
         </Pod>
       </GridItem>
       <GridItem alignSelf="stretch" justifySelf="stretch">
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           2
         </Pod>
       </GridItem>
       <GridItem alignSelf="stretch" justifySelf="stretch">
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           3
         </Pod>
       </GridItem>
@@ -91,44 +88,25 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## Justify example
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
 <Preview>
-  <Story name="justify" parameters={{ info: { disable: true }}} >
+  <Story name="justify" parameters={{ info: { disable: true } }}>
     <div id="grid-justify">
       <GridContainer>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="left"
-        >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+        <GridItem alignSelf="stretch" justifySelf="left">
+          <Pod alignTitle="left" border padding="medium" variant="primary">
             1
           </Pod>
         </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="center"
-        >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+        <GridItem alignSelf="stretch" justifySelf="center">
+          <Pod alignTitle="left" border padding="medium" variant="primary">
             2
           </Pod>
         </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="right"
-        >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+        <GridItem alignSelf="stretch" justifySelf="right">
+          <Pod alignTitle="left" border padding="medium" variant="primary">
             3
           </Pod>
         </GridItem>
@@ -138,34 +116,25 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## Align example
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
 <Preview>
-  <Story name="align" parameters={{ info: { disable: true }}} >
+  <Story name="align" parameters={{ info: { disable: true } }}>
     <div id="grid-align">
       <GridContainer>
-        <GridItem
-          alignSelf="end"
-          justifySelf="left"
-          gridColumn="1 / 1"
-        >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+        <GridItem alignSelf="end" justifySelf="left" gridColumn="1 / 1">
+          <Pod alignTitle="left" border padding="medium" variant="primary">
             1
           </Pod>
         </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="center"
-          gridColumn="2 / 2"
-        >
+        <GridItem alignSelf="stretch" justifySelf="center" gridColumn="2 / 2">
           <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-            style={ { height: '100px' } }
+            alignTitle="left"
+            border
+            padding="medium"
+            variant="primary"
+            style={{ height: "100px" }}
           >
             2
           </Pod>
@@ -176,11 +145,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           gridColumn="1 / 1"
           gridRow="2 / 2"
         >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+          <Pod alignTitle="left" border padding="medium" variant="primary">
             3
           </Pod>
         </GridItem>
@@ -190,89 +155,83 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## Custom spacings
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
 <Preview>
-  <Story name="custom spacings" parameters={{ info: { disable: true }}} >
-    <GridContainer p='20px' gridGap='5px'>
+  <Story name="custom spacings" parameters={{ info: { disable: true } }}>
+    <GridContainer p="20px" gridGap="5px">
       <GridItem
-        p='20px 5px 20px 0'
-        gridColumn='1 / 10'
+        p="20px 5px 20px 0"
+        gridColumn="1 / 10"
         alignSelf="stretch"
         justifySelf="stretch"
-        responsiveSettings={ [{
-          maxWidth: '800px',
-          gridColumn: '1 / 13',
-          gridRow: '1 / 1',
-          p: 0
-        }] }
+        responsiveSettings={[
+          {
+            maxWidth: "800px",
+            gridColumn: "1 / 13",
+            gridRow: "1 / 1",
+            p: 0,
+          },
+        ]}
       >
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           1
         </Pod>
       </GridItem>
       <GridItem
-        pt='20px'
-        pb='20px'
-        gridColumn='10 / 13'
+        pt="20px"
+        pb="20px"
+        gridColumn="10 / 13"
         alignSelf="stretch"
         justifySelf="stretch"
-        responsiveSettings={ [{
-          maxWidth: '800px',
-          gridColumn: '1 / 13',
-          gridRow: '2 / 2',
-          pt: 0,
-          pb: 0
-        }] }
+        responsiveSettings={[
+          {
+            maxWidth: "800px",
+            gridColumn: "1 / 13",
+            gridRow: "2 / 2",
+            pt: 0,
+            pb: 0,
+          },
+        ]}
       >
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           2
         </Pod>
       </GridItem>
       <GridItem
-        pr='20px'
-        gridColumn='1 / 6'
+        pr="20px"
+        gridColumn="1 / 6"
         alignSelf="stretch"
         justifySelf="stretch"
-        responsiveSettings={ [{
-          maxWidth: '800px',
-          gridColumn: '1 / 13',
-          gridRow: '3 / 3',
-          pr: 0
-        }] }
+        responsiveSettings={[
+          {
+            maxWidth: "800px",
+            gridColumn: "1 / 13",
+            gridRow: "3 / 3",
+            pr: 0,
+          },
+        ]}
       >
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           3
         </Pod>
       </GridItem>
       <GridItem
-        pl='20px'
-        gridColumn='6 / 13'
+        pl="20px"
+        gridColumn="6 / 13"
         alignSelf="stretch"
         justifySelf="stretch"
-        responsiveSettings={ [{
-          maxWidth: '800px',
-          gridColumn: '1 / 13',
-          gridRow: '4 / 4',
-          pl: 0
-        }] }
+        responsiveSettings={[
+          {
+            maxWidth: "800px",
+            gridColumn: "1 / 13",
+            gridRow: "4 / 4",
+            pl: 0,
+          },
+        ]}
       >
-        <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-        >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           4
         </Pod>
       </GridItem>
@@ -281,92 +240,99 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## Responsive Settings Example
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
+
 <Preview>
-  <Story name="responsive-settings" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
+  <Story
+    name="responsive-settings"
+    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  >
     <GridContainer>
-      <GridItem responsiveSettings={[
-        {
-          maxWidth: '1500px',
-          gridColumn: '1 / 7',
-          gridRow: '1 / 1',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '1300px',
-          gridColumn: '1 / 13',
-          gridRow: '1 / 1',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '900px',
-          gridColumn: '1 / 9',
-          gridRow: '2 / 2',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        }]}
-        >
-          <Pod
-            alignTitle='left'
-            border padding='medium'
-            variant='primary'
-          >
+      <GridItem
+        responsiveSettings={[
+          {
+            maxWidth: "1500px",
+            gridColumn: "1 / 7",
+            gridRow: "1 / 1",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "1300px",
+            gridColumn: "1 / 13",
+            gridRow: "1 / 1",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "900px",
+            gridColumn: "1 / 9",
+            gridRow: "2 / 2",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+        ]}
+      >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           1
         </Pod>
       </GridItem>
-      <GridItem responsiveSettings={[
-        {
-          maxWidth: '1500px',
-          gridColumn: '7 / 13',
-          gridRow: '1 / 1',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '1300px',
-          gridColumn: '1 / 13',
-          gridRow: '2 / 2',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '900px',
-          gridColumn: '1 / 9',
-          gridRow: '3 / 3',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        }]}>
-          <Pod
-          alignTitle='left'
-          border padding='medium'
-          variant='primary'
-          >
+      <GridItem
+        responsiveSettings={[
+          {
+            maxWidth: "1500px",
+            gridColumn: "7 / 13",
+            gridRow: "1 / 1",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "1300px",
+            gridColumn: "1 / 13",
+            gridRow: "2 / 2",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "900px",
+            gridColumn: "1 / 9",
+            gridRow: "3 / 3",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+        ]}
+      >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           2
         </Pod>
       </GridItem>
-      <GridItem responsiveSettings={[
-        {
-          maxWidth: '1500px',
-          gridColumn: '1 / 13',
-          gridRow: '2 / 2',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '1300px',
-          gridColumn: '1 / 13',
-          gridRow: '3 / 3',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        },{
-          maxWidth: '900px',
-          gridColumn: '1 / 9',
-          gridRow: '1 / 1',
-          alignSelf: 'stretch',
-          justifySelf: 'stretch'
-        }]}>
-        <Pod
-        alignTitle='left'
-        border padding='medium'
-        variant='primary'
-        >
+      <GridItem
+        responsiveSettings={[
+          {
+            maxWidth: "1500px",
+            gridColumn: "1 / 13",
+            gridRow: "2 / 2",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "1300px",
+            gridColumn: "1 / 13",
+            gridRow: "3 / 3",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+          {
+            maxWidth: "900px",
+            gridColumn: "1 / 9",
+            gridRow: "1 / 1",
+            alignSelf: "stretch",
+            justifySelf: "stretch",
+          },
+        ]}
+      >
+        <Pod alignTitle="left" border padding="medium" variant="primary">
           3
         </Pod>
       </GridItem>
@@ -375,28 +341,25 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## With a subgrid example
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
 <Preview>
-  <Story name="subgrid" parameters={{ info: { disable: true }}} >
+  <Story name="subgrid" parameters={{ info: { disable: true } }}>
     <div id="grid-align">
       <GridContainer>
-        <GridItem
-          justifySelf="left"
-          gridColumn="1 / 1"
-        >
+        <GridItem justifySelf="left" gridColumn="1 / 1">
           <Pod
-            alignTitle='left' as='primary'
-            border padding='medium'
-            podType='primary'
+            alignTitle="left"
+            as="primary"
+            border
+            padding="medium"
+            podType="primary"
           >
             1
           </Pod>
         </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="center"
-          gridColumn="2 / 11"
-        >
+        <GridItem alignSelf="stretch" justifySelf="center" gridColumn="2 / 11">
           <Dl>
             <Dt>Drink</Dt>
             <Dd>Coffee</Dd>
@@ -405,35 +368,37 @@ This example is best viewed in the Canvas tab using full-screen mode with device
             <Dt>Brand of Coffee</Dt>
             <Dd>Magic Coffee Beans</Dd>
             <Dt>Website</Dt>
-            <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
-            <Dt>Email</Dt>
-            <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
-            <Dt>Main and Registered Address</Dt>
-            <Dd mb='4px'>Magic Coffee Beans,</Dd>
-            <Dd mb='4px'>In The Middle of Our Street,</Dd>
-            <Dd mb='4px'>Madness,</Dd>
-            <Dd mb='4px'>CO4 3VE</Dd>
             <Dd>
-              <Button 
-                buttonType='tertiary' 
-                iconType="link" 
+              <Link href="www.sage.com">Magic Coffee Beans' Website</Link>
+            </Dd>
+            <Dt>Email</Dt>
+            <Dd>
+              <Link href="magic@coffeebeans.com">magic@coffeebeans.com</Link>
+            </Dd>
+            <Dt>Main and Registered Address</Dt>
+            <Dd mb="4px">Magic Coffee Beans,</Dd>
+            <Dd mb="4px">In The Middle of Our Street,</Dd>
+            <Dd mb="4px">Madness,</Dd>
+            <Dd mb="4px">CO4 3VE</Dd>
+            <Dd>
+              <Button
+                buttonType="tertiary"
+                iconType="link"
                 iconPosition="after"
-                href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'
+                href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
               >
                 View in Google Maps
-              </Button> 
+              </Button>
             </Dd>
           </Dl>
         </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="right"
-          gridColumn="11 / 12"
-        >
+        <GridItem alignSelf="stretch" justifySelf="right" gridColumn="11 / 12">
           <Pod
-            alignTitle='left' as='primary'
-            border padding='medium'
-            podType='primary'
+            alignTitle="left"
+            as="primary"
+            border
+            padding="medium"
+            podType="primary"
           >
             3
           </Pod>
@@ -444,65 +409,71 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ## GridContainer Props
+
 <Props of={GridContainer} />
 
 ## GridItem Props
+
 <Props of={GridItem} />
 
 ### responsiveSettings Props
-<PropsTable
-  rows={
-    [
-      {
-      name: 'alignSelf',
-      type: { summary: 'string' },
-      description: 'How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch'
-      },
-      {
-        name: 'gridColumn',
-        type: { summary: 'string'},
-        description: 'Starting and ending column position of the GridItem within the GridContainer separated by "/"'
-      },
-      {
-        name: 'gridRow',
-        type: { summary: 'number' },
-        description: 'Starting and ending row position of the GridItem within the GridContainer separated by "/"'
-      },
-      {
-        name: 'justifySelf',
-        type: { summary: 'string' },
-        description: 'How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch'
-      },
-      {
-        name: 'maxWidth',
-        type: { summary: 'string' },
-        description: 'Maximum width of the screen to which these rules to be applied'
-      },
-      {
-        name: 'p',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding'
-      },
-      {
-        name: 'pl',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-left'
-      },
-      {
-        name: 'pr',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-right'
-      },
-      {
-        name: 'pt',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-top'
-      },
-      {
-        name: 'pb',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-bottom'
-      }
-    ]
-  }
+
+<ArgsTable
+  rows={[
+    {
+      name: "alignSelf",
+      type: { summary: "string" },
+      description:
+        "How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch",
+    },
+    {
+      name: "gridColumn",
+      type: { summary: "string" },
+      description:
+        'Starting and ending column position of the GridItem within the GridContainer separated by "/"',
+    },
+    {
+      name: "gridRow",
+      type: { summary: "number" },
+      description:
+        'Starting and ending row position of the GridItem within the GridContainer separated by "/"',
+    },
+    {
+      name: "justifySelf",
+      type: { summary: "string" },
+      description:
+        "How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch",
+    },
+    {
+      name: "maxWidth",
+      type: { summary: "string" },
+      description:
+        "Maximum width of the screen to which these rules to be applied",
+    },
+    {
+      name: "p",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding",
+    },
+    {
+      name: "pl",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-left",
+    },
+    {
+      name: "pr",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-right",
+    },
+    {
+      name: "pt",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-top",
+    },
+    {
+      name: "pb",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-bottom",
+    },
+  ]}
 />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import { PropsTable } from "@storybook/components";
+import { ArgsTable } from "@storybook/components";
 
 import countriesList from "../../../.storybook/utils/xhr/data/countries";
 import { enableMock } from "../../../.storybook/utils/xhr/xhr-mock";
@@ -96,7 +96,7 @@ import {
 
 ### Table Ajax
 
-<PropsTable
+<ArgsTable
   rows={[
     {
       name: "filter",

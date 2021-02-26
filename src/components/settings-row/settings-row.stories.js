@@ -4,12 +4,9 @@ import { text, boolean } from "@storybook/addon-knobs";
 import SettingsRow from ".";
 
 export default {
-  title: "SettingsRow/Test",
+  title: "Setting Row/Test",
   component: SettingsRow,
   parameters: {
-    info: {
-      disable: true,
-    },
     chromatic: {
       disable: true,
     },

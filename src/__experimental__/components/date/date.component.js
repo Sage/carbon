@@ -26,7 +26,7 @@ class BaseDateInput extends React.Component {
 
   inputFocusedViaPicker = false;
 
-  isMounted = false;
+  hasMounted = false;
 
   state = {
     isDatePickerOpen: false,
@@ -45,7 +45,7 @@ class BaseDateInput extends React.Component {
   };
 
   componentDidMount() {
-    this.isMounted = true;
+    this.hasMounted = true;
     if (this.props.autoFocus) {
       this.isAutoFocused = true;
       this.openDatePicker(true);
@@ -69,7 +69,7 @@ class BaseDateInput extends React.Component {
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    this.hasMounted = false;
   }
 
   hasValueChanged = (prevProps) => {
@@ -169,7 +169,7 @@ class BaseDateInput extends React.Component {
   };
 
   updateValidEventValues = (value) => {
-    if (this.isMounted) {
+    if (this.hasMounted) {
       this.setState({
         visibleValue: DateHelper.formatDateToCurrentLocale(value),
         lastValidEventValues: {

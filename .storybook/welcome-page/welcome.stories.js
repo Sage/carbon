@@ -5,11 +5,8 @@ export default {
   title: "Welcome",
   component: Welcome,
   parameters: {
-    info: {
-      disable: true,
-    },
     docs: {
-      disable: true,
+      page: null,
     },
     options: {
       showPanel: false,
