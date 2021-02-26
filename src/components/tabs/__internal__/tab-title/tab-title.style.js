@@ -433,6 +433,10 @@ const StyledTabTitle = styled.li`
         size === "large" &&
         css`
           border-right-width: 4px;
+
+          & ${StyledTitleContent} {
+            padding-right: 22px;
+          }
         `
       }
 
