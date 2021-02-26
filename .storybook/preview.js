@@ -1,17 +1,12 @@
-import { addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
-import { withInfo } from "@storybook/addon-info";
-import { withA11y } from "@storybook/addon-a11y";
 import withGlobalStyles from "./with-global-styles";
 import setupI18n from "./utils/i18n/config";
-import "./utils/i18n/en";
-import "./style/story-root.css";
 import { withThemeSelector } from "./theme-selector";
-import { addParameters } from "@storybook/react";
 import { configureActions } from "@storybook/addon-actions";
 import sageTheme from "./sageTheme";
 import "./style/fonts.css";
-import isChromatic from "chromatic/isChromatic";
+import "./utils/i18n/en";
+import "./style/story-root.css";
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
@@ -61,15 +56,11 @@ const customViewports = {
   },
 };
 
-addParameters({
-  options: {
-    isFullscreen: false,
-    panelPosition: "bottom",
-    showNav: true,
-    showPanel: true,
+export const parameters = {
+  docs: {
     theme: sageTheme,
-    storySort: (a, b) => a[1].id.localeCompare(b[1].id),
   },
+  layout: "fullscreen",
   a11y: {
     // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
     options: {
@@ -87,18 +78,8 @@ addParameters({
   },
   chromatic: { disable: false },
   viewport: { viewports: customViewports },
-});
+};
 
 setupI18n();
-addDecorator(withGlobalStyles);
-addDecorator(withKnobs);
-if (!isChromatic()) {
-  addDecorator(
-    withInfo({
-      header: false,
-      inline: true,
-    })
-  );
-}
-addDecorator(withA11y);
-addDecorator(withThemeSelector);
+
+export const decorators = [withKnobs, withGlobalStyles, withThemeSelector];

@@ -63,7 +63,7 @@ const commonProps = () => {
   };
 };
 
-export const Default = (props) => {
+export const Default = () => {
   const [state, setState] = useState("0.00");
 
   const setValue = (ev) => {
@@ -77,7 +77,6 @@ export const Default = (props) => {
       value={state}
       onChange={setValue}
       onBlur={action("onBlur")}
-      {...props}
     />
   );
 };

@@ -201,10 +201,10 @@ describe("Date", () => {
       });
     });
 
-    describe('when the "isMounted" flag is falsy', () => {
+    describe('when the "hasMounted" flag is falsy', () => {
       it('does not update the "lastValidEventValues"', () => {
         const instance = wrapper.find(BaseDateInput).instance();
-        instance.isMounted = false;
+        instance.hasMounted = false;
         simulateChangeOnInput(wrapper, "21-12-2019");
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();

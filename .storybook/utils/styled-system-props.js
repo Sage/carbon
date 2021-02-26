@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { PropsTable } from "@storybook/components";
+import { ArgsTable } from "@storybook/components";
 import { Props } from "@storybook/addon-docs/blocks";
 
 const generateStyledSystemMarginProps = (defaults) => {
@@ -14,6 +14,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       defaultValue: {
         summary: defaults.m || "-",
       },
+      table: {
+        category: "Margin",
+      },
     },
     {
       name: "mt",
@@ -23,6 +26,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.mt || "-",
+      },
+      table: {
+        category: "Margin",
       },
     },
     {
@@ -34,6 +40,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       defaultValue: {
         summary: defaults.mr || "-",
       },
+      table: {
+        category: "Margin",
+      },
     },
     {
       name: "mb",
@@ -44,6 +53,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       defaultValue: {
         summary: defaults.mb || "-",
       },
+      table: {
+        category: "Margin",
+      },
     },
     {
       name: "ml",
@@ -53,6 +65,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.ml || "-",
+      },
+      table: {
+        category: "Margin",
       },
     },
     {
@@ -65,6 +80,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       defaultValue: {
         summary: defaults.mx || "-",
       },
+      table: {
+        category: "Margin",
+      },
     },
     {
       name: "my",
@@ -75,6 +93,9 @@ const generateStyledSystemMarginProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.my || "-",
+      },
+      table: {
+        category: "Margin",
       },
     },
   ];
@@ -91,6 +112,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       defaultValue: {
         summary: defaults.p || "-",
       },
+      table: {
+        category: "Padding",
+      },
     },
     {
       name: "pt",
@@ -100,6 +124,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.pt || "-",
+      },
+      table: {
+        category: "Padding",
       },
     },
     {
@@ -111,6 +138,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       defaultValue: {
         summary: defaults.pr || "-",
       },
+      table: {
+        category: "Padding",
+      },
     },
     {
       name: "pb",
@@ -121,6 +151,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       defaultValue: {
         summary: defaults.pb || "-",
       },
+      table: {
+        category: "Padding",
+      },
     },
     {
       name: "pl",
@@ -130,6 +163,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.pl || "-",
+      },
+      table: {
+        category: "Padding",
       },
     },
     {
@@ -142,6 +178,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       defaultValue: {
         summary: defaults.px || "-",
       },
+      table: {
+        category: "Padding",
+      },
     },
     {
       name: "py",
@@ -152,6 +191,9 @@ const generateStyledSystemPaddingProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.py || "-",
+      },
+      table: {
+        category: "Padding",
       },
     },
   ];
@@ -174,6 +216,9 @@ const generateStyledSystemColorProps = (defaults) => {
       defaultValue: {
         summary: defaults.color || "-",
       },
+      table: {
+        category: "Color",
+      },
     },
     {
       name: "backgroundColor",
@@ -182,6 +227,9 @@ const generateStyledSystemColorProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.backgroundColor || "-",
+      },
+      table: {
+        category: "Color",
       },
     },
     {
@@ -192,6 +240,9 @@ const generateStyledSystemColorProps = (defaults) => {
       defaultValue: {
         summary: defaults.bg || "-",
       },
+      table: {
+        category: "Color",
+      },
     },
     {
       name: "opacity",
@@ -200,6 +251,9 @@ const generateStyledSystemColorProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.opacity || "-",
+      },
+      table: {
+        category: "Color",
       },
     },
   ];
@@ -214,6 +268,9 @@ const generateStyledSystemWidthProps = (defaults) => [
     required: false,
     defaultValue: {
       summary: defaults.width || "-",
+    },
+    table: {
+      category: "Layout",
     },
   },
 ];
@@ -230,6 +287,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.height || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "minWidth",
@@ -240,6 +300,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.minWidth || "-",
+      },
+      table: {
+        category: "Layout",
       },
     },
     {
@@ -252,6 +315,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.maxWidth || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "minHeight",
@@ -262,6 +328,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.minWidth || "-",
+      },
+      table: {
+        category: "Layout",
       },
     },
     {
@@ -274,6 +343,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.maxWidth || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "size",
@@ -285,6 +357,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.size || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "display",
@@ -293,6 +368,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.display || "-",
+      },
+      table: {
+        category: "Layout",
       },
     },
     {
@@ -303,6 +381,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.verticalAlign || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "overflow",
@@ -311,6 +392,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.overflow || "-",
+      },
+      table: {
+        category: "Layout",
       },
     },
     {
@@ -321,6 +405,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       defaultValue: {
         summary: defaults.overflowX || "-",
       },
+      table: {
+        category: "Layout",
+      },
     },
     {
       name: "overflowY",
@@ -329,6 +416,9 @@ const generateStyledSystemLayoutProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.display || "-",
+      },
+      table: {
+        category: "Layout",
       },
     },
   ];
@@ -344,6 +434,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.alignItems || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "alignContent",
@@ -352,6 +445,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.alignContent || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
     {
@@ -362,6 +458,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.justifyItems || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "justifyContent",
@@ -370,6 +469,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.justifyContent || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
     {
@@ -380,6 +482,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.flexWrap || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "flexDirection",
@@ -388,6 +493,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.flexDirection || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
     {
@@ -398,6 +506,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.flex || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "flexGrow",
@@ -406,6 +517,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.flexGrow || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
     {
@@ -416,6 +530,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.flexShrink || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "flexBasis",
@@ -424,6 +541,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.flexBasis || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
     {
@@ -434,6 +554,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.justifySelf || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "alignSelf",
@@ -443,6 +566,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       defaultValue: {
         summary: defaults.alignSelf || "-",
       },
+      table: {
+        category: "Flexbox",
+      },
     },
     {
       name: "order",
@@ -451,6 +577,9 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
       required: false,
       defaultValue: {
         summary: defaults.order || "-",
+      },
+      table: {
+        category: "Flexbox",
       },
     },
   ];
@@ -468,19 +597,35 @@ const StyledSystemProps = ({
   margin,
   padding,
 }) => {
-  let sections = {};
-  if (spacing) sections["Spacing"] = generateStyledSystemSpacingProps(defaults);
-  if (margin) sections["Margin"] = generateStyledSystemMarginProps(defaults);
-  if (padding) sections["Padding"] = generateStyledSystemPaddingProps(defaults);
-  if (color) sections["Color"] = generateStyledSystemColorProps(defaults);
-  if (width) sections["Width"] = generateStyledSystemWidthProps(defaults);
-  if (layout) sections["Layout"] = generateStyledSystemLayoutProps(defaults);
-  if (flexBox) sections["FlexBox"] = generateStyledSystemFlexBoxProps(defaults);
+  let rows = [];
+
+  if (spacing) {
+    rows.push(...generateStyledSystemSpacingProps(defaults));
+  }
+  if (margin) {
+    rows.push(...generateStyledSystemMarginProps(defaults));
+  }
+  if (padding) {
+    rows.push(...generateStyledSystemPaddingProps(defaults));
+  }
+  if (color) {
+    rows.push(...generateStyledSystemColorProps(defaults));
+  }
+  if (layout) {
+    rows.push(...generateStyledSystemLayoutProps(defaults));
+  }
+  if (width) {
+    rows.push(...generateStyledSystemWidthProps(defaults));
+  }
+  if (flexBox) {
+    rows.push(...generateStyledSystemFlexBoxProps(defaults));
+  }
+
   return (
     <>
       {!noHeader && <h2>Props</h2>}
+      <ArgsTable rows={rows} />
       {of && <Props of={of} />}
-      <PropsTable sections={sections} />
     </>
   );
 };
