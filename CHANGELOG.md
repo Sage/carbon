@@ -1,3 +1,10 @@
+## [66.18.0](https://github.com/Sage/carbon/compare/v66.17.0...v66.18.0) (2021-02-26)
+
+
+### Features
+
+* **storybook:** update storybook to v6 ([4912c66](https://github.com/Sage/carbon/commit/4912c66a1daf40ff601045ebc006c150f7526d2a))
+
 ## [66.17.0](https://github.com/Sage/carbon/compare/v66.16.0...v66.17.0) (2021-02-26)
 
 
