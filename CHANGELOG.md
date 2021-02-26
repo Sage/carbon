@@ -1,3 +1,10 @@
+## [66.17.0](https://github.com/Sage/carbon/compare/v66.16.0...v66.17.0) (2021-02-26)
+
+
+### Features
+
+* **toast:** center toast by default ([d78128f](https://github.com/Sage/carbon/commit/d78128fa703df2cead27a32cfe0590327508c26e))
+
 ## [66.16.0](https://github.com/Sage/carbon/compare/v66.15.0...v66.16.0) (2021-02-26)
 
 
