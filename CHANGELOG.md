@@ -1,3 +1,10 @@
+## [66.16.0](https://github.com/Sage/carbon/compare/v66.15.0...v66.16.0) (2021-02-26)
+
+
+### Features
+
+* **styled-system:** add width util ([90dea96](https://github.com/Sage/carbon/commit/90dea96465be44dc026c1250f98e306bb7bd07ca))
+
 ## [66.15.0](https://github.com/Sage/carbon/compare/v66.14.0...v66.15.0) (2021-02-25)
 
 
