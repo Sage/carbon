@@ -259,21 +259,25 @@ const generateStyledSystemColorProps = (defaults) => {
   ];
 };
 
+const generateStyledSystemWidthProps = (defaults) => [
+  {
+    name: "width",
+    type: { summary: "number | string" },
+    description:
+      "Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to responsive width styles. If theme.sizes is defined, the width prop will attempt to pick up values from the theme",
+    required: false,
+    defaultValue: {
+      summary: defaults.width || "-",
+    },
+    table: {
+      category: "Layout",
+    },
+  },
+];
+
 const generateStyledSystemLayoutProps = (defaults) => {
   return [
-    {
-      name: "width",
-      type: { summary: "number | string" },
-      description:
-        "Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to responsive width styles. If theme.sizes is defined, the width prop will attempt to pick up values from the theme",
-      required: false,
-      defaultValue: {
-        summary: defaults.width || "-",
-      },
-      table: {
-        category: "Layout",
-      },
-    },
+    ...generateStyledSystemWidthProps(defaults),
     {
       name: "height",
       type: { summary: "number | string" },
@@ -585,6 +589,7 @@ const StyledSystemProps = ({
   of,
   spacing,
   color,
+  width,
   layout,
   flexBox,
   defaults = {},
@@ -609,6 +614,9 @@ const StyledSystemProps = ({
   if (layout) {
     rows.push(...generateStyledSystemLayoutProps(defaults));
   }
+  if (width) {
+    rows.push(...generateStyledSystemWidthProps(defaults));
+  }
   if (flexBox) {
     rows.push(...generateStyledSystemFlexBoxProps(defaults));
   }
@@ -626,6 +634,7 @@ StyledSystemProps.propTypes = {
   of: PropTypes.oneOfType([PropTypes.node, PropTypes.func, PropTypes.object]),
   noHeader: PropTypes.bool,
   spacing: PropTypes.bool,
+  width: PropTypes.bool,
   layout: PropTypes.bool,
   flex: PropTypes.bool,
   defaults: PropTypes.object,
