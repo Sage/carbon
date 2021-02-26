@@ -16,11 +16,3 @@ Then("Sidebar component has enabled background UI", () => {
 Then("Sidebar component has disabled background UI", () => {
   backgroundUILocator().should("be.visible");
 });
-
-Then("Sidebar component is visible", () => {
-  sidebarPreview().should("be.visible");
-});
-
-Then("Sidebar component is not visible", () => {
-  backgroundUILocator().should("not.exist");
-});

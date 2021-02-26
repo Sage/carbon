@@ -7,16 +7,6 @@ Feature: Sidebar component
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
-  Scenario: Enable open checkbox for a Sidebar component
-    When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "default" object name
-    Then Sidebar component is visible
-
-  @positive
-  Scenario: Disable open checkbox for a Sidebar component
-    When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "openFalse" object name
-    Then Sidebar component is not visible
-
-  @positive
   Scenario: Enable enableBackgroundUI checkbox for a Sidebar component
     When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUI" object name
     Then Sidebar component has enabled background UI

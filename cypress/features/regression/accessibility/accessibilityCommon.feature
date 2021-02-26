@@ -50,6 +50,6 @@ Feature: Accessibility tests - Common list
     Examples:
       | component        |
       | DraggableContext |
-      | Settingsrow      |
+      | Setting row      |
       | Table-ajax       |
       | Table            |
