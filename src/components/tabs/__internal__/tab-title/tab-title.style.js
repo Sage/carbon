@@ -205,33 +205,31 @@ const StyledTitleContent = styled.div`
     !hasCustomLayout &&
     position === "top" &&
     css`
+      height: 20px;
+
       ${size === "default" &&
       css`
-      padding-top: 11px 
-      padding-bottom: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
-      ${
-        !(error || warning || info) &&
+        ${!(error || warning || info) &&
         isTabSelected &&
         css`
-          padding-bottom: 6px;
-        `
-      }
-    `}
+          padding-bottom: 8px;
+        `}
+      `}
 
       ${size === "large" &&
       css`
-      padding-top: 9px 
-      padding-bottom: 9px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
-      ${
-        !(error || warning || info) &&
+        ${!(error || warning || info) &&
         isTabSelected &&
         css`
-          padding-bottom: 5px;
-        `
-      }
-    `}
+          padding-bottom: 6px;
+        `}
+      `}
     `}
 
   ${({

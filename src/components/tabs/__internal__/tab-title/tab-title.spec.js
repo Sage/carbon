@@ -348,7 +348,7 @@ describe("TabTitle", () => {
         wrapper.find(StyledTitleContent).props().children[0][0].props.children
       ).toEqual("Tab 1");
       assertStyleMatch(
-        { paddingBottom: "8px" },
+        { paddingBottom: "10px" },
         wrapper.find(StyledTitleContent)
       );
     });
@@ -368,8 +368,8 @@ describe("TabTitle", () => {
       ).toEqual("Tab 1");
       assertStyleMatch(
         {
-          paddingTop: "11px",
-          paddingBottom: "8px",
+          paddingTop: "10px",
+          paddingBottom: "10px",
         },
         wrapper.find(StyledTitleContent)
       );
@@ -393,7 +393,7 @@ describe("TabTitle", () => {
         wrapper.find(StyledTitleContent).props().children[0][0].props.children
       ).toEqual("Tab 1");
       assertStyleMatch(
-        { paddingBottom: "6px" },
+        { paddingBottom: "8px" },
         wrapper.find(StyledTitleContent)
       );
     });
@@ -438,8 +438,8 @@ describe("TabTitle", () => {
       ).toEqual("Tab 1");
       assertStyleMatch(
         {
-          paddingTop: "9px",
-          paddingBottom: "9px",
+          paddingTop: "10px",
+          paddingBottom: "10px",
         },
         wrapper.find(StyledTitleContent)
       );
@@ -464,7 +464,7 @@ describe("TabTitle", () => {
         wrapper.find(StyledTitleContent).props().children[0][0].props.children
       ).toEqual("Tab 1");
       assertStyleMatch(
-        { paddingBottom: "5px" },
+        { paddingBottom: "6px" },
         wrapper.find(StyledTitleContent)
       );
     });
