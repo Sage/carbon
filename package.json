@@ -90,7 +90,7 @@
     "css-loader": "1.0.0",
     "cypress": "^6.4.0",
     "cypress-axe": "^0.8.1",
-    "cypress-cucumber-preprocessor": "4.0.0",
+    "cypress-cucumber-preprocessor": "^4.0.1",
     "cypress-plugin-tab": "^1.0.5",
     "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
