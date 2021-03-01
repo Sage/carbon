@@ -1,2 +1,2 @@
-export { default } from "./input";
-export * from "./input";
+export { default, InputProps, CommonInputProps } from "./input";
+export { InputPresentationProps, CommonInputPresentationProps } from "./input-presentation";
