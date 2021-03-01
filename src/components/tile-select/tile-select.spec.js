@@ -4,6 +4,7 @@ import RadioButtonMapper from "../../__experimental__/components/radio-button/ra
 import { TileSelect, TileSelectGroup } from ".";
 import { baseTheme } from "../../style/themes";
 import tint from "../../style/utils/tint";
+import I18next from "../../__spec_helper__/I18next";
 
 import {
   StyledTileSelectFieldset,
@@ -24,11 +25,19 @@ jest.mock("@tippyjs/react/headless");
 
 const radioValues = ["val1", "val2", "val3"];
 
+function RenderWrapper({ ...props }) {
+  return (
+    <I18next>
+      <TileSelect {...props} />
+    </I18next>
+  );
+}
+
 describe("TileSelect", () => {
   let wrapper;
 
   const render = (props) => {
-    wrapper = mount(<TileSelect {...props} />);
+    wrapper = mount(<RenderWrapper {...props} />);
   };
 
   beforeEach(() => {

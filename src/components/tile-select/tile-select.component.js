@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import I18n from "i18n-js";
 import tagComponent from "../../utils/helpers/tags/tags";
+import useTranslation from "../../hooks/__internal__/useTranslation";
 import Button from "../button";
 
 import {
@@ -36,6 +36,8 @@ const TileSelect = (props) => {
     ...rest
   } = props;
 
+  const t = useTranslation();
+
   const handleDeselect = () =>
     onChange({
       target: {
@@ -52,7 +54,7 @@ const TileSelect = (props) => {
     return (
       checked && (
         <Button buttonType="tertiary" size="small" onClick={handleDeselect}>
-          {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
+          {t("tileSelect.deselect", "Deselect")}
         </Button>
       )
     );
