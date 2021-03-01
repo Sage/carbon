@@ -107,7 +107,7 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "events": "~1.1.1",
-    "flux": "^4.0.0",
+    "flux": "^4.0.1",
     "husky": "^4.3.6",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "identity-obj-proxy": "3.0.0",
