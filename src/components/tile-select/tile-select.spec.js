@@ -10,12 +10,14 @@ import {
   StyledTileSelectContainer,
   StyledTileSelect,
   StyledTileSelectInput,
-  StyledDeselectButton,
+  StyledDeselectWrapper,
   StyledTitle,
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
 } from "./tile-select.style";
+import Button from "../button";
+import Icon from "../icon";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
@@ -42,7 +44,9 @@ describe("TileSelect", () => {
 
   it("renders deselect button when TileSelect is checked", () => {
     render({ checked: true });
-    expect(wrapper.find(StyledDeselectButton).exists()).toBe(true);
+    expect(wrapper.find(StyledDeselectWrapper).find(Button).exists()).toBe(
+      true
+    );
   });
 
   it("clicking on the deselect button invokes passed onChange callback", () => {
@@ -53,7 +57,7 @@ describe("TileSelect", () => {
       id: "id",
       name: "name",
     });
-    wrapper.find(StyledDeselectButton).prop("onClick")();
+    wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")();
     expect(onChangeMock).toHaveBeenCalledWith({
       target: {
         id: "id",
@@ -141,6 +145,62 @@ describe("TileSelect", () => {
         },
         wrapper.find(StyledTileSelectInput),
         { modifier: `&:focus + ${StyledTileSelect}` }
+      );
+    });
+  });
+
+  describe("customActionButton render prop", () => {
+    it("clicking it invokes passed onChange callback", () => {
+      const onChangeMock = jest.fn();
+      render({
+        onChange: onChangeMock,
+        checked: true,
+        id: "id",
+        name: "name",
+        customActionButton: (onClick) => <Button onClick={onClick}>Foo</Button>,
+      });
+      wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")();
+
+      expect(wrapper.find(StyledDeselectWrapper).find(Button).text()).toEqual(
+        "Foo"
+      );
+      expect(onChangeMock).toHaveBeenCalledWith({
+        target: {
+          id: "id",
+          name: "name",
+          value: null,
+          checked: false,
+        },
+      });
+    });
+  });
+
+  describe("actionButtonAdornment prop", () => {
+    it("renders the component next to the action Button", () => {
+      const onChangeMock = jest.fn();
+      render({
+        onChange: onChangeMock,
+        checked: true,
+        id: "id",
+        name: "name",
+        actionButtonAdornment: <Icon type="info" />,
+      });
+
+      expect(
+        wrapper.find(StyledDeselectWrapper).props().children.length
+      ).toEqual(2);
+      expect(
+        wrapper.find(StyledDeselectWrapper).find(Icon).exists()
+      ).toBeTruthy();
+
+      assertStyleMatch(
+        {
+          marginRight: "16px",
+          display: "flex",
+          alignItems: "center",
+          minHeight: "32px",
+        },
+        wrapper.find(StyledDeselectWrapper)
       );
     });
   });

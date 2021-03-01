@@ -15,8 +15,22 @@ import DraggableTableCell from "./draggable-table-cell";
 import Pager from "../pager";
 import Loader from "../loader";
 import OptionsHelper from "../../utils/helpers/options-helper";
+import Logger from "../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`Table` component is deprecated and will soon be removed. Please use `FlatTable` instead: https://carbon.sage.com/?path=/story/design-system-flat-table--default-story"
+      );
+    }
+  }
+
   state = {
     selectedCount: 0,
   };

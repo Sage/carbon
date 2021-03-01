@@ -14,6 +14,7 @@ import {
 import { ActionPopover, ActionPopoverItem } from "../../action-popover";
 import StyledStatusIconWrapper from "./status-with-tooltip/status.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import I18next from "../../../__spec_helper__/I18next";
 
 function render(props = {}) {
   const defaultProps = {
@@ -23,9 +24,11 @@ function render(props = {}) {
     ...props,
   };
   return mount(
-    <ThemeProvider theme={baseTheme}>
-      <Note {...defaultProps} />
-    </ThemeProvider>
+    <I18next>
+      <ThemeProvider theme={baseTheme}>
+        <Note {...defaultProps} />
+      </ThemeProvider>
+    </I18next>
   );
 }
 

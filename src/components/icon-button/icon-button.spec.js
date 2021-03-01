@@ -4,6 +4,7 @@ import IconButton from ".";
 import Message from "../message/message.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import I18next from "../../__spec_helper__/I18next";
+import StyledIconButton from "./icon-button.style";
 
 describe("IconButton component", () => {
   let wrapper, onDismiss, onBlur;
@@ -29,6 +30,20 @@ describe("IconButton component", () => {
           },
           wrapper.find(IconButton).first(),
           { modifier: ":focus" }
+        );
+      });
+    });
+
+    describe("if disabled prop provided", () => {
+      it("should have `not allowed` cursor property", () => {
+        wrapper = mount(<IconButton onDismiss={() => {}} disabled />);
+
+        assertStyleMatch(
+          {
+            cursor: "not-allowed",
+          },
+          wrapper.find(StyledIconButton),
+          { modifier: "&:hover" }
         );
       });
     });

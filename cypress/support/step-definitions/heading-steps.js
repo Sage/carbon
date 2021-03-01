@@ -2,6 +2,7 @@ import {
   headingPreview,
   subheaderPreview,
   separatorPreview,
+  headingTitle,
 } from "../../locators/heading";
 import { helpIcon, link, getDataElementByValue } from "../../locators";
 
@@ -31,4 +32,8 @@ Then("separator is visible", () => {
 
 Then("separator is not visible", () => {
   separatorPreview().should("not.exist");
+});
+
+Then("Heading title has h1 HTML tag", () => {
+  headingTitle().contains("This is a Title");
 });

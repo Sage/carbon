@@ -17,6 +17,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
+import I18next from "../../../__spec_helper__/I18next";
 import { DraggableContext, WithDrop } from "../../drag-and-drop";
 import { ActionPopover, ActionPopoverItem } from "../../action-popover";
 import { MenuButton } from "../../action-popover/action-popover.style";
@@ -866,26 +867,28 @@ describe("TableRow", () => {
 
   function render() {
     wrapper = mount(
-      <ThemeProvider {...{ theme: baseTheme }}>
-        <Table>
-          <TableRow>
-            <TableHeader>First Name</TableHeader>
-            <TableHeader>Last Name</TableHeader>
-            <TableHeader>&nbsp;</TableHeader>
-          </TableRow>
-          <TableRow>
-            <TableCell>John</TableCell>
-            <TableCell>Doe</TableCell>
-            <TableCell>
-              <ActionPopover {...{ onOpen, onClose }}>
-                <ActionPopoverItem icon="email">
-                  Email Invoice
-                </ActionPopoverItem>
-              </ActionPopover>
-            </TableCell>
-          </TableRow>
-        </Table>
-      </ThemeProvider>,
+      <I18next>
+        <ThemeProvider {...{ theme: baseTheme }}>
+          <Table>
+            <TableRow>
+              <TableHeader>First Name</TableHeader>
+              <TableHeader>Last Name</TableHeader>
+              <TableHeader>&nbsp;</TableHeader>
+            </TableRow>
+            <TableRow>
+              <TableCell>John</TableCell>
+              <TableCell>Doe</TableCell>
+              <TableCell>
+                <ActionPopover {...{ onOpen, onClose }}>
+                  <ActionPopoverItem icon="email">
+                    Email Invoice
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </TableCell>
+            </TableRow>
+          </Table>
+        </ThemeProvider>
+      </I18next>,
       { attachTo: container }
     );
   }

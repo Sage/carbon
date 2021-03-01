@@ -203,19 +203,17 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
 }
 
 .c7 {
-  display: inline-block;
-  width: 100%;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: flex-end;
+  -webkit-box-align: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
 }
 
 .c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
   margin-bottom: 15px;
   margin-bottom: 20px;
 }
@@ -387,14 +385,14 @@ exports[`DialogFullScreen dialogTitle has a Ref to the scrollable content and th
         <div
           class="c7"
         >
-          <span
+          <h1
             class="c8"
             color="blackOpacity90"
             data-element="title"
             text-decoration="none"
           >
             my custom heading
-          </span>
+          </h1>
         </div>
       </div>
       <hr
