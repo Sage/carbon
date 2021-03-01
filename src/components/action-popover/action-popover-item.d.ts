@@ -8,6 +8,8 @@ export interface ActionPopoverItemProps {
   disabled?: boolean;
   onClick: () => void;
   submenu?: React.ReactNode;
+  href?: string;
+  download: boolean;
 }
 
 declare const ActionPopoverItem: React.FunctionComponent<ActionPopoverItemProps>;

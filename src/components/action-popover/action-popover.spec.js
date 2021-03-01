@@ -13,7 +13,12 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from "./index";
-import { MenuButton, Menu, SubMenuItemIcon } from "./action-popover.style";
+import {
+  MenuButton,
+  Menu,
+  SubMenuItemIcon,
+  StyledDiv,
+} from "./action-popover.style";
 import Popover from "../../__internal__/popover";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Icon from "../icon";
@@ -45,6 +50,8 @@ describe("ActionPopover", () => {
     const defaultProps = {
       children: [
         <ActionPopoverItem
+          href="#"
+          download
           key="item-1"
           icon="pdf"
           {...{ onClick: onClickWrapper("pdf") }}
@@ -205,6 +212,41 @@ describe("ActionPopover", () => {
 
   it("renders in ReactDOM", () => {
     render(null, DOM);
+  });
+
+  describe("if download prop and href prop are provided", () => {
+    it("should render as a link component", () => {
+      const clickFn = jest.fn();
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover>
+            <ActionPopoverItem key="1" onClick={clickFn} href="#" download>
+              test download
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
+
+      act(() => {
+        wrapper
+          .find(MenuButton)
+          .props()
+          .onClick({ stopPropagation: () => {} });
+      });
+
+      act(() => {
+        wrapper.update();
+      });
+
+      act(() => {
+        wrapper
+          .find(StyledDiv)
+          .props()
+          .onKeyDown({ which: 13, stopPropagation: jest.fn() });
+      });
+
+      expect(clickFn).toHaveBeenCalled();
+    });
   });
 
   it("displays the horizontal ellipsis icon as the menu button", () => {

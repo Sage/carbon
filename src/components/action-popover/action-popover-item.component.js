@@ -12,6 +12,7 @@ import {
   MenuItemFactory,
   MenuItemIcon,
   SubMenuItemIcon,
+  StyledDiv,
 } from "./action-popover.style";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
@@ -29,12 +30,15 @@ const MenuItem = ({
   theme,
   placement = "bottom",
   focusItem,
+  download,
+  href,
   ...rest
 }) => {
   const { setOpenPopover, isOpenPopover, focusButton } = useContext(
     ActionPopoverContext
   );
 
+  const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState(null);
   const [guid] = useState(createGuid());
   const [isOpen, setOpen] = useState(false);
@@ -98,7 +102,7 @@ const MenuItem = ({
         e.stopPropagation();
       }
     },
-    [disabled, focusButton, onClickProp, ref, setOpenPopover]
+    [disabled, focusButton, onClickProp, setOpenPopover]
   );
 
   const onKeyDown = useCallback(
@@ -138,6 +142,7 @@ const MenuItem = ({
           }
           e.preventDefault();
         } else if (Events.isEnterKey(e)) {
+          if (isHref && download) ref.current.click(); // trigger download file
           onClick(e);
         }
       } else if (Events.isEnterKey(e)) {
@@ -146,10 +151,11 @@ const MenuItem = ({
     },
     [
       disabled,
+      download,
       focusButton,
+      isHref,
       isLeftAligned,
       onClick,
-      ref,
       setOpenPopover,
       submenu,
     ]
@@ -188,7 +194,7 @@ const MenuItem = ({
   };
 
   return (
-    <div
+    <StyledDiv
       {...rest}
       ref={ref}
       onClick={onClick}
@@ -198,6 +204,7 @@ const MenuItem = ({
       role="menuitem"
       {...(disabled && { "aria-disabled": true })}
       {...(submenu && itemSubmenuProps)}
+      {...(isHref && { as: "a", download, href })}
     >
       {submenu &&
         React.cloneElement(submenu, {
@@ -219,7 +226,7 @@ const MenuItem = ({
       {submenu && checkRef(ref) && !isLeftAligned && (
         <SubMenuItemIcon type="chevron_right" />
       )}
-    </div>
+    </StyledDiv>
   );
 };
 
@@ -262,6 +269,10 @@ const propTypes = {
   icon: PropTypes.oneOf(OptionsHelper.icons),
   /** Callback to run when item is clicked */
   onClick: PropTypes.func.isRequired,
+  /** allows to provide download prop that works dependent with href */
+  download: PropTypes.bool,
+  /** allows to provide href prop */
+  href: PropTypes.string,
   /** Submenu component for item */
   submenu(props, propName, componentName) {
     let error;

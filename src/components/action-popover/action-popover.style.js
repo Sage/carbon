@@ -15,6 +15,10 @@ const Menu = styled.div`
   z-index: ${({ theme }) => `${theme.zIndex.popover}`};
 `;
 
+const StyledDiv = styled.div`
+  text-decoration: none;
+`;
+
 const MenuItemFactory = (button) => styled(button)`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   box-sizing: border-box;
@@ -156,4 +160,5 @@ export {
   MenuItemDivider,
   SubMenuItemIcon,
   MenuButtonOverrideWrapper,
+  StyledDiv,
 };
