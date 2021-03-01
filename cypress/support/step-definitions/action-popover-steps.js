@@ -78,3 +78,10 @@ Then("{string} action was called in Actions Tab for actionPopover", (event) => {
 Then("ActionPopover submenu is not visible", () => {
   actionPopoverSubmenuNoIFrame().should("not.be.visible");
 });
+
+Then("Download button has href link {string} and download prop", (link) => {
+  actionPopover()
+    .find("a")
+    .should("have.attr", "href", link)
+    .and("have.attr", "download");
+});
