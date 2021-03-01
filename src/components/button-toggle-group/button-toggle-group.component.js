@@ -44,7 +44,12 @@ const BaseButtonToggleGroup = (props) => {
           >
             {children}
           </RadioButtonMapper>
-          {!validationOnLabel && <ValidationIcon {...validationProps} />}
+          {!validationOnLabel && (
+            <ValidationIcon
+              {...validationProps}
+              tooltipFlipOverrides={["top", "bottom"]}
+            />
+          )}
         </ButtonToggleGroupStyle>
       </FormField>
     </InputGroupBehaviour>

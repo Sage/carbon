@@ -8,6 +8,7 @@ import { baseTheme, mintTheme } from "../../style/themes";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
+import ValidationIcon from "../validations";
 import Label from "../../__experimental__/components/label";
 
 import ButtonToggleGroup from "./button-toggle-group.component";
@@ -78,6 +79,7 @@ describe("ButtonToggleGroup", () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
+
   describe("Style props", () => {
     it("renders with the correct width", () => {
       const wrapper = renderWithTheme(
@@ -117,6 +119,7 @@ describe("ButtonToggleGroup", () => {
             { modifier: `${StyledButtonToggleLabel}` }
           );
         });
+
         it("renders validation icon on input", () => {
           const wrapper = renderWithTheme(
             { theme: baseTheme, [type]: "Message" },
@@ -128,7 +131,12 @@ describe("ButtonToggleGroup", () => {
               .find(StyledValidationIcon)
               .exists()
           ).toBe(true);
+
+          expect(
+            wrapper.find(ValidationIcon).props().tooltipFlipOverrides
+          ).toEqual(["top", "bottom"]);
         });
+
         it("renders validation icon on label when validationOnLabel passed as true", () => {
           const wrapper = renderWithTheme(
             {
