@@ -5,6 +5,7 @@ import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
 import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style";
+import StyledSearch from "../../../../__experimental__/components/search/search.style";
 
 const StyledSubmenuWrapper = styled.div`
   position: relative;
@@ -100,6 +101,19 @@ const StyledSubmenu = styled.ul`
 
         .carbon-menu-item--has-link button {
           color: ${theme.colors.white};
+        }
+
+        ${StyledSearch} {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+
+        ${StyledSearch} [data-component="icon"] {
+          color: ${theme.menu.dark.searchIcon};
+
+          &:hover {
+            color: ${theme.menu.dark.searchIconHover};
+          }
         }
       }
 

@@ -106,6 +106,8 @@ export default (palette) => {
         submenuBackground: palette.slateShade(50),
         selected: palette.slateTint(10),
         title: palette.slateTint(60),
+        searchIcon: palette.slateTint(55),
+        searchIconHover: palette.slateTint(75),
       },
     },
 
