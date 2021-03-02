@@ -9,15 +9,15 @@ import {
 } from "../../locators/date-input/index";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
-const TODAY_CALENDAR = Cypress.moment().format("ddd MMM D, YYYY");
-const YESTERDAY_CALENDAR = Cypress.moment()
+const TODAY_CALENDAR = Cypress.dayjs().format("ddd MMM D, YYYY");
+const YESTERDAY_CALENDAR = Cypress.dayjs()
   .subtract(1, "days")
   .format("ddd MMM D, YYYY");
-const TOMORROW_CALENDAR = Cypress.moment()
+const TOMORROW_CALENDAR = Cypress.dayjs()
   .add(1, "days")
   .format("ddd MMM D, YYYY");
-const TODAY_KNOBS = Cypress.moment().format("YYYY-MM-DD");
-const TODAY_DATE_INPUT = Cypress.moment().format("DD/MM/YYYY");
+const TODAY_KNOBS = Cypress.dayjs().format("YYYY-MM-DD");
+const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
 
 Then("Date input is disabled", () => {
   dateInputNoIFrame().should("have.attr", "disabled");
