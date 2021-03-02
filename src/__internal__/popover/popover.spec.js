@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 import { createPopper } from "@popperjs/core";
 
-import Popover, { alignSameWidthPopoverFunction } from "./popover.component";
+import Popover from "./popover.component";
 
 jest.mock("@popperjs/core");
 
@@ -109,64 +109,6 @@ describe("Popover", () => {
       expect(createPopper.mock.calls[0][2]).toMatchObject({
         placement: "bottom-start",
       });
-    });
-  });
-});
-
-describe("alignSameWidthPopoverFunction", () => {
-  const createState = (
-    referenceWidth,
-    popperWidth,
-    refRectX,
-    popperXoffset
-  ) => ({
-    elements: {
-      reference: {
-        getBoundingClientRect: () => ({
-          width: referenceWidth,
-        }),
-      },
-      popper: {
-        getBoundingClientRect: () => ({
-          width: popperWidth,
-        }),
-      },
-    },
-    rects: {
-      reference: {
-        x: refRectX,
-      },
-    },
-    modifiersData: {
-      popperOffsets: {
-        x: popperXoffset,
-      },
-    },
-    styles: {
-      popper: {
-        left: 0,
-      },
-    },
-  });
-  describe("when width of the reference is not the same as width of the content", () => {
-    it("does nothing", () => {
-      const state = createState(150, 200);
-      alignSameWidthPopoverFunction({ state });
-      expect(state.styles.popper.left).toBe(0);
-    });
-  });
-
-  describe("when width of the reference is the same as width of the content", () => {
-    it("modifies state so that left value is equal to rect reference x value when rect is bigger than offset", () => {
-      const state = createState(200, 200, 230, 220);
-      alignSameWidthPopoverFunction({ state });
-      expect(state.styles.popper.left).toBe(`${230}px`);
-    });
-
-    it("modifies state so that left value is equal to offset x value when offset is bigger than rect", () => {
-      const state = createState(200, 200, 230, 250);
-      alignSameWidthPopoverFunction({ state });
-      expect(state.styles.popper.left).toBe(`${250}px`);
     });
   });
 });
