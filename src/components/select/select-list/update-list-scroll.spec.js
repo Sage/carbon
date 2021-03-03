@@ -6,15 +6,22 @@ describe("updateListScrollTop", () => {
     const listHeight = 100;
     const itemHeight = 30;
     let list;
+    let children;
 
     beforeEach(() => {
       list = {
         offsetHeight: listHeight,
-        children: [...Array(numOfItems).keys()].map((item, index) => {
-          return { offsetHeight: itemHeight, offsetTop: index * itemHeight };
-        }),
         scrollTop: 0,
       };
+
+      children = [...Array(numOfItems).keys()].map((item, index) => {
+        return {
+          current: {
+            offsetHeight: itemHeight,
+            offsetTop: index * itemHeight,
+          },
+        };
+      });
     });
 
     describe("and the index is -1", () => {
@@ -22,7 +29,7 @@ describe("updateListScrollTop", () => {
         const itemIndex = -1;
 
         list.scrollTop = 500;
-        updateListScrollTop(itemIndex, list);
+        updateListScrollTop(itemIndex, list, children);
 
         expect(list.scrollTop).toBe(0);
       });
@@ -32,7 +39,7 @@ describe("updateListScrollTop", () => {
       it("should change the scrollTop property of that list to 0", () => {
         const itemIndex = 2;
 
-        updateListScrollTop(itemIndex, list);
+        updateListScrollTop(itemIndex, list, children);
 
         expect(list.scrollTop).toBe(0);
       });
@@ -41,7 +48,7 @@ describe("updateListScrollTop", () => {
     describe("when called with a HTML list in the second argument", () => {
       it("should change the scrollTop property of that list to combined height of items below passed index", () => {
         const itemIndex = 15;
-        updateListScrollTop(itemIndex, list);
+        updateListScrollTop(itemIndex, list, children);
 
         expect(list.scrollTop).toBe((itemIndex + 1) * itemHeight - listHeight);
       });

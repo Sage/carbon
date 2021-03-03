@@ -312,6 +312,7 @@ export default (palette) => {
       border: "#bfccd2",
       selected: palette.slateTint(95),
       optionHeader: palette.blackOpacity(0.55),
+      tableHeaderBorder: palette.slateTint(80),
     },
 
     shadows: {
