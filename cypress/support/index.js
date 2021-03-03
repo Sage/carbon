@@ -70,3 +70,8 @@ Cypress.Commands.add("iFrame", (selector) => {
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
 
 export default DEBUG_FLAG;
+
+// replace the moment.js because of deprecation
+const dayjs = require("dayjs");
+
+Cypress.dayjs = dayjs;
