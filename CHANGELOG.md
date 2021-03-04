@@ -1,3 +1,10 @@
+## [66.19.0](https://github.com/Sage/carbon/compare/v66.18.1...v66.19.0) (2021-03-04)
+
+
+### Features
+
+* **select:** add multi column functionality ([736a109](https://github.com/Sage/carbon/commit/736a109ee2546f1d6f6e502aecb432aa0968e3b3))
+
 ### [66.18.1](https://github.com/Sage/carbon/compare/v66.18.0...v66.18.1) (2021-03-02)
 
 

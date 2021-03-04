@@ -21,10 +21,10 @@ StyledPopoverContainer.defaultProps = {
 const StyledSelectList = styled.ul`
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   list-style-type: none;
-  max-height: ${(props) => `${props.maxHeight}`};
+  max-height: ${({ maxHeight }) => `${maxHeight}`};
   margin: 0;
   outline: none;
   overflow-x: hidden;
@@ -52,8 +52,56 @@ const StyledSelectLoaderContainer = styled.li`
   width: 100%;
 `;
 
+const StyledSelectListTable = styled.table`
+  background-color: ${({ theme }) => theme.colors.white};
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  white-space: nowrap;
+`;
+
+StyledSelectListTable.defaultProps = {
+  theme: baseTheme,
+};
+
+const StyledSelectListTableHeader = styled.thead`
+  th {
+    position: sticky;
+    top: 0px;
+    padding: ${({ theme }) => 2 * theme.spacing}px;
+    border-bottom: 1px solid ${({ theme }) => theme.select.tableHeaderBorder};
+    background-color: white;
+    text-align: left;
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.tileSelect.descriptionColor};
+    :after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -8px;
+      left: 0px;
+      background-image: linear-gradient(
+        ${({ theme }) => theme.colors.black},
+        ${({ theme }) => theme.colors.white}
+      );
+      opacity: 0.03;
+      height: 8px;
+      width: 100%;
+    }
+  }
+`;
+
+StyledSelectListTableHeader.defaultProps = {
+  theme: baseTheme,
+};
+
 export {
+  StyledPopoverContainer,
   StyledSelectList,
   StyledSelectLoaderContainer,
-  StyledPopoverContainer,
+  StyledSelectListTable,
+  StyledSelectListTableHeader,
 };

@@ -6,7 +6,7 @@ Feature: Design System Filterable Select component
     Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I type "A" into input
     Then "first" option on Select list is "Amber"
-      And "first" option on the list is highlighted
+      And "first" option on the list is hovered over
       And  "second" option on Select list is "Black"
       And  "third" option on Select list is "Orange"
 
@@ -108,7 +108,21 @@ Feature: Design System Filterable Select component
     Then "filterable" Select list is opened
 
   @positive
-  Scenario: Value is cleared when the filter does not match any options 
+  Scenario: Value is cleared when the filter does not match any options
     Given I open "Design System Select filterable" component page "controlled" in no iframe
     When I select value "xzw"
     Then Select input has no value
+
+  @positive
+  Scenario: Check that Filterable Select has multiColumns in option list
+    Given I open "Design System Select filterable" component page "with multiple columns" in no iframe
+    When I click on dropdown button
+    Then "filterable" Select list is opened
+      And Option list has multiColumns header
+      And Option list has multiColumns body
+
+  @positive
+  Scenario: The matching string is indicated with bold and underline
+    Given I open "Design System Select filterable" component page "with multiple columns" in no iframe
+    When I type "Do" into select input
+    Then The matching string "Do" is underline and bolded

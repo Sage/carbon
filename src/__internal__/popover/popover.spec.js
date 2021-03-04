@@ -42,7 +42,8 @@ describe("Popover", () => {
     });
     it("does not render children in portal when disablePortal passed", () => {
       const createPortalSpy = jest.spyOn(ReactDOM, "createPortal");
-      mount(<Component disablePortal />);
+      const wrapper = mount(<Component disablePortal />);
+      wrapper.unmount();
       expect(createPortalSpy).not.toHaveBeenCalled();
     });
 

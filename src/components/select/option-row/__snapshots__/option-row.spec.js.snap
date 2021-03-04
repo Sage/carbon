@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionRow renders properly 1`] = `
+.c0 {
+  cursor: pointer;
+}
+
+.c0:hover {
+  background-color: #F2F5F6;
+}
+
+.c0 td {
+  line-height: 16px;
+  padding: 12px 16px;
+}
+
+.c0 td:first-child {
+  font-weight: 700;
+}
+
+<tr
+  className="c0"
+  data-component="option-row"
+  onClick={[Function]}
+  role="option"
+>
+  bar
+</tr>
+`;

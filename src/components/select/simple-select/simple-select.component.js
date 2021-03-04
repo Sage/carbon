@@ -39,6 +39,8 @@ const SimpleSelect = React.forwardRef(
       disablePortal,
       isLoading,
       onListScrollBottom,
+      tableHeader,
+      multiColumn,
       ...props
     },
     inputRef
@@ -174,16 +176,12 @@ const SimpleSelect = React.forwardRef(
     const handleGlobalClick = useCallback((event) => {
       const notInContainer =
         containerRef.current && !containerRef.current.contains(event.target);
+      const notInList =
+        listboxRef.current && !listboxRef.current.contains(event.target);
 
-      if (notInContainer && !isClickTriggeredBySelect.current) {
-        setOpenState((previousValue) => {
-          if (!previousValue) {
-            return false;
-          }
-
-          filterText.current = "";
-          return false;
-        });
+      if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
+        setOpenState(false);
+        filterText.current = "";
       }
 
       isClickTriggeredBySelect.current = false;
@@ -377,6 +375,8 @@ const SimpleSelect = React.forwardRef(
         disablePortal={disablePortal}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}
+        tableHeader={tableHeader}
+        multiColumn={multiColumn}
       >
         {children}
       </SelectList>
@@ -416,12 +416,18 @@ SimpleSelect.propTypes = {
   disablePortal: PropTypes.bool,
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  /** Child components (such as Option) for the SelectList */
+  /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
   /** If true the Component opens on focus */
   openOnFocus: PropTypes.bool,
   /** If true the component input has no border and a transparent background */
   transparent: PropTypes.bool,
+  /** SelectList table header, should consist of multiple th elements.
+  Works only in multiColumn mode */
+  tableHeader: PropTypes.node,
+  /** When true component will work in multi column mode.
+  Children should consist of OptionRow components in this mode */
+  multiColumn: PropTypes.bool,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the loader animation is displayed below the last option */

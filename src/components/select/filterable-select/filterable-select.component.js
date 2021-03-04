@@ -35,6 +35,8 @@ const FilterableSelect = React.forwardRef(
       disabled,
       readOnly,
       onListScrollBottom,
+      tableHeader,
+      multiColumn,
       ...textboxProps
     },
     inputRef
@@ -464,6 +466,8 @@ const FilterableSelect = React.forwardRef(
         isLoading={isLoading}
         readOnly={readOnly}
         onListScrollBottom={onListScrollBottom}
+        tableHeader={tableHeader}
+        multiColumn={multiColumn}
       >
         {children}
       </FilterableSelectList>
@@ -501,12 +505,18 @@ FilterableSelect.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  /** Child components (such as Option) for the SelectList */
+  /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the Component opens on focus */
   openOnFocus: PropTypes.bool,
+  /** SelectList table header, should consist of multiple th elements.
+  Works only in multiColumn mode */
+  tableHeader: PropTypes.node,
+  /** When true component will work in multi column mode.
+  Children should consist of OptionRow components in this mode */
+  multiColumn: PropTypes.bool,
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage: PropTypes.string,
   /** True for default text button or a Button Component to be rendered */
