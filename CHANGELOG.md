@@ -1,3 +1,10 @@
+### [66.19.1](https://github.com/Sage/carbon/compare/v66.19.0...v66.19.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* fix dropdown alignment in split and multi action buttons ([a6caf26](https://github.com/Sage/carbon/commit/a6caf26be1d19104c7ba3e76cdcb0c8568e5d19f))
+
 ## [66.19.0](https://github.com/Sage/carbon/compare/v66.18.1...v66.19.0) (2021-03-04)
 
 
