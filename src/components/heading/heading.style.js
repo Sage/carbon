@@ -16,15 +16,12 @@ StyledHeading.defaultProps = {
 };
 
 const StyledHeaderContent = styled.div`
-  display: inline-block;
-  width: 100%;
+  display: inline-flex;
+  align-items: flex-end;
 `;
 
 const StyledHeader = styled.div`
-  display: flex;
-  align-items: flex-start;
-
-  ${({ divider, subheader }) => css`
+  ${({ divider, subheader, hasBackLink }) => css`
     ${subheader &&
     css`
       margin-bottom: 16px;
@@ -39,6 +36,12 @@ const StyledHeader = styled.div`
     !subheader &&
     css`
       margin-bottom: 20px;
+    `}
+
+    ${hasBackLink &&
+    css`
+      display: grid;
+      grid-template-columns: min-content auto;
     `}
   `}
 `;
@@ -85,6 +88,20 @@ const StyledHeadingPills = styled.span`
 
 const StyledSubHeader = styled.div`
   margin-top: 5px;
+  grid-row: 2;
+
+  ${({ hasBackLink }) =>
+    hasBackLink &&
+    css`
+      grid-column: 2;
+    `}
+
+  ${({ hasSeparator }) =>
+    hasSeparator &&
+    css`
+      grid-row: 3;
+      margin-top: 0px;
+    `}
 `;
 
 const StyledHeadingIcon = styled(Icon)`

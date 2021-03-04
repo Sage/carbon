@@ -1,0 +1,64 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import {useState} from 'react';
+import { Dl, Dt, Dd } from "./"
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+
+<Meta title="Design System/Definition List" parameters={{ info: { disable: true }}} />
+
+# Definition List
+
+## Related Components
+Definition List most of the time is in use with other components. Look at the examples below
+
+- [Tile component with Definition List](/?path=/docs/design-system-tile--with-definition-list-default "Tile component with Definition List").
+- [Accordion component with Definition List](/?path=/docs/design-system-accordion--with-a-definition-list "Accordion component with Definition List").
+
+## Quick Start
+
+```js
+import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Dl>
+      <Dt>First</Dt>
+      <Dd>Description</Dd>
+      <Dt>Second</Dt>
+      <Dd>Description</Dd>
+      <Dt>Third</Dt>
+      <Dd>Description</Dd>
+    </Dl>
+  </Story>
+</Preview>
+
+### Conditional rendering with `<React.Fragment />`
+*CAUTION: don't use nested `<React.Fragment />`*
+
+<Preview>
+  <Story name="with conditional rendering" parameters={{ chromatic: { disable: true }}}>
+      <Dl>
+        <Dt>First</Dt>
+        <Dd>Description</Dd>
+        <Dt>Second</Dt>
+        <Dd>Description</Dd>
+        {(true && <>
+          <Dt>Third inside of React Fragment</Dt>
+          <Dd>Description inside of React Fragment</Dd>
+        </>)}
+      </Dl>
+  </Story>
+</Preview>
+
+## Props
+
+### Dl
+<StyledSystemProps of={Dl} noHeader spacing/>
+
+### Dt
+<StyledSystemProps of={Dt} noHeader spacing/>
+
+### Dd
+<StyledSystemProps of={Dd} noHeader spacing/>

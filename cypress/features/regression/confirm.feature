@@ -78,15 +78,6 @@ Feature: Confirm component
     Then Close icon is not visible
 
   @positive
-  Scenario Outline: Primary <buttonType> Button
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
-    Then Button type is <buttonType>
-    Examples:
-      | buttonType   | nameOfObject |
-      | destructive  | destructive  |
-      | default      | iconEmpty    |
-
-  @positive
   Scenario Outline: <icon> icon on the header
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
     Then <icon> icon is displayed on the header
@@ -95,3 +86,34 @@ Feature: Confirm component
       | error     | iconError    |
       | warning   | iconWarning  |
       | empty     | iconEmpty    |
+
+  @positive
+  Scenario: Cancel button type is set to tertiary
+    Given I open "Confirm" component page "cancel button type" in no iframe
+    When I open component preview in noIFrame
+    Then cancel button type is set to "tertiary"
+
+  @positive
+  Scenario: Buttons have destructive CSS properties
+    Given I open "Confirm" component page "destructive" in no iframe
+    When I open component preview in noIFrame
+    Then cancel button type is set to "destructive"
+      And confirm button type is set to "destructive"
+  
+  @positive
+  Scenario: Cancel button is disabled
+    Given I open "Confirm" component page "disable cancel" in no iframe
+    When I open component preview in noIFrame
+    Then "cancel" button is disabled
+
+  @positive
+  Scenario: Confirm button is disabled
+    Given I open "Confirm" component page "disable confirm" in no iframe
+    When I open component preview in noIFrame
+    Then "confirm" button is disabled
+
+  @positive
+  Scenario: Confirm button is in loading state
+    Given I open "Confirm" component page "is loading confirm" in no iframe
+    When I open component preview in noIFrame
+    Then confirm button type is set to "isLoadingConfirm"

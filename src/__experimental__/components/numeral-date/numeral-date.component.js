@@ -227,14 +227,16 @@ NumeralDate.propTypes = {
   ['mm', 'yyyy'] */
   dateFormat: (props, propName, componentName) => {
     const dateFormat = props[propName];
-    const isAllowed = OptionsHelper.dateFormats.find(
-      (allowedDateFormat) =>
-        JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat)
-    );
+    const isAllowed =
+      !dateFormat ||
+      OptionsHelper.dateFormats.find(
+        (allowedDateFormat) =>
+          JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat)
+      );
     if (!isAllowed) {
       return new Error(
         `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. ` +
-          "Onle one of these date formats is allowed: " +
+          "Only one of these date formats is allowed: " +
           "['dd', 'mm', 'yyyy'], " +
           "['mm', 'dd', 'yyyy'], " +
           "['dd', 'mm'], " +

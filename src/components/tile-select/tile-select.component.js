@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import I18n from "i18n-js";
 import tagComponent from "../../utils/helpers/tags/tags";
+import Button from "../button";
 
 import {
   StyledTileSelectContainer,
@@ -12,7 +13,7 @@ import {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
-  StyledDeselectButton,
+  StyledDeselectWrapper,
 } from "./tile-select.style";
 
 const TileSelect = (props) => {
@@ -30,6 +31,8 @@ const TileSelect = (props) => {
     titleAdornment,
     type,
     id,
+    customActionButton,
+    actionButtonAdornment,
     ...rest
   } = props;
 
@@ -43,6 +46,17 @@ const TileSelect = (props) => {
       },
     });
 
+  const renderActionButton = () => {
+    if (customActionButton) return customActionButton(handleDeselect);
+
+    return (
+      checked && (
+        <Button buttonType="tertiary" size="small" onClick={handleDeselect}>
+          {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
+        </Button>
+      )
+    );
+  };
   return (
     <StyledTileSelectContainer
       checked={checked}
@@ -74,15 +88,10 @@ const TileSelect = (props) => {
         </StyledTitleContainer>
         <StyledDescription>{description}</StyledDescription>
       </StyledTileSelect>
-      {checked && (
-        <StyledDeselectButton
-          buttonType="tertiary"
-          size="small"
-          onClick={handleDeselect}
-        >
-          {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
-        </StyledDeselectButton>
-      )}
+      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+        {renderActionButton()}
+        {actionButtonAdornment}
+      </StyledDeselectWrapper>
     </StyledTileSelectContainer>
   );
 };
@@ -111,14 +120,18 @@ TileSelect.propTypes = {
   name: PropTypes.string,
   /** Callback triggered when user selects or deselects this tile */
   onChange: PropTypes.func,
-  /** Callback triggered when the user blurrs this tile */
+  /** Callback triggered when the user blurs this tile */
   onBlur: PropTypes.func,
   /** determines if this tile is selected or unselected */
   checked: PropTypes.bool,
-  /** Custom classname passed to the root element of TileSelect */
+  /** Custom class name passed to the root element of TileSelect */
   className: PropTypes.string,
   /** Type of the TileSelect input */
   type: PropTypes.oneOf(["radio", "checkbox"]),
+  /** Render prop that allows overriding the default action button. `(onClick) => <Button onClick={onClick}>...</Button>` */
+  customActionButton: PropTypes.func,
+  /** An additional help info icon rendered next to the action button */
+  actionButtonAdornment: PropTypes.node,
 };
 
 TileSelect.displayName = "TileSelect";

@@ -2,6 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Heading from "./heading.component";
 import {
+  StyledHeader,
   StyledSubHeader,
   StyledSeparator,
   StyledHeadingTitle,
@@ -42,7 +43,7 @@ describe("Heading", () => {
     expect(help.props().href).toEqual("/bar");
   });
 
-  it("renders a back link", () => {
+  it("renders a back link and applies correct styling to header and subheader", () => {
     const wrapper = mount(
       <Heading
         className="custom"
@@ -57,6 +58,23 @@ describe("Heading", () => {
 
     const link = wrapper.find(Link);
     expect(link.prop("href")).toEqual("/foobar");
+
+    assertStyleMatch(
+      {
+        display: "grid",
+        gridTemplateColumns: "min-content auto",
+      },
+      wrapper.find(StyledHeader)
+    );
+
+    assertStyleMatch(
+      {
+        marginTop: "5px",
+        gridRow: "2",
+        gridColumn: "2",
+      },
+      wrapper.find(StyledSubHeader)
+    );
   });
 
   it("renders a back link as a button with an outline", () => {
@@ -193,6 +211,18 @@ describe("Heading", () => {
     it("renders a separator after the title", () => {
       const wrapper = mount(<Heading title="foo" separator />);
       expect(wrapper.find(StyledSeparator).length).toEqual(1);
+    });
+
+    it("applies the correct style to the subheader", () => {
+      const wrapper = mount(<Heading title="foo" separator subheader="bar" />);
+
+      assertStyleMatch(
+        {
+          gridRow: "3",
+          marginTop: "0px",
+        },
+        wrapper.find(StyledSubHeader)
+      );
     });
   });
 

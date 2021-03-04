@@ -6,7 +6,7 @@ import NumeralDate from "./numeral-date.component";
 import Textbox from "../textbox";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import StyledInputPresentantion from "../input/input-presentation.style";
+import StyledInputPresentation from "../input/input-presentation.style";
 import FormField from "../form-field";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import I18next from "../../../__spec_helper__/I18next";
@@ -47,7 +47,7 @@ describe("NumeralDate", () => {
       renderWrapper({ dateFormat: ["xx"] });
       const expected =
         "Forbidden prop `dateFormat` supplied to `NumeralDate`. " +
-        "Onle one of these date formats is allowed: " +
+        "Only one of these date formats is allowed: " +
         "['dd', 'mm', 'yyyy'], " +
         "['mm', 'dd', 'yyyy'], " +
         "['dd', 'mm'], " +
@@ -58,9 +58,25 @@ describe("NumeralDate", () => {
       const actual = console.error.calls.argsFor(0)[0];
       expect(actual).toMatch(expected);
     });
+
+    it("does not throw an error if no dateFormat is passed", () => {
+      spyOn(global.console, "error");
+      renderWrapper();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
+    });
   });
 
   describe("invariant", () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      global.console.error.mockReset();
+    });
+
     it("throws when component changes from uncontrolled to controlled", () => {
       wrapper = renderWrapper();
       expect(() => {
@@ -135,7 +151,7 @@ describe("NumeralDate", () => {
           width: "78px",
         },
         wrapper.find(StyledDateField).at(1),
-        { modifier: `${StyledInputPresentantion}` }
+        { modifier: `${StyledInputPresentation}` }
       );
     });
 
@@ -150,7 +166,7 @@ describe("NumeralDate", () => {
           width: "78px",
         },
         wrapper.find(StyledDateField).at(2),
-        { modifier: `${StyledInputPresentantion}` }
+        { modifier: `${StyledInputPresentation}` }
       );
     });
   });
@@ -196,6 +212,7 @@ describe("NumeralDate", () => {
         "renders internal validation when day field is blurred and has incorrect value",
         (value, isValid) => {
           wrapper = renderWrapper({
+            dateFormat: ["dd"],
             defaultValue: null,
             [internalValidationProp]: true,
           });
@@ -299,7 +316,7 @@ describe("NumeralDate", () => {
 
   describe("Clicking off the component", () => {
     it("calls onBlur if prop is passed", () => {
-      wrapper = renderWrapper({ defaultValue: undefined });
+      wrapper = renderWrapper({ defaultValue: undefined, dateFormat: ["dd"] });
       const input = wrapper.find("input");
       input.simulate("blur");
       jest.runAllTimers();
@@ -309,7 +326,7 @@ describe("NumeralDate", () => {
 
   describe("supports being a controlled component", () => {
     it("calls onChange prop with proper argument", () => {
-      wrapper = renderWrapper({ name: "Name", id: "Id" });
+      wrapper = renderWrapper({ name: "Name", id: "Id", dateFormat: ["dd"] });
       const input = wrapper.find("input");
       act(() => {
         input.simulate("change", { target: { value: "45" } });
@@ -326,13 +343,21 @@ describe("NumeralDate", () => {
     });
 
     it("passes value prop to the input", () => {
-      wrapper = renderWrapper({ defaultValue: undefined, value: { dd: "30" } });
+      wrapper = renderWrapper({
+        defaultValue: undefined,
+        value: { dd: "30" },
+        dateFormat: ["dd"],
+      });
       const input = wrapper.find("input");
       expect(input.props().value).toEqual("30");
     });
 
     it("passes empty string to the input if value is not provided", () => {
-      wrapper = renderWrapper({ defaultValue: undefined, value: undefined });
+      wrapper = renderWrapper({
+        defaultValue: undefined,
+        value: undefined,
+        dateFormat: ["dd"],
+      });
       const input = wrapper.find("input");
       expect(input.props().value).toEqual("");
     });
@@ -340,13 +365,13 @@ describe("NumeralDate", () => {
 
   describe("supports being a uncontrolled component", () => {
     it("accepts a default value", () => {
-      wrapper = renderWrapper();
+      wrapper = renderWrapper({ dateFormat: ["dd"] });
       const input = wrapper.find("input");
       expect(input.props().value).toEqual("30");
     });
 
     it("passes empty string to the input if defaultValue is not provided", () => {
-      wrapper = renderWrapper({ defaultValue: undefined });
+      wrapper = renderWrapper({ defaultValue: undefined, dateFormat: ["dd"] });
       const input = wrapper.find("input");
       expect(input.props().value).toEqual("");
     });
@@ -354,7 +379,7 @@ describe("NumeralDate", () => {
 
   describe("Valid characters", () => {
     beforeEach(() => {
-      wrapper = renderWrapper();
+      wrapper = renderWrapper({ dateFormat: ["dd"] });
     });
 
     afterEach(() => jest.clearAllMocks());

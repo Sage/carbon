@@ -21,11 +21,12 @@ export default {
 export const Default = () => {
   return (
     <Dl data-component="definition-list">
-      <Dt>Name</Dt>
-      <Dd>Daniel Dipper</Dd>
-
-      <Dt>Phone</Dt>
-      <Dd>Yes, I have a phone</Dd>
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+      <>
+        <Dt>Title inside of React Fragment</Dt>
+        <Dd>Description inside of React Fragment</Dd>
+      </>
     </Dl>
   );
 };
