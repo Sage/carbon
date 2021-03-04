@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import baseTheme from "../../../style/themes/base";
 
+const StyledPopoverContainer = styled.div`
+  position: absolute;
+  z-index: ${({ theme }) => theme.zIndex.popover};
+`;
+
+StyledPopoverContainer.defaultProps = {
+  theme: baseTheme,
+};
+
 const StyledDayPicker = styled.div`
   .DayPicker {
     z-index: 1000;
@@ -115,4 +124,4 @@ StyledDayPicker.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledDayPicker;
+export { StyledDayPicker, StyledPopoverContainer };

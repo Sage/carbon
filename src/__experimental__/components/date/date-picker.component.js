@@ -5,12 +5,28 @@ import "react-day-picker/lib/style.css";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
 
-import Browser from "../../../utils/helpers/browser/browser";
+import Popover from "../../../__internal__/popover";
 import DateHelper from "../../../utils/helpers/date/date";
-import StyledPortal from "../../../components/portal/portal.style";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
-import StyledDayPicker from "./day-picker.style";
+import { StyledDayPicker, StyledPopoverContainer } from "./day-picker.style";
+
+const overhang = 11;
+
+const popoverModifiers = [
+  {
+    name: "offset",
+    options: {
+      offset: [-overhang, 0],
+    },
+  },
+  {
+    name: "preventOverflow",
+    options: {
+      mainAxis: false,
+    },
+  },
+];
 
 const DatePicker = ({
   inputElement,
@@ -21,16 +37,10 @@ const DatePicker = ({
   selectedDate,
   disablePortal,
 }) => {
-  const window = Browser.getWindow();
-  const [containerPosition, setContainerPosition] = useState(() =>
-    getContainerPosition(window, inputElement)
-  );
-
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
   );
-
-  const datepicker = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     let monthDate;
@@ -43,7 +53,7 @@ const DatePicker = ({
       monthDate = new Date(lastValidDate);
     }
 
-    datepicker.current.showMonth(monthDate);
+    ref.current.showMonth(monthDate);
   }, [inputDate, lastValidDate]);
 
   const handleDayClick = (date, modifiers) => {
@@ -78,11 +88,7 @@ const DatePicker = ({
 
   const picker = (
     <StyledDayPicker>
-      <DayPicker
-        {...datePickerProps}
-        containerProps={{ style: disablePortal ? {} : containerPosition }}
-        ref={datepicker}
-      />
+      <DayPicker {...datePickerProps} ref={ref} />
     </StyledDayPicker>
   );
 
@@ -91,13 +97,13 @@ const DatePicker = ({
   }
 
   return (
-    <StyledPortal
-      onReposition={() =>
-        setContainerPosition(getContainerPosition(window, inputElement))
-      }
+    <Popover
+      placement="bottom-start"
+      reference={inputElement}
+      modifiers={popoverModifiers}
     >
-      {picker}
-    </StyledPortal>
+      <StyledPopoverContainer>{picker}</StyledPopoverContainer>
+    </Popover>
   );
 };
 
@@ -165,16 +171,6 @@ function checkIsoFormatAndLength(date) {
     array[1].length === 2 &&
     array[2].length === 2
   );
-}
-
-function getContainerPosition(window, input) {
-  const inputRect = input.getBoundingClientRect();
-  const offsetY = window.pageYOffset;
-
-  return {
-    left: inputRect.left,
-    top: inputRect.bottom + offsetY,
-  };
 }
 
 export default DatePicker;
