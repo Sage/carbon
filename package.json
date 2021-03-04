@@ -135,7 +135,7 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
-    "@popperjs/core": "^2.6.0",
+    "@popperjs/core": "^2.9.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.1",
