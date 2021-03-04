@@ -1,34 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import StyledOption from "./option.style";
+import StyledOptionRow from "./option-row.style";
 
-const Option = React.forwardRef(
+const OptionRow = React.forwardRef(
   ({ text, children, onSelect, value, isHighlighted, hidden }, ref) => {
-    function handleClick() {
+    const handleClick = () => {
       onSelect({ text, value });
-    }
+    };
 
     return (
-      <StyledOption
+      <StyledOptionRow
         ref={ref}
         aria-selected={isHighlighted}
-        data-component="option"
+        data-component="option-row"
         onClick={handleClick}
         isHighlighted={isHighlighted}
         role="option"
         hidden={hidden}
       >
-        {children || text}
-      </StyledOption>
+        {children}
+      </StyledOptionRow>
     );
   }
 );
 
-Option.propTypes = {
-  /** The option's visible text, displayed within Textbox of Select, and used for filtering */
+OptionRow.propTypes = {
+  /** The option's visible text, displayed within Textbox of Select */
   text: PropTypes.string.isRequired,
-  /** Optional: alternative rendered content, displayed within SelectList of Select (eg: an icon, an image, etc) */
-  children: PropTypes.node,
+  /** Row content, should consist of multiple `td` elements */
+  children: PropTypes.node.isRequired,
   /** The option's invisible internal value */
   value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   /**
@@ -48,4 +48,4 @@ Option.propTypes = {
   hidden: PropTypes.bool,
 };
 
-export default Option;
+export default OptionRow;

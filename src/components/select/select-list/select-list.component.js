@@ -11,8 +11,11 @@ import {
   StyledSelectList,
   StyledSelectLoaderContainer,
   StyledPopoverContainer,
+  StyledSelectListTable,
+  StyledSelectListTableHeader,
 } from "./select-list.style";
 import Popover from "../../../__internal__/popover";
+import OptionRow from "../option-row/option-row.component";
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
@@ -25,8 +28,16 @@ const overhang = 4;
 
 const popoverModifiers = [
   {
+    name: "offset",
+    options: {
+      offset: [-overhang, 0],
+    },
+  },
+  {
     name: "preventOverflow",
-    enabled: false,
+    options: {
+      mainAxis: false,
+    },
   },
 ];
 
@@ -46,6 +57,8 @@ const SelectList = React.forwardRef(
       onListAction,
       isLoading,
       onListScrollBottom,
+      multiColumn,
+      tableHeader,
       ...listProps
     },
     listContainerRef
@@ -57,6 +70,15 @@ const SelectList = React.forwardRef(
     const lastFilter = useRef("");
     const listRef = useRef();
     const listActionButtonRef = useRef();
+
+    const optionRefs = useRef(
+      React.Children.map(children, (child) => {
+        if (child?.type === Option || child?.type === OptionRow) {
+          return React.createRef();
+        }
+        return null;
+      }).filter((child) => child)
+    );
 
     const setPlacementCallback = useCallback((popper) => {
       setPlacement(popper.placement);
@@ -77,7 +99,7 @@ const SelectList = React.forwardRef(
       let lastIndex = 0;
 
       childrenList.forEach((element, index) => {
-        if (element.type === Option) {
+        if (element.type === Option || element.type === OptionRow) {
           lastIndex = index;
         }
       });
@@ -96,7 +118,11 @@ const SelectList = React.forwardRef(
         );
         const nextElement = childrenList[nextIndex];
 
-        if (nextElement && nextElement.type !== Option) {
+        if (
+          nextElement &&
+          nextElement.type !== Option &&
+          nextElement.type !== OptionRow
+        ) {
           nextIndex = getNextHighlightableItemIndex(key, nextIndex, lastIndex);
         }
 
@@ -222,31 +248,25 @@ const SelectList = React.forwardRef(
       [onSelect]
     );
 
-    const childrenWithListProps = useMemo(() => {
-      const optionsList = React.Children.map(children, (child, index) => {
-        if (!child || child.type !== Option) {
-          return child;
-        }
+    const childrenWithListProps = useMemo(
+      () =>
+        React.Children.map(children, (child, index) => {
+          if (!child || (child.type !== Option && child.type !== OptionRow)) {
+            return child;
+          }
 
-        const newProps = {
-          onSelect: handleSelect,
-          isHighlighted: currentOptionsListIndex === index,
-          hidden: isLoading && React.Children.count(children) === 1,
-        };
+          const newProps = {
+            onSelect: handleSelect,
+            isHighlighted: currentOptionsListIndex === index,
+            hidden: isLoading && React.Children.count(children) === 1,
+            ref: optionRefs.current[index],
+          };
 
-        return React.cloneElement(child, newProps);
-      });
+          return React.cloneElement(child, newProps);
+        }),
 
-      if (isLoading) {
-        optionsList.push(
-          <StyledSelectLoaderContainer key="loader">
-            <Loader />
-          </StyledSelectLoaderContainer>
-        );
-      }
-
-      return optionsList;
-    }, [children, currentOptionsListIndex, handleSelect, isLoading]);
+      [children, currentOptionsListIndex, handleSelect, isLoading]
+    );
 
     useLayoutEffect(() => {
       if (!disablePortal && anchorElement) {
@@ -303,7 +323,7 @@ const SelectList = React.forwardRef(
 
         const indexOfMatch = getIndexOfMatch(match.props.value);
 
-        updateListScrollTop(indexOfMatch, listRef.current);
+        updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
 
         return indexOfMatch;
       });
@@ -316,7 +336,7 @@ const SelectList = React.forwardRef(
       const indexOfMatch = getIndexOfMatch(highlightedValue);
 
       setCurrentOptionsListIndex(indexOfMatch);
-      updateListScrollTop(indexOfMatch, listRef.current);
+      updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
     }, [childrenList, getIndexOfMatch, highlightedValue]);
 
     useEffect(() => {
@@ -334,9 +354,28 @@ const SelectList = React.forwardRef(
       );
     }
 
+    const loader = () => (
+      <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>
+        <Loader />
+      </StyledSelectLoaderContainer>
+    );
+
+    let selectListContent = childrenWithListProps;
+
+    if (multiColumn) {
+      selectListContent = (
+        <StyledSelectListTable>
+          <StyledSelectListTableHeader>
+            {tableHeader}
+          </StyledSelectListTableHeader>
+          <tbody>{childrenWithListProps}</tbody>
+        </StyledSelectListTable>
+      );
+    }
+
     return (
       <Popover
-        placement="bottom"
+        placement="bottom-start"
         disablePortal={disablePortal}
         reference={anchorRef}
         onFirstUpdate={setPlacementCallback}
@@ -355,6 +394,7 @@ const SelectList = React.forwardRef(
           >
             <StyledSelectList
               id={id}
+              as={multiColumn ? "div" : "ul"}
               aria-labelledby={labelId}
               data-element="select-list"
               role="listbox"
@@ -362,7 +402,8 @@ const SelectList = React.forwardRef(
               tabIndex="0"
               isLoading={isLoading}
             >
-              {childrenWithListProps}
+              {selectListContent}
+              {isLoading && loader()}
             </StyledSelectList>
             {listActionButton && (
               <ListActionButton
@@ -405,6 +446,10 @@ SelectList.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  /** SelectList table header, should consist of multiple th elements. Works only in multiColumn mode */
+  tableHeader: PropTypes.node,
+  /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
+  multiColumn: PropTypes.bool,
 };
 
 export default SelectList;
