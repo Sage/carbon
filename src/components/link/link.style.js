@@ -4,41 +4,62 @@ import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
 const LinkStyle = styled.div`
-  display: inline-block;
-  a,
-  button {
-    font-size: 14px;
-    text-decoration: underline;
-    color: ${({ theme }) => theme.colors.primary};
+  ${({ isSkipLink, theme, iconAlign, hasContent, disabled }) => css`
     display: inline-block;
-    ${StyledIcon} {
-      position: relative;
-      vertical-align: middle;
-      ${({ iconAlign, hasContent }) =>
-        iconAlign === "left" &&
+
+    ${isSkipLink &&
+    css`
+      a {
+        position: absolute;
+        padding-left: 24px;
+        padding-right: 24px;
+        line-height: 36px;
+        left: -999em;
+        z-index: ${theme.zIndex.aboveAll};
+        box-shadow: inset 0 0 0 2px ${theme.colors.primary};
+        border: 2px solid ${theme.colors.white};
+      }
+
+      a:focus {
+        top: 8px;
+        left: 8px;
+      }
+    `}
+
+    a,
+  button {
+      font-size: ${isSkipLink ? "16px" : "14px"};
+      text-decoration: underline;
+      color: ${isSkipLink ? theme.text.color : theme.colors.primary};
+      display: inline-block;
+      ${StyledIcon} {
+        position: relative;
+        vertical-align: middle;
+        ${iconAlign === "left" &&
         css`
           margin-right: ${hasContent ? "5px" : 0};
         `}
-      ${({ iconAlign, hasContent }) =>
-        iconAlign === "right" &&
+        ${iconAlign === "right" &&
         css`
           margin-right: 0;
           margin-left: ${hasContent ? "5px" : 0};
         `}
-    }
-    &:hover {
-      cursor: pointer;
-      color: ${({ theme }) => theme.colors.secondary};
-    }
-    ${({ theme }) => css`
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: ${isSkipLink ? theme.text.color : theme.colors.secondary};
+      }
+
       &:focus {
         color: ${theme.text.color};
-        background-color: ${theme.colors.focusedLinkBackground};
+        background-color: ${isSkipLink
+          ? theme.colors.white
+          : theme.colors.focusedLinkBackground};
         outline: none;
       }
-    `}
-    ${({ disabled, theme }) =>
-      disabled &&
+
+      ${disabled &&
       css`
         color: ${theme.disabled.text};
         &:hover,
@@ -47,12 +68,14 @@ const LinkStyle = styled.div`
           color: ${theme.disabled.text};
         }
       `}
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-  }
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+  `}
 `;
 
 LinkStyle.defaultProps = {
