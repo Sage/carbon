@@ -266,6 +266,7 @@ class Dialog extends Modal {
         autoFocus={!this.props.disableAutoFocus}
         focusFirstElement={this.props.focusFirstElement}
         bespokeTrap={this.props.bespokeFocusTrap}
+        wrapperRef={this._dialog}
       >
         {this.renderDialog(dialogProps)}
       </FocusTrap>

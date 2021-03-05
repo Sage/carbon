@@ -102,7 +102,7 @@ class DialogFullScreen extends Modal {
    */
   get modalHTML() {
     return (
-      <FocusTrap>
+      <FocusTrap wrapperRef={this._dialog}>
         <StyledDialogFullScreen
           ref={(d) => {
             this._dialog = d;
