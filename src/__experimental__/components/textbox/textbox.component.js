@@ -147,7 +147,7 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-  /** Flag to configure component as optional in Form */
+  /** [Legacy] Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
