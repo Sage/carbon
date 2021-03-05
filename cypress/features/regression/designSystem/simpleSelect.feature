@@ -45,7 +45,7 @@ Feature: Design System Select component
       And I click on Select input
     When I type "<selectableValue>" into input
     Then Design system Select input has "<selectedValue>" value
-      And "<position>" option on the list is highlighted
+      And "<position>" option on the list is hovered over
     Examples:
       | selectableValue | selectedValue | position |
       | Amb             | Amber         | first    |
@@ -87,6 +87,14 @@ Feature: Design System Select component
   @positive
   Scenario: Check that options can be selected and displayed correctly when using an object as a value
     Given I open "Design System Select" component page "with object as value" in no iframe
-     And I click on dropdown button
+      And I click on dropdown button
     When I click on "first" option on Select list
     Then Select input has "Amber" value
+
+  @positive
+  Scenario: Check that Select has multiColumns in option list
+    Given I open "Design System Select" component page "with multiple columns" in no iframe
+    When I click on dropdown button
+    Then "simple" Select list is opened
+      And Option list has multiColumns header
+      And Option list has multiColumns body
