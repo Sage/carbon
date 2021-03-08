@@ -3,30 +3,6 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
 
-// Temporary fix for Popper rounding issue described here:
-// https://github.com/popperjs/popper-core/pull/1213
-// https://github.com/popperjs/popper-core/issues/1169
-export const alignSameWidthPopoverFunction = ({ state }) => {
-  const refWidth = state.elements.reference.getBoundingClientRect().width;
-  const popperWidth = state.elements.popper.getBoundingClientRect().width;
-
-  /* istanbul ignore else */
-  if (refWidth === popperWidth) {
-    const rect = state.rects.reference.x;
-    const offset = state.modifiersData.popperOffsets.x;
-    const number = rect > offset ? rect : offset;
-    state.styles.popper.left = `${number}px`;
-  }
-};
-
-const alignSameWidthPopper = {
-  name: "alignSameWidthPopper",
-  enabled: true,
-  phase: "beforeWrite",
-  requires: ["computeStyles"],
-  fn: alignSameWidthPopoverFunction,
-};
-
 const Popover = ({
   children,
   placement,
@@ -84,11 +60,11 @@ const Popover = ({
           placement,
           onFirstUpdate,
           modifiers: [
-            alignSameWidthPopper,
             {
               name: "computeStyles",
               options: {
                 gpuAcceleration: false,
+                roundOffsets: false,
               },
             },
             ...(modifiers || []),

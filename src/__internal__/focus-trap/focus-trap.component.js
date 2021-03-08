@@ -1,4 +1,4 @@
-import React, {
+import {
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -19,8 +19,8 @@ const FocusTrap = ({
   autoFocus = true,
   focusFirstElement,
   bespokeTrap,
+  wrapperRef,
 }) => {
-  const ref = useRef();
   const firstOpen = useRef(true);
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
@@ -38,16 +38,20 @@ const FocusTrap = ({
   );
 
   useLayoutEffect(() => {
-    const elements = Array.from(
-      ref.current.querySelectorAll(defaultFocusableSelectors)
-    ).filter((el) => Number(el.tabIndex) !== -1);
+    if (wrapperRef) {
+      const ref = wrapperRef.current || wrapperRef;
 
-    if (hasNewInputs(elements)) {
-      setFocusableElements(Array.from(elements));
-      setFirstElement(elements[0]);
-      setLastElement(elements[elements.length - 1]);
+      const elements = Array.from(
+        ref.querySelectorAll(defaultFocusableSelectors)
+      ).filter((el) => Number(el.tabIndex) !== -1);
+
+      if (hasNewInputs(elements)) {
+        setFocusableElements(Array.from(elements));
+        setFirstElement(elements[0]);
+        setLastElement(elements[elements.length - 1]);
+      }
     }
-  }, [children, hasNewInputs]);
+  }, [children, hasNewInputs, wrapperRef]);
 
   useEffect(() => {
     if (autoFocus && firstOpen.current && (focusFirstElement || firstElement)) {
@@ -101,7 +105,7 @@ const FocusTrap = ({
     };
   }, [firstElement, lastElement, focusableElements, bespokeTrap]);
 
-  return <div ref={ref}>{children}</div>;
+  return children;
 };
 
 FocusTrap.propTypes = {
@@ -115,6 +119,8 @@ FocusTrap.propTypes = {
   ]),
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap: PropTypes.func,
+  /** a ref to the container wrapping the focusable elements */
+  wrapperRef: PropTypes.shape({ current: PropTypes.any }),
 };
 
 export default FocusTrap;

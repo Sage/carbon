@@ -2,8 +2,8 @@ import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { action } from "@storybook/addon-actions";
 import { useState, useRef } from "react";
 import Button from "../../button";
-import { MultiSelect, Option } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
+import { MultiSelect, Option, OptionRow } from "../";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 <Meta
@@ -194,6 +194,54 @@ import { MultiSelect, Option } from "carbon-react/lib/components/select";
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
+    </MultiSelect>
+  </Story>
+</Preview>
+
+### With multiple columns:
+
+<Preview>
+  <Story
+    name="with multiple columns"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <MultiSelect
+      name="withMultipleColumns"
+      id="withMultipleColumns"
+      multiColumn
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Occupation</th>
+        </tr>
+      }
+    >
+      <OptionRow value="1" text="John Doe">
+        <td>John</td>
+        <td>Doe</td>
+        <td>Welder</td>
+      </OptionRow>
+      <OptionRow value="2" text="Joe Vick">
+        <td>Joe</td>
+        <td>Vick</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow value="3" text="Jane Poe">
+        <td>Jane</td>
+        <td>Poe</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow value="4" text="Jill Moe">
+        <td>Jill</td>
+        <td>Moe</td>
+        <td>Engineer</td>
+      </OptionRow>
+      <OptionRow value="5" text="Bill Zoe">
+        <td>Bill</td>
+        <td>Zoe</td>
+        <td>Astronaut</td>
+      </OptionRow>
     </MultiSelect>
   </Story>
 </Preview>

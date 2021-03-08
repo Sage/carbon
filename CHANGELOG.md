@@ -1,3 +1,32 @@
+### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
+
+
+### Bug Fixes
+
+* **focus-trap:** update trap to use ref from content container ([e59b5f4](https://github.com/Sage/carbon/commit/e59b5f4dcf14ed41227e9b1ee91f04e30687c1b4)), closes [#3770](https://github.com/Sage/carbon/issues/3770)
+
+### [66.19.1](https://github.com/Sage/carbon/compare/v66.19.0...v66.19.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* fix dropdown alignment in split and multi action buttons ([a6caf26](https://github.com/Sage/carbon/commit/a6caf26be1d19104c7ba3e76cdcb0c8568e5d19f))
+
+## [66.19.0](https://github.com/Sage/carbon/compare/v66.18.1...v66.19.0) (2021-03-04)
+
+
+### Features
+
+* **select:** add multi column functionality ([736a109](https://github.com/Sage/carbon/commit/736a109ee2546f1d6f6e502aecb432aa0968e3b3))
+
+### [66.18.1](https://github.com/Sage/carbon/compare/v66.18.0...v66.18.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **tabs:** fix border gap ([7546b26](https://github.com/Sage/carbon/commit/7546b261d29ddbba3632a049252f9b80bf0ffb03))
+* **tabs:** fix incorrect large tab alignment ([bcc3101](https://github.com/Sage/carbon/commit/bcc3101be6bfad9c979871fc59738c9e9e6f25be))
+
 ## [66.18.0](https://github.com/Sage/carbon/compare/v66.17.0...v66.18.0) (2021-02-26)
 
 

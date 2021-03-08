@@ -1,5 +1,6 @@
 import * as React from "react";
 import { OptionProps } from "../option";
+import { OptionRowProps } from '../option-row';
 
 export interface MultiSelectProps {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -32,10 +33,18 @@ export interface MultiSelectProps {
   value?: string[] | object[];
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string[] | object[];
-  /** Child components (such as Option) for the SelectList */
-  children: Array<React.ReactElement<OptionProps>> | React.ReactElement<OptionProps>;
+  /** Child components (such as Option or OptionRow) for the SelectList */
+  children: Array<React.ReactElement<OptionProps | OptionRowProps>> | React.ReactElement<OptionProps | OptionRowProps>;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
+  /** SelectList table header, should consist of multiple th elements.
+   * Works only in multiColumn mode
+   */
+  tableHeader?: React.ReactNode;
+  /** When true component will work in multi column mode.
+   * Children should consist of OptionRow components in this mode
+   */
+  multiColumn?: boolean;
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage?: string;
   /** A custom callback for when the dropdown menu opens */
