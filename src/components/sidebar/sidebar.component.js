@@ -81,7 +81,9 @@ class Sidebar extends Modal {
     if (this.props.enableBackgroundUI) {
       return this.renderSidebar();
     }
-    return <FocusTrap>{this.renderSidebar()}</FocusTrap>;
+    return (
+      <FocusTrap wrapperRef={this.sideBarRef}>{this.renderSidebar()}</FocusTrap>
+    );
   }
 }
 

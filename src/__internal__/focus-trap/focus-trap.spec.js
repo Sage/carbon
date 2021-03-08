@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount } from "enzyme";
 
 import FocusTrap from "./focus-trap.component";
@@ -8,6 +8,19 @@ import {
 } from "../../__experimental__/components/radio-button";
 
 jest.useFakeTimers();
+
+// eslint-disable-next-line
+const MockComponent = ({ children, ...rest }) => {
+  const ref = useRef();
+
+  return (
+    <FocusTrap wrapperRef={ref} {...rest}>
+      <div ref={ref} id="myComponent">
+        {children}
+      </div>
+    </FocusTrap>
+  );
+};
 
 describe("FocusTrap", () => {
   const element = document.createElement("div");
@@ -25,12 +38,10 @@ describe("FocusTrap", () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <FocusTrap autoFocus={false}>
-          <div id="myComponent">
-            <button type="button">Test button One</button>
-            <input type="text" />
-          </div>
-        </FocusTrap>,
+        <MockComponent autoFocus={false}>
+          <button type="button">Test button One</button>
+          <input type="text" />
+        </MockComponent>,
         { attachTo: htmlElement }
       );
     });
@@ -56,12 +67,10 @@ describe("FocusTrap", () => {
           document.querySelectorAll("button")[0].focus()
         );
       wrapper = mount(
-        <FocusTrap focusFirstElement={onFocus}>
-          <div id="myComponent">
-            <button type="button">Test button One</button>
-            <button type="button">Test button Two</button>
-          </div>
-        </FocusTrap>,
+        <MockComponent focusFirstElement={onFocus}>
+          <button type="button">Test button One</button>
+          <button type="button">Test button Two</button>
+        </MockComponent>,
         { attachTo: htmlElement }
       );
     });
@@ -116,12 +125,10 @@ describe("FocusTrap", () => {
     beforeEach(() => {
       bespokeFn = jest.fn();
       mount(
-        <FocusTrap bespokeTrap={bespokeFn}>
-          <div id="myComponent">
-            <button type="button">Test button One</button>
-            <button type="button">Test button Two</button>
-          </div>
-        </FocusTrap>,
+        <MockComponent bespokeTrap={bespokeFn}>
+          <button type="button">Test button One</button>
+          <button type="button">Test button Two</button>
+        </MockComponent>,
         { attachTo: htmlElement }
       );
     });
@@ -151,12 +158,10 @@ describe("FocusTrap", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <FocusTrap>
-            <div id="myComponent">
-              <button type="button">Test button One</button>
-              <button type="button">Test button Two</button>
-            </div>
-          </FocusTrap>,
+          <MockComponent>
+            <button type="button">Test button One</button>
+            <button type="button">Test button Two</button>
+          </MockComponent>,
           { attachTo: htmlElement }
         );
       });
@@ -221,11 +226,9 @@ describe("FocusTrap", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <FocusTrap>
-            <div id="myComponent">
-              <p>Test content</p>
-            </div>
-          </FocusTrap>,
+          <MockComponent>
+            <p>Test content</p>
+          </MockComponent>,
           { attachTo: htmlElement }
         );
       });
@@ -248,18 +251,16 @@ describe("FocusTrap", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <FocusTrap>
-            <div id="myComponent">
-              <button type="button">Test button One</button>
-              <button type="button" disabled>
-                Disabled button One
-              </button>
-              <button type="button">Test button Two</button>
-              <button type="button" disabled>
-                Disabled button two
-              </button>
-            </div>
-          </FocusTrap>,
+          <MockComponent>
+            <button type="button">Test button One</button>
+            <button type="button" disabled>
+              Disabled button One
+            </button>
+            <button type="button">Test button Two</button>
+            <button type="button" disabled>
+              Disabled button two
+            </button>
+          </MockComponent>,
           { attachTo: htmlElement }
         );
       });
@@ -283,31 +284,25 @@ describe("FocusTrap", () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <FocusTrap>
-          <div id="myComponent">
-            <RadioButtonGroup
-              name="mybuttongroup"
-              legend="How do you want to create this address?"
-              legendInline
-              onChange={() => jest.fn()}
-              value="1"
-              legendWidth={40}
-            >
-              <RadioButton
-                value="1"
-                label="Create a new Address"
-                size="large"
-              />
-              <RadioButton
-                value="2"
-                label="Select an Existing address"
-                size="large"
-              />
-            </RadioButtonGroup>
-            <button type="button">Test button One</button>
-            <button type="button">Test button Two</button>
-          </div>
-        </FocusTrap>,
+        <MockComponent>
+          <RadioButtonGroup
+            name="mybuttongroup"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+          <button type="button">Test button One</button>
+          <button type="button">Test button Two</button>
+        </MockComponent>,
         { attachTo: htmlElement }
       );
     });
@@ -364,31 +359,25 @@ describe("FocusTrap", () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <FocusTrap>
-          <div id="myComponent">
-            <button type="button">Test button One</button>
-            <RadioButtonGroup
-              name="mybuttongroup"
-              legend="How do you want to create this address?"
-              legendInline
-              onChange={() => jest.fn()}
-              value="1"
-              legendWidth={40}
-            >
-              <RadioButton
-                value="1"
-                label="Create a new Address"
-                size="large"
-              />
-              <RadioButton
-                value="2"
-                label="Select an Existing address"
-                size="large"
-              />
-            </RadioButtonGroup>
-            <button type="button">Test button Two</button>
-          </div>
-        </FocusTrap>,
+        <MockComponent>
+          <button type="button">Test button One</button>
+          <RadioButtonGroup
+            name="mybuttongroup"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+          <button type="button">Test button Two</button>
+        </MockComponent>,
         { attachTo: htmlElement }
       );
     });

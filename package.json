@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "66.19.0",
+  "version": "66.19.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -135,7 +135,7 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
-    "@popperjs/core": "^2.6.0",
+    "@popperjs/core": "^2.9.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.1",
