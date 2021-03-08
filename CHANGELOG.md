@@ -1,3 +1,10 @@
+### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
+
+
+### Bug Fixes
+
+* **focus-trap:** update trap to use ref from content container ([e59b5f4](https://github.com/Sage/carbon/commit/e59b5f4dcf14ed41227e9b1ee91f04e30687c1b4)), closes [#3770](https://github.com/Sage/carbon/issues/3770)
+
 ### [66.19.1](https://github.com/Sage/carbon/compare/v66.19.0...v66.19.1) (2021-03-04)
 
 
