@@ -1,3 +1,14 @@
+## [67.0.0](https://github.com/Sage/carbon/compare/v66.19.2...v67.0.0) (2021-03-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sidebar:** SidebarHeader is now internal component, use header prop
+
+### Features
+
+* **sidebar:** add styled system to sidebar ([48a38d4](https://github.com/Sage/carbon/commit/48a38d4e67cd73e1324c29eddfe3865ec8dc58f8)), closes [#3221](https://github.com/Sage/carbon/issues/3221)
+
 ### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
 
 
