@@ -143,7 +143,6 @@ describe("SimpleSelect", () => {
     assertStyleMatch(
       {
         cursor: "pointer",
-        userSelect: "none",
       },
       wrapper,
       { modifier: `${StyledInput}` }
