@@ -17,14 +17,24 @@ import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
-import "../../__spec_helper__/I18next";
+import I18next from "../../__spec_helper__/I18next";
+
+jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+
+function RenderWrapper({ ...props }) {
+  return (
+    <I18next>
+      <Form {...props} />
+    </I18next>
+  );
+}
 
 describe("Form", () => {
   let wrapper;
 
   beforeEach(() => {
     jest.useFakeTimers();
-    wrapper = mount(<Form />);
+    wrapper = mount(<RenderWrapper />);
   });
 
   it("allows custom classes to be added to the Form", () => {
@@ -138,7 +148,7 @@ describe("Form", () => {
     };
 
     beforeEach(() => {
-      wrapper = mount(<Form stickyFooter />);
+      wrapper = mount(<RenderWrapper stickyFooter />);
       window.innerHeight = 1000;
       const footerNode = wrapper.find(StyledFormFooter).getDOMNode();
       jest
@@ -205,12 +215,14 @@ describe("Form", () => {
 
     beforeEach(() => {
       wrapper = shallow(
-        <Form
+        <RenderWrapper
           leftSideButtons={leftSideButtons}
           saveButton={saveButton}
           rightSideButtons={rightSideButtons}
         />
-      );
+      )
+        .find(Form)
+        .dive();
     });
 
     it("renders buttons passed as the leftSideButtons prop", () => {
@@ -399,7 +411,7 @@ describe("Form", () => {
 
   describe("tags", () => {
     const tagWrapper = mount(
-      <Form
+      <RenderWrapper
         data-element="bar"
         data-role="baz"
         saveButton={<div />}
