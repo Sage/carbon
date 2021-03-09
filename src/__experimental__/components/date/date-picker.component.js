@@ -86,23 +86,18 @@ const DatePicker = ({
     },
   };
 
-  const picker = (
-    <StyledDayPicker>
-      <DayPicker {...datePickerProps} ref={ref} />
-    </StyledDayPicker>
-  );
-
-  if (disablePortal) {
-    return picker;
-  }
-
   return (
     <Popover
       placement="bottom-start"
       reference={inputElement}
       modifiers={popoverModifiers}
+      disablePortal={disablePortal}
     >
-      <StyledPopoverContainer>{picker}</StyledPopoverContainer>
+      <StyledPopoverContainer>
+        <StyledDayPicker>
+          <DayPicker {...datePickerProps} ref={ref} />
+        </StyledDayPicker>
+      </StyledPopoverContainer>
     </Popover>
   );
 };
