@@ -1,3 +1,16 @@
+## [68.0.0](https://github.com/Sage/carbon/compare/v67.0.0...v68.0.0) (2021-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** Icon component fontSize prop `medium` value equivalent is now named `large`.
+To update your code use `replace-prop-value` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **icon:** add additional fontSize and bgSize prop values ([3b58601](https://github.com/Sage/carbon/commit/3b586014ba86cdcb4797655e1d42ceea27fd6e3d))
+
 ## [67.0.0](https://github.com/Sage/carbon/compare/v66.19.2...v67.0.0) (2021-03-08)
 
 
