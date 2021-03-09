@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useMemo } from "react";
 
-const useInputBehaviour = () => {
+const useInputBehaviour = (blockGroupBehaviour) => {
   const [hasFocus, setHasFocus] = useState(false);
   const [hasMouseOver, setHasMouseOver] = useState(false);
 
@@ -14,7 +14,7 @@ const useInputBehaviour = () => {
     inputRef.current = input.current;
   }, []);
 
-  // use mouse down rather than click to accomodate click and drag events too
+  // use mouse down rather than click to accommodate click and drag events too
   const onMouseDown = useCallback(() => {
     // use a zero timeout to ensure focus is applied even on click and drag events
     setTimeout(() => inputRef && inputRef.current && inputRef.current.focus());
@@ -28,22 +28,23 @@ const useInputBehaviour = () => {
     () => ({
       hasFocus,
       hasMouseOver,
-      onFocus,
-      onBlur,
+      onFocus: blockGroupBehaviour ? undefined : onFocus,
+      onBlur: blockGroupBehaviour ? undefined : onBlur,
       onMouseDown,
-      onMouseEnter,
-      onMouseLeave,
+      onMouseEnter: blockGroupBehaviour ? undefined : onMouseEnter,
+      onMouseLeave: blockGroupBehaviour ? undefined : onMouseLeave,
       inputRef: assignInput,
     }),
     [
-      assignInput,
-      onMouseDown,
       hasFocus,
       hasMouseOver,
-      onBlur,
       onFocus,
+      onBlur,
+      onMouseDown,
+      blockGroupBehaviour,
       onMouseEnter,
       onMouseLeave,
+      assignInput,
     ]
   );
 
