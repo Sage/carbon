@@ -1,3 +1,10 @@
+### [68.0.1](https://github.com/Sage/carbon/compare/v68.0.0...v68.0.1) (2021-03-09)
+
+
+### Bug Fixes
+
+* **select:** fix onblur fired on option mousedown event ([664350e](https://github.com/Sage/carbon/commit/664350e2825a96e250c3261620634abbc429dd6a))
+
 ## [68.0.0](https://github.com/Sage/carbon/compare/v67.0.0...v68.0.0) (2021-03-09)
 
 
