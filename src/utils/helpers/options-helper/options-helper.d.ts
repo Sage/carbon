@@ -353,3 +353,11 @@ export interface FlexBoxProps {
   alignSelf?: string;
   order?: number;
 }
+
+export type ButtonTypes =
+| "primary"
+| "secondary"
+| "tertiary"
+| "dashed"
+| "destructive"
+| "darkBackground";
