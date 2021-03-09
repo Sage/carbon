@@ -9,6 +9,8 @@ import {
   clickActionsTab,
   clickClear,
   pressTABKeyInNoIframe,
+  pressShiftTABKeyInNoIframe,
+  continuePressingTABKeyInNoIframe,
 } from "../helper";
 import {
   commonButtonPreview,
@@ -336,6 +338,14 @@ When("I hit Tab key {int} time(s)", (times) => {
 
 When("I hit Tab key {int} time(s) in no Iframe", (times) => {
   pressTABKeyInNoIframe(times);
+});
+
+When("I continue to hit Tab key {int} time(s) in no Iframe", (times) => {
+  continuePressingTABKeyInNoIframe(times);
+});
+
+When("I hit shift Tab key {int} time(s) in no Iframe", (times) => {
+  pressShiftTABKeyInNoIframe(times);
 });
 
 When("I disable {word} component", () => {
