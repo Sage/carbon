@@ -16,6 +16,7 @@ import StyledInput from "../../../__experimental__/components/input/input.style"
 import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
 import { baseTheme } from "../../../style/themes";
 import Label from "../../../__experimental__/components/label";
+import I18next from "../../../__spec_helper__/I18next";
 
 describe("SimpleSelect", () => {
   describe("disablePortal", () => {
@@ -64,7 +65,9 @@ describe("SimpleSelect", () => {
       );
     };
 
-    const wrapper = mount(<WrapperComponent />);
+    const wrapper = mount(<WrapperComponent />, {
+      wrappingComponent: I18next,
+    });
 
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
@@ -635,7 +638,9 @@ describe("SimpleSelect", () => {
     let domNode;
 
     beforeEach(() => {
-      wrapper = mount(getSelect());
+      wrapper = mount(getSelect(), {
+        wrappingComponent: I18next,
+      });
       domNode = wrapper.getDOMNode();
       document.body.appendChild(domNode);
     });
@@ -774,7 +779,9 @@ describe("SimpleSelect", () => {
 });
 
 function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+  return renderer(getSelect(props), {
+    wrappingComponent: I18next,
+  });
 }
 
 function getSelect(props) {

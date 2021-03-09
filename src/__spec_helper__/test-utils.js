@@ -2,6 +2,7 @@ import { mount } from "enzyme";
 
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
+import I18next from "./I18next";
 
 const isUpper = (char) => char.toUpperCase() === char;
 const humpToDash = (acc, char) =>
@@ -191,7 +192,9 @@ const testStyledSystemMargin = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component(), {
+      wrappingComponent: I18next,
+    });
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct margins", () => {
@@ -235,10 +238,14 @@ const testStyledSystemMargin = (
     'when a custom spacing is specified using the "%s" styled system props',
     (styledSystemProp, propName) => {
       it(`then that ${propName} should have been set correctly`, () => {
-        let wrapper = mount(component());
+        let wrapper = mount(component(), {
+          wrappingComponent: I18next,
+        });
 
         const props = { [styledSystemProp]: 2 };
-        wrapper = mount(component({ ...props }));
+        wrapper = mount(component({ ...props }), {
+          wrappingComponent: I18next,
+        });
 
         expect(
           assertStyleMatch(
@@ -259,7 +266,9 @@ const testStyledSystemPadding = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component(), {
+      wrappingComponent: I18next,
+    });
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct paddings", () => {
@@ -305,10 +314,14 @@ const testStyledSystemPadding = (
     'when a custom spacing is specified using the "%s" styled system props',
     (styledSystemProp, propName) => {
       it(`then that ${propName} should have been set correctly`, () => {
-        let wrapper = mount(component());
+        let wrapper = mount(component(), {
+          wrappingComponent: I18next,
+        });
 
         const props = { [styledSystemProp]: 2 };
-        wrapper = mount(component({ ...props }));
+        wrapper = mount(component({ ...props }), {
+          wrappingComponent: I18next,
+        });
 
         expect(
           assertStyleMatch(
@@ -337,10 +350,14 @@ const testStyledSystemColor = (component, styleContainer) => {
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
       it(`then ${propName} should have been set correctly`, () => {
-        let wrapper = mount(component());
+        let wrapper = mount(component(), {
+          wrappingComponent: I18next,
+        });
 
         const props = { [styledSystemProp]: value };
-        wrapper = mount(component({ ...props }));
+        wrapper = mount(component({ ...props }), {
+          wrappingComponent: I18next,
+        });
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(wrapper).toHaveStyleRule(
           propName,
@@ -357,10 +374,14 @@ const testStyledSystemLayout = (component, styleContainer) => {
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
       it(`then ${propName} should have been set correctly`, () => {
-        let wrapper = mount(component());
+        let wrapper = mount(component(), {
+          wrappingComponent: I18next,
+        });
 
         const props = { [styledSystemProp]: value };
-        wrapper = mount(component({ ...props }));
+        wrapper = mount(component({ ...props }), {
+          wrappingComponent: I18next,
+        });
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(wrapper).toHaveStyleRule(
           propName,
@@ -377,10 +398,14 @@ const testStyledSystemFlexBox = (component, styleContainer) => {
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
       it(`then ${propName} should have been set correctly`, () => {
-        let wrapper = mount(component());
+        let wrapper = mount(component(), {
+          wrappingComponent: I18next,
+        });
 
         const props = { [styledSystemProp]: value };
-        wrapper = mount(component({ ...props }));
+        wrapper = mount(component({ ...props }), {
+          wrappingComponent: I18next,
+        });
 
         expect(
           assertStyleMatch(

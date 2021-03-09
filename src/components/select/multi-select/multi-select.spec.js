@@ -11,6 +11,7 @@ import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__experimental__/components/label";
+import I18next from "../../../__spec_helper__/I18next";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -20,7 +21,9 @@ describe("MultiSelect", () => {
     let domNode;
 
     beforeEach(() => {
-      wrapper = mount(getSelect({ openOnFocus: true }));
+      wrapper = mount(getSelect({ openOnFocus: true }), {
+        wrappingComponent: I18next,
+      });
       domNode = wrapper.getDOMNode();
       document.body.appendChild(domNode);
     });
@@ -71,7 +74,9 @@ describe("MultiSelect", () => {
       );
     };
 
-    const wrapper = mount(<WrapperComponent />);
+    const wrapper = mount(<WrapperComponent />, {
+      wrappingComponent: I18next,
+    });
 
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
@@ -614,7 +619,10 @@ describe("MultiSelect", () => {
               <Option value={{ id: "id1", value: "opt1" }} text="red" />
               <Option value={{ id: "id2", value: "opt2" }} text="green" />
               <Option value={{ id: "id3", value: "opt3" }} text="blue" />
-            </MultiSelect>
+            </MultiSelect>,
+            {
+              wrappingComponent: I18next,
+            }
           );
 
           wrapper.find("input").simulate("focus");
@@ -720,7 +728,9 @@ describe("coverage filler for else path", () => {
 });
 
 function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+  return renderer(getSelect(props), {
+    wrappingComponent: I18next,
+  });
 }
 
 function getSelect(props) {
