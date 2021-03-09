@@ -12,6 +12,7 @@ import Icon from "../icon";
 import Loader from "../loader";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
+import I18next from "../../__spec_helper__/I18next";
 
 describe("Confirm", () => {
   let wrapper, onCancel, onConfirm;
@@ -29,7 +30,10 @@ describe("Confirm", () => {
         subtitle="Confirm Subtitle"
         data-element="bar"
         data-role="baz"
-      />
+      />,
+      {
+        wrappingComponent: I18next,
+      }
     );
   });
 
@@ -58,7 +62,10 @@ describe("Confirm", () => {
           subtitle="Confirm Subtitle"
           data-element="bar"
           data-role="baz"
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
     });
 
@@ -81,7 +88,10 @@ describe("Confirm", () => {
             confirmLabel="Delete"
             cancelLabel="Cancel"
             destructive
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
         expect(wrapper.instance().props.destructive).toBeTruthy();
         const button = wrapper
@@ -118,7 +128,10 @@ describe("Confirm", () => {
             onConfirm={() => {}}
             open
             onCancel={onCancelFn}
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
@@ -142,7 +155,10 @@ describe("Confirm", () => {
             onConfirm={() => {}}
             open
             onCancel={onCancelFn}
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
 
         assertStyleMatch(
@@ -157,7 +173,12 @@ describe("Confirm", () => {
 
     describe("if `isLoadingConfirm` button is provided", () => {
       it("should not render confirm button", () => {
-        wrapper = mount(<Confirm onConfirm={() => {}} isLoadingConfirm open />);
+        wrapper = mount(
+          <Confirm onConfirm={() => {}} isLoadingConfirm open />,
+          {
+            wrappingComponent: I18next,
+          }
+        );
 
         expect(wrapper.find(Loader).exists()).toBe(true);
       });
@@ -166,7 +187,10 @@ describe("Confirm", () => {
     describe("if `cancelButtonType` is tertiary", () => {
       it("should render confirm button with left margin 3px", () => {
         wrapper = mount(
-          <Confirm cancelButtonType="tertiary" onConfirm={() => {}} open />
+          <Confirm cancelButtonType="tertiary" onConfirm={() => {}} open />,
+          {
+            wrappingComponent: I18next,
+          }
         );
 
         assertStyleMatch(
@@ -186,7 +210,10 @@ describe("Confirm", () => {
           onConfirm={() => {}}
           open
           disableCancel
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       expect(wrapper.find(IconButton).exists()).toBe(false);
@@ -200,14 +227,19 @@ describe("Confirm", () => {
           onConfirm={() => {}}
           open
           disableCancel
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       expect(wrapper.find(IconButton).exists()).toBe(false);
     });
 
     describe("when custom labels are not defined", () => {
-      wrapper = mount(<Confirm open onConfirm={() => {}} />);
+      wrapper = mount(<Confirm open onConfirm={() => {}} />, {
+        wrappingComponent: I18next,
+      });
 
       it("returns default values", () => {
         expect(
@@ -228,7 +260,10 @@ describe("Confirm", () => {
             onConfirm={onConfirm}
             confirmLabel="Delete"
             cancelLabel="Cancel"
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
       });
 
@@ -264,7 +299,10 @@ describe("Confirm", () => {
           title="Confirm title"
           iconType="error"
           showCloseIcon={false}
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
       const iconError = wrapper.find(StyledConfirmHeading).at(0);
       expect(iconError.find(Icon).props().type).toBe("error");
@@ -291,7 +329,10 @@ describe("Confirm", () => {
           title="Confirm title"
           iconType="warning"
           showCloseIcon={false}
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
       const iconError = wrapper.find(StyledConfirmHeading).at(0);
       expect(iconError.find(Icon).props().type).toBe("warning");
