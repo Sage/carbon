@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import Textbox from "../../../__experimental__/components/textbox";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
+import useTranslation from "../../../hooks/__internal__/useTranslation";
 
 const SelectTextbox = ({
   value,
@@ -17,7 +17,8 @@ const SelectTextbox = ({
   required,
   ...restProps
 }) => {
-  const defaultPlaceholder = I18n.t("select.placeholder", {
+  const t = useTranslation();
+  const defaultPlaceholder = t("select.placeholder", {
     defaultValue: "Please Select...",
   });
 
