@@ -2,7 +2,6 @@ import React from "react";
 import { text, number, select, boolean } from "@storybook/addon-knobs";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Icon from ".";
-import createGuid from "../../utils/helpers/guid";
 
 export default {
   title: "Icon/Test",
@@ -36,10 +35,10 @@ const dlsKnobs = () => {
   const bgTheme = select("bgTheme", [...OptionsHelper.iconBackgrounds], "none");
   const fontSize = select(
     "fontSize",
-    OptionsHelper.sizesBinary,
+    OptionsHelper.iconSizes,
     Icon.defaultProps.fontSize
   );
-  const canSizeBg = bgTheme !== "none" && fontSize !== " large";
+  const hasBg = bgTheme !== "none";
 
   return {
     bgTheme,
@@ -48,25 +47,19 @@ const dlsKnobs = () => {
     mr: number("mr", 0),
     color: text("color", undefined),
     bg: text("bg", undefined),
-    bgSize: canSizeBg
+    bgSize: hasBg
+      ? select("bgSize", OptionsHelper.iconSizes, Icon.defaultProps.bgSize)
+      : undefined,
+    bgShape: hasBg
+      ? select("bgShape", OptionsHelper.shapes, OptionsHelper.shapes[0])
+      : undefined,
+    iconColor: hasBg
       ? select(
-          "bgSize",
-          OptionsHelper.sizesRestricted,
-          Icon.defaultProps.bgSize
+          "iconColor",
+          [...OptionsHelper.iconColors],
+          OptionsHelper.iconColors[0]
         )
       : undefined,
-    bgShape:
-      bgTheme !== "none"
-        ? select("bgShape", OptionsHelper.shapes, OptionsHelper.shapes[0])
-        : undefined,
-    iconColor:
-      bgTheme === "none"
-        ? select(
-            "iconColor",
-            [...OptionsHelper.iconColors],
-            OptionsHelper.iconColors[0]
-          )
-        : undefined,
     disabled: boolean("disabled", Icon.defaultProps.disabled),
   };
 };
@@ -82,56 +75,22 @@ export const Default = () => {
 export const All = () => (
   <>
     {OptionsHelper.icons.map((type) =>
-      OptionsHelper.sizesBinary.map((fontSize) => {
-        return OptionsHelper.shapes.map((bgShape) => {
-          if (fontSize === "large") {
-            return (
-              <Icon
-                type={type}
-                fontSize={fontSize}
-                key={createGuid()}
-                bgTheme="info"
-                bgShape={bgShape}
-              />
-            );
-          }
-          return OptionsHelper.sizesRestricted.map((bgSize) => (
-            <Icon
-              type={type}
-              fontSize={fontSize}
-              key={createGuid()}
-              bgTheme="info"
-              bgShape={bgShape}
-              bgSize={bgSize}
-            />
-          ));
-        });
-      })
+      OptionsHelper.iconSizes.map((fontSize) => (
+        <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
+      ))
     )}
 
-    {OptionsHelper.sizesBinary.map((fontSize) =>
-      [true, false].map((disabled) =>
+    {[true, false].map((disabled) =>
+      OptionsHelper.iconSizes.map((fontSize) =>
         OptionsHelper.iconBackgrounds.map((bgTheme) => {
           if (bgTheme !== "none") {
             return OptionsHelper.shapes.map((bgShape) => {
-              if (fontSize === "large") {
-                return (
-                  <Icon
-                    type="add"
-                    fontSize={fontSize}
-                    disabled={disabled}
-                    key={createGuid()}
-                    bgTheme={bgTheme}
-                    bgShape={bgShape}
-                  />
-                );
-              }
-              return OptionsHelper.sizesRestricted.map((bgSize) => (
+              return OptionsHelper.iconSizes.map((bgSize) => (
                 <Icon
                   type="add"
-                  fontSize={fontSize}
                   disabled={disabled}
-                  key={createGuid()}
+                  key={`${fontSize}_${disabled}_${bgTheme}_${bgShape}_${bgSize}`}
+                  fontSize={fontSize}
                   bgTheme={bgTheme}
                   bgShape={bgShape}
                   bgSize={bgSize}
@@ -142,9 +101,8 @@ export const All = () => (
           return OptionsHelper.iconColors.map((iconColor) => (
             <Icon
               type="add"
-              fontSize={fontSize}
               disabled={disabled}
-              key={createGuid()}
+              key={`${fontSize}_${disabled}_${bgTheme}_${iconColor}`}
               bgTheme={iconColor === "on-dark-background" ? "info" : bgTheme}
               iconColor={iconColor}
             />

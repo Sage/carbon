@@ -1,3 +1,41 @@
+## [68.0.0](https://github.com/Sage/carbon/compare/v67.0.0...v68.0.0) (2021-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** Icon component fontSize prop `medium` value equivalent is now named `large`.
+To update your code use `replace-prop-value` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **icon:** add additional fontSize and bgSize prop values ([3b58601](https://github.com/Sage/carbon/commit/3b586014ba86cdcb4797655e1d42ceea27fd6e3d))
+
+## [67.0.0](https://github.com/Sage/carbon/compare/v66.19.2...v67.0.0) (2021-03-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sidebar:** SidebarHeader is now internal component, use header prop
+
+### Features
+
+* **sidebar:** add styled system to sidebar ([48a38d4](https://github.com/Sage/carbon/commit/48a38d4e67cd73e1324c29eddfe3865ec8dc58f8)), closes [#3221](https://github.com/Sage/carbon/issues/3221)
+
+### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
+
+
+### Bug Fixes
+
+* **focus-trap:** update trap to use ref from content container ([e59b5f4](https://github.com/Sage/carbon/commit/e59b5f4dcf14ed41227e9b1ee91f04e30687c1b4)), closes [#3770](https://github.com/Sage/carbon/issues/3770)
+
+### [66.19.1](https://github.com/Sage/carbon/compare/v66.19.0...v66.19.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* fix dropdown alignment in split and multi action buttons ([a6caf26](https://github.com/Sage/carbon/commit/a6caf26be1d19104c7ba3e76cdcb0c8568e5d19f))
+
 ## [66.19.0](https://github.com/Sage/carbon/compare/v66.18.1...v66.19.0) (2021-03-04)
 
 
