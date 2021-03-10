@@ -228,7 +228,12 @@ const SimpleColorPicker = (props) => {
             </StyledColorOptions>
           )}
         </InputGroupContext.Consumer>
-        {!validationOnLegend && <ValidationIcon {...validationProps} />}
+        {!validationOnLegend && (
+          <ValidationIcon
+            {...validationProps}
+            tooltipFlipOverrides={["top", "bottom"]}
+          />
+        )}
       </StyledContent>
     </Fieldset>
   );
