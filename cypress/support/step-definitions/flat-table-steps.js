@@ -10,7 +10,10 @@ import {
   flatTableCaption,
   flatTableSubrowByPosition,
   flatTableSubrows,
+  flatTablePageSizeSelect,
+  flatTablePageSelectListPosition,
 } from "../../locators/flat-table";
+
 import DEBUG_FLAG from "..";
 import { positionOfElement } from "../helper";
 import { icon } from "../../locators";
@@ -262,4 +265,22 @@ Then("The {word} subrow action popover has focus", (position) => {
     .find('[data-component="action-popover-button"]')
     .should("have.focus")
     .and("have.css", "outline", `${gold} solid 2px`);
+});
+
+When("I have a large viewport", () => {
+  cy.viewport(700, 345);
+});
+
+When("I have a small viewport", () => {
+  cy.viewport(700, 240);
+});
+
+When("pageSize select list is opened", () => {
+  flatTablePageSizeSelect().click();
+});
+
+Then("pageSizeSelectList is visible at the {word}", (position) => {
+  flatTablePageSelectListPosition()
+    .should("have.attr", "data-popper-placement", `${position}-start`)
+    .and("be.visible");
 });
