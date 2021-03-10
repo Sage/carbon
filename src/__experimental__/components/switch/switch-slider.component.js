@@ -61,6 +61,7 @@ const SwitchSlider = (props) => {
           warning={warning}
           info={info}
           size={props.size}
+          tooltipFlipOverrides={["top", "bottom"]}
         />
       )}
     </StyledSwitchSlider>
