@@ -48,6 +48,7 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
   }
 
   const palette = generatePalette({ businessColor: theme.colors.primary });
+
   switch (iconColor) {
     case "on-dark-background":
       return theme.colors.white;
@@ -63,8 +64,25 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
 };
 
 function adjustIconBgSize(fontSize, bgSize) {
-  if (fontSize === "large" && (bgSize === "small" || bgSize === "medium")) {
-    return iconSizeConfig.backgroundSize.large;
+  const replacements = {
+    medium: {
+      small: "medium",
+    },
+    large: {
+      small: "large",
+      medium: "large",
+    },
+    "extra-large": {
+      small: "extra-large",
+      medium: "extra-large",
+      large: "extra-large",
+    },
+  };
+
+  const replacement = replacements?.[fontSize]?.[bgSize];
+
+  if (replacement) {
+    return iconSizeConfig.backgroundSize[replacement];
   }
 
   return iconSizeConfig.backgroundSize[bgSize];
@@ -183,14 +201,14 @@ StyledIcon.propTypes = {
   theme: PropTypes.object,
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
   bgTheme: PropTypes.oneOf([
     ...OptionsHelper.colors,
     ...OptionsHelper.iconBackgrounds,
     "",
   ]),
-  fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
   iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
   mr: PropTypes.number,
   ml: PropTypes.number,

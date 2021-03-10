@@ -429,7 +429,7 @@ describe("Icon component", () => {
       });
     });
 
-    describe.each(OptionsHelper.sizesRestricted)(
+    describe.each(OptionsHelper.iconSizes)(
       "with bgSize prop provided",
       (size) => {
         it(`renders in the proper size for ${size}`, () => {

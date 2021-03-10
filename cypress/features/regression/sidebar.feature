@@ -31,13 +31,13 @@ Feature: Sidebar component
     Then Sidebar size value is set to "<sizePropertyInPx>"
     Examples:
       | size         | sizePropertyInPx | nameOfObject    |
-      | extra-small  | 150              | sizeExtraSmall  |
-      | small        | 250              | sizeSmall       |
-      | medium-small | 350              | sizeMediumSmall |
-      | medium       | 450              | sizeMedium      |
-      | medium-large | 550              | sizeMediumLarge |
-      | large        | 650              | sizeLarge       |
-      | extra-large  | 750              | sizeExtraLarge  |
+      | extra-small  | 214              | sizeExtraSmall  |
+      | small        | 314              | sizeSmall       |
+      | medium-small | 414              | sizeMediumSmall |
+      | medium       | 514              | sizeMedium      |
+      | medium-large | 614              | sizeMediumLarge |
+      | large        | 714              | sizeLarge       |
+      | extra-large  | 814              | sizeExtraLarge  |
 
   @positive
   Scenario: Check the cancel click event
