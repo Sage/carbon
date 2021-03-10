@@ -11,22 +11,27 @@ import Navbar from "./navbar";
 import Weekday from "./weekday";
 import { StyledDayPicker, StyledPopoverContainer } from "./day-picker.style";
 
-const overhang = 11;
+const popoverModifiers = (size) => {
+  let overhang = 11;
 
-const popoverModifiers = [
-  {
-    name: "offset",
-    options: {
-      offset: [-overhang, 0],
+  if (size === "small") overhang = 8;
+  if (size === "large") overhang = 13;
+
+  return [
+    {
+      name: "offset",
+      options: {
+        offset: [-overhang, 0],
+      },
     },
-  },
-  {
-    name: "preventOverflow",
-    options: {
-      mainAxis: false,
+    {
+      name: "preventOverflow",
+      options: {
+        mainAxis: false,
+      },
     },
-  },
-];
+  ];
+};
 
 const DatePicker = ({
   inputElement,
@@ -36,6 +41,7 @@ const DatePicker = ({
   maxDate,
   selectedDate,
   disablePortal,
+  size,
 }) => {
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
@@ -90,7 +96,7 @@ const DatePicker = ({
     <Popover
       placement="bottom-start"
       reference={inputElement}
-      modifiers={popoverModifiers}
+      modifiers={popoverModifiers(size)}
       disablePortal={disablePortal}
     >
       <StyledPopoverContainer>
@@ -117,6 +123,8 @@ DatePicker.propTypes = {
   selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Callback to set selected date */
   handleDateSelect: PropTypes.func,
+  /** Size of an input */
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 /**

@@ -25,16 +25,49 @@ describe("DatePicker", () => {
   let wrapper;
 
   describe('when rendered with an "inputElement" prop', () => {
-    beforeEach(() => {
-      wrapper = render(
-        { selectedDate: currentDate, inputDate: firstDate },
-        mount
-      );
-    });
-
     describe("popover", () => {
       it("renders a DayPicker inside of a Popover", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate },
+          mount
+        );
+
         expect(wrapper.find(Popover).find(DayPicker).exists()).toBe(true);
+      });
+
+      it("should have the correct overhang", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate },
+          mount
+        );
+
+        expect(
+          wrapper.find(Popover).props().modifiers[0].options.offset
+        ).toEqual([-11, 0]);
+      });
+
+      describe("when size prop is small", () => {
+        it("should have the correct overhang", () => {
+          wrapper = render(
+            { selectedDate: currentDate, inputDate: firstDate, size: "small" },
+            mount
+          );
+
+          expect(
+            wrapper.find(Popover).props().modifiers[0].options.offset
+          ).toEqual([-8, 0]);
+        });
+      });
+
+      describe("when size prop is large", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate, size: "large" },
+          mount
+        );
+
+        expect(
+          wrapper.find(Popover).props().modifiers[0].options.offset
+        ).toEqual([-13, 0]);
       });
     });
   });

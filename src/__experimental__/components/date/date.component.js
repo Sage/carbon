@@ -355,6 +355,7 @@ class BaseDateInput extends React.Component {
           handleDateSelect={this.handleDateSelect}
           inputDate={visibleValue}
           disablePortal={this.props.disablePortal}
+          size={this.props.size}
           {...dateRangeProps}
         />
       </div>
