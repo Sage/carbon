@@ -17,6 +17,7 @@ const FlatTableCell = ({
   px,
   expandable = false,
   onClick,
+  onKeyDown,
   ...rest
 }) => {
   return (
@@ -27,7 +28,9 @@ const FlatTableCell = ({
       rowSpan={rowspan}
       py={py}
       px={px}
-      onClick={expandable && onClick ? () => onClick() : undefined}
+      onClick={expandable && onClick ? onClick : undefined}
+      tabIndex={expandable && onClick ? 0 : undefined}
+      onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
       {...rest}
     >
       <StyledCellContent expandable={expandable}>
@@ -58,6 +61,11 @@ FlatTableCell.propTypes = {
    * @ignore
    */
   onClick: PropTypes.func,
+  /**
+   * @private
+   * @ignore
+   */
+  onKeyDown: PropTypes.func,
 };
 
 FlatTableCell.defaultProps = {

@@ -16,6 +16,25 @@ import { SidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 
+const events = {
+  enter: {
+    key: "Enter",
+    which: 13,
+    preventDefault: jest.fn(),
+  },
+  space: {
+    key: "Space",
+    which: 32,
+    preventDefault: jest.fn(),
+  },
+  c: {
+    key: "c",
+    which: 67,
+    preventDefault: jest.fn(),
+    stopPropagation: jest.fn(),
+  },
+};
+
 describe("FlatTableRow", () => {
   it("should have expected styles", () => {
     expect(renderFlatTableRow({}, TestRenderer.create)).toMatchSnapshot();
@@ -452,6 +471,60 @@ describe("FlatTableRow", () => {
       });
     });
 
+    describe("when focused and enter/space is pressed", () => {
+      let wrapper;
+      const element = document.createElement("div");
+      const htmlElement = document.body.appendChild(element);
+
+      beforeEach(() => {
+        wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableCell>cell1</FlatTableCell>
+                <FlatTableCell>cell2</FlatTableCell>
+              </FlatTableRow>
+            </tbody>
+          </table>,
+          { attachTo: htmlElement }
+        );
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
+      it("should toggle the open/close state of the row", () => {
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+
+        document.querySelectorAll("tr")[0].focus();
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .props()
+            .onKeyDown(events.enter);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .props()
+            .onKeyDown(events.space);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+    });
+
     describe("when expanded prop set to true", () => {
       it("should render the sub rows open", () => {
         const wrapper = renderFlatTableRow({
@@ -509,8 +582,7 @@ describe("FlatTableRow", () => {
         });
       });
 
-      it("should set the cursor to default for all but the first column", () => {
-        assertStyleMatch({ cursor: "default" }, wrapper);
+      it("should set the cursor to pointer for the first column", () => {
         assertStyleMatch({ cursor: "pointer" }, wrapper, {
           modifier: `td:nth-child(1)`,
         });
@@ -539,6 +611,103 @@ describe("FlatTableRow", () => {
         wrapper.update();
 
         expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+
+      describe("when a key is pressed", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        beforeEach(() => {
+          wrapper = mount(
+            <table>
+              <tbody>
+                <FlatTableRow
+                  expandable
+                  subRows={SubRows}
+                  expandableArea="firstColumn"
+                >
+                  <FlatTableCell>cell1</FlatTableCell>
+                  <FlatTableCell>cell2</FlatTableCell>
+                </FlatTableRow>
+              </tbody>
+            </table>,
+            { attachTo: htmlElement }
+          );
+        });
+
+        afterEach(() => {
+          wrapper.unmount();
+        });
+
+        describe("when the key is enter/space", () => {
+          it("should toggle the open/close state of the row", () => {
+            expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+
+            wrapper
+              .find(StyledFlatTableRow)
+              .at(0)
+              .find("td")
+              .at(0)
+              .getDOMNode()
+              .focus();
+
+            act(() => {
+              wrapper
+                .find(StyledFlatTableRow)
+                .at(0)
+                .find(StyledFlatTableCell)
+                .at(0)
+                .props()
+                .onKeyDown(events.enter);
+            });
+
+            wrapper.update();
+
+            expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+            act(() => {
+              wrapper
+                .find(StyledFlatTableRow)
+                .at(0)
+                .find(StyledFlatTableCell)
+                .at(0)
+                .props()
+                .onKeyDown(events.space);
+            });
+
+            wrapper.update();
+
+            expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+          });
+        });
+
+        describe("when the key is not enter/space", () => {
+          it("should toggle not the open/close state of the row", () => {
+            expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+
+            wrapper
+              .find(StyledFlatTableRow)
+              .at(0)
+              .find("td")
+              .at(0)
+              .getDOMNode()
+              .focus();
+
+            act(() => {
+              wrapper
+                .find(StyledFlatTableRow)
+                .at(0)
+                .find(StyledFlatTableCell)
+                .at(0)
+                .props()
+                .onKeyDown(events.c);
+            });
+
+            wrapper.update();
+
+            expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+          });
+        });
       });
     });
   });
