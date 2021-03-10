@@ -24,6 +24,7 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import I18next from "../../__spec_helper__/I18next";
 import { baseTheme } from "../../style/themes";
 import PodManager from "./pod-manager.component";
 import PodContext from "./pod-context";
@@ -33,12 +34,16 @@ describe("Pod", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Pod />);
+    wrapper = shallow(<Pod />, {
+      wrappingComponent: I18next,
+    });
   });
 
   describe("functionality", () => {
     it("sets the collapsed state same as collapsed prop on mount", () => {
-      const initialWrapper = shallow(<Pod collapsed />);
+      const initialWrapper = shallow(<Pod collapsed />, {
+        wrappingComponent: I18next,
+      });
       expect(initialWrapper.state().isCollapsed).toBeTruthy();
     });
   });
@@ -76,7 +81,10 @@ describe("Pod", () => {
         <PodContext.Provider value={{ heightOfTheLongestPod: "100" }}>
           <Pod>test</Pod>
         </PodContext.Provider>
-      </PodManager>
+      </PodManager>,
+      {
+        wrappingComponent: I18next,
+      }
     );
 
     assertStyleMatch(
@@ -94,7 +102,10 @@ describe("Pod", () => {
       const collapsableWrapper = shallow(
         <Pod collapsed>
           <ContentComp />
-        </Pod>
+        </Pod>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       expect(
         collapsableWrapper.find(StyledCollapsibleContent).exists()
@@ -106,7 +117,10 @@ describe("Pod", () => {
       const collapsableWrapper = shallow(
         <Pod collapsed={false}>
           <ContentComp />
-        </Pod>
+        </Pod>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       expect(
         collapsableWrapper.find(StyledCollapsibleContent).exists()
@@ -118,7 +132,10 @@ describe("Pod", () => {
       const collapsableWrapper = shallow(
         <Pod collapsed title="Title">
           <ContentComp />
-        </Pod>
+        </Pod>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       collapsableWrapper.find(StyledHeader).props().onClick();
       expect(
@@ -136,7 +153,10 @@ describe("Pod", () => {
       wrapper = mount(
         <Pod collapsed title="collapsed">
           <ContentComp />
-        </Pod>
+        </Pod>,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       assertStyleMatch(
@@ -373,12 +393,16 @@ describe("Pod", () => {
         prop2: "value2",
       };
 
-      instance = shallow(<Pod {...someRandomProps} />);
+      instance = shallow(<Pod {...someRandomProps} />, {
+        wrappingComponent: I18next,
+      });
       expect(instance.find(StyledPod).props()).toMatchObject(someRandomProps);
     });
 
     it("does not apply title prop to containing elements", () => {
-      instance = shallow(<Pod title="some-title" />);
+      instance = shallow(<Pod title="some-title" />, {
+        wrappingComponent: I18next,
+      });
       expect(wrapper.is("[title]")).toBe(false);
     });
 
@@ -388,7 +412,10 @@ describe("Pod", () => {
           <Button>Button</Button>
           <Button>Button</Button>
           <Button>Button</Button>
-        </Pod>
+        </Pod>,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       expect(instance.find(Button).length).toEqual(3);
@@ -410,7 +437,9 @@ describe("Pod", () => {
 
   describe("if internal edit button is enabled", () => {
     it("renders the Pod with relative position", () => {
-      wrapper = mount(<Pod internalEditButton />);
+      wrapper = mount(<Pod internalEditButton />, {
+        wrappingComponent: I18next,
+      });
       assertStyleMatch({ position: "relative" }, wrapper);
       wrapper.unmount();
     });
@@ -432,7 +461,10 @@ describe("Pod", () => {
           onEdit={() => {}}
           subtitle="subtitle"
           title="title"
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       elementsTagTest(tagWrapper, ["edit", "footer", "subtitle", "title"]);
