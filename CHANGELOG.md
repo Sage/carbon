@@ -1,3 +1,48 @@
+## [68.1.0](https://github.com/Sage/carbon/compare/v68.0.2...v68.1.0) (2021-03-11)
+
+
+### Features
+
+* **action-popover-item:** support for download button ([0dcdb65](https://github.com/Sage/carbon/commit/0dcdb654473e007d8a89787d99b9034f358c3350))
+
+### [68.0.2](https://github.com/Sage/carbon/compare/v68.0.1...v68.0.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* **button:** add border radius to button styles ([3142e17](https://github.com/Sage/carbon/commit/3142e170fb9182c67d3749b1b36d667a49fab30a)), closes [#3630](https://github.com/Sage/carbon/issues/3630)
+
+### [68.0.1](https://github.com/Sage/carbon/compare/v68.0.0...v68.0.1) (2021-03-09)
+
+
+### Bug Fixes
+
+* **select:** fix onblur fired on option mousedown event ([664350e](https://github.com/Sage/carbon/commit/664350e2825a96e250c3261620634abbc429dd6a))
+
+## [68.0.0](https://github.com/Sage/carbon/compare/v67.0.0...v68.0.0) (2021-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** Icon component fontSize prop `medium` value equivalent is now named `large`.
+To update your code use `replace-prop-value` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **icon:** add additional fontSize and bgSize prop values ([3b58601](https://github.com/Sage/carbon/commit/3b586014ba86cdcb4797655e1d42ceea27fd6e3d))
+
+## [67.0.0](https://github.com/Sage/carbon/compare/v66.19.2...v67.0.0) (2021-03-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sidebar:** SidebarHeader is now internal component, use header prop
+
+### Features
+
+* **sidebar:** add styled system to sidebar ([48a38d4](https://github.com/Sage/carbon/commit/48a38d4e67cd73e1324c29eddfe3865ec8dc58f8)), closes [#3221](https://github.com/Sage/carbon/issues/3221)
+
 ### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
 
 

@@ -7,6 +7,8 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import Browser from "../../utils/helpers/browser";
 import FocusTrap from "../../__internal__/focus-trap";
+import SidebarHeader from "./__internal__/sidebar-header";
+import Box from "../box";
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
@@ -48,17 +50,28 @@ class Sidebar extends Modal {
   }
 
   renderSidebar = () => {
+    const { header, position, size, children } = this.props;
     return (
       <SidebarStyle
         ref={(element) => {
           this.sideBarRef = element;
         }}
-        position={this.props.position}
-        size={this.props.size}
+        position={position}
+        size={size}
         data-element="sidebar"
       >
         {this.closeIcon()}
-        {this.props.children}
+        {header && <SidebarHeader>{header}</SidebarHeader>}
+        {/* Box for sidebar content */}
+        <Box
+          data-element="sidebar-content"
+          p={4}
+          pt="27px"
+          scrollVariant="light"
+          overflow="auto"
+        >
+          {children}
+        </Box>
       </SidebarStyle>
     );
   };
@@ -84,6 +97,8 @@ Sidebar.propTypes = {
   position: PropTypes.string,
   /** Sets the size of the sidebar when open. */
   size: PropTypes.string,
+  /** Node that will be used as sidebar header. */
+  header: PropTypes.node,
 };
 
 Sidebar.defaultProps = {

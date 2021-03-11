@@ -3,13 +3,13 @@ import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 const sidebarSizes = {
-  "extra-small": "150px",
-  small: "250px",
-  "medium-small": "350px",
-  medium: "450px",
-  "medium-large": "550px",
-  large: "650px",
-  "extra-large": "750px",
+  "extra-small": "214px",
+  small: "314px",
+  "medium-small": "414px",
+  medium: "514px",
+  "medium-large": "614px",
+  large: "714px",
+  "extra-large": "814px",
 };
 
 const SidebarStyle = styled.div`
@@ -17,8 +17,9 @@ const SidebarStyle = styled.div`
   border-radius: 1px;
   bottom: 0;
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 0;
-  padding: 27px 32px 32px 32px;
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
 
   ${({ size }) =>

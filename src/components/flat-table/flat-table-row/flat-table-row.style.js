@@ -52,14 +52,21 @@ const StyledFlatTableRow = styled.tr`
       }
     `}
 
-  ${({ isFirstColumnInteractive, firstCellIndex }) =>
+  ${({ isFirstColumnInteractive, firstCellIndex, theme }) =>
     isFirstColumnInteractive &&
     css`
-      cursor: default;
-
       td:nth-child(${firstCellIndex + 1}),
       th:nth-child(${firstCellIndex + 1}) {
         cursor: pointer;
+
+        :focus {
+          outline: 2px solid ${theme.colors.focus};
+          outline-offset: -1px;
+        }
+
+        :hover {
+          background-color: ${theme.flatTable.hover};
+        }
       }
     `}
 
@@ -111,18 +118,18 @@ const StyledFlatTableRow = styled.tr`
 
       ${expandable &&
       css`
-        ${StyledIcon} {
-          transition: transform 0.3s;
-          ${!isExpanded &&
-          css`
-            transform: rotate(-90deg);
-          `}
-        }
-
         ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
           padding-left: 4px;
+
+          ${StyledIcon} {
+            transition: transform 0.3s;
+            ${!isExpanded &&
+            css`
+              transform: rotate(-90deg);
+            `}
+          }
         }
       `}
 

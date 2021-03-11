@@ -13,7 +13,12 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from "./index";
-import { MenuButton, Menu, SubMenuItemIcon } from "./action-popover.style";
+import {
+  MenuButton,
+  Menu,
+  SubMenuItemIcon,
+  StyledMenuItem,
+} from "./action-popover.style";
 import Popover from "../../__internal__/popover";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Icon from "../icon";
@@ -45,6 +50,8 @@ describe("ActionPopover", () => {
     const defaultProps = {
       children: [
         <ActionPopoverItem
+          href="#"
+          download
           key="item-1"
           icon="pdf"
           {...{ onClick: onClickWrapper("pdf") }}
@@ -205,6 +212,56 @@ describe("ActionPopover", () => {
 
   it("renders in ReactDOM", () => {
     render(null, DOM);
+  });
+
+  describe("if download prop and href prop are provided", () => {
+    it("should render as a link component", () => {
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopoverItem key="1" onClick={jest.fn()} href="#" download>
+            test download
+          </ActionPopoverItem>
+        </ThemeProvider>
+      );
+
+      expect(wrapper.find(StyledMenuItem).getDOMNode().tagName).toBe("A");
+    });
+
+    it("should trigger click function if enter pressed", () => {
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover>
+            <ActionPopoverItem key="1" href="#" download>
+              test download
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
+
+      act(() => {
+        wrapper
+          .find(MenuButton)
+          .props()
+          .onClick({ stopPropagation: () => {} });
+      });
+
+      act(() => {
+        wrapper.update();
+      });
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItem)
+          .props()
+          .onKeyDown({ which: 13, stopPropagation: jest.fn() });
+      });
+
+      act(() => {
+        wrapper.update();
+      });
+
+      expect(wrapper.find(MenuButton).props().isOpen).toBe(false);
+    });
   });
 
   it("displays the horizontal ellipsis icon as the menu button", () => {

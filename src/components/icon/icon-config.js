@@ -3,6 +3,7 @@ const dlsConfig = {
     small: "24px",
     medium: "32px",
     large: "40px",
+    "extra-large": "56px",
   },
   backgroundShape: {
     square: "0%",
@@ -11,7 +12,9 @@ const dlsConfig = {
   },
   iconSize: {
     small: "16px",
-    large: "24px",
+    medium: "24px",
+    large: "32px",
+    "extra-large": "48px",
   },
 };
 

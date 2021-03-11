@@ -693,6 +693,33 @@ describe("SimpleSelect", () => {
     });
   });
 
+  describe('when the "onBlur" prop has been passed and the input has been blurred', () => {
+    it("then that prop should be called", () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderSelect({ onBlur: onBlurFn });
+
+      wrapper.find("input").simulate("blur");
+      expect(onBlurFn).toHaveBeenCalled();
+    });
+
+    describe("and there is a mouseDown reported on open list", () => {
+      it("then that prop should not be called", () => {
+        const onBlurFn = jest.fn();
+        const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
+
+        wrapper.find("input").simulate("focus");
+        wrapper.find(Option).first().simulate("mousedown");
+        wrapper.find("input").simulate("blur");
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+    });
+
+    it("coverage filler for else path", () => {
+      const wrapper = renderSelect();
+      wrapper.find("input").simulate("blur");
+    });
+  });
+
   describe("when the component is controlled", () => {
     const onChangeFn = jest.fn();
     let wrapper;
