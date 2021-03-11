@@ -79,6 +79,13 @@ Then("ActionPopover submenu is not visible", () => {
   actionPopoverSubmenuNoIFrame().should("not.be.visible");
 });
 
+Then("Download button has href link {string} and download prop", (link) => {
+  actionPopover()
+    .find("a")
+    .should("have.attr", "href", link)
+    .and("have.attr", "download");
+});
+
 When("I scroll accordion content to top", () => {
   cy.scrollTo("0", "0");
 });
