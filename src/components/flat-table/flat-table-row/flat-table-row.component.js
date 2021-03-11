@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import Event from "../../../utils/helpers/events";
@@ -23,6 +23,8 @@ const FlatTableRow = React.forwardRef(
     ref
   ) => {
     const [isExpanded, setIsExpanded] = useState(expanded);
+    const rowRef = ref || useRef();
+    const firstColumnExpandable = expandableArea === "firstColumn";
 
     let interactiveRowProps = {};
 
@@ -32,8 +34,20 @@ const FlatTableRow = React.forwardRef(
       return 0;
     };
 
+    const toggleExpanded = () => setIsExpanded(!isExpanded);
+
     function onKeyDown(ev) {
       const isEnterOrSpaceKey = Event.isEnterKey(ev) || Event.isSpaceKey(ev);
+
+      if (
+        expandable &&
+        !firstColumnExpandable &&
+        document.activeElement === rowRef.current &&
+        isEnterOrSpaceKey
+      ) {
+        ev.preventDefault();
+        toggleExpanded();
+      }
 
       if (isEnterOrSpaceKey && onClick) {
         onClick(ev);
@@ -42,19 +56,28 @@ const FlatTableRow = React.forwardRef(
 
     function handleClick(ev) {
       if (onClick) onClick(ev);
-      if (expandable && expandableArea === "wholeRow") {
-        setIsExpanded(!isExpanded);
+      if (expandable && !firstColumnExpandable) {
+        toggleExpanded();
       }
     }
 
     if (onClick || expandable) {
       interactiveRowProps = {
-        isRowInteractive: true,
-        tabIndex: 0,
+        isRowInteractive: !firstColumnExpandable,
+        tabIndex: firstColumnExpandable || isSubRow ? undefined : 0,
         onKeyDown,
-        isFirstColumnInteractive: expandableArea === "firstColumn",
+        isFirstColumnInteractive: firstColumnExpandable,
         isExpanded,
       };
+    }
+
+    function handleCellKeyDown(ev) {
+      const isEnterOrSpaceKey = Event.isEnterKey(ev) || Event.isSpaceKey(ev);
+
+      if (isEnterOrSpaceKey) {
+        ev.preventDefault();
+        toggleExpanded();
+      }
     }
 
     return (
@@ -71,7 +94,7 @@ const FlatTableRow = React.forwardRef(
               selected={selected}
               onClick={handleClick}
               firstCellIndex={firstCellIndex()}
-              ref={ref}
+              ref={rowRef}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -80,8 +103,14 @@ const FlatTableRow = React.forwardRef(
                   onClick:
                     expandable &&
                     index === firstCellIndex() &&
-                    expandableArea === "firstColumn"
-                      ? () => setIsExpanded(!isExpanded)
+                    firstColumnExpandable
+                      ? () => toggleExpanded()
+                      : undefined,
+                  onKeyDown:
+                    expandable &&
+                    index === firstCellIndex() &&
+                    firstColumnExpandable
+                      ? handleCellKeyDown
                       : undefined,
                   ...child.props,
                 });

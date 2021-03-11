@@ -179,6 +179,8 @@ const SimpleSelect = React.forwardRef(
       const notInList =
         listboxRef.current && !listboxRef.current.contains(event.target);
 
+      isMouseDownReported.current = false;
+
       if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
         setOpenState(false);
         filterText.current = "";
@@ -240,6 +242,20 @@ const SimpleSelect = React.forwardRef(
       handleTextboxClick(event);
     }
 
+    function handleListMouseDown() {
+      isMouseDownReported.current = true;
+    }
+
+    function handleTextboxBlur(event) {
+      if (isMouseDownReported.current) {
+        return;
+      }
+
+      if (onBlur) {
+        onBlur(event);
+      }
+    }
+
     function handleTextboxClick(event) {
       isMouseDownReported.current = false;
 
@@ -260,7 +276,7 @@ const SimpleSelect = React.forwardRef(
       });
     }
 
-    function handleMouseDown() {
+    function handleTextboxMouseDown() {
       isMouseDownReported.current = true;
     }
 
@@ -355,11 +371,11 @@ const SimpleSelect = React.forwardRef(
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick,
-        onMouseDown: handleMouseDown,
+        onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
-        onBlur,
+        onBlur: handleTextboxBlur,
         ...props,
       };
     }
@@ -370,6 +386,7 @@ const SimpleSelect = React.forwardRef(
         labelId={labelId.current}
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
+        onMouseDown={handleListMouseDown}
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
