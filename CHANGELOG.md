@@ -1,3 +1,10 @@
+### [68.0.2](https://github.com/Sage/carbon/compare/v68.0.1...v68.0.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* **button:** add border radius to button styles ([3142e17](https://github.com/Sage/carbon/commit/3142e170fb9182c67d3749b1b36d667a49fab30a)), closes [#3630](https://github.com/Sage/carbon/issues/3630)
+
 ### [68.0.1](https://github.com/Sage/carbon/compare/v68.0.0...v68.0.1) (2021-03-09)
 
 
