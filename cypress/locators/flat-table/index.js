@@ -2,6 +2,8 @@ import {
   FLAT_TABLE_COMPONENT,
   FLAT_TABLE_CELL,
   FLAT_TABLE_SUBROW,
+  FLAT_TABLE_PAGE_SIZE_SELECT,
+  FLAT_TABLE_PAGE_SELECT_LIST,
 } from "./locators";
 
 // component preview locators
@@ -29,3 +31,8 @@ export const flatTableSubrowByPosition = (index) =>
   flatTableSubrows().eq(index);
 
 export const flatTableCaption = () => flatTable().find("caption");
+
+export const flatTablePageSizeSelect = () =>
+  cy.get(FLAT_TABLE_PAGE_SIZE_SELECT);
+export const flatTablePageSelectListPosition = () =>
+  cy.get(FLAT_TABLE_PAGE_SELECT_LIST).parent();
