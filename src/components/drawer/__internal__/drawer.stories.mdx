@@ -882,6 +882,20 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                   title='Tab 4'
                   tabId='tab-4'
                 />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 5'
+                  tabId='tab-5'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 6'
+                  tabId='tab-6'
+                />
               </Tabs>
             ) }
           >
@@ -1022,6 +1036,86 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                 info={ infos.four }
                 onChange={ () => setInfos({ ...infos, four: !infos.four })}
               />
+            </div>
+             <div style={{ display: active === 'tab-5' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 13
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 14
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 15
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 16
+                </Tab>
+              </Tabs>
+            </div>
+             <div style={{ display: active === 'tab-6' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 17
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 18
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 19
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 20
+                </Tab>
+              </Tabs>
             </div>
           </div>
         </Drawer>
