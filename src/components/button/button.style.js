@@ -16,6 +16,8 @@ const StyledButton = styled.button`
     display: inline-flex;
     flex-direction: column;
     flex-flow: wrap;
+    border-radius: 0;
+
     ${noWrap &&
     css`
       white-space: nowrap;
