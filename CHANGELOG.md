@@ -1,3 +1,10 @@
+### [68.1.1](https://github.com/Sage/carbon/compare/v68.1.0...v68.1.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* **select:** fix incorrect textbox behaviour on safari ([6077c18](https://github.com/Sage/carbon/commit/6077c186ede063693ea44fd04a33c3684a906d42))
+
 ## [68.1.0](https://github.com/Sage/carbon/compare/v68.0.2...v68.1.0) (2021-03-11)
 
 
