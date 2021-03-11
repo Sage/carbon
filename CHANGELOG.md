@@ -1,3 +1,10 @@
+## [68.1.0](https://github.com/Sage/carbon/compare/v68.0.2...v68.1.0) (2021-03-11)
+
+
+### Features
+
+* **action-popover-item:** support for download button ([0dcdb65](https://github.com/Sage/carbon/commit/0dcdb654473e007d8a89787d99b9034f358c3350))
+
 ### [68.0.2](https://github.com/Sage/carbon/compare/v68.0.1...v68.0.2) (2021-03-11)
 
 
