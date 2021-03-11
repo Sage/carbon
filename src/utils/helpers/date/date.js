@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import i18n from "i18next";
 import moment from "moment";
 import { merge } from "lodash";
 
@@ -86,11 +86,11 @@ const DateHelper = {
    * Returns an array of days of the week by locale minified
    * Mo, Tu, We, Th, Fr, Sa, Su
    *
-   * @param {String} locale - defaulted to I18n.locale
+   * @param {String} locale - defaulted to i18n.language
    * @return {Array}
    */
   weekdaysMinified: () => {
-    return moment.localeData(I18n.locale)._weekdaysMin;
+    return moment.localeData(i18n.language)._weekdaysMin;
   },
 
   /**
@@ -119,7 +119,7 @@ const DateHelper = {
   _defaultMomentOptions: () => {
     return {
       formats: DateHelper._dateFormats(),
-      locale: I18n.locale,
+      locale: i18n.language,
       strict: true,
       sanitize: true,
     };
@@ -225,15 +225,16 @@ const DateHelper = {
    * @return {Array} formatted date strings
    */
   _dateFormats: () => {
-    return I18n.t("date.formats.inputs", {
-      defaultValue: DateHelper._defaultDateFormats(),
+    const dateFormatsInputs = i18n.t("carbon:date.formats.inputs", {
+      returnObjects: true,
     });
+    return dateFormatsInputs === "date.formats.inputs"
+      ? DateHelper._defaultDateFormats()
+      : dateFormatsInputs;
   },
 
   _visibleFormat: () =>
-    I18n.t("date.formats.javascript", {
-      defaultValue: defaultDateFormat,
-    }).toUpperCase(),
+    i18n.t("carbon:date.formats.javascript", defaultDateFormat).toUpperCase(),
 
   formatDateToCurrentLocale(value) {
     return DateHelper.formatValue(value, this._visibleFormat(), {
