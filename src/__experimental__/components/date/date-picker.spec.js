@@ -7,9 +7,9 @@ import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import DayPicker from "react-day-picker";
 
-import Portal from "../../../components/portal/portal";
 import DatePicker from "./date-picker.component";
-import StyledDayPicker from "./day-picker.style";
+import { StyledDayPicker } from "./day-picker.style";
+import Popover from "../../../__internal__/popover";
 
 const inputElement = {
   value: "12-12-2012",
@@ -21,48 +21,60 @@ const invalidDate = "2019-02-";
 const noDate = "";
 const currentDate = moment().toDate();
 
-jest.mock("../../../components/portal/portal", () => {
-  const React = require("react"); // eslint-disable-line no-shadow, global-require
-  const PropTypes = require("prop-types"); // eslint-disable-line global-require
-
-  const MockPortal = ({ children }) => {
-    return <div data-element="mock-portal">{children}</div>;
-  };
-
-  MockPortal.propTypes = {
-    children: PropTypes.node,
-  };
-
-  return MockPortal;
-});
-
 describe("DatePicker", () => {
   let wrapper;
 
   describe('when rendered with an "inputElement" prop', () => {
-    beforeEach(() => {
-      wrapper = render(
-        { selectedDate: currentDate, inputElement, inputDate: firstDate },
-        mount
-      );
-    });
+    describe("popover", () => {
+      it("renders a DayPicker inside of a Popover", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate },
+          mount
+        );
 
-    it('by default should render a "DayPicker" component inside a "Portal"', () => {
-      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
-    });
+        expect(wrapper.find(Popover).find(DayPicker).exists()).toBe(true);
+      });
 
-    it('should not render a "Portal" when disablePortal prop is passed', () => {
-      wrapper.setProps({ disablePortal: true });
-      expect(wrapper.find(Portal).exists()).toBe(false);
+      it("should have the correct overhang", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate },
+          mount
+        );
+
+        expect(
+          wrapper.find(Popover).props().modifiers[0].options.offset
+        ).toEqual([-11, 0]);
+      });
+
+      describe("when size prop is small", () => {
+        it("should have the correct overhang", () => {
+          wrapper = render(
+            { selectedDate: currentDate, inputDate: firstDate, size: "small" },
+            mount
+          );
+
+          expect(
+            wrapper.find(Popover).props().modifiers[0].options.offset
+          ).toEqual([-8, 0]);
+        });
+      });
+
+      describe("when size prop is large", () => {
+        wrapper = render(
+          { selectedDate: currentDate, inputDate: firstDate, size: "large" },
+          mount
+        );
+
+        expect(
+          wrapper.find(Popover).props().modifiers[0].options.offset
+        ).toEqual([-13, 0]);
+      });
     });
   });
 
   describe('when rendered with "minDate" prop', () => {
     beforeEach(() => {
-      wrapper = render(
-        { inputElement, minDate: firstDate, inputDate: firstDate },
-        mount
-      );
+      wrapper = render({ minDate: firstDate, inputDate: firstDate }, mount);
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays"
@@ -76,10 +88,7 @@ describe("DatePicker", () => {
 
   describe('when rendered with invalid "minDate" length prop', () => {
     beforeEach(() => {
-      wrapper = render(
-        { inputElement, minDate: invalidDate, inputDate: invalidDate },
-        mount
-      );
+      wrapper = render({ minDate: invalidDate, inputDate: invalidDate }, mount);
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays"
@@ -90,10 +99,7 @@ describe("DatePicker", () => {
 
   describe('when rendered with blank "minDate" prop', () => {
     beforeEach(() => {
-      wrapper = render(
-        { inputElement, minDate: noDate, inputDate: noDate },
-        mount
-      );
+      wrapper = render({ minDate: noDate, inputDate: noDate }, mount);
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays"
@@ -104,10 +110,7 @@ describe("DatePicker", () => {
 
   describe('when rendered with "maxDate" prop', () => {
     beforeEach(() => {
-      wrapper = render(
-        { inputElement, maxDate: secondDate, inputDate: firstDate },
-        mount
-      );
+      wrapper = render({ maxDate: secondDate, inputDate: firstDate }, mount);
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays"
@@ -123,7 +126,6 @@ describe("DatePicker", () => {
     beforeEach(() => {
       wrapper = render(
         {
-          inputElement,
           minDate: firstDate,
           maxDate: secondDate,
           inputDate: firstDate,
@@ -152,7 +154,6 @@ describe("DatePicker", () => {
       wrapper = render(
         {
           selectedDate: currentDate,
-          inputElement,
           handleDateSelect: handleDateSelectFn,
           inputDate: firstDate,
         },
@@ -191,21 +192,18 @@ describe("DatePicker", () => {
 
   describe('when the "inputDate" prop have been changed to a different date', () => {
     beforeEach(() => {
-      wrapper = render({ inputElement, inputDate: firstDate }, mount);
-      jest.resetAllMocks();
+      wrapper = render({ inputDate: firstDate }, mount);
     });
+
     describe("and provided date is valid", () => {
       it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
         const dayPicker = wrapper.find(DayPicker).instance();
         const showMonthSpy = spyOn(dayPicker, "showMonth");
         act(() => {
           wrapper.setProps({ inputDate: secondDate });
-          global.innerWidth = 100;
-          global.innerHeight = 100;
-
-          // Trigger the window resize event.
-          global.dispatchEvent(new Event("resize"));
         });
+
+        wrapper.update();
 
         expect(showMonthSpy).toHaveBeenCalledWith(new Date(secondDate));
       });
@@ -217,12 +215,9 @@ describe("DatePicker", () => {
         const showMonthSpy = spyOn(dayPicker, "showMonth");
         act(() => {
           wrapper.setProps({ inputDate: "12/42/3213" });
-          global.innerWidth = 100;
-          global.innerHeight = 100;
-
-          // Trigger the window resize event.
-          global.dispatchEvent(new Event("resize"));
         });
+
+        wrapper.update();
 
         expect(showMonthSpy).toHaveBeenCalledWith(new Date(firstDate));
       });
@@ -255,14 +250,10 @@ describe("StyledDayPicker", () => {
 
     describe("translation", () => {
       it("renders properly", () => {
-        const wrapper = render(
-          {
-            inputElement,
-            inputDate: firstDate,
-            selectedDate: new Date("2019-04-01"),
-          },
-          TestRenderer.create
-        );
+        const wrapper = render({
+          inputDate: firstDate,
+          selectedDate: new Date("2019-04-01"),
+        });
         expect(wrapper).toMatchSnapshot();
       });
     });
@@ -270,7 +261,7 @@ describe("StyledDayPicker", () => {
 });
 
 function render(props, renderer = shallow) {
-  return renderer(<DatePicker {...props} />);
+  return renderer(<DatePicker inputElement={inputElement} {...props} />);
 }
 
 function renderStyledDayPicker(props) {

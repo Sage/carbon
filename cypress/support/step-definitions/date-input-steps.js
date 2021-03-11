@@ -66,7 +66,7 @@ Then("the date after maxDate is not available", () => {
 });
 
 When("I click dateInput", () => {
-  dateInput().click();
+  dateInput().click({ force: true });
 });
 
 When("I choose date yesterday via DayPicker", () => {
@@ -111,7 +111,7 @@ When("I click onto date icon twice", () => {
 
 When("I click dateInput twice", () => {
   dateInput()
-    .click()
+    .click({ force: true })
     .then(($el) => {
       $el.click();
     });
