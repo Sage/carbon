@@ -103,11 +103,6 @@ const StyledSubmenu = styled.ul`
           color: ${theme.colors.white};
         }
 
-        ${StyledSearch} {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-
         ${StyledSearch} [data-component="icon"] {
           color: ${theme.menu.dark.searchIcon};
 
