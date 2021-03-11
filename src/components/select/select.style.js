@@ -12,7 +12,6 @@ const StyledSelect = styled.div`
 
   ${StyledInput} {
     cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "pointer")};
-    user-select: none;
 
     ${({ disabled }) =>
       disabled &&
