@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import PagerNavigation from "./__internal__/pager-navigation.component";
 import Option from "../select/option/option.component";
+import useTranslation from "../../hooks/__internal__/useTranslation";
 import {
   StyledPagerContainer,
   StyledPagerSizeOptions,
@@ -36,6 +36,7 @@ const Pager = ({
   variant = "default",
   ...rest
 }) => {
+  const t = useTranslation();
   const [page, setPage] = useState(currentPage);
   const [currentPageSize, setCurrentPageSize] = useState(pageSize);
 
@@ -65,12 +66,12 @@ const Pager = ({
 
   /** Term used to describe table data */
   const records = (count) =>
-    I18n.t("pager.records", {
+    t("pager.records", {
       count: Number(count),
-      defaultValue: {
-        one: "item",
-        other: "items",
-      },
+      context: `${count}`,
+      defaultValue_0: "items",
+      defaultValue: "item",
+      defaultValue_plural: "items",
     });
 
   const handleOnFirst = useCallback(
@@ -149,7 +150,7 @@ const Pager = ({
   };
 
   const renderPageSizeOptions = () => {
-    const show = I18n.t("pager.show", { defaultValue: "Show" });
+    const show = t("pager.show", { defaultValue: "Show" });
 
     return (
       showPageSizeSelection && (

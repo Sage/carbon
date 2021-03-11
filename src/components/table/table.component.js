@@ -98,6 +98,8 @@ class Table extends React.Component {
   };
 
   onPagination = (currentPage, pageSize, element) => {
+    // TODO: FE-3804 not able to test the instance if we have to wrap in the i18n provider
+    // istanbul ignore next
     if (this.props.onPageSizeChange && element === "size") {
       this.props.onPageSizeChange(pageSize);
     }
