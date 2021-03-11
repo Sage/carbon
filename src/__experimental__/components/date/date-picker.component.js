@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import "react-day-picker/lib/style.css";
@@ -10,28 +10,6 @@ import DateHelper from "../../../utils/helpers/date/date";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
 import { StyledDayPicker, StyledPopoverContainer } from "./day-picker.style";
-
-const popoverModifiers = (size) => {
-  let overhang = 11;
-
-  if (size === "small") overhang = 8;
-  if (size === "large") overhang = 13;
-
-  return [
-    {
-      name: "offset",
-      options: {
-        offset: [-overhang, 0],
-      },
-    },
-    {
-      name: "preventOverflow",
-      options: {
-        mainAxis: false,
-      },
-    },
-  ];
-};
 
 const DatePicker = ({
   inputElement,
@@ -47,6 +25,28 @@ const DatePicker = ({
     DateHelper.formatDateString(new Date().toString())
   );
   const ref = useRef(null);
+
+  const popoverModifiers = useMemo(() => {
+    let overhang = 11;
+
+    if (size === "small") overhang = 8;
+    if (size === "large") overhang = 13;
+
+    return [
+      {
+        name: "offset",
+        options: {
+          offset: [-overhang, 0],
+        },
+      },
+      {
+        name: "preventOverflow",
+        options: {
+          mainAxis: false,
+        },
+      },
+    ];
+  }, [size]);
 
   useEffect(() => {
     let monthDate;
@@ -96,7 +96,7 @@ const DatePicker = ({
     <Popover
       placement="bottom-start"
       reference={inputElement}
-      modifiers={popoverModifiers(size)}
+      modifiers={popoverModifiers}
       disablePortal={disablePortal}
     >
       <StyledPopoverContainer>
