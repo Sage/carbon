@@ -12,6 +12,15 @@ import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
+import I18next from "../../../__spec_helper__/I18next";
+
+function RenderWrapper({ ...props }) {
+  return (
+    <I18next>
+      <SelectList {...props} />
+    </I18next>
+  );
+}
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -329,14 +338,14 @@ describe("SelectList", () => {
           const [options] = useState([]);
 
           return (
-            <SelectList
+            <RenderWrapper
               value="red"
               onSelect={() => {}}
               onSelectListClose={() => {}}
               isLoading
             >
               {options}
-            </SelectList>
+            </RenderWrapper>
           );
         };
         const wrapper = mount(<EmptySelect />);
@@ -353,14 +362,14 @@ describe("SelectList", () => {
     describe("and there is only one option", () => {
       it("that option should have the hidden prop", () => {
         const wrapper = mount(
-          <SelectList
+          <RenderWrapper
             value="red"
             onSelect={() => {}}
             onSelectListClose={() => {}}
             isLoading
           >
             <Option value="opt1" text="red" />
-          </SelectList>
+          </RenderWrapper>
         );
 
         expect(wrapper.find(Option).first().prop("hidden")).toBe(true);
@@ -605,10 +614,10 @@ describe("SelectList", () => {
   describe("when non option elements are provided as children", () => {
     it("then isHighlighted prop should not be set on them", () => {
       const wrapper = mount(
-        <SelectList onSelect={() => {}} onSelectListClose={() => {}}>
+        <RenderWrapper onSelect={() => {}} onSelectListClose={() => {}}>
           {false && ""}
           <li>not an option element</li>
-        </SelectList>
+        </RenderWrapper>
       );
       expect(wrapper.find("li").props().isHighlighted).toBe(undefined);
       wrapper.unmount();
@@ -668,11 +677,16 @@ function getSelectList(props) {
     const mockRef = useRef();
 
     return (
-      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
+      <RenderWrapper
+        ref={mockRef}
+        {...defaultProps}
+        {...props}
+        {...wrapperProps}
+      >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />
-      </SelectList>
+      </RenderWrapper>
     );
   };
 
@@ -689,14 +703,19 @@ function getGroupedSelectList(props) {
     const mockRef = useRef();
 
     return (
-      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
+      <RenderWrapper
+        ref={mockRef}
+        {...defaultProps}
+        {...props}
+        {...wrapperProps}
+      >
         <OptionGroupHeader label="Heading one" />
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <OptionGroupHeader label="Heading two" />
         <Option value="opt3" text="blue" />
         <Option value="opt4" text="black" />
-      </SelectList>
+      </RenderWrapper>
     );
   };
 
