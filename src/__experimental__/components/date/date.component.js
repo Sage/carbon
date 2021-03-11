@@ -81,6 +81,7 @@ class BaseDateInput extends React.Component {
 
   assignInput = (input) => {
     this.input = input.current;
+    this.inputRef = input;
   };
 
   shouldAllowBlur = () => {
@@ -349,11 +350,12 @@ class BaseDateInput extends React.Component {
     return (
       <div onClick={this.markCurrentDatepicker} role="presentation">
         <DatePicker
-          inputElement={this.input && this.input.parentElement}
+          inputElement={this.inputRef}
           selectedDate={this.state.selectedDate}
           handleDateSelect={this.handleDateSelect}
           inputDate={visibleValue}
           disablePortal={this.props.disablePortal}
+          size={this.props.size}
           {...dateRangeProps}
         />
       </div>
@@ -424,13 +426,10 @@ class BaseDateInput extends React.Component {
           rawValue={isoFormattedValueString(this.state.visibleValue)}
           inputRef={this.assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-          positionedChildren={
-            disablePortal && this.renderDatePicker({ minDate, maxDate })
-          }
           {...events}
         />
         {this.renderHiddenInput()}
-        {!disablePortal && this.renderDatePicker({ minDate, maxDate })}
+        {this.renderDatePicker({ minDate, maxDate })}
       </StyledDateInput>
     );
   }

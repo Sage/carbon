@@ -1,941 +1,814 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDayPicker i18n translation renders properly 1`] = `
-.c2 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: block;
-  border: none;
-  background: none;
-  box-shadow: none;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  padding: 0;
-}
-
-.c1.DayPicker-NavBar {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 0;
-  top: 0;
-  height: 40px;
-}
-
-.c3 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  vertical-align: middle;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 24px;
-  width: 24px;
-}
-
-.c3:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
-.c3::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e916";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  vertical-align: middle;
-  display: block;
-}
-
-.c4 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  vertical-align: middle;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 24px;
-  width: 24px;
-}
-
-.c4:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
-.c4::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e917";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  vertical-align: middle;
-  display: block;
-}
-
-.c5,
-.c5.DayPicker-Weekday {
-  border: none;
-  min-width: 40px;
-  font-weight: 800;
-  color: #668592;
-  text-transform: uppercase;
-  font-size: 12px;
-  text-align: center;
-  padding: 20px 0 5px;
-}
-
-.c6 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0 .DayPicker {
-  z-index: 1000;
-  top: calc(100% + 1px);
-  left: 0;
-  background-color: #FFFFFF;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  color: rgba(0,0,0,0.9);
-  display: block;
-  font-size: 14px;
-  font-weight: 800;
-  margin-top: 3px;
-  overflow: hidden;
-  padding: 24px;
-  position: absolute;
-  text-align: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c0 .DayPicker * {
-  box-sizing: border-box;
-}
-
-.c0 .DayPicker:focus {
-  outline: none;
-}
-
-.c0 .DayPicker abbr[title] {
-  border: none;
-  cursor: initial;
-}
-
-.c0 .DayPicker-wrapper {
-  padding: 0;
-}
-
-.c0 .DayPicker-Month {
-  margin: 0 0 2px;
-}
-
-.c0 .DayPicker-Body,
-.c0 .DayPicker-Week {
-  width: 100%;
-}
-
-.c0 .DayPicker-Caption {
-  line-height: 40px;
-  height: 40px;
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.c0 .DayPicker-Caption > div {
-  margin: 0 auto;
-  width: 80%;
-}
-
-.c0 .DayPicker-Day {
-  min-width: 40px;
-  background-color: #FFFFFF;
-  cursor: pointer;
-  border: none;
-  font-weight: 800;
-  padding: 10px 0;
-}
-
-.c0 .DayPicker-Day:hover {
-  background-color: #F2F5F6;
-  color: rgba(0,0,0,0.9);
-}
-
-.c0 .DayPicker-Day + * {
-  border-left: 1px;
-}
-
-.c0 .DayPicker-Day abbr {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0 .DayPicker-Day--today,
-.c0 .DayPicker-Day--today.DayPicker-Day--outside {
-  font-weight: 800;
-  color: rgba(0,0,0,0.9);
-  background-color: #CCD6DB;
-}
-
-.c0 .DayPicker-Day--outside {
-  color: rgba(0,0,0,0.55);
-  background-color: $ #FFFFFF;
-}
-
-.c0 .DayPicker-Day--disabled,
-.c0 .DayPicker-Day--disabled:hover {
-  color: rgba(0,0,0,0.55);
-  background-color: #FFFFFF;
-  cursor: default;
-}
-
-.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #008200;
-  color: #FFFFFF;
-  font-weight: 800;
-}
-
-.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #008200;
-  color: #FFFFFF;
-}
-
-<div
-  data-element="mock-portal"
+<Popover
+  modifiers={
+    Array [
+      Object {
+        "name": "offset",
+        "options": Object {
+          "offset": Array [
+            -11,
+            0,
+          ],
+        },
+      },
+      Object {
+        "name": "preventOverflow",
+        "options": Object {
+          "mainAxis": false,
+        },
+      },
+    ]
+  }
+  placement="bottom-start"
+  reference={
+    Object {
+      "getBoundingClientRect": [Function],
+      "value": "12-12-2012",
+    }
+  }
 >
-  <div
-    className="c0"
+  <styled.div
+    theme={
+      Object {
+        "accordion": Object {
+          "background": "#E6EBED",
+          "border": "#CCD6DB",
+        },
+        "anchorNavigation": Object {
+          "divider": "#CCD6DB",
+          "navItemHoverBackground": "#E6EBED",
+        },
+        "batchSelection": Object {
+          "lightTheme": "#B3C2C8",
+        },
+        "card": Object {
+          "footerBackground": "#F2F5F6",
+          "footerBorder": "#CCD6DB",
+        },
+        "carousel": Object {
+          "activeSelectorBackground": "#668592",
+          "inactiveSelectorBackground": "#CCD6DB",
+        },
+        "checkable": Object {
+          "checked": "rgba(0,0,0,0.90)",
+        },
+        "colors": Object {
+          "asterisk": "#C7384F",
+          "base": "#00A376",
+          "black": "#000000",
+          "border": "#668592",
+          "brand": "#00DC00",
+          "dashedBorder": "#99ADB6",
+          "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+          "dashedHoverBackground": "#CCD6DB",
+          "destructive": Object {
+            "hover": "#9F2D3F",
+          },
+          "disabled": "#66C266",
+          "error": "#C7384F",
+          "focus": "#FFB500",
+          "focusedIcon": "#335C6D",
+          "focusedLinkBackground": "#FFDA80",
+          "hoveredTabKeyline": "#4DB84D",
+          "info": "#0073C2",
+          "previewBackground": "#BFCCD2",
+          "primary": "#008200",
+          "secondary": "#006300",
+          "slate": "#003349",
+          "success": "#00B000",
+          "tertiary": "#004500",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+          "whiteMix": "#E6F5E6",
+          "withOpacity": "rgba(0,163,118,0.55)",
+        },
+        "content": Object {
+          "secondaryColor": "#668592",
+        },
+        "definitionList": Object {
+          "ddText": "rgba(0,0,0,0.65)",
+          "dtTextDark": "rgba(0,0,0,0.9)",
+          "dtTextLight": "rgba(0,0,0,0.65)",
+        },
+        "disabled": Object {
+          "background": "#E6EBED",
+          "border": "#CCD6DB",
+          "button": "#E6EBED",
+          "buttonText": "rgba(0,0,0,.2)",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F5F6",
+          "switch": "#E4EAEC",
+          "text": "rgba(0,0,0,0.3)",
+        },
+        "draggableItem": Object {
+          "border": "#E6EBED",
+        },
+        "drawer": Object {
+          "background": "#EDF1F2",
+          "divider": "#D9E0E4",
+        },
+        "editor": Object {
+          "border": "#668592",
+          "button": Object {
+            "hover": "#CCD6DB",
+          },
+          "counter": "rgba(0,0,0,0.55)",
+          "placeholder": "rgba(0,0,0,0.30)",
+          "toolbar": Object {
+            "background": "#F2F5F6",
+          },
+        },
+        "flatTable": Object {
+          "dark": Object {
+            "border": "#668592",
+            "headerBackground": "#335C6D",
+          },
+          "drawerSidebar": Object {
+            "headerBackground": "#EDF1F2",
+            "highlighted": "#CCD6DB",
+            "hover": "#D9E0E4",
+            "selected": "#B3C2C8",
+          },
+          "headerIconColor": "#99ADB6",
+          "highlighted": "#E6EBED",
+          "hover": "#F2F5F6",
+          "light": Object {
+            "border": "#B3C2C8",
+            "headerBackground": "#CCD6DB",
+          },
+          "selected": "#D9E0E4",
+          "subRow": Object {
+            "background": "#FAFBFB",
+            "shadow": "rgba(0, 20, 29, 0.1)",
+          },
+          "transparentBase": Object {
+            "border": "#F2F5F6",
+            "headerBackground": "#F2F5F6",
+          },
+          "transparentWhite": Object {
+            "border": "#fff",
+            "headerBackground": "#fff",
+          },
+        },
+        "form": Object {
+          "invalid": "#F2F5F6",
+        },
+        "help": Object {
+          "color": "rgba(0,0,0,0.65)",
+          "hover": "rgba(0,0,0,0.9)",
+        },
+        "hr": Object {
+          "background": "#CCD6DB",
+        },
+        "icon": Object {
+          "default": "rgba(0,0,0,0.65)",
+          "defaultHover": "rgba(0,0,0,0.90)",
+          "disabled": "rgba(0,0,0,0.30)",
+          "onLightBackground": "#668592",
+          "onLightBackgroundHover": "#335C6D",
+        },
+        "menu": Object {
+          "dark": Object {
+            "divider": "#1A475B",
+            "selected": "#1A475B",
+            "submenuBackground": "#001A25",
+            "title": "#99ADB6",
+          },
+          "divider": "#E6EBED",
+          "focus": "#F2F5F6",
+          "itemColor": "rgba(0,0,0,0.9)",
+          "itemColorDisabled": "rgba(0,0,0,0.3)",
+          "light": Object {
+            "background": "#E6EBED",
+            "divider": "#CCD6DB",
+            "selected": "#D9E0E4",
+            "title": "#406677",
+          },
+        },
+        "name": "base",
+        "navigationBar": Object {
+          "dark": Object {
+            "background": "#003349",
+            "borderBottom": "#003349",
+          },
+          "light": Object {
+            "background": "#E6EBED",
+            "borderBottom": "#D9E0E4",
+          },
+        },
+        "note": Object {
+          "timeStamp": "rgba(0,0,0,0.65)",
+        },
+        "numeralDate": Object {
+          "error": "#C7384F",
+          "passive": "#668592",
+        },
+        "pager": Object {
+          "active": "rgba(0,0,0,0.90)",
+          "alternate": "#EDF1F2",
+          "disabled": "rgba(0,0,0,0.3)",
+        },
+        "palette": Object {
+          "amethyst": "#582C83",
+          "amethystShade": [Function],
+          "amethystTint": [Function],
+          "blackOpacity": [Function],
+          "brilliantGreen": "#00DC00",
+          "brilliantGreenShade": [Function],
+          "brilliantGreenTint": [Function],
+          "carrotOrange": "#E96400",
+          "carrotOrangeShade": [Function],
+          "carrotOrangeTint": [Function],
+          "errorRed": "#C7384F",
+          "errorRedShade": [Function],
+          "errorRedTint": [Function],
+          "genericGreen": "#009900",
+          "genericGreenShade": [Function],
+          "genericGreenTint": [Function],
+          "gold": "#FFB500",
+          "goldShade": [Function],
+          "goldTint": [Function],
+          "navyBlue": "#004B87",
+          "navyBlueShade": [Function],
+          "navyBlueTint": [Function],
+          "plum": "#8246AF",
+          "plumShade": [Function],
+          "plumTint": [Function],
+          "productBlue": "#0077C8",
+          "productBlueShade": [Function],
+          "productBlueTint": [Function],
+          "productGreen": "#00A376",
+          "productGreenShade": [Function],
+          "productGreenTint": [Function],
+          "slate": "#003349",
+          "slateShade": [Function],
+          "slateTint": [Function],
+          "whiteOpacity": [Function],
+        },
+        "pill": Object {
+          "errorButtonFocus": "#9F2D3F",
+          "neutral": "#4D7080",
+          "neutralBackgroundFocus": "#1A475B",
+          "warning": "#ED8333",
+          "warningButtonFocus": "#E96400",
+        },
+        "pod": Object {
+          "border": "#CCD6DB",
+          "footerBackground": "#F2F5F6",
+          "hoverBackground": "#D9E0E4",
+          "secondaryBackground": "#F2F5F6",
+          "tertiaryBackground": "#E6EBED",
+          "tileBackground": "#FFFFFF",
+        },
+        "popoverContainer": Object {
+          "iconColor": "rgba(0,0,0,0.90)",
+        },
+        "portrait": Object {
+          "background": "#F2F5F6",
+          "border": "#8099A4",
+          "initials": "rgba(0,0,0,0.65)",
+        },
+        "readOnly": Object {
+          "textboxBackground": "#FAFBFB",
+          "textboxBorder": "#CCD6DB",
+          "textboxText": "rgba(0,0,0,0.74)",
+        },
+        "scrollbar": Object {
+          "dark": Object {
+            "thumb": "#99ADB6",
+            "track": "#335C6D",
+          },
+          "light": Object {
+            "thumb": "#668592",
+            "track": "#F2F5F6",
+          },
+        },
+        "search": Object {
+          "active": "#FFB500",
+          "button": "#255BC7",
+          "darkVariantBorder": "#8CA3AD",
+          "darkVariantPlaceholder": "#8CA3AD",
+          "darkVariantText": "#FFFFFF",
+          "icon": "#8CA3AD",
+          "iconDarkVariant": "#8CA3AD",
+          "iconDarkVariantHover": "#BFCCD2",
+          "iconHover": "#335C6D",
+          "passive": "#738F9B",
+          "searchActive": "#668592",
+        },
+        "select": Object {
+          "border": "#bfccd2",
+          "optionHeader": "rgba(0,0,0,0.55)",
+          "selected": "#F2F5F6",
+          "tableHeaderBorder": "#CCD6DB",
+        },
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+          "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "space": Array [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56,
+          64,
+          72,
+          80,
+        ],
+        "spacing": 8,
+        "switch": Object {
+          "off": "#CCD6DB",
+        },
+        "tab": Object {
+          "altHover": "#D9E0E4",
+          "background": "#CCD6DB",
+        },
+        "table": Object {
+          "dragging": "#E6EBED",
+          "header": "#335C6D",
+          "hover": "#E6EBED",
+          "primary": "#F2F5F6",
+          "secondary": "#CCD6DB",
+          "selected": "#D9E0E4",
+          "tertiary": "#1A475B",
+          "zebra": "#FAFBFB",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.55)",
+          "size": "14px",
+        },
+        "tile": Object {
+          "border": "#CCD6DB",
+          "footerBackground": "#F2F5F6",
+          "separator": "#E6EBED",
+        },
+        "tileSelect": Object {
+          "border": "#BFCCD2",
+          "descriptionColor": "rgba(0,0,0,0.55)",
+          "disabledBackground": "#E6EBED",
+          "disabledText": "rgba(0,0,0,0.3)",
+          "hoverBackground": "#F2F5F6",
+        },
+        "zIndex": Object {
+          "fullScreenModal": 5000,
+          "header": 4000,
+          "modal": 3000,
+          "notification": 6000,
+          "overlay": 1000,
+          "popover": 2000,
+          "smallOverlay": 10,
+        },
+      }
+    }
   >
-    <div
-      className="DayPicker"
-      lang="fr"
-      role="application"
-      style={
+    <styled.div
+      theme={
         Object {
-          "left": 0,
-          "top": 0,
+          "accordion": Object {
+            "background": "#E6EBED",
+            "border": "#CCD6DB",
+          },
+          "anchorNavigation": Object {
+            "divider": "#CCD6DB",
+            "navItemHoverBackground": "#E6EBED",
+          },
+          "batchSelection": Object {
+            "lightTheme": "#B3C2C8",
+          },
+          "card": Object {
+            "footerBackground": "#F2F5F6",
+            "footerBorder": "#CCD6DB",
+          },
+          "carousel": Object {
+            "activeSelectorBackground": "#668592",
+            "inactiveSelectorBackground": "#CCD6DB",
+          },
+          "checkable": Object {
+            "checked": "rgba(0,0,0,0.90)",
+          },
+          "colors": Object {
+            "asterisk": "#C7384F",
+            "base": "#00A376",
+            "black": "#000000",
+            "border": "#668592",
+            "brand": "#00DC00",
+            "dashedBorder": "#99ADB6",
+            "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+            "dashedHoverBackground": "#CCD6DB",
+            "destructive": Object {
+              "hover": "#9F2D3F",
+            },
+            "disabled": "#66C266",
+            "error": "#C7384F",
+            "focus": "#FFB500",
+            "focusedIcon": "#335C6D",
+            "focusedLinkBackground": "#FFDA80",
+            "hoveredTabKeyline": "#4DB84D",
+            "info": "#0073C2",
+            "previewBackground": "#BFCCD2",
+            "primary": "#008200",
+            "secondary": "#006300",
+            "slate": "#003349",
+            "success": "#00B000",
+            "tertiary": "#004500",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+            "whiteMix": "#E6F5E6",
+            "withOpacity": "rgba(0,163,118,0.55)",
+          },
+          "content": Object {
+            "secondaryColor": "#668592",
+          },
+          "definitionList": Object {
+            "ddText": "rgba(0,0,0,0.65)",
+            "dtTextDark": "rgba(0,0,0,0.9)",
+            "dtTextLight": "rgba(0,0,0,0.65)",
+          },
+          "disabled": Object {
+            "background": "#E6EBED",
+            "border": "#CCD6DB",
+            "button": "#E6EBED",
+            "buttonText": "rgba(0,0,0,.2)",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F5F6",
+            "switch": "#E4EAEC",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "draggableItem": Object {
+            "border": "#E6EBED",
+          },
+          "drawer": Object {
+            "background": "#EDF1F2",
+            "divider": "#D9E0E4",
+          },
+          "editor": Object {
+            "border": "#668592",
+            "button": Object {
+              "hover": "#CCD6DB",
+            },
+            "counter": "rgba(0,0,0,0.55)",
+            "placeholder": "rgba(0,0,0,0.30)",
+            "toolbar": Object {
+              "background": "#F2F5F6",
+            },
+          },
+          "flatTable": Object {
+            "dark": Object {
+              "border": "#668592",
+              "headerBackground": "#335C6D",
+            },
+            "drawerSidebar": Object {
+              "headerBackground": "#EDF1F2",
+              "highlighted": "#CCD6DB",
+              "hover": "#D9E0E4",
+              "selected": "#B3C2C8",
+            },
+            "headerIconColor": "#99ADB6",
+            "highlighted": "#E6EBED",
+            "hover": "#F2F5F6",
+            "light": Object {
+              "border": "#B3C2C8",
+              "headerBackground": "#CCD6DB",
+            },
+            "selected": "#D9E0E4",
+            "subRow": Object {
+              "background": "#FAFBFB",
+              "shadow": "rgba(0, 20, 29, 0.1)",
+            },
+            "transparentBase": Object {
+              "border": "#F2F5F6",
+              "headerBackground": "#F2F5F6",
+            },
+            "transparentWhite": Object {
+              "border": "#fff",
+              "headerBackground": "#fff",
+            },
+          },
+          "form": Object {
+            "invalid": "#F2F5F6",
+          },
+          "help": Object {
+            "color": "rgba(0,0,0,0.65)",
+            "hover": "rgba(0,0,0,0.9)",
+          },
+          "hr": Object {
+            "background": "#CCD6DB",
+          },
+          "icon": Object {
+            "default": "rgba(0,0,0,0.65)",
+            "defaultHover": "rgba(0,0,0,0.90)",
+            "disabled": "rgba(0,0,0,0.30)",
+            "onLightBackground": "#668592",
+            "onLightBackgroundHover": "#335C6D",
+          },
+          "menu": Object {
+            "dark": Object {
+              "divider": "#1A475B",
+              "selected": "#1A475B",
+              "submenuBackground": "#001A25",
+              "title": "#99ADB6",
+            },
+            "divider": "#E6EBED",
+            "focus": "#F2F5F6",
+            "itemColor": "rgba(0,0,0,0.9)",
+            "itemColorDisabled": "rgba(0,0,0,0.3)",
+            "light": Object {
+              "background": "#E6EBED",
+              "divider": "#CCD6DB",
+              "selected": "#D9E0E4",
+              "title": "#406677",
+            },
+          },
+          "name": "base",
+          "navigationBar": Object {
+            "dark": Object {
+              "background": "#003349",
+              "borderBottom": "#003349",
+            },
+            "light": Object {
+              "background": "#E6EBED",
+              "borderBottom": "#D9E0E4",
+            },
+          },
+          "note": Object {
+            "timeStamp": "rgba(0,0,0,0.65)",
+          },
+          "numeralDate": Object {
+            "error": "#C7384F",
+            "passive": "#668592",
+          },
+          "pager": Object {
+            "active": "rgba(0,0,0,0.90)",
+            "alternate": "#EDF1F2",
+            "disabled": "rgba(0,0,0,0.3)",
+          },
+          "palette": Object {
+            "amethyst": "#582C83",
+            "amethystShade": [Function],
+            "amethystTint": [Function],
+            "blackOpacity": [Function],
+            "brilliantGreen": "#00DC00",
+            "brilliantGreenShade": [Function],
+            "brilliantGreenTint": [Function],
+            "carrotOrange": "#E96400",
+            "carrotOrangeShade": [Function],
+            "carrotOrangeTint": [Function],
+            "errorRed": "#C7384F",
+            "errorRedShade": [Function],
+            "errorRedTint": [Function],
+            "genericGreen": "#009900",
+            "genericGreenShade": [Function],
+            "genericGreenTint": [Function],
+            "gold": "#FFB500",
+            "goldShade": [Function],
+            "goldTint": [Function],
+            "navyBlue": "#004B87",
+            "navyBlueShade": [Function],
+            "navyBlueTint": [Function],
+            "plum": "#8246AF",
+            "plumShade": [Function],
+            "plumTint": [Function],
+            "productBlue": "#0077C8",
+            "productBlueShade": [Function],
+            "productBlueTint": [Function],
+            "productGreen": "#00A376",
+            "productGreenShade": [Function],
+            "productGreenTint": [Function],
+            "slate": "#003349",
+            "slateShade": [Function],
+            "slateTint": [Function],
+            "whiteOpacity": [Function],
+          },
+          "pill": Object {
+            "errorButtonFocus": "#9F2D3F",
+            "neutral": "#4D7080",
+            "neutralBackgroundFocus": "#1A475B",
+            "warning": "#ED8333",
+            "warningButtonFocus": "#E96400",
+          },
+          "pod": Object {
+            "border": "#CCD6DB",
+            "footerBackground": "#F2F5F6",
+            "hoverBackground": "#D9E0E4",
+            "secondaryBackground": "#F2F5F6",
+            "tertiaryBackground": "#E6EBED",
+            "tileBackground": "#FFFFFF",
+          },
+          "popoverContainer": Object {
+            "iconColor": "rgba(0,0,0,0.90)",
+          },
+          "portrait": Object {
+            "background": "#F2F5F6",
+            "border": "#8099A4",
+            "initials": "rgba(0,0,0,0.65)",
+          },
+          "readOnly": Object {
+            "textboxBackground": "#FAFBFB",
+            "textboxBorder": "#CCD6DB",
+            "textboxText": "rgba(0,0,0,0.74)",
+          },
+          "scrollbar": Object {
+            "dark": Object {
+              "thumb": "#99ADB6",
+              "track": "#335C6D",
+            },
+            "light": Object {
+              "thumb": "#668592",
+              "track": "#F2F5F6",
+            },
+          },
+          "search": Object {
+            "active": "#FFB500",
+            "button": "#255BC7",
+            "darkVariantBorder": "#8CA3AD",
+            "darkVariantPlaceholder": "#8CA3AD",
+            "darkVariantText": "#FFFFFF",
+            "icon": "#8CA3AD",
+            "iconDarkVariant": "#8CA3AD",
+            "iconDarkVariantHover": "#BFCCD2",
+            "iconHover": "#335C6D",
+            "passive": "#738F9B",
+            "searchActive": "#668592",
+          },
+          "select": Object {
+            "border": "#bfccd2",
+            "optionHeader": "rgba(0,0,0,0.55)",
+            "selected": "#F2F5F6",
+            "tableHeaderBorder": "#CCD6DB",
+          },
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "space": Array [
+            0,
+            8,
+            16,
+            24,
+            32,
+            40,
+            48,
+            56,
+            64,
+            72,
+            80,
+          ],
+          "spacing": 8,
+          "switch": Object {
+            "off": "#CCD6DB",
+          },
+          "tab": Object {
+            "altHover": "#D9E0E4",
+            "background": "#CCD6DB",
+          },
+          "table": Object {
+            "dragging": "#E6EBED",
+            "header": "#335C6D",
+            "hover": "#E6EBED",
+            "primary": "#F2F5F6",
+            "secondary": "#CCD6DB",
+            "selected": "#D9E0E4",
+            "tertiary": "#1A475B",
+            "zebra": "#FAFBFB",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.55)",
+            "size": "14px",
+          },
+          "tile": Object {
+            "border": "#CCD6DB",
+            "footerBackground": "#F2F5F6",
+            "separator": "#E6EBED",
+          },
+          "tileSelect": Object {
+            "border": "#BFCCD2",
+            "descriptionColor": "rgba(0,0,0,0.55)",
+            "disabledBackground": "#E6EBED",
+            "disabledText": "rgba(0,0,0,0.3)",
+            "hoverBackground": "#F2F5F6",
+          },
+          "zIndex": Object {
+            "fullScreenModal": 5000,
+            "header": 4000,
+            "modal": 3000,
+            "notification": 6000,
+            "overlay": 1000,
+            "popover": 2000,
+            "smallOverlay": 10,
+          },
         }
       }
     >
-      <div
-        className="DayPicker-wrapper"
-        onKeyDown={[Function]}
+      <DayPicker
+        canChangeMonth={true}
+        captionElement={
+          <Caption
+            classNames={
+              Object {
+                "body": "DayPicker-Body",
+                "caption": "DayPicker-Caption",
+                "container": "DayPicker",
+                "day": "DayPicker-Day",
+                "disabled": "disabled",
+                "footer": "DayPicker-Footer",
+                "interactionDisabled": "DayPicker--interactionDisabled",
+                "month": "DayPicker-Month",
+                "navBar": "DayPicker-NavBar",
+                "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
+                "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
+                "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
+                "outside": "outside",
+                "selected": "selected",
+                "today": "today",
+                "todayButton": "DayPicker-TodayButton",
+                "week": "DayPicker-Week",
+                "weekNumber": "DayPicker-WeekNumber",
+                "weekday": "DayPicker-Weekday",
+                "weekdays": "DayPicker-Weekdays",
+                "weekdaysRow": "DayPicker-WeekdaysRow",
+                "wrapper": "DayPicker-wrapper",
+              }
+            }
+          />
+        }
+        classNames={
+          Object {
+            "body": "DayPicker-Body",
+            "caption": "DayPicker-Caption",
+            "container": "DayPicker",
+            "day": "DayPicker-Day",
+            "disabled": "disabled",
+            "footer": "DayPicker-Footer",
+            "interactionDisabled": "DayPicker--interactionDisabled",
+            "month": "DayPicker-Month",
+            "navBar": "DayPicker-NavBar",
+            "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
+            "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
+            "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
+            "outside": "outside",
+            "selected": "selected",
+            "today": "today",
+            "todayButton": "DayPicker-TodayButton",
+            "week": "DayPicker-Week",
+            "weekNumber": "DayPicker-WeekNumber",
+            "weekday": "DayPicker-Weekday",
+            "weekdays": "DayPicker-Weekdays",
+            "weekdaysRow": "DayPicker-WeekdaysRow",
+            "wrapper": "DayPicker-wrapper",
+          }
+        }
+        disabledDays={null}
+        enableOutsideDays={true}
+        fixedWeeks={true}
+        initialMonth={2019-04-01T00:00:00.000Z}
+        inline={true}
+        labels={
+          Object {
+            "nextMonth": "Next Month",
+            "previousMonth": "Previous Month",
+          }
+        }
+        locale="fr"
+        localeUtils={
+          Object {
+            "formatDay": [Function],
+            "formatMonthTitle": [Function],
+            "formatWeekdayLong": [Function],
+            "formatWeekdayShort": [Function],
+            "getFirstDayOfWeek": [Function],
+            "getMonths": [Function],
+          }
+        }
+        navbarElement={<Navbar />}
+        numberOfMonths={1}
+        onDayClick={[Function]}
+        pagedNavigation={false}
+        renderDay={[Function]}
+        reverseMonths={false}
+        selectedDays={2019-04-01T00:00:00.000Z}
+        showWeekNumbers={false}
         tabIndex={0}
-      >
-        <div
-          className="c1 DayPicker-NavBar"
-        >
-          <button
-            className="c2"
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="c3"
-              data-component="icon"
-              data-element="chevron_left"
-              disabled={false}
-              fontSize="small"
-              type="chevron_left"
-            />
-          </button>
-          <button
-            className="c2"
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="c4"
-              data-component="icon"
-              data-element="chevron_right"
-              disabled={false}
-              fontSize="small"
-              type="chevron_right"
-            />
-          </button>
-        </div>
-        <div
-          className="DayPicker-Month"
-          role="grid"
-        >
-          <div
-            className="DayPicker-Caption"
-            role="heading"
-          >
-            <div>
-              avril 2019
-            </div>
-          </div>
-          <div
-            className="DayPicker-Weekdays"
-            role="rowgroup"
-          >
-            <div
-              className="DayPicker-WeekdaysRow"
-              role="row"
-            >
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="lundi"
-                >
-                  lu
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="mardi"
-                >
-                  ma
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="mercredi"
-                >
-                  me
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="jeudi"
-                >
-                  je
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="vendredi"
-                >
-                  ve
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="samedi"
-                >
-                  sa
-                </abbr>
-              </div>
-              <div
-                className="c5 DayPicker-Weekday"
-                role="columnheader"
-              >
-                <abbr
-                  className="c6"
-                  title="dimanche"
-                >
-                  di
-                </abbr>
-              </div>
-            </div>
-          </div>
-          <div
-            className="DayPicker-Body"
-            role="rowgroup"
-          >
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={false}
-                aria-label="lun. 1 avr. 2019"
-                aria-selected={true}
-                className="DayPicker-Day DayPicker-Day--selected"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={0}
-              >
-                1
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mar. 2 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                2
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mer. 3 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--today"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                3
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="jeu. 4 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                4
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="ven. 5 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                5
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="sam. 6 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                6
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="dim. 7 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                7
-              </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={false}
-                aria-label="lun. 8 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                8
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mar. 9 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                9
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mer. 10 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                10
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="jeu. 11 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                11
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="ven. 12 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                12
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="sam. 13 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                13
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="dim. 14 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                14
-              </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={false}
-                aria-label="lun. 15 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                15
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mar. 16 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                16
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mer. 17 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                17
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="jeu. 18 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                18
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="ven. 19 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                19
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="sam. 20 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                20
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="dim. 21 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                21
-              </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={false}
-                aria-label="lun. 22 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                22
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mar. 23 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                23
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mer. 24 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                24
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="jeu. 25 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                25
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="ven. 26 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                26
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="sam. 27 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                27
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="dim. 28 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                28
-              </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={false}
-                aria-label="lun. 29 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                29
-              </div>
-              <div
-                aria-disabled={false}
-                aria-label="mar. 30 avr. 2019"
-                aria-selected={false}
-                className="DayPicker-Day"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                30
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="mer. 1 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                1
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="jeu. 2 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                2
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="ven. 3 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                3
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="sam. 4 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                4
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="dim. 5 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                5
-              </div>
-            </div>
-            <div
-              className="DayPicker-Week"
-              role="row"
-            >
-              <div
-                aria-disabled={true}
-                aria-label="lun. 6 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                6
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="mar. 7 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                7
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="mer. 8 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                8
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="jeu. 9 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                9
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="ven. 10 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                10
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="sam. 11 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                11
-              </div>
-              <div
-                aria-disabled={true}
-                aria-label="dim. 12 mai 2019"
-                aria-selected={false}
-                className="DayPicker-Day DayPicker-Day--outside"
-                onClick={[Function]}
-                onKeyDown={[Function]}
-                role="gridcell"
-                tabIndex={-1}
-              >
-                12
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        weekdayElement={[Function]}
+      />
+    </styled.div>
+  </styled.div>
+</Popover>
 `;
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
