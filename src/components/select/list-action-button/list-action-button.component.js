@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import StyledListActionButtonWrapper from "./list-action-button.style";
 import Button from "../../button";
+import useTranslation from "../../../hooks/__internal__/useTranslation";
 
 const ListActionButton = React.forwardRef(
   ({ listActionButton, onListAction }, ref) => {
-    const listActionButtonDefaultText = I18n.t("select.action_button_text", {
+    const t = useTranslation();
+    const listActionButtonDefaultText = t("select.action_button_text", {
       defaultValue: "Add New Item",
     });
 

@@ -10,6 +10,15 @@ import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import Button from "../../button";
 import Label from "../../../__experimental__/components/label";
+import I18next from "../../../__spec_helper__/I18next";
+
+const RenderWrapper = React.forwardRef(({ ...props }, ref) => {
+  return (
+    <I18next>
+      <FilterableSelect {...props} ref={ref} />
+    </I18next>
+  );
+});
 
 describe("FilterableSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -27,12 +36,12 @@ describe("FilterableSelect", () => {
       mockRef = useRef();
 
       return (
-        <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+        <RenderWrapper name="testSelect" id="testSelect" ref={mockRef}>
           <Option value="opt1" text="red" />
           <Option value="opt2" text="green" />
           <Option value="opt3" text="blue" />
           <Option value="opt4" text="black" />
-        </FilterableSelect>
+        </RenderWrapper>
       );
     };
 
@@ -51,13 +60,9 @@ describe("FilterableSelect", () => {
     describe("without available matching option", () => {
       it("then the formatted value should be set to corresponding option text when it's available", () => {
         const wrapper = mount(
-          <FilterableSelect
-            name="testSelect"
-            id="testSelect"
-            defaultValue="opt2"
-          >
+          <RenderWrapper name="testSelect" id="testSelect" defaultValue="opt2">
             <Option value="opt1" text="blue" key="blue" />
-          </FilterableSelect>
+          </RenderWrapper>
         );
 
         wrapper.setProps({
@@ -863,11 +868,11 @@ function renderSelect(props = {}, renderer = mount) {
 
 function getSelect(props) {
   return (
-    <FilterableSelect name="testSelect" id="testSelect" {...props}>
+    <RenderWrapper name="testSelect" id="testSelect" {...props}>
       <Option value="opt1" text="red" />
       <Option value="opt2" text="green" />
       <Option value="opt3" text="blue" />
       <Option value="opt4" text="black" />
-    </FilterableSelect>
+    </RenderWrapper>
   );
 }

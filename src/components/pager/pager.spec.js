@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import I18n from "i18n-js";
+import i18n from "i18next";
 import guid from "../../utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
@@ -14,9 +15,26 @@ import {
   StyledPagerSummary,
 } from "./pager.style";
 import NumberInput from "../../__experimental__/components/number";
+import I18next from "../../__spec_helper__/I18next";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
+
+function RenderWrapper({ lng, ...props }) {
+  return (
+    <I18next lng={lng}>
+      <Pager {...props} />
+    </I18next>
+  );
+}
+
+RenderWrapper.defaultProps = {
+  lng: "en",
+};
+
+RenderWrapper.propTypes = {
+  lng: PropTypes.string,
+};
 
 const pageSizeSelectionOptions = [
   { id: "10", name: 10 },
@@ -26,7 +44,7 @@ const pageSizeSelectionOptions = [
 ];
 
 function render(props = {}, renderType = mount) {
-  return renderType(<Pager onPagination={jest.fn()} {...props} />);
+  return renderType(<RenderWrapper onPagination={jest.fn()} {...props} />);
 }
 
 describe("Pager", () => {
@@ -359,28 +377,15 @@ describe("Pager", () => {
   });
 
   describe("i18n", () => {
-    const { translations } = I18n;
-    const { locale } = I18n.locale;
     beforeAll(() => {
-      I18n.translations = {
-        ...translations,
-        fr: {
-          ...translations.fr,
-          pager: {
-            show: "Spectacle",
-            records: {
-              one: "article",
-              zero: "articles",
-              other: "articles",
-            },
-          },
+      i18n.addResourceBundle("fr", "carbon", {
+        pager: {
+          show: "Spectacle",
+          records_0: "articles",
+          records: "article",
+          records_plural: "articles",
         },
-      };
-    });
-
-    afterAll(() => {
-      I18n.translations = translations;
-      I18n.locale = locale;
+      });
     });
 
     const getShow = (wrapper) =>
@@ -418,35 +423,33 @@ describe("Pager", () => {
     });
 
     describe("fr", () => {
-      beforeAll(() => {
-        I18n.locale = "fr";
-      });
-
       it("show", () => {
-        const wrapper = render({ ...props });
+        const wrapper = render({ ...props, lng: "fr" });
         expect(getShow(wrapper)).toBe("Spectacle");
       });
 
       it("records", () => {
-        expect(getRecords(render({ ...props, pageSize: "100" }))).toBe(
-          "articles"
+        expect(
+          getRecords(render({ ...props, pageSize: "100", lng: "fr" }))
+        ).toBe("articles");
+        expect(getRecords(render({ ...props, pageSize: "1", lng: "fr" }))).toBe(
+          "article"
         );
-        expect(getRecords(render({ ...props, pageSize: "1" }))).toBe("article");
-        expect(getRecords(render({ ...props, pageSize: "0" }))).toBe(
+        expect(getRecords(render({ ...props, pageSize: "0", lng: "fr" }))).toBe(
           "articles"
         );
       });
 
       it("total records", () => {
-        expect(getTotalRecords(render({ ...props, totalRecords: 100 }))).toBe(
-          "100 articles"
-        );
-        expect(getTotalRecords(render({ ...props, totalRecords: 1 }))).toBe(
-          "1 article"
-        );
-        expect(getTotalRecords(render({ ...props, totalRecords: 0 }))).toBe(
-          "0 articles"
-        );
+        expect(
+          getTotalRecords(render({ ...props, totalRecords: 100, lng: "fr" }))
+        ).toBe("100 articles");
+        expect(
+          getTotalRecords(render({ ...props, totalRecords: 1, lng: "fr" }))
+        ).toBe("1 article");
+        expect(
+          getTotalRecords(render({ ...props, totalRecords: 0, lng: "fr" }))
+        ).toBe("0 articles");
       });
     });
   });
