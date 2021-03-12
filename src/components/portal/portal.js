@@ -43,9 +43,7 @@ const Portal = ({ children, className, id, onReposition }) => {
     if (!node && id !== undefined && document.getElementById(id)) {
       node = document.getElementById(id);
       setPortalNode(node);
-    }
-
-    if (!node || (id !== undefined && !document.getElementById(id))) {
+    } else if (!node) {
       node = document.createElement("div");
       node.classList.add(portalClassName);
       node.setAttribute("data-portal-exit", uniqueId);
