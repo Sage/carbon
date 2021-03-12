@@ -4,6 +4,7 @@ import {
   StyledTabTitle,
   StyledTitleContent,
   StyledLayoutWrapper,
+  StyledSelectedIndicator,
 } from "./tab-title.style";
 import tagComponent from "../../../../utils/helpers/tags/tags";
 import ValidationIcon from "../../../validations/validation-icon.component";
@@ -42,6 +43,8 @@ const TabTitle = React.forwardRef(
   ) => {
     const keys = useRef([]);
     const isHref = !!href;
+    const hasAlternateStyling = alternateStyling || isInSidebar;
+    const hasFailedValidation = error || warning || info;
 
     if (siblings && !keys.current.length) {
       siblings.forEach(() => keys.current.push(createGuid()));
@@ -143,7 +146,7 @@ const TabTitle = React.forwardRef(
           hasSiblings={!!siblings}
           isTabSelected={isTabSelected}
           hasCustomLayout={!!customLayout}
-          alternateStyling={alternateStyling || isInSidebar}
+          alternateStyling={hasAlternateStyling}
         >
           {renderContent()}
           {isHref && <Icon type="link" />}
@@ -174,6 +177,13 @@ const TabTitle = React.forwardRef(
             )}
           </StyledLayoutWrapper>
         </StyledTitleContent>
+        {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
+          <StyledSelectedIndicator
+            data-element="tab-selected-indicator"
+            position={position}
+            size={size}
+          />
+        )}
       </StyledTabTitle>
     );
   }

@@ -27,6 +27,7 @@ const StyledTabsHeaderWrapper = styled.div`
       css`
         width: 100%;
         margin: auto;
+        padding: 0px;
       `}
     `}
 `;
