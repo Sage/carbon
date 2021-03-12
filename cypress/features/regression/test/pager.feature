@@ -24,13 +24,12 @@ Feature: Pager component
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
     When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "<nameOfObject>" object name
-    Then totalRecords is set to "<totalRecords>" items
+    Then totalRecords is set to "<totalRecords>" <itemCount>
       And I am on 1st of "1" pages
     Examples:
-      | totalRecords | nameOfObject     |
-      | -1           | totalRecords-1   |
-      | -10          | totalRecords-10  |
-      | -100         | totalRecords-100 |
+      | totalRecords | nameOfObject     | itemCount |
+      | -1           | totalRecords-1   | item      |
+      | -10          | totalRecords-10  | items     |
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>

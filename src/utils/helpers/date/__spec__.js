@@ -1,18 +1,25 @@
-import I18n from "i18n-js";
+import i18n from "i18next";
 import moment from "moment";
 import DateHelper from "./date";
+import "../../../__spec_helper__/I18next";
+
+i18n.addResourceBundle("en", "carbon", {
+  date: {
+    formats: {
+      inputs: ["DD/MM/YYYY"],
+    },
+  },
+});
+i18n.addResourceBundle("en-US", "carbon", {
+  date: {
+    formats: {
+      inputs: ["MM/DD/YYYY"],
+    },
+  },
+});
 
 describe("DateHelper", () => {
   beforeEach(() => {
-    I18n.translations = {
-      en: {
-        date: { formats: { inputs: ["DD/MM/YYYY"] } },
-      },
-
-      us: {
-        date: { formats: { inputs: ["MM/DD/YYYY"] } },
-      },
-    };
     moment.updateLocale("us", { parentLocale: "en" });
   });
 
@@ -62,10 +69,10 @@ describe("DateHelper", () => {
 
       describe("locale", () => {
         beforeAll(() => {
-          I18n.locale = "us";
+          i18n.changeLanguage("en-US");
         });
         afterAll(() => {
-          I18n.locale = "en";
+          i18n.changeLanguage("en-EN");
         });
 
         it("overrides the default i18n locale", () => {

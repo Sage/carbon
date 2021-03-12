@@ -5,14 +5,13 @@ import i18n from "i18next";
 import I18nProvider from "../components/I18nProvider";
 
 i18n.use(initReactI18next).init({
-  lng: "en",
-  fallbackLng: "en",
+  lng: "en-EN",
+  fallbackLng: "en-EN",
   ns: ["app", "carbon"],
   defaultNS: "app",
   interpolation: {
     escapeValue: false,
   },
-  resources: { en: { translations: {} } },
 });
 
 const I18next = ({ children, lng }) => {

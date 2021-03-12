@@ -1,5 +1,4 @@
 import React from "react";
-import I18n from "i18n-js";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import Dialog from "../dialog";
@@ -7,6 +6,7 @@ import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
 import Icon from "../icon";
 import Loader from "../loader";
+import I18n from "../../__internal__/i18n";
 
 class Confirm extends Dialog {
   // ** Returns main classes for the component combined with dialog main classes. */
@@ -41,7 +41,9 @@ class Confirm extends Dialog {
         destructive={this.props.destructive}
         disabled={this.props.disableCancel}
       >
-        {this.props.cancelLabel || I18n.t("confirm.no", { defaultValue: "No" })}
+        {this.props.cancelLabel || (
+          <I18n params={["confirm.no", { defaultValue: "No" }]} />
+        )}
       </Button>
     );
   }
@@ -59,8 +61,9 @@ class Confirm extends Dialog {
         {this.props.isLoadingConfirm ? (
           <Loader isInsideButton isActive />
         ) : (
-          this.props.confirmLabel ||
-          I18n.t("confirm.yes", { defaultValue: "Yes" })
+          this.props.confirmLabel || (
+            <I18n params={["confirm.yes", { defaultValue: "Yes" }]} />
+          )
         )}
       </Button>
     );

@@ -5,6 +5,15 @@ import { StyledPagerLinkStyles, StyledPagerNavInner } from "../pager.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
 import StyledInput from "../../../__experimental__/components/input/input.style";
+import I18next from "../../../__spec_helper__/I18next";
+
+function RenderWrapper({ ...props }) {
+  return (
+    <I18next>
+      <PagerNavigation {...props} />
+    </I18next>
+  );
+}
 
 const pageSizeSelectionOptions = [
   { id: "10", name: 10 },
@@ -14,7 +23,7 @@ const pageSizeSelectionOptions = [
 
 function render(props = {}, renderType = shallow) {
   props.setCurrentThemeName = () => {};
-  return renderType(<PagerNavigation {...props} />);
+  return renderType(<RenderWrapper {...props} />);
 }
 
 describe("Pager Navigation", () => {
