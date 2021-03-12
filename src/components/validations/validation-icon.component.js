@@ -26,6 +26,7 @@ const ValidationIcon = ({
   tabIndex,
   onClick,
   tooltipPosition,
+  tooltipFlipOverrides,
 }) => {
   const { hasFocus, hasMouseOver } = useContext(InputContext);
   const {
@@ -67,6 +68,11 @@ const ValidationIcon = ({
           groupHasMouseOver ||
           triggeredByIcon
         }
+        tooltipFlipOverrides={
+          isPartOfInput && !tooltipFlipOverrides
+            ? ["top", "bottom"]
+            : tooltipFlipOverrides
+        }
         isPartOfInput={isPartOfInput}
         inputSize={size}
       />
@@ -81,6 +87,22 @@ ValidationIcon.propTypes = {
   iconId: PropTypes.string,
   /** Define position of the tooltip */
   tooltipPosition: PropTypes.string,
+  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
+  tooltipFlipOverrides: (props, propName, componentName) => {
+    const prop = props[propName];
+    const isValid =
+      prop &&
+      Array.isArray(prop) &&
+      prop.every((placement) => OptionsHelper.positions.includes(placement));
+
+    if (!prop || isValid) {
+      return null;
+    }
+    return new Error(
+      // eslint-disable-next-line max-len
+      `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
+    );
+  },
   /** An onClick handler */
   onClick: PropTypes.func,
   /** A boolean to indicate if the icon is part of an input */

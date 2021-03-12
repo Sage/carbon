@@ -197,6 +197,31 @@ describe("Help", () => {
       document.body.removeChild(domNode);
     });
   });
+
+  describe("tooltipFlipOverrides", () => {
+    it("does not throw an error if a valid array is passed", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      renderHelp(
+        { type: "home", tooltipFlipOverrides: ["top", "bottom"] },
+        mount
+      );
+
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
+      global.console.error.mockReset();
+    });
+
+    it("throws an error if a invalid array is passed", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      renderHelp({ type: "home", tooltipFlipOverrides: ["foo", "bar"] }, mount);
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalled();
+      global.console.error.mockReset();
+    });
+  });
 });
 
 function renderHelp(props, renderer = shallow) {

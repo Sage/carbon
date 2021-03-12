@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Positions } from "../../utils/helpers/options-helper";
 
 export interface TooltipProps {
     /** The message to be displayed within the tooltip */
@@ -8,7 +9,7 @@ export interface TooltipProps {
     /** Whether to to show the Tooltip */
     isVisible?: boolean;
     /** Sets position of the tooltip */
-    position?: 'top' | 'bottom' | 'left' | 'right';
+    position?: Positions;
     /** Defines the message type */
     type?: string;
     /** Children elements */
@@ -19,6 +20,7 @@ export interface TooltipProps {
     inputSize?: 'small' | 'medium' | 'large';
     bgColor?: string;
     fontColor?: string;
+    flipOverrides?: Positions[];
 }
 
 declare const Tooltip: React.FunctionComponent<TooltipProps>;

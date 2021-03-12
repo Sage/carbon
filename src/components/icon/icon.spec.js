@@ -177,16 +177,31 @@ describe("Icon component", () => {
 
     const wrongColors = ["rgb(0,0)", "#ff", "test"];
     describe.each(wrongColors)("when wrong color prop is provided", (color) => {
+      beforeEach(() => {
+        jest.spyOn(global.console, "error").mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        global.console.error.mockReset();
+      });
+
       it("throws an error", () => {
-        jest.spyOn(global.console, "error");
         mount(<Icon color={color} type="message" />);
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalled();
       });
     });
+
     describe.each(wrongColors)("when wrong bg prop is provided", (color) => {
+      beforeEach(() => {
+        jest.spyOn(global.console, "error").mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        global.console.error.mockReset();
+      });
+
       it("throws an error", () => {
-        jest.spyOn(global.console, "error");
         mount(<Icon bg={color} type="message" />);
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalled();
@@ -498,6 +513,41 @@ describe("Icon component", () => {
       );
 
       expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
+    });
+
+    describe("tooltipFlipOverrides", () => {
+      it("does not throw an error if a valid array is passed", () => {
+        global.console.error.mockReset();
+
+        jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+        mount(
+          <Icon
+            type="home"
+            tooltipMessage="foo"
+            tooltipFlipOverrides={["top", "bottom"]}
+          />
+        );
+
+        // eslint-disable-next-line no-console
+        expect(console.error).not.toHaveBeenCalled();
+        global.console.error.mockReset();
+      });
+
+      it("throws an error if a invalid array is passed", () => {
+        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        mount(
+          <Icon
+            type="home"
+            tooltipMessage="foo"
+            tooltipFlipOverrides={["foo", "bar"]}
+          />
+        );
+
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+        global.console.error.mockReset();
+      });
     });
   });
 });

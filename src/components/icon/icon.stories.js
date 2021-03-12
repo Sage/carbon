@@ -20,14 +20,33 @@ export default {
 const commonKnobs = () => {
   const tooltipMessage = text("tooltipMessage", "");
 
+  const tooltipPosition = tooltipMessage
+    ? select("position", OptionsHelper.positions, "top")
+    : undefined;
+
+  const isVertical = ["top", "bottom"].includes(tooltipPosition);
+  const enableFlipOverrides = tooltipMessage
+    ? boolean("enable flip overrides", false)
+    : undefined;
+
   return {
     tooltipMessage,
     type: select("type", OptionsHelper.icons, "add"),
-    tooltipPosition: tooltipMessage
-      ? select("tooltipPosition", OptionsHelper.positions, "top")
+    tooltipPosition,
+    tooltipBgColor: tooltipMessage
+      ? text("tooltipBgColor", undefined)
       : undefined,
-    tooltipBgColor: text("tooltipBgColor", undefined),
-    tooltipFontColor: text("tooltipFontColor", undefined),
+    tooltipFontColor: tooltipMessage
+      ? text("tooltipFontColor", undefined)
+      : undefined,
+    tooltipFlipOverrides:
+      tooltipMessage && enableFlipOverrides
+        ? select(
+            "tooltipFlipOverrides",
+            isVertical ? ["left", "right"] : ["top", "bottom"],
+            isVertical ? "right" : "bottom"
+          )
+        : undefined,
   };
 };
 
@@ -69,7 +88,21 @@ export const Default = () => {
 
   if (knobs.iconColor === "on-dark-background") knobs.bgTheme = "info";
 
-  return <Icon {...commonKnobs()} {...knobs} />;
+  const { tooltipFlipOverrides } = commonKnobs();
+
+  const flipOverrides = tooltipFlipOverrides
+    ? [tooltipFlipOverrides]
+    : undefined;
+
+  return (
+    <div style={{ margin: 100 }}>
+      <Icon
+        {...commonKnobs()}
+        {...knobs}
+        tooltipFlipOverrides={flipOverrides}
+      />
+    </div>
+  );
 };
 
 export const All = () => (

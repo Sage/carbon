@@ -18,23 +18,35 @@ export default {
 };
 
 const props = () => {
+  const position = select("position", OptionsHelper.positions, "top");
+  const isVertical = ["top", "bottom"].includes(position);
+  const enableFlipOverrides = boolean("enable flip overrides", false);
+
   return {
     isVisible: boolean("isVisible", true),
     message: text(
       "message",
       "I'm a helpful tooltip that can display additional information to a user."
     ),
-    position: select("position", OptionsHelper.positions, "top"),
+    position,
     type: select("type", ["error", "default"], "default"),
     size: select("size", ["medium", "large"], "medium"),
     bgColor: text("bgColor", undefined),
     fontColor: text("fontColor", undefined),
+    flipOverrides: enableFlipOverrides
+      ? select(
+          "flipOverrides",
+          isVertical ? ["left", "right"] : ["top", "bottom"]
+        )
+      : undefined,
   };
 };
 
 export const Default = () => {
   const { isVisible } = props();
   const [stateVisible, setStateVisible] = useState(undefined);
+
+  const { flipOverrides } = props();
 
   return (
     <div
@@ -45,7 +57,11 @@ export const Default = () => {
         overflow: "auto",
       }}
     >
-      <Tooltip {...props()} isVisible={stateVisible || isVisible}>
+      <Tooltip
+        {...props()}
+        flipOverrides={flipOverrides ? [flipOverrides] : undefined}
+        isVisible={stateVisible || isVisible}
+      >
         <div
           // eslint-disable-next-line
           tabIndex="0"
