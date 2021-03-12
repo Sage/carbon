@@ -15,6 +15,7 @@ import TextArea from "../../../__experimental__/components/textarea";
 import TextBox from "../../../__experimental__/components/textbox";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import tableSizes from "../table-sizes.style.js";
+import "../../../__spec_helper__/I18next";
 
 describe("TableCell", () => {
   let wrapper, td;

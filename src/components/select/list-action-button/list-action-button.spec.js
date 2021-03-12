@@ -1,8 +1,17 @@
 import React, { useRef } from "react";
 import TestRenderer from "react-test-renderer";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import ListActionButton from "./list-action-button.component";
 import Button from "../../button";
+import I18next from "../../../__spec_helper__/I18next";
+
+const RenderWrapper = React.forwardRef(({ ...props }, ref) => {
+  return (
+    <I18next>
+      <ListActionButton {...props} ref={ref} />
+    </I18next>
+  );
+});
 
 describe("Option", () => {
   it("renders properly", () => {
@@ -17,7 +26,7 @@ describe("Option", () => {
       mockRef = useRef();
 
       return (
-        <ListActionButton
+        <RenderWrapper
           listActionButton
           onListAction={defaultAction}
           ref={mockRef}
@@ -50,14 +59,14 @@ describe("Option", () => {
     describe("and that button has been clicked", () => {
       it("then the onListAction prop should have been called", () => {
         onListActionFn.mockClear();
-        wrapper.find('[data-element="test-button"]').simulate("click");
+        wrapper.find('[data-element="test-button"]').at(0).simulate("click");
         expect(onListActionFn).toHaveBeenCalled();
       });
     });
   });
 });
 
-function renderListActionButton(props, renderer = shallow) {
+function renderListActionButton(props, renderer = mount) {
   let { onListAction } = props;
   const defaultAction = () => {};
 
@@ -65,5 +74,5 @@ function renderListActionButton(props, renderer = shallow) {
     onListAction = defaultAction;
   }
 
-  return renderer(<ListActionButton onListAction={onListAction} {...props} />);
+  return renderer(<RenderWrapper onListAction={onListAction} {...props} />);
 }
