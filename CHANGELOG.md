@@ -1,3 +1,10 @@
+## [68.3.0](https://github.com/Sage/carbon/compare/v68.2.0...v68.3.0) (2021-03-12)
+
+
+### Features
+
+* **link:** add isSkipLink prop ([cfefb6f](https://github.com/Sage/carbon/commit/cfefb6fd584e9aefb1abc4cdf4de84ed867bbe8a))
+
 ## [68.2.0](https://github.com/Sage/carbon/compare/v68.1.1...v68.2.0) (2021-03-12)
 
 
