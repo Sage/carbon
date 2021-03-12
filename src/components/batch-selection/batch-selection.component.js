@@ -1,10 +1,10 @@
 import React from "react";
-import I18n from "i18n-js";
 import PropTypes from "prop-types";
 import {
   StyledBatchSelection,
   StyledSelectionCount,
 } from "./batch-selection.style";
+import useTranslation from "../../hooks/__internal__/useTranslation";
 
 const BatchSelection = ({
   disabled,
@@ -13,10 +13,10 @@ const BatchSelection = ({
   selectedCount,
   hidden,
 }) => {
+  const t = useTranslation();
   const getTextForCount = (count) =>
-    I18n.t("batch_selection.selected", {
+    t("batch_selection.selected", "selected", {
       count: Number(count),
-      defaultValue: "selected",
     });
 
   return (

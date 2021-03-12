@@ -697,13 +697,12 @@ describe("Table", () => {
       expect(spy).toHaveBeenCalledWith("pager", options);
     });
 
-    // TODO: FE-3804 not able to test the instance if we have to wrap in the i18n provider
-    xdescribe("if an onPageSizeChange callback was passed", () => {
+    describe("if an onPageSizeChange callback was passed", () => {
       let callbackSpy, instanceCallBack;
 
       beforeEach(() => {
         callbackSpy = jasmine.createSpy();
-        instanceCallBack = TestUtils.renderIntoDocument(
+        instanceCallBack = mount(
           <Table
             className="foo"
             paginate
@@ -714,8 +713,11 @@ describe("Table", () => {
             onChange={spy}
           >
             <TableRow />
-          </Table>
-        );
+          </Table>,
+          {
+            wrappingComponent: I18next,
+          }
+        ).instance();
       });
 
       it("runs the callback with the new page size", () => {

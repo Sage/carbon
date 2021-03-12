@@ -11,6 +11,7 @@ import {
 } from "../../../utils/helpers/tags/tags-specs";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
+import "../../../__spec_helper__/I18next";
 
 jest.useFakeTimers();
 

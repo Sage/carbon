@@ -13,11 +13,11 @@ import StyledTable from "../table.style";
 import StyledIcon from "../../icon/icon.style";
 import { Checkbox } from "../../../__experimental__/components/checkbox";
 import { baseTheme } from "../../../style/themes";
+import I18next from "../../../__spec_helper__/I18next";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
-import I18next from "../../../__spec_helper__/I18next";
 import { DraggableContext, WithDrop } from "../../drag-and-drop";
 import { ActionPopover, ActionPopoverItem } from "../../action-popover";
 import { MenuButton } from "../../action-popover/action-popover.style";

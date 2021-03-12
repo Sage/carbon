@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
+import i18n from "i18next";
 import "react-day-picker/lib/style.css";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
@@ -58,15 +58,18 @@ const DatePicker = ({
     fixedWeeks: true,
     initialMonth: selectedDate || undefined,
     inline: true,
-    locale: I18n.locale,
+    locale: i18n.language,
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: handleDayClick,
     selectedDays: selectedDate || undefined,
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
-      const weekdayLong = localeUtils.formatWeekdayLong(weekday, I18n.locale);
-      const weekdayShort = localeUtils.formatWeekdayShort(weekday, I18n.locale);
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday, i18n.language);
+      const weekdayShort = localeUtils.formatWeekdayShort(
+        weekday,
+        i18n.language
+      );
 
       return (
         <Weekday className={className} title={weekdayLong}>

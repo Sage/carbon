@@ -1,4 +1,4 @@
-import I18n from "i18n-js";
+import i18n from "i18next";
 import moment from "moment";
 import MockDate from "mockdate";
 import React from "react";
@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import DayPicker from "react-day-picker";
 
+import I18next from "../../../__spec_helper__/I18next";
 import Portal from "../../../components/portal/portal";
 import DatePicker from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";
@@ -244,13 +245,14 @@ describe("StyledDayPicker", () => {
   });
 
   describe("i18n", () => {
-    const { locale } = I18n;
+    const locale = i18n.language;
+
     beforeAll(() => {
-      I18n.locale = "fr";
+      i18n.changeLanguage("fr");
     });
 
     afterAll(() => {
-      I18n.locale = locale;
+      i18n.changeLanguage(locale);
     });
 
     describe("translation", () => {
@@ -269,8 +271,14 @@ describe("StyledDayPicker", () => {
   });
 });
 
+const RenderWrapper = (props) => (
+  <I18next>
+    <DatePicker {...props} />
+  </I18next>
+);
+
 function render(props, renderer = shallow) {
-  return renderer(<DatePicker {...props} />);
+  return renderer(<RenderWrapper {...props} />);
 }
 
 function renderStyledDayPicker(props) {
