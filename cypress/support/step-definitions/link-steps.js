@@ -1,4 +1,9 @@
-import { linkPreview, linkChildren, linkIcon } from "../../locators/link";
+import {
+  linkPreview,
+  linkChildren,
+  linkIcon,
+  skipLink,
+} from "../../locators/link";
 
 Then("children on preview is {word}", (children) => {
   linkChildren().should("have.text", children);
@@ -40,4 +45,17 @@ Then("Link is tabbable", () => {
 
 Then("Link is not tabbable", () => {
   linkPreview().children().should("have.attr", "tabindex", "-1");
+});
+
+Then("Skip link is visible", () => {
+  skipLink()
+    .should("be.visible")
+    .and("have.css", "background-color", "rgb(255, 255, 255)")
+    .and("have.css", "font-size", "16px")
+    .and("have.css", "padding-left", "24px")
+    .and("have.css", "padding-right", "24px");
+});
+
+Then("Skip link is not visible", () => {
+  skipLink().should("not.have.css", "background-color", "rgb(255, 255, 255)");
 });

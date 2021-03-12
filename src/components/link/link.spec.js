@@ -7,6 +7,7 @@ import LinkStyle from "./link.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
+import { baseTheme } from "../../style/themes";
 
 function renderLink(props, renderer = mount) {
   return renderer(<Link {...props}>Link Component</Link>);
@@ -25,6 +26,47 @@ describe("Link", () => {
 
   it("renders as expected", () => {
     expect(render()).toMatchSnapshot();
+  });
+
+  describe("If `isSkipLink` provided", () => {
+    const skipLinkWrapper = mount(
+      <Link href="#test" isSkipLink>
+        Test Content
+      </Link>
+    );
+
+    it("should render `Skip to main content` text inside of Link", () => {
+      expect(skipLinkWrapper.text()).toBe("Skip to main content");
+    });
+
+    it("should render correct designs", () => {
+      assertStyleMatch(
+        {
+          position: "absolute",
+          paddingLeft: "24px",
+          paddingRight: "24px",
+          lineHeight: "36px",
+          fontSize: "16px",
+          left: "-999em",
+          textColor: baseTheme.colors.text,
+          zIndex: `${baseTheme.zIndex.aboveAll}`,
+          boxShadow: `inset 0 0 0 2px ${baseTheme.colors.primary}`,
+          border: `2px solid ${baseTheme.colors.white}`,
+        },
+        skipLinkWrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          top: "8px",
+          left: "8px",
+          textColors: baseTheme.colors.text,
+        },
+        skipLinkWrapper,
+        { modifier: "a:focus" }
+      );
+    });
   });
 
   describe("The `disabled` prop", () => {

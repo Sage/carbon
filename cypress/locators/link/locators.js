@@ -1,4 +1,3 @@
 // component preview locators
-const LINK_PREVIEW = '[data-component="link"]';
-
-export default LINK_PREVIEW;
+export const LINK_PREVIEW = '[data-component="link"]';
+export const SKIP_LINK = '[data-element="skip-link"]';
