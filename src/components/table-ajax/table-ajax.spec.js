@@ -11,17 +11,8 @@ import Pager from "../pager";
 
 jest.mock("superagent");
 
-function RenderWrapper({ ...props }) {
-  return (
-    <I18next>
-      <TableAjax {...props} />
-    </I18next>
-  );
-}
-
 describe("TableAjax", () => {
-  // TODO: FE-3804 not able to test the instance if we have to wrap in the i18n provider
-  xdescribe("instance", () => {
+  describe("instance", () => {
     let wrapper,
       customInstanceWrapper,
       pageSizeInstanceWrapper,
@@ -34,19 +25,22 @@ describe("TableAjax", () => {
       spy = jasmine.createSpy("onChange spy");
 
       wrapper = mount(
-        <RenderWrapper
+        <TableAjax
           onAjaxError={() => {}}
           className="foo"
           path="/test"
           onChange={spy}
         >
           <TableRow />
-        </RenderWrapper>
+        </TableAjax>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       instance = wrapper.instance();
 
       customInstanceWrapper = mount(
-        <RenderWrapper
+        <TableAjax
           onAjaxError={() => {}}
           className="foo"
           path="/test"
@@ -55,12 +49,15 @@ describe("TableAjax", () => {
           sortedColumn="name"
         >
           <TableRow />
-        </RenderWrapper>
+        </TableAjax>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       customInstance = customInstanceWrapper.instance();
 
       pageSizeInstanceWrapper = mount(
-        <RenderWrapper
+        <TableAjax
           onAjaxError={() => {}}
           className="foo"
           path="/test"
@@ -68,7 +65,10 @@ describe("TableAjax", () => {
           pageSize="10"
         >
           <TableRow />
-        </RenderWrapper>
+        </TableAjax>,
+        {
+          wrappingComponent: I18next,
+        }
       );
       pageSizeInstance = pageSizeInstanceWrapper.instance();
     });
@@ -318,7 +318,7 @@ describe("TableAjax", () => {
         beforeEach(() => {
           spy = jasmine.createSpy("onChange spy");
           wrapper = mount(
-            <RenderWrapper
+            <TableAjax
               onAjaxError={() => {}}
               className="foo"
               path="/test"
@@ -326,7 +326,10 @@ describe("TableAjax", () => {
               postAction
             >
               <TableRow />
-            </RenderWrapper>
+            </TableAjax>,
+            {
+              wrappingComponent: I18next,
+            }
           );
           instance = wrapper.instance();
         });
@@ -377,7 +380,7 @@ describe("TableAjax", () => {
         beforeEach(() => {
           spy = jasmine.createSpy("onChange spy");
           wrapper = mount(
-            <RenderWrapper
+            <TableAjax
               withCredentials
               onAjaxError={() => {}}
               className="foo"
@@ -385,7 +388,10 @@ describe("TableAjax", () => {
               onChange={spy}
             >
               <TableRow />
-            </RenderWrapper>
+            </TableAjax>,
+            {
+              wrappingComponent: I18next,
+            }
           );
           instance = wrapper.instance();
         });
@@ -495,7 +501,9 @@ describe("TableAjax", () => {
 
     describe("handleRequest", () => {
       beforeEach(() => {
-        wrapper = mount(<RenderWrapper path="/test" onChange={spy} />);
+        wrapper = mount(<TableAjax path="/test" onChange={spy} />, {
+          wrappingComponent: I18next,
+        });
       });
 
       describe("when props contains a formatRequest function", () => {
@@ -550,7 +558,9 @@ describe("TableAjax", () => {
           },
         };
 
-        wrapper = mount(<RenderWrapper path="/test" onChange={spy} />);
+        wrapper = mount(<TableAjax path="/test" onChange={spy} />, {
+          wrappingComponent: I18next,
+        });
       });
 
       describe("when props contains a formatResponse function", () => {
@@ -609,7 +619,9 @@ describe("TableAjax", () => {
       describe("when passed as a prop", () => {
         it("is called if defined and an Ajax request returns an error", () => {
           const onError = jest.fn();
-          wrapper = mount(<RenderWrapper path="/" onAjaxError={onError} />);
+          wrapper = mount(<TableAjax path="/" onAjaxError={onError} />, {
+            wrappingComponent: I18next,
+          });
           jest.runTimersToTime(251);
           expect(onError).toBeCalledWith(error, response);
 
@@ -623,7 +635,9 @@ describe("TableAjax", () => {
         it("logs the Ajax error as a warning in the console", () => {
           console.warn = jest.fn();
 
-          wrapper = mount(<RenderWrapper path="/" />);
+          wrapper = mount(<TableAjax path="/" />, {
+            wrappingComponent: I18next,
+          });
           jest.runTimersToTime(251);
 
           expect(console.warn).toBeCalled();
@@ -648,15 +662,16 @@ describe("TableAjax", () => {
   describe("tags on component", () => {
     // data-component doesnt exist as prop on mount
     const tagWrapper = shallow(
-      <RenderWrapper
+      <TableAjax
         onAjaxError={() => {}}
         data-element="bar"
         data-role="baz"
         path="test"
-      />
-    )
-      .find(TableAjax)
-      .dive();
+      />,
+      {
+        wrappingComponent: I18next,
+      }
+    );
 
     it("includes the correct component, element and role data tags", () => {
       rootTagTest(tagWrapper, "table-ajax", "bar", "baz");
