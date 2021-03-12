@@ -1,8 +1,8 @@
 import React from "react";
-import I18n from "i18n-js";
 import PropTypes from "prop-types";
 
 import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
+import useTranslation from "../../hooks/__internal__/useTranslation";
 import Icon from "../icon";
 
 const warningAppend = ({ errors, warnings }, type) =>
@@ -13,29 +13,23 @@ const translationKey = (props, type) =>
 
 const defaultTranslations = (errorCount, warningCount) => ({
   errors: {
-    defaultValue: {
-      one: "There is %{count} error",
-      other: "There are %{count} errors",
-    },
+    defaultValue: "There is {{count}} error",
+    defaultValue_plural: "There are {{count}} errors",
     count: parseInt(errorCount, 10),
   },
   warnings: {
-    defaultValue: {
-      one: "There is %{count} warning",
-      other: "There are %{count} warnings",
-    },
+    defaultValue: "There is {{count}} warning",
+    defaultValue_plural: "There are {{count}} warnings",
     count: parseInt(warningCount, 10),
   },
   errors_and_warnings: {
-    defaultValue: {
-      one: "and %{count} warning",
-      other: "and %{count} warnings",
-    },
+    defaultValue: "and {{count}} warning",
+    defaultValue_plural: "and {{count}} warnings",
     count: parseInt(warningCount, 10),
   },
 });
 
-const translation = (props, type) => {
+const translation = (props, type, t) => {
   const parsedKey = translationKey(props, type);
 
   const defaultTranslation = defaultTranslations(props.errors, props.warnings)[
@@ -43,15 +37,17 @@ const translation = (props, type) => {
   ];
   const location = `errors.messages.form_summary.${parsedKey}`;
 
-  return I18n.t(location, defaultTranslation);
+  return t(location, defaultTranslation);
 };
 
 const Summary = ({ type, ...props }) => {
+  const t = useTranslation();
+
   if (props[type] > 0) {
     return (
       <StyledInternalSummary type={type} data-element={type}>
         <Icon type={type.slice(0, -1)} />
-        <span>{translation(props, type)}</span>
+        <span>{translation(props, type, t)}</span>
       </StyledInternalSummary>
     );
   }

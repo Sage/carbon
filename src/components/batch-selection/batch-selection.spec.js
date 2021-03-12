@@ -9,6 +9,15 @@ import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { baseTheme } from "../../style/themes";
+import I18next from "../../__spec_helper__/I18next";
+
+function RenderWrapper({ ...props }) {
+  return (
+    <I18next>
+      <BatchSelection {...props} />
+    </I18next>
+  );
+}
 
 describe("BatchSelection component", () => {
   let wrapper;
@@ -126,10 +135,10 @@ describe("BatchSelection component", () => {
 
 function renderBatchSelection(props = {}, renderer = mount) {
   return renderer(
-    <BatchSelection {...props}>
+    <RenderWrapper {...props}>
       <IconButton onAction={() => {}}>
         <Icon type="edit" />
       </IconButton>
-    </BatchSelection>
+    </RenderWrapper>
   );
 }
