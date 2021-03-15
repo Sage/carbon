@@ -11,6 +11,7 @@ import Box from "../box";
 import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
+import Search from "../../__experimental__/components/search";
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
@@ -202,15 +203,16 @@ The menu must have focus for this to work
       <Menu>
         <MenuItem icon="home" href="#">
           Home
-        </MenuItem> 
-        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        </MenuItem>
+        <MenuItem
+          icon="person"
+          href="#"
+          keyboardOverride="a"
+          ariaLabel="Account"
+        />
         <MenuItem icon="settings" submenu="Settings">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
           <MenuDivider />
           <MenuItem
             icon="settings"
@@ -394,15 +396,16 @@ The menu must have focus for this to work
       <Menu menuType="dark">
         <MenuItem icon="home" href="#">
           Home
-        </MenuItem> 
-        <MenuItem icon="person" href="#" keyboardOverride="a" ariaLabel="Account"/>
+        </MenuItem>
+        <MenuItem
+          icon="person"
+          href="#"
+          keyboardOverride="a"
+          ariaLabel="Account"
+        />
         <MenuItem icon="settings" submenu="Settings">
-          <MenuItem href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">
-            Item Submenu Two
-          </MenuItem>
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
           <MenuDivider />
           <MenuItem
             icon="settings"
@@ -622,6 +625,34 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
             <MenuItem href="#">Item Submenu Eleven</MenuItem>
             <MenuItem href="#">Item Submenu Twelve</MenuItem>
           </ScrollableBlock>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Submenu with search
+
+<Preview>
+  <Story
+    name="submenu with search"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ minHeight: 300 }}>
+      <Menu menuType="dark">
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuDivider variant="alternate" size="large" />
+          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
+          <MenuItem variant="alternate">
+            <Search placeholder="Dark variant" variant="dark" defaultValue="" />
+          </MenuItem>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem variant="alternate" href="#">
+            Item Submenu Three
+          </MenuItem>
         </MenuItem>
       </Menu>
     </div>

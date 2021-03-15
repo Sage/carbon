@@ -18,6 +18,7 @@ import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
+import Search from "../../../__experimental__/components/search";
 
 const MenuItem = ({
   submenu,
@@ -32,6 +33,7 @@ const MenuItem = ({
   variant = "default",
   showDropdownArrow = true,
   ariaLabel,
+  isSearch,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -39,7 +41,7 @@ const MenuItem = ({
   const ref = useRef(null);
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
-
+  const isChildrenSearch = children?.type === Search;
   const childrenItems = React.Children.map(children, (child) => {
     if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
@@ -141,8 +143,9 @@ const MenuItem = ({
       <StyledMenuItemWrapper
         ref={ref}
         onKeyDown={handleKeyDown}
-        as={Link}
+        as={isChildrenSearch ? "div" : Link}
         data-component="menu-item"
+        isSearch={isChildrenSearch}
         {...elementProps}
         variant={variant}
         role="menuitem"

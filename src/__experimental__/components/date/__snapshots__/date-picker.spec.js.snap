@@ -172,6 +172,8 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
         "menu": Object {
           "dark": Object {
             "divider": "#1A475B",
+            "searchIcon": "#8CA3AD",
+            "searchIconHover": "#BFCCD2",
             "selected": "#1A475B",
             "submenuBackground": "#001A25",
             "title": "#99ADB6",
@@ -516,6 +518,8 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
           "menu": Object {
             "dark": Object {
               "divider": "#1A475B",
+              "searchIcon": "#8CA3AD",
+              "searchIconHover": "#BFCCD2",
               "selected": "#1A475B",
               "submenuBackground": "#001A25",
               "title": "#99ADB6",

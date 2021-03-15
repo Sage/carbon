@@ -12,6 +12,7 @@ const StyledMenuItemWrapper = styled.a`
     isOpen,
     variant,
     showDropdownArrow,
+    isSearch,
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -216,6 +217,10 @@ const StyledMenuItemWrapper = styled.a`
           border-left: 4px solid transparent;
         }
       `}
+    `}
+    ${isSearch &&
+    css`
+      padding: 2px 16px;
     `}
   `}
 `;

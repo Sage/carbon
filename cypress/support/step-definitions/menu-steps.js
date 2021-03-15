@@ -51,3 +51,14 @@ When("I scroll to the bottom of the block", () => {
 Then("The last element is visible", () => {
   lastSubmenuElement().should("be.visible");
 });
+
+Then(
+  "Inner menu search input has alternate {string} background colour",
+  (color) => {
+    innerMenu(positionOfElement("fifth")).should(
+      "have.css",
+      "background-color",
+      color
+    );
+  }
+);
