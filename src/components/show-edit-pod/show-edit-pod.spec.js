@@ -293,7 +293,9 @@ describe("ShowEditPod", () => {
         onDelete,
         editing: true,
       });
-      additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
+      additionalComponent = mount(wrapper.find(Form).props().rightSideButtons, {
+        wrappingComponent: I18next,
+      });
 
       expect(additionalComponent.type()).toBe(StyledDeleteButton);
     });
@@ -320,7 +322,10 @@ describe("ShowEditPod", () => {
           editing: true,
         });
         additionalComponent = mount(
-          wrapper.find(Form).props().rightSideButtons
+          wrapper.find(Form).props().rightSideButtons,
+          {
+            wrappingComponent: I18next,
+          }
         );
 
         expect(additionalComponent.text()).toBe("Delete");
