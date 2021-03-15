@@ -2,9 +2,8 @@ import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
-import { StyledPicklistItem, StyledButton } from "./duelling-picklist.style";
-import Icon from "../icon";
-import Events from "../../utils/helpers/events";
+import { StyledPicklistItem, StyledButton } from "./picklist-item.style";
+import Events from "../../../utils/helpers/events";
 
 export const PicklistItem = React.forwardRef(
   (
@@ -48,14 +47,17 @@ export const PicklistItem = React.forwardRef(
       >
         <StyledPicklistItem
           onKeyDown={handleKeydown}
-          tabIndex={tabIndex}
-          ref={ref}
           data-element="picklist-item"
         >
           {children}
-          <StyledButton tabIndex={-1} variant={type} onClick={handleClick}>
-            <Icon type={type} />
-          </StyledButton>
+          <StyledButton
+            buttonType="primary"
+            destructive={type === "remove"}
+            iconType={type}
+            onClick={handleClick}
+            tabIndex={tabIndex}
+            ref={ref}
+          />
         </StyledPicklistItem>
       </CSSTransition>
     );
@@ -77,9 +79,16 @@ PicklistItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  /** Internal prop passed downward by Picklist to indicate which children it is  */
+  /**
+   * Internal prop passed downward by Picklist to indicate which children it is
+   * @private
+   * @ignore
+   */
   index: PropTypes.number.isRequired,
-  /** Internal prop passed downward by Picklist to provide arrow/home/end keys navigation  */
+  /** Internal prop passed downward by Picklist to provide arrow/home/end keys navigation
+   * @private
+   * @ignore
+   */
   handleKeyboardAccessibility: PropTypes.func.isRequired,
 };
 

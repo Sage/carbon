@@ -1,17 +1,18 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
-import { Picklist } from './picklist.component';
-import { PicklistItem } from './picklist-item.component';
-import PicklistDivider from './picklist-divider.component';
-import PicklistPlaceholder from './picklist-placeholder.component';
-import DuellingPicklist from './duelling-picklist.component';
+import { Picklist } from "./picklist/picklist.component";
+import { PicklistItem } from "./picklist-item/picklist-item.component";
+import PicklistDivider from "./picklist-divider/picklist-divider.component";
+import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.component";
+import DuellingPicklist from "./duelling-picklist.component";
 
 <Meta
   title="Design System/DuellingPicklist"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Duelling Picklist
+
 Select a subset of relatively short list.
 
 ## Contents
@@ -52,6 +53,7 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 ## Examples
 
 ### Default
+
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
 <Preview>

@@ -2,11 +2,8 @@ import React, { useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
 
-import Events from "../../utils/helpers/events";
-import {
-  StyledPicklist,
-  StyledEmptyContainer,
-} from "./duelling-picklist.style";
+import Events from "../../../utils/helpers/events";
+import { StyledPicklist, StyledEmptyContainer } from "./picklist.style";
 
 export const Picklist = ({ disabled, children, placeholder }) => {
   const isEmpty = useMemo(() => !React.Children.count(children), [children]);
@@ -61,7 +58,7 @@ export const Picklist = ({ disabled, children, placeholder }) => {
   );
 
   return (
-    <StyledPicklist data-element="picklist">
+    <StyledPicklist data-element="picklist" scrollVariant="light">
       {isEmpty && <StyledEmptyContainer>{placeholder}</StyledEmptyContainer>}
       <TransitionGroup component={null}>{content}</TransitionGroup>
     </StyledPicklist>

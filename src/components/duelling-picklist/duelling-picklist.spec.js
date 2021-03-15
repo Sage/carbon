@@ -3,10 +3,6 @@ import { mount } from "enzyme";
 import { CSSTransition } from "react-transition-group";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
-
-import Icon from "../icon";
-
 import {
   DuellingPicklist,
   Picklist,
@@ -14,15 +10,16 @@ import {
   PicklistDivider,
   PicklistPlaceholder,
 } from ".";
-
 import {
   StyledDuellingPicklistOverlay,
-  StyledPicklistItem,
-  StyledButton,
   StyledLabel,
   StyledControl,
 } from "./duelling-picklist.style";
-import { areEqual } from "./picklist.component";
+import {
+  StyledPicklistItem,
+  StyledButton,
+} from "./picklist-item/picklist-item.style";
+import { areEqual } from "./picklist/picklist.component";
 
 const EmptyComponent = () => <div />;
 
@@ -168,43 +165,6 @@ describe("DuellingPicklist", () => {
       );
     });
 
-    it("renders PickListItem with properly colored button and proper icon", () => {
-      const AddButton = wrapper.find(PicklistItem).find({ type: "add" }).at(0);
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.primary,
-        },
-        AddButton.find("button")
-      );
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.secondary,
-        },
-        AddButton.find("button"),
-        { modifier: ":hover" }
-      );
-      expect(AddButton.find(Icon).props().type).toBe("add");
-
-      const RemoveButton = wrapper
-        .find(PicklistItem)
-        .find({ type: "remove" })
-        .at(0);
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.error,
-        },
-        RemoveButton.find("button")
-      );
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.destructive.hover,
-        },
-        RemoveButton.find("button"),
-        { modifier: ":hover" }
-      );
-      expect(RemoveButton.find(Icon).props().type).toBe("remove");
-    });
-
     it("PicklistItem with type add has no animation", () => {
       expect(
         wrapper.find(Picklist).at(0).find(CSSTransition).at(0).props().enter
@@ -254,7 +214,12 @@ describe("DuellingPicklist", () => {
           .onKeyDown({ which: 40, preventDefault: () => {} });
 
         expect(
-          wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(nextFocused)
+          wrapper
+            .find(Picklist)
+            .at(0)
+            .find(StyledPicklistItem)
+            .at(nextFocused)
+            .find(StyledButton)
         ).toBeFocused();
       }
     );
@@ -276,7 +241,12 @@ describe("DuellingPicklist", () => {
           .onKeyDown({ which: 38, preventDefault: () => {} });
 
         expect(
-          wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(nextFocused)
+          wrapper
+            .find(Picklist)
+            .at(0)
+            .find(StyledPicklistItem)
+            .at(nextFocused)
+            .find(StyledButton)
         ).toBeFocused();
       }
     );
@@ -297,7 +267,12 @@ describe("DuellingPicklist", () => {
           .onKeyDown({ which: 35, preventDefault: () => {} });
 
         expect(
-          wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(nextFocused)
+          wrapper
+            .find(Picklist)
+            .at(0)
+            .find(StyledPicklistItem)
+            .at(nextFocused)
+            .find(StyledButton)
         ).toBeFocused();
       }
     );
@@ -318,7 +293,12 @@ describe("DuellingPicklist", () => {
           .onKeyDown({ which: 36, preventDefault: () => {} });
 
         expect(
-          wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(nextFocused)
+          wrapper
+            .find(Picklist)
+            .at(0)
+            .find(StyledPicklistItem)
+            .at(nextFocused)
+            .find(StyledButton)
         ).toBeFocused();
       }
     );
