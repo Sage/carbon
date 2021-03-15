@@ -1,3 +1,11 @@
+### [68.3.1](https://github.com/Sage/carbon/compare/v68.3.0...v68.3.1) (2021-03-15)
+
+
+### Bug Fixes
+
+* **menu:** fix search styles ([ce4405e](https://github.com/Sage/carbon/commit/ce4405ea5d8abbff2d032d756f0fdbb35b2835de)), closes [#3591](https://github.com/Sage/carbon/issues/3591)
+* **menu:** fix search styles ([0efe3dd](https://github.com/Sage/carbon/commit/0efe3dd07e82a9002c57985886a8e887e008b56d)), closes [#3591](https://github.com/Sage/carbon/issues/3591)
+
 ## [68.3.0](https://github.com/Sage/carbon/compare/v68.2.0...v68.3.0) (2021-03-12)
 
 
