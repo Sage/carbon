@@ -15,6 +15,7 @@ export interface LinkProps {
   children?: React.ReactNode;
   target?: string;
   ariaLabel?: string;
+  isSkipLink?: boolean;
 }
 
 declare const Link: React.ComponentType<

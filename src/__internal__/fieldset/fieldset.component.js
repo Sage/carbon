@@ -50,7 +50,12 @@ const Fieldset = ({
                 </legend>
               )}
             </InputGroupContext.Consumer>
-            <ValidationIcon error={error} warning={warning} info={info} />
+            <ValidationIcon
+              error={error}
+              warning={warning}
+              info={info}
+              tooltipFlipOverrides={["top", "bottom"]}
+            />
           </StyledLegendContainer>
         )}
         {children}

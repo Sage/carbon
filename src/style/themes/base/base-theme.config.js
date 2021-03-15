@@ -358,6 +358,7 @@ export default (palette) => {
       header: 4000,
       fullScreenModal: 5000,
       notification: 6000,
+      aboveAll: 9999,
     },
   };
 };

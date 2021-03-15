@@ -136,6 +136,43 @@ the target element when a user scrolls. The flipping and tracking features can b
   </Story>
 </Preview>
 
+### Overriding the default flip behaviour
+By default if there is no room for the Tooltip to display in the given position it will attempt to flip and dynamically 
+place itself in the opposite position. You can pass an array of `flipOverrides` which will alter the behaviour from the 
+default, the Tooltip will flip to the positions defined in the array in the order they are defined. The overriding
+can be seen by adjusting the window size (ideally in the canvas tab) and scrolling. The example should render the 
+Tooltip "bottom" intitially, then flip to "right" when there is not enough room below, and finally to the "left" position 
+when there is no space to render to the right anymore.
+
+<Preview>
+  <Story name="flip behaviour overrides">
+    {() => {
+      const Component = forwardRef(({ children }, ref) => (
+        <button
+          tabIndex="0"
+          style={{
+            backgroundColor: "#00815D",
+            color: "white",
+            cursor: "pointer",
+            border: "none",
+            padding: "8px"
+          }}
+          ref={ref}
+        >
+          {children}
+        </button>
+      ))
+      return (
+        <div style={{ padding: "60px 0px 60px 250px" }}>
+          <Tooltip message="I am a tooltip!" isVisible position="bottom" flipOverrides={["right", "left"]}>
+            <Component>target</Component>
+          </Tooltip>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Large tooltip
 <Preview>
   <Story name="large tooltip">

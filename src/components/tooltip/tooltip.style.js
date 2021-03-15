@@ -28,19 +28,19 @@ const tooltipOffset = (position, inputSize, isPartOfInput) => {
       return `
         ${position}: 5px;
         @-moz-document url-prefix() { 
-          ${position}: 7px;
+          ${position}: ${["top", "bottom"].includes(position) ? "7px" : "6px"};
         }
       `;
     case "large":
       return `
-        ${position}: -3px;
+        ${position}: ${["top", "bottom"].includes(position) ? "0px" : "-2px"};
         @-moz-document url-prefix() { 
           ${position}: -1px;
         }
       `;
     default:
       return `
-        ${position}: 1px;
+        ${position}: ${["top", "bottom"].includes(position) ? "4px" : "2px"};
         @-moz-document url-prefix() { 
           ${position}: 4px;
         }

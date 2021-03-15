@@ -1,5 +1,5 @@
 import React from "react";
-import { text, select } from "@storybook/addon-knobs";
+import { text, select, boolean } from "@storybook/addon-knobs";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Help from "./help.component";
 
@@ -28,17 +28,40 @@ export const Default = () => {
     : undefined;
   const href = text("href", "http://www.sage.com");
   const type = select("type", OptionsHelper.icons, "help");
-  const tooltipBgColor = text("tooltipBgColor", undefined);
-  const tooltipFontColor = text("tooltipFontColor", undefined);
+  const tooltipBgColor = children
+    ? text("tooltipBgColor", undefined)
+    : undefined;
+  const tooltipFontColor = children
+    ? text("tooltipFontColor", undefined)
+    : undefined;
+
+  const isVertical = ["top", "bottom"].includes(tooltipPosition);
+  const enableFlipOverrides = children
+    ? boolean("enable flip overrides", false)
+    : undefined;
+
+  const tooltipFlipOverrides =
+    children && enableFlipOverrides
+      ? select(
+          "tooltipFlipOverrides",
+          isVertical ? ["left", "right"] : ["top", "bottom"],
+          isVertical ? "right" : "bottom"
+        )
+      : undefined;
+
+  const flipOverrides = tooltipFlipOverrides
+    ? [tooltipFlipOverrides]
+    : undefined;
 
   return (
-    <div style={{ marginLeft: "125px" }}>
+    <div style={{ margin: "200px" }}>
       <Help
         tooltipPosition={tooltipPosition}
         href={href}
         type={type}
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
+        tooltipFlipOverrides={flipOverrides}
       >
         {children}
       </Help>

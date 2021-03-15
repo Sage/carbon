@@ -22,6 +22,7 @@ const Help = (props) => {
     type,
     tooltipBgColor,
     tooltipFontColor,
+    tooltipFlipOverrides,
   } = props;
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const Help = (props) => {
         tooltipVisible={isFocused || isTooltipVisible}
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
+        tooltipFlipOverrides={tooltipFlipOverrides}
       />
     </StyledHelp>
   );
@@ -104,6 +106,22 @@ Help.propTypes = {
   tooltipBgColor: PropTypes.string,
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor: PropTypes.string,
+  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
+  tooltipFlipOverrides: (props, propName, componentName) => {
+    const prop = props[propName];
+    const isValid =
+      prop &&
+      Array.isArray(prop) &&
+      prop.every((placement) => OptionsHelper.positions.includes(placement));
+
+    if (!prop || isValid) {
+      return null;
+    }
+    return new Error(
+      // eslint-disable-next-line max-len
+      `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
+    );
+  },
 };
 
 Help.defaultProps = {

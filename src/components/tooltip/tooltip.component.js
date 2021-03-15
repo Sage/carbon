@@ -21,6 +21,7 @@ const Tooltip = React.forwardRef(
       id,
       bgColor,
       fontColor,
+      flipOverrides,
       ...rest
     },
     ref
@@ -67,12 +68,26 @@ const Tooltip = React.forwardRef(
         delay={TOOLTIP_DELAY}
         {...(isVisible !== undefined && { visible: isVisible })}
         render={(attrs) => tooltip(attrs, message)}
+        {...(flipOverrides && {
+          popperOptions: {
+            modifiers: [
+              {
+                name: "flip",
+                options: {
+                  fallbackPlacements: flipOverrides,
+                },
+              },
+            ],
+          },
+        })}
       >
         {children}
       </Tippy>
     );
   }
 );
+
+const placements = ["top", "bottom", "left", "right"];
 
 Tooltip.propTypes = {
   /** The message to be displayed within the tooltip */
@@ -82,7 +97,7 @@ Tooltip.propTypes = {
   /** Whether to to show the Tooltip */
   isVisible: PropTypes.bool,
   /** Sets position of the tooltip */
-  position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  position: PropTypes.oneOf(placements),
   /** Defines the message type */
   type: PropTypes.string,
   /** Children elements */
@@ -97,6 +112,22 @@ Tooltip.propTypes = {
   isPartOfInput: PropTypes.bool,
   /** @ignore @private */
   inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
+  flipOverrides: (props, propName) => {
+    const prop = props[propName];
+    const isValid =
+      prop &&
+      Array.isArray(prop) &&
+      prop.every((placement) => placements.includes(placement));
+
+    if (!prop || isValid) {
+      return null;
+    }
+    return new Error(
+      // eslint-disable-next-line max-len
+      `The \`${propName}\` prop supplied to \`Tooltip\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
+    );
+  },
 };
 
 export default Tooltip;

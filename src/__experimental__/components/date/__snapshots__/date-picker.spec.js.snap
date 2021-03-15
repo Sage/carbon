@@ -363,6 +363,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
           "hoverBackground": "#F2F5F6",
         },
         "zIndex": Object {
+          "aboveAll": 9999,
           "fullScreenModal": 5000,
           "header": 4000,
           "modal": 3000,
@@ -708,6 +709,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
             "hoverBackground": "#F2F5F6",
           },
           "zIndex": Object {
+            "aboveAll": 9999,
             "fullScreenModal": 5000,
             "header": 4000,
             "modal": 3000,
