@@ -5,6 +5,7 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import I18next from "../../__spec_helper__/I18next";
 
 describe("action toolbar", () => {
   let instance, spy, wrapper;
@@ -12,7 +13,10 @@ describe("action toolbar", () => {
   beforeEach(() => {
     wrapper = shallow(
       <ActionToolbar actions={{ foo: {}, bar: {} }} className="foo" />,
-      { context: {} }
+      { context: {} },
+      {
+        wrappingComponent: I18next,
+      }
     );
     instance = wrapper.instance();
   });
@@ -101,7 +105,9 @@ describe("action toolbar", () => {
         return <div>foo</div>;
       });
 
-      shallow(<ActionToolbar actions={{}}>{childFunction}</ActionToolbar>);
+      shallow(<ActionToolbar actions={{}}>{childFunction}</ActionToolbar>, {
+        wrappingComponent: I18next,
+      });
 
       expect(childFunction).toHaveBeenCalledWith({
         disabled: true,
@@ -115,14 +121,19 @@ describe("action toolbar", () => {
     describe("on component", () => {
       it("include correct component, element and role data tags", () => {
         wrapper = shallow(
-          <ActionToolbar actions={{}} data-element="bar" data-role="baz" />
+          <ActionToolbar actions={{}} data-element="bar" data-role="baz" />,
+          {
+            wrappingComponent: I18next,
+          }
         );
         rootTagTest(wrapper, "action-toolbar", "bar", "baz");
       });
     });
 
     describe("on internal elements", () => {
-      wrapper = shallow(<ActionToolbar actions={{ foo: "bar" }} />);
+      wrapper = shallow(<ActionToolbar actions={{ foo: "bar" }} />, {
+        wrappingComponent: I18next,
+      });
 
       elementsTagTest(wrapper, ["action", "total"]);
     });
