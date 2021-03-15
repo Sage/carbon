@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
 import PodContext from "./pod-context";
+import I18n from "../../__internal__/i18n";
 
 import {
   StyledBlock,
@@ -148,7 +148,7 @@ class Pod extends React.Component {
           variant={variant}
           {...this.linkProps()}
         >
-          {I18n.t("actions.edit", { defaultValue: "Edit" })}
+          <I18n params={["actions.edit", { defaultValue: "Edit" }]} />
         </StyledEditAction>
       </StyledEditContainer>
     );
