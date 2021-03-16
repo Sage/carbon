@@ -70,6 +70,11 @@ const StyledBlock = styled.div`
       border: none;
       ${noBorder ? "" : "padding: 1px"};
     `};
+    ${!isFocused &&
+    (!internalEditButton || contentTriggersEdit) &&
+    css`
+      outline: none;
+    `};
   `}
 `;
 
@@ -105,9 +110,8 @@ const footerPaddings = {
 const StyledFooter = styled.div`
   ${({ theme, variant, padding }) => css`
     background-color: ${theme.pod.footerBackground};
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
+    color: ${theme.text.color};
 
     ${variant === "tile" &&
     css`
