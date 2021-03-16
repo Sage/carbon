@@ -1,46 +1,32 @@
 import * as React from "react";
-import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
-export interface SwitchProps extends MarginSpacingProps  {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  disabled?: boolean;
-  fieldHelp?: string;
-  fieldHelpInline?: boolean;
-  id?: string;
-  inputWidth?: number | string;
-  label?: string;
-  labelHelp?: React.ReactNode;
-  labelAlign?: string;
-  labelInline?: boolean;
-  labelSpacing?: 1 | 2;
-  labelWidth?: number | string;
-  loading?: boolean;
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  reverse?: boolean;
-  size?: string;
-  value?: string;
-  /* Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
-  error?: boolean | string;
-  /* Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
-  warning?: boolean | string;
-  /* Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
-  info?: boolean | string;
-  /** When true, validation icon will be placed on label instead of being placed by the input */
-  validationOnLabel?: boolean;
-  /** Override tab index on the validation and help icon */
-  helpTabIndex?: number | string;
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
+import { MarginProps } from "styled-system";
+import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
+
+export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
+  /** Set the default value of the Switch if component is meant to be used as uncontrolled */
+  defaultChecked?: boolean;
+  /** Overrides the default tabindex of the Help component */
+  helpTabIndex?: number | string;
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
+  id?: string;
+  /** Text alignment of the label */
+  labelAlign?: "left" | "right";
+  /** A message that the Help component will display */
+  labelHelp?: React.ReactNode;
+  /** When true label is inline */
+  labelInline?: boolean;
+  /** Triggers loading animation */
+  loading?: boolean;
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
+  /** Size of the switch */
+  size?: "small" | "large";
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel?: boolean;
+  /** The value of the switch, passed on form submit */
+  value?: string;
 }
 
 declare const Switch: React.ComponentClass<SwitchProps>;
