@@ -1,39 +1,20 @@
 import * as React from "react";
-import { SpacingProps } from "../../../utils/helpers/options-helper";
+import { SpaceProps } from "styled-system";
+import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
 
-interface CheckboxProps extends SpacingProps {
-  checked?: boolean;
-  disabled?: boolean;
-  fieldHelp?: React.ReactNode;
-  labelHelp?: React.ReactNode;
+export interface CheckboxProps extends CommonCheckableInputProps, SpaceProps {
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
+  /** If true the Component will be focused when rendered */
   autoFocus?: boolean;
-  fieldHelpInline?: boolean;
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   id?: string;
-  inputWidth?: number | string;
-  label?: string;
-  labelWidth?: number | string;
-  labelSpacing?: 1 | 2;
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
-  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
-  reverse?: boolean;
-  size?: string;
-  value: string;
-  /* Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
-  error?: boolean | string;
-  /* Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
-  warning?: boolean | string;
-  /* Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
-  info?: boolean | string;
-  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
-  adaptiveSpacingBreakpoint?: number;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
+  /** A message that the Help component will display */
+  labelHelp?: string | React.ReactNode;
+  /** Size of the checkbox */
+  size?: "small" | "large";
+  /** The value of the checkbox, passed on form submit */
+  value?: string;
 }
 
 declare const Checkbox: React.ComponentClass<CheckboxProps>;
