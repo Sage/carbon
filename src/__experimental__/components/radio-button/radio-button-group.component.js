@@ -81,6 +81,7 @@ const RadioButtonGroup = (props) => {
       {...tagComponent("radiogroup", props)}
       {...marginProps}
       ml={marginLeft}
+      blockGroupBehaviour={!(error || warning || info)}
     >
       <RadioButtonGroupStyle
         data-component="radio-button-group"

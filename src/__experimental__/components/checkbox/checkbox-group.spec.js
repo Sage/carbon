@@ -5,6 +5,7 @@ import CheckboxGroup from "./checkbox-group.component";
 import { Checkbox } from ".";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
+import Fieldset from "../../../__internal__/fieldset";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";
@@ -101,5 +102,10 @@ describe("CheckboxGroup", () => {
           .forEach((node) => expect(node.props()[type]).toBe(true));
       }
     );
+  });
+
+  it("blocks the group behaviour if no validation set on group", () => {
+    const wrapper = render({});
+    expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
   });
 });
