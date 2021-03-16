@@ -2,10 +2,14 @@ import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
-import { StyledPicklistItem, StyledButton } from "./picklist-item.style";
+import {
+  StyledPicklistItem,
+  StyledButton,
+  StyledLockIcon,
+} from "./picklist-item.style";
 import Events from "../../../utils/helpers/events";
 
-export const PicklistItem = React.forwardRef(
+const PicklistItem = React.forwardRef(
   (
     {
       children,
@@ -15,6 +19,8 @@ export const PicklistItem = React.forwardRef(
       item,
       index,
       handleKeyboardAccessibility,
+      locked,
+      lockedTooltipMessage = "This item is locked and can not be moved",
       ...rest
     },
     ref
@@ -48,16 +54,25 @@ export const PicklistItem = React.forwardRef(
         <StyledPicklistItem
           onKeyDown={handleKeydown}
           data-element="picklist-item"
+          locked={locked}
         >
           {children}
-          <StyledButton
-            buttonType="primary"
-            destructive={type === "remove"}
-            iconType={type}
-            onClick={handleClick}
-            tabIndex={tabIndex}
-            ref={ref}
-          />
+          {!locked && (
+            <StyledButton
+              buttonType="primary"
+              destructive={type === "remove"}
+              iconType={type}
+              onClick={handleClick}
+              tabIndex={tabIndex}
+              ref={ref}
+            />
+          )}
+          {locked && (
+            <StyledLockIcon
+              type="locked"
+              tooltipMessage={lockedTooltipMessage}
+            />
+          )}
         </StyledPicklistItem>
       </CSSTransition>
     );
@@ -84,12 +99,16 @@ PicklistItem.propTypes = {
    * @private
    * @ignore
    */
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   /** Internal prop passed downward by Picklist to provide arrow/home/end keys navigation
    * @private
    * @ignore
    */
-  handleKeyboardAccessibility: PropTypes.func.isRequired,
+  handleKeyboardAccessibility: PropTypes.func,
+  /** Disable the item */
+  locked: PropTypes.bool,
+  /** Tooltip message for the locked icon */
+  lockedTooltipMessage: PropTypes.string,
 };
 
-export default React.memo(PicklistItem);
+export default PicklistItem;

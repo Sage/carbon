@@ -11,6 +11,10 @@ export interface PicklistItemProps {
   onChange: () => void;
   /** Value passed to the onChange handler */
   item: object | string | number;
+  /** Disable the item */
+  locked?: boolean;
+  /** Tooltip message for the locked icon */
+  lockedTooltipMessage?: string;
 }
 
 declare const PicklistItem: React.FunctionComponent<PicklistItemProps>;
