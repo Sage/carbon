@@ -1,3 +1,10 @@
+### [68.3.3](https://github.com/Sage/carbon/compare/v68.3.2...v68.3.3) (2021-03-16)
+
+
+### Bug Fixes
+
+* **pod:** fix footer text colour when pod is hovered ([d6dbe7b](https://github.com/Sage/carbon/commit/d6dbe7b88b55b05def91a1935e883768423359bc)), closes [#3584](https://github.com/Sage/carbon/issues/3584)
+
 ### [68.3.2](https://github.com/Sage/carbon/compare/v68.3.1...v68.3.2) (2021-03-16)
 
 
