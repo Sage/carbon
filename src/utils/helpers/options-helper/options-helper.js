@@ -302,8 +302,6 @@ const OptionsHelper = {
 
   formButtonOptions: ["save", "cancel"],
 
-  positionDatePicker: ["top-left", "top-right", "bottom-left", "bottom-right"],
-
   tableCellTypes: ["header", "rowHeader", "cell"],
 
   dateFormats: [

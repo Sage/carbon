@@ -131,11 +131,12 @@ describe("Tooltip", () => {
     });
 
     describe("when the tooltip targets a component that is a part of an input", () => {
-      const offsets = {
+      const isTopOrBottom = (position) => ["top", "bottom"].includes(position);
+      const offsets = (position) => ({
         small: "5px",
-        medium: "1px",
-        large: "-3px",
-      };
+        medium: isTopOrBottom(position) ? "4px" : "2px",
+        large: isTopOrBottom(position) ? "0px" : "-2px",
+      });
 
       describe.each(positions)("and position is %s", (position) => {
         it.each(["small", "medium", "large"])(
@@ -143,7 +144,7 @@ describe("Tooltip", () => {
           (size) => {
             assertStyleMatch(
               {
-                [position]: offsets[size],
+                [position]: offsets(position)[size],
               },
               render({ position, isPartOfInput: true, inputSize: size }).find(
                 StyledTooltipWrapper
@@ -247,6 +248,26 @@ describe("Tooltip", () => {
           );
         });
       });
+    });
+  });
+
+  describe("flipOverrides", () => {
+    it("does not throw an error if a valid array is passed", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      render({ flipOverrides: ["top", "bottom"] });
+
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
+      global.console.error.mockReset();
+    });
+
+    it("throws an error if a invalid array is passed", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      render({ flipOverrides: ["foo", "bar"] });
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalled();
+      global.console.error.mockReset();
     });
   });
 });

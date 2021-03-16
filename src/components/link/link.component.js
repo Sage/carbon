@@ -79,7 +79,9 @@ class InternalLink extends React.Component {
     <>
       {this.renderLinkIcon()}
 
-      <span className="carbon-link__content">{this.props.children}</span>
+      <span className="carbon-link__content">
+        {this.props.isSkipLink ? "Skip to main content" : this.props.children}
+      </span>
 
       {this.renderLinkIcon("right")}
     </>
@@ -100,15 +102,17 @@ class InternalLink extends React.Component {
   };
 
   render() {
-    const { disabled, className, iconAlign, children } = this.props;
+    const { disabled, className, iconAlign, children, isSkipLink } = this.props;
 
     return (
       <LinkStyle
+        isSkipLink={isSkipLink}
         disabled={disabled}
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}
         {...tagComponent("link", this.props)}
+        {...(isSkipLink && { "data-element": "skip-link" })}
       >
         {this.createLinkBasedOnType()}
       </LinkStyle>
@@ -141,6 +145,8 @@ InternalLink.propTypes = {
   tooltipMessage: PropTypes.string,
   /** Positions the tooltip with the link. */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
+  /** Allows to create skip link */
+  isSkipLink: PropTypes.bool,
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
   target: PropTypes.string,
   /** Ref to be forwarded

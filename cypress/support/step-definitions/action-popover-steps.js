@@ -78,3 +78,20 @@ Then("{string} action was called in Actions Tab for actionPopover", (event) => {
 Then("ActionPopover submenu is not visible", () => {
   actionPopoverSubmenuNoIFrame().should("not.be.visible");
 });
+
+Then("Download button has href link {string} and download prop", (link) => {
+  actionPopover()
+    .find("a")
+    .should("have.attr", "href", link)
+    .and("have.attr", "download");
+});
+
+When("I scroll accordion content to top", () => {
+  cy.scrollTo("0", "0");
+});
+
+Then("Action Popover element is visible in {word} position", (position) => {
+  actionPopover()
+    .should("have.attr", "data-popper-placement", `${position}-end`)
+    .and("be.visible");
+});

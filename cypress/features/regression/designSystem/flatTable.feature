@@ -102,8 +102,8 @@ Feature: Design Systems FlatTable component
       | mp150ú¿¡üßä                  | captionOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
 
-  @position
-  Scenario Outline: I can open the accordion by clicking on the <position> cell in a row when expandable area prop is set to wholeRow 
+  @positive
+  Scenario Outline: I can open the accordion by clicking on the <position> cell in a row when expandable area prop is set to wholeRow
     Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
     When I click on the <position> cell in the first row
     Then The subrows are visible
@@ -114,26 +114,126 @@ Feature: Design Systems FlatTable component
       | third    |
       | fourth   |
 
-    Scenario Outline: I can not open the accordion by clicking on the <position> cell in a row when the expandable area prop is set to firstColumn
-      Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
-      When I click on the <position> cell in the first row
-      Then The subrows are not visible
-      Examples:
+  @positive
+  Scenario Outline: I can not open the accordion by clicking on the <position> cell in a row when the expandable area prop is set to firstColumn
+    Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+    When I click on the <position> cell in the first row
+    Then The subrows are not visible
+    Examples:
       | position |
       | second   |
       | third    |
       | fourth   |
-    
-    Scenario: I can open the accordion by clicking on the first cell in a row when the expandable area prop is set to firstColumn
-      Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
-      When I click on the first cell 
-      Then The subrows are visible
 
-    Scenario: The subrows have the correct backround colour
-      Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
-      Then The subrows have the correct background colour
+  @positive
+  Scenario: I can open the accordion by clicking on the first cell in a row when the expandable area prop is set to firstColumn
+    Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+    When I click on the first cell
+    Then The subrows are visible
 
-    Scenario: The subrows have the correct shadow effect between subrow and parent row
-      Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
-      Then There is a shadow effect between the parent row and first subrow
-        
+  @positive
+  Scenario: The subrows have the correct backround colour
+    Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
+    Then The subrows have the correct background colour
+
+  @positive
+  Scenario: The subrows have the correct shadow effect between subrow and parent row
+    Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
+    Then There is a shadow effect between the parent row and first subrow
+
+  @positive
+  Scenario: There is the correct tab order through the expandable rows
+    Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
+    When I hit Tab key 3 times in no Iframe
+    Then The third content row has focus
+
+  @positive
+  Scenario: There is the correct tab order when the row is expandable by first column only
+    Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+    When I hit Tab key 3 times in no Iframe
+    Then The first cell in the third content row has focus
+
+  @positive
+  Scenario Outline: You can open the row using the <key> key
+    Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
+    When I hit Tab key 1 time in no Iframe
+      And I press keyboard "<key>" key times 1
+    Then The subrows are visible
+    Examples:
+      | key   |
+      | Space |
+      | Enter |
+
+  @positive
+  Scenario Outline: You can open and close the row using the <key> key
+    Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
+    When I hit Tab key 1 time in no Iframe
+      And I press keyboard "<key>" key times 2
+    Then The subrows are not visible
+    Examples:
+      | key   |
+      | Space |
+      | Enter |
+
+  @positive
+  Scenario Outline: You can open the row using the <key> key when the table is set to expandable by first column only
+    Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+    When I hit Tab key 1 time in no Iframe
+      And I press keyboard "<key>" key times 1
+    Then The subrows are visible
+    Examples:
+      | key   |
+      | Space |
+      | Enter |
+
+  @positive
+  Scenario Outline: You can open and close the row using the <key> key when the table is set to expandable by first column only
+    Given I open "Design System Flat Table Expandable" component page "expandable by first column only" in no iframe
+    When I hit Tab key 1 time in no Iframe
+      And I press keyboard "<key>" key times 2
+    Then The subrows are not visible
+    Examples:
+      | key   |
+      | Space |
+      | Enter |
+
+  @positive
+  Scenario: There is the correct tab order when there are multiple tabbable elements in a row
+    Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
+    When I hit Tab key 8 times in no Iframe
+    Then The second content row has focus
+
+  @positive
+  Scenario: You can use shift tab to move back through the tabbable elements
+    Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
+    When I hit shift Tab key 3 times in no Iframe
+    Then The fourth content row has focus
+
+  @positive
+  Scenario Outline: You can not navigate through the rows using the <key> arrow key
+    Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
+    When I hit Tab key 5 times in no Iframe
+      And I press keyboard "<key>" key times 1
+    Then The first content row has focus
+    Examples:
+      | key        |
+      | downarrow  |
+      | uparrow    |
+      | leftarrow  |
+      | rightarrow |
+
+  @positive
+  Scenario: You can enter the sub rows using the keyboard
+    Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
+    When I hit Tab key 5 times in no Iframe
+      And I press keyboard "Enter" key times 1
+      And I continue to hit Tab key 4 times in no Iframe
+    Then The first subrow action popover has focus
+
+  @positive
+  Scenario: You leave the subrows when pressing tab at the end of the subrows tabbable content 
+    Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
+    When I hit Tab key 5 times in no Iframe
+      And I press keyboard "Enter" key times 1
+      And I continue to hit Tab key 7 times in no Iframe
+    Then The fourth content row has focus

@@ -10,10 +10,15 @@ import {
   flatTableCaption,
   flatTableSubrowByPosition,
   flatTableSubrows,
+  flatTablePageSizeSelect,
+  flatTablePageSelectListPosition,
 } from "../../locators/flat-table";
+
 import DEBUG_FLAG from "..";
 import { positionOfElement } from "../helper";
 import { icon } from "../../locators";
+
+const gold = "rgb(255, 181, 0)";
 
 Then("FlatTable body rows are sticky", () => {
   cy.wait(500);
@@ -83,7 +88,7 @@ Then(
     cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
     flatTableBodyRowByPosition(index)
       .focus()
-      .should("have.css", "outline-color", "rgb(255, 181, 0)");
+      .should("have.css", "outline-color", gold);
   }
 );
 
@@ -170,7 +175,7 @@ When("{string} column is sorted in {string} order", (position, sortOrder) => {
 Then("{string} header has focus", (position) => {
   flatTableSortable()
     .eq(positionOfElement(position))
-    .should("have.css", "outline-color", "rgb(255, 181, 0)");
+    .should("have.css", "outline-color", gold);
 });
 
 Then("I focus {string} header cell", (position) => {
@@ -243,4 +248,39 @@ Then("There is a shadow effect between the parent row and first subrow", () => {
       "box-shadow",
       "rgba(0, 20, 29, 0.1) 0px 6px 4px -4px inset"
     );
+});
+
+Then("The first cell in the third content row has focus", () => {
+  flatTableCell(8).should("have.css", "outline-color", gold);
+});
+
+Then("The {word} content row has focus", (position) => {
+  flatTableBodyRowByPosition(positionOfElement(position))
+    .should("have.focus")
+    .and("have.css", "outline-color", gold);
+});
+
+Then("The {word} subrow action popover has focus", (position) => {
+  flatTableSubrowByPosition(positionOfElement(position))
+    .find('[data-component="action-popover-button"]')
+    .should("have.focus")
+    .and("have.css", "outline", `${gold} solid 2px`);
+});
+
+When("I have a large viewport", () => {
+  cy.viewport(700, 345);
+});
+
+When("I have a small viewport", () => {
+  cy.viewport(700, 240);
+});
+
+When("pageSize select list is opened", () => {
+  flatTablePageSizeSelect().click();
+});
+
+Then("pageSizeSelectList is visible at the {word}", (position) => {
+  flatTablePageSelectListPosition()
+    .should("have.attr", "data-popper-placement", `${position}-start`)
+    .and("be.visible");
 });

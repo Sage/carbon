@@ -46,28 +46,16 @@ const MyComponent = () => (
 </Preview>
 
 ### With tooltip
-
-The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props,
-such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontColor` are also surfaced.
+The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props, 
+such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Preview>
   <Story name="with tooltip">
     <div style={{ margin: 60, display: "inline" }}>
       <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
-      <Icon
-        mr={4}
-        ml={4}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different position!"
-        tooltipPosition="bottom"
-      />
-      <Icon
-        ml={8}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different color!"
-        tooltipBgColor="lightblue"
-        tooltipFontColor="black"
-      />
+      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different position!" tooltipPosition="bottom" />
+      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different color!" tooltipBgColor="lightblue" tooltipFontColor="black" />
+      <Icon type="add" tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!" tooltipFlipOverrides={["right", "left"]} />
     </div>
   </Story>
 </Preview>

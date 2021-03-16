@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
+import { IconTypes, Positions } from "../../utils/helpers/options-helper/options-helper";
 
 export interface HelpProps {
   className?: string;
@@ -10,9 +10,10 @@ export interface HelpProps {
   href?: string;
   isFocused?: boolean;
   type?: IconTypes;
-  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  tooltipPosition?: Positions;
   tooltipBgColor?: string;
   tooltipFontColor?: string;
+  tooltipFlipOverrides?: Positions[];
 }
 
 declare const Help: React.ComponentType<HelpProps>;

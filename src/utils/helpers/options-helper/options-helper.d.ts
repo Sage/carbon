@@ -294,6 +294,8 @@ export type SizesType = 'small' | 'large';
 
 export type ThemesBinary = 'primary' | 'secondary';
 
+export type Positions = "top" | "bottom" | "left" | "right";
+
 export interface MarginSpacingProps {
   m?: number | string;
   mt?: number | string;
@@ -343,13 +345,13 @@ export interface FlexBoxProps {
   alignContent?: string;
   justifyItems?: string;
   justifyContent?: string;
-  felxWrap?: string;
+  flexWrap?: string;
   flexDirection?: string;
   flex?: string;
   flexGrow?: number;
   flexShrink?: number;
   flexBasis?: string;
-  justofySelf?: string;
+  justifySelf?: string;
   alignSelf?: string;
   order?: number;
 }

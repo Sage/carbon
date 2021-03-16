@@ -98,6 +98,7 @@ const Label = ({
             warning={warning}
             info={info}
             tooltipPosition={tooltipPositionValue}
+            tooltipFlipOverrides={["top", "bottom"]}
           />
         </IconWrapperStyle>
       );
