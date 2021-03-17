@@ -1,3 +1,17 @@
+### [68.3.3](https://github.com/Sage/carbon/compare/v68.3.2...v68.3.3) (2021-03-16)
+
+
+### Bug Fixes
+
+* **pod:** fix footer text colour when pod is hovered ([d6dbe7b](https://github.com/Sage/carbon/commit/d6dbe7b88b55b05def91a1935e883768423359bc)), closes [#3584](https://github.com/Sage/carbon/issues/3584)
+
+### [68.3.2](https://github.com/Sage/carbon/compare/v68.3.1...v68.3.2) (2021-03-16)
+
+
+### Bug Fixes
+
+* **radio-button-group, checkbox-group:** disable group behaviour when validation is not on label ([463b116](https://github.com/Sage/carbon/commit/463b116a11cf35a2cf901fd9fc3abed5fc03555e))
+
 ### [68.3.1](https://github.com/Sage/carbon/compare/v68.3.0...v68.3.1) (2021-03-15)
 
 

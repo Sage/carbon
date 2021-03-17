@@ -70,7 +70,7 @@ describe("Fieldset", () => {
       expect(wrapper.find(StyledLegendContainer).exists()).toEqual(true);
     });
 
-    it("is not rendered if omited", () => {
+    it("is not rendered if omitted", () => {
       wrapper = render();
       expect(wrapper.find(StyledLegendContainer).exists()).toEqual(false);
     });

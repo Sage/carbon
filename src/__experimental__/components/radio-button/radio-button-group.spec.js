@@ -159,6 +159,11 @@ describe("RadioButtonGroup", () => {
           .forEach((node) => expect(node.props()[type]).toBe(true));
       }
     );
+
+    it("blocks the group behaviour if no validation set on group", () => {
+      const wrapper = render({}, mount);
+      expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
+    });
   });
 
   describe("style overrides", () => {

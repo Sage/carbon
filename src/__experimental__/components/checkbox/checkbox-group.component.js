@@ -33,6 +33,7 @@ const CheckboxGroup = (props) => {
       mb={mb}
       isRequired={required}
       {...tagComponent("checkboxgroup", props)}
+      blockGroupBehaviour={!(error || warning || info)}
     >
       <StyledCheckboxGroup
         data-component="checkbox-group"
