@@ -1,3 +1,10 @@
+## [68.4.0](https://github.com/Sage/carbon/compare/v68.3.3...v68.4.0) (2021-03-17)
+
+
+### Features
+
+* **link:** add rel prop ([b502bec](https://github.com/Sage/carbon/commit/b502bec098757f04d35b52400a0dc9ea479b8594))
+
 ### [68.3.3](https://github.com/Sage/carbon/compare/v68.3.2...v68.3.3) (2021-03-16)
 
 
