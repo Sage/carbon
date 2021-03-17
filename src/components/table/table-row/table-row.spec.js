@@ -878,7 +878,7 @@ describe("TableRow", () => {
             <TableCell>Doe</TableCell>
             <TableCell>
               <ActionPopover {...{ onOpen, onClose }}>
-                <ActionPopoverItem icon="email">
+                <ActionPopoverItem onClick={() => {}} icon="email">
                   Email Invoice
                 </ActionPopoverItem>
               </ActionPopover>
