@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import invariant from "invariant";
 import StyledWiggle from "./decimal.style";
 import Textbox from "../textbox";
-import I18nHelper from "../../../utils/helpers/i18n";
+import { getFormat, getFormatDecimal } from "../../../__internal__/i18n";
 import Events from "../../../utils/helpers/events";
 
 class Decimal extends React.Component {
@@ -110,7 +110,7 @@ class Decimal extends React.Component {
   };
 
   isValidKeyPress = (ev) => {
-    const { delimiter, separator } = I18nHelper.format();
+    const { delimiter, separator } = getFormat();
 
     if (
       Events.isNumberKey(ev) ||
@@ -197,7 +197,7 @@ class Decimal extends React.Component {
    */
   isValidDecimal = (value) => {
     const { precision } = this.props;
-    const format = I18nHelper.format();
+    const format = getFormat();
     const delimiter = `\\${format.delimiter}`;
     const separator = `\\${format.separator}`;
     const validDecimalMatcher = new RegExp(
@@ -245,7 +245,7 @@ class Decimal extends React.Component {
   };
 
   removeDelimiters = (value) => {
-    const format = I18nHelper.format();
+    const format = getFormat();
     const delimiter = `\\${format.delimiter}`;
     const delimiterMatcher = new RegExp(`[${delimiter}]*`, "g");
     const noDelimiters = value.replace(delimiterMatcher, "");
@@ -263,7 +263,7 @@ class Decimal extends React.Component {
     if (value === "") {
       return value;
     }
-    return I18nHelper.formatDecimal(value, this.getSafePrecisionProp());
+    return getFormatDecimal(value, this.getSafePrecisionProp());
   };
 
   /**
@@ -297,7 +297,7 @@ class Decimal extends React.Component {
    */
   toStandardDecimal = (i18nValue) => {
     const withoutDelimiters = this.removeDelimiters(i18nValue);
-    const { separator } = I18nHelper.format();
+    const { separator } = getFormat();
     return withoutDelimiters.replace(new RegExp(`\\${separator}`, "g"), ".");
   };
 

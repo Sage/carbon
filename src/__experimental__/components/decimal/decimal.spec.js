@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { mount as enzymeMount } from "enzyme";
-import I18n from "i18n-js";
+import i18n from "i18next";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 import Decimal from "./decimal.component";
 import Textbox from "../textbox/textbox.component";
 import StyledWiggle, { wiggleAnimation } from "./decimal.style";
 import Label from "../label";
+import I18next from "../../../__spec_helper__/I18next";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -33,7 +34,9 @@ function render(props = {}, renderer = mount) {
     ...props,
   };
 
-  renderer(<Decimal {...defaultProps} />);
+  renderer(<Decimal {...defaultProps} />, {
+    wrappingComponent: I18next,
+  });
 }
 
 describe("Decimal", () => {
@@ -114,22 +117,16 @@ describe("Decimal", () => {
     const clipboardData = new ClipboardData({ "text/plain": obj.key });
     return press({ clipboardData }, where, "paste");
   };
-  let translations;
 
   beforeAll(() => {
-    translations = { ...I18n.translations };
-    I18n.translations.fr = {
+    i18n.addResourceBundle("fr", "carbon", {
       number: {
         format: {
           delimiter: ".",
           separator: ",",
         },
       },
-    };
-  });
-
-  afterAll(() => {
-    I18n.translations = translations;
+    });
   });
 
   beforeEach(() => {
@@ -1011,11 +1008,11 @@ describe("Decimal", () => {
 
     describe("i18n", () => {
       beforeAll(() => {
-        I18n.locale = "fr";
+        i18n.changeLanguage("fr");
       });
 
       afterAll(() => {
-        I18n.locale = undefined;
+        i18n.changeLanguage("en");
       });
 
       it("has a defaultValue of 0,00", () => {
