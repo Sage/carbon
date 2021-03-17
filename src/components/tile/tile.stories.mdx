@@ -12,6 +12,8 @@ import { Accordion } from "../accordion";
 import TileFooter from "./tile-footer";
 import Typography from "../typography";
 import Box from "../box";
+import {ActionPopover, ActionPopoverItem} from "../action-popover";
+import Icon from "../icon";
 import VerticalDivider from "../vertical-divider";
 import Hr from "../hr";
 
@@ -379,6 +381,68 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   </Story>
 </Preview>
 
+## With Definition List and ActionPopover and Icon support
+
+<Preview>
+  <Story name="with Definition List and ActionPopover and Icon support">
+    <Tile width={60}>
+      <Dl>
+      <Dt>
+        <Box paddingTop="4px" display="inline-flex" alignItems="center">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Icon type="tick" mr={1}/>
+          <Box>Details example</Box>
+        </Box>
+      </Dd>
+      <Dt>
+        <Box paddingTop="4px">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Box mr={1}>Details example</Box>
+          <Icon type="tick" />
+        </Box>
+      </Dd>
+      <Dt>
+        <Box paddingTop="4px">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Icon mr={1} type="tick" />
+          <Box mr={2}>Details example</Box>
+          <ActionPopover rightAlignMenu>
+            <ActionPopoverItem>Option 1</ActionPopoverItem>
+            <ActionPopoverItem>Option 2</ActionPopoverItem>
+          </ActionPopover>
+        </Box>
+      </Dd>
+      <Dt>
+        <Box paddingTop="4px">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Box mr={2}>Details example</Box>
+          <ActionPopover rightAlignMenu>
+            <ActionPopoverItem>Option 1</ActionPopoverItem>
+            <ActionPopoverItem>Option 2</ActionPopoverItem>
+          </ActionPopover>
+        </Box>
+      </Dd>
+    </Dl>
+    </Tile>
+  </Story>
+</Preview>
+
 ### With Accordion and Definition List
 
 <Preview>
@@ -444,7 +508,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 ## Props
 
-### Tile 
+### Tile
 <StyledSystemProps noHeader of={Tile} spacing spacingDefaults={{ p: 3 }} />
 
 ### TileFooter
