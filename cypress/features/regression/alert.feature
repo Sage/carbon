@@ -2,11 +2,6 @@ Feature: Alert component
   I want to change Alert component properties
 
   @positive
-  Scenario: CloseIcon has the border outline
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
-
-  @positive
   Scenario Outline: Change Alert component title to <title>
     When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
@@ -37,11 +32,6 @@ Feature: Alert component
   Scenario: Enable background UI
     When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
-
-  @negative
-  Scenario: Disable background UI
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
@@ -81,3 +71,9 @@ Feature: Alert component
       | medium-large | 850              | sizeMediumLarge |
       | large        | 960              | sizeLarge       |
       | extra-large  | 1080             | sizeExtraLarge  |
+
+  @positive
+  Scenario: Alert is not visible
+    Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
+    When I click closeIcon in IFrame
+    Then Alert is not visible
