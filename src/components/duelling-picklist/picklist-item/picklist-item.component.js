@@ -17,10 +17,9 @@ const PicklistItem = React.forwardRef(
       disabled,
       onChange,
       item,
-      index,
-      handleKeyboardAccessibility,
+      highlighted,
       locked,
-      lockedTooltipMessage = "This item is locked and can not be moved",
+      tooltipMessage = "This item is locked and can not be moved",
       ...rest
     },
     ref
@@ -31,14 +30,10 @@ const PicklistItem = React.forwardRef(
         if (Events.isEnterKey(event) || Events.isSpaceKey(event)) {
           event.preventDefault();
           onChange(item);
-        } else {
-          handleKeyboardAccessibility(event, index);
         }
       },
-      [onChange, item, handleKeyboardAccessibility, index]
+      [onChange, item]
     );
-
-    const tabIndex = index === 0 && !disabled ? 0 : -1;
 
     return (
       <CSSTransition
@@ -63,15 +58,12 @@ const PicklistItem = React.forwardRef(
               destructive={type === "remove"}
               iconType={type}
               onClick={handleClick}
-              tabIndex={tabIndex}
+              highlighted={highlighted}
               ref={ref}
             />
           )}
           {locked && (
-            <StyledLockIcon
-              type="locked"
-              tooltipMessage={lockedTooltipMessage}
-            />
+            <StyledLockIcon type="locked" tooltipMessage={tooltipMessage} />
           )}
         </StyledPicklistItem>
       </CSSTransition>
@@ -94,21 +86,12 @@ PicklistItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  /**
-   * Internal prop passed downward by Picklist to indicate which children it is
-   * @private
-   * @ignore
-   */
-  index: PropTypes.number,
-  /** Internal prop passed downward by Picklist to provide arrow/home/end keys navigation
-   * @private
-   * @ignore
-   */
-  handleKeyboardAccessibility: PropTypes.func,
   /** Disable the item */
   locked: PropTypes.bool,
-  /** Tooltip message for the locked icon */
-  lockedTooltipMessage: PropTypes.string,
+  /** Tooltip message for the locked icon (only present when locked prop is true) */
+  tooltipMessage: PropTypes.string,
+  /** @private @ignore */
+  highlighted: PropTypes.bool,
 };
 
 export default PicklistItem;

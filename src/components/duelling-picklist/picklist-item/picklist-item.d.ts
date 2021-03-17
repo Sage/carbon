@@ -13,8 +13,8 @@ export interface PicklistItemProps {
   item: object | string | number;
   /** Disable the item */
   locked?: boolean;
-  /** Tooltip message for the locked icon */
-  lockedTooltipMessage?: string;
+  /** Tooltip message for the locked icon (only present when locked prop is true) */
+  tooltipMessage?: string;
 }
 
 declare const PicklistItem: React.FunctionComponent<PicklistItemProps>;

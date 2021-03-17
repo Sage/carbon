@@ -26,6 +26,18 @@ const StyledPicklist = styled(Box).attrs({ as: "ul" })`
     transform: translate(0px);
     transition: all 300ms ease-in;
   }
+
+  .picklist-group-enter {
+    opacity: 0;
+    transform: translate(-16px);
+    transition: all 300ms ease-in;
+  }
+
+  .picklist-group-enter-active {
+    opacity: 1;
+    transform: translate(0px);
+    transition: all 300ms ease-in;
+  }
 `;
 
 const StyledEmptyContainer = styled.li`

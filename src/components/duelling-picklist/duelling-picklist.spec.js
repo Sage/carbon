@@ -19,6 +19,7 @@ import {
   StyledPicklistItem,
   StyledButton,
 } from "./picklist-item/picklist-item.style";
+import { StyledPicklist } from "./picklist/picklist.style";
 import { areEqual } from "./picklist/picklist.component";
 
 const EmptyComponent = () => <div />;
@@ -197,113 +198,53 @@ describe("DuellingPicklist", () => {
       container = null;
     });
 
-    it.each([
-      [0, 1],
-      [1, 2],
-      [2, 0],
-      [0, 1],
-    ])(
-      "focuses on next PicklistItem in a loop when down arrow is pressed",
-      (focused, nextFocused) => {
+    it("focuses on last PicklistItem when end key is pressed", () => {
+      wrapper
+        .find(StyledPicklist)
+        .at(0)
+        .props()
+        .onKeyDown({ which: 35, preventDefault: () => {} });
+
+      expect(
         wrapper
           .find(Picklist)
           .at(0)
           .find(StyledPicklistItem)
-          .at(focused)
-          .props()
-          .onKeyDown({ which: 40, preventDefault: () => {} });
+          .at(2)
+          .find(StyledButton)
+      ).toBeFocused();
+    });
 
-        expect(
-          wrapper
-            .find(Picklist)
-            .at(0)
-            .find(StyledPicklistItem)
-            .at(nextFocused)
-            .find(StyledButton)
-        ).toBeFocused();
-      }
-    );
+    it("focuses on first PicklistItem when home key is pressed", () => {
+      wrapper
+        .find(StyledPicklist)
+        .at(0)
+        .props()
+        .onKeyDown({ which: 36, preventDefault: () => {} });
 
-    it.each([
-      [0, 2],
-      [2, 1],
-      [1, 0],
-      [0, 2],
-    ])(
-      "focuses on next PicklistItem in a loop when up arrow is pressed",
-      (focused, nextFocused) => {
+      expect(
         wrapper
           .find(Picklist)
           .at(0)
           .find(StyledPicklistItem)
-          .at(focused)
-          .props()
-          .onKeyDown({ which: 38, preventDefault: () => {} });
-
-        expect(
-          wrapper
-            .find(Picklist)
-            .at(0)
-            .find(StyledPicklistItem)
-            .at(nextFocused)
-            .find(StyledButton)
-        ).toBeFocused();
-      }
-    );
-
-    it.each([
-      [0, 2],
-      [1, 2],
-      [2, 2],
-    ])(
-      "focuses on last PicklistItem when end key is pressed",
-      (focused, nextFocused) => {
-        wrapper
-          .find(Picklist)
           .at(0)
-          .find(StyledPicklistItem)
-          .at(focused)
-          .props()
-          .onKeyDown({ which: 35, preventDefault: () => {} });
-
-        expect(
-          wrapper
-            .find(Picklist)
-            .at(0)
-            .find(StyledPicklistItem)
-            .at(nextFocused)
-            .find(StyledButton)
-        ).toBeFocused();
-      }
-    );
-
-    it.each([
-      [0, 0],
-      [1, 0],
-      [2, 0],
-    ])(
-      "focuses on first PicklistItem when home key is pressed",
-      (focused, nextFocused) => {
-        wrapper
-          .find(Picklist)
-          .at(0)
-          .find(StyledPicklistItem)
-          .at(focused)
-          .props()
-          .onKeyDown({ which: 36, preventDefault: () => {} });
-
-        expect(
-          wrapper
-            .find(Picklist)
-            .at(0)
-            .find(StyledPicklistItem)
-            .at(nextFocused)
-            .find(StyledButton)
-        ).toBeFocused();
-      }
-    );
+          .find(StyledButton)
+      ).toBeFocused();
+    });
 
     it("does nothing when other key is pressed", () => {
+      wrapper
+        .find(StyledPicklist)
+        .at(0)
+        .props()
+        .onKeyDown({ which: 87, preventDefault: () => {} });
+
+      expect(
+        wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)
+      ).not.toBeFocused();
+    });
+
+    it("does nothing when other key is pressed on item", () => {
       wrapper
         .find(Picklist)
         .at(0)

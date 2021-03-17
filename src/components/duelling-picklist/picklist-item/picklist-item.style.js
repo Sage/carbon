@@ -21,7 +21,7 @@ const StyledPicklistItem = styled.li`
     ${locked &&
     css`
       border: 1px solid ${theme.picklist.lockedContent};
-      color: ${theme.picklist.lockedContent};
+      color: ${theme.picklist.lockedText};
 
       ${StyledIcon} {
         color: ${theme.picklist.lockedContent};
@@ -35,11 +35,22 @@ const StyledPicklistItem = styled.li`
 `;
 
 const StyledButton = styled(ButtonWithForwardRef)`
-  padding: 0;
-  margin-right: 0;
-  margin-left: auto;
-  height: 40px;
-  min-width: 40px;
+  ${({ iconType, theme }) => css`
+    padding: 0;
+    margin-right: 0;
+    margin-left: auto;
+    height: 40px;
+    min-width: 40px;
+
+    &:focus {
+      > span {
+        color: ${theme.colors.white};
+      }
+      background: ${iconType === "add"
+        ? theme.colors.secondary
+        : theme.colors.destructive.hover};
+    }
+  `}
 `;
 
 const StyledLockIcon = styled(Icon)`
@@ -49,5 +60,6 @@ const StyledLockIcon = styled(Icon)`
 `;
 
 StyledPicklistItem.defaultProps = { theme: baseTheme };
+StyledButton.defaultProps = { theme: baseTheme };
 
 export { StyledPicklistItem, StyledButton, StyledLockIcon };

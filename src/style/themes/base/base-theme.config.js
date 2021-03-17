@@ -279,6 +279,7 @@ export default (palette) => {
     picklist: {
       locked: palette.slateTint(95),
       lockedContent: palette.slateTint(45),
+      lockedText: palette.blackOpacity(0.6),
     },
 
     pill: {

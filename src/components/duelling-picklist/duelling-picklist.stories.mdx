@@ -60,15 +60,23 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
 <Preview>
-  <Story id="test-duellingpicklist--default" name="Default" />
+  <Story id="design-system-duellingpicklist--default" name="Default" />
 </Preview>
 
-### In dialog
+### Grouped
+
+Picklist items can be organised into selectable groups. Whole groups can be moved from one list to another at once, or group items can be moved individually.
+
+<Preview>
+  <Story id="design-system-duellingpicklist--grouped" name="Grouped" />
+</Preview>
+
+### In Dialog
 
 Same as above but as a children of `Dialog` component.
 
 <Preview>
-  <Story id="test-duellingpicklist--in-dialog" name="InDialog" />
+  <Story id="design-system-duellingpicklist--in-dialog" name="InDialog" />
 </Preview>
 
 ## PicklistItem Examples
@@ -130,7 +138,7 @@ Same as above but as a children of `Dialog` component.
       item={1}
       onChange={() => null}
       locked
-      lockedTooltipMessage="This is a custom locked tooltip message"
+      tooltipMessage="This is a custom locked tooltip message"
     >
       <div style={{ display: "flex", width: "100%" }}>
         <div style={{ width: "50%" }}>
@@ -159,7 +167,7 @@ Same as above but as a children of `Dialog` component.
 
 ### PicklistDivider
 
-<Props of={PicklistDivider} />
+`PicklistDivider` currently has no props for external use.
 
 ### PicklistPlaceholder
 
