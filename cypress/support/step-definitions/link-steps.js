@@ -3,6 +3,7 @@ import {
   linkChildren,
   linkIcon,
   skipLink,
+  relLink,
 } from "../../locators/link";
 
 Then("children on preview is {word}", (children) => {
@@ -58,4 +59,8 @@ Then("Skip link is visible", () => {
 
 Then("Skip link is not visible", () => {
   skipLink().should("not.have.css", "background-color", "rgb(255, 255, 255)");
+});
+
+Then("link has a rel attribute", () => {
+  relLink().should("have.attr", "rel", "noreferrer noopener");
 });
