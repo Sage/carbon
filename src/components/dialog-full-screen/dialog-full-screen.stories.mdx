@@ -28,6 +28,21 @@ import { Dl, Dt, Dd } from "../definition-list";
 
 A full-width and full-height dialog overlaid on top of any page.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen";
+```
+
+## Designer Notes
+
 Useful to perform an action in context without navigating the user to a separate page.
 
 Whilst a standard Dialog component’s width might constrain what you can do, the full screen dialog uses the full width and height available.
@@ -39,24 +54,7 @@ A good example could be importing a large volume of data, and checking for error
 - Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Dialog").
 - Need to refer back to the underlying page? [Try Sidebar](/?path=/docs/sidebar--default-story "Sidebar").
 
-## Quick Start
-
-Import the component and use as shown below:
-
-```jsx
-import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen";
-
-const MyComponent = ({ isOpen, handleClose }) => (
-  <DialogFullScreen
-    open={isOpen}
-    onCancel={handleClose}
-    title="Title"
-    subtitle="Subtitle"
-  >
-    Dialog content
-  </DialogFullScreen>
-);
-```
+## Examples
 
 ### Default
 
@@ -797,7 +795,7 @@ to have a possibility to manage active `Tabs` group
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### DialogFullScreen
 

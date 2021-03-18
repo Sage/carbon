@@ -16,19 +16,19 @@ import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 # Hr
 Provides a horizontal dividing line to make the above and below components feel distinctly separate from one another.
 
-## Quick Start
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
 
+## Quick Start
 To use Hr, import the `Hr` and set the margins to align it with other components.
 
-```jsx
+```javascript
 import Hr from "carbon-react/lib/components/hr";
-
-const MyComponent = () => (
-  <Hr />
-);
 ```
 
-## Visuals
+## Examples
 
 ### Default
 By default the hr is 100% width and has top and bottom margins of 24px.
@@ -56,7 +56,7 @@ The `mb` and `mt` props set the vertical spacing. These props are mulitipliers a
       onSubmit={ () => console.log('submit')}
       leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
       saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      stickyFooter
+      stickyFooter={false}
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
@@ -74,7 +74,7 @@ The `mb` and `mt` props set the vertical spacing. These props are mulitipliers a
       onSubmit={ () => console.log('submit')}
       leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
       saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      stickyFooter
+      stickyFooter={false}
     >
       <Textbox label="Textbox" labeAlign="right" labelInline labelWidth={10} inputWidth={50} />
       <Textbox label="Textbox" labeAlign="right"  labelInline labelWidth={10} inputWidth={50} />
@@ -93,9 +93,12 @@ The left and right margins can be set to 0 below a screen width breakpoint. This
   </Story> 
 </Preview>
 
+## Props
 
+### Hr
 <StyledSystemProps
   of={Hr}
   spacing
+  noHeader
   defaults={{ mt: '3', mb: '3' }}
 />

@@ -12,6 +12,22 @@ import Typography from '../typography';
 
 Navigates the user to another location.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `Link` into the project.
+
+```javascript
+import Link from "carbon-react/lib/components/link";
+```
+
+## Designer Notes
+
 To use `Link` with a routing library see our documentation on this here: <LinkTo kind='Documentation/Usage with routing'>Usage with routing</LinkTo>
 
 Avoid using links for commands (performing an action like saving a form) - use them for navigating the user to a new location.
@@ -20,15 +36,7 @@ To make the meaning of a link clearer, you can add an icon before it. Just name 
 Make your link names meaningful - for example, instead of ‘Click here’, try ‘Download Invoice 001’.
 WCAG guidelines recommend that Color is not used as the only visual means of conveying information, indicating an action. Carbon applies bold weight, but you could also use text decoration.
 
-## Quick Start
-
-Import `Link` into the project.
-
-```jsx
-import Link from "carbon-react/lib/components/link";
-
-const MyComponent = () => <Link>This is a link</Link>;
-```
+## Examples
 
 ### Default
 
@@ -172,4 +180,5 @@ Use the `target` prop to modify the behaviour when the Link component is clicked
 
 ## Props
 
+### Link
 <Props of={InternalLink} />

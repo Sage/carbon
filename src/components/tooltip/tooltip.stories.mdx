@@ -10,16 +10,24 @@ import Button from "../button";
 />
 
 # Tooltip
-
 The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will 
 flip if there is no space in its default placement; and the arrow and tooltip will track the target element when a user scrolls 
 or the window resizes.
 
-```jsx
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start 
+
+```javascript
 import Tooltip from "carbon-react/lib/components/tooltip";
 ```
 
-### Basic usage
+## Examples
+
+### Default 
 To use the Tooltip, pass in the component you want it to display on in via the `children` prop, any component passed in
 must support `forwardRef`. By default the Tooltip does not need to be controlled and will display when the target element
 is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the
@@ -174,6 +182,7 @@ when there is no space to render to the right anymore.
 </Preview>
 
 ### Large tooltip
+
 <Preview>
   <Story name="large tooltip">
     {() => {
@@ -276,6 +285,7 @@ css value. Any values passed to the `bgColor` prop will override the color appli
   </Story>
 </Preview>
 
-### Tooltip Props
+## Props
 
+### Tooltip
 <Props of={Tooltip} />

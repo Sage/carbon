@@ -22,6 +22,21 @@ import Loader from '../loader';
 # Dialog
 A dialog box overlaid on top of any page.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Dialog from "carbon-react/lib/components/dialog";
+```
+
+## Designer Notes
+
 Useful to perform an action in context without navigating the user to a separate page.
 
 Several pre-set widths are available - the height of the dialog will flex to fit the content. It’s best to avoid dialogs that are taller than the user’s viewport height. Typical user viewport heights can be as little as 650 pixels.
@@ -34,24 +49,7 @@ A configuration shows a close icon at the top right of the Dialog. Sometimes use
 - Complex task that needs more space? [Try Dialog Full Screen](/?path=/docs/dialog-full-screen--default-story "Dialog Full Screen").
 - Need to refer back to the underlying page? [Try Sidebar](/?path=/docs/sidebar--default-story "Sidebar").
 
-## Quick Start
-
-Import the component and use as shown below:
-
-```jsx
-import Dialog from "carbon-react/lib/components/dialog";
-
-const MyComponent = ({ isOpen, handleClose }) => (
-  <Dialog
-    open={ isOpen }
-    onCancel={ handleClose }
-    title="Title"
-    subtitle="Subtitle"
-  >
-    Dialog content
-  </Dialog>
-);
-```
+## Examples
 
 ### Default
 
@@ -216,7 +214,7 @@ When mixing editable and non-editable content, you can use the <LinkTo kind='Des
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Dialog
 
