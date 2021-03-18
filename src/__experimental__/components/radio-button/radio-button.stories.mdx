@@ -11,6 +11,23 @@ import Typography from '../../../components/typography';
 
 # RadioButton/RadioButtonGroup
 Used to provide a group of selectable radio buttons.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start 
+
+To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
+
+```javascript
+import { RadioButton, RadioButtonGroup } from "carbon-react/lib/__experimental__/components/radio-button";
+```
+
+## Designer Notes
 Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 Useful to show less than about 10 options.
 Disabled or read-only radio buttons might be difficult for a user to distinguish visually, so try to avoid this.
@@ -20,27 +37,7 @@ Disabled or read-only radio buttons might be difficult for a user to distinguish
 - Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--default "Try Checkbox").
 - Choosing one option from a highly visible small range? [Try Button Toggle](/?path=/story/button-toggle--default "Try Button Toggle").
 
-## Quick Start 
-
-To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
-
-```jsx
-import { RadioButton, RadioButtonGroup } from "carbon-react/lib/__experimental__/components/radio-button";
-
-const MyComponent = () => (
-  <RadioButtonGroup
-    name="mybuttongroup"
-    onChange={ handleChange }
-  >
-    <RadioButton id="radio1" value="radio1" />
-    <RadioButton id="radio2" value="radio2" />
-    <RadioButton id="radio3" value="radio3" />
-
-  </RadioButtonGroup>
-)
-```
-
-## Visuals
+## Examples
 
 ### With legend and labels
 A legend can be set for the group, and each radio button can have a label.

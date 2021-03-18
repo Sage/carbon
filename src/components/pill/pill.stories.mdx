@@ -9,11 +9,31 @@ import Box from "../box";
 
 Compact visual indicators that help things in common stand out.
 
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
 ```javascript
 import Pill from "carbon-react/lib/components/pill";
 ```
 
-## Status Pills
+## Examples
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <Box mb={1}>
+      <Pill>default pill</Pill>
+    </Box>
+  </Story>
+</Preview>
+
+### Status Pills
 
 An automatic indicator of status, styled with utility colours to carry meaning.
 
@@ -428,7 +448,7 @@ An automatic indicator of status, styled with utility colours to carry meaning.
   </Story>
 </Preview>
 
-## Tag Pills
+### Tag Pills
 
 Applied by the user, and indicate something in common. Change the theme to see the available colours.
 
@@ -498,7 +518,7 @@ Applied by the user, and indicate something in common. Change the theme to see t
   </Story>
 </Preview>
 
-## Custom colors
+### Custom colors
 
 It's possible to change the color of the Pill by using the `borderColor` prop. It will override `colorVariant` value.
 See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
@@ -585,4 +605,8 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
   </Story>
 </Preview>
 
-<StyledSystemProps of={Pill} margin />
+## Props
+
+### Pill
+
+<StyledSystemProps of={Pill} margin noHeader />

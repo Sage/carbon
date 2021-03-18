@@ -9,19 +9,15 @@ import StyledSystemProps from "../../../../.storybook/utils/styled-system-props"
 <Meta title="Design System/Select" parameters={{ info: { disable: true } }} />
 
 # Simple Select
+Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
 
-Select one of available options from the drop-down menu
-
-## Overview
-
-Simple Select is a Carbon styled equivalent of HTML Select Element.
-
-## Guidance, hints and tips
-
-Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start
-
 To use the `Select` component you have to import two components: `<Select />` and `<Option />`
 from `carbon-react/lib/components/select`.
 
@@ -29,7 +25,12 @@ from `carbon-react/lib/components/select`.
 import { Select, Option } from "carbon-react/lib/components/select";
 ```
 
-### Default usage:
+## Designer Notes
+Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
+
+## Examples 
+
+### Default
 
 <Preview>
   <Story name="default">
@@ -61,7 +62,6 @@ import { Select, Option } from "carbon-react/lib/components/select";
 </Preview>
 
 ### Required
-
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
@@ -87,7 +87,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-### Controlled usage:
+### Controlled usage
 
 <Preview>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
@@ -129,8 +129,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-### With object as value:
-
+### With object as value
 Option values could be passed as objects, useful when custom data is associated with an option.
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
@@ -228,8 +227,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
   </Story>
 </Preview>
 
-### With isLoading prop:
-
+### With isLoading prop
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Preview>
@@ -290,8 +288,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
   </Story>
 </Preview>
 
-### Infinite scroll example:
-
+### Infinite scroll example
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
@@ -387,7 +384,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### Open on focus:
+### Open on focus
 
 <Preview>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
@@ -407,7 +404,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### Disabled:
+### Disabled
 
 <Preview>
   <Story name="disabled">
@@ -427,7 +424,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### Read Only:
+### Read Only
 
 <Preview>
   <Story name="readonly">
@@ -447,7 +444,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### Transparent:
+### Transparent
 
 <Preview>
   <Story name="transparent">
@@ -467,7 +464,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### With disabled portal:
+### With disabled portal
 
 <Preview>
   <Story
@@ -495,7 +492,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### With multiple columns:
+### With multiple columns
 
 <Preview>
   <Story
@@ -544,7 +541,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
   </Story>
 </Preview>
 
-### Option groups:
+### Option groups
 
 <Preview>
   <Story name="option groups" parameters={{ chromatic: { disable: true } }}>
@@ -568,7 +565,6 @@ This prop will be called every time a user scrolls to the bottom of the list.
 </Preview>
 
 ### Enabling the adaptive behaviour
-
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
@@ -598,12 +594,13 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   </Story>
 </Preview>
 
-<StyledSystemProps of={Select} margin />
+## Props
+
+### Select 
+<StyledSystemProps noHeader of={Select} margin />
 
 ### Props derived from the Textbox Component
-
 <Props of={SelectTextbox} />
 
 ### Props of the Option Component
-
 <Props of={Option} />

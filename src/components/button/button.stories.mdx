@@ -4,14 +4,24 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Button" parameters={{ info: { disable: true } }} />
 
-# Button
 
+# Button
+A Button triggers a single action or event.
+Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New).
+
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
 ```javascript
 import Button from "carbon-react/lib/components/button";
 ```
 
-## Primary Buttons
+## Examples
 
+### Primary Buttons
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
 
 <Preview>
@@ -118,8 +128,7 @@ Primary buttons can be set into `noWrap` mode to prevent text wrapping.
   </Story>
 </Preview>
 
-## Secondary Buttons
-
+### Secondary Buttons
 Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
 
@@ -209,8 +218,7 @@ Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
   </Story>
 </Preview>
 
-## Tertiary Buttons
-
+### Tertiary Buttons
 Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
 
 <Preview>
@@ -317,8 +325,7 @@ Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
   </Story>
 </Preview>
 
-## Dashed Buttons
-
+### Dashed Buttons
 Dashed buttons are used for adding new content that replaces empty states.
 
 <Preview>
@@ -402,8 +409,7 @@ Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
   </Story>
 </Preview>
 
-## Button as a link
-
+### Button as a link
 Passing in the `href` prop will render an anchor with `role="button"` and the Button styles
 
 <Preview>
@@ -415,7 +421,6 @@ Passing in the `href` prop will render an anchor with `role="button"` and the Bu
 </Preview>
 
 ### Icon Only Button
-
 Buttons can be rendered with just an icon.
 
 <Preview>
@@ -475,13 +480,15 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
   </Story>
 </Preview>
 
-## Shared Props
-
+## Props
 Options shared between all of the above types of buttons. When setting padding we recommend using either the `p`, `py`
 or `px` props to ensure the spacing within the button is applied evenly.
+
+### Button
 
 <StyledSystemProps
   of={Button}
   spacing
   defaults={{ pt: "1px", pb: "1px", px: "24px" }}
+  noHeader
 />

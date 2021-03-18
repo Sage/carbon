@@ -12,27 +12,34 @@ import Button from "../button";
 />
 
 # Text Editor
-
 The `TextEditor` was created using the `draftjs` framework. It requires consuming projects to install `draftjs` as a
 peer-dependency to enable it to work.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
 
-To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
-
-It can be used as a controlled component where the content of the input is controlled externally, as such both
-`onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure
-accessibility requirements are met.
-
-```jsx
+```javascript
 import TextEditor, {
   EditorState,
   ContentState,
 } from "carbon-react/lib/components/text-editor";
 ```
 
-### Default usage:
+## Designer Notes 
+To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
 
+It can be used as a controlled component where the content of the input is controlled externally, as such both
+`onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure
+accessibility requirements are met.
+
+## Examples
+
+### Default
 In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial
 editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links
 in the input, this can be done by manually typing or pasting a valid url into the editor. Another feature of the
@@ -60,8 +67,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-### With content:
-
+### With content
 The initial editorState can also be created with content using
 `EditorState.createWithContent(ContentState.createFromText(''))`, as it is below. Other options available for
 populating the content that can be found https://draftjs.org/docs/api-reference-content-state#static-methods.
@@ -95,7 +101,6 @@ editor can expects.
 </Preview>
 
 ### With optional Save/ Cancel buttons
-
 By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback
 will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
 otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
@@ -126,7 +131,6 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
 </Preview>
 
 ### With user defined character limit
-
 It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
 will prevent any input that would cause the content length to exceed it.
 
@@ -158,7 +162,6 @@ will prevent any input that would cause the content length to exceed it.
 </Preview>
 
 ### With validation
-
 It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`,
 `warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate
 this status.
@@ -257,6 +260,7 @@ which is multiplied by the line-height (21px).
   </Story>
 </Preview>
 
-### Text Editor Props
+## Props
 
+### Text Editor 
 <Props of={TextEditor} />

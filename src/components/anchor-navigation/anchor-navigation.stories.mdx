@@ -11,10 +11,20 @@ import Textbox from '../../__experimental__/components/textbox';
 # Anchor Navigation
 Easily navigate through long scrollable content.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
+To use `AnchorNavigation` import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
 
-To use `AnchorNavigation` first import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
+```javascript
+import { AnchorNavigation, AnchorNavigationItem, AnchorSectionDivider } from "carbon-react/lib/components/anchor-navigation"
+```
 
+## Designer Notes 
 Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
 
 Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
@@ -24,9 +34,7 @@ Keep in mind that to assign a `ref` to a component it either has to be a `Class`
 
 **It is necessary to mantain the same order of navigation items and children when assigning the `refs`**
 
-```jsx
-import { AnchorNavigation, AnchorNavigationItem, AnchorSectionDivider } from "carbon-react/lib/components/anchor-navigation"
-
+```javascript
 const MyComponent = () => (
   const ref1 = React.createRef();
   const ref2 = React.createRef();
@@ -62,6 +70,8 @@ const MyComponent = () => (
 );
 ```
 
+## Examples
+
 ### Default
 `AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
 
@@ -79,7 +89,7 @@ const MyComponent = () => (
 
 <Story id="test-anchornavigation--with-overriden-styles" name="WithOverridenStyles" />
 
-## Props:
+## Props
 
 ### AnchorNavigation
 

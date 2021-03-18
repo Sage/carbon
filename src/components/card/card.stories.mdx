@@ -19,15 +19,24 @@ import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
   parameters={{ info: { disable: true }}}
 />
 
+# Card
+Organise and present content and actions about a single subject.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick start
-```js
+```javascript
 import Card from "carbon-react/lib/components/card";
 import CardRow from 'carbon-react/lib/components/card/card-row';
 import CardFooter from "carbon-react/lib/components/card/card-footer";
 import CardColumn from "carbon-react/lib/components/card/card-column";
 ```
 
-## Guidance, hints and tips
+## Designer Notes
 - Cards: contain interactive content or controls. 
 Sometimes it might be possible to move them around on the page. They have shadows - 'card shadow' as a default, 
 and depth level 1 on hover.
@@ -38,7 +47,9 @@ Often cards are one large touch target to a detail screen on a subject.
 - When an array of cards or tiles are shown together, 
 they may wrap into a grid depending on the available width and height of their container.
 
-## Default - medium spacing
+## Examples
+
+### Default - medium spacing
 
 <Preview>
   <Story name="default">
@@ -72,7 +83,7 @@ they may wrap into a grid depending on the available width and height of their c
   </Story>
 </Preview>
 
-## Small spacing
+### Small spacing
 
 <Preview>
   <Story name="small spacing">
@@ -106,7 +117,7 @@ they may wrap into a grid depending on the available width and height of their c
   </Story>
 </Preview>
 
-## Large spacing
+### Large spacing
 
 <Preview>
   <Story name="large spacing">
@@ -140,7 +151,7 @@ they may wrap into a grid depending on the available width and height of their c
   </Story>
 </Preview>
 
-## With cardWidth provided
+### With cardWidth provided
 
 <Preview>
   <Story name="with cardWidth provided">
@@ -174,7 +185,7 @@ they may wrap into a grid depending on the available width and height of their c
   </Story>
 </Preview>
 
-## Interactive
+### Interactive
 Click on the card to see the effect
 
 <Preview>
@@ -217,7 +228,7 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
-## Different `<CardRow />` padding
+### Different `<CardRow />` padding
 
 <Preview>
   <Story name="different CardRow padding" parameters={{ chromatic: { disable: true }}}>
@@ -260,7 +271,7 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
-## Different `<CardFooter />` paddings
+### Different `<CardFooter />` padding
 
 <Preview>
   <Story name="different CardFooter padding" parameters={{ chromatic: { disable: true }}}>
@@ -341,7 +352,7 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
-## More `<CardFooter />` examples
+### More `<CardFooter />` examples
 
 <Preview>
   <Story name="more examples of CardFooter">
@@ -417,18 +428,20 @@ Click on the card to see the effect
   </Story>
 </Preview>
 
-## Props for `<Card />`
+## Props
+ 
+### Card
 
 <Props of={Card} />
 
-## Props for `<CardRow />`
+### CardRow
 
-<StyledSystemProps padding of={CardRow} />
+<StyledSystemProps noHeader padding of={CardRow} />
 
-## Props for `<CardColumn />`
+### CardColumn
 
 <Props of={CardColumn} />
 
-## Props for `<CardFooter />`
+### CardFooter
 
-<StyledSystemProps spacing of={CardFooter} />
+<StyledSystemProps spacing noHeader of={CardFooter} />

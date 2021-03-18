@@ -27,30 +27,20 @@ import AppWrapper from '../app-wrapper';
 # Form
 Represents a document section containing interactive controls for submitting information.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
-
 To use Form, import the `Form` and pass the content, usually various inputs, as children.
-
 You can provide a save button using the `saveButton` prop.
 
-
-```jsx
+```javascript
 import Form from "carbon-react/lib/components/form";
-
-const MyComponent = () => (
-  <Form
-    onSubmit={ handleSubmit }
-    leftSideButtons={ <Button onClick={ handleCancel }>Cancel</Button> }
-    saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-  >
-    <Textbox label="Label1" />
-    <Textbox label="Label2" />
-  </Form>
-);
 ```
 
-## Visuals
-
+## Examples
 ### With sticky footer
 When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
 
@@ -234,7 +224,7 @@ It is possible to render `Form` as a content of `Dialog` component.
   </Story>
 </Preview>
 
-With sticky footer
+#### With sticky footer
 
 <Preview>
   <Story name="in Dialog with sticky footer" parameters={{ chromatic: { disable: true }}}>
@@ -319,7 +309,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
   </Story>
 </Preview>
 
-With sticky footer
+#### With sticky footer
 
 <Preview>
   <Story name="in DialogFullScreen with sticky footer" parameters={{ chromatic: { disable: true }}}>
@@ -527,4 +517,5 @@ Please click on "Show code" below to see how to set these components up for alig
 
 ## Props
 
+### Form
 <Props of={Form} />

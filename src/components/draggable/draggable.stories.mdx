@@ -8,46 +8,33 @@ import { Checkbox } from "../../__experimental__/components/checkbox";
 />
 
 # Draggable
-
-Pick, move and replace an order
-
-## Overview 
-
-Draggable is a great component if you need to have interactive components 
+Pick, move and replace an order. Draggable is a great component if you need to have interactive components 
 with possibility to change their order with drag and drop mechanics
 
-## Guidance, hints and tips 
-
-Always use `DraggableItem` inside of the `DraggableContainer`
-
-`DraggableItem` doesn't work without `DraggableContainer`
-
-`DraggableItem` requires an `id` to be passed to the component
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start 
-
 To use the Draggable component you have to import two components: `<DraggableContainer />` and `<DraggableItem />`.
 
-The first: `<DraggableContainer />` is a required container to let content inside of `<DraggableItem />` be draggable.
-
-`<DraggableItem />` Is a component that access every child to be put in. 
-
-The whole `<DraggableItem />` is draggable
-
-```jsx
-import { DraggableContainer, DraggableItem } from "carbon-react/Draggable";
-
-<DraggableContainer>
-  <DraggalbeItem key="1" id={1}>Some content goes here</DraggableItem>
-  <DraggalbeItem key="2" id={2}>Some content goes here</DraggableItem>
-  <DraggalbeItem key="3" id={3}>Some content goes here</DraggableItem>
-  <DraggalbeItem key="4" id={4}>Some content goes here</DraggableItem>
-</DraggableContainer>;
+```javascript
+import { DraggableContainer, DraggableItem } from "carbon-react/lib/components/draggable";
 ```
 
-## Visuals
+## Designer Notes 
+- Always use `DraggableItem` inside of the `DraggableContainer`
+- `DraggableItem` doesn't work without `DraggableContainer`
+- `DraggableItem` requires an `id` to be passed to the component
+- The whole `<DraggableItem />` is draggable
+- The first: `<DraggableContainer />` is a required container to let content inside of `<DraggableItem />` be draggable.
+- `<DraggableItem />` Is a component that access every child to be put in. 
 
-### simple text as a content
+## Examples
+
+### Simple text as a content
 
 <Preview>
   <Story name="default">
@@ -60,7 +47,7 @@ import { DraggableContainer, DraggableItem } from "carbon-react/Draggable";
   </Story>
 </Preview>
 
-### other components as children
+### Other components as children
 
 <Preview>
   <Story name="components as children">
@@ -81,16 +68,16 @@ import { DraggableContainer, DraggableItem } from "carbon-react/Draggable";
   </Story>  
 </Preview>
 
-### with getOrder callback
+### With getOrder callback
 
 <Preview>
   <Story name="with getOrder callback" id="design-system-draggable-test--default" />
 </Preview>
 
-## DraggableContainer Props
+## Props
 
+### DraggableContainer
 <Props of={DraggableContainer} />
 
-## DraggableItem Props
-
+### DraggableItem 
 <Props of={DraggableItem} exclude={['findItem', 'moveItem', 'getOrder']} />

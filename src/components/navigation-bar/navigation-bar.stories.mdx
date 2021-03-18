@@ -8,7 +8,21 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Navigation Bar" />
 
-# NavigationBar
+# Navigation Bar
+This component is used as a wrapper for the Menu component when used as a navigation layout.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start 
+
+```javascript
+import NavigationBar from "carbon-react/lib/components/navigation-bar";
+```
+
+## Examples
 
 ### Light Theme
 
@@ -19,7 +33,6 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 </Preview>
 
 ### Light Theme Loading State
-
 If `isLoading={true}` the children will not be visible
 
 <Preview>
@@ -42,7 +55,6 @@ If `isLoading={true}` the children will not be visible
 </Preview>
 
 ### Dark Theme Loading State
-
 If `isLoading={true}` the children will not be visible
 
 <Preview>
@@ -57,7 +69,6 @@ If `isLoading={true}` the children will not be visible
 </Preview>
 
 ### With custom spacing
-
 The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any
 valid CSS string.
 
@@ -111,4 +122,7 @@ valid CSS string.
   </Story>
 </Preview>
 
-<StyledSystemProps spacing />
+## Props
+
+### Navigation Bar 
+<StyledSystemProps of={NavigationBar} noHeader spacing />
