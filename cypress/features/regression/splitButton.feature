@@ -25,15 +25,6 @@ Feature: Split Button component
     When I hover mouse onto "dropdown" icon in no iFrame
     Then Split Button is expanded
 
-  @positive
-  Scenario Outline: Verify color palette for Split Button component without focus
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
-    Then Split Button first element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
-      And Split Button second element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
-    Examples:
-      | background-color | border-color    |
-      | rgba(0, 0, 0, 0) | rgb(0, 129, 93) |
-
   @ignore
   # there is no possibility to trigger mouseover on first element
   Scenario: Verify color palette for first element of Split Button component with focus
