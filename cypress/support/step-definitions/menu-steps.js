@@ -1,16 +1,13 @@
 import {
-  menuPreview,
   submenuBlock,
   innerMenu,
   submenu,
   scrollBlock,
   lastSubmenuElement,
+  menuDivider,
+  segmentTitle,
 } from "../../locators/menu";
 import { positionOfElement } from "../helper";
-
-Then("Menu elements are visible", () => {
-  menuPreview().should("be.visible");
-});
 
 When("I hover over third expandable Menu component", () => {
   submenu().trigger("mouseover");
@@ -50,4 +47,34 @@ When("I scroll to the bottom of the block", () => {
 
 Then("The last element is visible", () => {
   lastSubmenuElement().should("be.visible");
+});
+
+Then(
+  "Inner menu search input has alternate {string} background colour",
+  (color) => {
+    innerMenu(positionOfElement("fifth")).should(
+      "have.css",
+      "background-color",
+      color
+    );
+  }
+);
+
+Then("Menu divider has {int} px size", (size) => {
+  menuDivider().should("have.css", "height", `${size}px`);
+});
+
+Then("{string} is visible", (text) => {
+  segmentTitle()
+    .should("have.text", text)
+    .and("be.visible")
+    .and("have.css", "color", "rgb(64, 102, 119)");
+});
+
+Then("{string} submenu has alternate colour theme", (position) => {
+  innerMenu(positionOfElement(position)).should(
+    "have.css",
+    "background-color",
+    "rgb(230, 235, 237)"
+  );
 });

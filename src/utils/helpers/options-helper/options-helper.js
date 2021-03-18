@@ -267,6 +267,8 @@ const OptionsHelper = {
 
   sizesPod: ["extra-small", "small", "medium", "large", "extra-large"],
 
+  iconSizes: ["small", "medium", "large", "extra-large"],
+
   sizesRestricted: ["small", "medium", "large"],
 
   sizesBinary: ["small", "large"],
@@ -299,8 +301,6 @@ const OptionsHelper = {
   inputTypes: ["textbox", "textarea", "date", "decimal", "select"],
 
   formButtonOptions: ["save", "cancel"],
-
-  positionDatePicker: ["top-left", "top-right", "bottom-left", "bottom-right"],
 
   tableCellTypes: ["header", "rowHeader", "cell"],
 

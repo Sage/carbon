@@ -1,15 +1,15 @@
-export default function updateListScrollTop(indexOfCurrent, list) {
-  if (!list || !list.children[indexOfCurrent]) {
+export default function updateListScrollTop(indexOfCurrent, list, options) {
+  if (!list || !options[indexOfCurrent]) {
     list.scrollTop = 0;
 
     return;
   }
 
   let newPosition = 0;
-  const { offsetHeight: listHeight, children: listChildren } = list;
-  const { offsetTop: itemTop, offsetHeight: currentItemHeight } = listChildren[
+  const { offsetHeight: listHeight } = list;
+  const { offsetTop: itemTop, offsetHeight: currentItemHeight } = options[
     indexOfCurrent
-  ];
+  ].current;
 
   if (itemTop + currentItemHeight > listHeight) {
     newPosition = itemTop + currentItemHeight - listHeight;

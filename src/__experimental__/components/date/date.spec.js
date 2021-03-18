@@ -202,10 +202,10 @@ describe("Date", () => {
       });
     });
 
-    describe('when the "isMounted" flag is falsy', () => {
+    describe('when the "hasMounted" flag is falsy', () => {
       it('does not update the "lastValidEventValues"', () => {
         const instance = wrapper.find(BaseDateInput).instance();
-        instance.isMounted = false;
+        instance.hasMounted = false;
         simulateChangeOnInput(wrapper, "21-12-2019");
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
@@ -810,21 +810,10 @@ describe("Date", () => {
 });
 
 describe("disablePortal", () => {
-  it("renders DatePicker as a content of positionedChildren prop on Textbox when disablePortal is true", () => {
-    const wrapper = render({ disablePortal: true });
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    const positionedChildren = mount(
-      wrapper.find(Textbox).props().positionedChildren
-    );
-    expect(positionedChildren.find(DatePicker).exists()).toBe(true);
-  });
-
   it("renders DatePicker as a direct children of StyledDateInput by default", () => {
     const wrapper = render({});
     wrapper.find(InputIconToggle).props().onClick();
     wrapper.update();
-    expect(wrapper.find(Textbox).props().positionedChildren).toBe(false);
     expect(wrapper.find(DatePicker).exists()).toBe(true);
   });
 });

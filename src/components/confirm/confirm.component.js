@@ -84,7 +84,7 @@ class Confirm extends Dialog {
     if (this.props.iconType) {
       return (
         <StyledConfirmHeading type={iconType} data-element={iconType}>
-          <Icon type={iconType} fontSize="large" />
+          <Icon type={iconType} fontSize="medium" />
           {title}
         </StyledConfirmHeading>
       );

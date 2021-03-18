@@ -14,10 +14,6 @@ Then("Message type on preview is {string}", (type) => {
   messageType().should("have.attr", "data-element", type);
 });
 
-Then("Message component is not visible", () => {
-  messagePreview().should("not.exist");
-});
-
 Then("Message component is transparent", () => {
   messagePreview().should("have.css", "background-color", "rgba(0, 0, 0, 0)");
 });

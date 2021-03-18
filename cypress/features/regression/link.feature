@@ -34,3 +34,19 @@ Feature: Link component
   Scenario: Change type of icon for a Link component to feedback
     When I open default "Link Test" component in noIFrame with "link" json from "commonComponents" using "icon" object name
     Then icon on link component preview is "feedback"
+
+  @positive
+  Scenario: Check skip link is visible when focused
+    Given I open "Link" component page "is skip link" in no iframe
+    When I hit Tab key 1 times in no Iframe
+    Then Skip link is visible
+
+  @positive
+  Scenario: Check skip link is not visible without focus
+    When I open "Link" component page "is skip link" in no iframe
+    Then Skip link is not visible
+
+  @positive
+  Scenario: Check rel attr is able to be used in a link component
+    When I open "Link" component page "with rel" in no iframe
+    Then link has a rel attribute

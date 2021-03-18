@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-import { State, Store } from "@sambego/storybook-state";
+import React, { useRef, useState } from "react";
 
 import Textbox from "../../__experimental__/components/textbox";
 import Button from "../button";
@@ -84,19 +83,8 @@ export const Default = () => {
   );
 };
 
-const store = new Store({
-  open: false,
-});
-
-const handleOpen = () => {
-  store.set({ open: true });
-};
-
-const handleClose = () => {
-  store.set({ open: false });
-};
-
 export const InFullScreenDialog = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const ref1 = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
@@ -105,52 +93,48 @@ export const InFullScreenDialog = () => {
 
   return (
     <>
-      <Button onClick={handleOpen}>Open AnchorNavigation</Button>
+      <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
 
-      <State store={store}>
-        <DialogFullScreen
-          open={store.get("open")}
-          onCancel={handleClose}
-          title="Title"
-          subtitle="Subtitle"
+      <DialogFullScreen
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+      >
+        <AnchorNavigation
+          stickyNavigation={
+            <>
+              <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref4}>
+                Navigation item with very long label
+              </AnchorNavigationItem>
+              <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+            </>
+          }
         >
-          <AnchorNavigation
-            stickyNavigation={
-              <>
-                <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-                <AnchorNavigationItem target={ref2}>
-                  Second
-                </AnchorNavigationItem>
-                <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-                <AnchorNavigationItem target={ref4}>
-                  Navigation item with very long label
-                </AnchorNavigationItem>
-                <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-              </>
-            }
-          >
-            <div ref={ref1}>
-              <Content title="First section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref2}>
-              <Content title="Second section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref3}>
-              <Content noTextbox title="Third section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref4}>
-              <Content title="Fourth section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref5}>
-              <Content title="Fifth section" />
-            </div>
-          </AnchorNavigation>
-        </DialogFullScreen>
-      </State>
+          <div ref={ref1}>
+            <Content title="First section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref2}>
+            <Content title="Second section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref3}>
+            <Content noTextbox title="Third section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref4}>
+            <Content title="Fourth section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref5}>
+            <Content title="Fifth section" />
+          </div>
+        </AnchorNavigation>
+      </DialogFullScreen>
     </>
   );
 };

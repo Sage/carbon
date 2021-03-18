@@ -1,13 +1,15 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { PropsTable } from "@storybook/components";
-import PreviewComponent from './preview.component';
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { ArgsTable } from "@storybook/components";
+import PreviewComponent from "./preview.component";
 
-<Meta title="Preview" parameters={{ info: { disable: true }}} />
+<Meta title="Preview" parameters={{ info: { disable: true } }} />
 
 # Preview
+
 Applies a preview loading state animation.
 
 ## Quick Start
+
 Import `Preview` into the project.
 
 ```jsx
@@ -15,20 +17,23 @@ import Preview from "carbon-react/lib/components/preview";
 ```
 
 ### Default
+
 <Preview>
   <Story name="default">
-    <PreviewComponent loading/>
+    <PreviewComponent loading />
   </Story>
 </Preview>
 
 ### Preview with Lines
+
 <Preview>
   <Story name="with Lines">
-    <PreviewComponent loading lines={6}/>
+    <PreviewComponent loading lines={6} />
   </Story>
 </Preview>
 
 ### Preview with Children
+
 <Preview>
   <Story name="with Children">
     <PreviewComponent>
@@ -38,6 +43,7 @@ import Preview from "carbon-react/lib/components/preview";
 </Preview>
 
 ### Preview with Custom Width
+
 <Preview>
   <Story name="with Width">
     <PreviewComponent loading width={"256px"} />
@@ -45,6 +51,7 @@ import Preview from "carbon-react/lib/components/preview";
 </Preview>
 
 ### Preview with Custom Height
+
 <Preview>
   <Story name="with Height">
     <PreviewComponent loading height={"256px"} />
@@ -54,7 +61,8 @@ import Preview from "carbon-react/lib/components/preview";
 ## Props
 
 ### Props for Preview
-<PropsTable
+
+<ArgsTable
   rows={[
     {
       name: "children",
@@ -65,8 +73,7 @@ import Preview from "carbon-react/lib/components/preview";
     {
       name: "height",
       type: { summary: "string" },
-      description:
-        "A custom height to be applied to the component.",
+      description: "A custom height to be applied to the component.",
       required: false,
     },
     {
@@ -80,8 +87,7 @@ import Preview from "carbon-react/lib/components/preview";
     {
       name: "loading",
       type: { summary: "boolean" },
-      description:
-        "Provides more control over when in a loading state.",
+      description: "Provides more control over when in a loading state.",
       required: false,
     },
     {
@@ -92,4 +98,3 @@ import Preview from "carbon-react/lib/components/preview";
     },
   ]}
 />
-

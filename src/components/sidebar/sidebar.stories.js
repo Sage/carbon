@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper";
-import { Sidebar, SidebarHeader } from ".";
+import Sidebar from ".";
 import Button from "../button";
 
 export default {
@@ -53,14 +53,13 @@ export const Default = () => {
         size={size}
         onCancel={onCancel}
       >
-        <SidebarHeader>Header Content</SidebarHeader>
         <div>
           <Button as="primary">Test</Button>
           <Button as="secondary" ml={2}>
             Last
           </Button>
         </div>
-        Main Content
+        <div style={{ marginBottom: 3000 }}>Main content</div>
       </Sidebar>
     </>
   );

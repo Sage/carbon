@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import i18n from "i18next";
 import "react-day-picker/lib/style.css";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
 
-import Browser from "../../../utils/helpers/browser/browser";
+import Popover from "../../../__internal__/popover";
 import DateHelper from "../../../utils/helpers/date/date";
-import StyledPortal from "../../../components/portal/portal.style";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
-import StyledDayPicker from "./day-picker.style";
+import { StyledDayPicker, StyledPopoverContainer } from "./day-picker.style";
 
 const DatePicker = ({
   inputElement,
@@ -20,17 +19,34 @@ const DatePicker = ({
   maxDate,
   selectedDate,
   disablePortal,
+  size,
 }) => {
-  const window = Browser.getWindow();
-  const [containerPosition, setContainerPosition] = useState(() =>
-    getContainerPosition(window, inputElement)
-  );
-
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
   );
+  const ref = useRef(null);
 
-  const datepicker = useRef(null);
+  const popoverModifiers = useMemo(() => {
+    let overhang = 11;
+
+    if (size === "small") overhang = 8;
+    if (size === "large") overhang = 13;
+
+    return [
+      {
+        name: "offset",
+        options: {
+          offset: [-overhang, 0],
+        },
+      },
+      {
+        name: "preventOverflow",
+        options: {
+          mainAxis: false,
+        },
+      },
+    ];
+  }, [size]);
 
   useEffect(() => {
     let monthDate;
@@ -43,7 +59,7 @@ const DatePicker = ({
       monthDate = new Date(lastValidDate);
     }
 
-    datepicker.current.showMonth(monthDate);
+    ref.current.showMonth(monthDate);
   }, [inputDate, lastValidDate]);
 
   const handleDayClick = (date, modifiers) => {
@@ -79,28 +95,19 @@ const DatePicker = ({
     },
   };
 
-  const picker = (
-    <StyledDayPicker>
-      <DayPicker
-        {...datePickerProps}
-        containerProps={{ style: disablePortal ? {} : containerPosition }}
-        ref={datepicker}
-      />
-    </StyledDayPicker>
-  );
-
-  if (disablePortal) {
-    return picker;
-  }
-
   return (
-    <StyledPortal
-      onReposition={() =>
-        setContainerPosition(getContainerPosition(window, inputElement))
-      }
+    <Popover
+      placement="bottom-start"
+      reference={inputElement}
+      modifiers={popoverModifiers}
+      disablePortal={disablePortal}
     >
-      {picker}
-    </StyledPortal>
+      <StyledPopoverContainer>
+        <StyledDayPicker>
+          <DayPicker {...datePickerProps} ref={ref} />
+        </StyledDayPicker>
+      </StyledPopoverContainer>
+    </Popover>
   );
 };
 
@@ -119,6 +126,8 @@ DatePicker.propTypes = {
   selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Callback to set selected date */
   handleDateSelect: PropTypes.func,
+  /** Size of an input */
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 /**
@@ -168,16 +177,6 @@ function checkIsoFormatAndLength(date) {
     array[1].length === 2 &&
     array[2].length === 2
   );
-}
-
-function getContainerPosition(window, input) {
-  const inputRect = input.getBoundingClientRect();
-  const offsetY = window.pageYOffset;
-
-  return {
-    left: inputRect.left,
-    top: inputRect.bottom + offsetY,
-  };
 }
 
 export default DatePicker;

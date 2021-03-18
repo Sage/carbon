@@ -15,9 +15,7 @@ function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   const story = Cypress.env(env) + prefix;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? (url += iFrame) : (url += story);
-  return (
-    `${url}${stringToURL(component)}--${stringToURL(suffix)}`
-  );
+  return `${url}${stringToURL(component)}--${stringToURL(suffix)}`;
 }
 
 export function visitComponentUrl(
@@ -111,8 +109,23 @@ export function pressTABKey(count) {
 }
 
 export function pressTABKeyInNoIframe(count) {
+  const body = cy.get("body");
   for (let i = 0; i < count; i++) {
-    cy.get("body").tab();
+    body.tab();
+  }
+}
+
+export function pressShiftTABKeyInNoIframe(count) {
+  const body = cy.get("body");
+  for (let i = 0; i < count; i++) {
+    body.tab({ shift: true });
+  }
+}
+
+export function continuePressingTABKeyInNoIframe(count) {
+  const focused = cy.focused();
+  for (let i = 0; i < count; i++) {
+    focused.tab();
   }
 }
 

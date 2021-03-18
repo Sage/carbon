@@ -146,8 +146,10 @@ const colorProps = [
   ["opacity", "opacity", "0.5"],
 ];
 
+const widthProps = ["width", "width", "200px"];
+
 const layoutProps = [
-  ["width", "width", "200px"],
+  widthProps,
   ["height", "height", "200px"],
   ["minWidth", "min-width", "120px"],
   ["maxWidth", "max-width", "120px"],
@@ -352,6 +354,24 @@ const testStyledSystemColor = (component, styleContainer) => {
   );
 };
 
+const testStyledSystemWidth = (component, styleContainer) => {
+  describe("when a width prop is specified using styled system props", () => {
+    it("then width should have been set correctly", () => {
+      const [styledSystemProp, propName, value] = widthProps;
+      let wrapper = mount(component());
+
+      const props = { [styledSystemProp]: value };
+      wrapper = mount(component({ ...props }));
+
+      expect(wrapper).toHaveStyleRule(
+        propName,
+        value,
+        styleContainer ? styleContainer(wrapper) : wrapper
+      );
+    });
+  });
+};
+
 const testStyledSystemLayout = (component, styleContainer) => {
   describe.each(layoutProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -412,6 +432,7 @@ export {
   testStyledSystemMargin,
   testStyledSystemPadding,
   testStyledSystemColor,
+  testStyledSystemWidth,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
 };

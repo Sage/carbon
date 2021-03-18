@@ -15,6 +15,11 @@ import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Pager from "../pager";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+} from "../action-popover";
 
 <Meta
   title="Design System/Flat Table/Expandable"
@@ -432,7 +437,6 @@ By writing your own selectable logic, both parent and child rows can be made sel
           subTwo: false,
         },
       });
-      const [highlightedRow, setHighlightedRow] = useState("");
       const handleSelectAllRows = () => {
         const newState = {};
         Object.keys(selectedRows).forEach((key) => {
@@ -457,13 +461,6 @@ By writing your own selectable logic, both parent and child rows can be made sel
           },
         });
       };
-      const handleHighlightRow = (id) => {
-        if (highlightedRow === id) {
-          setHighlightedRow("");
-        } else {
-          setHighlightedRow(id);
-        }
-      };
       const selectedCount = Object.values(selectedRows).reduce(
         (acc, values) => {
           const count = Object.keys(values).filter((key) =>
@@ -475,11 +472,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
       );
       const subRows = (row) => {
         return [
-          <FlatTableRow
-            selected={selectedRows[row].subOne}
-            onClick={() => handleHighlightRow(`${row}.subOne`)}
-            highlighted={highlightedRow === `${row}.subOne`}
-          >
+          <FlatTableRow selected={selectedRows[row].subOne}>
             <FlatTableCheckbox
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
@@ -487,13 +480,13 @@ By writing your own selectable logic, both parent and child rows can be made sel
             <FlatTableCell>Child one</FlatTableCell>
             <FlatTableCell>York</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
+            <FlatTableCell>
+              <ActionPopover>
+                <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
           </FlatTableRow>,
-          <FlatTableRow
-            selected={selectedRows[row].subTwo}
-            onClick={() => handleHighlightRow(`${row}.subTwo`)}
-            highlighted={highlightedRow === `${row}.subTwo`}
-          >
+          <FlatTableRow selected={selectedRows[row].subTwo}>
             <FlatTableCheckbox
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
@@ -501,7 +494,11 @@ By writing your own selectable logic, both parent and child rows can be made sel
             <FlatTableCell>Child two</FlatTableCell>
             <FlatTableCell>Edinburgh</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
+            <FlatTableCell>
+              <ActionPopover>
+                <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
           </FlatTableRow>,
         ];
       };
@@ -537,9 +534,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
             </FlatTableHead>
             <FlatTableBody>
               <FlatTableRow
-                onClick={() => handleHighlightRow("one")}
                 selected={selectedRows.one.parent}
-                highlighted={highlightedRow === "one"}
                 expandable
                 subRows={subRows("one")}
               >
@@ -550,12 +545,16 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem onClick={() => {}}>
+                      action
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
-                onClick={() => handleHighlightRow("two")}
                 selected={selectedRows.two.parent}
-                highlighted={highlightedRow === "two"}
                 expandable
                 subRows={subRows("two")}
               >
@@ -566,12 +565,16 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem onClick={() => {}}>
+                      action
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
-                onClick={() => handleHighlightRow("three")}
                 selected={selectedRows.three.parent}
-                highlighted={highlightedRow === "three"}
                 expandable
                 subRows={subRows("three")}
               >
@@ -582,12 +585,16 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>1</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem onClick={() => {}}>
+                      action
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
-                onClick={() => handleHighlightRow("four")}
                 selected={selectedRows.four.parent}
-                highlighted={highlightedRow === "four"}
                 expandable
                 subRows={subRows("four")}
               >
@@ -598,7 +605,13 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>5</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem onClick={() => {}}>
+                      action
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
           </FlatTable>

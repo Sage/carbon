@@ -32,9 +32,6 @@
   "enableBackgroundUI": {
     "enableBackgroundUI": true
   },
-  "openFalse": {
-    "open": false
-  },
   "default": {
 
   }

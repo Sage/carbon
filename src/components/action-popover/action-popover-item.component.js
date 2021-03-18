@@ -11,6 +11,7 @@ import {
   MenuItemFactory,
   MenuItemIcon,
   SubMenuItemIcon,
+  StyledMenuItem,
 } from "./action-popover.style";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
@@ -29,6 +30,8 @@ const MenuItem = ({
   theme,
   placement = "bottom",
   focusItem,
+  download,
+  href,
   ...rest
 }) => {
   const t = useTranslation();
@@ -36,6 +39,7 @@ const MenuItem = ({
     ActionPopoverContext
   );
 
+  const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState(null);
   const [guid] = useState(createGuid());
   const [isOpen, setOpen] = useState(false);
@@ -89,17 +93,19 @@ const MenuItem = ({
 
   const onClick = useCallback(
     (e) => {
+      e.stopPropagation();
       if (!disabled) {
-        onClickProp();
+        if (onClickProp) {
+          onClickProp();
+        }
         setOpenPopover(false);
         focusButton();
-        e.stopPropagation();
       } else {
         ref.current.focus();
-        e.stopPropagation();
+        e.preventDefault();
       }
     },
-    [disabled, focusButton, onClickProp, ref, setOpenPopover]
+    [disabled, focusButton, onClickProp, setOpenPopover]
   );
 
   const onKeyDown = useCallback(
@@ -139,6 +145,7 @@ const MenuItem = ({
           }
           e.preventDefault();
         } else if (Events.isEnterKey(e)) {
+          if (isHref && download) ref.current.click();
           onClick(e);
         }
       } else if (Events.isEnterKey(e)) {
@@ -147,10 +154,11 @@ const MenuItem = ({
     },
     [
       disabled,
+      download,
       focusButton,
+      isHref,
       isLeftAligned,
       onClick,
-      ref,
       setOpenPopover,
       submenu,
     ]
@@ -187,7 +195,7 @@ const MenuItem = ({
   };
 
   return (
-    <div
+    <StyledMenuItem
       {...rest}
       ref={ref}
       onClick={onClick}
@@ -196,6 +204,7 @@ const MenuItem = ({
       tabIndex="0"
       role="menuitem"
       {...(disabled && { "aria-disabled": true })}
+      {...(isHref && { as: "a", download, href })}
       {...(submenu && itemSubmenuProps)}
     >
       {submenu &&
@@ -218,7 +227,7 @@ const MenuItem = ({
       {submenu && checkRef(ref) && !isLeftAligned && (
         <SubMenuItemIcon type="chevron_right" />
       )}
-    </div>
+    </StyledMenuItem>
   );
 };
 
@@ -260,7 +269,11 @@ const propTypes = {
   /** The name of the icon to display next to the label */
   icon: PropTypes.oneOf(OptionsHelper.icons),
   /** Callback to run when item is clicked */
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  /** allows to provide download prop that works dependent with href */
+  download: PropTypes.bool,
+  /** allows to provide href prop */
+  href: PropTypes.string,
   /** Submenu component for item */
   submenu(props, propName, componentName) {
     let error;

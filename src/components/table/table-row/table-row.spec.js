@@ -867,29 +867,30 @@ describe("TableRow", () => {
 
   function render() {
     wrapper = mount(
-      <I18next>
-        <ThemeProvider {...{ theme: baseTheme }}>
-          <Table>
-            <TableRow>
-              <TableHeader>First Name</TableHeader>
-              <TableHeader>Last Name</TableHeader>
-              <TableHeader>&nbsp;</TableHeader>
-            </TableRow>
-            <TableRow>
-              <TableCell>John</TableCell>
-              <TableCell>Doe</TableCell>
-              <TableCell>
-                <ActionPopover {...{ onOpen, onClose }}>
-                  <ActionPopoverItem icon="email">
-                    Email Invoice
-                  </ActionPopoverItem>
-                </ActionPopover>
-              </TableCell>
-            </TableRow>
-          </Table>
-        </ThemeProvider>
-      </I18next>,
-      { attachTo: container }
+      <ThemeProvider {...{ theme: baseTheme }}>
+        <Table>
+          <TableRow>
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>&nbsp;</TableHeader>
+          </TableRow>
+          <TableRow>
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
+              <ActionPopover {...{ onOpen, onClose }}>
+                <ActionPopoverItem onClick={() => {}} icon="email">
+                  Email Invoice
+                </ActionPopoverItem>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+        </Table>
+      </ThemeProvider>,
+      {
+        attachTo: container,
+        wrappingComponent: I18next,
+      }
     );
   }
 

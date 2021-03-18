@@ -85,7 +85,7 @@ Feature: Confirm component
       | icon      | nameOfObject |
       | error     | iconError    |
       | warning   | iconWarning  |
-      | empty     | iconEmpty    |
+      | empty     | default      |
 
   @positive
   Scenario: Cancel button type is set to tertiary

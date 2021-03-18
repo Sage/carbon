@@ -36,6 +36,8 @@ export interface FieldsetProps {
   };
   /** If true, an asterisk will be added to the label */
   isRequired?: boolean;
+  /** Controls whether group behaviour should be enabled */
+  blockGroupBehaviour?: boolean;
 }
 
 declare const Fieldset: React.ComponentClass<FieldsetProps>;

@@ -1,3 +1,156 @@
+## [68.4.0](https://github.com/Sage/carbon/compare/v68.3.3...v68.4.0) (2021-03-17)
+
+
+### Features
+
+* **link:** add rel prop ([b502bec](https://github.com/Sage/carbon/commit/b502bec098757f04d35b52400a0dc9ea479b8594))
+
+### [68.3.3](https://github.com/Sage/carbon/compare/v68.3.2...v68.3.3) (2021-03-16)
+
+
+### Bug Fixes
+
+* **pod:** fix footer text colour when pod is hovered ([d6dbe7b](https://github.com/Sage/carbon/commit/d6dbe7b88b55b05def91a1935e883768423359bc)), closes [#3584](https://github.com/Sage/carbon/issues/3584)
+
+### [68.3.2](https://github.com/Sage/carbon/compare/v68.3.1...v68.3.2) (2021-03-16)
+
+
+### Bug Fixes
+
+* **radio-button-group, checkbox-group:** disable group behaviour when validation is not on label ([463b116](https://github.com/Sage/carbon/commit/463b116a11cf35a2cf901fd9fc3abed5fc03555e))
+
+### [68.3.1](https://github.com/Sage/carbon/compare/v68.3.0...v68.3.1) (2021-03-15)
+
+
+### Bug Fixes
+
+* **menu:** fix search styles ([ce4405e](https://github.com/Sage/carbon/commit/ce4405ea5d8abbff2d032d756f0fdbb35b2835de)), closes [#3591](https://github.com/Sage/carbon/issues/3591)
+* **menu:** fix search styles ([0efe3dd](https://github.com/Sage/carbon/commit/0efe3dd07e82a9002c57985886a8e887e008b56d)), closes [#3591](https://github.com/Sage/carbon/issues/3591)
+
+## [68.3.0](https://github.com/Sage/carbon/compare/v68.2.0...v68.3.0) (2021-03-12)
+
+
+### Features
+
+* **link:** add isSkipLink prop ([cfefb6f](https://github.com/Sage/carbon/commit/cfefb6fd584e9aefb1abc4cdf4de84ed867bbe8a))
+
+## [68.2.0](https://github.com/Sage/carbon/compare/v68.1.1...v68.2.0) (2021-03-12)
+
+
+### Features
+
+* **button-toggle-group:** add support for overriding tooltip flip behaviour ([79d5f23](https://github.com/Sage/carbon/commit/79d5f239069fa771543802deb5a9a1b2f58ab6be))
+* **fieldset:** add tooltip flip override to validation icon rendered on labels ([2abfbd4](https://github.com/Sage/carbon/commit/2abfbd44528274f8363f1ee1c684f40fc76947e3))
+* **help:** add support for tooltip flip placement overrides ([2c01499](https://github.com/Sage/carbon/commit/2c014998f6166556d5e937ee8d5c3c4a37ae5267))
+* **icon:** add support for tooltip flip placement overrides ([47dc424](https://github.com/Sage/carbon/commit/47dc4244acdae1b53ca4ad4857803d51ab831bd9))
+* **label:** add tooltip flip override to validation icon when rendered ([2b88b25](https://github.com/Sage/carbon/commit/2b88b25242f5862584ff03b6aaa832537b8267ec))
+* **simple-color-picker:** add tooltip flip overrides to validation icon ([224d99d](https://github.com/Sage/carbon/commit/224d99d8747c03a5e558118a11a07771fb4e9257))
+* **switch:** add tooltip flip override to validation icon rendered on input ([ba6b73a](https://github.com/Sage/carbon/commit/ba6b73a074648f0558536962352b629b7727e2d8))
+* **tooltip:** add support for overriding default flip placements ([73a35d6](https://github.com/Sage/carbon/commit/73a35d61a360d8680e7703472cf5abe6f194acfd))
+* **validation-icon:** add support for tooltip flip placement overrides ([0471c5b](https://github.com/Sage/carbon/commit/0471c5b612a37f42045e6f7237559ee81b28f5ae))
+
+### [68.1.1](https://github.com/Sage/carbon/compare/v68.1.0...v68.1.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* **select:** fix incorrect textbox behaviour on safari ([6077c18](https://github.com/Sage/carbon/commit/6077c186ede063693ea44fd04a33c3684a906d42))
+
+## [68.1.0](https://github.com/Sage/carbon/compare/v68.0.2...v68.1.0) (2021-03-11)
+
+
+### Features
+
+* **action-popover-item:** support for download button ([0dcdb65](https://github.com/Sage/carbon/commit/0dcdb654473e007d8a89787d99b9034f358c3350))
+
+### [68.0.2](https://github.com/Sage/carbon/compare/v68.0.1...v68.0.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* **button:** add border radius to button styles ([3142e17](https://github.com/Sage/carbon/commit/3142e170fb9182c67d3749b1b36d667a49fab30a)), closes [#3630](https://github.com/Sage/carbon/issues/3630)
+
+### [68.0.1](https://github.com/Sage/carbon/compare/v68.0.0...v68.0.1) (2021-03-09)
+
+
+### Bug Fixes
+
+* **select:** fix onblur fired on option mousedown event ([664350e](https://github.com/Sage/carbon/commit/664350e2825a96e250c3261620634abbc429dd6a))
+
+## [68.0.0](https://github.com/Sage/carbon/compare/v67.0.0...v68.0.0) (2021-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** Icon component fontSize prop `medium` value equivalent is now named `large`.
+To update your code use `replace-prop-value` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/replace-prop-value
+
+### Features
+
+* **icon:** add additional fontSize and bgSize prop values ([3b58601](https://github.com/Sage/carbon/commit/3b586014ba86cdcb4797655e1d42ceea27fd6e3d))
+
+## [67.0.0](https://github.com/Sage/carbon/compare/v66.19.2...v67.0.0) (2021-03-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sidebar:** SidebarHeader is now internal component, use header prop
+
+### Features
+
+* **sidebar:** add styled system to sidebar ([48a38d4](https://github.com/Sage/carbon/commit/48a38d4e67cd73e1324c29eddfe3865ec8dc58f8)), closes [#3221](https://github.com/Sage/carbon/issues/3221)
+
+### [66.19.2](https://github.com/Sage/carbon/compare/v66.19.1...v66.19.2) (2021-03-05)
+
+
+### Bug Fixes
+
+* **focus-trap:** update trap to use ref from content container ([e59b5f4](https://github.com/Sage/carbon/commit/e59b5f4dcf14ed41227e9b1ee91f04e30687c1b4)), closes [#3770](https://github.com/Sage/carbon/issues/3770)
+
+### [66.19.1](https://github.com/Sage/carbon/compare/v66.19.0...v66.19.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* fix dropdown alignment in split and multi action buttons ([a6caf26](https://github.com/Sage/carbon/commit/a6caf26be1d19104c7ba3e76cdcb0c8568e5d19f))
+
+## [66.19.0](https://github.com/Sage/carbon/compare/v66.18.1...v66.19.0) (2021-03-04)
+
+
+### Features
+
+* **select:** add multi column functionality ([736a109](https://github.com/Sage/carbon/commit/736a109ee2546f1d6f6e502aecb432aa0968e3b3))
+
+### [66.18.1](https://github.com/Sage/carbon/compare/v66.18.0...v66.18.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **tabs:** fix border gap ([7546b26](https://github.com/Sage/carbon/commit/7546b261d29ddbba3632a049252f9b80bf0ffb03))
+* **tabs:** fix incorrect large tab alignment ([bcc3101](https://github.com/Sage/carbon/commit/bcc3101be6bfad9c979871fc59738c9e9e6f25be))
+
+## [66.18.0](https://github.com/Sage/carbon/compare/v66.17.0...v66.18.0) (2021-02-26)
+
+
+### Features
+
+* **storybook:** update storybook to v6 ([4912c66](https://github.com/Sage/carbon/commit/4912c66a1daf40ff601045ebc006c150f7526d2a))
+
+## [66.17.0](https://github.com/Sage/carbon/compare/v66.16.0...v66.17.0) (2021-02-26)
+
+
+### Features
+
+* **toast:** center toast by default ([d78128f](https://github.com/Sage/carbon/commit/d78128fa703df2cead27a32cfe0590327508c26e))
+
+## [66.16.0](https://github.com/Sage/carbon/compare/v66.15.0...v66.16.0) (2021-02-26)
+
+
+### Features
+
+* **styled-system:** add width util ([90dea96](https://github.com/Sage/carbon/commit/90dea96465be44dc026c1250f98e306bb7bd07ca))
+
 ## [66.15.0](https://github.com/Sage/carbon/compare/v66.14.0...v66.15.0) (2021-02-25)
 
 

@@ -6,8 +6,8 @@ import useInputBehaviour from "./useInputBehaviour";
 const defaultValue = {};
 const InputGroupContext = React.createContext(defaultValue);
 
-const InputGroupBehaviour = ({ children }) => {
-  const contextValue = useInputBehaviour();
+const InputGroupBehaviour = ({ children, blockGroupBehaviour }) => {
+  const contextValue = useInputBehaviour(blockGroupBehaviour);
 
   return (
     <InputGroupContext.Provider value={contextValue}>
@@ -18,6 +18,7 @@ const InputGroupBehaviour = ({ children }) => {
 
 InputGroupBehaviour.propTypes = {
   children: PropTypes.node,
+  blockGroupBehaviour: PropTypes.bool,
 };
 
 export { InputGroupContext, InputGroupBehaviour };

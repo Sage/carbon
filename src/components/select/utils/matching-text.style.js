@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const MatchingText = styled.span`
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: underline;
 `;
 

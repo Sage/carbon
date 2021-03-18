@@ -23,9 +23,10 @@ const Fieldset = ({
   mb,
   styleOverride,
   isRequired,
+  blockGroupBehaviour,
   ...rest
 }) => (
-  <InputGroupBehaviour>
+  <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
     <StyledFieldset
       data-component="fieldset"
       styleOverride={styleOverride.root}
@@ -50,7 +51,12 @@ const Fieldset = ({
                 </legend>
               )}
             </InputGroupContext.Consumer>
-            <ValidationIcon error={error} warning={warning} info={info} />
+            <ValidationIcon
+              error={error}
+              warning={warning}
+              info={info}
+              tooltipFlipOverrides={["top", "bottom"]}
+            />
           </StyledLegendContainer>
         )}
         {children}
@@ -95,6 +101,8 @@ Fieldset.propTypes = {
   }),
   /** If true, an asterisk will be added to the label */
   isRequired: PropTypes.bool,
+  /** Controls whether group behaviour should be enabled */
+  blockGroupBehaviour: PropTypes.bool,
 };
 
 Fieldset.defaultProps = {

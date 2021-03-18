@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import tagComponent from "../../../utils/helpers/tags/tags";
+import tagComponent from "../../../../utils/helpers/tags";
 import SidebarHeaderStyle from "./sidebar-header.style";
 
 const SidebarHeader = ({ className, children, ...props }) => (

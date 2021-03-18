@@ -1,15 +1,16 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import LinkTo from '@storybook/addon-links/react';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import LinkTo from "@storybook/addon-links/react";
 
-import Icon from './';
-import Box from '../box';
+import Icon from "./";
+import Box from "../box";
 
 <Meta
   title="Icon"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Icon
+
 Carbon comes with more than 100 standard icons to choose from. See the Icons page in the Style section.
 
 A tooltip option is available within this component.
@@ -46,14 +47,15 @@ const MyComponent = () => (
 
 ### With tooltip
 The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props, 
-such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontColor` are also surfaced.
+such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Preview>
   <Story name="with tooltip">
     <div style={{ margin: 60, display: "inline" }}>
       <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
-      <Icon mr={4} ml={4} type="add" tooltipMessage="Hey I'm a tooltip with a different position!" tooltipPosition="bottom" />
-      <Icon ml={8} type="add" tooltipMessage="Hey I'm a tooltip with a different color!" tooltipBgColor="lightblue" tooltipFontColor="black" />
+      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different position!" tooltipPosition="bottom" />
+      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different color!" tooltipBgColor="lightblue" tooltipFontColor="black" />
+      <Icon type="add" tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!" tooltipFlipOverrides={["right", "left"]} />
     </div>
   </Story>
 </Preview>
@@ -62,10 +64,9 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontC
 
 <Preview>
   <Story name="various fontSizes">
-    <>
-      <Icon type="add" fontSize="small" />
-      <Icon type="add" fontSize="large" />
-    </>
+    {["small", "medium", "large", "extra-large"].map((fontSize) => (
+      <Icon type="add" fontSize={fontSize} key={fontSize} />
+    ))}
   </Story>
 </Preview>
 
@@ -73,14 +74,11 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontC
 
 <Preview>
   <Story name="various bgThemes">
-    {() => [
-      'info',
-      'error',
-      'success',
-      'warning',
-      'business',
-      'none'
-    ].map(bgTheme => <Icon type="add" bgTheme={bgTheme} mr={1} /> )}
+    {["info", "error", "success", "warning", "business", "none"].map(
+      (bgTheme) => (
+        <Icon type="add" bgTheme={bgTheme} mr={1} key={bgTheme} />
+      )
+    )}
   </Story>
 </Preview>
 
@@ -88,11 +86,15 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontC
 
 <Preview>
   <Story name="various bgShapes">
-    {() => [
-      'circle',
-      'rounded-rect',
-      'square'
-    ].map(bgShape => <Icon type="add" bgTheme="success" bgShape={bgShape} mr={1} /> )}
+    {["circle", "rounded-rect", "square"].map((bgShape) => (
+      <Icon
+        type="add"
+        bgTheme="success"
+        bgShape={bgShape}
+        mr={1}
+        key={bgShape}
+      />
+    ))}
   </Story>
 </Preview>
 
@@ -100,11 +102,9 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontC
 
 <Preview>
   <Story name="various bgSizes">
-    {() => [
-      'small',
-      'medium',
-      'large'
-    ].map(bgSize => <Icon type="add" bgTheme="success" bgSize={bgSize} mr={1} /> )}
+    {["small", "medium", "large", "extra-large"].map((bgSize) => (
+      <Icon type="add" bgTheme="success" bgSize={bgSize} mr={1} key={bgSize} />
+    ))}
   </Story>
 </Preview>
 
@@ -112,40 +112,44 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor` and `tooltipFontC
 
 <Preview>
   <Story name="iconColor variants">
-    {() => [
-      'default',
-      'on-light-background',
-      'on-dark-background',
-      'business-color'
-    ].map(iconColor => <Icon type="add" iconColor={iconColor} mr={1} /> )}
+    {[
+      "default",
+      "on-light-background",
+      "on-dark-background",
+      "business-color",
+    ].map((iconColor) => (
+      <Icon type="add" iconColor={iconColor} mr={1} key={iconColor} />
+    ))}
   </Story>
 </Preview>
 
 ### Custom colors
+
 It's possible to change the color of the Icon by using the `color` prop or background color by `bg` prop.
 These props will override `iconColor` and `bgTheme` prop values.
 See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
 
 <Preview>
-  <Story name="custom colors" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
-    {() => {
-      return <>
-        <Box mb={1}>
-          <Icon type="add" color="blackOpacity65" />
-          <Icon type="add" color="brilliantGreenShade20" />
-          <Icon type="add" color="red" />
-          <Icon type="add" color="#123456" />
-          <Icon type="add" color="rgb(0, 123, 10)" />
-        </Box>
-        <Box mb={1}>
-          <Icon type="add" color="white" bg="blackOpacity65" />
-          <Icon type="add" bg="brilliantGreenShade20" />
-          <Icon type="add" bg="red" />
-          <Icon type="add" color="white" bg="#123456" />
-          <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
-        </Box>
-      </>
-    }}
+  <Story
+    name="custom colors"
+    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  >
+    <>
+      <Box mb={1}>
+        <Icon type="add" color="blackOpacity65" />
+        <Icon type="add" color="brilliantGreenShade20" />
+        <Icon type="add" color="red" />
+        <Icon type="add" color="#123456" />
+        <Icon type="add" color="rgb(0, 123, 10)" />
+      </Box>
+      <Box mb={1}>
+        <Icon type="add" color="white" bg="blackOpacity65" />
+        <Icon type="add" bg="brilliantGreenShade20" />
+        <Icon type="add" bg="red" />
+        <Icon type="add" color="white" bg="#123456" />
+        <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
+      </Box>
+    </>
   </Story>
 </Preview>
 

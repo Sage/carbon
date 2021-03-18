@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { text } from "@storybook/addon-knobs";
+import { select, text, boolean, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Toast from ".";
 import Button from "../button";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 export default {
   title: "Design System/Toast/Test",
   component: Toast,
+  decorators: [withKnobs],
   parameters: {
     docs: { page: null },
     info: {
@@ -38,7 +40,8 @@ export const Default = () => {
       <Button onClick={handleOpen}>Open Toast</Button>
 
       <Toast
-        variant="warning"
+        variant={select("variant", OptionsHelper.colors, "warning")}
+        isCenter={boolean("isCenter", true)}
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
@@ -63,6 +66,7 @@ export const Visual = () => {
 
   return (
     <div>
+      {/* centered examples */}
       <Toast
         variant="info"
         id="toast-quick-start"
@@ -86,6 +90,14 @@ export const Visual = () => {
       <Toast variant="error" targetPortalId="visual" open={isOpen}>
         My Error
       </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Warning
+      </Toast>
       <Toast variant="warning" targetPortalId="visual" open={isOpen}>
         My Warning
       </Toast>
@@ -100,14 +112,75 @@ export const Visual = () => {
       <Toast variant="success" targetPortalId="visual" open={isOpen}>
         My Success
       </Toast>
+      {/* left-aligned examples */}
       <Toast
-        variant="warning"
-        targetPortalId="visual-center"
+        variant="info"
+        id="toast-quick-start"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
       >
-        My text
+        {children}
+      </Toast>
+      <Toast
+        variant="info"
+        targetPortalId="visual-left-aligned"
+        isOpen={isOpen}
+        isCenter={false}
+      >
+        {children}
+      </Toast>
+      <Toast
+        variant="error"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="error"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Success
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Success
       </Toast>
     </div>
   );

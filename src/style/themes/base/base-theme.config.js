@@ -106,6 +106,8 @@ export default (palette) => {
         submenuBackground: palette.slateShade(50),
         selected: palette.slateTint(10),
         title: palette.slateTint(60),
+        searchIcon: palette.slateTint(55),
+        searchIconHover: palette.slateTint(75),
       },
     },
 
@@ -312,6 +314,7 @@ export default (palette) => {
       border: "#bfccd2",
       selected: palette.slateTint(95),
       optionHeader: palette.blackOpacity(0.55),
+      tableHeaderBorder: palette.slateTint(80),
     },
 
     shadows: {
@@ -355,6 +358,7 @@ export default (palette) => {
       header: 4000,
       fullScreenModal: 5000,
       notification: 6000,
+      aboveAll: 9999,
     },
   };
 };

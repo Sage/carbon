@@ -26,7 +26,7 @@ class BaseDateInput extends React.Component {
 
   inputFocusedViaPicker = false;
 
-  isMounted = false;
+  hasMounted = false;
 
   state = {
     isDatePickerOpen: false,
@@ -45,7 +45,7 @@ class BaseDateInput extends React.Component {
   };
 
   componentDidMount() {
-    this.isMounted = true;
+    this.hasMounted = true;
     if (this.props.autoFocus) {
       this.isAutoFocused = true;
       this.openDatePicker(true);
@@ -69,7 +69,7 @@ class BaseDateInput extends React.Component {
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    this.hasMounted = false;
   }
 
   hasValueChanged = (prevProps) => {
@@ -81,6 +81,7 @@ class BaseDateInput extends React.Component {
 
   assignInput = (input) => {
     this.input = input.current;
+    this.inputRef = input;
   };
 
   shouldAllowBlur = () => {
@@ -169,7 +170,7 @@ class BaseDateInput extends React.Component {
   };
 
   updateValidEventValues = (value) => {
-    if (this.isMounted) {
+    if (this.hasMounted) {
       this.setState({
         visibleValue: DateHelper.formatDateToCurrentLocale(value),
         lastValidEventValues: {
@@ -349,11 +350,12 @@ class BaseDateInput extends React.Component {
     return (
       <div onClick={this.markCurrentDatepicker} role="presentation">
         <DatePicker
-          inputElement={this.input && this.input.parentElement}
+          inputElement={this.inputRef}
           selectedDate={this.state.selectedDate}
           handleDateSelect={this.handleDateSelect}
           inputDate={visibleValue}
           disablePortal={this.props.disablePortal}
+          size={this.props.size}
           {...dateRangeProps}
         />
       </div>
@@ -424,13 +426,10 @@ class BaseDateInput extends React.Component {
           rawValue={isoFormattedValueString(this.state.visibleValue)}
           inputRef={this.assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-          positionedChildren={
-            disablePortal && this.renderDatePicker({ minDate, maxDate })
-          }
           {...events}
         />
         {this.renderHiddenInput()}
-        {!disablePortal && this.renderDatePicker({ minDate, maxDate })}
+        {this.renderDatePicker({ minDate, maxDate })}
       </StyledDateInput>
     );
   }

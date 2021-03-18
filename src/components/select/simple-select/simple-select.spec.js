@@ -18,6 +18,50 @@ import { baseTheme } from "../../../style/themes";
 import Label from "../../../__experimental__/components/label";
 
 describe("SimpleSelect", () => {
+  describe("when an HTML element is clicked when the SelectList is open", () => {
+    let wrapper;
+    let domNode;
+
+    beforeEach(() => {
+      wrapper = mount(getSelect());
+      domNode = wrapper.getDOMNode();
+      document.body.appendChild(domNode);
+    });
+
+    describe("and that element is an Option of the Select List", () => {
+      it("then the SelectList should be closed", () => {
+        wrapper.find("input").simulate("click");
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+        act(() => {
+          wrapper
+            .find(Option)
+            .first()
+            .getDOMNode()
+            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      });
+    });
+
+    describe("and that element is not part of the Select", () => {
+      it("then the SelectList should be closed", () => {
+        act(() => {
+          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+        wrapper.find("input").simulate("click");
+        expect(wrapper.find(SelectList).exists()).toBe(true);
+        act(() => {
+          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      });
+    });
+
+    afterEach(() => {
+      document.body.removeChild(domNode);
+    });
+  });
+
   describe("disablePortal", () => {
     it("renders SelectList as a content of positionedChildren prop on Textbox when disablePortal is true", () => {
       const wrapper = renderSelect({ disablePortal: true });
@@ -99,7 +143,6 @@ describe("SimpleSelect", () => {
     assertStyleMatch(
       {
         cursor: "pointer",
-        userSelect: "none",
       },
       wrapper,
       { modifier: `${StyledInput}` }
@@ -630,47 +673,6 @@ describe("SimpleSelect", () => {
     });
   });
 
-  describe("when an HTML element is clicked when the SelectList is open", () => {
-    let wrapper;
-    let domNode;
-
-    beforeEach(() => {
-      wrapper = mount(getSelect());
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
-    });
-
-    describe("and that element is an Option of the Select List", () => {
-      it("then the SelectList should be closed", () => {
-        wrapper.find("input").simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
-        act(() => {
-          wrapper
-            .find(Option)
-            .first()
-            .getDOMNode()
-            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
-      });
-    });
-
-    describe("and that element is not part of the Select", () => {
-      it("then the SelectList should be closed", () => {
-        wrapper.find("input").simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
-        act(() => {
-          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
-      });
-    });
-
-    afterEach(() => {
-      document.body.removeChild(domNode);
-    });
-  });
-
   describe("when the onKeyDown prop is passed", () => {
     const expectedEventObject = {
       key: "ArrowDown",
@@ -688,6 +690,33 @@ describe("SimpleSelect", () => {
           ...expectedEventObject,
         })
       );
+    });
+  });
+
+  describe('when the "onBlur" prop has been passed and the input has been blurred', () => {
+    it("then that prop should be called", () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderSelect({ onBlur: onBlurFn });
+
+      wrapper.find("input").simulate("blur");
+      expect(onBlurFn).toHaveBeenCalled();
+    });
+
+    describe("and there is a mouseDown reported on open list", () => {
+      it("then that prop should not be called", () => {
+        const onBlurFn = jest.fn();
+        const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
+
+        wrapper.find("input").simulate("focus");
+        wrapper.find(Option).first().simulate("mousedown");
+        wrapper.find("input").simulate("blur");
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+    });
+
+    it("coverage filler for else path", () => {
+      const wrapper = renderSelect();
+      wrapper.find("input").simulate("blur");
     });
   });
 

@@ -28,11 +28,6 @@ Feature: Message component
       | warning | warning    | typeWarning  |
 
   @positive
-  Scenario: Disable open state of Message component
-    When I open default "Message Test" component in noIFrame with "message" json from "commonComponents" using "openFalse" object name
-    Then Message component is not visible
-
-  @positive
   Scenario: Enable transparent state for a Message component
     When I open default "Message Test" component in noIFrame with "message" json from "commonComponents" using "transparent" object name
     Then Message component is transparent

@@ -184,12 +184,12 @@ describe("Pod", () => {
   });
 
   describe("podFooter", () => {
-    it("renders footer when footer prop is pased", () => {
+    it("renders footer when footer prop is passed", () => {
       wrapper.setProps({ footer: "Footer" });
       expect(wrapper.find(StyledFooter).props().children).toEqual("Footer");
     });
 
-    it("does not render footer when footer prop is not pased", () => {
+    it("does not render footer when footer prop is not passed", () => {
       expect(wrapper.find(StyledFooter).exists()).toEqual(false);
     });
   });
@@ -200,7 +200,7 @@ describe("Pod", () => {
       expect(wrapper.find(StyledEditAction).exists()).toEqual(true);
     });
 
-    it("does not render edit action button when onEdit prop is not pased", () => {
+    it("does not render edit action button when onEdit prop is not passed", () => {
       expect(wrapper.find(StyledEditAction).exists()).toEqual(false);
     });
 
@@ -757,12 +757,23 @@ describe("StyledFooter", () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
+  it("should match expected styles when pod is hovered", () => {
+    wrapper = renderStyledFooter({ isHovered: true });
+    assertStyleMatch(
+      {
+        color: `${baseTheme.text.color}`,
+      },
+      wrapper
+    );
+  });
+
   describe("when variant prop is set to tile", () => {
     it("should have expected border top style", () => {
       wrapper = renderStyledFooter({ variant: "tile" });
       assertStyleMatch(
         {
           borderTop: `1px solid ${baseTheme.pod.border}`,
+          color: `${baseTheme.text.color}`,
         },
         wrapper
       );

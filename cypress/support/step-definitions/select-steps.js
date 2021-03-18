@@ -17,6 +17,11 @@ import {
   multiSelectDataComponentInIframe,
   isLoading,
   selectListText,
+  multiColumnsSelectListHeader,
+  multiColumnsSelectListBody,
+  boldedAndUnderlinedValue,
+  selectInput,
+  selectListPosition,
 } from "../../locators/select";
 import { positionOfElement, keyCode } from "../helper";
 import { label, getDataElementByValue } from "../../locators";
@@ -88,7 +93,7 @@ When("I click on default Select input", () => {
 When("I click on Select input in noIframe", () => {
   simpleSelectNoIframe().click();
 });
-When("{string} option on the list is highlighted", (position) => {
+When("{string} option on the list is hovered over", (position) => {
   selectOption(positionOfElement(position))
     .should("have.attr", "aria-selected", "true")
     .and("have.css", "background-color", "rgb(242, 245, 246)");
@@ -219,4 +224,39 @@ Then("Select input has {string} value", (text) => {
 
 Then("Select input has no value", () => {
   getDataElementByValue("input").should("have.attr", "value", "");
+});
+
+Then("Option list has multiColumns header", () => {
+  multiColumnsSelectListHeader().should("have.length", "3").and("be.visible");
+});
+
+Then("Option list has multiColumns body", () => {
+  multiColumnsSelectListBody().should("have.length", "3").and("be.visible");
+});
+
+Then("The matching string {string} is underline and bolded", (text) => {
+  boldedAndUnderlinedValue(text)
+    .should("have.css", "text-decoration-line", "underline")
+    .and("have.css", "text-decoration-style", "solid")
+    .and("have.css", "font-weight", "700");
+});
+
+Then("I type {string} into select input", (text) => {
+  selectInput().type(text);
+});
+
+When("I scroll page to top", () => {
+  cy.scrollTo("0", "0");
+});
+
+Then("{string} Select list is visible in {word} position", (name, position) => {
+  selectListPosition(name)
+    .should("have.attr", "data-popper-placement", position)
+    .and("be.visible");
+});
+
+Then("{string} Select list is visible at the {word}", (name, position) => {
+  selectListPosition(name)
+    .should("have.attr", "data-popper-placement", `${position}-end`)
+    .and("be.visible");
 });

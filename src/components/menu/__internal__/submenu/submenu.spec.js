@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { css, ThemeProvider } from "styled-components";
 
 import { MenuItem } from "../..";
 import { MenuContext } from "../../menu.component";
@@ -10,7 +11,9 @@ import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import { baseTheme } from "../../../../style/themes";
+import { baseTheme, mintTheme } from "../../../../style/themes";
+import Search from "../../../../__experimental__/components/search";
+import StyledSearch from "../../../../__experimental__/components/search/search.style";
 
 const events = {
   arrowDown: {
@@ -771,6 +774,57 @@ describe("Submenu component", () => {
       wrapper = renderScrollableBlock(true, "light");
 
       expect(wrapper.find(MenuItem).length).toEqual(4);
+    });
+  });
+  describe("when it has Search as a child", () => {
+    const renderWithSearch = (openSubmenu, menuType, props) => {
+      return mount(
+        <ThemeProvider theme={mintTheme}>
+          <MenuContext.Provider
+            value={menuContextValues(openSubmenu, menuType)}
+          >
+            <Submenu title="title" tabIndex={-1} {...props}>
+              <MenuItem>Apple</MenuItem>
+              <MenuItem>Banana</MenuItem>
+              <MenuItem variant="alternate">
+                <Search
+                  defaultValue=""
+                  placeholder="Dark variant"
+                  variant="dark"
+                  onChange={() => {}}
+                />
+              </MenuItem>
+            </Submenu>
+          </MenuContext.Provider>
+        </ThemeProvider>,
+        { attachTo: container }
+      );
+    };
+
+    it("should render with correct styles for search icon", () => {
+      wrapper = renderWithSearch(true, "dark");
+      assertStyleMatch(
+        {
+          color: baseTheme.menu.dark.searchIcon,
+        },
+        wrapper.find(StyledSubmenu),
+        {
+          modifier: css`
+            ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]
+          `,
+        }
+      );
+      assertStyleMatch(
+        {
+          color: baseTheme.menu.dark.searchIconHover,
+        },
+        wrapper.find(StyledSubmenu),
+        {
+          modifier: css`
+            ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]:hover
+          `,
+        }
+      );
     });
   });
 });

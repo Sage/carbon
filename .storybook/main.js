@@ -2,20 +2,19 @@ const path = require("path");
 
 module.exports = {
   stories: [
-    "../src/**/*.stories.(js|mdx)",
     "./welcome-page/welcome.stories.js",
     "../docs/*.stories.mdx",
+    "../src/**/*.stories.@(js|mdx)",
   ],
   addons: [
-    "@storybook/addon-actions/register",
-    "@storybook/addon-knobs/register",
-    "@storybook/addon-notes/register",
-    "@storybook/addon-viewport/register",
-    "@storybook/addon-a11y/register",
+    "@storybook/addon-actions",
+    "@storybook/addon-knobs",
+    "@storybook/addon-viewport",
+    "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-google-analytics/register",
+    "@storybook/addon-google-analytics",
     "@storybook/addon-links",
-    "./.storybook/theme-selector/register",
+    "./theme-selector/register",
   ],
   webpackFinal: async (config, { configType }) => {
     config.resolve = {

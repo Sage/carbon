@@ -2,24 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledOption from "./option.style";
 
-const Option = ({ text, children, onSelect, value, isHighlighted, hidden }) => {
-  function handleClick() {
-    onSelect({ text, value });
-  }
+const Option = React.forwardRef(
+  ({ text, children, onSelect, value, isHighlighted, hidden }, ref) => {
+    function handleClick() {
+      onSelect({ text, value });
+    }
 
-  return (
-    <StyledOption
-      aria-selected={isHighlighted}
-      data-component="option"
-      onClick={handleClick}
-      isHighlighted={isHighlighted}
-      role="option"
-      hidden={hidden}
-    >
-      {children || text}
-    </StyledOption>
-  );
-};
+    return (
+      <StyledOption
+        ref={ref}
+        aria-selected={isHighlighted}
+        data-component="option"
+        onClick={handleClick}
+        isHighlighted={isHighlighted}
+        role="option"
+        hidden={hidden}
+      >
+        {children || text}
+      </StyledOption>
+    );
+  }
+);
 
 Option.propTypes = {
   /** The option's visible text, displayed within Textbox of Select, and used for filtering */
