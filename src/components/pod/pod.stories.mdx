@@ -13,6 +13,21 @@ import PodManager from './pod-manager.component';
 # Pod
 Presents content grouped visually together. This can be text, or other components. A good example is a ‘tile’ showing contact information for an individual.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Pod from "carbon-react/lib/components/pod";
+```
+
+## Designer Notes
+
 Configure Pod and Fieldset components to work together, or choose the pre-configured Show/Edit Pod component:
 
 The ShowEditPod component automatically presents content as a read-only Pod, until the user clicks an edit icon, which shows the same information in an editable Fieldset.
@@ -30,19 +45,7 @@ Set the pod to flex to the width of its content, or take up the full width of it
 - Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--default-with-sticky-footer "Form").
 - Using Fieldset and Pod components together? [Try Show/Edit Pod](/?path=/docs/showeditpod--default-story "Show/Edit Pod").
 
-## Quick Start
-
-```jsx
-import Pod from "carbon-react/lib/components/pod";
-
-const MyComponent = () => (
-  return (
-    <Pod title="Title" subtitle="Subtitle">
-      Content
-    </Pod>
-  )
-);
-```
+## Examples
 
 ### Default
 
@@ -304,4 +307,5 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 ## Props
 
+### Pod
 <Props of={Pod} />

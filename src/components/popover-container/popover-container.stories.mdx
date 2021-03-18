@@ -11,15 +11,23 @@ import Badge from '../badge';
 
 <Meta title="Design System/Popover Container" />
 
-# PopoverContainer
+# Popover Container
 
-```jsx
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
 import PopoverContainer from "carbon-react/lib/components/popover-container";
 ```
 
-### Quick Start
+## Examples
 
-To use `PopoverContainer`, import the `PopoverContainer` and pass the content as children.
+### Default
+
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
     <div style={{height: 100}}>
@@ -33,6 +41,7 @@ To use `PopoverContainer`, import the `PopoverContainer` and pass the content as
 
 ### With title
 Use the `title` prop to set a title within the `PopoverContainer`.
+
 <Preview>
   <Story name="title" parameters={{ info: { disable: true }}} >
     <div style={{height: 100}}>
@@ -46,6 +55,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
 ### Right Aligned/Open Left
 Use the `position` prop to open the `PopoverContainer` to the left, this is useful if your open button is to the right
 of the screen.
+
 <Preview>
   <Story name="position" parameters={{ info: { disable: true }}} >
     <div style={{height: 100, float: 'right'}}>
@@ -58,6 +68,7 @@ of the screen.
 
 ### Cover Button
 Use the `shouldCoverButton` prop to hide the open button when the `PopoverContainer` is open.
+
 <Preview>
   <Story name="cover button" parameters={{ info: { disable: true }}} >
     <div style={{height: 100}}>
@@ -87,6 +98,7 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
 
 ### Controlled
 You can use the `open`, `onOpen` and `onClose` props to control the open state of the `PopoverContainer`.
+
 <Preview>
   <Story name="controlled" parameters={{ info: { disable: true }}}>
     {() => {
@@ -112,7 +124,6 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
 
 
 ### Complex content
-
 You can easily use many different components to create your own composition.
 
 <Preview>
@@ -143,11 +154,8 @@ You can easily use many different components to create your own composition.
   </Story>
 </Preview>
 
-
 ### Filter component
-
 If you want to use the `PopoverContainer` to create for example `Filter` component.
-
 You can do it easly in this way:
 
 <Preview>
@@ -251,4 +259,7 @@ You can do it easly in this way:
   </Story>
 </Preview>
 
+## Props
+
+### Popover Container
 <Props of={PopoverContainer} />

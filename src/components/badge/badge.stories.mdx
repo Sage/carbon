@@ -6,27 +6,22 @@ import Button from '../button'
 <Meta title="Design System/Badge" parameters={{ info: { disable: true } }} />
 
 # Badge
+Compact visual indicators that help things in common stand out.
 
-## Overview
 
-This kind of component is especialy usable for notifications
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start
+To use Badge component you need to import `Badge` and use another component as a child.
 
-To use `Badge` component you need to put other component as a child.
-
-```jsx
+```javascript
 import Badge from 'carbon-react/lib/components/badge';
-import Button form 'carbon-react/lib/components/button';
-
-const MyComponent = () => (
-  <Badge counter={ 10 }>
-    <Button buttonType='tertiary'>Filter</Button>
-  </Badge>
-);
 ```
 
-## Visuals
+## Examples
 
 ### Default Badge
 
@@ -39,7 +34,6 @@ const MyComponent = () => (
 </Preview>
 
 ### Badge with counter 100
-
 Badge doesn't support more than 2 digits
 
 <Preview>
@@ -51,7 +45,6 @@ Badge doesn't support more than 2 digits
 </Preview>
 
 ### Badge with counter 0
-
 If the counter is less than 1 badge will not show itself
 
 <Preview>
@@ -62,4 +55,7 @@ If the counter is less than 1 badge will not show itself
   </Story>
 </Preview>
 
+## Props
+
+### Badge
 <Props of={Badge} />

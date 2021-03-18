@@ -1,5 +1,6 @@
 import { Meta, Preview, Story, Props } from "@storybook/addon-docs/blocks";
 import { ArgsTable } from "@storybook/components";
+import styled from 'styled-components';
 import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
@@ -8,9 +9,7 @@ import Button from "../button";
 <Meta title="Design System/Grid" />
 
 # Grid
-
-## The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
-
+The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
 The Grid system is designed to provide:
 
 - A common language for designers and developers to use when discussing layout.
@@ -18,19 +17,28 @@ The Grid system is designed to provide:
 - No fixed breakpoints; responsive adjustments can be customised at a GridItem level.
 - Position and width calculated dynamically.
 
-## How it works
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
 
+## Quick Start
+
+```javascript
+import { GridContainer, GridItem } from "carbon-react/lib/components/grid";
+```
+
+## Designer Notes 
 - The Grid system is implemented with the `GridContainer` and `GridItem` components that provide two types of layout.
 - It uses the [CSS Grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), which is a truly two-dimentional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
 
 ### `GridContainer`
-
 - Comprised of 12 equal-width columns, including external paddings and internal gutters.
 - Allows either percentage or a fixed pixel width.
 - Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's paddings and gutters will be based on that size.
 
 ### `GridItem`
-
 The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
 
 - Can be defined at any width between 1 and 12, each unit corresponding to a column of the `GridContainer`.
@@ -38,7 +46,6 @@ The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoi
 - Can be re-ordered on the page by viewport dimensions.
 
 ### Paddings
-
 Paddings for the `GridContainer` are set automatically in the CSS, following the values in this table.
 
 | Breakpoints                    | Device Type                         | Paddings |
@@ -50,7 +57,6 @@ Paddings for the `GridContainer` are set automatically in the CSS, following the
 | Extra Large (1921px and above) | Ultra High-Res Monitors             | 40px     |
 
 ### Gutters
-
 Gutters for the `GridItem` are set automatically in the CSS, following the values in this table.
 
 | Breakpoints                    | Device Type                         | Gutters |
@@ -61,8 +67,9 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 | Large (1260 to 1920px)         | High-Res Laptops & Monitors         | 24px    |
 | Extra Large (1921px and above) | Ultra High-Res Monitors             | 40px    |
 
-## Default example
+## Examples
 
+### Default
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
@@ -87,8 +94,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## Justify example
-
+### Justify
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
@@ -115,8 +121,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## Align example
-
+### Align
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
@@ -154,8 +159,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## Custom spacings
-
+### Custom
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
@@ -239,8 +243,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## Responsive Settings Example
-
+### Responsive Settings
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
 
 <Preview>
@@ -340,8 +343,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## With a subgrid example
-
+### With a subgrid
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
@@ -408,72 +410,68 @@ This example is best viewed in the Canvas tab using full-screen mode with device
   </Story>
 </Preview>
 
-## GridContainer Props
+## Props
 
+### GridContainer 
 <Props of={GridContainer} />
 
-## GridItem Props
-
+### GridItem 
 <Props of={GridItem} />
 
-### responsiveSettings Props
-
+### responsiveSettings
 <ArgsTable
-  rows={[
-    {
-      name: "alignSelf",
-      type: { summary: "string" },
-      description:
-        "How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch",
-    },
-    {
-      name: "gridColumn",
-      type: { summary: "string" },
-      description:
-        'Starting and ending column position of the GridItem within the GridContainer separated by "/"',
-    },
-    {
-      name: "gridRow",
-      type: { summary: "number" },
-      description:
-        'Starting and ending row position of the GridItem within the GridContainer separated by "/"',
-    },
-    {
-      name: "justifySelf",
-      type: { summary: "string" },
-      description:
-        "How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch",
-    },
-    {
-      name: "maxWidth",
-      type: { summary: "string" },
-      description:
-        "Maximum width of the screen to which these rules to be applied",
-    },
-    {
-      name: "p",
-      type: { summary: "string | number" },
-      description: "Any valid CSS value to override default padding",
-    },
-    {
-      name: "pl",
-      type: { summary: "string | number" },
-      description: "Any valid CSS value to override default padding-left",
-    },
-    {
-      name: "pr",
-      type: { summary: "string | number" },
-      description: "Any valid CSS value to override default padding-right",
-    },
-    {
-      name: "pt",
-      type: { summary: "string | number" },
-      description: "Any valid CSS value to override default padding-top",
-    },
-    {
-      name: "pb",
-      type: { summary: "string | number" },
-      description: "Any valid CSS value to override default padding-bottom",
-    },
-  ]}
+  rows={
+    [
+      {
+      name: 'alignSelf',
+      type: { summary: 'string' },
+      description: 'How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch'
+      },
+      {
+        name: 'gridColumn',
+        type: { summary: 'string'},
+        description: 'Starting and ending column position of the GridItem within the GridContainer separated by "/"'
+      },
+      {
+        name: 'gridRow',
+        type: { summary: 'number' },
+        description: 'Starting and ending row position of the GridItem within the GridContainer separated by "/"'
+      },
+      {
+        name: 'justifySelf',
+        type: { summary: 'string' },
+        description: 'How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch'
+      },
+      {
+        name: 'maxWidth',
+        type: { summary: 'string' },
+        description: 'Maximum width of the screen to which these rules to be applied'
+      },
+      {
+        name: 'p',
+        type: { summary: 'string | number' },
+        description: 'Any valid CSS value to override default padding'
+      },
+      {
+        name: 'pl',
+        type: { summary: 'string | number' },
+        description: 'Any valid CSS value to override default padding-left'
+      },
+      {
+        name: 'pr',
+        type: { summary: 'string | number' },
+        description: 'Any valid CSS value to override default padding-right'
+      },
+      {
+        name: 'pt',
+        type: { summary: 'string | number' },
+        description: 'Any valid CSS value to override default padding-top'
+      },
+      {
+        name: 'pb',
+        type: { summary: 'string | number' },
+        description: 'Any valid CSS value to override default padding-bottom'
+      }
+    ]
+  }
 />

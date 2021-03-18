@@ -10,9 +10,22 @@ import { ActionPopover, ActionPopoverItem } from '../action-popover';
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
 # Tabs
+Switch between content panes or filtered views of tables.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start
 
+```javascript
+import {Tabs, Tab} from "carbon-react/lib/components/tabs;
+```
+
+## Designer Notes 
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:
   - `top` - shows the tabs in a line, typically above a Table - best for short lists of tabs.
@@ -27,11 +40,9 @@ nested tabs, or using vertical and horizontal tabs at the same time.
 - Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/design-system-menu)
 - Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/design-system-navigation-bar)
 
-```jsx
-import {Tabs, Tab} from "carbon-react/lib/components/tabs;
-```
+## Examples 
 
-### Default usage
+### Default
 The tabs widget also allows you to select a tab on page load. By default this is set to the first tab.
 
 <Preview>
@@ -1507,8 +1518,10 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
   </Story>
 </Preview>
 
-### Tabs Props
+## Props
+
+### Tabs
 <Props of={Tabs} />
 
-### Tab Props
+### Tab
 <Props of={Tab} />

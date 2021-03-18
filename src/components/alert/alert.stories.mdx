@@ -15,13 +15,24 @@ import Button from '../button';
 # Alert
 An important message that interrupts user activity, but can be dismissed.
 
-Useful if a message is so important you’d like to prevent any other activity until the user resolves it.
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
 
-If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.
+## Quick Start
 
-Include a Message component within the Alert component, use plain text, or apply a standard Carbon Error or Warning icon.
+```javascript
+import Alert from "carbon-react/lib/components/alert";
+```
 
-This component has the same options and properties as the Dialog component.
+## Designer Notes
+- Useful if a message is so important you’d like to prevent any other activity until the user resolves it.
+- If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.
+- Include a Message component within the Alert component, use plain text, or apply a standard Carbon Error or Warning icon.
+- This component has the same options and properties as the Dialog component.
 
 ## Related Components
 - Longer message which stays on-screen? [Try Message](/?path=/docs/message--default-story "Try Message").
@@ -29,24 +40,7 @@ This component has the same options and properties as the Dialog component.
 - Confirm or cancel an action I’ve initiated? [Try Confirm](/?path=/docs/confirm--default-story "Try Confirm").
 - Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Try Dialog").
 
-## Quick Start
-
-Import the component and use as shown below:
-
-```jsx
-import Alert from "carbon-react/lib/components/alert";
-
-const MyComponent = ({ isOpen, handleClose }) => (
-  <Alert
-    onCancel={ handleClose }
-    title="Title"
-    subtitle="Subtitle"
-    open={ isOpen }
-  >
-    This is an example of an alert
-  </Alert>
-);
-```
+## Examples 
 
 ### Default
 
@@ -73,7 +67,7 @@ const MyComponent = ({ isOpen, handleClose }) => (
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Alert
 

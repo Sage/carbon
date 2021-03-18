@@ -18,18 +18,23 @@ import Hr from "../hr";
 <Meta title="Design System/Tile" parameters={{ info: { disable: true } }} />
 
 # Tile
-
 Tiles contain static content for visual scanning only, and don't contain controls.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start
 
-```jsx
+```javascript
 import Tile from "carbon-react/lib/components/tile";
 import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 ```
 
-## Default
+## Examples
 
+### Default
 By default, the Tile component will have a horizontal layout.
 
 <Preview>
@@ -42,8 +47,7 @@ By default, the Tile component will have a horizontal layout.
   </Story>
 </Preview>
 
-## Vertical
-
+### Vertical
 The Tile component can be also have a vertical layout.
 
 <Preview>
@@ -56,7 +60,7 @@ The Tile component can be also have a vertical layout.
   </Story>
 </Preview>
 
-## With TileFooter
+### With TileFooter
 
 <Preview>
   <Story name="with TileFooter">
@@ -156,8 +160,7 @@ The Tile component can be also have a vertical layout.
   </Story>
 </Preview>
 
-## With custom widths
-
+### With custom widths
 The Tile component can also have custom widths. Any child wrapped by a Tile component can be passed an optional `width` prop - this is a percent value, dictating the width of the child element within the tile.
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
 
@@ -198,8 +201,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
   </Story>
 </Preview>
 
-## With inline styling
-
+### With inline styling
 The Tile component can also have inline styling applied to the content.
 
 <Preview>
@@ -239,7 +241,7 @@ The Tile component can also have inline styling applied to the content.
   </Story>
 </Preview>
 
-## With different padding and margin
+### With different padding and margin
 
 <Preview>
   <Story name="with different padding and margin">
@@ -266,35 +268,11 @@ The Tile component can also have inline styling applied to the content.
   </Story>
 </Preview>
 
-## Props for Tile
-
-<StyledSystemProps of={Tile} spacing spacingDefaults={{ p: 3 }} />
-
-## Props for TileFooter
-
-<StyledSystemProps of={TileFooter} spacing />
-
-# With Definition List
-
+### With Definition List
 The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
 the same tags used in HTML5 but instead they are React elements.
 
-Please note that Dl, Dd and Dt use our common spacing props, the following are all available for use and each of these can be a number (which is a multiple of the base spacing constant, 8px) or any valid CSS string.
-
-### Margin props
-
-m, mt, mr, mb, ml, mx, my
-
-### Padding props
-
-p, pt, pr, pb, pl, px, py
-
-## Quick Start
-
-```jsx
-import Tile from "carbon-react/lib/components/tile";
-import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
-```
+Please note that Dl, Dd and Dt use our common spacing props.
 
 <Preview>
   <Story name="with Definition List - default">
@@ -334,8 +312,7 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
   </Story>
 </Preview>
 
-## With Definition List and custom `StyledDtDiv` width
-
+### With Definition List and custom `StyledDtDiv` width
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
 <Preview>
@@ -376,8 +353,7 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
   </Story>
 </Preview>
 
-## With Definition List with custom text alignment
-
+### With Definition List with custom text alignment
 In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
 
 <Preview>
@@ -403,7 +379,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   </Story>
 </Preview>
 
-## With Accordion and Definition List
+### With Accordion and Definition List
 
 <Preview>
   <Story parameters={{ chromatic: { disable: true } }} name="with Accordion">
@@ -430,7 +406,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   </Story>
 </Preview>
 
-## With Accordion and TileFooter
+### With Accordion and TileFooter
 
 <Preview>
   <Story
@@ -466,16 +442,19 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   </Story>
 </Preview>
 
-## Props of Definition List:
+## Props
 
-### Props of Dl:
+### Tile 
+<StyledSystemProps noHeader of={Tile} spacing spacingDefaults={{ p: 3 }} />
 
+### TileFooter
+<StyledSystemProps noHeader of={TileFooter} spacing />
+
+### Dl
 <StyledSystemProps of={Dl} noHeader spacing />
 
-### Props of Dd:
-
+### Dd
 <StyledSystemProps of={Dd} noHeader spacing />
 
-### Props of Dt:
-
+### Dt
 <StyledSystemProps of={Dt} noHeader spacing />

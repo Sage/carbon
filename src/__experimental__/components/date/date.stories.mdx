@@ -17,11 +17,17 @@ import Box from "../../../components/box";
 - Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.
 - Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, or colon as separators.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
 
-```jsx
+```javascript
 import DateInput from "carbon-react/lib/__experimental__/components/date";
 ```
+## Examples
 
 ### Default
 
@@ -176,7 +182,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-## Validations
+### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
 
@@ -186,7 +192,7 @@ Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
 
-### As a string
+#### As a string
 
 <Preview>
   <Story name="validations - string - component">
@@ -212,7 +218,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a string, displayed on label
+#### As a string, displayed on label
 
 <Preview>
   <Story name="validations - string - label">
@@ -240,7 +246,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a boolean
+#### As a boolean
 
 <Preview>
   <Story name="validations - boolean">
@@ -264,7 +270,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### DateInput
 
