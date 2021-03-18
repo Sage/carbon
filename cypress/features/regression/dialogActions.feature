@@ -7,6 +7,7 @@ Feature: Dialog component actions in IFrame
   @positive
   Scenario: Disable escape key
     Given I check disableEscKey checkbox
+      And I wait 500
     When I hit ESC key
     Then Dialog is visible in IFrame
 
