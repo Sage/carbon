@@ -9,6 +9,7 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
+import I18next from "../../__spec_helper__/I18next";
 import StyledDeleteButton from "./delete-button.style";
 
 describe("ShowEditPod", () => {
@@ -349,7 +350,12 @@ describe("ShowEditPod", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      const wrapper = mount(<ShowEditPod data-element="bar" data-role="baz" />);
+      const wrapper = mount(
+        <ShowEditPod data-element="bar" data-role="baz" />,
+        {
+          wrappingComponent: I18next,
+        }
+      );
 
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapper.find(Pod), "show-edit-pod", "bar", "baz");
@@ -357,7 +363,9 @@ describe("ShowEditPod", () => {
     });
 
     describe("on internal elements", () => {
-      const wrapper = mount(<ShowEditPod editing onEdit={() => {}} />);
+      const wrapper = mount(<ShowEditPod editing onEdit={() => {}} />, {
+        wrappingComponent: I18next,
+      });
       const form = wrapper.find('[data-component="form"]').hostNodes();
       expect(form.type()).toEqual("form");
       elementsTagTest(form, ["edit-form"]);
@@ -368,5 +376,6 @@ describe("ShowEditPod", () => {
 function renderShowEditPod(props, renderer = mount) {
   return renderer(<ShowEditPod {...props} />, {
     attachTo: document.getElementById("enzymeContainer"),
+    wrappingComponent: I18next,
   });
 }
