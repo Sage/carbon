@@ -2,11 +2,6 @@ Feature: Dialog Full Screen component
   I want to test Dialog Full Screen component properties
 
   @positive
-  Scenario: CloseIcon has the border outline
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
-
-  @positive
   Scenario: Clicking close icon closes Dialog Full Screen
     Given I open "Dialog Full Screen Test" component page "default"
       And I check showCloseIcon checkbox
@@ -45,11 +40,6 @@ Feature: Dialog Full Screen component
     When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
-  @negative
-  Scenario: Disable background UI
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
-
   @positive
   Scenario: Disable escape key
     Given I open "Dialog Full Screen Test" component page "default"
@@ -64,11 +54,6 @@ Feature: Dialog Full Screen component
       And I uncheck disableEscKey checkbox
     When I hit ESC key
     Then Dialog Full Screen is not visible
-
-  @positive
-  Scenario: Verify that stickyFormFooter is visible
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "stickyFooter" object name
-    Then Dialog Full Screen stickyFormFooter is visible
 
   @positive
   Scenario: Cancel event

@@ -25,11 +25,5 @@
   },
   "enableBackgroundUI":{
     "enableBackgroundUI": true
-  },
-  "enableBackgroundUIFalse":{
-    "enableBackgroundUI": false
-  },
-  "stickyFooter": {
-    "Form component stickyFooter": true
   }
 }
