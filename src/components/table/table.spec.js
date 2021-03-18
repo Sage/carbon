@@ -17,14 +17,6 @@ import BaseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import Link from "../link";
 
-function RenderWrapper({ ...props }) {
-  return (
-    <I18next>
-      <Table {...props} />
-    </I18next>
-  );
-}
-
 describe("Table", () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
 
@@ -45,7 +37,7 @@ describe("Table", () => {
 
     instancePager = mount(
       <ThemeProvider theme={BaseTheme}>
-        <RenderWrapper
+        <Table
           className="foo"
           paginate
           currentPage="1"
@@ -54,8 +46,11 @@ describe("Table", () => {
           onChange={spy}
         >
           <TableRow />
-        </RenderWrapper>
-      </ThemeProvider>
+        </Table>
+      </ThemeProvider>,
+      {
+        wrappingComponent: I18next,
+      }
     )
       .find(Table)
       .instance();
@@ -121,8 +116,11 @@ describe("Table", () => {
 
   describe("refresh", () => {
     beforeEach(() => {
-      instance.actionToolbarComponent = TestUtils.renderIntoDocument(
-        <ActionToolbar actions={{}} />
+      instance.actionToolbarComponent = shallow(
+        <ActionToolbar actions={{}} />,
+        {
+          wrappingComponent: I18next,
+        }
       );
       spyOn(instance, "resetHighlightedRow");
       spyOn(instance.actionToolbarComponent, "setState");
@@ -932,7 +930,7 @@ describe("Table", () => {
         expect(
           mount(
             <ThemeProvider theme={BaseTheme}>
-              <RenderWrapper
+              <Table
                 className="foo"
                 paginate
                 currentPage="1"
@@ -941,8 +939,11 @@ describe("Table", () => {
                 onChange={spy}
               >
                 <TableRow />
-              </RenderWrapper>
-            </ThemeProvider>
+              </Table>
+            </ThemeProvider>,
+            {
+              wrappingComponent: I18next,
+            }
           ).find(Pager).exists
         ).toBeTruthy();
       });
@@ -1094,7 +1095,9 @@ describe("Table", () => {
 
     describe("when aria-describedby is in the table props", () => {
       it("renders an aria-describedby attribute on the table element", () => {
-        const wrapper = mount(<RenderWrapper aria-describedby="description" />);
+        const wrapper = mount(<Table aria-describedby="description" />, {
+          wrappingComponent: I18next,
+        });
 
         const table = wrapper.find("table").hostNodes();
 
@@ -1104,7 +1107,9 @@ describe("Table", () => {
 
     describe("when aria-describedby is not in the table props", () => {
       it("does not render an aria-describedby attribute on the table element", () => {
-        const wrapper = mount(<RenderWrapper />);
+        const wrapper = mount(<Table />, {
+          wrappingComponent: I18next,
+        });
 
         const table = wrapper.find("table").hostNodes();
 
@@ -1239,7 +1244,10 @@ describe("Table", () => {
   describe("pagination", () => {
     it("renders to match the expected style for a table with a pager", () => {
       const wrapper = mount(
-        <RenderWrapper paginate currentPage="1" totalRecords={100} />
+        <Table paginate currentPage="1" totalRecords={100} />,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       assertStyleMatch(
