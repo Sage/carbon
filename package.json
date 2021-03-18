@@ -39,9 +39,9 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
     "draft-js": "^0.11.5",
+    "i18n-js": "^3.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "i18n-js": "^3.0.1",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
