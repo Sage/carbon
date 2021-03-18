@@ -3,6 +3,7 @@ import { mount } from "enzyme";
 import { ConfigurableItems } from ".";
 import { DraggableContext } from "../drag-and-drop";
 import Form from "../form";
+import I18next from "../../__spec_helper__/I18next";
 
 describe("ConfigurableItems", () => {
   let wrapper;
@@ -21,7 +22,10 @@ describe("ConfigurableItems", () => {
           onSave={onSave}
         >
           <p className="child-node">Foo</p>
-        </ConfigurableItems>
+        </ConfigurableItems>,
+        {
+          wrappingComponent: I18next,
+        }
       );
     });
     it("renders child nodes", () => {
@@ -38,7 +42,10 @@ describe("ConfigurableItems", () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
     });
     it("passes the onDrag prop through to the DraggableContext", () => {
@@ -54,7 +61,10 @@ describe("ConfigurableItems", () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
     });
     it("passes the onSave prop through to the Form onSubmit prop", () => {
@@ -78,7 +88,10 @@ describe("ConfigurableItems", () => {
             onDrag={onDrag}
             onReset={onReset}
             onSave={onSave}
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
       });
 
@@ -100,7 +113,10 @@ describe("ConfigurableItems", () => {
             onClick={onClick}
             onDrag={onDrag}
             onSave={onSave}
-          />
+          />,
+          {
+            wrappingComponent: I18next,
+          }
         );
         form = wrapper.find(Form);
       });
@@ -121,7 +137,10 @@ describe("ConfigurableItems", () => {
           onClick={onClick}
           onDrag={onDrag}
           onSave={onSave}
-        />
+        />,
+        {
+          wrappingComponent: I18next,
+        }
       );
 
       it("includes the correct component, element and role data tags", () => {
