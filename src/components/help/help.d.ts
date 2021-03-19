@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { IconTypes, Positions } from "../../utils/helpers/options-helper/options-helper";
 import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 

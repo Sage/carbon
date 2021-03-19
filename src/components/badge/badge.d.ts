@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface BadgeProps {
-    /** The badge will be added to this element */
+  /** The badge will be added to this element */
   children: React.ReactNode;
   /** The number rendered in the badge component */
   counter: string | number;

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import FlatTableRow from '../flat-table-row';
+import * as React from "react";
+import FlatTableRow from "../flat-table-row";
 
 export interface FlatTableBodyProps {
   /** Array of FlatTableRow. */

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface AnchorNavigationProps {
   children?: React.ReactNode;
@@ -6,9 +6,9 @@ export interface AnchorNavigationProps {
   stickyNavigation?: React.ReactNode;
   /** Allows to override existing component styles */
   styleOverride?: {
-   root?: () => object | object;
-   navigation?: () => object | object;
-   content?: () => object | object;
+    root?: () => object | object;
+    navigation?: () => object | object;
+    content?: () => object | object;
   };
 }
 

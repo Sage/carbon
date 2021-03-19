@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { SpacingProps } from "../../../utils/helpers/options-helper";
 
 export interface FlatTableRowHeaderProps extends SpacingProps {
   /** Content alignment */

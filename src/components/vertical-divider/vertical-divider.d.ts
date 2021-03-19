@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SpacingProps, TintValueType } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import { SpacingProps, TintValueType} from "../../utils/helpers/options-helper";
 
 export interface VerticalDividerPropTypes extends SpacingProps {
   h?: number | string;

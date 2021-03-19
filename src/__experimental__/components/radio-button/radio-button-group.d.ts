@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { MarginSpacingProps } from "../../../utils/helpers/options-helper";
 
 export interface RadioButtonGroupProps extends MarginSpacingProps {
   /** The RadioButton objects to be rendered in the group */

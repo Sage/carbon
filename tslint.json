@@ -19,7 +19,7 @@
     "class-name": false,
     "quotemark": {
       "severity": "warning",
-      "options": ["single", "avoid-escape"]
+      "options": ["double", "avoid-escape"]
     }
   }
 }

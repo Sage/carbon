@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
-import ActionPopoverDivider from './action-popover-divider';
-import ActionPopoverItem from './action-popover-item';
+import * as React from "react";
+import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
+import ActionPopoverDivider from "./action-popover-divider";
+import ActionPopoverItem from "./action-popover-item";
 
 export interface ActionPopoverMenuProps {
   button?: (args: any) => any | object;

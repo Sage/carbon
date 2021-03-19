@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ToastPropTypes {
   children: React.FunctionComponent | React.ComponentClass;
@@ -6,7 +6,7 @@ export interface ToastPropTypes {
   as?: string;
   className?: string;
   id?: string;
-  'data-component'?: string;
+  "data-component"?: string;
   open?: boolean;
   onDismiss?: () => void;
   timeout?: string | number;

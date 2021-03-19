@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { PaddingSpacingProps } from "../../../utils/helpers/options-helper";
 
 export interface TabProps extends PaddingSpacingProps {
@@ -7,7 +7,7 @@ export interface TabProps extends PaddingSpacingProps {
   className?: string;
   children?: React.ReactNode;
   isTabSelected?: boolean;
-  position: 'top' | 'left';
+  position: "top" | "left";
   role?: string;
   ariaLabelledby?: string;
   updateErrors?: () => void;
@@ -16,7 +16,7 @@ export interface TabProps extends PaddingSpacingProps {
   warningMessage?: string;
   infoMessage?: string;
   siblings?: React.ReactNode[];
-  titlePosition?: 'before' | 'after';
+  titlePosition?: "before" | "after";
   href?: string;
 }
 

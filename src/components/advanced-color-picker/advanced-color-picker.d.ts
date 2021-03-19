@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface AdvancedColorPickerPropTypes extends MarginSpacingProps {
+export interface AdvancedColorPickerPropTypes extends MarginProps {
   name?: string;
   open?: boolean;
   availableColors?: [];

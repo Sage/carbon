@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface FlatTableRowProps {
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */

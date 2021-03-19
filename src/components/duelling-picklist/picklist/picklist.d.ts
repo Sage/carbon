@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface PicklistProps {
   /** List of PicklistItem elements */

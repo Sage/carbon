@@ -1,5 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+
 export interface FieldsetProps extends MarginSpacingProps {
   /** Fieldset content */
   children: React.ReactNode;
@@ -22,7 +23,7 @@ export interface FieldsetProps extends MarginSpacingProps {
   /** Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
   /** Text alignment of legend when inline */
-  legendAlign?: 'left' | 'right';
+  legendAlign?: "left" | "right";
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
   /** Allows to override existing component styles */

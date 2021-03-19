@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import { SpacingProps } from "../../utils/helpers/options-helper";
 
 export interface HrProps extends SpacingProps {
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
