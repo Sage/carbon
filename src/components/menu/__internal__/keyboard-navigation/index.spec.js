@@ -27,70 +27,52 @@ describe("Menu keyboard navigation", () => {
   ];
 
   describe("characterNavigation", () => {
-    describe("when a non character key event passed in", () => {
+    describe("when an empty string passed in", () => {
       it("should return the current index", () => {
-        const result = characterNavigation(
-          getMockEvent("ArrowRight"),
-          focusableItems,
-          0
-        );
+        const result = characterNavigation("", focusableItems, 0);
+        expect(result).toEqual(0);
+      });
+    });
+
+    describe("when an irrelevant character passed in ", () => {
+      // E.g. none of the items start with this letter
+      it("should return the current index", () => {
+        const result = characterNavigation("h", focusableItems, 0);
         expect(result).toEqual(0);
       });
     });
 
     describe("when a character key event passed in", () => {
       it("should return the correct index", () => {
-        const result = characterNavigation(
-          getMockEvent("b"),
-          focusableItems,
-          0
-        );
+        const result = characterNavigation("b", focusableItems, 0);
         expect(result).toEqual(1);
       });
     });
 
     describe("when the keyboard override of a submenu passed in", () => {
       it("should return the correct index", () => {
-        const result = characterNavigation(
-          getMockEvent("1"),
-          focusableItems,
-          0
-        );
+        const result = characterNavigation("1", focusableItems, 0);
         expect(result).toEqual(6);
       });
     });
 
     describe("when a character key event passed in", () => {
       it("should return the correct index when menu contains other nodes", () => {
-        const result = characterNavigation(
-          getMockEvent("r"),
-          focusableItems,
-          0
-        );
+        const result = characterNavigation("r", focusableItems, 0);
         expect(result).toEqual(7);
       });
     });
 
     describe("when there are multiple menu items starting with the same letter", () => {
       it("should return the index of the next item starting with that letter", () => {
-        let result = characterNavigation(getMockEvent("b"), focusableItems, 0);
-        expect(result).toEqual(1);
-
-        result = characterNavigation(getMockEvent("b"), focusableItems, 1);
-        expect(result).toEqual(4);
-
-        result = characterNavigation(getMockEvent("b"), focusableItems, 4);
+        const result = characterNavigation("b", focusableItems, 0);
         expect(result).toEqual(1);
       });
     });
 
     describe("when the starting letter of a submenu passed in", () => {
       it("should return the correct index", () => {
-        const result = characterNavigation(
-          getMockEvent("s"),
-          focusableItems,
-          0
-        );
+        const result = characterNavigation("s", focusableItems, 0);
         expect(result).toEqual(5);
       });
     });
@@ -98,61 +80,13 @@ describe("Menu keyboard navigation", () => {
 
   describe("menuKeyboardNavigation", () => {
     describe("when in invalid key event passed in", () => {
-      it("should return the current focused index", () => {
+      it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("shift"),
           focusableItems,
           1
         );
-        expect(result).toEqual(1);
-      });
-    });
-
-    describe("when the ArrowRight key event passed in", () => {
-      describe("when current index is not the last", () => {
-        it("should return the next index", () => {
-          const result = menuKeyboardNavigation(
-            getMockEvent("ArrowRight", 39),
-            focusableItems,
-            0
-          );
-          expect(result).toEqual(1);
-        });
-      });
-
-      describe("when current index is the last", () => {
-        it("should return the first index", () => {
-          const result = menuKeyboardNavigation(
-            getMockEvent("ArrowRight", 39),
-            focusableItems,
-            7
-          );
-          expect(result).toEqual(0);
-        });
-      });
-    });
-
-    describe("when the ArrowLeft key event passed in", () => {
-      describe("when current index is not the first", () => {
-        it("should return the next index", () => {
-          const result = menuKeyboardNavigation(
-            getMockEvent("ArrowLeft", 37),
-            focusableItems,
-            2
-          );
-          expect(result).toEqual(1);
-        });
-      });
-
-      describe("when current index is the first", () => {
-        it("should return the last index", () => {
-          const result = menuKeyboardNavigation(
-            getMockEvent("ArrowLeft", 37),
-            focusableItems,
-            0
-          );
-          expect(result).toEqual(7);
-        });
+        expect(result).toEqual(undefined);
       });
     });
 
@@ -179,13 +113,13 @@ describe("Menu keyboard navigation", () => {
     });
 
     describe("when an alphabet key event passed in", () => {
-      it("should return the correct index", () => {
+      it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("c", 67),
           focusableItems,
           0
         );
-        expect(result).toEqual(3);
+        expect(result).toEqual(undefined);
       });
     });
 

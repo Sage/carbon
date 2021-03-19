@@ -16,9 +16,11 @@ import Search from "../../__experimental__/components/search";
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
 # Menu
+
 Provides navigation for an app, which can be used via mouse or keyboard.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -42,7 +44,7 @@ import {
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "150px" }}>
       <Menu>
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item One</MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem submenu="Menu Item Three">
           <MenuItem href="#">Item Submenu One</MenuItem>
@@ -197,6 +199,7 @@ import {
 </Preview>
 
 ### Default icon
+
 Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
 The menu must have focus for this to work
 
@@ -369,6 +372,7 @@ The menu must have focus for this to work
 </Preview>
 
 ### No dropdown arrow on submenu
+
 The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
 is rendered.
 
@@ -388,6 +392,7 @@ is rendered.
 </Preview>
 
 ### Dark icon
+
 Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
 The menu must have focus for this to work
 
@@ -477,6 +482,7 @@ The menu must have focus for this to work
 </Preview>
 
 ### Split submenu into separate component
+
 If you need to split out a submenu into a separate component, it must be done as shown below in order for the keyboard navigation to work as intended.
 
 <Preview>
@@ -505,6 +511,7 @@ If you need to split out a submenu into a separate component, it must be done as
 </Preview>
 
 ### Submenu icon and text alignment
+
 In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
 
 <Preview>
@@ -532,6 +539,7 @@ In order to align text and icons within a submenu a `Box` component will need to
 </Preview>
 
 ### Scrollable submenu
+
 A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
 Note that only one `ScrollableBlock` can be used within a single submenu.
 
@@ -665,20 +673,20 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
 
 <Props of={Menu} />
 
-### MenuItem 
+### MenuItem
 
 `MenuItem` extends the `Box` component so it also accepts all `Box` props.
 
 <Props of={MenuItem} />
 
-### SubmenuBlock 
+### SubmenuBlock
 
 <Props of={SubmenuBlock} />
 
-### MenuDivider 
+### MenuDivider
 
 <Props of={MenuDivider} />
 
-### MenuSegmentTitle 
+### MenuSegmentTitle
 
 <Props of={MenuSegmentTitle} />

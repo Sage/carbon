@@ -9,12 +9,10 @@ const MenuContext = React.createContext({});
 
 const Menu = ({ menuType = "light", children, ...rest }) => {
   const [focusedItemIndex, setFocusedItemIndex] = useState(undefined);
-  const [openSubmenuIndex, setOpenSubmenuIndex] = useState(undefined);
   const ref = useRef();
 
   const handleKeyDown = useCallback(
-    (event, index, submenuOpen = false) => {
-      setOpenSubmenuIndex(undefined);
+    (event, index) => {
       const newIndex = menuKeyboardNavigation(
         event,
         React.Children.toArray(children),
@@ -22,9 +20,6 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
       );
 
       setFocusedItemIndex(newIndex);
-      if (submenuOpen) {
-        setOpenSubmenuIndex(newIndex);
-      }
     },
     [children]
   );
@@ -33,7 +28,6 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
     // Reset the state of the menu when clicking elsewhere
     if (!Events.composedPath(event).includes(ref.current)) {
       setFocusedItemIndex(undefined);
-      setOpenSubmenuIndex(undefined);
       document.removeEventListener("click", onClickOutside);
     }
   }, []);
@@ -49,24 +43,19 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
   return (
     <StyledMenuWrapper
       data-component="menu"
-      role="menubar"
       menuType={menuType}
       {...rest}
       ref={ref}
     >
       {React.Children.map(children, (child, index) => {
-        const isFirstElement = index === 0;
         const isFocused = focusedItemIndex === index;
 
         return (
           <MenuContext.Provider
             value={{
               menuType,
-              isFirstElement,
-              handleKeyDown: (ev, submenuOpen) =>
-                handleKeyDown(ev, index, submenuOpen),
+              handleKeyDown: (ev) => handleKeyDown(ev, index),
               isFocused,
-              openSubmenu: isFocused && index === openSubmenuIndex,
             }}
           >
             {child}

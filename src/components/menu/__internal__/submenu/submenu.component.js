@@ -30,7 +30,6 @@ const Submenu = React.forwardRef(
       submenuDirection = "right",
       onKeyDown,
       variant = "default",
-      tabbable,
       showDropdownArrow = true,
       ...rest
     },
@@ -39,8 +38,8 @@ const Submenu = React.forwardRef(
     const menuContext = useContext(MenuContext);
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
+    const [characterString, setCharacterString] = useState("");
     const submenuRef = useRef();
-    const menuContextOpen = menuContext.openSubmenu;
 
     const formattedChildren = React.Children.map(children, (child) => {
       if (child.type === ScrollableBlock) {
@@ -55,9 +54,23 @@ const Submenu = React.forwardRef(
       [formattedChildren]
     );
 
+    const characterTimer = useRef();
+
+    const startCharacterTimeout = useCallback(() => {
+      characterTimer.current = setTimeout(() => {
+        setCharacterString("");
+      }, 1500);
+    }, []);
+
+    const restartCharacterTimeout = useCallback(() => {
+      clearTimeout(characterTimer.current);
+      startCharacterTimeout();
+    }, [startCharacterTimeout]);
+
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
       setSubmenuFocusIndex(undefined);
+      setCharacterString("");
     }, []);
 
     const handleKeyDown = useCallback(
@@ -66,17 +79,12 @@ const Submenu = React.forwardRef(
           if (
             Events.isEnterKey(event) ||
             Events.isSpaceKey(event) ||
-            Events.isDownKey(event)
+            Events.isDownKey(event) ||
+            Events.isUpKey(event)
           ) {
             event.preventDefault();
             setSubmenuOpen(true);
             setSubmenuFocusIndex(0);
-          }
-
-          if (Events.isUpKey(event)) {
-            event.preventDefault();
-            setSubmenuOpen(true);
-            setSubmenuFocusIndex(numberOfChildren - 1);
           }
 
           if (!event.defaultPrevented) {
@@ -87,33 +95,34 @@ const Submenu = React.forwardRef(
         if (submenuOpen) {
           let nextIndex = index;
 
+          if (Events.isTabKey(event) && !Events.isShiftKey(event)) {
+            if (index === numberOfChildren - 1) {
+              closeSubmenu();
+              return;
+            }
+            nextIndex = index + 1;
+          }
+
+          if (Events.isTabKey(event) && Events.isShiftKey(event)) {
+            if (index === 0) {
+              closeSubmenu();
+              return;
+            }
+            nextIndex = index - 1;
+          }
+
           if (Events.isDownKey(event)) {
             event.preventDefault();
             if (index < numberOfChildren - 1) {
               nextIndex = index + 1;
-            } else {
-              nextIndex = 0;
             }
           }
 
           if (Events.isUpKey(event)) {
             event.preventDefault();
-            if (!index) {
-              nextIndex = numberOfChildren - 1;
-            } else {
+            if (index > 0) {
               nextIndex = index - 1;
             }
-          }
-
-          if (Events.isLeftKey(event) || Events.isRightKey(event)) {
-            menuContext.handleKeyDown(event, true);
-            closeSubmenu();
-            return;
-          }
-
-          if (Events.isTabKey(event)) {
-            closeSubmenu();
-            return;
           }
 
           if (Events.isEscKey(event)) {
@@ -133,11 +142,17 @@ const Submenu = React.forwardRef(
           }
 
           if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
-            nextIndex = characterNavigation(
-              event,
-              React.Children.toArray(formattedChildren),
-              index
-            );
+            event.stopPropagation();
+
+            if (characterTimer.current) {
+              restartCharacterTimeout();
+            } else {
+              startCharacterTimeout();
+            }
+
+            setCharacterString(`${characterString}${event.key.toLowerCase()}`);
+          } else {
+            setCharacterString("");
           }
 
           // Defensive check in case an unhandled key event from a child component
@@ -157,6 +172,10 @@ const Submenu = React.forwardRef(
         }
       },
       [
+        characterString,
+        characterTimer,
+        startCharacterTimeout,
+        restartCharacterTimeout,
         formattedChildren,
         closeSubmenu,
         menuContext,
@@ -179,10 +198,17 @@ const Submenu = React.forwardRef(
     );
 
     useEffect(() => {
-      if (menuContextOpen) {
-        setSubmenuOpen(menuContextOpen);
+      if (characterString !== "") {
+        const nextIndex = characterNavigation(
+          characterString,
+          React.Children.toArray(formattedChildren),
+          submenuFocusIndex
+        );
+
+        setSubmenuFocusIndex(nextIndex);
       }
-    }, [menuContextOpen]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [characterString]);
 
     useEffect(() => {
       if (submenuOpen) {
@@ -198,8 +224,7 @@ const Submenu = React.forwardRef(
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
         role="menuitem"
-        onMouseOver={() => setSubmenuOpen(true)}
-        onMouseLeave={() => closeSubmenu()}
+        onClick={() => setSubmenuOpen(true)}
         ref={submenuRef}
         isSubmenuOpen={submenuOpen}
       >
@@ -215,7 +240,6 @@ const Submenu = React.forwardRef(
           isOpen={submenuOpen}
           as={Link}
           hasSubmenu
-          tabbable={tabbable}
           showDropdownArrow={showDropdownArrow}
           onKeyDown={handleKeyDown}
         >
@@ -264,12 +288,6 @@ Submenu.propTypes = {
   onKeyDown: PropTypes.func,
   /** set the colour variant for a menuType */
   variant: PropTypes.oneOf(["default", "alternate"]),
-  /**
-   * @private
-   * @ignore
-   *
-   */
-  tabbable: PropTypes.bool,
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow: PropTypes.bool,
 };

@@ -33,7 +33,6 @@ const MenuItem = ({
   variant = "default",
   showDropdownArrow = true,
   ariaLabel,
-  isSearch,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -72,19 +71,13 @@ const MenuItem = ({
         ref.current.focus();
       }
 
-      if (!submenu && Events.isSpaceKey(event)) {
-        ref.current.click();
-      }
-
-      if (!event.defaultPrevented) {
-        if (submenuContext.handleKeyDown !== undefined) {
-          submenuContext.handleKeyDown(event);
-        } else {
-          menuContext.handleKeyDown(event);
-        }
+      if (submenuContext.handleKeyDown !== undefined) {
+        submenuContext.handleKeyDown(event);
+      } else {
+        menuContext.handleKeyDown(event);
       }
     },
-    [menuContext, onKeyDown, ref, submenu, submenuContext]
+    [menuContext, onKeyDown, ref, submenuContext]
   );
 
   const classes = useMemo(
@@ -103,7 +96,6 @@ const MenuItem = ({
     icon,
     selected,
     menuType: menuContext.menuType,
-    tabbable: menuContext.isFirstElement,
   };
 
   if (submenu) {
@@ -121,7 +113,6 @@ const MenuItem = ({
           {...(typeof submenu !== "boolean" && { title: submenu })}
           icon={icon}
           submenuDirection={submenuDirection}
-          tabbable={menuContext.isFirstElement}
           onKeyDown={handleKeyDown}
           className={classes}
           showDropdownArrow={showDropdownArrow}

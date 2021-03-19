@@ -21,12 +21,6 @@ const events = {
     which: 13,
     preventDefault: jest.fn(),
   },
-  space: {
-    key: "Space",
-    which: 32,
-    preventDefault: jest.fn(),
-    defaultPrevented: true,
-  },
   escape: {
     key: "Escape",
     which: 27,
@@ -37,9 +31,8 @@ const events = {
 const mockMenuhandleKeyDown = jest.fn();
 const mockSubmenuhandleKeyDown = jest.fn();
 
-const menuContextValues = (isFirstElement, isFocused) => ({
+const menuContextValues = (isFocused) => ({
   handleKeyDown: mockMenuhandleKeyDown,
-  isFirstElement,
   menuType: "light",
   isFocused,
 });
@@ -53,11 +46,9 @@ describe("MenuItem", () => {
   let container;
   let wrapper;
 
-  const renderMenuContext = (isFirstElement, isFocused, props) => {
+  const renderMenuContext = (isFocused, props) => {
     return mount(
-      <MenuContext.Provider
-        value={menuContextValues(isFirstElement, isFocused)}
-      >
+      <MenuContext.Provider value={menuContextValues(isFocused)}>
         <MenuItem {...props}>Item One</MenuItem>
       </MenuContext.Provider>,
       { attachTo: container }
@@ -277,7 +268,7 @@ describe("MenuItem", () => {
     let menuItem;
 
     it("should be focused", () => {
-      wrapper = renderMenuContext(false, true);
+      wrapper = renderMenuContext(true);
       menuItem = wrapper.find(MenuItem).find("a");
 
       expect(menuItem).toBeFocused();
@@ -288,7 +279,7 @@ describe("MenuItem", () => {
     describe("when onKeyDown prop passed in", () => {
       it("should call onKeyDown", () => {
         const onKeyDownFn = jest.fn();
-        wrapper = renderMenuContext(false, false, { onKeyDown: onKeyDownFn });
+        wrapper = renderMenuContext(false, { onKeyDown: onKeyDownFn });
 
         act(() => {
           wrapper
@@ -306,7 +297,7 @@ describe("MenuItem", () => {
 
     describe("when escape key pressed", () => {
       it("should focus the current menu item", () => {
-        wrapper = renderMenuContext(false, false);
+        wrapper = renderMenuContext(false);
 
         act(() => {
           wrapper
@@ -320,26 +311,6 @@ describe("MenuItem", () => {
         const menuItem = wrapper.find(MenuItem).find("a");
 
         expect(menuItem).toBeFocused();
-      });
-    });
-
-    describe("when space key pressed", () => {
-      it("should call onClick", () => {
-        const onClickFn = jest.fn();
-
-        wrapper = renderMenuContext(false, false, { onClick: onClickFn });
-
-        act(() => {
-          wrapper
-            .find(StyledMenuItemWrapper)
-            .at(0)
-            .props()
-            .onKeyDown(events.space);
-        });
-
-        wrapper.update();
-
-        expect(onClickFn).toHaveBeenCalled();
       });
     });
 
