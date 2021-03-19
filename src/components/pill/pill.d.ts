@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
 export interface PillProps extends MarginSpacingProps {
-  colorVariant?: 'neutral' | 'negative' | 'positive' | 'warning';
+  colorVariant?: "neutral" | "negative" | "positive" | "warning";
   borderColor?: string;
   children: string;
   fill?: boolean;
-  pillRole?: 'tag' | 'status';
+  pillRole?: "tag" | "status";
   onClick?: React.MouseEventHandler<HTMLSpanElement>;
   onDelete?: React.MouseEventHandler<HTMLButtonElement>;
-  size?: 'S' | 'M' | 'L' | 'XL';
+  size?: "S" | "M" | "L" | "XL";
 }
 
 declare const Pill: React.ComponentClass<PillProps>;

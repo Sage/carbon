@@ -3,7 +3,7 @@ import {
   AlignBinaryType,
   SizesType,
 } from "../../../utils/helpers/options-helper/options-helper";
-import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+import { MarginSpacingProps } from "../../../utils/helpers/options-helper";
 
 export interface RadioButtonProps extends MarginSpacingProps {
   checked?: boolean;

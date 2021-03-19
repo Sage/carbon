@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface ResponsiveSettingsShape {
   /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */

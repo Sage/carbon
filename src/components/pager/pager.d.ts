@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface PagerPropTypes {
   onPagination: (pageSize: number, currentPage: number) => void;

@@ -1,18 +1,22 @@
-import * as React from 'react';
+import * as React from "react";
 import { Positions } from "../../utils/helpers/options-helper";
 export interface IconProps {
   /** Icon type */
   type: string;
   /** Background size */
-  bgSize?: 'small' | 'medium' | 'large' | 'extra-large';
+  bgSize?: "small" | "medium" | "large" | "extra-large";
   /** Background shape */
-  bgShape?: 'circle' | 'rounded-rect' | 'square';
+  bgShape?: "circle" | "rounded-rect" | "square";
   /** Background color theme */
-  bgTheme?: 'info' | 'error' | 'success' | 'warning' | 'business' | 'none';
+  bgTheme?: "info" | "error" | "success" | "warning" | "business" | "none";
   /** Icon font size */
-  fontSize?: 'small' | 'medium' | 'large' | 'extra-large';
+  fontSize?: "small" | "medium" | "large" | "extra-large";
   /** Icon color */
-  iconColor?: 'default' | 'on-light-background' | 'on-dark-background' | 'business-color';
+  iconColor?:
+    | "default"
+    | "on-light-background"
+    | "on-dark-background"
+    | "business-color";
   /** Override iconColor, provide any color from palette or any valid css color value. */
   color?: string;
   /** Override bgTheme, provide any color from palette or any valid css color value. */

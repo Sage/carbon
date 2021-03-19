@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface AnchorSectionDividerProps {
   /** Allows to override existing component styles */

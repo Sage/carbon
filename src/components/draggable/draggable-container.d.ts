@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface DraggableContainerProps {
   getOrder?: () => void;
@@ -7,4 +7,4 @@ export interface DraggableContainerProps {
 
 declare const DraggableContainer: React.FunctionComponent<DraggableContainerProps>;
 
-export {DraggableContainer};
+export { DraggableContainer };

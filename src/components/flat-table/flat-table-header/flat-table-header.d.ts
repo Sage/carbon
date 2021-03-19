@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { SpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { SpacingProps } from "../../../utils/helpers/options-helper";
 
 export interface FlatTableHeaderProps extends SpacingProps {
   /** Content alignment */
-  align?: 'center' | 'left' | 'right';
+  align?: "center" | "left" | "right";
   children?: React.ReactNode | string;
   /** Number of columns that a header cell should span */
   colspan?: number | string;

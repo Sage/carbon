@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ActionPopoverProps {
   id?: string;
@@ -6,7 +6,7 @@ export interface ActionPopoverProps {
   onClose?: () => void;
   rightAlignMenu?: boolean;
   renderButton?: (args: object) => React.ReactNode;
-  placement?: 'bottom' | 'top';
+  placement?: "bottom" | "top";
 }
 
 declare const ActionPopover: React.FunctionComponent<ActionPopoverProps>;

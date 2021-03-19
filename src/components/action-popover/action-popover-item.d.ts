@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
-import ActionPopoverMenu from './action-popover-menu';
+import * as React from "react";
+import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
+import ActionPopoverMenu from "./action-popover-menu";
 
 export interface ActionPopoverItemProps {
   children: string;

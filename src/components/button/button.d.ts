@@ -21,7 +21,9 @@ export interface ButtonProps extends SpacingProps {
   /** Used to transform button into anchor */
   href?: string;
   forwardRef?: () => void;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
+  onClick?: (
+    event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>,
+  ) => void;
   noWrap?: boolean;
   iconTooltipMessage?: string;
   iconTooltipPosition?: string;

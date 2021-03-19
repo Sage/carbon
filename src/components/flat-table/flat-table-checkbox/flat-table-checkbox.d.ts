@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface FlatTableCheckboxProps {
-  as: 'td' | 'th';
+  as: "td" | "th";
   checked?: boolean;
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
 }

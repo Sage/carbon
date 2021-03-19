@@ -1,5 +1,8 @@
-import * as React from 'react';
-import { IconTypes, Positions } from "../../utils/helpers/options-helper/options-helper";
+import * as React from "react";
+import {
+  IconTypes,
+  Positions,
+} from "../../utils/helpers/options-helper/options-helper";
 
 export interface HelpProps {
   className?: string;

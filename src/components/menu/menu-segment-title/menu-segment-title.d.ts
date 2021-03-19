@@ -1,8 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface MenuTitleProps {
   children: string;
-  variant?: 'default' | 'alternate';
+  variant?: "default" | "alternate";
 }
 
 declare const MenuTitle: React.ComponentType<MenuTitleProps>;

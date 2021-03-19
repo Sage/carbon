@@ -1,16 +1,22 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface PodProps {
-    /** Enables/disables the border around the pod. */
+  /** Enables/disables the border around the pod. */
   border?: boolean;
   /** Children elements */
   children?: React.ReactNode;
   /** Custom className */
   className?: string;
   /** Determines the padding around the pod */
-  padding?: 'none' | 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large';
+  padding?:
+    | "none"
+    | "extra-small"
+    | "small"
+    | "medium"
+    | "large"
+    | "extra-large";
   /** Prop to apply a theme to the Pod */
-  variant?: 'primary' | 'secondary' | 'tertiary'  | 'tile' | 'transparent';
+  variant?: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
   /** The collapsed state of the pod */
   collapsed?: boolean;
   /** Title for the pod h4 element always shown */
@@ -18,7 +24,7 @@ export interface PodProps {
   /** Optional subtitle for the pod */
   subtitle?: string;
   /** Aligns the title to left, right or center */
-  alignTitle?: 'left' | 'center' | 'right';
+  alignTitle?: "left" | "center" | "right";
   /** Description for the pod */
   description?: string;
   /** A component to render as a Pod footer */

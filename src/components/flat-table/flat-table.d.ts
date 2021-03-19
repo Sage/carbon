@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface FlatTableProps {
   /** The HTML id of the element that contains a description of this table. */
@@ -18,7 +18,7 @@ export interface FlatTableProps {
   /** Toggles the zebra striping for the table rows */
   isZebra?: boolean;
   /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
-  size?: 'compact' | 'small' | 'medium' | 'large';
+  size?: "compact" | "small" | "medium" | "large";
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight?: boolean;
 }

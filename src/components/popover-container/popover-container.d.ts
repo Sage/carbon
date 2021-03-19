@@ -1,5 +1,6 @@
-import * as React from 'react';
-import { AlignBinaryType, PaddingSpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+
+import { AlignBinaryType, PaddingSpacingProps } from "../../utils/helpers/options-helper/options-helper";
 
 export interface PopoverContainerProps extends PaddingSpacingProps {
   /** The element that will open popover-container */
