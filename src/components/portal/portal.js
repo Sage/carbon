@@ -1,127 +1,93 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import ReactDOM, { createPortal } from "react-dom";
+import ReactDOM from "react-dom";
 import guid from "../../utils/helpers/guid";
 import Browser from "../../utils/helpers/browser";
-import ScrollableParent from "../../utils/helpers/scrollable-parent";
 
-class Portal extends React.Component {
-  static propTypes = {
-    /**
-     * The content of the portal.
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: PropTypes.node,
-    /**
-     * Callback function triggered when parent element is scrolled or window resized.
-     *
-     * @property onReposition
-     * @type {Node}
-     */
-    onReposition: PropTypes.func,
-    id: PropTypes.string,
-    className: PropTypes.string,
+const Portal = ({ children, className, id, onReposition }) => {
+  const [portalNode, setPortalNode] = useState(null);
+  const uniqueId = useMemo(() => guid(), []);
+
+  useEffect(() => {
+    if (onReposition) {
+      onReposition();
+      window.addEventListener("resize", onReposition);
+    }
+
+    return () => {
+      if (onReposition) {
+        window.removeEventListener("resize", onReposition);
+      }
+    };
+  }, [onReposition]);
+
+  useEffect(() => {
+    return () => {
+      portalNode.remove();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const addClassNames = (node) => {
+    className.split(" ").forEach((el) => {
+      node.classList.add(el);
+    });
+
+    return node;
   };
 
-  constructor(...args) {
-    super(...args);
-    this.guid = guid();
-  }
-
-  componentDidMount() {
-    if (this.props.onReposition) {
-      this.props.onReposition();
-      /* eslint-disable */
-      this.scrollParent = ScrollableParent.searchForScrollableParent(
-        ReactDOM.findDOMNode(this)
-      );
-      /* eslint-enable */
-      if (this.scrollParent) {
-        this.scrollParent.addEventListener("scroll", this.props.onReposition);
-      }
-      Browser.getWindow().addEventListener("resize", this.props.onReposition);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.onReposition !== this.props.onReposition) {
-      if (this.scrollParent) {
-        this.scrollParent.removeEventListener("scroll", prevProps.onReposition);
-        this.scrollParent.addEventListener("scroll", this.props.onReposition);
-      }
-      Browser.getWindow().removeEventListener("resize", prevProps.onReposition);
-      Browser.getWindow().addEventListener("resize", this.props.onReposition);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.props.onReposition) {
-      Browser.getWindow().removeEventListener(
-        "resize",
-        this.props.onReposition
-      );
-      if (this.scrollParent) {
-        this.scrollParent.removeEventListener(
-          "scroll",
-          this.props.onReposition
-        );
-      }
-    }
-    this.defaultNode.remove();
-    this.defaultNode = null;
-    this.scrollParent = null;
-  }
-
-  updateClassNames(portalClassName) {
-    this.defaultNode.removeAttribute("class");
-    this.defaultNode.setAttribute("class", portalClassName);
-    if (this.props.className) {
-      this.props.className.split(" ").forEach((el) => {
-        this.defaultNode.classList.add(el);
-      });
-    }
-  }
-
-  getPortalDiv() {
+  const getPortalContainer = () => {
     const portalClassName = "carbon-portal";
-    if (
-      this.props.id !== undefined &&
-      Browser.getDocument().getElementById(this.props.id)
-    ) {
-      this.defaultNode = Browser.getDocument().getElementById(this.props.id);
-    }
+    let node = portalNode;
 
-    if (
-      !this.defaultNode ||
-      (this.props.id !== undefined &&
-        !Browser.getDocument().getElementById(this.props.id))
-    ) {
-      this.defaultNode = Browser.getDocument().createElement("div");
-      this.defaultNode.classList.add(portalClassName);
-      this.defaultNode.setAttribute("data-portal-exit", this.guid);
-      if (this.props.id !== undefined) {
-        this.defaultNode.setAttribute("id", this.props.id);
+    if (!node && id !== undefined && document.getElementById(id)) {
+      node = document.getElementById(id);
+      setPortalNode(node);
+    } else if (!node) {
+      node = document.createElement("div");
+      node.classList.add(portalClassName);
+      node.setAttribute("data-portal-exit", uniqueId);
+      if (id !== undefined) {
+        node.setAttribute("id", id);
       }
-      Browser.getDocument().body.appendChild(this.defaultNode);
+      setPortalNode(node);
+
+      const rootDiv = document.getElementById("root");
+
+      // Storybook adds the hidden attribute to the root element when on the "Docs" pages
+      // Without this check the portal would also be hidden
+      if (rootDiv && !rootDiv.hasAttribute("hidden")) {
+        rootDiv.appendChild(node);
+      } else {
+        document.body.appendChild(node);
+      }
     }
 
-    this.updateClassNames(portalClassName);
-
-    return this.defaultNode;
-  }
-
-  render() {
-    if (!Browser.isDomAvailable()) {
-      return null;
+    if (className) {
+      node = addClassNames(node);
     }
-    return (
-      <span data-portal-entrance={this.guid}>
-        {createPortal(this.props.children, this.getPortalDiv())}
-      </span>
-    );
+
+    return node;
+  };
+
+  if (!Browser.isDomAvailable()) {
+    return null;
   }
-}
+
+  return (
+    <span data-portal-entrance={uniqueId}>
+      {ReactDOM.createPortal(children, getPortalContainer())}
+    </span>
+  );
+};
+
+Portal.propTypes = {
+  /** The content of the portal. */
+  children: PropTypes.node,
+  className: PropTypes.string,
+  id: PropTypes.string,
+  /** Callback function triggered when parent element is scrolled or window resized. */
+  onReposition: PropTypes.func,
+};
 
 export default Portal;
