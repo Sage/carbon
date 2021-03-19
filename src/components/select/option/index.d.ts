@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface OptionProps {
   /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */

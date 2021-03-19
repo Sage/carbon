@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface OptionRowProps {
   /** The option's visible text, displayed within <Textbox> of <Select> */
