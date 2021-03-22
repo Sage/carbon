@@ -5,7 +5,6 @@ import { withThemeSelector } from "./theme-selector";
 import { configureActions } from "@storybook/addon-actions";
 import sageTheme from "./sageTheme";
 import "./style/fonts.css";
-import "./utils/i18n/en";
 import "./style/story-root.css";
 
 // Temporary fix for issue mentioned in FE-2565 ticket

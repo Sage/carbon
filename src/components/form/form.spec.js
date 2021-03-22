@@ -24,6 +24,8 @@ import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
 
+jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+
 describe("Form", () => {
   let wrapper;
 

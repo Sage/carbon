@@ -1,7 +1,12 @@
-import React from 'react';
-import I18n from 'i18n-js';
-import { Wrapper } from '../common.style';
-import { Background, StyledFooter, Corporate, SageIcon, Legal } from './footer.style';
+import React from "react";
+import { Wrapper } from "../common.style";
+import {
+  Background,
+  StyledFooter,
+  Corporate,
+  SageIcon,
+  Legal,
+} from "./footer.style";
 
 const Footer = () => (
   <Background>
@@ -10,7 +15,8 @@ const Footer = () => (
         <Corporate>
           <SageIcon />
           <Legal>
-            { I18n.t('footer.legal') }
+            {"\u00A9"} The Sage Group plc. {new Date().getFullYear()}. Licensed
+            under Apache 2.
           </Legal>
         </Corporate>
       </Wrapper>
