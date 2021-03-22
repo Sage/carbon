@@ -61,17 +61,6 @@ Feature: Pager component
       And I am on 1st of "100" pages
 
   @positive
-  Scenario: Enable showPageSizeSelection and verify default value
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "showPageSizeSelection" object name
-    Then pageSize is visible
-      And pageSize is set to "10" items
-
-  @positive
-  Scenario: Disable showPageSizeSelection
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "showPageSizeSelectionFalse" object name
-    Then pageSize is not visible
-
-  @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on last button
     Given I open Test default "Pager" component in noIFrame with "pager" json from "test" using "default" object name
     When I click "last" pagination button
