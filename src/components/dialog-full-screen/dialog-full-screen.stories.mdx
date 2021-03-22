@@ -59,7 +59,7 @@ A good example could be importing a large volume of data, and checking for error
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{ viewports: [400, 1000, 1400] }}>
+  <Story name="default" parameters={{viewports: [400, 1000, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -557,7 +557,7 @@ to have a possibility to manage active `Tabs` group
 ### With disableContentPadding
 
 <Preview>
-  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -663,10 +663,7 @@ to have a possibility to manage active `Tabs` group
 ### With hidable header children
 
 <Preview>
-  <Story
-    name="with hidable header children"
-    parameters={{ viewports: [500, 1400] }}
-  >
+  <Story name="with hidable header children" parameters={{viewports: [500, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
@@ -750,7 +747,7 @@ to have a possibility to manage active `Tabs` group
 ### With AppWrapper
 
 <Preview>
-  <Story name="with app wrapper" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with app wrapper" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (

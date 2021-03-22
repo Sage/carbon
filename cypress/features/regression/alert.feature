@@ -75,5 +75,5 @@ Feature: Alert component
   @positive
   Scenario: Alert is not visible
     Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
-    When I click closeIcon in IFrame
+    When I click closeIcon
     Then Alert is not visible

@@ -4,5 +4,8 @@
   },
   "childrenSpecialCharacter": {
     "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "onDelete": {
+    "onDelete": true
   }
 }

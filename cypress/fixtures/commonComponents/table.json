@@ -2,6 +2,9 @@
   "paginate": {
     "paginate": true
   },
+  "selectable": {
+    "selectable": true
+  },
   "selectableFalse": {
     "selectable": false
   },
@@ -38,6 +41,30 @@
   },
   "captionSpecialCharacter": {
     "caption": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "themePrimary": {
+    "tableTheme": "primary"
+  },
+  "themeSecondary": {
+    "tableTheme": "secondary"
+  },
+  "themeTertiary": {
+    "tableTheme": "tertiary"
+  },
+  "sizeCompact": {
+    "size": "compact"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "zebraStriping": {
+    "zebra striping": true
   },
   "pageSize0": {
     "pageSize": 0

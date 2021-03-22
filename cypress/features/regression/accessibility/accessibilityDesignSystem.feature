@@ -19,8 +19,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System Advanced Color Picker component default story page
-    Given I open "Design System Advanced Color Picker" component page "default story" in no iframe
-    When I open Advanced Color Picker in noIFrame
+    When I open "Design System Advanced Color Picker" component page "default story" in no iframe
     Then "Advanced Color Picker" component has no accessibility violations
 
   @accessibility
