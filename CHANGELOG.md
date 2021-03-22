@@ -1,3 +1,10 @@
+### [68.4.1](https://github.com/Sage/carbon/compare/v68.4.0...v68.4.1) (2021-03-22)
+
+
+### Bug Fixes
+
+* **card:** render component with string as the children ([43dc93d](https://github.com/Sage/carbon/commit/43dc93da6184fdce26965ac733b7cd87efb9c2a9)), closes [#2617](https://github.com/Sage/carbon/issues/2617)
+
 ## [68.4.0](https://github.com/Sage/carbon/compare/v68.3.3...v68.4.0) (2021-03-17)
 
 
