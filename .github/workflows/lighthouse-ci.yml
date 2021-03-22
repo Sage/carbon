@@ -1,0 +1,24 @@
+name: Lighthouseci
+
+on: 
+  [push]
+
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      # install all dependencies and start storybook
+      - name: npm ci
+        run: |
+          npm ci
+      # run the Lighthouse CI tests
+      - name: run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.7.x
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

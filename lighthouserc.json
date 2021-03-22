@@ -1,0 +1,22 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm start",
+      "startServerReadyTimeout": 240000,
+      "startServerReadyPattern": "Storybook 6.1.20 started",
+      "url": [
+        "http://localhost:9001/?path=/story/alert--default-story",
+        "http://localhost:9001/?path=/story/appwrapper--default-story",
+        "http://localhost:9001/?path=/story/design-system-button--primary",
+        "http://localhost:9001/?path=/story/design-system-loader--default-story"
+      ],
+      "numberOfRuns": 2
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
