@@ -73,3 +73,13 @@ Feature: Experimental Date Input component
     Given I open "Experimental Date Input Test" component page "default"
     When I click onto date icon twice
     Then dayPickerDay is not visible
+
+  @positive
+  Scenario Outline: Show Date input at the <position> position
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "<marginTop>" object name
+    When I click dateInput in noIframe
+    Then Date input is visible at the <position>
+    Examples:
+      | position | marginTop |
+      | bottom   | small     |
+      | top      | large     |

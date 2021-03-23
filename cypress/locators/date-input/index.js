@@ -16,3 +16,5 @@ export const dateInputNoIFrame = () => cy.get(DATE_INPUT).parent();
 export const dateIcon = () => cy.iFrame(DATE_ICON);
 export const dayPickerWrapper = () => cy.iFrame(DAY_PICKER_WRAPPER);
 export const dayPickerDay = (date) => cy.iFrame(`div[aria-label="${date}"]`);
+export const dayPickerParentNoIFrame = () =>
+  cy.get(DAY_PICKER_WRAPPER).parent().parent();
