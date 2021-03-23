@@ -1,8 +1,9 @@
 import * as React from "react";
+import { ValidationPropTypes } from "../../../components/validations";
 
-export interface TextareaProps {
-  /** id of the input */
-  id?: string;
+export interface TextareaProps extends ValidationPropTypes {
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
   /** Character limit of the textarea */
   characterLimit?: string;
   /** Type of the icon that will be rendered next to the input */
@@ -15,6 +16,12 @@ export interface TextareaProps {
   enforceCharacterLimit?: boolean;
   /** Allows the Textareas Height to change based on user input */
   expandable?: boolean;
+  /** id of the input */
+  id?: string;
+  /** Type of the icon that will be rendered next to the input */
+  inputIcon?: string;
+  /** Width of an input in percentage. Works only when labelInline is true */
+  inputWidth?: number;
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
@@ -25,8 +32,8 @@ export interface TextareaProps {
   labelSpacing?: 1 | 2;
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth?: number;
-  /** Width of an input in percentage. Works only when labelInline is true */
-  inputWidth?: number;
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Name of the input */
   name?: string;
   /** Callback fired when the user types in the Textarea */
@@ -35,41 +42,20 @@ export interface TextareaProps {
   placeholder?: string;
   /** Adds readOnly property */
   readOnly?: boolean;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
   /** The number of visible text lines for the control */
   rows?: number;
   /** Size of an input */
   size?: "small" | "medium" | "large";
+  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
+  tooltipMessage?: string;
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel?: boolean;
   /** The value of the Textbox */
   value?: string;
   /** Whether to display the character count message in red */
   warnOverLimit?: boolean;
-  /** Indicate that error has occurred
-   * Pass string to display icon, tooltip and red border
-   * Pass true boolean to only display red border
-   */
-  error?: boolean | string;
-  /** Indicate that warning has occurred
-   * Pass string to display icon, tooltip and orange border
-   * Pass true boolean to only display orange border
-   */
-  warning?: boolean | string;
-  /** Indicate additional information
-   * Pass string to display icon, tooltip and blue border
-   * Pass true boolean to only display blue border
-   */
-  info?: boolean | string;
-  /** When true, validation icon will be placed on label instead of being placed on the input */
-  validationOnLabel?: boolean;
-  /** Type of the icon that will be rendered next to the input */
-  inputIcon?: string;
-  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
-  tooltipMessage?: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint?: number;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
 }
 
 declare const Textarea: React.ComponentClass<TextareaProps>;
