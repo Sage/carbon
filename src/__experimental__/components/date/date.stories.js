@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { boolean, text } from "@storybook/addon-knobs";
+import { boolean, number, text } from "@storybook/addon-knobs";
 import DateInput from "./date.component";
 import { getCommonTextboxProps } from "../textbox/textbox.stories";
 
@@ -46,6 +46,7 @@ export const Default = (props) => {
       onBlur={(ev) => action("onBlur")(ev)}
       onKeyDown={(ev) => action("onKeyDown")(ev)}
       allowEmptyValue={allowEmptyValue}
+      mt={number("mt", 0)}
       {...props}
     />
   );
