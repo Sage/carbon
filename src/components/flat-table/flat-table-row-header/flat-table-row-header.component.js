@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
@@ -14,10 +14,15 @@ const FlatTableRowHeader = ({
   expandable = false,
   onClick,
   onKeyDown,
+  leftPosition,
   ...rest
 }) => {
+  const ref = useRef(null);
+
   return (
     <StyledFlatTableRowHeader
+      ref={ref}
+      leftPosition={leftPosition || 0}
       align={align}
       data-element="flat-table-row-header"
       colWidth={width}

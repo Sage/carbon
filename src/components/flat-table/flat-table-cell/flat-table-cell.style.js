@@ -16,7 +16,7 @@ const StyledFlatTableCell = styled.td`
 
     > div {
       box-sizing: border-box;
-      ${space};
+      ${space}
     }
 
     &:first-of-type {
@@ -34,6 +34,14 @@ const StyledFlatTableCell = styled.td`
       }
     `}
   `}
+
+  ${({ leftPosition, makeCellSticky }) =>
+    makeCellSticky &&
+    css`
+      top: auto;
+      left: ${leftPosition}px;
+      position: sticky;
+    `}
 `;
 
 const StyledCellContent = styled.div`

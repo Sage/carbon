@@ -21,9 +21,9 @@ const StyledFlatTableHeader = styled.th`
     ${colWidth &&
     css`
       width: ${colWidth}px;
-    `};
+    `}
 
-    /* accomodate for no border in the header first cell */
+    /* accommodate for no border in the header first cell */
     &:first-child {
       padding-left: 1px;
     }
@@ -34,9 +34,20 @@ const StyledFlatTableHeader = styled.th`
       ${colWidth &&
       css`
         width: ${colWidth}px;
-      `};
+      `}
     }
   `}
+
+  ${({ leftPosition, makeCellSticky }) =>
+    makeCellSticky &&
+    css`
+      top: auto;
+      left: ${leftPosition}px;
+      position: sticky;
+      &:first-child {
+        padding-left: 2px;
+      }
+    `}
 `;
 
 StyledFlatTableHeader.defaultProps = {

@@ -20,17 +20,23 @@ const StyledFlatTableRowHeader = styled.th`
     ${colWidth &&
     css`
       width: ${colWidth}px;
-    `};
+    `}
 
     > div {
       box-sizing: border-box;
       ${colWidth &&
       css`
         width: ${colWidth}px;
-      `};
-      ${space};
+      `}
+      ${space}
     }
   `}
+
+  ${({ leftPosition }) => `
+      &&& {
+        left: ${leftPosition}px;
+      }
+    `}
 `;
 
 StyledFlatTableRowHeader.defaultProps = {

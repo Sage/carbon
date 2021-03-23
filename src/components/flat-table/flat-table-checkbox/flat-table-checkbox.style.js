@@ -47,6 +47,14 @@ const StyledFlatTableCheckbox = styled.td`
   ${StyledCheckbox} {
     padding-top: 0px;
   }
+
+  ${({ leftPosition, makeCellSticky }) =>
+    makeCellSticky &&
+    css`
+      top: auto;
+      left: ${leftPosition}px;
+      position: sticky;
+    `}
 `;
 
 StyledFlatTableCheckbox.defaultProps = {
