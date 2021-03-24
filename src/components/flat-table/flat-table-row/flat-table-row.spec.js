@@ -17,6 +17,7 @@ import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const events = {
   enter: {
@@ -461,10 +462,33 @@ describe("FlatTableRow", () => {
 
         expect(wrapper.find(FlatTableCell).length).toEqual(2);
       });
-    })
-  })
+    });
+  });
 
   describe("when FlatTableRowHeader is used", () => {
+    describe("and is null", () => {
+      it("should not make any preceding children sticky", () => {
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow>
+                <FlatTableCell>cell1</FlatTableCell>
+                {false && <FlatTableCell>cell2</FlatTableCell>}
+                {false && <FlatTableRowHeader>test 3</FlatTableRowHeader>}
+              </FlatTableRow>
+            </tbody>
+          </table>
+        );
+
+        assertStyleMatch(
+          {
+            position: undefined,
+          },
+          wrapper.find(StyledFlatTableCell).at(0)
+        );
+      });
+    });
+
     it("sets any preceding columns to sticky as well", () => {
       const wrapper = mount(
         <table>
@@ -538,7 +562,7 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderLeft: undefined,
+          borderLeft: `1px solid ${baseTheme.table.secondary}`,
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -549,7 +573,7 @@ describe("FlatTableRow", () => {
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
         },
         wrapper,
-        { modifier: `:focus ${StyledFlatTableCell}:nth-of-type(1)` }
+        { modifier: `:focus td:nth-of-type(1)` }
       );
 
       assertStyleMatch(
@@ -565,9 +589,36 @@ describe("FlatTableRow", () => {
           zIndex: "1000",
         },
         wrapper.find(FlatTableRow),
-        { modifier: `:focus ${StyledFlatTableCell}:nth-of-type(1):before` }
+        { modifier: `:focus td:nth-of-type(1):before` }
       );
     });
+
+    it.each(["dark", "light", "transparent-white", "transparent-base"])(
+      "applies the correct th styling when colorTheme is %s",
+      (colorTheme) => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={colorTheme}>
+            <table>
+              <thead>
+                <FlatTableRow onClick={() => {}}>
+                  <FlatTableHeader>test 1</FlatTableHeader>
+                  <FlatTableRowHeader>test 3</FlatTableRowHeader>
+                  <FlatTableHeader>test 4</FlatTableHeader>
+                </FlatTableRow>
+              </thead>
+            </table>
+          </FlatTableThemeContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            borderLeft: `1px solid ${getThBorderColor(colorTheme)}`,
+          },
+          wrapper,
+          { modifier: `th:nth-of-type(3)` }
+        );
+      }
+    );
   });
 
   describe("when the row is expandable", () => {
@@ -895,4 +946,21 @@ function renderRowWithContext(props = {}) {
       </table>
     </SidebarContext.Provider>
   );
+}
+
+function getThBorderColor(colorTheme) {
+  switch (colorTheme) {
+    case "light":
+      return baseTheme.flatTable.light.border;
+
+    case "transparent-base":
+      return baseTheme.flatTable.transparentBase.border;
+
+    case "transparent-white":
+      return baseTheme.flatTable.transparentWhite.border;
+
+    // default baseTheme is "dark"
+    default:
+      return baseTheme.flatTable.dark.border;
+  }
 }

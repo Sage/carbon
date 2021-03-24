@@ -3,7 +3,7 @@ import StyledCheckbox from "../../../__experimental__/components/checkbox/checkb
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCheckbox = styled.td`
-  ${({ as, theme }) => css`
+  ${({ as, theme, leftPosition, makeCellSticky }) => css`
     ${as === "td" &&
     `
       background-color: ${theme.colors.white};
@@ -40,6 +40,13 @@ const StyledFlatTableCheckbox = styled.td`
       vertical-align: middle;
       white-space: nowrap;
     `}
+
+    ${makeCellSticky &&
+    css`
+      top: auto;
+      left: ${leftPosition}px;
+      position: sticky;
+    `}
   `}
 
   width: 18px;
@@ -47,14 +54,6 @@ const StyledFlatTableCheckbox = styled.td`
   ${StyledCheckbox} {
     padding-top: 0px;
   }
-
-  ${({ leftPosition, makeCellSticky }) =>
-    makeCellSticky &&
-    css`
-      top: auto;
-      left: ${leftPosition}px;
-      position: sticky;
-    `}
 `;
 
 StyledFlatTableCheckbox.defaultProps = {

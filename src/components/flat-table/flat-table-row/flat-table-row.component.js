@@ -1,11 +1,18 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 
 import Event from "../../../utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { SidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
-import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
+import FlatTableRowHeader from "../flat-table-row-header";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const FlatTableRow = React.forwardRef(
   (
@@ -32,6 +39,7 @@ const FlatTableRow = React.forwardRef(
     const rowHeaderIndex = childrenArray.findIndex(
       (child) => child.type === FlatTableRowHeader
     );
+    const colorTheme = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -48,10 +56,8 @@ const FlatTableRow = React.forwardRef(
 
     let interactiveRowProps = {};
 
-    const firstCellIndex = () => {
-      if (childrenArray[0].type === FlatTableCheckbox) return 1;
-      return 0;
-    };
+    const firstCellIndex = () =>
+      childrenArray[0].type === FlatTableCheckbox ? 1 : 0;
 
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -128,6 +134,7 @@ const FlatTableRow = React.forwardRef(
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
+              colorTheme={colorTheme}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {

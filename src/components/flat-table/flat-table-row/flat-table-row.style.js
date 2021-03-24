@@ -9,7 +9,9 @@ import StyledIcon from "../../icon/icon.style";
 const stickyColumnFocusStyling = (index, theme) => {
   return `
     border-bottom: 1px solid transparent;
-    ${index === 0 ? `border-left: 1px solid ${theme.colors.focus};` : ""}
+    border-left: 1px solid ${
+      index === 0 ? theme.colors.focus : theme.table.secondary
+    };
     background-clip: padding-box;
     z-index: ${theme.zIndex.overlay};
 
@@ -26,6 +28,23 @@ const stickyColumnFocusStyling = (index, theme) => {
       z-index: ${theme.zIndex.overlay};
     }
   `;
+};
+
+const borderColor = (colorTheme, theme) => {
+  switch (colorTheme) {
+    case "light":
+      return theme.flatTable.light.border;
+
+    case "transparent-base":
+      return theme.flatTable.transparentBase.border;
+
+    case "transparent-white":
+      return theme.flatTable.transparentWhite.border;
+
+    // default theme is "dark"
+    default:
+      return theme.flatTable.dark.border;
+  }
 };
 
 const StyledFlatTableRow = styled.tr`
@@ -53,8 +72,7 @@ const StyledFlatTableRow = styled.tr`
         css`
           ${Array.from({ length: rowHeaderIndex }).map((_, index) => {
             return `
-              ${StyledFlatTableCell}:nth-of-type(${index + 1}),
-              ${StyledFlatTableCheckbox}:nth-of-type(${index + 1}) {
+              td:nth-of-type(${index + 1}) {
                 ${stickyColumnFocusStyling(index, theme)}
               }
             `;
@@ -85,6 +103,18 @@ const StyledFlatTableRow = styled.tr`
         :hover {
           background-color: ${theme.flatTable.hover};
         }
+      }
+    `}
+
+    ${({ colorTheme, rowHeaderIndex, theme }) =>
+    ![-1, 0].includes(rowHeaderIndex) &&
+    css`
+      td:nth-of-type(${rowHeaderIndex + 1}) {
+        border-left: 1px solid ${theme.table.secondary};
+      }
+
+      th:nth-of-type(${rowHeaderIndex + 2}) {
+        border-left: 1px solid ${borderColor(colorTheme, theme)};
       }
     `}
 

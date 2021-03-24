@@ -4,7 +4,7 @@ import { space } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableHeader = styled.th`
-  ${({ align, theme, colWidth }) => css`
+  ${({ align, theme, colWidth, leftPosition, makeCellSticky }) => css`
     background-color: transparent;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
@@ -30,24 +30,29 @@ const StyledFlatTableHeader = styled.th`
 
     > div {
       box-sizing: border-box;
-      ${space};
+      ${space}
       ${colWidth &&
       css`
         width: ${colWidth}px;
       `}
     }
-  `}
 
-  ${({ leftPosition, makeCellSticky }) =>
-    makeCellSticky &&
+    ${makeCellSticky &&
     css`
       top: auto;
       left: ${leftPosition}px;
       position: sticky;
+
       &:first-child {
-        padding-left: 2px;
-      }
+        padding-right: 0.395em;
+
+        @media not all and (min-resolution:.001dpcm) {
+          @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+            padding-right: 0.6em;
+          }
+        }
     `}
+  `}
 `;
 
 StyledFlatTableHeader.defaultProps = {
