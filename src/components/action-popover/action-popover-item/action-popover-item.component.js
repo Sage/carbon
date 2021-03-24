@@ -6,7 +6,6 @@ import React, {
   useContext,
 } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import { withTheme } from "styled-components";
 import {
   MenuItemFactory,
@@ -17,6 +16,7 @@ import {
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import ActionPopoverContext from "../action-popover-context";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 const INTERVAL = 150;
 
@@ -34,6 +34,7 @@ const MenuItem = ({
   horizontalAlignment,
   ...rest
 }) => {
+  const l = useLocale();
   const { setOpenPopover, isOpenPopover, focusButton } = useContext(
     ActionPopoverContext
   );
@@ -188,9 +189,7 @@ const MenuItem = ({
       },
     }),
     "aria-haspopup": "true",
-    "aria-label": I18n.t("actionpopover.aria-label", {
-      defaultValue: "actions",
-    }),
+    "aria-label": l.actionPopover.ariaLabel(),
     "aria-controls": `ActionPopoverMenu_${guid}`,
     "aria-expanded": isOpen,
   };

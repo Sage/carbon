@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
+import LocaleContext from "../../__internal__/i18n-context";
 import PodContext from "./pod-context";
 import {
   StyledBlock,
@@ -142,21 +142,25 @@ class Pod extends React.Component {
         {...this.editEvents()}
         internalEditButton={internalEditButton}
       >
-        <StyledEditAction
-          contentTriggersEdit={triggerEditOnContent}
-          data-element="edit"
-          displayOnlyOnHover={displayEditButtonOnHover}
-          icon="edit"
-          internalEditButton={internalEditButton}
-          isFocused={isFocused}
-          isHovered={isHovered}
-          noBorder={!border}
-          size={size}
-          variant={variant}
-          {...this.linkProps()}
-        >
-          {I18n.t("actions.edit", { defaultValue: "Edit" })}
-        </StyledEditAction>
+        <LocaleContext.Consumer>
+          {(l) => (
+            <StyledEditAction
+              contentTriggersEdit={triggerEditOnContent}
+              data-element="edit"
+              displayOnlyOnHover={displayEditButtonOnHover}
+              icon="edit"
+              internalEditButton={internalEditButton}
+              isFocused={isFocused}
+              isHovered={isHovered}
+              noBorder={!border}
+              size={size}
+              variant={variant}
+              {...this.linkProps()}
+            >
+              {l.actions.edit()}
+            </StyledEditAction>
+          )}
+        </LocaleContext.Consumer>
       </StyledEditContainer>
     );
   }

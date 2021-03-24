@@ -3,11 +3,8 @@ import { shallow, mount } from "enzyme";
 import MockDate from "mockdate";
 import DateRange from "./date-range.component";
 import Textbox from "../textbox/textbox.component";
-import { BaseDateInput } from "../date/date.component";
-import {
-  elementsTagTest,
-  rootTagTest,
-} from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { BaseDateInput } from "../date";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -351,9 +348,20 @@ describe("DateRange", () => {
 
     describe("on internal elements", () => {
       customOnChange = jasmine.createSpy();
-      wrapper = renderDateRange({ onChange: customOnChange });
+      wrapper = renderDateRange({ onChange: customOnChange }, mount);
 
-      elementsTagTest(wrapper, ["start-date", "end-date"]);
+      // FIXME: FE-4221
+      // elementsTagTest(wrapper, ["start-date", "end-date"]);
+      it(`include 'data-element="start-date"'`, () => {
+        expect(
+          wrapper.find('DateInput[data-element="start-date"]').exists()
+        ).toBeTruthy();
+      });
+      it(`include 'data-element="start-date"'`, () => {
+        expect(
+          wrapper.find('DateInput[data-element="end-date"]').exists()
+        ).toBeTruthy();
+      });
     });
   });
 });

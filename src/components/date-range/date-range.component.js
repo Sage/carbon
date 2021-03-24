@@ -6,14 +6,23 @@ import DateInput from "../date";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../utils/helpers/tags";
 import StyledDateRange from "./date-range.style";
-import DateHelper from "../../utils/helpers/date/date";
+import DateHelper from "../../utils/helpers/date";
+import LocaleContext from "../../__internal__/i18n-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
 class DateRange extends React.Component {
-  today = DateHelper.todayFormatted("YYYY-MM-DD");
+  static contextType = LocaleContext;
+
+  localeData = {
+    locale: this.context.locale(),
+    formats: this.context.date.formats.inputs(),
+    format: this.context.date.formats.javascript(),
+  };
+
+  today = DateHelper.todayFormatted();
 
   isControlled = this.props.value !== undefined;
 
@@ -27,16 +36,24 @@ class DateRange extends React.Component {
 
   state = {
     startDateValue: {
-      formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
-      rawValue: DateHelper.formatValue(
-        this.startDate || (!this.isControlled ? this.today : "")
-      ),
+      formattedValue: DateHelper.formatDateToCurrentLocale({
+        value: this.startDate,
+        ...this.localeData,
+      }),
+      rawValue: DateHelper.formatValue({
+        value: this.startDate || (!this.isControlled ? this.today : ""),
+        ...this.localeData,
+      }),
     },
     endDateValue: {
-      formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
-      rawValue: DateHelper.formatValue(
-        this.endDate || (!this.isControlled ? this.today : "")
-      ),
+      formattedValue: DateHelper.formatDateToCurrentLocale({
+        value: this.endDate,
+        ...this.localeData,
+      }),
+      rawValue: DateHelper.formatValue({
+        value: this.endDate || (!this.isControlled ? this.today : ""),
+        ...this.localeData,
+      }),
     },
   };
 
@@ -57,12 +74,24 @@ class DateRange extends React.Component {
   updateValues() {
     this.setState({
       startDateValue: {
-        formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
-        rawValue: DateHelper.formatValue(this.startDate || this.today),
+        formattedValue: DateHelper.formatDateToCurrentLocale({
+          value: this.startDate,
+          ...this.localeData,
+        }),
+        rawValue: DateHelper.formatValue({
+          value: this.startDate || this.today,
+          ...this.localeData,
+        }),
       },
       endDateValue: {
-        formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
-        rawValue: DateHelper.formatValue(this.endDate || this.today),
+        formattedValue: DateHelper.formatDateToCurrentLocale({
+          value: this.endDate,
+          ...this.localeData,
+        }),
+        rawValue: DateHelper.formatValue({
+          value: this.endDate || this.today,
+          ...this.localeData,
+        }),
       },
     });
   }

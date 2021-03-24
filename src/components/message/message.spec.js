@@ -1,7 +1,6 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
-import I18n from "i18n-js";
 import MessageStyle from "./message.style";
 import Message from "./message.component";
 import {
@@ -9,8 +8,21 @@ import {
   carbonThemesJestTable,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
+import I18nProvider from "../i18n-provider";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
+
+const wrappingComponent = (props) => (
+  <I18nProvider
+    {...props}
+    locale={{
+      locale: () => "fr",
+      message: {
+        closeButtonAriaLabel: () => "test",
+      },
+    }}
+  />
+);
 
 function render(props) {
   return TestRenderer.create(<MessageStyle {...props}>Message</MessageStyle>);
@@ -174,37 +186,21 @@ describe("Message", () => {
   });
 
   describe("i18n", () => {
-    let wrapper;
-
-    beforeEach(() => {
-      wrapper = shallow(<Message onDismiss={jest.fn()}>Message</Message>);
-    });
-
     it("has default translation", () => {
+      const wrapper = shallow(<Message onDismiss={jest.fn()}>Message</Message>);
+
       expect(getCloseButtonLabel(wrapper)).toBe("Close");
     });
 
     describe("translation", () => {
-      const { translations, locale } = I18n;
-      beforeAll(() => {
-        I18n.locale = "fr";
-        I18n.translations = {
-          ...translations,
-          fr: {
-            ...translations.fr,
-            message: {
-              "close-button-aria-label": "test",
-            },
-          },
-        };
-      });
-
-      afterAll(() => {
-        I18n.translations = translations;
-        I18n.locale = locale;
-      });
-
       it("can use i18n", () => {
+        const wrapper = mount(
+          <Message onDismiss={jest.fn()}>Message</Message>,
+          {
+            wrappingComponent,
+          }
+        );
+
         expect(getCloseButtonLabel(wrapper)).toBe("test");
       });
     });

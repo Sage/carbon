@@ -6,7 +6,6 @@ import React, {
   useRef,
 } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { MenuButton, ButtonIcon } from "./action-popover.style";
@@ -14,6 +13,7 @@ import Events from "../../utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../utils/helpers/guid";
+import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
@@ -34,6 +34,7 @@ const ActionPopover = ({
   horizontalAlignment,
   ...rest
 }) => {
+  const l = useLocale();
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [guid] = useState(createGuid());
@@ -163,9 +164,7 @@ const ActionPopover = ({
       data-component="action-popover-button"
       role="button"
       aria-haspopup="true"
-      aria-label={I18n.t("actionpopover.aria-label", {
-        defaultValue: "actions",
-      })}
+      aria-label={l.actionPopover.ariaLabel()}
       aria-controls={menuID}
       aria-expanded={isOpen}
       tabIndex={isOpen ? "-1" : "0"}

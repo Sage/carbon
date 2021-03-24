@@ -1,18 +1,33 @@
-import I18n from "i18n-js";
 import moment from "moment";
 import DateHelper from "./date";
+import enGB from "../../../locales/en-gb";
+
+const enUS = {
+  ...enGB,
+  locale: () => "en-US",
+  date: {
+    ...enGB.date,
+    formats: {
+      ...enGB.date.formats,
+      inputs: () => ["MM/DD/YYYY"],
+    },
+  },
+};
+
+const localeData = {
+  locale: enGB.locale(),
+  formats: enGB.date.formats.inputs(),
+  format: enGB.date.formats.javascript(),
+};
+
+const localeUSData = {
+  locale: enUS.locale(),
+  formats: enUS.date.formats.inputs(),
+  format: enUS.date.formats.javascript(),
+};
 
 describe("DateHelper", () => {
   beforeEach(() => {
-    I18n.translations = {
-      en: {
-        date: { formats: { inputs: ["DD/MM/YYYY"] } },
-      },
-
-      us: {
-        date: { formats: { inputs: ["MM/DD/YYYY"] } },
-      },
-    };
     moment.updateLocale("us", { parentLocale: "en" });
   });
 
@@ -26,26 +41,40 @@ describe("DateHelper", () => {
 
   describe("isValidDate", () => {
     it("returns true when date is valid", () => {
-      expect(DateHelper.isValidDate("10/12/2012")).toBeTruthy();
+      expect(
+        DateHelper.isValidDate({ value: "10/12/2012", ...localeData })
+      ).toBeTruthy();
     });
 
     it("returns false when the date is not valid", () => {
-      expect(DateHelper.isValidDate("FOO")).toBeFalsy();
+      expect(
+        DateHelper.isValidDate({ value: "FOO", ...localeData })
+      ).toBeFalsy();
     });
   });
 
   describe("formatValue", () => {
     describe("when a valid date value", () => {
       it("returns the passed date value in the passed form", () => {
-        expect(DateHelper.formatValue("10/12/2012", "YYYY-MM-DD")).toEqual(
-          "2012-12-10"
-        );
+        expect(
+          DateHelper.formatValue({
+            value: "10/12/2012",
+            formatTo: "YYYY-MM-DD",
+            ...localeData,
+          })
+        ).toEqual("2012-12-10");
       });
     });
 
     describe("when an invalid date value", () => {
       it("returns passed value", () => {
-        expect(DateHelper.formatValue("FOO", "YYYY-MM-DD")).toEqual("FOO");
+        expect(
+          DateHelper.formatValue({
+            value: "FOO",
+            formatTo: "YYYY-MM-DD",
+            ...localeData,
+          })
+        ).toEqual("FOO");
       });
     });
 
@@ -53,28 +82,34 @@ describe("DateHelper", () => {
       describe("sanitize", () => {
         it("does not sanitize the input before parsing", () => {
           expect(
-            DateHelper.formatValue("10-10-2015", "DD/MM/YYYY", {
-              sanitize: false,
+            DateHelper.formatValue({
+              value: "10-10-2015",
+              formatTo: "DD/MM/YYYY",
+              options: {
+                sanitize: false,
+              },
+              ...localeData,
             })
           ).toEqual("10-10-2015");
         });
       });
 
       describe("locale", () => {
-        beforeAll(() => {
-          I18n.locale = "us";
-        });
-        afterAll(() => {
-          I18n.locale = "en";
-        });
-
         it("overrides the default i18n locale", () => {
           expect(
-            DateHelper.formatValue("01/31/2015", "DD/MM/YYYY", { locale: "us" })
+            DateHelper.formatValue({
+              value: "01/31/2015",
+              formatTo: "DD/MM/YYYY",
+              ...localeUSData,
+            })
           ).toEqual("31/01/2015");
 
           expect(
-            DateHelper.formatValue("03/04/2015", "DD/MM/YYYY", { locale: "us" })
+            DateHelper.formatValue({
+              value: "03/04/2015",
+              formatTo: "DD/MM/YYYY",
+              ...localeUSData,
+            })
           ).toEqual("03/04/2015");
         });
       });
@@ -82,8 +117,13 @@ describe("DateHelper", () => {
       describe("strict", () => {
         it("overrides the default strict bool", () => {
           expect(
-            DateHelper.formatValue("31-01-2015", "DD/MM/YYYY", {
-              strict: false,
+            DateHelper.formatValue({
+              value: "31-01-2015",
+              formatTo: "DD/MM/YYYY",
+              options: {
+                strict: false,
+              },
+              ...localeUSData,
             })
           ).toEqual("31/01/2015");
         });
@@ -92,8 +132,13 @@ describe("DateHelper", () => {
       describe("formats", () => {
         it("overrides the i18n formats when passed", () => {
           expect(
-            DateHelper.formatValue("2016/01/01", "DD/MM/YYYY", {
-              formats: ["YYYY/MM/DD"],
+            DateHelper.formatValue({
+              value: "2016/01/01",
+              formatTo: "DD/MM/YYYY",
+              options: {
+                formats: ["YYYY/MM/DD"],
+              },
+              ...localeUSData,
             })
           ).toEqual("01/01/2016");
         });
@@ -127,7 +172,7 @@ describe("DateHelper", () => {
 
   describe("weekdaysMinified", () => {
     it("returns the days of week by locale minified", () => {
-      expect(DateHelper.weekdaysMinified()).toEqual([
+      expect(DateHelper.weekdaysMinified(enGB.locale())).toEqual([
         "Su",
         "Mo",
         "Tu",
@@ -142,27 +187,62 @@ describe("DateHelper", () => {
   describe("withinRange", () => {
     it("returns true if the date is today", () => {
       const testDate = moment().format("DD-MM-YYYY");
-      expect(DateHelper.withinRange(testDate, 30, "days")).toBeTruthy();
+      expect(
+        DateHelper.withinRange({
+          value: testDate,
+          limit: 30,
+          units: "days",
+          ...localeData,
+        })
+      ).toBeTruthy();
     });
 
     it("returns true if the date is within range", () => {
       const testDate = moment().add(29, "days").format("DD-MM-YYYY");
-      expect(DateHelper.withinRange(testDate, 30, "days")).toBeTruthy();
+      expect(
+        DateHelper.withinRange({
+          value: testDate,
+          limit: 30,
+          units: "days",
+          ...localeData,
+        })
+      ).toBeTruthy();
     });
 
     it("returns true if the date is equal to the given range", () => {
       const testDate = moment().add(30, "days").format("DD-MM-YYYY");
-      expect(DateHelper.withinRange(testDate, 30, "days")).toBeTruthy();
+      expect(
+        DateHelper.withinRange({
+          value: testDate,
+          limit: 30,
+          units: "days",
+          ...localeData,
+        })
+      ).toBeTruthy();
     });
 
     it("returns false if the date is beyond the given range", () => {
       const testDate = moment().add(31, "days").format("DD-MM-YYYY");
-      expect(DateHelper.withinRange(testDate, 30, "days")).toBeFalsy();
+      expect(
+        DateHelper.withinRange({
+          value: testDate,
+          limit: 30,
+          units: "days",
+          ...localeData,
+        })
+      ).toBeFalsy();
     });
 
     it("returns false if the date is many years in the past", () => {
       const testDate = moment().add(100, "years").format("DD-MM-YYYY");
-      expect(DateHelper.withinRange(testDate, 1, "years")).toBeFalsy();
+      expect(
+        DateHelper.withinRange({
+          value: testDate,
+          limit: 1,
+          units: "years",
+          ...localeData,
+        })
+      ).toBeFalsy();
     });
   });
 });
