@@ -6,9 +6,6 @@ import {
   tableHeader,
   rowNumbers,
   sortIcon,
-  actionToolbar,
-  checkboxInHeader,
-  actionToolbarButton,
   tableBody,
   tableHeaderInIFrame,
   tableAjax,
@@ -177,43 +174,6 @@ Then("I click {string} header in IFrame", (headerName) => {
   } else {
     tableHeaderInIFrame().eq(positionOfElement("second")).click();
   }
-});
-
-When("I check checkbox on header", () => {
-  checkboxInHeader().eq(positionOfElement("first")).click();
-});
-
-Then("Action Toolbar elements are visible and have {string} color", (color) => {
-  actionToolbar(positionOfElement("first"))
-    .find("span")
-    .should("have.attr", "data-element", "bin")
-    .and("have.css", "color", color)
-    .and("be.visible");
-  actionToolbar(positionOfElement("second"))
-    .find("span")
-    .should("have.attr", "data-element", "settings")
-    .and("have.css", "color", color)
-    .and("be.visible");
-  actionToolbar(positionOfElement("third"))
-    .find("button")
-    .should("have.attr", "data-element", "toggle-button")
-    .and("have.css", "border-bottom-color", color)
-    .and("have.css", "border-left-color", color)
-    .and("have.css", "border-right-color", color)
-    .and("have.css", "border-top-color", color)
-    .and("have.css", "color", color)
-    .and("be.visible")
-    .and("contain", "Actions");
-  actionToolbarButton()
-    .parent()
-    .should("have.attr", "data-component", "button")
-    .and("have.css", "border-bottom-color", color)
-    .and("have.css", "border-left-color", color)
-    .and("have.css", "border-right-color", color)
-    .and("have.css", "border-top-color", color)
-    .and("have.css", "color", color)
-    .and("be.visible")
-    .and("contain", "Test Action");
 });
 
 Then("I click {string} pagination button in IFrame", (button) => {

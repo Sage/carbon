@@ -2,7 +2,7 @@ Feature: Advanced Color Picker component
   I want to test Advanced Color Picker component
 
   Background: Open Advanced Color Picker component page
-  Given I open "Design System Advanced Color Picker" component page "default story" in no iframe
+  Given I open "Design System Advanced Color Picker Test" component page "default" in no iframe
     And I open Advanced Color Picker
 
   @positive
@@ -21,18 +21,6 @@ Feature: Advanced Color Picker component
   Scenario: Enter key on checked color closes picker
     When I press Enter on 7 element
     Then closeIcon is not visible
-
-  @positive
-  Scenario: Upon opening color picker the default dolor is pre-selected and is focused
-    Given closeIcon is visible
-    When Simple Color 7 element was picked up in noIframe
-    Then Simple Color 7 has focus
-
-  @positive
-  Scenario: Advanced Simple Color is visible
-    # commented because of BDD default scenario Given - When - Then
-    # When I open Advanced Color Picker
-    Then Advanced Simple Color is visible
 
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected

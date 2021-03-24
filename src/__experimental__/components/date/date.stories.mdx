@@ -32,7 +32,7 @@ import DateInput from "carbon-react/lib/__experimental__/components/date";
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [state, setState] = useState("2019-04-04");
       const setValue = ({ target }) => {
@@ -71,7 +71,7 @@ import DateInput from "carbon-react/lib/__experimental__/components/date";
 ### AutoFocus
 
 <Preview>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
+  <Story name="autoFocus">
     <DateInput label="Date" value="2016-10-01" autoFocus />
   </Story>
 </Preview>
@@ -167,7 +167,7 @@ import DateInput from "carbon-react/lib/__experimental__/components/date";
 ### With disabled portal
 
 <Preview>
-  <Story name="with disabled portal">
+  <Story name="with disabled portal" parameters={{ chromatic: { disable: true }}}>
     <DateInput label="Date" value="2016-10-01" disablePortal />
   </Story>
 </Preview>

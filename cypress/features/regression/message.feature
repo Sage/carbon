@@ -17,25 +17,9 @@ Feature: Message component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
-  Scenario Outline: Change type of Message component to <type>
-    When I open default "Message Test" component in noIFrame with "message" json from "commonComponents" using "<nameOfObject>" object name
-    Then Message type on preview is "<typeResult>"
-    Examples:
-      | type    | typeResult | nameOfObject |
-      | error   | error      | typeError    |
-      | info    | info       | typeInfo     |
-      | success | tick       | typeSuccess  |
-      | warning | warning    | typeWarning  |
-
-  @positive
   Scenario: Enable transparent state for a Message component
     When I open default "Message Test" component in noIFrame with "message" json from "commonComponents" using "transparent" object name
     Then Message component is transparent
-
-  @positive
-  Scenario: Disable transparent state for a Message component
-    When I open default "Message Test" component in noIFrame with "message" json from "commonComponents" using "transparentFalse" object name
-    Then Message component is not transparent
 
   @positive
   Scenario Outline: Change Message children to <children>

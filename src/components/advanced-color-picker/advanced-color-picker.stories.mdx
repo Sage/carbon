@@ -27,7 +27,7 @@ Shows how the color picker can be used to select a color from a predefined set.
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
   {() => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [color, setColor] = useState();
     const onChange = (e) => {
       const { value } = e.target;

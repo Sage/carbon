@@ -67,25 +67,15 @@ Feature: Confirm component
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
-  @negative
-  Scenario: Disable background UI
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
-
-  @negative
-  Scenario: Close icon disabled
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Close icon is not visible
-
   @positive
   Scenario Outline: <icon> icon on the header
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
     Then <icon> icon is displayed on the header
     Examples:
-      | icon      | nameOfObject |
-      | error     | iconError    |
-      | warning   | iconWarning  |
-      | empty     | default      |
+      | icon    | nameOfObject |
+      | error   | iconError    |
+      | warning | iconWarning  |
+      | empty   | default      |
 
   @positive
   Scenario: Cancel button type is set to tertiary
@@ -99,7 +89,7 @@ Feature: Confirm component
     When I open component preview in noIFrame
     Then cancel button type is set to "destructive"
       And confirm button type is set to "destructive"
-  
+
   @positive
   Scenario: Cancel button is disabled
     Given I open "Confirm" component page "disable cancel" in no iframe

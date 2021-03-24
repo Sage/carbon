@@ -1,6 +1,5 @@
 import {
   dialogPreview,
-  closeIconButton,
   dialogSubtitle,
   confirmButton,
   confirmButtonIFrame,
@@ -45,10 +44,6 @@ Then("Confirm dialog is not visible in iFrame", () => {
 
 Then("Confirm dialog is not visible", () => {
   dialogPreview().should("not.exist");
-});
-
-Then("Close icon is not visible", () => {
-  closeIconButton().should("not.exist");
 });
 
 Then("dialog subtitle context is {word}", (title) => {

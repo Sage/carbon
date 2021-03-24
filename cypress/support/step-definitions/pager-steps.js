@@ -5,7 +5,6 @@ import {
   nextArrow,
   currentPageInput,
   pageSelectItems,
-  pageSelectMainComponent,
 } from "../../locators/pager";
 import DEBUG_FLAG from "..";
 import { paginationButtonByIndex } from "../../locators/table";
@@ -14,14 +13,6 @@ import { positionOfPaginationButton } from "../helper";
 Then("pageSize is set to {string} {word}", (pageSize, item) => {
   pageSelect().should("have.attr", "value", pageSize);
   pageSelectItems().invoke("text").should("contain", item);
-});
-
-Then("pageSize is visible", () => {
-  pageSelectMainComponent().should("be.visible");
-});
-
-Then("pageSize is not visible", () => {
-  pageSelectMainComponent().should("not.exist");
 });
 
 Then("I am on 1st of {string} pages", (count) => {
@@ -87,6 +78,6 @@ Then("pagination input has golden border", () => {
     .should("have.css", "outline-color", "rgb(255, 181, 0)");
 });
 
-Then('Current page input is set to {int}', (int) => {
-  currentPageInput().should('have.attr', 'value', int);
+Then("Current page input is set to {int}", (int) => {
+  currentPageInput().should("have.attr", "value", int);
 });
