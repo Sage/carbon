@@ -1,3 +1,10 @@
+## [68.5.0](https://github.com/Sage/carbon/compare/v68.4.1...v68.5.0) (2021-03-24)
+
+
+### Features
+
+* **date-picker:** auto position pop up ([809f314](https://github.com/Sage/carbon/commit/809f314713a9378badfd48c2a2b21965d76def4a))
+
 ### [68.4.1](https://github.com/Sage/carbon/compare/v68.4.0...v68.4.1) (2021-03-22)
 
 
