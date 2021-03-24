@@ -125,12 +125,15 @@ describe("SimpleSelect", () => {
     );
   });
 
-  it("the input text should have proper paddings", () => {
-    const wrapper = renderSelect();
-
+  it.each([
+    ["small", "32px"],
+    ["medium", "40px"],
+    ["large", "48px"],
+  ])("the input toggle icon should have proper left margin", (a, expected) => {
+    const wrapper = renderSelect({ size: a });
     assertStyleMatch(
       {
-        paddingRight: "0",
+        paddingRight: expected,
       },
       wrapper,
       { modifier: `${InputPresentationStyle}` }

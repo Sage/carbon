@@ -4,17 +4,6 @@ import BaseTheme from "../../../style/themes/base";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import sizes from "../input/input-sizes.style";
 
-const getWidth = (size) => {
-  switch (size) {
-    case "small":
-      return "32px";
-    case "large":
-      return "48px";
-    default:
-      return "40px";
-  }
-};
-
 const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
   // eslint-disable-next-line consistent-return
   onKeyDown: (e) => {
@@ -33,7 +22,7 @@ const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
   ${({ size }) => css`
     margin-right: -${sizes[size].horizontalPadding};
     margin-left: -${sizes[size].horizontalPadding};
-    width: ${getWidth(size)};
+    width: ${sizes[size].height};
   `}
 
   &:focus {
