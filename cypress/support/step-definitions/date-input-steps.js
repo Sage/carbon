@@ -6,6 +6,7 @@ import {
   dayPickerWrapper,
   dateIcon,
   dateInputNoIFrame,
+  dayPickerParentNoIFrame,
 } from "../../locators/date-input/index";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
@@ -69,6 +70,10 @@ When("I click dateInput", () => {
   dateInput().click({ force: true });
 });
 
+When("I click dateInput in noIframe", () => {
+  dateInputNoIFrame().click({ force: true });
+});
+
 When("I choose date yesterday via DayPicker", () => {
   dayPickerDay(YESTERDAY_CALENDAR).click();
 });
@@ -115,4 +120,10 @@ When("I click dateInput twice", () => {
     .then(($el) => {
       $el.click();
     });
+});
+
+Then("Date input is visible at the {word}", (position) => {
+  dayPickerParentNoIFrame()
+    .should("have.attr", "data-popper-placement", `${position}-start`)
+    .and("be.visible");
 });

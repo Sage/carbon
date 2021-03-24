@@ -9,7 +9,7 @@ import Popover from "../../../__internal__/popover";
 import DateHelper from "../../../utils/helpers/date/date";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
-import { StyledDayPicker, StyledPopoverContainer } from "./day-picker.style";
+import StyledDayPicker from "./day-picker.style";
 
 const DatePicker = ({
   inputElement,
@@ -36,7 +36,7 @@ const DatePicker = ({
       {
         name: "offset",
         options: {
-          offset: [-overhang, 0],
+          offset: [-overhang, 5],
         },
       },
       {
@@ -99,11 +99,9 @@ const DatePicker = ({
       modifiers={popoverModifiers}
       disablePortal={disablePortal}
     >
-      <StyledPopoverContainer>
-        <StyledDayPicker>
-          <DayPicker {...datePickerProps} ref={ref} />
-        </StyledDayPicker>
-      </StyledPopoverContainer>
+      <StyledDayPicker>
+        <DayPicker {...datePickerProps} ref={ref} />
+      </StyledDayPicker>
     </Popover>
   );
 };
