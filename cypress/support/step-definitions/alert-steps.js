@@ -19,7 +19,7 @@ Then("Alert children on preview is {word}", (children) => {
 });
 
 Then("Alert is not visible", () => {
-  alertDialogPreviewIFrame().should("not.exist");
+  alertDialogPreview().should("not.exist");
 });
 
 Then("Alert is visible", () => {

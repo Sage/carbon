@@ -1,24 +1,9 @@
 {
-  "border": {
-    "border": true
-  },
-  "borderFalse": {
-    "border": false
-  },
-  "buttonAlignLeft": {
-    "buttonAlign": "left"
-  },
-  "buttonAlignRight": {
-    "buttonAlign": "right"
-  },
   "cancelTextOtherLanguage": {
     "cancelText": "mp150ú¿¡üßä"
   },
   "cancelTextSpecialCharacter": {
     "cancelText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  },
-  "cancel": {
-    "cancel": true
   },
   "cancelFalse": {
     "cancel": false
@@ -31,9 +16,6 @@
   },
   "saving": {
     "saving": true
-  },
-  "savingFalse": {
-    "saving": false
   },
   "titleOtherLanguage": {
     "title": "mp150ú¿¡üßä"

@@ -2,28 +2,6 @@ Feature: Show Edit Pod component
   I want to test Show Edit Pod component properties
 
   @positive
-  Scenario: Verify edit dialog has a border for a Show Edit Pod component
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "border" object name
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border "rgb(204, 214, 219)" color
-
-  @positive
-  Scenario: Verify edit dialog has not a border for a Show Edit Pod component
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "borderFalse" object name
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border "rgba(0, 0, 0, 0.9)" color
-
-  @positive
-  Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod buttons are aligned to "<position>"
-    Examples:
-      | buttonAlign | nameOfObject     |
-      | left        | buttonAlignLeft  |
-      | right       | buttonAlignRight |
-
-  @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
     When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
@@ -32,15 +10,6 @@ Feature: Show Edit Pod component
       | cancelText                   | nameOfObject               |
       | mp150ú¿¡üßä                  | cancelTextOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | cancelTextSpecialCharacter |
-
-  @positive
-  Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
-    Given I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "cancel" object name
-    When I click edit Show Edit Pod component
-    Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
-    Examples:
-      | color           |
-      | rgb(0, 129, 93) |
 
   @positive
   Scenario: Disable cancel checkbox for a Show Edit Pod component
@@ -73,12 +42,6 @@ Feature: Show Edit Pod component
     When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "saving" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has saving property
-
-  @positive
-  Scenario: Disable saving checkbox for a Show Edit Pod component
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "savingFalse" object name
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod component has no saving property
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>

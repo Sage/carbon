@@ -172,7 +172,7 @@ To override default messages translations can be provided with following keys: `
 When using the internal validations as error it is necessary to also provide an external validation to avoid situations where it is possible to submit a form while `NumeralDate` clearly indicates that the date is incorrect.
 
 <Preview>
-  <Story name="internal validation - error">
+  <Story name="internal validation - error" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
       return (
@@ -193,7 +193,7 @@ When using the internal validations as error it is necessary to also provide an 
 When using the internal validations as warning the external validation is not necessary, in this case internal warnings can be treated as feedback.
 
 <Preview>
-  <Story name="internal validation - warning">
+  <Story name="internal validation - warning" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
       return (
@@ -228,8 +228,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 
 <Preview>
   <Story
-    name="enabling adaptive behaviour"
-    parameters={{ chromatic: { disable: true } }}
+    name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}
   >
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}

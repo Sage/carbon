@@ -17,12 +17,6 @@ Then("Settings Row description on preview is set to {word}", (text) => {
   settingsRowDescription().should("have.text", `${text}`);
 });
 
-Then("Settings Row component has divider property", () => {
-  settingsRowPreview()
-    .should("have.css", "border-bottom", "1px solid rgb(230, 235, 237)")
-    .and("have.css", "padding-bottom", "30px");
-});
-
 Then("Settings Row component has no divider property", () => {
   settingsRowPreview()
     .should("not.have.css", "border-bottom", "1px solid rgb(230, 235, 237)")

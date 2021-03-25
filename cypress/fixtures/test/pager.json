@@ -55,12 +55,6 @@
     "showPageSizeSelection": true,
     "pageSize": 1
   },
-  "showPageSizeSelection": {
-    "showPageSizeSelection": true
-  },
-  "showPageSizeSelectionFalse": {
-    "showPageSizeSelection": false
-  },
   "default": {
 
   }

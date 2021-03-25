@@ -21,7 +21,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 
 <Meta
   title="Dialog Full Screen"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  parameters={{ info: { disable: true }}}
 />
 
 # DialogFullScreen
@@ -59,7 +59,7 @@ A good example could be importing a large volume of data, and checking for error
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{ viewports: [400, 1000, 1400] }}>
+  <Story name="default" parameters={{viewports: [400, 1000, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -110,7 +110,7 @@ to have a possibility to manage active `Tabs` group
 <Preview>
   <Story name="with complex example">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(true);
       const [activeTab, setActiveTab] = useState("tab-1");
       const padding40 = useMediaQuery("(min-width: 1260px)");
       const padding32 = useMediaQuery("(min-width: 960px)");
@@ -557,7 +557,7 @@ to have a possibility to manage active `Tabs` group
 ### With disableContentPadding
 
 <Preview>
-  <Story name="with disableContentPadding">
+  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -606,7 +606,7 @@ to have a possibility to manage active `Tabs` group
 <Preview>
   <Story name="with header children" parameters={{ viewports: [500, 1400] }}>
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(true);
       const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
       const verticalMargin = aboveBreakpoint ? "26px" : 0;
       const HeaderChildren = (
@@ -663,10 +663,7 @@ to have a possibility to manage active `Tabs` group
 ### With hidable header children
 
 <Preview>
-  <Story
-    name="with hidable header children"
-    parameters={{ viewports: [500, 1400] }}
-  >
+  <Story name="with hidable header children" parameters={{viewports: [500, 1400]}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
@@ -750,7 +747,7 @@ to have a possibility to manage active `Tabs` group
 ### With AppWrapper
 
 <Preview>
-  <Story name="with app wrapper">
+  <Story name="with app wrapper" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (

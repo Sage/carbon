@@ -8,7 +8,7 @@ import { shallow, mount } from "enzyme";
 import DayPicker from "react-day-picker";
 
 import DatePicker from "./date-picker.component";
-import { StyledDayPicker } from "./day-picker.style";
+import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../__internal__/popover";
 
 const inputElement = {
@@ -43,7 +43,7 @@ describe("DatePicker", () => {
 
         expect(
           wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-11, 0]);
+        ).toEqual([-11, 5]);
       });
 
       describe("when size prop is small", () => {
@@ -55,7 +55,7 @@ describe("DatePicker", () => {
 
           expect(
             wrapper.find(Popover).props().modifiers[0].options.offset
-          ).toEqual([-8, 0]);
+          ).toEqual([-8, 5]);
         });
       });
 
@@ -67,7 +67,7 @@ describe("DatePicker", () => {
 
         expect(
           wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-13, 0]);
+        ).toEqual([-13, 5]);
       });
     });
   });

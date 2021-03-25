@@ -4,5 +4,4 @@ export const CHECKBOX_CELL = '[data-component="checkbox"]';
 export const TABLE = '[data-component="table"]';
 export const TABLE_HEADER = '[data-component="table-header"]';
 export const PAGINATION_BUTTON = '[data-component="pager"]';
-export const ACTION_TOOLBAR = '[data-component="action-toolbar"]';
 export const TABLE_AJAX = '[data-component="table-ajax"]';

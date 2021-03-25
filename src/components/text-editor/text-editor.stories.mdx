@@ -202,7 +202,7 @@ this status.
 With use of `template strings` it is possible to pass multiline validation messages to the component.
 
 <Preview>
-  <Story name="with multiline validation">
+  <Story name="with multiline validation" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState(
         EditorState.createWithContent(

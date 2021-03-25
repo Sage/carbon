@@ -132,16 +132,6 @@ Feature: Design Systems FlatTable component
     Then The subrows are visible
 
   @positive
-  Scenario: The subrows have the correct backround colour
-    Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
-    Then The subrows have the correct background colour
-
-  @positive
-  Scenario: The subrows have the correct shadow effect between subrow and parent row
-    Given I open "Design System Flat Table Expandable" component page "initially expanded" in no iframe
-    Then There is a shadow effect between the parent row and first subrow
-
-  @positive
   Scenario: There is the correct tab order through the expandable rows
     Given I open "Design System Flat Table Expandable" component page "default story" in no iframe
     When I hit Tab key 3 times in no Iframe
@@ -231,7 +221,7 @@ Feature: Design Systems FlatTable component
     Then The first subrow action popover has focus
 
   @positive
-  Scenario: You leave the subrows when pressing tab at the end of the subrows tabbable content 
+  Scenario: You leave the subrows when pressing tab at the end of the subrows tabbable content
     Given I open "Design System Flat Table Expandable" component page "both parent and chidren selectable" in no iframe
     When I hit Tab key 5 times in no Iframe
       And I press keyboard "Enter" key times 1

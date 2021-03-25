@@ -6,7 +6,7 @@ import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
 
-<Meta title="Design System/Grid" />
+<Meta title="Design System/Grid" parameters={{ chromatic: { disable: true }}}/>
 
 # Grid
 The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
@@ -73,7 +73,7 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true } }}>
+  <Story name="default" parameters={{ info: { disable: true }}}>
     <GridContainer>
       <GridItem alignSelf="stretch" justifySelf="stretch">
         <Pod alignTitle="left" border padding="medium" variant="primary">
@@ -98,7 +98,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="justify" parameters={{ info: { disable: true } }}>
+  <Story name="justify" parameters={{ info: { disable: true }}}>
     <div id="grid-justify">
       <GridContainer>
         <GridItem alignSelf="stretch" justifySelf="left">
@@ -125,7 +125,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="align" parameters={{ info: { disable: true } }}>
+  <Story name="align" parameters={{ info: { disable: true }}}>
     <div id="grid-align">
       <GridContainer>
         <GridItem alignSelf="end" justifySelf="left" gridColumn="1 / 1">
@@ -163,7 +163,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="custom spacings" parameters={{ info: { disable: true } }}>
+  <Story name="custom spacings" parameters={{ info: { disable: true }, chromatic: { disable: false } }}>
     <GridContainer p="20px" gridGap="5px">
       <GridItem
         p="20px 5px 20px 0"
@@ -249,7 +249,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <Preview>
   <Story
     name="responsive-settings"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ info: { disable: true }}}
   >
     <GridContainer>
       <GridItem
@@ -347,7 +347,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="subgrid" parameters={{ info: { disable: true } }}>
+  <Story name="subgrid" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
     <div id="grid-align">
       <GridContainer>
         <GridItem justifySelf="left" gridColumn="1 / 1">

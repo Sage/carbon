@@ -1,16 +1,12 @@
 import styled from "styled-components";
 import baseTheme from "../../../style/themes/base";
 
-const StyledPopoverContainer = styled.div`
-  position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.popover};
-`;
-
-StyledPopoverContainer.defaultProps = {
-  theme: baseTheme,
-};
-
 const StyledDayPicker = styled.div`
+  position: absolute;
+  height: 352px;
+  width: 352px;
+  z-index: ${({ theme }) => theme.zIndex.popover};
+
   .DayPicker {
     z-index: 1000;
     top: calc(100% + 1px);
@@ -21,10 +17,8 @@ const StyledDayPicker = styled.div`
     display: block;
     font-size: 14px;
     font-weight: 800;
-    margin-top: 3px;
     overflow: hidden;
     padding: 24px;
-    position: absolute;
     text-align: center;
     user-select: none;
   }
@@ -124,4 +118,4 @@ StyledDayPicker.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledDayPicker, StyledPopoverContainer };
+export default StyledDayPicker;
