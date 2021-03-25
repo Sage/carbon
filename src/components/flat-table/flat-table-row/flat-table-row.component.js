@@ -98,32 +98,38 @@ const FlatTableRow = React.forwardRef(
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
-                return React.cloneElement(child, {
-                  expandable: expandable && index === firstCellIndex(),
-                  onClick:
-                    expandable &&
-                    index === firstCellIndex() &&
-                    firstColumnExpandable
-                      ? () => toggleExpanded()
-                      : undefined,
-                  onKeyDown:
-                    expandable &&
-                    index === firstCellIndex() &&
-                    firstColumnExpandable
-                      ? handleCellKeyDown
-                      : undefined,
-                  ...child.props,
-                });
+                return (
+                  child &&
+                  React.cloneElement(child, {
+                    expandable: expandable && index === firstCellIndex(),
+                    onClick:
+                      expandable &&
+                      index === firstCellIndex() &&
+                      firstColumnExpandable
+                        ? () => toggleExpanded()
+                        : undefined,
+                    onKeyDown:
+                      expandable &&
+                      index === firstCellIndex() &&
+                      firstColumnExpandable
+                        ? handleCellKeyDown
+                        : undefined,
+                    ...child.props,
+                  })
+                );
               })}
             </StyledFlatTableRow>
             {isExpanded &&
               subRows &&
-              React.Children.map(subRows, (child, index) =>
-                React.cloneElement(child, {
-                  isSubRow: true,
-                  isFirstSubRow: index === 0,
-                  ...child.props,
-                })
+              React.Children.map(
+                subRows,
+                (child, index) =>
+                  child &&
+                  React.cloneElement(child, {
+                    isSubRow: true,
+                    isFirstSubRow: index === 0,
+                    ...child.props,
+                  })
               )}
           </>
         )}

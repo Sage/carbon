@@ -414,6 +414,42 @@ describe("FlatTableRow", () => {
     });
   });
 
+  describe("with conditionally rendered children", () => {
+    describe("when child is null", () => {
+      it("should not render that child", () => {
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow>
+                <FlatTableCell>cell1</FlatTableCell>
+                {false && <FlatTableCell>cell2</FlatTableCell>}
+              </FlatTableRow>
+            </tbody>
+          </table>
+        );
+
+        expect(wrapper.find(FlatTableCell).length).toEqual(1);
+      });
+    });
+
+    describe("when child is not null", () => {
+      it("should render that child", () => {
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow>
+                <FlatTableCell>cell1</FlatTableCell>
+                {true && <FlatTableCell>cell2</FlatTableCell>}
+              </FlatTableRow>
+            </tbody>
+          </table>
+        );
+
+        expect(wrapper.find(FlatTableCell).length).toEqual(2);
+      });
+    });
+  });
+
   describe("when the row is expandable", () => {
     const SubRows = [
       <FlatTableRow>
