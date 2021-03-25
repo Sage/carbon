@@ -1,3 +1,10 @@
+### [68.5.1](https://github.com/Sage/carbon/compare/v68.5.0...v68.5.1) (2021-03-25)
+
+
+### Bug Fixes
+
+* **flat-table-row:** allow null children ([9d14614](https://github.com/Sage/carbon/commit/9d14614d69267f4f902a984abc982cd79d99e992)), closes [#3790](https://github.com/Sage/carbon/issues/3790)
+
 ## [68.5.0](https://github.com/Sage/carbon/compare/v68.4.1...v68.5.0) (2021-03-24)
 
 
