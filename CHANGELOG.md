@@ -1,3 +1,11 @@
+### [68.5.2](https://github.com/Sage/carbon/compare/v68.5.1...v68.5.2) (2021-03-26)
+
+
+### Bug Fixes
+
+* **tab-title:** fix styling issues with border and selected state ([69512c0](https://github.com/Sage/carbon/commit/69512c068676ee24ee5e1220ee9a3d7d1f30a8d1)), closes [#3773](https://github.com/Sage/carbon/issues/3773)
+* **tabs-header:** allow tabs to be scrollable when position is left and they overflow parent ([ffa4ebf](https://github.com/Sage/carbon/commit/ffa4ebf0674bfc3b791c6ad5527ac8acba94e568)), closes [#3352](https://github.com/Sage/carbon/issues/3352)
+
 ### [68.5.1](https://github.com/Sage/carbon/compare/v68.5.0...v68.5.1) (2021-03-25)
 
 
