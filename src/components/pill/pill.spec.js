@@ -11,6 +11,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   testStyledSystemMargin,
+  expectError,
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import { baseTheme } from "../../style/themes";
@@ -159,10 +160,13 @@ describe("Pill", () => {
     const wrongColors = ["rgb(0,0)", "#ff", "test"];
     describe.each(wrongColors)("when wrong color prop is provided", (color) => {
       it("throws an error", () => {
-        jest.spyOn(global.console, "error");
+        const errorMessage =
+          "Error: Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.";
+
+        const assert = expectError(errorMessage);
+
         mount(<Pill borderColor={color}>My Text</Pill>);
-        // eslint-disable-next-line no-console
-        expect(console.error).toHaveBeenCalled();
+        assert();
       });
     });
 

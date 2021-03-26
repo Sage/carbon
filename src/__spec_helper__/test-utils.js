@@ -451,6 +451,7 @@ const expectError = (errorMessage) => {
   if (!errorMessage) {
     throw new Error("no error message provided");
   }
+
   expect.assertions(1);
 
   const { error } = global.console;
