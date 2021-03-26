@@ -13,6 +13,6 @@ export interface FlatTableHeaderProps extends SpacingProps {
   width?: number;
 }
 
-declare const FlatTableHeader: React.FunctionComponent<FlatTableHeaderProps>;
+declare function FlatTableHeader(props: FlatTableHeaderProps): JSX.Element;
 
 export default FlatTableHeader;

@@ -5,5 +5,6 @@ export interface DdProps extends SpacingProps {
   children: React.ReactNode;
 }
 
-declare const DdComponent: React.ComponentType<DdProps>;
+declare function DdComponent(props: DdProps): JSX.Element;
+
 export default DdComponent;

@@ -34,6 +34,7 @@ export interface SearchProps {
   /** Prop to specify the styling of the search component */
   variant?: string;
 }
-declare const Search: React.ComponentType<SearchProps>;
+
+declare function Search(props: SearchProps): JSX.Element;
 
 export default Search;

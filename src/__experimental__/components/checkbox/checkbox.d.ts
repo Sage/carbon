@@ -17,6 +17,6 @@ export interface CheckboxProps extends CommonCheckableInputProps, SpaceProps {
   value?: string;
 }
 
-declare const Checkbox: React.ComponentClass<CheckboxProps>;
+declare function Checkbox(props: CheckboxProps): JSX.Element;
 
 export { Checkbox };

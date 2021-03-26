@@ -7,6 +7,6 @@ export interface OptionGroupHeaderProps {
   icon?: string;
 }
 
-declare const OptionGroupHeader: React.ComponentType<OptionGroupHeaderProps>;
+declare function OptionGroupHeader(props: OptionGroupHeaderProps): JSX.Element;
 
 export default OptionGroupHeader;

@@ -14,5 +14,6 @@ export interface DuellingPicklistProps {
   rightLabel?: string;
 }
 
-declare const DuellingPicklist: React.FunctionComponent<DuellingPicklistProps>;
+declare function DuellingPicklist(props: DuellingPicklistProps): JSX.Element;
+
 export default DuellingPicklist;

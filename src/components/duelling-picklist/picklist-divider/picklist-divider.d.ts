@@ -1,4 +1,6 @@
 import * as React from "react";
+import { StyledComponentProps } from "styled-components";
 
-declare const PicklistDivider: React.FunctionComponent<void>;
+declare function PicklistDivider(attrs: StyledComponentProps<"div", {}, {}, "">): JSX.Element;
+
 export default PicklistDivider;

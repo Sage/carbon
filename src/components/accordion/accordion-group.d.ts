@@ -1,8 +1,11 @@
 import * as React from "react";
+import { AccordionProps } from "./accordion";
 
+type AccordionElement = React.ReactElement<AccordionProps>;
 export interface AccordionGroupProps {
-  children?: React.ReactNode;
+  children?: AccordionElement | AccordionElement[];
 }
 
-declare const AccordionGroup: React.FunctionComponent<AccordionGroupProps>;
+declare function AccordionGroup(props: AccordionGroupProps): JSX.Element;
+
 export default AccordionGroup;

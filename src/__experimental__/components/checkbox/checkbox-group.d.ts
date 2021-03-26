@@ -25,6 +25,6 @@ interface CheckboxGroupProps extends ValidationPropTypes {
   required?: boolean;
 }
 
-declare const CheckboxGroup: React.ComponentClass<CheckboxGroupProps>;
+declare function CheckboxGroup(props: CheckboxGroupProps): JSX.Element;
 
 export { CheckboxGroup };

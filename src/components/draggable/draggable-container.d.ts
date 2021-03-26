@@ -5,6 +5,6 @@ export interface DraggableContainerProps {
   children?: React.ReactNode;
 }
 
-declare const DraggableContainer: React.FunctionComponent<DraggableContainerProps>;
+declare function DraggableContainer(props: DraggableContainerProps): JSX.Element;
 
 export { DraggableContainer };

@@ -43,5 +43,6 @@ export interface IconProps {
   tooltipFlipOverrides?: Positions[];
 }
 
-declare const Icon: React.ComponentType<IconProps>;
+declare function Icon(props: IconProps & React.RefAttributes<HTMLSpanElement>): JSX.Element;
+
 export default Icon;

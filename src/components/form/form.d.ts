@@ -36,5 +36,6 @@ export interface FormProps {
   noValidate?: boolean;
 }
 
-declare const Form: React.FunctionComponent<FormProps>;
+declare function Form(props: FormProps): JSX.Element;
+
 export default Form;

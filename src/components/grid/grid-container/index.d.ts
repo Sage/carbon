@@ -27,6 +27,6 @@ export interface GridContainerProps {
   gridGap?: string;
 }
 
-declare const GridContainer: React.FunctionComponent<GridContainerProps>;
+declare function GridContainer(props: GridContainerProps): JSX.Element;
 
 export default GridContainer;

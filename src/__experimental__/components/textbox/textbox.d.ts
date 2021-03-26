@@ -75,6 +75,8 @@ export interface TextboxProps extends CommonTextboxProps, SpaceProps {
   positionedChildren?: React.ReactNode;
 }
 
-declare const Textbox: React.ComponentType<TextboxProps>;
+declare function Textbox(props: TextboxProps): JSX.Element;
+declare function TextboxWithUniqueIdProps(props: TextboxProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
 
-export default Textbox;
+export { Textbox as OriginalTextbox };
+export default TextboxWithUniqueIdProps;

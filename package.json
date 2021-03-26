@@ -76,6 +76,7 @@
     "@types/node": "10.12.18",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.0.11",
+    "@types/styled-components": "^5.1.9",
     "axe-core": "^3.5.5",
     "babel-eslint": "10.0.1",
     "babel-jest": "^26.6.3",

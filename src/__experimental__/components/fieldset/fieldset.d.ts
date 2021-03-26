@@ -9,6 +9,6 @@ export interface FieldsetProps {
   inline?: boolean;
 }
 
-declare const Fieldset: React.FunctionComponent<FieldsetProps>;
+declare function Fieldset(props: FieldsetProps): JSX.Element;
 
 export default Fieldset;

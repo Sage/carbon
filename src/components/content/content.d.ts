@@ -10,5 +10,6 @@ export interface ContentProps {
   titleWidth?: string;
 }
 
-declare const Content: React.ComponentType<ContentProps>;
+declare function Content(props: ContentProps): JSX.Element;
+
 export default Content;

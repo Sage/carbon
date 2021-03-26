@@ -23,6 +23,6 @@ export interface TooltipProps {
   flipOverrides?: Positions[];
 }
 
-declare const Tooltip: React.FunctionComponent<TooltipProps>;
+declare function Tooltip(props: TooltipProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
 
 export default Tooltip;

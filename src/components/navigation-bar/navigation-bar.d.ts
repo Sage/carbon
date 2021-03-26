@@ -9,6 +9,6 @@ export interface NavigationBarProp extends SpacingProps {
   isLoading?: boolean;
 }
 
-declare const NavigationBar: React.FunctionComponent<NavigationBarProp>;
+declare function NavigationBar(props: NavigationBarProp): JSX.Element;
 
 export default NavigationBar;

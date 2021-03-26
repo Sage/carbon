@@ -5,4 +5,6 @@ export interface DraggableItemProps {
   children: React.ReactNode;
 }
 
-declare const DraggableItem: React.FunctionComponent<DraggableItemProps>;
+declare function DraggableItem(props: DraggableItemProps): JSX.Element;
+
+export default DraggableItem;

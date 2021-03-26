@@ -19,7 +19,7 @@ export interface ButtonProps extends SpaceProps {
   /** Apply destructive style to the button */
   destructive?: boolean;
   /** Ref to be forwarded */
-  forwardRef?: () => void;
+  forwardRef?: React.Ref<HTMLButtonElement>;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
   /** Used to transform button into anchor */
@@ -40,8 +40,12 @@ export interface ButtonProps extends SpaceProps {
   subtext?: string;
 }
 
-declare const Button: React.ComponentType<
-  ButtonProps | React.HTMLProps<HTMLButtonElement>
->;
+declare function Button(props: ButtonProps): JSX.Element;
+declare function ButtonWithForwardRef(
+  props: ButtonProps &
+    React.RefAttributes<HTMLButtonElement> &
+    React.HTMLProps<HTMLButtonElement>
+): JSX.Element;
 
+export { ButtonWithForwardRef };
 export default Button;

@@ -17,6 +17,6 @@ export interface FlatTableCellProps extends SpacingProps {
   title?: string;
 }
 
-declare const FlatTableCell: React.FunctionComponent<FlatTableCellProps>;
+declare function FlatTableCell(props: FlatTableCellProps): JSX.Element;
 
 export default FlatTableCell;

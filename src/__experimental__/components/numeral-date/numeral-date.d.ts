@@ -73,6 +73,6 @@ export interface NumeralDateProps extends ValidationPropTypes {
   validationOnLabel?: boolean;
 }
 
-declare const NumeralDate: React.ComponentType<NumeralDateProps>;
+declare function NumeralDate(props: NumeralDateProps): JSX.Element;
 
 export default NumeralDate;

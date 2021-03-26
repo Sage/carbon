@@ -30,6 +30,6 @@ export interface DecimalProps extends CommonTextboxProps {
   value?: string;
 }
 
-declare const Decimal: React.ComponentClass<DecimalProps>;
+declare class Decimal extends React.Component<DecimalProps> {}
 
 export default Decimal;

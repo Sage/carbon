@@ -14,5 +14,6 @@ export interface NoteProps  extends MarginSpacingProps {
   };
 }
 
-declare const Note: React.ComponentType<NoteProps>;
+declare function Note(props: NoteProps): JSX.Element;
+
 export default Note;

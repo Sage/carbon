@@ -5,6 +5,6 @@ export interface LabelWrapperProps {
   onClick: () => void;
 }
 
-declare const LabelWrapper: React.FunctionComponent<LabelWrapperProps>;
+declare function LabelWrapper(props: LabelWrapperProps): JSX.Element;
 
 export default LabelWrapper;

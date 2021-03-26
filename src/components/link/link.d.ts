@@ -19,7 +19,6 @@ export interface LinkProps {
   rel?: string;
 }
 
-declare const Link: React.ComponentType<
-  LinkProps & React.HTMLProps<HTMLLinkElement>
->;
+declare function Link(props: LinkProps & React.RefAttributes<HTMLLinkElement>): JSX.Element;
+
 export default Link;

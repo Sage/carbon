@@ -59,6 +59,6 @@ export interface DateRangeProps {
   validationOnLabel?: boolean;
 }
 
-declare const DateRange: React.ComponentClass<DateRangeProps>;
+declare class DateRange extends React.Component<DateRangeProps> {}
 
 export default DateRange;

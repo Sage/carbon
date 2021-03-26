@@ -22,6 +22,6 @@ export interface TileSelectGroupProps extends MarginSpacingProps {
   multiSelect?: boolean;
 }
 
-declare const TileSelectGroup: React.FunctionComponent<TileSelectGroupProps>;
+declare function TileSelectGroup(props: TileSelectGroupProps): JSX.Element;
 
 export { TileSelectGroup };

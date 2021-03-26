@@ -1,6 +1,12 @@
 import * as React from "react";
 import { PaddingSpacingProps } from "../../../utils/helpers/options-helper";
 
+export interface TabContextProps {
+  setError: (childId: string, hasError: boolean) => void;
+  setWarning: (childId: string, hasWarning: boolean) => void;
+  setInfo: (childId: string, hasInfo: boolean) => void;
+}
+
 export interface TabProps extends PaddingSpacingProps {
   title?: string;
   tabId: string;
@@ -20,5 +26,8 @@ export interface TabProps extends PaddingSpacingProps {
   href?: string;
 }
 
-declare const Tab: React.ComponentType<TabProps>;
+declare const TabContext: React.Context<TabContextProps>;
+declare function Tab(props: TabProps): JSX.Element;
+
+export { TabContext };
 export default Tab;

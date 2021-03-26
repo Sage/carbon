@@ -4,6 +4,6 @@ export interface PodManagerProps {
   children: React.ReactNode;
 }
 
-declare const PodManager: React.FunctionComponent<PodManagerProps>;
+declare function PodManager(props: PodManagerProps): JSX.Element;
 
 export default PodManager;

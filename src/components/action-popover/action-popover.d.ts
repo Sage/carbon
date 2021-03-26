@@ -9,6 +9,6 @@ export interface ActionPopoverProps {
   placement?: "bottom" | "top";
 }
 
-declare const ActionPopover: React.FunctionComponent<ActionPopoverProps>;
+declare function ActionPopover(props: ActionPopoverProps): JSX.Element;
 
 export default ActionPopover;

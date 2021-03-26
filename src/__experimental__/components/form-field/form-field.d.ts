@@ -62,6 +62,6 @@ export interface FormFieldPropTypes extends CommonFormFieldPropTypes {
   "data-component"?: string;
 }
 
-declare const FormField: React.FunctionComponent<FormFieldPropTypes>;
+declare function FormField(props: FormFieldPropTypes): JSX.Element;
 
 export default FormField;

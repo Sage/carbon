@@ -42,6 +42,6 @@ export interface RadioButtonGroupProps extends ValidationPropTypes, MarginProps 
   };
 }
 
-declare const RadioButtonGroup: React.FunctionComponent<RadioButtonGroupProps>;
+declare function RadioButtonGroup(props: RadioButtonGroupProps): JSX.Element;
 
 export default RadioButtonGroup;

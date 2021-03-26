@@ -9,6 +9,6 @@ export interface BadgeProps {
   onClick: () => void;
 }
 
-declare const Badge: React.FunctionComponent<BadgeProps>;
+declare function Badge(props: BadgeProps): JSX.Element;
 
 export default Badge;

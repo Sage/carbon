@@ -34,6 +34,6 @@ export interface HelpProps {
   className?: string;
 }
 
-declare const Help: React.ComponentType<HelpProps>;
+declare function Help(props: HelpProps): JSX.Element;
 
 export default Help;
