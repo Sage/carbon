@@ -23,6 +23,6 @@ export interface FlatTableProps {
   hasMaxHeight?: boolean;
 }
 
-declare const FlatTable: React.FunctionComponent<FlatTableProps>;
+declare function FlatTable(props: FlatTableProps): JSX.Element;
 
 export default FlatTable;

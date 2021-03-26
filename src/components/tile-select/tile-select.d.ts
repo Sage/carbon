@@ -34,6 +34,6 @@ export interface TileSelectProps extends MarginSpacingProps {
   actionButtonAdornment?: React.ReactNode;
 }
 
-declare const TileSelect: React.FunctionComponent<TileSelectProps>;
+declare function TileSelect(props: TileSelectProps): JSX.Element;
 
 export { TileSelect };

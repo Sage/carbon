@@ -14,5 +14,6 @@ export interface DlProps extends SpacingProps {
   children: React.ReactNode;
 }
 
-declare const DlComponent: React.ComponentType<DlProps>;
+declare function DlComponent(props: DlProps): JSX.Element;
+
 export default DlComponent;

@@ -22,6 +22,6 @@ export interface DateInputProps extends TextboxProps {
   value?: string;
 }
 
-declare const DateInput: React.ComponentClass<DateInputProps>;
+declare class DateInput extends React.Component<DateInputProps> {}
 
 export default DateInput;

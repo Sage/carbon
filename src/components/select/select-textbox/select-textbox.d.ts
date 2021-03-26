@@ -2,7 +2,7 @@ import * as React from "react";
 import { SpaceProps } from "styled-system";
 import { ValidationPropTypes } from "../../validations";
 
-export interface SelectTextboxProps extends ValidationPropTypes, SpaceProps {
+export interface FormInputPropTypes extends ValidationPropTypes, SpaceProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** If true the Component will be focused when rendered */
@@ -43,6 +43,13 @@ export interface SelectTextboxProps extends ValidationPropTypes, SpaceProps {
   size?: "small" | "medium" | "large";
 }
 
-declare const SelectTextbox: React.ComponentType<SelectTextboxProps>;
+export interface SelectTextboxProps extends FormInputPropTypes {
+  /** Value to be displayed in the Textbox */
+  formattedValue: string;
+  /** Value of the Select Input */
+  selectedValue: string | object | string[] | object[];
+}
+
+declare function SelectTextbox(props: SelectTextboxProps): JSX.Element;
 
 export default SelectTextbox;

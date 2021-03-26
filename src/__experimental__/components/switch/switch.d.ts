@@ -29,6 +29,7 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   value?: string;
 }
 
-declare const Switch: React.ComponentClass<SwitchProps>;
+declare function Switch(props: SwitchProps): JSX.Element;
 
-export { Switch as default };
+export { Switch as BaseSwitch };
+export default Switch;

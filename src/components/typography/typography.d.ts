@@ -1,4 +1,4 @@
-import * as React from "react";
+import { StyledComponentProps } from "styled-components";
 import { SpacingProps, ColorProps } from "../../utils/helpers/options-helper";
 
 export interface TypographyProps extends SpacingProps, ColorProps {
@@ -30,8 +30,7 @@ export interface TypographyProps extends SpacingProps, ColorProps {
   display?: string;
   listStyleType?: string;
 }
-declare const Typography: React.ComponentType<
-  TypographyProps | React.HTMLProps<HTMLElement>
->;
+
+declare function Typography(attrs: StyledComponentProps<"div", {}, TypographyProps, "">): JSX.Element;
 
 export default Typography;

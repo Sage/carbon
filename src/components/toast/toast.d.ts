@@ -15,6 +15,6 @@ export interface ToastPropTypes {
   maxWidth?: string;
 }
 
-declare const Toast: React.FunctionComponent<ToastPropTypes>;
+declare class Toast extends React.Component<ToastPropTypes> {}
 
 export default Toast;

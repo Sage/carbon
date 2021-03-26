@@ -11,6 +11,6 @@ export interface BatchSelectionProps {
   selectedCount: number;
 }
 
-declare const BatchSelection: React.FunctionComponent<BatchSelectionProps>;
+declare function BatchSelection(props: BatchSelectionProps): JSX.Element;
 
 export default BatchSelection;

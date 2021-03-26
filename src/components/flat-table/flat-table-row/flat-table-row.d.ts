@@ -11,6 +11,6 @@ export interface FlatTableRowProps {
   selected?: boolean;
 }
 
-declare const FlatTableRow: React.FunctionComponent<FlatTableRowProps>;
+declare function FlatTableRow(props: FlatTableRowProps & React.RefAttributes<HTMLHRElement>): JSX.Element;
 
 export default FlatTableRow;

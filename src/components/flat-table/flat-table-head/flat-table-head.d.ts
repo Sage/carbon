@@ -5,6 +5,6 @@ export interface FlatTableHeadProps {
   children: React.ReactNode;
 }
 
-declare const FlatTableHead: React.FunctionComponent<FlatTableHeadProps>;
+declare function FlatTableHead(props: FlatTableHeadProps): JSX.Element;
 
 export default FlatTableHead;

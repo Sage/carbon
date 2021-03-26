@@ -17,5 +17,6 @@ export interface MenuItemProps {
   ariaLabel?: string;
 }
 
-declare const MenuItem: React.ComponentType<MenuItemProps>;
+declare function MenuItem(props: MenuItemProps): JSX.Element;
+
 export default MenuItem;

@@ -6,6 +6,6 @@ export interface FlatTableCheckboxProps {
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
 }
 
-declare const FlatTableCheckbox: React.FunctionComponent<FlatTableCheckboxProps>;
+declare function FlatTableCheckbox(props: FlatTableCheckboxProps): JSX.Element;
 
 export default FlatTableCheckbox;

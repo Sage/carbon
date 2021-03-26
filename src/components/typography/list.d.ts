@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TypographyProps } from "./typography";
 
-declare const List: React.ComponentType<TypographyProps | React.HTMLProps<HTMLElement>>;
-declare const ListItem: React.ComponentType<TypographyProps | React.HTMLProps<HTMLElement>>;
+declare function List(props: TypographyProps & React.HTMLProps<HTMLElement>): JSX.Element;
+declare function ListItem(props: TypographyProps & React.HTMLProps<HTMLElement>): JSX.Element;
 
 export { List, ListItem };

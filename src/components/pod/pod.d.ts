@@ -41,6 +41,6 @@ export interface PodProps {
   internalEditButton?: boolean;
 }
 
-declare const Pod: React.ComponentClass<PodProps>;
+declare class Pod extends React.Component<PodProps> {}
 
 export default Pod;

@@ -50,6 +50,6 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   ml?: string;
 }
 
-declare const CheckableInput: React.ComponentType<CheckableInputProps & React.HTMLProps<HTMLInputElement>>;
+declare class CheckableInput extends React.Component<CheckableInputProps & React.HTMLProps<HTMLInputElement>> {}
 
 export default CheckableInput;

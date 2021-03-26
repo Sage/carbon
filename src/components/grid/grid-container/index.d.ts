@@ -9,6 +9,6 @@ export interface GridContainerProps extends SpacingProps {
   gridGap?: string | number;
 }
 
-declare const GridContainer: React.FunctionComponent<GridContainerProps>;
+declare function GridContainer(props: GridContainerProps): JSX.Element;
 
 export default GridContainer;

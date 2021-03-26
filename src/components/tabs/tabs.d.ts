@@ -24,5 +24,6 @@ export interface TabsProps extends MarginSpacingProps {
   };
 }
 
-declare const Tabs: React.ComponentType<TabsProps>;
+declare function Tabs(props: TabsProps): JSX.Element;
+
 export { Tabs, Tab };

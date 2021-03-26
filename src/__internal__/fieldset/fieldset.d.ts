@@ -37,6 +37,6 @@ export interface FieldsetProps extends MarginSpacingProps {
   blockGroupBehaviour?: boolean;
 }
 
-declare const Fieldset: React.ComponentClass<FieldsetProps>;
+declare function Fieldset(props: FieldsetProps): JSX.Element;
 
 export default Fieldset;

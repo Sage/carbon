@@ -13,6 +13,6 @@ export interface AdvancedColorPickerPropTypes extends MarginProps {
   onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
 }
 
-declare const AdvancedColorPicker: React.FunctionComponent<AdvancedColorPickerPropTypes>;
+declare function AdvancedColorPicker(props: AdvancedColorPickerPropTypes): JSX.Element;
 
 export default AdvancedColorPicker;

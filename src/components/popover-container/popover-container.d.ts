@@ -23,6 +23,6 @@ export interface PopoverContainerProps extends PaddingSpacingProps {
   ariaDescribedBy?: string;
 }
 
-declare const PopoverContainer: React.FunctionComponent<PopoverContainerProps>;
+declare function PopoverContainer(props: PopoverContainerProps): JSX.Element;
 
 export default PopoverContainer;

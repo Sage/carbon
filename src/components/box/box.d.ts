@@ -1,4 +1,5 @@
 import * as React from "react";
+import { StyledComponentProps } from "styled-components";
 import {
   SpacingProps,
   ColorProps,
@@ -16,5 +17,6 @@ export interface BoxProps
   scrollVariant?: "light" | "dark";
 }
 
-declare const Box: React.FunctionComponent<BoxProps>;
+declare function Box(attrs: StyledComponentProps<"div", {}, BoxProps, "">): JSX.Element;
+
 export default Box;

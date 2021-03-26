@@ -2,7 +2,7 @@ import * as React from "react";
 import { SpaceProps } from "styled-system";
 import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
-export interface ButtonProps extends SpaceProps {
+export interface ButtonBaseProps extends SpaceProps {
   /** Prop to specify the aria-label text.
    *  Only to be used in Button when only an icon is rendered.
    * This is required to comply with WCAG 4.1.2 - Buttons must have discernible text
@@ -19,7 +19,7 @@ export interface ButtonProps extends SpaceProps {
   /** Apply destructive style to the button */
   destructive?: boolean;
   /** Ref to be forwarded */
-  forwardRef?: () => void;
+  forwardRef?: React.Ref<HTMLButtonElement>;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
   /** Used to transform button into anchor */
@@ -34,16 +34,32 @@ export interface ButtonProps extends SpaceProps {
   iconType?: OptionsHelper.IconTypes;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
-  /** onClick handler */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: "small" | "medium" | "large";
   /** Second text child, renders under main text, only when size is "large" */
   subtext?: string;
+  /** HTML button type property */
+  type?: string;
 }
 
-declare const Button: React.ComponentType<
-  ButtonProps | React.HTMLProps<HTMLButtonElement>
->;
+export interface ButtonLinkProps extends ButtonBaseProps {
+  /** onClick handler */
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+}
 
+export interface ButtonDefaultProps extends ButtonBaseProps {
+  /** onClick handler */
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export type ButtonProps = ButtonLinkProps | ButtonDefaultProps;
+
+declare function Button(props: ButtonProps): JSX.Element;
+declare function ButtonWithForwardRef(
+  props: ButtonProps &
+    React.RefAttributes<HTMLButtonElement> &
+    React.HTMLProps<HTMLButtonElement>
+): JSX.Element;
+
+export { ButtonWithForwardRef };
 export default Button;

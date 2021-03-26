@@ -8,5 +8,6 @@ export interface HrProps extends SpacingProps {
   adaptiveMxBreakpoint?: number;
 }
 
-declare const Hr: React.FunctionComponent<HrProps>;
+declare function Hr(props: HrProps): JSX.Element;
+
 export default Hr;

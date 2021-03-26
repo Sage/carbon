@@ -17,6 +17,6 @@ export interface ColumnProps {
   columnSpan?: number | string;
 }
 
-declare const Column: React.ComponentType<ColumnProps>;
+declare function Column(props: ColumnProps): JSX.Element;
 
 export default Column;

@@ -10,6 +10,6 @@ export interface FieldsetProps extends MarginSpacingProps {
   inline?: boolean;
 }
 
-declare const Fieldset: React.FunctionComponent<FieldsetProps>;
+declare function Fieldset(props: FieldsetProps): JSX.Element;
 
 export default Fieldset;

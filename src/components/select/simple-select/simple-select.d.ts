@@ -32,6 +32,6 @@ export interface SimpleSelectProps extends FormInputPropTypes {
   value?: string | object;
 }
 
-declare const SimpleSelect: React.ComponentType<SimpleSelectProps>;
+declare function SimpleSelect(props: SimpleSelectProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
 
 export default SimpleSelect;

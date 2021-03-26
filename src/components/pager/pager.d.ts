@@ -20,6 +20,6 @@ export interface PagerPropTypes {
   variant?: "default" | "alternate";
 }
 
-declare const Pager: React.FunctionComponent<PagerPropTypes>;
+declare function Pager(props: PagerPropTypes): JSX.Element;
 
 export default Pager;

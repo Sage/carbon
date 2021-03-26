@@ -9,6 +9,6 @@ export interface OptionProps {
   value: string | object;
 }
 
-declare const Option: React.FunctionComponent<OptionProps>;
+declare function Option(props: OptionProps & React.RefAttributes<HTMLLIElement>): JSX.Element;
 
 export default Option;

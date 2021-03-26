@@ -32,6 +32,6 @@ export interface HelpProps extends MarginSpacingProps {
   className?: string;
 }
 
-declare const Help: React.ComponentType<HelpProps>;
+declare function Help(props: HelpProps): JSX.Element;
 
 export default Help;

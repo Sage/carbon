@@ -26,6 +26,6 @@ export interface TileProps extends SpacingProps {
   width?: number;
 }
 
-declare const Tile: React.FunctionComponent<TileProps>;
+declare function Tile(props: TileProps): JSX.Element;
 
 export default Tile;

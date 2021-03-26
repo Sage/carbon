@@ -39,6 +39,10 @@ export interface InputProps extends CommonInputProps {
   type?: string;
 }
 
-declare const Input: React.ComponentType<InputProps & React.HTMLProps<HTMLInputElement>>;
+declare function Input(
+  props: InputProps &
+    React.RefAttributes<HTMLInputElement> &
+    React.HTMLProps<HTMLInputElement>
+): JSX.Element;
 
 export default Input;

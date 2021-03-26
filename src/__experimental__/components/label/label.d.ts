@@ -44,6 +44,6 @@ export interface LabelPropTypes extends ValidationPropTypes {
   styleOverride?: () => object | object;
 }
 
-declare const Label: React.FunctionComponent<LabelPropTypes>;
+declare function Label(props: LabelPropTypes): JSX.Element;
 
 export default Label;

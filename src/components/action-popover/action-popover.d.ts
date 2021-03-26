@@ -10,6 +10,6 @@ export interface ActionPopoverProps extends MarginSpacingProps {
   placement?: "bottom" | "top";
 }
 
-declare const ActionPopover: React.FunctionComponent<ActionPopoverProps>;
+declare function ActionPopover(props: ActionPopoverProps): JSX.Element;
 
 export default ActionPopover;

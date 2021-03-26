@@ -22,6 +22,6 @@ export interface RowProps {
   columnClasses?: string;
 }
 
-declare const Row: React.ComponentType<RowProps>;
+declare function Row(props: RowProps): JSX.Element;
 
 export default Row;

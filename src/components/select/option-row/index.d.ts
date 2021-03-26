@@ -9,6 +9,6 @@ export interface OptionRowProps {
   value: string | object;
 }
 
-declare const OptionRow: React.ComponentType<OptionRowProps>;
+declare function OptionRow(props: OptionRowProps & React.RefAttributes<HTMLTableRowElement>): JSX.Element;
 
 export default OptionRow;

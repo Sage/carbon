@@ -5,5 +5,6 @@ export interface DtProps extends SpacingProps {
   children: string;
 }
 
-declare const DtComponent: React.ComponentType<DtProps>;
+declare function DtComponent(props: DtProps): JSX.Element;
+
 export default DtComponent;

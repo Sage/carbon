@@ -21,6 +21,6 @@ export interface ConfirmProps {
   isLoadingConfirm?: boolean;
 }
 
-declare const Confirm: React.ComponentClass<ConfirmProps>;
+declare class Confirm extends React.Component<ConfirmProps> {}
 
 export default Confirm;

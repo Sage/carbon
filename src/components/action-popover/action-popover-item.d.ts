@@ -12,6 +12,8 @@ export interface ActionPopoverItemProps {
   download?: boolean;
 }
 
-declare const ActionPopoverItem: React.FunctionComponent<ActionPopoverItemProps>;
+declare function MenuItem(props: ActionPopoverItemProps): JSX.Element;
+declare function ActionPopoverItem(props: ActionPopoverItemProps): JSX.Element;
 
+export { MenuItem };
 export default ActionPopoverItem;

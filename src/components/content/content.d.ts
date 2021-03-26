@@ -11,5 +11,6 @@ export interface ContentProps extends MarginSpacingProps {
   titleWidth?: string;
 }
 
-declare const Content: React.ComponentType<ContentProps>;
+declare function Content(props: ContentProps): JSX.Element;
+
 export default Content;

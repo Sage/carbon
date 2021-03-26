@@ -28,6 +28,6 @@ export interface MultiSelectProps extends FormInputPropTypes {
   value?: string[] | object[];
 }
 
-declare const MultiSelect: React.ComponentType<MultiSelectProps>;
+declare function MultiSelect(props: MultiSelectProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
 
 export default MultiSelect;

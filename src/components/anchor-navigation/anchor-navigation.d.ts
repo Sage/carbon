@@ -12,5 +12,6 @@ export interface AnchorNavigationProps {
   };
 }
 
-declare const AnchorNavigation: React.FunctionComponent<AnchorNavigationProps>;
+declare function AnchorNavigation(props: AnchorNavigationProps): JSX.Element;
+
 export default AnchorNavigation;

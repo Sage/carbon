@@ -7,6 +7,6 @@ export interface VerticalDividerPropTypes extends SpacingProps {
   tint?: TintValueType;
 }
 
-declare const VerticalDivider: React.FunctionComponent<VerticalDividerPropTypes>;
+declare function VerticalDivider(props: VerticalDividerPropTypes): JSX.Element;
 
 export default VerticalDivider;

@@ -12,6 +12,6 @@ export interface PillProps extends MarginSpacingProps {
   size?: "S" | "M" | "L" | "XL";
 }
 
-declare const Pill: React.ComponentClass<PillProps>;
+declare class Pill extends React.Component<PillProps> {}
 
 export default Pill;

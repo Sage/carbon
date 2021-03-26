@@ -33,7 +33,7 @@ export interface AccordionProps extends SpaceProps {
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange?: (
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    isExpanded: boolean,
+    isExpanded: boolean
   ) => void;
   /** When the Accordion is open the title can change to this */
   openTitle?: string;
@@ -59,5 +59,6 @@ export interface AccordionProps extends SpaceProps {
   width?: string;
 }
 
-declare const Accordion: React.FunctionComponent<AccordionProps>;
+declare function Accordion(props: AccordionProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
+
 export default Accordion;

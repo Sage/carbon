@@ -18,5 +18,8 @@ export interface AnchorNavigationItemProps {
   target?: React.RefObject<HTMLElement>;
 }
 
-declare const AnchorNavigationItem: React.FunctionComponent<AnchorNavigationItemProps>;
+declare function AnchorNavigationItem(
+  props: AnchorNavigationItemProps & React.RefAttributes<HTMLAnchorElement>
+): JSX.Element;
+
 export default AnchorNavigationItem;

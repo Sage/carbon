@@ -6,6 +6,6 @@ export interface FlatTableBodyProps {
   children: React.ReactNode;
 }
 
-declare const FlatTableBody: React.FunctionComponent<FlatTableBodyProps>;
+declare function FlatTableBody(props: FlatTableBodyProps): JSX.Element;
 
 export default FlatTableBody;

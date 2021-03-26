@@ -21,6 +21,6 @@ export interface InputPresentationProps extends CommonInputPresentationProps {
   positionedChildren?: React.ReactNode;
 }
 
-declare const InputPresentation: React.ComponentType<InputPresentationProps>;
+declare function InputPresentation(props: InputPresentationProps): JSX.Element;
 
 export default InputPresentation;

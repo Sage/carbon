@@ -9,6 +9,6 @@ export interface SortProps {
   children?: React.ReactNode | string;
 }
 
-declare const Sort: React.FunctionComponent<SortProps>;
+declare function Sort(props: SortProps): JSX.Element;
 
 export default Sort;

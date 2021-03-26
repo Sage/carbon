@@ -29,6 +29,6 @@ export interface SimpleColorPickerProps extends ValidationPropTypes {
   value?: string;
 }
 
-declare const SimpleColorPicker: React.ComponentType<SimpleColorPickerProps>;
+declare function SimpleColorPicker(props: SimpleColorPickerProps): JSX.Element;
 
 export default SimpleColorPicker;

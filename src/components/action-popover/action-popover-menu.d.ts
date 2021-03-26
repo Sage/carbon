@@ -16,6 +16,6 @@ export interface ActionPopoverMenuProps {
   setOpen: (args: boolean) => any;
 }
 
-declare const ActionPopoverMenu: React.FunctionComponent<ActionPopoverMenuProps>;
+declare function ActionPopoverMenu(props: ActionPopoverMenuProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
 
 export default ActionPopoverMenu;

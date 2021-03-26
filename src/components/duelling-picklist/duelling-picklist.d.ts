@@ -15,5 +15,6 @@ export interface DuellingPicklistProps extends MarginSpacingProps {
   rightLabel?: string;
 }
 
-declare const DuellingPicklist: React.FunctionComponent<DuellingPicklistProps>;
+declare function DuellingPicklist(props: DuellingPicklistProps): JSX.Element;
+
 export default DuellingPicklist;

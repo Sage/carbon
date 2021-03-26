@@ -60,6 +60,6 @@ export interface GridItemProps {
   responsiveSettings?: [ResponsiveSettingsShape];
 }
 
-declare const GridItem: React.FunctionComponent<GridItemProps>;
+declare function GridItem(props: GridItemProps): JSX.Element;
 
 export default GridItem;

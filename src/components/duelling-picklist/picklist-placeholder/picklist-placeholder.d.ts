@@ -5,5 +5,6 @@ export interface PicklistPlaceholderProps {
   text: string;
 }
 
-declare const PicklistPlaceholder: React.FunctionComponent<PicklistPlaceholderProps>;
+declare function PicklistPlaceholder(props: PicklistPlaceholderProps): JSX.Element;
+
 export default PicklistPlaceholder;

@@ -8,6 +8,6 @@ export interface ToolbarProps {
   setBlockStyle: (args: number) => any;
 }
 
-declare const Toolbar: React.FunctionComponent<ToolbarProps>;
+declare function Toolbar(props: ToolbarProps): JSX.Element;
 
 export default Toolbar;
