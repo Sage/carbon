@@ -1,13 +1,16 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import TabsHeader from "./tabs-header.component";
-import StyledTabsHeader from "./tabs-header.style";
+import {
+  StyledTabsHeaderWrapper,
+  StyledTabsHeaderList,
+} from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
 import baseTheme from "../../../../style/themes/base";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
-function render(props) {
-  return shallow(
+function render(props, renderer = shallow) {
+  return renderer(
     <TabsHeader {...props}>
       <TabTitle title="title-1" tabId="tabId-1" />
       <TabTitle title="title-2" tabId="tabId-2" />
@@ -16,7 +19,7 @@ function render(props) {
 }
 
 function renderStyles(props) {
-  return mount(<StyledTabsHeader {...props} />);
+  return mount(<StyledTabsHeaderList {...props} />);
 }
 
 describe("TabsHeader", () => {
@@ -35,27 +38,39 @@ describe("TabsHeader", () => {
   });
 
   it("renders children correctly", () => {
-    expect(render().children()).toHaveLength(2);
+    expect(render().find(StyledTabsHeaderList).children()).toHaveLength(2);
   });
 
   it("renders children correctly", () => {
-    expect(render().children()).toHaveLength(2);
+    expect(render().find(StyledTabsHeaderList).children()).toHaveLength(2);
   });
 
   it("has the role of a role prop value", () => {
-    expect(render({ role: "tablist" }).props().role).toEqual("tablist");
+    expect(
+      render({ role: "tablist" }).find(StyledTabsHeaderList).props().role
+    ).toEqual("tablist");
   });
 
   describe("when position prop is set to left", () => {
     it("applies proper styles", () => {
+      const wrapper = render({ position: "left" }, mount);
+
       assertStyleMatch(
         {
           flexDirection: "column",
           boxShadow: `inset -2px 0px 0px 0px ${baseTheme.tab.background}`,
-          width: "20%",
           margin: "0 10px 0",
         },
-        renderStyles({ position: "left" })
+        wrapper.find(StyledTabsHeaderList)
+      );
+
+      assertStyleMatch(
+        {
+          width: "20%",
+          overflowY: "auto",
+          padding: "2px",
+        },
+        wrapper.find(StyledTabsHeaderWrapper)
       );
     });
 
@@ -122,12 +137,18 @@ describe("TabsHeader", () => {
   });
 
   describe("custom target styling", () => {
+    const wrapper = render({ isInSidebar: true, position: "left" }, mount);
+    assertStyleMatch(
+      {
+        margin: "auto",
+      },
+      wrapper.find(StyledTabsHeaderList)
+    );
     assertStyleMatch(
       {
         width: "100%",
-        margin: "auto",
       },
-      renderStyles({ isInSidebar: true, position: "left" })
+      wrapper.find(StyledTabsHeaderWrapper)
     );
   });
 });

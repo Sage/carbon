@@ -10,7 +10,29 @@ const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
   return alternateStyling ? "-1px" : "-2px";
 };
 
-const StyledTabHeaders = styled.ul`
+const StyledTabsHeaderWrapper = styled.div`
+  ${({ position, isInSidebar }) =>
+    position === "left" &&
+    css`
+      overflow-y: auto;
+      padding: 2px;
+
+      ${!isInSidebar &&
+      css`
+        width: 20%;
+        margin: 0 10px 0;
+      `}
+
+      ${isInSidebar &&
+      css`
+        width: 100%;
+        margin: auto;
+        padding: 0px;
+      `}
+    `}
+`;
+
+const StyledTabsHeaderList = styled.ul`
   display: flex;
   box-shadow: inset 0px ${computeLineWidth} 0px 0px
     ${({ theme }) => theme.tab.background};
@@ -44,13 +66,11 @@ const StyledTabHeaders = styled.ul`
 
       ${!isInSidebar &&
       css`
-        width: 20%;
         margin: 0 10px 0;
       `}
 
     ${isInSidebar &&
       css`
-        width: 100%;
         margin: auto;
       `}
 
@@ -62,16 +82,26 @@ const StyledTabHeaders = styled.ul`
     `}
 `;
 
-StyledTabHeaders.defaultProps = {
+StyledTabsHeaderWrapper.defaultProps = {
+  position: "top",
+};
+
+StyledTabsHeaderWrapper.propTypes = {
+  position: PropTypes.oneOf(["top", "left"]),
+  isInSidebar: PropTypes.bool,
+};
+
+StyledTabsHeaderList.defaultProps = {
   align: "left",
   position: "top",
   extendedLine: true,
   theme: baseTheme,
 };
 
-StyledTabHeaders.propTypes = {
+StyledTabsHeaderList.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   position: PropTypes.oneOf(["top", "left"]),
+  isInSidebar: PropTypes.bool,
 };
 
-export default StyledTabHeaders;
+export { StyledTabsHeaderWrapper, StyledTabsHeaderList };
