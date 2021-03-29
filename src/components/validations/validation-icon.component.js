@@ -27,6 +27,8 @@ const ValidationIcon = ({
   onClick,
   tooltipPosition,
   tooltipFlipOverrides,
+  ml,
+  mr,
 }) => {
   const { hasFocus, hasMouseOver } = useContext(InputContext);
   const {
@@ -75,6 +77,8 @@ const ValidationIcon = ({
         }
         isPartOfInput={isPartOfInput}
         inputSize={size}
+        ml={ml}
+        mr={mr}
       />
     </ValidationIconStyle>
   );
@@ -115,6 +119,10 @@ ValidationIcon.propTypes = {
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of info */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Margin right, given number will be multiplied by base spacing unit (8) */
+  mr: PropTypes.number,
+  /** Margin left, given number will be multiplied by base spacing unit (8) */
+  ml: PropTypes.number,
 };
 
 ValidationIcon.defaultProps = {
