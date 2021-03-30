@@ -7,11 +7,11 @@ import React, {
   useState,
 } from "react";
 import PropTypes from "prop-types";
+import { createBrowserHistory } from "history";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Tab from "./tab";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
-import Browser from "../../utils/helpers/browser/browser";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
@@ -35,7 +35,9 @@ const Tabs = ({
   size,
   borders = "off",
   variant = "default",
+  history,
   validationStatusOverride,
+  navigatorMethod = "replace",
   ...rest
 }) => {
   const firstRender = useRef(true);
@@ -46,7 +48,14 @@ const Tabs = ({
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
-  const _window = Browser.getWindow();
+  const isExternalHistory = !!history;
+  let historyAPI;
+
+  if (!isExternalHistory) {
+    historyAPI = createBrowserHistory();
+  } else {
+    historyAPI = history;
+  }
   const isInSidebar = !!(sidebarContext && sidebarContext.isInSidebar);
 
   useLayoutEffect(() => {
@@ -56,7 +65,7 @@ const Tabs = ({
       if (selectedTabId) {
         selectedTab = selectedTabId;
       } else {
-        const hash = _window.location.hash.substring(1);
+        const hash = historyAPI.location?.hash.substring(1);
 
         if (Array.isArray(children)) {
           const filteredChildren = children.filter((child) => child);
@@ -80,7 +89,7 @@ const Tabs = ({
       }
       setSelectedTabIdState(selectedTab);
     }
-  }, [_window.location.hash, children, firstRender, selectedTabId]);
+  }, [historyAPI.location?.hash, children, firstRender, selectedTabId]);
 
   const updateErrors = useCallback(
     (id, hasError) => {
@@ -113,8 +122,7 @@ const Tabs = ({
   const updateVisibleTab = useCallback(
     (tabid) => {
       if (setLocation && !sidebarContext) {
-        const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
-        _window.history.replaceState(null, "change-tab", url);
+        historyAPI[navigatorMethod]({ hash: `#${tabid}` });
       }
 
       setSelectedTabIdState(tabid);
@@ -124,9 +132,9 @@ const Tabs = ({
       }
     },
     [
-      _window.history,
-      _window.location.origin,
-      _window.location.pathname,
+      historyAPI.history,
+      historyAPI.location?.origin,
+      historyAPI.location?.pathname,
       sidebarContext,
       onTabChange,
       setLocation,
@@ -375,6 +383,8 @@ Tabs.propTypes = {
   ...marginPropTypes,
   /** @ignore @private */
   className: PropTypes.string,
+  /** History object for usage with react-router */
+  history: PropTypes.object,
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs: PropTypes.bool,
   /** Allows manual control over the currently selected tab. */
@@ -402,6 +412,8 @@ Tabs.propTypes = {
     "no right side",
     "no sides",
   ]),
+  /** Navigator method */
+  navigatorMethod: PropTypes.oneOf(["push", "replace"]),
   /** Adds an alternate styling variant to the tab titles. */
   variant: PropTypes.oneOf(["default", "alternate"]),
   /** An object to support overriding validation statuses, when the Tabs have custom targets for example.

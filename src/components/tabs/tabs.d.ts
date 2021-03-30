@@ -8,6 +8,7 @@ export interface TabsProps extends MarginSpacingProps {
   selectedTabId: string;
   children: React.ReactNode[] | object;
   align: 'left' | 'right';
+  history?: History;
   onTabChange?: (tabId: string) => void;
   position: 'top' |'left';
   setLocation: boolean;

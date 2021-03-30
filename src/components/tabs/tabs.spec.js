@@ -698,4 +698,50 @@ describe("Tabs", () => {
       });
     });
   });
+
+  describe("if external history provided", () => {
+    it("should push to external history", () => {
+      const historyMock = {
+        push: jest.fn(),
+      };
+      const wrapper = render({ history: historyMock, navigatorMethod: "push" });
+      wrapper.find('[data-element="select-tab"]').at(1).simulate("click");
+      expect(historyMock.push).toHaveBeenCalledWith({ hash: "#uniqueid1" });
+    });
+
+    it("should replace in external history", () => {
+      const historyMock = {
+        replace: jest.fn(),
+      };
+      const wrapper = render({
+        history: historyMock,
+        navigatorMethod: "replace",
+      });
+      wrapper.find('[data-element="select-tab"]').at(1).simulate("click");
+      expect(historyMock.replace).toHaveBeenCalledWith({ hash: "#uniqueid1" });
+    });
+
+    it("should not use history if setLocation set to false", () => {
+      const historyMock = {
+        push: jest.fn(),
+      };
+      const wrapper = render({ history: historyMock, setLocation: false });
+      wrapper.find('[data-element="select-tab"]').at(1).simulate("click");
+      expect(historyMock.push).not.toHaveBeenCalled();
+    });
+
+    it("should set uniqueid2 tab as selected tab", () => {
+      const historyMock = {
+        location: {
+          hash: "#uniqueid2",
+        },
+      };
+      const wrapper = render({
+        history: historyMock,
+      });
+      expect(
+        wrapper.find("#uniqueid2-tab[isTabSelected=true]").exists()
+      ).toBeTruthy();
+    });
+  });
 });

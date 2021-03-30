@@ -1,4 +1,5 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from 'react';
 import { Tabs, Tab } from './tabs.component'
 import { Checkbox } from '../../__experimental__/components/checkbox';
@@ -26,7 +27,7 @@ Switch between content panes or filtered views of tables.
 import {Tabs, Tab} from "carbon-react/lib/components/tabs";
 ```
 
-## Designer Notes 
+## Designer Notes
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:
   - `top` - shows the tabs in a line, typically above a Table - best for short lists of tabs.
@@ -34,14 +35,15 @@ import {Tabs, Tab} from "carbon-react/lib/components/tabs";
 - You can also `align` the tabs `left` or `right`. This configuration:
   - sets the text alignment for `left` tabs.
   - sets `left` or `right` page position for `top` tabs.
-- Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs, 
+- Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs,
 nested tabs, or using vertical and horizontal tabs at the same time.
+- To use `Tabs` with a routing library see our documentation on this here: <LinkTo kind='Documentation/Usage with routing'>Usage with routing</LinkTo>
 
 ## Related Components
 - Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/design-system-menu)
 - Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/design-system-navigation-bar)
 
-## Examples 
+## Examples
 
 ### Default
 The tabs widget also allows you to select a tab on page load. By default this is set to the first tab.
@@ -418,7 +420,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 </Preview>
 
 ### Without extended dividing line
-By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this 
+By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this
 is set to "true".
 
 <Preview>
@@ -602,7 +604,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 </Preview>
 
 ### With borders
-The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values: 
+The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values:
 "off" (default), "on", "no left side", "no right side" and "no sides".
 
 #### Positioned top, borders on
@@ -1228,7 +1230,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 </Preview>
 
 ### With additional title siblings
-It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop 
+It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
 <Preview>
@@ -1356,7 +1358,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
 </Preview>
 
 ### With custom layout
-It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout` 
+It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout`
 prop to the `Tab` component.
 
 <Preview>
@@ -1373,7 +1375,7 @@ prop to the `Tab` component.
               tabId='tab-1'
               title='Tab 1'
               key='tab-1'
-              customLayout={ 
+              customLayout={
                 <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
                   <div style={{ gridColumn: '10 / 11' }}>
                     <Icon type='settings' />
@@ -1402,7 +1404,7 @@ prop to the `Tab` component.
               tabId='tab-2'
               title='Tab 2'
               key='tab-2'
-              customLayout={ 
+              customLayout={
                 <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
                   <div style={{ gridColumn: '10 / 11' }}>
                     <Icon type='settings' />
@@ -1431,7 +1433,7 @@ prop to the `Tab` component.
               tabId='tab-3'
               title='Tab 3'
               key='tab-3'
-              customLayout={ 
+              customLayout={
                 <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
                   <div style={{ gridColumn: '10 / 11' }}>
                     <Icon type='settings' />
@@ -1521,7 +1523,7 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
 
 ### With custom spacing
 The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.
-The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid 
+The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid
 CSS string.
 
 <Preview>
