@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledPicklistPlaceholder } from "./duelling-picklist.style";
+import { StyledPicklistPlaceholder } from "../duelling-picklist.style";
 
 const PicklistPlaceholder = ({ text }) => (
   <StyledPicklistPlaceholder data-element="picklist-placeholder">

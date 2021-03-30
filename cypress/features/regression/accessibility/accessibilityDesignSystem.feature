@@ -29,7 +29,11 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component        |
       | Anchornavigation |
-      | duellingpicklist |
+
+  @accessibility
+  Scenario: Design System DuellingPicklist component default story page
+    When I open "Design System DuellingPicklist" component page "default" in no iframe
+    Then "DuellingPicklist" component has no accessibility violations
 
   @accessibility
   Scenario Outline: Numeral Date component <story> story
