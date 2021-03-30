@@ -65,7 +65,7 @@ When(
 );
 
 Then("I focus first element in assigned picklist", () => {
-  assignedPicklistItems().eq(0).focus();
+  removeButton().focus();
 });
 
 When("I press {string} onto element in assigned pick list", (arrow) => {
@@ -77,7 +77,7 @@ When("I press {string} onto element in unassigned pick list", (arrow) => {
 });
 
 Then("I focus first element in unassigned picklist", () => {
-  unassignedPicklistItems().eq(0).focus();
+  addButton(0).focus();
 });
 
 When("I remove {int} item(s) from assigned picklist", () => {
@@ -89,7 +89,7 @@ When("Type {string} text into duelling picklist search input", (text) => {
 });
 
 Then("I check {string} element in unassigned picklist", (position) => {
-  unassignedPicklistItems().eq(positionOfElement(position)).focus();
+  addButton(positionOfElement(position)).focus();
 });
 
 Then("{string} element inner content is set to {string}", (position, text) => {
@@ -101,8 +101,6 @@ Then("{string} element inner content is set to {string}", (position, text) => {
 Then(
   "{string} element has golden border outline {string}",
   (position, color) => {
-    unassignedPicklistItems()
-      .eq(positionOfElement(position))
-      .should("have.css", "outline", color);
+    addButton(positionOfElement(position)).should("have.css", "outline", color);
   }
 );

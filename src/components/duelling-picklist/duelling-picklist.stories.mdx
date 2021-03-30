@@ -1,39 +1,43 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
-import { Picklist } from './picklist.component';
-import { PicklistItem } from './picklist-item.component';
-import PicklistDivider from './picklist-divider.component';
-import PicklistPlaceholder from './picklist-placeholder.component';
-import DuellingPicklist from './duelling-picklist.component';
+import { Picklist } from "./picklist/picklist.component";
+import PicklistItem from "./picklist-item/picklist-item.component";
+import PicklistDivider from "./picklist-divider/picklist-divider.component";
+import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.component";
+import DuellingPicklist from "./duelling-picklist.component";
 
 <Meta
   title="Design System/DuellingPicklist"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Duelling Picklist
+
 Select a subset of relatively short list.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 To create fully functioning `Duelling Picklist` component you can compose it yourself out of provided `Carbon` components.
 
 ```javascript
-import { 
-Picklist,
-PicklistItem,
-PicklistDivider,
-PicklistPlaceholder,
-DuellingPicklist 
-} from 'carbon-react/lib/components/duelling-picklist';
+import {
+  Picklist,
+  PicklistItem,
+  PicklistDivider,
+  PicklistPlaceholder,
+  DuellingPicklist,
+} from "carbon-react/lib/components/duelling-picklist";
 ```
 
 ## Designer Notes
+
 `DuellingPicklist` is meant to be a container composed of two `Picklist` children and a `PicklistDivider` between them.
 It also accepts `leftLabel` and `rightLabel` props of type string which will be rendered above the corresponding `PickList`s.
 Similarly to labels, `leftControls` and `rightControls` props accept a node to be rendered between the labels and the `Picklist`.
@@ -52,32 +56,119 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 ## Examples
 
 ### Default
+
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
 <Preview>
-  <Story id="test-duellingpicklist--default" name="Default" />
+  <Story id="design-system-duellingpicklist--default" name="Default" />
 </Preview>
 
-### In dialog
+### Grouped
+
+Picklist items can be organised into selectable groups. Whole groups can be moved from one list to another at once, or group items can be moved individually.
+
+<Preview>
+  <Story id="design-system-duellingpicklist--grouped" name="Grouped" />
+</Preview>
+
+### In Dialog
+
 Same as above but as a children of `Dialog` component.
 
 <Preview>
-  <Story id="test-duellingpicklist--in-dialog" name="InDialog" />
+  <Story id="design-system-duellingpicklist--in-dialog" name="InDialog" />
 </Preview>
 
-## Props
+## PicklistItem Examples
+
+### Add item
+
+<Preview>
+  <Story name="add item">
+    <PicklistItem type="add" item={1} onChange={() => null}>
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: "50%" }}>
+          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            Title for Item
+          </p>
+        </div>
+      </div>
+    </PicklistItem>
+  </Story>
+</Preview>
+
+### Remove item
+
+<Preview>
+  <Story name="remove item">
+    <PicklistItem type="remove" item={1} onChange={() => null}>
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: "50%" }}>
+          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            Title for Item
+          </p>
+        </div>
+      </div>
+    </PicklistItem>
+  </Story>
+</Preview>
+
+### Locked
+
+<Preview>
+  <Story name="locked">
+    <PicklistItem type="add" item={1} onChange={() => null} locked>
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: "50%" }}>
+          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            Title for Item
+          </p>
+        </div>
+      </div>
+    </PicklistItem>
+  </Story>
+</Preview>
+
+### Custom tooltip message
+
+<Preview>
+  <Story name="custom tooltip message">
+    <PicklistItem
+      type="add"
+      item={1}
+      onChange={() => null}
+      locked
+      tooltipMessage="This is a custom locked tooltip message"
+    >
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: "50%" }}>
+          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            Title for Item
+          </p>
+        </div>
+      </div>
+    </PicklistItem>
+  </Story>
+</Preview>
+
+## Props:
 
 ### Picklist
+
 <Props of={Picklist} />
 
 ### PicklistItem
+
 <Props of={PicklistItem} />
 
 ### DuellingPicklist
+
 <Props of={DuellingPicklist} />
 
 ### PicklistDivider
-<Props of={PicklistDivider} />
+
+`PicklistDivider` currently has no props for external use.
 
 ### PicklistPlaceholder
+
 <Props of={PicklistPlaceholder} />
