@@ -11,7 +11,9 @@
         "http://localhost:9001/?path=/story/design-system-loader--default-story"
       ],
       "numberOfRuns": 2,
-      "throttling": { "cpuSlowdownMultiplier": 10 }
+      "settings": { 
+        "throttling": { "cpuSlowdownMultiplier": 20 }
+      }
     },
     "assert": {
       "preset": "lighthouse:recommended"
