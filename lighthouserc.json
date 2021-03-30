@@ -12,7 +12,7 @@
       ],
       "numberOfRuns": 2,
       "settings": { 
-        "throttling": { "cpuSlowdownMultiplier": 1 }
+        "throttling": { "cpuSlowdownMultiplier": 10 }
       }
     },
     "assert": {
