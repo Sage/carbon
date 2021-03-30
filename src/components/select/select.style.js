@@ -5,10 +5,9 @@ import InputPresentationStyle from "../../__experimental__/components/input/inpu
 import StyledInput from "../../__experimental__/components/input/input.style";
 import InputIconToggleStyle from "../../__experimental__/components/input-icon-toggle/input-icon-toggle.style";
 import { baseTheme } from "../../style/themes";
-import sizes from "../../__experimental__/components/input/input-sizes.style";
 
 const StyledSelect = styled.div`
-  ${({ hasTextCursor, disabled, theme, readOnly, transparent, size }) => css`
+  ${({ hasTextCursor, disabled, theme, readOnly, transparent }) => css`
     ${margin}
 
     position: relative;
@@ -33,7 +32,7 @@ const StyledSelect = styled.div`
 
     ${InputPresentationStyle} {
       cursor: ${hasTextCursor ? "text" : "pointer"};
-      padding-right: ${sizes[size].height};
+      padding-right: 0;
 
       ${disabled &&
       css`
@@ -48,9 +47,6 @@ const StyledSelect = styled.div`
 
     ${InputIconToggleStyle} {
       margin-right: 0;
-      position: absolute;
-      right: 0;
-      height: 100%;
     }
 
     ${transparent &&
@@ -67,7 +63,6 @@ const StyledSelect = styled.div`
 
       ${InputIconToggleStyle} {
         margin-left: 0;
-        width: auto;
       }
     `}
   `}
