@@ -1,3 +1,11 @@
+## [68.6.0](https://github.com/Sage/carbon/compare/v68.5.2...v68.6.0) (2021-03-30)
+
+
+### Features
+
+* **duelling-picklist:** add grouping option ([73f1a67](https://github.com/Sage/carbon/commit/73f1a67a1fe498985be7008d1001acc8d2db2371))
+* **picklist-item:** add locked option ([114c86e](https://github.com/Sage/carbon/commit/114c86e955dcdf0f2996695fb7e7fd536cf611cd))
+
 ### [68.5.2](https://github.com/Sage/carbon/compare/v68.5.1...v68.5.2) (2021-03-26)
 
 

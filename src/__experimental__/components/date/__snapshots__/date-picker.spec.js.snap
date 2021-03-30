@@ -249,6 +249,11 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
           "slateTint": [Function],
           "whiteOpacity": [Function],
         },
+        "picklist": Object {
+          "locked": "#F2F5F6",
+          "lockedContent": "#738F9B",
+          "lockedText": "rgba(0,0,0,0.6)",
+        },
         "pill": Object {
           "errorButtonFocus": "#9F2D3F",
           "neutral": "#4D7080",
