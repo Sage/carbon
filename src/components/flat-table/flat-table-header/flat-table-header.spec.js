@@ -19,7 +19,7 @@ describe("FlatTableHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableHeader),
-      { modifier: " > div" }
+      { modifier: "&&& > div" }
     );
   });
 });

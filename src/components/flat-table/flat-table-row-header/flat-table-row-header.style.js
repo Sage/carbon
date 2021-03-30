@@ -22,17 +22,16 @@ const StyledFlatTableRowHeader = styled.th`
       width: ${colWidth}px;
     `}
 
-    > div {
-      box-sizing: border-box;
-      ${colWidth &&
-      css`
-        width: ${colWidth}px;
-      `}
-      ${space}
-    }
-
     &&& {
-      left: ${leftPosition}px;
+      > div {
+        box-sizing: border-box;
+        
+        ${colWidth &&
+        css`
+          width: ${colWidth}px;
+        `}
+        ${space}
+      }
     }
   `}
 `;

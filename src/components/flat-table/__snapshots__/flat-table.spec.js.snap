@@ -24,7 +24,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-left: 1px;
 }
 
-.c10 > div {
+.c9.c9.c9 > div {
   box-sizing: border-box;
 }
 
@@ -39,7 +39,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c12 > div {
+.c11.c11.c11 > div {
   box-sizing: border-box;
 }
 
@@ -62,7 +62,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c13 > div {
+.c12.c12.c12 > div {
   box-sizing: border-box;
 }
 

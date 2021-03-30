@@ -14,7 +14,7 @@ describe("FlatTableRowHeader", () => {
     (props) => <FlatTableRowHeader {...props} />,
     { py: "10px", px: 3 },
     null,
-    { modifier: " > div" }
+    { modifier: "&&& > div" }
   );
 
   it("renders with proper width style rule when width prop is passed", () => {
@@ -31,7 +31,7 @@ describe("FlatTableRowHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableRowHeader),
-      { modifier: " > div" }
+      { modifier: "&&& > div" }
     );
   });
 

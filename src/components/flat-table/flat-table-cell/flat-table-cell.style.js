@@ -14,9 +14,11 @@ const StyledFlatTableCell = styled.td`
     white-space: nowrap;
     padding: 0;
 
-    > div {
-      box-sizing: border-box;
-      ${space}
+    &&& {
+      > div {
+        box-sizing: border-box;
+        ${space}
+      }
     }
 
     &:first-of-type {
