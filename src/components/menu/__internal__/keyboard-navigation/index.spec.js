@@ -20,7 +20,7 @@ describe("Menu keyboard navigation", () => {
     <MenuItem>Carrot</MenuItem>,
     <MenuItem>Broccoli</MenuItem>,
     <MenuItem submenu="submenu">Sub item</MenuItem>,
-    <MenuItem keyboardOverride="1">Parsnip</MenuItem>,
+    <MenuItem>Parsnip</MenuItem>,
     <MenuItem>
       <span>Rhubarb</span> <Box>and</Box> Ginger
     </MenuItem>,
@@ -49,13 +49,6 @@ describe("Menu keyboard navigation", () => {
       });
     });
 
-    describe("when the keyboard override of a submenu passed in", () => {
-      it("should return the correct index", () => {
-        const result = characterNavigation("1", focusableItems, 0);
-        expect(result).toEqual(6);
-      });
-    });
-
     describe("when a character key event passed in", () => {
       it("should return the correct index when menu contains other nodes", () => {
         const result = characterNavigation("r", focusableItems, 0);
@@ -79,7 +72,7 @@ describe("Menu keyboard navigation", () => {
   });
 
   describe("menuKeyboardNavigation", () => {
-    describe("when in invalid key event passed in", () => {
+    describe("when an invalid key event passed in", () => {
       it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("shift"),

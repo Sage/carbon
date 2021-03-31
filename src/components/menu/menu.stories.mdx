@@ -173,6 +173,59 @@ import {
   </Story>
 </Preview>
 
+### Submenu options
+
+<Preview>
+  <Story name="submenu options" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="No action or link">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="With href" href="#">
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="With clickToOpen prop" clickToOpen>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+    <div style={{ minHeight: "150px", marginTop: "50px" }}>
+      <Menu menuType="dark">
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="No action or link">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="With href" href="#">
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="With clickToOpen prop" clickToOpen>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ### Submenu direction left
 
 <Preview>
@@ -200,9 +253,6 @@ import {
 
 ### Default icon
 
-Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
-The menu must have focus for this to work
-
 <Preview>
   <Story name="default icon">
     <div style={{ minHeight: "250px" }}>
@@ -210,30 +260,15 @@ The menu must have focus for this to work
         <MenuItem icon="home" href="#">
           Home
         </MenuItem>
-        <MenuItem
-          icon="person"
-          href="#"
-          keyboardOverride="a"
-          ariaLabel="Account"
-        />
+        <MenuItem icon="person" href="#" ariaLabel="Account" />
         <MenuItem icon="settings" submenu="Settings">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
           <MenuDivider />
-          <MenuItem
-            icon="settings"
-            href="#"
-            ariaLabel="settings"
-            keyboardOverride="s"
-          />
+          <MenuItem icon="settings" href="#" ariaLabel="settings" />
           <MenuItem href="#">Item Submenu Four</MenuItem>
         </MenuItem>
-        <MenuItem
-          icon="arrow_right"
-          submenu
-          keyboardOverride="a"
-          ariaLabel="Actions"
-        >
+        <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -393,9 +428,6 @@ is rendered.
 
 ### Dark icon
 
-Menus with icons only must have a supplied keyboard shortcut. If no shortcut is supplied the menu item text is navigable by the first letter of each item.
-The menu must have focus for this to work
-
 <Preview>
   <Story name="dark icon">
     <div style={{ minHeight: "250px" }}>
@@ -403,30 +435,15 @@ The menu must have focus for this to work
         <MenuItem icon="home" href="#">
           Home
         </MenuItem>
-        <MenuItem
-          icon="person"
-          href="#"
-          keyboardOverride="a"
-          ariaLabel="Account"
-        />
+        <MenuItem icon="person" href="#" ariaLabel="Account" />
         <MenuItem icon="settings" submenu="Settings">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
           <MenuDivider />
-          <MenuItem
-            icon="settings"
-            href="#"
-            ariaLabel="settings"
-            keyboardOverride="s"
-          />
+          <MenuItem icon="settings" href="#" ariaLabel="settings" />
           <MenuItem href="#">Item Submenu Four</MenuItem>
         </MenuItem>
-        <MenuItem
-          icon="arrow_right"
-          submenu
-          keyboardOverride="a"
-          ariaLabel="Actions"
-        >
+        <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>

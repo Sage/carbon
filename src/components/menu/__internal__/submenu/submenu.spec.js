@@ -142,20 +142,166 @@ describe("Submenu component", () => {
   });
 
   describe("when closed", () => {
-    beforeEach(() => {
-      wrapper = render("light");
-    });
-
     it("should not render the submenu", () => {
+      wrapper = render("light");
       expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
     });
 
-    describe("when clicked", () => {
+    describe("on mouse over", () => {
       it("should open the submenu", () => {
-        wrapper.find("a").getDOMNode().click();
+        wrapper = render("light");
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+
+        act(() => {
+          wrapper
+            .find('[data-component="submenu-wrapper"]')
+            .at(0)
+            .props()
+            .onMouseOver();
+        });
         wrapper.update();
 
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+      });
+    });
+
+    describe("on mouse out", () => {
+      it("should close the submenu", () => {
+        wrapper = render("light");
+        openSubmenu(wrapper);
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+
+        act(() => {
+          wrapper
+            .find('[data-component="submenu-wrapper"]')
+            .at(0)
+            .props()
+            .onMouseLeave();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+      });
+    });
+
+    describe("when clicked", () => {
+      it("should not open the submenu", () => {
+        wrapper = render("light");
+        wrapper.find("a").getDOMNode().click();
+        wrapper.update();
+
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+      });
+    });
+
+    describe("when clickToOpen prop set", () => {
+      beforeEach(() => {
+        wrapper = render("light", { clickToOpen: true });
+      });
+
+      describe("on mouse over", () => {
+        it("should not set the onMouseOver function", () => {
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+
+          expect(
+            wrapper.find('[data-component="submenu-wrapper"]').at(0).props()
+              .onMouseOver
+          ).toEqual(undefined);
+        });
+      });
+
+      describe("when clicked", () => {
+        it("should open the submenu", () => {
+          wrapper.find("a").getDOMNode().click();
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        });
+      });
+    });
+
+    describe("when href prop set", () => {
+      beforeEach(() => {
+        wrapper = render("light", { href: "/path" });
+      });
+
+      describe("when opening submenu with keyboard", () => {
+        it("should leave the focus on the menu item", () => {
+          openSubmenu(wrapper);
+
+          expect(
+            wrapper.find('[data-component="submenu-wrapper"]').find("a").at(0)
+          ).toBeFocused();
+        });
+
+        it("should close the submenu when enter is pressed", () => {
+          openSubmenu(wrapper);
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(0)
+              .props()
+              .onKeyDown(events.enter);
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+        });
+
+        it("should close the submenu when shift-tab is pressed", () => {
+          openSubmenu(wrapper);
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(0)
+              .props()
+              .onKeyDown(events.shiftTab);
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+        });
+
+        it("should focus the first menu item when tab is pressed", () => {
+          openSubmenu(wrapper);
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(0)
+              .props()
+              .onKeyDown(events.tab);
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+
+          expect(
+            wrapper.find('[data-component="submenu-wrapper"]').find("a").at(1)
+          ).toBeFocused();
+        });
+
+        it("should do nothing when character key pressed", () => {
+          openSubmenu(wrapper);
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(0)
+              .props()
+              .onKeyDown(events.b);
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        });
       });
     });
   });
@@ -883,6 +1029,7 @@ describe("Submenu component", () => {
       expect(wrapper.find(MenuItem).length).toEqual(4);
     });
   });
+
   describe("when it has Search as a child", () => {
     const renderWithSearch = (menuType, props) => {
       return mount(
@@ -907,16 +1054,15 @@ describe("Submenu component", () => {
     };
 
     it("should not lose focus when enter key pressed", () => {
-      wrapper = renderWithSearch(true, "dark");
+      wrapper = renderWithSearch("dark");
+      openSubmenu(wrapper);
 
       const searchInput = wrapper.find(StyledSearch).find("input");
-
       searchInput.getDOMNode().focus();
 
       expect(searchInput).toBeFocused();
 
       act(() => {
-        wrapper.find(StyledSearch).at(0).props().onKeyDown(events.arrowUp);
         searchInput
           .getDOMNode()
           .dispatchEvent(new KeyboardEvent("keydown", events.enter));

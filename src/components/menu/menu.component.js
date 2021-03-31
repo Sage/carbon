@@ -12,11 +12,10 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
   const ref = useRef();
 
   const handleKeyDown = useCallback(
-    (event, index) => {
+    (event) => {
       const newIndex = menuKeyboardNavigation(
         event,
-        React.Children.toArray(children),
-        index
+        React.Children.toArray(children)
       );
 
       setFocusedItemIndex(newIndex);

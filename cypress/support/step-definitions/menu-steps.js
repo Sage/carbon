@@ -9,8 +9,8 @@ import {
 } from "../../locators/menu";
 import { positionOfElement } from "../helper";
 
-When("I click third expandable Menu component", () => {
-  submenu().trigger("click");
+When("I hover over third expandable Menu component", () => {
+  submenu().trigger("mouseover");
 });
 
 Then("Menu third expandable element has inner elements", () => {
@@ -38,7 +38,7 @@ Then("Menu third expandable element has inner elements", () => {
 });
 
 When("I open the {string} submenu", (position) => {
-  submenu().eq(positionOfElement(position)).trigger("click");
+  submenu().eq(positionOfElement(position)).trigger("mouseover");
 });
 
 When("I scroll to the bottom of the block", () => {

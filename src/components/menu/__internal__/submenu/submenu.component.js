@@ -31,6 +31,8 @@ const Submenu = React.forwardRef(
       onKeyDown,
       variant = "default",
       showDropdownArrow = true,
+      clickToOpen,
+      href,
       ...rest
     },
     ref
@@ -84,7 +86,9 @@ const Submenu = React.forwardRef(
           ) {
             event.preventDefault();
             setSubmenuOpen(true);
-            setSubmenuFocusIndex(0);
+            if (!href) {
+              setSubmenuFocusIndex(0);
+            }
           }
 
           if (!event.defaultPrevented) {
@@ -155,9 +159,28 @@ const Submenu = React.forwardRef(
             setCharacterString("");
           }
 
+          if (href && index === undefined) {
+            if (
+              Events.isEnterKey(event) ||
+              (Events.isTabKey(event) && Events.isShiftKey(event))
+            ) {
+              closeSubmenu();
+              return;
+            }
+
+            if (
+              Events.isSpaceKey(event) ||
+              Events.isDownKey(event) ||
+              Events.isUpKey(event) ||
+              Events.isTabKey(event)
+            ) {
+              nextIndex = 0;
+            }
+          }
+
           // Defensive check in case an unhandled key event from a child component
           // has bubbled up
-          if (nextIndex === undefined) return;
+          if (!nextIndex && nextIndex !== 0) return;
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
@@ -178,6 +201,7 @@ const Submenu = React.forwardRef(
         restartCharacterTimeout,
         formattedChildren,
         closeSubmenu,
+        href,
         menuContext,
         numberOfChildren,
         onKeyDown,
@@ -224,7 +248,9 @@ const Submenu = React.forwardRef(
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
         role="menuitem"
-        onClick={() => setSubmenuOpen(true)}
+        onMouseOver={!clickToOpen ? () => setSubmenuOpen(true) : undefined}
+        onMouseLeave={() => closeSubmenu()}
+        onClick={clickToOpen ? () => setSubmenuOpen(true) : undefined}
         ref={submenuRef}
         isSubmenuOpen={submenuOpen}
       >
@@ -242,6 +268,8 @@ const Submenu = React.forwardRef(
           hasSubmenu
           showDropdownArrow={showDropdownArrow}
           onKeyDown={handleKeyDown}
+          clickToOpen={clickToOpen}
+          href={href}
         >
           {title}
         </StyledMenuItemWrapper>
@@ -290,6 +318,10 @@ Submenu.propTypes = {
   variant: PropTypes.oneOf(["default", "alternate"]),
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow: PropTypes.bool,
+  /** When set the submenu opens by click instead of hover */
+  clickToOpen: PropTypes.bool,
+  /** The href to use for the menu item. */
+  href: PropTypes.string,
 };
 
 export default Submenu;
