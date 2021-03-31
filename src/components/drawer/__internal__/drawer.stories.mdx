@@ -91,6 +91,30 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
+### Custom height
+
+<Preview>
+  <Story name="custom height" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
+    return (
+      <Drawer
+        height='230px'
+        defaultExpanded
+        expandedWidth={ text('expandedWidth', '40%') }
+        animationDuration={ text('animationDuration', '0.5s') }
+        sidebar={ (
+          <ul>
+            <li>link a</li>
+            <li>link b</li>
+            <li>link c</li>
+          </ul>
+        ) }
+      >
+        content body content body content body content body content body content body content body
+      </Drawer>
+    )
+  </Story>
+</Preview>
+
 ### Custom Background Color (Red)
 
 <Preview>
