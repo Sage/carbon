@@ -94,6 +94,14 @@ export const Debug = () => {
   return <pre>{JSON.stringify(results, "", 2)}</pre>;
 };
 
+Debug.story = {
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
+
 export const Default = () => {
   const knobs = dlsKnobs();
 
