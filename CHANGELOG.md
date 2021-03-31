@@ -1,3 +1,10 @@
+## [68.7.0](https://github.com/Sage/carbon/compare/v68.6.1...v68.7.0) (2021-03-31)
+
+
+### Features
+
+* **drawer:** allows to use custom height ([5e9bfa5](https://github.com/Sage/carbon/commit/5e9bfa512bbba01b00bc17ab12134b5089021f47))
+
 ### [68.6.1](https://github.com/Sage/carbon/compare/v68.6.0...v68.6.1) (2021-03-31)
 
 
