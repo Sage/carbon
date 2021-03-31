@@ -25,7 +25,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" ../lib/ --cwd=src --parents",
     "commit": "git-cz",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
