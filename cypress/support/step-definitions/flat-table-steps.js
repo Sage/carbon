@@ -12,6 +12,7 @@ import {
   flatTableSubrows,
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
+  pageSelectDataComponent,
 } from "../../locators/flat-table";
 
 import DEBUG_FLAG from "..";
@@ -267,4 +268,16 @@ Then("pageSizeSelectList is visible at the {word}", (position) => {
   flatTablePageSelectListPosition()
     .should("have.attr", "data-popper-placement", `${position}-start`)
     .and("be.visible");
+});
+
+Then("{int} row/rows is/are visible", (int) => {
+  flatTableBodyRows().should("have.length", int).and("be.visible");
+});
+
+Then("I type {int} in pagination input", (value) => {
+  pageSelectDataComponent().find("input").type(value);
+});
+
+Then("Pagination input should have {int} value", (value) => {
+  pageSelectDataComponent().find("input").should("have.value", value);
 });
