@@ -1,21 +1,33 @@
 import * as React from "react";
-import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
 import ActionPopoverDivider from "./action-popover-divider";
-import ActionPopoverItem from "./action-popover-item";
+import { ActionPopoverItemProps } from "./action-popover-item";
+
+type ActionPopoverChild =
+  | React.ReactElement<ActionPopoverItemProps>
+  | typeof ActionPopoverDivider
+  | boolean
+  | null
+  | undefined;
 
 export interface ActionPopoverMenuProps {
-  button?: (args: any) => any | object;
-  children?: typeof ActionPopoverDivider | typeof ActionPopoverItem;
+  /** Children for the menu */
+  children?: ActionPopoverChild | ActionPopoverChild[];
+  /** Index to control which item is focused */
   focusIndex?: number;
-  menuID?: string;
+  /** Flag to indicate whether a menu should open */
   isOpen?: boolean;
-  items?: any[];
-  parentID: string;
+  /** A unique ID for the menu */
+  menuID?: string;
+  /** Callback to set the index of the focused item */
   setFocusIndex?: (args: number) => any;
-  setItems: (args: any[]) => any[];
-  setOpen: (args: boolean) => any;
+  /** Callback to set the isOpen flag */
+  setOpen?: (args: boolean) => any;
+  /** Unique ID for the menu's parent */
+  parentID?: string;
 }
 
-declare function ActionPopoverMenu(props: ActionPopoverMenuProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
+declare function ActionPopoverMenu(
+  props: ActionPopoverMenuProps & React.RefAttributes<HTMLDivElement>
+): JSX.Element;
 
 export default ActionPopoverMenu;
