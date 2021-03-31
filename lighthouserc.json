@@ -12,7 +12,7 @@
       ],
       "numberOfRuns": 2,
       "settings": { 
-        "throttling": { "cpuSlowdownMultiplier": 4 },
+        "throttling": { "cpuSlowdownMultiplier": 2 },
         "preset": "desktop"
       }
     },
