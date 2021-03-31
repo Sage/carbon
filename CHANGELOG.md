@@ -1,3 +1,10 @@
+### [68.6.1](https://github.com/Sage/carbon/compare/v68.6.0...v68.6.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* **pager:** update pager after enter key is pressed ([f254d5d](https://github.com/Sage/carbon/commit/f254d5d4387dd2037abe16ec9f77948d35074749))
+
 ## [68.6.0](https://github.com/Sage/carbon/compare/v68.5.2...v68.6.0) (2021-03-30)
 
 

@@ -14,6 +14,7 @@ import {
   StyledPagerSummary,
 } from "./pager.style";
 import NumberInput from "../../__experimental__/components/number";
+import StyledOption from "../select/option/option.style";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -483,9 +484,18 @@ describe("Pager", () => {
     });
 
     describe("Size Selector", () => {
-      it("navigates correctly on page size update", () => {
-        const onPagination = jest.fn();
-        const wrapper = render(
+      let onPagination;
+      let wrapper;
+
+      const selectOptions = {
+        value: 25,
+        text: "25",
+      };
+
+      beforeEach(() => {
+        onPagination = jest.fn();
+
+        wrapper = render(
           {
             ...props,
             currentPage: 4,
@@ -493,20 +503,68 @@ describe("Pager", () => {
           },
           mount
         );
-        const selectOptions = {
-          value: 25,
-          text: "25",
-        };
+      });
 
+      it("should not fire onPagination when user blur out from component", () => {
         act(() => {
           wrapper.find(Select).find("input").simulate("click");
         });
-        wrapper.find(Select).update();
-        expect(wrapper.find(Select).find(SelectList).exists()).toBe(true);
+
+        wrapper.find(Select).props().onBlur();
+        expect(onPagination).not.toHaveBeenCalled();
+      });
+
+      it("should update if option is clicked", () => {
         act(() => {
-          wrapper.find(Select).find(SelectList).prop("onSelect")(selectOptions);
+          wrapper.find(Select).find("input").simulate("click");
         });
+
+        act(() => {
+          wrapper.find(Select).update();
+        });
+
+        expect(wrapper.find(Select).find(SelectList).exists()).toBe(true);
+
+        act(() => {
+          wrapper
+            .find(Select)
+            .find(SelectList)
+            .find(StyledOption)
+            .at(1)
+            .prop("onClick")(selectOptions);
+        });
+
+        act(() => {
+          wrapper.find(Select).update();
+        });
+
         expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
+      });
+
+      it("should update if enter key is used", () => {
+        act(() => {
+          wrapper
+            .find(Select)
+            .props()
+            .onKeyDown({ which: 13, target: selectOptions });
+        });
+
+        act(() => {
+          wrapper.find(Select).update();
+        });
+
+        expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
+      });
+
+      it("should not update if different key than enter is used", () => {
+        act(() => {
+          wrapper
+            .find(Select)
+            .props()
+            .onKeyDown({ which: 11, target: selectOptions });
+        });
+
+        expect(onPagination).not.toHaveBeenCalledWith();
       });
     });
   });
