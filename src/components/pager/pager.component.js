@@ -10,6 +10,7 @@ import {
   StyledPagerSizeOptionsInner,
   StyledSelect,
 } from "./pager.style";
+import Events from "../../utils/helpers/events/events";
 
 const Pager = ({
   currentPage = 1,
@@ -38,6 +39,7 @@ const Pager = ({
 }) => {
   const [page, setPage] = useState(currentPage);
   const [currentPageSize, setCurrentPageSize] = useState(pageSize);
+  const [value, setValue] = useState(pageSize);
 
   const getPageCount = useCallback(() => {
     if (Number(totalRecords) < 0 || Number.isNaN(Number(totalRecords))) {
@@ -121,19 +123,25 @@ const Pager = ({
 
   const handleOnPagination = useCallback(
     (e) => {
+      setValue(e.target.value);
       setCurrentPageSize(Number(e.target.value));
       onPagination(1, Number(e.target.value), "page-select");
     },
     [onPagination]
   );
 
+  const handleKeyDown = useCallback(
+    (e) => Events.isEnterKey(e) && handleOnPagination(e),
+    [handleOnPagination]
+  );
+
   const sizeSelector = () => {
     return (
       <StyledSelect
-        value={String(currentPageSize)}
-        onChange={(ev) => {
-          handleOnPagination(ev);
-        }}
+        value={String(value)}
+        onChange={(ev) => setValue(ev.target.value)}
+        onBlur={() => setValue(currentPageSize)}
+        onKeyDown={handleKeyDown}
         data-element="page-select"
         id="page-select"
       >
@@ -142,6 +150,7 @@ const Pager = ({
             key={sizeOption.id}
             text={sizeOption.id}
             value={String(sizeOption.name)}
+            onClick={handleOnPagination}
           />
         ))}
       </StyledSelect>

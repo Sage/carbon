@@ -4,6 +4,7 @@ import {
   FLAT_TABLE_SUBROW,
   FLAT_TABLE_PAGE_SIZE_SELECT,
   FLAT_TABLE_PAGE_SELECT_LIST,
+  PAGE_SELECT,
 } from "./locators";
 
 // component preview locators
@@ -36,3 +37,4 @@ export const flatTablePageSizeSelect = () =>
   cy.get(FLAT_TABLE_PAGE_SIZE_SELECT);
 export const flatTablePageSelectListPosition = () =>
   cy.get(FLAT_TABLE_PAGE_SELECT_LIST).parent();
+export const pageSelectDataComponent = () => cy.get(PAGE_SELECT);
