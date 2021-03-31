@@ -2,6 +2,9 @@ import React from "react";
 import { text, number, select, boolean } from "@storybook/addon-knobs";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Icon from ".";
+import browserTypeCheck, {
+  isSafari,
+} from "../../utils/helpers/browser-type-check";
 
 export default {
   title: "Icon/Test",
@@ -81,6 +84,14 @@ const dlsKnobs = () => {
       : undefined,
     disabled: boolean("disabled", Icon.defaultProps.disabled),
   };
+};
+
+export const Debug = () => {
+  const results = {
+    browserTypeCheck: browserTypeCheck(window),
+    isSafari: isSafari(window.navigator),
+  };
+  return <pre>{JSON.stringify(results, "", 2)}</pre>;
 };
 
 export const Default = () => {
