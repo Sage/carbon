@@ -6,13 +6,17 @@
       "startServerReadyPattern": "Storybook 6.1.20 started",
       "url": [
         "http://localhost:9001/?path=/story/alert--default-story",
+        "http://localhost:9001/iframe.html?id=alert--default-story&viewMode=story",
         "http://localhost:9001/?path=/story/appwrapper--default-story",
+        "http://localhost:9001/iframe.html?id=appwrapper--default-story&viewMode=story",
         "http://localhost:9001/?path=/story/design-system-button--primary",
-        "http://localhost:9001/?path=/story/design-system-loader--default-story"
+        "http://localhost:9001/iframe.html?id=design-system-button--primary&viewMode=story",
+        "http://localhost:9001/?path=/story/design-system-loader--default-story",
+        "http://localhost:9001/iframe.html?id=design-system-loader--default-story&viewMode=story"
       ],
       "numberOfRuns": 2,
       "settings": { 
-        "throttling": { "cpuSlowdownMultiplier": 20 },
+        "throttling": { "cpuSlowdownMultiplier": 4 },
         "preset": "desktop"
       }
     },
