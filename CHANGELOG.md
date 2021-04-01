@@ -1,3 +1,10 @@
+### [68.8.2](https://github.com/Sage/carbon/compare/v68.8.1...v68.8.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* **search:** stop event propagation for characters and numbers ([6754cdf](https://github.com/Sage/carbon/commit/6754cdfc1817c9223ad2952923939e74bbef374e)), closes [#3830](https://github.com/Sage/carbon/issues/3830)
+
 ### [68.8.1](https://github.com/Sage/carbon/compare/v68.8.0...v68.8.1) (2021-04-01)
 
 
