@@ -344,6 +344,143 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
+In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
+of `180px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+remains sticky.
+
+<Preview>
+  <Story name="with sticky footer inside of larger div" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### With hasMaxHeight
+By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
+
+<Preview>
+  <Story name="with sticky footer and hasMaxHeight" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter hasMaxHeight footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
 ### With clickable rows
 
 <Preview>
