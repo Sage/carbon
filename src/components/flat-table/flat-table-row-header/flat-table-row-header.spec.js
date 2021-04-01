@@ -68,4 +68,38 @@ describe("FlatTableRowHeader", () => {
       });
     });
   });
+
+  describe("when truncate prop is true", () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(<FlatTableRowHeader truncate>Foo</FlatTableRowHeader>);
+    });
+
+    it("should apply expected styling", () => {
+      assertStyleMatch(
+        {
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+        },
+        wrapper.find(StyledFlatTableRowHeader),
+        { modifier: "&&& > div" }
+      );
+    });
+
+    it("should set the title if children is string", () => {
+      expect(wrapper.find("div").props().title).toEqual("Foo");
+    });
+
+    describe("and title prop is set", () => {
+      it("should override the default behaviour", () => {
+        wrapper = mount(
+          <FlatTableRowHeader truncate title="Bar">
+            Foo
+          </FlatTableRowHeader>
+        );
+        expect(wrapper.find("div").props().title).toEqual("Bar");
+      });
+    });
+  });
 });

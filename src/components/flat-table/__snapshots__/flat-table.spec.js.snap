@@ -24,7 +24,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-left: 1px;
 }
 
-.c9.c9.c9 > div {
+.c10.c10.c10 > div {
   box-sizing: border-box;
 }
 
@@ -32,14 +32,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
-  white-space: nowrap;
   padding: 0;
 }
 
-.c11.c11.c11 > div {
+.c12.c12.c12 > div {
   box-sizing: border-box;
 }
 
@@ -55,14 +53,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
-  white-space: nowrap;
   padding: 0;
 }
 
-.c12.c12.c12 > div {
+.c13.c13.c13 > div {
   box-sizing: border-box;
 }
 
@@ -90,11 +86,10 @@ exports[`FlatTable when rendered with proper table data should have expected str
   text-align: left;
   top: auto;
   vertical-align: middle;
-  white-space: nowrap;
   padding: 0;
 }
 
-.c8 > div {
+.c8.c8.c8 > div {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
