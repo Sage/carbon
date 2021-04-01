@@ -8,6 +8,8 @@ import {
 import { SidebarContext } from "../drawer";
 import Box from "../box";
 
+export const FlatTableThemeContext = React.createContext({});
+
 const FlatTable = ({
   caption,
   children,
@@ -52,7 +54,9 @@ const FlatTable = ({
                 {...tableStylingProps}
               >
                 {caption ? <caption>{caption}</caption> : null}
-                {children}
+                <FlatTableThemeContext.Provider value={colorTheme}>
+                  {children}
+                </FlatTableThemeContext.Provider>
               </StyledFlatTable>
             </StyledFlatTableWrapper>
           </Box>

@@ -140,7 +140,6 @@ describe("Drawer", () => {
       const wrapper = render({ expandedWidth, showControls: true });
       const { button, content } = getElements(wrapper);
       button.simulate("click");
-
       assertStyleMatch(
         {
           width: expandedWidth,
@@ -148,6 +147,33 @@ describe("Drawer", () => {
         content.childAt(0),
         { modifier: "&.open" }
       );
+    });
+
+    describe("when height prop is provided", () => {
+      it("should render height 100% by default", () => {
+        const wrapper = render({ showControls: true });
+        const { button } = getElements(wrapper);
+        button.simulate("click");
+        assertStyleMatch(
+          {
+            height: "100%",
+          },
+          wrapper
+        );
+      });
+
+      it("should render custom height if provided", () => {
+        const height = "50%";
+        const wrapper = render({ height, showControls: true });
+        const { button } = getElements(wrapper);
+        button.simulate("click");
+        assertStyleMatch(
+          {
+            height: "50%",
+          },
+          wrapper
+        );
+      });
     });
 
     it("one click on button closes drawer sidebar", () => {

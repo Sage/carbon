@@ -6,6 +6,47 @@ import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
 
+const stickyColumnFocusStyling = (index, theme) => {
+  return `
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid ${
+      index === 0 ? theme.colors.focus : theme.table.secondary
+    };
+    background-clip: padding-box;
+    z-index: ${theme.zIndex.overlay};
+
+    :before {
+      content: "";
+      border-top: 2px solid ${theme.colors.focus};
+      border-bottom: 1px solid ${theme.colors.focus};
+      display: block;
+      left: 0px;
+      top: -1px;
+      height: 99%;
+      width: 101%;
+      position: absolute;
+      z-index: ${theme.zIndex.overlay};
+    }
+  `;
+};
+
+const borderColor = (colorTheme, theme) => {
+  switch (colorTheme) {
+    case "light":
+      return theme.flatTable.light.border;
+
+    case "transparent-base":
+      return theme.flatTable.transparentBase.border;
+
+    case "transparent-white":
+      return theme.flatTable.transparentWhite.border;
+
+    // default theme is "dark"
+    default:
+      return theme.flatTable.dark.border;
+  }
+};
+
 const StyledFlatTableRow = styled.tr`
   border-collapse: separate;
   border-radius: 0px;
@@ -14,7 +55,7 @@ const StyledFlatTableRow = styled.tr`
   table-layout: fixed;
   width: auto;
 
-  ${({ isRowInteractive, theme }) =>
+  ${({ isRowInteractive, theme, rowHeaderIndex }) =>
     isRowInteractive &&
     css`
       cursor: pointer;
@@ -24,24 +65,19 @@ const StyledFlatTableRow = styled.tr`
         outline-offset: -1px;
 
         ${StyledFlatTableRowHeader} {
-          border-bottom: 1px solid transparent;
-          border-left: 1px solid ${theme.colors.focus};
-          background-clip: padding-box;
-          z-index: ${theme.zIndex.overlay};
-
-          :before {
-            content: "";
-            border-top: 2px solid ${theme.colors.focus};
-            border-bottom: 1px solid ${theme.colors.focus};
-            display: block;
-            left: 0px;
-            top: -1px;
-            height: 100%;
-            width: 101%;
-            position: absolute;
-            z-index: ${theme.zIndex.overlay};
-          }
+          ${stickyColumnFocusStyling(rowHeaderIndex, theme)}
         }
+
+        ${![-1, 0].includes(rowHeaderIndex) &&
+        css`
+          ${Array.from({ length: rowHeaderIndex }).map((_, index) => {
+            return `
+              td:nth-of-type(${index + 1}) {
+                ${stickyColumnFocusStyling(index, theme)}
+              }
+            `;
+          })}
+        `}
       }
 
       :hover {
@@ -67,6 +103,18 @@ const StyledFlatTableRow = styled.tr`
         :hover {
           background-color: ${theme.flatTable.hover};
         }
+      }
+    `}
+
+    ${({ colorTheme, rowHeaderIndex, theme }) =>
+    ![-1, 0].includes(rowHeaderIndex) &&
+    css`
+      td:nth-of-type(${rowHeaderIndex + 1}) {
+        border-left: 1px solid ${theme.table.secondary};
+      }
+
+      th:nth-of-type(${rowHeaderIndex + 2}) {
+        border-left: 1px solid ${borderColor(colorTheme, theme)};
       }
     `}
 

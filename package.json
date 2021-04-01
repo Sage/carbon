@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "68.6.1",
+  "version": "68.8.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -25,7 +25,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" ../lib/ --cwd=src --parents",
     "commit": "git-cz",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",

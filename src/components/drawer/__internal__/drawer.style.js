@@ -156,7 +156,7 @@ const StyledButton = styled.button.attrs({ type: "button" })`
 
 const StyledDrawerWrapper = styled.div`
   display: flex;
-  height: 100%;
+  height: ${({ height }) => height};
 `;
 
 StyledDrawerContent.defaultProps = {
