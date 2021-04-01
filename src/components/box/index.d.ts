@@ -1,1 +1,1 @@
-export { default } from "./box.component";
+export { default } from "./box";
