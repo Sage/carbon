@@ -1,3 +1,11 @@
+### [68.8.3](https://github.com/Sage/carbon/compare/v68.8.2...v68.8.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* **simple-select:** remove with: auto for transparent ([045ae94](https://github.com/Sage/carbon/commit/045ae942a5f68a861b702af9aa18a6ec20d0596a))
+* **simple-select:** update icon position ([4636ba2](https://github.com/Sage/carbon/commit/4636ba24047070976f125677c4c921114f1ded7b))
+
 ### [68.8.2](https://github.com/Sage/carbon/compare/v68.8.1...v68.8.2) (2021-04-01)
 
 
