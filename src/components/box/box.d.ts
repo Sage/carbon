@@ -1,22 +1,23 @@
 import * as React from "react";
 import { StyledComponentProps } from "styled-components";
-import {
-  SpacingProps,
-  ColorProps,
-  LayoutProps,
-  FlexBoxProps,
-} from "../../utils/helpers/options-helper";
+import { ColorProps, FlexboxProps, LayoutProps, SpaceProps } from "styled-system";
 
 export interface BoxProps
-  extends SpacingProps,
+  extends SpaceProps,
     ColorProps,
     LayoutProps,
-    FlexBoxProps {
-  as?: React.ElementType;
+    FlexboxProps {
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   overflowWrap?: "break-word" | "anywhere";
   scrollVariant?: "light" | "dark";
 }
 
-declare function Box(attrs: StyledComponentProps<"div", {}, BoxProps, "">): JSX.Element;
+/**
+ * HTML color prop have to be removed from the StyledComponentProps
+ * as it's type conflicts with StyledSystem color prop
+ */
+type PropsWithoutColor = Omit<StyledComponentProps<"div", {}, BoxProps, "">, "color">;
+
+declare function Box(attrs: PropsWithoutColor & ColorProps): JSX.Element;
 
 export default Box;
