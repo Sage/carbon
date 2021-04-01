@@ -1,3 +1,17 @@
+## [68.8.0](https://github.com/Sage/carbon/compare/v68.7.0...v68.8.0) (2021-04-01)
+
+
+### Features
+
+* **validation-icon:** surface ml and mr props to adjust icon spacing ([334ba8f](https://github.com/Sage/carbon/commit/334ba8fb0850eb7d35701af41a27f1268fba5fc8))
+
+## [68.7.0](https://github.com/Sage/carbon/compare/v68.6.1...v68.7.0) (2021-03-31)
+
+
+### Features
+
+* **drawer:** allows to use custom height ([5e9bfa5](https://github.com/Sage/carbon/commit/5e9bfa512bbba01b00bc17ab12134b5089021f47))
+
 ### [68.6.1](https://github.com/Sage/carbon/compare/v68.6.0...v68.6.1) (2021-03-31)
 
 
