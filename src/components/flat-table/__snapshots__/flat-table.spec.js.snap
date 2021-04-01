@@ -102,6 +102,10 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-right: 24px;
 }
 
+.c7.c7.c7 {
+  left: 0px;
+}
+
 .c5 {
   border-collapse: separate;
   border-radius: 0px;

@@ -41,6 +41,7 @@ const events = {
     key: "Enter",
     which: 13,
     preventDefault: jest.fn(),
+    bubbles: true,
   },
   space: {
     key: "Space",
@@ -800,6 +801,26 @@ describe("Submenu component", () => {
         { attachTo: container }
       );
     };
+
+    it("should not lose focus when enter key pressed", () => {
+      wrapper = renderWithSearch(true, "dark");
+
+      const searchInput = wrapper.find(StyledSearch).find("input");
+
+      searchInput.getDOMNode().focus();
+
+      expect(searchInput).toBeFocused();
+
+      act(() => {
+        wrapper.find(StyledSearch).at(0).props().onKeyDown(events.arrowUp);
+        searchInput
+          .getDOMNode()
+          .dispatchEvent(new KeyboardEvent("keydown", events.enter));
+      });
+      wrapper.update();
+
+      expect(searchInput).toBeFocused();
+    });
 
     it("should render with correct styles for search icon", () => {
       wrapper = renderWithSearch(true, "dark");

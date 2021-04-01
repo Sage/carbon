@@ -1,3 +1,39 @@
+### [68.8.2](https://github.com/Sage/carbon/compare/v68.8.1...v68.8.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* **search:** stop event propagation for characters and numbers ([6754cdf](https://github.com/Sage/carbon/commit/6754cdfc1817c9223ad2952923939e74bbef374e)), closes [#3830](https://github.com/Sage/carbon/issues/3830)
+
+### [68.8.1](https://github.com/Sage/carbon/compare/v68.8.0...v68.8.1) (2021-04-01)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add border left to the th element directly after a row header ([fa4e02a](https://github.com/Sage/carbon/commit/fa4e02a81acaa875fe7bb40042edfecf14404462)), closes [#3564](https://github.com/Sage/carbon/issues/3564)
+* **flat-table-row:** ensure any cells preceding row headers are also positioned sticky ([b27ff64](https://github.com/Sage/carbon/commit/b27ff64d428390853d3f0a04d9f2283e831a49bd)), closes [#3721](https://github.com/Sage/carbon/issues/3721)
+
+## [68.8.0](https://github.com/Sage/carbon/compare/v68.7.0...v68.8.0) (2021-04-01)
+
+
+### Features
+
+* **validation-icon:** surface ml and mr props to adjust icon spacing ([334ba8f](https://github.com/Sage/carbon/commit/334ba8fb0850eb7d35701af41a27f1268fba5fc8))
+
+## [68.7.0](https://github.com/Sage/carbon/compare/v68.6.1...v68.7.0) (2021-03-31)
+
+
+### Features
+
+* **drawer:** allows to use custom height ([5e9bfa5](https://github.com/Sage/carbon/commit/5e9bfa512bbba01b00bc17ab12134b5089021f47))
+
+### [68.6.1](https://github.com/Sage/carbon/compare/v68.6.0...v68.6.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* **pager:** update pager after enter key is pressed ([f254d5d](https://github.com/Sage/carbon/commit/f254d5d4387dd2037abe16ec9f77948d35074749))
+
 ## [68.6.0](https://github.com/Sage/carbon/compare/v68.5.2...v68.6.0) (2021-03-30)
 
 

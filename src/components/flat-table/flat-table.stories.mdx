@@ -94,6 +94,7 @@ import {
 </Preview>
 
 ### With row headers
+Any cells preceding the `FlatTableRowHeader`s will automatically also be made sticky as seen in the example below.
 
 <Preview>
   <Story name="with row header" parameters={{ chromatic: { disable: true }}}>
@@ -101,6 +102,7 @@ import {
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
+            <FlatTableHeader>ID Number</FlatTableHeader>
             <FlatTableRowHeader>Name</FlatTableRowHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
@@ -109,24 +111,28 @@ import {
         </FlatTableHead>
         <FlatTableBody>
           <FlatTableRow>
+            <FlatTableCell>000001</FlatTableCell>
             <FlatTableRowHeader>John Doe</FlatTableRowHeader>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>0</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000002</FlatTableCell>
             <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
             <FlatTableCell>York</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
             <FlatTableCell>2</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000003</FlatTableCell>
             <FlatTableRowHeader>John Smith</FlatTableRowHeader>
             <FlatTableCell>Edinburgh</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>1</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000004</FlatTableCell>
             <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
             <FlatTableCell>Newcastle</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
@@ -452,7 +458,7 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
-### With a cell spanning the whole column 
+### With a cell spanning the whole column
 
 <Preview>
   <Story name="with rowspan">
@@ -596,25 +602,25 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
-              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+              <FlatTableCell>John Doe</FlatTableCell>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
-              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+              <FlatTableCell>Jane Doe</FlatTableCell>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('three') }highlighted={ highlightedRow === 'three' }>
-              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+              <FlatTableCell>John Smith</FlatTableCell>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('four') } highlighted={ highlightedRow === 'four' }>
-              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+              <FlatTableCell>Jane Smith</FlatTableCell>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>5</FlatTableCell>

@@ -184,6 +184,7 @@ const Accordion = React.forwardRef(
                     info={info}
                     tooltipPosition="top"
                     tabIndex={0}
+                    ml={1}
                   />
                 )}
 

@@ -326,9 +326,13 @@ describe("Search", () => {
     });
 
     it("passes other event handlers down to the input", () => {
-      const keyDownParams = { target: { selectionStart: 1, selectionEnd: 2 } };
+      const keyDownParams = {
+        which: 65,
+        key: "a",
+        target: { selectionStart: 1, selectionEnd: 2 },
+      };
       const input = wrapper.find("input");
-      input.simulate("keydown", { keyDownParams });
+      input.simulate("keydown", keyDownParams);
       expect(onKeyDown).toHaveBeenCalled();
     });
 
@@ -470,6 +474,50 @@ describe("Search", () => {
       );
       const input = wrapper.find(TextBox);
       expect(input.prop("iconTabIndex")).toEqual(-1);
+    });
+  });
+
+  describe("when typing into the input", () => {
+    const stopPropagationFn = jest.fn();
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it("should stop propagation of the event for character keys", () => {
+      const keyDownParams = {
+        which: 65,
+        key: "a",
+        target: { selectionStart: 1, selectionEnd: 2 },
+        stopPropagation: stopPropagationFn,
+      };
+      const input = wrapper.find("input");
+      input.simulate("keydown", keyDownParams);
+      expect(stopPropagationFn).toHaveBeenCalled();
+    });
+
+    it("should stop propagation of the event for number keys", () => {
+      const keyDownParams = {
+        which: 50,
+        key: "2",
+        target: { selectionStart: 1, selectionEnd: 2 },
+        stopPropagation: stopPropagationFn,
+      };
+      const input = wrapper.find("input");
+      input.simulate("keydown", keyDownParams);
+      expect(stopPropagationFn).toHaveBeenCalled();
+    });
+
+    it("should not stop propagation of the event for other keys", () => {
+      const keyDownParams = {
+        which: 9,
+        key: "Tab",
+        target: { selectionStart: 1, selectionEnd: 2 },
+        stopPropagation: stopPropagationFn,
+      };
+      const input = wrapper.find("input");
+      input.simulate("keydown", keyDownParams);
+      expect(stopPropagationFn).not.toHaveBeenCalled();
     });
   });
 });
