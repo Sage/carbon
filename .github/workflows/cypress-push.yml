@@ -23,7 +23,7 @@ jobs:
             11, 12, 13, 14, 15,
             16, 17, 18, 19, 20
             ]
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+    container: cypress/browsers:node12.18.3-chrome89-ff86
     steps:
       - name: Checkout
         uses: actions/checkout@v2
