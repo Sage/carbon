@@ -15,6 +15,9 @@ import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.
 import { SidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
+import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
+import FlatTableHeader from "../flat-table-header/flat-table-header.component";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const events = {
   enter: {
@@ -77,6 +80,18 @@ describe("FlatTableRow", () => {
     });
 
     it("then the Row Header should have proper outline when the Row is focused", () => {
+      wrapper = mount(
+        <table>
+          <thead>
+            <FlatTableRow onClick={() => {}}>
+              <FlatTableRowHeader>test 1</FlatTableRowHeader>
+              <FlatTableHeader>test 2</FlatTableHeader>
+              <FlatTableCell>test 3</FlatTableCell>
+            </FlatTableRow>
+          </thead>
+        </table>
+      );
+
       assertStyleMatch(
         {
           borderBottom: "1px solid transparent",
@@ -95,7 +110,7 @@ describe("FlatTableRow", () => {
           display: "block",
           left: "0px",
           top: "-1px",
-          height: "100%",
+          height: "99%",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
@@ -450,6 +465,162 @@ describe("FlatTableRow", () => {
     });
   });
 
+  describe("when FlatTableRowHeader is used", () => {
+    describe("and is null", () => {
+      it("should not make any preceding children sticky", () => {
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow>
+                <FlatTableCell>cell1</FlatTableCell>
+                {false && <FlatTableCell>cell2</FlatTableCell>}
+                {false && <FlatTableRowHeader>test 3</FlatTableRowHeader>}
+              </FlatTableRow>
+            </tbody>
+          </table>
+        );
+
+        assertStyleMatch(
+          {
+            position: undefined,
+          },
+          wrapper.find(StyledFlatTableCell).at(0)
+        );
+      });
+    });
+
+    it("sets any preceding columns to sticky as well", () => {
+      const wrapper = mount(
+        <table>
+          <thead>
+            <FlatTableRow>
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
+            </FlatTableRow>
+          </thead>
+        </table>
+      );
+      act(() =>
+        wrapper.find(FlatTableHeader).at(0).props().reportCellWidth(200, 0)
+      );
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableHeader).at(0)
+      );
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableCell).at(0)
+      );
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableCheckbox)
+      );
+
+      assertStyleMatch(
+        {
+          position: undefined,
+        },
+        wrapper.find(StyledFlatTableHeader).at(1)
+      );
+
+      assertStyleMatch(
+        {
+          position: undefined,
+        },
+        wrapper.find(StyledFlatTableCell).at(1)
+      );
+    });
+
+    it("applies the correct focus styling when the row is interactive", () => {
+      const wrapper = mount(
+        <table>
+          <thead>
+            <FlatTableRow onClick={() => {}}>
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
+            </FlatTableRow>
+          </thead>
+        </table>
+      );
+
+      assertStyleMatch(
+        {
+          borderLeft: `1px solid ${baseTheme.table.secondary}`,
+        },
+        wrapper,
+        { modifier: `:focus ${StyledFlatTableRowHeader}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderLeft: `1px solid ${baseTheme.colors.focus}`,
+        },
+        wrapper,
+        { modifier: `:focus td:nth-of-type(1)` }
+      );
+
+      assertStyleMatch(
+        {
+          borderTop: `2px solid ${baseTheme.colors.focus}`,
+          borderBottom: `1px solid ${baseTheme.colors.focus}`,
+          display: "block",
+          left: "0px",
+          top: "-1px",
+          height: "99%",
+          width: "101%",
+          position: "absolute",
+          zIndex: "1000",
+        },
+        wrapper.find(FlatTableRow),
+        { modifier: `:focus td:nth-of-type(1):before` }
+      );
+    });
+
+    it.each(["dark", "light", "transparent-white", "transparent-base"])(
+      "applies the correct th styling when colorTheme is %s",
+      (colorTheme) => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={colorTheme}>
+            <table>
+              <thead>
+                <FlatTableRow onClick={() => {}}>
+                  <FlatTableHeader>test 1</FlatTableHeader>
+                  <FlatTableRowHeader>test 3</FlatTableRowHeader>
+                  <FlatTableHeader>test 4</FlatTableHeader>
+                </FlatTableRow>
+              </thead>
+            </table>
+          </FlatTableThemeContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            borderLeft: `1px solid ${getThBorderColor(colorTheme)}`,
+          },
+          wrapper,
+          { modifier: `th:nth-of-type(3)` }
+        );
+      }
+    );
+  });
+
   describe("when the row is expandable", () => {
     const SubRows = [
       <FlatTableRow>
@@ -775,4 +946,21 @@ function renderRowWithContext(props = {}) {
       </table>
     </SidebarContext.Provider>
   );
+}
+
+function getThBorderColor(colorTheme) {
+  switch (colorTheme) {
+    case "light":
+      return baseTheme.flatTable.light.border;
+
+    case "transparent-base":
+      return baseTheme.flatTable.transparentBase.border;
+
+    case "transparent-white":
+      return baseTheme.flatTable.transparentWhite.border;
+
+    // default baseTheme is "dark"
+    default:
+      return baseTheme.flatTable.dark.border;
+  }
 }

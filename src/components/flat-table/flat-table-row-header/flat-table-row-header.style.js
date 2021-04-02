@@ -4,7 +4,7 @@ import { space } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableRowHeader = styled.th`
-  ${({ align, theme, colWidth }) => css`
+  ${({ align, theme, colWidth, leftPosition }) => css`
     background-color: #fff;
     border: 1px solid ${theme.table.secondary};
     border-top: none;
@@ -20,15 +20,19 @@ const StyledFlatTableRowHeader = styled.th`
     ${colWidth &&
     css`
       width: ${colWidth}px;
-    `};
+    `}
 
     > div {
       box-sizing: border-box;
       ${colWidth &&
       css`
         width: ${colWidth}px;
-      `};
-      ${space};
+      `}
+      ${space}
+    }
+
+    &&& {
+      left: ${leftPosition}px;
     }
   `}
 `;

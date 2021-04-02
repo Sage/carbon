@@ -8,6 +8,7 @@ import StyledSearch, {
 import Icon from "../../../components/icon";
 import Textbox from "../textbox";
 import Button from "../../../components/button";
+import Events from "../../../utils/helpers/events";
 
 const Search = ({
   defaultValue,
@@ -116,6 +117,12 @@ const Search = ({
     setIsFocused(false);
   };
 
+  const handleKeyDown = (ev) => {
+    if (Events.isAlphabetKey(ev) || Events.isNumberKey(ev)) {
+      ev.stopPropagation();
+    }
+  };
+
   return (
     <StyledSearch
       searchWidth={searchWidth}
@@ -124,6 +131,7 @@ const Search = ({
       onClick={handleOnFocus}
       onBlur={handleBlur}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
       isFocused={isFocused}
       searchIsActive={searchIsActive}
       id={id}

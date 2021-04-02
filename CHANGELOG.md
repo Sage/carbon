@@ -1,3 +1,33 @@
+### [68.8.3](https://github.com/Sage/carbon/compare/v68.8.2...v68.8.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* **simple-select:** remove with: auto for transparent ([045ae94](https://github.com/Sage/carbon/commit/045ae942a5f68a861b702af9aa18a6ec20d0596a))
+* **simple-select:** update icon position ([4636ba2](https://github.com/Sage/carbon/commit/4636ba24047070976f125677c4c921114f1ded7b))
+
+### [68.8.2](https://github.com/Sage/carbon/compare/v68.8.1...v68.8.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* **search:** stop event propagation for characters and numbers ([6754cdf](https://github.com/Sage/carbon/commit/6754cdfc1817c9223ad2952923939e74bbef374e)), closes [#3830](https://github.com/Sage/carbon/issues/3830)
+
+### [68.8.1](https://github.com/Sage/carbon/compare/v68.8.0...v68.8.1) (2021-04-01)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add border left to the th element directly after a row header ([fa4e02a](https://github.com/Sage/carbon/commit/fa4e02a81acaa875fe7bb40042edfecf14404462)), closes [#3564](https://github.com/Sage/carbon/issues/3564)
+* **flat-table-row:** ensure any cells preceding row headers are also positioned sticky ([b27ff64](https://github.com/Sage/carbon/commit/b27ff64d428390853d3f0a04d9f2283e831a49bd)), closes [#3721](https://github.com/Sage/carbon/issues/3721)
+
+## [68.8.0](https://github.com/Sage/carbon/compare/v68.7.0...v68.8.0) (2021-04-01)
+
+
+### Features
+
+* **validation-icon:** surface ml and mr props to adjust icon spacing ([334ba8f](https://github.com/Sage/carbon/commit/334ba8fb0850eb7d35701af41a27f1268fba5fc8))
+
 ## [68.7.0](https://github.com/Sage/carbon/compare/v68.6.1...v68.7.0) (2021-03-31)
 
 

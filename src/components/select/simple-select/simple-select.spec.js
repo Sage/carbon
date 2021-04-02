@@ -125,18 +125,6 @@ describe("SimpleSelect", () => {
     );
   });
 
-  it("the input text should have proper paddings", () => {
-    const wrapper = renderSelect();
-
-    assertStyleMatch(
-      {
-        paddingRight: "0",
-      },
-      wrapper,
-      { modifier: `${InputPresentationStyle}` }
-    );
-  });
-
   it("the input text should have proper styling for the transparent type", () => {
     const wrapper = renderSelect({ transparent: true });
 
@@ -203,16 +191,6 @@ describe("SimpleSelect", () => {
         },
         wrapper,
         { modifier: `${StyledInput}` }
-      );
-    });
-
-    it("then the input toggle text should have width set to auto", () => {
-      assertStyleMatch(
-        {
-          width: "auto",
-        },
-        wrapper,
-        { modifier: `${InputIconToggleStyle}` }
       );
     });
   });

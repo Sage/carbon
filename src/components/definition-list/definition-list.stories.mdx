@@ -1,9 +1,14 @@
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import {useState} from 'react';
-import { Dl, Dt, Dd } from "./"
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { Dl, Dt, Dd } from "./";
+import Icon from "../icon";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Box from "../box";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
 
-<Meta title="Design System/Definition List" parameters={{ info: { disable: true }}} />
+<Meta
+  title="Design System/Definition List"
+  parameters={{ info: { disable: true } }}
+/>
 
 # Definition List
 
@@ -20,12 +25,13 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 ```
 
 ## Related Components
+
 Definition List most of the time is in use with other components. Look at the examples below
 
 - [Tile component with Definition List](/?path=/docs/design-system-tile--with-definition-list-default "Tile component with Definition List").
 - [Accordion component with Definition List](/?path=/docs/design-system-accordion--with-a-definition-list "Accordion component with Definition List").
 
-## Examples 
+## Examples
 
 ### Default
 
@@ -42,31 +48,75 @@ Definition List most of the time is in use with other components. Look at the ex
   </Story>
 </Preview>
 
+### Action popover and icon support
+
+<Preview>
+  <Story name="action popover and icon support">
+    <Dl>
+      <Dt>
+        <Box paddingTop="4px">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Box mr={1}>Details example</Box>
+          <Icon type="tick" />
+        </Box>
+      </Dd>
+      <Dt>
+        <Box paddingTop="4px">
+          Term example
+        </Box>
+      </Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Icon mr={1} type="tick" />
+          <Box mr={2}>Details example</Box>
+          <ActionPopover rightAlignMenu>
+            <ActionPopoverItem>Option 1</ActionPopoverItem>
+            <ActionPopoverItem>Option 2</ActionPopoverItem>
+          </ActionPopover>
+        </Box>
+      </Dd>
+    </Dl>
+  </Story>
+</Preview>
+
 ### Conditional rendering with `<React.Fragment />`
+
 *CAUTION: don't use nested `<React.Fragment />`*
 
 <Preview>
-  <Story name="with conditional rendering" parameters={{ chromatic: { disable: true }}}>
-      <Dl>
-        <Dt>First</Dt>
-        <Dd>Description</Dd>
-        <Dt>Second</Dt>
-        <Dd>Description</Dd>
-        {(true && <>
+  <Story
+    name="with conditional rendering"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Dl>
+      <Dt>First</Dt>
+      <Dd>Description</Dd>
+      <Dt>Second</Dt>
+      <Dd>Description</Dd>
+      {true && (
+        <>
           <Dt>Third inside of React Fragment</Dt>
           <Dd>Description inside of React Fragment</Dd>
-        </>)}
-      </Dl>
+        </>
+      )}
+    </Dl>
   </Story>
 </Preview>
 
 ## Props
 
 ### Dl
-<StyledSystemProps of={Dl} noHeader spacing/>
+
+<StyledSystemProps of={Dl} noHeader spacing />
 
 ### Dt
-<StyledSystemProps of={Dt} noHeader spacing/>
+
+<StyledSystemProps of={Dt} noHeader spacing />
 
 ### Dd
-<StyledSystemProps of={Dd} noHeader spacing/>
+
+<StyledSystemProps of={Dd} noHeader spacing />

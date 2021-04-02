@@ -140,6 +140,10 @@ const Submenu = React.forwardRef(
             );
           }
 
+          // Defensive check in case an unhandled key event from a child component
+          // has bubbled up
+          if (nextIndex === undefined) return;
+
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
           const nextChild = React.Children.toArray(formattedChildren)[
