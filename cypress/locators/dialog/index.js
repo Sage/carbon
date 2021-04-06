@@ -6,9 +6,6 @@ import {
 } from "./locators";
 
 // component preview locators
-export const alertDialogPreviewIFrame = () => cy.iFrame(ALERT_DIALOG);
-
-// component preview locators in NoIFrame
 export const alertDialogPreview = () => cy.get(ALERT_DIALOG);
 export const alertChildren = () =>
   alertDialogPreview().find("div:nth-child(2)").children();
