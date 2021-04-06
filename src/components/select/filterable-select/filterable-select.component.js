@@ -379,6 +379,7 @@ const FilterableSelect = React.forwardRef(
       }
 
       isInputFocused.current = false;
+      setOpen(false);
 
       if (onBlur) {
         onBlur(event);
