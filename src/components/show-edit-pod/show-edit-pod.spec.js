@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import "jest-styled-components";
+
 import ShowEditPod from "./show-edit-pod.component";
 import Form from "../form";
 import Pod from "../pod";
@@ -9,9 +9,12 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import StyledDeleteButton from "./delete-button.style";
 
 describe("ShowEditPod", () => {
+  testStyledSystemMargin((props) => <ShowEditPod {...props} />);
+
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
     let container;
