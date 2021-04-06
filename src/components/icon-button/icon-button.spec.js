@@ -2,7 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import IconButton from ".";
 import Message from "../message/message.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import StyledIconButton from "./icon-button.style";
 
 describe("IconButton component", () => {
@@ -17,6 +20,12 @@ describe("IconButton component", () => {
           Message
         </Message>
       );
+    });
+
+    describe("styled system", () => {
+      testStyledSystemMargin((props) => (
+        <IconButton {...props}>test content</IconButton>
+      ));
     });
 
     describe("on baseTheme", () => {
