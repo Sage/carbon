@@ -11,6 +11,7 @@ import {
   pressTABKeyInNoIframe,
   pressShiftTABKeyInNoIframe,
   continuePressingTABKeyInNoIframe,
+  pressESCKeyNoIframe,
 } from "../helper";
 import {
   commonButtonPreview,
@@ -330,6 +331,10 @@ When("I click above of the component in no iFrame", () => {
 
 When("I hit ESC key", () => {
   pressESCKey();
+});
+
+When("I hit ESC key in noIframe", () => {
+  pressESCKeyNoIframe();
 });
 
 When("I hit Tab key {int} time(s)", (times) => {

@@ -6,7 +6,7 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen Test" component page "default"
       And I check showCloseIcon checkbox
     When I click closeIcon in IFrame
-    Then Confirm dialog is not visible
+    Then Confirm dialog is not visible in IFrame
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
