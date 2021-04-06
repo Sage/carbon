@@ -42,7 +42,7 @@ import {
   labelByPosition,
   helpIcon,
   storyRoot,
-  dlsRoot,
+  dlsRootIFrame,
 } from "../../locators";
 import { dialogTitle } from "../../locators/dialog";
 import DEBUG_FLAG from "..";
@@ -322,7 +322,7 @@ When("I click outside of the component", () => {
 });
 
 When("I click outside of the component in DLS directory", () => {
-  dlsRoot().click();
+  dlsRootIFrame().click();
 });
 
 When("I click above of the component in no iFrame", () => {

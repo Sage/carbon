@@ -53,7 +53,19 @@
   "showCloseIconFalse": {
     "showCloseIcon": false
   },
+  "showCloseIconTrue": {
+    "showCloseIcon": true
+  },
   "enableBackgroundUI":{
     "enableBackgroundUI": true
+  },
+  "disableEscKey": {
+    "disableEscKey": true
+  },
+  "enabledEscKey": {
+    "disableEscKey": false
+  },
+  "default": {
+    
   }
 }

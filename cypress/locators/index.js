@@ -36,7 +36,8 @@ export const eventInAction = (event) =>
 
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
-export const dlsRoot = () => cy.iFrame(DLS_ROOT);
+export const dlsRootIFrame = () => cy.iFrame(DLS_ROOT);
+export const dlsRoot = () => cy.get(DLS_ROOT);
 export const commonButtonPreview = () => storyRoot().find("button");
 export const commonButtonPreviewNoIFrameRoot = () =>
   cy.get(DLS_ROOT).find("button");
@@ -49,7 +50,7 @@ export const tooltipPreviewIFrame = () => cy.iFrame(TOOLTIP_PREVIEW);
 export const fieldHelp = () => cy.iFrame(FIELD_HELP_PREVIEW);
 export const closeIconButtonIFrame = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const helpIconIframe = () => cy.iFrame(HELP_ICON_PREVIEW).first();
-export const backgroundUILocatorIFrame = () => cy.iFrame(BACKGROUND_UI_LOCATOR);
+export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 export const iconIFrame = () => cy.iFrame(ICON);
 export const inputWidthPreview = () => cy.iFrame(INPUT_WIDTH_PREVIEW);
 export const commonDataElementInputPreview = () =>
@@ -78,7 +79,6 @@ export const getElementNoIframe = (element) =>
   cy.get(`[data-element="${element}"]`).first();
 export const commonButtonPreviewNoIframe = () =>
   cy.get(STORY_ROOT).find("button");
-export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 export const closeIconButton = () => cy.get(CLOSE_ICON_BUTTON);
 export const fieldHelpPreviewNoIFrame = () =>
   cy.get(FIELD_HELP_PREVIEW).first();
