@@ -30,7 +30,7 @@ describe("TabsHeader", () => {
         boxShadow: `inset 0px -2px 0px 0px ${baseTheme.tab.background}`,
         cursor: "pointer",
         listStyle: "none",
-        margin: "0 0 10px",
+        margin: "0",
         padding: "0",
       },
       renderStyles()
@@ -59,14 +59,14 @@ describe("TabsHeader", () => {
         {
           flexDirection: "column",
           boxShadow: `inset -2px 0px 0px 0px ${baseTheme.tab.background}`,
-          margin: "0 10px 0",
+          margin: "0 0 0 10px",
         },
         wrapper.find(StyledTabsHeaderList)
       );
 
       assertStyleMatch(
         {
-          width: "20%",
+          minWidth: "20%",
           overflowY: "auto",
           padding: "2px",
         },
@@ -146,7 +146,7 @@ describe("TabsHeader", () => {
     );
     assertStyleMatch(
       {
-        width: "100%",
+        minWidth: "100%",
       },
       wrapper.find(StyledTabsHeaderWrapper)
     );
