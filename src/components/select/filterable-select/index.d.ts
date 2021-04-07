@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Button from '../../button';
-import { OptionProps } from '../option';
-import { OptionRowProps } from '../option-row';
+import * as React from "react";
+import Button from "../../button";
+import { OptionProps } from "../option";
+import { OptionRowProps } from "../option-row";
 
 export interface FilterableSelectProps {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -19,7 +19,7 @@ export interface FilterableSelectProps {
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   /** When true, label is placed in line with an input */
   labelInline?: boolean;
   /** Width of a label in percentage. Works only when labelInline is true */
@@ -27,7 +27,7 @@ export interface FilterableSelectProps {
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth?: number;
   /** Size of an input */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /** Placeholder string to be displayed in input */
   placeholder?: string;
   /** The selected value(s), when the component is operating in controlled mode */
@@ -35,7 +35,9 @@ export interface FilterableSelectProps {
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | object;
   /** Child components (such as Option or OptionRow) for the SelectList */
-  children: Array<React.ReactElement<OptionProps | OptionRowProps>> | React.ReactElement<OptionProps | OptionRowProps>;
+  children:
+    | Array<React.ReactElement<OptionProps | OptionRowProps>>
+    | React.ReactElement<OptionProps | OptionRowProps>;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** SelectList table header, should consist of multiple th elements.

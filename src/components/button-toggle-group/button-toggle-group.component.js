@@ -78,7 +78,7 @@ BaseButtonToggleGroup.propTypes = {
   /** Text for the label. */
   label: PropTypes.string,
   /** Text for the labels help tooltip. */
-  labelHelp: PropTypes.string,
+  labelHelp: PropTypes.node,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** The percentage width of the ButtonToggleGroup. */

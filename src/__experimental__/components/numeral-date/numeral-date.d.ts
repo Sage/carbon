@@ -69,7 +69,7 @@ export interface NumeralDateProps {
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   /** When true, label is placed in line with an input */
   labelInline?: boolean;
   /** Label alignment. Works only when labelInline is true */

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { OptionProps } from "../option";
-import { OptionRowProps } from '../option-row';
+import { OptionRowProps } from "../option-row";
 
 export interface MultiSelectProps {
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -18,7 +18,7 @@ export interface MultiSelectProps {
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   /** When true, label is placed in line with an input */
   labelInline?: boolean;
   /** Width of a label in percentage. Works only when labelInline is true */
@@ -34,7 +34,9 @@ export interface MultiSelectProps {
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string[] | object[];
   /** Child components (such as Option or OptionRow) for the SelectList */
-  children: Array<React.ReactElement<OptionProps | OptionRowProps>> | React.ReactElement<OptionProps | OptionRowProps>;
+  children:
+    | Array<React.ReactElement<OptionProps | OptionRowProps>>
+    | React.ReactElement<OptionProps | OptionRowProps>;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** SelectList table header, should consist of multiple th elements.
