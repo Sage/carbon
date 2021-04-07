@@ -14,35 +14,23 @@ import {
   pressESCKeyNoIframe,
 } from "../helper";
 import {
-  commonButtonPreview,
-  labelPreview,
   helpIconByPosition,
   backgroundUILocator,
   closeIconButtonIFrame,
-  tooltipPreviewIFrame,
   getKnobsInput,
   getKnobsInputWithName,
-  getKnobsInputByGroup,
   iconIFrame,
-  inputWidthPreview,
-  label,
   eventInAction,
-  storyRootNoIframe,
   tooltipPreview,
   getDataElementByValue,
   knobsNameTab,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValueIframe,
-  commonButtonPreviewNoIframe,
   closeIconButton,
   fieldHelpPreviewNoIFrame,
-  commonDataElementInputPreviewNoIframe,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
-  labelByPosition,
   helpIcon,
-  storyRoot,
-  dlsRootIFrame,
 } from "../../locators";
 import { dialogTitle } from "../../locators/dialog";
 import DEBUG_FLAG from "..";
@@ -113,27 +101,12 @@ When("I set {word}-{word} to {string}", (word1, word2, text) => {
   getKnobsInput(`${word1}-${word2}`).clear().type(text);
 });
 
-When("I set {word} to empty", (propertyName) => {
-  getKnobsInput(propertyName).clear();
-});
-
 When("I select {word} to {string}", (propertyName, selection) => {
   getKnobsInput(propertyName).select(selection);
 });
 
 When("I select {word} {word} to {string}", (propertyName, text, selection) => {
   getKnobsInputWithName(propertyName, text).select(selection);
-});
-
-When(
-  "I select group {word} {word} to {string}",
-  (groupName, propertyName, selection) => {
-    getKnobsInputByGroup(groupName, propertyName).select(selection);
-  }
-);
-
-When("I open component preview", () => {
-  commonButtonPreview().click();
 });
 
 When("I open component preview in noIFrame", () => {
@@ -146,10 +119,6 @@ When("I {string} button on preview", (text) => {
 
 Then("component title on preview is {word}", (title) => {
   dialogTitle().should("have.text", title);
-});
-
-Then("label on preview is {word}", (text) => {
-  labelPreview().should("have.text", text);
 });
 
 Then("label on preview is {word} in NoIFrame", (text) => {
@@ -181,86 +150,16 @@ Then("I hover mouse onto {string} icon in no iFrame", (name) => {
   getDataElementByValue(name).trigger("mouseover");
 });
 
-Then("I hover mouse onto {string} icon in iFrame", (name) => {
-  getDataElementByValueIframe(name).trigger("mouseover");
-});
-
 Then("tooltipPreview on preview is set to {word}", (text) => {
   tooltipPreview().should("have.text", text);
-});
-
-Then("tooltipPreview on preview is set to {word} in IFrame", (text) => {
-  tooltipPreviewIFrame().should("have.text", text);
 });
 
 Then("fieldHelp on preview is set to {word} in NoIFrame", (text) => {
   fieldHelpPreviewNoIFrame().should("have.text", text);
 });
 
-Then(
-  "{word} is set to fieldHelpInline and has marginLeft set to {string}",
-  (componentName, marginLeft) => {
-    fieldHelpPreviewNoIFrame()
-      .should("have.css", "margin-left", marginLeft)
-      .and("have.css", "margin-top", "0px")
-      .and("have.css", "padding-left", "0px");
-  }
-);
-
-Then(
-  "{word} is not set to fieldHelpInline and has marginTop set to {string}",
-  (componentName, marginTop) => {
-    fieldHelpPreviewNoIFrame()
-      .should("have.css", "margin-left", "0px")
-      .and("have.css", "margin-top", marginTop);
-  }
-);
-
-Then("{string} fieldHelp on preview is set to {word}", (position, text) => {
-  fieldHelpPreviewNoIFrame(positionOfElement(position)).should(
-    "have.text",
-    text
-  );
-});
-
-Then("{string} label Align on preview is {string}", (position, direction) => {
-  if (direction === "left") {
-    labelByPosition(positionOfElement(position))
-      .parent()
-      .should("have.css", TEXT_ALIGN, TEXT_ALIGN_START);
-  } else {
-    labelByPosition(positionOfElement(position))
-      .parent()
-      .should("have.css", TEXT_ALIGN, TEXT_ALIGN_END);
-  }
-});
-
-Then("label Align on preview is {string}", (direction) => {
-  if (direction === "left") {
-    label()
-      .parent()
-      .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START)
-      );
-  } else {
-    label()
-      .parent()
-      .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END)
-      );
-  }
-});
-
 Then("Background UI is enabled", () => {
   backgroundUILocator().should("not.exist");
-});
-
-Then("Background UI is disabled", () => {
-  backgroundUILocator().should("exist");
-});
-
-Then("closeIcon is visible in iframe", () => {
-  closeIconButtonIFrame().should("be.visible");
 });
 
 Then("closeIcon is visible", () => {
@@ -275,14 +174,6 @@ Then("I click closeIcon", () => {
   closeIconButton().click();
 });
 
-When("I click {string} button into iFrame", (text) => {
-  commonButtonPreviewNoIframe().contains(text).click();
-});
-
-Then("closeIcon is not visible in IFrame", () => {
-  closeIconButtonIFrame().should("not.exist");
-});
-
 Then("closeIcon is not visible", () => {
   closeIconButton().should("not.exist");
 });
@@ -290,15 +181,6 @@ Then("closeIcon is not visible", () => {
 Then("I focus closeIcon", () => {
   closeIconButton().focus();
 });
-
-Then(
-  "closeIcon has the border outline color {string} and width {string} in IFrame",
-  (color, width) => {
-    closeIconButtonIFrame()
-      .should("have.css", "outline-color", color)
-      .and("have.css", "outline-width", width);
-  }
-);
 
 Then(
   "closeIcon has the border outline color {string} and width {string}",
@@ -310,23 +192,7 @@ Then(
 );
 
 Then("closeIcon is focused", () => {
-  closeIconButtonIFrame().focus();
-});
-
-Then("closeIcon is focused in no iframe", () => {
   closeIconButton().focus();
-});
-
-When("I click outside of the component", () => {
-  storyRoot().click();
-});
-
-When("I click outside of the component in DLS directory", () => {
-  dlsRootIFrame().click();
-});
-
-When("I click above of the component in no iFrame", () => {
-  storyRootNoIframe().click("top");
 });
 
 When("I hit ESC key", () => {
@@ -353,14 +219,6 @@ When("I hit shift Tab key {int} time(s) in no Iframe", (times) => {
   pressShiftTABKeyInNoIframe(times);
 });
 
-When("I disable {word} component", () => {
-  getKnobsInput("disabled").check();
-});
-
-When("I enable {word} component", () => {
-  getKnobsInput("disabled").uncheck();
-});
-
 When("I check {word} checkbox", (checkboxName) => {
   getKnobsInput(checkboxName).scrollIntoView();
   getKnobsInput(checkboxName).check();
@@ -371,27 +229,12 @@ When("I check {word} {word} checkbox", (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).check();
 });
 
-When("I uncheck {word} checkbox", (checkboxName) => {
-  getKnobsInput(checkboxName).scrollIntoView();
-  getKnobsInput(checkboxName).uncheck();
-});
-
-Then("inputWidth is set to {string}", (width) => {
-  inputWidthPreview()
-    .should("have.attr", "style")
-    .should("contain", `width: ${width}%`);
-});
-
 Then("{word} action was called in Actions Tab", (event) => {
   eventInAction(event);
 });
 
 When("I close Sidebar", () => {
   closeIconButtonIFrame().click();
-});
-
-Then("text {string} color is set to {string}", (text, color) => {
-  storyRootNoIframe().contains(text).should("have.css", "color", color);
 });
 
 When("I press keyboard {string} key times {int}", (key, times) => {
@@ -402,10 +245,6 @@ When("I press keyboard {string} key times {int}", (key, times) => {
 
 When("I press {string} onto focused element", (key) => {
   cy.focused().trigger("keydown", keyCode(key));
-});
-
-When("I press Tab onto focused element", () => {
-  cy.focused().tab();
 });
 
 When("I press ESC onto focused element", () => {
@@ -433,57 +272,6 @@ When("I click onto root in Test directory in no iFrame", () => {
 
 Then("totalRecords is set to {string} {word}", (totalRecords, element) => {
   pagerSummary().invoke("text").should("contain", `${totalRecords} ${element}`);
-});
-
-When("I open component preview no iframe", () => {
-  commonButtonPreviewNoIframe().click();
-});
-
-Then("input direction is {string}", (direction) => {
-  commonDataElementInputPreviewNoIframe().should(
-    "have.css",
-    "text-align",
-    `${direction}`
-  );
-});
-
-Then("label width on preview is {int}", (width) => {
-  getDataElementByValue("label")
-    .parent()
-    .should("have.attr", "width")
-    .should("contain", `${width}`);
-});
-
-Then("inputWidth on preview is {int}", (width) => {
-  commonDataElementInputPreviewNoIframe()
-    .parent()
-    .parent()
-    .should("have.css", "flex")
-    .should("contain", `${width}%`);
-});
-
-Then("label is inline", () => {
-  getDataElementByValue("label")
-    .parent()
-    .should("have.css", TEXT_ALIGN, TEXT_ALIGN_END);
-});
-
-Then("label is not inline", () => {
-  getDataElementByValue("label")
-    .parent()
-    .should("not.have.css", TEXT_ALIGN, TEXT_ALIGN_END);
-});
-
-Then("label width is set to {string} in NoIFrame", (width) => {
-  getDataElementByValue("label")
-    .parent()
-    .should("have.attr", "width", `${width}`);
-});
-
-Then("label Align on preview is {string}", (direction) => {
-  label().should(($element) =>
-    expect($element).to.have.css(TEXT_ALIGN, `${direction}`)
-  );
 });
 
 Then("label Align on preview is {string} in NoIFrame", (direction) => {

@@ -8,7 +8,7 @@ Feature: Advanced Color Picker component
   @positive
   Scenario: Tab key pressed two times when color is focused regains focus on color
     Given I press Tab on 7 element
-      And closeIcon is focused in no iframe
+      And closeIcon is focused
     When I press Tab on 7 element
     Then Simple Color 7 has focus
 
