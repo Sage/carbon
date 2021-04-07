@@ -4,7 +4,6 @@ import {
   accordionTitleContainerByPositionInIfame,
   accordionTitleContainer,
   accordionTitleContainerByPosition,
-  accordionDefaultTitleDS,
   accordionDefaultTitle,
 } from "../../locators/accordion";
 import { positionOfElement, keyCode } from "../helper";
@@ -67,10 +66,6 @@ Then(
   }
 );
 
-When("I expand Design System accordionRow via click", () => {
-  accordionDefaultTitleDS().click();
-});
-
 When("I expand Design System accordionRow via click in NoIFrame", () => {
   accordionDefaultTitle().click();
 });
@@ -93,10 +88,6 @@ Then("accordionRow has golden border outline", () => {
   accordionDefaultTitle()
     .should("have.css", "outline", "rgb(255, 181, 0) solid 2px")
     .and("be.visible");
-});
-
-When("I focus accordionRow", () => {
-  accordionDefaultTitleDS().focus();
 });
 
 Then("Accordion {int} row is focused", (index) => {
