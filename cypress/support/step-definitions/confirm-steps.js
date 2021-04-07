@@ -5,7 +5,6 @@ import {
   confirmButtonIFrame,
   cancelButton,
   cancelButtonIFrame,
-  dialogPreviewIFrame,
 } from "../../locators/confirm";
 import { getDataElementByValue, icon } from "../../locators";
 import { positionOfElement } from "../helper";
@@ -44,10 +43,6 @@ Then("dialog title context on preview is {word}", (title) => {
 
 Then("Confirm dialog is visible", () => {
   dialogPreview().should("be.visible");
-});
-
-Then("Confirm dialog is not visible in iFrame", () => {
-  dialogPreviewIFrame().should("not.exist");
 });
 
 Then("Confirm dialog is not visible", () => {
