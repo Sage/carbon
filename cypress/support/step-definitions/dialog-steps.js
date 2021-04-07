@@ -4,7 +4,6 @@ import {
   openPreviewButton,
 } from "../../locators/dialog/index";
 import { backgroundUILocator, dlsRoot } from "../../locators/index";
-import { dialogPreviewIFrame } from "../../locators/confirm";
 
 Then("Dialog height is set to {int}", (height) => {
   dialogPreview()
@@ -22,10 +21,6 @@ Then("Dialog size property on preview is {string}", (size) => {
   dialogPreview().should("have.css", "width", `${size}px`);
 });
 
-Then("Dialog is not visible in IFrame", () => {
-  dialogPreviewIFrame().should("not.exist");
-});
-
 Then("Dialog is not visible", () => {
   dialogPreview().should("not.exist");
 });
@@ -40,10 +35,6 @@ When("I click on background {string} outside dialog", (position) => {
 
 Then("Dialog is visible", () => {
   dialogPreview().should("be.visible");
-});
-
-Then("Dialog is visible in IFrame", () => {
-  dialogPreviewIFrame().should("be.visible");
 });
 
 When("I scroll to the bottom of the dialog", () => {

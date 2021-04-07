@@ -141,7 +141,7 @@ When("I open component preview in noIFrame", () => {
 });
 
 When("I {string} button on preview", (text) => {
-  getDataElementByValueIframe("main-text").contains(text).click();
+  getDataElementByValue("main-text").contains(text).click();
 });
 
 Then("component title on preview is {word}", (title) => {
