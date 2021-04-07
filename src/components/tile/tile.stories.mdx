@@ -67,7 +67,7 @@ The Tile component can be also have a vertical layout.
 <Preview>
   <Story name="with TileFooter">
     <div>
-      <Tile orientation="vertical" pixelWidth={400}>
+      <Tile orientation="vertical" width={400}>
         <Content>
           <Typography pb={2} variant="h4" fontWeight="bold">
             Example header
@@ -87,7 +87,7 @@ The Tile component can be also have a vertical layout.
         </Content>
       </Tile>
       <Box my={3} />
-      <Tile px={0} pb={0} orientation="vertical" pixelWidth={400}>
+      <Tile px={0} pb={0} orientation="vertical" width={400}>
         <Content>
           <Box px={3}>
             <Typography pb={2} variant="h4" fontWeight="bold">
@@ -109,7 +109,7 @@ The Tile component can be also have a vertical layout.
         </Content>
       </Tile>
       <Box my={3} />
-      <Tile px={0} pb={0} orientation="vertical" pixelWidth={420}>
+      <Tile px={0} pb={0} orientation="vertical" width={420}>
         <Content>
           <Box px={3}>
             <Typography pb={2} variant="h4" fontWeight="bold">
@@ -163,19 +163,21 @@ The Tile component can be also have a vertical layout.
 </Preview>
 
 ### With custom widths
-The Tile component can also have custom widths. Any child wrapped by a Tile component can be passed an optional `width` prop - this is a percent value, dictating the width of the child element within the tile.
+The Tile component can also have a custom `width` which accepts either numbers or strings: any decimal between 0 and 1.0 
+will be converted into a percentage, any number grater will be be treated as pixels and any valid CSS string will also work. 
+Any child wrapped by a Tile component can be passed an optional `width` prop.
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
 
 <Preview>
   <Story name="custom Widths">
-    <Tile as="tile" orientation="horizontal" pixelWidth={0} width={75}>
+    <Tile as="tile" orientation="horizontal" width="75%">
       <Content
         align="left"
         variant="primary"
         bodyFullWidth={false}
         inline={false}
         title="Test Title One"
-        width={40}
+        width="40%"
       >
         Test Body One
       </Content>
@@ -185,7 +187,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
         bodyFullWidth={false}
         inline={false}
         title="Test Title Two"
-        width={80}
+        width="80%"
       >
         Test Body Two
       </Content>
@@ -195,7 +197,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
         bodyFullWidth={false}
         inline={false}
         title="Test Title Three"
-        width={120}
+        width="120%"
       >
         Test Body Three
       </Content>
@@ -208,14 +210,14 @@ The Tile component can also have inline styling applied to the content.
 
 <Preview>
   <Story name="with Inline">
-    <Tile as="tile" orientation="horizontal" pixelWidth={0} width={0}>
+    <Tile as="tile" orientation="horizontal" width={0}>
       <Content
         align="left"
         variant="primary"
         bodyFullWidth={false}
         inline={true}
         title="Test Title One"
-        width={80}
+        width="80%"
       >
         Test Body One
       </Content>
@@ -225,7 +227,7 @@ The Tile component can also have inline styling applied to the content.
         bodyFullWidth={false}
         inline={true}
         title="Test Title Two"
-        width={80}
+        width="80%"
       >
         Test Body Two
       </Content>
@@ -235,7 +237,7 @@ The Tile component can also have inline styling applied to the content.
         bodyFullWidth={false}
         inline={true}
         title="Test Title Three"
-        width={80}
+        width="80%"
       >
         Test Body Three
       </Content>
@@ -249,22 +251,22 @@ The Tile component can also have inline styling applied to the content.
   <Story name="with different padding and margin">
     <>
       <Tile p={0} m={0} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
       <Tile p={1} m={1} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
       <Tile p={2} m={2} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
       <Tile p={3} m={3} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
       <Tile p={4} m={4} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
       <Tile p={5} m={5} as="tile" orientation="horizontal">
-        <Content width={50}>Example content</Content>
+        <Content width="50%">Example content</Content>
       </Tile>
     </>
   </Story>
@@ -278,7 +280,7 @@ Please note that Dl, Dd and Dt use our common spacing props.
 
 <Preview>
   <Story name="with Definition List - default">
-    <Tile width={95}>
+    <Tile width="95%">
       <Dl>
         <Dt>Drink</Dt>
         <Dd>Coffee</Dd>
@@ -319,7 +321,7 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
 
 <Preview>
   <Story name="with Definition List and custom width">
-    <Tile width={95}>
+    <Tile width="95%">
       <Dl w={40}>
         <Dt>Drink</Dt>
         <Dd>Coffee</Dd>
@@ -360,7 +362,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 <Preview>
   <Story name="with Definition and custom text alignment">
-    <Tile width={40}>
+    <Tile width="40%">
       <Dl w={40} dtTextAlign="left" ddTextAlign="right">
         <Dt>Coffee Subscription</Dt>
         <Dd>£7.00 a month</Dd>
@@ -385,7 +387,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 <Preview>
   <Story name="with Definition List and ActionPopover and Icon support">
-    <Tile width={60}>
+    <Tile width="60%">
       <Dl>
       <Dt>
         <Box paddingTop="4px" display="inline-flex" alignItems="center">
@@ -509,7 +511,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 ## Props
 
 ### Tile
-<StyledSystemProps noHeader of={Tile} spacing spacingDefaults={{ p: 3 }} />
+<StyledSystemProps noHeader of={Tile} spacing width spacingDefaults={{ p: 3 }} />
 
 ### TileFooter
 <StyledSystemProps noHeader of={TileFooter} padding />
