@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import StyledColumn from "./column.style";
+import Logger from "../../../utils/logger/logger";
 
 const Column = ({
   columnAlign,
@@ -11,18 +12,24 @@ const Column = ({
   columnClasses,
   className,
   ...props
-}) => (
-  <StyledColumn
-    columnAlign={columnAlign}
-    className={classNames(className, columnClasses)}
-    columns={columns}
-    columnSpan={columnSpan}
-    columnOffset={columnOffset}
-    data-component="column"
-  >
-    {props.children}
-  </StyledColumn>
-);
+}) => {
+  Logger.deprecate(
+    "`Column` component is deprecated and will soon be removed."
+  );
+
+  return (
+    <StyledColumn
+      columnAlign={columnAlign}
+      className={classNames(className, columnClasses)}
+      columns={columns}
+      columnSpan={columnSpan}
+      columnOffset={columnOffset}
+      data-component="column"
+    >
+      {props.children}
+    </StyledColumn>
+  );
+};
 
 Column.defaultProps = {
   columnOffset: "0",
