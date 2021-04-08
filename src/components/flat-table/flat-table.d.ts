@@ -7,12 +7,14 @@ export interface FlatTableProps {
   caption?: string;
   /** FlatTableHead and FlatTableBody */
   children: React.ReactNode;
-  /** If true, the header does not scroll with the content */
-  hasStickyHead?: boolean;
+  /** `FlatTable` color theme */
+  colorTheme?: "light" | "transparent-base" | "transparent-white" | "dark";
   /** Content to be rendered at the foot of the table */
   footer?: React.ReactNode;
   /** If true, the header does not scroll with the content */
   hasStickyFooter?: boolean;
+  /** If true, the header does not scroll with the content */
+  hasStickyHead?: boolean;
   /** Set the height of the table */
   height?: string | number;
   /** Toggles the zebra striping for the table rows */
