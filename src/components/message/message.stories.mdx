@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Message from '.';
 import Button from '../button';
@@ -167,4 +168,4 @@ It is also possible to use the `List`, `ListItem` and `Typography` components to
 
 ### Message
 
-<Props of={Message} />
+<StyledSystemProps of={Message} noHeader margin />
