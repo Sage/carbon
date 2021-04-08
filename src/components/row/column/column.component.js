@@ -4,6 +4,8 @@ import classNames from "classnames";
 import StyledColumn from "./column.style";
 import Logger from "../../../utils/logger/logger";
 
+let deprecatedWarnTriggered = false;
+
 const Column = ({
   columnAlign,
   columns,
@@ -13,9 +15,13 @@ const Column = ({
   className,
   ...props
 }) => {
-  Logger.deprecate(
-    "`Column` component is deprecated and will soon be removed."
-  );
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate(
+      "`Column` component is deprecated and will soon be removed."
+    );
+  }
 
   return (
     <StyledColumn
