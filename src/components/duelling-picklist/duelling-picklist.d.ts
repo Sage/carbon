@@ -7,10 +7,10 @@ export interface DuellingPicklistProps extends MarginSpacingProps {
   disabled?: boolean;
   /** Place for components like Search or Filter placed above the left list */
   leftControls?: React.ReactNode;
-  /** Place for components like Search or Filter placed above the right list */
-  rightControls?: React.ReactNode;
   /** Left list label */
   leftLabel?: string;
+  /** Place for components like Search or Filter placed above the right list */
+  rightControls?: React.ReactNode;
   /** Right list label */
   rightLabel?: string;
 }
