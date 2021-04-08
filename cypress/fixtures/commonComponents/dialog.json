@@ -53,7 +53,7 @@
   "showCloseIconFalse": {
     "showCloseIcon": false
   },
-  "showCloseIconTrue": {
+  "showCloseIcon": {
     "showCloseIcon": true
   },
   "enableBackgroundUI":{

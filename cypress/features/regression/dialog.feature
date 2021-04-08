@@ -85,7 +85,7 @@ Feature: Dialog component
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIconTrue" object name
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIcon" object name
       And closeIcon is visible
     When I click closeIcon
       And Dialog is not visible

@@ -50,7 +50,7 @@ Then("the date after maxDate is not available", () => {
     .and("contains", "false");
 });
 
-When("I click dateInput in noIframe", () => {
+When("I click dateInput", () => {
   dateInputNoIFrame().click({ force: true });
 });
 

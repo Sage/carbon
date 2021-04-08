@@ -37,8 +37,6 @@ import DEBUG_FLAG from "..";
 import { pagerSummary } from "../../locators/pager";
 
 const TEXT_ALIGN = "justify-content";
-const TEXT_ALIGN_START = "flex-start";
-const TEXT_ALIGN_END = "flex-end";
 
 Given(
   "I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
@@ -247,6 +245,10 @@ When("I press {string} onto focused element", (key) => {
   cy.focused().trigger("keydown", keyCode(key));
 });
 
+When("I press Tab onto focused element", () => {
+  cy.focused().tab();
+});
+
 When("I press ESC onto focused element", () => {
   cy.focused().trigger("keydown", { keyCode: 16, which: 16, release: false });
   cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
@@ -279,13 +281,13 @@ Then("label Align on preview is {string} in NoIFrame", (direction) => {
     getDataElementByValue("label")
       .parent()
       .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START)
+        expect($element).to.have.css(TEXT_ALIGN, "flex-start")
       );
   } else {
     getDataElementByValue("label")
       .parent()
       .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END)
+        expect($element).to.have.css(TEXT_ALIGN, "flex-end")
       );
   }
 });

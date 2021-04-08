@@ -53,7 +53,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario: Open dayPickerDay via click on input
     Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "default" object name
-    When I click dateInput in noIframe
+    When I click dateInput
     Then dayPickerDay is visible
 
   @positive
@@ -77,7 +77,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario Outline: Show Date input at the <position> position
     Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
-    When I click dateInput in noIframe
+    When I click dateInput
     Then Date input is visible at the <position>
     Examples:
       | position | nameOfObject |
