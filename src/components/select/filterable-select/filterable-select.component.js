@@ -388,7 +388,10 @@ const FilterableSelect = React.forwardRef(
     function handleTextboxMouseDown(event) {
       isMouseDownReported.current = true;
 
-      if (event.target.attributes["data-element"].value === "input") {
+      if (
+        event.target.attributes["data-element"] &&
+        event.target.attributes["data-element"].value === "input"
+      ) {
         isMouseDownOnInput.current = true;
       }
     }

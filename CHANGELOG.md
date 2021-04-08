@@ -1,3 +1,10 @@
+### [68.9.1](https://github.com/Sage/carbon/compare/v68.9.0...v68.9.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** check event has a data element attribute before checking the value ([39db098](https://github.com/Sage/carbon/commit/39db09875b242632a1624e8540706988eac4bce0)), closes [#3754](https://github.com/Sage/carbon/issues/3754)
+
 ## [68.9.0](https://github.com/Sage/carbon/compare/v68.8.3...v68.9.0) (2021-04-06)
 
 
