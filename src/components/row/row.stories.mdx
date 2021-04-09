@@ -4,8 +4,13 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import Typography from "../typography";
 import Box from "../box";
 import { Row, Column } from ".";
+import DeprecationWarning from '../../__internal__/DeprecationWarning';
 
 <Meta title="Row" parameters={{ info: { disable: true } }} />
+
+<DeprecationWarning>
+  Row and Column are due to be depricated. Please use the Grid component in place of Row and Column.
+</DeprecationWarning>
 
 # Row & Column
 

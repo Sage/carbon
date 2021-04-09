@@ -19,6 +19,8 @@ export interface FlatTableProps {
   isZebra?: boolean;
   /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
   size?: 'compact' | 'small' | 'medium' | 'large';
+  /** Applies max-height of 100% to FlatTable if true */
+  hasMaxHeight?: boolean;
 }
 
 declare const FlatTable: React.FunctionComponent<FlatTableProps>;

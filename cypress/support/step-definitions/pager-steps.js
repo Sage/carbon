@@ -29,13 +29,6 @@ Then("I click {string} pagination button", (button) => {
   paginationButtonByIndex(positionOfPaginationButton(button)).click();
 });
 
-Then("pagination buttons are disabled", () => {
-  const buttonsAmount = 4;
-  for (let i = 0; i < buttonsAmount; i++) {
-    paginationButtonByIndex(i).should("have.attr", "disabled");
-  }
-});
-
 Then("I click {word} {int} times", (direction, count) => {
   for (let i = 0; i < count; i++) {
     // click force true because element is overlapping

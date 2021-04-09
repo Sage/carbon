@@ -20,22 +20,6 @@ const TOMORROW_CALENDAR = Cypress.dayjs()
 const TODAY_KNOBS = Cypress.dayjs().format("YYYY-MM-DD");
 const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
 
-Then("Date input is disabled", () => {
-  dateInputNoIFrame().should("have.attr", "disabled");
-});
-
-Then("Date input is enabled", () => {
-  dateInputNoIFrame().should("not.have.attr", "disabled");
-});
-
-Then("Date input component is readOnly", () => {
-  dateInputNoIFrame().should("have.attr", "readonly");
-});
-
-Then("Date input component is not readOnly", () => {
-  dateInputNoIFrame().should("not.have.attr", "readonly");
-});
-
 When("I set dateInput to today", () => {
   dateInput().clear().type(TODAY_DATE_INPUT);
 });
@@ -67,10 +51,6 @@ Then("the date after maxDate is not available", () => {
 });
 
 When("I click dateInput", () => {
-  dateInput().click({ force: true });
-});
-
-When("I click dateInput in noIframe", () => {
   dateInputNoIFrame().click({ force: true });
 });
 
@@ -115,7 +95,7 @@ When("I click onto date icon twice", () => {
 });
 
 When("I click dateInput twice", () => {
-  dateInput()
+  dateInputNoIFrame()
     .click({ force: true })
     .then(($el) => {
       $el.click();

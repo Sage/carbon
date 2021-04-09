@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { PaddingSpacingProps } from "../../../utils/helpers/options-helper";
 
-export interface TabProps {
+export interface TabProps extends PaddingSpacingProps {
   title?: string;
   tabId: string;
   className?: string;

@@ -1,5 +1,4 @@
 // component preview locators
-export const SHOW_EDIT_POD = '[data-component="pod"]';
 export const SHOW_EDIT_POD_CONTENT_BOX = '[data-element="content"]';
 export const SHOW_EDIT_POD_CONTENT_ELEMENTS = '[data-component="content"]';
 
