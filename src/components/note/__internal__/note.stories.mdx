@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import Note from './note.component';
 import {
   ActionPopover,
@@ -204,4 +205,4 @@ An optional status can be provided using the `status` prop.
 ## Props
  
 ### Note
-<Props of={Note} />
+<StyledSystemProps of={Note} noHeader margin />
