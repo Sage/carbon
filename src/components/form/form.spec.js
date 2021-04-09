@@ -4,7 +4,11 @@ import { act } from "react-dom/test-utils";
 
 import baseTheme from "../../style/themes/base";
 import ElementResize from "../../utils/helpers/element-resize";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
+} from "../../__spec_helper__/test-utils";
 import Form from "./form.component";
 import {
   StyledLeftButtons,
@@ -25,6 +29,9 @@ describe("Form", () => {
     jest.useFakeTimers();
     wrapper = mount(<Form />);
   });
+
+  testStyledSystemMargin((props) => <Form {...props} />);
+  testStyledSystemPadding((props) => <Form {...props} />);
 
   it("allows custom classes to be added to the Form", () => {
     wrapper.setProps({ className: "foo" });

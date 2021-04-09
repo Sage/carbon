@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import ElementResize from "../../utils/helpers/element-resize";
 import FormSummary from "./form-summary.component";
+import {
+  filterStyledSystemMarginProps,
+  filterStyledSystemPaddingProps,
+} from "../../style/utils";
 import {
   StyledForm,
   StyledFormFooter,
@@ -12,6 +17,13 @@ import {
 } from "./form.style";
 
 const SCROLL_THROTTLE = 100;
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const Form = ({
   children,
@@ -28,6 +40,9 @@ const Form = ({
   ...rest
 }) => {
   const [isFooterSticky, setIsFooterSticky] = useState(false);
+
+  const marginProps = filterStyledSystemMarginProps(rest);
+  const paddingProps = filterStyledSystemPaddingProps(rest);
 
   const formRef = useRef();
   const formFooterRef = useRef();
@@ -86,6 +101,8 @@ const Form = ({
       fieldSpacing={fieldSpacing}
       noValidate={noValidate}
       {...rest}
+      {...marginProps}
+      {...paddingProps}
     >
       {children}
       <StyledFormFooter
@@ -116,6 +133,8 @@ const Form = ({
 };
 
 Form.propTypes = {
+  ...marginPropTypes,
+  ...paddingPropTypes,
   /** Alignment of buttons */
   buttonAlignment: PropTypes.oneOf(["left", "right"]),
 
