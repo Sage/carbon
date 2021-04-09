@@ -1,3 +1,10 @@
+## [68.11.0](https://github.com/Sage/carbon/compare/v68.10.0...v68.11.0) (2021-04-09)
+
+
+### Features
+
+* **tabs, tab:** surface styled system margin interface in tabs and padding interface in tab ([5e125af](https://github.com/Sage/carbon/commit/5e125af229a54e826076e6928e5e59a0058d5ecb))
+
 ## [68.10.0](https://github.com/Sage/carbon/compare/v68.9.2...v68.10.0) (2021-04-09)
 
 
