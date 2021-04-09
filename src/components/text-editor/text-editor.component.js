@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import {
   ContentState,
   EditorState,
@@ -23,6 +24,7 @@ import {
   blockStyleFn,
 } from "./__internal__/utils";
 import {
+  StyledEditorWrapper,
   StyledEditorOutline,
   StyledEditorContainer,
 } from "./text-editor.style";
@@ -32,6 +34,11 @@ import Label from "../../__experimental__/components/label";
 import Events from "../../utils/helpers/events/events";
 import createGuid from "../../utils/helpers/guid";
 import LabelWrapper from "./__internal__/label-wrapper";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const INLINE_STYLES = ["BOLD", "ITALIC"];
@@ -50,6 +57,7 @@ const TextEditor = React.forwardRef(
       info,
       toolbarElements,
       rows,
+      ...rest
     },
     ref
   ) => {
@@ -287,7 +295,7 @@ const TextEditor = React.forwardRef(
     ]);
 
     return (
-      <>
+      <StyledEditorWrapper {...rest}>
         <LabelWrapper onClick={() => handleEditorFocus(true)}>
           <Label labelId={labelId.current} isRequired={required}>
             {labelText}
@@ -335,12 +343,13 @@ const TextEditor = React.forwardRef(
             />
           </StyledEditorContainer>
         </StyledEditorOutline>
-      </>
+      </StyledEditorWrapper>
     );
   }
 );
 
 TextEditor.propTypes = {
+  ...marginPropTypes,
   /** The maximum characters that the input will accept */
   characterLimit: PropTypes.number,
   /** The text for the editor's label */
