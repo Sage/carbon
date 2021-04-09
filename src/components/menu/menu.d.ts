@@ -9,7 +9,9 @@ interface MenuContextProps {
 }
 
 export interface MenuProps {
+  /** Children elements */
   children: React.ReactNode;
+  /** Defines the color scheme of the component */
   menuType?: "light" | "dark";
 }
 
