@@ -6,8 +6,7 @@ import baseTheme from "../../style/themes/base";
 import ElementResize from "../../utils/helpers/element-resize";
 import {
   assertStyleMatch,
-  testStyledSystemMargin,
-  testStyledSystemPadding,
+  testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
 import Form from "./form.component";
 import {
@@ -33,8 +32,7 @@ describe("Form", () => {
     wrapper = mount(<Form />);
   });
 
-  testStyledSystemMargin((props) => <Form {...props} />);
-  testStyledSystemPadding((props) => <Form {...props} />);
+  testStyledSystemSpacing((props) => <Form {...props} />);
 
   it("allows custom classes to be added to the Form", () => {
     wrapper.setProps({ className: "foo" });
