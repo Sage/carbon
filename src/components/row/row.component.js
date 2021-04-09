@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import StyledRow from "./row.style";
+import Logger from "../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 const Row = ({
   columns,
@@ -12,6 +15,12 @@ const Row = ({
   className,
 }) => {
   const columnsCount = columns || React.Children.toArray(children).length;
+
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate("`Row` component is deprecated and will soon be removed.");
+  }
 
   const buildColumns = () =>
     React.Children.toArray(children).map((child) =>
