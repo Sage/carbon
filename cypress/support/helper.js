@@ -102,6 +102,11 @@ export function pressESCKey() {
   cy.iFrame("body").type("{shift}{esc}");
 }
 
+export function pressESCKeyNoIframe() {
+  // using Shift+Esc - because of storybook shortcuts override
+  cy.get("body").type("{shift}{esc}");
+}
+
 export function pressTABKey(count) {
   for (let i = 0; i < count; i++) {
     cy.iFrame("body").tab();
