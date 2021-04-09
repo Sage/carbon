@@ -117,7 +117,7 @@ const Form = ({
 };
 
 Form.propTypes = {
-  ...styledSystemPropTypes,
+  ...styledSystemPropTypes.space,
   /** Alignment of buttons */
   buttonAlignment: PropTypes.oneOf(["left", "right"]),
 
