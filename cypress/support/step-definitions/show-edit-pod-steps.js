@@ -4,12 +4,10 @@ import {
   showEditPodSaveButton,
   showEditPodDeleteButton,
   showEditPodTitle,
-  showEditPodComponent,
   showEditPodEditIFrame,
   showEditPodCancelButtonIFrame,
   showEditPodDeleteButtonIFrame,
 } from "../../locators/show-edit-pod";
-import { positionOfElement } from "../helper";
 
 Then("Show Edit Pod saveText on preview is set to {word}", (text) => {
   showEditPodSaveButton().should("have.text", text);
@@ -50,13 +48,6 @@ Then("Show Edit Pod component has saving property", () => {
     .and("have.css", "border", "2px solid rgba(0, 0, 0, 0)")
     .and("have.css", "color", "rgba(0, 0, 0, 0.3)")
     .and("have.attr", "disabled");
-});
-
-Then("Show Edit Pod background-color is set to {string}", (color) => {
-  showEditPodComponent()
-    .find("div")
-    .eq(positionOfElement("first"))
-    .should("have.css", "background-color", color);
 });
 
 When("I click delete button", () => {

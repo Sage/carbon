@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import Loader from '.';
 import Button from '../button';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Loader" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
 
@@ -69,4 +70,4 @@ please remember to pass the `isInsideButton` prop to the `Loader` component.
 ## Props
 
 ### Loader
-<Props of={Loader} />
+<StyledSystemProps of={Loader} noHeader margin />

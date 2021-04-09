@@ -160,14 +160,6 @@ Then("input type on preview is set to {string}", (type) => {
   }
 });
 
-Then("I click {string} header", (headerName) => {
-  if (headerName === "Country") {
-    tableHeader().eq(positionOfElement("first")).click();
-  } else {
-    tableHeader().eq(positionOfElement("second")).click();
-  }
-});
-
 Then("I click {string} header in IFrame", (headerName) => {
   if (headerName === "Country") {
     tableHeaderInIFrame().eq(positionOfElement("first")).click();
