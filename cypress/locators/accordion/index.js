@@ -2,7 +2,6 @@ import {
   ACCORDION_PREVIEW,
   ACCORDION_TITLE_CONTAINER,
   ACCORDION_ICON,
-  ACCORDION_DEFAULT_ID,
 } from "./locators";
 
 // component preview locators
@@ -13,10 +12,6 @@ export const accordionIcon = () =>
   accordionTitleContainerInIframe().find(ACCORDION_ICON);
 export const accordionTitleContainerByPositionInIfame = (index) =>
   accordionIframe().find(ACCORDION_TITLE_CONTAINER).eq(index).children();
-
-// DS locators
-export const accordionDefaultTitleDS = () =>
-  cy.iFrame(ACCORDION_DEFAULT_ID).find(ACCORDION_TITLE_CONTAINER);
 
 // NoIFrame locators
 export const accordionTitleContainer = () =>

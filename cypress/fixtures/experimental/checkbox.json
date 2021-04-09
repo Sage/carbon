@@ -16,5 +16,8 @@
   },
   "labelHelpSpecialCharacter": {
     "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "default": {
+    
   }
 }

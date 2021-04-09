@@ -3,8 +3,7 @@ import {
   dialogStickyFormFooter,
   openPreviewButton,
 } from "../../locators/dialog/index";
-import { backgroundUILocatorIFrame, dlsRoot } from "../../locators/index";
-import { dialogPreviewIFrame } from "../../locators/confirm";
+import { backgroundUILocator, dlsRoot } from "../../locators/index";
 
 Then("Dialog height is set to {int}", (height) => {
   dialogPreview()
@@ -22,12 +21,8 @@ Then("Dialog size property on preview is {string}", (size) => {
   dialogPreview().should("have.css", "width", `${size}px`);
 });
 
-Then("Dialog is visible in IFrame", () => {
-  dialogPreviewIFrame().should("be.visible");
-});
-
-Then("Dialog is not visible in IFrame", () => {
-  dialogPreviewIFrame().should("not.exist");
+Then("Dialog is not visible", () => {
+  dialogPreview().should("not.exist");
 });
 
 When("I click on {string} outside dialog", (position) => {
@@ -35,7 +30,7 @@ When("I click on {string} outside dialog", (position) => {
 });
 
 When("I click on background {string} outside dialog", (position) => {
-  backgroundUILocatorIFrame().click(position, { force: true });
+  backgroundUILocator().click(position, { force: true });
 });
 
 Then("Dialog is visible", () => {

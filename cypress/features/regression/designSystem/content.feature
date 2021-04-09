@@ -3,7 +3,7 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change children in Content dialog to <children>
-    When I open default "Design System Content Test" component in noIFrame with "content" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Design System Content Test" component in noIFrame with "content" json from "designSystem" using "<nameOfObject>" object name
     Then content children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -12,7 +12,7 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change title in Content dialog to <title>
-    When I open default "Design System Content Test" component in noIFrame with "content" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Design System Content Test" component in noIFrame with "content" json from "designSystem" using "<nameOfObject>" object name
     Then content title context children on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -21,12 +21,12 @@ Feature: Content component
 
   @positive
   Scenario: BodyFullWidth disabled
-    When I open default "Design System Content Test" component in noIFrame with "content" json from "commonComponents" using "bodyFullWidthFalse" object name
+    When I open default "Design System Content Test" component in noIFrame with "content" json from "designSystem" using "bodyFullWidthFalse" object name
     Then content preview has no bodyFullWidth parameter
 
   @positive
   Scenario Outline: Inline enabled and change title width to <width>
-    When I open default "Design System Content Test" component in noIFrame with "content" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Design System Content Test" component in noIFrame with "content" json from "designSystem" using "<nameOfObject>" object name
     Then content preview has inline parameter enabled
       And content preview width is "<width>"
     Examples:

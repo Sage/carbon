@@ -5,7 +5,7 @@ Feature: Toast Design System component
   Scenario: CloseIcon has the border outline
     Given I open "Design System Toast" component page "dismissible" in no iframe
       And I click on "button-toast-dismissible" Toggle Preview
-    When closeIcon is focused in no iframe
+    When closeIcon is focused
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive

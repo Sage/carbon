@@ -1,3 +1,17 @@
+### [68.9.2](https://github.com/Sage/carbon/compare/v68.9.1...v68.9.2) (2021-04-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix gap between table content and sticky footer ([c547f4e](https://github.com/Sage/carbon/commit/c547f4efdd035bb2dd0013b94c21bb38df8237c7)), closes [#3850](https://github.com/Sage/carbon/issues/3850)
+
+### [68.9.1](https://github.com/Sage/carbon/compare/v68.9.0...v68.9.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** check event has a data element attribute before checking the value ([39db098](https://github.com/Sage/carbon/commit/39db09875b242632a1624e8540706988eac4bce0)), closes [#3754](https://github.com/Sage/carbon/issues/3754)
+
 ## [68.9.0](https://github.com/Sage/carbon/compare/v68.8.3...v68.9.0) (2021-04-06)
 
 
