@@ -4,7 +4,7 @@ import throttle from "lodash/throttle";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import ElementResize from "../../utils/helpers/element-resize";
-import FormSummary from "./form-summary.component";
+import FormSummary from "./__internal__/form-summary.component";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
