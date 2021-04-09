@@ -5,7 +5,6 @@ import {
   confirmButtonIFrame,
   cancelButton,
   cancelButtonIFrame,
-  dialogPreviewIFrame,
 } from "../../locators/confirm";
 import { getDataElementByValue, icon } from "../../locators";
 import { positionOfElement } from "../helper";
@@ -14,12 +13,20 @@ Then("component subtitle on preview is {word}", (subtitle) => {
   dialogSubtitle().should("have.text", subtitle);
 });
 
-When("I click on a cancelButton", () => {
+When("I click on a cancelButton in IFrame", () => {
   cancelButtonIFrame().click();
 });
 
-When("I click on a confirmButton", () => {
+When("I click on a cancelButton", () => {
+  cancelButton().click({ force: true });
+});
+
+When("I click on a confirmButton in IFrame", () => {
   confirmButtonIFrame().click();
+});
+
+When("I click on a confirmButton", () => {
+  confirmButton().click();
 });
 
 Then("confirm button content on preview is {word}", (confirmButtonText) => {
@@ -35,11 +42,7 @@ Then("dialog title context on preview is {word}", (title) => {
 });
 
 Then("Confirm dialog is visible", () => {
-  dialogPreviewIFrame().should("be.visible");
-});
-
-Then("Confirm dialog is not visible in iFrame", () => {
-  dialogPreviewIFrame().should("not.exist");
+  dialogPreview().should("be.visible");
 });
 
 Then("Confirm dialog is not visible", () => {
