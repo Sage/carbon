@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Tab from './tab';
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface TabsProps {
+export interface TabsProps extends MarginSpacingProps {
   className?: string;
   renderHiddenTabs: boolean;
   selectedTabId: string;
