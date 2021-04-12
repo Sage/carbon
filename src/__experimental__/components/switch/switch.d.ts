@@ -9,7 +9,7 @@ export interface SwitchProps {
   id?: string;
   inputWidth?: number | string;
   label?: string;
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   labelAlign?: string;
   labelInline?: boolean;
   labelSpacing?: 1 | 2;
