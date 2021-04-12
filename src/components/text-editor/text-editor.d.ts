@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface TextEditorProps {
+export interface TextEditorProps extends MarginSpacingProps {
   characterLimit?: number;
   labelText: string;
   onChange: (event: object) => void;

@@ -1,8 +1,17 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { isSafari } from "../../utils/helpers/browser-type-check";
 
 const lineHeight = 21;
+
+const StyledEditorWrapper = styled.div`
+  ${margin}
+`;
+
+StyledEditorWrapper.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledEditorContainer = styled.div`
   ${({ theme, hasError, rows }) => css`
@@ -70,4 +79,4 @@ StyledEditorOutline.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledEditorContainer, StyledEditorOutline };
+export { StyledEditorWrapper, StyledEditorContainer, StyledEditorOutline };
