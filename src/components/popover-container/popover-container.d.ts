@@ -1,8 +1,8 @@
 import * as React from "react";
+import { PaddingProps } from "styled-system";
+import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
-import { AlignBinaryType, PaddingSpacingProps } from "../../utils/helpers/options-helper/options-helper";
-
-export interface PopoverContainerProps extends PaddingSpacingProps {
+export interface PopoverContainerProps extends PaddingProps {
   /** The element that will open popover-container */
   renderOpenComponent?: React.ReactNode | Node;
   /** The element that will close popover-container */
@@ -10,13 +10,15 @@ export interface PopoverContainerProps extends PaddingSpacingProps {
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
-  position?: AlignBinaryType;
+  position?: OptionsHelper.AlignBinaryType;
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */
   onClose?: () => void;
   /** if `true` the popover-container is open */
-  isOpen?: boolean;
+  open?: boolean;
+  /** Callback fires when open component is clicked */
+  onOpen?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** if `true` the popover-container will cover open button */
   shouldCoverButton?: boolean;
   /** The id of the element that describe the dialog. */
