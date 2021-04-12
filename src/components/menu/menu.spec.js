@@ -10,7 +10,11 @@ import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  testStyledSystemLayout,
+  testStyledSystemFlexBox,
+  assertStyleMatch,
+} from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 import {
@@ -45,6 +49,9 @@ describe("Menu", () => {
       </Menu>
     );
   });
+
+  testStyledSystemLayout((props) => <Menu {...props} />);
+  testStyledSystemFlexBox((props) => <Menu {...props} />);
 
   it("should render with correct `data-component`", () => {
     expect(wrapper.prop("data-component")).toEqual("menu");

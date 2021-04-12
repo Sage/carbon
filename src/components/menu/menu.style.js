@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { layout, flexbox } from "styled-system";
+
 import {
   StyledVerticalWrapper,
   StyledDivider,
@@ -6,11 +8,14 @@ import {
 import { baseTheme } from "../../style/themes";
 import Box from "../box";
 
-const StyledMenuWrapper = styled(Box).attrs({ as: "ul" })`
+const StyledMenuWrapper = styled.ul`
   line-height: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  ${layout}
+  ${flexbox}
 
   ${StyledVerticalWrapper} {
     ${({ menuType, theme }) => css`
