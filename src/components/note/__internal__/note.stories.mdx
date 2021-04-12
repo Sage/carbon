@@ -202,6 +202,29 @@ An optional status can be provided using the `status` prop.
   </Story>
 </Preview>
 
+### With margin
+Margins can be applied to the `note` component using styled-system. To see a full list of available margin props, please visit
+the props table at the bottom of this page. 
+
+[Visit Props Table](#props)
+
+<Preview>
+  <Story name="with margin" parameters={{ info: { disable: true }}}>
+    {() => {
+      const noteContent = EditorState.createWithContent(ContentState.createFromText('Here is some plain text content'));
+      return (
+        <div style={{ width: '50%' }}>
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'm={1}/>
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'm={3}/>
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'm={5}/>
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'm="16px"/>
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'm="32px"/>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ## Props
  
 ### Note
