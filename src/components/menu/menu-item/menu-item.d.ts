@@ -1,7 +1,11 @@
 import * as React from "react";
 import { IconTypes } from "../../../utils/helpers/options-helper/options-helper";
+import {
+  LayoutProps,
+  FlexBoxProps,
+} from "../../../utils/helpers/options-helper";
 
-export interface MenuItemProps {
+export interface MenuItemProps extends LayoutProps, FlexBoxProps {
   children: React.ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;

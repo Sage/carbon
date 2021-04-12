@@ -6,7 +6,6 @@ import {
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
 import { baseTheme } from "../../style/themes";
-import Box from "../box";
 
 const StyledMenuWrapper = styled.ul`
   line-height: 40px;
@@ -37,7 +36,10 @@ const StyledMenuWrapper = styled.ul`
   }
 `;
 
-const StyledMenuItem = styled(Box).attrs({ as: "li" })`
+const StyledMenuItem = styled.li`
+  ${layout}
+  ${flexbox}
+  
   ${({ inSubmenu }) => css`
     ${inSubmenu &&
     css`
