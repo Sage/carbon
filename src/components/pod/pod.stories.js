@@ -21,11 +21,7 @@ export default {
 export const Default = () => {
   const border = boolean("border", Pod.defaultProps.border);
   const children = text("children", "This is some example content for a Pod");
-  const padding = select(
-    "padding",
-    OptionsHelper.sizesPod,
-    Pod.defaultProps.padding
-  );
+  const size = select("size", OptionsHelper.sizesPod, Pod.defaultProps.size);
   const title = text("title", "");
   const subtitle = text("subtitle", "");
   const alignTitle = title
@@ -55,7 +51,7 @@ export const Default = () => {
   return (
     <Pod
       border={border}
-      padding={padding}
+      size={size}
       title={title}
       subtitle={subtitle}
       alignTitle={alignTitle}
