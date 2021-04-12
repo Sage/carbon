@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-export interface FlatTableProps {
+import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+export interface FlatTableProps extends MarginSpacingProps {
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby?: string;
   /** A string to render as the table's caption */

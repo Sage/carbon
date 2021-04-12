@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import {
+  StyledFlatTableRoot,
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
 } from "./flat-table.style";
 import { SidebarContext } from "../drawer";
 import Box from "../box";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTable = ({
   caption,
@@ -37,9 +43,8 @@ const FlatTable = ({
   return (
     <SidebarContext.Consumer>
       {(context) => (
-        <>
+        <StyledFlatTableRoot {...props}>
           <Box
-            {...props}
             {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
             height={addDefaultHeight ? "100%" : height}
           >
@@ -65,13 +70,14 @@ const FlatTable = ({
               {footer}
             </StyledFlatTableFooter>
           )}
-        </>
+        </StyledFlatTableRoot>
       )}
     </SidebarContext.Consumer>
   );
 };
 
 FlatTable.propTypes = {
+  ...marginPropTypes,
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby: PropTypes.string,
   /** A string to render as the table's caption */

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
 
@@ -14,9 +14,9 @@ const StyledFlatTableCell = styled.td`
     white-space: nowrap;
     padding: 0;
 
-    > div {
+    &&& > div {
       box-sizing: border-box;
-      ${space}
+      ${padding}
     }
 
     &:first-of-type {

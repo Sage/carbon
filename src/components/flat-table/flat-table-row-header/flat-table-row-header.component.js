@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import StyledFlatTableRowHeader from "./flat-table-row-header.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import Icon from "../../icon";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTableRowHeader = ({
   align,
@@ -39,8 +44,8 @@ const FlatTableRowHeader = ({
 };
 
 FlatTableRowHeader.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Styled system padding props */
+  ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),

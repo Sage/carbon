@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
@@ -69,6 +70,15 @@ const StyledFlatTable = styled.table`
 StyledFlatTable.defaultProps = {
   theme: baseTheme,
   size: "medium",
+};
+
+const StyledFlatTableRoot = styled.div`
+  ${margin};
+  height: 100%;
+`;
+
+StyledFlatTableRoot.defaultProps = {
+  theme: baseTheme,
 };
 
 const StyledFlatTableWrapper = styled.div`
@@ -169,4 +179,9 @@ StyledFlatTableFooter.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };
+export {
+  StyledFlatTableRoot,
+  StyledFlatTableWrapper,
+  StyledFlatTable,
+  StyledFlatTableFooter,
+};

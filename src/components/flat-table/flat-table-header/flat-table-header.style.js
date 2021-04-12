@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
 
@@ -28,9 +28,9 @@ const StyledFlatTableHeader = styled.th`
       padding-left: 1px;
     }
 
-    > div {
+    &&& > div {
       box-sizing: border-box;
-      ${space}
+      ${padding}
       ${colWidth &&
       css`
         width: ${colWidth}px;
