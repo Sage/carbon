@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledSplitButton from "./split-button.style";
@@ -9,6 +10,11 @@ import { validProps } from "../../utils/ether/ether";
 import Events from "../../utils/helpers/events";
 import guid from "../../utils/helpers/guid";
 import Popover from "../../__internal__/popover";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
@@ -239,6 +245,7 @@ class SplitButton extends Component {
         onMouseLeave={this.hideButtons}
         ref={this.splitButtonNode}
         {...this.componentTags()}
+        {...filterStyledSystemMarginProps(this.props)}
       >
         {this.renderMainButton}
         {this.renderAdditionalButtons}
@@ -248,6 +255,7 @@ class SplitButton extends Component {
 }
 
 SplitButton.propTypes = {
+  ...marginPropTypes,
   /** Button type: "primary" | "secondary" */
   buttonType: PropTypes.oneOf(["primary", "secondary"]),
   /** Button type: "primary" | "secondary" for legacy theme */
