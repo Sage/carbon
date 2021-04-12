@@ -1,9 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import StyledTab from "./tab.style";
 import tagComponent from "../../../utils/helpers/tags/tags";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
 const TabContext = React.createContext({});
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const Tab = ({
   ariaLabelledby,
@@ -77,6 +83,8 @@ const Tab = ({
         aria-labelledby={ariaLabelledby}
         position={position}
         {...tagComponent("tab", rest)}
+        {...(position === "top" ? { pt: "10px" } : { pl: "10px" })}
+        {...rest}
       >
         {!href && children}
       </StyledTab>
@@ -85,6 +93,7 @@ const Tab = ({
 };
 
 Tab.propTypes = {
+  ...paddingPropTypes,
   title: PropTypes.string,
   /** A unique ID to identify this specific tab. */
   tabId: PropTypes.string.isRequired,
