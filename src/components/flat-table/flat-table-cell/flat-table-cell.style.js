@@ -4,7 +4,7 @@ import { space } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCell = styled.td`
-  ${({ align, theme, rowSpan }) => css`
+  ${({ align, theme, rowSpan, leftPosition, makeCellSticky }) => css`
     background-color: #fff;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
@@ -16,7 +16,7 @@ const StyledFlatTableCell = styled.td`
 
     > div {
       box-sizing: border-box;
-      ${space};
+      ${space}
     }
 
     &:first-of-type {
@@ -32,6 +32,13 @@ const StyledFlatTableCell = styled.td`
       &:first-of-type + & {
         border-left: 1px solid ${theme.table.secondary};
       }
+    `}
+
+    ${makeCellSticky &&
+    css`
+      top: auto;
+      left: ${leftPosition}px;
+      position: sticky;
     `}
   `}
 `;

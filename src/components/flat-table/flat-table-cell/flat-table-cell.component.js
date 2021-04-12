@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
@@ -18,10 +18,24 @@ const FlatTableCell = ({
   expandable = false,
   onClick,
   onKeyDown,
+  reportCellWidth,
+  cellIndex,
+  leftPosition,
   ...rest
 }) => {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    if (ref.current && reportCellWidth) {
+      reportCellWidth(ref.current.offsetWidth, cellIndex);
+    }
+  }, [reportCellWidth, cellIndex]);
+
   return (
     <StyledFlatTableCell
+      leftPosition={leftPosition || 0}
+      makeCellSticky={!!reportCellWidth}
+      ref={ref}
       align={align}
       data-element="flat-table-cell"
       colSpan={colspan}
@@ -66,6 +80,24 @@ FlatTableCell.propTypes = {
    * @ignore
    */
   onKeyDown: PropTypes.func,
+  /**
+   * @private
+   * @ignore
+   * Sets the left position when sticky column found
+   */
+  leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Index of cell within row
+   */
+  cellIndex: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Callback to report the offsetWidth
+   */
+  reportCellWidth: PropTypes.func,
 };
 
 FlatTableCell.defaultProps = {

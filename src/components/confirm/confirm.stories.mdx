@@ -12,6 +12,20 @@ import Button from '../button';
 # Confirm
 Confirms or cancels an action.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Confirm from "carbon-react/lib/components/confirm";
+```
+
+## Designer Notes
 Shows a static message in a dialog which asks the user to confirm or cancel an action they’ve initiated.
 
 Useful to confirm actions which may be difficult to undo, or potentially harmful.
@@ -28,25 +42,7 @@ A good example could be confirming deletion of a large number of records.
 - Error or warning message that interrupts activity? [Try Alert](/?path=/docs/alert--default-story "Alert").
 - Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Dialog").
 
-## Quick Start
-
-Import the component and use as shown below:
-
-```jsx
-import Confirm from "carbon-react/lib/components/confirm";
-
-const MyComponent = ({ isOpen, handleClose, handleConfirm }) => (
-  <Confirm
-    onCancel={ handleClose }
-    onConfirm={ handleConfirm }
-    title="Title"
-    subtitle="Subtitle"
-    open={ isOpen }
-  >
-    Are you sure?
-  </Confirm>
-);
-```
+## Examples
 
 ### Default
 
@@ -240,7 +236,7 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Confirm
 

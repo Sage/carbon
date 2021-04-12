@@ -45,3 +45,8 @@ Feature: Link component
   Scenario: Check skip link is not visible without focus
     When I open "Link" component page "is skip link" in no iframe
     Then Skip link is not visible
+
+  @positive
+  Scenario: Check rel attr is able to be used in a link component
+    When I open "Link" component page "with rel" in no iframe
+    Then link has a rel attribute

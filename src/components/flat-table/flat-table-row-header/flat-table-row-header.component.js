@@ -14,10 +14,12 @@ const FlatTableRowHeader = ({
   expandable = false,
   onClick,
   onKeyDown,
+  leftPosition,
   ...rest
 }) => {
   return (
     <StyledFlatTableRowHeader
+      leftPosition={leftPosition || 0}
       align={align}
       data-element="flat-table-row-header"
       colWidth={width}

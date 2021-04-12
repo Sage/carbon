@@ -64,24 +64,50 @@ Feature: Dialog component
     Then Background UI is enabled
 
   @positive
-  Scenario: Disable background UI
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
-
-  # Sticky form footer tests
-  @positive
-  Scenario: Verify that stickyFormFooter is visible
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
-    Then Dialog stickyFormFooter is visible
-
-  @positive
-  Scenario: Verify default story color
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "stickyFooter" object name
-    Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border
-
-  @positive
   Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
     Given I open "Design System Form" component page "In dialog with sticky footer" in no iframe
       And I click on Open Preview button
     When I scroll to the bottom of the dialog
     Then The footer is not sticky
+
+  @positive
+  Scenario: Disable escape key
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "disableEscKey" object name
+      And I wait 500
+    When I hit ESC key in noIframe
+    Then Dialog is visible
+
+  @positive
+  Scenario: Enable escape key
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enabledEscKey" object name
+    When I hit ESC key in noIframe
+    Then Dialog is not visible
+
+  @positive
+  Scenario: ShowCloseIcon can close Dialog
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIcon" object name
+      And closeIcon is visible
+    When I click closeIcon
+      And Dialog is not visible
+
+  @positive
+  Scenario Outline: Click outside Dialog without background and Dialog remains open
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
+    When I click on "<position>" outside dialog
+    Then Dialog is visible
+    Examples:
+      | position |
+      | top      |
+      | topRight |
+      | right    |
+
+  @positive
+  Scenario Outline: Click on background outside Dialog and Dialog remains open
+    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "default" object name
+    When I click on background "<position>" outside dialog
+    Then Dialog is visible
+    Examples:
+      | position |
+      | top      |
+      | topRight |
+      | right    |

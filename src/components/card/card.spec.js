@@ -29,14 +29,14 @@ describe("Card", () => {
     describe.each(OptionsHelper.sizesRestricted)(
       'and the "spacing" prop is set to %s',
       (spacing) => {
-        it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
+        it(`then CardRow and CardFooter children should have the "spacing" prop added and set to "${spacing}"`, () => {
           const content = [
-            <div className="mockedContent" key="content1">
+            <CardRow className="mockedContent" key="content1">
               content
-            </div>,
-            <div className="mockedContent" key="content2">
+            </CardRow>,
+            <CardFooter className="mockedContent" key="content2">
               content2
-            </div>,
+            </CardFooter>,
           ];
           const wrapper = renderCard({
             children: content,
@@ -294,6 +294,14 @@ describe("Card", () => {
     const wrapper = renderCard({}, shallow);
 
     rootTagTest(wrapper, "card", undefined, undefined);
+  });
+
+  it("displays string when children prop has a string type", () => {
+    const wrapper = renderCard({ children: "String passed as child" }, shallow);
+
+    expect(wrapper.containsMatchingElement("String passed as child")).toBe(
+      true
+    );
   });
 });
 

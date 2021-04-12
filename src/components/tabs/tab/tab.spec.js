@@ -4,7 +4,10 @@ import { mount } from "enzyme";
 import Tab from "./tab.component";
 import Textbox from "../../../__experimental__/components/textbox";
 import StyledTab from "./tab.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/test-utils";
 
 const updateErrors = jest.fn();
 const updateWarnings = jest.fn();
@@ -53,6 +56,31 @@ function renderStyles(props) {
 
 describe("Tab", () => {
   let wrapper;
+
+  testStyledSystemPadding(
+    (props) => (
+      <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
+        TabContent
+      </Tab>
+    ),
+    { pt: "10px" }
+  );
+
+  testStyledSystemPadding(
+    (props) => (
+      <Tab
+        position="left"
+        title="Tab Title 1"
+        tabId="uniqueid1"
+        isTabSelected
+        {...props}
+      >
+        TabContent
+      </Tab>
+    ),
+    { pl: "10px" }
+  );
+
   it("has display property equals to none", () => {
     wrapper = renderStyles();
     assertStyleMatch(

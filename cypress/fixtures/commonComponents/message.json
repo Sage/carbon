@@ -7,23 +7,8 @@
   "titleSpecialCharacter": {
     "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "typeError": {
-    "type": "error"
-  },
-  "typeInfo": {
-    "type": "info"
-  },
-  "typeSuccess": {
-    "type": "tick"
-  },
-  "typeWarning": {
-    "type": "warning"
-  },
   "transparent": {
     "transparent": true
-  },
-  "transparentFalse": {
-    "transparent": false
   },
   "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"

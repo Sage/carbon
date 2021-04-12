@@ -9,7 +9,7 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
         "options": Object {
           "offset": Array [
             -11,
-            0,
+            5,
           ],
         },
       },
@@ -30,794 +30,289 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
   }
 >
   <styled.div
-    theme={
-      Object {
-        "accordion": Object {
-          "background": "#E6EBED",
-          "border": "#CCD6DB",
-        },
-        "anchorNavigation": Object {
-          "divider": "#CCD6DB",
-          "navItemHoverBackground": "#E6EBED",
-        },
-        "batchSelection": Object {
-          "lightTheme": "#B3C2C8",
-        },
-        "card": Object {
-          "footerBackground": "#F2F5F6",
-          "footerBorder": "#CCD6DB",
-        },
-        "carousel": Object {
-          "activeSelectorBackground": "#668592",
-          "inactiveSelectorBackground": "#CCD6DB",
-        },
-        "checkable": Object {
-          "checked": "rgba(0,0,0,0.90)",
-        },
-        "colors": Object {
-          "asterisk": "#C7384F",
-          "base": "#00A376",
-          "black": "#000000",
-          "border": "#668592",
-          "brand": "#00DC00",
-          "dashedBorder": "#99ADB6",
-          "dashedButtonText": "rgba(0, 0, 0, 0.9)",
-          "dashedHoverBackground": "#CCD6DB",
-          "destructive": Object {
-            "hover": "#9F2D3F",
-          },
-          "disabled": "#66C266",
-          "error": "#C7384F",
-          "focus": "#FFB500",
-          "focusedIcon": "#335C6D",
-          "focusedLinkBackground": "#FFDA80",
-          "hoveredTabKeyline": "#4DB84D",
-          "info": "#0073C2",
-          "previewBackground": "#BFCCD2",
-          "primary": "#008200",
-          "secondary": "#006300",
-          "slate": "#003349",
-          "success": "#00B000",
-          "tertiary": "#004500",
-          "warning": "#E96400",
-          "white": "#FFFFFF",
-          "whiteMix": "#E6F5E6",
-          "withOpacity": "rgba(0,163,118,0.55)",
-        },
-        "content": Object {
-          "secondaryColor": "#668592",
-        },
-        "definitionList": Object {
-          "ddText": "rgba(0,0,0,0.65)",
-          "dtTextDark": "rgba(0,0,0,0.9)",
-          "dtTextLight": "rgba(0,0,0,0.65)",
-        },
-        "disabled": Object {
-          "background": "#E6EBED",
-          "border": "#CCD6DB",
-          "button": "#E6EBED",
-          "buttonText": "rgba(0,0,0,.2)",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F5F6",
-          "switch": "#E4EAEC",
-          "text": "rgba(0,0,0,0.3)",
-        },
-        "draggableItem": Object {
-          "border": "#E6EBED",
-        },
-        "drawer": Object {
-          "background": "#EDF1F2",
-          "divider": "#D9E0E4",
-        },
-        "editor": Object {
-          "border": "#668592",
-          "button": Object {
-            "hover": "#CCD6DB",
-          },
-          "counter": "rgba(0,0,0,0.55)",
-          "placeholder": "rgba(0,0,0,0.30)",
-          "toolbar": Object {
-            "background": "#F2F5F6",
-          },
-        },
-        "flatTable": Object {
-          "dark": Object {
-            "border": "#668592",
-            "headerBackground": "#335C6D",
-          },
-          "drawerSidebar": Object {
-            "headerBackground": "#EDF1F2",
-            "highlighted": "#CCD6DB",
-            "hover": "#D9E0E4",
-            "selected": "#B3C2C8",
-          },
-          "headerIconColor": "#99ADB6",
-          "highlighted": "#E6EBED",
-          "hover": "#F2F5F6",
-          "light": Object {
-            "border": "#B3C2C8",
-            "headerBackground": "#CCD6DB",
-          },
-          "selected": "#D9E0E4",
-          "subRow": Object {
-            "background": "#FAFBFB",
-            "shadow": "rgba(0, 20, 29, 0.1)",
-          },
-          "transparentBase": Object {
-            "border": "#F2F5F6",
-            "headerBackground": "#F2F5F6",
-          },
-          "transparentWhite": Object {
-            "border": "#fff",
-            "headerBackground": "#fff",
-          },
-        },
-        "form": Object {
-          "invalid": "#F2F5F6",
-        },
-        "help": Object {
-          "color": "rgba(0,0,0,0.65)",
-          "hover": "rgba(0,0,0,0.9)",
-        },
-        "hr": Object {
-          "background": "#CCD6DB",
-        },
-        "icon": Object {
-          "default": "rgba(0,0,0,0.65)",
-          "defaultHover": "rgba(0,0,0,0.90)",
-          "disabled": "rgba(0,0,0,0.30)",
-          "onLightBackground": "#668592",
-          "onLightBackgroundHover": "#335C6D",
-        },
-        "menu": Object {
-          "dark": Object {
-            "divider": "#1A475B",
-            "searchIcon": "#8CA3AD",
-            "searchIconHover": "#BFCCD2",
-            "selected": "#1A475B",
-            "submenuBackground": "#001A25",
-            "title": "#99ADB6",
-          },
-          "divider": "#E6EBED",
-          "focus": "#F2F5F6",
-          "itemColor": "rgba(0,0,0,0.9)",
-          "itemColorDisabled": "rgba(0,0,0,0.3)",
-          "light": Object {
-            "background": "#E6EBED",
-            "divider": "#CCD6DB",
-            "selected": "#D9E0E4",
-            "title": "#406677",
-          },
-        },
-        "name": "base",
-        "navigationBar": Object {
-          "dark": Object {
-            "background": "#003349",
-            "borderBottom": "#003349",
-          },
-          "light": Object {
-            "background": "#E6EBED",
-            "borderBottom": "#D9E0E4",
-          },
-        },
-        "note": Object {
-          "timeStamp": "rgba(0,0,0,0.65)",
-        },
-        "numeralDate": Object {
-          "error": "#C7384F",
-          "passive": "#668592",
-        },
-        "pager": Object {
-          "active": "rgba(0,0,0,0.90)",
-          "alternate": "#EDF1F2",
-          "disabled": "rgba(0,0,0,0.3)",
-        },
-        "palette": Object {
-          "amethyst": "#582C83",
-          "amethystShade": [Function],
-          "amethystTint": [Function],
-          "blackOpacity": [Function],
-          "brilliantGreen": "#00DC00",
-          "brilliantGreenShade": [Function],
-          "brilliantGreenTint": [Function],
-          "carrotOrange": "#E96400",
-          "carrotOrangeShade": [Function],
-          "carrotOrangeTint": [Function],
-          "errorRed": "#C7384F",
-          "errorRedShade": [Function],
-          "errorRedTint": [Function],
-          "genericGreen": "#009900",
-          "genericGreenShade": [Function],
-          "genericGreenTint": [Function],
-          "gold": "#FFB500",
-          "goldShade": [Function],
-          "goldTint": [Function],
-          "navyBlue": "#004B87",
-          "navyBlueShade": [Function],
-          "navyBlueTint": [Function],
-          "plum": "#8246AF",
-          "plumShade": [Function],
-          "plumTint": [Function],
-          "productBlue": "#0077C8",
-          "productBlueShade": [Function],
-          "productBlueTint": [Function],
-          "productGreen": "#00A376",
-          "productGreenShade": [Function],
-          "productGreenTint": [Function],
-          "slate": "#003349",
-          "slateShade": [Function],
-          "slateTint": [Function],
-          "whiteOpacity": [Function],
-        },
-        "pill": Object {
-          "errorButtonFocus": "#9F2D3F",
-          "neutral": "#4D7080",
-          "neutralBackgroundFocus": "#1A475B",
-          "warning": "#ED8333",
-          "warningButtonFocus": "#E96400",
-        },
-        "pod": Object {
-          "border": "#CCD6DB",
-          "footerBackground": "#F2F5F6",
-          "hoverBackground": "#D9E0E4",
-          "secondaryBackground": "#F2F5F6",
-          "tertiaryBackground": "#E6EBED",
-          "tileBackground": "#FFFFFF",
-        },
-        "popoverContainer": Object {
-          "iconColor": "rgba(0,0,0,0.90)",
-        },
-        "portrait": Object {
-          "background": "#F2F5F6",
-          "border": "#8099A4",
-          "initials": "rgba(0,0,0,0.65)",
-        },
-        "readOnly": Object {
-          "textboxBackground": "#FAFBFB",
-          "textboxBorder": "#CCD6DB",
-          "textboxText": "rgba(0,0,0,0.74)",
-        },
-        "scrollbar": Object {
-          "dark": Object {
-            "thumb": "#99ADB6",
-            "track": "#335C6D",
-          },
-          "light": Object {
-            "thumb": "#668592",
-            "track": "#F2F5F6",
-          },
-        },
-        "search": Object {
-          "active": "#FFB500",
-          "button": "#255BC7",
-          "darkVariantBorder": "#8CA3AD",
-          "darkVariantPlaceholder": "#8CA3AD",
-          "darkVariantText": "#FFFFFF",
-          "icon": "#8CA3AD",
-          "iconDarkVariant": "#8CA3AD",
-          "iconDarkVariantHover": "#BFCCD2",
-          "iconHover": "#335C6D",
-          "passive": "#738F9B",
-          "searchActive": "#668592",
-        },
-        "select": Object {
-          "border": "#bfccd2",
-          "optionHeader": "rgba(0,0,0,0.55)",
-          "selected": "#F2F5F6",
-          "tableHeaderBorder": "#CCD6DB",
-        },
-        "shadows": Object {
-          "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
-          "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
-          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-        },
-        "space": Array [
-          0,
-          8,
-          16,
-          24,
-          32,
-          40,
-          48,
-          56,
-          64,
-          72,
-          80,
-        ],
-        "spacing": 8,
-        "switch": Object {
-          "off": "#CCD6DB",
-        },
-        "tab": Object {
-          "altHover": "#D9E0E4",
-          "background": "#CCD6DB",
-        },
-        "table": Object {
-          "dragging": "#E6EBED",
-          "header": "#335C6D",
-          "hover": "#E6EBED",
-          "primary": "#F2F5F6",
-          "secondary": "#CCD6DB",
-          "selected": "#D9E0E4",
-          "tertiary": "#1A475B",
-          "zebra": "#FAFBFB",
-        },
-        "text": Object {
-          "color": "rgba(0,0,0,0.9)",
-          "placeholder": "rgba(0,0,0,0.55)",
-          "size": "14px",
-        },
-        "tile": Object {
-          "border": "#CCD6DB",
-          "footerBackground": "#F2F5F6",
-          "separator": "#E6EBED",
-        },
-        "tileSelect": Object {
-          "border": "#BFCCD2",
-          "descriptionColor": "rgba(0,0,0,0.55)",
-          "disabledBackground": "#E6EBED",
-          "disabledText": "rgba(0,0,0,0.3)",
-          "hoverBackground": "#F2F5F6",
-        },
-        "zIndex": Object {
-          "aboveAll": 9999,
-          "fullScreenModal": 5000,
-          "header": 4000,
-          "modal": 3000,
-          "notification": 6000,
-          "overlay": 1000,
-          "popover": 2000,
-          "smallOverlay": 10,
-        },
-      }
-    }
+    theme="[ theme object ]"
   >
-    <styled.div
-      theme={
+    <DayPicker
+      canChangeMonth={true}
+      captionElement={
+        <Caption
+          classNames={
+            Object {
+              "body": "DayPicker-Body",
+              "caption": "DayPicker-Caption",
+              "container": "DayPicker",
+              "day": "DayPicker-Day",
+              "disabled": "disabled",
+              "footer": "DayPicker-Footer",
+              "interactionDisabled": "DayPicker--interactionDisabled",
+              "month": "DayPicker-Month",
+              "navBar": "DayPicker-NavBar",
+              "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
+              "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
+              "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
+              "outside": "outside",
+              "selected": "selected",
+              "today": "today",
+              "todayButton": "DayPicker-TodayButton",
+              "week": "DayPicker-Week",
+              "weekNumber": "DayPicker-WeekNumber",
+              "weekday": "DayPicker-Weekday",
+              "weekdays": "DayPicker-Weekdays",
+              "weekdaysRow": "DayPicker-WeekdaysRow",
+              "wrapper": "DayPicker-wrapper",
+            }
+          }
+        />
+      }
+      classNames={
         Object {
-          "accordion": Object {
-            "background": "#E6EBED",
-            "border": "#CCD6DB",
-          },
-          "anchorNavigation": Object {
-            "divider": "#CCD6DB",
-            "navItemHoverBackground": "#E6EBED",
-          },
-          "batchSelection": Object {
-            "lightTheme": "#B3C2C8",
-          },
-          "card": Object {
-            "footerBackground": "#F2F5F6",
-            "footerBorder": "#CCD6DB",
-          },
-          "carousel": Object {
-            "activeSelectorBackground": "#668592",
-            "inactiveSelectorBackground": "#CCD6DB",
-          },
-          "checkable": Object {
-            "checked": "rgba(0,0,0,0.90)",
-          },
-          "colors": Object {
-            "asterisk": "#C7384F",
-            "base": "#00A376",
-            "black": "#000000",
-            "border": "#668592",
-            "brand": "#00DC00",
-            "dashedBorder": "#99ADB6",
-            "dashedButtonText": "rgba(0, 0, 0, 0.9)",
-            "dashedHoverBackground": "#CCD6DB",
-            "destructive": Object {
-              "hover": "#9F2D3F",
-            },
-            "disabled": "#66C266",
-            "error": "#C7384F",
-            "focus": "#FFB500",
-            "focusedIcon": "#335C6D",
-            "focusedLinkBackground": "#FFDA80",
-            "hoveredTabKeyline": "#4DB84D",
-            "info": "#0073C2",
-            "previewBackground": "#BFCCD2",
-            "primary": "#008200",
-            "secondary": "#006300",
-            "slate": "#003349",
-            "success": "#00B000",
-            "tertiary": "#004500",
-            "warning": "#E96400",
-            "white": "#FFFFFF",
-            "whiteMix": "#E6F5E6",
-            "withOpacity": "rgba(0,163,118,0.55)",
-          },
-          "content": Object {
-            "secondaryColor": "#668592",
-          },
-          "definitionList": Object {
-            "ddText": "rgba(0,0,0,0.65)",
-            "dtTextDark": "rgba(0,0,0,0.9)",
-            "dtTextLight": "rgba(0,0,0,0.65)",
-          },
-          "disabled": Object {
-            "background": "#E6EBED",
-            "border": "#CCD6DB",
-            "button": "#E6EBED",
-            "buttonText": "rgba(0,0,0,.2)",
-            "disabled": "rgba(0,0,0,0.55)",
-            "input": "#F2F5F6",
-            "switch": "#E4EAEC",
-            "text": "rgba(0,0,0,0.3)",
-          },
-          "draggableItem": Object {
-            "border": "#E6EBED",
-          },
-          "drawer": Object {
-            "background": "#EDF1F2",
-            "divider": "#D9E0E4",
-          },
-          "editor": Object {
-            "border": "#668592",
-            "button": Object {
-              "hover": "#CCD6DB",
-            },
-            "counter": "rgba(0,0,0,0.55)",
-            "placeholder": "rgba(0,0,0,0.30)",
-            "toolbar": Object {
-              "background": "#F2F5F6",
-            },
-          },
-          "flatTable": Object {
-            "dark": Object {
-              "border": "#668592",
-              "headerBackground": "#335C6D",
-            },
-            "drawerSidebar": Object {
-              "headerBackground": "#EDF1F2",
-              "highlighted": "#CCD6DB",
-              "hover": "#D9E0E4",
-              "selected": "#B3C2C8",
-            },
-            "headerIconColor": "#99ADB6",
-            "highlighted": "#E6EBED",
-            "hover": "#F2F5F6",
-            "light": Object {
-              "border": "#B3C2C8",
-              "headerBackground": "#CCD6DB",
-            },
-            "selected": "#D9E0E4",
-            "subRow": Object {
-              "background": "#FAFBFB",
-              "shadow": "rgba(0, 20, 29, 0.1)",
-            },
-            "transparentBase": Object {
-              "border": "#F2F5F6",
-              "headerBackground": "#F2F5F6",
-            },
-            "transparentWhite": Object {
-              "border": "#fff",
-              "headerBackground": "#fff",
-            },
-          },
-          "form": Object {
-            "invalid": "#F2F5F6",
-          },
-          "help": Object {
-            "color": "rgba(0,0,0,0.65)",
-            "hover": "rgba(0,0,0,0.9)",
-          },
-          "hr": Object {
-            "background": "#CCD6DB",
-          },
-          "icon": Object {
-            "default": "rgba(0,0,0,0.65)",
-            "defaultHover": "rgba(0,0,0,0.90)",
-            "disabled": "rgba(0,0,0,0.30)",
-            "onLightBackground": "#668592",
-            "onLightBackgroundHover": "#335C6D",
-          },
-          "menu": Object {
-            "dark": Object {
-              "divider": "#1A475B",
-              "searchIcon": "#8CA3AD",
-              "searchIconHover": "#BFCCD2",
-              "selected": "#1A475B",
-              "submenuBackground": "#001A25",
-              "title": "#99ADB6",
-            },
-            "divider": "#E6EBED",
-            "focus": "#F2F5F6",
-            "itemColor": "rgba(0,0,0,0.9)",
-            "itemColorDisabled": "rgba(0,0,0,0.3)",
-            "light": Object {
-              "background": "#E6EBED",
-              "divider": "#CCD6DB",
-              "selected": "#D9E0E4",
-              "title": "#406677",
-            },
-          },
-          "name": "base",
-          "navigationBar": Object {
-            "dark": Object {
-              "background": "#003349",
-              "borderBottom": "#003349",
-            },
-            "light": Object {
-              "background": "#E6EBED",
-              "borderBottom": "#D9E0E4",
-            },
-          },
-          "note": Object {
-            "timeStamp": "rgba(0,0,0,0.65)",
-          },
-          "numeralDate": Object {
-            "error": "#C7384F",
-            "passive": "#668592",
-          },
-          "pager": Object {
-            "active": "rgba(0,0,0,0.90)",
-            "alternate": "#EDF1F2",
-            "disabled": "rgba(0,0,0,0.3)",
-          },
-          "palette": Object {
-            "amethyst": "#582C83",
-            "amethystShade": [Function],
-            "amethystTint": [Function],
-            "blackOpacity": [Function],
-            "brilliantGreen": "#00DC00",
-            "brilliantGreenShade": [Function],
-            "brilliantGreenTint": [Function],
-            "carrotOrange": "#E96400",
-            "carrotOrangeShade": [Function],
-            "carrotOrangeTint": [Function],
-            "errorRed": "#C7384F",
-            "errorRedShade": [Function],
-            "errorRedTint": [Function],
-            "genericGreen": "#009900",
-            "genericGreenShade": [Function],
-            "genericGreenTint": [Function],
-            "gold": "#FFB500",
-            "goldShade": [Function],
-            "goldTint": [Function],
-            "navyBlue": "#004B87",
-            "navyBlueShade": [Function],
-            "navyBlueTint": [Function],
-            "plum": "#8246AF",
-            "plumShade": [Function],
-            "plumTint": [Function],
-            "productBlue": "#0077C8",
-            "productBlueShade": [Function],
-            "productBlueTint": [Function],
-            "productGreen": "#00A376",
-            "productGreenShade": [Function],
-            "productGreenTint": [Function],
-            "slate": "#003349",
-            "slateShade": [Function],
-            "slateTint": [Function],
-            "whiteOpacity": [Function],
-          },
-          "pill": Object {
-            "errorButtonFocus": "#9F2D3F",
-            "neutral": "#4D7080",
-            "neutralBackgroundFocus": "#1A475B",
-            "warning": "#ED8333",
-            "warningButtonFocus": "#E96400",
-          },
-          "pod": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "hoverBackground": "#D9E0E4",
-            "secondaryBackground": "#F2F5F6",
-            "tertiaryBackground": "#E6EBED",
-            "tileBackground": "#FFFFFF",
-          },
-          "popoverContainer": Object {
-            "iconColor": "rgba(0,0,0,0.90)",
-          },
-          "portrait": Object {
-            "background": "#F2F5F6",
-            "border": "#8099A4",
-            "initials": "rgba(0,0,0,0.65)",
-          },
-          "readOnly": Object {
-            "textboxBackground": "#FAFBFB",
-            "textboxBorder": "#CCD6DB",
-            "textboxText": "rgba(0,0,0,0.74)",
-          },
-          "scrollbar": Object {
-            "dark": Object {
-              "thumb": "#99ADB6",
-              "track": "#335C6D",
-            },
-            "light": Object {
-              "thumb": "#668592",
-              "track": "#F2F5F6",
-            },
-          },
-          "search": Object {
-            "active": "#FFB500",
-            "button": "#255BC7",
-            "darkVariantBorder": "#8CA3AD",
-            "darkVariantPlaceholder": "#8CA3AD",
-            "darkVariantText": "#FFFFFF",
-            "icon": "#8CA3AD",
-            "iconDarkVariant": "#8CA3AD",
-            "iconDarkVariantHover": "#BFCCD2",
-            "iconHover": "#335C6D",
-            "passive": "#738F9B",
-            "searchActive": "#668592",
-          },
-          "select": Object {
-            "border": "#bfccd2",
-            "optionHeader": "rgba(0,0,0,0.55)",
-            "selected": "#F2F5F6",
-            "tableHeaderBorder": "#CCD6DB",
-          },
-          "shadows": Object {
-            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
-            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
-            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-          },
-          "space": Array [
-            0,
-            8,
-            16,
-            24,
-            32,
-            40,
-            48,
-            56,
-            64,
-            72,
-            80,
-          ],
-          "spacing": 8,
-          "switch": Object {
-            "off": "#CCD6DB",
-          },
-          "tab": Object {
-            "altHover": "#D9E0E4",
-            "background": "#CCD6DB",
-          },
-          "table": Object {
-            "dragging": "#E6EBED",
-            "header": "#335C6D",
-            "hover": "#E6EBED",
-            "primary": "#F2F5F6",
-            "secondary": "#CCD6DB",
-            "selected": "#D9E0E4",
-            "tertiary": "#1A475B",
-            "zebra": "#FAFBFB",
-          },
-          "text": Object {
-            "color": "rgba(0,0,0,0.9)",
-            "placeholder": "rgba(0,0,0,0.55)",
-            "size": "14px",
-          },
-          "tile": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "separator": "#E6EBED",
-          },
-          "tileSelect": Object {
-            "border": "#BFCCD2",
-            "descriptionColor": "rgba(0,0,0,0.55)",
-            "disabledBackground": "#E6EBED",
-            "disabledText": "rgba(0,0,0,0.3)",
-            "hoverBackground": "#F2F5F6",
-          },
-          "zIndex": Object {
-            "aboveAll": 9999,
-            "fullScreenModal": 5000,
-            "header": 4000,
-            "modal": 3000,
-            "notification": 6000,
-            "overlay": 1000,
-            "popover": 2000,
-            "smallOverlay": 10,
-          },
+          "body": "DayPicker-Body",
+          "caption": "DayPicker-Caption",
+          "container": "DayPicker",
+          "day": "DayPicker-Day",
+          "disabled": "disabled",
+          "footer": "DayPicker-Footer",
+          "interactionDisabled": "DayPicker--interactionDisabled",
+          "month": "DayPicker-Month",
+          "navBar": "DayPicker-NavBar",
+          "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
+          "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
+          "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
+          "outside": "outside",
+          "selected": "selected",
+          "today": "today",
+          "todayButton": "DayPicker-TodayButton",
+          "week": "DayPicker-Week",
+          "weekNumber": "DayPicker-WeekNumber",
+          "weekday": "DayPicker-Weekday",
+          "weekdays": "DayPicker-Weekdays",
+          "weekdaysRow": "DayPicker-WeekdaysRow",
+          "wrapper": "DayPicker-wrapper",
         }
       }
-    >
-      <DayPicker
-        canChangeMonth={true}
-        captionElement={
-          <Caption
-            classNames={
-              Object {
-                "body": "DayPicker-Body",
-                "caption": "DayPicker-Caption",
-                "container": "DayPicker",
-                "day": "DayPicker-Day",
-                "disabled": "disabled",
-                "footer": "DayPicker-Footer",
-                "interactionDisabled": "DayPicker--interactionDisabled",
-                "month": "DayPicker-Month",
-                "navBar": "DayPicker-NavBar",
-                "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
-                "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
-                "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
-                "outside": "outside",
-                "selected": "selected",
-                "today": "today",
-                "todayButton": "DayPicker-TodayButton",
-                "week": "DayPicker-Week",
-                "weekNumber": "DayPicker-WeekNumber",
-                "weekday": "DayPicker-Weekday",
-                "weekdays": "DayPicker-Weekdays",
-                "weekdaysRow": "DayPicker-WeekdaysRow",
-                "wrapper": "DayPicker-wrapper",
-              }
-            }
-          />
+      disabledDays={null}
+      enableOutsideDays={true}
+      fixedWeeks={true}
+      initialMonth={2019-04-01T00:00:00.000Z}
+      inline={true}
+      labels={
+        Object {
+          "nextMonth": "Next Month",
+          "previousMonth": "Previous Month",
         }
-        classNames={
-          Object {
-            "body": "DayPicker-Body",
-            "caption": "DayPicker-Caption",
-            "container": "DayPicker",
-            "day": "DayPicker-Day",
-            "disabled": "disabled",
-            "footer": "DayPicker-Footer",
-            "interactionDisabled": "DayPicker--interactionDisabled",
-            "month": "DayPicker-Month",
-            "navBar": "DayPicker-NavBar",
-            "navButtonInteractionDisabled": "DayPicker-NavButton--interactionDisabled",
-            "navButtonNext": "DayPicker-NavButton DayPicker-NavButton--next",
-            "navButtonPrev": "DayPicker-NavButton DayPicker-NavButton--prev",
-            "outside": "outside",
-            "selected": "selected",
-            "today": "today",
-            "todayButton": "DayPicker-TodayButton",
-            "week": "DayPicker-Week",
-            "weekNumber": "DayPicker-WeekNumber",
-            "weekday": "DayPicker-Weekday",
-            "weekdays": "DayPicker-Weekdays",
-            "weekdaysRow": "DayPicker-WeekdaysRow",
-            "wrapper": "DayPicker-wrapper",
-          }
+      }
+      locale="fr"
+      localeUtils={
+        Object {
+          "formatDay": [Function],
+          "formatMonthTitle": [Function],
+          "formatWeekdayLong": [Function],
+          "formatWeekdayShort": [Function],
+          "getFirstDayOfWeek": [Function],
+          "getMonths": [Function],
         }
-        disabledDays={null}
-        enableOutsideDays={true}
-        fixedWeeks={true}
-        initialMonth={2019-04-01T00:00:00.000Z}
-        inline={true}
-        labels={
-          Object {
-            "nextMonth": "Next Month",
-            "previousMonth": "Previous Month",
-          }
-        }
-        locale="fr"
-        localeUtils={
-          Object {
-            "formatDay": [Function],
-            "formatMonthTitle": [Function],
-            "formatWeekdayLong": [Function],
-            "formatWeekdayShort": [Function],
-            "getFirstDayOfWeek": [Function],
-            "getMonths": [Function],
-          }
-        }
-        navbarElement={<Navbar />}
-        numberOfMonths={1}
-        onDayClick={[Function]}
-        pagedNavigation={false}
-        renderDay={[Function]}
-        reverseMonths={false}
-        selectedDays={2019-04-01T00:00:00.000Z}
-        showWeekNumbers={false}
-        tabIndex={0}
-        weekdayElement={[Function]}
-      />
-    </styled.div>
+      }
+      navbarElement={<Navbar />}
+      numberOfMonths={1}
+      onDayClick={[Function]}
+      pagedNavigation={false}
+      renderDay={[Function]}
+      reverseMonths={false}
+      selectedDays={2019-04-01T00:00:00.000Z}
+      showWeekNumbers={false}
+      tabIndex={0}
+      weekdayElement={[Function]}
+    />
   </styled.div>
 </Popover>
 `;
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
+.c0 {
+  position: absolute;
+  height: 352px;
+  width: 352px;
+  z-index: 2000;
+}
+
+.c0 .DayPicker {
+  display: inline-block;
+}
+
+.c0 .DayPicker-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 1rem 0;
+}
+
+.c0 .DayPicker-Month {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 1rem;
+}
+
+.c0 .DayPicker-NavBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.c0 .DayPicker-NavButton {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.c0 .DayPicker-NavButton--prev {
+  left: 1rem;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI2cHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDI2IDUwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjIgKDEyMDQzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5wcmV2PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9InByZXYiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzLjM5MzE5MywgMjUuMDAwMDAwKSBzY2FsZSgtMSwgMSkgdHJhbnNsYXRlKC0xMy4zOTMxOTMsIC0yNS4wMDAwMDApIHRyYW5zbGF0ZSgwLjg5MzE5MywgMC4wMDAwMDApIiBmaWxsPSIjNTY1QTVDIj4KICAgICAgICAgICAgPHBhdGggZD0iTTAsNDkuMTIzNzMzMSBMMCw0NS4zNjc0MzQ1IEwyMC4xMzE4NDU5LDI0LjcyMzA2MTIgTDAsNC4yMzEzODMxNCBMMCwwLjQ3NTA4NDQ1OSBMMjUsMjQuNzIzMDYxMiBMMCw0OS4xMjM3MzMxIEwwLDQ5LjEyMzczMzEgWiIgaWQ9InJpZ2h0IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K");
+}
+
+.c0 .DayPicker-NavButton--next {
+  right: 1rem;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI2cHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDI2IDUwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjIgKDEyMDQzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5uZXh0PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9Im5leHQiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuOTUxNDUxLCAwLjAwMDAwMCkiIGZpbGw9IiM1NjVBNUMiPgogICAgICAgICAgICA8cGF0aCBkPSJNMCw0OS4xMjM3MzMxIEwwLDQ1LjM2NzQzNDUgTDIwLjEzMTg0NTksMjQuNzIzMDYxMiBMMCw0LjIzMTM4MzE0IEwwLDAuNDc1MDg0NDU5IEwyNSwyNC43MjMwNjEyIEwwLDQ5LjEyMzczMzEgTDAsNDkuMTIzNzMzMSBaIiBpZD0icmlnaHQiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=");
+}
+
+.c0 .DayPicker-NavButton--interactionDisabled {
+  display: none;
+}
+
+.c0 .DayPicker-Caption {
+  display: table-caption;
+  height: 1.5rem;
+  text-align: center;
+}
+
+.c0 .DayPicker-Weekdays {
+  display: table-header-group;
+}
+
+.c0 .DayPicker-WeekdaysRow {
+  display: table-row;
+}
+
+.c0 .DayPicker-Weekday {
+  display: table-cell;
+}
+
+.c0 .DayPicker-Body {
+  display: table-row-group;
+}
+
+.c0 .DayPicker-Week {
+  display: table-row;
+}
+
+.c0 .DayPicker-Day {
+  display: table-cell;
+  padding: 0.5rem;
+  border: 1px solid #eaecec;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.c0 .DayPicker-WeekNumber {
+  display: table-cell;
+  padding: 0.5rem;
+  text-align: right;
+  vertical-align: middle;
+  min-width: 1rem;
+  font-size: 0.75em;
+  cursor: pointer;
+  color: #8b9898;
+}
+
+.c0 .DayPicker--interactionDisabled .DayPicker-Day {
+  cursor: default;
+}
+
+.c0 .DayPicker-Footer {
+  display: table-caption;
+  caption-side: bottom;
+  padding-top: 0.5rem;
+}
+
+.c0 .DayPicker-TodayButton {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  color: #4a90e2;
+  font-size: 0.875em;
+}
+
+.c0 .DayPicker-Day--today {
+  color: #d0021b;
+  font-weight: 500;
+}
+
+.c0 .DayPicker-Day--disabled {
+  color: #dce0e0;
+  cursor: default;
+  background-color: #eff1f1;
+}
+
+.c0 .DayPicker-Day--outside {
+  cursor: default;
+  color: #dce0e0;
+}
+
+.c0 .DayPicker-Day--sunday {
+  background-color: #f7f8f8;
+}
+
+.c0 .DayPicker-Day--sunday:not(.DayPicker-Day--today) {
+  color: #dce0e0;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  color: #fff;
+  background-color: #4a90e2;
+}
+
+.c0 .DayPickerInput {
+  display: inline-block;
+}
+
+.c0 .DayPickerInput-OverlayWrapper {
+  position: relative;
+}
+
+.c0 .DayPickerInput-Overlay {
+  left: 0;
+  position: absolute;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
 .c0 .DayPicker {
   z-index: 1000;
   top: calc(100% + 1px);
@@ -828,10 +323,8 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   display: block;
   font-size: 14px;
   font-weight: 800;
-  margin-top: 3px;
   overflow: hidden;
   padding: 24px;
-  position: absolute;
   text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -909,7 +402,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 .c0 .DayPicker-Day--outside {
   color: rgba(0,0,0,0.55);
-  background-color: $ #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .c0 .DayPicker-Day--disabled,

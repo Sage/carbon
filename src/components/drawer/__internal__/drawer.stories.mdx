@@ -29,11 +29,20 @@ Drawer is a two column layout container.
 It is designed to have left hand side container expand and collapse to respectively reveal and hide the content of that container.
 Drawer component is designed to fill the space of the element that it is put inside.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
 ```javascript
 import Drawer from 'carbon-react/lib/components/drawer';
 ```
 
-### Uncontrolled usage:
+## Examples
+
+### Uncontrolled usage
 
 <Preview>
   <Story name="uncontrolled" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -57,7 +66,7 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
-### Uncontrolled - defaultExpanded usage:
+### Uncontrolled - defaultExpanded usage
 
 <Preview>
   <Story name="default expanded" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -82,7 +91,31 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
-### Custom Background Color (Red):
+### Custom height
+
+<Preview>
+  <Story name="custom height" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
+    return (
+      <Drawer
+        height='230px'
+        defaultExpanded
+        expandedWidth={ text('expandedWidth', '40%') }
+        animationDuration={ text('animationDuration', '0.5s') }
+        sidebar={ (
+          <ul>
+            <li>link a</li>
+            <li>link b</li>
+            <li>link c</li>
+          </ul>
+        ) }
+      >
+        content body content body content body content body content body content body content body
+      </Drawer>
+    )
+  </Story>
+</Preview>
+
+### Custom Background Color (Red)
 
 <Preview>
   <Story name="background color red" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -108,7 +141,7 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
-### Custom Background Color (White):
+### Custom Background Color (White)
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
@@ -134,7 +167,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Custom Background Color (Transparent):
+### Custom Background Color (Transparent)
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
@@ -160,7 +193,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Custom Title:
+### Custom Title
 
 <Preview>
   <Story name="title" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -185,7 +218,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### With Controls usage:
+### With Controls usage
 
 <Preview>
   <Story name="with controls" parameters={{ info: { disable: true }}} >
@@ -211,7 +244,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Custom Sidebar - FlatTable component as sidebar content:
+### Custom Sidebar - FlatTable component as sidebar content
 
 <Preview>
   <Story name="custom sidebar" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -291,7 +324,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Custom Content - FlatTable component as drawer content:
+### Custom Content - FlatTable component as drawer content
 
 <Preview>
   <Story name="custom content" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -400,7 +433,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Animation Speed (2 second):
+### Animation Speed (2 second)
 
 <Preview>
   <Story name="two second animation" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -444,7 +477,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Expanded width 30%:
+### Expanded width 30%
 
 <Preview>
   <Story name="expanded width 30" parameters={{ info: { disable: true }}} >
@@ -487,7 +520,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Expanded width 62%:
+### Expanded width 62%
 
 <Preview>
   <Story name="expanded width 62" parameters={{ info: { disable: true }}} >
@@ -530,7 +563,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Animation Speed (2 second):
+### Animation Speed (2 second)
 
 <Preview>
   <Story name="three second animation" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
@@ -574,7 +607,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Controlled Usage:
+### Controlled Usage
 
 <Preview>
   <Story name="controlled" parameters={{ info: { disable: true }}} >
@@ -619,7 +652,7 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Side View Navigation:
+### Side View Navigation
 
 <Preview>
   <Story name="side view navigation" parameters={{info: {disable: true}}}>
@@ -818,10 +851,10 @@ Note: parent container background-color is set to red for demonstration purpose.
 </Preview>
 
 ### With Tab controls
-
 You will need to override the targeting when using Tabs inside of the Drawer's sidebar. This can be done using the 
 `onTabChange` callback. If you also need to override the validation statuses, this can be done using the 
 `validationStatusOverride` prop.
+
 <Preview>
   <Story name="with tab controls" parameters={{ info: { disable: true }}} >
     {() => {
@@ -872,6 +905,20 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                   infoMessage='info'
                   title='Tab 4'
                   tabId='tab-4'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 5'
+                  tabId='tab-5'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 6'
+                  tabId='tab-6'
                 />
               </Tabs>
             ) }
@@ -1014,6 +1061,86 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                 onChange={ () => setInfos({ ...infos, four: !infos.four })}
               />
             </div>
+             <div style={{ display: active === 'tab-5' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 13
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 14
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 15
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 16
+                </Tab>
+              </Tabs>
+            </div>
+             <div style={{ display: active === 'tab-6' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 17
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 18
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 19
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 20
+                </Tab>
+              </Tabs>
+            </div>
           </div>
         </Drawer>
       </div>
@@ -1021,6 +1148,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
   </Story>
 </Preview>
 
-### Drawer Props
+## Props
 
+### Drawer
 <Props of={Drawer} />

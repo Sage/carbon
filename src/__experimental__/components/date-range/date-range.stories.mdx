@@ -14,9 +14,14 @@ Captures a start and end date.
 
 Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
 
-```jsx
+```javascript
 import DateRange from "carbon-react/lib/__experimental__/components/date-range";
 ```
 
@@ -65,7 +70,7 @@ import DateRange from "carbon-react/lib/__experimental__/components/date-range";
   </Story>
 </Preview>
 
-## Validations
+### Validations
 
 Validation status can be set by passing `startError`, `startWarning`, `startInfo`, `endError`, `endWarning` and `endInfo` props to the component.
 
@@ -75,7 +80,7 @@ Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
 
-### As a string
+#### As a string
 
 <Preview>
   <Story name="validations - string - component">
@@ -97,7 +102,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a string, displayed on label
+#### As a string, displayed on label
 
 <Preview>
   <Story name="validations - string - label">
@@ -120,7 +125,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a boolean
+#### As a boolean
 
 <Preview>
   <Story name="validations - boolean">
@@ -142,7 +147,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-## Allow Empty Value
+### Allow Empty Value
 
 You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDateProps` and `endDateProps`.
 
@@ -160,6 +165,8 @@ You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDat
   </Story>
 </Preview>
 
-## Props:
+## Props
+
+### Date Range
 
 <Props of={DateRange} />

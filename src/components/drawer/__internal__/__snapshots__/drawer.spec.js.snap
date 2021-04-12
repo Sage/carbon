@@ -3,6 +3,7 @@
 exports[`Drawer uncontrolled matches snapshot 1`] = `
 <styled.div
   data-component="drawer"
+  height="100%"
 >
   <styled.div
     animationDuration="0.5s"

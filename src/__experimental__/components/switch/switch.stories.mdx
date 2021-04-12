@@ -17,6 +17,18 @@ Disabled or read-only Switches might be difficult for a user to distinguish visu
 
 Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 
+## Contents
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Switch from "carbon-react/lib/__experimental__/components/switch"
+```
+
 ## Related Components
 - Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--default-story "Checkbox").
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
@@ -27,23 +39,8 @@ Consider ‘smart default’ selections, based on what your user is likely to ch
 
 The switch component uses `switch.on` and `switch.off` to retrieve the translations from I18n-js.
 
-## Quick Start
+## Examples
 
-```jsx
-import Switch from "carbon-react/lib/__experimental__/components/switch"
-
-const MyComponent = () => (
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="Label"
-      name="switch-name"
-      checked={isChecked}
-      onChange={ e => setIsChecked(e.target.checked) }
-    />
-  )
-);
-```
 ### Default
 
 <Preview>
@@ -163,7 +160,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-## Validations
+### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
 
@@ -173,7 +170,7 @@ Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
 
-### As a string
+#### As a string
 
 <Preview>
   <Story name="single switch - string validation">
@@ -189,7 +186,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a string with validationOnLabel
+#### As a string with validationOnLabel
 
 <Preview>
   <Story name="single switch - string validation - validationOnLabel">
@@ -206,7 +203,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a boolean
+#### As a boolean
 <Preview>
   <Story name="single switch - boolean validation">
     {() => ['error', 'warning', 'info'].map(type => (
@@ -221,7 +218,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Switch
 

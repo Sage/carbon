@@ -4,8 +4,6 @@ import {
   PICKLIST_ITEMS,
   PICKLIST_LEFT_LABEL,
   PICKLIST_RIGHT_LABEL,
-  ADD_ELEMENT,
-  REMOVE_ELEMENT,
 } from "./locators";
 import { SEARCH_COMPONENT } from "../search/locators";
 import CHECKBOX from "../checkbox/locators";
@@ -23,7 +21,7 @@ export const assignedPicklistItems = () =>
 export const picklistRightLabel = () => cy.get(PICKLIST_RIGHT_LABEL);
 export const picklistLeftLabel = () => cy.get(PICKLIST_LEFT_LABEL);
 export const addButton = (index) =>
-  unassignedPicklistItems().eq(index).find(ADD_ELEMENT);
-export const removeButton = () => assignedPicklist().find(REMOVE_ELEMENT);
+  unassignedPicklistItems().eq(index).find("button");
+export const removeButton = () => assignedPicklist().find("button");
 export const duellingSearchInput = () => cy.get(SEARCH_COMPONENT).find("input");
 export const checkBox = () => cy.get(CHECKBOX);

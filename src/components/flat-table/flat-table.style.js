@@ -7,6 +7,19 @@ import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.s
 import { baseTheme } from "../../style/themes";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
+import Box from "../box";
+
+const StyledFlatTableBox = styled(Box)`
+  ${({ theme }) =>
+    css`
+      box-shadow: inset 0px 0px 0px 1px ${theme.table.secondary};
+      box-sizing: border-box;
+    `}
+`;
+
+StyledFlatTableBox.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledFlatTable = styled.table`
   border-collapse: separate;
@@ -75,7 +88,7 @@ const StyledFlatTableWrapper = styled.div`
   ${({ heightDefaulted }) =>
     !heightDefaulted &&
     css`
-      height: 100%;
+      max-height: 100%;
     `}
 
   ${({ colorTheme, theme }) => {
@@ -161,7 +174,7 @@ const StyledFlatTableFooter = styled.div`
     hasStickyFooter &&
     css`
       position: sticky;
-      bottom: -40px; ;
+      bottom: -40px;
     `}
 `;
 
@@ -169,4 +182,9 @@ StyledFlatTableFooter.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };
+export {
+  StyledFlatTableWrapper,
+  StyledFlatTable,
+  StyledFlatTableFooter,
+  StyledFlatTableBox,
+};

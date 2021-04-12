@@ -2,7 +2,7 @@ Feature: Design System Duelling Picklist Component
   I want to test Design System Duelling Picklist component
 
   Background: Design System Duelling Picklist Component in noIframe
-    Given I open "Test DuellingPicklist" component page "default" in no iframe
+    Given I open "Design System DuellingPicklist" component page "default" in no iframe
 
   @positive
   Scenario: All items are unassigned
@@ -71,13 +71,6 @@ Feature: Design System Duelling Picklist Component
       | key   |
       | Enter |
       | Space |
-
-  @positive
-  Scenario: Verify that the nineteenth element in unassigned Duelling Picklist is focused using uparrow key
-    Given I check "first" element in unassigned picklist
-    When I press "uparrow" onto element in unassigned pick list
-    Then "nineteenth" element inner content is set to "Content 20Description 20"
-      And "nineteenth" element has golden border outline "rgb(255, 181, 0) solid 2px"
 
   @positive
   Scenario Outline: Verify results of searching in duelling picklist

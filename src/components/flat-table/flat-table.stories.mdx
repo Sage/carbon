@@ -24,8 +24,33 @@ import Box from '../box';
 <Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
 
 # Flat Table
+Logically structure content in a grid for the user to enter, view, or work with.
 
-### Default usage:
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start 
+Import all the necessary components from the flat table folder
+
+```javascript 
+import { 
+  FlatTable, 
+  FlatTableHead, 
+  FlatTableBody, 
+  FlatTableRow, 
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  FlatTableCheckbox,
+  Sort
+} from 'carbon-react/lib/components/flat-table';
+```
+
+## Examples 
+
+### Default
 
 <Preview>
   <Story name="default">
@@ -69,12 +94,15 @@ import Box from '../box';
 </Preview>
 
 ### With row headers
+Any cells preceding the `FlatTableRowHeader`s will automatically also be made sticky as seen in the example below.
+
 <Preview>
   <Story name="with row header" parameters={{ chromatic: { disable: true }}}>
     <div style={ { width: '380px', overflowX: 'auto' } }>
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
+            <FlatTableHeader>ID Number</FlatTableHeader>
             <FlatTableRowHeader>Name</FlatTableRowHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
@@ -83,24 +111,28 @@ import Box from '../box';
         </FlatTableHead>
         <FlatTableBody>
           <FlatTableRow>
+            <FlatTableCell>000001</FlatTableCell>
             <FlatTableRowHeader>John Doe</FlatTableRowHeader>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>0</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000002</FlatTableCell>
             <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
             <FlatTableCell>York</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
             <FlatTableCell>2</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000003</FlatTableCell>
             <FlatTableRowHeader>John Smith</FlatTableRowHeader>
             <FlatTableCell>Edinburgh</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>1</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
+            <FlatTableCell>000004</FlatTableCell>
             <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
             <FlatTableCell>Newcastle</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
@@ -113,8 +145,8 @@ import Box from '../box';
 </Preview>
 
 ### With custom cell paddings
-
 Padding can be set on each cell individually by using the spacing props syntax. Check prop tables at the bottom of this document for more information.
+
 <Preview>
   <Story name="with custom cell paddings">
     <FlatTable>
@@ -141,9 +173,9 @@ Padding can be set on each cell individually by using the spacing props syntax. 
 </Preview>
 
 ### With custom column width
-
 Column width can be set by passing number as a `width` prop to the column header component.
 **Column width can't be smaller than the sum of horizontal cell padding and content width.**
+
 <Preview>
   <Story name="with custom column width">
     <FlatTable>
@@ -177,6 +209,7 @@ Column width can be set by passing number as a `width` prop to the column header
 </Preview>
 
 ### With stickyHead prop set to true
+
 <Preview>
   <Story name="with sticky head" parameters={{ chromatic: { disable: true }}}>
     <div style={ { height: '150px' } }>
@@ -221,6 +254,7 @@ Column width can be set by passing number as a `width` prop to the column header
 </Preview>
 
 ### With stickyFooter prop set to true
+
 <Preview>
   <Story name="with sticky footer" parameters={{ chromatic: { disable: true }}}>
     {() => {
@@ -310,7 +344,145 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
+In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
+of `180px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+remains sticky.
+
+<Preview>
+  <Story name="with sticky footer inside of larger div" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### With hasMaxHeight
+By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
+
+<Preview>
+  <Story name="with sticky footer and hasMaxHeight" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter hasMaxHeight footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
 ### With clickable rows
+
 <Preview>
   <Story name="with clickable rows" parameters={{ chromatic: { disable: true }}}>
     <FlatTable>
@@ -353,6 +525,7 @@ Column width can be set by passing number as a `width` prop to the column header
 </Preview>
 
 ### With zebra stripes
+
 <Preview>
   <Story name="zebra">
     <FlatTable isZebra>
@@ -395,11 +568,13 @@ Column width can be set by passing number as a `width` prop to the column header
 </Preview>
 
 ### With sorting headers
+
 <Preview>
   <Story id="design-system-flat-table-test--sortable" name="with sorting headers" />
 </Preview>
 
 ### With a cell spanning the whole row 
+
 <Preview>
   <Story name="with colspan">
       <FlatTable>
@@ -420,7 +595,8 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
-### With a cell spanning the whole column 
+### With a cell spanning the whole column
+
 <Preview>
   <Story name="with rowspan">
       <FlatTable>
@@ -460,6 +636,7 @@ If a given action isn’t available for a single selected item, the option appea
 If a given action is available for some, but not all, selected rows, then the action is performed, but the user is notified.
 
 Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
+
 <Preview>
   <Story name="selectable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
@@ -538,6 +715,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
 
 ### With Highlightable Rows
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+
 <Preview>
   <Story name="highlightable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
@@ -561,25 +739,25 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
-              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+              <FlatTableCell>John Doe</FlatTableCell>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
-              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+              <FlatTableCell>Jane Doe</FlatTableCell>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('three') }highlighted={ highlightedRow === 'three' }>
-              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+              <FlatTableCell>John Smith</FlatTableCell>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow onClick={ () => handleHighlightRow('four') } highlighted={ highlightedRow === 'four' }>
-              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+              <FlatTableCell>Jane Smith</FlatTableCell>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>5</FlatTableCell>
@@ -593,6 +771,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 
 ### With Selectable and Highlightable Rows
 It is also possible to integrate selection of multiple rows and the highlighting of single rows.
+
 <Preview>
   <Story name="selectable and highlightable rows" parameters={{ chromatic: { disable: true }}}>
     {() => {
@@ -681,6 +860,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
 If pagination is needed, this can be shown at the bottom of the table.
 
 Balance performance concerns with the convenience of the user being able to see more data - we suggest giving the user the option of showing 25, 50, and 100 table rows before pagination, with a default of 50. Whatever the user selects, make this sticky per user, per table, and between sessions.
+
 <Preview>
   <Story name="paginated">
     {() => {
@@ -775,6 +955,7 @@ When using the `Pager` and a sticky `FlatTableHead` some of the child elements m
 overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning 
 it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top` 
 of the button control.
+
 <Preview>
   <Story name="paginated with sticky header" parameters={{ info: { disable: true }}} >
     {() => {
@@ -959,6 +1140,7 @@ of the button control.
 </Preview>
 
 ### When a child of Sidebar
+
 <Preview>
   <Story name="when a child of sidebar" parameters={{ chromatic: { disable: true }}}>
     {() => {
@@ -1092,26 +1274,21 @@ of the button control.
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### FlatTable
-
 <Props of={FlatTable} />
 
 ### FlatTableHead
-
 <Props of={FlatTableHead} />
 
 ### FlatTableBody
-
 <Props of={FlatTableBody} />
 
 ### FlatTableRow
-
 <Props of={FlatTableRow} />
 
 ### FlatTableHeader
-
 <StyledSystemProps
   of={ FlatTableHeader }
   spacing
@@ -1120,11 +1297,9 @@ of the button control.
 />
 
 ### Sort
-
 <Props of={Sort} />
 
 ### FlatTableCell
-
 <StyledSystemProps
   of={ FlatTableCell }
   spacing
@@ -1133,7 +1308,6 @@ of the button control.
 />
 
 ### FlatTableRowHeader
-
 <StyledSystemProps
   of={ FlatTableRowHeader }
   spacing
@@ -1142,5 +1316,4 @@ of the button control.
 />
 
 ### FlatTableCheckbox
-
 <Props of={FlatTableCheckbox} />

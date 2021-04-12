@@ -26,10 +26,10 @@
   "enableBackgroundUI":{
     "enableBackgroundUI": true
   },
-  "enableBackgroundUIFalse":{
-    "enableBackgroundUI": false
+  "disableEscKey": {
+    "disableEscKey": true
   },
-  "stickyFooter": {
-    "Form component stickyFooter": true
+  "enabledEscKey": {
+    "disableEscKey": false
   }
 }

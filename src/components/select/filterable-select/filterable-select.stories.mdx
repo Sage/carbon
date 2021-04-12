@@ -13,25 +13,30 @@ import StyledSystemProps from "../../../../.storybook/utils/styled-system-props"
 />
 
 # Filterable Select
-
-Select one of available options from the drop-down menu using filter
-
-## Overview
-
+Select one of available options from the drop-down menu using filter.
 Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with Inline Autocomplete.
 
-## Guidance, hints and tips
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
 
-Always insert `Option` Components inside the `FilterableSelect`, analogous to the `<select>` and `<option>` HTML Elements.
-
-If you type printable characters in the Textbox,
-you can filter through the existing options leaving only those that match the text you typed.
+## Quick Start
 
 ```javascript
 import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ```
 
-### Default usage:
+## Designer Notes
+Always insert `Option` Components inside the `FilterableSelect`, analogous to the `<select>` and `<option>` HTML Elements.
+
+If you type printable characters in the Textbox,
+you can filter through the existing options leaving only those that match the text you typed.
+
+## Examples
+
+### Default
 
 <Preview>
   <Story name="default">
@@ -62,7 +67,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### Controlled Usage:
+### Controlled Usage
 
 <Preview>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
@@ -104,7 +109,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### Open on focus:
+### Open on focus
 
 <Preview>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
@@ -124,7 +129,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### Disabled:
+### Disabled
 
 <Preview>
   <Story name="disabled">
@@ -144,7 +149,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### Read Only:
+### Read Only
 
 <Preview>
   <Story name="readonly">
@@ -164,7 +169,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### With disabled portal:
+### With disabled portal
 
 <Preview>
   <Story
@@ -192,7 +197,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### With multiple columns:
+### With multiple columns
 
 <Preview>
   <Story
@@ -241,7 +246,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### With Action Button:
+### With Action Button
 
 Default Action Button will be rendered when the `listActionButton` prop is set to `true` on the Component.
 
@@ -305,8 +310,7 @@ A custom `Button` Component could be passed as the `listActionButton` value.
   </Story>
 </Preview>
 
-### With isLoading prop:
-
+### With isLoading prop
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Preview>
@@ -365,8 +369,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
   </Story>
 </Preview>
 
-### Infinite scroll example:
-
+### Infinite scroll example
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
@@ -463,7 +466,6 @@ This prop will be called every time a user scrolls to the bottom of the list.
 </Preview>
 
 ### Required
-
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
@@ -489,8 +491,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-### With object as value:
-
+### With object as value
 Option values could be passed as objects, useful when custom data is associated with an option.
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
@@ -588,14 +589,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
   </Story>
 </Preview>
 
-## Props:
+## Props
 
-<StyledSystemProps of={FilterableSelect} margin />
+### Filterable Select 
+<StyledSystemProps of={FilterableSelect} noHeader margin />
 
 ### Props derived from the Textbox Component
-
 <Props of={SelectTextbox} />
 
 ### Props of the Option Component
-
 <Props of={Option} />

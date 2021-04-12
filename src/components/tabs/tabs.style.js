@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
 
 const StyledTabs = styled.div`
-  margin-top: 15px;
-
   ${({ position, inSidebar, theme }) => css`
     color: ${theme.text.color};
 
@@ -16,9 +15,10 @@ const StyledTabs = styled.div`
       `}
 
       width: 100%;
-      margin-top: 0;
     `}
   `}
+
+  ${margin}
 `;
 
 StyledTabs.defaultProps = {

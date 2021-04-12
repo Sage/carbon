@@ -13,20 +13,17 @@ Make sure that the colour of all text has a contrast ratio of at least 4.5.1,
 to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard") 
 for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/ "Contrast Checker").
 
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
 ## Quick Start
-Import `Detail` into the project.
 
-```jsx
+```javascript
 import Detail from "carbon-react/lib/components/detail";
-
-const MyComponent = () => (
-  <Detail>
-    This is where the children will live.
-  </Detail>
-);
-
 ```
-
+## Examples
 ### Default Detail
 This is an example of how the Detail component will look in its default format.
 <Preview>
@@ -59,6 +56,9 @@ Detail can also have an icon that renders to the left.
 </Preview>
 
 ### Inside of Components
+
+#### Inside of Card
+
 Detail can be nested inside of components. Inside of this example it is nested inside of the `Card` component.
 
 <Preview>
@@ -85,6 +85,8 @@ Detail can be nested inside of components. Inside of this example it is nested i
   </Story>
 </Preview>
 
+#### Inside of Tile
+
 In this example, Detail is nested inside of the `Tile` component.
 <Preview>
   <Story name="inside of tile">
@@ -110,4 +112,5 @@ In this example, Detail is nested inside of the `Tile` component.
 
 
 ## Props
+### Detail
 <Props of={Detail} />

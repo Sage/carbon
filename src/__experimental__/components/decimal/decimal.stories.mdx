@@ -12,19 +12,29 @@ import Box from "../../../components/box";
 />
 
 # Decimal
+Captures a number with a decimal point, or a currency value.
 
-- Captures a number with a decimal point, or a currency value.
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
+
+
+## Quick Start
+
+```javascript
+import Decimal from "carbon-react/lib/__experimental__/components/decimal";
+```
+
+## Designer Notes
 - For currency values, show currency symbols outside the field rather than inserting one for the user dynamically.
 - Carbon offers a Precision configuration, so you can choose how many decimal places to show.
 - Decimals are usually right-aligned, so that the decimal places of numbers presented in rows line up for easy comparison by the user.
 - Even if the user just enters a string of numbers, consider presenting them into a format with the separators which apply in the user’s country (e.g. £12,345.67 for the UK, and €12 345,67 for France).
 - Where it’s clear a field only accepts numerals, you could disable entry of other characters - but remember to cater for a minus sign if necessary.
 
-## Quick Start
-
-```jsx
-import Decimal from "carbon-react/lib/__experimental__/components/decimal";
-```
+## Examples
 
 ### Default
 
@@ -167,7 +177,7 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
-## Validations
+### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
 
@@ -177,7 +187,7 @@ Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
 
-### As a string
+#### As a string
 
 <Preview>
   <Story name="validations - string - component">
@@ -203,7 +213,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a string, displayed on label
+#### As a string, displayed on label
 
 <Preview>
   <Story name="validations - string - label">
@@ -231,7 +241,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-### As a boolean
+#### As a boolean
 
 <Preview>
   <Story name="validations - boolean">
@@ -257,7 +267,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Decimal
 

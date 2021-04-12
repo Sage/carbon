@@ -2,7 +2,7 @@ import React from "react";
 import { mount, shallow } from "enzyme";
 import ReactDOM from "react-dom";
 import Portal from "./portal";
-import Icon from "./../icon";
+import Icon from "../icon";
 import guid from "../../utils/helpers/guid";
 import Browser from "../../utils/helpers/browser";
 
@@ -10,8 +10,35 @@ jest.mock("../../utils/helpers/guid");
 
 describe("Portal", () => {
   guid.mockImplementation(() => "guid-12345");
-
   let wrapper;
+
+  describe("when an element with id 'root' exists", () => {
+    let rootWrapper;
+
+    beforeEach(() => {
+      const rootDiv = global.document.createElement("div");
+      rootDiv.setAttribute("id", "root");
+      const body = global.document.querySelector("body");
+      body.appendChild(rootDiv);
+    });
+
+    afterEach(() => {
+      if (rootWrapper) {
+        rootWrapper.unmount();
+        rootWrapper = null;
+      }
+    });
+
+    it("will mount on that element", () => {
+      rootWrapper = mount(
+        <Portal>
+          <p>Test</p>
+        </Portal>
+      );
+
+      expect(document.body.innerHTML).toMatchSnapshot();
+    });
+  });
 
   describe("when using default node", () => {
     beforeEach(() => {
@@ -28,8 +55,10 @@ describe("Portal", () => {
       document.body.innerHTML = "";
     });
 
-    it("will mount correctly on document", () => {
-      expect(document.body.innerHTML).toMatchSnapshot();
+    describe("when an element with id 'root' does not exist", () => {
+      it("will mount on body", () => {
+        expect(document.body.innerHTML).toMatchSnapshot();
+      });
     });
 
     it("can be able to access Icon", () => {
@@ -74,11 +103,11 @@ describe("Portal", () => {
     describe("when NOT given reposition prop", () => {
       let parentDiv;
       beforeEach(() => {
-        spyOn(Browser.getWindow(), "addEventListener");
-        spyOn(Browser.getWindow(), "removeEventListener");
+        spyOn(window, "addEventListener");
+        spyOn(window, "removeEventListener");
         spyOn(ReactDOM, "findDOMNode").and.returnValue(parentDiv);
 
-        parentDiv = Browser.getDocument().createElement("div");
+        parentDiv = document.createElement("div");
         spyOn(parentDiv, "addEventListener");
         spyOn(parentDiv, "removeEventListener");
 
@@ -94,16 +123,12 @@ describe("Portal", () => {
       });
 
       it('will NOT add window "resize" listener ', () => {
-        expect(Browser.getWindow().addEventListener).not.toHaveBeenCalledWith(
-          "resize"
-        );
+        expect(window.addEventListener).not.toHaveBeenCalledWith("resize");
       });
 
       it('will NOT remove window "resize" listener on unnmount', () => {
         wrapper.unmount();
-        expect(
-          Browser.getWindow().removeEventListener
-        ).not.toHaveBeenCalledWith("resize");
+        expect(window.removeEventListener).not.toHaveBeenCalledWith("resize");
       });
 
       it('will NOT window "scroll" listener ', () => {
@@ -119,13 +144,14 @@ describe("Portal", () => {
     describe("when given reposition prop", () => {
       let repositionCb;
       let parentDiv;
+
       beforeEach(() => {
         repositionCb = jasmine.createSpy("onReposition");
-        parentDiv = Browser.getDocument().createElement("div");
+        parentDiv = document.createElement("div");
         parentDiv.style.overflow = "auto";
 
-        spyOn(Browser.getWindow(), "addEventListener");
-        spyOn(Browser.getWindow(), "removeEventListener");
+        spyOn(window, "addEventListener");
+        spyOn(window, "removeEventListener");
         spyOn(ReactDOM, "findDOMNode").and.returnValue(parentDiv);
         spyOn(parentDiv, "addEventListener");
         spyOn(parentDiv, "removeEventListener");
@@ -141,7 +167,7 @@ describe("Portal", () => {
       });
 
       it('will add window "resize" listener ', () => {
-        expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith(
+        expect(window.addEventListener).toHaveBeenCalledWith(
           "resize",
           repositionCb
         );
@@ -149,7 +175,7 @@ describe("Portal", () => {
 
       it('will remove "resize" listener on unnmount', () => {
         wrapper.unmount();
-        expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith(
+        expect(window.removeEventListener).toHaveBeenCalledWith(
           "resize",
           repositionCb
         );
@@ -157,21 +183,6 @@ describe("Portal", () => {
 
       it('will call window "reposition" callback ', () => {
         expect(repositionCb).toHaveBeenCalled();
-      });
-
-      it('will add window "scroll" listener ', () => {
-        expect(parentDiv.addEventListener).toHaveBeenCalledWith(
-          "scroll",
-          repositionCb
-        );
-      });
-
-      it('will remove "scroll" listener on unnmount', () => {
-        wrapper.unmount();
-        expect(parentDiv.removeEventListener).toHaveBeenCalledWith(
-          "scroll",
-          repositionCb
-        );
       });
     });
   });
@@ -204,8 +215,8 @@ describe("Portal", () => {
       repositionCb = jasmine.createSpy("onReposition");
       repositionCbNew = jasmine.createSpy("onRepositionNew");
 
-      spyOn(Browser.getWindow(), "addEventListener");
-      spyOn(Browser.getWindow(), "removeEventListener");
+      spyOn(window, "addEventListener");
+      spyOn(window, "removeEventListener");
 
       wrapper = mount(
         <Portal onReposition={repositionCb}>
@@ -220,32 +231,11 @@ describe("Portal", () => {
 
     it('will remove the old listener and add a new window "resize" listener', () => {
       wrapper.setProps({ onReposition: repositionCbNew });
-      expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith(
+      expect(window.removeEventListener).toHaveBeenCalledWith(
         "resize",
         repositionCb
       );
-      expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith(
-        "resize",
-        repositionCbNew
-      );
-    });
-
-    it('will remove the old listener and add a new window "resize" listener also to scrollParent ', () => {
-      wrapper.instance().scrollParent = {
-        removeEventListener: () => jest.fn(),
-        addEventListener: () => jest.fn(),
-      };
-      spyOn(wrapper.instance().scrollParent, "removeEventListener");
-      spyOn(wrapper.instance().scrollParent, "addEventListener");
-      wrapper.setProps({ onReposition: repositionCbNew });
-      expect(
-        wrapper.instance().scrollParent.removeEventListener
-      ).toHaveBeenCalled();
-      expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith(
-        "resize",
-        repositionCb
-      );
-      expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith(
+      expect(window.addEventListener).toHaveBeenCalledWith(
         "resize",
         repositionCbNew
       );

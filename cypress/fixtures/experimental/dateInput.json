@@ -22,5 +22,14 @@
     "label": "label",
     "labelHelp": "labelHelp",
     "labelInline": true
+  },
+  "small": {
+    "mt": "0"
+  },
+  "large": {
+    "mt": "400"
+  },
+  "default": {
+    
   }
 }

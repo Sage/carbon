@@ -51,11 +51,9 @@ Then(
   "{string} element css {string} is set to {string} common",
   (componentName, css, themeName) => {
     cy.fixture("themes/themes.json").then((json) => {
-      getElementNoIframe(componentName).should(
-        "have.css",
-        css,
-        json.common[themeName]
-      );
+      getElementNoIframe(componentName)
+        .should("have.css", css)
+        .and("contains", json.common[themeName]);
     });
   }
 );

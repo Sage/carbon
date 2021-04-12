@@ -107,7 +107,7 @@ Feature: Theming addon
   @positive
   Scenario Outline: I set Tabs component theme to <theme>
     When I open Test default "Tabs" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
-    Then "select-tab" element css "border-bottom-color" is set to "<theme>" common
+    Then "tab-selected-indicator" element css "box-shadow" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |
       | mint   | themeMint    |

@@ -2,14 +2,13 @@ import React, { useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
 
-import Events from "../../utils/helpers/events";
-import {
-  StyledPicklist,
-  StyledEmptyContainer,
-} from "./duelling-picklist.style";
+import Events from "../../../utils/helpers/events";
+import { StyledPicklist, StyledEmptyContainer } from "./picklist.style";
 
 export const Picklist = ({ disabled, children, placeholder }) => {
-  const isEmpty = useMemo(() => !React.Children.count(children), [children]);
+  const isEmpty = useMemo(() => !React.Children.toArray(children).length > 0, [
+    children,
+  ]);
 
   const refs = useMemo(
     () =>
@@ -25,24 +24,14 @@ export const Picklist = ({ disabled, children, placeholder }) => {
   const focusItem = useCallback(
     (ev, index) => {
       ev.preventDefault();
-      if (index === -1) {
-        refs[refs.length - 1].current.focus();
-      } else if (index === refs.length) {
-        refs[0].current.focus();
-      } else {
-        refs[index].current.focus();
-      }
+      refs[index].current.focus();
     },
     [refs]
   );
 
-  const handleKeyboardAccessibility = useCallback(
-    (ev, index) => {
-      if (Events.isUpKey(ev)) {
-        focusItem(ev, index - 1);
-      } else if (Events.isDownKey(ev)) {
-        focusItem(ev, index + 1);
-      } else if (Events.isHomeKey(ev)) {
+  const handleKeyDown = useCallback(
+    (ev) => {
+      if (Events.isHomeKey(ev)) {
         focusItem(ev, 0);
       } else if (Events.isEndKey(ev)) {
         focusItem(ev, refs.length - 1);
@@ -51,17 +40,22 @@ export const Picklist = ({ disabled, children, placeholder }) => {
     [focusItem, refs]
   );
 
-  const content = React.Children.map(children, (child, index) =>
-    React.cloneElement(child, {
-      ref: refs[index],
-      index,
-      disabled,
-      handleKeyboardAccessibility,
-    })
+  const content = React.Children.map(
+    children,
+    (child, index) =>
+      child &&
+      React.cloneElement(child, {
+        ref: refs[index],
+        disabled,
+      })
   );
 
   return (
-    <StyledPicklist data-element="picklist">
+    <StyledPicklist
+      data-element="picklist"
+      scrollVariant="light"
+      onKeyDown={handleKeyDown}
+    >
       {isEmpty && <StyledEmptyContainer>{placeholder}</StyledEmptyContainer>}
       <TransitionGroup component={null}>{content}</TransitionGroup>
     </StyledPicklist>
@@ -93,4 +87,4 @@ export const areEqual = (prevProps, nextProps) => {
   return !changesCounter;
 };
 
-export default React.memo(Picklist, areEqual);
+export default Picklist;

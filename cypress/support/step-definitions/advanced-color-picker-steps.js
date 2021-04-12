@@ -46,7 +46,3 @@ Then("Simple Color {int} element was picked up in noIframe", (index) => {
 When("I press {word} on {int} element", (key, index) => {
   experimentalSimpleColorPickerInput(index).trigger("keydown", keyCode(key));
 });
-
-Then("Advanced Simple Color is visible", () => {
-  advancedColorPickerCell().should("be.visible");
-});

@@ -9,6 +9,7 @@ export interface DrawerPropTypes {
   animationDuration?: string;
   expandedWidth?: string;
   backgroundColor?: string;
+  height?: string;
   title?: string;
   showControls?: boolean;
   setTarget?: (tabId: string) => void;

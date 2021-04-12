@@ -2,12 +2,6 @@ Feature: Table component
   I want to check Table component properties
 
   @positive
-  Scenario: Verify action toolbar elements
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
-    When I check checkbox on header
-    Then Action Toolbar elements are visible and have "rgb(0, 129, 93)" color
-
-  @positive
   Scenario Outline: Row <rowNumber> is highlighted
     Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
     When I click row by number <rowNumber>
@@ -64,40 +58,6 @@ Feature: Table component
       | caption                      | nameOfObject            |
       | mp150ú¿¡üßä                  | captionOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
-
-  @positive
-  Scenario Outline: Set theme to <theme>
-    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
-    Then theme on preview is "<theme>"
-    Examples:
-      | theme     | nameOfObject   |
-      | primary   | themePrimary   |
-      | secondary | themeSecondary |
-      | tertiary  | themeTertiary  |
-
-  @positive
-  Scenario Outline: Change Table header size to <size>
-    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
-    Then Table header size on preview is set to "<size>"
-    Examples:
-      | size    | nameOfObject |
-      | compact | sizeCompact  |
-      | small   | sizeSmall    |
-      | medium  | sizeMedium   |
-      | large   | sizeLarge    |
-
-  @positive
-  Scenario Outline: I enable zebra striping for <position> row in Table
-    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
-    Then <position> row has zebra striping
-    Examples:
-      | position |
-      | 0        |
-      | 1        |
-      | 4        |
-      | 5        |
-      | 8        |
-      | 9        |
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>

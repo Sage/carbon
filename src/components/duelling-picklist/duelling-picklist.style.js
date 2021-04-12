@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
+import { StyledPicklist } from "./picklist/picklist.style";
 
 const StyledDuellingPicklistOverlay = styled.div`
   transition: opacity 0.3s;
@@ -18,6 +18,14 @@ const StyledDuellingPicklist = styled.div`
   justify-content: space-between;
   align-items: stretch;
   position: relative;
+
+  ${StyledPicklist}:first-of-type {
+    padding-right: 36px;
+  }
+
+  ${StyledPicklist}:last-of-type {
+    padding-left: 36px;
+  }
 `;
 
 const StyledLabelContainer = styled.div`
@@ -50,112 +58,12 @@ const StyledControl = styled.div`
   }
 `;
 
-const StyledPicklistDivider = styled.div`
-  min-width: 2px;
-  background-image: linear-gradient(
-    180deg,
-    #bfcbd1 0%,
-    rgba(191, 203, 209, 0) 99.9%
-  );
-  margin-left: 40px;
-  margin-right: 40px;
-`;
-
-const StyledPicklist = styled.ul`
-  position: relative;
-  list-style: none;
-  margin: -4px -4px;
-  padding: 4px 4px;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-y: auto;
-  height: 400px;
-
-  & + & {
-    margin-left: 80px;
-  }
-
-  .picklist-item-enter {
-    opacity: 0;
-    transform: translate(-16px);
-    transition: all 300ms ease-in;
-  }
-
-  .picklist-item-enter-active {
-    opacity: 1;
-    transform: translate(0px);
-    transition: all 300ms ease-in;
-  }
-`;
-
-const StyledEmptyContainer = styled.li`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-`;
-
 const StyledPicklistPlaceholder = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
-const StyledPicklistItem = styled.li`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 20, 29, 0.15),
-    0 3px 3px 0 rgba(0, 20, 29, 0.2);
-  background-color: ${({ theme }) => theme.colors.white};
-
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
-  }
-
-  & + & {
-    margin-top: 8px;
-  }
-`;
-
-const colors = {
-  background: {
-    add: ({ theme }) => theme.colors.primary,
-    remove: ({ theme }) => theme.colors.error,
-  },
-  hoverBackground: {
-    add: ({ theme }) => theme.colors.secondary,
-    remove: ({ theme }) => theme.colors.destructive.hover,
-  },
-};
-
-const StyledButton = styled.button.attrs({ type: "button" })`
-  margin-left: auto;
-  height: 40px;
-  min-width: 40px;
-  border: none;
-  cursor: pointer;
-  background-color: ${({ variant }) => colors.background[variant]};
-  outline: none;
-
-  &:hover {
-    background-color: ${({ variant }) => colors.hoverBackground[variant]};
-  }
-
-  span {
-    color: ${({ theme }) => theme.colors.white};
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.white};
-    }
-  }
-`;
-
-StyledPicklistItem.defaultProps = { theme: baseTheme };
-StyledButton.defaultProps = { theme: baseTheme };
 
 export {
   StyledDuellingPicklist,
@@ -164,10 +72,5 @@ export {
   StyledLabel,
   StyledControlsContainer,
   StyledControl,
-  StyledPicklist,
-  StyledEmptyContainer,
   StyledPicklistPlaceholder,
-  StyledPicklistDivider,
-  StyledPicklistItem,
-  StyledButton,
 };

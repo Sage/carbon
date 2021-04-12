@@ -60,6 +60,7 @@ class InternalLink extends React.Component {
       target: this.props.target,
       ref: this.props.innerRef,
       href: this.props.href,
+      rel: this.props.rel,
     };
   }
 
@@ -156,6 +157,8 @@ InternalLink.propTypes = {
   innerRef: PropTypes.object,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
+  /** allows to set rel property in <a> tag */
+  rel: PropTypes.string,
 };
 
 InternalLink.defaultProps = {

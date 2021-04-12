@@ -1,10 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 
 import Event from "../../../utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { SidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
+import FlatTableRowHeader from "../flat-table-row-header";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const FlatTableRow = React.forwardRef(
   (
@@ -25,14 +33,31 @@ const FlatTableRow = React.forwardRef(
     const [isExpanded, setIsExpanded] = useState(expanded);
     const rowRef = ref || useRef();
     const firstColumnExpandable = expandableArea === "firstColumn";
+    const [stickyCellWidths, setStickyCellWidths] = useState([]);
+    const [leftPositions, setLeftPositions] = useState([]);
+    const childrenArray = React.Children.toArray(children);
+    const rowHeaderIndex = childrenArray.findIndex(
+      (child) => child.type === FlatTableRowHeader
+    );
+    const colorTheme = useContext(FlatTableThemeContext);
+
+    const reportCellWidth = useCallback(
+      (width, index) => {
+        const copiedArray = stickyCellWidths;
+        if (copiedArray[index] !== undefined) {
+          copiedArray[index] = width;
+        } else {
+          copiedArray.push(width);
+        }
+        setStickyCellWidths(copiedArray);
+      },
+      [stickyCellWidths]
+    );
 
     let interactiveRowProps = {};
 
-    const firstCellIndex = () => {
-      if (React.Children.toArray(children)[0].type === FlatTableCheckbox)
-        return 1;
-      return 0;
-    };
+    const firstCellIndex = () =>
+      childrenArray[0].type === FlatTableCheckbox ? 1 : 0;
 
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -80,6 +105,19 @@ const FlatTableRow = React.forwardRef(
       }
     }
 
+    useLayoutEffect(() => {
+      if (stickyCellWidths.length && rowHeaderIndex !== -1) {
+        setLeftPositions([
+          0,
+          ...Array.from({ length: rowHeaderIndex }).map(
+            (_, index) =>
+              stickyCellWidths.slice(0, index + 1).reduce((a, b) => a + b, 0),
+            0
+          ),
+        ]);
+      }
+    }, [rowHeaderIndex, stickyCellWidths]);
+
     return (
       <SidebarContext.Consumer>
         {(context) => (
@@ -95,35 +133,47 @@ const FlatTableRow = React.forwardRef(
               onClick={handleClick}
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
+              rowHeaderIndex={rowHeaderIndex}
+              colorTheme={colorTheme}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
-                return React.cloneElement(child, {
-                  expandable: expandable && index === firstCellIndex(),
-                  onClick:
-                    expandable &&
-                    index === firstCellIndex() &&
-                    firstColumnExpandable
-                      ? () => toggleExpanded()
-                      : undefined,
-                  onKeyDown:
-                    expandable &&
-                    index === firstCellIndex() &&
-                    firstColumnExpandable
-                      ? handleCellKeyDown
-                      : undefined,
-                  ...child.props,
-                });
+                return (
+                  child &&
+                  React.cloneElement(child, {
+                    expandable: expandable && index === firstCellIndex(),
+                    onClick:
+                      expandable &&
+                      index === firstCellIndex() &&
+                      firstColumnExpandable
+                        ? () => toggleExpanded()
+                        : undefined,
+                    onKeyDown:
+                      expandable &&
+                      index === firstCellIndex() &&
+                      firstColumnExpandable
+                        ? handleCellKeyDown
+                        : undefined,
+                    cellIndex: index,
+                    reportCellWidth:
+                      index < rowHeaderIndex ? reportCellWidth : undefined,
+                    leftPosition: leftPositions[index],
+                    ...child.props,
+                  })
+                );
               })}
             </StyledFlatTableRow>
             {isExpanded &&
               subRows &&
-              React.Children.map(subRows, (child, index) =>
-                React.cloneElement(child, {
-                  isSubRow: true,
-                  isFirstSubRow: index === 0,
-                  ...child.props,
-                })
+              React.Children.map(
+                subRows,
+                (child, index) =>
+                  child &&
+                  React.cloneElement(child, {
+                    isSubRow: true,
+                    isFirstSubRow: index === 0,
+                    ...child.props,
+                  })
               )}
           </>
         )}

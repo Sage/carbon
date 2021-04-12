@@ -8,19 +8,29 @@ import Button from '../button';
 <Meta title="Design System/Toast" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
 
 # Toast
+Toast is part of Carbon's Flashes components.
+Its purpose is to present quick confirmation of success or failure, relating to the task the user has just performed. Alternatively, use Toast messages for a longer, timely message that the user must dismiss.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Examples](#examples)
+- [Props](#props)
 
 ## Quick Start
-
 To use toast, import the `Toast` and pass the content as children.
 
+```javascript
+import Toast from 'carbon-react/lib/components/toast';
+```
+
+## Designer Notes
 It can be used as a controlled component where the open state is controlled externally,
 in that case both `onDismiss` and `open` props are required.
 
 ### Controlled
 
-```jsx
-import Toast from 'carbon-react/lib/components/toast';
-
+```javascript
 const MyComponent = () => (
   <Toast
     variant='info'
@@ -37,9 +47,7 @@ It can be used as a uncontrolled component.
 
 ### Uncontrolled
 
-```jsx
-import Toast from 'carbon-react/lib/components/toast';
-
+```javascript
 const MyComponent = () => (
   <Toast
     variant='info'
@@ -50,14 +58,55 @@ const MyComponent = () => (
 );
 ```
 
-## Overview
-Toast is part of Carbon's Flashes components.
-Its purpose is to present quick confirmation of success or failure, relating to the task the user has just performed. Alternatively, use Toast messages for a longer, timely message that the user must dismiss.
-
-## Visuals
+## Examples
 Please note, by clicking a `toggle preview` button it will open example toast at the top of the page.
 
-### Variant Info:
+### Default
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+  {() => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleToggle = () => {
+      if (!isOpen) {
+        window.scrollTo(0,0);
+      }
+      setIsOpen(!isOpen);
+      action('open')(!isOpen);
+    };
+    const StyledButton = styled(Button)`
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: ${isOpen ? 'green' : 'blue'};
+      border: ${isOpen ? '2px solid green' : '2px solid blue'};
+    `;
+    return (
+      <div id="wrapper-default">
+        <StyledButton
+          id='button-default'
+          key='button'
+          onClick={ handleToggle }
+        >
+          Toggle - Preview is: { isOpen ? 'ON' : 'OFF' }
+        </StyledButton>
+        <Toast
+          id='toast-default'
+          variant='success'
+          open={ isOpen }
+        >
+          My message
+        </Toast>
+      </div>
+    )
+  }}
+  </Story>
+</Preview>
+
+### Variant Info
+
 <Preview>
   <Story
     name="variant-info"
@@ -103,7 +152,8 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Variant Error:
+### Variant Error
+
 <Preview>
   <Story
     name="variant-error"
@@ -149,7 +199,8 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Variant Warning:
+### Variant Warning
+
 <Preview>
   <Story
     name="variant-warning"
@@ -242,7 +293,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Variant Left Aligned:
+### Variant Left Aligned
 
 <Preview>
   <Story
@@ -295,7 +346,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Custom max width:
+### Custom max width
 
 <Preview>
   <Story name="custom-max-width" parameters={{ info: { disable: true } }}>
@@ -349,7 +400,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Dismissible:
+### Dismissible
 
 <Preview>
   <Story
@@ -405,7 +456,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Dismissible with timeout:
+### Dismissible with timeout
 
 <Preview>
   <Story
@@ -462,8 +513,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Preview>
 
-### Grouped Delayed (stacking):
-
+### Grouped Delayed (stacking)
 One second delay
 
 <Preview>
@@ -547,8 +597,7 @@ One second delay
   </Story>
 </Preview>
 
-### Grouped (stacking):
-
+### Grouped (stacking)
 Please use `targetPortalId` prop to group multiple toasts so that they stack.
 
 <Preview>
@@ -622,51 +671,7 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
   </Story>
 </Preview>
 
-### Default usage:
-
-<Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
-  {() => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleToggle = () => {
-      if (!isOpen) {
-        window.scrollTo(0,0);
-      }
-      setIsOpen(!isOpen);
-      action('open')(!isOpen);
-    };
-    const StyledButton = styled(Button)`
-      position: absolute;
-      display: block;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: ${isOpen ? 'green' : 'blue'};
-      border: ${isOpen ? '2px solid green' : '2px solid blue'};
-    `;
-    return (
-      <div id="wrapper-default">
-        <StyledButton
-          id='button-default'
-          key='button'
-          onClick={ handleToggle }
-        >
-          Toggle - Preview is: { isOpen ? 'ON' : 'OFF' }
-        </StyledButton>
-        <Toast
-          id='toast-default'
-          variant='success'
-          open={ isOpen }
-        >
-          My message
-        </Toast>
-      </div>
-    )
-  }}
-  </Story>
-</Preview>
-
-## Props:
+## Props
 
 ### Toast
 

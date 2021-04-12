@@ -10,36 +10,33 @@ import { Checkbox, CheckboxGroup } from '.';
 />
 
 # Checkbox
-Checkbox provides a way to efficiently select more than one item from a list.
 
-Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
+- Checkbox provides a way to efficiently select more than one item from a list.
 
-Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+## Contents
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
 
-Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
+## Quick Start
+
+```javascript
+import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox";
+```
+## Designer Notes
+- Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
+- Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+- Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
 
 ## Related Components
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
 - Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--default-story "Select").
 - Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
 
-## Quick Start
+## Examples
 
-```jsx
-import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
-
-const MyComponent = () => (
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Checkbox
-      label="Label"
-      name="checkbox-name"
-      checked={isChecked}
-      onChange={ e => setIsChecked(e.target.checked) }
-    />
-  )
-);
-```
 ### Default
 
 <Preview>
@@ -138,7 +135,7 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
-# Checkbox Group
+### Checkbox Group
 
 <Preview>
   <Story name="checkbox group">
@@ -188,7 +185,7 @@ The spacing between the legend and the checkboxes can be changed with the `legen
   </Story>
 </Preview>
 
-## Props:
+## Props
 
 ### Checkbox
 

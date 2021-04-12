@@ -105,11 +105,20 @@ describe("Link", () => {
   });
 
   describe("when component received a `target` prop", () => {
-    it("should render an `<a>`  element with target attribute", () => {
+    it("should render an `<a>` element with target attribute", () => {
       const target = "_blank";
       wrapper.setProps({ target });
 
       expect(wrapper.find("a").prop("target")).toBe(target);
+    });
+  });
+
+  describe("when component received a `rel` prop", () => {
+    it("should render an `<a>` element with rel attribute", () => {
+      const rel = "alternate";
+      wrapper.setProps({ rel });
+
+      expect(wrapper.find("a").prop("rel")).toBe(rel);
     });
   });
 

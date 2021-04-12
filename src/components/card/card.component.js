@@ -25,25 +25,28 @@ const Card = ({
 
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
-      if (index === 0) {
-        const childProps = {
-          spacing,
-          ...child.props,
-        };
+      if (child.type === CardRow || child.type === CardFooter) {
+        if (index === 0) {
+          const childProps = {
+            spacing,
+            ...child.props,
+          };
 
-        if (child.type !== CardFooter) {
-          const pad =
-            React.Children.toArray(children).filter(
-              (row) => row.type === CardRow
-            ).length === 1
-              ? "pt"
-              : "py";
+          if (child.type !== CardFooter) {
+            const pad =
+              React.Children.toArray(children).filter(
+                (row) => row.type === CardRow
+              ).length === 1
+                ? "pt"
+                : "py";
 
-          childProps[pad] = 0;
+            childProps[pad] = 0;
+          }
+          return React.cloneElement(child, childProps);
         }
-        return React.cloneElement(child, childProps);
+        return React.cloneElement(child, { spacing });
       }
-      return React.cloneElement(child, { spacing });
+      return child;
     });
   };
 
