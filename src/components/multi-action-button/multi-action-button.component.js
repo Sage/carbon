@@ -71,6 +71,12 @@ class MultiActionButton extends SplitButton {
 }
 
 MultiActionButton.propTypes = {
+  /** The additional button to display. */
+  children: PropTypes.node.isRequired,
+
+  /** Defines an Icon position within the button: "before" | "after" */
+  iconPosition: PropTypes.oneOf(["before", "after"]),
+
   /**
    * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
    */

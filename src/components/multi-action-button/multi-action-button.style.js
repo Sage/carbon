@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
 import StyledSplitButtonChildrenContainer from "../split-button/split-button-children.style";
 import baseTheme from "../../style/themes/base";
@@ -6,6 +7,8 @@ import StyledSplitButton from "../split-button/split-button.style";
 import StyledIcon from "../icon/icon.style";
 
 const StyledMultiActionButton = styled.div`
+  ${margin}
+
   ${({ disabled, displayed, theme }) =>
     !disabled &&
     displayed &&

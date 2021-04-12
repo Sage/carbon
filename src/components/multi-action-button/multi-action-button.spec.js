@@ -1,6 +1,5 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
@@ -8,7 +7,10 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import StyledSplitButtonChildrenContainer from "../split-button/split-button-children.style";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
@@ -16,6 +18,16 @@ import StyledSplitButton from "../split-button/split-button.style";
 import baseTheme from "../../style/themes/base";
 
 describe("MultiActionButton", () => {
+  testStyledSystemMargin(
+    (props) => (
+      <MultiActionButton text="Test" {...props}>
+        <Button>Test</Button>
+      </MultiActionButton>
+    ),
+    {},
+    (wrapper) => wrapper.find(StyledSplitButton)
+  );
+
   let wrapper;
 
   describe("tags", () => {
