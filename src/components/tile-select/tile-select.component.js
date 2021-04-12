@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags/tags";
 import Button from "../button";
 
@@ -15,6 +16,11 @@ import {
   StyledDescription,
   StyledDeselectWrapper,
 } from "./tile-select.style";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const TileSelect = (props) => {
   const {
@@ -57,12 +63,14 @@ const TileSelect = (props) => {
       )
     );
   };
+
   return (
     <StyledTileSelectContainer
       checked={checked}
       className={className}
       disabled={disabled}
       {...tagComponent("tile-select", props)}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <StyledTileSelectInput
         onChange={onChange}
@@ -102,6 +110,7 @@ TileSelect.defaultProps = {
 };
 
 TileSelect.propTypes = {
+  ...marginPropTypes,
   /** title of the TileSelect */
   title: PropTypes.string,
   /** adornment to be rendered next to the title */
