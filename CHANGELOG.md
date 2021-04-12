@@ -1,3 +1,10 @@
+## [68.15.0](https://github.com/Sage/carbon/compare/v68.14.0...v68.15.0) (2021-04-12)
+
+
+### Features
+
+* **textbox:** change labelHelp type to ReactNode ([fbd15e6](https://github.com/Sage/carbon/commit/fbd15e62ad242d96787729224aae6fbde22c098d)), closes [#3434](https://github.com/Sage/carbon/issues/3434)
+
 ## [68.14.0](https://github.com/Sage/carbon/compare/v68.13.0...v68.14.0) (2021-04-12)
 
 
