@@ -93,6 +93,8 @@ Where functionality is already tested in unit testing, this does not need to be 
 
 [Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions during each build by comparing snapshots of the storybook canvas with previous baseline snapshots. Chromatic automatically snapshots every story canvas. You should not need to run Chromatic locally.
 
+For releasing a group of `BREAKING CHANGES` we agreed to create a `major/**` branch to avoid draining `chromatic` resources. After creating the `major/**` branch we need to run `git checkout major/**` and run `npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN` to manually trigger a `chromatic` build on the `major/**` branch to perform a comparison with `master`. It allows us to merge the `BREAKING CHANGES` into the `major/**` branch without running `chromatic`.
+
 ##### Cypress File Structure
 ```
 .
