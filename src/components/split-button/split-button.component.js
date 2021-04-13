@@ -6,7 +6,6 @@ import Button, { ButtonWithForwardRef } from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
-import { validProps } from "../../utils/ether/ether";
 import Events from "../../utils/helpers/events";
 import guid from "../../utils/helpers/guid";
 import Popover from "../../__internal__/popover";
@@ -105,13 +104,29 @@ class SplitButton extends Component {
   };
 
   get mainButtonProps() {
-    const { ...props } = validProps(this);
-    props.onMouseEnter = this.hideButtons;
-    props.onFocus = this.hideButtons;
-    props.onTouchStart = this.hideButtons;
-    props.iconPosition = this.props.iconPosition;
+    const {
+      as,
+      buttonType,
+      disabled,
+      iconType,
+      onClick,
+      size,
+      subtext,
+    } = this.props;
 
-    return props;
+    return {
+      onMouseEnter: this.hideButtons,
+      onFocus: this.hideButtons,
+      onTouchStart: this.hideButtons,
+      iconPosition: this.props.iconPosition,
+      as,
+      buttonType,
+      disabled,
+      iconType,
+      onClick,
+      size,
+      subtext,
+    };
   }
 
   get toggleButtonProps() {
