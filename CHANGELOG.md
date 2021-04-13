@@ -1,3 +1,15 @@
+## [68.16.0](https://github.com/Sage/carbon/compare/v68.15.0...v68.16.0) (2021-04-13)
+
+
+### Features
+
+* **split-button:** surface styled system margin props ([5495b2d](https://github.com/Sage/carbon/commit/5495b2df06322c2c4fc366278cc1e8fcccd32f36))
+
+
+### Bug Fixes
+
+* **split-button:** prevent padding props being spread into main button ([7bd7ade](https://github.com/Sage/carbon/commit/7bd7ade4943238e24e323ad4c664a0f4a57c9e83))
+
 ## [68.15.0](https://github.com/Sage/carbon/compare/v68.14.0...v68.15.0) (2021-04-12)
 
 
