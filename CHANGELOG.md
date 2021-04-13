@@ -1,3 +1,15 @@
+## [68.17.0](https://github.com/Sage/carbon/compare/v68.16.0...v68.17.0) (2021-04-13)
+
+
+### Features
+
+* **flat-table-cell, flat-table-row-header:** add width prop to table cell and new truncate styling ([86b42b8](https://github.com/Sage/carbon/commit/86b42b8166c68cb1d8818c02b31e3b79f2e4ca52))
+
+
+### Bug Fixes
+
+* **flat-table-cell, flat-table-header:** raise specificity of spacing styles ([8bd10ce](https://github.com/Sage/carbon/commit/8bd10cea837de190791aee32ea4e9be433008f4a)), closes [#3846](https://github.com/Sage/carbon/issues/3846)
+
 ## [68.16.0](https://github.com/Sage/carbon/compare/v68.15.0...v68.16.0) (2021-04-13)
 
 
