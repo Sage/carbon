@@ -251,6 +251,8 @@ const SimpleSelect = React.forwardRef(
         return;
       }
 
+      setOpenState(false);
+
       if (onBlur) {
         onBlur(event);
       }
