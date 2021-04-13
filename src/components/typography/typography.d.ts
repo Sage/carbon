@@ -2,7 +2,9 @@ import { StyledComponentProps } from "styled-components";
 import { SpacingProps, ColorProps } from "../../utils/helpers/options-helper";
 
 export interface TypographyProps extends SpacingProps, ColorProps {
+  /** Override the variant component */
   as?: string;
+  /** The visual style to apply to the component */
   variant?:
     | "h1-large"
     | "h1"
@@ -22,12 +24,19 @@ export interface TypographyProps extends SpacingProps, ColorProps {
     | "strong"
     | "b"
     | "em";
+  /** Override the variant font-size */
   fontsize?: string;
+  /** Override the variant font-weight */
   fontWeight?: string;
+  /** Override the variant line-height */
   lineHeight?: string;
+  /** Override the variant text-transform */
   textTransform?: string;
+  /** Override the variant text-decoration */
   textDecoration?: string;
+  /** Override the variant display */
   display?: string;
+  /** Override the list-style-type */
   listStyleType?: string;
 }
 
