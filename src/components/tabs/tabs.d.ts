@@ -1,20 +1,36 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import Tab from "./tab";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface TabsProps extends MarginSpacingProps {
+export interface TabsProps extends MarginProps {
   className?: string;
-  renderHiddenTabs: boolean;
-  selectedTabId: string;
+  /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
+  renderHiddenTabs?: boolean;
+  /** Allows manual control over the currently selected tab. */
+  selectedTabId?: string;
+  /** The child elements of Tabs need to be Tab components. */
   children: React.ReactNode[] | object;
-  align: "left" | "right";
+  /** Sets the alignment of the tab titles. Possible values include. */
+  align?: "left" | "right";
+  /** A callback for when a tab is changed. You can use this to manually control
+   * tab changing or to fire other events when a tab is changed.
+   */
   onTabChange?: (tabId: string) => void;
-  position: "top" | "left";
-  setLocation: boolean;
-  size: "default" | "large";
-  extendedLine: boolean;
-  borders: "off" | "on" | "no left side" | "no right side" | "no sides";
-  variant: "default" | "alternate";
+  /** The position of the tab title. */
+  position?: "top" | "left";
+  /** Sets the selected tabId in the URL. */
+  setLocation?: boolean;
+  /** Sets size of the tab titles. */
+  size?: "default" | "large";
+  /** Sets the divider of the tab titles header to extend the full width of the parent. */
+  extendedLine?: boolean;
+  /** Adds a combination of borders to the tab titles. */
+  borders?: "off" | "on" | "no left side" | "no right side" | "no sides";
+  /** Adds an alternate styling variant to the tab titles. */
+  variant?: "default" | "alternate";
+  /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
+   * The `id` property should match the `tabId`s for the rendered Tabs.
+   */
   validationStatusOverride?: {
     id?: {
       error?: boolean;
