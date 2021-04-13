@@ -1,5 +1,6 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
+import styled from "styled-components";
 import {
   FlatTable,
   FlatTableHead,
@@ -964,6 +965,76 @@ By writing your own selectable logic, the child rows only can be made selectable
             </FlatTableBody>
           </FlatTable>
         </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Truncated cell content
+In order to achieve the content truncation when using the `expandable` feature you will need to pass in a node with the 
+truncated styling applied, this is because of the caret icon that is rendered within the cell.
+
+<Preview>
+  <Story name="truncated cell content">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell width={60} pr={0} truncate>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell width={60} pr={0} truncate>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const Truncate = styled.span`
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 48px;
+      `;
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader width="60">Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell><Truncate title="John Doe">John Doe</Truncate></FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell><Truncate title="Jane Doe">Jane Doe</Truncate></FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell><Truncate title="John Smith">John Smith</Truncate></FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell><Truncate title="Jane Smith">Jane Smith</Truncate></FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
       );
     }}
   </Story>

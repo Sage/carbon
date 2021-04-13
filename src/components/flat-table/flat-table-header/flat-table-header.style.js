@@ -28,13 +28,16 @@ const StyledFlatTableHeader = styled.th`
       padding-left: 1px;
     }
 
-    > div {
-      box-sizing: border-box;
-      ${space}
-      ${colWidth &&
-      css`
-        width: ${colWidth}px;
-      `}
+    &&& {
+      > div {
+        box-sizing: border-box;
+        ${space}
+
+        ${colWidth &&
+        css`
+          width: ${colWidth}px;
+        `}
+      }
     }
 
     ${makeCellSticky &&
