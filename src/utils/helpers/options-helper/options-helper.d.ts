@@ -292,6 +292,8 @@ export type AlignFull = "left" | "center" | "right";
 
 export type FormFieldSpacing = 0 | 1 | 2 | 3 | 4 | 5 | 7;
 
+export type Orientation = "horizontal" | "vertical";
+
 export type SizesType = "small" | "large";
 
 export type SizesRestricted = "small" | "medium" | "large";
@@ -304,6 +306,8 @@ export type SizesFull =
   | "medium-large"
   | "large"
   | "extra-large";
+
+export type Steps = "complete" | "current" | "incomplete";
 
 export type ThemesBinary = "primary" | "secondary";
 
