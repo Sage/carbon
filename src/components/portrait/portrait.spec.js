@@ -10,6 +10,7 @@ import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import { StyledIcon, StyledCustomImg } from "./portrait.style";
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 const mockCanvasDataURL = "data:image/png";
 
@@ -351,5 +352,9 @@ describe("PortraitComponent", () => {
         rendered.root.findAllByProps({ "data-element": "user-image" }).length
       ).toBeGreaterThan(0);
     });
+  });
+
+  describe("styled-system", () => {
+    testStyledSystemMargin((props) => <Portrait {...props} />);
   });
 });
