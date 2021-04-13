@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PaddingSpacingProps } from "../../../utils/helpers/options-helper";
+import { PaddingProps } from "styled-system";
 
 export interface TabContextProps {
   setError: (childId: string, hasError: boolean) => void;
@@ -7,23 +7,37 @@ export interface TabContextProps {
   setInfo: (childId: string, hasInfo: boolean) => void;
 }
 
-export interface TabProps extends PaddingSpacingProps {
+export interface TabProps extends PaddingProps {
   title?: string;
+  /** A unique ID to identify this specific tab. */
   tabId: string;
   className?: string;
+  /** The child elements of Tab component. */
   children?: React.ReactNode;
+  /** Boolean indicating selected state of Tab. */
   isTabSelected?: boolean;
+  /** The position of the Tab. */
   position: "top" | "left";
+  /** Message displayed when Tab has error */
+  errorMessage?: string;
+  /** Message displayed when Tab has warning */
+  warningMessage?: string;
+  /** Message displayed when Tab has warning */
+  infoMessage?: string;
+  /** Additional content to display with title */
+  siblings?: React.ReactNode[];
+  /** Position title before or after siblings */
+  titlePosition?: "before" | "after";
+  /** Allows Tab to be a link */
+  href?: string;
+}
+
+export interface TabAllProps {
   role?: string;
   ariaLabelledby?: string;
-  updateErrors?: () => void;
-  updateWarnings?: () => void;
-  errorMessage?: string;
-  warningMessage?: string;
-  infoMessage?: string;
-  siblings?: React.ReactNode[];
-  titlePosition?: "before" | "after";
-  href?: string;
+  updateErrors?: (id: string, hasError: boolean) => void;
+  updateWarnings?: (id: string, hasWarning: boolean) => void;
+  updateInfos?: (id: string, hasInfo: boolean) => void;
 }
 
 declare const TabContext: React.Context<TabContextProps>;
