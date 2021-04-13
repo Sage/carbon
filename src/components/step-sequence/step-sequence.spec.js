@@ -1,9 +1,9 @@
 import React from "react";
-// import { shallow } from 'enzyme';
 import TestRenderer from "react-test-renderer";
 import StepSequence from "./step-sequence.component";
 import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
 import mintTheme from "../../style/themes/mint";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 describe("StepSequence", () => {
   const wrapper = (props) =>
@@ -29,5 +29,13 @@ describe("StepSequence", () => {
     expect(
       wrapper({ theme: mintTheme, orientation: "vertical" })
     ).toMatchSnapshot();
+  });
+
+  describe("styled system", () => {
+    testStyledSystemMargin((props) => (
+      <StepSequence {...props}>
+        <div>test</div>
+      </StepSequence>
+    ));
   });
 });
