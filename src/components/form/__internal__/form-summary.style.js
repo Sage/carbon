@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
-import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
+import baseTheme from "../../../style/themes/base";
+import StyledIcon from "../../icon/icon.style";
+import StyledButton from "../../button/button.style";
 
 export const StyledFormSummary = styled.div`
   display: inline-flex;
