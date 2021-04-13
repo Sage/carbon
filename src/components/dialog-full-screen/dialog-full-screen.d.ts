@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ModalProps } from "../modal/modal";
+import Modal, { ModalProps } from "../modal/modal";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Child elements */
@@ -18,6 +18,6 @@ export interface DialogFullScreenProps extends ModalProps {
   title?: string | object;
 }
 
-declare class DialogFullScreen extends React.Component<DialogFullScreenProps> {}
+declare class DialogFullScreen extends Modal<DialogFullScreenProps> {}
 
 export default DialogFullScreen;

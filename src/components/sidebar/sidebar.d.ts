@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ModalProps } from "../modal/modal";
+import Modal, { ModalProps } from "../modal/modal";
 
 export interface SidebarProps extends ModalProps {
   /** Set this prop to false to hide the translucent background when the dialog is open. */
@@ -12,6 +12,6 @@ export interface SidebarProps extends ModalProps {
   size?: string;
 }
 
-declare class Sidebar extends React.Component<SidebarProps> {}
+declare class Sidebar extends Modal<SidebarProps> {}
 
 export default Sidebar;
