@@ -128,7 +128,7 @@ Textbox.propTypes = {
   /** Label */
   label: PropTypes.string,
   /** Text applied to label help tooltip */
-  labelHelp: PropTypes.string,
+  labelHelp: PropTypes.node,
   /** When true, label is placed in line an input */
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */

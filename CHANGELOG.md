@@ -1,3 +1,31 @@
+## [68.15.0](https://github.com/Sage/carbon/compare/v68.14.0...v68.15.0) (2021-04-12)
+
+
+### Features
+
+* **textbox:** change labelHelp type to ReactNode ([fbd15e6](https://github.com/Sage/carbon/commit/fbd15e62ad242d96787729224aae6fbde22c098d)), closes [#3434](https://github.com/Sage/carbon/issues/3434)
+
+## [68.14.0](https://github.com/Sage/carbon/compare/v68.13.0...v68.14.0) (2021-04-12)
+
+
+### Features
+
+* **profile:** add styled-system margin props ([a891678](https://github.com/Sage/carbon/commit/a89167874bac998162406be61035a2f4775b6121))
+
+## [68.13.0](https://github.com/Sage/carbon/compare/v68.12.0...v68.13.0) (2021-04-12)
+
+
+### Features
+
+* **note:** add styled-system margin props ([dca47cd](https://github.com/Sage/carbon/commit/dca47cd45aed8e75bb0ebd253ae218f6b68b0e35))
+
+## [68.12.0](https://github.com/Sage/carbon/compare/v68.11.0...v68.12.0) (2021-04-12)
+
+
+### Features
+
+* **text-editor:** surface styled system margin props ([9825c61](https://github.com/Sage/carbon/commit/9825c617e53284001113a1db9fbad4e855b59438))
+
 ## [68.11.0](https://github.com/Sage/carbon/compare/v68.10.0...v68.11.0) (2021-04-09)
 
 
