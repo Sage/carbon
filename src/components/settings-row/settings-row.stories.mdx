@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 import SettingsRow from ".";
 
@@ -45,4 +46,9 @@ All `children` are rendered in the input column to the right of the header colum
 ## Props
 
 ### Settings Row 
-<Props of={SettingsRow} />
+
+<StyledSystemProps
+  of={SettingsRow}
+  margin
+  noHeader
+/>

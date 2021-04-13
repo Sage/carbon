@@ -1,13 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import Heading from "../heading";
 import tagComponent from "../../utils/helpers/tags";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import {
   StyledSettingsRow,
   StyledSettingsRowHeader,
   StyledSettingsRowInput,
 } from "./settings-row.style";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const SettingsRow = ({
   title,
@@ -35,6 +41,8 @@ const SettingsRow = ({
       className={className}
       hasDivider={divider}
       {...tagComponent("settings-row", rest)}
+      m={0}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <StyledSettingsRowHeader>{heading()}</StyledSettingsRowHeader>
       <StyledSettingsRowInput>{children}</StyledSettingsRowInput>
@@ -43,6 +51,7 @@ const SettingsRow = ({
 };
 
 SettingsRow.propTypes = {
+  ...marginPropTypes,
   /**  This component supports children. */
   children: PropTypes.node,
   /**  The CSS classes to apply to the component. */

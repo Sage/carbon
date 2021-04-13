@@ -9,10 +9,15 @@ import {
 } from "./settings-row.style";
 import Heading from "../heading";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 
 describe("SettingsRow", () => {
+  testStyledSystemMargin((props) => <SettingsRow {...props} />, { m: "0" });
+
   describe("render", () => {
     const name = "foobar-row";
     const title = "Some Title";
