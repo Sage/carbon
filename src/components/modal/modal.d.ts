@@ -13,6 +13,6 @@ export interface ModalProps {
   open: boolean;
 }
 
-declare class Modal extends React.Component<ModalProps> {}
+declare class Modal<T extends ModalProps> extends React.Component<T, {}> {}
 
 export default Modal;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ModalProps } from "../modal/modal";
+import Modal, { ModalProps } from "../modal/modal";
 
 export interface DialogProps extends ModalProps {
   /* Disables auto focus functionality on child elements */
@@ -20,6 +20,6 @@ export interface DialogProps extends ModalProps {
   title?: string | object;
 }
 
-declare class Dialog extends React.Component<DialogProps> {}
+declare class Dialog extends Modal<DialogProps> {}
 
 export default Dialog;
