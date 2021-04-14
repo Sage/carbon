@@ -73,5 +73,17 @@
   },
   "default": {
     
+  },
+  "disableEscKey": {
+    "disableEscKey": true
+  },
+  "enabledEscKey": {
+    "disableEscKey": false
+  },
+  "showCloseIcon": {
+    "showCloseIcon": true
+  },
+  "disableCancel": {
+    "disableCancel": true
   }
 }

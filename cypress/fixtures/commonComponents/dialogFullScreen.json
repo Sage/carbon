@@ -25,5 +25,11 @@
   },
   "enableBackgroundUI":{
     "enableBackgroundUI": true
+  },
+  "disableEscKey": {
+    "disableEscKey": true
+  },
+  "enabledEscKey": {
+    "disableEscKey": false
   }
 }

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import Portrait from "../portrait";
 import baseTheme from "../../style/themes/base";
 import profileConfigSizes from "./profile.config";
@@ -21,6 +22,8 @@ const ProfileStyle = styled.div`
     `};
 
   display: ${({ hasSrc }) => (hasSrc ? "flex" : "")};
+
+  ${margin}
 `;
 
 const ProfileDetailsStyle = styled.div`

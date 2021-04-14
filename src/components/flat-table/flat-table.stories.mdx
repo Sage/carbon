@@ -173,7 +173,7 @@ Padding can be set on each cell individually by using the spacing props syntax. 
 </Preview>
 
 ### With custom column width
-Column width can be set by passing number as a `width` prop to the column header component.
+Column width can be set by passing number as a `width` prop to the column header or cell component.
 **Column width can't be smaller than the sum of horizontal cell padding and content width.**
 
 <Preview>
@@ -181,7 +181,7 @@ Column width can be set by passing number as a `width` prop to the column header
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader width={80}>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader width={200}>Notes</FlatTableHeader>
           <FlatTableHeader width={40} px={1}>
@@ -201,6 +201,35 @@ Column width can be set by passing number as a `width` prop to the column header
                 <ActionPopoverItem onClick={() => {}} icon='email'>Email Invoice</ActionPopoverItem>
               </ActionPopover>
             </FlatTableCell>
+          </FlatTableRow>
+        )}
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With truncated cell content
+When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping 
+and add ellipsis to any content that overflows the given width. By default the `title` will be set to the children if it 
+is a string. However, if the passed children are not a string it is possible to override it by passing in a different 
+`title` string.
+
+<Preview>
+  <Story name="with truncated cell content">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Notes</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1,2,3,4].map((key) => 
+          <FlatTableRow key={key}>
+            <FlatTableCell width={60} pr={0} truncate>John Doe</FlatTableCell>
+            <FlatTableCell width={50} pr={0} truncate title="Alternate Title">London</FlatTableCell>
+            <FlatTableCell><Textbox size="small"/></FlatTableCell>
           </FlatTableRow>
         )}
       </FlatTableBody>
@@ -313,6 +342,143 @@ Column width can be set by passing number as a `width` prop to the column header
       return (
         <div style={ { height: "180px", marginBottom: "16px" } }>
           <FlatTable hasStickyHead hasStickyFooter footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
+In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
+of `180px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+remains sticky.
+
+<Preview>
+  <Story name="with sticky footer inside of larger div" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter footer={
+            <Pager
+              totalRecords={ rows.length }
+              showPageSizeSelection
+              pageSize={ 5 }
+              currentPage={ currentPage }
+              onPagination={ (next, size) => handlePagination(next, size) }
+              pageSizeSelectionOptions={ 
+                [
+                  { id: '1', name: 1 },
+                  { id: '5', name: 5 },
+                ]}
+            />
+          }>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### With hasMaxHeight
+By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
+
+<Preview>
+  <Story name="with sticky footer and hasMaxHeight" parameters={{ chromatic: { disable: true }}}>
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <div style={ { height: "180px", marginBottom: "16px" } }>
+          <FlatTable hasStickyHead hasStickyFooter hasMaxHeight footer={
             <Pager
               totalRecords={ rows.length }
               showPageSizeSelection

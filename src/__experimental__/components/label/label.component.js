@@ -177,7 +177,7 @@ Label.propTypes = {
   /** Status of info */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** A message that the Help component will display */
-  help: PropTypes.string,
+  help: PropTypes.node,
   /** Icon type */
   helpIcon: PropTypes.string,
   /** Overrides the default 'as' attribute of the Help component */

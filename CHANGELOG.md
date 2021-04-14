@@ -1,3 +1,83 @@
+## [68.17.0](https://github.com/Sage/carbon/compare/v68.16.0...v68.17.0) (2021-04-13)
+
+
+### Features
+
+* **flat-table-cell, flat-table-row-header:** add width prop to table cell and new truncate styling ([86b42b8](https://github.com/Sage/carbon/commit/86b42b8166c68cb1d8818c02b31e3b79f2e4ca52))
+
+
+### Bug Fixes
+
+* **flat-table-cell, flat-table-header:** raise specificity of spacing styles ([8bd10ce](https://github.com/Sage/carbon/commit/8bd10cea837de190791aee32ea4e9be433008f4a)), closes [#3846](https://github.com/Sage/carbon/issues/3846)
+
+## [68.16.0](https://github.com/Sage/carbon/compare/v68.15.0...v68.16.0) (2021-04-13)
+
+
+### Features
+
+* **split-button:** surface styled system margin props ([5495b2d](https://github.com/Sage/carbon/commit/5495b2df06322c2c4fc366278cc1e8fcccd32f36))
+
+
+### Bug Fixes
+
+* **split-button:** prevent padding props being spread into main button ([7bd7ade](https://github.com/Sage/carbon/commit/7bd7ade4943238e24e323ad4c664a0f4a57c9e83))
+
+## [68.15.0](https://github.com/Sage/carbon/compare/v68.14.0...v68.15.0) (2021-04-12)
+
+
+### Features
+
+* **textbox:** change labelHelp type to ReactNode ([fbd15e6](https://github.com/Sage/carbon/commit/fbd15e62ad242d96787729224aae6fbde22c098d)), closes [#3434](https://github.com/Sage/carbon/issues/3434)
+
+## [68.14.0](https://github.com/Sage/carbon/compare/v68.13.0...v68.14.0) (2021-04-12)
+
+
+### Features
+
+* **profile:** add styled-system margin props ([a891678](https://github.com/Sage/carbon/commit/a89167874bac998162406be61035a2f4775b6121))
+
+## [68.13.0](https://github.com/Sage/carbon/compare/v68.12.0...v68.13.0) (2021-04-12)
+
+
+### Features
+
+* **note:** add styled-system margin props ([dca47cd](https://github.com/Sage/carbon/commit/dca47cd45aed8e75bb0ebd253ae218f6b68b0e35))
+
+## [68.12.0](https://github.com/Sage/carbon/compare/v68.11.0...v68.12.0) (2021-04-12)
+
+
+### Features
+
+* **text-editor:** surface styled system margin props ([9825c61](https://github.com/Sage/carbon/commit/9825c617e53284001113a1db9fbad4e855b59438))
+
+## [68.11.0](https://github.com/Sage/carbon/compare/v68.10.0...v68.11.0) (2021-04-09)
+
+
+### Features
+
+* **tabs, tab:** surface styled system margin interface in tabs and padding interface in tab ([5e125af](https://github.com/Sage/carbon/commit/5e125af229a54e826076e6928e5e59a0058d5ecb))
+
+## [68.10.0](https://github.com/Sage/carbon/compare/v68.9.2...v68.10.0) (2021-04-09)
+
+
+### Features
+
+* **loader:** add styled-system ([28f4656](https://github.com/Sage/carbon/commit/28f4656c4017bbd9e2977ea83b7683446e365117))
+
+### [68.9.2](https://github.com/Sage/carbon/compare/v68.9.1...v68.9.2) (2021-04-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix gap between table content and sticky footer ([c547f4e](https://github.com/Sage/carbon/commit/c547f4efdd035bb2dd0013b94c21bb38df8237c7)), closes [#3850](https://github.com/Sage/carbon/issues/3850)
+
+### [68.9.1](https://github.com/Sage/carbon/compare/v68.9.0...v68.9.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** check event has a data element attribute before checking the value ([39db098](https://github.com/Sage/carbon/commit/39db09875b242632a1624e8540706988eac4bce0)), closes [#3754](https://github.com/Sage/carbon/issues/3754)
+
 ## [68.9.0](https://github.com/Sage/carbon/compare/v68.8.3...v68.9.0) (2021-04-06)
 
 

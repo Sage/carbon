@@ -293,6 +293,7 @@ const MultiSelect = React.forwardRef(
       }
 
       isInputFocused.current = false;
+      setOpenState(false);
 
       if (onBlur) {
         onBlur(event);

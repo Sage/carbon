@@ -14,7 +14,7 @@ describe("FlatTableRowHeader", () => {
     (props) => <FlatTableRowHeader {...props} />,
     { py: "10px", px: 3 },
     null,
-    { modifier: " > div" }
+    { modifier: "&&& > div" }
   );
 
   it("renders with proper width style rule when width prop is passed", () => {
@@ -31,7 +31,7 @@ describe("FlatTableRowHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableRowHeader),
-      { modifier: " > div" }
+      { modifier: "&&& > div" }
     );
   });
 
@@ -65,6 +65,40 @@ describe("FlatTableRowHeader", () => {
         wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
 
         expect(onKeyDownFn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when truncate prop is true", () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(<FlatTableRowHeader truncate>Foo</FlatTableRowHeader>);
+    });
+
+    it("should apply expected styling", () => {
+      assertStyleMatch(
+        {
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+        },
+        wrapper.find(StyledFlatTableRowHeader),
+        { modifier: "&&& > div" }
+      );
+    });
+
+    it("should set the title if children is string", () => {
+      expect(wrapper.find("div").props().title).toEqual("Foo");
+    });
+
+    describe("and title prop is set", () => {
+      it("should override the default behaviour", () => {
+        wrapper = mount(
+          <FlatTableRowHeader truncate title="Bar">
+            Foo
+          </FlatTableRowHeader>
+        );
+        expect(wrapper.find("div").props().title).toEqual("Bar");
       });
     });
   });

@@ -15,7 +15,10 @@ import {
   ProfileAvatarStyle,
 } from "./profile.style";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 
 describe("Profile", () => {
   let instance;
@@ -140,4 +143,10 @@ describe("ProfileDetailStyle", () => {
       );
     });
   });
+});
+
+describe("styled-system", () => {
+  testStyledSystemMargin((props) => (
+    <Profile name="profile" email="foo" {...props} />
+  ));
 });

@@ -5,14 +5,12 @@ exports[`FlatTableRow should have expected styles 1`] = `
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
-  text-overflow: ellipsis;
   text-align: left;
   vertical-align: middle;
-  white-space: nowrap;
   padding: 0;
 }
 
-.c1 > div {
+.c1.c1.c1 > div {
   box-sizing: border-box;
 }
 
