@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding, flexbox } from "styled-system";
 import { baseTheme } from "../../style/themes";
-import Box from "../box";
 
-const StyledNavigationBar = styled(Box).attrs({ as: "nav" })`
-  padding: 0 40px;
+const StyledNavigationBar = styled.div.attrs({ as: "nav" })`
   display: flex;
   align-items: center;
-
+  padding: 0 40px;
   line-height: 40px;
 
   & > * {
@@ -15,8 +13,6 @@ const StyledNavigationBar = styled(Box).attrs({ as: "nav" })`
     height: 40px;
     vertical-align: middle;
   }
-
-  ${space}
 
   @media only screen and (max-width: 1366px) {
     padding: 0 30px;
@@ -26,9 +22,8 @@ const StyledNavigationBar = styled(Box).attrs({ as: "nav" })`
     padding: 0 25px;
   }
 
-  @media screen {
-    ${space}
-  }
+  ${padding}
+  ${flexbox}
 
   .carbon-logo {
     margin-right: 10px;

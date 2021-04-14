@@ -26,6 +26,7 @@ const NavigationBar = ({
 NavigationBar.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
+  ...propTypes.flexbox,
   children: PropTypes.node,
   ariaLabel: PropTypes.string,
   /** color scheme of navigation component */

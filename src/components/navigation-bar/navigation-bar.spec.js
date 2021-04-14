@@ -3,7 +3,8 @@ import { shallow, mount } from "enzyme";
 import NavigationBar from "./navigation-bar.component";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemPadding,
+  testStyledSystemFlexBox,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar from "./navigation-bar.style";
@@ -11,11 +12,13 @@ import StyledNavigationBar from "./navigation-bar.style";
 describe("NavigationBar", () => {
   let wrapper;
 
-  describe("style overrides", () => {
-    testStyledSystemSpacing((props) => (
-      <NavigationBar {...props}>test content</NavigationBar>
-    ));
-  });
+  testStyledSystemPadding((props) => (
+    <NavigationBar {...props}>test content</NavigationBar>
+  ));
+
+  testStyledSystemFlexBox((props) => (
+    <NavigationBar {...props}>test content</NavigationBar>
+  ));
 
   it("should render child correctly", () => {
     wrapper = shallow(
