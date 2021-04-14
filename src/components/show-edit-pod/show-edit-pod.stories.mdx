@@ -1,19 +1,19 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import styled from 'styled-components';
-import ShowEditPod from './';
-import Heading from '../heading';
-import Button from '../button';
-import Content from '../content';
-import Textbox from '../../__experimental__/components/textbox';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta
-  title="ShowEditPod"
-  parameters={{ info: { disable: true }}}
-/>
+import styled from "styled-components";
+import ShowEditPod from "./";
+import Heading from "../heading";
+import Button from "../button";
+import Content from "../content";
+import Textbox from "../../__experimental__/components/textbox";
+
+<Meta title="ShowEditPod" parameters={{ info: { disable: true } }} />
 
 # ShowEditPod
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -21,11 +21,13 @@ import Textbox from '../../__experimental__/components/textbox';
 - [Props](#props)
 
 ## Quick Start
+
 ```javascript
 import ShowEditPod from "carbon-react/lib/components/show-edit-pod";
 ```
 
 ## Designer Notes
+
 Nest any Carbon input into this component.
 
 Configure Pod and Fieldset components to work together, or choose this pre-configured Show/Edit Pod component.
@@ -67,17 +69,9 @@ More guidance is available for each of the individual inputs you might place ins
       saveText="Save"
       deleteText="Delete"
       cancelText="Cancel"
-      editFields={
-        <Textbox
-          label="Field"
-          labelInline
-          labelAlign='right'
-        />
-      }
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
     >
-      <Content title="Content title">
-        Content
-      </Content>
+      <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
 </Preview>
@@ -86,9 +80,10 @@ More guidance is available for each of the individual inputs you might place ins
 
 <Preview>
   <Story name="buttons alignment">
-    {() => ['left', 'right'].map(buttonAlign =>
-      <>
+    {() =>
+      ["left", "right"].map((buttonAlign) => (
         <ShowEditPod
+          key={buttonAlign}
           title={buttonAlign}
           editing={true}
           onDelete={() => {}}
@@ -96,21 +91,13 @@ More guidance is available for each of the individual inputs you might place ins
           deleteText="Delete"
           cancelText="Cancel"
           buttonAlign={buttonAlign}
-          editFields={
-            <Textbox
-              label="Field"
-              labelInline
-              labelAlign='right'
-            />
-          }
+          editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+          mb={3}
         >
-          <Content title="Content title">
-            Content
-          </Content>
+          <Content title="Content title">Content</Content>
         </ShowEditPod>
-        <div style={{ marginBottom: 24 }}/>
-      </>
-    )}
+      ))
+    }
   </Story>
 </Preview>
 
@@ -126,17 +113,9 @@ More guidance is available for each of the individual inputs you might place ins
       deleteText="Delete"
       cancelText="Cancel"
       border
-      editFields={
-        <Textbox
-          label="Field"
-          labelInline
-          labelAlign='right'
-        />
-      }
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
     >
-      <Content title="Content title">
-        Content
-      </Content>
+      <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
 </Preview>
@@ -145,44 +124,35 @@ More guidance is available for each of the individual inputs you might place ins
 
 <Preview>
   <Story name="various variants">
-    {() => [
-      'primary',
-      'secondary',
-      'tertiary',
-      'tile',
-      'transparent'
-    ].map(variant =>
-      <>
-        <ShowEditPod
-          title={variant}
-          onEdit={() => {}}
-          onDelete={() => {}}
-          saveText="Save"
-          deleteText="Delete"
-          cancelText="Cancel"
-          variant={variant}
-          editFields={
-            <Textbox
-              label="Field"
-              labelInline
-              labelAlign='right'
-            />
-          }
-        >
-          <Content title="Content title">
-            Content
-          </Content>
-        </ShowEditPod>
-        <div style={{ marginBottom: 24 }}/>
-      </>
-    )}
+    {() =>
+      ["primary", "secondary", "tertiary", "tile", "transparent"].map(
+        (variant) => (
+          <ShowEditPod
+            key={variant}
+            title={variant}
+            onEdit={() => {}}
+            onDelete={() => {}}
+            saveText="Save"
+            deleteText="Delete"
+            cancelText="Cancel"
+            variant={variant}
+            editFields={
+              <Textbox label="Field" labelInline labelAlign="right" />
+            }
+            mb={3}
+          >
+            <Content title="Content title">Content</Content>
+          </ShowEditPod>
+        )
+      )
+    }
   </Story>
 </Preview>
 
 ### Custom transition
 
 <Preview>
-  <Story name="custom transition" parameters={{ chromatic: { disable: true }}}>
+  <Story name="custom transition" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const StyledContainer = styled.div`
         .custom-transition-name-enter {
@@ -203,7 +173,7 @@ More guidance is available for each of the individual inputs you might place ins
           opacity: 0;
           position: absolute;
         }
-        `
+      `;
       return (
         <StyledContainer>
           <ShowEditPod
@@ -215,19 +185,13 @@ More guidance is available for each of the individual inputs you might place ins
             cancelText="Cancel"
             transitionName="custom-transition-name"
             editFields={
-              <Textbox
-                label="Field"
-                labelInline
-                labelAlign='right'
-              />
+              <Textbox label="Field" labelInline labelAlign="right" />
             }
           >
-            <Content title="Content title">
-              Content
-            </Content>
+            <Content title="Content title">Content</Content>
           </ShowEditPod>
         </StyledContainer>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -235,4 +199,5 @@ More guidance is available for each of the individual inputs you might place ins
 ## Props
 
 ### Show Edit Pod
-<Props of={ShowEditPod} />
+
+<StyledSystemProps of={ShowEditPod} margin noHeader />

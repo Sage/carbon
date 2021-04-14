@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import { FormFieldSpacing } from '../../utils/helpers/options-helper/options-helper';
+import { FormFieldSpacing, SpacingProps } from '../../utils/helpers/options-helper/options-helper';
 
-export interface FormProps {
+export interface FormProps extends SpacingProps {
  /** Alignment of buttons */
  buttonAlignment: 'left' | 'right';
 

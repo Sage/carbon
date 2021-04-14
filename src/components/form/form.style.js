@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
+import { space } from "styled-system";
 import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
 import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 
@@ -10,6 +11,8 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 
 export const StyledForm = styled.form`
+  ${space}
+
   & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) =>

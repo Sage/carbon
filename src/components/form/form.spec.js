@@ -4,7 +4,10 @@ import { act } from "react-dom/test-utils";
 
 import baseTheme from "../../style/themes/base";
 import ElementResize from "../../utils/helpers/element-resize";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/test-utils";
 import Form from "./form.component";
 import {
   StyledLeftButtons,
@@ -12,8 +15,11 @@ import {
   StyledFormFooter,
   StyledForm,
 } from "./form.style";
-import FormSummary from "./form-summary.component";
-import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
+import FormSummary from "./__internal__/form-summary.component";
+import {
+  StyledFormSummary,
+  StyledInternalSummary,
+} from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
@@ -25,6 +31,8 @@ describe("Form", () => {
     jest.useFakeTimers();
     wrapper = mount(<Form />);
   });
+
+  testStyledSystemSpacing((props) => <Form {...props} />);
 
   it("allows custom classes to be added to the Form", () => {
     wrapper.setProps({ className: "foo" });

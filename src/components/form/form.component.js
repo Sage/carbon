@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import ElementResize from "../../utils/helpers/element-resize";
-import FormSummary from "./form-summary.component";
+import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
   StyledFormFooter,
@@ -116,6 +117,7 @@ const Form = ({
 };
 
 Form.propTypes = {
+  ...styledSystemPropTypes.space,
   /** Alignment of buttons */
   buttonAlignment: PropTypes.oneOf(["left", "right"]),
 
