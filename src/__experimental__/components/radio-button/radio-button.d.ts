@@ -21,4 +21,5 @@ export interface RadioButtonProps extends CommonCheckableInputProps, MarginProps
 
 declare function RadioButton(props: RadioButtonProps): JSX.Element;
 
-export { RadioButton };
+export { RadioButton as PrivateRadioButton };
+export default RadioButton;
