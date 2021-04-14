@@ -5,6 +5,7 @@ import {
   StyledMultiStepWizard,
   StyledMultiStepWizardContent,
 } from "./multi-step-wizard.style";
+import Logger from "../../utils/logger/logger";
 
 /**
  * A MultiStepWizard widget.
@@ -60,7 +61,19 @@ import {
  * @class MultiStepWizard
  * @constructor
  */
+let deprecatedWarnTriggered = false;
 class MultiStepWizard extends React.Component {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`Multi Step Wizard` component is deprecated and will soon be removed. Please use Step Sequence instead."
+      );
+    }
+  }
+
   static propTypes = {
     /**
      * Individual steps
