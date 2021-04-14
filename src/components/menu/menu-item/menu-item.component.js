@@ -6,11 +6,12 @@ import React, {
   useContext,
 } from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 import classNames from "classnames";
+
 import StyledMenuItemWrapper from "./menu-item.style";
 import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
-import Box from "../../box";
 import Events from "../../../utils/helpers/events";
 import { MenuContext } from "../menu.component";
 import Submenu from "../__internal__/submenu/submenu.component";
@@ -158,7 +159,10 @@ const MenuItem = ({
 };
 
 MenuItem.propTypes = {
-  ...Box.propTypes,
+  /** Styled system flex props */
+  ...propTypes.flexbox,
+  /** Styled system layout props */
+  ...propTypes.layout,
   /** Either prop `icon` must be defined or this node must have children.
    * @type node
    */
