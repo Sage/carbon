@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { padding } from "styled-system";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
@@ -22,9 +23,10 @@ const PopoverContainerHeaderStyle = styled.div`
 `;
 
 const PopoverContainerContentStyle = styled.div`
+  ${padding}
+
   background: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
-  padding: 16px 24px;
   min-width: 300px;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
