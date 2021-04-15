@@ -1,10 +1,8 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { StepSequence, StepSequenceItem } from './';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { StepSequence, StepSequenceItem } from "./";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta
-  title="Step Sequence"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Step Sequence" parameters={{ info: { disable: true } }} />
 
 # StepSequence
 
@@ -17,6 +15,7 @@ Try to keep label text for each step as short as possible.
 For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -24,8 +23,12 @@ For users on small screens or instances where horizontal space is limited, use t
 ## Quick Start
 
 ```javascript
-import { StepSequence, StepSequenceItem } from "carbon-react/lib/components/step-sequence";
+import {
+  StepSequence,
+  StepSequenceItem,
+} from "carbon-react/lib/components/step-sequence";
 ```
+
 ## Examples
 
 ### Default
@@ -34,47 +37,47 @@ import { StepSequence, StepSequenceItem } from "carbon-react/lib/components/step
   <Story name="default">
     <StepSequence>
       <StepSequenceItem
-        aria-label='Step 1 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='1'
-        status='complete'
+        aria-label="Step 1 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="1"
+        status="complete"
       >
         Name
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 2 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='2'
-        status='complete'
+        aria-label="Step 2 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="2"
+        status="complete"
       >
         Delivery Address
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 3 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='3'
-        status='current'
+        aria-label="Step 3 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="3"
+        status="current"
       >
         Delivery Details
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 4 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='4'
-        status='incomplete'
+        aria-label="Step 4 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="4"
+        status="incomplete"
       >
         Payment
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 5 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='5'
-        status='incomplete'
+        aria-label="Step 5 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="5"
+        status="incomplete"
       >
         Confirm
       </StepSequenceItem>
@@ -88,47 +91,47 @@ import { StepSequence, StepSequenceItem } from "carbon-react/lib/components/step
   <Story name="vertical">
     <StepSequence orientation="vertical">
       <StepSequenceItem
-        aria-label='Step 1 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='1'
-        status='complete'
+        aria-label="Step 1 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="1"
+        status="complete"
       >
         Name
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 2 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='2'
-        status='complete'
+        aria-label="Step 2 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="2"
+        status="complete"
       >
         Delivery Address
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 3 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='3'
-        status='current'
+        aria-label="Step 3 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="3"
+        status="current"
       >
         Delivery Details
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 4 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='4'
-        status='incomplete'
+        aria-label="Step 4 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="4"
+        status="incomplete"
       >
         Payment
       </StepSequenceItem>
       <StepSequenceItem
-        aria-label='Step 5 of 5'
-        hiddenCompleteLabel='Complete'
-        hiddenCurrentLabel='Current'
-        indicator='5'
-        status='incomplete'
+        aria-label="Step 5 of 5"
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        indicator="5"
+        status="incomplete"
       >
         Confirm
       </StepSequenceItem>
@@ -139,7 +142,9 @@ import { StepSequence, StepSequenceItem } from "carbon-react/lib/components/step
 ## Props
 
 ### StepSequence
-<Props of={StepSequence} />
+
+<StyledSystemProps of={StepSequence} margin noHeader />
 
 ### StepSequenceItem
+
 <Props of={StepSequenceItem} />

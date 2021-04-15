@@ -1,3 +1,10 @@
+## [68.22.0](https://github.com/Sage/carbon/compare/v68.21.0...v68.22.0) (2021-04-15)
+
+
+### Features
+
+* **step-sequence:** add styled system margin props to StepSequence ([8415302](https://github.com/Sage/carbon/commit/84153020d27f9ae28c1dba4f0a49ce5015696c9a))
+
 ## [68.21.0](https://github.com/Sage/carbon/compare/v68.20.1...v68.21.0) (2021-04-15)
 
 
