@@ -10,6 +10,7 @@ const StyledInput = styled.input`
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
   padding: 0;
+  margin: 0;
   width: 30px;
 
   &:-webkit-autofill {
