@@ -15,6 +15,7 @@ import {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
+  StyledTitleContainer,
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
@@ -79,20 +80,56 @@ describe("TileSelect", () => {
     });
   });
 
-  it("renders title element when title prop is passed", () => {
+  it("renders title element as h3 when title prop is passed as string", () => {
     render({ title: "Title" });
+    expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeTruthy();
     expect(wrapper.find(StyledTitle).prop("children")).toBe("Title");
   });
 
-  it("renders subtitle element when subtitle prop is passed", () => {
+  it("renders title element as a div when title prop is passed as node", () => {
+    render({ title: <h1>Title</h1> });
+    expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeFalsy();
+    expect(wrapper.find(StyledTitle).prop("as")).toBe("div");
+    expect(wrapper.find(StyledTitle).prop("children")).toStrictEqual(
+      <h1>Title</h1>
+    );
+  });
+
+  it("renders subtitle element as h4 when subtitle prop is passed as string", () => {
     render({ subtitle: "Subtitle" });
+    expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeTruthy();
     expect(wrapper.find(StyledSubtitle).prop("children")).toBe("Subtitle");
+  });
+
+  it("renders subtitle element as a div when subtitle prop is passed as node", () => {
+    render({ subtitle: <h2>Sub Title</h2> });
+    expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeFalsy();
+    expect(wrapper.find(StyledSubtitle).prop("as")).toBe("div");
+    expect(wrapper.find(StyledSubtitle).prop("children")).toStrictEqual(
+      <h2>Sub Title</h2>
+    );
   });
 
   it("renders title adornment element when titleAdornment prop is passed", () => {
     const MyComp = () => <div />;
     render({ titleAdornment: <MyComp /> });
     expect(wrapper.find(StyledAdornment).find(MyComp).exists()).toBe(true);
+  });
+
+  it("renders description element as p when description prop is passed as string", () => {
+    render({ description: "description" });
+    expect(wrapper.find(StyledDescription).prop("as")).toBe(undefined);
+    expect(wrapper.find(StyledDescription).prop("children")).toBe(
+      "description"
+    );
+  });
+
+  it("renders description element as div when description prop is passed as node", () => {
+    render({ description: <strong>description</strong> });
+    expect(wrapper.find(StyledDescription).prop("as")).toBe("div");
+    expect(wrapper.find(StyledDescription).prop("children")).toStrictEqual(
+      <strong>description</strong>
+    );
   });
 
   describe("styles", () => {

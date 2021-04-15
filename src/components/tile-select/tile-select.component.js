@@ -86,15 +86,29 @@ const TileSelect = (props) => {
       />
       <StyledTileSelect disabled={disabled} checked={checked}>
         <StyledTitleContainer>
-          {title && <StyledTitle>{title}</StyledTitle>}
+          {title && (
+            <StyledTitle {...(typeof title !== "string" && { as: "div" })}>
+              {title}
+            </StyledTitle>
+          )}
 
-          {subtitle && <StyledSubtitle>{subtitle}</StyledSubtitle>}
+          {subtitle && (
+            <StyledSubtitle
+              {...(typeof subtitle !== "string" && { as: "div" })}
+            >
+              {subtitle}
+            </StyledSubtitle>
+          )}
 
           {titleAdornment && (
             <StyledAdornment>{titleAdornment}</StyledAdornment>
           )}
         </StyledTitleContainer>
-        <StyledDescription>{description}</StyledDescription>
+        <StyledDescription
+          {...(typeof description !== "string" && { as: "div" })}
+        >
+          {description}
+        </StyledDescription>
       </StyledTileSelect>
       <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
         {renderActionButton()}
@@ -112,13 +126,13 @@ TileSelect.defaultProps = {
 TileSelect.propTypes = {
   ...marginPropTypes,
   /** title of the TileSelect */
-  title: PropTypes.string,
+  title: PropTypes.node,
   /** adornment to be rendered next to the title */
   titleAdornment: PropTypes.node,
   /** subtitle of the TileSelect */
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.node,
   /** description of the TileSelect */
-  description: PropTypes.string,
+  description: PropTypes.node,
   /** disables the TileSelect input */
   disabled: PropTypes.bool,
   /** the value that is represented by this TileSelect */
