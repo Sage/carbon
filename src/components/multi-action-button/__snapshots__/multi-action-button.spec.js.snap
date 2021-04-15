@@ -109,6 +109,111 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: -1px;
 }
 
+.c5 > .c1 {
+  margin: 0;
+}
+
+.c5 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c5 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c6 > .c1 {
+  margin: 0;
+}
+
+.c6 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c6 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c7 > .c1 {
+  margin: 0;
+}
+
+.c7 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c7 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c8 > .c1 {
+  margin: 0;
+}
+
+.c8 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c8 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c9 > .c1 {
+  margin: 0;
+}
+
+.c9 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c9 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c10 > .c1 {
+  margin: 0;
+}
+
+.c10 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c10 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c11 > .c1 {
+  margin: 0;
+}
+
+.c11 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c11 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
 <div
   aria-haspopup="true"
   className="c0"

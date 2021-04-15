@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
@@ -8,6 +9,11 @@ import Button, { ButtonWithForwardRef } from "../button";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
 import Popover from "../../__internal__/popover";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const MultiActionButton = ({
   align = "left",
@@ -133,6 +139,7 @@ const MultiActionButton = ({
       disabled,
       displayed: showAdditionalButtons,
       onTouchStart: showButtons,
+      onClick: rest.onClick,
       onFocus: focusMainButton,
       onBlur: () => {
         isMainButtonFocused.current = false;
@@ -200,6 +207,7 @@ const MultiActionButton = ({
       data-role={rest["data-role"]}
       align={align}
       displayed={showAdditionalButtons}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <Button
         aria-haspopup="true"
@@ -220,6 +228,7 @@ const MultiActionButton = ({
 };
 
 MultiActionButton.propTypes = {
+  ...marginPropTypes,
   /** Button type: "primary" | "secondary". */
   buttonType: PropTypes.oneOf(["primary", "secondary"]),
 

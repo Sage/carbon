@@ -9,13 +9,23 @@ import {
 } from "./multi-action-button.style";
 import Button, { ButtonWithForwardRef } from "../button";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
-import { assertStyleMatch, keyboard } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  keyboard,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
 
 describe("MultiActionButton", () => {
   let wrapper;
+
+  testStyledSystemMargin((props) => (
+    <MultiActionButton text="Test" {...props}>
+      <Button>Test</Button>
+    </MultiActionButton>
+  ));
 
   describe("tags", () => {
     describe("on component", () => {

@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
 const StyledMultiActionButton = styled.div`
+  ${margin}
+
   display: inline-block;
   position: relative;
 
