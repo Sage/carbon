@@ -14,6 +14,7 @@ import {
 } from ".";
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
+import Button from "../button";
 import Icon from "../icon";
 import Pager from "../pager";
 import {
@@ -1035,6 +1036,76 @@ truncated styling applied, this is because of the caret icon that is rendered wi
             </FlatTableRow>
           </FlatTableBody>
         </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Controlled
+
+<Preview>
+  <Story
+    name="controlled"
+    parameters={{ chromatic: { disable: true } }}
+    >
+    {() => {
+      const [expanded, setExpanded] = useState(true);
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <>
+         <Button onClick={() => setExpanded((prev) => !prev)}>
+          {expanded ? "Collapse All" : "Expand All"}
+        </Button>
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+        </>
       );
     }}
   </Story>

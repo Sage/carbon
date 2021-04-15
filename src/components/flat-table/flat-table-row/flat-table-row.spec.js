@@ -676,6 +676,45 @@ describe("FlatTableRow", () => {
           expect(onClickFn).toHaveBeenCalled();
         });
       });
+
+      describe("when used as a controlled component", () => {
+        it("should update the expanded state of the rows", () => {
+          const MockComponent = (props) => {
+            const [expanded, setExpanded] = React.useState(false);
+            return (
+              <>
+                <button type="button" onClick={() => setExpanded(!expanded)}>
+                  Change Expanded State
+                </button>
+                <table>
+                  <tbody>
+                    <FlatTableRow {...props} expanded={expanded}>
+                      <FlatTableCell>cell1</FlatTableCell>
+                      <FlatTableCell>cell2</FlatTableCell>
+                    </FlatTableRow>
+                  </tbody>
+                </table>
+              </>
+            );
+          };
+
+          const wrapper = mount(<MockComponent expandable subRows={SubRows} />);
+
+          act(() => {
+            wrapper.find("button").props().onClick();
+          });
+          wrapper.update();
+
+          expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+          act(() => {
+            wrapper.find("button").props().onClick();
+          });
+          wrapper.update();
+
+          expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+        });
+      });
     });
 
     describe("when focused and enter/space is pressed", () => {

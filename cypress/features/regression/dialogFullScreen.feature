@@ -61,9 +61,9 @@ Feature: Dialog Full Screen component
   @positive
   Scenario: Verify that nested dialog is closed by pressing Esc key
     Given I open nested "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
-      And I "Open Main Dialog" button on preview
+      And I click "Open Main Dialog" button on preview
       And I wait 500
-      And I "Open Nested Dialog" button on preview
+      And I click "Open Nested Dialog" button on preview
       And Dialog is visible
     When I hit ESC key in noIframe
     Then Dialog Full Screen is visible
