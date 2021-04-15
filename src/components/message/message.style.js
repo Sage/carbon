@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 
@@ -25,6 +26,8 @@ const MessageStyle = styled.div`
     top: 50%;
     transform: translateY(-50%);
   }
+
+  ${margin}
 `;
 
 MessageStyle.defaultProps = {

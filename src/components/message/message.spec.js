@@ -9,6 +9,7 @@ import Message from "./message.component";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
@@ -209,5 +210,9 @@ describe("Message", () => {
         expect(getCloseButtonLabel(wrapper)).toBe("test");
       });
     });
+  });
+
+  describe("styled-system", () => {
+    testStyledSystemMargin((props) => <Message {...props} />);
   });
 });

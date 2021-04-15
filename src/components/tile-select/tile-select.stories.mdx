@@ -6,6 +6,7 @@ import Pill from "../pill/"
 import Icon from "../icon";
 import Button from "../button";
 import I18n from "i18n-js";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Tile Select"
@@ -324,10 +325,82 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
   </Story>
 </Preview>
 
+### With custom spacing
+The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The  modifiers 
+support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid CSS string.
+
+<Preview>
+  <Story name="with custom spacing">
+    {() => {
+      const [value, setValue] = useState(null);
+      return (
+        <TileSelectGroup
+          name="Tile Select"
+          value={value}
+          legend="Tile Select"
+          description="Pick one of the available options"
+          onChange={(e) => setValue(e.target.value)}
+          m={6}
+        >
+          <TileSelect
+            value="1"
+            id="1"
+            aria-label="1"
+            title="Title"
+            subtitle="Subtitle"
+            description="Short and descriptive description"
+          />
+          <TileSelect
+            value="2"
+            id="2"
+            aria-label="2"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Pill>Message</Pill>}
+            description="Short and descriptive description"
+            mt={1}
+          />
+          <TileSelect
+            value="3"
+            id="3"
+            aria-label="3"
+            disabled
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
+            description="Short and descriptive description"
+            mt={1}
+          />
+          <TileSelect
+            value="4"
+            id="4"
+            aria-label="4"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+            mt={1}
+          />
+        </TileSelectGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### TileSelect
-<Props of={TileSelect} />
+
+<StyledSystemProps
+  of={TileSelect}
+  margin
+  noHeader
+/>
 
 ### TileSelectGroup
-<Props of={TileSelectGroup} />
+
+<StyledSystemProps
+  of={TileSelectGroup}
+  margin
+  noHeader
+/>

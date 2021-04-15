@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface TileSelectProps {
+export interface TileSelectProps extends MarginSpacingProps {
     /** title of the TileSelect */
     title?: string;
     /** adornment to be rendered next to the title */

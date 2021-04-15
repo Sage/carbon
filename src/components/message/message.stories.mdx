@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Message from '.';
 import Button from '../button';
@@ -163,8 +164,50 @@ It is also possible to use the `List`, `ListItem` and `Typography` components to
   </Story>
 </Preview>
 
+### With margin
+Margins can be applied to the `message` component using styled-system. 
+To see a full list of available margin props, please visit the props table at the bottom of this page.
+
+[Visit Props Table](#props)
+<Preview>
+  <Story name="with margin">
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          <Message
+            open={ isOpen }
+            onDismiss={ () => setIsOpen(false) }
+            variant="warning"
+            m={1}
+          >
+            Some custom message
+          </Message>
+          <Message
+            open={ isOpen }
+            onDismiss={ () => setIsOpen(false) }
+            variant="warning"
+            m={3}
+          >
+            Some custom message
+          </Message>
+                    <Message
+            open={ isOpen }
+            onDismiss={ () => setIsOpen(false) }
+            variant="warning"
+            m="16px"
+          >
+            Some custom message
+          </Message>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### Message
 
-<Props of={Message} />
+<StyledSystemProps of={Message} noHeader margin />

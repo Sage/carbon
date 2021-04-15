@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import Fieldset from "../../__experimental__/components/fieldset";
 import { Input } from "../../__experimental__/components/input";
 import tint from "../../style/utils/tint";
@@ -61,6 +62,8 @@ const StyledTileSelect = styled.div`
 `;
 
 const StyledTileSelectContainer = styled.div`
+  ${margin}
+
   width: 100%;
   position: relative;
   & + & ${StyledTileSelect} {
@@ -117,6 +120,8 @@ const StyledDeselectWrapper = styled.div`
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
+  ${margin}
+
   ${LegendContainerStyle} {
     margin-bottom: 16px;
     legend {
@@ -140,21 +145,30 @@ const StyledGroupDescription = styled.p`
   margin-bottom: 16px;
 `;
 
+StyledTileSelectFieldset.defaultProps = {
+  theme: baseTheme,
+};
+
 StyledTileSelect.defaultProps = {
   theme: baseTheme,
 };
+
 StyledTileSelectContainer.defaultProps = {
   theme: baseTheme,
 };
+
 StyledGroupDescription.defaultProps = {
   theme: baseTheme,
 };
+
 StyledTileSelectInput.defaultProps = {
   theme: baseTheme,
 };
+
 StyledDescription.defaultProps = {
   theme: baseTheme,
 };
+
 StyledDeselectWrapper.defaultProps = {
   theme: baseTheme,
 };
