@@ -1,3 +1,10 @@
+### [68.22.1](https://github.com/Sage/carbon/compare/v68.22.0...v68.22.1) (2021-04-15)
+
+
+### Reverts
+
+* "docs: add info about chromatic for major branch" ([de23064](https://github.com/Sage/carbon/commit/de23064b09cd2b762ddf6346be3fa220f16ab72c))
+
 ## [68.22.0](https://github.com/Sage/carbon/compare/v68.21.0...v68.22.0) (2021-04-15)
 
 

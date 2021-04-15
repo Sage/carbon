@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "68.22.0",
+  "version": "68.22.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -200,9 +200,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/npm",
-      ["@semantic-release/git", {
-        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-      }],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+        }
+      ],
       "@semantic-release/github"
     ]
   }
