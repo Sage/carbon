@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import {
   StyledHeader,
@@ -7,12 +8,13 @@ import {
 } from "../heading/heading.style";
 
 export const StyledSettingsRow = styled.div`
+  ${margin}
+
   clear: both;
   color: ${({ theme }) => theme.palette.slateTint(20)};
   display: flex;
   font-size: 14px;
   justify-content: space-between;
-  margin: 0;
   padding: 0;
   position: relative;
 

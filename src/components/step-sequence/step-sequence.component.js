@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import React from "react";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import StepSequenceStyle from "./step-sequence.style";
 import OptionsHelper from "../../utils/helpers/options-helper";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const StepSequence = (props) => {
   return (
@@ -21,6 +28,7 @@ const StepSequence = (props) => {
 };
 
 StepSequence.propTypes = {
+  ...marginPropTypes,
   /** Step sequence items to be rendered */
   children: PropTypes.node,
   /** The direction that step sequence items should be rendered */

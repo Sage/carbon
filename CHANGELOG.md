@@ -1,3 +1,24 @@
+### [68.22.1](https://github.com/Sage/carbon/compare/v68.22.0...v68.22.1) (2021-04-15)
+
+
+### Reverts
+
+* "docs: add info about chromatic for major branch" ([de23064](https://github.com/Sage/carbon/commit/de23064b09cd2b762ddf6346be3fa220f16ab72c))
+
+## [68.22.0](https://github.com/Sage/carbon/compare/v68.21.0...v68.22.0) (2021-04-15)
+
+
+### Features
+
+* **step-sequence:** add styled system margin props to StepSequence ([8415302](https://github.com/Sage/carbon/commit/84153020d27f9ae28c1dba4f0a49ce5015696c9a))
+
+## [68.21.0](https://github.com/Sage/carbon/compare/v68.20.1...v68.21.0) (2021-04-15)
+
+
+### Features
+
+* **settings-row:** add support for styled system margin props ([88276d6](https://github.com/Sage/carbon/commit/88276d607ae108ac64d86dc1fb27585d56203593))
+
 ### [68.20.1](https://github.com/Sage/carbon/compare/v68.20.0...v68.20.1) (2021-04-15)
 
 
