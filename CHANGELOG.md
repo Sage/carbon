@@ -1,3 +1,10 @@
+## [68.21.0](https://github.com/Sage/carbon/compare/v68.20.1...v68.21.0) (2021-04-15)
+
+
+### Features
+
+* **settings-row:** add support for styled system margin props ([88276d6](https://github.com/Sage/carbon/commit/88276d607ae108ac64d86dc1fb27585d56203593))
+
 ### [68.20.1](https://github.com/Sage/carbon/compare/v68.20.0...v68.20.1) (2021-04-15)
 
 
