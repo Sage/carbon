@@ -1,22 +1,22 @@
 module.exports = {
   presets: [
     [
-      '@babel/preset-env',
+      "@babel/preset-env",
       {
-        useBuiltIns: 'usage',
+        useBuiltIns: "usage",
         targets: {
-          browsers: 'IE 11'
+          browsers:
+            "last 2 Chrome versions, last 2 Firefox versions, last 2 Edge versions, last 2 Safari versions",
+          node: "14.16.1",
         },
-        corejs: 3
-      }
+        corejs: "3.1",
+      },
     ],
-    '@babel/preset-react',
-    '@babel/preset-typescript'
+    "@babel/preset-react",
+    "@babel/preset-typescript",
   ],
   plugins: [
-    '@babel/plugin-proposal-function-bind',
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-proposal-object-rest-spread',
-    '@babel/plugin-syntax-dynamic-import'
-  ]
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-classes",
+  ],
 };
