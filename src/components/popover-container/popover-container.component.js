@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import { Transition } from "react-transition-group";
 import {
   PopoverContainerWrapperStyle,
@@ -11,6 +12,11 @@ import {
 } from "./popover-container.style";
 import Icon from "../icon";
 import createGuid from "../../utils/helpers/guid";
+import { filterStyledSystemPaddingProps } from "../../style/utils";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const PopoverContainer = ({
   children,
@@ -23,6 +29,7 @@ const PopoverContainer = ({
   renderCloseComponent,
   shouldCoverButton,
   ariaDescribedBy,
+  ...rest
 }) => {
   const isControlled = open !== undefined;
   const [isOpenInternal, setIsOpenInternal] = useState(false);
@@ -92,6 +99,8 @@ const PopoverContainer = ({
             shouldCoverButton={shouldCoverButton}
             aria-labelledby={popoverContainerId}
             aria-describedby={ariaDescribedBy}
+            p="16px 24px"
+            {...filterStyledSystemPaddingProps(rest)}
           >
             <PopoverContainerHeaderStyle>
               <PopoverContainerTitleStyle
@@ -111,6 +120,7 @@ const PopoverContainer = ({
 };
 
 PopoverContainer.propTypes = {
+  ...paddingPropTypes,
   /** A function that will render the open component
    *
    * `({dataElement, tabIndex, onClick, ref, ariaLabel, isOpen}) => ()`

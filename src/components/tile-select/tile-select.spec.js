@@ -18,13 +18,24 @@ import {
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
 
 const radioValues = ["val1", "val2", "val3"];
 
 describe("TileSelect", () => {
+  testStyledSystemMargin((props) => <TileSelect {...props} />);
+
+  testStyledSystemMargin((props) => (
+    <TileSelectGroup {...props}>
+      <TileSelect name="test" />
+    </TileSelectGroup>
+  ));
+
   let wrapper;
 
   const render = (props) => {
