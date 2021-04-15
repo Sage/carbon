@@ -1,109 +1,253 @@
-import React from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
-import SplitButton from "../split-button";
-import StyledMultiActionButton from "./multi-action-button.style";
-import Button from "../button";
+import {
+  StyledMultiActionButton,
+  StyledButtonChildrenContainer,
+} from "./multi-action-button.style";
+import Button, { ButtonWithForwardRef } from "../button";
 import OptionsHelper from "../../utils/helpers/options-helper";
+import Events from "../../utils/helpers/events";
+import Popover from "../../__internal__/popover";
 
-class MultiActionButton extends SplitButton {
-  showButtons = () => {
-    document.addEventListener(this.userInputType, this.handleClickOutside);
-    this.setState({
-      showAdditionalButtons: true,
-      minWidth: this.splitButtonNode.current.getBoundingClientRect().width,
+const MultiActionButton = ({
+  align = "left",
+  disabled,
+  as,
+  buttonType,
+  size,
+  children,
+  text,
+  subtext,
+  ...rest
+}) => {
+  const ref = useRef();
+  const buttonContainer = useRef();
+  const userInputType =
+    "ontouchstart" in document.documentElement ? "touchstart" : "click";
+  const buttonChildren = React.Children.toArray(children);
+  const additionalButtons = useRef(buttonChildren.map(() => React.createRef()));
+  const listening = useRef(false);
+  const isMainButtonFocused = useRef(false);
+  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
+  const [removeHandleClickOutside, setRemoveHandleClickOutside] = useState(
+    false
+  );
+  const [removeHandleKeyDown, setRemoveHandleKeyDown] = useState(false);
+  const [minWidth, setMinWidth] = useState(0);
+
+  const childrenWithProps = () => {
+    return buttonChildren.map((child, index) => {
+      const props = {
+        key: index.toString(),
+        role: "menuitem",
+        ref: additionalButtons.current[index],
+        tabIndex: -1,
+      };
+
+      if (child.type === Button) {
+        return <ButtonWithForwardRef {...child.props} {...props} />;
+      }
+
+      return React.cloneElement(child, props);
     });
+  };
+
+  const hideButtons = useCallback(() => {
+    if (isMainButtonFocused.current) return;
+
+    setShowAdditionalButtons(false);
+    setRemoveHandleClickOutside(true);
 
     /* istanbul ignore else */
-    if (!this.listening) {
-      document.addEventListener("keydown", this.handleKeyDown);
-      this.listening = true;
+    if (listening.current) {
+      setRemoveHandleKeyDown(true);
+      listening.current = false;
+    }
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (ev) => {
+      const currentIndex = additionalButtons.current.findIndex(
+        (node) => node.current === document.activeElement
+      );
+      let nextIndex = -1;
+
+      if (Events.isUpKey(ev)) {
+        nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
+        ev.preventDefault();
+      }
+      if (Events.isDownKey(ev)) {
+        nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
+        ev.preventDefault();
+      } else if (Events.isTabKey(ev)) {
+        // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
+        setTimeout(hideButtons, 0);
+      }
+
+      if (nextIndex > -1) {
+        additionalButtons.current[nextIndex].current.focus();
+      }
+    },
+    [children.length, hideButtons]
+  );
+
+  const handleClickOutside = useCallback(
+    ({ target }) => {
+      if (
+        !ref.current.contains(target) &&
+        buttonContainer.current &&
+        !buttonContainer.current.contains(target)
+      ) {
+        hideButtons(handleClickOutside, undefined);
+      }
+    },
+    [hideButtons]
+  );
+
+  const showButtons = () => {
+    document.addEventListener(userInputType, handleClickOutside);
+    setShowAdditionalButtons(true);
+
+    setMinWidth(ref.current.getBoundingClientRect().width);
+
+    /* istanbul ignore else */
+    if (!listening.current) {
+      document.addEventListener("keydown", handleKeyDown);
+      listening.current = true;
     }
   };
 
-  get multiActionButtonProps() {
-    const { iconType, iconPosition, ...props } = this.props;
+  const handleMainButtonKeyDown = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+      additionalButtons.current[0].current.focus();
+    }
+  };
 
-    props["aria-haspopup"] = "true";
-    props["aria-expanded"] = this.state.showAdditionalButtons;
-    props["aria-label"] = "Show more";
-    props["data-element"] = "toggle-button";
-    props.key = "toggle-button";
-    props.onKeyDown = this.handleToggleButtonKeyDown;
+  const focusMainButton = () => {
+    isMainButtonFocused.current = true;
+    showButtons();
+  };
 
-    return props;
-  }
+  const mainButtonProps = () => {
+    const opts = {
+      disabled,
+      displayed: showAdditionalButtons,
+      onTouchStart: showButtons,
+      onFocus: focusMainButton,
+      onBlur: () => {
+        isMainButtonFocused.current = false;
+      },
+      onKeyDown: handleMainButtonKeyDown,
+      buttonType: buttonType || as,
+      size,
+      subtext,
+    };
 
-  /**
-   * Returns the HTML for the main button.
-   */
-  get renderMainButton() {
-    return (
+    if (!disabled) {
+      opts.onMouseEnter = showButtons;
+    }
+
+    return opts;
+  };
+
+  const renderAdditionalButtons = () => (
+    <Popover placement="bottom-end" reference={ref}>
+      <StyledButtonChildrenContainer
+        role="menu"
+        aria-label={text}
+        data-element="additional-buttons"
+        align={align}
+        minWidth={minWidth}
+        ref={buttonContainer}
+      >
+        {childrenWithProps()}
+      </StyledButtonChildrenContainer>
+    </Popover>
+  );
+
+  useEffect(() => {
+    if (removeHandleClickOutside) {
+      setRemoveHandleClickOutside(false);
+      document.removeEventListener(userInputType, handleClickOutside);
+    }
+
+    if (removeHandleKeyDown) {
+      setRemoveHandleKeyDown(false);
+      document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [
+    handleClickOutside,
+    handleKeyDown,
+    removeHandleClickOutside,
+    removeHandleKeyDown,
+    userInputType,
+  ]);
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener(userInputType, handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClickOutside, handleKeyDown, userInputType]);
+
+  return (
+    <StyledMultiActionButton
+      aria-haspopup="true"
+      onMouseLeave={hideButtons}
+      ref={ref}
+      data-component="multi-action-button"
+      data-element={rest["data-element"]}
+      data-role={rest["data-role"]}
+      align={align}
+      displayed={showAdditionalButtons}
+    >
       <Button
-        {...this.multiActionButtonProps}
-        {...this.toggleButtonProps}
+        aria-haspopup="true"
+        aria-expanded={showAdditionalButtons}
+        aria-label="Show more"
+        data-element="toggle-button"
+        key="toggle-button"
+        onKeyDown={handleMainButtonKeyDown}
+        {...mainButtonProps()}
         iconPosition="after"
         iconType="dropdown"
       >
-        {this.props.text}
+        {text}
       </Button>
-    );
-  }
-
-  componentTags = () => {
-    return {
-      "data-component": "multi-action-button",
-      "data-element": this.props["data-element"],
-      "data-role": this.props["data-role"],
-    };
-  };
-
-  render() {
-    return (
-      <StyledMultiActionButton
-        buttonType={this.props.buttonType || this.props.as}
-        displayed={this.state.showAdditionalButtons}
-        align={this.props.align}
-      >
-        {super.render()}
-      </StyledMultiActionButton>
-    );
-  }
-}
+      {showAdditionalButtons && renderAdditionalButtons()}
+    </StyledMultiActionButton>
+  );
+};
 
 MultiActionButton.propTypes = {
-  /**
-   * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
-   */
+  /** Button type: "primary" | "secondary". */
+  buttonType: PropTypes.oneOf(["primary", "secondary"]),
+
+  /** The additional button to display. */
+  children: PropTypes.node.isRequired,
+
+  /** Second text child, renders under main text, only when size is "large". */
+  subtext: PropTypes.string,
+
+  /** Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'. */
   as: PropTypes.string,
 
-  /**
-   * The text to be displayed in the SplitButton.
-   */
+  /** The text to be displayed in the SplitButton. */
   text: PropTypes.string.isRequired,
 
-  /**
-   * Gives the button a disabled state.
-   */
+  /** Gives the button a disabled state. */
   disabled: PropTypes.bool,
 
-  /**
-   * The size of the MultiActionButton.
-   */
+  /** The size of the MultiActionButton. */
   size: PropTypes.oneOf(["small", "medium", "large"]),
 
-  /**
-   * A custom value for the data-element attribute
-   */
+  /** A custom value for the data-element attribute. */
   "data-element": PropTypes.string,
 
-  /**
-   * A custom value for the data-element attribute
-   */
+  /** A custom value for the data-element attribute. */
   "data-role": PropTypes.string,
 
-  /**
-   * Aligns the button's options
-   */
+  /** Aligns the button's options. */
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
 };
 
