@@ -25,7 +25,6 @@ describe("Heading", () => {
   it("renders a h1 with the title", () => {
     const wrapper = mount(
       <Heading
-        className="custom"
         title="foo"
         subheader="subheader"
         help="bar"
@@ -46,7 +45,6 @@ describe("Heading", () => {
   it("renders a back link and applies correct styling to header and subheader", () => {
     const wrapper = mount(
       <Heading
-        className="custom"
         title="foo"
         subheader="subheader"
         help="bar"
@@ -101,7 +99,6 @@ describe("Heading", () => {
   it("renders a subheader", () => {
     const wrapper = mount(
       <Heading
-        className="custom"
         title="foo"
         subheader="subheader"
         help="bar"
