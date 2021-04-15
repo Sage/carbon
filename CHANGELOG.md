@@ -1,3 +1,10 @@
+### [68.20.1](https://github.com/Sage/carbon/compare/v68.20.0...v68.20.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* **day-picker:** fix bottom of focus border is cut off by the date picker ([700822a](https://github.com/Sage/carbon/commit/700822a498325551e1d3dbc9c0b770625b485212))
+
 ## [68.20.0](https://github.com/Sage/carbon/compare/v68.19.0...v68.20.0) (2021-04-14)
 
 
