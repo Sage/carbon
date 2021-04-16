@@ -1,3 +1,10 @@
+## [68.23.0](https://github.com/Sage/carbon/compare/v68.22.1...v68.23.0) (2021-04-16)
+
+
+### Features
+
+* **preview:** add styled system margin props to Preview ([83e0ba3](https://github.com/Sage/carbon/commit/83e0ba3f39e01df1f689493885dd5635554c9560))
+
 ### [68.22.1](https://github.com/Sage/carbon/compare/v68.22.0...v68.22.1) (2021-04-15)
 
 
