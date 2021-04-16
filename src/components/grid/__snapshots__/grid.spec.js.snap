@@ -12,32 +12,32 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
 
 .c1 {
   margin: 0;
+  justify-self: left;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  justify-self: left;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 .c2 {
   margin: 0;
+  justify-self: center;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  justify-self: center;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 .c3 {
   margin: 0;
+  justify-self: right;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  justify-self: right;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 @media screen and (max-width:1920px) {
@@ -68,6 +68,7 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
 <div
   className="c0"
   data-component="grid"
+  id="testContainer"
 >
   <div
     className="c1"
@@ -99,20 +100,20 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
 
 .c1 {
   margin: 0;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 .c2 {
   margin: 0;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 .c3 {
   margin: 0;
-  grid-column: 1 / 13;
   grid-row: auto;
+  grid-column: 1 / 13;
 }
 
 @media screen and (max-width:1920px) {
@@ -242,6 +243,7 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
 <div
   className="c0"
   data-component="grid"
+  id="testContainer"
 >
   <div
     className="c1"
