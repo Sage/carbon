@@ -1,5 +1,6 @@
 import Immutable from "immutable";
 import { isEqualWith } from "lodash";
+import Logger from "../../logger/logger";
 
 /**
  * A shouldComponentUpdate helper. Run this method with your instance, nextProps and nextState
@@ -11,7 +12,18 @@ import { isEqualWith } from "lodash";
  * @param {Object} nextState
  * @return {Boolean}
  */
+
+let deprecatedWarnTriggered = false;
+
 export default function (scope, nextProps, nextState) {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate(
+      "`ShouldComponentUpdate` helper is deprecated and will soon be removed"
+    );
+  }
+
   return (
     !isEqualWith(scope.props, nextProps, customCheck) ||
     !isEqualWith(scope.state, nextState, customCheck)
