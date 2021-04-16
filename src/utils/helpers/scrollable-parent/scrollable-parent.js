@@ -1,9 +1,6 @@
 import Browser from "../browser";
 
 /**
- * A shouldComponentUpdate helper. Run this method with your instance, nextProps and nextState
- * and it will perform a deep comparison of the properties - handling immutable objects.
- *
  * @method
  * @param {Object} element
  * @return {Object}
