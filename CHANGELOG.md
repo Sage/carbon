@@ -1,3 +1,10 @@
+## [68.24.0](https://github.com/Sage/carbon/compare/v68.23.0...v68.24.0) (2021-04-16)
+
+
+### Features
+
+* **portrait:** add styled-system margin ([e3de07d](https://github.com/Sage/carbon/commit/e3de07d33031d890e37cf01062c79b233ca0631d))
+
 ## [68.23.0](https://github.com/Sage/carbon/compare/v68.22.1...v68.23.0) (2021-04-16)
 
 
