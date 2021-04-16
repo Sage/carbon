@@ -1,6 +1,7 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
 import { ArgsTable } from "@storybook/components";
 import PreviewComponent from "./preview.component";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Preview" parameters={{ info: { disable: true } }} />
 
@@ -9,6 +10,7 @@ import PreviewComponent from "./preview.component";
 Applies a preview loading state animation.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -19,7 +21,7 @@ Applies a preview loading state animation.
 import Preview from "carbon-react/lib/components/preview";
 ```
 
-## Examples 
+## Examples
 
 ### Default
 
@@ -66,6 +68,8 @@ import Preview from "carbon-react/lib/components/preview";
 ## Props
 
 ### Preview
+
+<StyledSystemProps margin noHeader />
 
 <ArgsTable
   rows={[
