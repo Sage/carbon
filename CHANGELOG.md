@@ -1,3 +1,10 @@
+## [68.25.0](https://github.com/Sage/carbon/compare/v68.24.0...v68.25.0) (2021-04-16)
+
+
+### Features
+
+* **grid-container:** use prop-types from styled-system ([ca91366](https://github.com/Sage/carbon/commit/ca913661ebacc3cd1f87e258ab984b1ca13ef109))
+
 ## [68.24.0](https://github.com/Sage/carbon/compare/v68.23.0...v68.24.0) (2021-04-16)
 
 
