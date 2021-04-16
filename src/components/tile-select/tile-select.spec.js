@@ -16,6 +16,8 @@ import {
   StyledAdornment,
   StyledDescription,
   StyledTitleContainer,
+  StyledFocusWrapper,
+  StyledFooterWrapper,
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
@@ -80,6 +82,33 @@ describe("TileSelect", () => {
     });
   });
 
+  it("calls onFocus callback if prop is passed and input is focused", () => {
+    const mockCb = jest.fn();
+    render({
+      onFocus: mockCb,
+      checked: true,
+      id: "id",
+      name: "name",
+    });
+
+    wrapper.find(StyledTileSelectInput).simulate("focus");
+    expect(mockCb).toHaveBeenCalled();
+  });
+
+  it("calls onBlur callback if prop is passed and input is blurred", () => {
+    const mockCb = jest.fn();
+    render({
+      onBlur: mockCb,
+      checked: true,
+      id: "id",
+      name: "name",
+    });
+
+    wrapper.find(StyledTileSelectInput).simulate("focus");
+    wrapper.find(StyledTileSelectInput).simulate("blur");
+    expect(mockCb).toHaveBeenCalled();
+  });
+
   it("renders title element as h3 when title prop is passed as string", () => {
     render({ title: "Title" });
     expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeTruthy();
@@ -137,11 +166,17 @@ describe("TileSelect", () => {
       render({ checked: true });
       assertStyleMatch(
         {
-          borderColor: baseTheme.colors.primary,
           background: tint(baseTheme.colors.primary)(95),
-          zIndex: "10",
         },
         wrapper.find(StyledTileSelect)
+      );
+
+      assertStyleMatch(
+        {
+          borderColor: baseTheme.colors.primary,
+          zIndex: "10",
+        },
+        wrapper.find(StyledFocusWrapper)
       );
     });
 
@@ -186,13 +221,14 @@ describe("TileSelect", () => {
     });
 
     it("renders proper outline when focused", () => {
+      wrapper.find(StyledTileSelectInput).simulate("focus");
+
       assertStyleMatch(
         {
           outline: `3px solid ${baseTheme.colors.focus}`,
           zIndex: "15",
         },
-        wrapper.find(StyledTileSelectInput),
-        { modifier: `&:focus + ${StyledTileSelect}` }
+        wrapper.find(StyledFocusWrapper)
       );
     });
   });
@@ -249,6 +285,40 @@ describe("TileSelect", () => {
           minHeight: "32px",
         },
         wrapper.find(StyledDeselectWrapper)
+      );
+    });
+  });
+
+  describe("footer prop", () => {
+    beforeEach(() => {
+      render({
+        checked: true,
+        id: "id",
+        name: "name",
+        footer: (
+          <>
+            <Icon type="info" />
+            <Button>Foo</Button>
+          </>
+        ),
+      });
+    });
+
+    it("renders the component at the bottom of the tile", () => {
+      expect(
+        wrapper.find(StyledFooterWrapper).find(Icon).exists()
+      ).toBeTruthy();
+      expect(
+        wrapper.find(StyledFooterWrapper).find(Button).exists()
+      ).toBeTruthy();
+
+      assertStyleMatch(
+        {
+          width: "fit-content",
+          position: "relative",
+          zIndex: "200",
+        },
+        wrapper.find(StyledFooterWrapper)
       );
     });
   });

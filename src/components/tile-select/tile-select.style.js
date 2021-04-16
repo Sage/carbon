@@ -35,17 +35,14 @@ const StyledDescription = styled.p`
 `;
 
 const StyledTileSelect = styled.div`
-  position: relative;
-  border: 1px solid ${({ theme }) => theme.tileSelect.border};
   background-color: ${({ theme }) => theme.colors.white};
   padding: 24px;
   ${({ checked, theme }) =>
     checked &&
     css`
-      border-color: ${theme.colors.primary};
       background: ${tint(theme.colors.primary)(95)};
-      z-index: 10;
     `}
+
   ${({ disabled, theme }) =>
     disabled &&
     css`
@@ -58,7 +55,25 @@ const StyledTileSelect = styled.div`
         fill: ${theme.colors.black};
         opacity: 0.3;
       }
-    `};
+    `}
+`;
+
+const StyledFocusWrapper = styled.div`
+  ${({ checked, theme, hasFocus }) => css`
+    position: relative;
+    border: 1px solid ${theme.tileSelect.border};
+    ${checked &&
+    css`
+      border-color: ${theme.colors.primary};
+      z-index: 10;
+    `}
+
+    ${hasFocus &&
+    css`
+      outline: 3px solid ${theme.colors.focus};
+      z-index: 15;
+    `}
+  `}
 `;
 
 const StyledTileSelectContainer = styled.div`
@@ -66,7 +81,7 @@ const StyledTileSelectContainer = styled.div`
 
   width: 100%;
   position: relative;
-  & + & ${StyledTileSelect} {
+  & + & ${StyledFocusWrapper} {
     margin-top: -1px;
   }
   ${({ checked, disabled, theme }) =>
@@ -79,6 +94,12 @@ const StyledTileSelectContainer = styled.div`
     `}
 `;
 
+const StyledFooterWrapper = styled.div`
+  width: fit-content;
+  position: relative;
+  z-index: 200;
+`;
+
 const StyledTileSelectInput = styled(Input)`
   position: absolute;
   top: 0;
@@ -89,10 +110,6 @@ const StyledTileSelectInput = styled(Input)`
   margin: 0;
   z-index: 100;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  &:focus + ${StyledTileSelect} {
-    outline: 3px solid ${({ theme }) => theme.colors.focus};
-    z-index: 15;
-  }
 `;
 
 const StyledTitleContainer = styled.div`
@@ -173,6 +190,10 @@ StyledDeselectWrapper.defaultProps = {
   theme: baseTheme,
 };
 
+StyledFocusWrapper.defaultProps = {
+  theme: baseTheme,
+};
+
 export {
   StyledTileSelectFieldset,
   StyledGroupDescription,
@@ -185,4 +206,6 @@ export {
   StyledAdornment,
   StyledDescription,
   StyledDeselectWrapper,
+  StyledFooterWrapper,
+  StyledFocusWrapper,
 };
