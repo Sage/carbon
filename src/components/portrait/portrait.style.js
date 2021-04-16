@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import sizeParams from "./portrait-size.config";
 import BaseTheme from "../../style/themes/base";
 import Icon from "../icon";
@@ -80,6 +81,8 @@ export const StyledPortraitInitials = styled.div`
     css`
       border: 1px solid ${theme.portrait.border};
     `}
+    
+  ${margin}
 `;
 
 StyledPortraitInitials.propTypes = {
@@ -95,6 +98,8 @@ StyledPortraitInitials.defaultProps = {
 
 export const StyledPortraitInitialsImg = styled.img`
   display: block;
+
+  ${margin}
 `;
 
 StyledPortraitInitialsImg.propTypes = {
@@ -107,6 +112,8 @@ export const StyledPortraitGravatar = styled.img`
   vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
+
+  ${margin}
 `;
 
 StyledPortraitGravatar.propTypes = {
@@ -124,6 +131,8 @@ export const StyledCustomImg = styled.img`
   display: block;
   ${stylingForSize}
   ${stylingForShape}
+
+  ${margin}
 `;
 
 StyledCustomImg.propTypes = {
@@ -148,6 +157,8 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
         border: 1px dashed ${theme.portrait.border};
       `}
   }
+
+  ${margin}
 `;
 
 StyledIcon.propTypes = {

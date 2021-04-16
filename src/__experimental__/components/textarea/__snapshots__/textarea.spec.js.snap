@@ -12,6 +12,7 @@ exports[`Textarea when rendered should render default 1`] = `
   font-size: 14px;
   outline: none;
   padding: 0;
+  margin: 0;
   width: 30px;
 }
 
