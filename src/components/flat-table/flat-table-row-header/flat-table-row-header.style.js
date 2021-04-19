@@ -57,4 +57,18 @@ StyledFlatTableRowHeader.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledFlatTableRowHeader;
+const StyledFlatTableRowHeaderContent = styled.div`
+  ${({ expandable }) =>
+    expandable &&
+    css`
+      display: flex;
+      align-items: center;
+      line-height: 1em;
+    `}
+`;
+
+StyledFlatTableRowHeaderContent.defaultProps = {
+  theme: baseTheme,
+};
+
+export { StyledFlatTableRowHeader, StyledFlatTableRowHeaderContent };

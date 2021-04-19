@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import StyledFlatTableRowHeader from "./flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "./flat-table-row-header.style";
 import FlatTableRowHeader from "./flat-table-row-header.component";
 import {
   assertStyleMatch,

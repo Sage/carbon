@@ -180,7 +180,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c7 c8"
             data-element="flat-table-row-header"
           >
-            <div>
+            <div
+              className=""
+            >
               row header
             </div>
           </th>
@@ -220,7 +222,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c7 c8"
             data-element="flat-table-row-header"
           >
-            <div>
+            <div
+              className=""
+            >
               row header
             </div>
           </th>
@@ -265,7 +269,9 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c7 c8"
             data-element="flat-table-row-header"
           >
-            <div>
+            <div
+              className=""
+            >
               row header
             </div>
           </th>
