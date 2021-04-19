@@ -14,12 +14,16 @@ const StyledNavigationBar = styled.div.attrs({ as: "nav" })`
     vertical-align: middle;
   }
 
-  @media only screen and (max-width: 1366px) {
-    padding: 0 30px;
+  @media only screen and (max-width: 1259px) {
+    padding: 0 32px;
   }
 
-  @media only screen and (max-width: 1024px) {
-    padding: 0 25px;
+  @media only screen and (max-width: 959px) {
+    padding: 0 24px;
+  }
+
+  @media only screen and (max-width: 599px) {
+    padding: 0 16px;
   }
 
   ${padding}
