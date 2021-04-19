@@ -2,21 +2,20 @@ Feature: Experimental GroupedCharacter component
   I want to check Experimental Grouped character component properties
 
   @positive
-  Scenario Outline: Set groups to <groups> and verify input
-    Given I open "Experimental GroupedCharacter Test" component page "default"
-    When I input json to "groups" input field the "<groups>"
-      And I put "<example>" example grouped character
-    Then Input component value is set to "<result>"
+  Scenario Outline: Set groups to <nameOfObject> and verify input
+    Given I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    When I put "<example>" example grouped character in no Iframe
+    Then example grouped character is "<result>"
     Examples:
-      | groups | example   | result      |
-      | first  | 1234567   | 1-23-456    |
-      | second | 987654321 | 98765-432-1 |
-      | third  | 123456789 | 12-3456-78  |
+      | nameOfObject | example   | result      |
+      | first        | 1234567   | 1-23-456    |
+      | second       | 987654321 | 98765-432-1 |
+      | third        | 123456789 | 12-3456-78  |
 
   @positive
   Scenario Outline: Set separator to <separator>
-    When I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
-      And I put "<text>" example grouped character in no Iframe
+    Given I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    When I put "<text>" example grouped character in no Iframe
     Then example grouped character is "<result>"
     Examples:
       | separator | text   | result   | nameOfObject |

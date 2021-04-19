@@ -104,7 +104,7 @@ Feature: Pager component
 
   @positive
   Scenario: Pagination input has golden border
-    Given I open "Design System Pager" component page "default story" in no iframe
+    Given I open "Design System Pager" component page "default" in no iframe
     When I click on pagination input
     Then pagination input has golden border
 
