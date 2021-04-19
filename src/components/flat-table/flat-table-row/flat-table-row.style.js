@@ -59,6 +59,7 @@ const StyledFlatTableRow = styled.tr`
     isRowInteractive &&
     css`
       cursor: pointer;
+      transition: outline 0.02s;
 
       :focus {
         outline: 2px solid ${theme.colors.focus};
