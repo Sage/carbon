@@ -81,6 +81,7 @@ const StyledCellContent = styled.div`
     css`
       display: flex;
       align-items: center;
+      line-height: 1em;
     `}
 `;
 
