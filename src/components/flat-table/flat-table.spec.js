@@ -17,6 +17,7 @@ import {
   StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
+  StyledFlatTableBox,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
@@ -238,6 +239,47 @@ describe("FlatTable", () => {
     }
   );
 
+  describe("StyledFlatTableBox", () => {
+    let wrapper;
+    const Footer = () => <div>foo</div>;
+    it("applies correct styles when a div is larger than the FlatTable", () => {
+      wrapper = renderFlatTableWithDiv({ footer: <Footer /> }, mount);
+      assertStyleMatch(
+        {
+          boxShadow: "inset 0px 0px 0px 1px #CCD6DB",
+          boxSizing: "border-box",
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+
+    it("applies correct styles when hasMaxHeight is true", () => {
+      wrapper = renderFlatTableWithDiv(
+        { footer: <Footer />, hasMaxHeight: true },
+        mount
+      );
+      assertStyleMatch(
+        {
+          maxHeight: "100%",
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+
+    it("applies correct styles when hasMaxHeight is false", () => {
+      wrapper = renderFlatTableWithDiv(
+        { footer: <Footer />, hasMaxHeight: false },
+        mount
+      );
+      assertStyleMatch(
+        {
+          maxHeight: undefined,
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+  });
+
   describe("footer", () => {
     let wrapper;
 
@@ -288,5 +330,34 @@ function renderFlatTable(props = {}, renderer = TestRenderer.create) {
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
+  );
+}
+
+function renderFlatTableWithDiv(props = {}, renderer = TestRenderer.create) {
+  return renderer(
+    <div style={{ height: "180px" }}>
+      <FlatTable {...props}>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableHeader>header1</FlatTableHeader>
+            <FlatTableHeader>header2</FlatTableHeader>
+            <FlatTableHeader>header3</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableCell>cell1</FlatTableCell>
+            <FlatTableCell>cell2</FlatTableCell>
+            <FlatTableCell rowspan="2">cell3</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableCell colspan="2">cell1</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
   );
 }

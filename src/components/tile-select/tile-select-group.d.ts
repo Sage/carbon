@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface TileSelectGroupProps {
+export interface TileSelectGroupProps extends MarginSpacingProps {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
   /** The content for the TileSelectGroup Legend */

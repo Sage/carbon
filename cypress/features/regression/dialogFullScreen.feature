@@ -2,15 +2,9 @@ Feature: Dialog Full Screen component
   I want to test Dialog Full Screen component properties
 
   @positive
-  Scenario: CloseIcon has the border outline
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
-
-  @positive
   Scenario: Clicking close icon closes Dialog Full Screen
-    Given I open "Dialog Full Screen Test" component page "default"
-      And I check showCloseIcon checkbox
-    When I click closeIcon in IFrame
+    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "showCloseIcon" object name
+    When I click closeIcon
     Then Confirm dialog is not visible
 
   @positive
@@ -45,30 +39,17 @@ Feature: Dialog Full Screen component
     When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
-  @negative
-  Scenario: Disable background UI
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
-
   @positive
   Scenario: Disable escape key
-    Given I open "Dialog Full Screen Test" component page "default"
-      And I check disableEscKey checkbox
-    When I hit ESC key
+    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
+    When I hit ESC key in noIframe
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    Given I open "Dialog Full Screen Test" component page "default"
-      And I check disableEscKey checkbox
-      And I uncheck disableEscKey checkbox
-    When I hit ESC key
+    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enabledEscKey" object name
+    When I hit ESC key in noIframe
     Then Dialog Full Screen is not visible
-
-  @positive
-  Scenario: Verify that stickyFormFooter is visible
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "stickyFooter" object name
-    Then Dialog Full Screen stickyFormFooter is visible
 
   @positive
   Scenario: Cancel event
@@ -79,13 +60,13 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Verify that nested dialog is closed by pressing Esc key
-    Given I open "Dialog Full Screen Test" component page "nested"
+    Given I open nested "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
       And I "Open Main Dialog" button on preview
       And I wait 500
       And I "Open Nested Dialog" button on preview
-      And Dialog is visible in IFrame
-    When I hit ESC key
+      And Dialog is visible
+    When I hit ESC key in noIframe
     Then Dialog Full Screen is visible
-      And Dialog is not visible in IFrame
-      And I hit ESC key
+      And Dialog is not visible
+      And I hit ESC key in noIframe
       And Dialog Full Screen is not visible

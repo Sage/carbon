@@ -12,6 +12,7 @@ import {
   flatTableSubrows,
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
+  pageSelectDataComponent,
 } from "../../locators/flat-table";
 
 import DEBUG_FLAG from "..";
@@ -234,22 +235,6 @@ When("I click on the first cell", () => {
   flatTableCell(0).click();
 });
 
-Then("The subrows have the correct background colour", () => {
-  flatTableSubrows()
-    .children()
-    .should("have.css", "background-color", "rgb(250, 251, 251)");
-});
-
-Then("There is a shadow effect between the parent row and first subrow", () => {
-  flatTableSubrowByPosition(0)
-    .children()
-    .should(
-      "have.css",
-      "box-shadow",
-      "rgba(0, 20, 29, 0.1) 0px 6px 4px -4px inset"
-    );
-});
-
 Then("The first cell in the third content row has focus", () => {
   flatTableCell(8).should("have.css", "outline-color", gold);
 });
@@ -283,4 +268,16 @@ Then("pageSizeSelectList is visible at the {word}", (position) => {
   flatTablePageSelectListPosition()
     .should("have.attr", "data-popper-placement", `${position}-start`)
     .and("be.visible");
+});
+
+Then("{int} row/rows is/are visible", (int) => {
+  flatTableBodyRows().should("have.length", int).and("be.visible");
+});
+
+Then("I type {int} in pagination input", (value) => {
+  pageSelectDataComponent().find("input").type(value);
+});
+
+Then("Pagination input should have {int} value", (value) => {
+  pageSelectDataComponent().find("input").should("have.value", value);
 });

@@ -342,8 +342,8 @@ import {
 
 ### Highlightable
 
-<Preview parameters={{ chromatic: { disable: true } }}>
-  <Story name="highlightable">
+<Preview>
+  <Story name="highlightable" parameters={{ chromatic: { disable: true } }}>
     <Table highlightable onHighlight={(id) => console.log(id)}>
       <TableRow as="header" uniqueID="header">
         <TableHeader>Country</TableHeader>

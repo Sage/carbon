@@ -1,12 +1,9 @@
 import {
   alertDialogPreview as dialogPreview,
-  dialogStickyFormFooterButton,
   dialogStickyFormFooter,
   openPreviewButton,
 } from "../../locators/dialog/index";
-import { backgroundUILocatorIFrame, dlsRoot } from "../../locators/index";
-import { positionOfElement } from "../helper";
-import { dialogPreviewIFrame } from "../../locators/confirm";
+import { backgroundUILocator, dlsRoot } from "../../locators/index";
 
 Then("Dialog height is set to {int}", (height) => {
   dialogPreview()
@@ -24,16 +21,8 @@ Then("Dialog size property on preview is {string}", (size) => {
   dialogPreview().should("have.css", "width", `${size}px`);
 });
 
-Then("Dialog is visible in IFrame", () => {
-  dialogPreviewIFrame().should("be.visible");
-});
-
-Then("Dialog is not visible in IFrame", () => {
-  dialogPreviewIFrame().should("not.exist");
-});
-
-Then("Dialog stickyFormFooter is visible", () => {
-  dialogStickyFormFooter().should("be.visible");
+Then("Dialog is not visible", () => {
+  dialogPreview().should("not.exist");
 });
 
 When("I click on {string} outside dialog", (position) => {
@@ -41,30 +30,8 @@ When("I click on {string} outside dialog", (position) => {
 });
 
 When("I click on background {string} outside dialog", (position) => {
-  backgroundUILocatorIFrame().click(position, { force: true });
+  backgroundUILocator().click(position, { force: true });
 });
-
-Then(
-  "footer buttons have color {string} and has {int} px border",
-  (color, px) => {
-    dialogStickyFormFooterButton(positionOfElement("first"))
-      .should("have.css", "border", `${px}px solid ${color}`)
-      .and("have.css", "color", color);
-    dialogStickyFormFooterButton(positionOfElement("first"))
-      .children()
-      .should("have.css", "color")
-      .and("contain", color);
-    dialogStickyFormFooterButton(positionOfElement("first"))
-      .children()
-      .should("have.css", "border-color", color);
-    dialogStickyFormFooterButton(positionOfElement("second"))
-      .should("have.css", "border", `${px}px solid rgba(0, 0, 0, 0)`)
-      .and("have.css", "color", "rgb(255, 255, 255)");
-    dialogStickyFormFooterButton(positionOfElement("second"))
-      .should("have.css", "background-color")
-      .and("contain", color);
-  }
-);
 
 Then("Dialog is visible", () => {
   dialogPreview().should("be.visible");

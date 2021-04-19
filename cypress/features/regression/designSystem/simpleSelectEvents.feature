@@ -14,8 +14,8 @@ Feature: Design System Simple Select component
 
   @positive
   Scenario: Check the onChange event by clicking mouse on the select list option
-    Given I click on default Select input
-      And clear all actions in Actions Tab
+    Given clear all actions in Actions Tab
+      And I click on default Select input
     When I click on "first" option on Select list in iframe
     Then onChange action was called in Actions Tab
 

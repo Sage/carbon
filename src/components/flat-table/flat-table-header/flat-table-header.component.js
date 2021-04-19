@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
@@ -12,10 +12,24 @@ const FlatTableHeader = ({
   width,
   py,
   px,
+  reportCellWidth,
+  cellIndex,
+  leftPosition,
   ...rest
 }) => {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    if (ref.current && reportCellWidth) {
+      reportCellWidth(ref.current.offsetWidth, cellIndex);
+    }
+  }, [reportCellWidth, cellIndex]);
+
   return (
     <StyledFlatTableHeader
+      ref={ref}
+      leftPosition={leftPosition || 0}
+      makeCellSticky={!!reportCellWidth}
       align={align}
       data-element="flat-table-header"
       colSpan={colspan}
@@ -42,6 +56,24 @@ FlatTableHeader.propTypes = {
   rowspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Column width, pass a number to set a fixed width in pixels */
   width: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Sets the left position when sticky column found
+   */
+  leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Index of cell within row
+   */
+  cellIndex: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Callback to report the offsetWidth
+   */
+  reportCellWidth: PropTypes.func,
 };
 
 FlatTableHeader.defaultProps = {

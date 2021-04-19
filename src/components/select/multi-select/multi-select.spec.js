@@ -2,7 +2,10 @@ import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import MultiSelect from "./multi-select.component";
 import Textbox from "../../../__experimental__/components/textbox";
 import SelectTextbox from "../select-textbox/select-textbox.component";
@@ -11,6 +14,7 @@ import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__experimental__/components/label";
+import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -98,6 +102,21 @@ describe("MultiSelect", () => {
     });
   });
 
+  it.each([
+    ["small", "32px"],
+    ["medium", "40px"],
+    ["large", "48px"],
+  ])("the input toggle icon should have proper left margin", (a, expected) => {
+    const wrapper = renderSelect({ size: a });
+    assertStyleMatch(
+      {
+        paddingRight: expected,
+      },
+      wrapper,
+      { modifier: `${InputPresentationStyle}` }
+    );
+  });
+
   describe('when the "value" prop is passed', () => {
     it("then Pills should be rendered with corresponding titles", () => {
       const wrapper = renderSelect({
@@ -129,6 +148,17 @@ describe("MultiSelect", () => {
       expect(onBlurFn).toHaveBeenCalled();
     });
 
+    it("then SelectList shouldn't exist", () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
+
+      wrapper.find("input").simulate("focus");
+      expect(wrapper.find(SelectList).exists()).toBe(true);
+
+      wrapper.find("input").simulate("blur");
+      expect(wrapper.find(SelectList).exists()).toBe(false);
+    });
+
     describe("and there is a mouseDown reported on open list", () => {
       it("then that prop should not be called", () => {
         const onBlurFn = jest.fn();
@@ -137,6 +167,7 @@ describe("MultiSelect", () => {
         wrapper.find("input").simulate("focus");
         wrapper.find(Option).first().simulate("mousedown");
         wrapper.find("input").simulate("blur");
+
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });

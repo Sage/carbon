@@ -2,11 +2,14 @@ import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
-import { StyledPicklistItem, StyledButton } from "./duelling-picklist.style";
-import Icon from "../icon";
-import Events from "../../utils/helpers/events";
+import {
+  StyledPicklistItem,
+  StyledButton,
+  StyledLockIcon,
+} from "./picklist-item.style";
+import Events from "../../../utils/helpers/events";
 
-export const PicklistItem = React.forwardRef(
+const PicklistItem = React.forwardRef(
   (
     {
       children,
@@ -14,8 +17,9 @@ export const PicklistItem = React.forwardRef(
       disabled,
       onChange,
       item,
-      index,
-      handleKeyboardAccessibility,
+      highlighted,
+      locked,
+      tooltipMessage = "This item is locked and can not be moved",
       ...rest
     },
     ref
@@ -26,14 +30,10 @@ export const PicklistItem = React.forwardRef(
         if (Events.isEnterKey(event) || Events.isSpaceKey(event)) {
           event.preventDefault();
           onChange(item);
-        } else {
-          handleKeyboardAccessibility(event, index);
         }
       },
-      [onChange, item, handleKeyboardAccessibility, index]
+      [onChange, item]
     );
-
-    const tabIndex = index === 0 && !disabled ? 0 : -1;
 
     return (
       <CSSTransition
@@ -48,14 +48,23 @@ export const PicklistItem = React.forwardRef(
       >
         <StyledPicklistItem
           onKeyDown={handleKeydown}
-          tabIndex={tabIndex}
-          ref={ref}
           data-element="picklist-item"
+          locked={locked}
         >
           {children}
-          <StyledButton tabIndex={-1} variant={type} onClick={handleClick}>
-            <Icon type={type} />
-          </StyledButton>
+          {!locked && (
+            <StyledButton
+              buttonType="primary"
+              destructive={type === "remove"}
+              iconType={type}
+              onClick={handleClick}
+              highlighted={highlighted}
+              ref={ref}
+            />
+          )}
+          {locked && (
+            <StyledLockIcon type="locked" tooltipMessage={tooltipMessage} />
+          )}
         </StyledPicklistItem>
       </CSSTransition>
     );
@@ -77,10 +86,12 @@ PicklistItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  /** Internal prop passed downward by Picklist to indicate which children it is  */
-  index: PropTypes.number.isRequired,
-  /** Internal prop passed downward by Picklist to provide arrow/home/end keys navigation  */
-  handleKeyboardAccessibility: PropTypes.func.isRequired,
+  /** Disable the item */
+  locked: PropTypes.bool,
+  /** Tooltip message for the locked icon (only present when locked prop is true) */
+  tooltipMessage: PropTypes.string,
+  /** @private @ignore */
+  highlighted: PropTypes.bool,
 };
 
-export default React.memo(PicklistItem);
+export default PicklistItem;

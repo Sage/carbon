@@ -1,51 +1,52 @@
-import {useState} from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import Card from '.';
-import CardRow from './card-row';
-import CardFooter from './card-footer';
-import CardColumn from './card-column';
-import Heading from '../heading';
-import Link from '../link';
-import Typography from '../typography';
-import Icon from '../icon';
-import Button from '../button';
-import Box from '../box';
-import IconButton from '../icon-button';
-import VerticalDivider from '../vertical-divider';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import Card from ".";
+import CardRow from "./card-row";
+import CardFooter from "./card-footer";
+import CardColumn from "./card-column";
+import Heading from "../heading";
+import Link from "../link";
+import Typography from "../typography";
+import Icon from "../icon";
+import Button from "../button";
+import Box from "../box";
+import IconButton from "../icon-button";
+import VerticalDivider from "../vertical-divider";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta
-  title="Design System/Card"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Design System/Card" parameters={{ info: { disable: true } }} />
 
 # Card
+
 Organise and present content and actions about a single subject.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick start
+
 ```javascript
 import Card from "carbon-react/lib/components/card";
-import CardRow from 'carbon-react/lib/components/card/card-row';
+import CardRow from "carbon-react/lib/components/card/card-row";
 import CardFooter from "carbon-react/lib/components/card/card-footer";
 import CardColumn from "carbon-react/lib/components/card/card-column";
 ```
 
 ## Designer Notes
-- Cards: contain interactive content or controls. 
-Sometimes it might be possible to move them around on the page. They have shadows - 'card shadow' as a default, 
-and depth level 1 on hover.
+
+- Cards: contain interactive content or controls.
+  Sometimes it might be possible to move them around on the page. They have shadows - 'card shadow' as a default,
+  and depth level 1 on hover.
 - Cards may have hover and dragging states, whereas tiles do not.
 - Neither cards nor tiles scroll.
-- The primary action area of a card is typically the card itself. 
-Often cards are one large touch target to a detail screen on a subject.
-- When an array of cards or tiles are shown together, 
-they may wrap into a grid depending on the available width and height of their container.
+- The primary action area of a card is typically the card itself.
+  Often cards are one large touch target to a detail screen on a subject.
+- When an array of cards or tiles are shown together,
+  they may wrap into a grid depending on the available width and height of their container.
 
 ## Examples
 
@@ -66,7 +67,7 @@ they may wrap into a grid depending on the available width and height of their c
       <CardRow>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -100,7 +101,7 @@ they may wrap into a grid depending on the available width and height of their c
       <CardRow pt={2} pb={2}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -134,7 +135,7 @@ they may wrap into a grid depending on the available width and height of their c
       <CardRow pt={4} pb={4}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -168,7 +169,7 @@ they may wrap into a grid depending on the available width and height of their c
       <CardRow>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -186,16 +187,22 @@ they may wrap into a grid depending on the available width and height of their c
 </Preview>
 
 ### Interactive
+
 Click on the card to see the effect
 
 <Preview>
-  <Story name="interactive" parameters={{ chromatic: { disable: true }}}>
-    {()=>{
+  <Story name="interactive" parameters={{ chromatic: { disable: true } }}>
+    {() => {
       const [clickCounter, setClickCounter] = useState(0);
-      return(
+      return (
         <div>
-          <Typography variant="b">Card has been clicked {clickCounter} times</Typography>
-          <Card interactive action={() => setClickCounter(prevCounter => prevCounter + 1)}>
+          <Typography variant="b">
+            Card has been clicked {clickCounter} times
+          </Typography>
+          <Card
+            interactive
+            action={() => setClickCounter((prevCounter) => prevCounter + 1)}
+          >
             <CardRow>
               <CardColumn align="left">
                 <Heading title="Stripe - [account name]" divider={false} />
@@ -208,7 +215,7 @@ Click on the card to see the effect
             <CardRow>
               <CardColumn>
                 <Typography variant="h5" weight="bold">
-                    Stripe Balance
+                  Stripe Balance
                 </Typography>
                 <Heading title="£ 0.00" divider={false} />
                 <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -222,8 +229,8 @@ Click on the card to see the effect
               </CardColumn>
             </CardFooter>
           </Card>
-      </div>
-      )
+        </div>
+      );
     }}
   </Story>
 </Preview>
@@ -231,8 +238,11 @@ Click on the card to see the effect
 ### Different `<CardRow />` padding
 
 <Preview>
-  <Story name="different CardRow padding" parameters={{ chromatic: { disable: true }}}>
-    <Card >
+  <Story
+    name="different CardRow padding"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Card>
       <CardRow pt={2} pb={0}>
         <CardColumn align="left">
           <Heading title="Stripe - [account name]" divider={false} />
@@ -245,7 +255,7 @@ Click on the card to see the effect
       <CardRow pt={0} pb={4}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 5 DAYS AGO</Typography>
@@ -254,7 +264,7 @@ Click on the card to see the effect
       <CardRow pt={0} pb={4}>
         <CardColumn>
           <Typography variant="h5" weight="bold">
-              Stripe Balance
+            Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
@@ -274,13 +284,19 @@ Click on the card to see the effect
 ### Different `<CardFooter />` padding
 
 <Preview>
-  <Story name="different CardFooter padding" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="different CardFooter padding"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <div>
       <Card>
         <CardFooter px={1} py={1}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -292,7 +308,10 @@ Click on the card to see the effect
         <CardFooter px={2} py={1}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -304,7 +323,10 @@ Click on the card to see the effect
         <CardFooter px={3} py={1}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -316,7 +338,10 @@ Click on the card to see the effect
         <CardFooter px={4} py={1}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -328,7 +353,10 @@ Click on the card to see the effect
         <CardFooter px={5} py={1}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -340,7 +368,10 @@ Click on the card to see the effect
         <CardFooter px={5} py={2}>
           <Box width="100%" display="flex" justifyContent="space-around">
             <Box flexGrow={1}>
-              <Button p={0} buttonType="tertiary" iconType="edit"> Edit Button</Button>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                {" "}
+                Edit Button
+              </Button>
             </Box>
             <Box>
               <Button buttonType="primary"> Button </Button>
@@ -358,78 +389,143 @@ Click on the card to see the effect
   <Story name="more examples of CardFooter">
     <div>
       <Card>
-          <CardFooter p={1}>
-            <Box alignItems="center" width="100%" display="flex" justifyContent="space-around">
-              <Box flexGrow={1}>
-                <IconButton> 
-                  <Icon bgSize="medium" type="phone"/>
-                </IconButton>
-                <IconButton> 
-                  <Icon bgSize="medium" type="phone"/>
-                </IconButton>
-                <IconButton> 
-                  <Icon bgSize="medium" type="phone"/>
-                </IconButton>
-                <IconButton> 
-                  <Icon bgSize="medium" type="phone"/>
-                </IconButton>
-              </Box>
-              <Box>
-                <Button buttonType="tertiary"> Button </Button>
-                <Button buttonType="primary" ml={2}> Button </Button>
-              </Box>
+        <CardFooter p={1}>
+          <Box
+            alignItems="center"
+            width="100%"
+            display="flex"
+            justifyContent="space-around"
+          >
+            <Box flexGrow={1}>
+              <IconButton>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
             </Box>
-          </CardFooter>
-        </Card>
-        <Card cardWidth="400px">
-          <CardFooter px={2} py={1}>
-            <Box width="100%" alignItems="center" display="flex" justifyContent="center">
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary">
-                Edit Button
+            <Box>
+              <Button buttonType="tertiary"> Button </Button>
+              <Button buttonType="primary" ml={2}>
+                {" "}
+                Button{" "}
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} /> 
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary" ml={2}>
-                Edit Button
-              </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary" ml={2}>
-                Edit Button
-              </Button> 
-              </Box>
-          </CardFooter>
-        </Card>
-        <Card cardWidth="400px">
-          <CardFooter variant="transparent" px={2} py={1}>
-            <Box width="100%" alignItems="center" display="flex" justifyContent="center">
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary">
-                Edit Button
-              </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} /> 
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary" ml={2}>
-                Edit Button
-              </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
-              <Button p={0} iconPosition="after" iconType="edit" buttonType="tertiary" ml={2}>
-                Edit Button
-              </Button> 
-              </Box>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardFooter p={2}>
-            <Box display="flex" width="100%" justifyContent="center">
-              <Link icon="link" href="https://carbon.sage.com/">
-                View Stripe Dashboard
-              </Link>
             </Box>
-          </CardFooter>
-        </Card>
-      </div>
+          </Box>
+        </CardFooter>
+      </Card>
+      <Card cardWidth="400px">
+        <CardFooter px={2} py={1}>
+          <Box
+            width="100%"
+            alignItems="center"
+            display="flex"
+            justifyContent="center"
+          >
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+          </Box>
+        </CardFooter>
+      </Card>
+      <Card cardWidth="400px">
+        <CardFooter variant="transparent" px={2} py={1}>
+          <Box
+            width="100%"
+            alignItems="center"
+            display="flex"
+            justifyContent="center"
+          >
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+          </Box>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardFooter p={2}>
+          <Box display="flex" width="100%" justifyContent="center">
+            <Link icon="link" href="https://carbon.sage.com/">
+              View Stripe Dashboard
+            </Link>
+          </Box>
+        </CardFooter>
+      </Card>
+    </div>
+  </Story>
+</Preview>
+
+## With string as child
+
+<Preview>
+  <Story
+    name="with string as child"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div>
+      <Card>String passed as child</Card>
+    </div>
   </Story>
 </Preview>
 
 ## Props
- 
+
 ### Card
 
 <Props of={Card} />

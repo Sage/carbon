@@ -7,52 +7,49 @@ import InputIconToggleStyle from "../../__experimental__/components/input-icon-t
 import { baseTheme } from "../../style/themes";
 
 const StyledSelect = styled.div`
-  position: relative;
-  ${margin}
+  ${({ hasTextCursor, disabled, theme, readOnly, transparent }) => css`
+    ${margin}
 
-  ${StyledInput} {
-    cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "pointer")};
+    position: relative;
 
-    ${({ disabled }) =>
-      disabled &&
+    ${StyledInput} {
+      cursor: ${hasTextCursor ? "text" : "pointer"};
+
+      ${disabled &&
       css`
         cursor: not-allowed;
-        color: ${({ theme }) => theme.disabled.disabled};
+        color: ${theme.disabled.disabled};
         text-shadow: none;
       `}
 
-    ${({ readOnly }) =>
-      readOnly &&
+      ${readOnly &&
       css`
-        cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "default")};
-        color: ${({ theme }) => theme.readOnly.textboxText};
+        cursor: ${hasTextCursor ? "text" : "default"};
+        color: ${theme.readOnly.textboxText};
         text-shadow: none;
       `}
-  }
+    }
 
-  ${InputPresentationStyle} {
-    cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "pointer")};
-    padding-right: 0;
+    ${InputPresentationStyle} {
+      cursor: ${hasTextCursor ? "text" : "pointer"};
+      padding-right: 0;
 
-    ${({ disabled }) =>
-      disabled &&
+      ${disabled &&
       css`
         cursor: not-allowed;
       `}
 
-    ${({ readOnly }) =>
-      readOnly &&
+      ${readOnly &&
       css`
-        cursor: ${({ hasTextCursor }) => (hasTextCursor ? "text" : "default")};
+        cursor: ${hasTextCursor ? "text" : "default"};
       `}
-  }
+    }
 
-  ${InputIconToggleStyle} {
-    margin-right: 0;
-  }
+    ${InputIconToggleStyle} {
+      margin-right: 0;
+    }
 
-  ${({ transparent }) =>
-    transparent &&
+    ${transparent &&
     css`
       ${InputPresentationStyle} {
         background: transparent;
@@ -66,9 +63,9 @@ const StyledSelect = styled.div`
 
       ${InputIconToggleStyle} {
         margin-left: 0;
-        width: auto;
       }
     `}
+  `}
 `;
 
 StyledSelect.defaultProps = {

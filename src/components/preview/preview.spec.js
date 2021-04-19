@@ -2,6 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import Preview from "./preview.component";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 const render = (children, props) => {
   return TestRenderer.create(<Preview {...props}>{children}</Preview>);
@@ -48,5 +49,10 @@ describe("Preview", () => {
       const wrapper = render(null, { width: "10px", height: "20px" });
       expect(wrapper).toMatchSnapshot();
     });
+  });
+
+  describe("styled system", () => {
+    testStyledSystemMargin((props) => <Preview {...props} />);
+    testStyledSystemMargin((props) => <Preview {...props} loading />);
   });
 });

@@ -4,13 +4,10 @@ import {
   SHOW_EDIT_CANCEL_BUTTON,
   SHOW_EDIT_DELETE_BUTTON,
   SHOW_EDIT_POD_EDIT,
-  SHOW_EDIT_POD_FOOTER,
-  SHOW_EDIT_POD,
   SHOW_EDIT_POD_CONTENT_BOX,
 } from "./locators";
 
 // component preview locators
-export const showEditPodComponent = () => cy.get(SHOW_EDIT_POD);
 export const showEditPodTitle = () => cy.get(SHOW_EDIT_POD_TITLE);
 export const showEditPodSaveButton = () => cy.get(SHOW_EDIT_SAVE_BUTTON);
 export const showEditPodCancelButton = () => cy.get(SHOW_EDIT_CANCEL_BUTTON);
@@ -23,8 +20,6 @@ export const showEditPodCollapsibleInnerContent = (element, index) =>
     .eq(1)
     .find(`[data-element=${element}]`)
     .eq(index);
-export const showEditPodFooter = () => cy.get(SHOW_EDIT_POD_FOOTER).children();
-
 export const showEditPodEditIFrame = () => cy.iFrame(SHOW_EDIT_POD_EDIT);
 export const showEditPodCancelButtonIFrame = () =>
   cy.iFrame(SHOW_EDIT_CANCEL_BUTTON);

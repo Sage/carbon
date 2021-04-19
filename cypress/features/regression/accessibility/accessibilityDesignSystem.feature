@@ -19,8 +19,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System Advanced Color Picker component default story page
-    Given I open "Design System Advanced Color Picker" component page "default story" in no iframe
-    When I open Advanced Color Picker in noIFrame
+    When I open "Design System Advanced Color Picker" component page "default story" in no iframe
     Then "Advanced Color Picker" component has no accessibility violations
 
   @accessibility
@@ -30,7 +29,11 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component        |
       | Anchornavigation |
-      | duellingpicklist |
+
+  @accessibility
+  Scenario: Design System DuellingPicklist component default story page
+    When I open "Design System DuellingPicklist" component page "default" in no iframe
+    Then "DuellingPicklist" component has no accessibility violations
 
   @accessibility
   Scenario Outline: Numeral Date component <story> story

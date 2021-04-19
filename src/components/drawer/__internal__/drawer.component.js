@@ -27,6 +27,7 @@ const Drawer = ({
   backgroundColor,
   title,
   showControls,
+  height,
   ...props
 }) => {
   const drawerSidebarContentRef = useRef();
@@ -144,7 +145,7 @@ const Drawer = ({
   };
 
   return (
-    <StyledDrawerWrapper data-component="drawer" {...props}>
+    <StyledDrawerWrapper data-component="drawer" height={height} {...props}>
       <StyledDrawerContent
         expandedWidth={expandedWidth}
         animationDuration={animationDuration}
@@ -187,6 +188,8 @@ Drawer.propTypes = {
   animationDuration: PropTypes.string,
   /** Sets color of sidebar's background */
   backgroundColor: PropTypes.string,
+  /** Sets custom height to Drawer component */
+  height: PropTypes.string,
   /** Sets title heading of sidebar's content */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
@@ -197,6 +200,7 @@ Drawer.defaultProps = {
   expandedWidth: "40%",
   animationDuration: "400ms",
   defaultExpanded: true,
+  height: "100%",
 };
 
 export { SidebarContext };

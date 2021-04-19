@@ -13,7 +13,6 @@ import { COMMMON_DATA_ELEMENT_INPUT } from "../locators";
 export const pagerSummary = () => cy.get(PAGER_SUMMARY).children().eq(2);
 export const pageSelect = () =>
   cy.get(PAGE_SELECT).find(COMMMON_DATA_ELEMENT_INPUT);
-export const pageSelectMainComponent = () => cy.get(PAGE_SELECT);
 export const pageSelectItems = () => cy.get(PAGE_SELECT_ITEM);
 export const maxPages = () => cy.get(MAX_PAGES);
 export const currentPageInput = () => cy.get(PAGE_INPUT).find("input");

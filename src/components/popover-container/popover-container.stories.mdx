@@ -8,6 +8,7 @@ import Button from '../button';
 import Link from '../link';
 import Pill from '../pill';
 import Badge from '../badge';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Popover Container" />
 
@@ -32,10 +33,9 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
   <Story name="default" parameters={{ info: { disable: true }}} >
     <div style={{height: 100}}>
       <PopoverContainer>
-      Contents
-      </PopoverContainer>
-         
-      </div>
+        Contents
+      </PopoverContainer>      
+    </div>
   </Story>
 </Preview>
 
@@ -59,7 +59,7 @@ of the screen.
 <Preview>
   <Story name="position" parameters={{ info: { disable: true }}} >
     <div style={{height: 100, float: 'right'}}>
-      <PopoverContainer title="Right Aligned" position="left">
+      <PopoverContainer title="Right Aligned" position="left" open={true}>
       Contents
       </PopoverContainer>
       </div>
@@ -262,4 +262,9 @@ You can do it easly in this way:
 ## Props
 
 ### Popover Container
-<Props of={PopoverContainer} />
+
+<StyledSystemProps
+  of={PopoverContainer}
+  padding
+  noHeader
+/>

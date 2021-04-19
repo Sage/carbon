@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
@@ -8,6 +9,11 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import tagComponent from "../../utils/helpers/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Message = ({
   open = true,
@@ -22,6 +28,8 @@ const Message = ({
   showCloseIcon = true,
   ...props
 }) => {
+  const marginProps = filterStyledSystemMarginProps(props);
+
   const renderCloseIcon = () => {
     if (!showCloseIcon || !onDismiss) return null;
 
@@ -51,6 +59,7 @@ const Message = ({
         variant={variant}
         role="status"
         id={id}
+        {...marginProps}
       >
         <TypeIcon variant={variant} transparent={transparent} />
         <MessageContent
@@ -67,6 +76,7 @@ const Message = ({
 };
 
 Message.propTypes = {
+  ...marginPropTypes,
   /** set type of message based on new DLS standard */
   variant: PropTypes.oneOf(OptionsHelper.colors),
   /** set content to component */

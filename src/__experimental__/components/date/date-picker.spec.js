@@ -8,8 +8,9 @@ import { shallow, mount } from "enzyme";
 import DayPicker from "react-day-picker";
 
 import DatePicker from "./date-picker.component";
-import { StyledDayPicker } from "./day-picker.style";
+import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../__internal__/popover";
+import { noThemeSnapshot } from "../../../__spec_helper__/enzyme-snapshot-helper";
 
 const inputElement = {
   value: "12-12-2012",
@@ -43,7 +44,7 @@ describe("DatePicker", () => {
 
         expect(
           wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-11, 0]);
+        ).toEqual([-11, 5]);
       });
 
       describe("when size prop is small", () => {
@@ -55,7 +56,7 @@ describe("DatePicker", () => {
 
           expect(
             wrapper.find(Popover).props().modifiers[0].options.offset
-          ).toEqual([-8, 0]);
+          ).toEqual([-8, 5]);
         });
       });
 
@@ -67,7 +68,7 @@ describe("DatePicker", () => {
 
         expect(
           wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-13, 0]);
+        ).toEqual([-13, 5]);
       });
     });
   });
@@ -254,7 +255,7 @@ describe("StyledDayPicker", () => {
           inputDate: firstDate,
           selectedDate: new Date("2019-04-01"),
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(noThemeSnapshot(wrapper)).toMatchSnapshot();
       });
     });
   });

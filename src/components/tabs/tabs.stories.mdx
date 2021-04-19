@@ -6,6 +6,7 @@ import Icon from '../icon';
 import Pill from '../pill';
 import { Row, Column } from '../row';
 import { ActionPopover, ActionPopoverItem } from '../action-popover';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
@@ -22,7 +23,7 @@ Switch between content panes or filtered views of tables.
 ## Quick Start
 
 ```javascript
-import {Tabs, Tab} from "carbon-react/lib/components/tabs;
+import {Tabs, Tab} from "carbon-react/lib/components/tabs";
 ```
 
 ## Designer Notes 
@@ -1354,7 +1355,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
   </Story>
 </Preview>
 
-### Custom layout
+### With custom layout
 It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout` 
 prop to the `Tab` component.
 
@@ -1518,10 +1519,89 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
   </Story>
 </Preview>
 
+### With custom spacing
+The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.
+The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid 
+CSS string.
+
+<Preview>
+  <Story name="with custom spacing">
+    {() => {
+      return (
+        <div style={{ padding: '4px' }}>
+          <Tabs m={8} align='left' position='top'>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-1'
+              title='Tab 1'
+              key='tab-1'
+              p={5}
+            >
+              Content for tab 1
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-2'
+              title='Tab 2'
+              key='tab-2'
+            >
+              Content for tab 2
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-3'
+              title='Tab 3'
+              key='tab-3'
+            >
+              Content for tab 3
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-4'
+              title='Tab 4'
+              key='tab-4'
+            >
+              Content for tab 4
+            </Tab>
+            <Tab
+              errorMessage='error'
+              warningMessage='warning'
+              infoMessage='info'
+              tabId='tab-5'
+              title='Tab 5'
+              key='tab-5'
+            >
+              Content for tab 5
+            </Tab>
+          </Tabs>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### Tabs
-<Props of={Tabs} />
+
+<StyledSystemProps
+  of={Tabs}
+  margin
+  noHeader
+/>
 
 ### Tab
-<Props of={Tab} />
+
+<StyledSystemProps
+  of={Tab}
+  padding
+  noHeader
+/>

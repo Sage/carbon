@@ -1,7 +1,10 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import "jest-styled-components";
 import Loader from "./loader.component";
 import StyledLoader from "./loader.style";
@@ -16,6 +19,9 @@ function renderStyles(props) {
 
 describe("Loader", () => {
   let wrapper;
+
+  testStyledSystemMargin((props) => <Loader {...props} />);
+
   it("renders as expected", () => {
     assertStyleMatch(
       {

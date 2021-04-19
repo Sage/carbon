@@ -1,8 +1,4 @@
-import {
-  alertDialogPreviewIFrame,
-  alertChildren,
-  alertDialogPreview,
-} from "../../locators/dialog";
+import { alertChildren, alertDialogPreview } from "../../locators/dialog";
 
 Then("Alert height is set to {string}", (height) => {
   alertDialogPreview()
@@ -19,11 +15,7 @@ Then("Alert children on preview is {word}", (children) => {
 });
 
 Then("Alert is not visible", () => {
-  alertDialogPreviewIFrame().should("not.exist");
-});
-
-Then("Alert is visible", () => {
-  alertDialogPreviewIFrame().should("be.visible");
+  alertDialogPreview().should("not.exist");
 });
 
 Then("Alert is visible in NoIFrame", () => {

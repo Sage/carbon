@@ -20,6 +20,7 @@ const StyledTitleContent = styled.div`
     error,
     warning,
     info,
+    alternateStyling,
   }) => css`
     line-height: 20px;
     margin: 0;
@@ -43,6 +44,13 @@ const StyledTitleContent = styled.div`
     css`
       border-top: 1px solid ${theme.tab.background};
       border-left: 1px solid ${theme.tab.background};
+      border-right: 1px solid ${theme.tab.background};
+
+      ${position === "left" &&
+      css`
+        border-bottom: 1px solid ${theme.tab.background};
+        ${!alternateStyling && `margin-right: -1px;`}
+      `}
 
       ${noLeftBorder &&
       css`
@@ -78,6 +86,10 @@ const StyledTitleContent = styled.div`
     css`
       font-size: 16px;
       padding: 22px 24px;
+      ${!isTabSelected &&
+      !alternateStyling &&
+      (error || warning || info) &&
+      `margin-right: -2px;`}
     `}
 
     ${size === "default" &&
@@ -89,6 +101,12 @@ const StyledTitleContent = styled.div`
       css`
         padding-bottom: 8px;
       `}
+
+      ${position === "left" &&
+      !isTabSelected &&
+      !alternateStyling &&
+      (error || warning || info) &&
+      `margin-right: -2px;`}
     `}
   `}
 
@@ -254,7 +272,7 @@ const StyledTitleContent = styled.div`
           `}
           ${(error || warning || info) &&
           css`
-            padding-right: ${size === "large" ? "26px;" : "18px;"};
+            padding-right: ${size === "large" ? "26px" : "18px"};
           `};
       `}
 
@@ -283,26 +301,39 @@ const StyledTabTitle = styled.li`
   display: inline-block;
   font-weight: bold;
   height: 100%;
+  position: relative;
 
-  ${({ theme, position, borders, noRightBorder }) =>
-    position === "top" &&
-    css`
-      ${borders &&
-      !noRightBorder &&
-      css`
-        &:last-of-type {
-          ${StyledTitleContent} {
-            border-right: 1px solid ${theme.tab.background};
-          }
-        }
-      `}
+  ${({ position, borders, noRightBorder, noLeftBorder }) => `
+      ${
+        position === "top" &&
+        css`
+          ${borders &&
+          !(noRightBorder || noLeftBorder) &&
+          css`
+            &:not(:first-of-type) {
+              margin-left: -1px;
+            }
+          `}
+        `
+      }
+      ${
+        position === "left" &&
+        css`
+          ${borders &&
+          css`
+            &:not(:first-of-type) {
+              margin-top: -1px;
+            }
+          `}
+        `
+      }
     `}
 
   &:first-child {
     margin-left: 0;
   }
 
-  ${({ isTabSelected, theme, error, warning, info }) =>
+  ${({ isTabSelected, theme }) =>
     !isTabSelected &&
     css`
       &:hover,
@@ -310,7 +341,6 @@ const StyledTabTitle = styled.li`
         background: ${theme.tab.background};
         color: ${theme.text.color};
         outline: none;
-        ${error || warning || info ? "border-bottom: none;" : ""}
       }
     `}
 
@@ -323,25 +353,46 @@ const StyledTabTitle = styled.li`
     info,
     size,
     isInSidebar,
+    position,
   }) =>
     isTabSelected &&
     css`
+    ${!isInSidebar && "z-index: 1;"}
     color: ${theme.text.color};
     background-color: ${theme.colors.white};
-    border-bottom: 2px solid ${
-      alternateStyling ? `${theme.tab.background}` : `${theme.colors.primary}`
-    };
+
+    ${
+      alternateStyling &&
+      css`
+        border-bottom: 2px solid ${theme.tab.background};
+      `
+    }
+
+    ${
+      !alternateStyling &&
+      css`
+        padding-bottom: 2px;
+      `
+    }
+
     ${
       size === "large" &&
       css`
-        border-bottom-width: 4px;
+        ${position === "top" &&
+        `
+          padding-bottom: ${alternateStyling ? "3px" : "4px"};
+          `}
       `
     }
-    ${error || warning || info ? "border-bottom: none;" : ""}
+    ${
+      (error || warning || info) &&
+      css`
+        padding-bottom: 0px;
+      `
+    }
 
     &:focus {
       outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
-      z-index: 10;
     }
 
     &:hover {
@@ -371,15 +422,6 @@ const StyledTabTitle = styled.li`
       background-color: transparent;
       border-bottom: 0px;
 
-      ${borders &&
-      css`
-        &:last-of-type {
-          ${StyledTitleContent} {
-            border-bottom: 1px solid ${theme.tab.background};
-          }
-        }
-      `}
-
       ${!borders &&
       css`
         ${StyledTitleContent} {
@@ -387,11 +429,12 @@ const StyledTabTitle = styled.li`
         }
       `}
 
-    ${!alternateStyling &&
+      ${!alternateStyling &&
       css`
         border-right: 2px solid ${theme.tab.background};
       `}
-    display: block;
+
+      display: block;
       height: auto;
       margin-left: 0px;
 
@@ -399,70 +442,54 @@ const StyledTabTitle = styled.li`
         margin-top: 0;
       }
 
-      ${error || warning || info ? "border-right: none;" : ""}
-
       &:hover {
-        ${borders &&
-        css`
-          &:last-of-type {
-            ${StyledTitleContent} {
-              border-bottom: 1px solid ${theme.tab.background};
-            }
-          }
-        `}
-        border-right-color: ${alternateStyling
-          ? `${theme.tab.background};`
-          : ""}
-      ${error || warning || info ? "border-right: none;" : ""}
+        ${alternateStyling && `border-right-color: ${theme.tab.background};`}
       }
 
       ${({ isTabSelected }) =>
         isTabSelected &&
         css`
-      border-right-color: ${
-        alternateStyling
-          ? `${theme.tab.background};`
-          : `${theme.colors.primary};`
-      }
-      background-color: ${theme.colors.white};
-      ${error || warning || info ? "border-right: none;" : ""}
+          ${alternateStyling &&
+          css`
+            border-right-color: ${theme.tab.background};
+          `}
 
-      ${
-        size === "large" &&
-        css`
-          border-right-width: 4px;
+          ${!alternateStyling &&
+          css`
+            border-right: none;
+            padding-bottom: 0px;
 
-          & ${StyledTitleContent} {
-            padding-right: 22px;
+            ${StyledTitleContent} {
+              ${!(error || warning || info) && `margin-right: 2px;`}
+              border-right: none;
+            }
+          `}
+    
+          background-color: ${theme.colors.white};
+
+          ${size === "large" &&
+          css`
+            & ${StyledTitleContent} {
+              padding-right: 22px;
+            }
+          `}
+
+          &:hover {
+            ${alternateStyling &&
+            ` border-right-color: ${theme.tab.background};`}
+            background-color: ${theme.colors.white};
+            ${(error || warning || info) &&
+            `border-right-color: ${theme.colors.error};`}
           }
-        `
-      }
 
-      &:hover {
-        border-right-color: ${
-          alternateStyling
-            ? `${theme.tab.background};`
-            : `${theme.colors.primary};`
-        }
-        background-color: ${theme.colors.white};
-        ${
-          error || warning || info
-            ? `border-right-color: ${theme.colors.error};`
-            : ""
-        }
-      }
-
-      &:focus {
-        ${
-          error || warning || info
-            ? `border-right-color: ${theme.colors.error};`
-            : ""
-        }
-      }
-    `}
+          &:focus {
+            ${(error || warning || info) &&
+            `border-right-color: ${theme.colors.error};`}
+          }
+        `}
     `}
 
-  ${({ alternateStyling, theme, isTabSelected }) =>
+  ${({ alternateStyling, theme, isTabSelected, isInSidebar }) =>
     alternateStyling &&
     css`
       &:focus {
@@ -479,6 +506,8 @@ const StyledTabTitle = styled.li`
       css`
         background-color: ${theme.tab.background};
       `}
+
+      ${isInSidebar && `padding-bottom: 1px;`}
     `}
 `;
 
@@ -526,6 +555,35 @@ const StyledLayoutWrapper = styled.div`
     `}
 `;
 
+const StyledSelectedIndicator = styled.div`
+  position: absolute;
+  z-index: 5;
+
+  ${({ position, size, theme }) =>
+    position === "top" &&
+    css`
+    bottom: 0px;
+    left: 0px
+    box-shadow: inset 0px ${size === "large" ? "-4px" : "-2px"} 0px ${
+      theme.colors.primary
+    };
+    width: 100%;
+    height: ${size === "large" ? "4px" : "2px"};
+  `}
+
+  ${({ position, size, theme }) =>
+    position === "left" &&
+    css`
+    top: 0px;
+    right: 0px
+    box-shadow: inset ${size === "large" ? "-4px" : "-2px"} 0px 0px 0px ${
+      theme.colors.primary
+    };
+    height: 100%;
+    width: ${size === "large" ? "4px" : "2px"};
+  `}
+`;
+
 StyledTabTitle.propTypes = {
   position: PropTypes.oneOf(["top", "left"]),
   size: PropTypes.oneOf(["default", "large"]),
@@ -568,4 +626,20 @@ StyledTitleContent.defaultProps = {
   borders: false,
 };
 
-export { StyledTabTitle, StyledTitleContent, StyledLayoutWrapper };
+StyledSelectedIndicator.propTypes = {
+  position: PropTypes.oneOf(["top", "left"]),
+  size: PropTypes.oneOf(["default", "large"]),
+};
+
+StyledSelectedIndicator.defaultProps = {
+  theme: BaseTheme,
+  position: "top",
+  size: "default",
+};
+
+export {
+  StyledTabTitle,
+  StyledTitleContent,
+  StyledLayoutWrapper,
+  StyledSelectedIndicator,
+};

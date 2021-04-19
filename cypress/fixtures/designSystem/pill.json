@@ -1,0 +1,11 @@
+{
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "onDelete": {
+    "onDelete": true
+  }
+}

@@ -9,15 +9,10 @@ import {
   getDataElementByValue,
   getComponentNoIframe,
   getComponentIFrame,
-  getDataElementByValueIframe,
 } from "../../locators";
 
 Then("My {word} Page is visible", (word) => {
   getDataElementByValue("title").should("have.text", `My ${word} Page`);
-});
-
-Then("My {word} Page is visible in Iframe", (word) => {
-  getDataElementByValueIframe("title").should("have.text", `My ${word} Page`);
 });
 
 When("I go to {word} page", (word) => {
@@ -30,7 +25,7 @@ When("I close page", () => {
 });
 
 When("I close page in IFrame", () => {
-  closeDataElementIFrame().click({force: true});
+  closeDataElementIFrame().click({ force: true });
   cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
 });
 

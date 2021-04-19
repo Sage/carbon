@@ -276,6 +276,12 @@ export default (palette) => {
       initials: "rgba(0,0,0,0.65)",
     },
 
+    picklist: {
+      locked: palette.slateTint(95),
+      lockedContent: palette.slateTint(45),
+      lockedText: palette.blackOpacity(0.6),
+    },
+
     pill: {
       neutral: palette.slateTint(30),
       warning: palette.carrotOrangeTint(20),

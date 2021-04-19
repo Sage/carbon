@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import StyledTabsHeader from "./tabs-header.style";
+import {
+  StyledTabsHeaderWrapper,
+  StyledTabsHeaderList,
+} from "./tabs-header.style";
 
 const TabsHeader = ({
   align = "left",
@@ -13,17 +16,19 @@ const TabsHeader = ({
   isInSidebar = false,
 }) => {
   return (
-    <StyledTabsHeader
-      align={align}
-      position={position}
-      role={role}
-      extendedLine={extendedLine}
-      alternateStyling={alternateStyling}
-      noRightBorder={noRightBorder}
-      isInSidebar={isInSidebar}
-    >
-      {children}
-    </StyledTabsHeader>
+    <StyledTabsHeaderWrapper isInSidebar={isInSidebar} position={position}>
+      <StyledTabsHeaderList
+        align={align}
+        position={position}
+        role={role}
+        extendedLine={extendedLine}
+        alternateStyling={alternateStyling}
+        noRightBorder={noRightBorder}
+        isInSidebar={isInSidebar}
+      >
+        {children}
+      </StyledTabsHeaderList>
+    </StyledTabsHeaderWrapper>
   );
 };
 

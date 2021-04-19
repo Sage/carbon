@@ -29,11 +29,6 @@ Feature: Settings Row component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | descriptionSpecialCharacter |
 
   @positive
-  Scenario: Enable divider for a Settings Row component
-    When I open default "Setting Row Test" component in noIFrame with "settingsRow" json from "commonComponents" using "divider" object name
-    Then Settings Row component has divider property
-
-  @positive
   Scenario: Disable divider for a Settings Row component
     When I open default "Setting Row Test" component in noIFrame with "settingsRow" json from "commonComponents" using "dividerFalse" object name
     Then Settings Row component has no divider property

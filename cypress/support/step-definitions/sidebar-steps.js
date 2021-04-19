@@ -12,7 +12,3 @@ Then("Sidebar size value is set to {string}", (value) => {
 Then("Sidebar component has enabled background UI", () => {
   backgroundUILocator().should("not.exist");
 });
-
-Then("Sidebar component has disabled background UI", () => {
-  backgroundUILocator().should("be.visible");
-});

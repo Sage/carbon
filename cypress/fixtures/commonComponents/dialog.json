@@ -53,13 +53,19 @@
   "showCloseIconFalse": {
     "showCloseIcon": false
   },
+  "showCloseIcon": {
+    "showCloseIcon": true
+  },
   "enableBackgroundUI":{
     "enableBackgroundUI": true
   },
-  "enableBackgroundUIFalse":{
-    "enableBackgroundUI": false
+  "disableEscKey": {
+    "disableEscKey": true
   },
-  "stickyFooter": {
-    "Form component stickyFooter": true
+  "enabledEscKey": {
+    "disableEscKey": false
+  },
+  "default": {
+    
   }
 }

@@ -1,7 +1,4 @@
 {
-  "divider": {
-    "divider": true
-  },
   "dividerFalse": {
     "divider": false
   },

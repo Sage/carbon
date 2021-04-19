@@ -7,7 +7,11 @@ import { Tabs, Tab } from "./tabs.component";
 import { TabContext } from "./tab/index";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import StyledTabs from "./tabs.style";
-import { assertStyleMatch, simulate } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  simulate,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import { SidebarContext } from "../drawer";
 
 function render(props) {
@@ -117,6 +121,40 @@ const MockWrapper = ({
 };
 
 describe("Tabs", () => {
+  testStyledSystemMargin(
+    (props) => (
+      <Tabs {...props}>
+        <Tab
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+          title="Tab Title 1"
+          tabId="uniqueid1"
+        >
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    { mt: "15px" }
+  );
+
+  testStyledSystemMargin(
+    (props) => (
+      <Tabs {...props} position="left">
+        <Tab
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+          title="Tab Title 1"
+          tabId="uniqueid1"
+        >
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    { mt: "0px" }
+  );
+
   describe("when passing custom className as a prop", () => {
     it("adds it to the classList", () => {
       const wrapper = render({ className: "class" });
@@ -131,7 +169,6 @@ describe("Tabs", () => {
         {
           display: "flex",
           width: "100%",
-          marginTop: "0",
         },
         wrapper
       );

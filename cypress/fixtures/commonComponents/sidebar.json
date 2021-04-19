@@ -23,12 +23,6 @@
   "positionLeft": {
     "position": "left"
   },
-  "positionRight": {
-    "position": "right"
-  },
-  "enableBackgroundUIFalse": {
-    "enableBackgroundUI": false
-  },
   "enableBackgroundUI": {
     "enableBackgroundUI": true
   },

@@ -1,10 +1,11 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
 import { useState, useRef } from "react";
 import TextEditor, {
   TextEditorState as EditorState,
   TextEditorContentState as ContentState,
 } from "./text-editor.component";
 import Button from "../button";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Text Editor"
@@ -119,8 +120,8 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
             value={value}
             ref={ref}
             toolbarElements={[
-              <Button buttonType="tertiary" onClick={ () => console.log('cancel') }>Cancel</Button>,
-              <Button buttonType='primary' type="button" onClick={ () => console.log('save') } ml={2}>Save</Button>
+              <Button key="cancel button" buttonType="tertiary" onClick={ () => console.log('cancel') }>Cancel</Button>,
+              <Button key="save button" buttonType='primary' type="button" onClick={ () => console.log('save') } ml={2}>Save</Button>
             ]}
             labelText="Text Editor Label"
           />
@@ -202,7 +203,7 @@ this status.
 With use of `template strings` it is possible to pass multiline validation messages to the component.
 
 <Preview>
-  <Story name="with multiline validation">
+  <Story name="with multiline validation" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [value, setValue] = useState(
         EditorState.createWithContent(
@@ -263,4 +264,9 @@ which is multiplied by the line-height (21px).
 ## Props
 
 ### Text Editor 
-<Props of={TextEditor} />
+
+<StyledSystemProps
+  of={TextEditor}
+  margin
+  noHeader
+/>

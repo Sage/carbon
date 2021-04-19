@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 
 const StyledSplitButton = styled.div`
+  ${margin}
+
   display: inline-block;
   position: relative;
 

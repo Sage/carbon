@@ -67,25 +67,15 @@ Feature: Confirm component
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
-  @negative
-  Scenario: Disable background UI
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled
-
-  @negative
-  Scenario: Close icon disabled
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Close icon is not visible
-
   @positive
   Scenario Outline: <icon> icon on the header
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
     Then <icon> icon is displayed on the header
     Examples:
-      | icon      | nameOfObject |
-      | error     | iconError    |
-      | warning   | iconWarning  |
-      | empty     | default      |
+      | icon    | nameOfObject |
+      | error   | iconError    |
+      | warning | iconWarning  |
+      | empty   | default      |
 
   @positive
   Scenario: Cancel button type is set to tertiary
@@ -99,7 +89,7 @@ Feature: Confirm component
     When I open component preview in noIFrame
     Then cancel button type is set to "destructive"
       And confirm button type is set to "destructive"
-  
+
   @positive
   Scenario: Cancel button is disabled
     Given I open "Confirm" component page "disable cancel" in no iframe
@@ -117,3 +107,52 @@ Feature: Confirm component
     Given I open "Confirm" component page "is loading confirm" in no iframe
     When I open component preview in noIFrame
     Then confirm button type is set to "isLoadingConfirm"
+
+  @positive
+  Scenario: Disable escape key
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "disableEscKey" object name
+    When I hit ESC key in noIframe
+    Then Confirm dialog is visible
+
+  @positive
+  Scenario: Enable escape key
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enabledEscKey" object name
+    When I hit ESC key in noIframe
+    Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Close icon enabled
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "showCloseIcon" object name
+    When I click closeIcon
+    Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Confirm dialog should dissapear after click onto cancelButton
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "default" object name
+    When I click on a cancelButton
+    Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Confirm dialog should dissapear after click onto confirmButton
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "default" object name
+    When I click on a confirmButton
+    Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via click on cancel button
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "disableCancel" object name
+    When I click on a cancelButton
+    Then Confirm dialog is visible
+
+  @positive
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via ESC key
+    Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "disableCancelTrue" object name
+    When I hit ESC key in noIframe
+    Then Confirm dialog is visible
+
+  @ignore
+  # test ignored until we resolve issue with close icon
+  Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via click on close icon
+    Given I check disableCancel checkbox
+    When I click closeIcon in IFrame
+    Then Confirm dialog is visible

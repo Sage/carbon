@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Portrait from ".";
 
 <Meta
@@ -96,7 +96,21 @@ Portrait also supports `gravatar`, to use it simply pass your email address regi
   </Story>
 </Preview>
 
+### With margin
+Margins can be applied to the `portrait` component using styled-system. 
+To see a full list of available margin props, please visit the props table at the bottom of this page.
+
+[Vist Props Table](#props)
+<Preview>
+  <Story name="with margin">
+    <Portrait m={3} />
+    <Portrait darkBackground m={2} />
+    <Portrait shape="circle" m="25px"/>
+    <Portrait size="L" m="30px" />
+  </Story>
+</Preview>
+
 ## Props
 
 ### Portrait
-<Props of={Portrait} />
+<StyledSystemProps of={Portrait} noHeader margin />

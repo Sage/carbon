@@ -84,7 +84,7 @@ const formInputPropTypes = {
   /** Label */
   label: PropTypes.string,
   /** Text applied to label help tooltip */
-  labelHelp: PropTypes.string,
+  labelHelp: PropTypes.node,
   /** When true, label is placed in line with an input */
   labelInline: PropTypes.bool,
   /** Width of a label in percentage. Works only when labelInline is true */

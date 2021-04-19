@@ -29,9 +29,6 @@
   "enableBackgroundUI":{
     "enableBackgroundUI": true
   },
-  "enableBackgroundUIFalse":{
-    "enableBackgroundUI": false
-  },
   "height0": {
     "height": 0
   },
