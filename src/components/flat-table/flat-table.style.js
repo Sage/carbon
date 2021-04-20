@@ -153,7 +153,7 @@ const StyledFlatTableWrapper = styled.div`
   ${({ hasStickyHead }) =>
     hasStickyHead &&
     css`
-      ${StyledFlatTableHeader} {
+      ${StyledFlatTableHead} th {
         position: sticky;
         z-index: ${({ theme }) => theme.zIndex.overlay};
       }

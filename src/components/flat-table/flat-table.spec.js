@@ -59,6 +59,16 @@ describe("FlatTable", () => {
       expect(wrapper).toHaveStyleRule("overflow-y", "auto");
     });
 
+    it("should set position sticky on all th inside the table head", () => {
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        { modifier: `${StyledFlatTableHead} th` }
+      );
+    });
+
     it('then all Headers should have proper styling if `colorTheme="dark"`', () => {
       wrapper = renderFlatTable({ colorTheme: "dark" }, mount);
 
