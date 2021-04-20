@@ -20,11 +20,14 @@ import {
   multiColumnsSelectListHeader,
   multiColumnsSelectListBody,
   boldedAndUnderlinedValue,
-  selectInput,
   selectListPosition,
 } from "../../locators/select";
 import { positionOfElement, keyCode } from "../helper";
-import { label, getDataElementByValue } from "../../locators";
+import {
+  label,
+  getDataElementByValue,
+  commonDataElementInputPreviewNoIframe,
+} from "../../locators";
 import { dataComponentButtonByTextNoIFrame } from "../../locators/pages";
 import { loader } from "../../locators/loader";
 
@@ -242,7 +245,7 @@ Then("The matching string {string} is underline and bolded", (text) => {
 });
 
 Then("I type {string} into select input", (text) => {
-  selectInput().type(text);
+  commonDataElementInputPreviewNoIframe().type(text);
 });
 
 When("I scroll page to top", () => {
