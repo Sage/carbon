@@ -75,6 +75,7 @@ StyledFlatTable.defaultProps = {
 const StyledFlatTableRoot = styled.div`
   ${margin};
   height: 100%;
+  padding-bottom: 1px;
 `;
 
 StyledFlatTableRoot.defaultProps = {

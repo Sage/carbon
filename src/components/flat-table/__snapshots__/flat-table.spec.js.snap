@@ -147,6 +147,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c0 {
   height: 100%;
+  padding-bottom: 1px;
 }
 
 .c1 {
