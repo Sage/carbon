@@ -1,3 +1,10 @@
+### [68.25.2](https://github.com/Sage/carbon/compare/v68.25.1...v68.25.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure all th elements are sticky when sticky head prop is set ([82dd6c9](https://github.com/Sage/carbon/commit/82dd6c985ea73016ca52a500faa0b46690aad63a)), closes [#3876](https://github.com/Sage/carbon/issues/3876)
+
 ### [68.25.1](https://github.com/Sage/carbon/compare/v68.25.0...v68.25.1) (2021-04-19)
 
 
