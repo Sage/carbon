@@ -1,3 +1,10 @@
+### [68.25.1](https://github.com/Sage/carbon/compare/v68.25.0...v68.25.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* **flat-table:** fix an alignment gap between the colapse icon and the text ([c8d90e5](https://github.com/Sage/carbon/commit/c8d90e56804b4e55870f0721b2013e5e5f48438f))
+
 ## [68.25.0](https://github.com/Sage/carbon/compare/v68.24.0...v68.25.0) (2021-04-16)
 
 
