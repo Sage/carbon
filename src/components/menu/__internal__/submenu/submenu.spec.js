@@ -754,6 +754,33 @@ describe("Submenu component", () => {
     });
   });
 
+  describe("when submenuDirection prop set to left", () => {
+    it("should render the correct styles", () => {
+      wrapper = render(false, "dark", { submenuDirection: "left" });
+      const submenuItem = wrapper
+        .find('[data-component="submenu-wrapper"]')
+        .find("a");
+      submenuItem.getDOMNode().focus();
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItemWrapper)
+          .at(0)
+          .props()
+          .onKeyDown(events.enter);
+      });
+
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          right: "0",
+        },
+        wrapper.find(StyledSubmenu)
+      );
+    });
+  });
+
   describe("when it has a ScrollableBlock as a child", () => {
     const renderScrollableBlock = (openSubmenu, menuType, props) => {
       return mount(
@@ -777,6 +804,7 @@ describe("Submenu component", () => {
       expect(wrapper.find(MenuItem).length).toEqual(4);
     });
   });
+
   describe("when it has Search as a child", () => {
     const renderWithSearch = (openSubmenu, menuType, props) => {
       return mount(
