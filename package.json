@@ -8,7 +8,7 @@
   },
   "scripts": {
     "docgenInfo": "./script/generate-docgeninfo.sh",
-    "start": "start-storybook -p 9001 -s .assets -c .storybook",
+    "start": "start-storybook -p 9001 -s .assets -c .storybook ./storybook-static",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
@@ -26,7 +26,9 @@
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" ../lib/ --cwd=src --parents",
     "commit": "git-cz",
     "chromatic": "chromatic",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "generate-urls": "node ./lighthouse_ci/json-extract.js",
+    "pre-lighthouse-run": "npm run build-storybook && npm start && npm run generate-urls"
   },
   "repository": {
     "type": "git",
@@ -151,6 +153,7 @@
     "moment": "~2.20.1",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
+    "puppeteer": "^8.0.0",
     "react-day-picker": "~6.1.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
