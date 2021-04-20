@@ -27,8 +27,7 @@
     "commit": "git-cz",
     "chromatic": "chromatic",
     "postinstall": "node postinstall.js",
-    "generate-urls": "node ./lighthouse_ci/json-extract.js",
-    "pre-lighthouse-run": "npm run build-storybook && npm start && npm run generate-urls"
+    "generate-urls": "node ./lighthouse_ci/json-extract.js"
   },
   "repository": {
     "type": "git",
