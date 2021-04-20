@@ -1,11 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags";
 import PortraitGravatar from "./portrait-gravatar.component";
 import PortraitInitials from "./portrait-initials.component";
 import { StyledCustomImg, StyledIcon } from "./portrait.style";
 
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 class Portrait extends React.Component {
   state = {
     externalError: false,
@@ -19,6 +24,10 @@ class Portrait extends React.Component {
     if (relevantPropsChanged) {
       this.setState({ externalError: false }); // eslint-disable-line react/no-did-update-set-state
     }
+  }
+
+  getMarginProps() {
+    return filterStyledSystemMarginProps(this.props);
   }
 
   externalImageLoadFailed() {
@@ -47,6 +56,7 @@ class Portrait extends React.Component {
           alt={alt}
           errorCallback={() => this.externalImageLoadFailed()}
           {...tagProps}
+          {...this.getMarginProps()}
         />
       );
     }
@@ -61,6 +71,7 @@ class Portrait extends React.Component {
           data-element="user-image"
           onError={() => this.externalImageLoadFailed()}
           {...tagProps}
+          {...this.getMarginProps()}
         />
       );
     }
@@ -74,6 +85,7 @@ class Portrait extends React.Component {
           darkBackground={darkBackground}
           alt={alt}
           {...tagProps}
+          {...this.getMarginProps()}
         />
       );
     }
@@ -85,12 +97,14 @@ class Portrait extends React.Component {
         shape={shape}
         darkBackground={darkBackground}
         {...tagProps}
+        {...this.getMarginProps()}
       />
     );
   }
 }
 
 Portrait.propTypes = {
+  ...marginPropTypes,
   /** The size of the Portrait. */
   size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
   /** A custom image URL. */

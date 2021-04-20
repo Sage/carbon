@@ -8,7 +8,7 @@ import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
-import StyledFlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";

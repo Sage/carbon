@@ -1,3 +1,45 @@
+### [68.25.1](https://github.com/Sage/carbon/compare/v68.25.0...v68.25.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* **flat-table:** fix an alignment gap between the colapse icon and the text ([c8d90e5](https://github.com/Sage/carbon/commit/c8d90e56804b4e55870f0721b2013e5e5f48438f))
+
+## [68.25.0](https://github.com/Sage/carbon/compare/v68.24.0...v68.25.0) (2021-04-16)
+
+
+### Features
+
+* **grid-container:** use prop-types from styled-system ([ca91366](https://github.com/Sage/carbon/commit/ca913661ebacc3cd1f87e258ab984b1ca13ef109))
+
+## [68.24.0](https://github.com/Sage/carbon/compare/v68.23.0...v68.24.0) (2021-04-16)
+
+
+### Features
+
+* **portrait:** add styled-system margin ([e3de07d](https://github.com/Sage/carbon/commit/e3de07d33031d890e37cf01062c79b233ca0631d))
+
+## [68.23.0](https://github.com/Sage/carbon/compare/v68.22.1...v68.23.0) (2021-04-16)
+
+
+### Features
+
+* **preview:** add styled system margin props to Preview ([83e0ba3](https://github.com/Sage/carbon/commit/83e0ba3f39e01df1f689493885dd5635554c9560))
+
+### [68.22.1](https://github.com/Sage/carbon/compare/v68.22.0...v68.22.1) (2021-04-15)
+
+
+### Reverts
+
+* "docs: add info about chromatic for major branch" ([de23064](https://github.com/Sage/carbon/commit/de23064b09cd2b762ddf6346be3fa220f16ab72c))
+
+## [68.22.0](https://github.com/Sage/carbon/compare/v68.21.0...v68.22.0) (2021-04-15)
+
+
+### Features
+
+* **step-sequence:** add styled system margin props to StepSequence ([8415302](https://github.com/Sage/carbon/commit/84153020d27f9ae28c1dba4f0a49ce5015696c9a))
+
 ## [68.21.0](https://github.com/Sage/carbon/compare/v68.20.1...v68.21.0) (2021-04-15)
 
 

@@ -7,7 +7,6 @@ import {
   OPEN_ON_FOCUS_ID,
   MULTI_SELECT,
   IS_LOADING_ID,
-  SELECT_INPUT,
   SELECT_LIST_WRAPPER,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
@@ -45,5 +44,4 @@ export const boldedAndUnderlinedValue = (text) =>
   selectList()
     .find("tbody > tr:nth-child(1) > td:nth-child(2) > span")
     .contains(text);
-export const selectInput = () => cy.get(SELECT_INPUT);
 export const selectListPosition = () => cy.get(SELECT_LIST_WRAPPER).parent();

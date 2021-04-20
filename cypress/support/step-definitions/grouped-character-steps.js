@@ -1,14 +1,7 @@
 import {
-  commonDataElementInputPreview,
   getKnobsInput,
   commonDataElementInputPreviewNoIframe,
 } from "../../locators";
-
-When("I put {string} example grouped character", (text) => {
-  commonDataElementInputPreview()
-    .clear()
-    .type(text, { delay: 1000, force: true });
-});
 
 When("I put {string} example grouped character in no Iframe", (text) => {
   commonDataElementInputPreviewNoIframe()
@@ -51,7 +44,3 @@ When(
     });
   }
 );
-
-Then("Input component value is set to {string}", (value) => {
-  commonDataElementInputPreview().should("have.attr", "value", value);
-});
