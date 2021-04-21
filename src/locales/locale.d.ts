@@ -8,9 +8,6 @@ interface Locale {
   actionPopover: {
     ariaLabel: () => string;
   };
-  actionToolbar: {
-    selected: () => string;
-  };
   batchSelection: {
     selected: (count: number | string) => string;
   };

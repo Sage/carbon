@@ -11,9 +11,6 @@ export default {
   actionPopover: {
     ariaLabel: () => "actions",
   },
-  actionToolbar: {
-    selected: () => "Selected",
-  },
   batchSelection: {
     selected: (count) => `${count} selected`,
   },
