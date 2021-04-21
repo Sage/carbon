@@ -3,7 +3,14 @@ import { Meta, Story, Preview } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import { DraggableContext, WithDrag, WithDrop } from ".";
-import { Table, TableHeader, TableRow, TableCell } from "../table";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableCell,
+} from "../flat-table";
 
 <Meta
   title="DraggableContext/Test"
@@ -19,6 +26,7 @@ import { Table, TableHeader, TableRow, TableCell } from "../table";
     children: { table: { disable: true } },
   }}
 />
+;
 
 export const DraggableContextStory = ({ autoScroll }) => {
   const [state, setState] = useState([
@@ -50,21 +58,21 @@ export const DraggableContextStory = ({ autoScroll }) => {
   return (
     <DraggableContext onDrag={handleDrag} autoScroll={autoScroll}>
       <div>
-        <Table tbody={false}>
-          <thead>
-            <TableRow as="header">
-              <TableHeader />
-              <TableHeader>Country</TableHeader>
-            </TableRow>
-          </thead>
-          <tbody>
+        <FlatTable tbody={false}>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader />
+              <FlatTableHeader>Country</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
             {state.map((row, index) => (
-              <TableRow key={row.id} uniqueID={row.id} index={index}>
-                <TableCell>{row.name}</TableCell>
-              </TableRow>
+              <FlatTableRow key={row.id} uniqueID={row.id} index={index}>
+                <FlatTableCell>{row.name}</FlatTableCell>
+              </FlatTableRow>
             ))}
-          </tbody>
-        </Table>
+          </FlatTableBody>
+        </FlatTable>
       </div>
     </DraggableContext>
   );

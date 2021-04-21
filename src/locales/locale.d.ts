@@ -62,9 +62,6 @@ interface Locale {
     on: () => string;
     off: () => string;
   };
-  table: {
-    noData: () => string;
-  };
   textEditor: {
     tooltipMessages: {
       bold: () => string;

@@ -144,9 +144,6 @@ export default {
     on: () => "ON",
     off: () => "OFF",
   },
-  table: {
-    noData: () => "No results to display",
-  },
   textEditor: {
     tooltipMessages: {
       bold: () => "Bold",

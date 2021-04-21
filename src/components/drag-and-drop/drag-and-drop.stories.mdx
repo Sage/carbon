@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import { DraggableContext, WithDrop, WithDrag } from "./";
 
-import { Table, TableHeader, TableRow, TableCell } from "../table";
+import { FlatTable, FlatTableHeader, FlatTableRow, FlatTableCell } from "../flat-table";
 
 <Meta title="DraggableContext" parameters={{ info: { disable: true } }} />
 
@@ -89,21 +89,21 @@ const MyComponent = () => (
       return (
         <DraggableContext onDrag={handleDrag}>
           <div>
-            <Table tbody={false}>
+            <FlatTable tbody={false}>
               <thead>
-                <TableRow as="header">
-                  <TableHeader />
-                  <TableHeader>Country</TableHeader>
-                </TableRow>
+                <FlatTableRow as="header">
+                  <FlatTableHeader />
+                  <FlatTableHeader>Country</FlatTableHeader>
+                </FlatTableRow>
               </thead>
               <tbody>
                 {state.map((row, index) => (
-                  <TableRow key={row.id} uniqueID={row.id} index={index}>
-                    <TableCell>{row.name}</TableCell>
-                  </TableRow>
+                  <FlatTableRow key={row.id} uniqueID={row.id} index={index}>
+                    <FlatTableCell>{row.name}</FlatTableCell>
+                  </FlatTableRow>
                 ))}
               </tbody>
-            </Table>
+            </FlatTable>
           </div>
         </DraggableContext>
       );

@@ -53,8 +53,6 @@ Feature: Accessibility tests - Common list
       | component        |
       | DraggableContext |
       | Setting row      |
-      | Table Ajax       |
-      | Table            |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story page

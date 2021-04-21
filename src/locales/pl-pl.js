@@ -76,9 +76,6 @@ export default {
     on: () => "WŁ",
     off: () => "WYŁ",
   },
-  table: {
-    noData: () => "Brak wyników",
-  },
   textEditor: {
     tooltipMessages: {
       bold: () => "Pogrubiony",
