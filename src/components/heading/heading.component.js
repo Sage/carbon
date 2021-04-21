@@ -23,11 +23,6 @@ class Heading extends React.Component {
     children: PropTypes.node,
 
     /**
-     * Custom className
-     */
-    className: PropTypes.string,
-
-    /**
      * Defines the title for the heading.
      */
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
