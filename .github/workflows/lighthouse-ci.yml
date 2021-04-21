@@ -15,7 +15,8 @@ jobs:
       - name: npm ci
         run: |
           npm ci
-          npm run build-storybook
+          npm run lighthouse-prepare
+          npm run extract-and-generate
       # run the Lighthouse CI tests
       - name: run Lighthouse CI
         run: |
