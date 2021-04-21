@@ -1,26 +1,24 @@
 const fs = require("fs");
 const path = require("path");
 
-const data = require("../storybook-static/stories.json");
-
-const output = path.resolve("./lighthouserc.json");
+const { stories } = require("../storybook-static/stories.json");
 const defaults = require("../lighthouserc.json");
 
-const allUrls = [];
-const urls = data.stories;
+const output = path.resolve("./lighthouserc.json");
+const urls = [];
 
-for (let el in urls) {
+for (let i = 0; i < 3; i++) {
+  const storyId = stories[i];
   if (
-    !el.startsWith("welcome") &&
-    !el.startsWith("documentation") &&
-    !el.startsWith("icon-test--all")
+    !storyId.startsWith("welcome") &&
+    !storyId.startsWith("documentation") &&
+    !storyId.startsWith("icon-test--all")
   ) {
-    el = `http://localhost:8080/?path=/story/${el}`;
-    allUrls.push(el);
+    urls.push(`http://localhost:8080/?path=/story/${storyId}`);
   }
 }
 
-defaults.ci.collect.url = allUrls;
+defaults.ci.collect.url = urls;
 
 fs.writeFile(output, JSON.stringify(defaults, null, 2), (err) => {
   if (err) {
@@ -28,5 +26,5 @@ fs.writeFile(output, JSON.stringify(defaults, null, 2), (err) => {
     return;
   }
 
-  console.log(`Wrote ${allUrls.length} URL's to ${output}`);
+  console.log(`Wrote ${urls.length} URL's to ${output}`);
 });

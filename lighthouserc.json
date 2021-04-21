@@ -7,7 +7,7 @@
         "http://localhost:9001/?path=/story/design-system-button--primary",
         "http://localhost:9001/?path=/story/design-system-loader--default-story"
       ],
-      "numberOfRuns": 2,
+      "numberOfRuns": 1,
       "settings": { 
         "throttling": { "cpuSlowdownMultiplier": 2 },
         "preset": "desktop"
