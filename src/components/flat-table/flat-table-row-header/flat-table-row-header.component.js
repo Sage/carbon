@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
-import StyledFlatTableRowHeader from "./flat-table-row-header.style";
+import {
+  StyledFlatTableRowHeader,
+  StyledFlatTableRowHeaderContent,
+} from "./flat-table-row-header.style";
 import Icon from "../../icon";
 
 const FlatTableRowHeader = ({
@@ -34,14 +37,15 @@ const FlatTableRowHeader = ({
       expandable={expandable}
       {...rest}
     >
-      <div
+      <StyledFlatTableRowHeaderContent
         title={
           truncate && !title && typeof children === "string" ? children : title
         }
+        expandable={expandable}
       >
         {expandable && <Icon type="chevron_down_thick" />}
         {children}
-      </div>
+      </StyledFlatTableRowHeaderContent>
     </StyledFlatTableRowHeader>
   );
 };

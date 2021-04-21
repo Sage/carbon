@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
-import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import { baseTheme } from "../../style/themes";
@@ -153,7 +153,7 @@ const StyledFlatTableWrapper = styled.div`
   ${({ hasStickyHead }) =>
     hasStickyHead &&
     css`
-      ${StyledFlatTableHeader} {
+      ${StyledFlatTableHead} th {
         position: sticky;
         z-index: ${({ theme }) => theme.zIndex.overlay};
       }

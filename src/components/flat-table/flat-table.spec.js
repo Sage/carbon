@@ -11,7 +11,7 @@ import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.co
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
-import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import {
   StyledFlatTable,
@@ -57,6 +57,16 @@ describe("FlatTable", () => {
 
     it("should have the overflow-y css property set to to auto", () => {
       expect(wrapper).toHaveStyleRule("overflow-y", "auto");
+    });
+
+    it("should set position sticky on all th inside the table head", () => {
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        { modifier: `${StyledFlatTableHead} th` }
+      );
     });
 
     it('then all Headers should have proper styling if `colorTheme="dark"`', () => {
