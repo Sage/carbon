@@ -43,7 +43,7 @@ const Submenu = React.forwardRef(
     const menuContextOpen = menuContext.openSubmenu;
 
     const formattedChildren = React.Children.map(children, (child) => {
-      if (child.type === ScrollableBlock) {
+      if (child && child.type === ScrollableBlock) {
         return [...child.props.children];
       }
 
