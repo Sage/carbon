@@ -11,12 +11,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
-      # install all dependencies and start storybook
+      # install all dependencies and build storybook
       - name: npm ci
         run: |
           npm ci
           npm run lighthouse-prepare
-          npm run extract-and-generate
+          npx http-server ./storybook-static > /dev/null 2>&1 &
+          npx wait-on http://localhost:8080
       # run the Lighthouse CI tests
       - name: run Lighthouse CI
         run: |

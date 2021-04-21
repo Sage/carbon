@@ -1,9 +1,6 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npm start && npm run generate-urls",
-      "startServerReadyTimeout": 240000,
-      "startServerReadyPattern": "Storybook 6.2.8 started",
       "url": [
         "http://localhost:9001/?path=/story/alert--default-story",
         "http://localhost:9001/?path=/story/appwrapper--default-story",
