@@ -7,8 +7,8 @@ const defaults = require("../lighthouserc.json");
 const output = path.resolve("./lighthouserc.json");
 const urls = [];
 
-for (let i = 0; i < 3; i++) {
-  const storyId = stories[i];
+for (let i = 0; i < 10; i++) {
+  const storyId = stories[Object.keys(stories)[i]].id;
   if (
     !storyId.startsWith("welcome") &&
     !storyId.startsWith("documentation") &&
