@@ -8,7 +8,8 @@
   },
   "scripts": {
     "docgenInfo": "./script/generate-docgeninfo.sh",
-    "start": "start-storybook -p 9001 -s .assets -c .storybook ./storybook-static",
+    "start": "start-storybook -p 9001 -s .assets -c .storybook",
+    "start-with-static": "start-storybook -p 9001 -s .assets -c .storybook ./storybook-static",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
@@ -27,7 +28,9 @@
     "commit": "git-cz",
     "chromatic": "chromatic",
     "postinstall": "node postinstall.js",
-    "generate-urls": "node ./lighthouse_ci/json-extract.js"
+    "generate-urls": "node ./lighthouse_ci/json-extract.js",
+    "lighthouse-prepare": "npm run build-storybook && npm run start-with-static",
+    "extract-and-generate": "npx sb extract && npm run generate-urls"
   },
   "repository": {
     "type": "git",
