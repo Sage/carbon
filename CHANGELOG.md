@@ -1,3 +1,10 @@
+### [68.25.3](https://github.com/Sage/carbon/compare/v68.25.2...v68.25.3) (2021-04-22)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add support for controlling expanded rows externally ([721f975](https://github.com/Sage/carbon/commit/721f9751f6687bcdd04dd66160e9d157eb649e45)), closes [#3875](https://github.com/Sage/carbon/issues/3875)
+
 ### [68.25.2](https://github.com/Sage/carbon/compare/v68.25.1...v68.25.2) (2021-04-20)
 
 
