@@ -245,3 +245,17 @@ Feature: Design Systems FlatTable component
       And I press "Enter" onto focused element
     Then 1 row is visible
       And Pagination input should have 1 value
+  
+  @positive
+  Scenario: You can collapse all rows by clicking on Collapse All
+    Given I open "Design System Flat Table Expandable" component page "controlled" in no iframe
+    When I click "Collapse All" button on preview 
+    Then The subrows are not visible
+
+  @positive 
+  Scenario: You can expand all rows by clicking on Expand All
+    Given I open "Design System Flat Table Expandable" component page "controlled" in no iframe
+      And I click "Collapse All" button on preview
+      And I wait 100
+    When I click "Expand All" button on preview
+    Then The subrows are visible

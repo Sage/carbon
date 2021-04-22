@@ -111,7 +111,7 @@ When("I open component preview in noIFrame", () => {
   commonButtonPreviewNoIFrameRoot().click();
 });
 
-When("I {string} button on preview", (text) => {
+When("I click {string} button on preview", (text) => {
   getDataElementByValue("main-text").contains(text).click();
 });
 
