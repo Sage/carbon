@@ -91,7 +91,6 @@ const DialogTitleStyle = styled.div`
       color: ${({ theme }) => theme.text.color};
       display: block;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
       padding: ${({ hasSubtitle }) => !hasSubtitle && "4px 0px"};
     }
