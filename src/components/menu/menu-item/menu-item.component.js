@@ -16,7 +16,6 @@ import { MenuContext } from "../menu.component";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 
-import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../../__experimental__/components/search";
 
@@ -42,17 +41,6 @@ const MenuItem = ({
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
   const isChildrenSearch = children?.type === Search;
-  const childrenItems = React.Children.map(children, (child) => {
-    if (child && child.type === SubmenuBlock) {
-      const childArray = Array.isArray(child.props.children)
-        ? child.props.children
-        : [child.props.children];
-
-      return [...childArray.map((innerChild) => innerChild)];
-    }
-
-    return child;
-  });
 
   useEffect(() => {
     if (focusFromSubmenu === undefined && focusFromMenu) {
@@ -126,7 +114,7 @@ const MenuItem = ({
           className={classes}
           showDropdownArrow={showDropdownArrow}
         >
-          {childrenItems}
+          {children}
         </Submenu>
       </StyledMenuItem>
     );

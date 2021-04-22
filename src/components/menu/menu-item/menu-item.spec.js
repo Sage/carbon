@@ -11,7 +11,6 @@ import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 import { MenuContext } from "../menu.component";
-import SubmenuBlock from "../submenu-block";
 import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";
 
@@ -357,41 +356,6 @@ describe("MenuItem", () => {
 
         wrapper.update();
         expect(mockSubmenuhandleKeyDown).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe("when child is a SubmenuBlock", () => {
-    describe("for a single submenu item", () => {
-      it("should render the children correctly", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "light" }}>
-            <MenuItem submenu="test">
-              <SubmenuBlock>
-                <MenuItem>Item one</MenuItem>
-              </SubmenuBlock>
-            </MenuItem>
-          </MenuContext.Provider>
-        );
-
-        expect(wrapper.find(Submenu).props().children.length).toEqual(1);
-      });
-    });
-
-    describe("for multiple submenu items", () => {
-      it("should render the children correctly", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "light" }}>
-            <MenuItem submenu="test">
-              <SubmenuBlock>
-                <MenuItem>Item one</MenuItem>
-                <MenuItem>Item two</MenuItem>
-              </SubmenuBlock>
-            </MenuItem>
-          </MenuContext.Provider>
-        );
-
-        expect(wrapper.find(Submenu).props().children.length).toEqual(2);
       });
     });
   });
