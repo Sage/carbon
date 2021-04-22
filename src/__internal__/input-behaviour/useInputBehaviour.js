@@ -14,12 +14,6 @@ const useInputBehaviour = (blockGroupBehaviour) => {
     inputRef.current = input.current;
   }, []);
 
-  // use mouse down rather than click to accommodate click and drag events too
-  const onMouseDown = useCallback(() => {
-    // use a zero timeout to ensure focus is applied even on click and drag events
-    setTimeout(() => inputRef && inputRef.current && inputRef.current.focus());
-  }, []);
-
   const onMouseEnter = useCallback(() => setHasMouseOver(true), []);
 
   const onMouseLeave = useCallback(() => setHasMouseOver(false), []);
@@ -30,7 +24,6 @@ const useInputBehaviour = (blockGroupBehaviour) => {
       hasMouseOver,
       onFocus: blockGroupBehaviour ? undefined : onFocus,
       onBlur: blockGroupBehaviour ? undefined : onBlur,
-      onMouseDown,
       onMouseEnter: blockGroupBehaviour ? undefined : onMouseEnter,
       onMouseLeave: blockGroupBehaviour ? undefined : onMouseLeave,
       inputRef: assignInput,
@@ -40,7 +33,6 @@ const useInputBehaviour = (blockGroupBehaviour) => {
       hasMouseOver,
       onFocus,
       onBlur,
-      onMouseDown,
       blockGroupBehaviour,
       onMouseEnter,
       onMouseLeave,

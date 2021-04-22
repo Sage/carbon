@@ -16,9 +16,7 @@ import {
 let deprecatedWarnTriggered = false;
 
 const InputPresentation = (props) => {
-  const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const { hasFocus, onMouseEnter, onMouseLeave } = useContext(InputContext);
 
   const {
     onMouseEnter: onGroupMouseEnter,
@@ -57,7 +55,6 @@ const InputPresentation = (props) => {
       <InputPresentationStyle
         hasFocus={hasFocus}
         role="presentation"
-        onMouseDown={onMouseDown}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         styleOverride={styleOverride}

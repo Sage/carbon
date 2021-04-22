@@ -71,16 +71,6 @@ describe("useInputBehaviour", () => {
       wrapper.update();
       expect(wrapper.find(Input).props().hasMouseOver).toBe(false);
     });
-
-    it("focuses the element on mousedown event", () => {
-      jest.useFakeTimers();
-      act(() => {
-        wrapper.find(Input).props().onMouseDown();
-      });
-      wrapper.update();
-      jest.runAllTimers();
-      expect(document.activeElement).toBe(wrapper.find(Input).getDOMNode());
-    });
   });
 
   describe("group behaviour disabled", () => {
