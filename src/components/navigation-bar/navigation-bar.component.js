@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
+import { filterStyledSystemPaddingProps } from "../../style/utils";
 import StyledNavigationBar from "./navigation-bar.style";
 
 const NavigationBar = ({
@@ -25,7 +26,7 @@ const NavigationBar = ({
 
 NavigationBar.propTypes = {
   /** Styled system spacing props */
-  ...propTypes.space,
+  ...filterStyledSystemPaddingProps(propTypes.space),
   ...propTypes.flexbox,
   children: PropTypes.node,
   ariaLabel: PropTypes.string,

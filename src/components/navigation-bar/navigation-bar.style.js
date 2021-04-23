@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { padding, flexbox } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
-const StyledNavigationBar = styled.div.attrs({ as: "nav" })`
+const StyledNavigationBar = styled.nav`
   display: flex;
   align-items: center;
   padding: 0 40px;
