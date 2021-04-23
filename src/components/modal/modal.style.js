@@ -15,21 +15,21 @@ const StyledModalBackground = styled.div`
   top: 0;
 
   ${({ transitionName }) => css`
-    .${transitionName}-enter, .${transitionName}-appear {
+    &.${transitionName}-enter, .${transitionName}-appear {
       opacity: 0;
     }
 
-    .${transitionName}-enter.${transitionName}-enter-active,
-      .${transitionName}-appear.${transitionName}-appear-active {
+    &.${transitionName}-enter.${transitionName}-enter-active,
+      &.${transitionName}-appear.${transitionName}-appear-active {
       opacity: ${backgroundOpacity};
       transition: opacity ${backgroundAnimationLength} ease-out;
     }
 
-    .${transitionName}-exit {
+    &.${transitionName}-exit {
       opacity: ${backgroundOpacity};
     }
 
-    .${transitionName}-exit.${transitionName}-exit-active {
+    &.${transitionName}-exit.${transitionName}-exit-active {
       opacity: 0;
       transition: opacity ${backgroundAnimationLength} 100ms ease-out;
     }

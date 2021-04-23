@@ -35,11 +35,6 @@ Feature: Dialog Full Screen component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
-  Scenario: Enable background UI
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled
-
-  @positive
   Scenario: Disable escape key
     Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
     When I hit ESC key in noIframe

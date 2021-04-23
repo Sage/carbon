@@ -414,4 +414,16 @@ describe("FocusTrap", () => {
       });
     });
   });
+
+  describe("wrapperRef", () => {
+    it("renders without wrapperRef provided", () => {
+      expect(() => {
+        mount(
+          <FocusTrap>
+            <div id="myComponent">Content</div>
+          </FocusTrap>
+        );
+      }).not.toThrow();
+    });
+  });
 });
