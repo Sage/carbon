@@ -424,7 +424,7 @@ SelectList.propTypes = {
   id: PropTypes.string,
   /** The Id of the label */
   labelId: PropTypes.string,
-  /** Child components (such as <Option>) for the <ScrollableList> */
+  /** Child components */
   children: PropTypes.node,
   /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
   disablePortal: PropTypes.bool,
