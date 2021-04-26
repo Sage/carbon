@@ -2,24 +2,15 @@ Feature: Dialog component
   I want to test Dialog component properties
 
   @positive
-  Scenario Outline: Set height for Dialog to <height>
+  Scenario Outline: Set height for Dialog to <height> but not bigger than viewportHeight
     When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
-    Then Dialog height is set to <height>
+    Then Dialog height is set to "<height>"
     Examples:
       | height | nameOfObject |
       | 0      | height0      |
       | 1      | height1      |
       | 100    | height100    |
-
-  @negative
-  Scenario Outline: Set out of scope characters to <height>
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
-    Then Dialog height is not set to <height>
-    Examples:
-      | height                       | nameOfObject           |
-      | -1                           | height-1               |
-      | -10                          | height-10              |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> | heightSpecialCharacter |
+      | 1000   | height1000   |
 
   @positive
   Scenario Outline: Change Dialog component title to <title>
@@ -59,11 +50,6 @@ Feature: Dialog component
     Then closeIcon is not visible
 
   @positive
-  Scenario: Enable background UI
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled
-
-  @positive
   Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
     Given I open "Design System Form" component page "In dialog with sticky footer" in no iframe
       And I click on Open Preview button
@@ -89,17 +75,6 @@ Feature: Dialog component
       And closeIcon is visible
     When I click closeIcon
       And Dialog is not visible
-
-  @positive
-  Scenario Outline: Click outside Dialog without background and Dialog remains open
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
-    When I click on "<position>" outside dialog
-    Then Dialog is visible
-    Examples:
-      | position |
-      | top      |
-      | topRight |
-      | right    |
 
   @positive
   Scenario Outline: Click on background outside Dialog and Dialog remains open

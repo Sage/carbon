@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags/tags";
@@ -15,6 +15,8 @@ import {
   StyledAdornment,
   StyledDescription,
   StyledDeselectWrapper,
+  StyledFooterWrapper,
+  StyledFocusWrapper,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -22,25 +24,27 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const TileSelect = (props) => {
-  const {
-    onChange,
-    onBlur,
-    value,
-    name,
-    checked,
-    className,
-    disabled,
-    title,
-    subtitle,
-    description,
-    titleAdornment,
-    type,
-    id,
-    customActionButton,
-    actionButtonAdornment,
-    ...rest
-  } = props;
+const TileSelect = ({
+  onChange,
+  onBlur,
+  onFocus,
+  value,
+  name,
+  checked,
+  className,
+  disabled,
+  title,
+  subtitle,
+  description,
+  titleAdornment,
+  type,
+  id,
+  customActionButton,
+  actionButtonAdornment,
+  footer,
+  ...rest
+}) => {
+  const [hasFocus, setHasFocus] = useState(false);
 
   const handleDeselect = () =>
     onChange({
@@ -69,33 +73,59 @@ const TileSelect = (props) => {
       checked={checked}
       className={className}
       disabled={disabled}
-      {...tagComponent("tile-select", props)}
+      {...tagComponent("tile-select", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
-      <StyledTileSelectInput
-        onChange={onChange}
-        onBlur={onBlur}
-        checked={checked}
-        name={name}
-        type={type}
-        value={value}
-        disabled={disabled}
-        aria-checked={checked}
-        id={id}
-        {...rest}
-      />
-      <StyledTileSelect disabled={disabled} checked={checked}>
-        <StyledTitleContainer>
-          {title && <StyledTitle>{title}</StyledTitle>}
+      <StyledFocusWrapper hasFocus={hasFocus} checked={checked}>
+        <StyledTileSelectInput
+          onChange={onChange}
+          onBlur={(ev) => {
+            setHasFocus(false);
+            /* istanbul ignore else */
+            if (onBlur) onBlur(ev);
+          }}
+          onFocus={(ev) => {
+            setHasFocus(true);
+            /* istanbul ignore else */
+            if (onFocus) onFocus(ev);
+          }}
+          checked={checked}
+          name={name}
+          type={type}
+          value={value}
+          disabled={disabled}
+          aria-checked={checked}
+          id={id}
+          {...rest}
+        />
+        <StyledTileSelect disabled={disabled} checked={checked}>
+          <StyledTitleContainer>
+            {title && (
+              <StyledTitle {...(typeof title !== "string" && { as: "div" })}>
+                {title}
+              </StyledTitle>
+            )}
 
-          {subtitle && <StyledSubtitle>{subtitle}</StyledSubtitle>}
+            {subtitle && (
+              <StyledSubtitle
+                {...(typeof subtitle !== "string" && { as: "div" })}
+              >
+                {subtitle}
+              </StyledSubtitle>
+            )}
 
-          {titleAdornment && (
-            <StyledAdornment>{titleAdornment}</StyledAdornment>
-          )}
-        </StyledTitleContainer>
-        <StyledDescription>{description}</StyledDescription>
-      </StyledTileSelect>
+            {titleAdornment && (
+              <StyledAdornment>{titleAdornment}</StyledAdornment>
+            )}
+          </StyledTitleContainer>
+          <StyledDescription
+            {...(typeof description !== "string" && { as: "div" })}
+          >
+            {description}
+          </StyledDescription>
+          {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+        </StyledTileSelect>
+      </StyledFocusWrapper>
       <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
         {renderActionButton()}
         {actionButtonAdornment}
@@ -112,13 +142,13 @@ TileSelect.defaultProps = {
 TileSelect.propTypes = {
   ...marginPropTypes,
   /** title of the TileSelect */
-  title: PropTypes.string,
+  title: PropTypes.node,
   /** adornment to be rendered next to the title */
   titleAdornment: PropTypes.node,
   /** subtitle of the TileSelect */
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.node,
   /** description of the TileSelect */
-  description: PropTypes.string,
+  description: PropTypes.node,
   /** disables the TileSelect input */
   disabled: PropTypes.bool,
   /** the value that is represented by this TileSelect */
@@ -131,6 +161,8 @@ TileSelect.propTypes = {
   onChange: PropTypes.func,
   /** Callback triggered when the user blurs this tile */
   onBlur: PropTypes.func,
+  /** Callback triggered when the user focuses this tile */
+  onFocus: PropTypes.func,
   /** determines if this tile is selected or unselected */
   checked: PropTypes.bool,
   /** Custom class name passed to the root element of TileSelect */
@@ -141,6 +173,8 @@ TileSelect.propTypes = {
   customActionButton: PropTypes.func,
   /** An additional help info icon rendered next to the action button */
   actionButtonAdornment: PropTypes.node,
+  /** footer of the TileSelect */
+  footer: PropTypes.node,
 };
 
 TileSelect.displayName = "TileSelect";

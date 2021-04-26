@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -117,6 +118,10 @@ const FlatTableRow = React.forwardRef(
         ]);
       }
     }, [rowHeaderIndex, stickyCellWidths]);
+
+    useEffect(() => {
+      setIsExpanded(expanded);
+    }, [expanded]);
 
     return (
       <SidebarContext.Consumer>

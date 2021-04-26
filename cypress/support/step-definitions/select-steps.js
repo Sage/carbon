@@ -252,14 +252,8 @@ When("I scroll page to top", () => {
   cy.scrollTo("0", "0");
 });
 
-Then("{string} Select list is visible in {word} position", (name, position) => {
-  selectListPosition(name)
-    .should("have.attr", "data-popper-placement", position)
-    .and("be.visible");
-});
-
 Then("{string} Select list is visible at the {word}", (name, position) => {
   selectListPosition(name)
-    .should("have.attr", "data-popper-placement", `${position}-end`)
+    .should("have.attr", "data-popper-placement", `${position}-start`)
     .and("be.visible");
 });

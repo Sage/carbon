@@ -35,11 +35,6 @@ Feature: Dialog Full Screen component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
-  Scenario: Enable background UI
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled
-
-  @positive
   Scenario: Disable escape key
     Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
     When I hit ESC key in noIframe
@@ -61,9 +56,9 @@ Feature: Dialog Full Screen component
   @positive
   Scenario: Verify that nested dialog is closed by pressing Esc key
     Given I open nested "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
-      And I "Open Main Dialog" button on preview
+      And I click "Open Main Dialog" button on preview
       And I wait 500
-      And I "Open Nested Dialog" button on preview
+      And I click "Open Nested Dialog" button on preview
       And Dialog is visible
     When I hit ESC key in noIframe
     Then Dialog Full Screen is visible

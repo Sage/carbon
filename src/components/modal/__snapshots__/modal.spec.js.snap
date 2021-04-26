@@ -1,11 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 1`] = `
-<Styled(Portal)
-  key="1"
->
+exports[`Modal enableBackgroundUI when enableBackgroundUI is false renders children 1`] = `
+<Styled(Portal)>
   <styled.div
-    className={null}
     data-state="open"
     transitionName="modal"
   >
@@ -33,12 +30,9 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
 </Styled(Portal)>
 `;
 
-exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1`] = `
-<Styled(Portal)
-  key="1"
->
+exports[`Modal enableBackgroundUI when enableBackgroundUI is true renders children 1`] = `
+<Styled(Portal)>
   <styled.div
-    className={null}
     data-state="open"
     transitionName="modal"
   >

@@ -29,18 +29,13 @@ Feature: Alert component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
-  Scenario: Enable background UI
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled
-
-  @positive
   Scenario: Disable escape key
     When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "disableEscKey" object name
       And I press ESC onto focused element
     Then Alert is visible in NoIFrame
 
   @positive
-  Scenario Outline: Set height for Alert dialog to <height>
+  Scenario Outline: Set height for Alert dialog to <height> but not bigger than viewportHeight
     When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
@@ -48,15 +43,6 @@ Feature: Alert component
       | 0      | height0      |
       | 1      | height1      |
       | 100    | height100    |
-
-  @negative
-  Scenario Outline: Set out of scope characters to height for Alert dialog
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then Alert height is set to "<height>"
-    Examples:
-      | height | nameOfObject |
-      | -1     | height-1     |
-      | -10    | height-10    |
 
   @positive
   Scenario Outline: Set Alert size to <sizeName>

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
 import { TileSelect, TileSelectGroup } from ".";
@@ -6,6 +6,8 @@ import Pill from "../pill/"
 import Icon from "../icon";
 import Button from "../button";
 import I18n from "i18n-js";
+import Box from "../box";
+import Typography from "../typography";
 import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
@@ -324,6 +326,32 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
     }}
   </Story>
 </Preview>
+
+### With a footer
+To render a `footer` pass anything renderable to the prop like in the example below. 
+
+<Preview>
+  <Story name="with a footer">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <TileSelect
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          checked={isChecked}
+          onChange={e => setIsChecked(e.target.checked)}
+          description="Short and descriptive description"
+          footer={<Box pt={1} display="flex" alignItems="baseline">Here is some &nbsp;<Typography variant="strong">footer text</Typography><Button ml={1} buttonType="tertiary" iconPosition="after" iconType="home">Footer Button</Button></Box>}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
 
 ### With custom spacing
 The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The  modifiers 
