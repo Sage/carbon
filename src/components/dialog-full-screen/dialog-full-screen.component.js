@@ -1,139 +1,96 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Modal from "../modal";
 import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
-import Browser from "../../utils/helpers/browser";
 import FocusTrap from "../../__internal__/focus-trap";
 
-class DialogFullScreen extends Modal {
-  constructor(props) {
-    super(props);
+const DialogFullScreen = ({
+  open,
+  children,
+  title,
+  subtitle,
+  pagesStyling,
+  headerChildren,
+  showCloseIcon,
+  disableContentPadding,
+  disableEscKey,
+  onCancel,
+  ...rest
+}) => {
+  const dialogRef = useRef();
+  const headingRef = useRef();
+  const contentRef = useRef();
 
-    /**
-     * Caches a reference to the document.
-     */
-    this.document = Browser.getDocument();
-    this.originalOverflow = undefined;
-    this.contentRef = React.createRef();
-  }
-
-  static state = {
-    headingHeight: undefined,
-  };
-
-  headingRef = React.createRef();
-
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    this.updateHeadingHeight();
-  }
-
-  componentTags(props) {
-    return {
-      "data-component": "dialog-full-screen",
-      "data-element": props["data-element"],
-      "data-role": props["data-role"],
-    };
-  }
-
-  updateHeadingHeight() {
-    if (
-      this.headingRef.current &&
-      this.state.headingHeight !== this.headingRef.current.clientHeight
-    ) {
-      this.setState({ headingHeight: this.headingRef.current.clientHeight });
-    }
-  }
-
-  /**
-   * Overrides the original function to disable the document's scroll.
-   */
-  handleOpen() {
-    super.handleOpen();
-    this.originalOverflow = this.document.documentElement.style.overflow;
-    this.document.documentElement.style.overflow = "hidden";
-  }
-
-  /**
-   * Overrides the original function to enable the document's scroll.
-   */
-  handleClose() {
-    super.handleClose();
-    this.document.documentElement.style.overflow = this.originalOverflow;
-    return this.document.documentElement;
-  }
-
-  /**
-   * Returns HTML and text for the dialog title.
-   */
-  dialogTitle = () => {
-    let { title } = this.props;
-
-    if (typeof title === "string") {
-      title = (
+  const dialogTitle = () => (
+    <FullScreenHeading
+      hasContent={title}
+      ref={headingRef}
+      showCloseIcon={showCloseIcon}
+      onCancel={onCancel}
+    >
+      {typeof title === "string" ? (
         <Heading
           title={title}
           titleId="carbon-dialog-title"
-          subheader={this.props.subtitle}
+          subheader={subtitle}
           subtitleId="carbon-dialog-subtitle"
           divider={false}
         />
-      );
-    }
+      ) : (
+        title
+      )}
+      {headerChildren}
+    </FullScreenHeading>
+  );
 
-    return (
-      <FullScreenHeading
-        hasContent={title}
-        ref={this.headingRef}
-        showCloseIcon={this.props.showCloseIcon}
-        onCancel={this.props.onCancel}
-      >
-        {title}
-        {this.props.headerChildren}
-      </FullScreenHeading>
-    );
+  const componentTags = {
+    "data-component": "dialog-full-screen",
+    "data-element": rest["data-element"],
+    "data-role": rest["data-role"],
   };
 
-  /**
-   * Returns the computed HTML for the dialog.
-   */
-  get modalHTML() {
-    return (
-      <FocusTrap wrapperRef={this._dialog}>
+  return (
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      disableEscKey={disableEscKey}
+      {...componentTags}
+    >
+      <FocusTrap wrapperRef={dialogRef}>
         <StyledDialogFullScreen
-          ref={(d) => {
-            this._dialog = d;
-          }}
+          ref={dialogRef}
           data-element="dialog-full-screen"
-          pagesStyling={this.props.pagesStyling}
+          pagesStyling={pagesStyling}
         >
-          {this.dialogTitle()}
+          {dialogTitle()}
           <StyledContent
-            hasHeader={this.props.title !== undefined}
-            headingHeight={this.state.headingHeight}
+            hasHeader={title !== undefined}
             data-element="content"
-            ref={this.contentRef}
-            disableContentPadding={this.props.disableContentPadding}
+            ref={contentRef}
+            disableContentPadding={disableContentPadding}
           >
-            {this.props.children}
+            {children}
           </StyledContent>
         </StyledDialogFullScreen>
       </FocusTrap>
-    );
-  }
-}
+    </Modal>
+  );
+};
 
 DialogFullScreen.defaultProps = {
-  open: false,
-  enableBackgroundUI: true,
   showCloseIcon: true,
 };
 
 DialogFullScreen.propTypes = {
-  ...Modal.propTypes,
+  /** Controls the open state of the component */
+  open: PropTypes.bool.isRequired,
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Determines if the Esc Key closes the Dialog */
+  disableEscKey: PropTypes.bool,
   /** remove padding from content */
   disableContentPadding: PropTypes.bool,
   /** Child elements */

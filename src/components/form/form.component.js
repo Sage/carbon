@@ -11,7 +11,7 @@ import {
   StyledRightButtons,
 } from "./form.style";
 
-const SCROLL_THROTTLE = 100;
+const SCROLL_THROTTLE = 50;
 
 const Form = ({
   children,
@@ -23,6 +23,7 @@ const Form = ({
   onSubmit,
   buttonAlignment = "right",
   stickyFooter,
+  dialogRef,
   fieldSpacing = 3,
   noValidate = true,
   ...rest
@@ -35,11 +36,15 @@ const Form = ({
 
   const checkStickyFooter = useCallback(
     throttle(() => {
-      const footerHeight = 40;
       const { bottom } = formRef.current.getBoundingClientRect();
+      let isBottomBelowScreen;
 
-      const isBottomBelowScreen =
-        bottom - footerHeight / 2 > window.innerHeight;
+      if (dialogRef) {
+        isBottomBelowScreen =
+          bottom > dialogRef.current.getBoundingClientRect().bottom;
+      } else {
+        isBottomBelowScreen = bottom > window.innerHeight;
+      }
 
       if (isBottomBelowScreen) {
         setIsFooterSticky(true);
@@ -148,6 +153,12 @@ Form.propTypes = {
 
   /** Disable HTML5 validation */
   noValidate: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   * Used to detect if FormFooter should be sticky when used in Dialog component
+   */
+  dialogRef: PropTypes.shape({ current: PropTypes.any }),
 };
 
 export default Form;
