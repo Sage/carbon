@@ -1,3 +1,18 @@
+### [69.1.1](https://github.com/Sage/carbon/compare/v69.1.0...v69.1.1) (2021-04-26)
+
+
+### Bug Fixes
+
+* **select-list:** fix bottom of focus border is cut off by the select-list ([b944350](https://github.com/Sage/carbon/commit/b944350ce2af7d2a1c5494d84bb2bccf631abf17))
+
+## [69.1.0](https://github.com/Sage/carbon/compare/v69.0.0...v69.1.0) (2021-04-23)
+
+
+### Features
+
+* **tile-select:** add new footer prop ([baa4442](https://github.com/Sage/carbon/commit/baa4442ffef9a50e39b9f686909aa94c04fb9128))
+* **tile-select:** expand prop types for title, subtitle and description to node ([7563e4e](https://github.com/Sage/carbon/commit/7563e4ebc797cb0301307a3bee372f60d51e0ed9))
+
 ## [69.0.0](https://github.com/Sage/carbon/compare/v68.25.3...v69.0.0) (2021-04-22)
 
 

@@ -305,7 +305,7 @@ describe("SelectList", () => {
 
     it('then the popover container should have expected "width" value', () => {
       assertStyleMatch(
-        { width: "208px" },
+        { width: "200px" },
         wrapper.find(StyledPopoverContainer)
       );
     });

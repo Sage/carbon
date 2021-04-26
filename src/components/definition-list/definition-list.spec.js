@@ -31,20 +31,14 @@ describe("DefinitionList", () => {
     );
   };
 
-  testStyledSystemSpacing(
-    (props) => (
-      <ThemeProvider theme={mintTheme}>
-        <Dl {...props}>
-          <Dt>Description</Dt>
-          <Dd>This is a test</Dd>
-        </Dl>
-      </ThemeProvider>
-    ),
-    {
-      px: "3px",
-      mx: "-3px",
-    }
-  );
+  testStyledSystemSpacing((props) => (
+    <ThemeProvider theme={mintTheme}>
+      <Dl {...props}>
+        <Dt>Description</Dt>
+        <Dd>This is a test</Dd>
+      </Dl>
+    </ThemeProvider>
+  ));
 
   describe("dt", () => {
     testStyledSystemSpacing(
@@ -103,7 +97,6 @@ describe("DefinitionList", () => {
           height: "auto",
           width: "100%",
           backgroundColor: "transparent",
-          overflow: "hidden",
           gridTemplateRows: "auto",
           gridTemplateColumns: "50% auto",
         },
