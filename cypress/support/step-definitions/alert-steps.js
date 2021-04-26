@@ -1,9 +1,18 @@
 import { alertChildren, alertDialogPreview } from "../../locators/dialog";
 
 Then("Alert height is set to {string}", (height) => {
+  const { viewportHeight } = Cypress.config();
+
+  let resultHeight;
+  if (height >= viewportHeight - 20) {
+    resultHeight = viewportHeight - 20;
+  } else {
+    resultHeight = height;
+  }
+
   alertDialogPreview()
-    .should("have.attr", "height")
-    .should("contain", `${height}`);
+    .should("have.css", "height")
+    .and("contain", `${resultHeight}px`);
 });
 
 Then("Alert size property on preview is {string}", (size) => {

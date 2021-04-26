@@ -38,7 +38,7 @@ Feature: Confirm component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtitleSpecialCharacter |
 
   @positive
-  Scenario Outline: Change the height of Confirm dialog to <height>
+  Scenario Outline: Change the height of Confirm dialog to <height> but not bigger than viewportHeight
     When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
     Then Confirm dialog input height is <height>
     Examples:
@@ -61,11 +61,6 @@ Feature: Confirm component
       | medium-large | 850              | sizeMediumLarge |
       | large        | 960              | sizeLarge       |
       | extra-large  | 1080             | sizeExtraLarge  |
-
-  @positive
-  Scenario: Enable background UI
-    When I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled
 
   @positive
   Scenario Outline: <icon> icon on the header

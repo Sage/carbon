@@ -1,3 +1,16 @@
+## [70.0.0](https://github.com/Sage/carbon/compare/v69.1.1...v70.0.0) (2021-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* DialogFullScreen, Dialog, Alert and Confirm components
+no longer support enabling background UI interactions or disabling focus trap
+Dialog, Alert and Confirm height prop behaviour has changed
+
+### Code Refactoring
+
+* refactor modal based components ([59c65da](https://github.com/Sage/carbon/commit/59c65da42ac78f6b20c38364390f45b63de9310d))
+
 ### [69.1.1](https://github.com/Sage/carbon/compare/v69.1.0...v69.1.1) (2021-04-26)
 
 

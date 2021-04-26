@@ -35,12 +35,12 @@ describe("Confirm", () => {
 
   describe("default snapshot", () => {
     it("renders as expected", () => {
-      expect(wrapper.instance().props.open).toBeTruthy();
-      expect(wrapper.instance().props.title).toEqual("Confirm title");
-      expect(wrapper.instance().props.subtitle).toEqual("Confirm Subtitle");
-      expect(wrapper.instance().props["data-element"]).toEqual("bar");
-      expect(wrapper.instance().props["data-role"]).toEqual("baz");
-      expect(wrapper.instance().props.destructive).toBeFalsy();
+      expect(wrapper.props().open).toBeTruthy();
+      expect(wrapper.props().title).toEqual("Confirm title");
+      expect(wrapper.props().subtitle).toEqual("Confirm Subtitle");
+      expect(wrapper.props()["data-element"]).toEqual("bar");
+      expect(wrapper.props()["data-role"]).toEqual("baz");
+      expect(wrapper.props().destructive).toBeFalsy();
     });
   });
 
@@ -83,7 +83,7 @@ describe("Confirm", () => {
             destructive
           />
         );
-        expect(wrapper.instance().props.destructive).toBeTruthy();
+
         const button = wrapper
           .find(Button)
           .find('[data-element="confirm"]')
