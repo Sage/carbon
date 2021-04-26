@@ -10,6 +10,8 @@ const Dl = ({
   w = 50,
   dtTextAlign = "right",
   ddTextAlign = "left",
+  px = "3px",
+  mx = "-3px",
   ...props
 }) => {
   const dlComponent = [];
@@ -57,7 +59,7 @@ const Dl = ({
   };
 
   return (
-    <StyledDl w={w} data-component="dl" {...props}>
+    <StyledDl w={w} px={px} mx={mx} data-component="dl" {...props}>
       {composeDlComponent(listChildren)}
     </StyledDl>
   );

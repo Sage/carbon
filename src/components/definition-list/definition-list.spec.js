@@ -31,14 +31,20 @@ describe("DefinitionList", () => {
     );
   };
 
-  testStyledSystemSpacing((props) => (
-    <ThemeProvider theme={mintTheme}>
-      <Dl {...props}>
-        <Dt>Description</Dt>
-        <Dd>This is a test</Dd>
-      </Dl>
-    </ThemeProvider>
-  ));
+  testStyledSystemSpacing(
+    (props) => (
+      <ThemeProvider theme={mintTheme}>
+        <Dl {...props}>
+          <Dt>Description</Dt>
+          <Dd>This is a test</Dd>
+        </Dl>
+      </ThemeProvider>
+    ),
+    {
+      px: "3px",
+      mx: "-3px",
+    }
+  );
 
   describe("dt", () => {
     testStyledSystemSpacing(
