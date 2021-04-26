@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider, css, withTheme } from "styled-components";
+import { margin } from "styled-system";
+
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
@@ -80,6 +82,7 @@ const MenuButton = styled.div`
   }
   width: fit-content;
   margin: auto;
+  ${margin}
   ${({ isOpen, theme }) => isOpen && `background-color: ${theme.colors.white}`}
   &:hover, &:focus {
     background-color: ${({ theme }) => theme.colors.white};
