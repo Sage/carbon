@@ -1,3 +1,10 @@
+### [69.1.1](https://github.com/Sage/carbon/compare/v69.1.0...v69.1.1) (2021-04-26)
+
+
+### Bug Fixes
+
+* **select-list:** fix bottom of focus border is cut off by the select-list ([b944350](https://github.com/Sage/carbon/commit/b944350ce2af7d2a1c5494d84bb2bccf631abf17))
+
 ## [69.1.0](https://github.com/Sage/carbon/compare/v69.0.0...v69.1.0) (2021-04-23)
 
 
