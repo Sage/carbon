@@ -24,13 +24,11 @@ import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option from "../option/option.component";
 
-const overhang = 4;
-
 const popoverModifiers = [
   {
     name: "offset",
     options: {
-      offset: [-overhang, 0],
+      offset: [0, 3],
     },
   },
   {
@@ -271,7 +269,7 @@ const SelectList = React.forwardRef(
     useLayoutEffect(() => {
       if (!disablePortal && anchorElement) {
         const inputBoundingRect = anchorElement.getBoundingClientRect();
-        const width = `${inputBoundingRect.width + 2 * overhang}px`;
+        const width = `${inputBoundingRect.width}px`;
         setListWidth(width);
       }
     }, [disablePortal, anchorElement]);
