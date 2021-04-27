@@ -123,6 +123,10 @@ const Search = ({
     }
   };
 
+  const handleMouseDown = (ev) => {
+    ev.preventDefault();
+  };
+
   const handleBlur = () => {
     setIsFocused(false);
   };
@@ -162,6 +166,7 @@ const Search = ({
         inputIcon={iconType}
         iconTabIndex={iconTabIndex}
         iconOnClick={handleIconClick}
+        iconOnMouseDown={handleMouseDown}
         aria-label={ariaLabel}
         onFocus={onFocus}
         onClick={onClick}
@@ -202,7 +207,7 @@ Search.propTypes = {
   onKeyDown: PropTypes.func,
   /** Prop boolean to state whether the `search` icon renders */
   searchButton: PropTypes.bool,
-  /** Prop for specifing an input width length.
+  /** Prop for specifying an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%' */
   searchWidth: PropTypes.string,
   /** Prop for `onFocus` events */
