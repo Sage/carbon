@@ -6,11 +6,14 @@ import Help from "./help.component";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
 
 describe("Help", () => {
   let wrapper;
+
+  testStyledSystemMargin((props) => <Help {...props} />);
 
   describe("when custom classes are passed", () => {
     it("adds the custom classes", () => {
