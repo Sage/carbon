@@ -1,6 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
+
 import FlatTable from "./flat-table.component";
 import FlatTableHead from "./flat-table-head/flat-table-head.component";
 import FlatTableBody from "./flat-table-body/flat-table-body.component";
@@ -134,6 +136,78 @@ describe("FlatTable", () => {
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }
+      );
+    });
+  });
+
+  describe("when it has a sticky header with multiple rows", () => {
+    let wrapper;
+
+    const render = () => {
+      wrapper = mount(
+        <div style={{ height: "200px" }}>
+          <FlatTable hasStickyHead>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>header1</FlatTableHeader>
+                <FlatTableHeader>header2</FlatTableHeader>
+                <FlatTableHeader>header3</FlatTableHeader>
+                <FlatTableHeader>header4</FlatTableHeader>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableHeader>header1</FlatTableHeader>
+                <FlatTableHeader>header2</FlatTableHeader>
+                <FlatTableHeader>header3</FlatTableHeader>
+                <FlatTableHeader>header4</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableRowHeader>row header</FlatTableRowHeader>
+                <FlatTableCell>cell1</FlatTableCell>
+                <FlatTableCell>cell2</FlatTableCell>
+                <FlatTableCell rowspan="2">cell3</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableRowHeader>row header</FlatTableRowHeader>
+                <FlatTableCell colspan="2">cell1</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+
+      jest
+        .spyOn(
+          wrapper.find(StyledFlatTableRow).at(0).getDOMNode(),
+          "clientHeight",
+          "get"
+        )
+        .mockImplementation(() => 40);
+    };
+
+    beforeEach(() => {
+      render();
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("should set the correct 'top' css on each row", () => {
+      act(() => render());
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledFlatTableRow).at(1).props().stickyOffset
+      ).toEqual(40);
+
+      assertStyleMatch(
+        {
+          top: "40px",
+        },
+        wrapper.find(StyledFlatTableHead).find(StyledFlatTableRow).at(1),
+        { modifier: `th` }
       );
     });
   });
