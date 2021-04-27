@@ -1,5 +1,5 @@
 Feature: Dialog component actions in IFrame
-  I want to test Dialog component - actions in IFrame    
+  I want to test Dialog component - actions in IFrame
 
   @positive
   Scenario: Cancel event

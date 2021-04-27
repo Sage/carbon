@@ -16,11 +16,17 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
+const HORIZONTAL_PADDING = 35;
+const CONTENT_BOTTOM_PADDING = 30;
+
 const DialogStyle = styled.div`
   background-color: #f2f5f6;
   box-shadow: ${({ theme }) => theme.shadows.depth3};
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 50%;
+  max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
 
   &:focus {
     outline: none;
@@ -38,40 +44,27 @@ const DialogStyle = styled.div`
       }
     `}
 
-  ${({ height }) =>
-    height &&
+  ${({ dialogHeight }) =>
+    dialogHeight &&
     css`
-      min-height: ${height - 40}px;
-
-      ${StyledForm} {
-        min-height: inherit;
-        padding-bottom: 88px;
-        box-sizing: border-box;
-      }
-
-      ${StyledFormFooter} {
-        bottom: 0px;
-        position: absolute;
-        width: 100%;
-      }
+      height: ${dialogHeight}px;
     `};
 
-  // prettier-ignore
-  ${({ size }) => css`
-    ${StyledFormFooter}.sticky {
-      margin-left: -35px;
-      left: auto;
-      width: ${dialogSizes[size]};
-      position: fixed;
-      padding: 16px 35px;
-    }
-  `}
+  ${StyledForm} {
+    height: 100%;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+  }
 
-  ${({ fixedBottom }) =>
-    fixedBottom &&
-    css`
-      bottom: 0;
-    `}
+  ${StyledFormFooter}.sticky {
+    margin-left: -${HORIZONTAL_PADDING}px;
+    bottom: -${CONTENT_BOTTOM_PADDING}px;
+    margin-bottom: -${CONTENT_BOTTOM_PADDING}px;
+    width: calc(100% + ${2 * HORIZONTAL_PADDING}px);
+    position: sticky;
+    padding-left: ${HORIZONTAL_PADDING}px;
+    padding-right: ${HORIZONTAL_PADDING}px;
+  }
 
   > ${StyledIconButton} {
     margin: 0;
@@ -81,13 +74,13 @@ const DialogStyle = styled.div`
     z-index: 1;
 
     &:hover {
-      color: #255BC7;
+      color: #255bc7;
     }
   }
 `;
 
 const DialogTitleStyle = styled.div`
-  padding: 23px 35px 0;
+  padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
@@ -107,34 +100,18 @@ const DialogTitleStyle = styled.div`
 
 const DialogContentStyle = styled.div`
   box-sizing: border-box;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   width: 100%;
-
-  ${({ paddingBottom }) =>
-    css`
-      padding: 0px 35px ${paddingBottom}px;
-    `}
-
-  ${({ fixedBottom }) =>
-    fixedBottom &&
-    css`
-      @media screen and (-ms-high-contrast: active),
-        screen and (-ms-high-contrast: none) {
-        overflow-y: scroll;
-      }
-    `}
+  flex: 1;
+  padding: 0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px;
 `;
 
 const DialogInnerContentStyle = styled.div`
   padding-top: 20px;
   position: relative;
-
-  ${({ height }) =>
-    height &&
-    css`
-    min-height: ${height - 40}px}
-  `}
+  flex: 1;
 `;
 
 DialogTitleStyle.defaultProps = {

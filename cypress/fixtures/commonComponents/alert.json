@@ -26,9 +26,6 @@
   "disableEscKeyFalse": {
     "disableEscKey": false
   },
-  "enableBackgroundUI":{
-    "enableBackgroundUI": true
-  },
   "height0": {
     "height": 0
   },
@@ -37,12 +34,6 @@
   },
   "height100": {
     "height": 100
-  },
-  "height-1": {
-    "height": -1
-  },
-  "height-10": {
-    "height": -10
   },
   "sizeExtraSmall": {
     "size": "extra-small"

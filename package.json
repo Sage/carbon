@@ -1,10 +1,11 @@
 {
   "name": "carbon-react",
-  "version": "68.25.3",
+  "version": "70.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
-    "npm": "^6.0.0"
+    "npm": "^6.0.0",
+    "node": ">=14.16.1"
   },
   "scripts": {
     "docgenInfo": "./script/generate-docgeninfo.sh",
@@ -49,9 +50,7 @@
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "7.12.1",
-    "@babel/plugin-proposal-function-bind": "7.12.1",
-    "@babel/plugin-proposal-object-rest-spread": "7.12.1",
-    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-transform-classes": "7.13.0",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "7.12.10",
     "@babel/preset-typescript": "7.12.7",
@@ -65,7 +64,6 @@
     "@storybook/addon-google-analytics": "^6.2.8",
     "@storybook/addon-knobs": "^6.2.8",
     "@storybook/addon-links": "^6.2.8",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-viewport": "^6.2.8",
     "@storybook/addons": "^6.2.8",
     "@storybook/components": "^6.2.8",

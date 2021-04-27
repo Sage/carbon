@@ -13,6 +13,8 @@ const StyledDialogFullScreen = styled.div`
   top: 0;
   width: 100%;
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+  display: flex;
+  flex-direction: column;
 
   /**
     The following CSS is for a legacy use of the Pages component.
