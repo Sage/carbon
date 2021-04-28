@@ -1,3 +1,10 @@
+## [70.4.0](https://github.com/Sage/carbon/compare/v70.3.0...v70.4.0) (2021-04-28)
+
+
+### Features
+
+* **action-popover:** add styled-system margin support ([5816ef7](https://github.com/Sage/carbon/commit/5816ef7594bafd6a712971548a4dd6c9d601b939))
+
 ## [70.3.0](https://github.com/Sage/carbon/compare/v70.2.0...v70.3.0) (2021-04-28)
 
 
