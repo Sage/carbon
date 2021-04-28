@@ -1,7 +1,8 @@
 import * as React from "react";
 import DateInput from "../date";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface DateRangeProps {
+export interface DateRangeProps extends MarginSpacingProps {
   /** Optional label for endDate field */
   endLabel?: string;
   /** Specify a callback triggered on change */
