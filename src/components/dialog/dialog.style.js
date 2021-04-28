@@ -2,7 +2,11 @@ import styled, { css } from "styled-components";
 
 import baseTheme from "../../style/themes/base";
 import { StyledForm, StyledFormFooter } from "../form/form.style";
-import { StyledHeading, StyledHeadingTitle } from "../heading/heading.style";
+import {
+  StyledHeaderContent,
+  StyledHeading,
+  StyledHeadingTitle,
+} from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 const dialogSizes = {
@@ -83,6 +87,10 @@ const DialogTitleStyle = styled.div`
   padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
+
+  ${StyledHeaderContent} {
+    align-items: baseline;
+  }
 
   ${StyledHeading} {
     margin-bottom: 20px;

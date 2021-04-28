@@ -13,6 +13,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
+import Help from "../help";
 
 jest.mock("../../utils/helpers/guid");
 
@@ -160,6 +161,20 @@ describe("DialogFullScreen", () => {
         const heading = fullScreenHeading.find(Heading);
 
         expect(heading.props().title).toEqual("my custom heading");
+      });
+    });
+
+    describe("when prop help is passed", () => {
+      it("should render Help component", () => {
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            title="This is test title"
+            help="this is help text"
+          />
+        );
+
+        expect(wrapper.find(Help).exists()).toBe(true);
       });
     });
   });
