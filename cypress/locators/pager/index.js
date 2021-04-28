@@ -17,3 +17,5 @@ export const maxPages = () => cy.get(MAX_PAGES);
 export const currentPageInput = () => cy.get(PAGER_SUMMARY).find("input");
 export const previousArrow = () => cy.get(PAGER_PREVIOUS_ARROW);
 export const nextArrow = () => cy.get(PAGER_NEXT_ARROW);
+export const paginationButtonByIndex = (index) =>
+  cy.get(PAGER_SUMMARY).find("div:nth-child(2) > button").eq(index);

@@ -5,9 +5,9 @@ import {
   nextArrow,
   currentPageInput,
   pageSelectItems,
+  paginationButtonByIndex,
 } from "../../locators/pager";
 import DEBUG_FLAG from "..";
-import { paginationButtonByIndex } from "../../locators/table";
 import { positionOfPaginationButton } from "../helper";
 
 Then("pageSize is set to {string} {word}", (pageSize, item) => {

@@ -7,7 +7,12 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from ".";
-import { Table, TableRow, TableCell, TableHeader } from "../table";
+import {
+  FlatTable,
+  FlatTableRow,
+  FlatTableCell,
+  FlatTableHeader,
+} from "../flat-table";
 
 const submenu = (
   <ActionPopoverMenu>
@@ -48,16 +53,16 @@ export default {
 
 export const Default = () => (
   <div style={{ marginTop: "40px", height: "275px" }}>
-    <Table isZebra>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
+    <FlatTable isZebra>
+      <FlatTableRow>
+        <FlatTableHeader>First Name</FlatTableHeader>
+        <FlatTableHeader>Last Name</FlatTableHeader>
+        <FlatTableHeader>&nbsp;</FlatTableHeader>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>John</FlatTableCell>
+        <FlatTableCell>Doe</FlatTableCell>
+        <FlatTableCell>
           <ActionPopover
             onOpen={action("popover opened")}
             onClose={action("popover closed")}
@@ -95,23 +100,23 @@ export const Default = () => (
               Delete
             </ActionPopoverItem>
           </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Jane</TableCell>
-        <TableCell>Smith</TableCell>
-        <TableCell>
+        </FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Jane</FlatTableCell>
+        <FlatTableCell>Smith</FlatTableCell>
+        <FlatTableCell>
           <ActionPopover>
             <ActionPopoverItem icon="csv" onClick={action("csv")}>
               Download CSV
             </ActionPopoverItem>
           </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Bob</TableCell>
-        <TableCell>Jones</TableCell>
-        <TableCell>
+        </FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Bob</FlatTableCell>
+        <FlatTableCell>Jones</FlatTableCell>
+        <FlatTableCell>
           <ActionPopover>
             <ActionPopoverItem
               icon="csv"
@@ -121,9 +126,9 @@ export const Default = () => (
               Download CSV
             </ActionPopoverItem>
           </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+        </FlatTableCell>
+      </FlatTableRow>
+    </FlatTable>
   </div>
 );
 
@@ -138,14 +143,14 @@ Default.story = {
 
 export const StylesOverriden = () => (
   <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-    <Table isZebra>
-      <TableRow>
-        <TableHeader colSpan="3">Services</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>Accounting</TableCell>
-        <TableCell>Payroll</TableCell>
-        <TableCell>
+    <FlatTable isZebra>
+      <FlatTableRow>
+        <FlatTableHeader colSpan="3">Services</FlatTableHeader>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Accounting</FlatTableCell>
+        <FlatTableCell>Payroll</FlatTableCell>
+        <FlatTableCell>
           <ActionPopover
             rightAlignMenu
             renderButton={({ tabIndex, "data-element": dataElement }) => (
@@ -178,12 +183,12 @@ export const StylesOverriden = () => (
               Manage Services
             </ActionPopoverItem>
           </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Accounting</TableCell>
-        <TableCell>Payroll</TableCell>
-        <TableCell>
+        </FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Accounting</FlatTableCell>
+        <FlatTableCell>Payroll</FlatTableCell>
+        <FlatTableCell>
           <ActionPopover
             rightAlignMenu
             renderButton={({ tabIndex, "data-element": dataElement }) => (
@@ -216,9 +221,9 @@ export const StylesOverriden = () => (
               Manage Services
             </ActionPopoverItem>
           </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+        </FlatTableCell>
+      </FlatTableRow>
+    </FlatTable>
   </div>
 );
 

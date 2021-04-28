@@ -51,5 +51,3 @@ Feature: Accessibility tests - Common list
       | component        |
       | DraggableContext |
       | Setting row      |
-      | Table-ajax       |
-      | Table            |

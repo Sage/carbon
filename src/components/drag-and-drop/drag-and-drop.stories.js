@@ -4,7 +4,12 @@ import { action } from "@storybook/addon-actions";
 
 import { DraggableContext, WithDrag, WithDrop } from ".";
 
-import { Table, TableHeader, TableRow, TableCell } from "../table";
+import {
+  FlatTable,
+  FlatTableHeader,
+  FlatTableRow,
+  FlatTableCell,
+} from "../flat-table";
 
 export default {
   title: "DraggableContext/Test",
@@ -54,21 +59,21 @@ export const Default = () => {
   return (
     <DraggableContext autoScroll={autoScroll} onDrag={handleDrag}>
       <div>
-        <Table tbody={false}>
+        <FlatTable tbody={false}>
           <thead>
-            <TableRow as="header">
-              <TableHeader />
-              <TableHeader>Country</TableHeader>
-            </TableRow>
+            <FlatTableRow as="header">
+              <FlatTableHeader />
+              <FlatTableHeader>Country</FlatTableHeader>
+            </FlatTableRow>
           </thead>
           <tbody>
             {state.map((row, index) => (
-              <TableRow key={row.id} uniqueID={row.id} index={index}>
-                <TableCell>{row.name}</TableCell>
-              </TableRow>
+              <FlatTableRow key={row.id} uniqueID={row.id} index={index}>
+                <FlatTableCell>{row.name}</FlatTableCell>
+              </FlatTableRow>
             ))}
           </tbody>
-        </Table>
+        </FlatTable>
       </div>
     </DraggableContext>
   );
