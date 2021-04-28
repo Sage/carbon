@@ -1,5 +1,6 @@
 import React from "react";
 import { select, text, boolean } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
 
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Portrait from "./portrait.component";
@@ -38,6 +39,7 @@ function commonKnobs() {
     gravatar: source === "gravatar" ? text("gravatar") : undefined,
     src: source === "src" ? text("src") : undefined,
     initials: text("initials", "AZ"),
+    onClick: (ev) => action("click")(ev),
   };
 }
 
