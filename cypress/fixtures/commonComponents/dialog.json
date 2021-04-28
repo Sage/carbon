@@ -1,21 +1,15 @@
 { 
   "height0": {
-    "height": 0
+    "height": "0"
   },
   "height1": {
-    "height": 1
+    "height": "1"
   },
   "height100": {
-    "height": 100
+    "height": "100"
   },
-  "height-1": {
-    "height": -1
-  },
-  "height-10": {
-    "height": -10
-  },
-  "heightSpecialCharacter": {
-    "height": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  "height1000": {
+    "height": "1000"
   },
   "titleOtherLanguage": {
     "title": "mp150ú¿¡üßä"
@@ -55,9 +49,6 @@
   },
   "showCloseIcon": {
     "showCloseIcon": true
-  },
-  "enableBackgroundUI":{
-    "enableBackgroundUI": true
   },
   "disableEscKey": {
     "disableEscKey": true

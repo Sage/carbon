@@ -2,7 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import { CSSTransition } from "react-transition-group";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import {
   DuellingPicklist,
   Picklist,
@@ -87,6 +90,14 @@ describe("DuellingPicklist", () => {
       </DuellingPicklist>
     );
   };
+
+  testStyledSystemMargin((props) => (
+    <DuellingPicklist {...props}>
+      <Picklist />
+      <PicklistDivider />
+      <Picklist />
+    </DuellingPicklist>
+  ));
 
   const renderAttached = ({
     disabled,

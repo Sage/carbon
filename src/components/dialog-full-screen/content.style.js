@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import FullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
 import { StyledFormFooter } from "../form/form.style";
 
 const StyledContent = styled.div`
   overflow-y: auto;
   padding: 0 16px;
+  flex: 1;
 
   ${StyledFormFooter}.sticky {
     padding: 16px;
@@ -40,12 +40,6 @@ const StyledContent = styled.div`
     `}
   `}
 
-  ${({ headingHeight }) => css`
-    ${FullScreenHeading} + & {
-      height: calc(100% - ${headingHeight}px);
-    }
-  `}
-
   ${({ hasHeader }) =>
     !hasHeader &&
     `
@@ -59,9 +53,5 @@ const StyledContent = styled.div`
     }
   `}
 `;
-
-StyledContent.defaultProps = {
-  headingHeight: 0,
-};
 
 export default StyledContent;

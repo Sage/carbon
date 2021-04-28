@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
 
-export interface DuellingPicklistProps {
+export interface DuellingPicklistProps extends MarginSpacingProps {
   children?: React.ReactNode;
   /** Indicate if component is disabled */
   disabled?: boolean;

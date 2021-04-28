@@ -1,3 +1,37 @@
+### [70.1.1](https://github.com/Sage/carbon/compare/v70.1.0...v70.1.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **definition-list:** fix dl focused elements outline cut by "overflow: hidden" ([f7ca1d3](https://github.com/Sage/carbon/commit/f7ca1d3e3ef4f202a9598e44431a7c6f763f1684))
+
+## [70.1.0](https://github.com/Sage/carbon/compare/v70.0.1...v70.1.0) (2021-04-28)
+
+
+### Features
+
+* **duelling-picklist:** add support for styled-system margin interface ([8a373be](https://github.com/Sage/carbon/commit/8a373be175c0f45cd868694afe79e01c302a7ed7))
+
+### [70.0.1](https://github.com/Sage/carbon/compare/v70.0.0...v70.0.1) (2021-04-27)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** add zIndex to styles ([2026816](https://github.com/Sage/carbon/commit/20268167cb7c6df456ee5efda62a7f16d297a10b)), closes [#3909](https://github.com/Sage/carbon/issues/3909)
+
+## [70.0.0](https://github.com/Sage/carbon/compare/v69.1.1...v70.0.0) (2021-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* DialogFullScreen, Dialog, Alert and Confirm components
+no longer support enabling background UI interactions or disabling focus trap
+Dialog, Alert and Confirm height prop behaviour has changed
+
+### Code Refactoring
+
+* refactor modal based components ([59c65da](https://github.com/Sage/carbon/commit/59c65da42ac78f6b20c38364390f45b63de9310d))
+
 ### [69.1.1](https://github.com/Sage/carbon/compare/v69.1.0...v69.1.1) (2021-04-26)
 
 

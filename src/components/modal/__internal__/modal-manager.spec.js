@@ -31,5 +31,13 @@ describe("ModalManager", () => {
 
       expect(ModalManager.isTopmost(mockModal)).toBe(false);
     });
+
+    it("then nothing happens if removed modal is not found", () => {
+      const mockModal = { foo: "bar" };
+
+      ModalManager.clearList();
+      ModalManager.addModal(mockModal);
+      ModalManager.removeModal({ some: "value" });
+    });
   });
 });

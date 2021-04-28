@@ -19,7 +19,7 @@ export const StyledForm = styled.form`
   ${({ stickyFooter }) =>
     stickyFooter &&
     css`
-      padding-bottom: 100px;
+      padding-bottom: 88px;
     `}
 `;
 
@@ -45,8 +45,8 @@ export const StyledLeftButtons = styled.div`
 `;
 
 const FormButtonAnimation = keyframes`
-  0%   { bottom: -50px; }
-  100% { bottom: 0; }
+  0%   { transform: translateY(50px); }
+  100% { transform: translateY(0px); }
 `;
 
 export const StyledFormFooter = styled.div`

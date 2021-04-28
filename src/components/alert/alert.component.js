@@ -1,24 +1,49 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Dialog from "../dialog";
-import AlertStyle from "./alert.style.js";
 
-class Alert extends Dialog {
-  componentTags(props) {
-    return {
-      "data-component": "alert",
-      "data-element": props["data-element"],
-      "data-role": props["data-role"],
-    };
-  }
+const Alert = ({ children, ...rest }) => (
+  <Dialog data-component="alert" ariaRole="alertdialog" {...rest}>
+    {children}
+  </Dialog>
+);
 
-  get closeIcon() {
-    return <AlertStyle>{super.closeIcon}</AlertStyle>;
-  }
-}
+Alert.propTypes = {
+  /** Alert content */
+  children: PropTypes.node,
+  /** Controls the open state of the component */
+  open: PropTypes.bool.isRequired,
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Determines if the Esc Key closes the Alert */
+  disableEscKey: PropTypes.bool,
+  /** Allows developers to specify a specific height for the dialog. */
+  height: PropTypes.string,
+  /** Title displayed at top of Alert */
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  /** Subtitle displayed at top of Alert */
+  subtitle: PropTypes.string,
+  /** Size of Alert */
+  size: PropTypes.oneOf([
+    "auto",
+    "extra-small",
+    "small",
+    "medium-small",
+    "medium",
+    "medium-large",
+    "large",
+    "extra-large",
+  ]),
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool,
+  /** Function or reference to first element to focus */
+  focusFirstElement: PropTypes.func,
+  /** Disables auto focus functionality on child elements */
+  disableAutoFocus: PropTypes.bool,
+};
 
 Alert.defaultProps = {
-  ...Dialog.defaultProps,
-  role: "alertdialog",
   size: "extra-small",
 };
 

@@ -23,9 +23,6 @@
   "childrenSpecialCharacter": {
     "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
-  "enableBackgroundUI":{
-    "enableBackgroundUI": true
-  },
   "disableEscKey": {
     "disableEscKey": true
   },
