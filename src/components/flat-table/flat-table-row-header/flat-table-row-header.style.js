@@ -16,6 +16,7 @@ const StyledFlatTableRowHeader = styled.th`
     top: auto;
     vertical-align: middle;
     padding: 0;
+    z-index: ${baseTheme.zIndex.overlay};
 
     ${colWidth &&
     css`
