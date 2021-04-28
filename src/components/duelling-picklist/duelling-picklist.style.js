@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
+import { baseTheme } from "../../style/themes";
 import { StyledPicklist } from "./picklist/picklist.style";
 
 const StyledDuellingPicklistOverlay = styled.div`
+  ${margin}
+
   transition: opacity 0.3s;
 
   ${({ disabled }) =>
@@ -64,6 +68,10 @@ const StyledPicklistPlaceholder = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+StyledDuellingPicklistOverlay.defaultProps = {
+  theme: baseTheme,
+};
 
 export {
   StyledDuellingPicklist,
