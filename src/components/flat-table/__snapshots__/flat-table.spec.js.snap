@@ -87,6 +87,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   top: auto;
   vertical-align: middle;
   padding: 0;
+  z-index: 1000;
 }
 
 .c8.c8.c8 > div {

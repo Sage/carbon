@@ -1,3 +1,10 @@
+### [70.0.1](https://github.com/Sage/carbon/compare/v70.0.0...v70.0.1) (2021-04-27)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** add zIndex to styles ([2026816](https://github.com/Sage/carbon/commit/20268167cb7c6df456ee5efda62a7f16d297a10b)), closes [#3909](https://github.com/Sage/carbon/issues/3909)
+
 ## [70.0.0](https://github.com/Sage/carbon/compare/v69.1.1...v70.0.0) (2021-04-26)
 
 
