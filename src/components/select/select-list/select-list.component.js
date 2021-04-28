@@ -266,13 +266,21 @@ const SelectList = React.forwardRef(
       [children, currentOptionsListIndex, handleSelect, isLoading]
     );
 
-    useLayoutEffect(() => {
+    const assignListWidth = useCallback(() => {
       if (!disablePortal && anchorElement) {
         const inputBoundingRect = anchorElement.getBoundingClientRect();
         const width = `${inputBoundingRect.width}px`;
         setListWidth(width);
       }
-    }, [disablePortal, anchorElement]);
+    }, [anchorElement, disablePortal]);
+
+    useLayoutEffect(() => {
+      assignListWidth();
+      window.addEventListener("resize", assignListWidth);
+      return () => {
+        window.removeEventListener("resize", assignListWidth);
+      };
+    }, [assignListWidth]);
 
     useLayoutEffect(() => {
       let newHeight;
