@@ -1,3 +1,10 @@
+## [70.3.0](https://github.com/Sage/carbon/compare/v70.2.0...v70.3.0) (2021-04-28)
+
+
+### Features
+
+* add tooltip and onClick to Portrait component - FE-3502 ([73a0075](https://github.com/Sage/carbon/commit/73a0075c59bd7692739491f6029a10c387fdd44b)), closes [#3554](https://github.com/Sage/carbon/issues/3554)
+
 ## [70.2.0](https://github.com/Sage/carbon/compare/v70.1.1...v70.2.0) (2021-04-28)
 
 
