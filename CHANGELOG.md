@@ -1,3 +1,10 @@
+## [70.7.0](https://github.com/Sage/carbon/compare/v70.6.0...v70.7.0) (2021-04-29)
+
+
+### Features
+
+* **accordion-group:** add styled-system margin support ([782d2d6](https://github.com/Sage/carbon/commit/782d2d6e6bf93d6d68ee93e04de2644b32c67718))
+
 ## [70.6.0](https://github.com/Sage/carbon/compare/v70.5.1...v70.6.0) (2021-04-29)
 
 
