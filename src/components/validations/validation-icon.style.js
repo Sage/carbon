@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
@@ -19,6 +20,8 @@ const ValidationIconStyle = styled.div`
   ${StyledIcon}:focus {
     outline: solid 2px ${({ theme }) => theme.colors.focus};
   }
+
+  ${margin}
 `;
 
 ValidationIconStyle.defaultProps = {

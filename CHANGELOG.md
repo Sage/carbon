@@ -1,3 +1,54 @@
+## [70.5.0](https://github.com/Sage/carbon/compare/v70.4.1...v70.5.0) (2021-04-29)
+
+
+### Features
+
+* **help:** add support for styled-system margin interface ([025d8b1](https://github.com/Sage/carbon/commit/025d8b14bd75422485d2bb1748ac2eca765d87cd))
+* **icon:** add support for styled-system margin interface ([31e4089](https://github.com/Sage/carbon/commit/31e40892b681dd6e5f752eb13df97cd593223947))
+* **validation-icon:** add support for styled-system margin interface ([f3cf951](https://github.com/Sage/carbon/commit/f3cf951d15a18264b7196f3ff97dc843746405e9))
+
+### [70.4.1](https://github.com/Sage/carbon/compare/v70.4.0...v70.4.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **select:** fix not resizing list during window resize ([f173917](https://github.com/Sage/carbon/commit/f173917b6cdf3a8ca6c88f716a8d5d515bddea1f))
+
+## [70.4.0](https://github.com/Sage/carbon/compare/v70.3.0...v70.4.0) (2021-04-28)
+
+
+### Features
+
+* **action-popover:** add styled-system margin support ([5816ef7](https://github.com/Sage/carbon/commit/5816ef7594bafd6a712971548a4dd6c9d601b939))
+
+## [70.3.0](https://github.com/Sage/carbon/compare/v70.2.0...v70.3.0) (2021-04-28)
+
+
+### Features
+
+* add tooltip and onClick to Portrait component - FE-3502 ([73a0075](https://github.com/Sage/carbon/commit/73a0075c59bd7692739491f6029a10c387fdd44b)), closes [#3554](https://github.com/Sage/carbon/issues/3554)
+
+## [70.2.0](https://github.com/Sage/carbon/compare/v70.1.1...v70.2.0) (2021-04-28)
+
+
+### Features
+
+* **card:** add styled-system margin support ([e902aa2](https://github.com/Sage/carbon/commit/e902aa239ed4e2aa6941d185cb9d591e1abe8074))
+
+### [70.1.1](https://github.com/Sage/carbon/compare/v70.1.0...v70.1.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **definition-list:** fix dl focused elements outline cut by "overflow: hidden" ([f7ca1d3](https://github.com/Sage/carbon/commit/f7ca1d3e3ef4f202a9598e44431a7c6f763f1684))
+
+## [70.1.0](https://github.com/Sage/carbon/compare/v70.0.1...v70.1.0) (2021-04-28)
+
+
+### Features
+
+* **duelling-picklist:** add support for styled-system margin interface ([8a373be](https://github.com/Sage/carbon/commit/8a373be175c0f45cd868694afe79e01c302a7ed7))
+
 ### [70.0.1](https://github.com/Sage/carbon/compare/v70.0.0...v70.0.1) (2021-04-27)
 
 

@@ -4,7 +4,10 @@ import { mount, shallow } from "enzyme";
 import { shade } from "polished";
 
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import Icon from "./icon.component";
 import StyledIcon from "./icon.style";
 import OptionsHelper from "../../utils/helpers/options-helper";
@@ -28,6 +31,8 @@ function renderStyles(props) {
 }
 
 describe("Icon component", () => {
+  testStyledSystemMargin((props) => <Icon type="add" {...props} />);
+
   const mismatchedPairs = [
     { prop: "help", rendersAs: "question" },
     { prop: "maintenance", rendersAs: "settings" },
@@ -328,32 +333,6 @@ describe("Icon component", () => {
           },
           wrapper.toJSON(),
           { modifier: ":hover" }
-        );
-      });
-    });
-  });
-
-  describe("spacing props", () => {
-    describe("when mr prop is passed", () => {
-      it("renders with proper margin-right style", () => {
-        const wrapper = renderStyles({ mr: 2 });
-        assertStyleMatch(
-          {
-            marginRight: "16px",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe("when ml prop is passed", () => {
-      it("renders with proper margin-left style", () => {
-        const wrapper = renderStyles({ ml: 2 });
-        assertStyleMatch(
-          {
-            marginLeft: "16px",
-          },
-          wrapper.toJSON()
         );
       });
     });

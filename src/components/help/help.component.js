@@ -1,29 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import Icon from "../icon";
 import tagComponent from "../../utils/helpers/tags";
 import StyledHelp from "./help.style";
 import Events from "../../utils/helpers/events/events";
 import OptionsHelper from "../../utils/helpers/options-helper";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const Help = (props) => {
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
+const Help = ({
+  className,
+  href,
+  helpId,
+  children,
+  tabIndex,
+  as,
+  tooltipPosition,
+  isFocused,
+  type,
+  tooltipBgColor,
+  tooltipFontColor,
+  tooltipFlipOverrides,
+  ...rest
+}) => {
   const helpElement = useRef(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
-
-  const {
-    className,
-    href,
-    helpId,
-    children,
-    tabIndex,
-    as,
-    tooltipPosition,
-    isFocused,
-    type,
-    tooltipBgColor,
-    tooltipFontColor,
-    tooltipFlipOverrides,
-  } = props;
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
@@ -65,10 +71,11 @@ const Help = (props) => {
       onBlur={handleFocusBlur(false)}
       onMouseOver={handleFocusBlur(true)}
       onMouseLeave={handleFocusBlur(false)}
-      {...tagComponent("help", props)}
+      {...tagComponent("help", rest)}
       tabIndex={tabIndex}
       value={children}
       aria-label={children}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <Icon
         type={type}
@@ -84,6 +91,7 @@ const Help = (props) => {
 };
 
 Help.propTypes = {
+  ...marginPropTypes,
   /** [Legacy] A custom class name for the component. */
   className: PropTypes.string,
   /** Message to display in tooltip */
