@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Box from "../box";
 import Portrait from ".";
 
 <Meta
   title="Portrait"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Portrait
@@ -15,6 +16,7 @@ import Portrait from ".";
 - Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -24,6 +26,7 @@ import Portrait from ".";
 ```javascript
 import Portrait from "carbon-react/lib/components/portrait";
 ```
+
 ## Examples
 
 ### Default
@@ -64,6 +67,23 @@ Portrait also supports `gravatar`, to use it simply pass your email address regi
   </Story>
 </Preview>
 
+### With tooltip
+
+By providing a node element to the `tooltipMessage` prop, a tooltip can be displayed when hovering over the Portrait.
+
+<Preview>
+  <Story name="with tooltip">
+    <Box margin={8}>
+      <Portrait
+        tooltipMessage="Rebecca Smith"
+        tooltipPosition="bottom"
+        tooltipBgColor="rebeccapurple"
+        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+      />
+    </Box>
+  </Story>
+</Preview>
+
 ### Sizes
 
 <Preview>
@@ -97,15 +117,17 @@ Portrait also supports `gravatar`, to use it simply pass your email address regi
 </Preview>
 
 ### With margin
-Margins can be applied to the `portrait` component using styled-system. 
+
+Margins can be applied to the `portrait` component using styled-system.
 To see a full list of available margin props, please visit the props table at the bottom of this page.
 
 [Vist Props Table](#props)
+
 <Preview>
   <Story name="with margin">
     <Portrait m={3} />
     <Portrait darkBackground m={2} />
-    <Portrait shape="circle" m="25px"/>
+    <Portrait shape="circle" m="25px" />
     <Portrait size="L" m="30px" />
   </Story>
 </Preview>
@@ -113,4 +135,5 @@ To see a full list of available margin props, please visit the props table at th
 ## Props
 
 ### Portrait
-<StyledSystemProps of={Portrait} noHeader margin />
+
+<Props of={Portrait} />

@@ -310,6 +310,22 @@ describe("SelectList", () => {
       );
     });
 
+    describe("and screen is resized", () => {
+      it("then the popover container width gets updated", () => {
+        mockAnchorElement.getBoundingClientRect = () => {
+          return {
+            width: 400,
+          };
+        };
+        window.dispatchEvent(new Event("resize"));
+        wrapper.update();
+        assertStyleMatch(
+          { width: "400px" },
+          wrapper.find(StyledPopoverContainer)
+        );
+      });
+    });
+
     describe.each([
       ["Up", upKeyDownEvent],
       ["Down", downKeyDownEvent],

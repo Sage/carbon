@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import StyledCardFooter from "./card-footer.style";
 
@@ -19,6 +21,7 @@ const CardFooter = ({ spacing, children, ...props }) => {
 };
 
 CardFooter.propTypes = {
+  ...styledSystemPropTypes.space,
   children: PropTypes.node.isRequired,
   /** Predefined size of CardFooter for applying padding (small | medium | large). For more granular control these can be over-ridden by Spacing props from styled-system (see table below). */
   spacing: PropTypes.oneOf(sizesRestricted),

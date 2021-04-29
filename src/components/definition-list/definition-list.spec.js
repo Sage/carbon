@@ -97,7 +97,6 @@ describe("DefinitionList", () => {
           height: "auto",
           width: "100%",
           backgroundColor: "transparent",
-          overflow: "hidden",
           gridTemplateRows: "auto",
           gridTemplateColumns: "50% auto",
         },
