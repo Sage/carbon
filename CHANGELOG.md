@@ -1,3 +1,10 @@
+### [70.4.1](https://github.com/Sage/carbon/compare/v70.4.0...v70.4.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **select:** fix not resizing list during window resize ([f173917](https://github.com/Sage/carbon/commit/f173917b6cdf3a8ca6c88f716a8d5d515bddea1f))
+
 ## [70.4.0](https://github.com/Sage/carbon/compare/v70.3.0...v70.4.0) (2021-04-28)
 
 
