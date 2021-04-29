@@ -6,7 +6,10 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import {
   StyledDetail,
   StyledDetailContent,
@@ -16,6 +19,8 @@ import {
 
 describe("Detail", () => {
   let wrapper;
+
+  testStyledSystemMargin((props) => <Detail {...props}>foo</Detail>);
 
   describe("render", () => {
     beforeEach(() => {
