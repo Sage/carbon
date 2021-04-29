@@ -207,7 +207,7 @@ describe("FlatTable", () => {
           top: "40px",
         },
         wrapper.find(StyledFlatTableHead).find(StyledFlatTableRow).at(1),
-        { modifier: `th` }
+        { modifier: `&& th` }
       );
     });
   });

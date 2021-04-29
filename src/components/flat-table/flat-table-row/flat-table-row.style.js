@@ -58,7 +58,7 @@ const StyledFlatTableRow = styled.tr`
   ${({ stickyOffset }) =>
     stickyOffset > 0 &&
     css`
-      th {
+      && th {
         top: ${stickyOffset}px;
       }
     `}
