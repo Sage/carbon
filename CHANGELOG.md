@@ -1,3 +1,12 @@
+## [70.5.0](https://github.com/Sage/carbon/compare/v70.4.1...v70.5.0) (2021-04-29)
+
+
+### Features
+
+* **help:** add support for styled-system margin interface ([025d8b1](https://github.com/Sage/carbon/commit/025d8b14bd75422485d2bb1748ac2eca765d87cd))
+* **icon:** add support for styled-system margin interface ([31e4089](https://github.com/Sage/carbon/commit/31e40892b681dd6e5f752eb13df97cd593223947))
+* **validation-icon:** add support for styled-system margin interface ([f3cf951](https://github.com/Sage/carbon/commit/f3cf951d15a18264b7196f3ff97dc843746405e9))
+
 ### [70.4.1](https://github.com/Sage/carbon/compare/v70.4.0...v70.4.1) (2021-04-29)
 
 
