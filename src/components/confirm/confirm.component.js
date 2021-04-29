@@ -132,8 +132,8 @@ Confirm.propTypes = {
   ]),
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  /** Function or reference to first element to focus */
-  focusFirstElement: PropTypes.func,
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
   /** Disables auto focus functionality on child elements */
   disableAutoFocus: PropTypes.bool,
   /** A custom event handler when a confirmation takes place */
