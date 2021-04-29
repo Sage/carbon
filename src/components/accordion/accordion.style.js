@@ -1,9 +1,13 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { space, margin } from "styled-system";
 
 import Icon from "../icon";
 import { baseTheme } from "../../style/themes";
 import ValidationIconStyle from "../validations/validation-icon.style";
+
+const StyledAccordionGroup = styled.div`
+  ${margin};
+`;
 
 const StyledAccordionContainer = styled.div`
   ${space};
@@ -183,6 +187,9 @@ const StyledAccordionContent = styled.div`
   ${({ styleOverride }) => styleOverride};
 `;
 
+StyledAccordionGroup.defaultProps = {
+  theme: baseTheme,
+};
 StyledAccordionContainer.defaultProps = {
   theme: baseTheme,
 };
@@ -203,6 +210,7 @@ StyledAccordionContentContainer.defaultProps = {
 };
 
 export {
+  StyledAccordionGroup,
   StyledAccordionContainer,
   StyledAccordionHeadingsContainer,
   StyledAccordionSubTitle,
