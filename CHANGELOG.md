@@ -1,3 +1,10 @@
+### [70.5.1](https://github.com/Sage/carbon/compare/v70.5.0...v70.5.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **filterable-select:** call onChange when value is deleted or not matched ([6c18561](https://github.com/Sage/carbon/commit/6c18561d8e4881fc4c54c8445e81588a3696c1d0))
+
 ## [70.5.0](https://github.com/Sage/carbon/compare/v70.4.1...v70.5.0) (2021-04-29)
 
 

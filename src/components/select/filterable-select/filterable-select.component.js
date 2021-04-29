@@ -71,6 +71,15 @@ const FilterableSelect = React.forwardRef(
       [name, id]
     );
 
+    const triggerChange = useCallback(
+      (newValue) => {
+        if (onChange) {
+          onChange(createCustomEvent(newValue));
+        }
+      },
+      [onChange, createCustomEvent]
+    );
+
     const updateValues = useCallback(
       (newFilterText, isDeleteEvent) => {
         setSelectedValue((previousValue) => {
@@ -79,6 +88,7 @@ const FilterableSelect = React.forwardRef(
 
           if (!match || isFilterCleared) {
             setTextValue(newFilterText);
+            triggerChange("");
 
             return "";
           }
@@ -89,9 +99,7 @@ const FilterableSelect = React.forwardRef(
             return match.props.value;
           }
 
-          if (onChange) {
-            onChange(createCustomEvent(match.props.value));
-          }
+          triggerChange(match.props.value);
 
           if (
             match.props.text
@@ -112,7 +120,7 @@ const FilterableSelect = React.forwardRef(
           return match.props.value;
         });
       },
-      [children, createCustomEvent, onChange]
+      [children, triggerChange]
     );
 
     const setMatchingText = useCallback(
@@ -303,10 +311,7 @@ const FilterableSelect = React.forwardRef(
         }
 
         setTextValue(text);
-
-        if (onChange) {
-          onChange(createCustomEvent(newValue));
-        }
+        triggerChange(newValue);
 
         if (selectionType !== "navigationKey") {
           setOpen(false);
@@ -314,7 +319,7 @@ const FilterableSelect = React.forwardRef(
           textboxRef.select();
         }
       },
-      [createCustomEvent, onChange, textboxRef]
+      [textboxRef, triggerChange]
     );
 
     const onSelectListClose = useCallback(() => {
