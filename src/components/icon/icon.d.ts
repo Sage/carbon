@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Positions } from "../../utils/helpers/options-helper";
-export interface IconProps {
+import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+export interface IconProps extends MarginSpacingProps {
   /** Icon type */
   type: string;
   /** Background size */
@@ -19,10 +20,6 @@ export interface IconProps {
   bg?: string;
   /** Sets the icon in the disabled state */
   disabled?: boolean;
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr?: number;
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml?: number;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
   /** The message string to be displayed in the tooltip */
