@@ -1,19 +1,29 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import StyledSearch, {
   StyledSearchButton,
   StyledButtonIcon,
 } from "./search.style";
+import tagComponent from "../../../utils/helpers/tags";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Icon from "../../../components/icon";
 import Textbox from "../textbox";
 import Button from "../../../components/button";
 import Events from "../../../utils/helpers/events";
 
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
 const Search = ({
   defaultValue,
   onChange,
   onClick,
+  onFocus,
+  onBlur,
+  onKeyDown,
   value,
   id,
   name,
@@ -125,33 +135,40 @@ const Search = ({
 
   return (
     <StyledSearch
-      searchWidth={searchWidth}
-      showSearchButton={searchButton}
-      onFocus={handleOnFocus}
-      onClick={handleOnFocus}
-      onBlur={handleBlur}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
       isFocused={isFocused}
+      searchWidth={searchWidth}
       searchIsActive={searchIsActive}
-      id={id}
-      data-component="search"
-      name={name}
-      variant={variant}
       searchHasValue={
         !isControlled
           ? searchValue && searchValue.length
           : value && value.length
       }
+      showSearchButton={searchButton}
+      variant={variant}
+      mb={0}
+      {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("search", rest)}
+      id={id}
+      onFocus={handleOnFocus}
+      onClick={handleOnFocus}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      data-component="search"
+      name={name}
     >
       <Textbox
-        {...rest}
         placeholder={placeholder}
         value={!isControlled ? searchValue : value}
         inputIcon={iconType}
         iconTabIndex={iconTabIndex}
         iconOnClick={handleIconClick}
         aria-label={ariaLabel}
+        onFocus={onFocus}
+        onClick={onClick}
+        onBlur={onBlur}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -171,6 +188,8 @@ const Search = ({
 };
 
 Search.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Prop for `uncontrolled` use */
   defaultValue: PropTypes.string,
   /** Prop for `controlled` use */
@@ -187,6 +206,8 @@ Search.propTypes = {
   /** Prop for specifing an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%' */
   searchWidth: PropTypes.string,
+  /** Prop for `onFocus` events */
+  onFocus: PropTypes.func,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `id` */
