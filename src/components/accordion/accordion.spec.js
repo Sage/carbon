@@ -25,7 +25,6 @@ import {
 import AccordionGroup from "./accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
-import StyledIcon from "../icon/icon.style";
 
 const contentHeight = 200;
 
@@ -463,7 +462,9 @@ describe("Accordion", () => {
           {
             marginLeft: "8px",
           },
-          wrapper.find(StyledAccordionHeadingsContainer).find(StyledIcon)
+          wrapper
+            .find(StyledAccordionHeadingsContainer)
+            .find(StyledValidationIcon)
         );
       });
     });

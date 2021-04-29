@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount } from "enzyme";
 import Modal from "../modal";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
@@ -36,6 +36,48 @@ describe("DialogFullScreen", () => {
         <Button>Button</Button>
       </DialogFullScreen>
     );
+  });
+
+  describe("autoFocus", () => {
+    it("should focus the first element by default", () => {
+      mount(
+        <DialogFullScreen open>
+          <input type="text" />
+        </DialogFullScreen>
+      );
+
+      const firstFocusableElement = document.querySelector("input");
+      expect(document.activeElement).toBe(firstFocusableElement);
+    });
+
+    it("should not focus the first element when disableAutoFocus is passed", () => {
+      mount(
+        <DialogFullScreen open disableAutoFocus>
+          <input type="text" />
+        </DialogFullScreen>
+      );
+
+      const firstFocusableElement = document.querySelector("input");
+      expect(document.activeElement).not.toBe(firstFocusableElement);
+    });
+  });
+
+  describe("focusFirstElement", () => {
+    it("should focus on the element passes as focusFirstElement prop", () => {
+      const Component = () => {
+        const secondInputRef = useRef(null);
+        return (
+          <DialogFullScreen focusFirstElement={secondInputRef} open>
+            <input type="text" />
+            <input type="text" ref={secondInputRef} />
+          </DialogFullScreen>
+        );
+      };
+      mount(<Component />);
+
+      const secondFocusableElement = document.querySelectorAll("input")[1];
+      expect(document.activeElement).toEqual(secondFocusableElement);
+    });
   });
 
   describe("disableContentPadding", () => {

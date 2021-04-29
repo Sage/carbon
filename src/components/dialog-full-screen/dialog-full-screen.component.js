@@ -1,13 +1,18 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+
 import Modal from "../modal";
 import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
 import FocusTrap from "../../__internal__/focus-trap";
+import IconButton from "../icon-button";
+import Icon from "../icon";
 
 const DialogFullScreen = ({
+  disableAutoFocus,
+  focusFirstElement,
   open,
   children,
   title,
@@ -24,13 +29,22 @@ const DialogFullScreen = ({
   const headingRef = useRef();
   const contentRef = useRef();
 
+  const closeIcon = () => {
+    if (!showCloseIcon || !onCancel) return null;
+
+    return (
+      <IconButton
+        data-element="close"
+        aria-label="Close button"
+        onAction={onCancel}
+      >
+        <Icon type="close" />
+      </IconButton>
+    );
+  };
+
   const dialogTitle = () => (
-    <FullScreenHeading
-      hasContent={title}
-      ref={headingRef}
-      showCloseIcon={showCloseIcon}
-      onCancel={onCancel}
-    >
+    <FullScreenHeading hasContent={title} ref={headingRef}>
       {typeof title === "string" ? (
         <Heading
           title={title}
@@ -59,7 +73,11 @@ const DialogFullScreen = ({
       disableEscKey={disableEscKey}
       {...componentTags}
     >
-      <FocusTrap wrapperRef={dialogRef}>
+      <FocusTrap
+        autoFocus={!disableAutoFocus}
+        focusFirstElement={focusFirstElement}
+        wrapperRef={dialogRef}
+      >
         <StyledDialogFullScreen
           ref={dialogRef}
           data-element="dialog-full-screen"
@@ -74,6 +92,7 @@ const DialogFullScreen = ({
           >
             {children}
           </StyledContent>
+          {closeIcon()}
         </StyledDialogFullScreen>
       </FocusTrap>
     </Modal>
@@ -82,6 +101,7 @@ const DialogFullScreen = ({
 
 DialogFullScreen.defaultProps = {
   showCloseIcon: true,
+  disableAutoFocus: false,
 };
 
 DialogFullScreen.propTypes = {
@@ -89,6 +109,10 @@ DialogFullScreen.propTypes = {
   open: PropTypes.bool.isRequired,
   /** A custom close event handler */
   onCancel: PropTypes.func,
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
+  /** Disables auto focus functionality on child elements */
+  disableAutoFocus: PropTypes.bool,
   /** Determines if the Esc Key closes the Dialog */
   disableEscKey: PropTypes.bool,
   /** remove padding from content */

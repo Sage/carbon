@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import StyledCard from "./card.style";
 import Icon from "../icon";
@@ -7,6 +10,10 @@ import CardRow from "./card-row/card-row.component";
 import CardFooter from "./card-footer/card-footer.component";
 
 const { sizesRestricted } = OptionsHelper;
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Card = ({
   action,
@@ -16,6 +23,7 @@ const Card = ({
   draggable,
   spacing,
   dataRole,
+  ...rest
 }) => {
   const handleClick = (ev) => {
     if (!draggable && action) {
@@ -63,6 +71,7 @@ const Card = ({
       onClick={onClickHandler}
       tabIndex={0}
       data-role={dataRole}
+      {...rest}
     >
       {draggable && <Icon type="drag" />}
       {renderChildren()}
@@ -74,6 +83,7 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  ...marginPropTypes,
   /** action to be executed when card is clicked or enter pressed */
   action: PropTypes.func,
   children: PropTypes.node.isRequired,
