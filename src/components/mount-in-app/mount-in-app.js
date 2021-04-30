@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+import Logger from "../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 class MountInApp extends React.Component {
   static propTypes = {
@@ -18,6 +21,14 @@ class MountInApp extends React.Component {
   componentDidMount() {
     if (this.targetElement) {
       ReactDOM.render(this.contentHtml, this.targetElement);
+    }
+
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      Logger.deprecate(
+        // eslint-disable-next-line max-len
+        "The `MountInApp` component is deprecated and will soon be removed. We recommend using React Portals instead (https://reactjs.org/docs/portals.html)"
+      );
     }
   }
 

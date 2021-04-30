@@ -14,7 +14,10 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
 import mintTheme from "../../style/themes/mint";
@@ -22,6 +25,10 @@ import Hr from "../hr";
 import Pill from "../pill";
 
 describe("Heading", () => {
+  testStyledSystemMargin((props) => (
+    <Heading title="foo" subheader="subheader" {...props} />
+  ));
+
   it("renders a h1 with the title", () => {
     const wrapper = mount(
       <Heading
