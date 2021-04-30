@@ -1,3 +1,10 @@
+## [70.9.0](https://github.com/Sage/carbon/compare/v70.8.0...v70.9.0) (2021-04-30)
+
+
+### Features
+
+* **content:** add margin props ([d95b9c5](https://github.com/Sage/carbon/commit/d95b9c52f1357d16d294b6d8ef269b0e257cc8c3))
+
 ## [70.8.0](https://github.com/Sage/carbon/compare/v70.7.0...v70.8.0) (2021-04-30)
 
 
