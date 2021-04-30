@@ -24,6 +24,6 @@ exports[`OptionRow renders properly 1`] = `
   onClick={[Function]}
   role="option"
 >
-  bar
+  foo
 </tr>
 `;

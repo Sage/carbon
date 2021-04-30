@@ -54,5 +54,5 @@ describe("OptionRow", () => {
 });
 
 function renderOptionRow(props, renderer = shallow) {
-  return renderer(<OptionRow {...props} />);
+  return renderer(<OptionRow {...props}>foo</OptionRow>);
 }
