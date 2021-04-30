@@ -6,6 +6,7 @@ import {
   simulate,
   assertStyleMatch,
   testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 
@@ -606,6 +607,20 @@ describe("AccordionGroup", () => {
 
     container = null;
   });
+
+  testStyledSystemMargin((props) => (
+    <AccordionGroup {...props}>
+      <Accordion title="Title_1" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+      <Accordion title="Title_2" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+      <Accordion title="Title_3" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+    </AccordionGroup>
+  ));
 
   it.each([
     [0, 1],

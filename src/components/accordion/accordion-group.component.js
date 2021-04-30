@@ -1,9 +1,14 @@
 import React, { useRef, useCallback } from "react";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../utils/helpers/events";
 import Accordion from "./accordion.component.js";
+import { StyledAccordionGroup } from "./accordion.style.js";
 
-const AccordionGroup = ({ children }) => {
+const marginProps = filterStyledSystemMarginProps(styledSystemPropTypes);
+
+const AccordionGroup = ({ children, ...rest }) => {
   const refs = useRef(
     React.Children.map(children, (child) => child.ref || React.createRef())
   );
@@ -40,16 +45,21 @@ const AccordionGroup = ({ children }) => {
     [focusAccordion]
   );
 
-  return React.Children.map(children, (child, index) => {
-    return React.cloneElement(child, {
-      ref: refs.current[index],
-      index,
-      handleKeyboardAccessibility,
-    });
-  });
+  return (
+    <StyledAccordionGroup {...rest}>
+      {React.Children.map(children, (child, index) =>
+        React.cloneElement(child, {
+          ref: refs.current[index],
+          index,
+          handleKeyboardAccessibility,
+        })
+      )}
+    </StyledAccordionGroup>
+  );
 };
 
 AccordionGroup.propTypes = {
+  ...marginProps,
   children: (props, propName, componentName) => {
     let error;
     const prop = props[propName];

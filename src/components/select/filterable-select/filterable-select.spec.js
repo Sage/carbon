@@ -372,6 +372,12 @@ describe("FilterableSelect", () => {
         value: "Foo",
       },
     };
+    const expectedDeleteEventObject = {
+      target: {
+        ...textboxProps,
+        value: "",
+      },
+    };
 
     describe('with "selectionType" as "click"', () => {
       it("the SelectList should be closed", () => {
@@ -411,10 +417,15 @@ describe("FilterableSelect", () => {
     });
 
     describe("and the onChange prop is passed", () => {
-      it("then that prop should be called with the same value", () => {
-        const onChangeFn = jest.fn();
-        const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
+      const onChangeFn = jest.fn();
+      let wrapper;
 
+      beforeEach(() => {
+        onChangeFn.mockClear();
+        wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
+      });
+
+      it("then that prop should be called with the same value", () => {
         wrapper
           .find(Textbox)
           .find('[type="dropdown"]')
@@ -424,6 +435,27 @@ describe("FilterableSelect", () => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
         expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
+      });
+
+      it("then should be called when value is deleted", () => {
+        act(() => {
+          wrapper.find("input").simulate("change", {
+            target: { value: "" },
+            nativeEvent: { inputType: "delete" },
+          });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(expectedDeleteEventObject);
+      });
+
+      it("then should be called when value is not matched", () => {
+        act(() => {
+          wrapper.find("input").simulate("change", {
+            target: { value: "aaaaa" },
+          });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(expectedDeleteEventObject);
       });
     });
   });
