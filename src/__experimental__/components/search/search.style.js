@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import StyledInputPresentation from "../input/input-presentation.style";
 import StyledInput from "../input/input.style";
 import StyledIcon from "../../../components/icon/icon.style";
@@ -26,6 +27,7 @@ const StyledSearch = styled.div`
         (!searchHasValue && isFocused) ||
         (!isFocused && searchHasValue && showSearchButton));
     return css`
+      ${margin}
       width: ${searchWidth ? `${searchWidth}` : "100%"};
       padding-bottom: 2px;
       background-color: transparent;
@@ -33,7 +35,6 @@ const StyledSearch = styled.div`
       display: inline-flex;
       font-size: 14px;
       font-weight: 700;
-      margin-bottom: 0px;
       :hover {
         border-bottom-color: ${theme.search.active};
         cursor: pointer;

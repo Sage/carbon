@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface SearchProps {
+export interface SearchProps extends MarginSpacingProps {
   /** Prop for `uncontrolled` use */
   defaultValue?: string;
   /** Prop for `controlled` use */
