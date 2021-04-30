@@ -9,6 +9,7 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../../utils/helpers/tags/tags-specs";
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
 
@@ -46,6 +47,10 @@ describe("DateRange", () => {
     spyOn(startInput.instance(), "handleBlur");
     spyOn(endInput.instance(), "handleBlur");
   });
+
+  testStyledSystemMargin((props) => (
+    <DateRange value={["2016-10-10", "2016-11-11"]} {...props} />
+  ));
 
   describe("onChange", () => {
     describe("when the start date changes", () => {
