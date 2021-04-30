@@ -6,20 +6,19 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '>=14.16.0 14'
-    - run: npm ci
-    - run: npx prettier --check './src/**/*.js'
-    - run: npm run lint
-    - run: npm run lint-ts
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ">=14.16.0 14"
+      - run: npm ci
+      - run: npx prettier --check './src/**/*.js'
+      - run: npm run lint
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '>=14.16.0 14'
-    - run: npm ci
-    - run: npm test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ">=14.16.0 14"
+      - run: npm ci
+      - run: npm test
