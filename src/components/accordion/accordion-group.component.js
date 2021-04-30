@@ -6,7 +6,9 @@ import Events from "../../utils/helpers/events";
 import Accordion from "./accordion.component.js";
 import { StyledAccordionGroup } from "./accordion.style.js";
 
-const marginProps = filterStyledSystemMarginProps(styledSystemPropTypes);
+const marginProptypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const AccordionGroup = ({ children, ...rest }) => {
   const refs = useRef(
@@ -59,7 +61,7 @@ const AccordionGroup = ({ children, ...rest }) => {
 };
 
 AccordionGroup.propTypes = {
-  ...marginProps,
+  ...marginProptypes,
   children: (props, propName, componentName) => {
     let error;
     const prop = props[propName];
