@@ -49,6 +49,7 @@
         }
       }
     ],
+    "radix": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/destructuring-assignment": 0,
     "react/no-this-in-sfc": 0,
@@ -110,7 +111,12 @@
     "jasmine": true,
     "cypress/globals": true
   },
-  "extends": ["plugin:no-unsanitized/DOM", "airbnb", "prettier", "prettier/react"],
+  "extends": [
+    "plugin:no-unsanitized/DOM",
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
   "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
     "jest": false,
