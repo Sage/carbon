@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
+
 import { baseTheme } from "../../style/themes";
 
 const StyledContent = styled.div`
   ${({ bodyFullWidth, align }) => css`
+    ${margin}
+
     & + & {
       margin-top: 15px;
     }
@@ -17,6 +21,8 @@ const StyledContent = styled.div`
     `}
   `}
 `;
+
+StyledContent.defaultProps = { theme: baseTheme };
 
 const StyledContentTitle = styled.div`
   ${({ theme, titleWidth, inline, variant, align }) => {
