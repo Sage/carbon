@@ -1,6 +1,5 @@
-import * as React from "react";
-import { SpacingProps } from "../../utils/helpers/options-helper";
-export interface DtProps extends SpacingProps {
+import { SpaceProps } from "styled-system";
+export interface DtProps extends SpaceProps {
   /** prop for dt text */
   children: string;
 }
