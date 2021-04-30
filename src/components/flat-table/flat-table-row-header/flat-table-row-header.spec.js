@@ -89,7 +89,13 @@ describe("FlatTableRowHeader", () => {
       it("should call the onKeyDown function when a key is pressed", () => {
         const onKeyDownFn = jest.fn();
         const wrapper = mount(
-          <FlatTableRowHeader expandable onKeyDown={onKeyDownFn} />
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader expandable onKeyDown={onKeyDownFn} />
+              </tr>
+            </thead>
+          </table>
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
@@ -102,7 +108,15 @@ describe("FlatTableRowHeader", () => {
   describe("when truncate prop is true", () => {
     let wrapper;
     beforeEach(() => {
-      wrapper = mount(<FlatTableRowHeader truncate>Foo</FlatTableRowHeader>);
+      wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
+            </tr>
+          </thead>
+        </table>
+      );
     });
 
     it("should apply expected styling", () => {
@@ -124,9 +138,15 @@ describe("FlatTableRowHeader", () => {
     describe("and title prop is set", () => {
       it("should override the default behaviour", () => {
         wrapper = mount(
-          <FlatTableRowHeader truncate title="Bar">
-            Foo
-          </FlatTableRowHeader>
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader truncate title="Bar">
+                  Foo
+                </FlatTableRowHeader>
+              </tr>
+            </thead>
+          </table>
         );
         expect(wrapper.find("div").props().title).toEqual("Bar");
       });
