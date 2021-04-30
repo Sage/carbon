@@ -34,7 +34,7 @@ describe("TileSelect", () => {
   testStyledSystemMargin((props) => <TileSelect {...props} />);
 
   testStyledSystemMargin((props) => (
-    <TileSelectGroup {...props}>
+    <TileSelectGroup name="tile-select-group" {...props}>
       <TileSelect name="test" />
     </TileSelectGroup>
   ));
@@ -380,12 +380,13 @@ describe("TileSelectGroup", () => {
       );
     });
   });
+
   describe("propTypes", () => {
     it("validates the incorrect children prop", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
 
       mount(
-        <TileSelectGroup legend="Legend">
+        <TileSelectGroup name="tile-select-group" legend="Legend">
           <p>Invalid children</p>
           <p>Invalid children</p>
         </TileSelectGroup>
