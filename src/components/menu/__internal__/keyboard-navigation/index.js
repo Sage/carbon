@@ -1,11 +1,8 @@
 import Events from "../../../../utils/helpers/events";
 import MenuItem from "../../menu-item";
 
-function characterNavigation(event, focusableItems, currentFocusedIndex) {
-  event.stopPropagation();
-  let firstMatch;
-  let nextMatch;
-  const selectedKey = event.key.toLowerCase();
+function characterNavigation(inputString, focusableItems, currentFocusedIndex) {
+  if (!inputString) return currentFocusedIndex;
 
   const getNodeText = (node) => {
     if (node instanceof Array) return node.map(getNodeText).join("");
@@ -14,10 +11,6 @@ function characterNavigation(event, focusableItems, currentFocusedIndex) {
     return node;
   };
   const getMenuText = (element) => {
-    if (element.keyboardOverride) {
-      return element.keyboardOverride;
-    }
-
     if (element.submenu) {
       return element.submenu;
     }
@@ -25,49 +18,24 @@ function characterNavigation(event, focusableItems, currentFocusedIndex) {
     return getNodeText(element.children);
   };
 
-  focusableItems.forEach((child, i) => {
-    if (
-      child &&
-      child.type === MenuItem &&
-      getMenuText(child.props).toLowerCase().startsWith(selectedKey)
-    ) {
-      if (firstMatch === undefined) {
-        firstMatch = i;
-      }
-      if (i > currentFocusedIndex && !nextMatch) {
-        nextMatch = i;
-      }
-    }
-  });
+  const itemsList = focusableItems.map(
+    (item) =>
+      item &&
+      item.type === MenuItem &&
+      getMenuText(item.props) &&
+      getMenuText(item.props).toLowerCase()
+  );
 
-  if (nextMatch !== undefined) {
-    return nextMatch;
-  }
+  const matchingItem = itemsList.find(
+    (item) => item && item.startsWith(inputString)
+  );
 
-  if (firstMatch !== undefined) {
-    return firstMatch;
-  }
+  const matchingIndex = itemsList.indexOf(matchingItem);
 
-  return currentFocusedIndex;
+  return matchingIndex === -1 ? currentFocusedIndex : matchingIndex;
 }
 
-function menuKeyboardNavigation(event, focusableItems, currentFocusedIndex) {
-  if (Events.isRightKey(event)) {
-    event.preventDefault();
-    if (currentFocusedIndex === focusableItems.length - 1) {
-      return 0;
-    }
-    return currentFocusedIndex + 1;
-  }
-
-  if (Events.isLeftKey(event)) {
-    event.preventDefault();
-    if (currentFocusedIndex === 0) {
-      return focusableItems.length - 1;
-    }
-    return currentFocusedIndex - 1;
-  }
-
+function menuKeyboardNavigation(event, focusableItems) {
   if (Events.isHomeKey(event)) {
     event.preventDefault();
     return 0;
@@ -78,15 +46,7 @@ function menuKeyboardNavigation(event, focusableItems, currentFocusedIndex) {
     return focusableItems.length - 1;
   }
 
-  if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
-    return characterNavigation(event, focusableItems, currentFocusedIndex);
-  }
-
-  if (Events.isTabKey(event)) {
-    return undefined;
-  }
-
-  return currentFocusedIndex;
+  return undefined;
 }
 
 export { characterNavigation, menuKeyboardNavigation };

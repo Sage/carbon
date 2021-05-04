@@ -13,24 +13,11 @@ import {
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 import StyledMenuItemWrapper from "./menu-item/menu-item.style";
-import {
-  StyledSubmenu,
-  StyledSubmenuWrapper,
-} from "./__internal__/submenu/submenu.style";
 
 const events = {
-  tab: {
-    key: "Tab",
-    which: 9,
-  },
-  arrowRight: {
-    key: "ArrowRight",
-    which: 39,
-    preventDefault: jest.fn(),
-  },
-  enter: {
-    key: "Enter",
-    which: 13,
+  end: {
+    key: "End",
+    which: 35,
     preventDefault: jest.fn(),
   },
 };
@@ -115,7 +102,7 @@ describe("Menu", () => {
     const render = (props) => {
       return mount(
         <Menu {...props}>
-          <MenuItem>test element one</MenuItem>
+          <MenuItem>test one</MenuItem>
           <MenuItem submenu="one">
             <MenuItem>test element one</MenuItem>
             <MenuItem>test element two</MenuItem>
@@ -144,115 +131,33 @@ describe("Menu", () => {
       }
     });
 
-    describe("handleKeyDown", () => {
-      describe("when a submenu is open and the next item is a submenu", () => {
-        beforeEach(() => {
-          menuWrapper = render();
-          act(() => {
-            menuWrapper
-              .find(StyledMenuItemWrapper)
-              .at(0)
-              .props()
-              .onKeyDown(events.tab);
-          });
-
-          menuWrapper.update();
-
-          act(() => {
-            menuWrapper
-              .find(StyledMenuItemWrapper)
-              .at(0)
-              .props()
-              .onKeyDown(events.arrowRight);
-          });
-
-          menuWrapper.update();
-
-          act(() => {
-            menuWrapper
-              .find(StyledMenuItemWrapper)
-              .at(1)
-              .props()
-              .onKeyDown(events.enter);
-          });
-
-          menuWrapper.update();
-        });
-
-        it("should open the next submenu on right key press", () => {
-          expect(
-            menuWrapper
-              .find(StyledSubmenuWrapper)
-              .at(0)
-              .find(StyledSubmenu)
-              .exists()
-          ).toEqual(true);
-
-          act(() => {
-            menuWrapper
-              .find(StyledMenuItemWrapper)
-              .at(1)
-              .props()
-              .onKeyDown(events.arrowRight);
-          });
-
-          menuWrapper.update();
-          expect(
-            menuWrapper
-              .find(StyledSubmenuWrapper)
-              .at(0)
-              .find(StyledSubmenu)
-              .exists()
-          ).toEqual(false);
-          expect(
-            menuWrapper
-              .find(StyledSubmenuWrapper)
-              .at(1)
-              .find(StyledSubmenu)
-              .exists()
-          ).toEqual(true);
-        });
-      });
-    });
-
-    describe("when a user clicks outside of the menu", () => {
-      it("should reset the focus state of the menu", () => {
+    describe("when a user presses end key", () => {
+      it("should focus the last item", () => {
         menuWrapper = render();
+        menuWrapper
+          .find(StyledMenuItemWrapper)
+          .at(0)
+          .find("a")
+          .getDOMNode()
+          .focus();
+
+        expect(
+          menuWrapper.find(StyledMenuItemWrapper).at(0).find("a")
+        ).toBeFocused();
 
         act(() => {
           menuWrapper
             .find(StyledMenuItemWrapper)
             .at(0)
             .props()
-            .onKeyDown(events.tab);
-        });
-
-        menuWrapper.update();
-
-        act(() => {
-          menuWrapper
-            .find(StyledMenuItemWrapper)
-            .at(0)
-            .props()
-            .onKeyDown(events.arrowRight);
+            .onKeyDown(events.end);
         });
 
         menuWrapper.update();
 
         expect(
-          menuWrapper.find(StyledMenuItemWrapper).at(1).find("a")
+          menuWrapper.find(StyledMenuItemWrapper).at(2).find("a")
         ).toBeFocused();
-
-        act(() => {
-          document.dispatchEvent(
-            new Event("click", {
-              detail: {
-                enzymeTestingTarget: document.body,
-              },
-            })
-          );
-        });
-        menuWrapper.update();
         wrapper.unmount();
       });
     });

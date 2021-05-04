@@ -43,3 +43,28 @@ Feature: Design Systems Menu component
     Then "fourth" submenu has alternate colour theme
       And "fifth" submenu has alternate colour theme
       And "sixth" submenu has alternate colour theme
+
+  @negative
+  Scenario: Check the default menu clickToOpen element does not open on hover
+    Given I open "Design System Menu" component page "submenu options" in no iframe
+    When I hover over default menu "sixth" expandable Menu component
+    Then Menu "sixth" expandable component submenu is not visible
+
+  @positive
+  Scenario: Check the default menu clickToOpen element opens on mouse click
+    Given I open "Design System Menu" component page "submenu options" in no iframe
+    When I click default menu "sixth" expandable Menu component
+    Then Menu "sixth" expandable element has inner elements
+
+  @positive
+  Scenario Outline: Check the default menu clickToOpen element opens using the "<key>" key
+    Given I open "Design System Menu" component page "submenu options" in no iframe
+      And I press tab from default menu "fourth" expandable Menu component 2 times
+    When I press "<key>" onto focused element
+    Then Menu "sixth" expandable element has inner elements
+    Examples:
+      | key       |
+      | Enter     |
+      | Space     |
+      | downarrow |
+      | uparrow   |
