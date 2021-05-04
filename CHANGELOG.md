@@ -1,3 +1,10 @@
+## [71.1.0](https://github.com/Sage/carbon/compare/v71.0.0...v71.1.0) (2021-05-04)
+
+
+### Features
+
+* **detail:** add styled-system margin support ([5ccbf34](https://github.com/Sage/carbon/commit/5ccbf349855a065ea3ce845a457e3540a6651a14))
+
 ## [71.0.0](https://github.com/Sage/carbon/compare/v70.9.0...v71.0.0) (2021-05-04)
 
 
