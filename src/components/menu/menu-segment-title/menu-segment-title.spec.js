@@ -7,10 +7,11 @@ import { MenuContext } from "../menu.component";
 import { MenuItem } from "..";
 import StyledTitle from "./menu-segment-title.style";
 import { baseTheme } from "../../../style/themes";
+import openSubmenu from "../__internal__/spec-helper";
 
 const menuContextValues = (menuType) => ({
   menuType,
-  openSubmenu: true,
+  handleKeyDown: () => null,
 });
 
 describe("Title", () => {
@@ -35,12 +36,14 @@ describe("Title", () => {
 
   it("should get menuType from menu context", () => {
     wrapper = render("light");
+    openSubmenu(wrapper);
 
     expect(wrapper.find(StyledTitle).prop("menuType")).toBe("light");
   });
 
   it("should have correct styles as default", () => {
     wrapper = render("light");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {
@@ -57,6 +60,7 @@ describe("Title", () => {
 
   it('should have correct styles if menuType="light" and "alternate" variant', () => {
     wrapper = render("light", "alternate");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {
@@ -69,6 +73,7 @@ describe("Title", () => {
 
   it('should have correct styles if menuType="dark"', () => {
     wrapper = render("dark");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {
@@ -80,6 +85,7 @@ describe("Title", () => {
 
   it('should have correct styles if menuType="dark"  and "alternate" variant', () => {
     wrapper = render("dark", "alternate");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {
