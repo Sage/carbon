@@ -37,6 +37,8 @@ const FilterableSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      filterText,
+      onFilterChanged,
       ...textboxProps
     },
     inputRef
@@ -54,7 +56,9 @@ const FilterableSelect = React.forwardRef(
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState("");
     const [highlightedValue, setHighlightedValue] = useState("");
-    const [filterText, setFilterText] = useState("");
+    const [internalFilterText, setInternalFilterText] = useState(
+      filterText || ""
+    );
 
     const createCustomEvent = useCallback(
       (newValue) => {
@@ -135,12 +139,12 @@ const FilterableSelect = React.forwardRef(
           isClosing ||
           matchingOption.props.text
             .toLowerCase()
-            .startsWith(filterText.toLowerCase())
+            .startsWith(internalFilterText.toLowerCase())
         ) {
           setTextValue(matchingOption.props.text);
         }
       },
-      [children, filterText]
+      [children, internalFilterText]
     );
 
     const handleTextboxChange = useCallback(
@@ -152,26 +156,34 @@ const FilterableSelect = React.forwardRef(
           event.nativeEvent.inputType === "delete";
 
         updateValues(newValue, isDeleteEvent);
-        setFilterText(newValue);
+        if (onFilterChanged) {
+          onFilterChanged(newValue);
+        } else {
+          setInternalFilterText(newValue);
+        }
         setOpen(true);
       },
-      [updateValues]
+      [onFilterChanged, updateValues]
     );
 
     const fillLastFilterCharacter = useCallback(
       (key) => {
-        setFilterText((previousFilterText) => {
-          if (
-            previousFilterText.length === textValue.length - 1 &&
-            key === textValue.slice(-1)
-          ) {
-            return textValue;
-          }
+        if (onFilterChanged) {
+          onFilterChanged(internalFilterText);
+        } else {
+          setInternalFilterText((previousFilterText) => {
+            if (
+              previousFilterText.length === textValue.length - 1 &&
+              key === textValue.slice(-1)
+            ) {
+              return textValue;
+            }
 
-          return previousFilterText;
-        });
+            return previousFilterText;
+          });
+        }
       },
-      [textValue]
+      [internalFilterText, onFilterChanged, textValue]
     );
 
     const handleTextboxKeydown = useCallback(
@@ -244,12 +256,20 @@ const FilterableSelect = React.forwardRef(
     }, [value, defaultValue, onChange, children]);
 
     useEffect(() => {
+      setInternalFilterText(filterText);
+    }, [filterText]);
+
+    useEffect(() => {
       if (!isOpen) {
-        setFilterText("");
+        if (onFilterChanged) {
+          onFilterChanged("");
+        } else {
+          setInternalFilterText("");
+        }
       } else if (onOpen) {
         onOpen();
       }
-    }, [isOpen, onOpen]);
+    }, [isOpen, onFilterChanged, onOpen]);
 
     useEffect(() => {
       const hasListActionButton = listActionButton !== undefined;
@@ -281,18 +301,18 @@ const FilterableSelect = React.forwardRef(
     useEffect(() => {
       const textStartsWithFilter = textValue
         .toLowerCase()
-        .startsWith(filterText.toLowerCase());
+        .startsWith(internalFilterText.toLowerCase());
       const isTextboxActive = !disabled && !readOnly;
 
       if (
         isTextboxActive &&
         textboxRef &&
-        textValue.length > filterText.length &&
+        textValue.length > internalFilterText.length &&
         textStartsWithFilter
       ) {
-        textboxRef.selectionStart = filterText.length;
+        textboxRef.selectionStart = internalFilterText.length;
       }
-    }, [textValue, filterText, textboxRef, disabled, readOnly]);
+    }, [textValue, internalFilterText, textboxRef, disabled, readOnly]);
 
     const onSelectOption = useCallback(
       (optionData) => {
@@ -466,7 +486,7 @@ const FilterableSelect = React.forwardRef(
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
         onMouseDown={handleListMouseDown}
-        filterText={filterText}
+        filterText={internalFilterText}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
         disablePortal={disablePortal}
@@ -536,6 +556,10 @@ FilterableSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  /** Text value to filter options by */
+  filterText: PropTypes.string,
+  /** Callback triggered when the filter changes */
+  onFilterChanged: PropTypes.func,
 };
 
 export default FilterableSelect;

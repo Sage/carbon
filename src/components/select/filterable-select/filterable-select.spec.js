@@ -893,6 +893,28 @@ describe("FilterableSelect", () => {
       });
     });
   });
+
+  describe("when the filter text is controlled", () => {
+    const onFilterChangedFn = jest.fn();
+
+    const wrapper = renderSelect({
+      openOnFocus: true,
+      filterText: "filter",
+      onFilterChanged: onFilterChangedFn,
+    });
+
+    it("should call the onFilterChanged callback when the filter changes", () => {
+      wrapper.find("input").simulate("change", { target: { value: "r" } });
+
+      expect(onFilterChangedFn).toHaveBeenCalledWith("r");
+
+      wrapper.find("input").simulate("keyDown", {
+        key: "ArrowDown",
+      });
+
+      expect(onFilterChangedFn).toHaveBeenCalled();
+    });
+  });
 });
 
 describe("coverage filler for else path", () => {
