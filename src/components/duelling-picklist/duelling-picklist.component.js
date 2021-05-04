@@ -11,6 +11,7 @@ import {
   StyledControlsContainer,
   StyledControl,
 } from "./duelling-picklist.style";
+import { Picklist } from "./picklist/picklist.component";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -61,7 +62,23 @@ const DuellingPicklist = ({
 
 DuellingPicklist.propTypes = {
   ...marginPropTypes,
-  children: PropTypes.node,
+  children: (props, propName) => {
+    const prop = props[propName];
+    let error;
+
+    if (
+      !prop ||
+      !Array.isArray(prop) ||
+      prop.filter((el) => el.type === Picklist).length !== 2
+    ) {
+      error = new Error(
+        // eslint-disable-next-line max-len
+        `\`${propName}\` must have two \`${Picklist.displayName}\`s`
+      );
+    }
+
+    return error;
+  },
   /** Indicate if component is disabled */
   disabled: PropTypes.bool,
   /** Place for components like Search or Filter placed above the left list */

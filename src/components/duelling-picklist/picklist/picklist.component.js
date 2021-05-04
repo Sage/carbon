@@ -87,4 +87,6 @@ export const areEqual = (prevProps, nextProps) => {
   return !changesCounter;
 };
 
+Picklist.displayName = "Picklist";
+
 export default Picklist;

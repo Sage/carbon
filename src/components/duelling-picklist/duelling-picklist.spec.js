@@ -357,7 +357,7 @@ describe("DuellingPicklist", () => {
       ).toHaveLength(1);
     });
 
-    describe("rerender", () => {
+    describe("re-render", () => {
       it.each([
         ["happens when number of children is changed", [<div />], false],
         [
@@ -379,6 +379,21 @@ describe("DuellingPicklist", () => {
         const nextProps = { children: [<div />], disabled };
         expect(areEqual(prevProps, nextProps)).toBe(disabled);
       });
+    });
+  });
+
+  describe("children", () => {
+    it("should throw an error if there are not two Picklist components", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      mount(
+        <DuellingPicklist>
+          <div>foo</div>
+        </DuellingPicklist>
+      );
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: `children` must have two `Picklist`s\n    in DuellingPicklist"
+      );
+      global.console.error.mockReset();
     });
   });
 });
