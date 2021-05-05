@@ -6,8 +6,10 @@ import {
   lastSubmenuElement,
   menuDivider,
   segmentTitle,
+  menuComponent,
+  submenuItem,
 } from "../../locators/menu";
-import { positionOfElement } from "../helper";
+import { positionOfElement, keyCode } from "../helper";
 
 When("I hover over third expandable Menu component", () => {
   submenu().trigger("mouseover");
@@ -77,4 +79,47 @@ Then("{string} submenu has alternate colour theme", (position) => {
     "background-color",
     "rgb(230, 235, 237)"
   );
+});
+
+When(
+  "I hover over default menu {string} expandable Menu component",
+  (position) => {
+    menuComponent(positionOfElement(position)).trigger("mouseover", {
+      force: true,
+    });
+  }
+);
+
+Then(
+  "Menu {string} expandable component submenu is not visible",
+  (position) => {
+    submenuItem(positionOfElement(position))
+      .should("have.length", 0)
+      .and("not.exist");
+  }
+);
+
+When("I click default menu {string} expandable Menu component", (position) => {
+  menuComponent(positionOfElement(position)).click();
+});
+
+Given(
+  "I press tab from default menu {string} expandable Menu component {int} times",
+  (position, times) => {
+    menuComponent(positionOfElement(position)).click();
+    cy.focused().trigger("keydown", keyCode("Esc"));
+    for (let i = 0; i < times; i++) {
+      cy.focused().tab();
+    }
+  }
+);
+
+Then("Menu {string} expandable element has inner elements", (position) => {
+  submenuItem(positionOfElement(position)).should("have.length", 2);
+  innerMenu(positionOfElement("second"))
+    .should("have.attr", "data-component", "link")
+    .and("be.visible");
+  innerMenu(positionOfElement("third"))
+    .should("have.attr", "data-component", "link")
+    .and("be.visible");
 });

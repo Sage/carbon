@@ -33,7 +33,7 @@ const MenuItem = ({
   variant = "default",
   showDropdownArrow = true,
   ariaLabel,
-  isSearch,
+  clickToOpen,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -72,19 +72,13 @@ const MenuItem = ({
         ref.current.focus();
       }
 
-      if (!submenu && Events.isSpaceKey(event)) {
-        ref.current.click();
-      }
-
-      if (!event.defaultPrevented) {
-        if (submenuContext.handleKeyDown !== undefined) {
-          submenuContext.handleKeyDown(event);
-        } else {
-          menuContext.handleKeyDown(event);
-        }
+      if (submenuContext.handleKeyDown !== undefined) {
+        submenuContext.handleKeyDown(event);
+      } else {
+        menuContext.handleKeyDown(event);
       }
     },
-    [menuContext, onKeyDown, ref, submenu, submenuContext]
+    [menuContext, onKeyDown, ref, submenuContext]
   );
 
   const classes = useMemo(
@@ -102,8 +96,9 @@ const MenuItem = ({
     onClick,
     icon,
     selected,
-    menuType: menuContext.menuType,
-    tabbable: menuContext.isFirstElement,
+    variant,
+    onKeyDown: handleKeyDown,
+    ref,
   };
 
   if (submenu) {
@@ -115,16 +110,12 @@ const MenuItem = ({
         {...rest}
       >
         <Submenu
-          {...rest}
-          ref={ref}
-          variant={variant}
           {...(typeof submenu !== "boolean" && { title: submenu })}
-          icon={icon}
           submenuDirection={submenuDirection}
-          tabbable={menuContext.isFirstElement}
-          onKeyDown={handleKeyDown}
-          className={classes}
           showDropdownArrow={showDropdownArrow}
+          clickToOpen={clickToOpen}
+          {...elementProps}
+          {...rest}
         >
           {childrenItems}
         </Submenu>
@@ -141,13 +132,11 @@ const MenuItem = ({
       {...rest}
     >
       <StyledMenuItemWrapper
-        ref={ref}
-        onKeyDown={handleKeyDown}
         as={isChildrenSearch ? "div" : Link}
         data-component="menu-item"
         isSearch={isChildrenSearch}
+        menuType={menuContext.menuType}
         {...elementProps}
-        variant={variant}
         role="menuitem"
         ariaLabel={ariaLabel}
       >
@@ -192,6 +181,8 @@ MenuItem.propTypes = {
   selected: PropTypes.bool,
   /** A title for the menu item that has a submenu. */
   submenu: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+  /** When set the submenu opens by click instead of hover */
+  clickToOpen: PropTypes.bool,
   /** The href to use for the menu item. */
   href: PropTypes.string,
   /** onKeyDown handler */
@@ -202,15 +193,6 @@ MenuItem.propTypes = {
   showDropdownArrow: PropTypes.bool,
   /** set the colour variant for a menuType */
   variant: PropTypes.oneOf(["default", "alternate"]),
-  /** Either a keyboard override or child text must be provided to facilitate keyboard navigation. */
-  keyboardOverride: (props, propName, ...rest) => {
-    if (props.icon && !props.children && !props.keyboardOverride) {
-      return new Error(
-        "Either a keyboard override or child text must be provided to facilitate keyboard navigation."
-      );
-    }
-    return PropTypes.string(props, propName, ...rest);
-  },
   /** If no text is provided an ariaLabel should be given to facilitate accessibility. */
   ariaLabel: (props, ...rest) => {
     if (

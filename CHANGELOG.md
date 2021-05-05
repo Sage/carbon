@@ -1,3 +1,21 @@
+## [71.1.0](https://github.com/Sage/carbon/compare/v71.0.0...v71.1.0) (2021-05-04)
+
+
+### Features
+
+* **detail:** add styled-system margin support ([5ccbf34](https://github.com/Sage/carbon/commit/5ccbf349855a065ea3ce845a457e3540a6651a14))
+
+## [71.0.0](https://github.com/Sage/carbon/compare/v70.9.0...v71.0.0) (2021-05-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu-item:** Removed keyboardOverride prop from MenuItem
+
+### Code Refactoring
+
+* **menu-item:** remove keyboard override option ([6531b2f](https://github.com/Sage/carbon/commit/6531b2fcf8bc57ea87679af6f652c0e6d860c51d))
+
 ## [70.9.0](https://github.com/Sage/carbon/compare/v70.8.0...v70.9.0) (2021-04-30)
 
 
