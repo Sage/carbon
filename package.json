@@ -8,7 +8,6 @@
     "node": ">=14.16.1"
   },
   "scripts": {
-    "docgenInfo": "./script/generate-docgeninfo.sh",
     "start": "start-storybook -p 9001 -s .assets -c .storybook",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
