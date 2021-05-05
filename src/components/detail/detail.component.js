@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../utils/helpers/tags";
 import {
   StyledDetail,
@@ -9,8 +12,11 @@ import {
   StyledDetailFootnote,
 } from "./detail.style";
 
+const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
+
 class Detail extends React.Component {
   static propTypes = {
+    ...marginPropTypes,
     /**
      * Custom className
      */
@@ -69,11 +75,14 @@ class Detail extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    const marginProps = filterStyledSystemMarginProps(this.props);
+
     return (
       <StyledDetail
         className={classNames("carbon-detail", this.props.className)}
         hasIcon={this.props.icon}
         {...tagComponent("detail", this.props)}
+        {...marginProps}
       >
         {this.icon()}
 
