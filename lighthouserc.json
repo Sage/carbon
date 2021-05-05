@@ -14,7 +14,14 @@
       }
     },
     "assert": {
-      "preset": "lighthouse:recommended"
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["warn", {"minScore": 0.25}],
+        "categories:accessibility": ["error", {"minScore": 1}],
+        "categories:best-practice": ["warn", {"minScore": 0.25}],
+        "categories:seo": "off",
+        "categories:pwa": "off"
+      }
     },
     "upload": {
       "target": "temporary-public-storage"
