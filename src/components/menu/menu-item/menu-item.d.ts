@@ -10,7 +10,6 @@ export interface MenuItemProps {
   selected?: boolean;
   submenu?: React.ReactNode | boolean;
   href?: string;
-  keyboardOverride?: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
   target?: string;
   variant?: "default" | "alternate";
