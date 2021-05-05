@@ -77,7 +77,6 @@
     "axe-core": "^3.5.5",
     "babel-eslint": "10.0.3",
     "babel-jest": "^26.6.3",
-    "babel-loader": "8.1.0",
     "carbon-state-management": "^1.0.0",
     "chromatic": "^5.6.1",
     "commitizen": "^4.2.4",
