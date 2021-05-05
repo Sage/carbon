@@ -1,11 +1,10 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import Icon from "components/icon";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import ValidationIcon from "../../components/validations/validation-icon.component";
 
 import InputIconToggle from "./input-icon-toggle.component";
 
@@ -162,7 +161,7 @@ describe("InputIconToggle", () => {
           {
             width: size[1],
           },
-          render({ size: size[0] }, TestRenderer.create).toJSON()
+          render({ size: size[0] }, mount)
         );
       });
     });

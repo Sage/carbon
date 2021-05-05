@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import StyledPill from "../../pill/pill.style";
 import { baseTheme } from "../../../style/themes";
-import InputIconToggleStyle from "../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style";
+import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledSelect from "../select.style";
 import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
 import sizes from "../../../__experimental__/components/input/input-sizes.style";

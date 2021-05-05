@@ -3,7 +3,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
-import InputIconToggle from "../input-icon-toggle";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import DatePicker from "./date-picker.component";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
