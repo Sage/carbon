@@ -354,6 +354,21 @@ describe("Search", () => {
         });
       });
 
+      it("calls preventDefault", () => {
+        const preventDefault = jest.fn();
+        act(() => {
+          const icon = wrapper
+            .find(Icon)
+            .findWhere((n) => n.props().type === "cross")
+            .hostNodes();
+          icon.simulate("mousedown", { preventDefault });
+        });
+
+        wrapper.update();
+
+        expect(preventDefault).toHaveBeenCalled();
+      });
+
       it("clears the input value", () => {
         wrapper = renderWrapper(
           {

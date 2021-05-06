@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface FieldsetProps {
+export interface FieldsetProps extends MarginSpacingProps {
   /** Child elements */
   children?: React.ReactNode;
   /** The text for the fieldsets legend element. */
