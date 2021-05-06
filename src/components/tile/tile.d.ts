@@ -1,7 +1,7 @@
 import * as React from "react";
-import { SpacingProps } from "utils/helpers/options-helper/options-helper";
+import { SpaceProps } from "styled-system";
 
-export interface TileProps extends SpacingProps {
+export interface TileProps extends SpaceProps {
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
   as?: "tile" | "transparent";
   /**
