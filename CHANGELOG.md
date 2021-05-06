@@ -1,3 +1,17 @@
+### [71.2.1](https://github.com/Sage/carbon/compare/v71.2.0...v71.2.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **search:** fix outline appearing onClick around the X icon ([6f8fb38](https://github.com/Sage/carbon/commit/6f8fb38cc50091ab482e10e1ad63c9d822ddb905)), closes [#3857](https://github.com/Sage/carbon/issues/3857)
+
+## [71.2.0](https://github.com/Sage/carbon/compare/v71.1.0...v71.2.0) (2021-05-06)
+
+
+### Features
+
+* **image:** create new component to support rendering images ([c77e4b1](https://github.com/Sage/carbon/commit/c77e4b18d17fcfff03257c4179d0ffc60eaca425))
+
 ## [71.1.0](https://github.com/Sage/carbon/compare/v71.0.0...v71.1.0) (2021-05-04)
 
 

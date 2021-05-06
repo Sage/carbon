@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
-export interface SearchProps {
+export interface SearchProps extends MarginSpacingProps {
   /** Prop for `uncontrolled` use */
   defaultValue?: string;
   /** Prop for `controlled` use */
@@ -15,7 +16,7 @@ export interface SearchProps {
   onKeyDown?: (ev: React.SyntheticEvent) => void;
   /** Prop boolean to state whether the `search` icon renders */
   searchButton?: boolean;
-  /** Prop for specifing an input width length.
+  /** Prop for specifying an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%'
    */
   searchWidth?: string;

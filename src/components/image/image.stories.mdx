@@ -1,0 +1,130 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { ArgsTable } from "@storybook/components";
+
+import Image from "./image.component";
+import Box from "../box";
+import Typography from "../typography";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import useMediaQuery from "../../hooks/useMediaQuery/index.js"
+
+<Meta title="Design System/Image" />
+
+# Image
+Basic component that allows either the rendering of an `img` element or a `div` with a `background-image`. This component 
+also gives access to a number of styling options such as `margin`, and `layout`.
+
+## Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+Import the `Image` component to start using
+
+```javascript
+import Image from "carbon-react/lib/components/image";
+```
+
+## Examples
+
+### Default
+By default the component will render as a `div` element and use the `backgroundImage` to set the `background-image` 
+css attribute.
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true } }}>
+    <Image m={3} height="700px" backgroundImage={`url("https://carbon.sage.com/static/media/point.6992f190.svg")`}>
+      <Box height="700px" display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h4">Here is an example of some overlayed text</Typography>
+      </Box>
+    </Image>
+  </Story>
+</Preview>
+
+### As an img element
+If you want to render an `img` element pass in a value to the `src` prop. The component will not accept `children` when 
+rendered in this way.
+
+<Preview>
+  <Story name="as an img" parameters={{ info: { disable: true } }}>
+    <Image m={3} ml={8} alt="Example alt text" src="https://carbon.sage.com/static/media/point.6992f190.svg" />
+    <Image m={3} ml={5} size="200px" alt="Example alt text" src="https://carbon.sage.com/static/media/brush.4610bc98.svg" />
+    <Image m={3} size="300px" alt="Example alt text" src="https://carbon.sage.com/static/media/collaborate.9b17d172.svg" />
+  </Story>
+</Preview>
+
+### Custom responsive behaviour
+It is possible to conditionally change the props based on defined breakpoints in the example below. This example is best 
+viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
+<Preview>
+  <Story name="custom responsive behaviour" parameters={{ chromatic: { disable: true }, info: { disable: true } }}>
+    {() => {
+      const query1 = useMediaQuery('(max-width: 1000px)');
+      const query2 = useMediaQuery('(max-width: 900px)');
+      const query3 = useMediaQuery('(max-width: 800px)');
+      const responsiveProps = () => {
+        if (query3) {
+          return {
+            backgroundSize: "contain",
+            backgroundImage: "url('https://carbon.sage.com/static/media/collaborate.9b17d172.svg')",
+            m: 1
+          };
+        }
+        if (query2) {
+          return {
+            backgroundSize: "contiain",
+            backgroundRepeat: "repeat",
+            backgroundImage: "url('https://carbon.sage.com/static/media/point.6992f190.svg')",
+            m: 2
+          };
+        }
+        if (query1) {
+          return {
+            backgroundImage: "url('https://carbon.sage.com/static/media/collaborate.9b17d172.svg')",
+            m: 3
+          };
+        }
+        return {
+          backgroundImage: "url('https://carbon.sage.com/static/media/point.6992f190.svg')",
+          m: 4
+        };
+      }
+      return (
+        <Image {...responsiveProps()}>
+          <Box height="700px" display="flex" alignItems="center" justifyContent="center">
+            <Typography variant="h4">Here is an example of some overlayed text</Typography>
+          </Box>
+        </Image>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Props
+
+### Image
+
+<ArgsTable rows={[
+  {
+    name: 'src',
+    type: { summary: "string" },
+    description: 'Any valid file path for an image, passing a value to this prop will render component as `<img />`',
+    required: false,
+    defaultValue: '-'
+  },
+  {
+    name: 'alt',
+    type: { summary: "string" },
+    description: 'Text to display when component renders as `<img />` but fails to load the `src`',
+    required: false,
+    defaultValue: '-'
+  }
+]} />
+
+<StyledSystemProps
+  margin
+  layout
+  background
+  noHeader
+/>

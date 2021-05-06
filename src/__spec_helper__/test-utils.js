@@ -163,6 +163,7 @@ const layoutProps = [
   ["overflowX", "overflow-x", "hidden"],
   ["overflowY", "overflow-y", "hidden"],
 ];
+
 const flexBoxProps = [
   ["alignItems", "alignItems", "center"],
   ["alignContent", "alignContent", "center"],
@@ -177,6 +178,17 @@ const flexBoxProps = [
   ["justifySelf", "justifySelf", "center"],
   ["alignSelf", "alignSelf", "center"],
   ["order", "order", "1"],
+];
+
+const backgroundProps = [
+  [
+    "background",
+    "background",
+    "lightblue url('foo.jpg') no-repeat fixed center",
+  ],
+  ["backgroundImage", "background-image", "url(foo.jpg)"],
+  ["backgroundSize", "background-size", "center"],
+  ["backgroundRepeat", "background-repeat", "no-repeat"],
 ];
 
 const getDefaultValue = (value) => {
@@ -413,6 +425,27 @@ const testStyledSystemFlexBox = (component, styleContainer) => {
   );
 };
 
+const testStyledSystemBackground = (component, styleContainer) => {
+  describe.each(backgroundProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: value };
+        wrapper = mount(component({ ...props }));
+
+        expect(
+          assertStyleMatch(
+            { [styledSystemProp]: value },
+            styleContainer ? styleContainer(wrapper) : wrapper
+          )
+        );
+      });
+    }
+  );
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -435,4 +468,5 @@ export {
   testStyledSystemWidth,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  testStyledSystemBackground,
 };
