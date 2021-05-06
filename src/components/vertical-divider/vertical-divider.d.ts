@@ -1,10 +1,11 @@
 import * as React from "react";
-import { SpacingProps, TintValueType} from "../../utils/helpers/options-helper";
+import { SpaceProps } from "styled-system";
+import * as OptionsHelper from "../../utils/helpers/options-helper";
 
-export interface VerticalDividerPropTypes extends SpacingProps {
+export interface VerticalDividerPropTypes extends SpaceProps {
   h?: number | string;
   displayInline?: boolean;
-  tint?: TintValueType;
+  tint?: OptionsHelper.TintValueType;
 }
 
 declare function VerticalDivider(props: VerticalDividerPropTypes): JSX.Element;
