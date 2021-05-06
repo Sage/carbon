@@ -1,7 +1,7 @@
 import * as React from "react";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+import { MarginProps } from "styled-system";
 
-export interface TileSelectProps extends MarginSpacingProps {
+export interface TileSelectProps extends MarginProps {
   /** title of the TileSelect */
   title?: string;
   /** adornment to be rendered next to the title */
@@ -27,7 +27,7 @@ export interface TileSelectProps extends MarginSpacingProps {
   /** Custom class name passed to the root element of TileSelect */
   className?: string;
   /** Type of the TileSelect input */
-  type: "radio" | "checkbox";
+  type?: "radio" | "checkbox";
   /** Render prop that allows overriding the default action button. */
   customActionButton?: (onClick: () => void) => JSX.Element;
   /** An additional help info icon rendered next to the action button */
