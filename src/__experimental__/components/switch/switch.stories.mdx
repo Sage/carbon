@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import Switch from '.';
 
 
@@ -160,6 +160,31 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
+### With margin
+Margins can be applied to the `Switch` component using styled-system. To see a full list of available margin props, 
+please visit the props table at the bottom of this page.
+
+[Visit Props Table](#props)
+<Preview>
+  <Story name="with margin">
+    <Switch
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+      m={2}
+    />
+        <Switch
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+      m={4}
+    />
+        <Switch
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+      m="9px"
+    />
+  </Story>
+</Preview>
+
 ### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
@@ -222,4 +247,4 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Switch
 
-<Props of={Switch} />
+<StyledSystemProps of={Switch} noHeader margin />
