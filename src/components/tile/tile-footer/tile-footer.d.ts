@@ -1,7 +1,7 @@
 import * as React from "react";
-import { SpacingProps } from "utils/helpers/options-helper/options-helper";
+import { SpaceProps } from "styled-system";
 
-export interface TileFooterProps extends SpacingProps {
+export interface TileFooterProps extends SpaceProps {
   /** set which background color variant should be used */
   variant?: "default" | "transparent";
 }
