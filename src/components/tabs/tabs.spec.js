@@ -706,7 +706,7 @@ describe("Tabs", () => {
       };
       const wrapper = render({ history: historyMock, navigatorMethod: "push" });
       wrapper.find('[data-element="select-tab"]').at(1).simulate("click");
-      expect(historyMock.push).toHaveBeenCalledWith({ hash: "#uniqueid1" });
+      expect(historyMock.push).toHaveBeenCalledWith("uniqueid1");
     });
 
     it("should replace in external history", () => {
@@ -718,7 +718,7 @@ describe("Tabs", () => {
         navigatorMethod: "replace",
       });
       wrapper.find('[data-element="select-tab"]').at(1).simulate("click");
-      expect(historyMock.replace).toHaveBeenCalledWith({ hash: "#uniqueid1" });
+      expect(historyMock.replace).toHaveBeenCalledWith("uniqueid1");
     });
 
     it("should not use history if setLocation set to false", () => {
