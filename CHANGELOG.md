@@ -1,3 +1,11 @@
+### [71.4.1](https://github.com/Sage/carbon/compare/v71.4.0...v71.4.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* **flat-table:** allow multiple header rows to be sticky ([e70dfa9](https://github.com/Sage/carbon/commit/e70dfa98deeb283cf0410d0b3fa9a27547384ede)), closes [#3728](https://github.com/Sage/carbon/issues/3728)
+* **flat-table:** allow row headers to be sticky within flat-table-head ([84dfa9b](https://github.com/Sage/carbon/commit/84dfa9b03e6545ca82161dfafc5cb5a437dd0e13))
+
 ## [71.4.0](https://github.com/Sage/carbon/compare/v71.3.0...v71.4.0) (2021-05-07)
 
 
