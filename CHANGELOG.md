@@ -1,3 +1,25 @@
+### [71.4.1](https://github.com/Sage/carbon/compare/v71.4.0...v71.4.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* **flat-table:** allow multiple header rows to be sticky ([e70dfa9](https://github.com/Sage/carbon/commit/e70dfa98deeb283cf0410d0b3fa9a27547384ede)), closes [#3728](https://github.com/Sage/carbon/issues/3728)
+* **flat-table:** allow row headers to be sticky within flat-table-head ([84dfa9b](https://github.com/Sage/carbon/commit/84dfa9b03e6545ca82161dfafc5cb5a437dd0e13))
+
+## [71.4.0](https://github.com/Sage/carbon/compare/v71.3.0...v71.4.0) (2021-05-07)
+
+
+### Features
+
+* **switch:** add styled system margin ([ca01fee](https://github.com/Sage/carbon/commit/ca01fee166410f63d5e576fd2202f4c4f108c4d5))
+
+## [71.3.0](https://github.com/Sage/carbon/compare/v71.2.1...v71.3.0) (2021-05-06)
+
+
+### Features
+
+* **draggable:** add styled-system props support ([9a2ca2b](https://github.com/Sage/carbon/commit/9a2ca2baa006935e1c67b450a01dd7e5a064bd3c))
+
 ### [71.2.1](https://github.com/Sage/carbon/compare/v71.2.0...v71.2.1) (2021-05-06)
 
 
