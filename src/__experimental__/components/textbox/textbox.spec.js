@@ -4,7 +4,7 @@ import Textbox from ".";
 import InputIconToggle from "../input-icon-toggle";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import FormField from "../form-field";
 import InputPresentation from "../input/input-presentation.component";
@@ -18,6 +18,13 @@ import FormFieldStyle from "../form-field/form-field.style";
 jest.mock("../../../utils/helpers/guid", () => () => "mocked-guid");
 
 describe("Textbox", () => {
+  testStyledSystemMargin(
+    (props) => <Textbox {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
+
   it("renders with InputPresentation and Input and correct props passed to Input", () => {
     const wrapper = shallow(
       <Textbox value="foobar" leftChildren="southpaw children">
@@ -162,11 +169,4 @@ describe("Textbox", () => {
       ).toEqual(<Component />);
     });
   });
-
-  testStyledSystemSpacing(
-    (props) => <Textbox {...props} />,
-    undefined,
-    (wrapper) => wrapper.find(FormFieldStyle),
-    { modifier: "&&&" }
-  );
 });
