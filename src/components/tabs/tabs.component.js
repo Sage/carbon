@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import PropTypes from "prop-types";
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Tab from "./tab";
 import Event from "../../utils/helpers/events/events";
@@ -52,7 +52,7 @@ const Tabs = ({
   let historyAPI;
 
   if (!isExternalHistory) {
-    historyAPI = createBrowserHistory();
+    historyAPI = createHashHistory();
   } else {
     historyAPI = history;
   }
@@ -89,7 +89,7 @@ const Tabs = ({
       }
       setSelectedTabIdState(selectedTab);
     }
-  }, [historyAPI.location?.hash, children, firstRender, selectedTabId]);
+  }, [children, firstRender, historyAPI.location, selectedTabId]);
 
   const updateErrors = useCallback(
     (id, hasError) => {
@@ -122,7 +122,7 @@ const Tabs = ({
   const updateVisibleTab = useCallback(
     (tabid) => {
       if (setLocation && !sidebarContext) {
-        historyAPI[navigatorMethod]({ hash: `#${tabid}` });
+        historyAPI[navigatorMethod](tabid);
       }
 
       setSelectedTabIdState(tabid);
@@ -131,14 +131,7 @@ const Tabs = ({
         onTabChange(tabid);
       }
     },
-    [
-      historyAPI.history,
-      historyAPI.location?.origin,
-      historyAPI.location?.pathname,
-      sidebarContext,
-      onTabChange,
-      setLocation,
-    ]
+    [setLocation, sidebarContext, onTabChange, historyAPI, navigatorMethod]
   );
 
   /** Determines if the tab titles are in a vertical format. */
