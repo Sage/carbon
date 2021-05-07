@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledInput from "../input/input.style";
 import { StyledLabelContainer } from "../label/label.style";
-import InputIconToggleStyle from "../input-icon-toggle/input-icon-toggle.style";
+import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 
 const StyledTextarea = styled.div`
   ${StyledInput} {

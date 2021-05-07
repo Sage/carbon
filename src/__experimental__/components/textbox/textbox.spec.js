@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import Textbox from ".";
-import InputIconToggle from "../input-icon-toggle";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,

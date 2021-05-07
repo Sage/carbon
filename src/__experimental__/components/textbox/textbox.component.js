@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import { Input, InputPresentation } from "../input";
-import InputIconToggle from "../input-icon-toggle";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import FormField from "../form-field";
 import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../../utils/helpers/options-helper";
