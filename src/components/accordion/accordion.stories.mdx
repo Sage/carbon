@@ -1,36 +1,43 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import { AccordionGroup, Accordion } from '.';
-import Textbox from '../../__experimental__/components/textbox';
-import Button from '../button';
-import { Dl, Dt, Dd } from '../definition-list';
-import { Checkbox } from '../../__experimental__/components/checkbox';
-import Box from '../box';
+import { AccordionGroup, Accordion } from ".";
+import Textbox from "../../__experimental__/components/textbox";
+import Button from "../button";
+import { Dl, Dt, Dd } from "../definition-list";
+import { Checkbox } from "../../__experimental__/components/checkbox";
+import Box from "../box";
 
 <Meta
   title="Design System/Accordion"
-  parameters={{ info: { disable: true }}}
+  parameters={{ info: { disable: true } }}
 />
 
 # Accordion
+
 Accordions are a good progressive disclosure technique - initially showing only top-level information, but allowing the user quick access to more on request. But, they can confuse users sometimes, so use them sparingly.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
-To use accordion, import the `Accordion` and pass the content as children. To group accordions import `AccordionGroup`. 
+
+To use accordion, import the `Accordion` and pass the content as children. To group accordions import `AccordionGroup`.
 
 ```javascript
-import { Accordion, AccordionGroup } from "carbon-react/lib/components/accordion"
+import {
+  Accordion,
+  AccordionGroup,
+} from "carbon-react/lib/components/accordion";
 ```
 
 ## Designer Notes
+
 - Don’t put accordions within accordions.
 - Don’t hide important controls within accordions - for example, primary actions should always be outside them.
 - Accordions expand and collapse vertically. If there are lots, or content is extensive, be careful that the user doesn’t become confused, lose their place, or have problems with discoverability. Use them sparingly for these reasons.
@@ -44,10 +51,10 @@ It can be used as a controlled component where the expansion state is controlled
 in that case both `onChange` and `expanded` props are required.
 
 ```javascript
-import { Accordion } from "carbon-react/lib/components/accordion"
+import { Accordion } from "carbon-react/lib/components/accordion";
 
 const MyComponent = () => (
-  <Accordion onChange={ onChange } expanded={ expanded } title="Title">
+  <Accordion onChange={onChange} expanded={expanded} title="Title">
     <p>Content as a children</p>
   </Accordion>
 );
@@ -57,10 +64,10 @@ It can also be used as an uncontrolled component where the expansion state is co
 It is still possible to pass `onChange` to hook a callback for state changes, however to set initial expansion state `defaultExpanded` can be passed.
 
 ```javascript
-import { Accordion } from "carbon-react/lib/components/accordion"
+import { Accordion } from "carbon-react/lib/components/accordion";
 
 const MyComponent = () => (
-  <Accordion onChange={ onChange } defaultExpanded={ true } title="Title">
+  <Accordion onChange={onChange} defaultExpanded={true} title="Title">
     <p>Content as a children</p>
   </Accordion>
 );
@@ -69,11 +76,12 @@ const MyComponent = () => (
 ## Examples
 
 ### Default
+
 Default version of accordion has white background and no side borders.
 
 <Preview>
   <Story name="default">
-    <Accordion title='Heading'>
+    <Accordion title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -82,11 +90,15 @@ Default version of accordion has white background and no side borders.
 </Preview>
 
 ### With disableContentPadding
+
 Accordion without padding inside of the content.
 
 <Preview>
-  <Story parameters={{ chromatic: { disable: true }}} name="with disableContentPadding">
-    <Accordion disableContentPadding title='Heading'>
+  <Story
+    parameters={{ chromatic: { disable: true } }}
+    name="with disableContentPadding"
+  >
+    <Accordion disableContentPadding title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -95,11 +107,12 @@ Accordion without padding inside of the content.
 </Preview>
 
 ### Transparent
+
 Transparent scheme has transparent background.
 
 <Preview>
-  <Story name="transparent" parameters={{ chromatic: { disable: true }}}>
-    <Accordion scheme="transparent" title='Heading'>
+  <Story name="transparent" parameters={{ chromatic: { disable: true } }}>
+    <Accordion scheme="transparent" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -108,11 +121,12 @@ Transparent scheme has transparent background.
 </Preview>
 
 ### Small
+
 Small version has a smaller heading and less padding.
 
 <Preview>
   <Story name="small">
-    <Accordion size="small" title='Heading'>
+    <Accordion size="small" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -121,11 +135,12 @@ Small version has a smaller heading and less padding.
 </Preview>
 
 ### Sub title
+
 A sub title can be added when the size is large (default).
 
 <Preview>
   <Story name="sub title">
-    <Accordion subTitle='Sub title' title='Heading'>
+    <Accordion subTitle="Sub title" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -134,11 +149,12 @@ A sub title can be added when the size is large (default).
 </Preview>
 
 ### Full border
+
 The accordion can have side borders along with the default top and bottom.
 
 <Preview>
   <Story name="full border">
-    <Accordion borders='full' title='Heading'>
+    <Accordion borders="full" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -147,11 +163,12 @@ The accordion can have side borders along with the default top and bottom.
 </Preview>
 
 ### Left aligned icon
+
 The accordion icon can be left aligned.
 
 <Preview>
   <Story name="icon left">
-    <Accordion iconAlign='left' title='Heading'>
+    <Accordion iconAlign="left" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -160,11 +177,12 @@ The accordion icon can be left aligned.
 </Preview>
 
 ### Different width
+
 The default width of 100% can be overriden.
 
 <Preview>
   <Story name="different width">
-    <Accordion width="500px" title='Heading'>
+    <Accordion width="500px" title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -173,6 +191,7 @@ The default width of 100% can be overriden.
 </Preview>
 
 ### With different padding and margin
+
 Showing the different paddings and margins
 
 <Preview>
@@ -204,30 +223,31 @@ Showing the different paddings and margins
 </Preview>
 
 ### With different padding and margin in Accordion title
+
 Showing the different paddings and margins within the accordion title
 
 <Preview>
   <Story name="with different padding and margin in Accordion title">
     <>
-      <Accordion headerSpacing={{p:0}} title="Accordion">
+      <Accordion headerSpacing={{ p: 0 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:1}} title="Accordion">
+      <Accordion headerSpacing={{ p: 1 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:2}} title="Accordion">
+      <Accordion headerSpacing={{ p: 2 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:3}} title="Accordion">
+      <Accordion headerSpacing={{ p: 3 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:4}} title="Accordion">
+      <Accordion headerSpacing={{ p: 4 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:5}} title="Accordion">
+      <Accordion headerSpacing={{ p: 5 }} title="Accordion">
         <div>content</div>
       </Accordion>
-      <Accordion headerSpacing={{p:6}} title="Accordion">
+      <Accordion headerSpacing={{ p: 6 }} title="Accordion">
         <div>content</div>
       </Accordion>
     </>
@@ -235,92 +255,134 @@ Showing the different paddings and margins within the accordion title
 </Preview>
 
 ### With Box component and different paddings
+
 The box component can be used inside the accordion with different paddings
 
 <Preview>
-  <Story name="with Box component and different paddings" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with Box component and different paddings"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setOpen] = useState(true);
-      return(
+      return (
         <>
-          <Accordion 
-            expanded={isOpen} 
-            onClick={() => setOpen(!isOpen)} 
-            disableContentPadding 
-            headerSpacing={{p:2}} 
-            title="Accordion controlled">
-            <Box p={2} pr='21px'>
-                <Box bg="gray">This is example content inside of the Box component with gray background</Box>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
-                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
-                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
-                Donec semper odio elit, tempus ultrices est molestie id. 
-                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
-                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
-                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
-                Aenean et condimentum arcu, non malesuada elit. 
-                Cras a magna vestibulum, semper tortor id, molestie eros.
-                </div>
+          <Accordion
+            expanded={isOpen}
+            onClick={() => setOpen(!isOpen)}
+            disableContentPadding
+            headerSpacing={{ p: 2 }}
+            title="Accordion controlled"
+          >
+            <Box p={2} pr="21px">
+              <Box bg="gray">
+                This is example content inside of the Box component with gray
+                background
+              </Box>
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                in ornare neque. Maecenas pellentesque et erat tincidunt mollis.
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis
+                ligula. Cras eget lorem aliquam lorem mollis fringilla a sit
+                amet nisl. Donec semper odio elit, tempus ultrices est molestie
+                id. Ut sit amet sollicitudin ipsum, eu tristique ligula.
+                Praesent velit velit, finibus ut odio sit amet, fringilla
+                iaculis lacus. Aliquam facilisis libero nec ipsum tincidunt
+                imperdiet. Ut commodo mi ac odio blandit, ac molestie ante
+                dapibus. Ut molestie auctor turpis, quis ultrices ante aliquet
+                eu. Aenean et condimentum arcu, non malesuada elit. Cras a magna
+                vestibulum, semper tortor id, molestie eros.
+              </div>
             </Box>
           </Accordion>
-          <Accordion disableContentPadding headerSpacing={{p:3}} title="Accordion with a very long title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
-                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. ">
-            <Box p={3} pr='29px'>
-              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
-                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
-                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
-                Donec semper odio elit, tempus ultrices est molestie id. 
-                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
-                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
-                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
-                Aenean et condimentum arcu, non malesuada elit. 
-                Cras a magna vestibulum, semper tortor id, molestie eros.
-                </div>
+          <Accordion
+            disableContentPadding
+            headerSpacing={{ p: 3 }}
+            title="Accordion with a very long title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. "
+          >
+            <Box p={3} pr="29px">
+              <Box bg="gray">
+                This is example content inside of the Box component with gray
+                background
+              </Box>
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                in ornare neque. Maecenas pellentesque et erat tincidunt mollis.
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis
+                ligula. Cras eget lorem aliquam lorem mollis fringilla a sit
+                amet nisl. Donec semper odio elit, tempus ultrices est molestie
+                id. Ut sit amet sollicitudin ipsum, eu tristique ligula.
+                Praesent velit velit, finibus ut odio sit amet, fringilla
+                iaculis lacus. Aliquam facilisis libero nec ipsum tincidunt
+                imperdiet. Ut commodo mi ac odio blandit, ac molestie ante
+                dapibus. Ut molestie auctor turpis, quis ultrices ante aliquet
+                eu. Aenean et condimentum arcu, non malesuada elit. Cras a magna
+                vestibulum, semper tortor id, molestie eros.
+              </div>
             </Box>
           </Accordion>
-          <Accordion disableContentPadding headerSpacing={{p:4}} title="Accordion">
-            <Box p={4} pr='37px'>
-              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
-                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
-                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
-                Donec semper odio elit, tempus ultrices est molestie id. 
-                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
-                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
-                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
-                Aenean et condimentum arcu, non malesuada elit. 
-                Cras a magna vestibulum, semper tortor id, molestie eros.
-                </div>
+          <Accordion
+            disableContentPadding
+            headerSpacing={{ p: 4 }}
+            title="Accordion"
+          >
+            <Box p={4} pr="37px">
+              <Box bg="gray">
+                This is example content inside of the Box component with gray
+                background
+              </Box>
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                in ornare neque. Maecenas pellentesque et erat tincidunt mollis.
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis
+                ligula. Cras eget lorem aliquam lorem mollis fringilla a sit
+                amet nisl. Donec semper odio elit, tempus ultrices est molestie
+                id. Ut sit amet sollicitudin ipsum, eu tristique ligula.
+                Praesent velit velit, finibus ut odio sit amet, fringilla
+                iaculis lacus. Aliquam facilisis libero nec ipsum tincidunt
+                imperdiet. Ut commodo mi ac odio blandit, ac molestie ante
+                dapibus. Ut molestie auctor turpis, quis ultrices ante aliquet
+                eu. Aenean et condimentum arcu, non malesuada elit. Cras a magna
+                vestibulum, semper tortor id, molestie eros.
+              </div>
             </Box>
           </Accordion>
-          <Accordion disableContentPadding headerSpacing={{p:5}} title="Accordion">
+          <Accordion
+            disableContentPadding
+            headerSpacing={{ p: 5 }}
+            title="Accordion"
+          >
             <Box p={5} pr="45px">
-              <Box bg="gray">This is example content inside of the Box component with gray background</Box>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
-                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. 
-                Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl. 
-                Donec semper odio elit, tempus ultrices est molestie id. 
-                Ut sit amet sollicitudin ipsum, eu tristique ligula. Praesent velit velit, finibus ut odio sit amet, fringilla iaculis lacus. 
-                Aliquam facilisis libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit, ac molestie ante dapibus. 
-                Ut molestie auctor turpis, quis ultrices ante aliquet eu. 
-                Aenean et condimentum arcu, non malesuada elit. 
-                Cras a magna vestibulum, semper tortor id, molestie eros.
-                </div>
+              <Box bg="gray">
+                This is example content inside of the Box component with gray
+                background
+              </Box>
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                in ornare neque. Maecenas pellentesque et erat tincidunt mollis.
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis
+                ligula. Cras eget lorem aliquam lorem mollis fringilla a sit
+                amet nisl. Donec semper odio elit, tempus ultrices est molestie
+                id. Ut sit amet sollicitudin ipsum, eu tristique ligula.
+                Praesent velit velit, finibus ut odio sit amet, fringilla
+                iaculis lacus. Aliquam facilisis libero nec ipsum tincidunt
+                imperdiet. Ut commodo mi ac odio blandit, ac molestie ante
+                dapibus. Ut molestie auctor turpis, quis ultrices ante aliquet
+                eu. Aenean et condimentum arcu, non malesuada elit. Cras a magna
+                vestibulum, semper tortor id, molestie eros.
+              </div>
             </Box>
           </Accordion>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Opening button
-A button can be passed in to replace the title and opening icon. 
+
+A button can be passed in to replace the title and opening icon.
 This is not currently designed to be used within a form using validation.
 
 <Preview>
@@ -341,110 +403,151 @@ This is not currently designed to be used within a form using validation.
 </Preview>
 
 ### Grouped
+
 To group accordions import `AccordionGroup`. Accordions borders collapse when positioned next to each other making it easy to group them.
 To achieve proper keyboard accessibility as described in `W3` sources it is required to wrap neighbouring accordions in
 `AccordionGroup`.
 
 <Preview>
-  <Story id="design-system-accordion-test--grouped" name="grouped">
-  </Story>
+  <Story id="design-system-accordion-test--grouped" name="grouped"></Story>
 </Preview>
 
 ### With validation icon
-The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`, 
+
+The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`,
 `warning` or `info` props. This message will be displayed as in the tooltip.
 
 <Preview>
   <Story name="validation icon">
     {() => {
-      const [errors, setErrors] = useState({ one: 'error', two: 'error', three: 'error' });
+      const [errors, setErrors] = useState({
+        one: "error",
+        two: "error",
+        three: "error",
+      });
       const [warnings, setWarnings] = useState({});
       const [infos, setInfos] = useState({});
-      const [expanded, setExpanded] = useState({one: false, two: false, three: true})
+      const [expanded, setExpanded] = useState({
+        one: false,
+        two: false,
+        three: true,
+      });
       const handleChange = (id, type, setter, msg) => {
         const update = type[id] ? undefined : msg;
-        setter(previous => ({ ...previous, [id]: update }));
-      }
+        setter((previous) => ({ ...previous, [id]: update }));
+      };
       return (
-        <div style={{ marginTop: '16px' }}>
+        <div style={{ marginTop: "16px" }}>
           <AccordionGroup>
             <Accordion
-              title='Heading'
+              title="Heading"
               expanded={expanded.one}
-              onChange={() => setExpanded((previousState) => ({...previousState, one: !previousState.one})) }
+              onChange={() =>
+                setExpanded((previousState) => ({
+                  ...previousState,
+                  one: !previousState.one,
+                }))
+              }
               error={errors.one}
-              warning={ warnings.one }
-              info={ infos.one }>
-              <div style={{ padding: '8px'}}>
+              warning={warnings.one}
+              info={infos.one}
+            >
+              <div style={{ padding: "8px" }}>
                 <Checkbox
-                  label='Add error'
+                  label="Add error"
                   error={!!errors.one}
-                  onChange={ () => handleChange('one', errors, setErrors, 'error')}
+                  onChange={() =>
+                    handleChange("one", errors, setErrors, "error")
+                  }
                   checked={!!errors.one}
                 />
                 <Checkbox
-                  label='Add warning'
+                  label="Add warning"
                   warning={!!warnings.one}
-                  onChange={ () => handleChange('one', warnings, setWarnings, 'warning')}
+                  onChange={() =>
+                    handleChange("one", warnings, setWarnings, "warning")
+                  }
                 />
                 <Checkbox
-                  label='Add info'
+                  label="Add info"
                   info={!!infos.one}
-                  onChange={ () => handleChange('one', infos, setInfos, 'info')}
+                  onChange={() => handleChange("one", infos, setInfos, "info")}
                 />
               </div>
             </Accordion>
             <Accordion
-              title='Heading'
+              title="Heading"
               expanded={expanded.two}
-              onChange={() => setExpanded((previousState) => ({...previousState, two: !previousState.two})) }
-              subTitle='Sub title'
+              onChange={() =>
+                setExpanded((previousState) => ({
+                  ...previousState,
+                  two: !previousState.two,
+                }))
+              }
+              subTitle="Sub title"
               error={errors.two}
-              warning={ warnings.two }
-              info={ infos.two }>
-              <div style={{ padding: '8px'}}>
+              warning={warnings.two}
+              info={infos.two}
+            >
+              <div style={{ padding: "8px" }}>
                 <Checkbox
-                  label='Add error'
+                  label="Add error"
                   error={!!errors.two}
-                  onChange={ () => handleChange('two', errors, setErrors, 'error')}
+                  onChange={() =>
+                    handleChange("two", errors, setErrors, "error")
+                  }
                   checked={!!errors.two}
                 />
                 <Checkbox
-                  label='Add warning'
+                  label="Add warning"
                   warning={!!warnings.two}
-                  onChange={ () => handleChange('two', warnings, setWarnings, 'warning')}
+                  onChange={() =>
+                    handleChange("two", warnings, setWarnings, "warning")
+                  }
                 />
                 <Checkbox
-                  label='Add info'
+                  label="Add info"
                   info={!!infos.two}
-                  onChange={ () => handleChange('two', infos, setInfos, 'info')}
+                  onChange={() => handleChange("two", infos, setInfos, "info")}
                 />
               </div>
             </Accordion>
             <Accordion
-              title='Heading'
+              title="Heading"
               expanded={expanded.three}
-              onChange={() => setExpanded((previousState) => ({...previousState, three: !previousState.three})) }
-              subTitle='This is a longer sub title'
+              onChange={() =>
+                setExpanded((previousState) => ({
+                  ...previousState,
+                  three: !previousState.three,
+                }))
+              }
+              subTitle="This is a longer sub title"
               error={errors.three}
-              warning={ warnings.three }
-              info={ infos.three }>
-              <div style={{ padding: '8px'}}>
+              warning={warnings.three}
+              info={infos.three}
+            >
+              <div style={{ padding: "8px" }}>
                 <Checkbox
-                  label='Add error'
+                  label="Add error"
                   error={!!errors.three}
-                  onChange={ () => handleChange('three', errors, setErrors, 'error')}
+                  onChange={() =>
+                    handleChange("three", errors, setErrors, "error")
+                  }
                   checked={!!errors.three}
                 />
                 <Checkbox
-                  label='Add warning'
+                  label="Add warning"
                   warning={!!warnings.three}
-                  onChange={ () => handleChange('three', warnings, setWarnings, 'warning')}
+                  onChange={() =>
+                    handleChange("three", warnings, setWarnings, "warning")
+                  }
                 />
                 <Checkbox
-                  label='Add info'
+                  label="Add info"
                   info={!!infos.three}
-                  onChange={ () => handleChange('three', infos, setInfos, 'info')}
+                  onChange={() =>
+                    handleChange("three", infos, setInfos, "info")
+                  }
                 />
               </div>
             </Accordion>
@@ -456,67 +559,75 @@ The `ValidationIcon` can be displayed in the `Accordion` header by passing in a 
 </Preview>
 
 ### With dynamic content
+
 Accordion adjust it's height properly when it's content is being dynamically changed
 
 <Preview>
   <Story name="with dynamic content">
     {() => {
       const [contentCount, setContentCount] = useState(3);
-      const modifyContentCount = modifier => {
-        if(modifier === 1) {
-          setContentCount(contentCount + 1)
+      const modifyContentCount = (modifier) => {
+        if (modifier === 1) {
+          setContentCount(contentCount + 1);
         }
         if (modifier === -1 && contentCount > 0) {
-          setContentCount(contentCount - 1)
+          setContentCount(contentCount - 1);
         }
-      }
+      };
       return (
         <>
-          <Button onClick={ () => modifyContentCount(1) }>Add content</Button>
-          <Button onClick={ () => modifyContentCount(-1) } ml={2}>Remove content</Button>
+          <Button onClick={() => modifyContentCount(1)}>Add content</Button>
+          <Button onClick={() => modifyContentCount(-1)} ml={2}>
+            Remove content
+          </Button>
           <Accordion title="Title">
-            {Array.from({ length: contentCount }).map((_, index) => <div key={ index }>Content</div>)}
+            {Array.from({ length: contentCount }).map((_, index) => (
+              <div key={index}>Content</div>
+            ))}
           </Accordion>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### With overriden styles
+
 Accordion styles can be easily overriden by providing `styleOverride` prop with proper structure as defined in propTypes.
 
 <Preview>
-  <Story name="styles overriden" parameters={{ chromatic: { disable: true }}}>
+  <Story name="styles overriden" parameters={{ chromatic: { disable: true } }}>
     <Accordion
-      title='Heading'
-      styleOverride={
-        {
-          headerArea: {
-            padding: '24px',
-            marginLeft: 'calc(15% - 24px)'
-          },
-          content: { paddingLeft: 0 }
-        }
-      }
+      title="Heading"
+      styleOverride={{
+        headerArea: {
+          padding: "24px",
+          marginLeft: "calc(15% - 24px)",
+        },
+        content: { paddingLeft: 0 },
+      }}
     >
       <Textbox
-        label='Label 1'
+        label="Label 1"
         labelInline
-        labelAlign='right'
-        labelWidth={ 15 }
-        inputWidth={ 85 }
+        labelAlign="right"
+        labelWidth={15}
+        inputWidth={85}
       />
     </Accordion>
   </Story>
 </Preview>
 
 ### With a definition list
+
 Accordion with a definiton list
 
 <Preview>
-  <Story name="with a definition list" parameters={{ chromatic: { disable: true }}}>
-    <Accordion title='Heading' expanded={true}>
+  <Story
+    name="with a definition list"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Accordion title="Heading" expanded={true}>
       <Dl>
         <Dt>Drink</Dt>
         <Dd>Coffee</Dd>
@@ -525,23 +636,27 @@ Accordion with a definiton list
         <Dt>Brand of Coffee</Dt>
         <Dd>Magic Coffee Beans</Dd>
         <Dt>Website</Dt>
-        <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
-        <Dt>Email</Dt>
-        <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
-        <Dt>Main and Registered Address</Dt>
-        <Dd mb='4px'>Magic Coffee Beans,</Dd>
-        <Dd mb='4px'>In The Middle of Our Street,</Dd>
-        <Dd mb='4px'>Madness,</Dd>
-        <Dd mb='4px'>CO4 3VE</Dd>
         <Dd>
-          <Button 
-            buttonType='tertiary' 
-            iconType="link" 
+          <Link href="www.sage.com">Magic Coffee Beans' Website</Link>
+        </Dd>
+        <Dt>Email</Dt>
+        <Dd>
+          <Link href="magic@coffeebeans.com">magic@coffeebeans.com</Link>
+        </Dd>
+        <Dt>Main and Registered Address</Dt>
+        <Dd mb="4px">Magic Coffee Beans,</Dd>
+        <Dd mb="4px">In The Middle of Our Street,</Dd>
+        <Dd mb="4px">Madness,</Dd>
+        <Dd mb="4px">CO4 3VE</Dd>
+        <Dd>
+          <Button
+            buttonType="tertiary"
+            iconType="link"
             iconPosition="after"
-            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'
+            href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
           >
             View in Google Maps
-          </Button> 
+          </Button>
         </Dd>
       </Dl>
     </Accordion>
@@ -553,3 +668,7 @@ Accordion with a definiton list
 ### Accordion
 
 <StyledSystemProps of={Accordion} noHeader spacing />
+
+### AccordionGroup
+
+<StyledSystemProps of={AccordionGroup} noHeader margin />

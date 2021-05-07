@@ -6,8 +6,6 @@ import { TableAjax, TableRow } from ".";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import Pager from "../pager";
 
-/* global jest console */
-
 jest.mock("superagent");
 
 describe("TableAjax", () => {

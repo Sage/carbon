@@ -3,7 +3,6 @@ import {
   StyledHeader,
   StyledHeading,
 } from "../../components/heading/heading.style";
-import StyledIconButton from "../../components/icon-button/icon-button.style";
 import baseTheme from "../../style/themes/base";
 
 export const StyledHeaderContainer = styled.div`
@@ -41,10 +40,6 @@ const StyledFullScreenHeading = styled.div`
       padding-bottom: 0;
       margin: 22px 24px 0 0;
     }
-  }
-
-  ${StyledIconButton} {
-    margin-top: 26px;
   }
 `;
 

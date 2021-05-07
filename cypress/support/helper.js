@@ -196,5 +196,6 @@ export function keyCode(type) {
     Tab: { key: "Tab", keyCode: 9, which: 9 },
     Home: { keyCode: 36, which: 36 },
     End: { keyCode: 35, which: 35 },
+    Esc: { keyCode: 27, which: 27 },
   }[type];
 }

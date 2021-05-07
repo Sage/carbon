@@ -1,3 +1,84 @@
+## [71.4.0](https://github.com/Sage/carbon/compare/v71.3.0...v71.4.0) (2021-05-07)
+
+
+### Features
+
+* **switch:** add styled system margin ([ca01fee](https://github.com/Sage/carbon/commit/ca01fee166410f63d5e576fd2202f4c4f108c4d5))
+
+## [71.3.0](https://github.com/Sage/carbon/compare/v71.2.1...v71.3.0) (2021-05-06)
+
+
+### Features
+
+* **draggable:** add styled-system props support ([9a2ca2b](https://github.com/Sage/carbon/commit/9a2ca2baa006935e1c67b450a01dd7e5a064bd3c))
+
+### [71.2.1](https://github.com/Sage/carbon/compare/v71.2.0...v71.2.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **search:** fix outline appearing onClick around the X icon ([6f8fb38](https://github.com/Sage/carbon/commit/6f8fb38cc50091ab482e10e1ad63c9d822ddb905)), closes [#3857](https://github.com/Sage/carbon/issues/3857)
+
+## [71.2.0](https://github.com/Sage/carbon/compare/v71.1.0...v71.2.0) (2021-05-06)
+
+
+### Features
+
+* **image:** create new component to support rendering images ([c77e4b1](https://github.com/Sage/carbon/commit/c77e4b18d17fcfff03257c4179d0ffc60eaca425))
+
+## [71.1.0](https://github.com/Sage/carbon/compare/v71.0.0...v71.1.0) (2021-05-04)
+
+
+### Features
+
+* **detail:** add styled-system margin support ([5ccbf34](https://github.com/Sage/carbon/commit/5ccbf349855a065ea3ce845a457e3540a6651a14))
+
+## [71.0.0](https://github.com/Sage/carbon/compare/v70.9.0...v71.0.0) (2021-05-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu-item:** Removed keyboardOverride prop from MenuItem
+
+### Code Refactoring
+
+* **menu-item:** remove keyboard override option ([6531b2f](https://github.com/Sage/carbon/commit/6531b2fcf8bc57ea87679af6f652c0e6d860c51d))
+
+## [70.9.0](https://github.com/Sage/carbon/compare/v70.8.0...v70.9.0) (2021-04-30)
+
+
+### Features
+
+* **content:** add margin props ([d95b9c5](https://github.com/Sage/carbon/commit/d95b9c52f1357d16d294b6d8ef269b0e257cc8c3))
+
+## [70.8.0](https://github.com/Sage/carbon/compare/v70.7.0...v70.8.0) (2021-04-30)
+
+
+### Features
+
+* **heading:** add styled-system margin support ([86b54e1](https://github.com/Sage/carbon/commit/86b54e17054e5769444199f4b3b255704699deca))
+
+## [70.7.0](https://github.com/Sage/carbon/compare/v70.6.0...v70.7.0) (2021-04-29)
+
+
+### Features
+
+* **accordion-group:** add styled-system margin support ([782d2d6](https://github.com/Sage/carbon/commit/782d2d6e6bf93d6d68ee93e04de2644b32c67718))
+
+## [70.6.0](https://github.com/Sage/carbon/compare/v70.5.1...v70.6.0) (2021-04-29)
+
+
+### Features
+
+* **dialog-full-screen:** add auto focus functionality ([0c36bbb](https://github.com/Sage/carbon/commit/0c36bbb20a178ed11107e79dfe895e4a8123d788))
+
+### [70.5.1](https://github.com/Sage/carbon/compare/v70.5.0...v70.5.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **filterable-select:** call onChange when value is deleted or not matched ([6c18561](https://github.com/Sage/carbon/commit/6c18561d8e4881fc4c54c8445e81588a3696c1d0))
+
 ## [70.5.0](https://github.com/Sage/carbon/compare/v70.4.1...v70.5.0) (2021-04-29)
 
 
