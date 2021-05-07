@@ -57,12 +57,6 @@ declare function MyComponent(props: MyComponentProps): JSX.Element;
 export default MyComponent;
 ```
 
-Component could also be declared as `FunctionComponent` when it uses the `children` prop:
-
-```ts
-declare const MyComponent: React.FunctionComponent<MyComponentProps>;
-```
-
 Exports in the `<component-name>.d.ts` file should match it's js counterpart.
 
 #### Index file
