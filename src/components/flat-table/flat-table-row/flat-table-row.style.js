@@ -55,6 +55,14 @@ const StyledFlatTableRow = styled.tr`
   table-layout: fixed;
   width: auto;
 
+  ${({ stickyOffset }) =>
+    stickyOffset > 0 &&
+    css`
+      && th {
+        top: ${stickyOffset}px;
+      }
+    `}
+
   ${({ isRowInteractive, theme, rowHeaderIndex }) =>
     isRowInteractive &&
     css`
@@ -87,8 +95,7 @@ const StyledFlatTableRow = styled.tr`
         }
       }
     `}
-
-  ${({ isFirstColumnInteractive, firstCellIndex, theme }) =>
+    ${({ isFirstColumnInteractive, firstCellIndex, theme }) =>
     isFirstColumnInteractive &&
     css`
       td:nth-child(${firstCellIndex + 1}),
@@ -105,7 +112,6 @@ const StyledFlatTableRow = styled.tr`
         }
       }
     `}
-
     ${({ colorTheme, rowHeaderIndex, theme }) =>
     ![-1, 0].includes(rowHeaderIndex) &&
     css`
@@ -117,8 +123,7 @@ const StyledFlatTableRow = styled.tr`
         border-left: 1px solid ${borderColor(colorTheme, theme)};
       }
     `}
-
-  ${({
+    ${({
     expandable,
     selected,
     highlighted,
@@ -237,7 +242,7 @@ const StyledFlatTableRow = styled.tr`
         }
       `}
     `;
-  }}
+  }};
 `;
 
 StyledFlatTableRow.defaultProps = {

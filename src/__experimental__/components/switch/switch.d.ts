@@ -1,6 +1,6 @@
 import * as React from "react";
-
-export interface SwitchProps {
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+export interface SwitchProps extends MarginSpacingProps  {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
