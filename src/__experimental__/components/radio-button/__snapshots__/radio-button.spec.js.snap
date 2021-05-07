@@ -414,8 +414,8 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c0 {
-  border: none;
   margin: 0;
+  border: none;
   padding: 0;
   min-width: 0;
   min-inline-size: 0;

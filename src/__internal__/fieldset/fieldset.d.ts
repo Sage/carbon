@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-export interface FieldsetProps {
+import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+export interface FieldsetProps extends MarginSpacingProps {
   /** Fieldset content */
   children: React.ReactNode;
   /** The content for the Fieldset Legend */
@@ -25,10 +25,6 @@ export interface FieldsetProps {
   legendAlign?: 'left' | 'right';
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
-  /** Margin left, any valid CSS value */
-  ml?: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;
