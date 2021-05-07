@@ -63,7 +63,6 @@ const StyledFlatTableCell = styled.td`
 
     ${makeCellSticky &&
     css`
-      top: auto;
       left: ${leftPosition}px;
       position: sticky;
     `}
