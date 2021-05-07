@@ -1,7 +1,7 @@
 import * as React from "react";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+import { MarginProps } from "styled-system";
 
-export interface ContentProps extends MarginSpacingProps {
+export interface ContentProps extends MarginProps {
   /** Aligns the content (left, center or right) */
   align?: "left" | "center" | "right";
   /**

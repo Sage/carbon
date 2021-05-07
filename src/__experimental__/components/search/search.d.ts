@@ -1,7 +1,7 @@
 import * as React from "react";
-import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+import { MarginProps } from "styled-system";
 
-export interface SearchProps extends MarginSpacingProps {
+export interface SearchProps extends MarginProps {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop for `uncontrolled` use */

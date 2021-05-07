@@ -1,10 +1,10 @@
 import * as React from "react";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+import { MarginProps } from "styled-system";
 import { AccordionProps } from "./accordion";
 
 type AccordionElement = React.ReactElement<AccordionProps>;
 
-export interface AccordionGroupProps extends MarginSpacingProps {
+export interface AccordionGroupProps extends MarginProps {
   children?: AccordionElement | AccordionElement[];
 }
 

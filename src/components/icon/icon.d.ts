@@ -1,7 +1,7 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import { Positions } from "../../utils/helpers/options-helper";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
-export interface IconProps extends MarginSpacingProps {
+export interface IconProps extends MarginProps {
   /** Icon type */
   type: string;
   /** Background size */
