@@ -21,6 +21,7 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  iconOnMouseDown,
   iconTabIndex,
   styleOverride,
   validationOnLabel,
@@ -76,6 +77,7 @@ const Textbox = ({
             {...removeParentProps(props)}
             useValidationIcon={!validationOnLabel}
             onClick={iconOnClick || props.onClick}
+            onMouseDown={iconOnMouseDown}
             inputIcon={inputIcon}
             iconTabIndex={iconTabIndex}
           />
@@ -176,6 +178,8 @@ Textbox.propTypes = {
   positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
+  /** Optional handler for mousedown event on Textbox icon */
+  iconOnMouseDown: PropTypes.func,
   /** Overrides the default tabindex of the component */
   iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Handler for onClick events */
