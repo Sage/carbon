@@ -28,8 +28,6 @@ export interface AccordionProps extends SpaceProps {
   iconType?: "chevron_down" | "dropdown";
   /** Sets icon alignment - accepted values: 'left', 'right' (default) */
   iconAlign?: AlignBinaryType;
-  /** Sets accordion type to either primary (default), or secondary */
-  type?: ThemesBinary;
   /** Sets accordion title */
   title: string;
   /** An info message to be displayed in the tooltip */
