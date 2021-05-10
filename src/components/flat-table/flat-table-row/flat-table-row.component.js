@@ -25,6 +25,7 @@ const FlatTableRow = React.forwardRef(
       expanded = false,
       isSubRow,
       isFirstSubRow,
+      stickyOffset,
       highlighted,
       selected,
       subRows,
@@ -140,6 +141,7 @@ const FlatTableRow = React.forwardRef(
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
               colorTheme={colorTheme}
+              stickyOffset={stickyOffset}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -208,6 +210,8 @@ FlatTableRow.propTypes = {
   isSubRow: PropTypes.bool,
   /** @ignore @private */
   isFirstSubRow: PropTypes.bool,
+  /** @ignore @private position in header if multiple rows */
+  stickyOffset: PropTypes.number,
 };
 
 export default FlatTableRow;
