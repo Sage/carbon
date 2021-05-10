@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginSpacingProps } from "../../../utils/helpers/options-helper";
 
-export interface TextareaProps {
+export interface TextareaProps extends MarginSpacingProps {
   /** id of the input */
   id?: string;
   /** Character limit of the textarea */
@@ -64,8 +65,6 @@ export interface TextareaProps {
   inputIcon?: string;
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage?: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Flag to configure component as mandatory */
