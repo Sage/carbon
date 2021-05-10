@@ -1,4 +1,5 @@
 import * as React from "react";
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
 
 interface DayMonthDate {
   dd: string;
@@ -22,7 +23,7 @@ interface NumeralDateEvent {
   };
 }
 
-export interface NumeralDateProps {
+export interface NumeralDateProps extends MarginSpacingProps {
   /* Array of strings to define custom input layout.
   Allowed formats:
   ['dd', 'mm', 'yyyy'],
