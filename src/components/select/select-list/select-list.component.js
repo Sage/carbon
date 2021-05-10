@@ -13,6 +13,7 @@ import {
   StyledPopoverContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
+  StyledSelectListTableBody,
 } from "./select-list.style";
 import Popover from "../../../__internal__/popover";
 import OptionRow from "../option-row/option-row.component";
@@ -67,6 +68,7 @@ const SelectList = React.forwardRef(
     const [placement, setPlacement] = useState("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
+    const tableRef = useRef();
     const listActionButtonRef = useRef();
 
     const optionRefs = useRef(
@@ -329,11 +331,15 @@ const SelectList = React.forwardRef(
 
         const indexOfMatch = getIndexOfMatch(match.props.value);
 
-        updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
+        updateListScrollTop(
+          indexOfMatch,
+          multiColumn ? tableRef.current : listRef.current,
+          optionRefs.current
+        );
 
         return indexOfMatch;
       });
-    }, [childrenList, filterText, getIndexOfMatch, lastFilter]);
+    }, [childrenList, filterText, getIndexOfMatch, lastFilter, multiColumn]);
 
     useEffect(() => {
       if (!highlightedValue) {
@@ -342,8 +348,12 @@ const SelectList = React.forwardRef(
       const indexOfMatch = getIndexOfMatch(highlightedValue);
 
       setCurrentOptionsListIndex(indexOfMatch);
-      updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
-    }, [childrenList, getIndexOfMatch, highlightedValue]);
+      updateListScrollTop(
+        indexOfMatch,
+        multiColumn ? tableRef.current : listRef.current,
+        optionRefs.current
+      );
+    }, [childrenList, getIndexOfMatch, highlightedValue, multiColumn]);
 
     useEffect(() => {
       if (isLoading && currentOptionsListIndex === lastOptionIndex) {
@@ -374,7 +384,9 @@ const SelectList = React.forwardRef(
           <StyledSelectListTableHeader>
             {tableHeader}
           </StyledSelectListTableHeader>
-          <tbody>{childrenWithListProps}</tbody>
+          <StyledSelectListTableBody ref={tableRef}>
+            {childrenWithListProps}
+          </StyledSelectListTableBody>
         </StyledSelectListTable>
       );
     }
@@ -407,6 +419,7 @@ const SelectList = React.forwardRef(
               ref={listRef}
               tabIndex="0"
               isLoading={isLoading}
+              multiColumn={multiColumn}
             >
               {selectListContent}
               {isLoading && loader()}
