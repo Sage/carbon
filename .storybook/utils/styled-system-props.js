@@ -585,6 +585,71 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
   ];
 };
 
+const generateStyledSystemBackgroundProps = (defaults) => {
+  return [
+    {
+      name: "background",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.background || "-",
+      },
+      table: {
+        category: "Background",
+      },
+    },
+    {
+      name: "backgroundImage",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.backgroundImage || "-",
+      },
+      table: {
+        category: "Background",
+      },
+    },
+    {
+      name: "backgroundSize",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.backgroundSize || "-",
+      },
+      table: {
+        category: "Background",
+      },
+    },
+    {
+      name: "backgroundPosition",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.backgroundPosition || "-",
+      },
+      table: {
+        category: "Background",
+      },
+    },
+    {
+      name: "backgroundRepeat",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.backgroundRepeat || "-",
+      },
+      table: {
+        category: "Background",
+      },
+    },
+  ];
+};
+
 const StyledSystemProps = ({
   of,
   spacing,
@@ -596,6 +661,7 @@ const StyledSystemProps = ({
   noHeader,
   margin,
   padding,
+  background,
 }) => {
   let rows = [];
 
@@ -620,6 +686,9 @@ const StyledSystemProps = ({
   if (flexBox) {
     rows.push(...generateStyledSystemFlexBoxProps(defaults));
   }
+  if (background) {
+    rows.push(...generateStyledSystemBackgroundProps(defaults));
+  }
 
   return (
     <>
@@ -640,6 +709,7 @@ StyledSystemProps.propTypes = {
   defaults: PropTypes.object,
   margin: PropTypes.bool,
   padding: PropTypes.bool,
+  background: PropTypes.bool,
 };
 
 export default StyledSystemProps;

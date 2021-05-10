@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import Fieldset from "./";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Select, Option } from "../../../components/select";
 import Textbox from "../textbox";
@@ -227,4 +228,4 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
 ## Props
 
 ### Fieldset
-<Props of={Fieldset} />
+<StyledSystemProps of={Fieldset} noHeader margin />

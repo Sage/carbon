@@ -7,7 +7,11 @@ import {
   FieldsetStyle,
   FieldsetContentStyle,
 } from "./fieldset.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
+import { noThemeSnapshot } from "../../../__spec_helper__/enzyme-snapshot-helper";
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -20,8 +24,14 @@ function render(props, renderer = shallow) {
 const basicWrapper = render();
 
 describe("Fieldset", () => {
+  testStyledSystemMargin((props) => (
+    <Fieldset {...props}>
+      <Textbox />
+    </Fieldset>
+  ));
+
   it("renders correctly", () => {
-    expect(basicWrapper).toMatchSnapshot();
+    expect(noThemeSnapshot(basicWrapper)).toMatchSnapshot();
   });
 
   describe("Fieldset Legend", () => {

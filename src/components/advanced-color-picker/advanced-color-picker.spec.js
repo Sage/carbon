@@ -5,7 +5,11 @@ import AdvancedColorPicker from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../../__experimental__/components/simple-color-picker";
 import guid from "../../utils/helpers/guid";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
+import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -87,10 +91,14 @@ describe("AdvancedColorPicker", () => {
     shiftKey: true,
   });
 
+  testStyledSystemMargin((props) => (
+    <AdvancedColorPicker {...requiredProps} {...props} />
+  ));
+
   describe("when uncontrolled", () => {
     it("should render internal composition to match uncontrolled snapshot", () => {
       expect(
-        shallow(<AdvancedColorPicker {...requiredProps} />)
+        noThemeSnapshot(shallow(<AdvancedColorPicker {...requiredProps} />))
       ).toMatchSnapshot();
     });
   });
