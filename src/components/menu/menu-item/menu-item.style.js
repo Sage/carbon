@@ -15,6 +15,7 @@ const StyledMenuItemWrapper = styled.a`
     isSearch,
     href,
     clickToOpen,
+    maxWidth,
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -23,6 +24,18 @@ const StyledMenuItemWrapper = styled.a`
     position: relative;
     cursor: pointer;
     background-color: ${theme.menu.light.background};
+
+    a,
+    button {
+      ${maxWidth &&
+      css`
+        max-width: ${maxWidth}px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: bottom;
+      `}
+    }
 
     && a:focus,
     && button:focus {

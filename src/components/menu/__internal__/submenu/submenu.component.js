@@ -33,6 +33,7 @@ const Submenu = React.forwardRef(
       showDropdownArrow = true,
       clickToOpen,
       href,
+      maxWidth,
       ...rest
     },
     ref
@@ -270,6 +271,7 @@ const Submenu = React.forwardRef(
           onKeyDown={handleKeyDown}
           clickToOpen={clickToOpen}
           href={href}
+          maxWidth={maxWidth}
         >
           {title}
         </StyledMenuItemWrapper>
@@ -322,6 +324,8 @@ Submenu.propTypes = {
   clickToOpen: PropTypes.bool,
   /** The href to use for the menu item. */
   href: PropTypes.string,
+  /** Maximum width in px */
+  maxWidth: PropTypes.number,
 };
 
 export default Submenu;

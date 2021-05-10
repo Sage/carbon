@@ -682,6 +682,31 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
   </Story>
 </Preview>
 
+### Truncated titles
+
+Menu items can be given a maximum width using the `maxWidth` prop. Text overflowing this width will be truncated.
+A title attribute is added to the item when using this prop, containing the full menu item text.
+
+<Preview>
+  <Story name="truncated titles">
+    <div style={{ minHeight: "150px" }}>
+      <Menu>
+        <MenuItem maxWidth={100} href="#">
+          A long menu item title
+        </MenuItem>
+        <MenuItem maxWidth={100} submenu="Menu Item Three">
+          <MenuItem maxWidth={150} href="#">
+            A long submenu menu item title
+          </MenuItem>
+        </MenuItem>
+        <MenuItem maxWidth={150} icon="home" href="#">
+          A long menu item title with icon
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
 ## Props
 
 ### Menu
