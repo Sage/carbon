@@ -4,10 +4,10 @@ import { boolean, text, select, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Textbox from ".";
 
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
 
 export default {
-  title: "Experimental/Textbox/Test",
+  title: "Design System/Textbox/Test",
   component: Textbox,
   includeStories: ["Default", "multiple"],
   parameters: {

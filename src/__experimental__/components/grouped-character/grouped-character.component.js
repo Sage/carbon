@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
 
 const buildCustomTarget = ({ target }, value) => {

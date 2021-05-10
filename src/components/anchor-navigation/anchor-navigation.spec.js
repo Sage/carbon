@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import {
   AnchorNavigation,
   AnchorNavigationItem,

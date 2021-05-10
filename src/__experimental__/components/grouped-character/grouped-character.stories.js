@@ -3,7 +3,7 @@ import { text, object } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 
 import GroupedCharacter from "./grouped-character.component";
-import { getCommonTextboxProps } from "../textbox/textbox.stories";
+import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
 
 export default {
   title: "Experimental/GroupedCharacter/Test",

@@ -5,7 +5,7 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import ShowEditPod, { BaseShowEditPod } from "./show-edit-pod.component";
 import Content from "../content";
 
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Fieldset from "../../__experimental__/components/fieldset";
 
 export default {

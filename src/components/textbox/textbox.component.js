@@ -1,13 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
-import { Input, InputPresentation } from "../input";
-import InputIconToggle from "../../../__internal__/input-icon-toggle";
-import FormField from "../form-field";
-import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import Logger from "../../../utils/logger/logger";
-import { InputBehaviour } from "../../../__internal__/input-behaviour";
+import {
+  Input,
+  InputPresentation,
+} from "../../__experimental__/components/input";
+import InputIconToggle from "../../__internal__/input-icon-toggle";
+import FormField from "../../__experimental__/components/form-field";
+import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import Logger from "../../utils/logger/logger";
+import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 
 let deprecatedWarnTriggered = false;
@@ -182,8 +185,6 @@ Textbox.propTypes = {
   onClick: PropTypes.func,
   /** Emphasized part of the displayed text */
   prefix: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */

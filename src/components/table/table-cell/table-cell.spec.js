@@ -12,7 +12,7 @@ import BaseTheme from "../../../style/themes/base";
 import mintTheme from "../../../style/themes/mint";
 import Date from "../../../__experimental__/components/date";
 import TextArea from "../../../__experimental__/components/textarea";
-import TextBox from "../../../__experimental__/components/textbox";
+import TextBox from "../../textbox";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import tableSizes from "../table-sizes.style.js";
 

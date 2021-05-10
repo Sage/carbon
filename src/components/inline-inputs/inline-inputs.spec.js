@@ -5,7 +5,7 @@ import { Row, Column } from "../row";
 import StyledRow from "../row/row.style";
 import StyledColumn from "../row/column/column.style";
 import Label from "../../__experimental__/components/label";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import InlineInputs from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";

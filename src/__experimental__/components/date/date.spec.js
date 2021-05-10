@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import DatePicker from "./date-picker.component";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import StyledDateInput from "./date.style";
 import DateHelper from "../../../utils/helpers/date/date";
 import { isEdge } from "../../../utils/helpers/browser-type-check";

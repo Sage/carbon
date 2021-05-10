@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { number, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Decimal from "./decimal.component";
-import { getCommonTextboxProps } from "../textbox/textbox.stories";
+import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import guid from "../../../utils/helpers/guid";
 
