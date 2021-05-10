@@ -38,6 +38,34 @@ describe("DialogFullScreen", () => {
     );
   });
 
+  describe("contentRef", () => {
+    it("the content ref should be forwarded", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = useRef();
+
+        return (
+          <DialogFullScreen
+            onCancel={onCancel}
+            className="foo"
+            open
+            title="my title"
+            subtitle="my subtitle"
+            contentRef={mockRef}
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </DialogFullScreen>
+        );
+      };
+
+      wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef.current).toBe(wrapper.find(StyledContent).getDOMNode());
+    });
+  });
+
   describe("autoFocus", () => {
     it("should focus the first element by default", () => {
       mount(

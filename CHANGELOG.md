@@ -1,3 +1,10 @@
+### [71.4.2](https://github.com/Sage/carbon/compare/v71.4.1...v71.4.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** fix content ref forwarding ([7d0cdc0](https://github.com/Sage/carbon/commit/7d0cdc0295f6a6f01c14d7c47af3db1061fc41e1))
+
 ### [71.4.1](https://github.com/Sage/carbon/compare/v71.4.0...v71.4.1) (2021-05-07)
 
 
