@@ -6,7 +6,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .c6 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -33,6 +33,16 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   margin-right: 15px;
 }
 
+.c0 .c4 {
+  width: auto;
+}
+
+.c0 .c5 {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+}
+
 <div
   className="c0"
 >
@@ -48,7 +58,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .c6 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -63,6 +73,16 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 
 .c0 .c1:first-child {
   margin-right: 15px;
+}
+
+.c0 .c4 {
+  width: auto;
+}
+
+.c0 .c5 {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
 }
 
 .c3 .c1 {
