@@ -200,7 +200,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     <div
       className="c1"
     >
-      <legend>
+      <legend
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
         Test RadioButtonGroup Legend
       </legend>
     </div>
