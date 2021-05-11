@@ -1,6 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
+
 import FlatTable from "./flat-table.component";
 import FlatTableHead from "./flat-table-head/flat-table-head.component";
 import FlatTableBody from "./flat-table-body/flat-table-body.component";
@@ -14,19 +16,19 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
-import StyledFlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import {
   StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
+  StyledFlatTableBox,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { SidebarContext } from "../drawer";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
-import Box from "../box";
 import cellSizes from "./cell-sizes.style";
 
 const RenderComponent = (props) => (
@@ -84,7 +86,20 @@ describe("FlatTable", () => {
     });
 
     it("should have the overflow-y css property set to to auto", () => {
-      expect(wrapper.find(Box)).toHaveStyleRule("overflow-y", "auto");
+      expect(wrapper.find(StyledFlatTableBox)).toHaveStyleRule(
+        "overflow-y",
+        "auto"
+      );
+    });
+
+    it("should set position sticky on all th inside the table head", () => {
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        { modifier: `${StyledFlatTableHead} th` }
+      );
     });
 
     it('then all Headers should have proper styling if `colorTheme="dark"`', () => {
@@ -152,6 +167,78 @@ describe("FlatTable", () => {
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }
+      );
+    });
+  });
+
+  describe("when it has a sticky header with multiple rows", () => {
+    let wrapper;
+
+    const render = () => {
+      wrapper = mount(
+        <div style={{ height: "200px" }}>
+          <FlatTable hasStickyHead>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>header1</FlatTableHeader>
+                <FlatTableHeader>header2</FlatTableHeader>
+                <FlatTableHeader>header3</FlatTableHeader>
+                <FlatTableHeader>header4</FlatTableHeader>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableHeader>header1</FlatTableHeader>
+                <FlatTableHeader>header2</FlatTableHeader>
+                <FlatTableHeader>header3</FlatTableHeader>
+                <FlatTableHeader>header4</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableRowHeader>row header</FlatTableRowHeader>
+                <FlatTableCell>cell1</FlatTableCell>
+                <FlatTableCell>cell2</FlatTableCell>
+                <FlatTableCell rowspan="2">cell3</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableRowHeader>row header</FlatTableRowHeader>
+                <FlatTableCell colspan="2">cell1</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+
+      jest
+        .spyOn(
+          wrapper.find(StyledFlatTableRow).at(0).getDOMNode(),
+          "clientHeight",
+          "get"
+        )
+        .mockImplementation(() => 40);
+    };
+
+    beforeEach(() => {
+      render();
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("should set the correct 'top' css on each row", () => {
+      act(() => render());
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledFlatTableRow).at(1).props().stickyOffset
+      ).toEqual(40);
+
+      assertStyleMatch(
+        {
+          top: "40px",
+        },
+        wrapper.find(StyledFlatTableHead).find(StyledFlatTableRow).at(1),
+        { modifier: `&& th` }
       );
     });
   });
@@ -267,6 +354,47 @@ describe("FlatTable", () => {
     }
   );
 
+  describe("StyledFlatTableBox", () => {
+    let wrapper;
+    const Footer = () => <div>foo</div>;
+    it("applies correct styles when a div is larger than the FlatTable", () => {
+      wrapper = renderFlatTableWithDiv({ footer: <Footer /> }, mount);
+      assertStyleMatch(
+        {
+          boxShadow: "inset 0px 0px 0px 1px #CCD6DB",
+          boxSizing: "border-box",
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+
+    it("applies correct styles when hasMaxHeight is true", () => {
+      wrapper = renderFlatTableWithDiv(
+        { footer: <Footer />, hasMaxHeight: true },
+        mount
+      );
+      assertStyleMatch(
+        {
+          maxHeight: "100%",
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+
+    it("applies correct styles when hasMaxHeight is false", () => {
+      wrapper = renderFlatTableWithDiv(
+        { footer: <Footer />, hasMaxHeight: false },
+        mount
+      );
+      assertStyleMatch(
+        {
+          maxHeight: undefined,
+        },
+        wrapper.find(StyledFlatTableBox)
+      );
+    });
+  });
+
   describe("footer", () => {
     let wrapper;
 
@@ -299,4 +427,33 @@ describe("FlatTable", () => {
 
 function renderFlatTable(props = {}, renderer = TestRenderer.create) {
   return renderer(<RenderComponent {...props} />);
+}
+
+function renderFlatTableWithDiv(props = {}, renderer = TestRenderer.create) {
+  return renderer(
+    <div style={{ height: "180px" }}>
+      <FlatTable {...props}>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableHeader>header1</FlatTableHeader>
+            <FlatTableHeader>header2</FlatTableHeader>
+            <FlatTableHeader>header3</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableCell>cell1</FlatTableCell>
+            <FlatTableCell>cell2</FlatTableCell>
+            <FlatTableCell rowspan="2">cell3</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableRowHeader>row header</FlatTableRowHeader>
+            <FlatTableCell colspan="2">cell1</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  );
 }

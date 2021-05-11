@@ -8,7 +8,10 @@ import {
   StyledContentTitle,
   StyledContentBody,
 } from "./content.style.js";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 
@@ -22,6 +25,8 @@ describe("Content", () => {
       </ThemeProvider>
     );
   };
+
+  testStyledSystemMargin((props) => <Content {...props}>Foo</Content>);
 
   describe("render", () => {
     it("renders a title", () => {

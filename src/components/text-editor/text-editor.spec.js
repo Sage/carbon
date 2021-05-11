@@ -3,7 +3,10 @@ import { Editor, Modifier } from "draft-js";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import mintTheme from "../../style/themes/mint";
 import TextEditor, {
   TextEditorContentState,
@@ -101,6 +104,15 @@ describe("TextEditor", () => {
 
   let wrapper;
   describe("Styles", () => {
+    testStyledSystemMargin((props) => (
+      <TextEditor
+        value={createContent()}
+        labelText="Text Editor Label"
+        labelId="foo"
+        {...props}
+      />
+    ));
+
     it("match the expected as default", () => {
       wrapper = render();
 

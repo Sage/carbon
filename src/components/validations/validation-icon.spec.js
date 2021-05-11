@@ -7,10 +7,15 @@ import {
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
 import Tooltip from "../tooltip";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
 
 describe("ValidationIcon", () => {
+  testStyledSystemMargin((props) => (
+    <ValidationIcon {...props} error="error" />
+  ));
+
   it.each([
     [{ error: "Message" }, "error"],
     [{ warning: "Message" }, "warning"],

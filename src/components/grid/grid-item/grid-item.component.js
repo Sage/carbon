@@ -1,54 +1,22 @@
 /* eslint-disable max-len */
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import GridItemStyle from "./grid-item.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
 const GridItem = (props) => {
-  const {
-    children,
-    responsiveSettings,
-    gridColumn,
-    gridRow,
-    alignSelf,
-    justifySelf,
-    p,
-    pl,
-    pr,
-    pt,
-    pb,
-    px,
-    py,
-  } = props;
-
-  const styledSystemProps = {
-    gridColumn,
-    gridRow,
-    alignSelf,
-    justifySelf,
-    p,
-    pl,
-    pr,
-    pt,
-    pb,
-  };
-
-  if (px) {
-    styledSystemProps.px = px;
-  }
-
-  if (py) {
-    styledSystemProps.py = py;
-  }
-
+  const { children, responsiveSettings, ...rest } = props;
   return (
-    <GridItemStyle
-      responsiveSettings={responsiveSettings}
-      {...styledSystemProps}
-    >
+    <GridItemStyle responsiveSettings={responsiveSettings} {...rest}>
       {children}
     </GridItemStyle>
   );
 };
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 GridItem.propTypes = {
   /** Defines the Component(s) to be rendered within the GridItem */
@@ -61,20 +29,7 @@ GridItem.propTypes = {
   gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch */
   justifySelf: PropTypes.string,
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding */
-  p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-left */
-  pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-right */
-  pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-top */
-  pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-bottom */
-  pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default horizontal paddings */
-  px: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default vertical paddings */
-  py: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ...paddingPropTypes,
   responsiveSettings: PropTypes.arrayOf(
     PropTypes.shape({
       /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */
@@ -87,16 +42,7 @@ GridItem.propTypes = {
       justifySelf: PropTypes.string,
       /** Maximum width of the item */
       maxWidth: PropTypes.string,
-      /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding */
-      p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-left */
-      pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-right */
-      pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-top */
-      pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      /** Any valid CSS value or a number to be multiplied by base spacing unit (8). Overrides default padding-bottom */
-      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      ...paddingPropTypes,
     })
   ),
 };

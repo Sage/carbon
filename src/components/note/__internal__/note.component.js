@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Editor } from "draft-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import {
   StyledNote,
@@ -12,6 +13,11 @@ import {
 } from "./note.style.js";
 import StatusWithTooltip from "./status-with-tooltip";
 import { ActionPopover } from "../../action-popover";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Note = ({
   noteContent,
@@ -74,6 +80,7 @@ const Note = ({
 };
 
 Note.propTypes = {
+  ...marginPropTypes,
   /**  The rich text content to display in the Note */
   noteContent: PropTypes.object.isRequired,
   /** Set a percentage-based width for the whole Note component, relative to its parent. */

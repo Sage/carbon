@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
-import { space, grid, flexbox } from "styled-system";
+import { grid, flexbox } from "styled-system";
+import styledSystemPropTypes from "@styled-system/prop-types";
+import { padding } from "@styled-system/space";
 import PropTypes from "prop-types";
 import { baseTheme } from "../../../style/themes";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
 function responsiveGridItem(responsiveSettings, theme) {
   return responsiveSettings.map((setting) => {
@@ -42,12 +45,18 @@ function getSpacing(prop, theme) {
   return prop;
 }
 
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
+
 const GridItemStyle = styled.div`
   margin: 0;
 
-  ${flexbox}
-  ${space}
-  ${grid}
+  ${({ justifySelf }) => flexbox({ justifySelf })}
+  ${({ alignSelf }) => flexbox({ alignSelf })}
+  ${padding}
+  ${({ gridRow }) => grid({ gridRow })}
+  ${({ gridColumn }) => grid({ gridColumn })}
   ${({ responsiveSettings, theme }) =>
     responsiveSettings &&
     css`
@@ -60,13 +69,7 @@ GridItemStyle.propTypes = {
   gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   justifySelf: PropTypes.string,
-  p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  px: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  py: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ...paddingPropTypes,
   responsiveSettings: PropTypes.arrayOf(
     PropTypes.shape({
       alignSelf: PropTypes.string,
@@ -74,11 +77,7 @@ GridItemStyle.propTypes = {
       gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       justifySelf: PropTypes.string,
       maxWidth: PropTypes.string,
-      p: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      pl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      pr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      pt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      pb: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      ...paddingPropTypes,
     })
   ),
 };

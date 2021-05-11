@@ -51,6 +51,7 @@ Feature: Carousel component
   Scenario: Verify the click event for a clickable slide
     Given I open "Carousel Test" component page "default"
       And I select slideIndex to "1"
+      And I wait 500
       And clear all actions in Actions Tab
     When I click clickable slide
     Then click action was called in Actions Tab

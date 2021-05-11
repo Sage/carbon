@@ -1,6 +1,6 @@
 import * as React from "react";
-
-export interface SwitchProps {
+import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+export interface SwitchProps extends MarginSpacingProps  {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -9,7 +9,7 @@ export interface SwitchProps {
   id?: string;
   inputWidth?: number | string;
   label?: string;
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   labelAlign?: string;
   labelInline?: boolean;
   labelSpacing?: 1 | 2;

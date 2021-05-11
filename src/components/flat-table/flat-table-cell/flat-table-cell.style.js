@@ -4,19 +4,46 @@ import { padding } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCell = styled.td`
-  ${({ align, theme, rowSpan, leftPosition, makeCellSticky }) => css`
+  ${({
+    align,
+    theme,
+    rowSpan,
+    leftPosition,
+    makeCellSticky,
+    colWidth,
+    isTruncated,
+    expandable,
+  }) => css`
     background-color: #fff;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
-    text-overflow: ellipsis;
     text-align: ${align};
     vertical-align: middle;
-    white-space: nowrap;
     padding: 0;
 
-    &&& > div {
-      box-sizing: border-box;
-      ${padding}
+    ${colWidth &&
+    css`
+      width: ${colWidth}px;
+    `}
+
+    &&& {
+      > div {
+        box-sizing: border-box;
+
+        ${isTruncated &&
+        css`
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        `}
+
+        ${colWidth &&
+        css`
+          width: ${colWidth}px;
+        `}
+ 
+        ${padding}
+      }
     }
 
     &:first-of-type {
@@ -36,23 +63,25 @@ const StyledFlatTableCell = styled.td`
 
     ${makeCellSticky &&
     css`
-      top: auto;
       left: ${leftPosition}px;
       position: sticky;
+    `}
+
+    ${expandable &&
+    css`
+      white-space: nowrap;
     `}
   `}
 `;
 
 const StyledCellContent = styled.div`
-  ${({ expandable }) => css`
-     {
-      ${expandable &&
-      css`
-        display: flex;
-        align-items: center;
-      `}
-    }
-  `}
+  ${({ expandable }) =>
+    expandable &&
+    css`
+      display: flex;
+      align-items: center;
+      line-height: 1em;
+    `}
 `;
 
 StyledFlatTableCell.defaultProps = {

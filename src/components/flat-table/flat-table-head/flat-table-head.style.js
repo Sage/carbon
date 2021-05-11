@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import baseTheme from "../../../style/themes/base";
-import StyledFlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.style";
+import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 
 const StyledFlatTableHead = styled.thead`

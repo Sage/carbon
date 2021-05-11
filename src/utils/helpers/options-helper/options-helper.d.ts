@@ -356,6 +356,14 @@ export interface FlexBoxProps {
   order?: number;
 }
 
+export interface BackgroundProps {
+  background?: string;
+  backgroundImage?: string;
+  backgroundSize?: string;
+  backgroundPosition?: string;
+  backgroundRepeat?: string;
+}
+
 export type ButtonTypes =
 | "primary"
 | "secondary"

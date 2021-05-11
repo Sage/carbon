@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Heading from "./heading.component";
 import Tile from "../tile";
 import Dl from "../definition-list/dl.component";
 import Dt from "../definition-list/dt.component";
 import Dd from "../definition-list/dd.component";
-
 import Button from "../button/button.component";
 import Pill from "../pill/pill.component";
 
@@ -20,6 +21,7 @@ to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/vi
 Webaim have a good online Contrast Checker.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -29,6 +31,7 @@ Webaim have a good online Contrast Checker.
 ```javascript
 import Heading from "carbon-react/lib/components/heading";
 ```
+
 ## Examples
 
 ### Default
@@ -199,7 +202,7 @@ In this example, the Heading component has the Tile component and the Definition
 ### Heading with Help and Help Link
 
 <Preview>
-  <Story name="with help link" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with help link" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "16px" }}>
       <Heading
         title="This is a Title"
@@ -225,5 +228,6 @@ In this example, the Heading component has the Tile component and the Definition
 
 ## Props
 
-### Heading 
-<Props of={Heading} />
+### Heading
+
+<StyledSystemProps of={Heading} margin noHeader />

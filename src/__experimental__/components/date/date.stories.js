@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const Default = (props) => {
+export const Default = () => {
   const [state, setState] = useState("2019-04-04");
   const minDate = text("minDate", "");
   const maxDate = text("maxDate", "");
@@ -47,7 +47,6 @@ export const Default = (props) => {
       onKeyDown={(ev) => action("onKeyDown")(ev)}
       allowEmptyValue={allowEmptyValue}
       mt={number("mt", 0)}
-      {...props}
     />
   );
 };

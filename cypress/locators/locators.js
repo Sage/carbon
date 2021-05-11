@@ -13,7 +13,6 @@ export const BACKGROUND_UI_LOCATOR = 'div[data-element="modal-background"]';
 export const LINK = '[data-component="link"]';
 export const ICON = '[data-component="icon"]';
 export const WARNING_ICON = '[data-component="icon"][data-element="warning"]';
-export const INPUT_WIDTH_PREVIEW = ".common-input__field";
 export const COMMMON_DATA_ELEMENT_INPUT = 'input[data-element="input"]';
 export const LABEL = '[data-element="label"]';
 export const COMMON_INPUT = ".common-input__";

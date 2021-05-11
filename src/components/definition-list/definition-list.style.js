@@ -10,7 +10,6 @@ export const StyledDl = styled.dl`
   height: auto;
   width: 100%;
   background-color: transparent;
-  overflow: hidden;
   grid-template-rows: auto;
   grid-template-columns: ${({ w }) => `${w}% auto;`};
 `;

@@ -1,5 +1,5 @@
 import ShouldComponentUpdateHelper from "../../helpers/should-component-update";
-
+import Logger from "../../logger/logger";
 /**
  * ShouldComponentUpdate Decorator.
  *
@@ -26,7 +26,17 @@ import ShouldComponentUpdateHelper from "../../helpers/should-component-update";
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
+
+let deprecatedWarnTriggered = false;
+
 const ShouldComponentUpdate = (ComposedComponent) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate(
+      "`ShouldComponentUpdate` decorator is deprecated and will soon be removed"
+    );
+  }
   class Component extends ComposedComponent {
     /**
      * Lifecycle hook to calculate if the component should re-render

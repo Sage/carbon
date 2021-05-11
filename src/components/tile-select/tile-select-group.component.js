@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../utils/helpers/tags/tags";
 import TileSelect from "./tile-select.component";
@@ -8,6 +9,11 @@ import {
   StyledTileSelectFieldset,
   StyledGroupDescription,
 } from "./tile-select.style";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const TileSelectGroup = (props) => {
   const {
@@ -19,6 +25,7 @@ const TileSelectGroup = (props) => {
     onBlur,
     value,
     multiSelect,
+    ...rest
   } = props;
 
   let tiles;
@@ -43,8 +50,9 @@ const TileSelectGroup = (props) => {
   return (
     <StyledTileSelectFieldset
       legend={legend}
-      {...tagComponent("tile-select-group", props)}
+      {...tagComponent("tile-select-group", rest)}
       multiSelect={multiSelect}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <StyledGroupDescription>{description}</StyledGroupDescription>
       <div>{tiles}</div>
@@ -53,6 +61,7 @@ const TileSelectGroup = (props) => {
 };
 
 TileSelectGroup.propTypes = {
+  ...marginPropTypes,
   /** The TileSelect components to be rendered in the group */
   children: (props, propName, componentName) => {
     let error;

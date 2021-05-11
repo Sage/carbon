@@ -6,6 +6,7 @@ import {
   simulate,
   assertStyleMatch,
   testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 
@@ -24,7 +25,6 @@ import {
 import AccordionGroup from "./accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
-import StyledIcon from "../icon/icon.style";
 
 const contentHeight = 200;
 
@@ -462,7 +462,9 @@ describe("Accordion", () => {
           {
             marginLeft: "8px",
           },
-          wrapper.find(StyledAccordionHeadingsContainer).find(StyledIcon)
+          wrapper
+            .find(StyledAccordionHeadingsContainer)
+            .find(StyledValidationIcon)
         );
       });
     });
@@ -605,6 +607,20 @@ describe("AccordionGroup", () => {
 
     container = null;
   });
+
+  testStyledSystemMargin((props) => (
+    <AccordionGroup {...props}>
+      <Accordion title="Title_1" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+      <Accordion title="Title_2" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+      <Accordion title="Title_3" defaultExpanded>
+        <Textbox label="Textbox in an Accordion" />
+      </Accordion>
+    </AccordionGroup>
+  ));
 
   it.each([
     [0, 1],

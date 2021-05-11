@@ -26,7 +26,7 @@ export interface TextboxProps extends MarginSpacingProps {
   /** Label */
   label?: string;
   /** Text applied to label help tooltip */
-  labelHelp?: string;
+  labelHelp?: React.ReactNode;
   /** When true, label is placed in line an input */
   labelInline?: boolean;
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */

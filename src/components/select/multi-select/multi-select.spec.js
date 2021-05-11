@@ -148,6 +148,17 @@ describe("MultiSelect", () => {
       expect(onBlurFn).toHaveBeenCalled();
     });
 
+    it("then SelectList shouldn't exist", () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
+
+      wrapper.find("input").simulate("focus");
+      expect(wrapper.find(SelectList).exists()).toBe(true);
+
+      wrapper.find("input").simulate("blur");
+      expect(wrapper.find(SelectList).exists()).toBe(false);
+    });
+
     describe("and there is a mouseDown reported on open list", () => {
       it("then that prop should not be called", () => {
         const onBlurFn = jest.fn();
@@ -156,6 +167,7 @@ describe("MultiSelect", () => {
         wrapper.find("input").simulate("focus");
         wrapper.find(Option).first().simulate("mousedown");
         wrapper.find("input").simulate("blur");
+
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });

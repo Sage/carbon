@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface LabelPropTypes {
   children?: React.ReactNode;
   labelId?: string;
-  help?: string;
+  help?: React.ReactNode;
   helpIcon?: string;
   helpId?: string;
   helpTag?: string;
@@ -20,7 +20,7 @@ export interface LabelPropTypes {
   /** When true label is inline */
   inline?: boolean;
   /** Text alignment of label */
-  align?: 'left' | 'right';
+  align?: "left" | "right";
   styleOverride?: () => object | object;
 }
 

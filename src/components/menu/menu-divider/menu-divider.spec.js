@@ -7,10 +7,11 @@ import { MenuContext } from "../menu.component";
 import { MenuItem } from "..";
 import { baseTheme } from "../../../style/themes";
 import StyledDivider from "./menu-divider.style";
+import openSubmenu from "../__internal__/spec-helper";
 
 const menuContextValues = (menuType) => ({
   menuType,
-  openSubmenu: true,
+  handleKeyDown: () => null,
 });
 
 describe("MenuDivider", () => {
@@ -35,12 +36,14 @@ describe("MenuDivider", () => {
 
   it("should get menuType from menu context", () => {
     wrapper = render("light");
+    openSubmenu(wrapper);
 
     expect(wrapper.find(StyledDivider).props().menuType).toBe("light");
   });
 
   it('should have correct styles if menuType="light"', () => {
     wrapper = render("light");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {
@@ -53,6 +56,7 @@ describe("MenuDivider", () => {
 
   it('should have correct styles if menuType="dark"', () => {
     wrapper = render("dark");
+    openSubmenu(wrapper);
 
     assertStyleMatch(
       {

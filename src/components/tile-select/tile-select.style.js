@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import Fieldset from "../../__experimental__/components/fieldset";
 import { Input } from "../../__experimental__/components/input";
 import tint from "../../style/utils/tint";
@@ -34,17 +35,14 @@ const StyledDescription = styled.p`
 `;
 
 const StyledTileSelect = styled.div`
-  position: relative;
-  border: 1px solid ${({ theme }) => theme.tileSelect.border};
   background-color: ${({ theme }) => theme.colors.white};
   padding: 24px;
   ${({ checked, theme }) =>
     checked &&
     css`
-      border-color: ${theme.colors.primary};
       background: ${tint(theme.colors.primary)(95)};
-      z-index: 10;
     `}
+
   ${({ disabled, theme }) =>
     disabled &&
     css`
@@ -57,13 +55,33 @@ const StyledTileSelect = styled.div`
         fill: ${theme.colors.black};
         opacity: 0.3;
       }
-    `};
+    `}
+`;
+
+const StyledFocusWrapper = styled.div`
+  ${({ checked, theme, hasFocus }) => css`
+    position: relative;
+    border: 1px solid ${theme.tileSelect.border};
+    ${checked &&
+    css`
+      border-color: ${theme.colors.primary};
+      z-index: 10;
+    `}
+
+    ${hasFocus &&
+    css`
+      outline: 3px solid ${theme.colors.focus};
+      z-index: 15;
+    `}
+  `}
 `;
 
 const StyledTileSelectContainer = styled.div`
+  ${margin}
+
   width: 100%;
   position: relative;
-  & + & ${StyledTileSelect} {
+  & + & ${StyledFocusWrapper} {
     margin-top: -1px;
   }
   ${({ checked, disabled, theme }) =>
@@ -76,6 +94,12 @@ const StyledTileSelectContainer = styled.div`
     `}
 `;
 
+const StyledFooterWrapper = styled.div`
+  width: fit-content;
+  position: relative;
+  z-index: 200;
+`;
+
 const StyledTileSelectInput = styled(Input)`
   position: absolute;
   top: 0;
@@ -86,10 +110,6 @@ const StyledTileSelectInput = styled(Input)`
   margin: 0;
   z-index: 100;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  &:focus + ${StyledTileSelect} {
-    outline: 3px solid ${({ theme }) => theme.colors.focus};
-    z-index: 15;
-  }
 `;
 
 const StyledTitleContainer = styled.div`
@@ -117,6 +137,8 @@ const StyledDeselectWrapper = styled.div`
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
+  ${margin}
+
   ${LegendContainerStyle} {
     margin-bottom: 16px;
     legend {
@@ -140,22 +162,35 @@ const StyledGroupDescription = styled.p`
   margin-bottom: 16px;
 `;
 
+StyledTileSelectFieldset.defaultProps = {
+  theme: baseTheme,
+};
+
 StyledTileSelect.defaultProps = {
   theme: baseTheme,
 };
+
 StyledTileSelectContainer.defaultProps = {
   theme: baseTheme,
 };
+
 StyledGroupDescription.defaultProps = {
   theme: baseTheme,
 };
+
 StyledTileSelectInput.defaultProps = {
   theme: baseTheme,
 };
+
 StyledDescription.defaultProps = {
   theme: baseTheme,
 };
+
 StyledDeselectWrapper.defaultProps = {
+  theme: baseTheme,
+};
+
+StyledFocusWrapper.defaultProps = {
   theme: baseTheme,
 };
 
@@ -171,4 +206,6 @@ export {
   StyledAdornment,
   StyledDescription,
   StyledDeselectWrapper,
+  StyledFooterWrapper,
+  StyledFocusWrapper,
 };

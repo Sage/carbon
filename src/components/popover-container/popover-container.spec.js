@@ -14,7 +14,10 @@ import {
 } from "./popover-container.style";
 import StyledIcon from "../icon/icon.style";
 import PopoverContainer from "./popover-container.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
 import guid from "../../utils/helpers/guid";
@@ -36,6 +39,16 @@ const renderAttached = (props, renderMethod = mount) => {
 };
 
 describe("PopoverContainer", () => {
+  testStyledSystemPadding(
+    (props) => (
+      <PopoverContainer open title="PopoverContainerSettings" {...props}>
+        <div id="myChildren">children</div>
+      </PopoverContainer>
+    ),
+    { p: "16px 24px" },
+    (wrapper) => wrapper.find(PopoverContainerContentStyle)
+  );
+
   jest.useFakeTimers();
   let wrapper;
 

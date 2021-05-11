@@ -2,16 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import StyledFlatTableRowHeader from "./flat-table-row-header.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import Icon from "../../icon";
+import {
+  StyledFlatTableRowHeader,
+  StyledFlatTableRowHeaderContent,
+} from "./flat-table-row-header.style";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
 );
 
 const FlatTableRowHeader = ({
-  align,
+  align = "left",
   children,
   width,
   py,
@@ -20,6 +23,8 @@ const FlatTableRowHeader = ({
   onClick,
   onKeyDown,
   leftPosition,
+  truncate,
+  title,
   ...rest
 }) => {
   return (
@@ -33,12 +38,19 @@ const FlatTableRowHeader = ({
       onClick={expandable && onClick ? onClick : undefined}
       tabIndex={expandable && onClick ? 0 : undefined}
       onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
+      isTruncated={truncate}
+      expandable={expandable}
       {...rest}
     >
-      <div>
+      <StyledFlatTableRowHeaderContent
+        title={
+          truncate && !title && typeof children === "string" ? children : title
+        }
+        expandable={expandable}
+      >
         {expandable && <Icon type="chevron_down_thick" />}
         {children}
-      </div>
+      </StyledFlatTableRowHeaderContent>
     </StyledFlatTableRowHeader>
   );
 };
@@ -51,6 +63,10 @@ FlatTableRowHeader.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   /** Column width, pass a number to set a fixed width in pixels */
   width: PropTypes.number,
+  /** Truncate cell content and add ellipsis to any text that overflows */
+  truncate: PropTypes.bool,
+  /** Title text to display if cell content truncates */
+  title: PropTypes.string,
   /**
    * @private
    * @ignore
@@ -66,10 +82,6 @@ FlatTableRowHeader.propTypes = {
    * @ignore
    */
   onKeyDown: PropTypes.func,
-};
-
-FlatTableRowHeader.defaultProps = {
-  align: "left",
 };
 
 export default FlatTableRowHeader;

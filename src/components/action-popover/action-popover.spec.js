@@ -4,7 +4,11 @@ import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
 import { mount as enzymeMount } from "enzyme";
 
-import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  simulate,
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import mintTheme from "../../style/themes/mint";
 import {
   ActionPopover,
@@ -209,6 +213,16 @@ describe("ActionPopover", () => {
       wrapper = null;
     }
   });
+
+  testStyledSystemMargin((props) => (
+    <ThemeProvider theme={mintTheme}>
+      <ActionPopover {...props}>
+        <ActionPopoverItem key="1" href="#" download>
+          test download
+        </ActionPopoverItem>
+      </ActionPopover>
+    </ThemeProvider>
+  ));
 
   it("renders in ReactDOM", () => {
     render(null, DOM);

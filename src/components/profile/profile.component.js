@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import classNames from "classnames";
 import { acronymize } from "../../utils/ether/ether";
 import tagComponent from "../../utils/helpers/tags/tags";
@@ -10,6 +11,11 @@ import {
   ProfileAvatarStyle,
   ProfileEmailStyle,
 } from "./profile.style";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 class Profile extends React.Component {
   /** Determines whether a `src` prop has been supplied */
@@ -26,6 +32,10 @@ class Profile extends React.Component {
   get initials() {
     if (this.props.initials) return this.props.initials;
     return acronymize(this.props.name);
+  }
+
+  get marginProps() {
+    return filterStyledSystemMarginProps(this.props);
   }
 
   /** Returns the avatar portion of the profile. */
@@ -72,6 +82,7 @@ class Profile extends React.Component {
         className={this.classes}
         hasSrc={this.hasSrc}
         {...tagComponent("profile", this.props)}
+        {...this.marginProps}
       >
         {this.avatar}
         {this.text}
@@ -81,6 +92,7 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
+  ...marginPropTypes,
   /** [Legacy] A custom class name for the component */
   className: PropTypes.string,
   /** Custom source URL */

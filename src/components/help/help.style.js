@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
@@ -31,6 +32,8 @@ const StyledHelp = styled.div`
   &:focus ${StyledIcon} {
     outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
   }
+
+  ${margin}
 `;
 
 StyledHelp.defaultProps = {

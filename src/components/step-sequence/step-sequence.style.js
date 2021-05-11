@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
+import { baseTheme } from "../../style/themes";
 
 const StepSequenceStyle = styled.ol`
   display: flex;
@@ -12,6 +14,11 @@ const StepSequenceStyle = styled.ol`
       flex-direction: column;
       padding: 0;
     `};
+  ${margin}
 `;
+
+StepSequenceStyle.defaultProps = {
+  theme: baseTheme,
+};
 
 export default StepSequenceStyle;

@@ -1,7 +1,6 @@
 import {
   headingPreview,
   subheaderPreview,
-  separatorPreview,
   headingTitle,
 } from "../../locators/heading";
 import { helpIcon, link, getDataElementByValue } from "../../locators";
@@ -24,14 +23,6 @@ Then("link on preview is {word}", (helpLink) => {
 
 Then("backLink on preview is {word}", (backLink) => {
   link().children().should("have.attr", "href", backLink);
-});
-
-Then("separator is visible", () => {
-  separatorPreview().should("be.visible");
-});
-
-Then("separator is not visible", () => {
-  separatorPreview().should("not.exist");
 });
 
 Then("Heading title has h1 HTML tag", () => {
