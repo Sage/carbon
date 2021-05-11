@@ -1,9 +1,9 @@
-Feature: Experimental Textbox component
-  I want to check Experimental Textbox component properties
+Feature: Design System Textbox component
+  I want to check Design System Textbox component properties
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then Textbox placeholder is set to <placeholder>
     Examples:
       | placeholder                  | nameOfObject                |
@@ -12,7 +12,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set prefix to <prefix>
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then Prefix is set to <prefix>
     Examples:
       | prefix                       | nameOfObject           |
@@ -21,7 +21,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -30,7 +30,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
       | label                        | nameOfObject          |
@@ -39,7 +39,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon in no iFrame
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -49,7 +49,7 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    Given I open "Experimental Textbox Test" component page "default" in no iframe
+    Given I open "Design System Textbox Test" component page "default" in no iframe
     When I type <input> into Textbox
     Then Textbox input on preview is set to <input>
     Examples:
@@ -59,5 +59,5 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario: Check icon inside of Textbox is visible
-    When I open default "Experimental Textbox Test" component in noIFrame with "textbox" json from "experimental" using "inputIconAdd" object name
+    When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
