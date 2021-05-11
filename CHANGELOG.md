@@ -1,3 +1,14 @@
+## [73.0.0](https://github.com/Sage/carbon/compare/v72.0.0...v73.0.0) (2021-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** Precision prop can no longer be changed on the fly. Your app will need to refresh in order for the user to see the new precision value.
+
+### Code Refactoring
+
+* **decimal:** allow the user to input any value ([1a2307a](https://github.com/Sage/carbon/commit/1a2307a0046384fe79566338341a10f723e403cc))
+
 ## [72.0.0](https://github.com/Sage/carbon/compare/v71.4.2...v72.0.0) (2021-05-11)
 
 
