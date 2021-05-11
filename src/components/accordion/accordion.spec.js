@@ -16,7 +16,6 @@ import {
   StyledAccordionContainer,
   StyledAccordionSubTitle,
   StyledAccordionTitleContainer,
-  StyledAccordionTitle,
   StyledAccordionIcon,
   StyledAccordionContent,
   StyledAccordionContentContainer,
@@ -523,51 +522,6 @@ describe("Accordion", () => {
       expect(wrapper.find(StyledAccordionContainer).props()["data-role"]).toBe(
         "role"
       );
-    });
-  });
-
-  describe("style overrides", () => {
-    const randomStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    beforeEach(() => {
-      render({
-        styleOverride: {
-          root: randomStyleObject,
-          headerArea: randomStyleObject,
-          icon: randomStyleObject,
-          header: randomStyleObject,
-          content: randomStyleObject,
-        },
-      });
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(
-        randomStyleObject,
-        wrapper.find(StyledAccordionContainer)
-      );
-    });
-
-    it("renders header area element with properly assigned styles", () => {
-      assertStyleMatch(
-        randomStyleObject,
-        wrapper.find(StyledAccordionTitleContainer)
-      );
-    });
-
-    it("renders icon element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledAccordionIcon));
-    });
-
-    it("renders header element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledAccordionTitle));
-    });
-
-    it("renders content element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledAccordionContent));
     });
   });
 });
