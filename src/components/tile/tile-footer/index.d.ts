@@ -1,1 +1,1 @@
-export { default } from './tile-footer';
+export { default } from "./tile-footer";

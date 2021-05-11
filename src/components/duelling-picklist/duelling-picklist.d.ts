@@ -1,19 +1,20 @@
-import * as React from 'react';
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface DuellingPicklistProps extends MarginSpacingProps {
+export interface DuellingPicklistProps extends MarginProps {
   children?: React.ReactNode;
   /** Indicate if component is disabled */
   disabled?: boolean;
   /** Place for components like Search or Filter placed above the left list */
   leftControls?: React.ReactNode;
-  /** Place for components like Search or Filter placed above the right list */
-  rightControls?: React.ReactNode;
   /** Left list label */
   leftLabel?: string;
+  /** Place for components like Search or Filter placed above the right list */
+  rightControls?: React.ReactNode;
   /** Right list label */
   rightLabel?: string;
 }
 
-declare const DuellingPicklist: React.FunctionComponent<DuellingPicklistProps>;
+declare function DuellingPicklist(props: DuellingPicklistProps): JSX.Element;
+
 export default DuellingPicklist;

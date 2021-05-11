@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface OptionProps {
   /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */
@@ -9,6 +9,6 @@ export interface OptionProps {
   value: string | object;
 }
 
-declare const Option: React.FunctionComponent<OptionProps>;
+declare function Option(props: OptionProps & React.RefAttributes<HTMLLIElement>): JSX.Element;
 
 export default Option;
