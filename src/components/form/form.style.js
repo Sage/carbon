@@ -7,7 +7,7 @@ import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import OptionsHelper from "../../utils/helpers/options-helper";
-import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { FieldsetStyle } from "../fieldset/fieldset.style";
 
 export const StyledForm = styled.form`
   & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {

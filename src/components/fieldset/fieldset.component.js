@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { validProps } from "../../../utils/ether";
-import tagComponent from "../../../utils/helpers/tags";
+import { validProps } from "../../utils/ether/ether";
+import tagComponent from "../../utils/helpers/tags/tags";
 import {
   FieldsetStyle,
   LegendContainerStyle,
   FieldsetContentStyle,
 } from "./fieldset.style";
-import Logger from "../../../utils/logger/logger";
+import Logger from "../../utils/logger/logger";
 
 let deprecatedWarnTriggered = false;
 
