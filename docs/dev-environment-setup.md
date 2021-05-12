@@ -1,30 +1,16 @@
 # Getting Your Dev Environment Started
 
-This guide will provide you with the information you need to be able to get started on your development journey. This document will include:
-
-- Which text editors can you install?
-- What Tools/plugins you need to install?
-- Installing Node.js, NPM, and Git
-
+This guide will provide you with the information you need to be able to get started on your development journey.
 ### Contents
 
-[Text Editors](#Text-Editors)
+[Text Editor](#Text-Editor)
 
 [Useful Extensions to Install](#Useful-Extensions-to-Install)
 
 [Installing Node.js, NPM, and Git](#Installing-Nodejs-NPM-and-Git)
 
 
-## Text Editors
-
-There are a number of various different text editors that you can install. Some of the most popular text editors used on the Carbon team are:
-- Visual Studio Code (VS Code)
-- Sublime Text Editor
-- Atom
-
-###### Please note that the list above in not exhaustive.
-
-### VS Code
+## Text Editor
 
 VS Code is our preferred text editor and is available to be downloaded from [here](https://code.visualstudio.com/). We advise that you follow the installation instructions provided by Microsoft. The VS Code installation instructions can be found [here](https://code.visualstudio.com/docs/setup/mac) for Mac users and [here](https://code.visualstudio.com/docs/setup/windows) for Windows users.
 
