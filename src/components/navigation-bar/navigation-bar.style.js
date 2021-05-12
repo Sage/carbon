@@ -26,7 +26,10 @@ const StyledNavigationBar = styled.nav`
     padding: 0 16px;
   }
 
-  ${padding}
+  && {
+    ${padding}
+  }
+
   ${flexbox}
 
   .carbon-logo {

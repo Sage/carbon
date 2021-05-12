@@ -12,9 +12,12 @@ import StyledNavigationBar from "./navigation-bar.style";
 describe("NavigationBar", () => {
   let wrapper;
 
-  testStyledSystemPadding((props) => (
-    <NavigationBar {...props}>test content</NavigationBar>
-  ));
+  testStyledSystemPadding(
+    (props) => <NavigationBar {...props}>test content</NavigationBar>,
+    undefined,
+    undefined,
+    { modifier: "&&" }
+  );
 
   testStyledSystemFlexBox((props) => (
     <NavigationBar {...props}>test content</NavigationBar>
@@ -100,6 +103,26 @@ describe("NavigationBar", () => {
         color: baseTheme.colors.white,
       },
       wrapper
+    );
+  });
+
+  it.each([
+    ["only screen and (max-width: 599px)", "0 16px"],
+    ["only screen and (max-width: 959px)", "0 24px"],
+    ["only screen and (max-width: 1259px)", "0 32px"],
+  ])("should set correct padding on media queries", (query, value) => {
+    wrapper = mount(
+      <StyledNavigationBar>
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        padding: value,
+      },
+      wrapper,
+      { media: query }
     );
   });
 });
