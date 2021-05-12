@@ -324,8 +324,8 @@ Submenu.propTypes = {
   clickToOpen: PropTypes.bool,
   /** The href to use for the menu item. */
   href: PropTypes.string,
-  /** Maximum width in px */
-  maxWidth: PropTypes.number,
+  /** Maximum width. Any valid CSS string */
+  maxWidth: PropTypes.string,
 };
 
 export default Submenu;
