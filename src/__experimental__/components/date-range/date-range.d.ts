@@ -1,6 +1,6 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import { DateInputProps } from "../date/date";
-import { TextboxProps } from "../textbox/textbox";
 
 export interface DateRangeChangeEvent {
   target: {
@@ -17,7 +17,7 @@ export interface DateRangeChangeEvent {
   };
 }
 
-export interface DateRangeProps {
+export interface DateRangeProps extends MarginProps {
   /* The default value of the input if it's meant to be used as an uncontrolled component */
   defaultValue?: string[];
   /** Props for the child end Date component */

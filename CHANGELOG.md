@@ -1,3 +1,10 @@
+## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
+
+
+### Features
+
+* **simple-color-picker:** add styled system margin ([27862c5](https://github.com/Sage/carbon/commit/27862c50d55135c2dd824ce73d27b4fa83752611))
+
 ## [73.0.0](https://github.com/Sage/carbon/compare/v72.0.0...v73.0.0) (2021-05-11)
 
 
