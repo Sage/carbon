@@ -1,8 +1,9 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import { ValidationPropTypes } from "../../../components/validations";
 import { SimpleColorProps } from "./simple-color/simple-color";
 
-export interface SimpleColorPickerProps extends ValidationPropTypes {
+export interface SimpleColorPickerProps extends ValidationPropTypes, MarginProps {
   /** The SimpleColor components to be rendered in the group */
   children: React.ReactElement<SimpleColorProps> | Array<React.ReactElement<SimpleColorProps>>;
   /** prop that represents childWidth */
