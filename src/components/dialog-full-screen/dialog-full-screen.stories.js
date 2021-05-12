@@ -13,6 +13,9 @@ export default {
     info: {
       disable: true,
     },
+    chromatic: {
+      disable: true,
+    },
     knobs: { escapeHTML: false },
   },
 };
@@ -123,9 +126,4 @@ Default.story = {
 
 Nested.story = {
   name: "nested",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

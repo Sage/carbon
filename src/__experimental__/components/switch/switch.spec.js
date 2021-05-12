@@ -18,6 +18,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import { baseTheme } from "../../../style/themes";
@@ -30,6 +31,10 @@ jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Switch", () => {
+  describe("Styled System", () => {
+    testStyledSystemMargin((props) => <Switch {...props} />);
+  });
+
   describe("uncontrolled behaviour", () => {
     it("sets proper default internal state", () => {
       const wrapper = render({ defaultChecked: true }, mount);

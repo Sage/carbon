@@ -1,10 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import Loader from "../../../components/loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../components/validations/validation-icon.component";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const SwitchSlider = (props) => {
   const {
@@ -53,7 +59,10 @@ const SwitchSlider = (props) => {
   );
 
   return (
-    <StyledSwitchSlider {...switchSliderStyleProps}>
+    <StyledSwitchSlider
+      {...switchSliderStyleProps}
+      {...filterStyledSystemMarginProps(props)}
+    >
       {sliderContent}
       {useValidationIcon && (
         <ValidationIcon
@@ -69,6 +78,8 @@ const SwitchSlider = (props) => {
 };
 
 SwitchSlider.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
