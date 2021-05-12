@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { PaddingSpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { PaddingProps } from "styled-system";
 
-export interface FlatTableRowHeaderProps extends PaddingSpacingProps {
+export interface FlatTableRowHeaderProps extends PaddingProps {
   /** Content alignment */
   align?: string;
   children?: React.ReactNode | string;
@@ -13,6 +13,6 @@ export interface FlatTableRowHeaderProps extends PaddingSpacingProps {
   title?: string;
 }
 
-declare const FlatTableRowHeader: React.FunctionComponent<FlatTableRowHeaderProps>;
+declare function FlatTableRowHeader(props: FlatTableRowHeaderProps): JSX.Element;
 
 export default FlatTableRowHeader;

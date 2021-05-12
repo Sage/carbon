@@ -1,2 +1,2 @@
-export { default } from './pager';
-export * from './pager';
+export { default } from "./pager";
+export * from "./pager";

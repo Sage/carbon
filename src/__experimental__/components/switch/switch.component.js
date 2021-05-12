@@ -55,7 +55,7 @@ const Switch = ({
     onBlur,
     onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
-    inputLabel: label,
+    label,
     inputValue: value,
     inputType: "checkbox",
     reverse: !reverse, // switched to preserve backward compatibility

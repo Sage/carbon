@@ -1,9 +1,10 @@
-import * as React from 'react';
-import { PaddingSpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { PaddingProps } from "styled-system";
+import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
-export interface FlatTableCellProps extends PaddingSpacingProps {
+export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
-  align?: 'center' | 'left' | 'right';
+  align?: OptionsHelper.AlignFull;
   children?: React.ReactNode | string;
   /** Number of columns that a cell should span */
   colspan?: number | string;
@@ -17,6 +18,6 @@ export interface FlatTableCellProps extends PaddingSpacingProps {
   title?: string;
 }
 
-declare const FlatTableCell: React.FunctionComponent<FlatTableCellProps>;
+declare function FlatTableCell(props: FlatTableCellProps): JSX.Element;
 
 export default FlatTableCell;

@@ -178,7 +178,7 @@ Button.propTypes = {
   subtext: PropTypes.string,
   /** Ref to be forwarded */
   forwardRef: PropTypes.object,
-  /** Button types for legacy theme: "primary" | "secondary" */
+  /** [Legacy] Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Used to transform button into anchor */
   href: PropTypes.string,

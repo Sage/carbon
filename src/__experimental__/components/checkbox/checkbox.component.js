@@ -35,7 +35,7 @@ const Checkbox = ({
     onBlur,
     labelInline: true,
     inputId: id,
-    inputLabel: label,
+    label,
     inputValue: value,
     inputType: "checkbox",
     reverse: !props.reverse,

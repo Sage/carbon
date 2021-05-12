@@ -1,2 +1,2 @@
-export { RadioButton } from './radio-button';
-export { RadioButtonGroup } from './radio-button-group';
+export { default, default as RadioButton, PrivateRadioButton } from "./radio-button";
+export { default as RadioButtonGroup } from "./radio-button-group";

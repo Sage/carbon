@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface EditorCounterProps {
   count: number;
@@ -8,6 +8,6 @@ export interface EditorCounterProps {
   info?: string;
 }
 
-declare const EditorCounter: React.FunctionComponent<EditorCounterProps>;
+declare function EditorCounter(props: EditorCounterProps): JSX.Element;
 
 export default EditorCounter;

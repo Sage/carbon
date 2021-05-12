@@ -1,3 +1,104 @@
+## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
+
+
+### Features
+
+* **simple-color-picker:** add styled system margin ([27862c5](https://github.com/Sage/carbon/commit/27862c50d55135c2dd824ce73d27b4fa83752611))
+
+## [73.0.0](https://github.com/Sage/carbon/compare/v72.0.0...v73.0.0) (2021-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** Precision prop can no longer be changed on the fly. Your app will need to refresh in order for the user to see the new precision value.
+
+### Code Refactoring
+
+* **decimal:** allow the user to input any value ([1a2307a](https://github.com/Sage/carbon/commit/1a2307a0046384fe79566338341a10f723e403cc))
+
+## [72.0.0](https://github.com/Sage/carbon/compare/v71.4.2...v72.0.0) (2021-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* all TypeScript projects have to add @types/styled-system
+and @types/styled-components as dev dependencies
+
+### Features
+
+* **validation-icon:** add ts type definitions ([15a9f81](https://github.com/Sage/carbon/commit/15a9f81a18b90581b9fa8a7f025db5dd44a652a1))
+* add global style type definition file ([169a3f5](https://github.com/Sage/carbon/commit/169a3f5f414425c5c2aebad1eca7fbb96f0f9f60))
+* add type definitions to mockmatchmedia util ([205a000](https://github.com/Sage/carbon/commit/205a0004de8ec1481f3fd44f8c00d1f3f373d834))
+* **action-toolbar:** add ts type definitions ([0050574](https://github.com/Sage/carbon/commit/0050574c374dfef0072407b9a0cbac031729d55e))
+* **alert:** add ts type definitions ([c35be8e](https://github.com/Sage/carbon/commit/c35be8e1f27f3fed095f8cff948330e2d69e2bed))
+* **app-wrapper:** add ts type definitions ([dbbcc30](https://github.com/Sage/carbon/commit/dbbcc30dbe8ccc4eb0d5f80d1b906caa50f59b50)), closes [#3696](https://github.com/Sage/carbon/issues/3696)
+* **button-toggle:** add ts type definitions ([f289949](https://github.com/Sage/carbon/commit/f2899498c17c274626bb4855e888615994a904cc))
+* **button-toggle-group:** add ts type definitions ([1ca5da7](https://github.com/Sage/carbon/commit/1ca5da7e10ef7fb216fb403fef15d06ede5588f5))
+* **card:** add ts type definitions ([fc6129b](https://github.com/Sage/carbon/commit/fc6129bdf671cb339522a948e282ee022da2e1fb))
+* **carousel:** add ts type definitions ([7c5490a](https://github.com/Sage/carbon/commit/7c5490a9d8a51966fda8fd83fe6f26122f51c640))
+* **checkable-input:** add type definitions ([16421e3](https://github.com/Sage/carbon/commit/16421e3e527a12c9700870a21efcc329573b18d9))
+* **configurable-items:** add ts type definitions ([890aaa5](https://github.com/Sage/carbon/commit/890aaa55b7de487c86f1febb63c89dc663eaa340))
+* **detail:** add ts type definitions ([ffc91d6](https://github.com/Sage/carbon/commit/ffc91d69da23cf57343025bb8d8e7f459ef1b09b))
+* **dialog:** add ts type definitions ([e8b7192](https://github.com/Sage/carbon/commit/e8b7192188c91dc6fdd09bafb50408562dea0b7c))
+* **dialog-full-screen:** add ts type definitions ([37ffe53](https://github.com/Sage/carbon/commit/37ffe53b2129d930f37a6a3fef87ee6c50dac56a)), closes [#3697](https://github.com/Sage/carbon/issues/3697)
+* **duelling-picklist:** add picklist-group ts type definitions ([a08ca70](https://github.com/Sage/carbon/commit/a08ca704254a4547d5ae86dd8972d88af5df073f))
+* **form-field:** add type definitions ([f6ba4f9](https://github.com/Sage/carbon/commit/f6ba4f97e876aa8678d358c9d8f56b76da35c910))
+* **heading:** add ts type definitions ([9598cc3](https://github.com/Sage/carbon/commit/9598cc3409bbd844c11514408d28d4fe1e64ea1e)), closes [#3699](https://github.com/Sage/carbon/issues/3699)
+* **icon-button:** add ts type definitions ([1c18a99](https://github.com/Sage/carbon/commit/1c18a99760804b4d33c35fb5090a08c18f4a2d0c))
+* **inline-inpouts:** add ts type definitions ([bbd8fef](https://github.com/Sage/carbon/commit/bbd8fefa3941dd9565b515f1a0faabfce46de615))
+* **loader:** add ts type definitions ([c5e0ada](https://github.com/Sage/carbon/commit/c5e0ada95883a97f4dfe0270a028c0a68d7fc8b6)), closes [#3700](https://github.com/Sage/carbon/issues/3700)
+* **menu:** add scrollableblock type definitions ([348f91e](https://github.com/Sage/carbon/commit/348f91ee27752666368216479d877dd842556344))
+* **message:** add ts type definitions ([12cdd01](https://github.com/Sage/carbon/commit/12cdd01b863cc6130855caec460f4805181bf723)), closes [#3701](https://github.com/Sage/carbon/issues/3701)
+* **modal:** add ts type definitions ([108bec4](https://github.com/Sage/carbon/commit/108bec46f7f5161b3e9accb676af5487a1131d6d))
+* **mount-in-app:** add ts type definitions ([2b4aacd](https://github.com/Sage/carbon/commit/2b4aacd57e6e77308f7b9bd0e913055c46754304))
+* **multi-action-button:** add ts type definitions ([2598a7f](https://github.com/Sage/carbon/commit/2598a7f9d741edd9607390209540fc893a837fea))
+* **pages:** add ts type definitions ([2a3f736](https://github.com/Sage/carbon/commit/2a3f736567ea3c0c40599f773e8d9b7c20c60904))
+* **portal:** add ts type definitions ([c769de8](https://github.com/Sage/carbon/commit/c769de817a848d6d5f2166c349df45e4f32b71be))
+* **preview:** add ts type definitions ([b653c65](https://github.com/Sage/carbon/commit/b653c653517f5bea94052481bafcd08be132d72b))
+* **profile:** add ts type definitions ([74baa19](https://github.com/Sage/carbon/commit/74baa190894172a36c2a5b020475000872f1377d))
+* **settings-row:** add ts type definitions ([85822c9](https://github.com/Sage/carbon/commit/85822c9321d18dc777c78731f0be1ce6bfd15ffd))
+* **show-edit-pod:** add ts type definitions ([7bd13b2](https://github.com/Sage/carbon/commit/7bd13b2b7871bbf1f6133c725368e1483a6ef642))
+* **sidebar:** add ts type definitions ([cc69fc1](https://github.com/Sage/carbon/commit/cc69fc14fc0f8ffd4f4dc0b1df1beb7952ce3688)), closes [#3702](https://github.com/Sage/carbon/issues/3702)
+* **simple-select:** add select-textbox type definitions ([a100cc9](https://github.com/Sage/carbon/commit/a100cc9c36cc6da32348d5cc891d3924861fda36))
+* **split-button:** add ts type definitions ([0598f16](https://github.com/Sage/carbon/commit/0598f16f541452afa70c7de459ab22cc410a740c))
+* **step-sequence:** add ts type definitions ([29c40b2](https://github.com/Sage/carbon/commit/29c40b230235fa720188871bbe697fd9bf943400))
+* add ts type definitions to theme config files ([b62b21a](https://github.com/Sage/carbon/commit/b62b21af624919aa0cd2b0d327b7f3d6bf9fff21)), closes [#3705](https://github.com/Sage/carbon/issues/3705)
+
+
+### Bug Fixes
+
+* **accordion:** incorrect ts type definitions ([fec618f](https://github.com/Sage/carbon/commit/fec618fc854d71e09c8fc907023fae7bbbf2f795))
+* **action-popover:** incorrect ts type definitions ([7f520c2](https://github.com/Sage/carbon/commit/7f520c287bf01ca835a35563c17ed33f77e1cf5b))
+* **advanced-color-picker:** incorrect ts type definitions ([4fbe849](https://github.com/Sage/carbon/commit/4fbe8492893f481f3b8f923ff0ef7535262a313c))
+* **anchor-navigation:** incorrect ts type definitions ([fc68fdd](https://github.com/Sage/carbon/commit/fc68fdd619c9a7bdd767dcad485d8b15ad30eae0))
+* **badge:** incorrect ts type definitions ([b3cdc6e](https://github.com/Sage/carbon/commit/b3cdc6e46eb12b1258f6737b1a3e686f5cd4292f))
+* **batch-selection:** ts type definitions not properly exported ([7b59608](https://github.com/Sage/carbon/commit/7b59608f4858048d01c07b4b65ca87b07e73a36a))
+* **box:** ts type definitions not properly exported ([b0dc5e6](https://github.com/Sage/carbon/commit/b0dc5e61b3482f3fd3c0d7e4d9ba26c3a58f05dd)), closes [#3733](https://github.com/Sage/carbon/issues/3733)
+* **button:** incorrect ts margin type definitions ([1fa2e36](https://github.com/Sage/carbon/commit/1fa2e36952ccce4b53baebad73f9fe3ee21c520a)), closes [#3727](https://github.com/Sage/carbon/issues/3727)
+* **checkbox-group:** incorrect children type in typescript ([cc480c5](https://github.com/Sage/carbon/commit/cc480c509b6daf95522ea5855502df0c54dca8cc))
+* **confirm:** type definitions not exported ([befd66e](https://github.com/Sage/carbon/commit/befd66e8f817d4a29a991aecadffac7a8d007e2b)), closes [#3710](https://github.com/Sage/carbon/issues/3710) [#3809](https://github.com/Sage/carbon/issues/3809)
+* **draggable:** incorrect ts type definitions ([e855976](https://github.com/Sage/carbon/commit/e85597664ac2ab74a22214f3d9ee58c3967da363))
+* **drawer:** incorrect ts type definitions ([6e4ab56](https://github.com/Sage/carbon/commit/6e4ab56ced4e24f955a48b5c81f8c34b1f95aa6a)), closes [#3694](https://github.com/Sage/carbon/issues/3694)
+* **flat-table:** missing ts type definitions ([088183e](https://github.com/Sage/carbon/commit/088183e3020514a76148ae3f3d213d08ffba4038))
+* **form:** type definitions not properly exported ([01c07ed](https://github.com/Sage/carbon/commit/01c07ed8aea5d51fd1577c3a466d551ace99c6ef)), closes [#3690](https://github.com/Sage/carbon/issues/3690)
+* **hr:** type definitions not properly exported ([9dce2b9](https://github.com/Sage/carbon/commit/9dce2b941c249794a7c560dab8aa881caabd0204)), closes [#3691](https://github.com/Sage/carbon/issues/3691)
+* **link:** internallink export missing in type definitions ([37002c1](https://github.com/Sage/carbon/commit/37002c1574f84f5cc4346f53e370c8561cfa3f55))
+* **number:** incorrect import of textbox type definitions ([984f9db](https://github.com/Sage/carbon/commit/984f9db4558d10f1ee6ab5272e11480f0fa28749))
+* **pill:** ts type definitions not properly exported ([379efd3](https://github.com/Sage/carbon/commit/379efd366d31d0b629456dc4e69f32e1671978d1)), closes [#3708](https://github.com/Sage/carbon/issues/3708)
+* **popover-container:** type definitions not properly exported ([c127258](https://github.com/Sage/carbon/commit/c12725811dcebf92a89531ead0eede14f060f7c9)), closes [#3707](https://github.com/Sage/carbon/issues/3707)
+* **radio-button:** type definitions not properly exported ([3873c81](https://github.com/Sage/carbon/commit/3873c81822a72b9d6a2d01f199e12adcac6826cc))
+* **simple-select:** optionrow and optiongroupheader type definitions not exported ([8143417](https://github.com/Sage/carbon/commit/8143417a391c1383e99e5d86829d764031adb507))
+* **tabs:** ts props other than children should be optional ([df5a6b8](https://github.com/Sage/carbon/commit/df5a6b86ac195ff755797a88a7b55e71f983bbcf)), closes [#3568](https://github.com/Sage/carbon/issues/3568)
+* **tile-select:** ts type prop should not be required ([3e7343b](https://github.com/Sage/carbon/commit/3e7343b6c1c646f72d843f41dd886c6f6dcf5a3d))
+* **toast:** type definitions not properly exported ([a9b3dfe](https://github.com/Sage/carbon/commit/a9b3dfee3fe874e405bc63f2437d0f6e292ea77b)), closes [#3712](https://github.com/Sage/carbon/issues/3712)
+* **typography:** incorrect prop name in type definitions ([afcebf4](https://github.com/Sage/carbon/commit/afcebf420cce2da574ad0c7450a69b60a127bec0))
+* incorrect typescript exports ([cd60012](https://github.com/Sage/carbon/commit/cd600127eefe5a1aab205664193eafb21da0ebd3))
+
+
+### Miscellaneous Chores
+
+* add styled-system and styled-components types dependencies ([fc8e62d](https://github.com/Sage/carbon/commit/fc8e62d3857723cf5985319b23c245c21598751b))
+
 ### [71.4.2](https://github.com/Sage/carbon/compare/v71.4.1...v71.4.2) (2021-05-10)
 
 
