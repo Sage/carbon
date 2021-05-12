@@ -19,23 +19,26 @@ StyledPopoverContainer.defaultProps = {
 };
 
 const StyledSelectList = styled.ul`
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  list-style-type: none;
-  max-height: ${({ maxHeight }) => `${maxHeight}`};
-  margin: 0;
-  outline: none;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0;
+  ${({ isLoading, multiColumn }) => css`
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    list-style-type: none;
+    max-height: ${({ maxHeight }) => `${maxHeight}`};
+    margin: 0;
+    outline: none;
+    overflow-x: hidden;
+    overflow-y: ${multiColumn ? "hidden" : "auto"}
+    padding: 0;
 
-  ${({ isLoading }) =>
-    isLoading &&
-    css`
-      min-height: 150px;
-    `}
+    ${
+      isLoading &&
+      css`
+        min-height: 150px;
+      `
+    }}
+  `}
 `;
 
 StyledSelectList.defaultProps = {
@@ -54,11 +57,19 @@ const StyledSelectLoaderContainer = styled.li`
 
 const StyledSelectListTable = styled.table`
   background-color: ${({ theme }) => theme.colors.white};
-  border-collapse: separate;
+  border-collapse: collapse;
   border-radius: 0px;
   border-spacing: 0;
   min-width: 100%;
   white-space: nowrap;
+  height: 180px;
+
+  thead,
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
 `;
 
 StyledSelectListTable.defaultProps = {
@@ -68,7 +79,7 @@ StyledSelectListTable.defaultProps = {
 const StyledSelectListTableHeader = styled.thead`
   th {
     position: sticky;
-    top: 0px;
+    top: 0;
     padding: ${({ theme }) => 2 * theme.spacing}px;
     border-bottom: 1px solid ${({ theme }) => theme.select.tableHeaderBorder};
     background-color: white;
@@ -94,6 +105,14 @@ const StyledSelectListTableHeader = styled.thead`
   }
 `;
 
+const StyledSelectListTableBody = styled.tbody`
+  display: block;
+  overflow-y: auto;
+  width: 100%;
+  table-layout: fixed;
+  max-height: 132px;
+`;
+
 StyledSelectListTableHeader.defaultProps = {
   theme: baseTheme,
 };
@@ -104,4 +123,5 @@ export {
   StyledSelectLoaderContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
+  StyledSelectListTableBody,
 };

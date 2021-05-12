@@ -17,5 +17,6 @@ export interface PicklistItemProps {
   tooltipMessage?: string;
 }
 
-declare const PicklistItem: React.FunctionComponent<PicklistItemProps>;
+declare function PicklistItem(props: PicklistItemProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
+
 export default PicklistItem;

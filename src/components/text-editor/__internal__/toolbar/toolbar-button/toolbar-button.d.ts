@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ToolbarButtonProps {
   ariaLabel?: string;
@@ -13,6 +13,6 @@ export interface ToolbarButtonProps {
   tabbable?: boolean;
 }
 
-declare const ToolbarButton: React.FunctionComponent<ToolbarButtonProps>;
+declare function ToolbarButton(props: ToolbarButtonProps & React.RefAttributes<HTMLButtonElement>): JSX.Element;
 
 export default ToolbarButton;

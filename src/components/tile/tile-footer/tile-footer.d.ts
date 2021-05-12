@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { SpacingProps } from 'utils/helpers/options-helper/options-helper';
+import * as React from "react";
+import { SpaceProps } from "styled-system";
 
-export interface TileFooterProps extends SpacingProps {
+export interface TileFooterProps extends SpaceProps {
   /** set which background color variant should be used */
-  variant?: 'default' | 'transparent';
-  children?: React.ReactNode;
+  variant?: "default" | "transparent";
 }
 
-declare const TileFooter: React.FunctionComponent<TileFooterProps>;
+declare function TileFooter(props: React.PropsWithChildren<TileFooterProps>): JSX.Element;
 
 export default TileFooter;

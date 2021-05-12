@@ -1,13 +1,13 @@
 import * as React from "react";
 import { StyledComponentProps } from "styled-components";
+import { MarginProps } from "styled-system";
 import {
-  MarginSpacingProps,
   BackgroundProps,
   LayoutProps,
 } from "../../utils/helpers/options-helper";
 
 export interface ImageProps
-  extends MarginSpacingProps,
+  extends MarginProps,
     BackgroundProps,
     LayoutProps {
   /** any valid file path, passing this will render the component as an img element */
