@@ -4,7 +4,7 @@ This guide will provide you with the information you need to be able to get star
 
 - Which text editors can you install?
 - What Tools/plugins you need to install?
-- Installing Node.js, Node Version Manager (NVM), NPM, NPX, and Git
+- Installing Node.js, NPM, and Git
 
 ### Contents
 
@@ -12,7 +12,7 @@ This guide will provide you with the information you need to be able to get star
 
 [Useful Extensions to Install](#Useful-Extensions-to-Install)
 
-[Installing Node.js, NVM, NPM, NPX, and Git](#Installing-Nodejs-NVM-NPM-NPX-and-Git)
+[Installing Node.js, NPM, and Git](#Installing-Nodejs-NPM-and-Git)
 
 
 ## Text Editors
@@ -89,49 +89,14 @@ This extension provides icons for each file type in VS Code
 This extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.
 
 
-## Installing Node.js, NVM, NPM, NPX, and Git 
+## Installing Node.js, NPM, and Git 
 
-### Node.js
+### Node.js & NPM
 
-To check if you already have a version of node.js installed, simply go to your terminal or command line and use: `node -v` as this will inform you on the version of node.js currently have installed.
+The recommended way to install `node` and `npm` is using [Node Version Manager](https://github.com/nvm-sh/nvm).
+Once you have installed `nvm` you should run `nvm install lts/fermium` which will install a suitable version of `node` and `npm`.
 
-You can download and install the latest version of Node from [https://nodejs.org/](https://nodejs.org/), or use [Node Version Manager](https://github.com/creationix/nvm). 
-
-### NVM
-
-The NVM installation can be initiated by using this cURL command into your terminal or command line.
-
-`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash` 
-
-or use [Node Version Manager](https://github.com/creationix/nvm).
-
-### NPM
-
-Once you have installed node.js, you should already have npm installed. This can be checked by typing `npm -v` in your terminal or command line. If you already have a version of npm installed, you will see a console output similar to this: `Version 6.23.0`
-
-#### Already Have NPM Installed?
-
-If you plan to use Carbon in your project, make sure you are on `Version 6.x`. This can be checked by using `npm -v` in your terminal or command line. 
-
-If you already have npm installed but it is an older version, upgrade your version of npm by running `npm install npm -g` in your terminal or command line.
-
-### NPX
-
-To install npx, simply type `npm install -g npx` in to your terminal or command line. To check that npx has installed successfully, you can check the version by using `npx -v` in your terminal or command line.
-
-If you receive the error:
-
-````
-checkPermissions Mising write access to '/usr/local/lib/node_modules'
-code EACCES
-suscall ACCESS
-...
-````
-this command should resolve the issue.
-
-`sudo chown -R $USER /use/local/lib/node_modules`
-
-This command will run as the system's super user and change the owner of the folder or file to the current user. Using `-R` ensures that you also get owner access to all the files container in the folder.
+You can check your installation using `node --version` and `npm --v`.
 
 ### Git
 
