@@ -1,3 +1,10 @@
+## [73.2.0](https://github.com/Sage/carbon/compare/v73.1.0...v73.2.0) (2021-05-12)
+
+
+### Features
+
+* **button-toggle-group:** add styled-system props ([510a643](https://github.com/Sage/carbon/commit/510a64392403d0e4fa6706465478bcd3bbde21ac))
+
 ## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
 
 
