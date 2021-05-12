@@ -29,7 +29,7 @@ const StyledMenuItemWrapper = styled.a`
     button {
       ${maxWidth &&
       css`
-        max-width: ${maxWidth}px;
+        max-width: ${maxWidth};
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

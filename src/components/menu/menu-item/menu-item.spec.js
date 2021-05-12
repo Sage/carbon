@@ -97,7 +97,7 @@ describe("MenuItem", () => {
 
   describe("with maxWidth prop set", () => {
     beforeEach(() => {
-      wrapper = mount(<MenuItem maxWidth={100}>Item One</MenuItem>);
+      wrapper = mount(<MenuItem maxWidth="100px">Item One</MenuItem>);
     });
 
     it("should add a title attribute with the full title", () => {
@@ -292,7 +292,7 @@ describe("MenuItem", () => {
       beforeEach(() => {
         wrapper = mount(
           <MenuContext.Provider value={{ menuType: "light" }}>
-            <MenuItem maxWidth={100} submenu="submenu title">
+            <MenuItem maxWidth="100px" submenu="submenu title">
               <MenuItem>Item one</MenuItem>
             </MenuItem>
           </MenuContext.Provider>

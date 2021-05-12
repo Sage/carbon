@@ -214,8 +214,8 @@ MenuItem.propTypes = {
     }
     return PropTypes.string(props, ...rest);
   },
-  /** Maximum width in px */
-  maxWidth: PropTypes.number,
+  /** Maximum width. Any valid CSS string */
+  maxWidth: PropTypes.string,
 };
 
 export default MenuItem;
