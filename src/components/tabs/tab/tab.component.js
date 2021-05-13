@@ -101,6 +101,8 @@ Tab.propTypes = {
   className: PropTypes.string,
   /** The child elements of Tab component. */
   children: PropTypes.node,
+  /** Overrides Title default layout with a one defined in this prop */
+  customLayout: PropTypes.node,
   /** Boolean indicating selected state of Tab. */
   isTabSelected: PropTypes.bool,
   /** The position of the Tab. */
