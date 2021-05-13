@@ -1,3 +1,10 @@
+## [73.6.0](https://github.com/Sage/carbon/compare/v73.5.0...v73.6.0) (2021-05-13)
+
+
+### Features
+
+* **menu-item:** add max width prop for truncation ([d9e58da](https://github.com/Sage/carbon/commit/d9e58da0cf0f3877d62d248c532592b28a62c3ff))
+
 ## [73.5.0](https://github.com/Sage/carbon/compare/v73.4.0...v73.5.0) (2021-05-13)
 
 
