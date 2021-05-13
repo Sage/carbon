@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import DateInput, { BaseDateInput } from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../../../components/button";
@@ -18,6 +19,7 @@ import Box from "../../../components/box";
 - Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, or colon as separators.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -27,6 +29,7 @@ import Box from "../../../components/box";
 ```javascript
 import DateInput from "carbon-react/lib/__experimental__/components/date";
 ```
+
 ## Examples
 
 ### Default
@@ -167,7 +170,10 @@ import DateInput from "carbon-react/lib/__experimental__/components/date";
 ### With disabled portal
 
 <Preview>
-  <Story name="with disabled portal" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with disabled portal"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <DateInput label="Date" value="2016-10-01" disablePortal />
   </Story>
 </Preview>
@@ -274,7 +280,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### DateInput
 
-<Props of={BaseDateInput} />
+<StyledSystemProps of={BaseDateInput} noHeader margin />
 
 ### Textbox
 
