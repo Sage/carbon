@@ -23,7 +23,7 @@ jobs:
             11, 12, 13, 14, 15,
             16, 17, 18, 19, 20
             ]
-    container: cypress/browsers:node12.18.3-chrome89-ff86
+    container: node14.16.0-chrome89-ff86
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
         fetch-depth: 0
     - uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '>=14.16.0 14'
     - run: npm ci
     - uses: chromaui/action@v1
       with:

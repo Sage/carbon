@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import DialogFullScreen from ".";
@@ -630,6 +630,53 @@ to have a possibility to manage active `Tabs` group
             title="An example of a long header"
             subtitle="Subtitle"
             headerChildren={HeaderChildren}
+          >
+            <Form
+              stickyFooter={true}
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" type="submit">
+                  Save
+                </Button>
+              }
+            >
+              <div>
+                This is an example of a full screen Dialog with a Form as
+                content
+              </div>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
+            </Form>
+          </DialogFullScreen>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With help
+
+<Preview>
+  <Story name="with help">
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={() => setIsOpen(!isOpen)}>
+            Open DialogFullScreen
+          </Button>
+          <DialogFullScreen
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="An example of a long header"
+            subtitle="Subtitle"
+            help="Some help text"
           >
             <Form
               stickyFooter={true}
