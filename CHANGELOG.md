@@ -1,3 +1,17 @@
+## [73.5.0](https://github.com/Sage/carbon/compare/v73.4.0...v73.5.0) (2021-05-13)
+
+
+### Features
+
+* **textarea:** add styled-system margin prop support ([d5825a5](https://github.com/Sage/carbon/commit/d5825a5cecbd1edcecc152a4d8a9f645c506eeaf))
+
+## [73.4.0](https://github.com/Sage/carbon/compare/v73.3.0...v73.4.0) (2021-05-13)
+
+
+### Features
+
+* **date:** add styled-system margin support ([9ab0c56](https://github.com/Sage/carbon/commit/9ab0c569e0f838362546be8880e7373dd1a4fa3e))
+
 ## [73.3.0](https://github.com/Sage/carbon/compare/v73.2.0...v73.3.0) (2021-05-13)
 
 

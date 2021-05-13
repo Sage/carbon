@@ -1,7 +1,9 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
+
 import { ValidationPropTypes } from "../../../components/validations";
 
-export interface TextareaProps extends ValidationPropTypes {
+export interface TextareaProps extends ValidationPropTypes, MarginProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Character limit of the textarea */
