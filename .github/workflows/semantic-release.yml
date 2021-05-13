@@ -20,7 +20,7 @@ jobs:
         persist-credentials: false
     - uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '>=14.16.0 14'
     - run: npm ci
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v3.0.1
