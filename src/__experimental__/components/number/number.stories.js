@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const Default = (props) => {
+export const Default = () => {
   const [state, setState] = useState("");
   const onChangeDeferredEnabled = boolean(
     'Enable "onChangeDeferred" Action',
@@ -44,7 +44,6 @@ export const Default = (props) => {
         onChangeDeferredEnabled ? action("onChangeDeferred") : undefined
       }
       deferTimeout={deferTimeout}
-      {...props}
     />
   );
 };

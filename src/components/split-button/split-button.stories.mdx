@@ -4,6 +4,7 @@ import SplitButton from ".";
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta title="Split Button" parameters={{ info: { disable: true } }} />
 
@@ -163,7 +164,11 @@ Subtext only works when `size` is `large`
 
 ### SplitButton
 
-<Props of={SplitButton} />
+<StyledSystemProps
+  of={SplitButton}
+  margin
+  noHeader
+/>
 
 ### Button
 

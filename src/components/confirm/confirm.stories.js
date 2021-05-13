@@ -20,9 +20,7 @@ export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   const children = text("children", "This is an example of a confirm.");
   const title = text("title", "Are you sure?");
-  const enableBackgroundUI = boolean("enableBackgroundUI", false);
   const disableEscKey = boolean("disableEscKey", false);
-  const ariaRole = text("ariaRole", Confirm.defaultProps.ariaRole);
   const height = text("height", "");
   const subtitle = text("subtitle", "");
   const size = select(
@@ -69,9 +67,7 @@ export const Default = () => {
       <Confirm
         title={title}
         open={isOpen}
-        enableBackgroundUI={enableBackgroundUI}
         disableEscKey={disableEscKey}
-        ariaRole={ariaRole}
         height={height}
         subtitle={subtitle}
         size={size}

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { shade } from "polished";
+import { margin } from "styled-system";
 
 import iconUnicodes from "./icon-unicodes";
 import baseTheme from "../../style/themes/base";
@@ -100,8 +101,6 @@ const StyledIcon = styled.span`
     type,
     fontSize,
     disabled,
-    mr,
-    ml,
   }) => {
     let finalColor;
     let finalHoverColor;
@@ -185,14 +184,7 @@ const StyledIcon = styled.span`
         display: block;
       }
 
-      ${ml &&
-      css`
-        margin-left: ${ml * theme.spacing}px;
-      `};
-      ${mr &&
-      css`
-        margin-right: ${mr * theme.spacing}px;
-      `};
+      ${margin}
     `;
   }}
 `;

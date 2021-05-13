@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import StyledColumn from "./column.style";
+import Logger from "../../../utils/logger/logger";
+
+let deprecatedWarnTriggered = false;
 
 const Column = ({
   columnAlign,
@@ -11,18 +14,28 @@ const Column = ({
   columnClasses,
   className,
   ...props
-}) => (
-  <StyledColumn
-    columnAlign={columnAlign}
-    className={classNames(className, columnClasses)}
-    columns={columns}
-    columnSpan={columnSpan}
-    columnOffset={columnOffset}
-    data-component="column"
-  >
-    {props.children}
-  </StyledColumn>
-);
+}) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate(
+      "`Column` component is deprecated and will soon be removed."
+    );
+  }
+
+  return (
+    <StyledColumn
+      columnAlign={columnAlign}
+      className={classNames(className, columnClasses)}
+      columns={columns}
+      columnSpan={columnSpan}
+      columnOffset={columnOffset}
+      data-component="column"
+    >
+      {props.children}
+    </StyledColumn>
+  );
+};
 
 Column.defaultProps = {
   columnOffset: "0",

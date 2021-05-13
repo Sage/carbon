@@ -5,6 +5,7 @@ import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Grid" parameters={{ chromatic: { disable: true }}}/>
 
@@ -412,11 +413,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 ## Props
 
-### GridContainer 
-<Props of={GridContainer} />
+<StyledSystemProps of={GridContainer} spacing />
 
-### GridItem 
-<Props of={GridItem} />
+## GridItem Props
+
+<StyledSystemProps of={GridItem} padding />
 
 ### responsiveSettings
 <ArgsTable

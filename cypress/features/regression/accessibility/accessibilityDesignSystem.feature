@@ -198,9 +198,9 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System Tile" component page "<story>" in no iframe
     Then "Tile <story>" component has no accessibility violations
     Examples:
-      | story                             |
-      | default story                     |
-      | with definition list default      |
+      | story                        |
+      | default story                |
+      | with definition list default |
 
   @accessibility
   Scenario: Component Toast
@@ -232,3 +232,8 @@ Feature: Accessibility tests - Design System folder
   Scenario: Tooltip component default story
     When I open "Design System Tooltip Test" component page "default" in no iframe
     Then "Design System Tooltip Test default" component has no accessibility violations
+
+  @accessibility
+  Scenario: Image component default story
+    When I open "Design System Image" component page "default story" in no iframe
+    Then "Image default story" component has no accessibility violations

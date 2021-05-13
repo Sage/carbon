@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import {
   StyledAdvancedColorPickerWrapper,
   StyledAdvancedColorPickerCell,
@@ -11,6 +12,11 @@ import {
   SimpleColor,
 } from "../../__experimental__/components/simple-color-picker";
 import Events from "../../utils/helpers/events";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const AdvancedColorPicker = ({
   name,
@@ -22,6 +28,7 @@ const AdvancedColorPicker = ({
   availableColors,
   defaultColor,
   selectedColor,
+  ...props
 }) => {
   const isOpen = open || false;
   const [dialogOpen, setDialogOpen] = useState();
@@ -135,7 +142,10 @@ const AdvancedColorPicker = ({
   );
 
   return (
-    <StyledAdvancedColorPickerWrapper>
+    <StyledAdvancedColorPickerWrapper
+      m="15px auto auto 15px"
+      {...filterStyledSystemMarginProps(props)}
+    >
       <StyledAdvancedColorPickerCell
         data-element="color-picker-cell"
         onClick={handleOnOpen}
@@ -180,6 +190,8 @@ const AdvancedColorPicker = ({
 };
 
 AdvancedColorPicker.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Specifies the name prop to be applied to each color in the group */
   name: PropTypes.string.isRequired,
   /** Prop for `availableColors` containing array of objects of colors */

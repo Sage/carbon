@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { assign } from "lodash";
 import DateInput from "../date";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import tagComponent from "../../../utils/helpers/tags";
 import StyledDateRange from "./date-range.style";
 import DateHelper from "../../../utils/helpers/date";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 class DateRange extends React.Component {
   today = DateHelper.todayFormatted("YYYY-MM-DD");
@@ -182,6 +188,7 @@ class DateRange extends React.Component {
       <StyledDateRange
         {...tagComponent("date-range", this.props)}
         labelsInline={this.props.labelsInline}
+        {...filterStyledSystemMarginProps(this.props)}
       >
         <DateInput
           {...this.dateProps("start")}
@@ -203,6 +210,8 @@ class DateRange extends React.Component {
 }
 
 DateRange.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /**
    * Optional label for endDate field
    */

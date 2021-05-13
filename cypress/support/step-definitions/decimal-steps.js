@@ -1,45 +1,19 @@
 import { commonDataElementInputPreviewNoIframe } from "../../locators";
 
-Then("Decimal component is disabled", () => {
-  commonDataElementInputPreviewNoIframe().should("have.attr", "disabled");
-  commonDataElementInputPreviewNoIframe()
-    .parent()
-    .should("have.attr", "disabled");
+When("I set Decimal input to the {word}", (input) => {
+  commonDataElementInputPreviewNoIframe().clear().type(input).blur();
 });
 
-Then("Decimal component is enabled", () => {
-  commonDataElementInputPreviewNoIframe().should("not.have.attr", "disabled");
+Then("Decimal Input is set to {word}", (input) => {
   commonDataElementInputPreviewNoIframe()
-    .parent()
-    .should("not.have.attr", "disabled");
+    .should("have.attr", "value", input)
+    .wait(50);
 });
 
-Then("Decimal component is readOnly", () => {
-  commonDataElementInputPreviewNoIframe().should("have.attr", "readonly");
-  commonDataElementInputPreviewNoIframe()
-    .parent()
-    .should("have.attr", "readonly");
+When("I set Decimal input to a string with only white-space", () => {
+  commonDataElementInputPreviewNoIframe().clear().type("     ").blur();
 });
 
-Then("Decimal component is not readOnly", () => {
-  commonDataElementInputPreviewNoIframe().should("not.have.attr", "readonly");
-  commonDataElementInputPreviewNoIframe()
-    .parent()
-    .should("not.have.attr", "readonly");
-});
-
-When("I set Decimal input to {word}", (labelInput) => {
-  commonDataElementInputPreviewNoIframe().clear().type(labelInput);
-});
-
-Then("Decimal Input is set to {word}", (labelInput) => {
-  commonDataElementInputPreviewNoIframe()
-    .should("have.attr", "value")
-    .should("contain", `${labelInput}`);
-});
-
-Then("Decimal input is not set to {word}", (labelInput) => {
-  commonDataElementInputPreviewNoIframe()
-    .should("have.attr", "value")
-    .should("not.contain", `${labelInput}`);
+Then("Decimal Input is set to white-space only", () => {
+  commonDataElementInputPreviewNoIframe().should("have.attr", "value", "     ");
 });

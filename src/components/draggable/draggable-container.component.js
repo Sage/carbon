@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { DndProvider, useDrop } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
-import DraggableItem from "./draggable-item.component";
-import { StyledIcon } from "./draggable-item.style";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
-const DropTarget = ({ children, getOrder }) => {
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import DraggableItem from "./draggable-item.component";
+import { StyledIcon, StyledDraggableContainer } from "./draggable-item.style";
+
+const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
+
+const DropTarget = ({ children, getOrder, ...rest }) => {
   const [, drop] = useDrop({
     accept: "draggableItem",
     drop() {
@@ -13,10 +18,14 @@ const DropTarget = ({ children, getOrder }) => {
     },
   });
 
-  return <div ref={drop}>{children}</div>;
+  return (
+    <StyledDraggableContainer ref={drop} {...rest}>
+      {children}
+    </StyledDraggableContainer>
+  );
 };
 
-const DraggableContainer = ({ children, getOrder }) => {
+const DraggableContainer = ({ children, getOrder, ...rest }) => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children)
   );
@@ -53,9 +62,11 @@ const DraggableContainer = ({ children, getOrder }) => {
     getOrder(draggableItemIds);
   };
 
+  const marginProps = filterStyledSystemMarginProps(rest);
+
   return (
     <DndProvider backend={Backend}>
-      <DropTarget getOrder={getItemsId}>
+      <DropTarget getOrder={getItemsId} {...marginProps}>
         {draggableItems.map((item) =>
           React.cloneElement(
             item,
@@ -76,6 +87,7 @@ const DraggableContainer = ({ children, getOrder }) => {
 };
 
 DraggableContainer.propTypes = {
+  ...marginPropTypes,
   /** Callback fired when order is changed */
   getOrder: PropTypes.func,
   /**
@@ -100,6 +112,7 @@ DraggableContainer.propTypes = {
 };
 
 DropTarget.propTypes = {
+  ...marginPropTypes,
   children: PropTypes.node.isRequired,
   getOrder: PropTypes.func,
 };

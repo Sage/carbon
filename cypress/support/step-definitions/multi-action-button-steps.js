@@ -14,17 +14,6 @@ Then("Multi Action Button has {string} background-color", (color) => {
   multiActionButton().should("have.css", "background-color", color);
 });
 
-Then(
-  "Multi Action Button border color is {string} border-color",
-  (borderColor) => {
-    multiActionButton()
-      .should("have.css", "border-bottom-color", borderColor)
-      .and("have.css", "border-top-color", borderColor)
-      .and("have.css", "border-right-color", borderColor)
-      .and("have.css", "border-left-color", borderColor);
-  }
-);
-
 Then("Multi Action Button subtext on preview is {word}", (subtext) => {
   buttonSubtextPreview().should("have.text", subtext);
 });

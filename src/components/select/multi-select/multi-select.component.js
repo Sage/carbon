@@ -293,6 +293,7 @@ const MultiSelect = React.forwardRef(
       }
 
       isInputFocused.current = false;
+      setOpenState(false);
 
       if (onBlur) {
         onBlur(event);
@@ -424,6 +425,7 @@ const MultiSelect = React.forwardRef(
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
         iconOnClick: handleDropdownIconClick,
+        iconOnMouseDown: handleTextboxMouseDown,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         ...textboxProps,

@@ -1,10 +1,8 @@
-import React from "react";
-import classNames from "classnames";
+import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import Browser from "../../utils/helpers/browser";
+
 import Modal from "../modal";
 import Heading from "../heading";
-
 import ElementResize from "../../utils/helpers/element-resize";
 import {
   DialogStyle,
@@ -12,159 +10,98 @@ import {
   DialogContentStyle,
   DialogInnerContentStyle,
 } from "./dialog.style";
-import tagComponent from "../../utils/helpers/tags";
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import Form from "../form";
 
-const contentBottomPadding = 30;
+const TOP_MARGIN = 20;
 
-class Dialog extends Modal {
-  constructor(args) {
-    super(args);
-    this.componentTags = this.componentTags.bind(this);
-    this.onDialogBlur = this.onDialogBlur.bind(this);
-    this.document = Browser.getDocument();
-    this.window = Browser.getWindow();
-    this.isCloseIconDisabled = false;
-  }
+const Dialog = ({
+  className,
+  children,
+  open,
+  height,
+  size,
+  ariaRole,
+  title,
+  disableEscKey,
+  subtitle,
+  disableAutoFocus,
+  focusFirstElement,
+  onCancel,
+  showCloseIcon,
+  bespokeFocusTrap,
+  disableClose,
+  ...rest
+}) => {
+  const dialogRef = useRef();
+  const innerContentRef = useRef();
+  const titleRef = useRef();
+  const listenersAdded = useRef(false);
 
-  componentDidMount() {
-    super.componentDidMount();
-    if (this.props.open) {
-      this.centerDialog();
-    }
-  }
+  const centerDialog = useCallback(() => {
+    const {
+      width: dialogWidth,
+      height: dialogHeight,
+    } = dialogRef.current.getBoundingClientRect();
 
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    if (this.props.open) {
-      this.centerDialog(true);
-    }
-  }
+    let midPointY = window.innerHeight / 2;
+    let midPointX = window.innerWidth / 2;
 
-  onDialogBlur(ev) {} // eslint-disable-line no-unused-vars
+    midPointY -= dialogHeight / 2;
+    midPointX -= dialogWidth / 2;
 
-  handleOpen() {
-    super.handleOpen();
-    this.document.documentElement.style.overflow = "hidden";
-    this.centerDialog(true);
-    ElementResize.addListener(this._innerContent, this.applyFixedBottom);
-    this.window.addEventListener("resize", this.centerDialog);
-  }
-
-  handleClose() {
-    super.handleClose();
-    this.appliedFixedBottom = false;
-    this.document.documentElement.style.overflow = "";
-    this.window.removeEventListener("resize", this.centerDialog);
-    return ElementResize.removeListener(
-      this._innerContent,
-      this.applyFixedBottom
-    );
-  }
-
-  centerDialog = (animating) => {
-    const height = this._dialog.offsetHeight / 2,
-      width = this._dialog.offsetWidth / 2,
-      win = this.window;
-
-    let midPointY = win.innerHeight / 2,
-      midPointX = win.innerWidth / 2;
-
-    midPointY -= height;
-    midPointX -= width;
-
-    if (midPointY < 20) {
-      midPointY = 20;
+    if (midPointY < TOP_MARGIN) {
+      midPointY = TOP_MARGIN;
     }
 
-    if (midPointX < 20) {
-      midPointX = 20;
+    if (midPointX < TOP_MARGIN) {
+      midPointX = TOP_MARGIN;
     }
 
-    if (this._content) {
-      // apply height to content based on height of title
-      const titleHeight = this._title ? this._title.offsetHeight : "0";
-      this._content.style.height = `calc(100% - ${titleHeight}px)`;
+    dialogRef.current.style.top = `${midPointY}px`;
+    dialogRef.current.style.left = `${midPointX}px`;
+  }, []);
+
+  const addListeners = useCallback(() => {
+    /* istanbul ignore else */
+    if (!listenersAdded.current) {
+      ElementResize.addListener(innerContentRef.current, centerDialog);
+      window.addEventListener("resize", centerDialog);
+      listenersAdded.current = true;
+    }
+  }, [centerDialog]);
+
+  const removeListeners = useCallback(() => {
+    if (listenersAdded.current) {
+      ElementResize.removeListener(innerContentRef.current, centerDialog);
+      window.removeEventListener("resize", centerDialog);
+      listenersAdded.current = false;
+    }
+  }, [centerDialog]);
+
+  useEffect(() => {
+    if (open) {
+      addListeners();
     }
 
-    this._dialog.style.top = `${midPointY}px`;
-    this._dialog.style.left = `${midPointX}px`;
-
-    if (animating === true) {
-      // cause timeout to accommodate dialog animating in
-      setTimeout(() => {
-        this.applyFixedBottom();
-      }, 500);
-    } else {
-      this.applyFixedBottom();
-    }
-  };
-
-  applyFixedBottom = () => {
-    if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
-      this.appliedFixedBottom = true;
-      this.forceUpdate();
-    } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
-      this.appliedFixedBottom = false;
-      this.forceUpdate();
-    }
-  };
-
-  shouldHaveFixedBottom = () => {
-    if (!this._innerContent) return false;
-
-    const contentHeight =
-      this._innerContent.offsetHeight +
-      this._innerContent.offsetTop +
-      contentBottomPadding;
-    const windowHeight = this.window.innerHeight - this._dialog.offsetTop;
-
-    return contentHeight > windowHeight;
-  };
-
-  getTitle(title) {
-    return title;
-  }
-
-  get dialogTitle() {
-    if (!this.props.title) return null;
-
-    const { showCloseIcon, subtitle } = this.props;
-    let { title } = this.props;
-
-    if (typeof title === "string") {
-      title = (
-        <Heading
-          title={title}
-          titleId="carbon-dialog-title"
-          subheader={this.props.subtitle}
-          subtitleId="carbon-dialog-subtitle"
-          divider={false}
-        />
-      );
+    if (!open) {
+      removeListeners();
     }
 
-    return (
-      <DialogTitleStyle
-        showCloseIcon={showCloseIcon}
-        hasSubtitle={!!subtitle}
-        ref={(titleRef) => {
-          this._title = titleRef;
-        }}
-      >
-        {this.getTitle(title)}
-      </DialogTitleStyle>
-    );
-  }
+    return () => {
+      removeListeners();
+    };
+  }, [open, addListeners, removeListeners]);
 
-  get mainClasses() {
-    return classNames("carbon-dialog", this.props.className);
-  }
+  useLayoutEffect(() => {
+    if (open) {
+      centerDialog();
+    }
+  }, [centerDialog, open, height]);
 
-  get closeIcon() {
-    const { showCloseIcon, onCancel } = this.props;
+  const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
 
     return (
@@ -172,110 +109,122 @@ class Dialog extends Modal {
         data-element="close"
         aria-label="Close button"
         onAction={onCancel}
-        disabled={this.isCloseIconDisabled}
+        disabled={disableClose}
       >
         <Icon type="close" />
       </IconButton>
     );
-  }
+  };
 
-  componentTags(props) {
-    return {
-      "data-component": "dialog",
-      "data-element": props["data-element"],
-      "data-role": props["data-role"],
-    };
-  }
+  const dialogTitle = () => {
+    if (!title) return null;
 
-  additionalContent() {
-    return null;
-  }
-
-  renderDialog = (dialogProps) => {
     return (
-      <DialogStyle
-        ref={(dialog) => {
-          this._dialog = dialog;
-        }}
-        {...dialogProps}
-        {...tagComponent("dialog", {
-          "data-element": "dialog",
-          "data-role": this.props["data-role"],
-        })}
-        onBlur={this.onDialogBlur}
+      <DialogTitleStyle
+        showCloseIcon={showCloseIcon}
+        hasSubtitle={!!subtitle}
+        ref={titleRef}
       >
-        {this.dialogTitle}
-        <DialogContentStyle
-          ref={(content) => {
-            this._content = content;
-          }}
-          paddingBottom={contentBottomPadding}
-          height={this.props.height}
-          fixedBottom={this.appliedFixedBottom}
-        >
-          <DialogInnerContentStyle
-            ref={(innerContent) => {
-              this._innerContent = innerContent;
-            }}
-            height={this.props.height}
-          >
-            {this.props.children}
-            {this.additionalContent()}
-          </DialogInnerContentStyle>
-        </DialogContentStyle>
-        {this.closeIcon}
-      </DialogStyle>
+        {typeof title === "string" ? (
+          <Heading
+            title={title}
+            titleId="carbon-dialog-title"
+            subheader={subtitle}
+            subtitleId="carbon-dialog-subtitle"
+            divider={false}
+          />
+        ) : (
+          title
+        )}
+      </DialogTitleStyle>
     );
   };
 
-  get modalHTML() {
-    let { height } = this.props;
+  let dialogHeight = height;
 
-    if (height && !height.match(/px$/)) {
-      height = `${height}px`;
-    }
-
-    const dialogProps = {
-      style: {
-        minHeight: height,
-      },
-      size: this.props.size,
-      fixedBottom: this.appliedFixedBottom,
-      height: this.props.height,
-      theme: this.props.theme,
-    };
-
-    if (this.props.ariaRole) {
-      dialogProps.role = this.props.ariaRole;
-    }
-
-    if (this.props.title) {
-      dialogProps["aria-labelledby"] = "carbon-dialog-title";
-    }
-
-    if (this.props.subtitle) {
-      dialogProps["aria-describedby"] = "carbon-dialog-subtitle";
-    }
-
-    if (this.props.disableFocusTrap) {
-      return this.renderDialog(dialogProps);
-    }
-
-    return (
-      <FocusTrap
-        autoFocus={!this.props.disableAutoFocus}
-        focusFirstElement={this.props.focusFirstElement}
-        bespokeTrap={this.props.bespokeFocusTrap}
-        wrapperRef={this._dialog}
-      >
-        {this.renderDialog(dialogProps)}
-      </FocusTrap>
-    );
+  if (height && height.match(/px$/)) {
+    dialogHeight = height.replace("px", "");
   }
-}
+
+  const dialogProps = {
+    size,
+    dialogHeight,
+  };
+
+  if (ariaRole) dialogProps.role = ariaRole;
+
+  if (title) dialogProps["aria-labelledby"] = "carbon-dialog-title";
+
+  if (subtitle) dialogProps["aria-describedby"] = "carbon-dialog-subtitle";
+
+  const componentTags = {
+    "data-component": rest["data-component"] || "dialog",
+    "data-element": rest["data-element"],
+    "data-role": rest["data-role"],
+  };
+
+  return (
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      disableEscKey={disableEscKey}
+      disableClose={disableClose}
+      className={className ? `${className} carbon-dialog` : "carbon-dialog"}
+      {...componentTags}
+    >
+      <FocusTrap
+        autoFocus={!disableAutoFocus}
+        focusFirstElement={focusFirstElement}
+        bespokeTrap={bespokeFocusTrap}
+        wrapperRef={dialogRef}
+      >
+        <DialogStyle
+          ref={dialogRef}
+          topMargin={TOP_MARGIN}
+          {...dialogProps}
+          data-component="dialog"
+          data-element="dialog"
+          data-role={rest["data-role"]}
+        >
+          {dialogTitle()}
+          <DialogContentStyle>
+            <DialogInnerContentStyle ref={innerContentRef}>
+              {React.Children.map(children, (child) => {
+                if (child?.type === Form) {
+                  return React.cloneElement(child, {
+                    dialogRef,
+                  });
+                }
+                return child;
+              })}
+            </DialogInnerContentStyle>
+          </DialogContentStyle>
+          {closeIcon()}
+        </DialogStyle>
+      </FocusTrap>
+    </Modal>
+  );
+};
 
 Dialog.propTypes = {
-  ...Modal.propTypes,
+  /**
+   * The ARIA role to be applied to the Dialog
+   * @ignore
+   * @private
+   */
+  ariaRole: PropTypes.string,
+  /** Dialog content */
+  children: PropTypes.node,
+  /** Custom classname  */
+  className: PropTypes.string,
+  /** Controls the open state of the component */
+  open: PropTypes.bool.isRequired,
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Determines if the Esc Key closes the Dialog */
+  disableEscKey: PropTypes.bool,
+  /** Determines if the Dialog can be closed */
+  disableClose: PropTypes.bool,
   /** Allows developers to specify a specific height for the dialog. */
   height: PropTypes.string,
   /** Title displayed at top of dialog */
@@ -283,16 +232,21 @@ Dialog.propTypes = {
   /** Subtitle displayed at top of dialog */
   subtitle: PropTypes.string,
   /** Size of dialog, default size is 750px */
-  size: PropTypes.string,
+  size: PropTypes.oneOf([
+    "auto",
+    "extra-small",
+    "small",
+    "medium-small",
+    "medium",
+    "medium-large",
+    "large",
+    "extra-large",
+  ]),
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  /** function runs when user click close button */
-  onCancel: PropTypes.func,
-  /* Function or reference to first element to focus */
-  focusFirstElement: PropTypes.func,
-  /* Disables the focus trap when the dialog is open */
-  disableFocusTrap: PropTypes.bool,
-  /* Disables auto focus functionality on child elements */
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
+  /** Disables auto focus functionality on child elements */
   disableAutoFocus: PropTypes.bool,
   /**
    * Function to replace focus trap

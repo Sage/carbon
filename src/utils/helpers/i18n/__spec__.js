@@ -38,16 +38,34 @@ describe("I18n Helper", () => {
   describe("formatDecimal", () => {
     describe("when a value is provided", () => {
       describe("and precision is not provided, ", () => {
-        it("returns the formated value using defalut precision", () => {
+        it("returns the formatted value using default precision", () => {
           expect(Helper.formatDecimal("1234567")).toEqual("1,234,567.00");
           expect(Helper.formatDecimal("1000")).toEqual("1,000.00");
           expect(Helper.formatDecimal("100")).toEqual("100.00");
           expect(Helper.formatDecimal("1234567.894")).toEqual("1,234,567.89");
         });
+
+        describe("fr", () => {
+          const before = I18n.locale;
+          beforeAll(() => {
+            I18n.locale = "fr";
+          });
+
+          afterAll(() => {
+            I18n.locale = before;
+          });
+
+          it("returns the formatted value using default precision when FR", () => {
+            expect(Helper.formatDecimal("1234567")).toEqual("1.234.567,00");
+            expect(Helper.formatDecimal("1000")).toEqual("1.000,00");
+            expect(Helper.formatDecimal("100")).toEqual("100,00");
+            expect(Helper.formatDecimal("1234567.894")).toEqual("1.234.567,89");
+          });
+        });
       });
 
       describe("and a precision is provided, ", () => {
-        it("returns the formated value using provided precision", () => {
+        it("returns the formatted value using provided precision", () => {
           expect(Helper.formatDecimal("1234567", 3)).toEqual("1,234,567.000");
           expect(Helper.formatDecimal("1000", 0)).toEqual("1,000");
           expect(Helper.formatDecimal("100", 1)).toEqual("100.0");
@@ -108,7 +126,7 @@ describe("I18n Helper", () => {
 
   describe("unformatDecimal", () => {
     describe("when a value is provided", () => {
-      it("returns the un-formated value", () => {
+      it("returns the un-formatted value", () => {
         expect(Helper.unformatDecimal("1,234,567.00")).toEqual("1234567.00");
         expect(Helper.unformatDecimal("1,234,567.894")).toEqual("1234567.894");
         expect(Helper.unformatDecimal("1,000")).toEqual("1000");

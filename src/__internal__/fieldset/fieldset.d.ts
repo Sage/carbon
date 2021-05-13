@@ -1,6 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface FieldsetProps {
+export interface FieldsetProps extends MarginProps {
   /** Fieldset content */
   children: React.ReactNode;
   /** The content for the Fieldset Legend */
@@ -22,13 +23,9 @@ export interface FieldsetProps {
   /** Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
   /** Text alignment of legend when inline */
-  legendAlign?: 'left' | 'right';
+  legendAlign?: "left" | "right";
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
-  /** Margin left, any valid CSS value */
-  ml?: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;
@@ -40,6 +37,6 @@ export interface FieldsetProps {
   blockGroupBehaviour?: boolean;
 }
 
-declare const Fieldset: React.ComponentClass<FieldsetProps>;
+declare function Fieldset(props: FieldsetProps): JSX.Element;
 
 export default Fieldset;

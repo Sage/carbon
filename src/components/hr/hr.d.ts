@@ -1,12 +1,13 @@
-import * as React from 'react';
-import { MarginSpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import { SpaceProps } from "styled-system";
 
-export interface HrProps extends MarginSpacingProps {
+export interface HrProps extends SpaceProps {
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
    * Enables the adaptive behaviour when set
    */
   adaptiveMxBreakpoint?: number;
 }
 
-declare const Hr: React.FunctionComponent<HrProps>;
+declare function Hr(props: HrProps): JSX.Element;
+
 export default Hr;

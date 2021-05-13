@@ -14,7 +14,7 @@ const paddingPropTypes = filterStyledSystemPaddingProps(
 );
 
 const FlatTableCell = ({
-  align,
+  align = "left",
   children,
   colspan,
   rowspan,
@@ -26,6 +26,9 @@ const FlatTableCell = ({
   reportCellWidth,
   cellIndex,
   leftPosition,
+  width,
+  truncate = false,
+  title,
   ...rest
 }) => {
   const ref = useRef(null);
@@ -50,9 +53,17 @@ const FlatTableCell = ({
       onClick={expandable && onClick ? onClick : undefined}
       tabIndex={expandable && onClick ? 0 : undefined}
       onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
+      colWidth={width}
+      isTruncated={truncate}
+      expandable={expandable}
       {...rest}
     >
-      <StyledCellContent expandable={expandable}>
+      <StyledCellContent
+        title={
+          truncate && !title && typeof children === "string" ? children : title
+        }
+        expandable={expandable}
+      >
         {expandable && <Icon type="chevron_down_thick" />}
         {children}
       </StyledCellContent>
@@ -70,6 +81,12 @@ FlatTableCell.propTypes = {
   colspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Number of rows that a cell should span */
   rowspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Column width, pass a number to set a fixed width in pixels */
+  width: PropTypes.number,
+  /** Truncate cell content and add ellipsis to any text that overflows */
+  truncate: PropTypes.bool,
+  /** Title text to display if cell content truncates */
+  title: PropTypes.string,
   /**
    * @private
    * @ignore
@@ -103,10 +120,6 @@ FlatTableCell.propTypes = {
    * Callback to report the offsetWidth
    */
   reportCellWidth: PropTypes.func,
-};
-
-FlatTableCell.defaultProps = {
-  align: "left",
 };
 
 export default FlatTableCell;

@@ -1,10 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import {
   StyledContent,
   StyledContentTitle,
   StyledContentBody,
 } from "./content.style.js";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Content = ({
   variant = "primary",
@@ -46,6 +53,7 @@ const Content = ({
 );
 
 Content.propTypes = {
+  ...marginPropTypes,
   /** Applies a theme to the Content Value: primary, secondary */
   variant: PropTypes.oneOf(["primary", "secondary"]),
   /** The body of the content component */

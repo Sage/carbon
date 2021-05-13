@@ -8,5 +8,4 @@ export const SELECT_LIST = '[data-element="select-list"]';
 export const SELECT = '[id="simple"]';
 export const OPEN_ON_FOCUS_ID = '[id="openOnFocus"]';
 export const IS_LOADING_ID = '[id="isLoading"]';
-export const SELECT_INPUT = '[data-element="select-input"]';
 export const SELECT_LIST_WRAPPER = '[data-element="select-list-wrapper"]';

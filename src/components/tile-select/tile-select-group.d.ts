@@ -1,6 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface TileSelectGroupProps {
+export interface TileSelectGroupProps extends MarginProps {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
   /** The content for the TileSelectGroup Legend */
@@ -21,6 +22,6 @@ export interface TileSelectGroupProps {
   multiSelect?: boolean;
 }
 
-declare const TileSelectGroup: React.FunctionComponent<TileSelectGroupProps>;
+declare function TileSelectGroup(props: TileSelectGroupProps): JSX.Element;
 
 export { TileSelectGroup };

@@ -15,16 +15,30 @@ import {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
+  StyledTitleContainer,
+  StyledFocusWrapper,
+  StyledFooterWrapper,
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
 
 const radioValues = ["val1", "val2", "val3"];
 
 describe("TileSelect", () => {
+  testStyledSystemMargin((props) => <TileSelect {...props} />);
+
+  testStyledSystemMargin((props) => (
+    <TileSelectGroup {...props}>
+      <TileSelect name="test" />
+    </TileSelectGroup>
+  ));
+
   let wrapper;
 
   const render = (props) => {
@@ -68,14 +82,61 @@ describe("TileSelect", () => {
     });
   });
 
-  it("renders title element when title prop is passed", () => {
+  it("calls onFocus callback if prop is passed and input is focused", () => {
+    const mockCb = jest.fn();
+    render({
+      onFocus: mockCb,
+      checked: true,
+      id: "id",
+      name: "name",
+    });
+
+    wrapper.find(StyledTileSelectInput).simulate("focus");
+    expect(mockCb).toHaveBeenCalled();
+  });
+
+  it("calls onBlur callback if prop is passed and input is blurred", () => {
+    const mockCb = jest.fn();
+    render({
+      onBlur: mockCb,
+      checked: true,
+      id: "id",
+      name: "name",
+    });
+
+    wrapper.find(StyledTileSelectInput).simulate("focus");
+    wrapper.find(StyledTileSelectInput).simulate("blur");
+    expect(mockCb).toHaveBeenCalled();
+  });
+
+  it("renders title element as h3 when title prop is passed as string", () => {
     render({ title: "Title" });
+    expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeTruthy();
     expect(wrapper.find(StyledTitle).prop("children")).toBe("Title");
   });
 
-  it("renders subtitle element when subtitle prop is passed", () => {
+  it("renders title element as a div when title prop is passed as node", () => {
+    render({ title: <h1>Title</h1> });
+    expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeFalsy();
+    expect(wrapper.find(StyledTitle).prop("as")).toBe("div");
+    expect(wrapper.find(StyledTitle).prop("children")).toStrictEqual(
+      <h1>Title</h1>
+    );
+  });
+
+  it("renders subtitle element as h4 when subtitle prop is passed as string", () => {
     render({ subtitle: "Subtitle" });
+    expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeTruthy();
     expect(wrapper.find(StyledSubtitle).prop("children")).toBe("Subtitle");
+  });
+
+  it("renders subtitle element as a div when subtitle prop is passed as node", () => {
+    render({ subtitle: <h2>Sub Title</h2> });
+    expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeFalsy();
+    expect(wrapper.find(StyledSubtitle).prop("as")).toBe("div");
+    expect(wrapper.find(StyledSubtitle).prop("children")).toStrictEqual(
+      <h2>Sub Title</h2>
+    );
   });
 
   it("renders title adornment element when titleAdornment prop is passed", () => {
@@ -84,16 +145,38 @@ describe("TileSelect", () => {
     expect(wrapper.find(StyledAdornment).find(MyComp).exists()).toBe(true);
   });
 
+  it("renders description element as p when description prop is passed as string", () => {
+    render({ description: "description" });
+    expect(wrapper.find(StyledDescription).prop("as")).toBe(undefined);
+    expect(wrapper.find(StyledDescription).prop("children")).toBe(
+      "description"
+    );
+  });
+
+  it("renders description element as div when description prop is passed as node", () => {
+    render({ description: <strong>description</strong> });
+    expect(wrapper.find(StyledDescription).prop("as")).toBe("div");
+    expect(wrapper.find(StyledDescription).prop("children")).toStrictEqual(
+      <strong>description</strong>
+    );
+  });
+
   describe("styles", () => {
     it("renders proper colors when TileSelect is checked", () => {
       render({ checked: true });
       assertStyleMatch(
         {
-          borderColor: baseTheme.colors.primary,
           background: tint(baseTheme.colors.primary)(95),
-          zIndex: "10",
         },
         wrapper.find(StyledTileSelect)
+      );
+
+      assertStyleMatch(
+        {
+          borderColor: baseTheme.colors.primary,
+          zIndex: "10",
+        },
+        wrapper.find(StyledFocusWrapper)
       );
     });
 
@@ -138,13 +221,14 @@ describe("TileSelect", () => {
     });
 
     it("renders proper outline when focused", () => {
+      wrapper.find(StyledTileSelectInput).simulate("focus");
+
       assertStyleMatch(
         {
           outline: `3px solid ${baseTheme.colors.focus}`,
           zIndex: "15",
         },
-        wrapper.find(StyledTileSelectInput),
-        { modifier: `&:focus + ${StyledTileSelect}` }
+        wrapper.find(StyledFocusWrapper)
       );
     });
   });
@@ -201,6 +285,40 @@ describe("TileSelect", () => {
           minHeight: "32px",
         },
         wrapper.find(StyledDeselectWrapper)
+      );
+    });
+  });
+
+  describe("footer prop", () => {
+    beforeEach(() => {
+      render({
+        checked: true,
+        id: "id",
+        name: "name",
+        footer: (
+          <>
+            <Icon type="info" />
+            <Button>Foo</Button>
+          </>
+        ),
+      });
+    });
+
+    it("renders the component at the bottom of the tile", () => {
+      expect(
+        wrapper.find(StyledFooterWrapper).find(Icon).exists()
+      ).toBeTruthy();
+      expect(
+        wrapper.find(StyledFooterWrapper).find(Button).exists()
+      ).toBeTruthy();
+
+      assertStyleMatch(
+        {
+          width: "fit-content",
+          position: "relative",
+          zIndex: "200",
+        },
+        wrapper.find(StyledFooterWrapper)
       );
     });
   });

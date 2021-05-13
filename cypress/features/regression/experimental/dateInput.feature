@@ -52,34 +52,34 @@ Feature: Experimental Date Input component
 
   @positive
   Scenario: Open dayPickerDay via click on input
-    Given I open "Experimental Date Input Test" component page "default"
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "default" object name
     When I click dateInput
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on input
-    Given I open "Experimental Date Input Test" component page "default"
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "default" object name
     When I click dateInput twice
     Then dayPickerDay is not visible
 
   @positive
   Scenario: Open dayPickerDay via click on icon
-    Given I open "Experimental Date Input Test" component page "default"
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "default" object name
     When I click onto date icon
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on icon
-    Given I open "Experimental Date Input Test" component page "default"
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "default" object name
     When I click onto date icon twice
     Then dayPickerDay is not visible
 
   @positive
   Scenario Outline: Show Date input at the <position> position
-    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "<marginTop>" object name
-    When I click dateInput in noIframe
+    Given I open default "Experimental Date Input Test" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
+    When I click dateInput
     Then Date input is visible at the <position>
     Examples:
-      | position | marginTop |
-      | bottom   | small     |
-      | top      | large     |
+      | position | nameOfObject |
+      | bottom   | small        |
+      | top      | large        |

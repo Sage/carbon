@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags";
 import StyledIcon from "./icon.style";
 import Tooltip from "../tooltip";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Icon = React.forwardRef(
   (
@@ -17,8 +23,6 @@ const Icon = React.forwardRef(
       fontSize,
       iconColor,
       type,
-      ml,
-      mr,
       tooltipMessage,
       tooltipPosition,
       tooltipVisible,
@@ -61,10 +65,9 @@ const Icon = React.forwardRef(
       disabled,
       fontSize,
       iconColor,
-      mr,
-      ml,
       tabIndex,
       type: iconType(),
+      ...filterStyledSystemMarginProps(rest),
     };
 
     const icon = (
@@ -105,6 +108,7 @@ const Icon = React.forwardRef(
 const placements = ["top", "bottom", "left", "right"];
 
 Icon.propTypes = {
+  ...marginPropTypes,
   /**
    * @private
    * @ignore
@@ -141,10 +145,6 @@ Icon.propTypes = {
   bg: PropTypes.string,
   /** Sets the icon in the disabled state */
   disabled: PropTypes.bool,
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr: PropTypes.number,
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml: PropTypes.number,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
   /** The message string to be displayed in the tooltip */

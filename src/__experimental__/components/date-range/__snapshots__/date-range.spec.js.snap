@@ -6,7 +6,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .c11 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -20,6 +20,76 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 }
 
 .c3 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c4 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c4 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c5 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c5 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c6 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c6 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c7 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c7 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c8 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c8 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c9 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c9 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c10 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c10 .c1:first-child {
   margin-right: 15px;
 }
 
@@ -48,7 +118,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .c11 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -68,10 +138,80 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 .c3 .c1 {
   width: auto;
   display: inline-block;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 
 .c3 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c4 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c4 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c5 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c5 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c6 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c6 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c7 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c7 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c8 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c8 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c9 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c9 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c10 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.c10 .c1:first-child {
   margin-right: 15px;
 }
 

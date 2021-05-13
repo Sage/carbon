@@ -13,6 +13,16 @@ const StyledDialogFullScreen = styled.div`
   top: 0;
   width: 100%;
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+  display: flex;
+  flex-direction: column;
+
+  > ${StyledIconButton} {
+    margin: 0;
+    position: absolute;
+    right: 40px;
+    top: 26px;
+    z-index: 1;
+  }
 
   /**
     The following CSS is for a legacy use of the Pages component.

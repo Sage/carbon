@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import {
   StyledDuellingPicklistOverlay,
@@ -10,6 +12,8 @@ import {
   StyledControl,
 } from "./duelling-picklist.style";
 
+const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
+
 const DuellingPicklist = ({
   children,
   disabled,
@@ -17,6 +21,7 @@ const DuellingPicklist = ({
   rightControls,
   leftLabel,
   rightLabel,
+  ...rest
 }) => {
   const shouldDisplayLabels = leftLabel || rightLabel;
   const shouldDisplayControls = leftControls || rightControls;
@@ -25,6 +30,7 @@ const DuellingPicklist = ({
     <StyledDuellingPicklistOverlay
       disabled={disabled}
       data-component="duelling-picklist"
+      {...filterStyledSystemMarginProps(rest)}
     >
       {shouldDisplayLabels && (
         <StyledLabelContainer>
@@ -52,6 +58,7 @@ const DuellingPicklist = ({
 };
 
 DuellingPicklist.propTypes = {
+  ...marginPropTypes,
   children: PropTypes.node,
   /** Indicate if component is disabled */
   disabled: PropTypes.bool,
