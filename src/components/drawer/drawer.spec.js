@@ -3,6 +3,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { mount as enzymeMount, shallow } from "enzyme";
+
 import Drawer from "./drawer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../utils/helpers/guid/guid";
@@ -12,6 +13,7 @@ import {
   StyledDrawerChildren,
   StyledSidebarTitle,
   StyledButton,
+  StyledSidebarHeader,
 } from "./drawer.style";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
@@ -46,19 +48,17 @@ const render = (props, renderer = mount) => {
 };
 
 const getElements = (wrapper) => {
-  const cw = wrapper;
-
-  if (!cw) {
+  if (!wrapper) {
     return {};
   }
 
   return {
-    drawer: cw.find(Drawer),
-    sidebar: cw.find(StyledDrawerSidebar),
-    content: cw.find(StyledDrawerContent),
-    children: cw.find(StyledDrawerChildren),
-    button: cw.find(StyledButton),
-    title: cw.find(StyledSidebarTitle),
+    drawer: wrapper.find(Drawer),
+    sidebar: wrapper.find(StyledDrawerSidebar),
+    content: wrapper.find(StyledDrawerContent),
+    children: wrapper.find(StyledDrawerChildren),
+    button: wrapper.find(StyledButton),
+    title: wrapper.find(StyledSidebarTitle),
   };
 };
 
@@ -117,7 +117,9 @@ describe("Drawer", () => {
       const { sidebar } = getElements(wrapper);
       assertStyleMatch(
         {
-          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          flex: "1 1 0%",
         },
         sidebar
       );
@@ -232,6 +234,56 @@ describe("Drawer", () => {
       wrapper.update();
       const { content } = getElements(wrapper);
       expect(content.childAt(0).hasClass("closed")).toBeTruthy();
+    });
+
+    describe("with the stickyHeader prop set", () => {
+      describe("when expanded", () => {
+        it("should add the correct styles", () => {
+          const wrapper = render({
+            stickyHeader: true,
+            showControls: true,
+            title: "Test title",
+          });
+
+          assertStyleMatch(
+            {
+              position: "sticky",
+              top: "0",
+              borderBottom: "1px solid #ccd6db",
+            },
+            wrapper.find(StyledSidebarHeader)
+          );
+
+          assertStyleMatch(
+            {
+              position: "sticky",
+              top: "0",
+              borderBottom: "1px solid #ccd6db",
+            },
+            wrapper.find(StyledSidebarHeader)
+          );
+        });
+      });
+
+      describe("when closed", () => {
+        it("should add the correct styles", () => {
+          const wrapper = render({
+            stickyHeader: true,
+            showControls: true,
+            title: "Test title",
+            expanded: false,
+          });
+
+          assertStyleMatch(
+            {
+              position: "sticky",
+              top: "0",
+              borderBottom: undefined,
+            },
+            wrapper.find(StyledSidebarHeader)
+          );
+        });
+      });
     });
 
     describe("invariant", () => {

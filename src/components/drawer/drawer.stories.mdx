@@ -1,12 +1,14 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
-import Drawer from ".";
 import { useMemo, useState, useCallback, useContext } from "react";
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { text, object } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
+
+import { Checkbox } from "../../__experimental__/components/checkbox";
+import Search from "../../__experimental__/components/search";
+import Drawer from ".";
 import Button from "../button";
 import PopoverContainer from "../popover-container";
-import Search from "../../__experimental__/components/search";
 import DialogFullScreen from "../dialog-full-screen";
 import { StyledDrawerContent, StyledDrawerSidebar } from "./drawer.style";
 import Heading from "../heading";
@@ -20,9 +22,9 @@ import {
   Sort,
 } from "../flat-table";
 import { Tabs, Tab } from "../tabs";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import Typography from "../typography";
 
-<Meta title="Design System/Drawer" />
+<Meta title="Design System/Drawer" parameters={{ info: { disable: true } }} />
 
 # Drawer
 
@@ -44,18 +46,14 @@ import Drawer from "carbon-react/lib/components/drawer";
 
 ## Examples
 
-### Uncontrolled usage
+### Default
 
 <Preview>
-  <Story
-    name="uncontrolled"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    return (
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <div style={{ height: "200px" }}>
       <Drawer
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
+        expandedWidth="40%"
+        animationDuration="0.5s"
         sidebar={
           <ul>
             <li>link a</li>
@@ -68,47 +66,13 @@ import Drawer from "carbon-react/lib/components/drawer";
         body content body
       </Drawer>
     </div>
-    )
-  </Story>
-</Preview>
-
-### Uncontrolled - defaultExpanded usage
-
-<Preview>
-  <Story
-    name="default expanded"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    return (
-    <div style={{ height: "200px" }}>
-      <Drawer
-        defaultExpanded
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
-      >
-        content body content body content body content body content body content
-        body content body
-      </Drawer>
-    </div>
-    )
   </Story>
 </Preview>
 
 ### Custom height
 
 <Preview>
-  <Story
-    name="custom height"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    return (
+  <Story name="custom height" parameters={{ chromatic: { disable: true } }}>
     <Drawer
       height="230px"
       defaultExpanded
@@ -125,7 +89,6 @@ import Drawer from "carbon-react/lib/components/drawer";
       content body content body content body content body content body content
       body content body
     </Drawer>
-    )
   </Story>
 </Preview>
 
@@ -134,9 +97,8 @@ import Drawer from "carbon-react/lib/components/drawer";
 <Preview>
   <Story
     name="background color red"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ chromatic: { disable: true } }}
   >
-    return (
     <div style={{ height: "200px" }}>
       <Drawer
         id="background-color-red-drawer"
@@ -155,7 +117,6 @@ import Drawer from "carbon-react/lib/components/drawer";
         body content body
       </Drawer>
     </div>
-    )
   </Story>
 </Preview>
 
@@ -164,8 +125,7 @@ import Drawer from "carbon-react/lib/components/drawer";
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
-  <Story name="background color white" parameters={{ info: { disable: true } }}>
-    return (
+  <Story name="background color white">
     <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
       <Drawer
         expandedWidth={text("expandedWidth", "40%")}
@@ -183,7 +143,6 @@ Note: parent container background-color is set to red for demonstration purpose.
         body content body
       </Drawer>
     </div>
-    )
   </Story>
 </Preview>
 
@@ -192,11 +151,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
-  <Story
-    name="background color transparent"
-    parameters={{ info: { disable: true } }}
-  >
-    return (
+  <Story name="background color transparent">
     <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
       <Drawer
         expandedWidth={text("expandedWidth", "40%")}
@@ -214,23 +169,18 @@ Note: parent container background-color is set to red for demonstration purpose.
         body content body
       </Drawer>
     </div>
-    )
   </Story>
 </Preview>
 
 ### Custom Title
 
 <Preview>
-  <Story
-    name="title"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    return (
+  <Story name="title" parameters={{ chromatic: { disable: true } }}>
     <div style={{ height: "200px" }}>
       <Drawer
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        title={text("title", "My custom title")}
+        expandedWidth="40%"
+        animationDuration="0.5s"
+        title={<Typography variant="h2">Drawer title</Typography>}
         sidebar={
           <ul>
             <li>link a</li>
@@ -243,15 +193,13 @@ Note: parent container background-color is set to red for demonstration purpose.
         body content body
       </Drawer>
     </div>
-    )
   </Story>
 </Preview>
 
 ### With Controls usage
 
 <Preview>
-  <Story name="with controls" parameters={{ info: { disable: true } }}>
-    return (
+  <Story name="with controls">
     <div style={{ height: "200px" }}>
       <Drawer
         id="with-controls"
@@ -270,17 +218,91 @@ Note: parent container background-color is set to red for demonstration purpose.
         body content body
       </Drawer>
     </div>
-    )
+  </Story>
+</Preview>
+
+### With sticky header
+
+<Preview>
+  <Story name="with sticky header">
+    <div style={{ height: "400px" }}>
+      <Drawer
+        title={<Typography variant="h2">Drawer title</Typography>}
+        stickyHeader
+        showControls={true}
+        expandedWidth="40%"
+        animationDuration="0.5s"
+        sidebar={
+          <>
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+              mb="30px"
+            />
+          </>
+        }
+      >
+        content body content body content body content body content body content
+        body content body
+      </Drawer>
+    </div>
   </Story>
 </Preview>
 
 ### Custom Sidebar - FlatTable component as sidebar content
 
 <Preview>
-  <Story
-    name="custom sidebar"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
+  <Story name="custom sidebar" parameters={{ chromatic: { disable: true } }}>
     <div>
       <Drawer
         defaultExpanded
@@ -364,11 +386,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Custom Content - FlatTable component as drawer content
 
 <Preview>
-  <Story
-    name="custom content"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    return (
+  <Story name="custom content" parameters={{ chromatic: { disable: true } }}>
     <div style={{ height: "200px" }}>
       <Drawer
         expandedWidth={text("expandedWidth", "20%")}
@@ -469,102 +487,15 @@ Note: parent container background-color is set to red for demonstration purpose.
         </FlatTable>
       </Drawer>
     </div>
-    )
   </Story>
 </Preview>
 
-### Animation Speed (2 second)
+### Different expanded width
+
+Use the `expandedWidth` prop to alter the width of the open `Drawer`.
 
 <Preview>
-  <Story
-    name="two second animation"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    {() => {
-      const [isExpanded, setIsExpanded] = useState(false);
-      const onChangeHandler = useCallback(() => {
-        setIsExpanded(!isExpanded);
-        action("expansionToggled");
-      }, [isExpanded]);
-      return (
-        <div>
-          <p>
-            Note: if you experience glitchy animation on `Drawer` component,
-            please open canvas in new window (2nd icon in top right corner)
-          </p>
-          <div style={{ height: "200px" }}>
-            <Drawer
-              id="two-second-animation-drawer"
-              title={<h2>Controllage Usage Drawer</h2>}
-              showControls
-              expandedWidth={text("expandedWidth", "40%")}
-              animationDuration="2s"
-              expanded={isExpanded}
-              onChange={onChangeHandler}
-              sidebar={
-                <ul>
-                  <li>link a</li>
-                  <li>link b</li>
-                  <li>link c</li>
-                </ul>
-              }
-            >
-              content body content body content body content body content body
-              content body content body
-            </Drawer>
-          </div>
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
-### Expanded width 30%
-
-<Preview>
-  <Story name="expanded width 30" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isExpanded, setIsExpanded] = useState(false);
-      const onChangeHandler = useCallback(() => {
-        setIsExpanded(!isExpanded);
-        action("expansionToggled");
-      }, [isExpanded]);
-      return (
-        <div>
-          <p>
-            Note: if you experience glitchy animation on `Drawer` component,
-            please open canvas in new window (2nd icon in top right corner)
-          </p>
-          <div style={{ height: "200px" }}>
-            <Drawer
-              id="expanded-width-30-drawer"
-              title={<h2>Controllage Usage Drawer</h2>}
-              showControls
-              expandedWidth="30%"
-              expanded={true}
-              onChange={onChangeHandler}
-              sidebar={
-                <ul>
-                  <li>link a</li>
-                  <li>link b</li>
-                  <li>link c</li>
-                </ul>
-              }
-            >
-              content body content body content body content body content body
-              content body content body
-            </Drawer>
-          </div>
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
-### Expanded width 62%
-
-<Preview>
-  <Story name="expanded width 62" parameters={{ info: { disable: true } }}>
+  <Story name="different expanded width">
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
@@ -603,12 +534,14 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-### Animation Speed (2 second)
+### Different Animation Speed
+
+Use the `animationDuration` prop to alter the speed of the `Drawer` opening/closing.
 
 <Preview>
   <Story
-    name="three second animation"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    name="different animation speed"
+    parameters={{ chromatic: { disable: true } }}
   >
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
@@ -627,7 +560,7 @@ Note: parent container background-color is set to red for demonstration purpose.
               id="three-second-animation-drawer"
               title={<h2>Controllage Usage Drawer</h2>}
               showControls
-              expandedWidth={text("expandedWidth", "40%")}
+              expandedWidth="40%"
               animationDuration="3s"
               expanded={isExpanded}
               onChange={onChangeHandler}
@@ -652,7 +585,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Controlled Usage
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true } }}>
+  <Story name="controlled">
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
@@ -696,7 +629,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Side View Navigation
 
 <Preview>
-  <Story name="side view navigation" parameters={{ info: { disable: true } }}>
+  <Story name="side view navigation">
     {() => {
       const bodyDataItems = [
         {
@@ -899,7 +832,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
 `validationStatusOverride` prop.
 
 <Preview>
-  <Story name="with tab controls" parameters={{ info: { disable: true } }}>
+  <Story name="with tab controls">
     {() => {
       const [active, setAcitve] = useState("tab-1");
       const [errors, setErrors] = useState({
