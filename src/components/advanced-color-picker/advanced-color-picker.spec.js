@@ -10,6 +10,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+import { ModalContext } from "../modal/modal.component";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -43,6 +44,8 @@ describe("AdvancedColorPicker", () => {
   function render(props = {}) {
     wrapper = mount(<AdvancedColorPicker {...props} />, {
       attachTo: htmlElement,
+      wrappingComponent: ModalContext.Provider,
+      wrappingComponentProps: { value: { isAnimationComplete: true } },
     });
   }
 
@@ -105,10 +108,12 @@ describe("AdvancedColorPicker", () => {
 
   describe("when controlled", () => {
     describe("when dialog is open", () => {
+      jest.useFakeTimers();
       describe("handleFocus focus trap callback", () => {
         describe("when key other than tab pressed", () => {
           it("should not change the focus", () => {
             render({ ...requiredProps, open: true });
+            jest.runAllTimers();
             const { defaultSimpleColor } = getElements();
 
             expect(document.activeElement).toBe(defaultSimpleColor);
@@ -132,6 +137,7 @@ describe("AdvancedColorPicker", () => {
         describe("when shift tab keys pressed on the selected color input", () => {
           it("should switch focus to the close button", () => {
             render({ ...requiredProps, open: true });
+            jest.runAllTimers();
             const { closeIcon, defaultSimpleColor } = getElements();
 
             expect(document.activeElement).toBe(defaultSimpleColor);
@@ -152,7 +158,7 @@ describe("AdvancedColorPicker", () => {
             };
 
             render(extraProps);
-
+            jest.runAllTimers();
             const { simpleColors } = getElements();
 
             expect(document.activeElement).toBe(simpleColors[0]);
@@ -191,7 +197,7 @@ describe("AdvancedColorPicker", () => {
             };
 
             render(extraProps);
-
+            jest.runAllTimers();
             const { simpleColors } = getElements();
 
             expect(document.activeElement).toBe(simpleColors[7]);
@@ -215,7 +221,7 @@ describe("AdvancedColorPicker", () => {
             };
 
             render(extraProps);
-
+            jest.runAllTimers();
             const { simpleColors } = getElements();
 
             expect(document.activeElement).toBe(simpleColors[7]);
@@ -239,7 +245,7 @@ describe("AdvancedColorPicker", () => {
           };
 
           render(extraProps);
-
+          jest.runAllTimers();
           const { simpleColors } = getElements();
 
           expect(document.activeElement).toBe(simpleColors[7]);

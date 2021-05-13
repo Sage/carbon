@@ -1,3 +1,15 @@
+## [73.3.0](https://github.com/Sage/carbon/compare/v73.2.0...v73.3.0) (2021-05-13)
+
+
+### Features
+
+* **dialog,dialog-full-screen:** add help prop ([79b5d41](https://github.com/Sage/carbon/commit/79b5d412ebf6d5bd59cb42a9a02c2367abd44aca))
+
+
+### Bug Fixes
+
+* **dialog:** title wrapping ([e259aed](https://github.com/Sage/carbon/commit/e259aedf4ce8716a41c04c8ecfabfa23929f507c))
+
 ## [73.2.0](https://github.com/Sage/carbon/compare/v73.1.0...v73.2.0) (2021-05-12)
 
 
