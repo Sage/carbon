@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -13,6 +14,7 @@ import {
   isRadio,
   setElementFocus,
 } from "./focus-trap-utils";
+import { ModalContext } from "../../components/modal/modal.component";
 
 const FocusTrap = ({
   children,
@@ -25,7 +27,7 @@ const FocusTrap = ({
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
-
+  const { isAnimationComplete } = useContext(ModalContext);
   const hasNewInputs = useCallback(
     (candidate) => {
       if (!focusableElements || candidate.length !== focusableElements.length) {
@@ -54,11 +56,16 @@ const FocusTrap = ({
   }, [children, hasNewInputs, wrapperRef]);
 
   useEffect(() => {
-    if (autoFocus && firstOpen.current && (focusFirstElement || firstElement)) {
+    if (
+      autoFocus &&
+      firstOpen.current &&
+      isAnimationComplete &&
+      (focusFirstElement || firstElement)
+    ) {
       setElementFocus(focusFirstElement || firstElement);
       firstOpen.current = false;
     }
-  }, [autoFocus, firstElement, focusFirstElement]);
+  }, [autoFocus, firstElement, focusFirstElement, isAnimationComplete]);
 
   useEffect(() => {
     const trapFn = (ev) => {
