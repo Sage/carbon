@@ -13,6 +13,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
+import Help from "../help";
 
 jest.mock("../../utils/helpers/guid");
 
@@ -67,12 +68,15 @@ describe("DialogFullScreen", () => {
   });
 
   describe("autoFocus", () => {
+    jest.useFakeTimers();
     it("should focus the first element by default", () => {
       mount(
         <DialogFullScreen open>
           <input type="text" />
         </DialogFullScreen>
       );
+
+      jest.runAllTimers();
 
       const firstFocusableElement = document.querySelector("input");
       expect(document.activeElement).toBe(firstFocusableElement);
@@ -85,6 +89,8 @@ describe("DialogFullScreen", () => {
         </DialogFullScreen>
       );
 
+      jest.runAllTimers();
+
       const firstFocusableElement = document.querySelector("input");
       expect(document.activeElement).not.toBe(firstFocusableElement);
     });
@@ -92,6 +98,7 @@ describe("DialogFullScreen", () => {
 
   describe("focusFirstElement", () => {
     it("should focus on the element passes as focusFirstElement prop", () => {
+      jest.useFakeTimers();
       const Component = () => {
         const secondInputRef = useRef(null);
         return (
@@ -102,6 +109,8 @@ describe("DialogFullScreen", () => {
         );
       };
       mount(<Component />);
+
+      jest.runAllTimers();
 
       const secondFocusableElement = document.querySelectorAll("input")[1];
       expect(document.activeElement).toEqual(secondFocusableElement);
@@ -230,6 +239,20 @@ describe("DialogFullScreen", () => {
         const heading = fullScreenHeading.find(Heading);
 
         expect(heading.props().title).toEqual("my custom heading");
+      });
+    });
+
+    describe("when prop help is passed", () => {
+      it("should render Help component", () => {
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            title="This is test title"
+            help="this is help text"
+          />
+        );
+
+        expect(wrapper.find(Help).exists()).toBe(true);
       });
     });
   });
