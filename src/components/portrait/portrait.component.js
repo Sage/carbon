@@ -5,7 +5,11 @@ import Tooltip from "../tooltip";
 import tagComponent from "../../utils/helpers/tags";
 import PortraitGravatar from "./portrait-gravatar.component";
 import PortraitInitials from "./portrait-initials.component";
-import { StyledCustomImg, StyledIcon } from "./portrait.style";
+import {
+  StyledCustomImg,
+  StyledIcon,
+  StyledPortraitContainer,
+} from "./portrait.style";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -63,8 +67,6 @@ class Portrait extends React.Component {
         size={size}
         shape={shape}
         darkBackground={darkBackground}
-        onClick={onClick}
-        {...tagProps}
       />
     );
 
@@ -76,9 +78,6 @@ class Portrait extends React.Component {
           initials={initials}
           darkBackground={darkBackground}
           alt={alt}
-          onClick={onClick}
-          {...tagProps}
-          {...this.getMarginProps()}
         />
       );
     }
@@ -92,9 +91,6 @@ class Portrait extends React.Component {
           shape={shape}
           data-element="user-image"
           onError={() => this.externalImageLoadFailed()}
-          onClick={onClick}
-          {...tagProps}
-          {...this.getMarginProps()}
         />
       );
     }
@@ -107,9 +103,6 @@ class Portrait extends React.Component {
           size={size}
           alt={alt}
           errorCallback={() => this.externalImageLoadFailed()}
-          onClick={onClick}
-          {...tagProps}
-          {...this.getMarginProps()}
         />
       );
     }
@@ -126,12 +119,26 @@ class Portrait extends React.Component {
           bgColor={tooltipBgColor}
           fontColor={tooltipFontColor}
         >
-          {portrait}
+          <StyledPortraitContainer
+            {...this.getMarginProps()}
+            onClick={onClick}
+            {...tagProps}
+          >
+            {portrait}
+          </StyledPortraitContainer>
         </Tooltip>
       );
     }
 
-    return portrait;
+    return (
+      <StyledPortraitContainer
+        {...this.getMarginProps()}
+        onClick={onClick}
+        {...tagProps}
+      >
+        {portrait}
+      </StyledPortraitContainer>
+    );
   }
 }
 
