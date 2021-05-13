@@ -3,7 +3,10 @@ import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CheckboxGroup from "./checkbox-group.component";
 import { Checkbox } from ".";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
 import Fieldset from "../../../__internal__/fieldset";
 
@@ -35,6 +38,25 @@ function render(props, childProps, renderer = mount) {
 }
 
 describe("CheckboxGroup", () => {
+  testStyledSystemMargin((props) => (
+    <CheckboxGroup
+      name="group-radio-buttons"
+      groupName={groupName}
+      label="Test CheckboxGroup Label"
+      {...props}
+    >
+      {checkboxValues.map((value) => (
+        <Checkbox
+          id={`cId-${value}`}
+          key={`cKey-${value}`}
+          name={`check-${value}`}
+          onChange={jest.fn()}
+          value={value}
+        />
+      ))}
+    </CheckboxGroup>
+  ));
+
   it("renders as expected", () => {
     expect(render({}, {}, TestRenderer.create)).toMatchSnapshot();
   });
