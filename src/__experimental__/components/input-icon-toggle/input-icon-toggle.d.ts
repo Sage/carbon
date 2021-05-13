@@ -14,6 +14,6 @@ export interface InputIconToggleProps {
   useValidationIcon?: boolean;
   iconTabIndex?: number;
 }
-declare const InputIconToggle: React.ComponentType<InputIconToggleProps>;
+declare function InputIconToggle(props: InputIconToggleProps): JSX.Element;
 
 export default InputIconToggle;

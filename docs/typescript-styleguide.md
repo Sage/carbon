@@ -52,19 +52,22 @@ export interface MyComponentProps {
   exampleOptionalProp?: string;
 }
 
-declare const MyComponent: React.FunctionComponent<MyComponentProps>;
+declare function MyComponent(props: MyComponentProps): JSX.Element;
 
 export default MyComponent;
 ```
 
+Exports in the `<component-name>.d.ts` file should match it's js counterpart.
+
 #### Index file
 
-The `index.d.ts` file for each component should follow this template:
+Exports in the `index.d.ts` file should should match exports in the index.js file:
 
 ```ts
 export { default } from "./my-component"; // If the js export type is default
-export { default as MyComponent } from "./my-component"; // If the js export type is named
-export { default as MySubComponent } from "./my-sub-component/my-sub-component";
+export { MyComponent } from "./my-component"; // If the js export type is named
+export { default as MyComponent } from "./my-component"; // If the js export type is named and the Component is exported as default in the component.d.ts file
+export { MySubComponent } from "./my-sub-component/my-sub-component";
 ```
 
 #### Shared types
@@ -83,4 +86,11 @@ Our linting rules are defined in [tsconfig.json](../tsconfig.json) at the root o
 
 ```
 npm run lint-ts
+```
+
+### Tips
+
+To avoid TypeScript eslint errors in VSCode when using the ESLint plugin, a line should be added to the `settings.json` to disable ESLint in TypeScript:
+```
+"eslint.probe": ["javascript", "javascriptreact", "html", "markdown"],
 ```

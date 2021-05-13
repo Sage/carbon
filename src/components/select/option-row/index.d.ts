@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface OptionRowProps {
   /** The option's visible text, displayed within <Textbox> of <Select> */
@@ -9,6 +9,6 @@ export interface OptionRowProps {
   value: string | object;
 }
 
-declare const OptionRow: React.ComponentType<OptionRowProps>;
+declare function OptionRow(props: OptionRowProps & React.RefAttributes<HTMLTableRowElement>): JSX.Element;
 
 export default OptionRow;

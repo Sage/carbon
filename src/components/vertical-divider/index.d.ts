@@ -1,2 +1,2 @@
-export { default } from './vertical-divider';
-export * from './vertical-divider';
+export { default } from "./vertical-divider";
+export * from "./vertical-divider";

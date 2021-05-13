@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface PicklistProps {
   /** List of PicklistItem elements */
@@ -9,5 +9,8 @@ export interface PicklistProps {
   disabled?: boolean;
 }
 
-declare const Picklist: React.FunctionComponent<PicklistProps>;
+declare function areEqual(prevProps: PicklistProps, nextProps: PicklistProps): boolean;
+declare function Picklist(props: PicklistProps): JSX.Element;
+
+export { areEqual, Picklist };
 export default Picklist;

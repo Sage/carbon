@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface EditorLinkProps {
   children: React.ReactNode;
@@ -6,6 +6,6 @@ export interface EditorLinkProps {
   entityKey?: string;
 }
 
-declare const EditorLink: React.FunctionComponent<EditorLinkProps>;
+declare function EditorLink(props: EditorLinkProps): JSX.Element;
 
 export default EditorLink;
