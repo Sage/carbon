@@ -1,10 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import FormField from "../../__experimental__/components/form-field";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
 import ValidationIcon from "../validations/validation-icon.component";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const BaseButtonToggleGroup = (props) => {
   const {
@@ -57,6 +64,7 @@ const BaseButtonToggleGroup = (props) => {
 };
 
 BaseButtonToggleGroup.propTypes = {
+  ...marginPropTypes,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
   /** Children to be rendered (ButtonToggle). */
@@ -99,8 +107,6 @@ BaseButtonToggleGroup.propTypes = {
   onBlur: PropTypes.func,
   /** The value of the Button Toggle Group */
   value: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
 };
 
 BaseButtonToggleGroup.defaultProps = {

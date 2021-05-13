@@ -12,7 +12,9 @@ import {
   StyledControl,
 } from "./duelling-picklist.style";
 
-const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const DuellingPicklist = ({
   children,
