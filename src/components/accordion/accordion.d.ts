@@ -43,10 +43,9 @@ export interface AccordionProps extends SpaceProps {
   scheme?: "white" | "transparent";
   /** Sets accordion size */
   size?: "large" | "small";
-  /** Allows to override existing component styles */
   /** Sets accordion sub title */
   subTitle?: string;
-  /** Sets accordion title */
+  /** A warning message to be displayed in the tooltip */
   warning?: string;
   /** Sets accordion width */
   width?: string;
