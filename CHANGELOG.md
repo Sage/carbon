@@ -1,3 +1,10 @@
+### [74.1.1](https://github.com/Sage/carbon/compare/v74.1.0...v74.1.1) (2021-05-14)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect gaps between date fields ([70507ba](https://github.com/Sage/carbon/commit/70507ba053215e541f32ed9918709ab63643e110))
+
 ## [74.1.0](https://github.com/Sage/carbon/compare/v74.0.0...v74.1.0) (2021-05-14)
 
 

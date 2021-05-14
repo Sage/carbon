@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are inline 1`] = `
-.c2 .c11 {
+.c2 .c13 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -98,6 +98,16 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   margin-right: 15px;
 }
 
+.c0 .c11 {
+  width: auto;
+}
+
+.c0 .c12 {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+}
+
 <div
   className="c0"
 >
@@ -108,7 +118,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 `;
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are not inline 1`] = `
-.c2 .c11 {
+.c2 .c13 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -123,6 +133,16 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 
 .c0 .c1:first-child {
   margin-right: 15px;
+}
+
+.c0 .c11 {
+  width: auto;
+}
+
+.c0 .c12 {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
 }
 
 .c3 .c1 {
