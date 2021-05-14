@@ -33,12 +33,6 @@ export interface RadioButtonGroupProps extends ValidationPropTypes, MarginProps 
   required?: boolean;
   /** value of the selected RadioButton */
   value?: string;
-  /** Allows to override existing component styles */
-  styleOverride?: {
-    root?: object;
-    content?: object;
-    legend?: object;
-  };
 }
 
 declare function RadioButtonGroup(props: RadioButtonGroupProps): JSX.Element;

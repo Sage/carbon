@@ -8,8 +8,6 @@ import {
 } from "../../../__spec_helper__/test-utils";
 import FormField from "../form-field";
 import InputPresentation from "../input/input-presentation.component";
-import InputPresentationStyle from "../input/input-presentation.style";
-import { StyledLabelContainer } from "../label/label.style";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../label";
@@ -74,43 +72,6 @@ describe("Textbox", () => {
         ).toBe(true);
       }
     );
-  });
-
-  describe("style overrides", () => {
-    let wrapper;
-    const randomStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    const styleOverride = {
-      root: randomStyleObject,
-      input: randomStyleObject,
-      label: randomStyleObject,
-    };
-
-    beforeEach(() => {
-      wrapper = mount(
-        <Textbox label="test label" styleOverride={styleOverride}>
-          normal children
-        </Textbox>
-      );
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(FormField));
-    });
-
-    it("renders input element with properly assigned styles", () => {
-      assertStyleMatch(
-        randomStyleObject,
-        wrapper.find(InputPresentation).find(InputPresentationStyle)
-      );
-    });
-
-    it("renders label element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledLabelContainer));
-    });
   });
 
   describe("when the prefix prop is set", () => {
