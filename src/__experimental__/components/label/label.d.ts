@@ -40,8 +40,6 @@ export interface LabelPropTypes extends ValidationPropTypes {
   pl?: 1 | 2;
   /** Label width */
   width?: number;
-  /** Allows to override existing component styles */
-  styleOverride?: () => object | object;
 }
 
 declare function Label(props: LabelPropTypes): JSX.Element;

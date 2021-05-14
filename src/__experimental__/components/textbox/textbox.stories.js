@@ -22,7 +22,6 @@ export default {
 };
 
 export const getCommonTextboxProps = (
-  overrides = {},
   autoFocusDefault = false,
   disabledDefault = false,
   readOnlyDefault = false
@@ -32,7 +31,6 @@ export const getCommonTextboxProps = (
     requiredKnob: true,
     disablePrefix: false,
     disableInputIcon: false,
-    ...overrides,
   };
 
   const percentageRange = {

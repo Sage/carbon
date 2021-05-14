@@ -8,7 +8,6 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | story                |
       | default story        |
-      | styles overriden     |
       | with dynamic content |
 
   @accessibility

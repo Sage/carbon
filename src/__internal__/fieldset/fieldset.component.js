@@ -25,23 +25,16 @@ const Fieldset = ({
   error,
   warning,
   info,
-  styleOverride,
   isRequired,
   blockGroupBehaviour,
   ...rest
 }) => (
   <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-    <StyledFieldset
-      data-component="fieldset"
-      styleOverride={styleOverride.root}
-      m={0}
-      {...rest}
-    >
+    <StyledFieldset data-component="fieldset" m={0} {...rest}>
       <StyledFieldsetContent inline={inline}>
         {legend && (
           <StyledLegendContainer
             inline={inline}
-            styleOverride={styleOverride.legend}
             width={legendWidth}
             align={legendAlign}
             rightPadding={legendSpacing}
@@ -95,11 +88,6 @@ Fieldset.propTypes = {
   legendAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
   /** If true, an asterisk will be added to the label */
   isRequired: PropTypes.bool,
   /** Controls whether group behaviour should be enabled */
@@ -108,7 +96,6 @@ Fieldset.propTypes = {
 
 Fieldset.defaultProps = {
   inline: false,
-  styleOverride: {},
 };
 
 export default Fieldset;
