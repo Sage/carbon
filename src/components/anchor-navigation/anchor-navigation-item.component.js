@@ -5,11 +5,8 @@ import PropTypes from "prop-types";
 import { StyledNavigationItem } from "./anchor-navigation.style";
 
 const AnchorNavigationItem = React.forwardRef(
-  (
-    { children, onKeyDown, onClick, href, tabIndex, isSelected, styleOverride },
-    ref
-  ) => (
-    <StyledNavigationItem isSelected={isSelected} styleOverride={styleOverride}>
+  ({ children, onKeyDown, onClick, href, tabIndex, isSelected }, ref) => (
+    <StyledNavigationItem isSelected={isSelected}>
       <a
         onKeyDown={onKeyDown}
         onClick={onClick}
@@ -36,8 +33,6 @@ AnchorNavigationItem.propTypes = {
   tabIndex: PropTypes.number,
   /** Indicates if component is selected */
   isSelected: PropTypes.bool,
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Reference to the section html element meant to be shown   */
   target: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };

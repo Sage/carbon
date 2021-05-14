@@ -5,7 +5,6 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
-  ActionPopoverMenuButton,
 } from ".";
 import { Table, TableRow, TableCell, TableHeader } from "../table";
 
@@ -129,101 +128,6 @@ export const Default = () => (
 
 Default.story = {
   name: "default",
-  parameters: {
-    chromatic: {
-      disable: false,
-    },
-  },
-};
-
-export const StylesOverriden = () => (
-  <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-    <Table isZebra>
-      <TableRow>
-        <TableHeader colSpan="3">Services</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>Accounting</TableCell>
-        <TableCell>Payroll</TableCell>
-        <TableCell>
-          <ActionPopover
-            rightAlignMenu
-            renderButton={({ tabIndex, "data-element": dataElement }) => (
-              <ActionPopoverMenuButton
-                buttonType="tertiary"
-                iconType="dropdown"
-                iconPosition="after"
-                size="small"
-                tabIndex={tabIndex}
-                data-element={dataElement}
-              >
-                More
-              </ActionPopoverMenuButton>
-            )}
-          >
-            <ActionPopoverItem onClick={action("auto entry")}>
-              Auto Entry
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("corporation tax")}>
-              Corporation Tax
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("final accounts")}>
-              Final Accounts
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("vat centre")}>
-              VAT Centre
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={action("manage services")}>
-              Manage Services
-            </ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Accounting</TableCell>
-        <TableCell>Payroll</TableCell>
-        <TableCell>
-          <ActionPopover
-            rightAlignMenu
-            renderButton={({ tabIndex, "data-element": dataElement }) => (
-              <ActionPopoverMenuButton
-                buttonType="tertiary"
-                iconType="dropdown"
-                iconPosition="after"
-                size="small"
-                tabIndex={tabIndex}
-                data-element={dataElement}
-              >
-                More
-              </ActionPopoverMenuButton>
-            )}
-          >
-            <ActionPopoverItem onClick={action("auto entry")}>
-              Auto Entry
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("corporation tax")}>
-              Corporation Tax
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("final accounts")}>
-              Final Accounts
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={action("vat centre")}>
-              VAT Centre
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={action("manage services")}>
-              Manage Services
-            </ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
-  </div>
-);
-
-StylesOverriden.story = {
-  name: "styles overriden",
   parameters: {
     chromatic: {
       disable: false,

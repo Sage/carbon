@@ -28,6 +28,8 @@ export interface AccordionProps extends SpaceProps {
   iconType?: "chevron_down" | "dropdown";
   /** Sets icon alignment - accepted values: 'left', 'right' (default) */
   iconAlign?: AlignBinaryType;
+  /** Sets accordion title */
+  title: string;
   /** An info message to be displayed in the tooltip */
   info?: string;
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
@@ -41,18 +43,8 @@ export interface AccordionProps extends SpaceProps {
   scheme?: "white" | "transparent";
   /** Sets accordion size */
   size?: "large" | "small";
-  /** Allows to override existing component styles */
-  styleOverride?: {
-    root?: () => object | object;
-    headerArea?: () => object | object;
-    icon?: () => object | object;
-    header?: () => object | object;
-    content?: () => object | object;
-  };
   /** Sets accordion sub title */
   subTitle?: string;
-  /** Sets accordion title */
-  title: string;
   /** A warning message to be displayed in the tooltip */
   warning?: string;
   /** Sets accordion width */
