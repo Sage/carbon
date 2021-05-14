@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Profile render classes renders the large class if applied 1`] = `
-.c1 {
+.c2 {
   display: inline-block;
   vertical-align: middle;
   width: 40px;
@@ -10,13 +10,17 @@ exports[`Profile render classes renders the large class if applied 1`] = `
   border-radius: 0px;
 }
 
-.c3 {
+.c1 {
+  display: inline-block;
+}
+
+.c4 {
   font-weight: bold;
   display: block;
   font-size: 14px;
 }
 
-.c4 {
+.c5 {
   font-size: 14px;
 }
 
@@ -25,7 +29,7 @@ exports[`Profile render classes renders the large class if applied 1`] = `
   color: rgba(0,0,0,0.9);
 }
 
-.c2 {
+.c3 {
   vertical-align: middle;
   display: inline-block;
   line-height: 16px;
@@ -36,29 +40,33 @@ exports[`Profile render classes renders the large class if applied 1`] = `
   className="c0"
   data-component="profile"
 >
-  <img
-    alt=""
+  <div
     className="c1"
     data-component="portrait"
-    data-element="user-image"
-    onError={[Function]}
-    shape="square"
-    size="M"
-    src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=404"
-  />
+  >
+    <img
+      alt=""
+      className="c2"
+      data-element="user-image"
+      onError={[Function]}
+      shape="square"
+      size="M"
+      src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=404"
+    />
+  </div>
   <div
-    className="c2"
+    className="c3"
     size="M"
   >
     <span
-      className="c3"
+      className="c4"
       data-element="name"
       size="M"
     >
       Foo
     </span>
     <span
-      className="c4"
+      className="c5"
       data-element="email"
       size="M"
     >

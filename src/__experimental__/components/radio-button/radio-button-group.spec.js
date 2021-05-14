@@ -6,10 +6,6 @@ import {
   mockMatchMedia,
 } from "../../../__spec_helper__/test-utils";
 import { RadioButton, RadioButtonGroup } from ".";
-import {
-  StyledFieldset,
-  StyledLegendContainer,
-} from "../../../__internal__/fieldset/fieldset.style";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import Fieldset from "../../../__internal__/fieldset";
 import Label from "../label";
@@ -163,36 +159,6 @@ describe("RadioButtonGroup", () => {
     it("blocks the group behaviour if no validation set on group", () => {
       const wrapper = render({}, mount);
       expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
-    });
-  });
-
-  describe("style overrides", () => {
-    let wrapper;
-    const customStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    const styleOverride = {
-      root: customStyleObject,
-      content: customStyleObject,
-      legend: customStyleObject,
-    };
-
-    beforeEach(() => {
-      wrapper = render({ styleOverride }, mount);
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(StyledFieldset));
-    });
-
-    it("renders content wrapper with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(RadioButtonGroupStyle));
-    });
-
-    it("renders legend element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(StyledLegendContainer));
     });
   });
 
