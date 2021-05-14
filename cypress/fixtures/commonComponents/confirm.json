@@ -56,9 +56,6 @@
   "sizeExtraLarge": {
     "size": "extra-large"
   },
-  "enableBackgroundUI":{
-    "enableBackgroundUI": true
-  },
   "showCloseIconFalse": {
     "showCloseIcon": false
   },
@@ -73,5 +70,17 @@
   },
   "default": {
     
+  },
+  "disableEscKey": {
+    "disableEscKey": true
+  },
+  "enabledEscKey": {
+    "disableEscKey": false
+  },
+  "showCloseIcon": {
+    "showCloseIcon": true
+  },
+  "disableCancel": {
+    "disableCancel": true
   }
 }

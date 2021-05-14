@@ -40,6 +40,7 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  iconOnMouseDown,
   iconTabIndex,
   styleOverride,
   validationOnLabel,
@@ -95,6 +96,7 @@ const Textbox = ({
             {...removeParentProps(props)}
             useValidationIcon={!validationOnLabel}
             onClick={iconOnClick || props.onClick}
+            onMouseDown={iconOnMouseDown}
             inputIcon={inputIcon}
             iconTabIndex={iconTabIndex}
           />
@@ -147,7 +149,7 @@ Textbox.propTypes = {
   /** Label */
   label: PropTypes.string,
   /** Text applied to label help tooltip */
-  labelHelp: PropTypes.string,
+  labelHelp: PropTypes.node,
   /** When true, label is placed in line an input */
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
@@ -166,7 +168,7 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-  /** Flag to configure component as optional in Form */
+  /** [Legacy] Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
@@ -195,6 +197,8 @@ Textbox.propTypes = {
   positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
+  /** Optional handler for mousedown event on Textbox icon */
+  iconOnMouseDown: PropTypes.func,
   /** Overrides the default tabindex of the component */
   iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Handler for onClick events */

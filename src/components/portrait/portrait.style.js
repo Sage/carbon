@@ -1,10 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import sizeParams from "./portrait-size.config";
 import BaseTheme from "../../style/themes/base";
 import Icon from "../icon";
 import OptionsHelper from "../../utils/helpers/options-helper";
+
+function stylingForCursor({ onClick }) {
+  if (onClick) {
+    return "cursor: pointer;";
+  }
+
+  return "";
+}
 
 function stylingForSize({ size }) {
   const params = sizeParams[size];
@@ -74,12 +83,15 @@ export const StyledPortraitInitials = styled.div`
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  ${stylingForCursor}
   ${stylingForSize}
   ${stylingForShape}
   ${({ theme }) =>
     css`
       border: 1px solid ${theme.portrait.border};
     `}
+
+  ${margin}
 `;
 
 StyledPortraitInitials.propTypes = {
@@ -95,6 +107,8 @@ StyledPortraitInitials.defaultProps = {
 
 export const StyledPortraitInitialsImg = styled.img`
   display: block;
+
+  ${margin}
 `;
 
 StyledPortraitInitialsImg.propTypes = {
@@ -105,8 +119,11 @@ StyledPortraitInitialsImg.propTypes = {
 export const StyledPortraitGravatar = styled.img`
   display: inline-block;
   vertical-align: middle;
+  ${stylingForCursor}
   ${stylingForSize}
   ${stylingForShape}
+
+  ${margin}
 `;
 
 StyledPortraitGravatar.propTypes = {
@@ -122,8 +139,11 @@ StyledPortraitGravatar.defaultProps = {
 
 export const StyledCustomImg = styled.img`
   display: block;
+  ${stylingForCursor}
   ${stylingForSize}
   ${stylingForShape}
+
+  ${margin}
 `;
 
 StyledCustomImg.propTypes = {
@@ -140,6 +160,7 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
   && {
     box-sizing: border-box;
     line-height: 14px;
+    ${stylingForCursor}
     ${stylingForSize}
     ${stylingForIcon}
     ${stylingForShape}
@@ -148,6 +169,8 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
         border: 1px dashed ${theme.portrait.border};
       `}
   }
+
+  ${margin}
 `;
 
 StyledIcon.propTypes = {

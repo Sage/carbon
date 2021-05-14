@@ -1,24 +1,13 @@
 {
   "notify": false,
-  "setupFiles": [
-    "raf/polyfill",
-    "./src/__spec_helper__/index.js"
-  ],
-  "setupFilesAfterEnv": [
-    "./src/__spec_helper__/expect.js"
-  ],
+  "setupFiles": ["raf/polyfill", "./src/__spec_helper__/index.js"],
+  "setupFilesAfterEnv": ["./src/__spec_helper__/expect.js"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
-  "testMatch": [
-    "**/__spec__.js",
-    "**/*.spec.js"
-  ],
-  "moduleDirectories": [ "src", "node_modules" ],
-  "moduleNameMapper": {
-    "\\.(css|scss)$": "identity-obj-proxy"
-  },
+  "testMatch": ["**/__spec__.js", "**/*.spec.js"],
+  "moduleDirectories": ["src", "node_modules"],
   "collectCoverage": true,
-  "coveragePathIgnorePatterns": [ "node_modules", "src\/__spec_helper__" ],
-  "coverageReporters": [ "text-summary", "html" ],
+  "coveragePathIgnorePatterns": ["node_modules", "src/__spec_helper__"],
+  "coverageReporters": ["text-summary", "html"],
   "coverageDirectory": "<rootDir>/coverage",
   "coverageThreshold": {
     "global": {
@@ -28,12 +17,7 @@
       "statements": 100
     }
   },
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx"
-  ],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
   "transform": {
     "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.js"

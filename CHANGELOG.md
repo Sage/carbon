@@ -1,3 +1,469 @@
+## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
+
+
+### Features
+
+* **simple-color-picker:** add styled system margin ([27862c5](https://github.com/Sage/carbon/commit/27862c50d55135c2dd824ce73d27b4fa83752611))
+
+## [73.0.0](https://github.com/Sage/carbon/compare/v72.0.0...v73.0.0) (2021-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** Precision prop can no longer be changed on the fly. Your app will need to refresh in order for the user to see the new precision value.
+
+### Code Refactoring
+
+* **decimal:** allow the user to input any value ([1a2307a](https://github.com/Sage/carbon/commit/1a2307a0046384fe79566338341a10f723e403cc))
+
+## [72.0.0](https://github.com/Sage/carbon/compare/v71.4.2...v72.0.0) (2021-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* all TypeScript projects have to add @types/styled-system
+and @types/styled-components as dev dependencies
+
+### Features
+
+* **validation-icon:** add ts type definitions ([15a9f81](https://github.com/Sage/carbon/commit/15a9f81a18b90581b9fa8a7f025db5dd44a652a1))
+* add global style type definition file ([169a3f5](https://github.com/Sage/carbon/commit/169a3f5f414425c5c2aebad1eca7fbb96f0f9f60))
+* add type definitions to mockmatchmedia util ([205a000](https://github.com/Sage/carbon/commit/205a0004de8ec1481f3fd44f8c00d1f3f373d834))
+* **action-toolbar:** add ts type definitions ([0050574](https://github.com/Sage/carbon/commit/0050574c374dfef0072407b9a0cbac031729d55e))
+* **alert:** add ts type definitions ([c35be8e](https://github.com/Sage/carbon/commit/c35be8e1f27f3fed095f8cff948330e2d69e2bed))
+* **app-wrapper:** add ts type definitions ([dbbcc30](https://github.com/Sage/carbon/commit/dbbcc30dbe8ccc4eb0d5f80d1b906caa50f59b50)), closes [#3696](https://github.com/Sage/carbon/issues/3696)
+* **button-toggle:** add ts type definitions ([f289949](https://github.com/Sage/carbon/commit/f2899498c17c274626bb4855e888615994a904cc))
+* **button-toggle-group:** add ts type definitions ([1ca5da7](https://github.com/Sage/carbon/commit/1ca5da7e10ef7fb216fb403fef15d06ede5588f5))
+* **card:** add ts type definitions ([fc6129b](https://github.com/Sage/carbon/commit/fc6129bdf671cb339522a948e282ee022da2e1fb))
+* **carousel:** add ts type definitions ([7c5490a](https://github.com/Sage/carbon/commit/7c5490a9d8a51966fda8fd83fe6f26122f51c640))
+* **checkable-input:** add type definitions ([16421e3](https://github.com/Sage/carbon/commit/16421e3e527a12c9700870a21efcc329573b18d9))
+* **configurable-items:** add ts type definitions ([890aaa5](https://github.com/Sage/carbon/commit/890aaa55b7de487c86f1febb63c89dc663eaa340))
+* **detail:** add ts type definitions ([ffc91d6](https://github.com/Sage/carbon/commit/ffc91d69da23cf57343025bb8d8e7f459ef1b09b))
+* **dialog:** add ts type definitions ([e8b7192](https://github.com/Sage/carbon/commit/e8b7192188c91dc6fdd09bafb50408562dea0b7c))
+* **dialog-full-screen:** add ts type definitions ([37ffe53](https://github.com/Sage/carbon/commit/37ffe53b2129d930f37a6a3fef87ee6c50dac56a)), closes [#3697](https://github.com/Sage/carbon/issues/3697)
+* **duelling-picklist:** add picklist-group ts type definitions ([a08ca70](https://github.com/Sage/carbon/commit/a08ca704254a4547d5ae86dd8972d88af5df073f))
+* **form-field:** add type definitions ([f6ba4f9](https://github.com/Sage/carbon/commit/f6ba4f97e876aa8678d358c9d8f56b76da35c910))
+* **heading:** add ts type definitions ([9598cc3](https://github.com/Sage/carbon/commit/9598cc3409bbd844c11514408d28d4fe1e64ea1e)), closes [#3699](https://github.com/Sage/carbon/issues/3699)
+* **icon-button:** add ts type definitions ([1c18a99](https://github.com/Sage/carbon/commit/1c18a99760804b4d33c35fb5090a08c18f4a2d0c))
+* **inline-inpouts:** add ts type definitions ([bbd8fef](https://github.com/Sage/carbon/commit/bbd8fefa3941dd9565b515f1a0faabfce46de615))
+* **loader:** add ts type definitions ([c5e0ada](https://github.com/Sage/carbon/commit/c5e0ada95883a97f4dfe0270a028c0a68d7fc8b6)), closes [#3700](https://github.com/Sage/carbon/issues/3700)
+* **menu:** add scrollableblock type definitions ([348f91e](https://github.com/Sage/carbon/commit/348f91ee27752666368216479d877dd842556344))
+* **message:** add ts type definitions ([12cdd01](https://github.com/Sage/carbon/commit/12cdd01b863cc6130855caec460f4805181bf723)), closes [#3701](https://github.com/Sage/carbon/issues/3701)
+* **modal:** add ts type definitions ([108bec4](https://github.com/Sage/carbon/commit/108bec46f7f5161b3e9accb676af5487a1131d6d))
+* **mount-in-app:** add ts type definitions ([2b4aacd](https://github.com/Sage/carbon/commit/2b4aacd57e6e77308f7b9bd0e913055c46754304))
+* **multi-action-button:** add ts type definitions ([2598a7f](https://github.com/Sage/carbon/commit/2598a7f9d741edd9607390209540fc893a837fea))
+* **pages:** add ts type definitions ([2a3f736](https://github.com/Sage/carbon/commit/2a3f736567ea3c0c40599f773e8d9b7c20c60904))
+* **portal:** add ts type definitions ([c769de8](https://github.com/Sage/carbon/commit/c769de817a848d6d5f2166c349df45e4f32b71be))
+* **preview:** add ts type definitions ([b653c65](https://github.com/Sage/carbon/commit/b653c653517f5bea94052481bafcd08be132d72b))
+* **profile:** add ts type definitions ([74baa19](https://github.com/Sage/carbon/commit/74baa190894172a36c2a5b020475000872f1377d))
+* **settings-row:** add ts type definitions ([85822c9](https://github.com/Sage/carbon/commit/85822c9321d18dc777c78731f0be1ce6bfd15ffd))
+* **show-edit-pod:** add ts type definitions ([7bd13b2](https://github.com/Sage/carbon/commit/7bd13b2b7871bbf1f6133c725368e1483a6ef642))
+* **sidebar:** add ts type definitions ([cc69fc1](https://github.com/Sage/carbon/commit/cc69fc14fc0f8ffd4f4dc0b1df1beb7952ce3688)), closes [#3702](https://github.com/Sage/carbon/issues/3702)
+* **simple-select:** add select-textbox type definitions ([a100cc9](https://github.com/Sage/carbon/commit/a100cc9c36cc6da32348d5cc891d3924861fda36))
+* **split-button:** add ts type definitions ([0598f16](https://github.com/Sage/carbon/commit/0598f16f541452afa70c7de459ab22cc410a740c))
+* **step-sequence:** add ts type definitions ([29c40b2](https://github.com/Sage/carbon/commit/29c40b230235fa720188871bbe697fd9bf943400))
+* add ts type definitions to theme config files ([b62b21a](https://github.com/Sage/carbon/commit/b62b21af624919aa0cd2b0d327b7f3d6bf9fff21)), closes [#3705](https://github.com/Sage/carbon/issues/3705)
+
+
+### Bug Fixes
+
+* **accordion:** incorrect ts type definitions ([fec618f](https://github.com/Sage/carbon/commit/fec618fc854d71e09c8fc907023fae7bbbf2f795))
+* **action-popover:** incorrect ts type definitions ([7f520c2](https://github.com/Sage/carbon/commit/7f520c287bf01ca835a35563c17ed33f77e1cf5b))
+* **advanced-color-picker:** incorrect ts type definitions ([4fbe849](https://github.com/Sage/carbon/commit/4fbe8492893f481f3b8f923ff0ef7535262a313c))
+* **anchor-navigation:** incorrect ts type definitions ([fc68fdd](https://github.com/Sage/carbon/commit/fc68fdd619c9a7bdd767dcad485d8b15ad30eae0))
+* **badge:** incorrect ts type definitions ([b3cdc6e](https://github.com/Sage/carbon/commit/b3cdc6e46eb12b1258f6737b1a3e686f5cd4292f))
+* **batch-selection:** ts type definitions not properly exported ([7b59608](https://github.com/Sage/carbon/commit/7b59608f4858048d01c07b4b65ca87b07e73a36a))
+* **box:** ts type definitions not properly exported ([b0dc5e6](https://github.com/Sage/carbon/commit/b0dc5e61b3482f3fd3c0d7e4d9ba26c3a58f05dd)), closes [#3733](https://github.com/Sage/carbon/issues/3733)
+* **button:** incorrect ts margin type definitions ([1fa2e36](https://github.com/Sage/carbon/commit/1fa2e36952ccce4b53baebad73f9fe3ee21c520a)), closes [#3727](https://github.com/Sage/carbon/issues/3727)
+* **checkbox-group:** incorrect children type in typescript ([cc480c5](https://github.com/Sage/carbon/commit/cc480c509b6daf95522ea5855502df0c54dca8cc))
+* **confirm:** type definitions not exported ([befd66e](https://github.com/Sage/carbon/commit/befd66e8f817d4a29a991aecadffac7a8d007e2b)), closes [#3710](https://github.com/Sage/carbon/issues/3710) [#3809](https://github.com/Sage/carbon/issues/3809)
+* **draggable:** incorrect ts type definitions ([e855976](https://github.com/Sage/carbon/commit/e85597664ac2ab74a22214f3d9ee58c3967da363))
+* **drawer:** incorrect ts type definitions ([6e4ab56](https://github.com/Sage/carbon/commit/6e4ab56ced4e24f955a48b5c81f8c34b1f95aa6a)), closes [#3694](https://github.com/Sage/carbon/issues/3694)
+* **flat-table:** missing ts type definitions ([088183e](https://github.com/Sage/carbon/commit/088183e3020514a76148ae3f3d213d08ffba4038))
+* **form:** type definitions not properly exported ([01c07ed](https://github.com/Sage/carbon/commit/01c07ed8aea5d51fd1577c3a466d551ace99c6ef)), closes [#3690](https://github.com/Sage/carbon/issues/3690)
+* **hr:** type definitions not properly exported ([9dce2b9](https://github.com/Sage/carbon/commit/9dce2b941c249794a7c560dab8aa881caabd0204)), closes [#3691](https://github.com/Sage/carbon/issues/3691)
+* **link:** internallink export missing in type definitions ([37002c1](https://github.com/Sage/carbon/commit/37002c1574f84f5cc4346f53e370c8561cfa3f55))
+* **number:** incorrect import of textbox type definitions ([984f9db](https://github.com/Sage/carbon/commit/984f9db4558d10f1ee6ab5272e11480f0fa28749))
+* **pill:** ts type definitions not properly exported ([379efd3](https://github.com/Sage/carbon/commit/379efd366d31d0b629456dc4e69f32e1671978d1)), closes [#3708](https://github.com/Sage/carbon/issues/3708)
+* **popover-container:** type definitions not properly exported ([c127258](https://github.com/Sage/carbon/commit/c12725811dcebf92a89531ead0eede14f060f7c9)), closes [#3707](https://github.com/Sage/carbon/issues/3707)
+* **radio-button:** type definitions not properly exported ([3873c81](https://github.com/Sage/carbon/commit/3873c81822a72b9d6a2d01f199e12adcac6826cc))
+* **simple-select:** optionrow and optiongroupheader type definitions not exported ([8143417](https://github.com/Sage/carbon/commit/8143417a391c1383e99e5d86829d764031adb507))
+* **tabs:** ts props other than children should be optional ([df5a6b8](https://github.com/Sage/carbon/commit/df5a6b86ac195ff755797a88a7b55e71f983bbcf)), closes [#3568](https://github.com/Sage/carbon/issues/3568)
+* **tile-select:** ts type prop should not be required ([3e7343b](https://github.com/Sage/carbon/commit/3e7343b6c1c646f72d843f41dd886c6f6dcf5a3d))
+* **toast:** type definitions not properly exported ([a9b3dfe](https://github.com/Sage/carbon/commit/a9b3dfee3fe874e405bc63f2437d0f6e292ea77b)), closes [#3712](https://github.com/Sage/carbon/issues/3712)
+* **typography:** incorrect prop name in type definitions ([afcebf4](https://github.com/Sage/carbon/commit/afcebf420cce2da574ad0c7450a69b60a127bec0))
+* incorrect typescript exports ([cd60012](https://github.com/Sage/carbon/commit/cd600127eefe5a1aab205664193eafb21da0ebd3))
+
+
+### Miscellaneous Chores
+
+* add styled-system and styled-components types dependencies ([fc8e62d](https://github.com/Sage/carbon/commit/fc8e62d3857723cf5985319b23c245c21598751b))
+
+### [71.4.2](https://github.com/Sage/carbon/compare/v71.4.1...v71.4.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** fix content ref forwarding ([7d0cdc0](https://github.com/Sage/carbon/commit/7d0cdc0295f6a6f01c14d7c47af3db1061fc41e1))
+
+### [71.4.1](https://github.com/Sage/carbon/compare/v71.4.0...v71.4.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* **flat-table:** allow multiple header rows to be sticky ([e70dfa9](https://github.com/Sage/carbon/commit/e70dfa98deeb283cf0410d0b3fa9a27547384ede)), closes [#3728](https://github.com/Sage/carbon/issues/3728)
+* **flat-table:** allow row headers to be sticky within flat-table-head ([84dfa9b](https://github.com/Sage/carbon/commit/84dfa9b03e6545ca82161dfafc5cb5a437dd0e13))
+
+## [71.4.0](https://github.com/Sage/carbon/compare/v71.3.0...v71.4.0) (2021-05-07)
+
+
+### Features
+
+* **switch:** add styled system margin ([ca01fee](https://github.com/Sage/carbon/commit/ca01fee166410f63d5e576fd2202f4c4f108c4d5))
+
+## [71.3.0](https://github.com/Sage/carbon/compare/v71.2.1...v71.3.0) (2021-05-06)
+
+
+### Features
+
+* **draggable:** add styled-system props support ([9a2ca2b](https://github.com/Sage/carbon/commit/9a2ca2baa006935e1c67b450a01dd7e5a064bd3c))
+
+### [71.2.1](https://github.com/Sage/carbon/compare/v71.2.0...v71.2.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **search:** fix outline appearing onClick around the X icon ([6f8fb38](https://github.com/Sage/carbon/commit/6f8fb38cc50091ab482e10e1ad63c9d822ddb905)), closes [#3857](https://github.com/Sage/carbon/issues/3857)
+
+## [71.2.0](https://github.com/Sage/carbon/compare/v71.1.0...v71.2.0) (2021-05-06)
+
+
+### Features
+
+* **image:** create new component to support rendering images ([c77e4b1](https://github.com/Sage/carbon/commit/c77e4b18d17fcfff03257c4179d0ffc60eaca425))
+
+## [71.1.0](https://github.com/Sage/carbon/compare/v71.0.0...v71.1.0) (2021-05-04)
+
+
+### Features
+
+* **detail:** add styled-system margin support ([5ccbf34](https://github.com/Sage/carbon/commit/5ccbf349855a065ea3ce845a457e3540a6651a14))
+
+## [71.0.0](https://github.com/Sage/carbon/compare/v70.9.0...v71.0.0) (2021-05-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu-item:** Removed keyboardOverride prop from MenuItem
+
+### Code Refactoring
+
+* **menu-item:** remove keyboard override option ([6531b2f](https://github.com/Sage/carbon/commit/6531b2fcf8bc57ea87679af6f652c0e6d860c51d))
+
+## [70.9.0](https://github.com/Sage/carbon/compare/v70.8.0...v70.9.0) (2021-04-30)
+
+
+### Features
+
+* **content:** add margin props ([d95b9c5](https://github.com/Sage/carbon/commit/d95b9c52f1357d16d294b6d8ef269b0e257cc8c3))
+
+## [70.8.0](https://github.com/Sage/carbon/compare/v70.7.0...v70.8.0) (2021-04-30)
+
+
+### Features
+
+* **heading:** add styled-system margin support ([86b54e1](https://github.com/Sage/carbon/commit/86b54e17054e5769444199f4b3b255704699deca))
+
+## [70.7.0](https://github.com/Sage/carbon/compare/v70.6.0...v70.7.0) (2021-04-29)
+
+
+### Features
+
+* **accordion-group:** add styled-system margin support ([782d2d6](https://github.com/Sage/carbon/commit/782d2d6e6bf93d6d68ee93e04de2644b32c67718))
+
+## [70.6.0](https://github.com/Sage/carbon/compare/v70.5.1...v70.6.0) (2021-04-29)
+
+
+### Features
+
+* **dialog-full-screen:** add auto focus functionality ([0c36bbb](https://github.com/Sage/carbon/commit/0c36bbb20a178ed11107e79dfe895e4a8123d788))
+
+### [70.5.1](https://github.com/Sage/carbon/compare/v70.5.0...v70.5.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **filterable-select:** call onChange when value is deleted or not matched ([6c18561](https://github.com/Sage/carbon/commit/6c18561d8e4881fc4c54c8445e81588a3696c1d0))
+
+## [70.5.0](https://github.com/Sage/carbon/compare/v70.4.1...v70.5.0) (2021-04-29)
+
+
+### Features
+
+* **help:** add support for styled-system margin interface ([025d8b1](https://github.com/Sage/carbon/commit/025d8b14bd75422485d2bb1748ac2eca765d87cd))
+* **icon:** add support for styled-system margin interface ([31e4089](https://github.com/Sage/carbon/commit/31e40892b681dd6e5f752eb13df97cd593223947))
+* **validation-icon:** add support for styled-system margin interface ([f3cf951](https://github.com/Sage/carbon/commit/f3cf951d15a18264b7196f3ff97dc843746405e9))
+
+### [70.4.1](https://github.com/Sage/carbon/compare/v70.4.0...v70.4.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **select:** fix not resizing list during window resize ([f173917](https://github.com/Sage/carbon/commit/f173917b6cdf3a8ca6c88f716a8d5d515bddea1f))
+
+## [70.4.0](https://github.com/Sage/carbon/compare/v70.3.0...v70.4.0) (2021-04-28)
+
+
+### Features
+
+* **action-popover:** add styled-system margin support ([5816ef7](https://github.com/Sage/carbon/commit/5816ef7594bafd6a712971548a4dd6c9d601b939))
+
+## [70.3.0](https://github.com/Sage/carbon/compare/v70.2.0...v70.3.0) (2021-04-28)
+
+
+### Features
+
+* add tooltip and onClick to Portrait component - FE-3502 ([73a0075](https://github.com/Sage/carbon/commit/73a0075c59bd7692739491f6029a10c387fdd44b)), closes [#3554](https://github.com/Sage/carbon/issues/3554)
+
+## [70.2.0](https://github.com/Sage/carbon/compare/v70.1.1...v70.2.0) (2021-04-28)
+
+
+### Features
+
+* **card:** add styled-system margin support ([e902aa2](https://github.com/Sage/carbon/commit/e902aa239ed4e2aa6941d185cb9d591e1abe8074))
+
+### [70.1.1](https://github.com/Sage/carbon/compare/v70.1.0...v70.1.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **definition-list:** fix dl focused elements outline cut by "overflow: hidden" ([f7ca1d3](https://github.com/Sage/carbon/commit/f7ca1d3e3ef4f202a9598e44431a7c6f763f1684))
+
+## [70.1.0](https://github.com/Sage/carbon/compare/v70.0.1...v70.1.0) (2021-04-28)
+
+
+### Features
+
+* **duelling-picklist:** add support for styled-system margin interface ([8a373be](https://github.com/Sage/carbon/commit/8a373be175c0f45cd868694afe79e01c302a7ed7))
+
+### [70.0.1](https://github.com/Sage/carbon/compare/v70.0.0...v70.0.1) (2021-04-27)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** add zIndex to styles ([2026816](https://github.com/Sage/carbon/commit/20268167cb7c6df456ee5efda62a7f16d297a10b)), closes [#3909](https://github.com/Sage/carbon/issues/3909)
+
+## [70.0.0](https://github.com/Sage/carbon/compare/v69.1.1...v70.0.0) (2021-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* DialogFullScreen, Dialog, Alert and Confirm components
+no longer support enabling background UI interactions or disabling focus trap
+Dialog, Alert and Confirm height prop behaviour has changed
+
+### Code Refactoring
+
+* refactor modal based components ([59c65da](https://github.com/Sage/carbon/commit/59c65da42ac78f6b20c38364390f45b63de9310d))
+
+### [69.1.1](https://github.com/Sage/carbon/compare/v69.1.0...v69.1.1) (2021-04-26)
+
+
+### Bug Fixes
+
+* **select-list:** fix bottom of focus border is cut off by the select-list ([b944350](https://github.com/Sage/carbon/commit/b944350ce2af7d2a1c5494d84bb2bccf631abf17))
+
+## [69.1.0](https://github.com/Sage/carbon/compare/v69.0.0...v69.1.0) (2021-04-23)
+
+
+### Features
+
+* **tile-select:** add new footer prop ([baa4442](https://github.com/Sage/carbon/commit/baa4442ffef9a50e39b9f686909aa94c04fb9128))
+* **tile-select:** expand prop types for title, subtitle and description to node ([7563e4e](https://github.com/Sage/carbon/commit/7563e4ebc797cb0301307a3bee372f60d51e0ed9))
+
+## [69.0.0](https://github.com/Sage/carbon/compare/v68.25.3...v69.0.0) (2021-04-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **babel:** polyfills for IE11 will no longer be included in our build.
+We polyfill the latest 2 versions of Chrome, Firefox, Edge and Safari
+
+### Miscellaneous Chores
+
+* **babel:** update config ([5cac737](https://github.com/Sage/carbon/commit/5cac737abbf0549374b78043964b1173424bf6a3))
+
+### [68.25.3](https://github.com/Sage/carbon/compare/v68.25.2...v68.25.3) (2021-04-22)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add support for controlling expanded rows externally ([721f975](https://github.com/Sage/carbon/commit/721f9751f6687bcdd04dd66160e9d157eb649e45)), closes [#3875](https://github.com/Sage/carbon/issues/3875)
+
+### [68.25.2](https://github.com/Sage/carbon/compare/v68.25.1...v68.25.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure all th elements are sticky when sticky head prop is set ([82dd6c9](https://github.com/Sage/carbon/commit/82dd6c985ea73016ca52a500faa0b46690aad63a)), closes [#3876](https://github.com/Sage/carbon/issues/3876)
+
+### [68.25.1](https://github.com/Sage/carbon/compare/v68.25.0...v68.25.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* **flat-table:** fix an alignment gap between the colapse icon and the text ([c8d90e5](https://github.com/Sage/carbon/commit/c8d90e56804b4e55870f0721b2013e5e5f48438f))
+
+## [68.25.0](https://github.com/Sage/carbon/compare/v68.24.0...v68.25.0) (2021-04-16)
+
+
+### Features
+
+* **grid-container:** use prop-types from styled-system ([ca91366](https://github.com/Sage/carbon/commit/ca913661ebacc3cd1f87e258ab984b1ca13ef109))
+
+## [68.24.0](https://github.com/Sage/carbon/compare/v68.23.0...v68.24.0) (2021-04-16)
+
+
+### Features
+
+* **portrait:** add styled-system margin ([e3de07d](https://github.com/Sage/carbon/commit/e3de07d33031d890e37cf01062c79b233ca0631d))
+
+## [68.23.0](https://github.com/Sage/carbon/compare/v68.22.1...v68.23.0) (2021-04-16)
+
+
+### Features
+
+* **preview:** add styled system margin props to Preview ([83e0ba3](https://github.com/Sage/carbon/commit/83e0ba3f39e01df1f689493885dd5635554c9560))
+
+### [68.22.1](https://github.com/Sage/carbon/compare/v68.22.0...v68.22.1) (2021-04-15)
+
+
+### Reverts
+
+* "docs: add info about chromatic for major branch" ([de23064](https://github.com/Sage/carbon/commit/de23064b09cd2b762ddf6346be3fa220f16ab72c))
+
+## [68.22.0](https://github.com/Sage/carbon/compare/v68.21.0...v68.22.0) (2021-04-15)
+
+
+### Features
+
+* **step-sequence:** add styled system margin props to StepSequence ([8415302](https://github.com/Sage/carbon/commit/84153020d27f9ae28c1dba4f0a49ce5015696c9a))
+
+## [68.21.0](https://github.com/Sage/carbon/compare/v68.20.1...v68.21.0) (2021-04-15)
+
+
+### Features
+
+* **settings-row:** add support for styled system margin props ([88276d6](https://github.com/Sage/carbon/commit/88276d607ae108ac64d86dc1fb27585d56203593))
+
+### [68.20.1](https://github.com/Sage/carbon/compare/v68.20.0...v68.20.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* **day-picker:** fix bottom of focus border is cut off by the date picker ([700822a](https://github.com/Sage/carbon/commit/700822a498325551e1d3dbc9c0b770625b485212))
+
+## [68.20.0](https://github.com/Sage/carbon/compare/v68.19.0...v68.20.0) (2021-04-14)
+
+
+### Features
+
+* **popover-container:** surface styled system padding props ([a99d967](https://github.com/Sage/carbon/commit/a99d9679e2a13f789976f3c7bcd02bd411301ca5))
+
+## [68.19.0](https://github.com/Sage/carbon/compare/v68.18.0...v68.19.0) (2021-04-14)
+
+
+### Features
+
+* **tile-select, tile-select-group:** surface styled system margin props ([0326f1a](https://github.com/Sage/carbon/commit/0326f1a8c7617206d3524f2ef80d093677802529))
+
+## [68.18.0](https://github.com/Sage/carbon/compare/v68.17.0...v68.18.0) (2021-04-14)
+
+
+### Features
+
+* **message:** add styled-system margin props ([26e793e](https://github.com/Sage/carbon/commit/26e793e3eefe092f2cf539f5597355e7a716cc8c))
+
+## [68.17.0](https://github.com/Sage/carbon/compare/v68.16.0...v68.17.0) (2021-04-13)
+
+
+### Features
+
+* **flat-table-cell, flat-table-row-header:** add width prop to table cell and new truncate styling ([86b42b8](https://github.com/Sage/carbon/commit/86b42b8166c68cb1d8818c02b31e3b79f2e4ca52))
+
+
+### Bug Fixes
+
+* **flat-table-cell, flat-table-header:** raise specificity of spacing styles ([8bd10ce](https://github.com/Sage/carbon/commit/8bd10cea837de190791aee32ea4e9be433008f4a)), closes [#3846](https://github.com/Sage/carbon/issues/3846)
+
+## [68.16.0](https://github.com/Sage/carbon/compare/v68.15.0...v68.16.0) (2021-04-13)
+
+
+### Features
+
+* **split-button:** surface styled system margin props ([5495b2d](https://github.com/Sage/carbon/commit/5495b2df06322c2c4fc366278cc1e8fcccd32f36))
+
+
+### Bug Fixes
+
+* **split-button:** prevent padding props being spread into main button ([7bd7ade](https://github.com/Sage/carbon/commit/7bd7ade4943238e24e323ad4c664a0f4a57c9e83))
+
+## [68.15.0](https://github.com/Sage/carbon/compare/v68.14.0...v68.15.0) (2021-04-12)
+
+
+### Features
+
+* **textbox:** change labelHelp type to ReactNode ([fbd15e6](https://github.com/Sage/carbon/commit/fbd15e62ad242d96787729224aae6fbde22c098d)), closes [#3434](https://github.com/Sage/carbon/issues/3434)
+
+## [68.14.0](https://github.com/Sage/carbon/compare/v68.13.0...v68.14.0) (2021-04-12)
+
+
+### Features
+
+* **profile:** add styled-system margin props ([a891678](https://github.com/Sage/carbon/commit/a89167874bac998162406be61035a2f4775b6121))
+
+## [68.13.0](https://github.com/Sage/carbon/compare/v68.12.0...v68.13.0) (2021-04-12)
+
+
+### Features
+
+* **note:** add styled-system margin props ([dca47cd](https://github.com/Sage/carbon/commit/dca47cd45aed8e75bb0ebd253ae218f6b68b0e35))
+
+## [68.12.0](https://github.com/Sage/carbon/compare/v68.11.0...v68.12.0) (2021-04-12)
+
+
+### Features
+
+* **text-editor:** surface styled system margin props ([9825c61](https://github.com/Sage/carbon/commit/9825c617e53284001113a1db9fbad4e855b59438))
+
+## [68.11.0](https://github.com/Sage/carbon/compare/v68.10.0...v68.11.0) (2021-04-09)
+
+
+### Features
+
+* **tabs, tab:** surface styled system margin interface in tabs and padding interface in tab ([5e125af](https://github.com/Sage/carbon/commit/5e125af229a54e826076e6928e5e59a0058d5ecb))
+
+## [68.10.0](https://github.com/Sage/carbon/compare/v68.9.2...v68.10.0) (2021-04-09)
+
+
+### Features
+
+* **loader:** add styled-system ([28f4656](https://github.com/Sage/carbon/commit/28f4656c4017bbd9e2977ea83b7683446e365117))
+
+### [68.9.2](https://github.com/Sage/carbon/compare/v68.9.1...v68.9.2) (2021-04-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix gap between table content and sticky footer ([c547f4e](https://github.com/Sage/carbon/commit/c547f4efdd035bb2dd0013b94c21bb38df8237c7)), closes [#3850](https://github.com/Sage/carbon/issues/3850)
+
+### [68.9.1](https://github.com/Sage/carbon/compare/v68.9.0...v68.9.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** check event has a data element attribute before checking the value ([39db098](https://github.com/Sage/carbon/commit/39db09875b242632a1624e8540706988eac4bce0)), closes [#3754](https://github.com/Sage/carbon/issues/3754)
+
 ## [68.9.0](https://github.com/Sage/carbon/compare/v68.8.3...v68.9.0) (2021-04-06)
 
 

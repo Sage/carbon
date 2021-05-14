@@ -76,7 +76,7 @@ const RadioButton = ({
     labelInline: true,
     labelWidth,
     inputId: id,
-    inputLabel: label,
+    label,
     inputValue: value,
     inputType: "radio",
     /**

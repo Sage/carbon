@@ -1,8 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
+import { MarginProps } from "styled-system";
+import { AccordionProps } from "./accordion";
 
-export interface AccordionGroupProps {
-  children?: React.ReactNode;
+type AccordionElement = React.ReactElement<AccordionProps>;
+
+export interface AccordionGroupProps extends MarginProps {
+  children?: AccordionElement | AccordionElement[];
 }
 
-declare const AccordionGroup: React.FunctionComponent<AccordionGroupProps>;
+declare function AccordionGroup(props: AccordionGroupProps): JSX.Element;
+
 export default AccordionGroup;

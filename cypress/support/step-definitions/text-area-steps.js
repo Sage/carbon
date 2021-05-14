@@ -3,7 +3,6 @@ import {
   textareaChildren,
   characterLimitDefaultTextarea,
 } from "../../locators/textarea";
-import { getDataElementByValue } from "../../locators";
 
 Then("Textarea component is expandable", () => {
   textareaChildren().should("have.css", "height", "85px");
@@ -19,28 +18,6 @@ Then("cols is set to {string}", (colsValue) => {
 
 Then("rows is set to {string}", (colsValue) => {
   textareaChildren().should("have.attr", "rows", colsValue);
-});
-
-Then("Textarea component is disabled", () => {
-  textareaChildren()
-    .should("be.disabled")
-    .and("have.css", "color", "rgba(0, 0, 0, 0.55)")
-    .and("have.css", "cursor", "not-allowed");
-});
-
-Then("Textarea component is not disabled", () => {
-  textareaChildren()
-    .should("not.be.disabled")
-    .and("not.have.css", "color", "rgb(179, 194, 200)")
-    .and("not.have.css", "cursor", "not-allowed");
-});
-
-Then("Textarea component is readOnly", () => {
-  textareaChildren().should("have.attr", "readonly");
-});
-
-Then("Textarea component is not readOnly", () => {
-  textareaChildren().should("not.have.attr", "readonly");
 });
 
 Then("placeholder is set to {word}", (text) => {
@@ -61,22 +38,6 @@ Then("characterLimit for default Textarea is not set to {word}", (length) => {
   if (isNaN(length)) {
     characterLimitDefaultTextarea().contains("NaN");
   }
-});
-
-Then("Textarea inputWidth is set to {string}", (width) => {
-  textarea().parent().should("have.css", "flex", `0 0 ${width}%`);
-});
-
-Then("Textarea component is labelInline", () => {
-  getDataElementByValue("label")
-    .parent()
-    .should("have.css", "align-items", "flex-start");
-});
-
-Then("Textarea component is not labelInline", () => {
-  getDataElementByValue("label")
-    .parent()
-    .should("have.css", "align-items", "center");
 });
 
 When("I input {word} into Textarea", (text) => {

@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
+
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
@@ -9,6 +11,7 @@ import Link from "../link";
 
 const StyledHeading = styled.div`
   width: 100%;
+  ${margin}
 `;
 
 StyledHeading.defaultProps = {

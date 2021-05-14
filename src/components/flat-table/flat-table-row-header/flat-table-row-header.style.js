@@ -4,7 +4,7 @@ import { padding } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableRowHeader = styled.th`
-  ${({ align, theme, colWidth, leftPosition }) => css`
+  ${({ align, theme, colWidth, leftPosition, isTruncated, expandable }) => css`
     background-color: #fff;
     border: 1px solid ${theme.table.secondary};
     border-top: none;
@@ -15,25 +15,42 @@ const StyledFlatTableRowHeader = styled.th`
     text-align: ${align};
     top: auto;
     vertical-align: middle;
-    white-space: nowrap;
     padding: 0;
+    z-index: ${baseTheme.zIndex.overlay};
+
     ${colWidth &&
     css`
       width: ${colWidth}px;
     `}
 
-    &&& > div {
-      box-sizing: border-box;
-      ${colWidth &&
-      css`
-        width: ${colWidth}px;
-      `}
-      ${padding}
+    &&& {
+      > div {
+        box-sizing: border-box;
+
+        ${isTruncated &&
+        css`
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        `}
+
+        ${colWidth &&
+        css`
+          width: ${colWidth}px;
+        `}
+ 
+        ${padding}
+      }
     }
 
     &&& {
       left: ${leftPosition}px;
     }
+
+    ${expandable &&
+    css`
+      white-space: nowrap;
+    `}
   `}
 `;
 
@@ -41,4 +58,18 @@ StyledFlatTableRowHeader.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledFlatTableRowHeader;
+const StyledFlatTableRowHeaderContent = styled.div`
+  ${({ expandable }) =>
+    expandable &&
+    css`
+      display: flex;
+      align-items: center;
+      line-height: 1em;
+    `}
+`;
+
+StyledFlatTableRowHeaderContent.defaultProps = {
+  theme: baseTheme,
+};
+
+export { StyledFlatTableRowHeader, StyledFlatTableRowHeaderContent };

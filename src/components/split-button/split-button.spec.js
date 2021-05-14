@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
+
 import { ThemeProvider } from "styled-components";
 import SplitButton from "./split-button.component";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
@@ -14,8 +15,11 @@ import {
 } from "../../utils/helpers/tags/tags-specs";
 import SmallTheme from "../../style/themes/small";
 import MediumTheme from "../../style/themes/medium";
-import { assertStyleMatch, keyboard } from "../../__spec_helper__/test-utils";
-import "jest-styled-components";
+import {
+  assertStyleMatch,
+  keyboard,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import guid from "../../utils/helpers/guid";
 
 jest.mock("../../utils/helpers/guid");
@@ -120,6 +124,12 @@ const buildSizeConfig = (name, size) => {
 
 describe("SplitButton", () => {
   let wrapper, toggle;
+
+  testStyledSystemMargin((props) => (
+    <SplitButton text="Test" {...props}>
+      <Button>Test</Button>
+    </SplitButton>
+  ));
 
   describe("render with custom className", () => {
     beforeEach(() => {

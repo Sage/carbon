@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { validProps } from "../../../utils/ether";
 import tagComponent from "../../../utils/helpers/tags";
 import {
@@ -8,6 +10,10 @@ import {
   FieldsetContentStyle,
 } from "./fieldset.style";
 import Logger from "../../../utils/logger/logger";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 let deprecatedWarnTriggered = false;
 
@@ -43,6 +49,8 @@ const Fieldset = (props) => {
     <FieldsetStyle
       {...tagComponent("fieldset", props)}
       {...safeProps}
+      m={0}
+      {...filterStyledSystemMarginProps(props)}
       styleOverride={props.styleOverride.root}
     >
       <FieldsetContentStyle
@@ -57,6 +65,8 @@ const Fieldset = (props) => {
 };
 
 Fieldset.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Child elements */
   children: PropTypes.node,
   /** The text for the fieldsets legend element. */

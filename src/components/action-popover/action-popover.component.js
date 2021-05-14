@@ -7,15 +7,21 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { MenuButton, ButtonIcon } from "./action-popover.style";
 import Events from "../../utils/helpers/events";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../utils/helpers/guid";
 import ActionPopoverMenu from "./action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider.component";
 import ActionPopoverContext from "./action-popover-context";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const ActionPopover = ({
   children,
@@ -187,6 +193,7 @@ const ActionPopover = ({
 };
 
 ActionPopover.propTypes = {
+  ...marginPropTypes,
   /** Unique ID */
   id: PropTypes.string,
   /** Callback to be called on menu open */

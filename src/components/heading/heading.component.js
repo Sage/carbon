@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../utils/helpers/tags";
 import {
   StyledHeading,
@@ -15,17 +18,17 @@ import {
   StyledHeadingPills,
 } from "./heading.style";
 
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
 class Heading extends React.Component {
   static propTypes = {
+    ...marginPropTypes,
     /**
      * Children elements
      */
     children: PropTypes.node,
-
-    /**
-     * Custom className
-     */
-    className: PropTypes.string,
 
     /**
      * Defines the title for the heading.
@@ -202,8 +205,10 @@ class Heading extends React.Component {
       return null;
     }
 
+    const marginProps = filterStyledSystemMarginProps(this.props);
+
     return (
-      <StyledHeading {...tagComponent("heading", this.props)}>
+      <StyledHeading {...tagComponent("heading", this.props)} {...marginProps}>
         <StyledHeader
           data-element="header-container"
           divider={this.props.divider}

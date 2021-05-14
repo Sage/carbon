@@ -13,6 +13,9 @@ export default {
     info: {
       disable: true,
     },
+    chromatic: {
+      disable: true,
+    },
     knobs: { escapeHTML: false },
   },
 };
@@ -22,10 +25,8 @@ export const Default = () => {
   const title = text("title", "Example Dialog");
   const subtitle = text("subtitle", "Example Subtitle");
   const children = text("children", "Text Content");
-  const enableBackgroundUI = boolean("enableBackgroundUI", false);
   const disableEscKey = boolean("disableEscKey", false);
   const showCloseIcon = boolean("showCloseIcon", true);
-  const ariaRole = text("ariaRole", "dialog");
   const formHeight = text("form height", "2000px");
   const stickyFooter = boolean("Form component stickyFooter", false);
   const disableContentPadding = boolean("disableContentPadding", false);
@@ -52,9 +53,7 @@ export const Default = () => {
         onCancel={handleCancel}
         title={title}
         subtitle={subtitle}
-        enableBackgroundUI={enableBackgroundUI}
         disableEscKey={disableEscKey}
-        ariaRole={ariaRole}
         onClick={handleClick}
         showCloseIcon={showCloseIcon}
         disableContentPadding={disableContentPadding}
@@ -127,9 +126,4 @@ Default.story = {
 
 Nested.story = {
   name: "nested",
-  parameters: {
-    chromatic: {
-      disable: true,
-    },
-  },
 };

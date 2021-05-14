@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import Tab from "./tab";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
@@ -15,6 +16,11 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import { SidebarContext } from "../drawer";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Tabs = ({
   align = "left",
@@ -26,7 +32,7 @@ const Tabs = ({
   position = "top",
   setLocation = true,
   extendedLine = true,
-  size = "default",
+  size,
   borders = "off",
   variant = "default",
   validationStatusOverride,
@@ -41,6 +47,7 @@ const Tabs = ({
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
   const _window = Browser.getWindow();
+  const isInSidebar = !!(sidebarContext && sidebarContext.isInSidebar);
 
   useLayoutEffect(() => {
     if (firstRender.current) {
@@ -258,7 +265,7 @@ const Tabs = ({
           error={tabHasError}
           warning={tabHasWarning}
           info={tabHasInfo}
-          size={size}
+          size={size || "default"}
           borders={borders !== "off"}
           siblings={siblings}
           titlePosition={titlePosition}
@@ -269,7 +276,7 @@ const Tabs = ({
           noLeftBorder={["no left side", "no sides"].includes(borders)}
           noRightBorder={["no right side", "no sides"].includes(borders)}
           customLayout={customLayout}
-          isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
+          isInSidebar={isInSidebar}
         />
       );
 
@@ -284,7 +291,7 @@ const Tabs = ({
         extendedLine={extendedLine}
         alternateStyling={variant === "alternate" || !!sidebarContext}
         noRightBorder={["no right side", "no sides"].includes(borders)}
-        isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
+        isInSidebar={isInSidebar}
       >
         {tabTitles}
       </TabsHeader>
@@ -354,7 +361,9 @@ const Tabs = ({
       updateErrors={updateErrors}
       updateWarnings={updateWarnings}
       {...tagComponent("tabs", rest)}
-      isInSidebar={Boolean(sidebarContext && sidebarContext.isInSidebar)}
+      isInSidebar={isInSidebar}
+      mt={position === "left" || isInSidebar ? "0px" : "15px"}
+      {...rest}
     >
       {renderTabHeaders()}
       {renderTabs()}
@@ -363,6 +372,7 @@ const Tabs = ({
 };
 
 Tabs.propTypes = {
+  ...marginPropTypes,
   /** @ignore @private */
   className: PropTypes.string,
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */

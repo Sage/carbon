@@ -31,6 +31,6 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Change Checkbox tick color
-    Given I open "Experimental Checkbox Test" component page "default"
+    Given I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "default" object name
     When I mark checkbox on preview
     Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"

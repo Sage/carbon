@@ -55,7 +55,7 @@ const Switch = ({
     onBlur,
     onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
-    inputLabel: label,
+    label,
     inputValue: value,
     inputType: "checkbox",
     reverse: !reverse, // switched to preserve backward compatibility
@@ -100,7 +100,7 @@ Switch.propTypes = {
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Help text */
-  labelHelp: PropTypes.string,
+  labelHelp: PropTypes.node,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */

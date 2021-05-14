@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const Default = (props) => {
+export const Default = () => {
   const [state, setState] = useState("");
   const groups = object("groups", [2, 2, 4]);
   const separator = text("separator", "-");
@@ -35,7 +35,6 @@ export const Default = (props) => {
       separator={separator}
       value={state}
       onChange={onChange}
-      {...props}
     />
   );
 };

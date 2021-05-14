@@ -26,7 +26,7 @@ export function visitComponentUrl(
   env = "story"
 ) {
   cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
-  if (!iFrameOnly) knobsTab().click();
+  if (!iFrameOnly) knobsTab().click({ force: true });
 }
 
 // eslint-disable-next-line max-params
@@ -53,7 +53,7 @@ export function visitComponentUrlWithParameters(
 }
 
 export function clickActionsTab(iFrameOnly = false) {
-  if (!iFrameOnly) actionsTab().click();
+  if (!iFrameOnly) actionsTab().click({ force: true });
 }
 
 export function clickClear() {
@@ -100,6 +100,11 @@ export function dragAndDrop(
 export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts override
   cy.iFrame("body").type("{shift}{esc}");
+}
+
+export function pressESCKeyNoIframe() {
+  // using Shift+Esc - because of storybook shortcuts override
+  cy.get("body").type("{shift}{esc}");
 }
 
 export function pressTABKey(count) {
@@ -191,5 +196,6 @@ export function keyCode(type) {
     Tab: { key: "Tab", keyCode: 9, which: 9 },
     Home: { keyCode: 36, which: 36 },
     End: { keyCode: 35, which: 35 },
+    Esc: { keyCode: 27, which: 27 },
   }[type];
 }

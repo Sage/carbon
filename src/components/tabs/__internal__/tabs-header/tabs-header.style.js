@@ -19,13 +19,13 @@ const StyledTabsHeaderWrapper = styled.div`
 
       ${!isInSidebar &&
       css`
-        width: 20%;
-        margin: 0 10px 0;
+        min-width: 20%;
+        margin: 0 0 0 10px;
       `}
 
       ${isInSidebar &&
       css`
-        width: 100%;
+        min-width: 100%;
         margin: auto;
         padding: 0px;
       `}
@@ -43,7 +43,7 @@ const StyledTabsHeaderList = styled.ul`
     `}
   cursor: pointer;
   list-style: none;
-  margin: 0 0 10px;
+  margin: 0;
   padding: 0;
 
   ${({ align }) =>
@@ -66,7 +66,7 @@ const StyledTabsHeaderList = styled.ul`
 
       ${!isInSidebar &&
       css`
-        margin: 0 10px 0;
+        margin: 0 0 0 10px;
       `}
 
     ${isInSidebar &&

@@ -6,9 +6,9 @@ import {
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
+  StyledFlatTableBox,
 } from "./flat-table.style";
 import { SidebarContext } from "../drawer";
-import Box from "../box";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
@@ -26,8 +26,9 @@ const FlatTable = ({
   height,
   isZebra,
   size,
+  hasMaxHeight = false,
   ariaDescribedby,
-  ...props
+  ...rest
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   const tableStylingProps = {
@@ -43,10 +44,12 @@ const FlatTable = ({
   return (
     <SidebarContext.Consumer>
       {(context) => (
-        <StyledFlatTableRoot {...props}>
-          <Box
+        <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
+          <StyledFlatTableBox
+            {...rest}
             {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
-            height={addDefaultHeight ? "100%" : height}
+            height={addDefaultHeight && !hasMaxHeight ? "100%" : height}
+            maxHeight={hasMaxHeight ? "100%" : undefined}
           >
             <StyledFlatTableWrapper
               isInSidebar={context && context.isInSidebar}
@@ -64,7 +67,7 @@ const FlatTable = ({
                 </FlatTableThemeContext.Provider>
               </StyledFlatTable>
             </StyledFlatTableWrapper>
-          </Box>
+          </StyledFlatTableBox>
           {footer && (
             <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
               {footer}
@@ -103,6 +106,8 @@ FlatTable.propTypes = {
   isZebra: PropTypes.bool,
   /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
   size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
+  /** Applies max-height of 100% to FlatTable if true */
+  hasMaxHeight: PropTypes.bool,
 };
 
 FlatTable.defaultProps = {

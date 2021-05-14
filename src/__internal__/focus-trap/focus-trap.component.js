@@ -39,7 +39,7 @@ const FocusTrap = ({
 
   useLayoutEffect(() => {
     if (wrapperRef) {
-      const ref = wrapperRef.current || wrapperRef;
+      const ref = wrapperRef.current;
 
       const elements = Array.from(
         ref.querySelectorAll(defaultFocusableSelectors)
@@ -113,10 +113,7 @@ FocusTrap.propTypes = {
   /** flag to set focus automatically on first render */
   autoFocus: PropTypes.bool,
   /** provide a custom first element to focus */
-  focusFirstElement: PropTypes.oneOfType([
-    PropTypes.shape({ current: PropTypes.any }),
-    PropTypes.func,
-  ]),
+  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap: PropTypes.func,
   /** a ref to the container wrapping the focusable elements */

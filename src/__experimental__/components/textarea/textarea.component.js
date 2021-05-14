@@ -206,6 +206,8 @@ Textarea.propTypes = {
   expandable: PropTypes.bool,
   /** The content of the label for the input */
   label: PropTypes.string,
+  /** Text applied to label help tooltip */
+  labelHelp: PropTypes.node,
   /** When true, label is placed in line with an input */
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */

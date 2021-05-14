@@ -27,7 +27,7 @@ export default {
 export const Default = () => {
   const [date, setDate] = useState("2020-06-01");
   const [isOpen, setIsOpen] = useState(true);
-  const height = text("height", "400");
+  const height = text("height", "");
   const title = text("title", "Example Dialog");
   const subtitle = text("subtitle", "Example Subtitle");
   const size = select(
@@ -39,9 +39,7 @@ export const Default = () => {
     "showCloseIcon",
     Dialog.defaultProps.showCloseIcon
   );
-  const enableBackgroundUI = boolean("enableBackgroundUI", false);
   const disableEscKey = boolean("disableEscKey", false);
-  const ariaRole = text("ariaRole", Dialog.defaultProps.ariaRole);
   const stickyFooter = boolean("Form component stickyFooter", false);
 
   const handleCancel = (evt) => {
@@ -112,9 +110,7 @@ export const Default = () => {
         subtitle={subtitle}
         size={size}
         showCloseIcon={showCloseIcon}
-        enableBackgroundUI={enableBackgroundUI}
         disableEscKey={disableEscKey}
-        ariaRole={ariaRole}
       >
         <Form
           stickyFooter={stickyFooter}

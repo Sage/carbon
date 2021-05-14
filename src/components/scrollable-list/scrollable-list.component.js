@@ -5,8 +5,21 @@ import Events from "../../utils/helpers/events";
 import asScrollableListItem from "./as-scrollable-list-item.wrapper";
 import ScrollableListContext from "./scrollable-list.context";
 import ScrollableListContainer from "./scrollable-list.style";
+import Logger from "../../utils/logger/logger";
 
+let deprecatedWarnTriggered = false;
 class ScrollableList extends Component {
+  constructor(props) {
+    super(props);
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate(
+        "`Scrollable List` component is deprecated and will soon be removed."
+      );
+    }
+  }
+
   static propTypes = {
     alwaysHighlight: PropTypes.bool, // ensures an item is always highlighted
     isLoopable: PropTypes.bool,

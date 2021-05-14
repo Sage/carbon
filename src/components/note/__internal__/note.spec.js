@@ -13,7 +13,10 @@ import {
 } from "./note.style";
 import { ActionPopover, ActionPopoverItem } from "../../action-popover";
 import StyledStatusIconWrapper from "./status-with-tooltip/status.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 
 function render(props = {}) {
   const defaultProps = {
@@ -30,6 +33,17 @@ function render(props = {}) {
 }
 
 describe("Note", () => {
+  describe("styled-system", () => {
+    testStyledSystemMargin((props) => (
+      <Note
+        {...props}
+        name="Carbon"
+        createdDate="23 May 2020, 12:08 PM"
+        noteContent={EditorState.createEmpty()}
+      />
+    ));
+  });
+
   describe("Styling", () => {
     it("matches the expected", () => {
       const wrapper = render();

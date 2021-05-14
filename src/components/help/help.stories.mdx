@@ -1,4 +1,5 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 import Help from '.';
 
 <Meta title="Help" parameters={{ info: { disable: true }}} />
@@ -101,4 +102,4 @@ Using the `href` prop, a link can be specified.
 ## Props
 
 ### Help
-<Props of={Help} />
+<StyledSystemProps of={Help} noHeader margin/>

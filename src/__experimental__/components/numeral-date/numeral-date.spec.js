@@ -5,8 +5,12 @@ import { act } from "react-dom/test-utils";
 import NumeralDate from "./numeral-date.component";
 import Textbox from "../textbox";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import StyledInputPresentation from "../input/input-presentation.style";
+import FormFieldStyle from "../form-field/form-field.style";
 import FormField from "../form-field";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import Label from "../label";
@@ -16,20 +20,26 @@ describe("NumeralDate", () => {
   const onBlur = jest.fn();
   const onChange = jest.fn();
   const onKeyDown = jest.fn();
+  const defaultProps = {
+    defaultValue: { dd: "30" },
+    onBlur,
+    onChange,
+    onKeyDown,
+    id: "numeralDate_id",
+    name: "numeralDate_name",
+  };
   jest.useFakeTimers();
 
   const renderWrapper = (props) => {
-    const defaultProps = {
-      defaultValue: { dd: "30" },
-      onBlur,
-      onChange,
-      onKeyDown,
-      id: "numeralDate_id",
-      name: "numeralDate_name",
-    };
-
     return mount(<NumeralDate {...defaultProps} {...props} />);
   };
+
+  testStyledSystemMargin(
+    (props) => <NumeralDate {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
 
   describe("propTypes", () => {
     it("does not allow an incorrect dateFormat prop", () => {

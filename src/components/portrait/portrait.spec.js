@@ -1,15 +1,22 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import ReactTestUtils from "react-dom/test-utils";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { carbonThemeList } from "../../style/themes";
 import Browser from "../../utils/helpers/browser";
 import Portrait from "./portrait.component";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
-import { StyledIcon, StyledCustomImg } from "./portrait.style";
+import {
+  StyledIcon,
+  StyledCustomImg,
+  StyledPortraitInitials,
+  StyledPortraitGravatar,
+} from "./portrait.style";
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
+import Tooltip from "../tooltip";
 
 const mockCanvasDataURL = "data:image/png";
 
@@ -159,6 +166,34 @@ describe("PortraitComponent", () => {
       testFail(<Portrait gravatar="example@example.com" initials="AB" />);
     });
 
+    describe("onClick", () => {
+      it("triggers `onClick` function", () => {
+        const onClickFn = jest.fn();
+
+        const wrapper = shallow(
+          <Portrait
+            size="XXL"
+            shape="square"
+            darkBackground={false}
+            onClick={onClickFn}
+          />
+        );
+
+        wrapper.simulate("click");
+        expect(onClickFn).toHaveBeenCalledTimes(1);
+      });
+
+      it("check if has cursor pointer", () => {
+        const onClickFn = jest.fn();
+        const wrapper = mount(
+          <Portrait size="L" darkBackground={false} onClick={onClickFn} />
+        );
+        assertStyleMatch({ cursor: "pointer" }, wrapper.find(StyledIcon), {
+          modifier: `&&`,
+        });
+      });
+    });
+
     describe("sizes", () => {
       beforeEach(() => {
         spyOn(console, "error");
@@ -237,6 +272,26 @@ describe("PortraitComponent", () => {
       renderDLS(<PortraitInitials {...props} />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
+
+    describe("onClick", () => {
+      it("triggers `onClick` function", () => {
+        const onClickFn = jest.fn();
+
+        const wrapper = shallow(<Portrait initials="AB" onClick={onClickFn} />);
+
+        wrapper.simulate("click");
+        expect(onClickFn).toHaveBeenCalledTimes(1);
+      });
+
+      it("check if has cursor pointer", () => {
+        const onClickFn = jest.fn();
+        const wrapper = mount(<Portrait initials="AB" onClick={onClickFn} />);
+        assertStyleMatch(
+          { cursor: "pointer" },
+          wrapper.find(StyledPortraitInitials)
+        );
+      });
+    });
   });
 
   describe("render Gravatar", () => {
@@ -253,6 +308,30 @@ describe("PortraitComponent", () => {
 
     it("renders the Gravatar for the specified email address", () => {
       testSuccess(<Portrait gravatar={gravatarEmail} alt="foo" />);
+    });
+
+    describe("onClick", () => {
+      it("triggers `onClick` function", () => {
+        const onClickFn = jest.fn();
+
+        const wrapper = shallow(
+          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />
+        );
+
+        wrapper.simulate("click");
+        expect(onClickFn).toHaveBeenCalledTimes(1);
+      });
+
+      it("check if has cursor pointer", () => {
+        const onClickFn = jest.fn();
+        const wrapper = mount(
+          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />
+        );
+        assertStyleMatch(
+          { cursor: "pointer" },
+          wrapper.find(StyledPortraitGravatar)
+        );
+      });
     });
   });
 
@@ -286,6 +365,26 @@ describe("PortraitComponent", () => {
         alt: "",
         size: "M",
         "data-element": "user-image",
+      });
+    });
+
+    describe("onClick", () => {
+      it("triggers `onClick` function", () => {
+        const onClickFn = jest.fn();
+
+        const wrapper = shallow(
+          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />
+        );
+        wrapper.simulate("click");
+        expect(onClickFn).toHaveBeenCalledTimes(1);
+      });
+
+      it("check if has cursor pointer", () => {
+        const onClickFn = jest.fn();
+        const wrapper = mount(
+          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />
+        );
+        assertStyleMatch({ cursor: "pointer" }, wrapper.find(StyledCustomImg));
       });
     });
   });
@@ -351,5 +450,13 @@ describe("PortraitComponent", () => {
         rendered.root.findAllByProps({ "data-element": "user-image" }).length
       ).toBeGreaterThan(0);
     });
+  });
+
+  it("renders a `Tooltip` if tooltipMessage is passed", () => {
+    const wrapper = shallow(
+      <Portrait initials="AB" tooltipMessage="message" />
+    );
+
+    expect(wrapper.find(Tooltip).exists()).toBeTruthy();
   });
 });
