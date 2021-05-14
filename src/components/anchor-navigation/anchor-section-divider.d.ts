@@ -1,9 +1,7 @@
-import * as React from 'react';
+import { StyledComponentProps } from "styled-components";
 
-export interface AnchorSectionDividerProps {
-  /** Allows to override existing component styles */
-  styleOverride?: () => object | object;
-}
+declare function AnchorSectionDivider(
+  attrs: StyledComponentProps<"div", {}, {}, "">
+): JSX.Element;
 
-declare const AnchorSectionDivider: React.FunctionComponent<AnchorSectionDividerProps>;
 export default AnchorSectionDivider;

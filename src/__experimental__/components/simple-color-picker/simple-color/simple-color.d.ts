@@ -16,6 +16,7 @@ export interface SimpleColorProps {
   /** [Legacy] Custom classname */
   className?: string;
 }
-declare const SimpleColor: React.ComponentType<SimpleColorProps>;
+
+declare function SimpleColor(props: SimpleColorProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
 
 export default SimpleColor;

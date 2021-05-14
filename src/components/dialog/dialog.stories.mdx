@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import LinkTo from "@storybook/addon-links/react";
 import Box from "../box";
@@ -150,6 +150,50 @@ When mixing editable and non-editable content, you can use the <LinkTo kind='Des
                   disabled={isDisabled}
                 />
               </RadioButtonGroup>
+              <Box p="24px" bg="slateTint90" ml="88px">
+                <Textbox labelInline label="Property Name" />
+                <Fieldset>
+                  <Textbox labelInline label="Address Line 1" />
+                  <Textbox labelInline label="Address Line 2" />
+                  <Textbox labelInline label="Town" />
+                  <Textbox labelInline label="City" />
+                  <Textbox labelInline label="Postcode" />
+                </Fieldset>
+              </Box>
+            </Form>
+          </Dialog>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With help 
+
+<Preview>
+  <Story name="with help">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Dialog</Button>
+          <Dialog
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Add an address"
+            help="Some help text"
+          >
+            <Form
+              stickyFooter={true}
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" type="submit">
+                  Save
+                </Button>
+              }
+            >
               <Box p="24px" bg="slateTint90" ml="88px">
                 <Textbox labelInline label="Property Name" />
                 <Fieldset>

@@ -1,12 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are inline 1`] = `
-.c2 {
-  width: 100%;
-  display: inline-block;
-}
-
-.c2 .c6 {
+.c2 .c13 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -23,6 +18,76 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   margin-right: 15px;
 }
 
+.c4 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c4 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c5 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c5 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c6 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c6 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c7 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c7 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c8 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c8 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c9 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c9 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c10 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c10 .c1:first-child {
+  margin-right: 15px;
+}
+
 .c0 .c1 {
   width: auto;
   display: inline-block;
@@ -33,11 +98,11 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   margin-right: 15px;
 }
 
-.c0 .c4 {
+.c0 .c11 {
   width: auto;
 }
 
-.c0 .c5 {
+.c0 .c12 {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
@@ -53,12 +118,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 `;
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are not inline 1`] = `
-.c2 {
-  width: 100%;
-  display: inline-block;
-}
-
-.c2 .c6 {
+.c2 .c13 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -75,11 +135,11 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
   margin-right: 15px;
 }
 
-.c0 .c4 {
+.c0 .c11 {
   width: auto;
 }
 
-.c0 .c5 {
+.c0 .c12 {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
@@ -88,10 +148,80 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 .c3 .c1 {
   width: auto;
   display: inline-block;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 
 .c3 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c4 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c4 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c5 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c5 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c6 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c6 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c7 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c7 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c8 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c8 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c9 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c9 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c10 .c1 {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.c10 .c1:first-child {
   margin-right: 15px;
 }
 

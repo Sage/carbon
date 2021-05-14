@@ -1,11 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface FlatTableCheckboxProps {
-  as: 'td' | 'th';
+  /** Prop to polymorphically render either a 'th' or 'td' element */
+  as?: "td" | "th";
+  /** Prop to set checked prop on Checkbox */
   checked?: boolean;
+  /** Callback to be called onChange in Checkbox */
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  /** Whether to render the checkbox or not, defaults to true */
+  selectable?: boolean;
 }
 
-declare const FlatTableCheckbox: React.FunctionComponent<FlatTableCheckboxProps>;
+declare function FlatTableCheckbox(props: FlatTableCheckboxProps): JSX.Element;
 
 export default FlatTableCheckbox;

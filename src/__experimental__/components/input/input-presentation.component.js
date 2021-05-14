@@ -6,14 +6,11 @@ import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
 import extractProps from "../../../utils/helpers/extract-props";
-import Logger from "../../../utils/logger/logger";
 
 import {
   InputContext,
   InputGroupContext,
 } from "../../../__internal__/input-behaviour";
-
-let deprecatedWarnTriggered = false;
 
 const InputPresentation = (props) => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
@@ -25,20 +22,7 @@ const InputPresentation = (props) => {
     onMouseLeave: onGroupMouseLeave,
   } = useContext(InputGroupContext);
 
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    // eslint-disable-next-line max-len
-    Logger.deprecate(
-      "`styleOverride` that is used in the `InputPresentation` component is deprecated and will soon be removed."
-    );
-  }
-  const {
-    children,
-    styleOverride,
-    positionedChildren,
-    inputWidth,
-    ...rest
-  } = props;
+  const { children, positionedChildren, inputWidth, ...rest } = props;
   const styleProps = extractProps(rest, InputPresentationStyle);
 
   const handleMouseEnter = (e) => {
@@ -60,7 +44,6 @@ const InputPresentation = (props) => {
         onMouseDown={onMouseDown}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        styleOverride={styleOverride}
         {...styleProps}
       >
         {children}
@@ -71,7 +54,6 @@ const InputPresentation = (props) => {
 
 InputPresentation.propTypes = {
   children: PropTypes.node,
-  /** Allows to override existing component styles */
   align: PropTypes.string,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
@@ -82,7 +64,6 @@ InputPresentation.propTypes = {
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 export default InputPresentation;
