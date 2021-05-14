@@ -1,3 +1,57 @@
+### [73.6.1](https://github.com/Sage/carbon/compare/v73.6.0...v73.6.1) (2021-05-13)
+
+
+### Bug Fixes
+
+* **portrait:** fix portrait tooltip error ([3631635](https://github.com/Sage/carbon/commit/3631635463e7e2000c90294ed27a4ca4aed38bc0))
+
+## [73.6.0](https://github.com/Sage/carbon/compare/v73.5.0...v73.6.0) (2021-05-13)
+
+
+### Features
+
+* **menu-item:** add max width prop for truncation ([d9e58da](https://github.com/Sage/carbon/commit/d9e58da0cf0f3877d62d248c532592b28a62c3ff))
+
+## [73.5.0](https://github.com/Sage/carbon/compare/v73.4.0...v73.5.0) (2021-05-13)
+
+
+### Features
+
+* **textarea:** add styled-system margin prop support ([d5825a5](https://github.com/Sage/carbon/commit/d5825a5cecbd1edcecc152a4d8a9f645c506eeaf))
+
+## [73.4.0](https://github.com/Sage/carbon/compare/v73.3.0...v73.4.0) (2021-05-13)
+
+
+### Features
+
+* **date:** add styled-system margin support ([9ab0c56](https://github.com/Sage/carbon/commit/9ab0c569e0f838362546be8880e7373dd1a4fa3e))
+
+## [73.3.0](https://github.com/Sage/carbon/compare/v73.2.0...v73.3.0) (2021-05-13)
+
+
+### Features
+
+* **dialog,dialog-full-screen:** add help prop ([79b5d41](https://github.com/Sage/carbon/commit/79b5d412ebf6d5bd59cb42a9a02c2367abd44aca))
+
+
+### Bug Fixes
+
+* **dialog:** title wrapping ([e259aed](https://github.com/Sage/carbon/commit/e259aedf4ce8716a41c04c8ecfabfa23929f507c))
+
+## [73.2.0](https://github.com/Sage/carbon/compare/v73.1.0...v73.2.0) (2021-05-12)
+
+
+### Features
+
+* **button-toggle-group:** add styled-system props ([510a643](https://github.com/Sage/carbon/commit/510a64392403d0e4fa6706465478bcd3bbde21ac))
+
+## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
+
+
+### Features
+
+* **simple-color-picker:** add styled system margin ([27862c5](https://github.com/Sage/carbon/commit/27862c50d55135c2dd824ce73d27b4fa83752611))
+
 ## [73.0.0](https://github.com/Sage/carbon/compare/v72.0.0...v73.0.0) (2021-05-11)
 
 

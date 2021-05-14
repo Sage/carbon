@@ -11,6 +11,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Form from "../form";
 import { StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
+import Help from "../help";
 
 describe("Dialog", () => {
   let onCancel;
@@ -53,7 +54,7 @@ describe("Dialog", () => {
 
     it("does not bind if component is not open on mount", () => {
       wrapper = mount(
-        <Dialog>
+        <Dialog open={false}>
           <div />
         </Dialog>
       );
@@ -74,7 +75,7 @@ describe("Dialog", () => {
 
     it("does not remove the event listener if it was not in use on unmount", () => {
       wrapper = mount(
-        <Dialog>
+        <Dialog open={false}>
           <div />
         </Dialog>
       );
@@ -85,7 +86,7 @@ describe("Dialog", () => {
 
     it("adds event listeners on modal open", () => {
       wrapper = mount(
-        <Dialog>
+        <Dialog open={false}>
           <div />
         </Dialog>
       );
@@ -271,6 +272,16 @@ describe("Dialog", () => {
         wrapper = mount(<Dialog onCancel={onCancel} open />);
         expect(wrapper.find(DialogTitleStyle).exists()).toBe(false);
         expect(wrapper.find(Heading).exists()).toBe(false);
+      });
+    });
+
+    describe("when prop help is passed", () => {
+      it("should render Help component", () => {
+        wrapper = mount(
+          <Dialog open title="This is test title" help="this is help text" />
+        );
+
+        expect(wrapper.find(Help).exists()).toBe(true);
       });
     });
   });

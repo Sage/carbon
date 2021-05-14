@@ -7,7 +7,7 @@ Feature: Advanced Color Picker component
 
   @positive
   Scenario Outline: <key> moves selection
-    When I press "<key>" onto focused element
+    When I press <key> on the 7 color
     Then Simple Color <index> element was picked up in noIframe
     Examples:
       | key        | index |
@@ -16,7 +16,7 @@ Feature: Advanced Color Picker component
       | uparrow    | 2     |
 
   @positive
-  Scenario: Down arrow moves selection down
-    Given I press "uparrow" onto focused element
-    When I press "downarrow" onto focused element
+  Scenario: down arrow moves selection down
+    Given I press uparrow on the 7 color
+    When I press downarrow on the 2 color
     Then Simple Color 7 element was picked up in noIframe

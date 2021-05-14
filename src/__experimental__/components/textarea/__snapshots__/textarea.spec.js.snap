@@ -115,8 +115,57 @@ exports[`Textarea when rendered should render default 1`] = `
   margin-bottom: 5px;
 }
 
-.c0 .c11 {
+.c0 .c18 {
   height: 40px;
+}
+
+.c11 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c12 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c13 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c14 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c15 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c16 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.c17 .c6 {
+  resize: none;
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 <div
