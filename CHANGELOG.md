@@ -1,3 +1,10 @@
+## [74.1.0](https://github.com/Sage/carbon/compare/v74.0.0...v74.1.0) (2021-05-14)
+
+
+### Features
+
+* **icon:** 7 new icons, carets directions and larger size ([beb20ec](https://github.com/Sage/carbon/commit/beb20ec3a1cc8b464c6624a3fb0502a38485e6ad))
+
 ## [74.0.0](https://github.com/Sage/carbon/compare/v73.6.1...v74.0.0) (2021-05-14)
 
 
