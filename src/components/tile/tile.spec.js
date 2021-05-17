@@ -80,17 +80,15 @@ describe("Tile", () => {
 
     describe("orientation", () => {
       describe("when it is horizontal", () => {
-        const wrapper = render({ orientation: "horizontal" }).toJSON();
-
         it("sets the correct flex-direction on the main wrapper", () => {
+          const wrapper = render({ orientation: "horizontal" }).toJSON();
           assertStyleMatch({ flexDirection: "row" }, wrapper);
         });
       });
 
       describe("when it is vertical", () => {
-        const wrapper = render({ orientation: "vertical" }).toJSON();
-
         it("sets the correct flex-direction on the main wrapper", () => {
+          const wrapper = render({ orientation: "vertical" }).toJSON();
           assertStyleMatch({ flexDirection: "column" }, wrapper);
         });
       });
@@ -155,9 +153,8 @@ describe("Tile", () => {
       });
 
       describe('orientation="horizontal"', () => {
-        const wrapper = mount(<TileContent isHorizontal>test</TileContent>);
-
         it("sets border-top and padding-top, and width: auto for all but the first TileComponent", () => {
+          const wrapper = mount(<TileContent isHorizontal>test</TileContent>);
           assertStyleMatch(
             {
               marginTop: "0",
@@ -173,6 +170,7 @@ describe("Tile", () => {
         });
 
         it("should not set padding right to last component", () => {
+          const wrapper = mount(<TileContent isHorizontal>test</TileContent>);
           assertStyleMatch(
             {
               paddingRight: "0",
@@ -183,6 +181,7 @@ describe("Tile", () => {
         });
 
         it("should not set padding left to first component", () => {
+          const wrapper = mount(<TileContent isHorizontal>test</TileContent>);
           assertStyleMatch(
             {
               paddingLeft: "0",
@@ -194,9 +193,8 @@ describe("Tile", () => {
       });
 
       describe('orientation="vertical"', () => {
-        const wrapper = mount(<TileContent isVertical>test</TileContent>);
-
         it("sets border-top and padding-top, and width: auto for all but the first TileComponent", () => {
+          const wrapper = mount(<TileContent isVertical>test</TileContent>);
           assertStyleMatch(
             {
               marginTop: "0",
@@ -212,6 +210,7 @@ describe("Tile", () => {
         });
 
         it("should not set padding bottom to last component", () => {
+          const wrapper = mount(<TileContent isVertical>test</TileContent>);
           assertStyleMatch(
             {
               paddingBottom: "0",
@@ -222,6 +221,7 @@ describe("Tile", () => {
         });
 
         it("should not set padding top to first component", () => {
+          const wrapper = mount(<TileContent isVertical>test</TileContent>);
           assertStyleMatch(
             {
               paddingTop: "0",
