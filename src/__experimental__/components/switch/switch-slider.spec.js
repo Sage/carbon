@@ -60,9 +60,8 @@ describe("SwitchSlider", () => {
     });
 
     describe("when checked=true", () => {
-      const wrapper = render({ checked: true }).toJSON();
-
       it("applies the correct base styles", () => {
+        const wrapper = render({ checked: true }).toJSON();
         assertStyleMatch(
           {
             backgroundColor: baseTheme.colors.primary,
@@ -72,6 +71,7 @@ describe("SwitchSlider", () => {
       });
 
       it("applies the correct ::before styles", () => {
+        const wrapper = render({ checked: true }).toJSON();
         assertStyleMatch(
           {
             transform: "translateX(36px)",
@@ -83,9 +83,8 @@ describe("SwitchSlider", () => {
     });
 
     describe("when disabled=true", () => {
-      const wrapper = render({ disabled: true }).toJSON();
-
       it("applies the correct base styles", () => {
+        const wrapper = render({ disabled: true }).toJSON();
         assertStyleMatch(
           {
             backgroundColor: baseTheme.disabled.background,
@@ -95,6 +94,7 @@ describe("SwitchSlider", () => {
       });
 
       it("applies the correct ::before styles", () => {
+        const wrapper = render({ disabled: true }).toJSON();
         assertStyleMatch(
           {
             opacity: "0.8",
@@ -105,6 +105,7 @@ describe("SwitchSlider", () => {
       });
 
       it("applies the correct SwitchSliderPanel styles", () => {
+        const wrapper = render({ disabled: true }).toJSON();
         assertStyleMatch(
           {
             color: baseTheme.disabled.disabled,
@@ -120,9 +121,8 @@ describe("SwitchSlider", () => {
     });
 
     describe("when checked=true && disabled=true", () => {
-      const wrapper = render({ checked: true, disabled: true }).toJSON();
-
       it("applies the correct SwitchSliderPanel styles", () => {
+        const wrapper = render({ checked: true, disabled: true }).toJSON();
         assertStyleMatch(
           {
             color: baseTheme.colors.white,
@@ -139,9 +139,8 @@ describe("SwitchSlider", () => {
 
     describe("when size=large", () => {
       describe("default", () => {
-        const wrapper = render({ size: "large" }).toJSON();
-
         it("applies the correct ::before styles", () => {
+          const wrapper = render({ size: "large" }).toJSON();
           assertStyleMatch(
             {
               height: "36px",
@@ -154,9 +153,8 @@ describe("SwitchSlider", () => {
       });
 
       describe("and checked=true", () => {
-        const wrapper = render({ checked: true, size: "large" }).toJSON();
-
         it("applies the correct ::before styles", () => {
+          const wrapper = render({ checked: true, size: "large" }).toJSON();
           assertStyleMatch(
             {
               transform: "translateX(38px)",
@@ -173,9 +171,8 @@ describe("SwitchSlider", () => {
     "when the theme is set to %s",
     (themeName, theme) => {
       describe("default", () => {
-        const wrapper = renderWithTheme({}, theme).toJSON();
-
         it("applies the correct base styles", () => {
+          const wrapper = renderWithTheme({}, theme).toJSON();
           assertStyleMatch(
             {
               backgroundColor: theme.switch.off,
@@ -185,6 +182,7 @@ describe("SwitchSlider", () => {
         });
 
         it("applies the correct ::before styles", () => {
+          const wrapper = renderWithTheme({}, theme).toJSON();
           assertStyleMatch(
             {
               backgroundColor: theme.colors.white,
@@ -196,9 +194,8 @@ describe("SwitchSlider", () => {
       });
 
       describe("and checked=true", () => {
-        const wrapper = renderWithTheme({ checked: true }, theme).toJSON();
-
         it("applies the correct base styles", () => {
+          const wrapper = renderWithTheme({ checked: true }, theme).toJSON();
           assertStyleMatch(
             {
               backgroundColor: theme.colors.primary,
@@ -209,9 +206,8 @@ describe("SwitchSlider", () => {
       });
 
       describe("and disabled=true", () => {
-        const wrapper = renderWithTheme({ disabled: true }, theme).toJSON();
-
         it("applies the correct base styles", () => {
+          const wrapper = renderWithTheme({ disabled: true }, theme).toJSON();
           assertStyleMatch(
             {
               backgroundColor: theme.disabled.background,
@@ -221,6 +217,7 @@ describe("SwitchSlider", () => {
         });
 
         it("applies the correct SwitchSliderPanel styles", () => {
+          const wrapper = renderWithTheme({ disabled: true }, theme).toJSON();
           assertStyleMatch(
             {
               color: theme.disabled.disabled,
@@ -236,12 +233,12 @@ describe("SwitchSlider", () => {
       });
 
       describe("when checked=true && disabled=true", () => {
-        const wrapper = renderWithTheme(
-          { checked: true, disabled: true },
-          theme
-        ).toJSON();
-
         it("applies the correct base styles", () => {
+          const wrapper = renderWithTheme(
+            { checked: true, disabled: true },
+            theme
+          ).toJSON();
+
           assertStyleMatch(
             {
               backgroundColor: theme.colors.disabled,
@@ -251,6 +248,10 @@ describe("SwitchSlider", () => {
         });
 
         it("applies the correct SwitchSliderPanel styles", () => {
+          const wrapper = renderWithTheme(
+            { checked: true, disabled: true },
+            theme
+          ).toJSON();
           assertStyleMatch(
             {
               color: theme.colors.white,
