@@ -16,6 +16,7 @@ import {
   StyledSidebarHeader,
 } from "./drawer.style";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+import StickyFooter from "../../__internal__/sticky-footer";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
@@ -281,6 +282,33 @@ describe("Drawer", () => {
               borderBottom: undefined,
             },
             wrapper.find(StyledSidebarHeader)
+          );
+        });
+      });
+    });
+
+    describe("with the footer prop set", () => {
+      describe("when stickyFooter prop is false", () => {
+        it("should not be sticky", () => {
+          const wrapper = render({
+            footer: <div>Some footer content</div>,
+          });
+
+          expect(wrapper.find(StickyFooter).props().disableSticky).toEqual(
+            true
+          );
+        });
+      });
+
+      describe("when stickyFooter prop is true", () => {
+        it("should be sticky", () => {
+          const wrapper = render({
+            footer: <div>Some footer content</div>,
+            stickyFooter: true,
+          });
+
+          expect(wrapper.find(StickyFooter).props().disableSticky).toEqual(
+            false
           );
         });
       });

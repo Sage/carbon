@@ -29,6 +29,12 @@ export interface DrawerPropTypes {
   showControls?: boolean;
   /** Sets title heading of sidebar's content */
   title?: string;
+  /** Content to display inside of a footer */
+  footer?: React.ReactNode;
+  /** Makes the header of the drawer sticky. Title prop must also be set. */
+  stickyHeader?: boolean;
+  /** Makes the footer of the drawer sticky. Footer prop must also be set. */
+  stickyFooter?: boolean;
 }
 
 declare const SidebarContext: React.Context<SidebarContextProps>;

@@ -2,6 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import baseTheme from "../../style/themes/base";
 import StyledTabs from "../tabs/tabs.style";
 import Box from "../box";
+import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
 
 const StyledSidebarHeader = styled.div`
   ${({ isExpanded }) => css`
@@ -102,6 +103,7 @@ const StyledDrawerContent = styled.div`
   min-height: 40px;
   height: auto;
   position: relative;
+  overflow: auto;
   border-right: 1px solid ${({ theme }) => theme.drawer.divider};
   background-color: ${({ backgroundColor, theme }) =>
     backgroundColor || theme.drawer.background}};
@@ -129,7 +131,7 @@ const StyledDrawerContent = styled.div`
 
   &.closed {
     overflow: hidden;
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledStickyFooter} {
       display: block;
       opacity: 0;
     }
@@ -140,7 +142,7 @@ const StyledDrawerContent = styled.div`
       ${drawerClose(expandedWidth)} ${animationDuration}
     `} ease-in-out;
 
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledStickyFooter} {
       animation: ${sidebarHidden} ${({ animationDuration }) =>
   animationDuration} ease-in-out;
     }

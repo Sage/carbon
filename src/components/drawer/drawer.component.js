@@ -14,6 +14,7 @@ import {
   StyledDrawerSidebar,
   StyledSidebarTitle,
 } from "./drawer.style";
+import StickyFooter from "../../__internal__/sticky-footer";
 
 const SidebarContext = React.createContext();
 
@@ -27,12 +28,16 @@ const Drawer = ({
   animationDuration = "400ms",
   backgroundColor,
   title,
+  footer,
   showControls,
   height = "100%",
   stickyHeader,
+  stickyFooter,
   ...rest
 }) => {
   const drawerSidebarContentRef = useRef();
+  const scrollableContentRef = useRef();
+
   const isControlled = useRef(expanded !== undefined);
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -170,10 +175,20 @@ const Drawer = ({
           role="navigation"
           overflowY="auto"
           scrollVariant="light"
+          ref={scrollableContentRef}
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>
             {sidebar}
           </SidebarContext.Provider>
+          {footer && (
+            <StickyFooter
+              containerRef={scrollableContentRef}
+              disableSticky={!stickyFooter}
+              isExpanded={isExpanded}
+            >
+              {footer}
+            </StickyFooter>
+          )}
         </StyledDrawerSidebar>
       </StyledDrawerContent>
       <StyledDrawerChildren>{children}</StyledDrawerChildren>
@@ -203,8 +218,12 @@ Drawer.propTypes = {
   title: PropTypes.node,
   /** Enables expand/collapse button that controls drawer */
   showControls: PropTypes.bool,
+  /** Content to display inside of a footer */
+  footer: PropTypes.node,
   /** Makes the header of the drawer sticky. Title prop must also be set. */
   stickyHeader: PropTypes.bool,
+  /** Makes the footer of the drawer sticky. Footer prop must also be set. */
+  stickyFooter: PropTypes.bool,
 };
 
 export { SidebarContext };

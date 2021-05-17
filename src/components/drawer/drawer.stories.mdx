@@ -23,8 +23,12 @@ import {
 } from "../flat-table";
 import { Tabs, Tab } from "../tabs";
 import Typography from "../typography";
+import Box from "../box";
 
-<Meta title="Design System/Drawer" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Design System/Drawer"
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+/>
 
 # Drawer
 
@@ -49,7 +53,7 @@ import Drawer from "carbon-react/lib/components/drawer";
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+  <Story name="default">
     <div style={{ height: "200px" }}>
       <Drawer
         expandedWidth="40%"
@@ -72,7 +76,7 @@ import Drawer from "carbon-react/lib/components/drawer";
 ### Custom height
 
 <Preview>
-  <Story name="custom height" parameters={{ chromatic: { disable: true } }}>
+  <Story name="custom height">
     <Drawer
       height="230px"
       defaultExpanded
@@ -95,10 +99,7 @@ import Drawer from "carbon-react/lib/components/drawer";
 ### Custom Background Color (Red)
 
 <Preview>
-  <Story
-    name="background color red"
-    parameters={{ chromatic: { disable: true } }}
-  >
+  <Story name="background color red">
     <div style={{ height: "200px" }}>
       <Drawer
         id="background-color-red-drawer"
@@ -175,7 +176,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Custom Title
 
 <Preview>
-  <Story name="title" parameters={{ chromatic: { disable: true } }}>
+  <Story name="title">
     <div style={{ height: "200px" }}>
       <Drawer
         expandedWidth="40%"
@@ -287,7 +288,180 @@ Note: parent container background-color is set to red for demonstration purpose.
               name="checkbox-default"
               ml="40px"
               mt="30px"
-              mb="30px"
+              mb={4}
+            />
+          </>
+        }
+      >
+        content body content body content body content body content body content
+        body content body
+      </Drawer>
+    </div>
+  </Story>
+</Preview>
+
+### With footer
+
+<Preview>
+  <Story name="with footer">
+    <div style={{ height: "400px" }}>
+      <Drawer
+        title={<Typography variant="h2">Drawer title</Typography>}
+        stickyHeader
+        showControls={true}
+        expandedWidth="40%"
+        animationDuration="0.5s"
+        footer={
+          <Box display="flex" justifyContent="flex-end" p="16px 40px">
+            <Button mr="16px">Cancel</Button>
+            <Button buttonType="primary" type="submit">
+              Action
+            </Button>
+          </Box>
+        }
+        sidebar={
+          <>
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+              mb={4}
+            />
+          </>
+        }
+      >
+        content body content body content body content body content body content
+        body content body
+      </Drawer>
+    </div>
+  </Story>
+</Preview>
+
+### With sticky footer
+
+<Preview>
+  <Story name="with sticky footer">
+    <div style={{ height: "400px" }}>
+      <Drawer
+        title={<Typography variant="h2">Drawer title</Typography>}
+        stickyHeader
+        stickyFooter
+        showControls={true}
+        expandedWidth="40%"
+        animationDuration="0.5s"
+        footer={
+          <Box display="flex" justifyContent="flex-end" p="16px 40px">
+            <Button mr="16px">Cancel</Button>
+            <Button buttonType="primary" type="submit">
+              Action
+            </Button>
+          </Box>
+        }
+        sidebar={
+          <>
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+            />
+            <Checkbox
+              label="Example checkbox"
+              name="checkbox-default"
+              ml="40px"
+              mt="30px"
+              mb={4}
             />
           </>
         }
@@ -302,7 +476,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Custom Sidebar - FlatTable component as sidebar content
 
 <Preview>
-  <Story name="custom sidebar" parameters={{ chromatic: { disable: true } }}>
+  <Story name="custom sidebar">
     <div>
       <Drawer
         defaultExpanded
@@ -386,7 +560,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Custom Content - FlatTable component as drawer content
 
 <Preview>
-  <Story name="custom content" parameters={{ chromatic: { disable: true } }}>
+  <Story name="custom content">
     <div style={{ height: "200px" }}>
       <Drawer
         expandedWidth={text("expandedWidth", "20%")}
@@ -539,10 +713,7 @@ Use the `expandedWidth` prop to alter the width of the open `Drawer`.
 Use the `animationDuration` prop to alter the speed of the `Drawer` opening/closing.
 
 <Preview>
-  <Story
-    name="different animation speed"
-    parameters={{ chromatic: { disable: true } }}
-  >
+  <Story name="different animation speed">
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {

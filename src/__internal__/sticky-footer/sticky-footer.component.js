@@ -12,22 +12,14 @@ const StickyFooter = ({ children, containerRef, disableSticky, ...rest }) => {
 
   const checkFooterPosition = useCallback(
     throttle(() => {
-      let fullyScrolled;
       const content = containerRef.current;
       const stickyOffset = footerRef.current.clientHeight / 2;
 
-      if (
+      const fullyScrolled =
         content.scrollHeight - content.scrollTop - stickyOffset <=
-        content.clientHeight
-      ) {
-        fullyScrolled = true;
-      }
+        content.clientHeight;
 
-      if (fullyScrolled) {
-        setIsSticky(false);
-      } else {
-        setIsSticky(true);
-      }
+      setIsSticky(!fullyScrolled);
     }, SCROLL_THROTTLE),
     []
   );
