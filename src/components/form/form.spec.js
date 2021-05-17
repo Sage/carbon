@@ -370,7 +370,7 @@ describe("Form", () => {
           {
             color: baseTheme.colors.error,
           },
-          errorSummary
+          errorSummary.first()
         );
       });
     });
@@ -388,7 +388,7 @@ describe("Form", () => {
           {
             color: baseTheme.colors.warning,
           },
-          warningSummary
+          warningSummary.first()
         );
       });
     });
