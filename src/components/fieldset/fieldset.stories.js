@@ -1,11 +1,11 @@
 import React from "react";
 import { text } from "@storybook/addon-knobs";
 import Fieldset from "./fieldset.component";
-import Textbox from "../../../components/textbox";
-import { Checkbox } from "../checkbox";
+import Textbox from "../textbox";
+import { Checkbox } from "../../__experimental__/components/checkbox";
 
 export default {
-  title: "Experimental/Fieldset/Test",
+  title: "Design System/Fieldset/Test",
   component: Checkbox,
   parameters: {
     info: {

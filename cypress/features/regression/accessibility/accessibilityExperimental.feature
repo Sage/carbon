@@ -11,7 +11,6 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | number-input        |
       | simple-color-picker |
@@ -27,7 +26,6 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
@@ -42,7 +40,6 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
@@ -57,7 +54,6 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |

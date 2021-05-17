@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import Fieldset from "../../__experimental__/components/fieldset";
+import Fieldset from "../fieldset";
 import { Input } from "../../__experimental__/components/input";
 import tint from "../../style/utils/tint";
-import { LegendContainerStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
 
 const StyledTitle = styled.h3`

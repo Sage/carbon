@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import FormFieldStyle from "../form-field/form-field.style";
-import ValidationIconStyle from "../../../components/validations/validation-icon.style";
-import StyledIcon from "../../../components/icon/icon.style";
-import CheckboxStyle from "../checkbox/checkbox.style";
+import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
+import ValidationIconStyle from "../validations/validation-icon.style";
+import StyledIcon from "../icon/icon.style";
+import CheckboxStyle from "../../__experimental__/components/checkbox/checkbox.style";
 
 const FieldsetStyle = styled.fieldset`
   border: none;

@@ -1,13 +1,13 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import Fieldset from "./fieldset.component";
-import Textbox from "../../../components/textbox";
+import Textbox from "../textbox";
 import {
   LegendContainerStyle,
   FieldsetStyle,
   FieldsetContentStyle,
 } from "./fieldset.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 function render(props, renderer = shallow) {
   return renderer(

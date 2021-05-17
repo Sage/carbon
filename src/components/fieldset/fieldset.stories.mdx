@@ -1,12 +1,15 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import Fieldset from "./";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
-import { Select, Option } from "../../../components/select";
-import Textbox from "../../../components/textbox";
-import Form from '../../../components/form';
+import {
+  RadioButton,
+  RadioButtonGroup,
+} from "../../__experimental__/components/radio-button";
+import { Select, Option } from "../select";
+import Textbox from "../textbox";
+import Form from "../form";
 
-<Meta title="Experimental/Fieldset" parameters={{ info: { disable: true } }} />
+<Meta title="Design System/Fieldset" parameters={{ info: { disable: true } }} />
 
 # Fieldset
 
@@ -15,6 +18,7 @@ import Form from '../../../components/form';
 - Configure Pod and Fieldset components to work together, or choose the pre-configured Show/Edit Pod component.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -22,7 +26,7 @@ import Form from '../../../components/form';
 ## Quick Start
 
 ```javascript
-import Fieldset from "carbon-react/lib/__experimental__/components/fieldset";
+import Fieldset from "carbon-react/lib/components/fieldset";
 ```
 
 ## Examples
@@ -64,42 +68,43 @@ import Fieldset from "carbon-react/lib/__experimental__/components/fieldset";
   </Story>
 </Preview>
 
-### Fieldset in Form 
+### Fieldset in Form
 
 <Preview>
   <Story name="in form - default">
-     <Form>
-        <Textbox label="Separate Field" labelInline />
-        <Fieldset>
-          <Textbox label="Fieldset 1 Field 1" labelInline />
-          <Textbox label="Fieldset 1 Field 2" labelInline />
-        </Fieldset>
-        <Fieldset>
-          <Textbox label="Fieldset 2 Field 1" labelInline />
-          <Textbox label="Fieldset 2 Field 2" labelInline />
-        </Fieldset>
-        <Textbox label="Separate Field" labelInline />
-      </Form>
+    <Form>
+      <Textbox label="Separate Field" labelInline />
+      <Fieldset>
+        <Textbox label="Fieldset 1 Field 1" labelInline />
+        <Textbox label="Fieldset 1 Field 2" labelInline />
+      </Fieldset>
+      <Fieldset>
+        <Textbox label="Fieldset 2 Field 1" labelInline />
+        <Textbox label="Fieldset 2 Field 2" labelInline />
+      </Fieldset>
+      <Textbox label="Separate Field" labelInline />
+    </Form>
   </Story>
 </Preview>
 
 ### `fieldSpacing`
+
 You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
 
 <Preview>
   <Story name="in form - fieldSpacing">
-     <Form fieldSpacing={1}>
-        <Textbox label="Separate Field" labelInline />
-        <Fieldset>
-          <Textbox label="Fieldset 1 Field 1" labelInline />
-          <Textbox label="Fieldset 1 Field 2" labelInline />
-        </Fieldset>
-        <Fieldset>
-          <Textbox label="Fieldset 2 Field 1" labelInline />
-          <Textbox label="Fieldset 2 Field 2" labelInline />
-        </Fieldset>
-        <Textbox label="Separate Field" labelInline />
-      </Form>
+    <Form fieldSpacing={1}>
+      <Textbox label="Separate Field" labelInline />
+      <Fieldset>
+        <Textbox label="Fieldset 1 Field 1" labelInline />
+        <Textbox label="Fieldset 1 Field 2" labelInline />
+      </Fieldset>
+      <Fieldset>
+        <Textbox label="Fieldset 2 Field 1" labelInline />
+        <Textbox label="Fieldset 2 Field 2" labelInline />
+      </Fieldset>
+      <Textbox label="Separate Field" labelInline />
+    </Form>
   </Story>
 </Preview>
 
@@ -227,4 +232,5 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
 ## Props
 
 ### Fieldset
+
 <Props of={Fieldset} />

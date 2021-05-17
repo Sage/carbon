@@ -110,6 +110,7 @@ Feature: Accessibility tests - Design System folder
       | Batch Selection   |
       | Content           |
       | Draggable         |
+      | Fieldset          |
       | Flat Table        |
       | Hr                |
       | Loader            |
@@ -226,6 +227,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Design System <component> validations string story page
@@ -234,6 +236,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Design System <component> validations string label story page
@@ -242,3 +245,4 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textbox             |
+      | fieldset            | 
