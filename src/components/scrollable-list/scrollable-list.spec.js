@@ -404,13 +404,18 @@ describe("ScrollableList", () => {
   });
 
   describe("style", () => {
+    let scrollableListStyle;
+
+    beforeEach(() => {
+      scrollableListStyle = mount(<ScrollableList />);
+    });
     it("has a default max-height", () => {
-      expect(scrollableList).toHaveStyleRule("max-height", "180px");
+      expect(scrollableListStyle).toHaveStyleRule("max-height", "180px");
     });
 
     it("has a default max-height which is overridable by a prop", () => {
-      scrollableList.setProps({ maxHeight: "200px" });
-      expect(scrollableList).toHaveStyleRule("max-height", "200px");
+      scrollableListStyle.setProps({ maxHeight: "200px" });
+      expect(scrollableListStyle).toHaveStyleRule("max-height", "200px");
     });
   });
 
