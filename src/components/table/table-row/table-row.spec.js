@@ -404,19 +404,20 @@ describe("TableRow", () => {
   });
 
   describe.each(["th", "td"])("when the theme is classic", (element) => {
-    const wrapper = mount(
-      <Table>
-        <TableRow>
-          <TableHeader />
-        </TableRow>
-        <TableRow>
-          <TableCell />
-        </TableRow>
-      </Table>
-    );
-    const styledElement = wrapper.find(element).hostNodes();
-
     it(`${element} matches the expected style`, () => {
+      const wrapper = mount(
+        <Table>
+          <TableRow>
+            <TableHeader />
+          </TableRow>
+          <TableRow>
+            <TableCell />
+          </TableRow>
+        </Table>
+      );
+
+      const styledElement = wrapper.find(element).hostNodes();
+
       assertStyleMatch(
         {
           backgroundColor:
