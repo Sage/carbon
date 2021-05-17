@@ -131,10 +131,7 @@ These props will override `iconColor` and `bgTheme` prop values.
 See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
 
 <Preview>
-  <Story
-    name="custom colors"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
+  <Story name="custom colors">
     <>
       <Box mb={1}>
         <Icon type="add" color="blackOpacity65" />
@@ -149,6 +146,29 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
         <Icon type="add" bg="red" />
         <Icon type="add" color="white" bg="#123456" />
         <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
+      </Box>
+    </>
+  </Story>
+</Preview>
+
+### Without hover state
+
+<Preview>
+  <Story name="without hover state">
+    <>
+      <Box mb={1}>
+        <Icon type="add" color="blackOpacity65" hover={false} />
+        <Icon type="add" color="brilliantGreenShade20" hover={false} />
+        <Icon type="add" color="red" hover={false} />
+        <Icon type="add" color="#123456" hover={false} />
+        <Icon type="add" color="rgb(0, 123, 10)" hover={false} />
+      </Box>
+      <Box mb={1}>
+        <Icon type="add" color="white" bg="blackOpacity65" hover={false} />
+        <Icon type="add" bg="brilliantGreenShade20" hover={false} />
+        <Icon type="add" bg="red" hover={false} />
+        <Icon type="add" color="white" bg="#123456" hover={false} />
+        <Icon type="add" color="white" bg="rgb(0, 123, 10)" hover={false} />
       </Box>
     </>
   </Story>

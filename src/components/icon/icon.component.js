@@ -22,6 +22,7 @@ const Icon = React.forwardRef(
       disabled,
       fontSize,
       iconColor,
+      hover,
       type,
       tooltipMessage,
       tooltipPosition,
@@ -67,6 +68,7 @@ const Icon = React.forwardRef(
       iconColor,
       tabIndex,
       type: iconType(),
+      hover,
       ...filterStyledSystemMarginProps(rest),
     };
 
@@ -147,6 +149,8 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
+  /** Allows the hover state */
+  hover: PropTypes.bool,
   /** The message string to be displayed in the tooltip */
   tooltipMessage: PropTypes.string,
   /** The position to display the tooltip */
@@ -185,6 +189,7 @@ Icon.defaultProps = {
   bgSize: "small",
   fontSize: "small",
   disabled: false,
+  hover: true,
 };
 
 export default Icon;

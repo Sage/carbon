@@ -24,6 +24,8 @@ export interface IconProps extends MarginProps {
   bg?: string;
   /** Sets the icon in the disabled state */
   disabled?: boolean;
+  /** Allows the hover state */
+  hover?: boolean;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
   /** The message string to be displayed in the tooltip */

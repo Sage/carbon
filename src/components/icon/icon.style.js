@@ -94,6 +94,7 @@ const StyledIcon = styled.span`
     bgTheme,
     theme,
     color,
+    hover,
     bg,
     iconColor,
     bgSize,
@@ -141,10 +142,13 @@ const StyledIcon = styled.span`
       background-color: ${bgColor};
       vertical-align: middle;
 
-      &:hover {
-        color: ${finalHoverColor};
-        background-color: ${bgHoverColor};
-      }
+      ${hover &&
+      css`
+        &:hover {
+          color: ${finalHoverColor};
+          background-color: ${bgHoverColor};
+        }
+      `}
 
       ${bgTheme !== "none" &&
       css`
@@ -192,6 +196,7 @@ const StyledIcon = styled.span`
 StyledIcon.propTypes = {
   theme: PropTypes.object,
   type: PropTypes.string,
+  hover: PropTypes.bool,
   disabled: PropTypes.bool,
   bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
@@ -207,6 +212,7 @@ StyledIcon.propTypes = {
 };
 
 StyledIcon.defaultProps = {
+  hover: true,
   theme: baseTheme,
 };
 

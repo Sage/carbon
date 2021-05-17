@@ -127,6 +127,31 @@ describe("Icon component", () => {
     });
   });
 
+  it("renders properly colored Icon when hover is disabled", () => {
+    const color = "red";
+    const bgColor = "green";
+    const wrapper = mount(
+      <Icon color={color} bg={bgColor} type="message" hover={false} />
+    );
+    assertStyleMatch(
+      {
+        backgroundColor: toColor(baseTheme, bgColor),
+        color: toColor(baseTheme, color),
+      },
+      wrapper.find(StyledIcon)
+    );
+    expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
+      "color",
+      shade(0.2, toColor(baseTheme, color)),
+      { modifier: ":hover" }
+    );
+    expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
+      "background-color",
+      shade(0.2, toColor(baseTheme, bgColor)),
+      { modifier: ":hover" }
+    );
+  });
+
   describe("custom colors", () => {
     const correctColors = [
       "red",

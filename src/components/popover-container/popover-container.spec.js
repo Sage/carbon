@@ -232,6 +232,7 @@ describe("PopoverContainer", () => {
         bgSize: "small",
         disabled: false,
         fontSize: "small",
+        hover: true,
         type: "settings",
       });
       expect(openIcon.prop("aria-haspopup")).toEqual(true);
