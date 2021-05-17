@@ -696,7 +696,6 @@ exports[`Switch base theme renders as expected 1`] = `
   checked={false}
   className="c0"
   data-component="Switch"
-  name="my-switch"
 >
   <div
     checked={false}
