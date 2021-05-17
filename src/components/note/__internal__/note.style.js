@@ -47,8 +47,8 @@ const StyledTitle = styled.header`
 
 const StyledFooterContent = styled.div`
   line-height: 21px;
-  align-items: baseline
-    ${({ theme }) => `
+  align-items: baseline;
+  ${({ theme }) => `
     &:first-of-type {
       font-weight: bold;
       font-size: 14px;
