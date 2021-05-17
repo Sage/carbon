@@ -758,17 +758,20 @@ describe("ActionPopover", () => {
 
   describe("styles", () => {
     it("renders the button with a white background when the menu is open", () => {
-      render();
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover>
+            <ActionPopoverItem key="1" href="#" download>
+              test download
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
 
-      const { menubutton } = getElements();
-
-      expect(menubutton).not.toHaveStyleRule("background-color");
-
-      simulate.keydown.pressDownArrow(menubutton);
-
-      expect(getElements().menubutton).toHaveStyleRule(
+      expect(wrapper.find(MenuButton)).toHaveStyleRule(
         "background-color",
-        mintTheme.colors.white
+        mintTheme.colors.white,
+        { modifier: ":focus" }
       );
     });
   });
