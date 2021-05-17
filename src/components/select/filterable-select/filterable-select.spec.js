@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import FilterableSelect from "./filterable-select.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import Button from "../../button";

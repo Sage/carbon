@@ -6,7 +6,7 @@ import StyledSearch, {
   StyledButtonIcon,
 } from "./search.style";
 import Icon from "../../../components/icon";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import Button from "../../../components/button";
 import Events from "../../../utils/helpers/events";
 

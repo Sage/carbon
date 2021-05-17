@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import Number from "./number.component";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import Label from "../label";
 
 describe("Number Input", () => {

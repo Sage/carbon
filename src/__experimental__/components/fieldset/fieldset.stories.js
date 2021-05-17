@@ -1,7 +1,7 @@
 import React from "react";
 import { text } from "@storybook/addon-knobs";
 import Fieldset from "./fieldset.component";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import { Checkbox } from "../checkbox";
 
 export default {

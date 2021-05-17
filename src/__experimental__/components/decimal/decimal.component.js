@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
 import StyledWiggle from "./decimal.style";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import I18nHelper from "../../../utils/helpers/i18n";
 import Events from "../../../utils/helpers/events";
 

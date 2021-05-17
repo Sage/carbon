@@ -6,7 +6,7 @@ import DateHelper from "../../../utils/helpers/date";
 import tagComponent from "../../../utils/helpers/tags";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
 import { isEdge } from "../../../utils/helpers/browser-type-check";
 

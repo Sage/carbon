@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Dialog from "./dialog.component";
 import Form from "../form";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Button from "../button";
 import DateInput from "../../__experimental__/components/date";
 import { Checkbox } from "../../__experimental__/components/checkbox";

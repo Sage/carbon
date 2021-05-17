@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
 

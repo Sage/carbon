@@ -1,8 +1,8 @@
-Feature: Experimental Textbox component - actions
-  I want to change Experimental Textbox component actions
+Feature: Design System Textbox component - actions
+  I want to change Design System Textbox component actions
 
-  Background: Open Experimental Textbox component page
-    Given I open "Experimental Textbox Test" component page "default"
+  Background: Open Textbox component page
+    Given I open "Design System Textbox Test" component page "default"
 
   @positive
   Scenario: Check iconOnClick event

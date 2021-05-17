@@ -7,9 +7,9 @@ import Button from "../../button";
 import MultiActionButton from "../../multi-action-button";
 import { Table, TableCell, TableHeader, TableRow } from "..";
 import TextArea from "../../../__experimental__/components/textarea";
-import TextBox from "../../../__experimental__/components/textbox";
 import DateInput from "../../../__experimental__/components/date";
-import { getCommonTextboxProps } from "../../../__experimental__/components/textbox/textbox.stories";
+import TextBox from "../../textbox";
+import { getCommonTextboxProps } from "../../textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 const pickInput = (name) => {

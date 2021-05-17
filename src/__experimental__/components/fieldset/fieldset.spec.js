@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import Fieldset from "./fieldset.component";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import {
   LegendContainerStyle,
   FieldsetStyle,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SpacingProps } from "../../../utils/helpers/options-helper";
+import { SpacingProps } from "../../utils/helpers/options-helper/options-helper";
 
 export interface TextboxProps extends SpacingProps {
   /**
@@ -74,6 +74,10 @@ export interface TextboxProps extends SpacingProps {
   iconTabIndex?: string | number;
   /** Handler for onClick events */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Handler for onBlur events */
+  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  /** Specify a callback triggered on focus */
+  onFocus?: (ev: React.ChangeEvent<HTMLElement>) => void;
   /** Emphasized part of the displayed text */
   prefix?: string;
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */

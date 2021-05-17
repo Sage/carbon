@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 import Textbox, { OriginalTextbox } from ".";
 
-<Meta title="Experimental/Textbox" parameters={{ info: { disable: true } }} />
+<Meta title="Design System/Textbox" parameters={{ info: { disable: true } }} />
 
 # Textbox
 
@@ -18,7 +19,7 @@ Captures a single line of text.
 ## Quick Start
 
 ```javascript
-import Textbox from "carbon-react/lib/__experimental__/components/textbox";
+import Textbox from "carbon-react/lib/components/textbox";
 ```
 
 ## Designer Notes
@@ -59,6 +60,34 @@ import Textbox from "carbon-react/lib/__experimental__/components/textbox";
         />
       ))
     }
+  </Story>
+</Preview>
+
+### Margins
+
+<Preview>
+  <Story name="margins">
+    {() => {
+      const [state, setState] = useState("Textbox");
+      const setValue = ({ target }) => {
+        setState(target.value);
+      };
+      return <Textbox label="Textbox" value={state} onChange={setValue} m={4} />;
+    }}
+  </Story>
+</Preview>
+
+### Paddings
+
+<Preview>
+  <Story name="paddings">
+    {() => {
+      const [state, setState] = useState("Textbox");
+      const setValue = ({ target }) => {
+        setState(target.value);
+      };
+      return <Textbox label="Textbox" value={state} onChange={setValue} p={4} />;
+    }}
   </Story>
 </Preview>
 
@@ -250,4 +279,9 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Textbox
 
-<Props of={OriginalTextbox} />
+<StyledSystemProps
+  of={OriginalTextbox}
+  spacing
+  noHeader
+  defaults={{ mt: '3', mb: '3' }}
+/>
