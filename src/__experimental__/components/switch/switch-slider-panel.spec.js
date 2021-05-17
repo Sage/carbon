@@ -57,7 +57,10 @@ describe("SwitchSliderPanel", () => {
   describe.each(carbonThemesJestTable)(
     "when the theme is set to %s",
     (themeName, theme) => {
-      const wrapper = render({ theme }).toJSON();
+      let wrapper;
+      beforeEach(() => {
+        wrapper = render({ theme }).toJSON();
+      });
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
