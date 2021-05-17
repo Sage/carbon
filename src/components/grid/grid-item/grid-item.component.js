@@ -47,4 +47,5 @@ GridItem.propTypes = {
   ),
 };
 
+GridItem.displayName = "GridItem";
 export default GridItem;
