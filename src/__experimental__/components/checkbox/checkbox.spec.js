@@ -122,9 +122,11 @@ describe("Checkbox", () => {
     });
 
     describe("when size=large and fieldHelpInline=true", () => {
-      const wrapper = render({ fieldHelpInline: true, size: "large" }).toJSON();
-
       it("applies the appropriate FieldHelp styles", () => {
+        const wrapper = render({
+          fieldHelpInline: true,
+          size: "large",
+        }).toJSON();
         assertStyleMatch(
           {
             marginTop: "0",
@@ -142,7 +144,6 @@ describe("Checkbox", () => {
     describe("when checkbox is checked", () => {
       it("renders the correct check colour", () => {
         const wrapper = render({ checked: true }).toJSON();
-
         assertStyleMatch(
           {
             fill: baseTheme.checkable.checked,
@@ -157,9 +158,8 @@ describe("Checkbox", () => {
       });
 
       describe("and disabled=true", () => {
-        const wrapper = render({ checked: true, disabled: true }).toJSON();
-
         it("renders the correct check colour", () => {
+          const wrapper = render({ checked: true, disabled: true }).toJSON();
           assertStyleMatch(
             {
               fill: baseTheme.disabled.border,
@@ -176,7 +176,11 @@ describe("Checkbox", () => {
     });
 
     describe("when disabled=true", () => {
-      const wrapper = render({ disabled: true }).toJSON();
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ disabled: true }).toJSON();
+      });
 
       it("applies the appropriate svg wrapper styles", () => {
         assertStyleMatch(
@@ -366,9 +370,8 @@ describe("Checkbox", () => {
 
     describe("when setting a custom inputWidth", () => {
       describe("default", () => {
-        const wrapper = render({ inputWidth: 50 }).toJSON();
-
         it("renders the correct FieldHelp styles", () => {
+          const wrapper = render({ inputWidth: 50 }).toJSON();
           assertStyleMatch(
             {
               marginLeft: "50% !important",
@@ -404,9 +407,8 @@ describe("Checkbox", () => {
 
     describe("when reverse is true", () => {
       describe("default", () => {
-        const wrapper = render({ reverse: true }).toJSON();
-
         it("renders the correct FieldHelp styles", () => {
+          const wrapper = render({ reverse: true }).toJSON();
           assertStyleMatch(
             {
               marginLeft: "0",
@@ -422,12 +424,11 @@ describe("Checkbox", () => {
       });
 
       describe("and fieldHelpInline is true", () => {
-        const wrapper = render({
-          reverse: true,
-          fieldHelpInline: true,
-        }).toJSON();
-
         it("renders the correct CheckableInput styles", () => {
+          const wrapper = render({
+            reverse: true,
+            fieldHelpInline: true,
+          }).toJSON();
           assertStyleMatch(
             {
               marginRight: "8px",
