@@ -68,6 +68,7 @@ const PillStyle = styled.span`
       justify-content: center;
       border: 2px solid ${pillColor};
       height: auto;
+      white-space: nowrap;
 
       ${inFill &&
       css`
