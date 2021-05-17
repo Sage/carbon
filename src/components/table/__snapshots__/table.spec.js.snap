@@ -12,26 +12,26 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #FFFFFF;
 }
 
-.c0 .c2 {
+.c0 .c1 {
   height: 24px;
 }
 
-.c0 .c2 .c1,
-.c0 .c2 .sc-jzJRlG {
+.c0 .c1 .c2,
+.c0 .c1 .sc-ksluID {
   font-size: 13px;
   padding-left: 8px;
   padding-right: 8px;
 }
 
-.c0 .c2:nth-child(2n) .c1 {
+.c0 .c1:nth-child(2n) .c2 {
   background-color: #FAFBFB;
 }
 
-.c0 .c2:hover .c1 {
+.c0 .c1:hover .c2 {
   background-color: #F2F5F6;
 }
 
-.c0 .c2:hover .c1 {
+.c0 .c1:hover .c2 {
   background-color: #F2F5F6;
 }
 
@@ -45,7 +45,7 @@ exports[`Table when the table size is compact renders a table to match the expec
   top: -99999px;
 }
 
-.c0 .c2:last-child .c1 {
+.c0 .c1:last-child .c2 {
   border-bottom-color: transparent;
 }
 
@@ -67,26 +67,26 @@ exports[`Table when the table size is small renders a table to match the expecte
   background-color: #FFFFFF;
 }
 
-.c0 .c2 {
+.c0 .c1 {
   height: 32px;
 }
 
-.c0 .c2 .c1,
-.c0 .c2 .sc-jzJRlG {
+.c0 .c1 .c2,
+.c0 .c1 .sc-ksluID {
   font-size: 14px;
   padding-left: 8px;
   padding-right: 8px;
 }
 
-.c0 .c2:nth-child(2n) .c1 {
+.c0 .c1:nth-child(2n) .c2 {
   background-color: #FAFBFB;
 }
 
-.c0 .c2:hover .c1 {
+.c0 .c1:hover .c2 {
   background-color: #F2F5F6;
 }
 
-.c0 .c2:hover .c1 {
+.c0 .c1:hover .c2 {
   background-color: #F2F5F6;
 }
 
@@ -100,7 +100,7 @@ exports[`Table when the table size is small renders a table to match the expecte
   top: -99999px;
 }
 
-.c0 .c2:last-child .c1 {
+.c0 .c1:last-child .c2 {
   border-bottom-color: transparent;
 }
 

@@ -26,13 +26,13 @@ exports[`OptionGroupHeader renders properly 1`] = `
   color: rgba(0,0,0,0.55);
 }
 
-.c0 .c1 {
+.c0 .sc-bdnxRM {
   margin-right: 4px;
   margin-left: -5px;
   color: rgba(0,0,0,0.55);
 }
 
-.c0 .c1:hover {
+.c0 .sc-bdnxRM:hover {
   color: rgba(0,0,0,0.55);
 }
 

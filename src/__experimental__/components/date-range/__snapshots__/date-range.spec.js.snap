@@ -6,21 +6,11 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   width: 135px;
-}
-
-.c3 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c3 .c1:first-child {
-  margin-right: 15px;
 }
 
 .c0 .c1 {
@@ -48,7 +38,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
   display: inline-block;
 }
 
-.c2 .c4 {
+.c2 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -62,16 +52,6 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 }
 
 .c0 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c3 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.c3 .c1:first-child {
   margin-right: 15px;
 }
 

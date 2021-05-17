@@ -112,7 +112,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 }
 
 .c4 .c7,
-.c4 .c14 {
+.c4 .sc-fFSPTT {
   border-left: none;
   border-right: none;
   font-weight: 700;
@@ -150,7 +150,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   max-height: 100%;
 }
 
-.c1 .c3 .c14,
+.c1 .c3 .sc-fFSPTT,
 .c1 .c9,
 .c1 .c3 .c7 {
   background-color: #335C6D;

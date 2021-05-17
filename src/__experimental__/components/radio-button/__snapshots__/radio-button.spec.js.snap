@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RadioButton base renders as expected 1`] = `
-.c4 + .c3 {
+.c4 + .c4 {
   margin-top: 16px;
 }
 
@@ -25,29 +25,14 @@ exports[`RadioButton base renders as expected 1`] = `
   position: relative;
 }
 
-.c12 .c5 {
+.c3 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c12 .c9:hover,
-.c12 .sc-ifAKCX:hover,
-.c12 .c9:focus,
-.c12 .sc-ifAKCX:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c2 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c2 .c18 {
+.c3 .sc-jSFjdj {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -56,269 +41,30 @@ exports[`RadioButton base renders as expected 1`] = `
   width: auto;
 }
 
-.c2 .c18 .c19,
-.c2 .c18 .c20 {
+.c3 .sc-jSFjdj .sc-iCoGMd,
+.c3 .sc-jSFjdj .sc-fujyAs {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c2 .c18 .c19:hover,
-.c2 .c18 .c20:hover,
-.c2 .c18 .c19:focus,
-.c2 .c18 .c20:focus {
+.c3 .sc-jSFjdj .sc-iCoGMd:hover,
+.c3 .sc-jSFjdj .sc-fujyAs:hover,
+.c3 .sc-jSFjdj .sc-iCoGMd:focus,
+.c3 .sc-jSFjdj .sc-fujyAs:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c2 .c17 {
+.c3 .sc-bdnxRM {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c13 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c14 .c7 {
-  padding-top: 1px;
-}
-
-.c14 .c11 {
-  height: 16px;
-}
-
-.c14 .c9,
-.c14 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c14 .c7,
-.c14 .c9,
-.c14 .c11,
-.c14 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c14 .c9:not([disabled]):focus + .c11,
-.c14 .c9:not([disabled]):hover + .c11 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c14 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c14 .c9:checked ~ .c11 svg path {
-  fill: #CCD6DB;
-}
-
-.c14 .c11:hover,
-.c14 .c11:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c14.c14 .c3 {
-  margin: 0;
-}
-
-.c14 .c11 {
-  padding: 0;
-}
-
-.c14 .c11,
-.c14 svg {
-  border-radius: 50%;
-}
-
-.c14 .c7,
-.c14 .c9,
-.c14 .c11,
-.c14 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c14 .c9:checked + .c11 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c14 .c9:checked + .c11 circle {
-  fill: #CCD6DB;
-}
-
-.c15 .c7 {
-  padding-top: 1px;
-}
-
-.c15 .c11 {
-  height: 16px;
-}
-
-.c15 .c9,
-.c15 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c15 .c7,
-.c15 .c9,
-.c15 .c11,
-.c15 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c15 .c9:not([disabled]):focus + .c11,
-.c15 .c9:not([disabled]):hover + .c11 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c15 .c11 {
-  height: 24px;
-}
-
-.c15 .c7,
-.c15 .c9,
-.c15 .c11,
-.c15 svg {
-  height: 24px;
-  width: 24px;
-}
-
-.c15 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c15.c15 .c3 {
-  margin: 0;
-}
-
-.c15 .c11 {
-  padding: 0;
-}
-
-.c15 .c11,
-.c15 svg {
-  border-radius: 50%;
-}
-
-.c15 .c7,
-.c15 .c9,
-.c15 .c11,
-.c15 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c15 .c9:checked + .c11 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c15 .c7,
-.c15 .c9,
-.c15 .c11,
-.c15 svg {
-  height: 24px;
-  width: 24px;
-}
-
-.c16 .c7 {
-  padding-top: 1px;
-}
-
-.c16 .c11 {
-  height: 16px;
-}
-
-.c16 .c9,
-.c16 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c16 .c7,
-.c16 .c9,
-.c16 .c11,
-.c16 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c16 .c9:not([disabled]):focus + .c11,
-.c16 .c9:not([disabled]):hover + .c11 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c16 .c11 {
-  height: 24px;
-}
-
-.c16 .c7,
-.c16 .c9,
-.c16 .c11,
-.c16 svg {
-  height: 24px;
-  width: 24px;
-}
-
-.c16 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c16.c16 .c3 {
-  margin: 0;
-}
-
-.c16 .c11 {
-  padding: 0;
-}
-
-.c16 .c11,
-.c16 svg {
-  border-radius: 50%;
-}
-
-.c16 .c7,
-.c16 .c9,
-.c16 .c11,
-.c16 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c16 .c9:checked + .c11 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c16 .c7,
-.c16 .c9,
-.c16 .c11,
-.c16 svg {
-  height: 24px;
-  width: 24px;
-}
-
-.c1 {
-  margin-bottom: 16px;
 }
 
 .c1 .c7 {
   padding-top: 1px;
 }
 
-.c1 .c11 {
+.c1 .{
   height: 16px;
 }
 
@@ -336,80 +82,84 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c1 .c7,
 .c1 .c9,
-.c1 .c11,
+.c1 .,
 .c1 svg {
   box-sizing: border-box;
   min-width: 16px;
   width: 16px;
 }
 
-.c1 .c9:not([disabled]):focus + .c11,
-.c1 .c9:not([disabled]):hover + .c11 {
+.c1 .c9:not([disabled]):focus + .,
+.c1 .c9:not([disabled]):hover + .{
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c1 .c18 {
+.c1 .sc-jSFjdj {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c1 .c17 {
+.c1 .sc-bdnxRM {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 8px;
 }
 
-.c1 .c20 {
+.c1 .sc-fujyAs {
   position: relative;
   display: inline-block;
 }
 
-.c1 .c9:checked ~ .c11 svg path {
+.c1 .c9:checked ~ .svg path {
   fill: rgba(0,0,0,0.90);
 }
 
-.c1:last-of-type {
+.c2 {
+  margin-bottom: 16px;
+}
+
+.c2:last-of-type {
   margin-bottom: 0;
 }
 
-.c1.c1 .c3 {
+.c2.c2 .c4 {
   margin: 0;
 }
 
-.c1 .c11 {
+.c2 .{
   padding: 0;
 }
 
-.c1 .c11,
-.c1 svg {
+.c2 .,
+.c2 svg {
   border-radius: 50%;
 }
 
-.c1 .c7,
-.c1 .c9,
-.c1 .c11,
-.c1 svg {
+.c2 .c7,
+.c2 .c9,
+.c2 .,
+.c2 svg {
   height: 16px;
   width: 16px;
 }
 
-.c1 svg {
+.c2 svg {
   padding: 1px;
 }
 
-.c1 circle {
+.c2 circle {
   r: 5;
 }
 
-.c1 .c18 {
+.c2 .sc-jSFjdj {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c1 .c9:checked + .c11 circle {
+.c2 .c9:checked + .circle {
   fill: rgba(0,0,0,0.9);
 }
 
@@ -435,15 +185,15 @@ exports[`RadioButton base renders as expected 1`] = `
       role="group"
     >
       <div
-        className="c1"
+        className="c1 c2"
         data-component="radio-button"
       >
         <div
           checked={false}
-          className="c2"
+          className="c3"
         >
           <div
-            className="c3 c4"
+            className="c4 "
           >
             <div
               className="c5 c6"
@@ -468,7 +218,7 @@ exports[`RadioButton base renders as expected 1`] = `
                   value="test"
                 />
                 <div
-                  className="c11 "
+                  className=""
                 >
                   <svg
                     focusable="false"

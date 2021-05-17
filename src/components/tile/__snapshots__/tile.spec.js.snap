@@ -21,24 +21,9 @@ exports[`Tile renders base styles 1`] = `
   padding-left: 0;
 }
 
-.c2 + .c1 {
+.c1 + .c1 {
   margin-top: 0;
   border-left: solid 1px #E6EBED;
-}
-
-.c7 + .c1 {
-  margin-top: 0;
-  border-top: solid 1px #E6EBED;
-}
-
-.c8 + .c1 {
-  margin-top: 0;
-  border-left: solid 1px #E6EBED;
-}
-
-.c9 + .c1 {
-  margin-top: 0;
-  border-top: solid 1px #E6EBED;
 }
 
 .c0 {
@@ -61,7 +46,7 @@ exports[`Tile renders base styles 1`] = `
   text-align: left;
 }
 
-.c4 + .c3 {
+.c3 + .c3 {
   margin-top: 15px;
 }
 

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea when rendered should render default 1`] = `
-.c7 {
+.c6 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -16,33 +16,33 @@ exports[`Textarea when rendered should render default 1`] = `
   width: 30px;
 }
 
-.c7:-webkit-autofill {
+.c6:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-box-border: none;
 }
 
-.c7::-webkit-input-placeholder {
+.c6::-webkit-input-placeholder {
   color: rgba(0,0,0,0.55);
 }
 
-.c7::-moz-placeholder {
+.c6::-moz-placeholder {
   color: rgba(0,0,0,0.55);
 }
 
-.c7:-ms-input-placeholder {
+.c6:-ms-input-placeholder {
   color: rgba(0,0,0,0.55);
 }
 
-.c7::placeholder {
+.c6::placeholder {
   color: rgba(0,0,0,0.55);
 }
 
-.c7:invalid,
-.c7:required {
+.c6:invalid,
+.c6:required {
   box-shadow: none;
 }
 
-.c4 {
+.c3 {
   -webkit-flex: 0 0 70%;
   -ms-flex: 0 0 70%;
   flex: 0 0 70%;
@@ -53,7 +53,7 @@ exports[`Textarea when rendered should render default 1`] = `
   position: relative;
 }
 
-.c5 {
+.c4 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -76,46 +76,34 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
-.c5 .c6:-webkit-autofill {
+.c4 .c5:-webkit-autofill {
   margin-top: 2px;
 }
 
-.c5 input::-ms-clear {
+.c4 input::-ms-clear {
   display: none;
 }
 
-.c5 input::-webkit-contacts-auto-fill-button {
+.c4 input::-webkit-contacts-auto-fill-button {
   display: none !important;
 }
 
-.c8 .c6:-webkit-autofill {
-  margin-top: 2px;
-}
-
-.c9 .c6:-webkit-autofill {
-  margin-top: 2px;
-}
-
-.c10 .c6:-webkit-autofill {
-  margin-top: 2px;
-}
-
-.c2 + .c1 {
+.c1 + .c1 {
   margin-top: 16px;
 }
 
-.c3 {
+.c2 {
   display: block;
 }
 
-.c0 .c6 {
+.c0 .c5 {
   resize: none;
   min-height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.c0 .c11 {
+.c0 .sc-fFSPTT {
   height: 40px;
 }
 
@@ -123,16 +111,16 @@ exports[`Textarea when rendered should render default 1`] = `
   className="c0"
 >
   <div
-    className="c1 c2"
+    className="c1 "
   >
     <div
-      className="c3"
+      className="c2"
     >
       <div
-        className="c4"
+        className="c3"
       >
         <div
-          className="c5"
+          className="c4"
           disabled={false}
           onMouseDown={[Function]}
           onMouseEnter={[Function]}
@@ -142,7 +130,7 @@ exports[`Textarea when rendered should render default 1`] = `
           size="medium"
         >
           <textarea
-            className="c6 c7"
+            className="c5 c6"
             data-element="input"
             disabled={false}
             id="guid-12345"

@@ -18,7 +18,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   height: 100%;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   height: 38px;
@@ -35,7 +35,7 @@ input:checked ~ .c2 {
   background-color: #004500;
 }
 
-input:checked ~ .c2 .c7 {
+input:checked ~ .c2 .sc-bdnxRM {
   color: #FFFFFF;
 }
 
@@ -44,21 +44,9 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
+.c3:hover {
   background-color: #E6F5E6;
   border-color: #004500;
-}
-
-.c5 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c6 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 
 .c0 {
@@ -95,11 +83,11 @@ input:focus ~ .c2 {
       type="radio"
     />
     <label
-      className="c2"
+      className="c2 c3"
       htmlFor="guid-12345"
     >
       <div
-        className="c3 c4"
+        className="c4"
       >
         Text
       </div>
@@ -118,11 +106,11 @@ input:focus ~ .c2 {
       type="radio"
     />
     <label
-      className="c2"
+      className="c2 c3"
       htmlFor="guid-12345"
     >
       <div
-        className="c3 c4"
+        className="c4"
       >
         Text
       </div>
@@ -149,13 +137,7 @@ exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = 
   height: 100%;
 }
 
-.c5 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   height: 38px;
@@ -172,7 +154,7 @@ input:checked ~ .c2 {
   background-color: #004472;
 }
 
-input:checked ~ .c2 .c6 {
+input:checked ~ .c2 .sc-bdnxRM {
   color: #FFFFFF;
 }
 
@@ -181,7 +163,7 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
+.c3:hover {
   background-color: #E6F1FA;
   border-color: #004472;
 }
@@ -215,11 +197,11 @@ input:focus ~ .c2 {
     type="radio"
   />
   <label
-    className="c2"
+    className="c2 c3"
     htmlFor="guid-12345"
   >
     <div
-      className="c3 c4"
+      className="c4"
     >
       Button
     </div>
@@ -228,7 +210,7 @@ input:focus ~ .c2 {
 `;
 
 exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -245,7 +227,7 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
   height: 100%;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   height: 38px;
@@ -262,7 +244,7 @@ input:checked ~ .c2 {
   background-color: #00402E;
 }
 
-input:checked ~ .c2 .c4 {
+input:checked ~ .c2 .sc-bdnxRM {
   color: #FFFFFF;
 }
 
@@ -271,7 +253,7 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
+.c3:hover {
   background-color: #E6F6F1;
   border-color: #00402E;
 }
@@ -305,11 +287,11 @@ input:focus ~ .c2 {
     type="radio"
   />
   <label
-    className="c2"
+    className="c2 c3"
     htmlFor="guid-12345"
   >
     <div
-      className="c3"
+      className="c4"
     >
       Button
     </div>

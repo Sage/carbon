@@ -6,7 +6,7 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
   display: inline-block;
 }
 
-.c0 .c1 {
+.c0 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;

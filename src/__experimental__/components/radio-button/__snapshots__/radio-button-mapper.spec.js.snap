@@ -2,7 +2,7 @@
 
 exports[`RadioButtonMapper renders as expected 1`] = `
 Array [
-  .c3 + .c2 {
+  .c3 + .c3 {
   margin-top: 16px;
 }
 
@@ -26,14 +26,14 @@ Array [
   position: relative;
 }
 
-.c1 .c4 {
+.c2 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c1 .c12 {
+.c2 .sc-jSFjdj {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -42,34 +42,30 @@ Array [
   width: auto;
 }
 
-.c1 .c12 .c13,
-.c1 .c12 .c14 {
+.c2 .sc-jSFjdj .sc-iCoGMd,
+.c2 .sc-jSFjdj .sc-fujyAs {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c12 .c13:hover,
-.c1 .c12 .c14:hover,
-.c1 .c12 .c13:focus,
-.c1 .c12 .c14:focus {
+.c2 .sc-jSFjdj .sc-iCoGMd:hover,
+.c2 .sc-jSFjdj .sc-fujyAs:hover,
+.c2 .sc-jSFjdj .sc-iCoGMd:focus,
+.c2 .sc-jSFjdj .sc-fujyAs:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c11 {
+.c2 .sc-bdnxRM {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c0 {
-  margin-bottom: 16px;
 }
 
 .c0 .c6 {
   padding-top: 1px;
 }
 
-.c0 .c10 {
+.c0 .{
   height: 16px;
 }
 
@@ -87,94 +83,98 @@ Array [
 
 .c0 .c6,
 .c0 .c8,
-.c0 .c10,
+.c0 .,
 .c0 svg {
   box-sizing: border-box;
   min-width: 16px;
   width: 16px;
 }
 
-.c0 .c8:not([disabled]):focus + .c10,
-.c0 .c8:not([disabled]):hover + .c10 {
+.c0 .c8:not([disabled]):focus + .,
+.c0 .c8:not([disabled]):hover + .{
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c12 {
+.c0 .sc-jSFjdj {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c0 .c11 {
+.c0 .sc-bdnxRM {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 8px;
 }
 
-.c0 .c14 {
+.c0 .sc-fujyAs {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c8:checked ~ .c10 svg path {
+.c0 .c8:checked ~ .svg path {
   fill: rgba(0,0,0,0.90);
 }
 
-.c0:last-of-type {
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c1:last-of-type {
   margin-bottom: 0;
 }
 
-.c0.c0 .c2 {
+.c1.c1 .c3 {
   margin: 0;
 }
 
-.c0 .c10 {
+.c1 .{
   padding: 0;
 }
 
-.c0 .c10,
-.c0 svg {
+.c1 .,
+.c1 svg {
   border-radius: 50%;
 }
 
-.c0 .c6,
-.c0 .c8,
-.c0 .c10,
-.c0 svg {
+.c1 .c6,
+.c1 .c8,
+.c1 .,
+.c1 svg {
   height: 16px;
   width: 16px;
 }
 
-.c0 svg {
+.c1 svg {
   padding: 1px;
 }
 
-.c0 circle {
+.c1 circle {
   r: 5;
 }
 
-.c0 .c12 {
+.c1 .sc-jSFjdj {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c0 .c8:checked + .c10 circle {
+.c1 .c8:checked + .circle {
   fill: rgba(0,0,0,0.9);
 }
 
 <div
-    className="c0"
+    className="c0 c1"
     data-component="radio-button"
   >
     <div
       checked={false}
-      className="c1"
+      className="c2"
       name="test-group"
     >
       <div
-        className="c2 c3"
+        className="c3 "
       >
         <div
           className="c4 c5"
@@ -200,7 +200,7 @@ Array [
               value="test-1"
             />
             <div
-              className="c10 "
+              className=""
             >
               <svg
                 focusable="false"
@@ -227,7 +227,7 @@ Array [
       </div>
     </div>
   </div>,
-  .c3 + .c2 {
+  .c3 + .c3 {
   margin-top: 16px;
 }
 
@@ -251,14 +251,14 @@ Array [
   position: relative;
 }
 
-.c1 .c4 {
+.c2 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c1 .c12 {
+.c2 .sc-jSFjdj {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -267,34 +267,30 @@ Array [
   width: auto;
 }
 
-.c1 .c12 .c13,
-.c1 .c12 .c14 {
+.c2 .sc-jSFjdj .sc-iCoGMd,
+.c2 .sc-jSFjdj .sc-fujyAs {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c12 .c13:hover,
-.c1 .c12 .c14:hover,
-.c1 .c12 .c13:focus,
-.c1 .c12 .c14:focus {
+.c2 .sc-jSFjdj .sc-iCoGMd:hover,
+.c2 .sc-jSFjdj .sc-fujyAs:hover,
+.c2 .sc-jSFjdj .sc-iCoGMd:focus,
+.c2 .sc-jSFjdj .sc-fujyAs:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c11 {
+.c2 .sc-bdnxRM {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c0 {
-  margin-bottom: 16px;
 }
 
 .c0 .c6 {
   padding-top: 1px;
 }
 
-.c0 .c10 {
+.c0 .{
   height: 16px;
 }
 
@@ -312,94 +308,98 @@ Array [
 
 .c0 .c6,
 .c0 .c8,
-.c0 .c10,
+.c0 .,
 .c0 svg {
   box-sizing: border-box;
   min-width: 16px;
   width: 16px;
 }
 
-.c0 .c8:not([disabled]):focus + .c10,
-.c0 .c8:not([disabled]):hover + .c10 {
+.c0 .c8:not([disabled]):focus + .,
+.c0 .c8:not([disabled]):hover + .{
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c12 {
+.c0 .sc-jSFjdj {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c0 .c11 {
+.c0 .sc-bdnxRM {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 8px;
 }
 
-.c0 .c14 {
+.c0 .sc-fujyAs {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c8:checked ~ .c10 svg path {
+.c0 .c8:checked ~ .svg path {
   fill: rgba(0,0,0,0.90);
 }
 
-.c0:last-of-type {
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c1:last-of-type {
   margin-bottom: 0;
 }
 
-.c0.c0 .c2 {
+.c1.c1 .c3 {
   margin: 0;
 }
 
-.c0 .c10 {
+.c1 .{
   padding: 0;
 }
 
-.c0 .c10,
-.c0 svg {
+.c1 .,
+.c1 svg {
   border-radius: 50%;
 }
 
-.c0 .c6,
-.c0 .c8,
-.c0 .c10,
-.c0 svg {
+.c1 .c6,
+.c1 .c8,
+.c1 .,
+.c1 svg {
   height: 16px;
   width: 16px;
 }
 
-.c0 svg {
+.c1 svg {
   padding: 1px;
 }
 
-.c0 circle {
+.c1 circle {
   r: 5;
 }
 
-.c0 .c12 {
+.c1 .sc-jSFjdj {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c0 .c8:checked + .c10 circle {
+.c1 .c8:checked + .circle {
   fill: rgba(0,0,0,0.9);
 }
 
 <div
-    className="c0"
+    className="c0 c1"
     data-component="radio-button"
   >
     <div
       checked={false}
-      className="c1"
+      className="c2"
       name="test-group"
     >
       <div
-        className="c2 c3"
+        className="c3 "
       >
         <div
           className="c4 c5"
@@ -425,7 +425,7 @@ Array [
               value="test-2"
             />
             <div
-              className="c10 "
+              className=""
             >
               <svg
                 focusable="false"

@@ -223,7 +223,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   align-items: center;
 }
 
-.c2 .c13 {
+.c2 .sc-gKAaRy {
   margin-left: 4px;
 }
 

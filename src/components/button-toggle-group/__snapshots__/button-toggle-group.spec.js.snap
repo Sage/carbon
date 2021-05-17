@@ -30,16 +30,16 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c6 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #00402E;
 }
 
-input:checked ~ .c6 .c8 {
+input:checked ~ .c5 .sc-bdnxRM {
   color: #FFFFFF;
 }
 
-input:focus ~ .c6 {
+input:focus ~ .c5 {
   outline: 3px solid #FFB500;
   z-index: 100;
 }
@@ -49,60 +49,60 @@ input:focus ~ .c6 {
   border-color: #00402E;
 }
 
-.c4 {
+.c3 {
   display: inline-block;
   vertical-align: middle;
 }
 
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   margin-left: 10px;
 }
 
-.c5 {
+.c4 {
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 }
 
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 16px;
 }
 
-.c2 {
+.c1 {
   display: block;
 }
 
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c3 .c9 {
+.c2 .sc-gKAaRy {
   margin-left: 4px;
 }
 
 <div
-  className="c0 c1"
+  className="c0 "
 >
   <div
-    className="c2"
+    className="c1"
   >
     <div
-      className="c3"
+      className="c2"
       data-component="button-toggle-group"
       role="group"
     >
       <div
-        className="c4"
+        className="c3"
         data-component="button-toggle"
         onClick={[Function]}
       >
         <input
           checked={false}
-          className="c5"
+          className="c4"
           id="guid-12345"
           name="button-toggle-group"
           onBlur={[Function]}
@@ -112,7 +112,7 @@ input:focus ~ .c6 {
           value="foo"
         />
         <label
-          className="c6"
+          className="c5 c6"
           htmlFor="guid-12345"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
@@ -125,13 +125,13 @@ input:focus ~ .c6 {
         </label>
       </div>
       <div
-        className="c4"
+        className="c3"
         data-component="button-toggle"
         onClick={[Function]}
       >
         <input
           checked={false}
-          className="c5"
+          className="c4"
           id="guid-12345"
           name="button-toggle-group"
           onBlur={[Function]}
@@ -141,7 +141,7 @@ input:focus ~ .c6 {
           value="bar"
         />
         <label
-          className="c6"
+          className="c5 c6"
           htmlFor="guid-12345"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}

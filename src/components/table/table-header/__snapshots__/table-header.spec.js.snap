@@ -31,7 +31,7 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   background-color: #1A475B;
 }
 
-.c1 .c3 {
+.c1 .sc-bdnxRM {
   color: #FFFFFF;
 }
 
@@ -64,8 +64,8 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   width: 10px;
 }
 
-.c2 .c5 .c4,
-.c2 .c5 .c0 {
+.c2 .c3 .sc-bqGGPW,
+.c2 .c3 .c0 {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;

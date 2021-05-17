@@ -35,7 +35,7 @@ exports[`InputPresentation renders presentational div and context provider for i
   padding-right: 11px;
 }
 
-.c1 .c2:-webkit-autofill {
+.c1 .sc-bdnxRM:-webkit-autofill {
   margin-top: 2px;
 }
 
