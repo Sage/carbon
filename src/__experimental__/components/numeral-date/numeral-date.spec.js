@@ -37,7 +37,7 @@ describe("NumeralDate", () => {
   testStyledSystemMargin(
     (props) => <NumeralDate {...props} />,
     undefined,
-    (component) => component.find(FormFieldStyle),
+    (component) => component.find(FormFieldStyle).first(),
     { modifier: "&&&" }
   );
 
