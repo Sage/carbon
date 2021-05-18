@@ -1,5 +1,5 @@
 import React from "react";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 
 const CheckboxSvg = () => {
   return (

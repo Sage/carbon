@@ -4,7 +4,7 @@ import TestRenderer from "react-test-renderer";
 import FlatTableCheckbox from "./flat-table-checkbox.component";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import guid from "../../../utils/helpers/guid";
-import { Checkbox } from "../../../__experimental__/components/checkbox";
+import { Checkbox } from "../../checkbox";
 
 jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");

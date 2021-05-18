@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import CheckboxStyle from "../checkbox/checkbox.style";
 import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
+import CheckboxStyle from "../../../components/checkbox/checkbox.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";

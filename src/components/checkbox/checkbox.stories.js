@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import { Checkbox } from ".";
-import AutoFocus from "../../../utils/helpers/auto-focus";
+import AutoFocus from "../../utils/helpers/auto-focus";
 
 export default {
-  title: "Experimental/Checkbox/Test",
+  title: "Design System/Checkbox/Test",
   component: Checkbox,
   parameters: {
     info: {

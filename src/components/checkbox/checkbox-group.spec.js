@@ -6,9 +6,9 @@ import { Checkbox } from ".";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/test-utils";
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
-import Fieldset from "../../../__internal__/fieldset";
+import Fieldset from "../../__internal__/fieldset";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import StyledCheckbox from "../../../__experimental__/components/checkbox/checkbox.style";
+import StyledCheckbox from "../../checkbox/checkbox.style";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCheckbox = styled.td`
