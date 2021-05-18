@@ -56,7 +56,11 @@ describe("StyledCheckableInputWrapper", () => {
   const states = ["focus", "hover"];
 
   describe("default", () => {
-    const wrapper = render().toJSON();
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = render().toJSON();
+    });
 
     it("applies the correct FormField styles", () => {
       assertStyleMatch(
@@ -111,7 +115,11 @@ describe("StyledCheckableInputWrapper", () => {
   });
 
   describe("when disabled = true", () => {
-    const wrapper = render({ disabled: true }).toJSON();
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = render({ disabled: true }).toJSON();
+    });
 
     it.each(states)("applies the correct Label %s styles", (state) => {
       assertStyleMatch(
@@ -170,9 +178,9 @@ describe("StyledCheckableInputWrapper", () => {
 
   describe("when setting a custom inputWidth", () => {
     describe("default", () => {
-      const wrapper = render({ inputWidth: 50 }).toJSON();
-
       it("renders the correct CheckableInput styles", () => {
+        const wrapper = render({ inputWidth: 50 }).toJSON();
+
         assertStyleMatch(
           {
             width: "50% !important",
