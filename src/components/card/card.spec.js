@@ -211,9 +211,9 @@ describe("Card", () => {
 
   describe("when width is passed as a percentage value", () => {
     const widthPct = "50%";
-    const wrapper = renderCard({ cardWidth: widthPct }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPct}`, () => {
+      const wrapper = renderCard({ cardWidth: widthPct }, TestRenderer.create);
       assertStyleMatch(
         {
           width: widthPct,
@@ -225,9 +225,9 @@ describe("Card", () => {
 
   describe("when width is passed as a pixel value", () => {
     const widthPx = "500px";
-    const wrapper = renderCard({ cardWidth: widthPx }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPx}`, () => {
+      const wrapper = renderCard({ cardWidth: widthPx }, TestRenderer.create);
       assertStyleMatch(
         {
           width: widthPx,
