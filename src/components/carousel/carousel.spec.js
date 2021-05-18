@@ -470,8 +470,8 @@ describe("When button get click", () => {
 });
 
 describe("CarouselPreviousButtonWrapperStyle", () => {
-  const wrapper = mount(<CarouselPreviousButtonWrapperStyle />);
   it("should render matched style", () => {
+    const wrapper = mount(<CarouselPreviousButtonWrapperStyle />);
     assertStyleMatch(
       {
         marginTop: "-32.5px",
