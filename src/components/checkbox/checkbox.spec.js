@@ -3,22 +3,22 @@ import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import { css } from "styled-components";
 import Checkbox from "./checkbox.component";
-import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
-import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
-import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import guid from "../../../utils/helpers/guid";
-import { baseTheme } from "../../../style/themes";
+import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
+import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
+import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
+import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import guid from "../../utils/helpers/guid";
+import { baseTheme } from "../../style/themes";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
-} from "../../../__spec_helper__/test-utils";
-import Label from "../label";
-import Tooltip from "../../../components/tooltip";
+} from "../../__spec_helper__/test-utils";
+import Label from "../../__experimental__/components/label";
+import Tooltip from "../tooltip";
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 function render(props, renderer = TestRenderer.create, options = {}) {

@@ -3,9 +3,9 @@ import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CheckboxGroup from "./checkbox-group.component";
 import { Checkbox } from ".";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
-import Fieldset from "../../../__internal__/fieldset";
+import Fieldset from "../../__internal__/fieldset";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../utils/helpers/tags";
 import { StyledCheckboxGroup } from "./checkbox.style";
-import Fieldset from "../../../__internal__/fieldset";
+import Fieldset from "../../__internal__/fieldset";
 
 const CheckboxGroup = (props) => {
   const {

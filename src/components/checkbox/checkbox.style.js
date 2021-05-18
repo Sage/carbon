@@ -1,15 +1,18 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import PropTypes from "prop-types";
-import baseTheme from "../../../style/themes/base";
-import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import StyledFieldHelp from "../../../__internal__/field-help/field-help.style";
-import StyledHiddenCheckableInput from "../../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import StyledLabel, { StyledLabelContainer } from "../label/label.style";
-import StyledValidationIcon from "../../../components/validations/validation-icon.style";
-import StyledFormField from "../form-field/form-field.style";
-import StyledIcon from "../../../components/icon/icon.style";
+
+import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
+import StyledFieldHelp from "../../__internal__/field-help/field-help.style";
+import StyledHiddenCheckableInput from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__experimental__/components/label/label.style";
+import StyledValidationIcon from "../validations/validation-icon.style";
+import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
+import StyledIcon from "../icon/icon.style";
+import baseTheme from "../../style/themes/base";
 
 const CheckboxStyle = styled.div`
   ${space}

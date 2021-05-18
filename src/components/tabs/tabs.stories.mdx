@@ -1,19 +1,21 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { useState, useRef } from 'react';
-import { Tabs, Tab } from './tabs.component'
-import { Checkbox } from '../../__experimental__/components/checkbox';
-import Icon from '../icon';
-import Pill from '../pill';
-import { Row, Column } from '../row';
-import { ActionPopover, ActionPopoverItem } from '../action-popover';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { useState, useRef } from "react";
+import { Tabs, Tab } from "./tabs.component";
+import { Checkbox } from "../checkbox";
+import Icon from "../icon";
+import Pill from "../pill";
+import { Row, Column } from "../row";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
 # Tabs
+
 Switch between content panes or filtered views of tables.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -23,10 +25,11 @@ Switch between content panes or filtered views of tables.
 ## Quick Start
 
 ```javascript
-import {Tabs, Tab} from "carbon-react/lib/components/tabs";
+import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 ```
 
-## Designer Notes 
+## Designer Notes
+
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:
   - `top` - shows the tabs in a line, typically above a Table - best for short lists of tabs.
@@ -34,71 +37,73 @@ import {Tabs, Tab} from "carbon-react/lib/components/tabs";
 - You can also `align` the tabs `left` or `right`. This configuration:
   - sets the text alignment for `left` tabs.
   - sets `left` or `right` page position for `top` tabs.
-- Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs, 
-nested tabs, or using vertical and horizontal tabs at the same time.
+- Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs,
+  nested tabs, or using vertical and horizontal tabs at the same time.
 
 ## Related Components
+
 - Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/design-system-menu)
 - Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/design-system-navigation-bar)
 
-## Examples 
+## Examples
 
 ### Default
+
 The tabs widget also allows you to select a tab on page load. By default this is set to the first tab.
 
 <Preview>
   <Story name="default">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -115,55 +120,55 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned top aligned right">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='right' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="right" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -180,55 +185,55 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned left and aligned left">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='left' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -245,55 +250,55 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned left and aligned right">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='right' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="right" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -305,44 +310,45 @@ The tabs widget also allows you to select a tab on page load. By default this is
 </Preview>
 
 ### With Link as a Tab
+
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Preview>
   <Story name="with link as a tab">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs selectedTabId='tab-2' align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs selectedTabId="tab-2" align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
               href="https://carbon.sage.com/"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
-             Content for tab 3
+              Content for tab 3
             </Tab>
           </Tabs>
         </div>
@@ -352,61 +358,62 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 </Preview>
 
 ### With specified tab visible
+
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Preview>
   <Story name="with specified tab visible">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs selectedTabId='tab-2' align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs selectedTabId="tab-2" align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -418,56 +425,61 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 </Preview>
 
 ### Without extended dividing line
-By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this 
+
+By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this
 is set to "true".
 
 <Preview>
   <Story name="without extended dividing line">
-    <div style={{ padding: '4px' }}>
-      <Tabs extendedLine={ false } align='left' position='top'>
+    <div style={{ padding: "4px" }}>
+      <Tabs extendedLine={false} align="left" position="top">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2' title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3' title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4' title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5' title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -477,61 +489,62 @@ is set to "true".
 </Preview>
 
 ### Large tabs
+
 The `size` prop can be used to set the `TabTitle` to either "default" or "large".
 
 #### Positioned top
 
 <Preview>
   <Story name="with large tabs positioned top">
-    <div style={{ padding: '4px' }}>
-      <Tabs size='large' align='left' position='top'>
+    <div style={{ padding: "4px" }}>
+      <Tabs size="large" align="left" position="top">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -544,55 +557,55 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 
 <Preview>
   <Story name="with large tabs positioned left">
-    <div style={{ padding: '4px' }}>
-      <Tabs size='large' align='left' position='left'>
+    <div style={{ padding: "4px" }}>
+      <Tabs size="large" align="left" position="left">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -602,62 +615,63 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 </Preview>
 
 ### With borders
-The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values: 
+
+The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values:
 "off" (default), "on", "no left side", "no right side" and "no sides".
 
 #### Positioned top, borders on
 
 <Preview>
   <Story name="with borders positioned top">
-    <div style={{ padding: '4px' }}>
-      <Tabs borders='on' align='left'>
+    <div style={{ padding: "4px" }}>
+      <Tabs borders="on" align="left">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -670,55 +684,55 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Preview>
   <Story name="with no sides positioned top">
-    <div style={{ padding: '4px' }}>
-      <Tabs borders='no sides' align='left'>
+    <div style={{ padding: "4px" }}>
+      <Tabs borders="no sides" align="left">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -731,55 +745,55 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Preview>
   <Story name="with borders positioned left">
-    <div style={{ padding: '4px' }}>
-      <Tabs borders='on' align='left' position='left'>
+    <div style={{ padding: "4px" }}>
+      <Tabs borders="on" align="left" position="left">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -792,55 +806,55 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Preview>
   <Story name="with no sides positioned left">
-    <div style={{ padding: '4px' }}>
-      <Tabs borders='no sides' align='left' position='left'>
+    <div style={{ padding: "4px" }}>
+      <Tabs borders="no sides" align="left" position="left">
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-1'
-          title='Tab 1'
-          key='tab-1'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
         >
           Content for tab 1
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-2'
-          title='Tab 2'
-          key='tab-2'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-2"
+          title="Tab 2"
+          key="tab-2"
         >
           Content for tab 2
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-3'
-          title='Tab 3'
-          key='tab-3'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-3"
+          title="Tab 3"
+          key="tab-3"
         >
           Content for tab 3
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-4'
-          title='Tab 4'
-          key='tab-4'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-4"
+          title="Tab 4"
+          key="tab-4"
         >
           Content for tab 4
         </Tab>
         <Tab
-          errorMessage='error'
-          warningMessage='warning'
-          infoMessage='info'
-          tabId='tab-5'
-          title='Tab 5'
-          key='tab-5'
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-5"
+          title="Tab 5"
+          key="tab-5"
         >
           Content for tab 5
         </Tab>
@@ -854,87 +868,101 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations positioned top">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                label="Add info"
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                label="Add info"
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
-              />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                label="Add warning"
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
+              />
+              <Checkbox
+                label="Add info"
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -948,87 +976,101 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations sized large positioned top">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs size='large' align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs size="large" align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                label="Add info"
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                label="Add info"
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
               <Checkbox
-                label='Add warning'
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                label="Add warning"
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
               />
               <Checkbox
-                label='Add info'
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                label="Add info"
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1042,87 +1084,101 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations positioned left">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='left' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                label="Add info"
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                label="Add info"
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
-              />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                label="Add warning"
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
+              />
+              <Checkbox
+                label="Add info"
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1136,87 +1192,101 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations sized large positioned left">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs size='large' align='left' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs size="large" align="left" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                label="Add info"
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+              <Checkbox
+                label="Add warning"
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                label="Add info"
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
-              />
-               <Checkbox
-                label='Add warning'
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
               <Checkbox
-                label='Add info'
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                label="Add warning"
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
+              />
+              <Checkbox
+                label="Add info"
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1228,62 +1298,77 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 </Preview>
 
 ### With additional title siblings
-It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop 
+
+It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
 <Preview>
   <Story name="with additional title siblings">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
-              siblings={[<Pill size='S' pillRole='status' fill>12</Pill>, <Icon type='home' />]}
-              titlePosition='before'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
+              titlePosition="before"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
-              titlePosition='after'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+              titlePosition="after"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
-              siblings={[<Pill size='S' pillRole='status' fill>12</Pill>, <Icon type='home' />]}
-              titlePosition='after'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
+              titlePosition="after"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1296,56 +1381,70 @@ can be used to render the `title` "before" (default) or "after" the additional e
 <Preview>
   <Story name="with additional title siblings size large">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs size='large' align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs size="large" align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
-              siblings={[<Pill size='S' pillRole='status' fill>12</Pill>, <Icon type='home' />]}
-              titlePosition='before'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
+              titlePosition="before"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
-              titlePosition='after'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+              titlePosition="after"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
-              siblings={[<Pill size='S' pillRole='status' fill>12</Pill>, <Icon type='settings' />]}
-              titlePosition='after'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="settings" />,
+              ]}
+              titlePosition="after"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1356,101 +1455,106 @@ can be used to render the `title` "before" (default) or "after" the additional e
 </Preview>
 
 ### With custom layout
-It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout` 
+
+It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout`
 prop to the `Tab` component.
 
 <Preview>
   <Story name="with custom layout">
     {() => {
-      const [errors, setErrors] = useState({ one: false, two: false, three: false });
+      const [errors, setErrors] = useState({
+        one: false,
+        two: false,
+        three: false,
+      });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs size='default' align='left' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs size="default" align="left" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
-              customLayout={ 
-                <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
-                  <div style={{ gridColumn: '10 / 11' }}>
-                    <Icon type='settings' />
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
+              customLayout={
+                <div style={{ display: "grid", padding: "4px 4px 22px 14px" }}>
+                  <div style={{ gridColumn: "10 / 11" }}>
+                    <Icon type="settings" />
                   </div>
-                  <div style={{ gridColumn: '11 / 13' }}>
+                  <div style={{ gridColumn: "11 / 13" }}>
                     <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
                     </ActionPopover>
                   </div>
-                  <div style={{ gridColumn: '1 / 6' }}>
-                    Tab 1
-                  </div>
-                </div>
-               }
-            >
-              <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
-              />
-            </Tab>
-            <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
-              customLayout={ 
-                <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
-                  <div style={{ gridColumn: '10 / 11' }}>
-                    <Icon type='settings' />
-                  </div>
-                  <div style={{ gridColumn: '11 / 13' }}>
-                    <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
-                    </ActionPopover>
-                  </div>
-                  <div style={{ gridColumn: '1 / 6' }}>
-                    Tab 2
-                  </div>
-                </div>
-               }
-            >
-              <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
-              />
-            </Tab>
-            <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
-              customLayout={ 
-                <div style={{ display: 'grid', padding: '4px 4px 22px 14px' }}>
-                  <div style={{ gridColumn: '10 / 11' }}>
-                    <Icon type='settings' />
-                  </div>
-                  <div style={{ gridColumn: '11 / 13' }}>
-                    <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
-                    </ActionPopover>
-                  </div>
-                  <div style={{ gridColumn: '1 / 6' }}>
-                    Tab 3
-                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 1</div>
                 </div>
               }
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
+              />
+            </Tab>
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+              customLayout={
+                <div style={{ display: "grid", padding: "4px 4px 22px 14px" }}>
+                  <div style={{ gridColumn: "10 / 11" }}>
+                    <Icon type="settings" />
+                  </div>
+                  <div style={{ gridColumn: "11 / 13" }}>
+                    <ActionPopover>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
+                    </ActionPopover>
+                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 2</div>
+                </div>
+              }
+            >
+              <Checkbox
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
+              />
+            </Tab>
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
+              customLayout={
+                <div style={{ display: "grid", padding: "4px 4px 22px 14px" }}>
+                  <div style={{ gridColumn: "10 / 11" }}>
+                    <Icon type="settings" />
+                  </div>
+                  <div style={{ gridColumn: "11 / 13" }}>
+                    <ActionPopover>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
+                    </ActionPopover>
+                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 3</div>
+                </div>
+              }
+            >
+              <Checkbox
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1461,55 +1565,60 @@ prop to the `Tab` component.
 </Preview>
 
 ### With alternate styling
+
 By setting the `variant` prop to "alternate" it is possible to apply some additional styling variants as seen below.
 
 <Preview>
   <Story name="with alternate styling">
     {() => {
-      const [errors, setErrors] = useState({one: false, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: false,
+        two: false,
+        three: false,
+      });
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs variant='alternate' align='left' position='left'>
+        <div style={{ padding: "4px" }}>
+          <Tabs variant="alternate" align="left" position="left">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                label="Add error"
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                label="Add error"
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               <Checkbox
-                label='Add error'
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                label="Add error"
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1520,64 +1629,65 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
 </Preview>
 
 ### With custom spacing
+
 The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.
-The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid 
+The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid
 CSS string.
 
 <Preview>
   <Story name="with custom spacing">
     {() => {
       return (
-        <div style={{ padding: '4px' }}>
-          <Tabs m={8} align='left' position='top'>
+        <div style={{ padding: "4px" }}>
+          <Tabs m={8} align="left" position="top">
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-1'
-              title='Tab 1'
-              key='tab-1'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
               p={5}
             >
               Content for tab 1
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-2'
-              title='Tab 2'
-              key='tab-2'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
             >
               Content for tab 2
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-3'
-              title='Tab 3'
-              key='tab-3'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
             >
               Content for tab 3
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-4'
-              title='Tab 4'
-              key='tab-4'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-4"
+              title="Tab 4"
+              key="tab-4"
             >
               Content for tab 4
             </Tab>
             <Tab
-              errorMessage='error'
-              warningMessage='warning'
-              infoMessage='info'
-              tabId='tab-5'
-              title='Tab 5'
-              key='tab-5'
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-5"
+              title="Tab 5"
+              key="tab-5"
             >
               Content for tab 5
             </Tab>
@@ -1592,16 +1702,8 @@ CSS string.
 
 ### Tabs
 
-<StyledSystemProps
-  of={Tabs}
-  margin
-  noHeader
-/>
+<StyledSystemProps of={Tabs} margin noHeader />
 
 ### Tab
 
-<StyledSystemProps
-  of={Tab}
-  padding
-  noHeader
-/>
+<StyledSystemProps of={Tab} padding noHeader />

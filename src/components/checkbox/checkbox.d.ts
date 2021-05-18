@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
-import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
+import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 
 export type CheckboxSize = "small" | "large";
 

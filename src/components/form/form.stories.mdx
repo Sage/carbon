@@ -1,38 +1,37 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { useState } from 'react';
-
-import Form from '.';
-import Textbox from '../textbox';
-import Textarea from '../../__experimental__/components/textarea';
+import Form from ".";
+import Textbox from "../textbox";
+import Textarea from "../../__experimental__/components/textarea";
 import {
   RadioButton,
-  RadioButtonGroup
+  RadioButtonGroup,
 } from "../../__experimental__/components/radio-button";
 import DateInput from "../../__experimental__/components/date";
 import { Select, Option } from "../select";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import { Checkbox } from "../checkbox";
 import Hr from "../../components/hr";
 import Switch from "../../__experimental__/components/switch";
-import Button from '../button';
-import DialogFullScreen from '../dialog-full-screen';
-import Dialog from '../dialog';
-import AppWrapper from '../app-wrapper';
+import Button from "../button";
+import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
+import AppWrapper from "../app-wrapper";
 
-<Meta
-  title="Design System/Form"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Design System/Form" parameters={{ info: { disable: true } }} />
 
 # Form
+
 Represents a document section containing interactive controls for submitting information.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 To use Form, import the `Form` and pass the content, usually various inputs, as children.
 You can provide a save button using the `saveButton` prop.
 
@@ -41,15 +40,23 @@ import Form from "carbon-react/lib/components/form";
 ```
 
 ## Examples
+
 ### With sticky footer
+
 When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
 
 <Preview>
   <Story name="default with sticky footer">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
       stickyFooter
     >
       <Textbox label="Textbox" />
@@ -60,18 +67,25 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 ### With different spacing
+
 When `fieldSpacing` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
 
 <Preview>
   <Story name="with different spacing">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
       fieldSpacing={5}
     >
       <Textbox label="Textbox" />
@@ -79,94 +93,129 @@ When `fieldSpacing` prop is given a value, the vertical spacing between the form
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 ### Override spacing on one field
-A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
+
+A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop.
 
 <Preview>
   <Story name="override field spacing">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
       <Textbox label="Textbox" mb={7} />
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 ### Validations
+
 When either `errorCount` or `warningCount` or both are provided, summary with the number of errors and/or warnings is rendered wrapping the save button.
 
 <Preview>
   <Story name="with errors summary">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      errorCount={ 1 }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      errorCount={1}
     >
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 <Preview>
   <Story name="with warnings summary">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      warningCount={ 1 }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      warningCount={1}
     >
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 <Preview>
   <Story name="with both errors and warnings summary">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      errorCount={ 2 }
-      warningCount={ 2 }
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      errorCount={2}
+      warningCount={2}
     >
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 ### Buttons variations
+
 Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` props.
 
 <Preview>
   <Story name="with additional buttons">
     <Form
-      onSubmit={ () => console.log('submit')}
-      leftSideButtons={ 
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
         <>
-          <Button onClick={ () => console.log('cancel') }>Other</Button>
-          <Button onClick={ () => console.log('cancel') } ml={2}>Cancel</Button>
-        </> 
+          <Button onClick={() => console.log("cancel")}>Other</Button>
+          <Button onClick={() => console.log("cancel")} ml={2}>
+            Cancel
+          </Button>
+        </>
       }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      rightSideButtons={ 
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      rightSideButtons={
         <>
-          <Button onClick={ () => console.log('cancel') }>Reset</Button>
-          <Button onClick={ () => console.log('cancel') } ml={2}>Other</Button>
-        </> 
+          <Button onClick={() => console.log("cancel")}>Reset</Button>
+          <Button onClick={() => console.log("cancel")} ml={2}>
+            Other
+          </Button>
+        </>
       }
     >
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 When `buttonAlignment` prop is set as `left`, buttons are aligned to the left side.
@@ -174,48 +223,66 @@ When `buttonAlignment` prop is set as `left`, buttons are aligned to the left si
 <Preview>
   <Story name="with buttons aligned to the left">
     <Form
-      onSubmit={ () => console.log('submit')}
-       leftSideButtons={ 
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
         <>
-          <Button onClick={ () => console.log('cancel') }>Other</Button>
-          <Button onClick={ () => console.log('cancel') } ml={2}>Cancel</Button>
-        </> 
+          <Button onClick={() => console.log("cancel")}>Other</Button>
+          <Button onClick={() => console.log("cancel")} ml={2}>
+            Cancel
+          </Button>
+        </>
       }
-      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      rightSideButtons={ 
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      rightSideButtons={
         <>
-          <Button onClick={ () => console.log('cancel') }>Reset</Button>
-          <Button onClick={ () => console.log('cancel') } ml={2}>Other</Button>
-        </> 
+          <Button onClick={() => console.log("cancel")}>Reset</Button>
+          <Button onClick={() => console.log("cancel")} ml={2}>
+            Other
+          </Button>
+        </>
       }
-      buttonAlignment='left'
+      buttonAlignment="left"
     >
       <Textbox label="Textbox" />
     </Form>
-  </Story> 
+  </Story>
 </Preview>
 
 ### In Dialog
+
 It is possible to render `Form` as a content of `Dialog` component.
 
 <Preview>
-  <Story name="in Dialog" parameters={{ chromatic: { disable: true }}}>
+  <Story name="in Dialog" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
           <Dialog
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Form in Dialog'
-            subtitle='Subtitle'
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Form in Dialog"
+            subtitle="Subtitle"
           >
             <Form
-              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button
+                  buttonType="primary"
+                  onClick={() => console.log("save")}
+                >
+                  Submit
+                </Button>
+              }
             >
-              <Textbox label='Textbox' />
+              <Textbox label="Textbox" />
             </Form>
           </Dialog>
         </>
@@ -227,49 +294,60 @@ It is possible to render `Form` as a content of `Dialog` component.
 #### With sticky footer
 
 <Preview>
-  <Story name="in Dialog with sticky footer" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="in Dialog with sticky footer"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
           <Dialog
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Form in Dialog'
-            subtitle='Subtitle'
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Form in Dialog"
+            subtitle="Subtitle"
           >
             <Form
-              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button
+                  buttonType="primary"
+                  onClick={() => console.log("save")}
+                >
+                  Submit
+                </Button>
+              }
               stickyFooter
             >
-              {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              {Array.from({ length: 15 }).map((_, index) => (
+                <Textbox key={index} label="Textbox" />
+              ))}
               <DateInput
                 label="Date"
-                name='dateinput'
-                value='2019-04-04'
+                name="dateinput"
+                value="2019-04-04"
                 disablePortal
               />
-              <Select
-                name='simple'
-                id='simple'
-                label='label'
-                disablePortal
-              >
-                <Option text='Amber' value='1' />
-                <Option text='Black' value='2' />
-                <Option text='Blue' value='3' />
-                <Option text='Brown' value='4' />
-                <Option text='Green' value='5' />
-                <Option text='Orange' value='6' />
-                <Option text='Pink' value='7' />
-                <Option text='Purple' value='8' />
-                <Option text='Red' value='9' />
-                <Option text='White' value='10' />
-                <Option text='Yellow' value='11' />
+              <Select name="simple" id="simple" label="label" disablePortal>
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Brown" value="4" />
+                <Option text="Green" value="5" />
+                <Option text="Orange" value="6" />
+                <Option text="Pink" value="7" />
+                <Option text="Purple" value="8" />
+                <Option text="Red" value="9" />
+                <Option text="White" value="10" />
+                <Option text="Yellow" value="11" />
               </Select>
-              {Array.from({ length: 15}).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              {Array.from({ length: 15 }).map((_, index) => (
+                <Textbox key={index} label="Textbox" />
+              ))}
             </Form>
           </Dialog>
         </>
@@ -279,27 +357,40 @@ It is possible to render `Form` as a content of `Dialog` component.
 </Preview>
 
 ### In DialogFullScreen
+
 It is possible to render `Form` as a content of `DialogFullScreen` component.
 
 <Preview>
-  <Story name="in DialogFullScreen" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="in DialogFullScreen"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
           <DialogFullScreen
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Form in Dialog'
-            subtitle='Subtitle'
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Form in Dialog"
+            subtitle="Subtitle"
           >
             <AppWrapper>
               <Form
-                leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-                saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+                leftSideButtons={
+                  <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+                }
+                saveButton={
+                  <Button
+                    buttonType="primary"
+                    onClick={() => console.log("save")}
+                  >
+                    Submit
+                  </Button>
+                }
               >
-                <Textbox label='Textbox' />
+                <Textbox label="Textbox" />
               </Form>
             </AppWrapper>
           </DialogFullScreen>
@@ -312,47 +403,55 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
 #### With sticky footer
 
 <Preview>
-  <Story name="in DialogFullScreen with sticky footer" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="in DialogFullScreen with sticky footer"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(true) }>Open Preview</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
           <DialogFullScreen
-            open={ isOpen }
-            onCancel={ () => setIsOpen(false) }
-            title='Form in Dialog'
-            subtitle='Subtitle'
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Form in Dialog"
+            subtitle="Subtitle"
           >
             <Form
-              leftSideButtons={ <Button onClick={ () => setIsOpen(false) }>Cancel</Button> }
-              saveButton={ <Button buttonType='primary' onClick={ () => console.log('save') }>Submit</Button> }
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button
+                  buttonType="primary"
+                  onClick={() => console.log("save")}
+                >
+                  Submit
+                </Button>
+              }
               stickyFooter
             >
-              {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
-              <DateInput
-                label="Date"
-                name='dateinput'
-                value='2019-04-04'
-              />
-              <Select
-                name='simple'
-                id='simple'
-                label='label'
-              >
-                <Option text='Amber' value='1' />
-                <Option text='Black' value='2' />
-                <Option text='Blue' value='3' />
-                <Option text='Brown' value='4' />
-                <Option text='Green' value='5' />
-                <Option text='Orange' value='6' />
-                <Option text='Pink' value='7' />
-                <Option text='Purple' value='8' />
-                <Option text='Red' value='9' />
-                <Option text='White' value='10' />
-                <Option text='Yellow' value='11' />
+              {Array.from({ length: 15 }).map((_, index) => (
+                <Textbox key={index} label="Textbox" />
+              ))}
+              <DateInput label="Date" name="dateinput" value="2019-04-04" />
+              <Select name="simple" id="simple" label="label">
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Brown" value="4" />
+                <Option text="Green" value="5" />
+                <Option text="Orange" value="6" />
+                <Option text="Pink" value="7" />
+                <Option text="Purple" value="8" />
+                <Option text="Red" value="9" />
+                <Option text="White" value="10" />
+                <Option text="Yellow" value="11" />
               </Select>
-              {Array.from({ length: 15}).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              {Array.from({ length: 15 }).map((_, index) => (
+                <Textbox key={index} label="Textbox" />
+              ))}
             </Form>
           </DialogFullScreen>
         </>
@@ -362,13 +461,14 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
 </Preview>
 
 ### Form alignment
+
 An example of how to align different kinds of input components within a `Form`. It is possible to line up all of the inputs and all of the labels in any configuration required. The spacing between inputs and labels can be `8px` or `16px`, and this can be controlled with the `labelSpacing` prop on the input components. Most of them default to `16px`
 
 These input components are spaced vertically with the `fieldSpacing` prop on `Form`, and this can be overriden on any input component using the `mb` (margin bottom) prop.
 
-If a component doesn't have an inline labels on the left (see the Checkboxes below), it is possible to align them using a `ml` (margin left) prop. The left margins on these components should be the same as the label width of the above and below components in order to align correctly. 
+If a component doesn't have an inline labels on the left (see the Checkboxes below), it is possible to align them using a `ml` (margin left) prop. The left margins on these components should be the same as the label width of the above and below components in order to align correctly.
 
-Please click on "Show code" below to see how to set these components up for alignment. 
+Please click on "Show code" below to see how to set these components up for alignment.
 
 <Preview>
   <Story name="form alignment example">
@@ -518,4 +618,5 @@ Please click on "Show code" below to see how to set these components up for alig
 ## Props
 
 ### Form
+
 <Props of={Form} />

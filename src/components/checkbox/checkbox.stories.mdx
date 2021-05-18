@@ -1,19 +1,16 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
-import { Checkbox, CheckboxGroup } from '.';
+import { Checkbox, CheckboxGroup } from ".";
 
-
-<Meta
-  title="Experimental/Checkbox"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Design System/Checkbox" parameters={{ info: { disable: true } }} />
 
 # Checkbox
 
 - Checkbox provides a way to efficiently select more than one item from a list.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -23,14 +20,17 @@ import { Checkbox, CheckboxGroup } from '.';
 ## Quick Start
 
 ```javascript
-import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox";
+import { Checkbox } from "carbon-react/lib/components/checkbox";
 ```
+
 ## Designer Notes
+
 - Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
 - Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 - Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
 
 ## Related Components
+
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
 - Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--default-story "Select").
 - Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
@@ -48,9 +48,9 @@ import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
           label="Example checkbox"
           name="checkbox-default"
           checked={isChecked}
-          onChange={ e => setIsChecked(e.target.checked) }
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -60,14 +60,14 @@ import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
 <Preview>
   <Story name="sizes">
     {() => {
-      return ['small', 'large'].map(size =>
+      return ["small", "large"].map((size) => (
         <Checkbox
           label={size}
-          key={ `checkbox-${size}` }
-          name={ `checkbox-default` }
+          key={`checkbox-${size}`}
+          name={`checkbox-default`}
           size={size}
         />
-      )
+      ));
     }}
   </Story>
 </Preview>
@@ -122,10 +122,7 @@ import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
 <Preview>
   <Story name="with custom labelWidth">
     <>
-      <Checkbox
-        label="With custom labelWidth"
-        labelWidth={100}
-      />
+      <Checkbox label="With custom labelWidth" labelWidth={100} />
       <Checkbox
         label="With custom labelWidth and label aligned to right"
         labelWidth={100}
@@ -145,20 +142,21 @@ import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
       groupName="checkbox-group"
       legend="Checkbox Group"
     >
-      {['One', 'Two', 'Three'].map((label) => 
+      {["One", "Two", "Three"].map((label) => (
         <Checkbox
           id={`checkbox_${name}-${label}`}
           key={`checkbox_${name}-${label}`}
           name={`checkbox_${name}-${label}`}
           label={label}
         />
-      )}
+      ))}
     </CheckboxGroup>
   </Story>
 </Preview>
 
 ### With inline legend
-The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`. 
+
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
 
 The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
 
@@ -173,14 +171,14 @@ The spacing between the legend and the checkboxes can be changed with the `legen
       legendWidth={10}
       legendInline
     >
-      {['One', 'Two', 'Three'].map((label) => 
+      {["One", "Two", "Three"].map((label) => (
         <Checkbox
           id={`checkbox_${name}-${label}`}
           key={`checkbox_${name}-${label}`}
           name={`checkbox_${name}-${label}`}
           label={label}
         />
-      )}
+      ))}
     </CheckboxGroup>
   </Story>
 </Preview>

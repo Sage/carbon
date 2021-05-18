@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../utils/helpers/tags";
 import CheckboxStyle from "./checkbox.style";
-import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
+import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./checkbox-svg.component";
-import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
 const Checkbox = ({
   id,
