@@ -107,6 +107,7 @@ Feature: Accessibility tests - Design System folder
       | component         |
       | Badge             |
       | Batch Selection   |
+      | Checkbox          |
       | Content           |
       | Draggable         |
       | Fieldset          |
@@ -250,3 +251,20 @@ Feature: Accessibility tests - Design System folder
   Scenario: Image component default story
     When I open "Design System Image" component page "default story" in no iframe
     Then "Image default story" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Design System checkbox component <story> story
+    When I open "Design System checkbox validations" component page "<story>" in no iframe
+    Then "Design System checkbox <story> story" component has no accessibility violations
+    Examples:
+      | story                              |
+      | group checkbox boolean validation  |
+      | group checkbox string validation   |
+      | single checkbox boolean validation |
+      | single checkbox string validation  |
+
+  @accessibility
+  Scenario: Design System checkbox with asterisk
+    When I open "Design System checkbox validations" component page "required" in no iframe
+    Then "Design System checkbox with asterisk" component has no accessibility violations
+    

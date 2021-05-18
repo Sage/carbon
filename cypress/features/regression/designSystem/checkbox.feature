@@ -1,9 +1,9 @@
-Feature: Experimental Checkbox component
-  I want to test Experimental Checkbox properties
+Feature: Design System Checkbox component
+  I want to test Design System Checkbox properties
 
   @positive
   Scenario Outline: Change Checkbox component label to <label>
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
+    When I open Default "Design System Checkbox Test" component in noIFrame with "checkbox" json from "designSystem" using "<nameOfObject>" object name
     Then checkbox label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
@@ -12,7 +12,7 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component field help to <fieldHelp>
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
+    When I open Default "Design System Checkbox Test" component in noIFrame with "checkbox" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -21,7 +21,7 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
+    When I open Default "Design System Checkbox Test" component in noIFrame with "checkbox" json from "designSystem" using "<nameOfObject>" object name
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -31,6 +31,6 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Change Checkbox tick color
-    Given I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "default" object name
+    Given I open Default "Design System Checkbox Test" component in noIFrame with "checkbox" json from "designSystem" using "default" object name
     When I mark checkbox on preview
     Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"
