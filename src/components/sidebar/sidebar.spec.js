@@ -31,7 +31,7 @@ describe("Sidebar", () => {
   describe("render", () => {
     describe("when sidebar is closed", () => {
       it("sets all the correct classes", () => {
-        wrapper = mount(<Sidebar onCancel={spy} />);
+        wrapper = mount(<Sidebar open={false} onCancel={spy} />);
         expect(wrapper.find('div[data-component="sidebar"]').text()).toEqual(
           ""
         );
@@ -120,11 +120,10 @@ describe("Sidebar", () => {
 
 describe("SidebarStyle", () => {
   describe("when prop size is passed to the component and position is set to right", () => {
-    const wrapper = mount(
-      <SidebarStyle open size="extra-small" position="right" />
-    );
-
     it("should render correct style", () => {
+      const wrapper = mount(
+        <SidebarStyle open size="extra-small" position="right" />
+      );
       assertStyleMatch(
         {
           width: "214px",
@@ -140,11 +139,10 @@ describe("SidebarStyle", () => {
   });
 
   describe("when prop left is passed to the component", () => {
-    const wrapper = mount(
-      <SidebarStyle open size="extra-small" position="left" />
-    );
-
     it("should render correct style", () => {
+      const wrapper = mount(
+        <SidebarStyle open size="extra-small" position="left" />
+      );
       assertStyleMatch(
         {
           boxShadow:
