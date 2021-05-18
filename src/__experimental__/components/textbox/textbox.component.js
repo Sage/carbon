@@ -6,11 +6,8 @@ import InputIconToggle from "../input-icon-toggle";
 import FormField from "../form-field";
 import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import Logger from "../../../utils/logger/logger";
 import { InputBehaviour } from "../../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
-
-let deprecatedWarnTriggered = false;
 
 const Textbox = ({
   children,
@@ -23,7 +20,6 @@ const Textbox = ({
   iconOnClick,
   iconOnMouseDown,
   iconTabIndex,
-  styleOverride,
   validationOnLabel,
   labelWidth,
   inputWidth,
@@ -33,13 +29,6 @@ const Textbox = ({
   positionedChildren,
   ...props
 }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      "`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed."
-    );
-  }
-
   return (
     <InputBehaviour>
       <FormField
@@ -49,13 +38,11 @@ const Textbox = ({
         useValidationIcon={validationOnLabel}
         labelWidth={labelWidth}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        styleOverride={styleOverride}
         isRequired={required}
       >
         <InputPresentation
           type="text"
           {...removeParentProps(props)}
-          styleOverride={styleOverride.input}
           inputWidth={inputWidth || 100 - labelWidth}
           positionedChildren={positionedChildren}
         >
@@ -192,23 +179,11 @@ Textbox.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */
   required: PropTypes.bool,
-  /**
-   * Allows to override existing component styles
-   * @private
-   * @ignore
-   *
-   */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
   size: "medium",
-  styleOverride: {},
   validationOnLabel: false,
 };
 

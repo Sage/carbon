@@ -3,7 +3,11 @@ import baseTheme from "../../style/themes/base";
 import StyledContent from "./content.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
-import { StyledHeader, StyledHeading } from "../heading/heading.style";
+import {
+  StyledHeader,
+  StyledHeaderContent,
+  StyledHeading,
+} from "../heading/heading.style";
 
 const StyledDialogFullScreen = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
@@ -15,6 +19,10 @@ const StyledDialogFullScreen = styled.div`
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
   display: flex;
   flex-direction: column;
+
+  ${StyledHeaderContent} {
+    align-items: baseline;
+  }
 
   > ${StyledIconButton} {
     margin: 0;

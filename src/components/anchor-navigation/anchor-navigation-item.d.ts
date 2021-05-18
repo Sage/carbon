@@ -10,8 +10,6 @@ export interface AnchorNavigationItemProps {
   onClick?: (ev: React.MouseEvent<HTMLAnchorElement>) => void;
   /** OnKeyDown handler */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLAnchorElement>) => void;
-  /** Allows to override existing component styles */
-  styleOverride?: () => object | object;
   /** tabIndex passed to the anchor element */
   tabIndex?: number;
   /** Reference to the section html element meant to be shown   */

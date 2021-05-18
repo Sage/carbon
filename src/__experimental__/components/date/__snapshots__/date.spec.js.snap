@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateInput renders correctly for default theme 1`] = `
-.c0 {
-  width: 100%;
-  display: inline-block;
-}
-
 .c0 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;

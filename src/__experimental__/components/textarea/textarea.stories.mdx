@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 import Textarea from ".";
 import { OriginalTextarea } from "./textarea.component";
@@ -14,6 +15,7 @@ import Box from "../../../components/box";
 - Use placeholder text to give the user context or examples of what to write.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -52,13 +54,13 @@ import Textarea from "carbon-react/lib/__experimental__/components/textarea";
 
 <Preview>
   <Story name="label Align">
-    {() => 
-      ['right', 'left'].map((alignment) => (
+    {() =>
+      ["right", "left"].map((alignment) => (
         <Textarea
           label="Textarea"
           labelInline
           inputWidth={50}
-          key={alignment} 
+          key={alignment}
           labelAlign={alignment}
         />
       ))
@@ -122,7 +124,10 @@ import Textarea from "carbon-react/lib/__experimental__/components/textarea";
 ### With characterLimit - not enforced
 
 <Preview>
-  <Story name="with characterLimit - not enforced" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="with characterLimit - not enforced"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [value, setValue] = useState("");
       return (
@@ -266,4 +271,4 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Textarea
 
-<Props of={OriginalTextarea} />
+<StyledSystemProps of={OriginalTextarea} noHeader margin />

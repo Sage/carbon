@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { InputPresentation } from "../input";
 import FormField from "../form-field";
 import CharacterCount from "./character-count";
 import Input from "../input/input.component";
 import { InputBehaviour } from "../../../__internal__/input-behaviour";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 import InputIconToggle from "../input-icon-toggle";
 
@@ -14,6 +17,17 @@ import guid from "../../../utils/helpers/guid/guid";
 import StyledTextarea from "./textarea.style";
 
 const i18nNumberOpts = { precision: 0 };
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
+// Spacing props filtering is a temporary solution until FormField and all related components are refactored
+// FIXME FE-3370
+const filterOutSpacingProps = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !styledSystemPropTypes.space[key])
+  );
 
 class Textarea extends React.Component {
   // Minimum height of the textarea
@@ -138,7 +152,10 @@ class Textarea extends React.Component {
 
     return (
       <InputBehaviour>
-        <StyledTextarea labelInline={labelInline}>
+        <StyledTextarea
+          labelInline={labelInline}
+          {...filterStyledSystemMarginProps(props)}
+        >
           <FormField
             label={label}
             disabled={disabled}
@@ -146,9 +163,9 @@ class Textarea extends React.Component {
             labelInline={labelInline}
             labelWidth={labelWidth}
             isRequired={props.required}
-            {...props}
             useValidationIcon={validationOnLabel}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+            {...filterOutSpacingProps(props)}
           >
             <InputPresentation
               type="text"
@@ -190,6 +207,7 @@ class Textarea extends React.Component {
 }
 
 Textarea.propTypes = {
+  ...marginPropTypes,
   /** id of the input */
   id: PropTypes.string,
   /** Character limit of the textarea */
@@ -250,8 +268,6 @@ Textarea.propTypes = {
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */

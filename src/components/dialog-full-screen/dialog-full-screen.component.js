@@ -24,6 +24,7 @@ const DialogFullScreen = ({
   disableEscKey,
   onCancel,
   contentRef,
+  help,
   ...rest
 }) => {
   const dialogRef = useRef();
@@ -51,6 +52,7 @@ const DialogFullScreen = ({
           subheader={subtitle}
           subtitleId="carbon-dialog-subtitle"
           divider={false}
+          help={help}
         />
       ) : (
         title
@@ -114,6 +116,8 @@ DialogFullScreen.propTypes = {
   disableAutoFocus: PropTypes.bool,
   /** Determines if the Esc Key closes the Dialog */
   disableEscKey: PropTypes.bool,
+  /** Adds Help tooltip to Header */
+  help: PropTypes.string,
   /** remove padding from content */
   disableContentPadding: PropTypes.bool,
   /** Child elements */
