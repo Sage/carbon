@@ -14,7 +14,7 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid");

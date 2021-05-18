@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
 import StyledDateInput from "../date/date.style";
-import { StyledLabelContainer } from "../../__experimental__/components/label/label.style.js";
+import { StyledLabelContainer } from "../../__internal__/label/label.style.js";
 import { StyledInputPresentationContainer } from "../../__experimental__/components/input/input-presentation.style.js";
 import baseTheme from "../../style/themes/base";
 

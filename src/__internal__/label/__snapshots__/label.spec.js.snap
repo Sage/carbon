@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label renders the label 1`] = `
+<styled.div
+  align="right"
+  inputSize="medium"
+  theme="[ theme object ]"
+  width={30}
+>
+  <styled.label
+    data-element="label"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    theme="[ theme object ]"
+  >
+    Name:
+  </styled.label>
+</styled.div>
+`;

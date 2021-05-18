@@ -11,7 +11,7 @@ import FormField from "../../__experimental__/components/form-field";
 import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
 import StyledValidationIcon from "../validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
 
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");

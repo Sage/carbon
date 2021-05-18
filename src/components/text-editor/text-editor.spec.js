@@ -21,7 +21,7 @@ import ToolbarButton from "./__internal__/toolbar/toolbar-button/toolbar-button.
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
 import guid from "../../utils/helpers/guid/guid";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import LabelWrapper from "./__internal__/label-wrapper";
 import ValidationIcon from "../validations";
 import { isSafari } from "../../utils/helpers/browser-type-check";

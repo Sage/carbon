@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import BaseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};

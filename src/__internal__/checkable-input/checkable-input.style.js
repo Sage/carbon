@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
-import LabelStyle, {
-  StyledLabelContainer,
-} from "../../__experimental__/components/label/label.style";
+import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import StyledHelp from "../../components/help/help.style";
 import baseTheme from "../../style/themes/base";
 import StyledValidationIcon from "../../components/validations/validation-icon.style";

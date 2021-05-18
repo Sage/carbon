@@ -8,7 +8,7 @@ import StyledHiddenCheckableInput from "../../__internal__/checkable-input/hidde
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import StyledLabel, {
   StyledLabelContainer,
-} from "../../__experimental__/components/label/label.style";
+} from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
 import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
 import StyledIcon from "../icon/icon.style";

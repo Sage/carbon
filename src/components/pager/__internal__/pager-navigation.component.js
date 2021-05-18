@@ -10,7 +10,7 @@ import NumberInput from "../../../__experimental__/components/number";
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
-import Label from "../../../__experimental__/components/label";
+import Label from "../../../__internal__/label";
 
 const PagerNavigation = ({
   pageSize,

@@ -1,13 +1,10 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
-import Help from "../../../components/help";
+import Help from "../../components/help";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
+import ValidationIcon from "../../components/validations/validation-icon.component";
 import IconWrapperStyle from "./icon-wrapper.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const shouldDisplayValidationIcon = ({ error, warning, info, disabled }) => {
   const validation = error || warning || info;
