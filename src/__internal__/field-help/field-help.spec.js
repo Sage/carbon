@@ -1,15 +1,25 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
+import { mount } from "enzyme";
 import FieldHelp from "./field-help.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 function render(props) {
-  return TestRenderer.create(<FieldHelp {...props}>help text</FieldHelp>);
+  return mount(<FieldHelp {...props}>help text</FieldHelp>);
 }
 
 describe("FieldHelp", () => {
-  it("renders as expected", () => {
-    expect(render()).toMatchSnapshot();
+  it("renders the correctv styles by default", () => {
+    const wrapper = render();
+
+    assertStyleMatch(
+      {
+        display: "block",
+        marginTop: "8px",
+        whiteSpace: "pre-wrap",
+        width: "100%",
+      },
+      wrapper
+    );
   });
 
   describe("when initiated with labelInline prop set to true and inputWidth prop with a custom value", () => {
@@ -31,7 +41,7 @@ describe("FieldHelp", () => {
           marginLeft: "30%",
           paddingLeft: "0",
         },
-        wrapper.toJSON()
+        wrapper
       );
     });
   });

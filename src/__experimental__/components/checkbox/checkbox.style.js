@@ -3,7 +3,7 @@ import { space } from "styled-system";
 import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import StyledFieldHelp from "../field-help/field-help.style";
+import StyledFieldHelp from "../../../__internal__/field-help/field-help.style";
 import StyledHiddenCheckableInput from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import StyledLabel, { StyledLabelContainer } from "../label/label.style";
