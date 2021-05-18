@@ -147,6 +147,7 @@ describe("Pill", () => {
 
     const wrongColors = ["rgb(0,0)", "#ff", "test"];
     describe.each(wrongColors)("when wrong color prop is provided", (color) => {
+      console.error = jest.fn();
       it("throws an error", () => {
         jest.spyOn(global.console, "error");
         mount(<Pill borderColor={color}>My Text</Pill>);
@@ -314,16 +315,15 @@ describe("Pill", () => {
               describe("when the component is in a filled state", () => {
                 describe("when the style is not warning", () => {
                   const style = "neutral";
-                  const fillWrapper = render({
-                    children: "My Text",
-                    onDelete: jest.fn(),
-                    colorVariant: style,
-                    pillRole,
-                    fill: true,
-                    theme,
-                  });
-
                   it(`matches the expected filled styling for ${style}`, () => {
+                    const fillWrapper = render({
+                      children: "My Text",
+                      onDelete: jest.fn(),
+                      colorVariant: style,
+                      pillRole,
+                      fill: true,
+                      theme,
+                    });
                     assertStyleMatch(
                       {
                         backgroundColor: styleSet[style].varietyColor,
@@ -336,16 +336,16 @@ describe("Pill", () => {
 
                 describe("when the style is warning", () => {
                   const style = "warning";
-                  const fillWrapper = render({
-                    children: "My Text",
-                    onDelete: jest.fn(),
-                    colorVariant: style,
-                    pillRole,
-                    fill: true,
-                    theme,
-                  });
 
                   it(`matches the expected filled styling for ${style}`, () => {
+                    const fillWrapper = render({
+                      children: "My Text",
+                      onDelete: jest.fn(),
+                      colorVariant: style,
+                      pillRole,
+                      fill: true,
+                      theme,
+                    });
                     assertStyleMatch(
                       {
                         backgroundColor: styleSet[style].varietyColor,
@@ -460,14 +460,13 @@ describe("Pill", () => {
               'when the pill style is set as "%s"',
               (style) => {
                 describe("when storybook supplies the correct theme", () => {
-                  const wrapper = render({
-                    children: "My Text",
-                    colorVariant: style,
-                    theme,
-                    pillRole,
-                  });
-
                   it(`matches the expected styling for ${style}`, () => {
+                    const wrapper = render({
+                      children: "My Text",
+                      colorVariant: style,
+                      theme,
+                      pillRole,
+                    });
                     assertStyleMatch(
                       {
                         border: `2px solid ${styleSet[style].varietyColor}`,
@@ -478,15 +477,14 @@ describe("Pill", () => {
                 });
 
                 describe("when the component is in a filled state", () => {
-                  const fillWrapper = render({
-                    children: "My Text",
-                    colorVariant: style,
-                    fill: true,
-                    theme,
-                    pillRole,
-                  });
-
                   it(`matches the expected filled styling for ${style}`, () => {
+                    const fillWrapper = render({
+                      children: "My Text",
+                      colorVariant: style,
+                      fill: true,
+                      theme,
+                      pillRole,
+                    });
                     assertStyleMatch(
                       {
                         backgroundColor: styleSet[style].varietyColor,
@@ -505,15 +503,14 @@ describe("Pill", () => {
             describe("when the component is deletable", () => {
               describe("when the component is in a filled state", () => {
                 const style = "primary";
-                const fillWrapper = render({
-                  children: "My Text",
-                  onDelete: jest.fn(),
-                  pillRole,
-                  fill: true,
-                  theme,
-                });
-
                 it(`matches the expected filled styling for ${style}`, () => {
+                  const fillWrapper = render({
+                    children: "My Text",
+                    onDelete: jest.fn(),
+                    pillRole,
+                    fill: true,
+                    theme,
+                  });
                   assertStyleMatch(
                     {
                       backgroundColor: styleSet[style].varietyColor,
