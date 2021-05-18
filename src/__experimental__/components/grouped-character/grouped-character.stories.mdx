@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import GroupedCharacter from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../../../components/button";
@@ -18,6 +19,7 @@ Capture data with punctuation inside the field.
 Fields can have punctuation within them (most commonly characters like - or /). This gives the user a clue about the format accepted.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -27,6 +29,7 @@ Fields can have punctuation within them (most commonly characters like - or /). 
 ```javascript
 import GroupedCharacter from "carbon-react/lib/__experimental__/components/grouped-character";
 ```
+
 ## Examples
 
 ### Default
@@ -75,7 +78,7 @@ import GroupedCharacter from "carbon-react/lib/__experimental__/components/group
 ### AutoFocus
 
 <Preview>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true }}}>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
     <GroupedCharacter
       label="GroupedCharacter"
       value="1231231"
@@ -90,8 +93,8 @@ import GroupedCharacter from "carbon-react/lib/__experimental__/components/group
 
 <Preview>
   <Story name="labelAlign">
-     {() => 
-      ['right', 'left'].map((alignment) => (
+    {() =>
+      ["right", "left"].map((alignment) => (
         <GroupedCharacter
           label="GroupedCharacter"
           value="1231231"
@@ -99,7 +102,7 @@ import GroupedCharacter from "carbon-react/lib/__experimental__/components/group
           separator="-"
           labelInline
           inputWidth={50}
-          key={alignment} 
+          key={alignment}
           labelAlign={alignment}
         />
       ))
@@ -163,7 +166,7 @@ import GroupedCharacter from "carbon-react/lib/__experimental__/components/group
 ### With labelInline
 
 <Preview>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     <GroupedCharacter
       label="GroupedCharacter"
       value="1231231"
@@ -340,7 +343,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### GroupedCharacter
 
-<Props of={GroupedCharacter} />
+<StyledSystemProps of={GroupedCharacter} noHeader margin />
 
 ### Textbox
 
