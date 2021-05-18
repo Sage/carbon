@@ -1,3 +1,53 @@
+### [74.1.1](https://github.com/Sage/carbon/compare/v74.1.0...v74.1.1) (2021-05-14)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect gaps between date fields ([70507ba](https://github.com/Sage/carbon/commit/70507ba053215e541f32ed9918709ab63643e110))
+
+## [74.1.0](https://github.com/Sage/carbon/compare/v74.0.0...v74.1.0) (2021-05-14)
+
+
+### Features
+
+* **icon:** 7 new icons, carets directions and larger size ([beb20ec](https://github.com/Sage/carbon/commit/beb20ec3a1cc8b464c6624a3fb0502a38485e6ad))
+
+## [74.0.0](https://github.com/Sage/carbon/compare/v73.6.1...v74.0.0) (2021-05-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** Fixes FE-2759
+* **action-popover:** Fixes FE-2757
+* **anchor-navigation:** Fixes FE-2758
+* **accordion:** Fixes FE-2756
+* **textbox:** Fixes FE-2755
+* **radio-button-group:** Fixes FE-2754
+* **label:** Fixes FE-2753
+* **input:** Fixes FE-2752
+* **fieldset:** Fixes FE-2750
+* **form-field:** Fixes FE-2751
+
+### Code Refactoring
+
+* **accordion:** remove style override props ([cd59de6](https://github.com/Sage/carbon/commit/cd59de6c2a01752470f07d0b67700878eef62159))
+* **action-popover:** remove style override props ([b373382](https://github.com/Sage/carbon/commit/b37338274758ea00cbbc6f48c3bf7af8069ac03e))
+* **anchor-navigation:** remove style override props ([1d4aeb2](https://github.com/Sage/carbon/commit/1d4aeb2e49ebf828e5b4ae7d5bfce4a48e5deb22))
+* **button:** remove style override props ([b7cb8e2](https://github.com/Sage/carbon/commit/b7cb8e26af944cb979b7b9c3e2211be084beec5c))
+* **fieldset:** remove style override props ([cedd350](https://github.com/Sage/carbon/commit/cedd35047f55b558c5149990a4433696677e1e27))
+* **form-field:** remove style override props ([3bcc36e](https://github.com/Sage/carbon/commit/3bcc36e80239e040fc1dd5822eea9fe02c2b2c40))
+* **input:** remove style override props ([00c222b](https://github.com/Sage/carbon/commit/00c222bb00c603f5d2b77b44efb9871c5eda164c))
+* **label:** remove style override props ([6397187](https://github.com/Sage/carbon/commit/6397187f9ac2f1882e19ae3316fbac2eda636d8f))
+* **radio-button-group:** remove style override props ([5ba73b6](https://github.com/Sage/carbon/commit/5ba73b6d48bee44fc6bd8e25735d0632eb37ab41))
+* **textbox:** remove style override props ([38c827b](https://github.com/Sage/carbon/commit/38c827bfdd347c7979dc12642c639469df27c9c0))
+
+### [73.6.1](https://github.com/Sage/carbon/compare/v73.6.0...v73.6.1) (2021-05-13)
+
+
+### Bug Fixes
+
+* **portrait:** fix portrait tooltip error ([3631635](https://github.com/Sage/carbon/commit/3631635463e7e2000c90294ed27a4ca4aed38bc0))
+
 ## [73.6.0](https://github.com/Sage/carbon/compare/v73.5.0...v73.6.0) (2021-05-13)
 
 

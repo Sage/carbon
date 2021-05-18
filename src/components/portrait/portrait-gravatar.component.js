@@ -1,16 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 import MD5 from "crypto-js/md5";
+
 import { StyledPortraitGravatar } from "./portrait.style";
 import sizeParams from "./portrait-size.config";
 import OptionsHelper from "../../utils/helpers/options-helper";
 
-import { filterStyledSystemMarginProps } from "../../style/utils";
-
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
 class PortraitGravatar extends React.Component {
   /** Generates the Gravatar URL for the specified email address and dimensions. */
   gravatarSrc() {
@@ -42,7 +37,6 @@ class PortraitGravatar extends React.Component {
 }
 
 PortraitGravatar.propTypes = {
-  ...marginPropTypes,
   /** The theme to use. */
   theme: PropTypes.object,
   /** The user's email address for the Gravatar. */
