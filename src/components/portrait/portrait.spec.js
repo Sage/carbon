@@ -142,14 +142,33 @@ describe("PortraitComponent", () => {
       shape: "square",
       darkBackground: false,
     };
+    const expectedCustomIconProps = {
+      type: "image",
+      size: "XXL",
+      shape: "square",
+      darkBackground: false,
+    };
 
     const testSuccess = (element) =>
       renderFindTypeSuccess(element, StyledIcon, expectedProps);
+    const testCustomIconSuccess = (element) =>
+      renderFindTypeSuccess(element, StyledIcon, expectedCustomIconProps);
     const testFail = (element) => renderFindTypeFail(element, StyledIcon);
 
     it("renders icon when not supplied with Gravatar or src or initials", () => {
       testSuccess(
         <Portrait size="XXL" shape="square" darkBackground={false} />
+      );
+    });
+
+    it("renders specified icon when not supplied with Gravatar, src or initials", () => {
+      testCustomIconSuccess(
+        <Portrait
+          size="XXL"
+          shape="square"
+          darkBackground={false}
+          iconType="image"
+        />
       );
     });
 
