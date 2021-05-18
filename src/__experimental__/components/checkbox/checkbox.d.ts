@@ -2,6 +2,8 @@ import * as React from "react";
 import { SpaceProps } from "styled-system";
 import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
 
+export type CheckboxSize = "small" | "large";
+
 export interface CheckboxProps extends CommonCheckableInputProps, SpaceProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
@@ -12,7 +14,7 @@ export interface CheckboxProps extends CommonCheckableInputProps, SpaceProps {
   /** A message that the Help component will display */
   labelHelp?: string | React.ReactNode;
   /** Size of the checkbox */
-  size?: "small" | "large";
+  size?: CheckboxSize;
   /** The value of the checkbox, passed on form submit */
   value?: string;
 }
