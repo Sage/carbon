@@ -366,7 +366,6 @@ describe("Icon component", () => {
     describe.each(["info", "error", "success", "warning"])(
       "when bgTheme is set to one of the statuses",
       (status) => {
-        const wrapper = renderStyles({ bgTheme: status });
         const hoverColors = {
           info: "#005C9B",
           error: "#9F2D3F",
@@ -374,6 +373,7 @@ describe("Icon component", () => {
           warning: "#BA5000",
         };
         it(`renders proper background color for ${status}`, () => {
+          const wrapper = renderStyles({ bgTheme: status });
           assertStyleMatch(
             {
               backgroundColor: baseTheme.colors[status],
@@ -393,9 +393,8 @@ describe("Icon component", () => {
     );
 
     describe("when bgTheme is set to business", () => {
-      const wrapper = renderStyles({ bgTheme: "business" });
-
       it("renders proper background color", () => {
+        const wrapper = renderStyles({ bgTheme: "business" });
         assertStyleMatch(
           {
             backgroundColor: baseTheme.colors.primary,
