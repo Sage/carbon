@@ -12,7 +12,6 @@ Feature: Accessibility tests - Experimental folder
       | date-input          |
       | decimal-input       |
       | groupedcharacter    |
-      | number-input        |
       | simple-color-picker |
       | switch              |
       | textarea            |
@@ -28,7 +27,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
       | textarea            |
 
   @accessibility
@@ -42,7 +40,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
       | textarea            |
 
   @accessibility
@@ -56,7 +53,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
       | textarea            |
 
   @accessibility
