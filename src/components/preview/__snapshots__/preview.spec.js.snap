@@ -2,8 +2,8 @@
 
 exports[`Preview when given a width and height renders with the given width and height 1`] = `
 .c1 {
-  -webkit-animation: blNbyL 2s ease infinite;
-  animation: blNbyL 2s ease infinite;
+  -webkit-animation: hjvlQt 2s ease infinite;
+  animation: hjvlQt 2s ease infinite;
   background: #BFCCD2;
   display: block;
   height: 15px;
@@ -11,7 +11,7 @@ exports[`Preview when given a width and height renders with the given width and 
   width: 100%;
 }
 
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 3px;
 }
 
@@ -33,8 +33,8 @@ exports[`Preview when given a width and height renders with the given width and 
 
 exports[`Preview when given children but a truthy loading prop will render the placeholder 1`] = `
 .c1 {
-  -webkit-animation: blNbyL 2s ease infinite;
-  animation: blNbyL 2s ease infinite;
+  -webkit-animation: hjvlQt 2s ease infinite;
+  animation: hjvlQt 2s ease infinite;
   background: #BFCCD2;
   display: block;
   height: 15px;
@@ -42,7 +42,7 @@ exports[`Preview when given children but a truthy loading prop will render the p
   width: 100%;
 }
 
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 3px;
 }
 
@@ -78,8 +78,8 @@ exports[`Preview when given no children and a falsy loading prop will render not
 
 exports[`Preview when given no children will render the placeholder 1`] = `
 .c1 {
-  -webkit-animation: blNbyL 2s ease infinite;
-  animation: blNbyL 2s ease infinite;
+  -webkit-animation: hjvlQt 2s ease infinite;
+  animation: hjvlQt 2s ease infinite;
   background: #BFCCD2;
   display: block;
   height: 15px;
@@ -87,7 +87,7 @@ exports[`Preview when given no children will render the placeholder 1`] = `
   width: 100%;
 }
 
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 3px;
 }
 
@@ -109,8 +109,8 @@ exports[`Preview when given no children will render the placeholder 1`] = `
 
 exports[`Preview when multi line renders multi previews, the last being 80% width 1`] = `
 .c1 {
-  -webkit-animation: blNbyL 2s ease infinite;
-  animation: blNbyL 2s ease infinite;
+  -webkit-animation: hjvlQt 2s ease infinite;
+  animation: hjvlQt 2s ease infinite;
   background: #BFCCD2;
   display: block;
   height: 15px;
@@ -118,7 +118,7 @@ exports[`Preview when multi line renders multi previews, the last being 80% widt
   width: 100%;
 }
 
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 3px;
 }
 

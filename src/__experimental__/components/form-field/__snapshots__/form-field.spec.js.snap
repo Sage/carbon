@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormField default renders children with styling 1`] = `
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 16px;
 }
 
-.c2 {
+.c1 {
   display: block;
 }
 
 <div
-  className="c0 c1"
+  className="c0 "
 >
   <div
-    className="c2"
+    className="c1"
   >
     <input />
   </div>
@@ -70,11 +70,7 @@ Array [
 `;
 
 exports[`FormField with mb prop set should set the correct bottom margin 1`] = `
-.c3 + .c0 {
-  margin-top: 16px;
-}
-
-.c1 + .c0 {
+.c0 + .c0 {
   margin-top: 16px;
 }
 

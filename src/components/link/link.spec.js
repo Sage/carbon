@@ -29,14 +29,16 @@ describe("Link", () => {
   });
 
   describe("If `isSkipLink` provided", () => {
-    const skipLinkWrapper = mount(
-      <Link href="#test" isSkipLink>
-        Test Content
-      </Link>
-    );
+    beforeEach(() => {
+      wrapper = mount(
+        <Link href="#test" isSkipLink>
+          Test Content
+        </Link>
+      );
+    });
 
     it("should render `Skip to main content` text inside of Link", () => {
-      expect(skipLinkWrapper.text()).toBe("Skip to main content");
+      expect(wrapper.text()).toBe("Skip to main content");
     });
 
     it("should render correct designs", () => {
@@ -53,7 +55,7 @@ describe("Link", () => {
           boxShadow: `inset 0 0 0 2px ${baseTheme.colors.primary}`,
           border: `2px solid ${baseTheme.colors.white}`,
         },
-        skipLinkWrapper,
+        wrapper,
         { modifier: "a" }
       );
 
@@ -63,7 +65,7 @@ describe("Link", () => {
           left: "8px",
           textColors: baseTheme.colors.text,
         },
-        skipLinkWrapper,
+        wrapper,
         { modifier: "a:focus" }
       );
     });

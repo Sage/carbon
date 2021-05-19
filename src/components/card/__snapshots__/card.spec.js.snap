@@ -15,7 +15,7 @@ exports[`Card CardFooter styling should match the expected styling when it has i
   display: flex;
 }
 
-.c0 .c1 {
+.c0 .sc-jSFjdj {
   margin: 0;
   padding: 18px 32px;
 }
@@ -74,7 +74,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   display: flex;
 }
 
-.c0 .c4 {
+.c0 .sc-jSFjdj {
   margin: 0;
   padding: 18px 32px;
 }

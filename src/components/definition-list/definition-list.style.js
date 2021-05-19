@@ -30,7 +30,7 @@ export const StyledDdDiv = styled.div`
 export const StyledDt = styled.dt`
   ${space}
   ${({ theme }) => css`
-    font-size: 14px
+    font-size: 14px;
     font-weight: 700;
     color: ${theme.definitionList.dtTextDark};
   `}
@@ -42,7 +42,7 @@ StyledDt.defaultProps = {
 
 export const StyledDd = styled.dd`
   ${({ theme }) => css`
-    font-size: 14px
+    font-size: 14px;
     font-weight: 700;
     color: ${theme.definitionList.ddText};
     margin-left: 0px;
@@ -53,7 +53,8 @@ export const StyledDd = styled.dd`
     }
 
     ${LinkStyle} {
-      a, button {
+      a,
+      button {
         font-weight: 700px;
         text-decoration: none;
       }

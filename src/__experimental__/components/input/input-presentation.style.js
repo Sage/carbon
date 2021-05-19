@@ -62,7 +62,7 @@ const InputPresentationStyle = styled.div`
       border-color: ${theme.readOnly.textboxBorder};
     `}
 
-  ${({ align }) => align === "right" && "flex-direction: row-reverse"}
+  ${({ align }) => align === "right" && "flex-direction: row-reverse;"}
 
   input::-ms-clear {
     display: none;

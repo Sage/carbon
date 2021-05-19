@@ -104,7 +104,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: -1px;
 }
 
-.c0 .c6 {
+.c0 .sc-iCoGMd {
   min-width: 100%;
   white-space: nowrap;
   left: 0;

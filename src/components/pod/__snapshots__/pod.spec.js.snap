@@ -27,8 +27,8 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   display: inline-block;
 }
 
-.c0 a .c2,
-.c0 button .c2 {
+.c0 a .sc-bdnxRM,
+.c0 button .sc-bdnxRM {
   position: relative;
   vertical-align: middle;
   margin-right: 0;
@@ -69,11 +69,11 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   background-color: transparent;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .sc-bdnxRM {
   top: -2px;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .sc-bdnxRM {
   color: #FFFFFF;
 }
 

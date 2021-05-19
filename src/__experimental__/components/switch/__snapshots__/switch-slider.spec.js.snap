@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SwitchSlider base theme renders as expected 1`] = `
-.c2 {
+.c1 {
   border: 0;
   color: #FFFFFF;
   margin: auto;
   margin-top: 5px;
 }
 
-.c2[type="on"] {
+.c1[type="on"] {
   margin-left: 9px;
 }
 
-.c2[type="off"] {
+.c1[type="off"] {
   color: rgba(0,0,0,0.9);
   margin-right: 6px;
 }
@@ -52,45 +52,17 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   z-index: 1;
 }
 
-.c0 .c7 {
+.c0 .sc-eCApnc {
   position: absolute;
   right: -30px;
   height: 100%;
-}
-
-.c3 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c4 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c4 .c1 {
-  color: #FFFFFF;
-}
-
-.c5 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c5 .c1 {
-  color: #FFFFFF;
-}
-
-.c6 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c6 .c1 {
-  color: #FFFFFF;
 }
 
 <span
   className="c0"
 >
   <div
-    className="c1 c2"
+    className="c1"
     type="off"
   >
     OFF

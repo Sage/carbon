@@ -65,6 +65,10 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
   }
 }
 
+@media screen {
+
+}
+
 <div
   className="c0"
   data-component="grid"
@@ -139,6 +143,10 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
   .c0 {
     padding: 16px;
   }
+}
+
+@media screen {
+
 }
 
 @media screen and (max-width:1500px) {

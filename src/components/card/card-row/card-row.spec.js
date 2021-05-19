@@ -29,7 +29,11 @@ describe("CardRow", () => {
     ["medium", "24px"],
     ["large", "32px"],
   ])('when the "spacing" prop is set to %s', (size, expectedVal) => {
-    const wrapper = renderCardRow({ spacing: size }, TestRenderer.create);
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderCardRow({ spacing: size }, TestRenderer.create);
+    });
 
     it(`then the padding should be set to ${expectedVal}`, () => {
       assertStyleMatch(

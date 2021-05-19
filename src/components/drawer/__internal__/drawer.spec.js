@@ -345,9 +345,7 @@ describe("Drawer", () => {
       const { button } = getElements(wrapper);
       button.simulate("click");
       const { content } = getElements(wrapper);
-      expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
-      );
+      expect(content.prop("animationDuration")).toBe(animationDuration);
     });
 
     it("sets animation speed to two seconds when string `ms` value is given as a string", () => {
@@ -360,9 +358,7 @@ describe("Drawer", () => {
       const { button } = getElements(wrapper);
       button.simulate("click");
       const { content } = getElements(wrapper);
-      expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
-      );
+      expect(content.prop("animationDuration")).toBe(animationDuration);
     });
 
     it("sets animation speed to two seconds when string `decimal` value is given as a string", () => {
@@ -375,9 +371,7 @@ describe("Drawer", () => {
       const { button } = getElements(wrapper);
       button.simulate("click");
       const { content } = getElements(wrapper);
-      expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
-      );
+      expect(content.prop("animationDuration")).toBe(animationDuration);
     });
 
     it("sets animation speed to two seconds when string `seconds` value is given as a string", () => {
@@ -390,9 +384,7 @@ describe("Drawer", () => {
       const { button } = getElements(wrapper);
       button.simulate("click");
       const { content } = getElements(wrapper);
-      expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
-      );
+      expect(content.prop("animationDuration")).toBe(animationDuration);
     });
 
     it("sets background color as red when backgroundColor prop is provided", () => {

@@ -14,8 +14,8 @@ exports[`Link renders as expected 1`] = `
   display: inline-block;
 }
 
-.c0 a .c1,
-.c0 button .c1 {
+.c0 a .sc-bdnxRM,
+.c0 button .sc-bdnxRM {
   position: relative;
   vertical-align: middle;
   margin-right: 5px;

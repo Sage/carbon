@@ -436,7 +436,7 @@ describe("Button", () => {
       as: "primary",
       onClick: jest.fn(),
       children: "Primary",
-    }).dive();
+    });
 
     it("renders a primary button", () => {
       expect(primary.props().name).toEqual("Primary Button");
@@ -453,7 +453,7 @@ describe("Button", () => {
       className: "customClass",
       theme: "red",
       children: "Secondary",
-    }).dive();
+    });
 
     it("renders a secondary button", () => {
       expect(secondary.props().name).toEqual("Secondary Button");
@@ -497,7 +497,7 @@ describe("Button", () => {
       name: "Disabled Button",
       disabled: true,
       children: "Disabled",
-    }).dive();
+    });
 
     it("renders a disabled button", () => {
       expect(disabled.props().name).toEqual("Disabled Button");

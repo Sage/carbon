@@ -173,7 +173,7 @@ describe("Confirm", () => {
           {
             marginLeft: "3px",
           },
-          wrapper.find('[data-element="confirm"]')
+          wrapper.find('[data-element="confirm"]').first()
         );
       });
     });

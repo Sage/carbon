@@ -149,9 +149,8 @@ describe("Switch", () => {
 
     describe("when reverse=false", () => {
       describe("default", () => {
-        const wrapper = render({ reverse: false }).toJSON();
-
         it("applies the correct Label styles", () => {
+          const wrapper = render({ reverse: false }).toJSON();
           assertStyleMatch(
             {
               marginTop: "8px",
@@ -167,12 +166,11 @@ describe("Switch", () => {
       });
 
       describe("and fieldHelpInline=true", () => {
-        const wrapper = render({
-          reverse: false,
-          fieldHelpInline: true,
-        }).toJSON();
-
         it("applies the correct FieldHelp styles", () => {
+          const wrapper = render({
+            reverse: false,
+            fieldHelpInline: true,
+          }).toJSON();
           assertStyleMatch(
             {
               margin: "0",
@@ -189,13 +187,12 @@ describe("Switch", () => {
       });
 
       describe("and labelInline=true, fieldHelpInline=false", () => {
-        const wrapper = render({
-          fieldHelpInline: false,
-          labelInline: true,
-          reverse: false,
-        }).toJSON();
-
         it("applies the correct FieldHelp styles", () => {
+          const wrapper = render({
+            fieldHelpInline: false,
+            labelInline: true,
+            reverse: false,
+          }).toJSON();
           assertStyleMatch(
             {
               marginLeft: "60px",
@@ -212,9 +209,8 @@ describe("Switch", () => {
     });
 
     describe("when fieldHelpInline=true", () => {
-      const wrapper = render({ fieldHelpInline: true }).toJSON();
-
       it("applies the correct FieldHelp styles", () => {
+        const wrapper = render({ fieldHelpInline: true }).toJSON();
         assertStyleMatch(
           {
             margin: "0",
@@ -316,10 +312,14 @@ describe("Switch", () => {
     });
 
     describe("when fieldHelpInline=true and labelInline=true", () => {
-      const wrapper = render({
-        fieldHelpInline: true,
-        labelInline: true,
-      }).toJSON();
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({
+          fieldHelpInline: true,
+          labelInline: true,
+        }).toJSON();
+      });
 
       it("applies the correct CheckableInput styles", () => {
         assertStyleMatch(
@@ -366,7 +366,11 @@ describe("Switch", () => {
 
     describe("when size=large", () => {
       describe("default", () => {
-        const wrapper = render({ size: "large" }).toJSON();
+        let wrapper;
+
+        beforeEach(() => {
+          wrapper = render({ size: "large" }).toJSON();
+        });
 
         const largeSizes = {
           height: "40px",
@@ -418,13 +422,12 @@ describe("Switch", () => {
         });
 
         describe("and reverse=false", () => {
-          const wrapper = render({
-            size: "large",
-            labelInline: true,
-            reverse: false,
-          }).toJSON();
-
           it("applies the correct FieldHelp styles", () => {
+            const wrapper = render({
+              size: "large",
+              labelInline: true,
+              reverse: false,
+            }).toJSON();
             assertStyleMatch(
               {
                 marginLeft: "78px",
@@ -547,10 +550,14 @@ describe("Switch", () => {
     "when the theme is set to %s",
     (themeName, theme) => {
       describe("default", () => {
-        const wrapper = renderWithTheme({}, theme).toJSON();
+        let wrapper;
         const expectedOutlineStyle = {
           outline: `solid 3px ${theme.colors.focus}`,
         };
+
+        beforeEach(() => {
+          wrapper = renderWithTheme({}, theme).toJSON();
+        });
 
         describe.each(["hover", "focus"])(
           "and %s is applied to the element",
@@ -588,7 +595,9 @@ describe("Switch", () => {
 });
 
 function render(props, renderer = TestRenderer.create) {
-  return renderer(<Switch name="my-switch" value="test" {...props} />);
+  return renderer(
+    <Switch onChange={() => {}} name="my-switch" value="test" {...props} />
+  );
 }
 
 function renderWithTheme(props, theme, renderer = TestRenderer.create) {

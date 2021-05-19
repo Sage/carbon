@@ -205,10 +205,9 @@ const testStyledSystemMargin = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
-    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-
     it("should set the correct margins", () => {
+      const wrapper = mount(component());
+      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
       let margin;
       let marginLeft;
       let marginRight;
@@ -273,10 +272,9 @@ const testStyledSystemPadding = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
-    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-
     it("should set the correct paddings", () => {
+      const wrapper = mount(component());
+      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
       let padding;
       let paddingLeft;
       let paddingRight;

@@ -25,7 +25,7 @@ function render(props = {}, theme = mintTheme, renderer = mount) {
   };
   return renderer(
     <ThemeProvider theme={theme}>
-      <RadioButtonGroup {...groupProps}>
+      <RadioButtonGroup name="my-radio-group" {...groupProps}>
         <RadioButton name="my-radio" value="test" {...buttonProps} />
       </RadioButtonGroup>
     </ThemeProvider>
@@ -60,7 +60,11 @@ describe("RadioButton", () => {
 
   describe("when disabled === true", () => {
     describe("default", () => {
-      const wrapper = render({ disabled: true });
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ disabled: true });
+      });
 
       it("disables the input", () => {
         const radioInput = wrapper.find("input");
@@ -89,8 +93,12 @@ describe("RadioButton", () => {
 
   describe('when size === "large"', () => {
     describe("default", () => {
-      const wrapper = getRadioButton(render({ size: "large" }));
+      let wrapper;
       const dimensions = { height: "24px", width: "24px" };
+
+      beforeEach(() => {
+        wrapper = getRadioButton(render({ size: "large" }));
+      });
 
       it("applies the correct input styles", () => {
         assertStyleMatch({ ...dimensions }, wrapper, {
@@ -121,11 +129,11 @@ describe("RadioButton", () => {
 
     describe("and reverse === true", () => {
       describe("default", () => {
-        const wrapper = getRadioButton(
-          render({ reverse: true, size: "large" })
-        );
-
         it("applies the correct FieldHelp styles", () => {
+          const wrapper = getRadioButton(
+            render({ reverse: true, size: "large" })
+          );
+
           assertStyleMatch({ padding: "0" }, wrapper, {
             modifier: `${FieldHelpStyle}`,
           });

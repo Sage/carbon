@@ -1,91 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are inline 1`] = `
-.c2 .c13 {
+.c2 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   width: 135px;
-}
-
-.c3 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c3 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c4 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c4 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c5 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c5 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c6 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c6 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c7 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c7 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c8 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c8 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c9 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c9 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c10 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c10 .c1:first-child {
-  margin-right: 15px;
 }
 
 .c0 .c1 {
@@ -98,11 +18,11 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
   margin-right: 15px;
 }
 
-.c0 .c11 {
+.c0 .sc-iqAclL {
   width: auto;
 }
 
-.c0 .c12 {
+.c0 .sc-dIsUp {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
@@ -118,7 +38,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 `;
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are not inline 1`] = `
-.c2 .c13 {
+.c2 .sc-bqGGPW {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -135,94 +55,14 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
   margin-right: 15px;
 }
 
-.c0 .c11 {
+.c0 .sc-iqAclL {
   width: auto;
 }
 
-.c0 .c12 {
+.c0 .sc-dIsUp {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
-}
-
-.c3 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c3 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c4 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c4 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c5 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c5 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c6 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c6 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c7 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c7 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c8 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c8 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c9 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.c9 .c1:first-child {
-  margin-right: 15px;
-}
-
-.c10 .c1 {
-  width: auto;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.c10 .c1:first-child {
-  margin-right: 15px;
 }
 
 <div

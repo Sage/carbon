@@ -68,14 +68,14 @@ describe("Note", () => {
           position: "relative",
           width: "100%",
         },
-        content
+        content.first()
       );
 
       assertStyleMatch(
         {
           paddingBottom: "24px",
         },
-        content,
+        content.first(),
         { modifier: ":not(:last-of-type)" }
       );
 
@@ -83,7 +83,7 @@ describe("Note", () => {
         {
           borderTop: `solid 1px ${baseTheme.tile.separator}`,
         },
-        content,
+        content.first(),
         { modifier: `+ ${StyledNoteContent}` }
       );
     });
@@ -170,7 +170,7 @@ describe("Note", () => {
         {
           alignItems: "baseline",
         },
-        wrapper.find(StyledFooterContent)
+        wrapper.find(StyledFooterContent).first()
       );
 
       assertStyleMatch(
@@ -179,7 +179,7 @@ describe("Note", () => {
           fontSize: "14px",
           marginTop: "16px",
         },
-        wrapper.find(StyledFooterContent),
+        wrapper.find(StyledFooterContent).first(),
         { modifier: ":first-of-type" }
       );
 
@@ -191,7 +191,7 @@ describe("Note", () => {
           color: baseTheme.note.timeStamp,
           marginLeft: "16px",
         },
-        wrapper.find(StyledFooterContent),
+        wrapper.find(StyledFooterContent).first(),
         { modifier: ":nth-of-type(2)" }
       );
 
@@ -204,7 +204,7 @@ describe("Note", () => {
           cursor: "pointer",
           marginLeft: "24px",
         },
-        wrapper.find(StyledFooterContent),
+        wrapper.find(StyledFooterContent).first(),
         { modifier: ":last-of-type:not(:nth-of-type(2))" }
       );
     });

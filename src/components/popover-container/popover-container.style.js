@@ -31,9 +31,9 @@ const PopoverContainerContentStyle = styled.div`
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
 
-  ${({ shouldCoverButton }) => shouldCoverButton && "top: 0"}
+  ${({ shouldCoverButton }) => shouldCoverButton && "top: 0;"}
 
-  ${({ position }) => (position === "left" ? "right: 0" : "left: 0")};
+  ${({ position }) => (position === "left" ? "right: 0;" : "left: 0;")};
 
   ${({ animationState }) => {
     switch (animationState) {

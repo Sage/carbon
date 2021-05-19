@@ -7,9 +7,9 @@ const StyledColumn = styled.div`
   width: 100%;
   ${({ columnAlign }) =>
     (columnAlign === "center" || columnAlign === "middle") &&
-    "text-align: center"}
+    "text-align: center;"}
 
-  ${({ columnAlign }) => columnAlign === "right" && "text-align: right"}
+  ${({ columnAlign }) => columnAlign === "right" && "text-align: right;"}
   ${({ columns }) => css`
     width: ${100 / columns}%;
   `}
