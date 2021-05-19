@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { DndProvider, useDrop } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
@@ -29,6 +29,15 @@ const DraggableContainer = ({ children, getOrder, ...rest }) => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children)
   );
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      setDraggableItems(React.Children.toArray(children));
+    } else {
+      isFirstRender.current = false;
+    }
+  }, [children]);
 
   const findItem = (id) => {
     const draggableItem = draggableItems.filter((item) => {
@@ -100,6 +109,10 @@ DraggableContainer.propTypes = {
     let error;
 
     React.Children.forEach(prop, (child) => {
+      if (!child) {
+        return;
+      }
+
       if (DraggableItem.displayName !== child.type.displayName) {
         error = new Error(
           `\`${componentName}\` only accepts children of type \`${DraggableItem.displayName}\`.`

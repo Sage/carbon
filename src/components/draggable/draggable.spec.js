@@ -96,6 +96,37 @@ describe("Draggable Checkbox", () => {
     expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
   });
 
+  it("accepts empty children", () => {
+    expect(() => {
+      mount(
+        <DraggableContainer>
+          {null}
+          {undefined}
+          {false}
+        </DraggableContainer>
+      );
+    }).not.toThrow();
+  });
+
+  it("updates children", () => {
+    wrapper = mount(<DraggableContainer>{null}</DraggableContainer>);
+
+    wrapper.setProps({
+      children: [
+        <DraggableItem key="1" id={1}>
+          simple content
+        </DraggableItem>,
+        <DraggableItem key="2" id={2}>
+          simple content
+        </DraggableItem>,
+      ],
+    });
+
+    wrapper.update();
+
+    expect(wrapper.find(DraggableItem).length).toBe(2);
+  });
+
   it("should render correct if isDragging enable", () => {
     wrapper = mount(<StyledDraggableItem isDragging opacity={1} />);
 
