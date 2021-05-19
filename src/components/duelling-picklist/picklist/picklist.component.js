@@ -1,30 +1,36 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
 
-import Events from "../../../utils/helpers/events";
 import { StyledPicklist, StyledEmptyContainer } from "./picklist.style";
+import FocusContext from "../duelling-picklist.context";
+import Events from "../../../utils/helpers/events";
+import PicklistGroup from "../picklist-group/picklist-group.component";
 
-export const Picklist = ({ disabled, children, placeholder }) => {
-  const isEmpty = useMemo(() => !React.Children.toArray(children).length > 0, [
+export const Picklist = ({ disabled, children, placeholder, index }) => {
+  const { elementToFocus, setElementToFocus } = useContext(FocusContext);
+
+  const isEmpty = useMemo(() => !React.Children.toArray(children).length, [
     children,
   ]);
+
+  const filteredChildren = React.Children.toArray(children);
 
   const refs = useMemo(
     () =>
       Array.from(
         {
-          length: React.Children.count(children),
+          length: filteredChildren.length,
         },
         () => React.createRef()
       ),
-    [children]
+    [filteredChildren.length]
   );
 
   const focusItem = useCallback(
-    (ev, index) => {
+    (ev, itemIndex) => {
       ev.preventDefault();
-      refs[index].current.focus();
+      refs[itemIndex].current.focus();
     },
     [refs]
   );
@@ -40,15 +46,32 @@ export const Picklist = ({ disabled, children, placeholder }) => {
     [focusItem, refs]
   );
 
-  const content = React.Children.map(
-    children,
-    (child, index) =>
+  const content = filteredChildren.map(
+    (child, childIndex) =>
       child &&
       React.cloneElement(child, {
-        ref: refs[index],
+        ref: refs[childIndex],
         disabled,
+        index: childIndex,
+        listIndex: index,
+        isLastGroup:
+          child.type === PicklistGroup &&
+          childIndex === filteredChildren.length - 1,
       })
   );
+  useEffect(() => {
+    if (
+      elementToFocus?.groupIndex === undefined &&
+      index === elementToFocus?.listIndex
+    ) {
+      if (refs[elementToFocus?.itemIndex]?.current) {
+        refs[elementToFocus.itemIndex].current.focus();
+        setElementToFocus();
+      } else {
+        setElementToFocus(0, index === 0 ? 1 : 0, elementToFocus?.groupIndex);
+      }
+    }
+  }, [elementToFocus, index, refs, setElementToFocus]);
 
   return (
     <StyledPicklist
@@ -69,6 +92,8 @@ Picklist.propTypes = {
   placeholder: PropTypes.node,
   /** Indicate if component is disabled */
   disabled: PropTypes.bool,
+  /** @private @ignore */
+  index: PropTypes.number,
 };
 
 export const areEqual = (prevProps, nextProps) => {

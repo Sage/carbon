@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-
 import {
   StyledDuellingPicklistOverlay,
   StyledDuellingPicklist,
@@ -12,6 +11,7 @@ import {
   StyledControl,
 } from "./duelling-picklist.style";
 import { Picklist } from "./picklist/picklist.component";
+import FocusContext from "./duelling-picklist.context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -28,6 +28,27 @@ const DuellingPicklist = ({
 }) => {
   const shouldDisplayLabels = leftLabel || rightLabel;
   const shouldDisplayControls = leftControls || rightControls;
+  const [elementToFocus, setElementToFocus] = useState({});
+  let pickListIndex = 0;
+
+  const addElementToFocus = (itemIndex, listIndex, groupIndex) => {
+    setElementToFocus({ itemIndex, listIndex, groupIndex });
+  };
+
+  const getIndex = () => {
+    const index = pickListIndex;
+    pickListIndex += 1;
+    return index;
+  };
+
+  const clonedChildren = React.Children.map(
+    children,
+    (child) =>
+      child &&
+      React.cloneElement(child, {
+        index: child.type === Picklist ? getIndex() : undefined,
+      })
+  );
 
   return (
     <StyledDuellingPicklistOverlay
@@ -55,7 +76,14 @@ const DuellingPicklist = ({
           </StyledControl>
         </StyledControlsContainer>
       )}
-      <StyledDuellingPicklist>{children}</StyledDuellingPicklist>
+      <FocusContext.Provider
+        value={{
+          setElementToFocus: addElementToFocus,
+          elementToFocus,
+        }}
+      >
+        <StyledDuellingPicklist>{clonedChildren}</StyledDuellingPicklist>
+      </FocusContext.Provider>
     </StyledDuellingPicklistOverlay>
   );
 };
@@ -72,7 +100,6 @@ DuellingPicklist.propTypes = {
       prop.filter((el) => el.type === Picklist).length !== 2
     ) {
       error = new Error(
-        // eslint-disable-next-line max-len
         `\`${propName}\` must have two \`${Picklist.displayName}\`s`
       );
     }
