@@ -1,3 +1,13 @@
+## [74.3.0](https://github.com/Sage/carbon/compare/v74.2.0...v74.3.0) (2021-05-19)
+
+
+### Features
+
+* **accordion-group:** allow empty children ([d925be9](https://github.com/Sage/carbon/commit/d925be9d1080e03b17174361e661fe06cabda0d6))
+* **draggable-container:** allow empty children ([6803776](https://github.com/Sage/carbon/commit/6803776c38f4aef73bf6f05c786327cae0647f4a))
+* **grid:** allow empty children ([c0ad597](https://github.com/Sage/carbon/commit/c0ad5978fd0efc55064b27667c97446ff5e43782))
+* **simple-color-picker:** allow empty children ([58da22c](https://github.com/Sage/carbon/commit/58da22c4d64975e89e5b8eac80eb4b55513ae277))
+
 ## [74.2.0](https://github.com/Sage/carbon/compare/v74.1.2...v74.2.0) (2021-05-19)
 
 
