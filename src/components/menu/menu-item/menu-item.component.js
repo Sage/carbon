@@ -18,7 +18,7 @@ import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
-import Search from "../../../__experimental__/components/search";
+import Search from "../../search";
 
 const MenuItem = ({
   submenu,
