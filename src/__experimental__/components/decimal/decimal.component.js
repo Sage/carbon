@@ -1,9 +1,16 @@
 /* eslint-disable react/no-did-update-set-state */
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import invariant from "invariant";
 import Textbox from "../textbox";
 import I18nHelper from "../../../utils/helpers/i18n";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 class Decimal extends React.Component {
   static maxPrecision = 15;
@@ -209,6 +216,8 @@ class Decimal extends React.Component {
 }
 
 Decimal.propTypes = {
+  /** Styled-system margin props */
+  ...marginPropTypes,
   /**
    * The default value alignment on the input
    */

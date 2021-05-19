@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import { mount as enzymeMount } from "enzyme";
 import I18n from "i18n-js";
 
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import Decimal from "./decimal.component";
 import Textbox from "../textbox/textbox.component";
 import Label from "../label";
+import FormFieldStyle from "../form-field/form-field.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -114,6 +116,13 @@ describe("Decimal", () => {
   };
 
   let translations;
+
+  testStyledSystemMargin(
+    (props) => <Decimal {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
 
   beforeAll(() => {
     translations = { ...I18n.translations };
