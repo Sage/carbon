@@ -1,5 +1,4 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import { css } from "styled-components";
 import Checkbox from "./checkbox.component";
@@ -21,7 +20,7 @@ import Tooltip from "../tooltip";
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
-function render(props, renderer = TestRenderer.create, options = {}) {
+function render(props, renderer = mount, options = {}) {
   return renderer(
     <Checkbox name="my-checkbox" value="test" {...props} />,
     options
@@ -30,15 +29,11 @@ function render(props, renderer = TestRenderer.create, options = {}) {
 
 describe("Checkbox", () => {
   describe("base theme", () => {
-    it("renders as expected", () => {
-      expect(render({})).toMatchSnapshot();
-    });
-
     describe("when size=large", () => {
       let wrapper;
 
       beforeEach(() => {
-        wrapper = render({ size: "large" }).toJSON();
+        wrapper = render({ size: "large" });
       });
 
       it("applies the appropriate input display element styles", () => {
@@ -104,7 +99,7 @@ describe("Checkbox", () => {
 
       describe("when labelSpacing is 2", () => {
         it("should apply the correct fieldHelp styles", () => {
-          wrapper = render({ labelSpacing: 2, size: "large" }).toJSON();
+          wrapper = render({ labelSpacing: 2, size: "large" });
           assertStyleMatch(
             {
               paddingLeft: "16px",
@@ -122,7 +117,7 @@ describe("Checkbox", () => {
     });
 
     describe("when size=large and fieldHelpInline=true", () => {
-      const wrapper = render({ fieldHelpInline: true, size: "large" }).toJSON();
+      const wrapper = render({ fieldHelpInline: true, size: "large" });
 
       it("applies the appropriate FieldHelp styles", () => {
         assertStyleMatch(
@@ -141,7 +136,7 @@ describe("Checkbox", () => {
 
     describe("when checkbox is checked", () => {
       it("renders the correct check colour", () => {
-        const wrapper = render({ checked: true }).toJSON();
+        const wrapper = render({ checked: true });
 
         assertStyleMatch(
           {
@@ -157,7 +152,7 @@ describe("Checkbox", () => {
       });
 
       describe("and disabled=true", () => {
-        const wrapper = render({ checked: true, disabled: true }).toJSON();
+        const wrapper = render({ checked: true, disabled: true });
 
         it("renders the correct check colour", () => {
           assertStyleMatch(
@@ -176,7 +171,7 @@ describe("Checkbox", () => {
     });
 
     describe("when disabled=true", () => {
-      const wrapper = render({ disabled: true }).toJSON();
+      const wrapper = render({ disabled: true });
 
       it("applies the appropriate svg wrapper styles", () => {
         assertStyleMatch(
@@ -354,7 +349,7 @@ describe("Checkbox", () => {
 
     describe("when fieldHelpInline is true", () => {
       it("renders the correct FieldHelp styles", () => {
-        const wrapper = render({ fieldHelpInline: true }).toJSON();
+        const wrapper = render({ fieldHelpInline: true });
 
         assertStyleMatch({ marginLeft: "0" }, wrapper, {
           modifier: css`
@@ -366,7 +361,7 @@ describe("Checkbox", () => {
 
     describe("when setting a custom inputWidth", () => {
       describe("default", () => {
-        const wrapper = render({ inputWidth: 50 }).toJSON();
+        const wrapper = render({ inputWidth: 50 });
 
         it("renders the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -385,7 +380,7 @@ describe("Checkbox", () => {
 
       describe("reversed", () => {
         it("renders the correct FieldHelp styles", () => {
-          const wrapper = render({ inputWidth: 50, reverse: true }).toJSON();
+          const wrapper = render({ inputWidth: 50, reverse: true });
 
           assertStyleMatch(
             {
@@ -404,7 +399,7 @@ describe("Checkbox", () => {
 
     describe("when reverse is true", () => {
       describe("default", () => {
-        const wrapper = render({ reverse: true }).toJSON();
+        const wrapper = render({ reverse: true });
 
         it("renders the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -425,7 +420,7 @@ describe("Checkbox", () => {
         const wrapper = render({
           reverse: true,
           fieldHelpInline: true,
-        }).toJSON();
+        });
 
         it("renders the correct CheckableInput styles", () => {
           assertStyleMatch(
@@ -444,7 +439,7 @@ describe("Checkbox", () => {
     });
 
     describe("when labelSpacing is 2", () => {
-      const wrapper = render({ labelSpacing: 2 }).toJSON();
+      const wrapper = render({ labelSpacing: 2 });
       assertStyleMatch(
         {
           paddingLeft: "16px",
@@ -464,7 +459,7 @@ describe("Checkbox", () => {
     "when the theme is set to %s",
     (themeName, theme) => {
       it("sets the appropriate check colour", () => {
-        const wrapper = render({ theme, checked: true }).toJSON();
+        const wrapper = render({ theme, checked: true });
 
         assertStyleMatch(
           {

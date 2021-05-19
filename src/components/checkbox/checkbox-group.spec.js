@@ -1,6 +1,5 @@
 import React from "react";
 import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
 import CheckboxGroup from "./checkbox-group.component";
 import { Checkbox } from ".";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -35,10 +34,6 @@ function render(props, childProps, renderer = mount) {
 }
 
 describe("CheckboxGroup", () => {
-  it("renders as expected", () => {
-    expect(render({}, {}, TestRenderer.create)).toMatchSnapshot();
-  });
-
   describe.each([
     ["legend", "foo"],
     ["required", true, "isRequired"],
