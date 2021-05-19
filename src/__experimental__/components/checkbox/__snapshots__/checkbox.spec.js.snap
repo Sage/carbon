@@ -416,7 +416,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 <div
   className="c0"
   data-component="checkbox"
-  name="my-checkbox"
 >
   <div
     className="c1"

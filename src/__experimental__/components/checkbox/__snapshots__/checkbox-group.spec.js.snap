@@ -155,7 +155,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
       <div
         className="c2 c3"
         data-component="checkbox"
-        name="check-required"
       >
         <div
           className="c4"
@@ -209,7 +208,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
       <div
         className="c2 c3"
         data-component="checkbox"
-        name="check-optional"
       >
         <div
           className="c4"
