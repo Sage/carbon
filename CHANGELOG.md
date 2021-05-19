@@ -1,3 +1,10 @@
+### [74.3.1](https://github.com/Sage/carbon/compare/v74.3.0...v74.3.1) (2021-05-19)
+
+
+### Bug Fixes
+
+* **checkable-inputs:** fix name prop forwarding ([0c98eab](https://github.com/Sage/carbon/commit/0c98eab2091bd656b5a393cbf1b3694c3a7dd503))
+
 ## [74.3.0](https://github.com/Sage/carbon/compare/v74.2.0...v74.3.0) (2021-05-19)
 
 
