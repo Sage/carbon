@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import Events from "../../../utils/helpers/events";
 import tagComponent from "../../../utils/helpers/tags/tags";
 import Fieldset from "../../../__internal__/fieldset";
@@ -8,6 +9,11 @@ import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
 import ValidationIcon from "../../../components/validations/validation-icon.component";
 import { InputGroupContext } from "../../../__internal__/input-behaviour";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const SimpleColorPicker = (props) => {
   const {
@@ -26,6 +32,7 @@ const SimpleColorPicker = (props) => {
     childWidth = 58,
     validationOnLegend,
     required,
+    ...rest
   } = props;
 
   const myRef = useRef(null);
@@ -200,6 +207,7 @@ const SimpleColorPicker = (props) => {
       isRequired={required}
       {...(validationOnLegend && validationProps)}
       {...tagComponent("simple-color-picker", props)}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <StyledContent>
         <InputGroupContext.Consumer>
@@ -240,6 +248,8 @@ const SimpleColorPicker = (props) => {
 };
 
 SimpleColorPicker.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** The SimpleColor components to be rendered in the group */
   children: (props, propName, componentName) => {
     let error;

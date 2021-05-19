@@ -33,6 +33,7 @@ const Dialog = ({
   showCloseIcon,
   bespokeFocusTrap,
   disableClose,
+  help,
   ...rest
 }) => {
   const dialogRef = useRef();
@@ -132,6 +133,7 @@ const Dialog = ({
             subheader={subtitle}
             subtitleId="carbon-dialog-subtitle"
             divider={false}
+            help={help}
           />
         ) : (
           title
@@ -227,6 +229,8 @@ Dialog.propTypes = {
   disableClose: PropTypes.bool,
   /** Allows developers to specify a specific height for the dialog. */
   height: PropTypes.string,
+  /** Adds Help tooltip to Header */
+  help: PropTypes.string,
   /** Title displayed at top of dialog */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Subtitle displayed at top of dialog */

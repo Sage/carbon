@@ -3,7 +3,11 @@ import TestRenderer from "react-test-renderer";
 import ReactTestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import { carbonThemeList } from "../../style/themes";
 import Browser from "../../utils/helpers/browser";
 import Portrait from "./portrait.component";
@@ -11,8 +15,7 @@ import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import {
   StyledIcon,
   StyledCustomImg,
-  StyledPortraitInitials,
-  StyledPortraitGravatar,
+  StyledPortraitContainer,
 } from "./portrait.style";
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
@@ -55,6 +58,8 @@ describe("PortraitComponent", () => {
   beforeEach(() => {
     spyOn(Browser, "getDocument").and.returnValue(mockDocumentWithCanvas);
   });
+
+  testStyledSystemMargin((props) => <Portrait {...props} />);
 
   describe("props validation", () => {
     beforeEach(() => {
@@ -188,9 +193,10 @@ describe("PortraitComponent", () => {
         const wrapper = mount(
           <Portrait size="L" darkBackground={false} onClick={onClickFn} />
         );
-        assertStyleMatch({ cursor: "pointer" }, wrapper.find(StyledIcon), {
-          modifier: `&&`,
-        });
+        assertStyleMatch(
+          { cursor: "pointer" },
+          wrapper.find(StyledPortraitContainer)
+        );
       });
     });
 
@@ -288,7 +294,7 @@ describe("PortraitComponent", () => {
         const wrapper = mount(<Portrait initials="AB" onClick={onClickFn} />);
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitInitials)
+          wrapper.find(StyledPortraitContainer)
         );
       });
     });
@@ -329,7 +335,7 @@ describe("PortraitComponent", () => {
         );
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitGravatar)
+          wrapper.find(StyledPortraitContainer)
         );
       });
     });
@@ -384,7 +390,10 @@ describe("PortraitComponent", () => {
         const wrapper = mount(
           <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />
         );
-        assertStyleMatch({ cursor: "pointer" }, wrapper.find(StyledCustomImg));
+        assertStyleMatch(
+          { cursor: "pointer" },
+          wrapper.find(StyledPortraitContainer)
+        );
       });
     });
   });

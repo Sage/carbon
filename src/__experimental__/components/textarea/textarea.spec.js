@@ -2,7 +2,10 @@ import React from "react";
 import { mount, shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import CharacterCount from "./character-count";
 import Textarea from ".";
 import baseTheme from "../../../style/themes/base";
@@ -19,6 +22,7 @@ guid.mockImplementation(() => "guid-12345");
 describe("Textarea", () => {
   let wrapper;
 
+  testStyledSystemMargin((props) => <Textarea {...props} />);
   describe("when textarea is rendered with default props", () => {
     let textarea;
 
