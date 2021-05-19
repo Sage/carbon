@@ -19,6 +19,7 @@ const Switch = ({
   reverse,
   validationOnLabel,
   labelInline,
+  name,
   adaptiveLabelBreakpoint,
   ...props
 }) => {
@@ -55,6 +56,7 @@ const Switch = ({
     onBlur,
     onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
+    name,
     label,
     inputValue: value,
     inputType: "checkbox",
@@ -107,6 +109,8 @@ Switch.propTypes = {
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The name of the the Switch input  */
+  name: PropTypes.string,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
