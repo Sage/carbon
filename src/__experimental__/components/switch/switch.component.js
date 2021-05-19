@@ -100,7 +100,7 @@ Switch.propTypes = {
   /** The content of the label for the input */
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
+  labelAlign: PropTypes.oneOf(["left", "right"]),
   /** Help text */
   labelHelp: PropTypes.node,
   /** Displays label inline with the Switch */
@@ -139,7 +139,7 @@ Switch.propTypes = {
    * Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["small", "large"]),
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
