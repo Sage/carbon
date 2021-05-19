@@ -2,19 +2,17 @@ import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import Number from ".";
-import { OriginalTextbox } from "../../../components/textbox";
-import Box from "../../../components/box";
+import { OriginalTextbox } from "../textbox";
+import Box from "../box";
 
-<Meta
-  title="Experimental/Number Input"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Number Input" parameters={{ info: { disable: true } }} />
 
 # Number
 
 Capture whole numbers - without a decimal point.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -22,8 +20,9 @@ Capture whole numbers - without a decimal point.
 ## Quick Start
 
 ```javascript
-import Number from "carbon-react/lib/__experimental__/components/number";
+import Number from "carbon-react/lib/components/number";
 ```
+
 ## Examples
 
 ### Default

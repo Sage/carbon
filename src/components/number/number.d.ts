@@ -1,5 +1,5 @@
 import * as React from "react";
-import TextboxProps from "../../../components/textbox";
+import TextboxProps from "../textbox";
 
 declare const Number: React.ComponentClass<TextboxProps>;
 

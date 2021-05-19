@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import I18n from "i18n-js";
 import Button from "../../../../src/components/button";
 import Textbox from "../../../../src/components/textbox";
-import NumberInput from "../../../../src/__experimental__/components/number";
+import NumberInput from "../../../../src/components/number";
 import Decimal from "../../../../src/__experimental__/components/decimal";
 import { Select, Option } from "../../../../src/components/select";
 import { Wrapper, ContentWrapper } from "../../common.style";
