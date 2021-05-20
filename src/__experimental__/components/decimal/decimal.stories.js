@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { number, select, boolean } from "@storybook/addon-knobs";
+import { number, select, boolean, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import I18n from "i18n-js";
 import Decimal from "./decimal.component";
 import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper";
@@ -70,9 +71,12 @@ export const Default = () => {
     action("onChange")(ev);
     setState(ev.target.value.rawValue);
   };
+  const { precision, ...props } = commonProps();
   return (
     <Decimal
-      {...commonProps()}
+      key={precision} // Don't do this in production, testing purposes only
+      {...props}
+      precision={precision}
       {...getCommonTextboxProps()}
       value={state}
       onChange={setValue}
@@ -81,6 +85,88 @@ export const Default = () => {
   );
 };
 
+export const Locale = () => {
+  const [state, setState] = useState("0.00");
+
+  // French translations
+  I18n.translations.fr = {
+    number: {
+      format: {
+        delimiter: ".",
+        separator: ",",
+      },
+    },
+  };
+
+  // Norwegian translations
+  I18n.translations.no = {
+    number: {
+      format: {
+        delimiter: " ",
+        separator: ",",
+      },
+    },
+  };
+
+  I18n.defaultLocale = "en";
+
+  const locale = select("locale", ["en", "fr", "no"]);
+
+  I18n.locale = locale;
+  I18n.currentLocale();
+
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
+  };
+  const { precision, ...props } = commonProps();
+  return (
+    <Decimal
+      key={precision} // Don't do this in production, testing purposes only
+      {...props}
+      precision={precision}
+      {...getCommonTextboxProps()}
+      value={state}
+      onChange={setValue}
+      onBlur={action("onBlur")}
+    />
+  );
+};
+
+export const Post = () => {
+  const [state, setState] = useState("0.00");
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
+  };
+  return (
+    <form method="POST" action={text("action", "")} target="_blank">
+      <p>
+        To test the hidden input go to{" "}
+        <a href="https://webhook.site">https://webhook.site</a> and generate a
+        new URL. Use this value for the <code>action</code> knob.
+      </p>
+      <Decimal
+        {...commonProps()}
+        {...getCommonTextboxProps()}
+        name={text("name", "my-decimal")}
+        value={state}
+        onChange={setValue}
+        onBlur={action("onBlur")}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
 Default.story = {
   name: "default",
+};
+
+Locale.story = {
+  name: "locale",
+};
+
+Post.story = {
+  name: "post",
 };

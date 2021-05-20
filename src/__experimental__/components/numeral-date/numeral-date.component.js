@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import I18n from "i18n-js";
 
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../utils/helpers/events";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
@@ -10,6 +12,10 @@ import Textbox from "../../../components/textbox";
 import guid from "../../../utils/helpers/guid";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const isDayValid = (day) => (day ? +day > 0 && +day < 32 : true);
 
@@ -57,6 +63,7 @@ const NumeralDate = ({
   required,
   enableInternalError,
   enableInternalWarning,
+  ...rest
 }) => {
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
@@ -168,6 +175,7 @@ const NumeralDate = ({
         fieldHelp={fieldHelp}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
         isRequired={required}
+        {...filterStyledSystemMarginProps(rest)}
       >
         <StyledNumeralDate
           name={name}
@@ -220,6 +228,8 @@ const NumeralDate = ({
 };
 
 NumeralDate.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Array of strings to define custom input layout.
   Allowed formats:
   ['dd', 'mm', 'yyyy'],

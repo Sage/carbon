@@ -1,2 +1,2 @@
-export { default } from './label-wrapper';
-export * from './label-wrapper';
+export { default } from "./label-wrapper";
+export * from "./label-wrapper";

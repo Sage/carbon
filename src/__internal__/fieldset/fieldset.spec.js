@@ -7,23 +7,28 @@ import {
   StyledLegendContainer,
   StyledFieldsetContent,
 } from "./fieldset.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 
 import ValidationIcon from "../../components/validations/validation-icon.component";
 
 const Component = () => <div />;
+const RenderComponent = (props) => (
+  <Fieldset {...props}>
+    <Component />
+  </Fieldset>
+);
 
-const render = (props) =>
-  mount(
-    <Fieldset {...props}>
-      <Component />
-    </Fieldset>
-  );
+const render = (props) => mount(<RenderComponent {...props} />);
 
 const validationTypes = ["error", "warning", "info"];
 
 describe("Fieldset", () => {
   let wrapper;
+
+  testStyledSystemMargin((props) => <RenderComponent {...props} />);
 
   it("renders passed on children", () => {
     wrapper = render();

@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import { margin } from "styled-system";
+
 import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
 import ValidationIconStyle from "../validations/validation-icon.style";
 import StyledIcon from "../icon/icon.style";
 import CheckboxStyle from "../../__experimental__/components/checkbox/checkbox.style";
+import baseTheme from "../../style/themes/base";
 
 const FieldsetStyle = styled.fieldset`
+  ${margin}
   border: none;
-  margin: 0;
   padding: 0;
 
   &&&& ${FormFieldStyle} {
@@ -18,9 +21,11 @@ const FieldsetStyle = styled.fieldset`
     padding-top: 8px;
     padding-bottom: 8px;
   }
-
-  ${({ styleOverride }) => styleOverride};
 `;
+
+FieldsetStyle.defaultProps = {
+  theme: baseTheme,
+};
 
 const LegendContainerStyle = styled.div`
   ${({ inline }) =>
@@ -43,8 +48,6 @@ const LegendContainerStyle = styled.div`
   ${ValidationIconStyle} ${StyledIcon}:focus {
     outline: 2px solid #ffb500;
   }
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 const FieldsetContentStyle = styled.div`

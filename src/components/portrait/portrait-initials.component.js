@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 import { withTheme } from "styled-components";
+
 import sizeParams from "./portrait-size.config";
 import BaseTheme from "../../style/themes/base";
 import Browser from "../../utils/helpers/browser";
@@ -11,12 +11,6 @@ import {
   StyledPortraitInitialsImg,
   getColorsForInitials,
 } from "./portrait.style";
-
-import { filterStyledSystemMarginProps } from "../../style/utils";
-
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
@@ -118,7 +112,6 @@ class PortraitInitials extends React.Component {
 }
 
 PortraitInitials.propTypes = {
-  ...marginPropTypes,
   /** The theme to use. */
   theme: PropTypes.object,
   /** The user's initials to render. */

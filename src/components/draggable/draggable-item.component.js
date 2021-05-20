@@ -1,9 +1,21 @@
 import React from "react";
 import { useDrop, useDrag } from "react-dnd";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemPaddingProps } from "../../style/utils";
 import { StyledDraggableItem } from "./draggable-item.style";
 
-const DraggableItem = ({ id, findItem, moveItem, children }) => {
+const paddingPropTypes = filterStyledSystemPaddingProps(styledSystemPropTypes);
+
+const DraggableItem = ({
+  id,
+  findItem,
+  moveItem,
+  children,
+  py = 1,
+  ...rest
+}) => {
   const originalIndex = findItem(id).index;
   const [{ isDragging }, drag] = useDrag({
     item: { type: "draggableItem", id, originalIndex },
@@ -30,11 +42,15 @@ const DraggableItem = ({ id, findItem, moveItem, children }) => {
     },
   });
 
+  const paddingProps = filterStyledSystemPaddingProps(rest);
+
   return (
     <StyledDraggableItem
       data-element="draggable"
       isDragging={isDragging}
       ref={(node) => drag(drop(node))}
+      py={py}
+      {...paddingProps}
     >
       {children}
     </StyledDraggableItem>
@@ -42,6 +58,7 @@ const DraggableItem = ({ id, findItem, moveItem, children }) => {
 };
 
 DraggableItem.propTypes = {
+  ...paddingPropTypes,
   /**
    * The id of the `DraggableItem`.
    *
@@ -50,7 +67,15 @@ DraggableItem.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   /** The content of the component. */
   children: PropTypes.node.isRequired,
+  /**
+   * @private
+   * @ignore
+   */
   findItem: PropTypes.func,
+  /**
+   * @private
+   * @ignore
+   */
   moveItem: PropTypes.func,
 };
 

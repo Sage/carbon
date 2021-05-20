@@ -9,11 +9,8 @@ import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__experimental__/components/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
-import Logger from "../../utils/logger/logger";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
-
-let deprecatedWarnTriggered = false;
 
 const Textbox = ({
   children,
@@ -24,8 +21,8 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  iconOnMouseDown,
   iconTabIndex,
-  styleOverride,
   validationOnLabel,
   labelWidth,
   inputWidth,
@@ -35,13 +32,6 @@ const Textbox = ({
   positionedChildren,
   ...props
 }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      "`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed."
-    );
-  }
-
   return (
     <InputBehaviour>
       <FormField
@@ -51,13 +41,11 @@ const Textbox = ({
         useValidationIcon={validationOnLabel}
         labelWidth={labelWidth}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        styleOverride={styleOverride}
         isRequired={required}
       >
         <InputPresentation
           type="text"
           {...removeParentProps(props)}
-          styleOverride={styleOverride.input}
           inputWidth={inputWidth || 100 - labelWidth}
           positionedChildren={positionedChildren}
         >
@@ -79,6 +67,7 @@ const Textbox = ({
             {...removeParentProps(props)}
             useValidationIcon={!validationOnLabel}
             onClick={iconOnClick || props.onClick}
+            onMouseDown={iconOnMouseDown}
             inputIcon={inputIcon}
             iconTabIndex={iconTabIndex}
           />
@@ -150,7 +139,7 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-  /** Flag to configure component as optional in Form */
+  /** [Legacy] Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
@@ -179,6 +168,8 @@ Textbox.propTypes = {
   positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
+  /** Optional handler for mousedown event on Textbox icon */
+  iconOnMouseDown: PropTypes.func,
   /** Overrides the default tabindex of the component */
   iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Handler for onClick events */
@@ -189,23 +180,11 @@ Textbox.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */
   required: PropTypes.bool,
-  /**
-   * Allows to override existing component styles
-   * @private
-   * @ignore
-   *
-   */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
   size: "medium",
-  styleOverride: {},
   validationOnLabel: false,
 };
 

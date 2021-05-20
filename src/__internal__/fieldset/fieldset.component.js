@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import {
   StyledFieldset,
@@ -8,6 +9,11 @@ import {
 } from "./fieldset.style";
 import ValidationIcon from "../../components/validations/validation-icon.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Fieldset = ({
   legend,
@@ -19,26 +25,16 @@ const Fieldset = ({
   error,
   warning,
   info,
-  ml,
-  mb,
-  styleOverride,
   isRequired,
   blockGroupBehaviour,
   ...rest
 }) => (
   <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-    <StyledFieldset
-      data-component="fieldset"
-      styleOverride={styleOverride.root}
-      ml={ml}
-      mb={mb}
-      {...rest}
-    >
+    <StyledFieldset data-component="fieldset" m={0} {...rest}>
       <StyledFieldsetContent inline={inline}>
         {legend && (
           <StyledLegendContainer
             inline={inline}
-            styleOverride={styleOverride.legend}
             width={legendWidth}
             align={legendAlign}
             rightPadding={legendSpacing}
@@ -66,6 +62,8 @@ const Fieldset = ({
 );
 
 Fieldset.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Fieldset content */
   children: PropTypes.node.isRequired,
   /** The content for the Fieldset Legend */
@@ -90,15 +88,6 @@ Fieldset.propTypes = {
   legendAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
-  /** Margin left, any valid CSS value  */
-  ml: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7]),
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
   /** If true, an asterisk will be added to the label */
   isRequired: PropTypes.bool,
   /** Controls whether group behaviour should be enabled */
@@ -107,7 +96,6 @@ Fieldset.propTypes = {
 
 Fieldset.defaultProps = {
   inline: false,
-  styleOverride: {},
 };
 
 export default Fieldset;

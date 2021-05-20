@@ -36,11 +36,11 @@ describe("CheckableInput", () => {
   }
 
   describe("helpId", () => {
-    describe("when inputLabel and labelHelp props are present", () => {
+    describe("when label and labelHelp props are present", () => {
       it("returns an appropriate helpId property", () => {
         const labelWrapper = mountInput({
           inputId: "foo",
-          inputLabel: "bar",
+          label: "bar",
           labelHelp: "baz",
         })
           .find(Label)

@@ -158,7 +158,6 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
   <div
     className="c1 c2"
     data-component="checkbox"
-    name="flat-table-checkbox"
     onClick={[Function]}
   >
     <div
@@ -369,7 +368,6 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
   <div
     className="c1 c2"
     data-component="checkbox"
-    name="flat-table-checkbox"
     onClick={[Function]}
   >
     <div

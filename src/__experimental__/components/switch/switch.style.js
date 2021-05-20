@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -18,6 +19,7 @@ const StyledSwitch = styled.div`
     size,
     theme,
   }) => css`
+    ${margin}
     ${FieldLineStyle} {
       display: flex;
       flex-flow: row wrap;

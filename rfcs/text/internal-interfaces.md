@@ -9,20 +9,39 @@ Introduce `@private` and `@ignore` JSDoc annotations to document prop types.
 # Basic example
 ```
 .
-└── src/
-    └── components/
-        ├── example/
-        │   ├── index.js
-        │   ├── index.d.ts
-        │   └── __internal__/
-        │       ├── example.component.js
-        │       └── example.styles.js
-        └── __internal__/
-            ├── utils.js
-            └── example-two/
-                ├── example-two.component.js
-                └── example-two.styles.js
+└── src
+    ├── components
+    │   ├── __internal__
+    │   │   └── example-two
+    │   │       ├── example-two.component.js
+    │   │       └── example-two.styles.js
+    │   └── example
+    │       ├── __internal__
+    │       │   ├── example-c.component.js
+    │       │   └── example.styles.js
+    │       ├── example-a.component.js
+    │       ├── example-b.component.js
+    │       ├── index.d.ts
+    │       └── index.js
+    └── utils
+        ├── __internal__
+        │   ├── example-three.js
+        │   └── example-two.js
+        ├── example.d.ts
+        └── example.js
 ```
+
+In this example we can freely make changes to the files in the `src/components/example/__internal__` folder as they are
+only consumed by the files in `src/components/example/`.
+
+Consumers can directly import from `src/components/example/index.js` or from `src/components/example/example-a.component.js`.
+We need to be mindful of breaking changes in these files.
+
+The component in `src/components/__internal__/example-two` is used by two different components, therefore it is not
+nested under a public component folder.
+
+Generally we want to focus on publishing components and not utilities, however there may be some cases where this is required.
+`src/utils/example.js` is considered public and `src/utils/__internal__/` is private.
 
 ```js
 import React from 'react';

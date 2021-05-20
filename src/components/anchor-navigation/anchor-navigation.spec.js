@@ -14,7 +14,6 @@ import {
 import {
   StyledAnchorNavigation,
   StyledNavigation,
-  StyledContent,
   StyledNavigationItem,
 } from "./anchor-navigation.style";
 
@@ -48,48 +47,6 @@ describe("AnchorNavigation", () => {
   let ref3;
   let ref4;
   let ref5;
-
-  const render = (props) => {
-    ref1 = React.createRef();
-    ref2 = React.createRef();
-    ref3 = React.createRef();
-    ref4 = React.createRef();
-    ref5 = React.createRef();
-
-    function mockFunction(options) {
-      return { options, element: this };
-    }
-    scrollIntoViewMock = jest.fn().mockImplementation(mockFunction);
-
-    Element.prototype.scrollIntoView = scrollIntoViewMock;
-
-    wrapper = mount(
-      <AnchorNavigation
-        stickyNavigation={
-          <>
-            <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref4}>
-              The slighly longer than expected fourth navigation item
-            </AnchorNavigationItem>
-            <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-          </>
-        }
-        {...props}
-      >
-        <Content ref={ref1} title="First section" />
-        <AnchorSectionDivider />
-        <Content ref={ref2} title="Second section" />
-        <AnchorSectionDivider />
-        <Content ref={ref3} title="Third section" noTextbox />
-        <AnchorSectionDivider />
-        <Content ref={ref4} title="Fourth section" />
-        <AnchorSectionDivider />
-        <Content ref={ref5} title="Fifth section" />
-      </AnchorNavigation>
-    );
-  };
 
   const renderAttached = (props) => {
     ref1 = React.createRef();
@@ -355,51 +312,5 @@ describe("AnchorNavigation", () => {
     expect(
       wrapper.find(StyledNavigationItem).at(0)
     ).not.toHaveStyleRule("background-color", { modifier: "a:hover" });
-  });
-
-  describe("style overrides", () => {
-    const randomStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    beforeEach(() => {
-      render({
-        styleOverride: {
-          root: randomStyleObject,
-          navigation: randomStyleObject,
-          content: randomStyleObject,
-        },
-      });
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledAnchorNavigation));
-    });
-
-    it("renders navigation container with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledNavigation));
-    });
-
-    it("renders content container with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledContent));
-    });
-
-    it("renders navigation item with properly assigned styles", () => {
-      const navItemWrapper = mount(
-        <AnchorNavigationItem styleOverride={randomStyleObject} />
-      );
-      assertStyleMatch(
-        randomStyleObject,
-        navItemWrapper.find(StyledNavigationItem)
-      );
-    });
-
-    it("renders section divider with properly assigned styles", () => {
-      const dividerWrapper = mount(
-        <AnchorSectionDivider styleOverride={randomStyleObject} />
-      );
-      assertStyleMatch(randomStyleObject, dividerWrapper);
-    });
   });
 });

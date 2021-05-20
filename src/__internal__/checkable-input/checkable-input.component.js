@@ -18,7 +18,7 @@ class CheckableInput extends React.Component {
   }
 
   render() {
-    const { children, onChange, onBlur, required, ...rest } = this.props;
+    const { children, onChange, onBlur, required, label, ...rest } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;
@@ -39,7 +39,7 @@ class CheckableInput extends React.Component {
       ]),
       labelId,
       helpId,
-      label: rest.inputLabel,
+      label,
       labelHelpIcon: "info",
       labelInline: rest.labelInline,
       name: id,
@@ -105,7 +105,7 @@ CheckableInput.propTypes = {
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   inputId: PropTypes.string,
   /** The content for the Label to apply to the input */
-  inputLabel: PropTypes.node,
+  label: PropTypes.node,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** When true, label is placed in line an input */

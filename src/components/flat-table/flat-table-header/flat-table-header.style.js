@@ -42,7 +42,6 @@ const StyledFlatTableHeader = styled.th`
 
     ${makeCellSticky &&
     css`
-      top: auto;
       left: ${leftPosition}px;
       position: sticky;
 

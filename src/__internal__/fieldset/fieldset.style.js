@@ -1,19 +1,14 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 
 const StyledFieldset = styled.fieldset`
-  ${({ ml, mb, theme }) => css`
-    border: none;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-    min-inline-size: 0;
-
-    ${ml && `margin-left: ${ml};`}
-    ${mb && `margin-bottom: ${mb * theme.spacing}px;`}
-    ${({ styleOverride }) => styleOverride};
-  `}
+  ${margin}
+  border: none;
+  padding: 0;
+  min-width: 0;
+  min-inline-size: 0;
 `;
 
 StyledFieldset.defaultProps = {
@@ -56,8 +51,6 @@ const StyledLegendContainer = styled.div`
         margin-left: ${theme.spacing}px;
       }
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledLegendContainer.defaultProps = {
