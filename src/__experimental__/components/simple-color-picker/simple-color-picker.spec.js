@@ -618,4 +618,22 @@ describe("SimpleColorPicker", () => {
       expect(fieldset.prop("isRequired")).toBe(true);
     });
   });
+
+  describe("children", () => {
+    it("accepts empty children", () => {
+      expect(() => {
+        mount(
+          <SimpleColorPicker
+            name={name}
+            legend="SimpleColorPicker Legend"
+            onChange={jest.fn()}
+          >
+            {null}
+            {false}
+            {undefined}
+          </SimpleColorPicker>
+        );
+      }).not.toThrow();
+    });
+  });
 });

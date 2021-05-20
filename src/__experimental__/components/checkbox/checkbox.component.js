@@ -20,6 +20,7 @@ const Checkbox = ({
   ml,
   adaptiveSpacingBreakpoint,
   required,
+  name,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -31,6 +32,7 @@ const Checkbox = ({
 
   const inputProps = {
     ...props,
+    name,
     onChange,
     onBlur,
     labelInline: true,
@@ -80,6 +82,8 @@ Checkbox.propTypes = {
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The name of the the Checkbox input  */
+  name: PropTypes.string,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
   /** Accepts a callback function which is triggered on blur event */
