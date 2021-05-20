@@ -19,6 +19,7 @@ const Switch = ({
   reverse,
   validationOnLabel,
   labelInline,
+  name,
   adaptiveLabelBreakpoint,
   ...props
 }) => {
@@ -55,6 +56,7 @@ const Switch = ({
     onBlur,
     onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
+    name,
     label,
     inputValue: value,
     inputType: "checkbox",
@@ -98,7 +100,7 @@ Switch.propTypes = {
   /** The content of the label for the input */
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
+  labelAlign: PropTypes.oneOf(["left", "right"]),
   /** Help text */
   labelHelp: PropTypes.node,
   /** Displays label inline with the Switch */
@@ -107,6 +109,8 @@ Switch.propTypes = {
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The name of the the Switch input  */
+  name: PropTypes.string,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
@@ -135,7 +139,7 @@ Switch.propTypes = {
    * Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["small", "large"]),
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */

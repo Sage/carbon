@@ -122,26 +122,31 @@ describe("Grid", () => {
       );
     });
 
-    it("requires a child", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      enzymeMount(<GridContainer />);
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        // eslint-disable-next-line max-len
-        "Warning: Failed prop type: The prop `children` is marked as required in `GridContainer`, but its value is `undefined`.\n    in GridContainer"
-      );
-      global.console.error.mockReset();
+    it("accepts empty children", () => {
+      expect(() => {
+        enzymeMount(
+          <GridContainer>
+            {null}
+            {undefined}
+            {false}
+          </GridContainer>
+        );
+      }).not.toThrow();
     });
 
-    it("rejects children if not GridItems", () => {
+    it("validates the incorrect children prop", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
       enzymeMount(
         <GridContainer>
           <p>invalid children</p>
         </GridContainer>
       );
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalled();
+
+      const expected =
+        "Warning: Failed prop type: `GridContainer` only accepts children of" +
+        " type `GridItem`.\n    in GridContainer";
+
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
       global.console.error.mockReset();
     });
 
@@ -159,7 +164,7 @@ describe("Grid", () => {
       global.console.error.mockReset();
     });
 
-    it("is a valid proptpe if children is multiple GridItems", () => {
+    it("is a valid proptype if children is multiple GridItems", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
       enzymeMount(
         <GridContainer id="testContainer">

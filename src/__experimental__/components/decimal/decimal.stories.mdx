@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import Decimal from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../../../components/button";
@@ -12,14 +13,15 @@ import Box from "../../../components/box";
 />
 
 # Decimal
+
 Captures a number with a decimal point, or a currency value.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
-
 
 ## Quick Start
 
@@ -28,6 +30,7 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 ```
 
 ## Designer Notes
+
 - For currency values, show currency symbols outside the field rather than inserting one for the user dynamically.
 - Carbon offers a Precision configuration, so you can choose how many decimal places to show.
 - Decimals are usually right-aligned, so that the decimal places of numbers presented in rows line up for easy comparison by the user.
@@ -80,13 +83,13 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="labelAlign">
-     {() => 
-      ['right', 'left'].map((alignment) => (
+    {() =>
+      ["right", "left"].map((alignment) => (
         <Decimal
           label="Decimal"
           labelInline
           inputWidth={50}
-          key={alignment} 
+          key={alignment}
           labelAlign={alignment}
           value="0.01"
         />
@@ -122,7 +125,7 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 ### With labelInline
 
 <Preview>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     <Decimal label="Decimal" value="0.01" labelInline />
   </Story>
 </Preview>
@@ -169,7 +172,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 ### Left aligned
 
-You can use the `align` prop to choose how the the characters inside the component align. 
+You can use the `align` prop to choose how the the characters inside the component align.
 In this example, `align` has been assigned the value `left`.
 
 <Preview>
@@ -272,7 +275,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Decimal
 
-<Props of={Decimal} />
+<StyledSystemProps of={Decimal} noHeader margin />
 
 ### Textbox
 
