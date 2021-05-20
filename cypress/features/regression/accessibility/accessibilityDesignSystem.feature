@@ -8,7 +8,6 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | story                |
       | default story        |
-      | styles overriden     |
       | with dynamic content |
 
   @accessibility
@@ -185,9 +184,9 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System Tile" component page "<story>" in no iframe
     Then "Tile <story>" component has no accessibility violations
     Examples:
-      | story                             |
-      | default story                     |
-      | with definition list default      |
+      | story                        |
+      | default story                |
+      | with definition list default |
 
   @accessibility
   Scenario: Design System Toast component visual story page
@@ -246,3 +245,8 @@ Feature: Accessibility tests - Design System folder
       | component           |
       | textbox             |
       | fieldset            | 
+
+  @accessibility    
+  Scenario: Image component default story
+    When I open "Design System Image" component page "default story" in no iframe
+    Then "Image default story" component has no accessibility violations

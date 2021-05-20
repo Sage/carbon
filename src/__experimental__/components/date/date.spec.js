@@ -2,6 +2,8 @@ import moment from "moment";
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
+
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import DatePicker from "./date-picker.component";
@@ -25,6 +27,8 @@ describe("StyledDateInput", () => {
 describe("Date", () => {
   let wrapper;
   let container;
+
+  testStyledSystemMargin((props) => <DateInput {...props} />);
 
   describe("external validations", () => {
     it.each([["error"], ["warning"], ["info"]])(

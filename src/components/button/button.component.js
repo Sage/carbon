@@ -178,7 +178,7 @@ Button.propTypes = {
   subtext: PropTypes.string,
   /** Ref to be forwarded */
   forwardRef: PropTypes.object,
-  /** Button types for legacy theme: "primary" | "secondary" */
+  /** [Legacy] Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Used to transform button into anchor */
   href: PropTypes.string,
@@ -186,10 +186,22 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   /** If provided, the text inside a button will not wrap */
   noWrap: PropTypes.bool,
+  /** Specify a callback triggered on blur */
+  onBlur: PropTypes.func,
+  /** Specify a callback triggered on change */
+  onChange: PropTypes.func,
+  /** pecify a callback triggered on click */
+  onClick: PropTypes.func,
+  /** Specify a callback triggered on focus */
+  onFocus: PropTypes.func,
+  /** pecify a callback triggered on keuyDown */
+  onKeyDown: PropTypes.func,
   /** Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage: PropTypes.string,
   /** Provides positioning when the tooltip is displayed. */
   iconTooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** HTML button type property */
+  type: PropTypes.string,
 };
 
 Button.defaultProps = {

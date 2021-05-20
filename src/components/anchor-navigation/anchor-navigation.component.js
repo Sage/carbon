@@ -9,21 +9,11 @@ import {
   StyledContent,
 } from "./anchor-navigation.style";
 import AnchorNavigationItem from "./anchor-navigation-item.component";
-import Logger from "../../utils/logger/logger";
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
-let deprecatedWarnTriggered = false;
-
-const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    // eslint-disable-next-line max-len
-    Logger.deprecate(
-      "`styleOverride` that is used in the `AnchorNavigation` component is deprecated and will soon be removed."
-    );
-  }
+const AnchorNavigation = ({ children, stickyNavigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const sectionRefs = useRef(
@@ -145,15 +135,10 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
   };
 
   return (
-    <StyledAnchorNavigation
-      ref={contentRef}
-      data-component="anchor-navigation"
-      styleOverride={styleOverride.root}
-    >
+    <StyledAnchorNavigation ref={contentRef} data-component="anchor-navigation">
       <StyledNavigation
         ref={navigationRef}
         data-element="anchor-sticky-navigation"
-        styleOverride={styleOverride.navigation}
       >
         {React.Children.map(stickyNavigation.props.children, (child, index) =>
           React.cloneElement(child, {
@@ -165,9 +150,7 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
           })
         )}
       </StyledNavigation>
-      <StyledContent styleOverride={styleOverride.content}>
-        {children}
-      </StyledContent>
+      <StyledContent>{children}</StyledContent>
     </StyledAnchorNavigation>
   );
 };
@@ -189,16 +172,6 @@ AnchorNavigation.propTypes = {
 
     return error;
   },
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    navigation: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
-};
-
-AnchorNavigation.defaultProps = {
-  styleOverride: {},
 };
 
 export default AnchorNavigation;

@@ -43,16 +43,31 @@ const I18nHelper = {
    * @param {Integer} precision
    * @return {String} formatted value
    */
-  formatDecimal: (valueToFormat = 0, precision = 2, options = {}) => {
+  formatDecimal: (
+    valueToFormat = 0,
+    precision = 2,
+    options = {
+      round: true,
+    }
+  ) => {
     const locale = options.locale || I18n.locale || "en";
     const { separator, delimiter } = I18nHelper.format(locale);
-    const num = new BigNumber(valueToFormat);
     const format = {
       decimalSeparator: separator,
       groupSeparator: delimiter,
       groupSize: 3,
     };
 
+    // valueToFormat is "en" formatted.
+    const [integer, remainder] = String(valueToFormat).split(".");
+
+    // `bignumber.js` rounds when remainder is greater than precision. This prevents rounding.
+    if (!options.round && remainder && remainder.length > precision) {
+      const bigInt = new BigNumber(integer);
+      const formatBigInt = bigInt.toFormat(0, format);
+      return `${formatBigInt + separator + remainder}`;
+    }
+    const num = new BigNumber(valueToFormat);
     return num.toFormat(precision, format);
   },
 
@@ -79,7 +94,7 @@ const I18nHelper = {
   },
 
   /**
-   * Abbreviates number with a `k` or `m` suffix depening on whether it's a thousand or a million
+   * Abbreviates number with a `k` or `m` suffix depending on whether it's a thousand or a million
    * billions and above abbreviate with millions
    *
    * @method abbreviateNumber
@@ -156,7 +171,7 @@ const I18nHelper = {
    *
    * @method formatCurrency
    * @param {String} valueToFormat unformatted Value
-   * @param {Object} options list of options to overide formatting from locale
+   * @param {Object} options list of options to override formatting from locale
    * @return {String} formatted value
    */
   formatCurrency: (valueToFormat = 0, options = {}) => {

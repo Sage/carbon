@@ -10,8 +10,6 @@ const FormFieldStyle = styled.div`
   &&& {
     ${space}
   }
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 FormFieldStyle.defaultProps = {

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface FieldsetProps {
+export interface FieldsetProps extends MarginProps {
   /** Child elements */
   children?: React.ReactNode;
   /** The text for the fieldsets legend element. */
@@ -9,6 +10,6 @@ export interface FieldsetProps {
   inline?: boolean;
 }
 
-declare const Fieldset: React.FunctionComponent<FieldsetProps>;
+declare function Fieldset(props: FieldsetProps): JSX.Element;
 
 export default Fieldset;

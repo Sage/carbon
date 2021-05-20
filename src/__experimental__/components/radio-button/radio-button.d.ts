@@ -1,31 +1,23 @@
-import * as React from "react";
-import {
-  AlignBinaryType,
-  SizesType,
-} from "../../../utils/helpers/options-helper/options-helper";
-import { MarginSpacingProps } from '../../../utils/helpers/options-helper';
+import { MarginProps } from "styled-system";
+import * as OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
+import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
 
-export interface RadioButtonProps extends MarginSpacingProps {
-  checked?: boolean;
-  disabled?: boolean;
-  error?: boolean | string;
-  warning?: boolean | string;
-  info?: boolean | string;
-  fieldHelpInline?: boolean;
+export interface RadioButtonProps extends CommonCheckableInputProps, MarginProps {
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   id?: string;
-  inputWidth?: number | string;
-  label?: string | React.ReactNode;
-  labelAlign?: AlignBinaryType;
-  labelSpacing?: 1 | 2;
-  labelWidth?: number | string;
-  name?: string;
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (ev: React.SyntheticEvent) => void;
-  reverse?: boolean;
-  size?: SizesType;
+  /** When true, sets the component in line (for RadioButtonGroup) */
+  inline?: boolean;
+  /** Text alignment of the label */
+  labelAlign?: OptionsHelper.AlignBinaryType;
+  /**
+   * Set the size of the radio button to 'small' (16x16 - default) or 'large' (24x24).
+   */
+  size?: OptionsHelper.SizesType;
+  /** the value of the Radio Button, passed on form submit */
   value: string;
 }
 
-declare const RadioButton: React.FunctionComponent<RadioButtonProps>;
+declare function RadioButton(props: RadioButtonProps): JSX.Element;
 
-export { RadioButton };
+export { RadioButton as PrivateRadioButton };
+export default RadioButton;

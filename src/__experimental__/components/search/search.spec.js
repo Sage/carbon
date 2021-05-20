@@ -5,7 +5,10 @@ import { Input } from "../input";
 import Button from "../../../components/button";
 import Search from "./search.component";
 import { StyledSearchButton } from "./search.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import StyledTextInput from "../input/input-presentation.style";
 import Icon from "../../../components/icon";
 import TextBox from "../../../components/textbox";
@@ -14,8 +17,11 @@ import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 describe("Search", () => {
   let wrapper, onBlur, onChange, onClick, onKeyDown;
 
+  testStyledSystemMargin((props) => <Search value="" {...props} />);
+
   const renderWrapper = (props, render = shallow) =>
     render(<Search {...props} />);
+
   describe("styles", () => {
     it("matches the expected styles", () => {
       assertStyleMatch(
@@ -346,6 +352,21 @@ describe("Search", () => {
           icon.simulate("click");
           expect(onChange).toHaveBeenCalled();
         });
+      });
+
+      it("calls preventDefault", () => {
+        const preventDefault = jest.fn();
+        act(() => {
+          const icon = wrapper
+            .find(Icon)
+            .findWhere((n) => n.props().type === "cross")
+            .hostNodes();
+          icon.simulate("mousedown", { preventDefault });
+        });
+
+        wrapper.update();
+
+        expect(preventDefault).toHaveBeenCalled();
       });
 
       it("clears the input value", () => {
