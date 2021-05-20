@@ -1,7 +1,8 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import { CommonTextboxProps } from "../textbox";
 
-export interface DecimalProps extends CommonTextboxProps {
+export interface DecimalProps extends CommonTextboxProps, MarginProps {
   /** Text alignment of the label */
   align?: "left" | "right";
   /** Allow an empty value instead of defaulting to 0.00 */
