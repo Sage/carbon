@@ -118,6 +118,7 @@ Feature: Accessibility tests - Design System folder
       | Search            |
       | Select            |
       | Select Filterable |
+      | Switch            |
       | Tabs              |
       | Textarea          |
       | Textbox           |
@@ -272,3 +273,11 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System checkbox validations" component page "required" in no iframe
     Then "Design System checkbox with asterisk" component has no accessibility violations
     
+  Scenario Outline: Design System switch component <story> story
+    When I open "Design System switch" component page "<story>" in no iframe
+    Then "Design System switch <story> story" component has no accessibility violations
+    Examples:
+      | story                                               |
+      | single switch boolean validation                    |
+      | single switch string validation                     |
+      | single switch string validation validation on label |

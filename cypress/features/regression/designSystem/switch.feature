@@ -3,7 +3,7 @@ Feature: Switch component
 
   @positive
   Scenario Outline: Change Switch component fieldHelp to <fieldHelp>
-    When I open Default "Experimental Switch Test" component in noIFrame with "switch" json from "experimental" using "<nameOfObject>" object name
+    When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -12,7 +12,7 @@ Feature: Switch component
 
   @positive
   Scenario Outline: Change Switch component label to <label>
-    When I open Default "Experimental Switch Test" component in noIFrame with "switch" json from "experimental" using "<nameOfObject>" object name
+    When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
       | label                        | nameOfObject          |
@@ -21,10 +21,10 @@ Feature: Switch component
 
   @positive
   Scenario: Enable loading property
-    When I open Default "Experimental Switch Test" component in noIFrame with "switch" json from "experimental" using "loading" object name
+    When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "loading" object name
     Then Switch component is loading
 
   @positive
   Scenario: Disable loading property
-    When I open Default "Experimental Switch Test" component in noIFrame with "switch" json from "experimental" using "loadingFalse" object name
+    When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "loadingFalse" object name
     Then Switch component is not loading
