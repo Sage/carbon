@@ -17,6 +17,11 @@ Feature: Accessibility tests - Design System folder
     Then "Accordion default page" component has no accessibility violations
 
   @accessibility
+  Scenario: Design System Advanced Color Picker component default story page
+    When I open "Design System Advanced Color Picker" component page "default story" in no iframe
+    Then "Advanced Color Picker" component has no accessibility violations
+
+  @accessibility
   Scenario Outline: Component <component> default page
     When I open "Test <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
@@ -99,24 +104,15 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System <component>" component page "default story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component             |
-      | Advanced Color Picker |
-      | Badge                 |
-      | Batch Selection       |
-      | Checkbox              |
-      | Content               |
-      | Draggable             |
-      | Hr                    |
-      | Image                 |
-      | Flat Table            |
-      | Loader                |
-      | Tile Select           |
-      | Pager                 |
-      | Search                |
-      | Select                |
-      | Select Filterable     |
-      | Tabs                  |
-      | Text Editor           |
+      | component         |
+      | Badge             |
+      | Batch Selection   |
+      | Draggable         |
+      | Flat Table        |
+      | Tile Select       |
+      | Select            |
+      | Select Filterable |
+      | Text Editor       |
 
   @accessibility
   Scenario Outline: Design System Text Editor component <story> page
@@ -126,6 +122,17 @@ Feature: Accessibility tests - Design System folder
       | story                 |
       | with content          |
       | with optional buttons |
+
+  @accessibility
+  Scenario Outline: Design System <component> component default story page
+    When I open "Design System <component>" component page "default story" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component |
+      | Content   |
+      | Loader    |
+      | Pager     |
+      | Search    |
 
   @accessibility
   Scenario Outline: Design System Select component <story> page
@@ -158,6 +165,11 @@ Feature: Accessibility tests - Design System folder
     Then "Note inline controls" component has no accessibility violations
 
   @accessibility
+  Scenario: Component Hr
+    When I open "Design System Hr" component page "default story" in no iframe
+    Then "Hr" component has no accessibility violations
+
+  @accessibility
   Scenario Outline: Component Menu <story>
     When I open "Design System Menu" component page "<story>" in no iframe
     Then "Menu <story>" component has no accessibility violations
@@ -174,6 +186,11 @@ Feature: Accessibility tests - Design System folder
       | story         |
       | default story |
       | dark theme    |
+
+  @accessibility
+  Scenario: Component Tabs
+    When I open "Design System Tabs" component page "default story" in no iframe
+    Then "Tabs" component has no accessibility violations
 
   @accessibility
   Scenario Outline: Component Tile <story>
@@ -216,12 +233,6 @@ Feature: Accessibility tests - Design System folder
     Then "Design System Tooltip Test default" component has no accessibility violations
 
   @accessibility
-  Scenario Outline: Design System checkbox component <story> story
-    When I open "Design System Checkbox validations" component page "<story>" in no iframe
-    Then "Design System Checkbox <story> story" component has no accessibility violations
-    Examples:
-      | story                              |
-      | group checkbox boolean validation  |
-      | group checkbox string validation   |
-      | single checkbox boolean validation |
-      | single checkbox string validation  |
+  Scenario: Image component default story
+    When I open "Design System Image" component page "default story" in no iframe
+    Then "Image default story" component has no accessibility violations
