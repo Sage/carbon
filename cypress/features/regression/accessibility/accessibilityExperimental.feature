@@ -15,7 +15,6 @@ Feature: Accessibility tests - Experimental folder
       | number-input        |
       | simple-color-picker |
       | switch              |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -29,7 +28,6 @@ Feature: Accessibility tests - Experimental folder
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -43,7 +41,6 @@ Feature: Accessibility tests - Experimental folder
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -57,7 +54,6 @@ Feature: Accessibility tests - Experimental folder
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story
