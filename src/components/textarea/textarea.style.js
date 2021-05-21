@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-import StyledInput from "../input/input.style";
-import { StyledLabelContainer } from "../label/label.style";
-import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import BaseTheme from "../../../style/themes/base";
+import StyledInput from "../../__experimental__/components/input/input.style";
+import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
+import BaseTheme from "../../style/themes/base";
 
 const StyledTextarea = styled.div`
   ${margin};

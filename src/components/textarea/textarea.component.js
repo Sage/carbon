@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import { InputPresentation } from "../input";
-import FormField from "../form-field";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import { InputPresentation } from "../../__experimental__/components/input";
+import FormField from "../../__experimental__/components/form-field";
 import CharacterCount from "./character-count";
-import Input from "../input/input.component";
-import { InputBehaviour } from "../../../__internal__/input-behaviour";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import Input from "../../__experimental__/components/input/input.component";
+import { InputBehaviour } from "../../__internal__/input-behaviour";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
-import InputIconToggle from "../../../__internal__/input-icon-toggle";
+import InputIconToggle from "../../__internal__/input-icon-toggle";
 
-import guid from "../../../utils/helpers/guid/guid";
+import guid from "../../utils/helpers/guid/guid";
 import StyledTextarea from "./textarea.style";
 
 const i18nNumberOpts = { precision: 0 };
