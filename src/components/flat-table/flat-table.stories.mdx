@@ -229,6 +229,61 @@ Column width can be set by passing number as a `width` prop to the column header
   </Story>
 </Preview>
 
+### With custom row background color
+
+Setting a custom background color will also override hover, highlight and row selection colors.
+
+<Preview>
+  <Story name="with custom row background color">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableRowHeader>No.</FlatTableRowHeader>
+          <FlatTableHeader />
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>1</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>2</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>3</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>4</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
 ### With truncated cell content
 
 When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping

@@ -211,6 +211,46 @@ describe("FlatTableRow", () => {
         );
       });
     });
+
+    describe.each([
+      StyledFlatTableCell,
+      StyledFlatTableRowHeader,
+      StyledFlatTableCheckbox
+    ])('with the "bgColor" also provided', (element) => {
+      it(`it overrides the ${element} "background-color"`, () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          selected: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `${element}` }
+        );
+      });
+
+      it('it overrides the cell "background-color" on hover', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          selected: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `:hover ${StyledFlatTableCell}` }
+        );
+      });
+    });
   });
 
   describe('when the "highlighted" prop is passed as true', () => {
@@ -243,6 +283,42 @@ describe("FlatTableRow", () => {
       );
     });
 
+    describe('with the "bgColor" also provided', () => {
+      it('it overrides the cell "background-color"', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          highlighted: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `${StyledFlatTableCell}` }
+        );
+      });
+
+      it('it overrides the cell "background-color" on hover', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          highlighted: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `:hover ${StyledFlatTableCell}` }
+        );
+      });
+    });
+
     describe('when the "selected" prop is also passed as true', () => {
       it('it applies the correct "background-color"', () => {
         wrapper = renderFlatTableRow({
@@ -258,6 +334,26 @@ describe("FlatTableRow", () => {
           wrapper,
           { modifier: `:hover ${StyledFlatTableCell}` }
         );
+      });
+
+      describe('with the "bgColor" also provided', () => {
+        it('it overrides the cell "background-color"', () => {
+          const customColor = "#CCCCCC";
+
+          wrapper = renderFlatTableRow({
+            selected: true,
+            highlighted: true,
+            bgColor: customColor,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              backgroundColor: customColor,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
       });
     });
   });

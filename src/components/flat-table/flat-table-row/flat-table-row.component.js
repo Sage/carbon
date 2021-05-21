@@ -29,6 +29,7 @@ const FlatTableRow = React.forwardRef(
       highlighted,
       selected,
       subRows,
+      bgColor,
     },
     ref
   ) => {
@@ -142,6 +143,7 @@ const FlatTableRow = React.forwardRef(
               rowHeaderIndex={rowHeaderIndex}
               colorTheme={colorTheme}
               stickyOffset={stickyOffset}
+              bgColor={bgColor}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -190,6 +192,8 @@ const FlatTableRow = React.forwardRef(
 );
 
 FlatTableRow.propTypes = {
+  /** Overrides default cell color */
+  bgColor: PropTypes.string,
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: PropTypes.node.isRequired,
   /** Function to handle click event. If provided the Component could be focused with tab key. */
