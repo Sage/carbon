@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../utils/helpers/tags";
 import SwitchStyle from "./switch.style";
-import CheckableInput from "../../../__internal__/checkable-input";
-import SwitchSlider from "./switch-slider.component";
-import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
+import CheckableInput from "../../__internal__/checkable-input";
+import SwitchSlider from "./__internal__/switch-slider.component";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
 const Switch = ({
   id,
@@ -21,7 +21,7 @@ const Switch = ({
   labelInline,
   name,
   adaptiveLabelBreakpoint,
-  ...props
+  ...rest
 }) => {
   const isControlled = checked !== undefined;
 
@@ -44,7 +44,7 @@ const Switch = ({
   }
 
   const switchProps = {
-    ...props,
+    ...rest,
     labelInline: inlineLabel,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
@@ -67,7 +67,7 @@ const Switch = ({
     labelInline && !reverse ? true : validationOnLabel;
 
   return (
-    <SwitchStyle {...tagComponent("Switch", props)} {...switchProps}>
+    <SwitchStyle {...tagComponent("Switch", rest)} {...switchProps}>
       <CheckableInput
         useValidationIcon={shouldValidationBeOnLabel && !disabled}
         {...inputProps}

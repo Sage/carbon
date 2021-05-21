@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import Loader from "../../../components/loader/loader.component";
+
+import Loader from "../../loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
+import ValidationIcon from "../../validations/validation-icon.component";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(

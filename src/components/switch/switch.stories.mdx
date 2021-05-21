@@ -1,13 +1,9 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
-import Switch from '.';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Switch from ".";
 
-
-<Meta
-  title="Experimental/Switch"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Design System/Switch" parameters={{ info: { disable: true } }} />
 
 # Switch
 
@@ -18,6 +14,7 @@ Disabled or read-only Switches might be difficult for a user to distinguish visu
 Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
 - [Examples](#examples)
@@ -26,10 +23,11 @@ Consider ‘smart default’ selections, based on what your user is likely to ch
 ## Quick Start
 
 ```javascript
-import Switch from "carbon-react/lib/__experimental__/components/switch"
+import Switch from "carbon-react/lib/components/switch";
 ```
 
 ## Related Components
+
 - Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--default-story "Checkbox").
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
 - Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--default-story "Select").
@@ -52,9 +50,9 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
           label="Label"
           name="switch-name"
           checked={isChecked}
-          onChange={ e => setIsChecked(e.target.checked) }
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -64,14 +62,14 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 <Preview>
   <Story name="sizes">
     {() => {
-      return ['small', 'large'].map(size =>
+      return ["small", "large"].map((size) => (
         <Switch
           label={size}
-          key={ `switch-${size}` }
-          name={ `switch-${size}` }
+          key={`switch-${size}`}
+          name={`switch-${size}`}
           size={size}
         />
-      )
+      ));
     }}
   </Story>
 </Preview>
@@ -98,9 +96,9 @@ You can use the `required` prop to indicate if the field is mandatory.
           name="required"
           required
           checked={checked}
-          onChange={ e => setState(state => !state) }
+          onChange={(e) => setState((state) => !state)}
         />
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -118,10 +116,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 <Preview>
   <Story name="With labelInline">
     <>
-      <Switch
-        label="With labelInline"
-        labelInline
-      />
+      <Switch label="With labelInline" labelInline />
       <Switch
         label="With labelInline and reversed"
         labelInline
@@ -161,10 +156,12 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### With margin
-Margins can be applied to the `Switch` component using styled-system. To see a full list of available margin props, 
+
+Margins can be applied to the `Switch` component using styled-system. To see a full list of available margin props,
 please visit the props table at the bottom of this page.
 
 [Visit Props Table](#props)
+
 <Preview>
   <Story name="with margin">
     <Switch
@@ -172,12 +169,12 @@ please visit the props table at the bottom of this page.
       labelHelp="This text provides more information for the label."
       m={2}
     />
-        <Switch
+    <Switch
       label="With labelHelp"
       labelHelp="This text provides more information for the label."
       m={4}
     />
-        <Switch
+    <Switch
       label="With labelHelp"
       labelHelp="This text provides more information for the label."
       m="9px"
@@ -199,15 +196,17 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="single switch - string validation">
-    {() => ['error', 'warning', 'info'].map(type => (
-      <Switch
-        id={ `switch${type}` }
-        key={ `switch-${type}` }
-        { ...{ [type]: 'Message' } }
-        label={ `Example switch (${type})` }
-        name={ `switch-${type}` }
-      />
-    ))}
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}`}
+          key={`switch-${type}`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}`}
+        />
+      ))
+    }
   </Story>
 </Preview>
 
@@ -215,31 +214,36 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="single switch - string validation - validationOnLabel">
-    {() => ['error', 'warning', 'info'].map(type => (
-      <Switch
-        id={ `switch${type}-label` }
-        key={ `switch-${type}-label` }
-        { ...{ [type]: 'Message' } }
-        label={ `Example switch (${type})` }
-        name={ `switch-${type}-label` }
-        validationOnLabel
-      />
-    ))}
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}-label`}
+          key={`switch-${type}-label`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-label`}
+          validationOnLabel
+        />
+      ))
+    }
   </Story>
 </Preview>
 
 #### As a boolean
+
 <Preview>
   <Story name="single switch - boolean validation">
-    {() => ['error', 'warning', 'info'].map(type => (
-      <Switch
-        id={ `switch_${type}-boolean` }
-        key={ `switch-${type}-boolean` }
-        { ...{ [type]: true } }
-        label={ `Example switch (${type})` }
-        name={ `switch-${type}-boolean` }
-      />
-    ))}
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch_${type}-boolean`}
+          key={`switch-${type}-boolean`}
+          {...{ [type]: true }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-boolean`}
+        />
+      ))
+    }
   </Story>
 </Preview>
 
