@@ -2,10 +2,11 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import invariant from "invariant";
-import createGuid from "../../../utils/helpers/guid/guid";
-import Icon from "../../icon";
 
+import createGuid from "../../utils/helpers/guid/guid";
+import Icon from "../icon";
 import {
+  StyledSidebarHeader,
   StyledDrawerWrapper,
   StyledDrawerContent,
   StyledButton,
@@ -13,28 +14,34 @@ import {
   StyledDrawerSidebar,
   StyledSidebarTitle,
 } from "./drawer.style";
+import StickyFooter from "../../__internal__/sticky-footer";
 
 const SidebarContext = React.createContext();
 
 const Drawer = ({
-  defaultExpanded,
+  defaultExpanded = true,
   expanded,
   onChange,
   children,
-  expandedWidth,
+  expandedWidth = "40%",
   sidebar,
-  animationDuration,
+  animationDuration = "400ms",
   backgroundColor,
   title,
+  footer,
   showControls,
-  height,
-  ...props
+  height = "100%",
+  stickyHeader,
+  stickyFooter,
+  ...rest
 }) => {
   const drawerSidebarContentRef = useRef();
+  const scrollableContentRef = useRef();
+
   const isControlled = useRef(expanded !== undefined);
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded || false);
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const timer = useRef();
 
   useEffect(() => {
@@ -120,12 +127,6 @@ const Drawer = ({
     );
   }, [isExpanded, isOpening, isClosing]);
 
-  const getTitle = () => {
-    if (title === undefined) return null;
-
-    return <StyledSidebarTitle>{title}</StyledSidebarTitle>;
-  };
-
   const getControls = () => {
     if (showControls === undefined) return null;
 
@@ -138,6 +139,7 @@ const Drawer = ({
         onClick={toggleDrawer}
         isExpanded={isExpanded}
         animationDuration={animationDuration}
+        stickyHeader={stickyHeader}
       >
         <Icon type="chevron_right" />
       </StyledButton>
@@ -145,7 +147,7 @@ const Drawer = ({
   };
 
   return (
-    <StyledDrawerWrapper data-component="drawer" height={height} {...props}>
+    <StyledDrawerWrapper data-component="drawer" height={height} {...rest}>
       <StyledDrawerContent
         expandedWidth={expandedWidth}
         animationDuration={animationDuration}
@@ -154,17 +156,39 @@ const Drawer = ({
         ref={drawerSidebarContentRef}
         backgroundColor={backgroundColor}
       >
-        {getTitle()}
-        {getControls()}
+        {stickyHeader && (
+          <StyledSidebarHeader isExpanded={isExpanded}>
+            {title && <StyledSidebarTitle>{title}</StyledSidebarTitle>}
+            {getControls()}
+          </StyledSidebarHeader>
+        )}
+        {!stickyHeader && (
+          <>
+            {title && <StyledSidebarTitle>{title}</StyledSidebarTitle>}
+            {getControls()}
+          </>
+        )}
         <StyledDrawerSidebar
           hasControls={!!showControls}
           id={sidebarId}
           isExpanded={isExpanded}
           role="navigation"
+          overflowY="auto"
+          scrollVariant="light"
+          ref={scrollableContentRef}
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>
             {sidebar}
           </SidebarContext.Provider>
+          {footer && (
+            <StickyFooter
+              containerRef={scrollableContentRef}
+              disableSticky={!stickyFooter}
+              isExpanded={isExpanded}
+            >
+              {footer}
+            </StickyFooter>
+          )}
         </StyledDrawerSidebar>
       </StyledDrawerContent>
       <StyledDrawerChildren>{children}</StyledDrawerChildren>
@@ -190,17 +214,16 @@ Drawer.propTypes = {
   backgroundColor: PropTypes.string,
   /** Sets custom height to Drawer component */
   height: PropTypes.string,
-  /** Sets title heading of sidebar's content */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  /** Sets the heading of the drawer */
+  title: PropTypes.node,
   /** Enables expand/collapse button that controls drawer */
   showControls: PropTypes.bool,
-};
-
-Drawer.defaultProps = {
-  expandedWidth: "40%",
-  animationDuration: "400ms",
-  defaultExpanded: true,
-  height: "100%",
+  /** Content to display inside of a footer */
+  footer: PropTypes.node,
+  /** Makes the header of the drawer sticky. Title prop must also be set. */
+  stickyHeader: PropTypes.bool,
+  /** Makes the footer of the drawer sticky. Footer prop must also be set. */
+  stickyFooter: PropTypes.bool,
 };
 
 export { SidebarContext };

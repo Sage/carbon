@@ -1,3 +1,19 @@
+## [74.5.0](https://github.com/Sage/carbon/compare/v74.4.0...v74.5.0) (2021-05-21)
+
+
+### Features
+
+* **drawer:** add sticky footer option ([42de058](https://github.com/Sage/carbon/commit/42de058c7438c090b2af3f900aba5a6efdb95fe5))
+* **drawer:** add sticky header option ([6ffd744](https://github.com/Sage/carbon/commit/6ffd7449ace605b20233f3c8c246f4a777414904))
+* **sticky-footer:** add new internal sticky footer component ([b3383a7](https://github.com/Sage/carbon/commit/b3383a706f44b7e253149a9613e94aef95f52943))
+
+## [74.4.0](https://github.com/Sage/carbon/compare/v74.3.1...v74.4.0) (2021-05-21)
+
+
+### Features
+
+* **grouped-character:** add styled-system margin support ([04c5055](https://github.com/Sage/carbon/commit/04c50556bf03120e284459ae11a808a37442627f))
+
 ### [74.3.1](https://github.com/Sage/carbon/compare/v74.3.0...v74.3.1) (2021-05-19)
 
 

@@ -12,11 +12,14 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     expandedWidth="20%"
     theme="[ theme object ]"
   >
-    <styled.div
+    <Styled(styled.div)
       hasControls={false}
       id="DrawerSidebar_guid-123"
       isExpanded={true}
+      overflowY="auto"
       role="navigation"
+      scrollVariant="light"
+      theme="[ theme object ]"
     >
       <ContextProvider
         value={
@@ -37,7 +40,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
           </li>
         </ul>
       </ContextProvider>
-    </styled.div>
+    </Styled(styled.div)>
   </styled.div>
   <styled.div>
     content body content body content body content body content body content body content body
