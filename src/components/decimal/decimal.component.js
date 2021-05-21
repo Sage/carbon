@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import invariant from "invariant";
-import Textbox from "../../../components/textbox";
-import I18nHelper from "../../../utils/helpers/i18n";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import Textbox from "../textbox";
+import I18nHelper from "../../utils/helpers/i18n/i18n";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -223,7 +223,7 @@ Decimal.propTypes = {
    */
   align: PropTypes.string,
   /**
-   * The decimal precision of the value in the input
+   * The decimal precision of the value in the input (a number greater than 0 or equal to or less than 15)
    */
   // eslint-disable-next-line consistent-return
   precision: (props) => {

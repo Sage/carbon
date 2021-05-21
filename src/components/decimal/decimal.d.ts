@@ -13,15 +13,15 @@ export interface DecimalProps extends CommonTextboxProps, MarginProps {
   id?: string;
   /** The width of the input as a percentage */
   inputWidth?: number;
-  /** Handler for change event if input is meant to be used as a controlled component */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Handler for blur event */
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Handler for key press event */
   onKeyPress?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Handler for blur event */
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** The input name */
   name?: string;
-  /** The decimal precision of the value in the input */
+  /** A number greater than 0 or equal to or less than 15 */
   precision?: number;
   /** If true, the component will be read-only */
   readOnly?: boolean;
