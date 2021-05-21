@@ -1,6 +1,5 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import TestRenderer from "react-test-renderer";
 
 import {
   assertStyleMatch,
@@ -133,10 +132,6 @@ describe("Textarea", () => {
 
     it("should have not a CharacterCount as it's child", () => {
       expect(wrapper.find(CharacterCount).exists()).toBe(false);
-    });
-
-    it("should render default", () => {
-      expect(renderTextarea({}, TestRenderer.create)).toMatchSnapshot();
     });
 
     it("should only have a placeholder if not disabled", () => {
