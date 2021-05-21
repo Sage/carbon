@@ -6,6 +6,7 @@ import StyledIcon from "../../../components/icon/icon.style";
 import StyledButton from "../../../components/button/button.style";
 import { baseTheme } from "../../../style/themes";
 import StyledFormField from "../form-field/form-field.style";
+import StyledInputIconToggle from "../input-icon-toggle/input-icon-toggle.style";
 
 const StyledSearch = styled.div`
   ${({
@@ -154,6 +155,7 @@ const StyledSearch = styled.div`
             color: ${theme.search.icon};
           `
         }
+
         width: 20px;
         height: 20px;
         cursor: pointer;
@@ -169,7 +171,16 @@ const StyledSearch = styled.div`
               color: ${theme.search.iconHover};
             `
           }
-        };
+        }
+      }
+
+      ${StyledInputIconToggle} {
+        ${
+          searchHasValue &&
+          css`
+            margin-bottom: -1px;
+          `
+        }
       }
     `;
   }}
