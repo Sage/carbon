@@ -18,24 +18,18 @@ const DatePicker = ({
   maxDate,
   selectedDate,
   disablePortal,
-  size,
 }) => {
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
   );
   const ref = useRef(null);
 
-  const popoverModifiers = useMemo(() => {
-    let overhang = 11;
-
-    if (size === "small") overhang = 8;
-    if (size === "large") overhang = 13;
-
-    return [
+  const popoverModifiers = useMemo(
+    () => [
       {
         name: "offset",
         options: {
-          offset: [-overhang, 5],
+          offset: [0, 3],
         },
       },
       {
@@ -44,8 +38,9 @@ const DatePicker = ({
           mainAxis: false,
         },
       },
-    ];
-  }, [size]);
+    ],
+    []
+  );
 
   useEffect(() => {
     let monthDate;
@@ -120,8 +115,6 @@ DatePicker.propTypes = {
   selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Callback to set selected date */
   handleDateSelect: PropTypes.func,
-  /** Size of an input */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 /**
