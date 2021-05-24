@@ -6,7 +6,10 @@ jobs:
   cypress:
      # if not a fork
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    container: 
+      image: cypress/browsers:node14.16.0-chrome89-ff86
+      options: "--privileged"
     timeout-minutes: 15
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -22,10 +25,15 @@ jobs:
             11, 12, 13, 14, 15,
             16, 17, 18, 19, 20
             ]
-    container: cypress/browsers:node14.16.0-chrome89-ff86
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Increase watchers
+        run: | 
+          echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+      - name: Check amaunt of watchers
+        run: |
+          sysctl fs.inotify
       # Restore the previous NPM modules and Cypress binary archives.
       # Any updated archives will be saved automatically after the entire
       # workflow successfully finishes.
