@@ -30,4 +30,18 @@ describe("FlatTableHeader", () => {
       { modifier: "&&& > div" }
     );
   });
+
+  describe('with the "alternativeBgColor" prop set', () => {
+    it('it overrides the header "background-color"', () => {
+      const wrapper = mount(<FlatTableHeader alternativeBgColor />);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "#1A475B",
+        },
+        wrapper.find(StyledFlatTableHeader),
+        { modifier: "&&&" }
+      );
+    });
+  });
 });

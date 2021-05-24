@@ -327,6 +327,57 @@ Setting a custom background color will also override hover, highlight and row se
   </Story>
 </Preview>
 
+### With alternative header background
+
+<Preview>
+  <Story name="with alternative header background">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader rowspan="2">Name</FlatTableHeader>
+          <FlatTableHeader colspan="2">Location</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
+          <FlatTableHeader alternativeBgColor>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Scotland</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
 ### With truncated cell content
 
 When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping

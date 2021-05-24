@@ -4,7 +4,14 @@ import { padding } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableHeader = styled.th`
-  ${({ align, theme, colWidth, leftPosition, makeCellSticky }) => css`
+  ${({
+    align,
+    alternativeBgColor,
+    theme,
+    colWidth,
+    leftPosition,
+    makeCellSticky,
+  }) => css`
     background-color: transparent;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
@@ -18,10 +25,12 @@ const StyledFlatTableHeader = styled.th`
     white-space: nowrap;
     word-break: keep-all;
     padding: 0;
-    ${colWidth &&
-    css`
-      width: ${colWidth}px;
-    `}
+    ${
+      colWidth &&
+      css`
+        width: ${colWidth}px;
+      `
+    }
 
     /* accommodate for no border in the header first cell */
     &:first-child {
@@ -33,15 +42,26 @@ const StyledFlatTableHeader = styled.th`
         box-sizing: border-box;
         ${padding}
 
-        ${colWidth &&
-        css`
-          width: ${colWidth}px;
-        `}
+        ${
+          colWidth &&
+          css`
+            width: ${colWidth}px;
+          `
+        }
       }
     }
 
-    ${makeCellSticky &&
-    css`
+    ${
+      alternativeBgColor &&
+      css`
+      &&& {
+        background-color: ${theme.flatTable.headerAlternativeBackground}`
+    }
+    };
+
+    ${
+      makeCellSticky &&
+      css`
       left: ${leftPosition}px;
       position: sticky;
 
@@ -53,7 +73,8 @@ const StyledFlatTableHeader = styled.th`
             padding-right: 0.6em;
           }
         }
-    `}
+    `
+    }
   `}
 `;
 

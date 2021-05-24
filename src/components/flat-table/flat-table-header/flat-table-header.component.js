@@ -79,6 +79,8 @@ FlatTableHeader.propTypes = {
    * Callback to report the offsetWidth
    */
   reportCellWidth: PropTypes.func,
+  /** If true sets alternative background color */
+  alternativeBgColor: PropTypes.bool,
 };
 
 FlatTableHeader.defaultProps = {
