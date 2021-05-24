@@ -6,7 +6,10 @@ import { SimpleColor, SimpleColorPicker } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import baseTheme from "../../../style/themes/base";
 import { StyledLegendContainer } from "../../../__internal__/fieldset/fieldset.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import Fieldset from "../../../__internal__/fieldset";
 
@@ -50,7 +53,19 @@ describe("SimpleColorPicker", () => {
     expect(render()).toMatchSnapshot();
   });
 
-  describe("it renders childs in rows based on maxWidth and childWith", () => {
+  describe("Styled System", () => {
+    testStyledSystemMargin((props) => (
+      <SimpleColorPicker
+        legend="SimpleColorPicker Legend"
+        name="test"
+        {...props}
+      >
+        <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
+      </SimpleColorPicker>
+    ));
+  });
+
+  describe("it renders children in rows based on maxWidth and childWith", () => {
     let wrapper, onChange, secondColor;
 
     describe("onKeyDown", () => {
@@ -601,6 +616,24 @@ describe("SimpleColorPicker", () => {
     it("the isRequired prop is passed to the fieldset", () => {
       const fieldset = wrapper.find(Fieldset);
       expect(fieldset.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("children", () => {
+    it("accepts empty children", () => {
+      expect(() => {
+        mount(
+          <SimpleColorPicker
+            name={name}
+            legend="SimpleColorPicker Legend"
+            onChange={jest.fn()}
+          >
+            {null}
+            {false}
+            {undefined}
+          </SimpleColorPicker>
+        );
+      }).not.toThrow();
     });
   });
 });

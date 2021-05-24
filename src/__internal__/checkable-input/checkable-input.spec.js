@@ -5,7 +5,7 @@ import "jest-styled-components";
 import { css } from "styled-components";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";
-import FieldHelpStyle from "../../__experimental__/components/field-help/field-help.style";
+import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
 import Label from "../../__experimental__/components/label";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
@@ -36,11 +36,11 @@ describe("CheckableInput", () => {
   }
 
   describe("helpId", () => {
-    describe("when inputLabel and labelHelp props are present", () => {
+    describe("when label and labelHelp props are present", () => {
       it("returns an appropriate helpId property", () => {
         const labelWrapper = mountInput({
           inputId: "foo",
-          inputLabel: "bar",
+          label: "bar",
           labelHelp: "baz",
         })
           .find(Label)

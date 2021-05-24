@@ -1,1 +1,1 @@
-export { default } from './numeral-date';
+export { default } from "./numeral-date";

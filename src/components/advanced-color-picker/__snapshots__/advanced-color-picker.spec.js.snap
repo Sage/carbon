@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AdvancedColorPicker when uncontrolled should render internal composition to match uncontrolled snapshot 1`] = `
-<styled.div>
+<styled.div
+  m="15px auto auto 15px"
+  theme="[ theme object ]"
+>
   <styled.button
     color="#EBAEDE"
     data-element="color-picker-cell"

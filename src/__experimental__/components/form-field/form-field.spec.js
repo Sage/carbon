@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import FormField from ".";
-import FieldHelp from "../field-help";
+import FieldHelp from "../../../__internal__/field-help";
 import { FieldLineStyle } from "./form-field.style";
 import Label from "../label/label.component";
 import { TabContext } from "../../../components/tabs/tab";

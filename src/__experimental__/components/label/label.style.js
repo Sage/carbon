@@ -68,8 +68,6 @@ export const StyledLabelContainer = styled.div`
         }
       `}
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledLabelContainer.defaultProps = {
@@ -87,7 +85,6 @@ StyledLabelContainer.propTypes = {
   readOnly: PropTypes.bool,
   pr: PropTypes.number,
   pl: PropTypes.number,
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 export default LabelStyle;

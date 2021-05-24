@@ -591,33 +591,6 @@ Accordion adjust it's height properly when it's content is being dynamically cha
   </Story>
 </Preview>
 
-### With overriden styles
-
-Accordion styles can be easily overriden by providing `styleOverride` prop with proper structure as defined in propTypes.
-
-<Preview>
-  <Story name="styles overriden" parameters={{ chromatic: { disable: true } }}>
-    <Accordion
-      title="Heading"
-      styleOverride={{
-        headerArea: {
-          padding: "24px",
-          marginLeft: "calc(15% - 24px)",
-        },
-        content: { paddingLeft: 0 },
-      }}
-    >
-      <Textbox
-        label="Label 1"
-        labelInline
-        labelAlign="right"
-        labelWidth={15}
-        inputWidth={85}
-      />
-    </Accordion>
-  </Story>
-</Preview>
-
 ### With a definition list
 
 Accordion with a definiton list

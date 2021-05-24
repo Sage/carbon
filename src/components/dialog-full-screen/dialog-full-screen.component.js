@@ -23,11 +23,11 @@ const DialogFullScreen = ({
   disableContentPadding,
   disableEscKey,
   onCancel,
+  contentRef,
+  help,
   ...rest
 }) => {
   const dialogRef = useRef();
-  const headingRef = useRef();
-  const contentRef = useRef();
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -44,7 +44,7 @@ const DialogFullScreen = ({
   };
 
   const dialogTitle = () => (
-    <FullScreenHeading hasContent={title} ref={headingRef}>
+    <FullScreenHeading hasContent={title}>
       {typeof title === "string" ? (
         <Heading
           title={title}
@@ -52,6 +52,7 @@ const DialogFullScreen = ({
           subheader={subtitle}
           subtitleId="carbon-dialog-subtitle"
           divider={false}
+          help={help}
         />
       ) : (
         title
@@ -115,6 +116,8 @@ DialogFullScreen.propTypes = {
   disableAutoFocus: PropTypes.bool,
   /** Determines if the Esc Key closes the Dialog */
   disableEscKey: PropTypes.bool,
+  /** Adds Help tooltip to Header */
+  help: PropTypes.string,
   /** remove padding from content */
   disableContentPadding: PropTypes.bool,
   /** Child elements */
@@ -129,6 +132,11 @@ DialogFullScreen.propTypes = {
   headerChildren: PropTypes.node,
   /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
   pagesStyling: PropTypes.bool,
+  /** Reference to the scrollable content element */
+  contentRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 export default DialogFullScreen;

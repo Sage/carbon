@@ -440,6 +440,7 @@ const FilterableSelect = React.forwardRef(
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick,
+        iconOnMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
         onKeyDown: handleTextboxKeydown,

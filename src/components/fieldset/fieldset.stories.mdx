@@ -6,6 +6,7 @@ import {
   RadioButtonGroup,
 } from "../../__experimental__/components/radio-button";
 import { Select, Option } from "../select";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Textbox from "../textbox";
 import Form from "../form";
 
@@ -141,7 +142,7 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
             label="ZIP Code"
             labelInline
             labelAlign="right"
-            styleOverride={{ input: { width: "120px", flex: "none" } }}
+            inputWidth={10}
           />
         </Fieldset>
       ))}
@@ -182,7 +183,7 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
             label="ZIP Code"
             labelInline
             labelAlign="right"
-            styleOverride={{ input: { width: "120px", flex: "none" } }}
+            inputWidth={10}
           />
         </Fieldset>
       ))}
@@ -221,7 +222,7 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
             label="ZIP Code"
             labelInline
             labelAlign="right"
-            styleOverride={{ input: { width: "120px", flex: "none" } }}
+            inputWidth={10}
           />
         </Fieldset>
       ))}
@@ -233,4 +234,9 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
 
 ### Fieldset
 
-<Props of={Fieldset} />
+<<<<<<< HEAD:src/components/fieldset/fieldset.stories.mdx
+
+# <Props of={Fieldset} />
+
+<StyledSystemProps of={Fieldset} noHeader margin />
+>>>>>>> origin/master:src/__experimental__/components/fieldset/fieldset.stories.mdx

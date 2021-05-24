@@ -14,6 +14,8 @@ exports[`Modal enableBackgroundUI when enableBackgroundUI is false renders child
         appear={true}
         classNames="modal-background"
         key="modal"
+        onEntered={[Function]}
+        onExiting={[Function]}
         timeout={500}
       >
         <styled.div

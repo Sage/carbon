@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Box from "../box";
 import Portrait from ".";
@@ -136,4 +138,4 @@ To see a full list of available margin props, please visit the props table at th
 
 ### Portrait
 
-<Props of={Portrait} />
+<StyledSystemProps of={Portrait} noHeader margin />

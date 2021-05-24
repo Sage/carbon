@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import FieldHelpStyle from "../../__experimental__/components/field-help/field-help.style";
+import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, {

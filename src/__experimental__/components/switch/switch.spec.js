@@ -9,7 +9,7 @@ import I18n from "i18n-js";
 import Switch from ".";
 import CheckableInput from "../../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import FieldHelpStyle from "../field-help/field-help.style";
+import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledLabelContainer } from "../label/label.style";
 import StyledSwitchSlider from "./switch-slider.style";
@@ -18,6 +18,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import { baseTheme } from "../../../style/themes";
@@ -30,6 +31,10 @@ jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Switch", () => {
+  describe("Styled System", () => {
+    testStyledSystemMargin((props) => <Switch {...props} />);
+  });
+
   describe("uncontrolled behaviour", () => {
     it("sets proper default internal state", () => {
       const wrapper = render({ defaultChecked: true }, mount);

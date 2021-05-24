@@ -1,5 +1,7 @@
-import * as React from 'react';
+import { StyledComponentProps } from "styled-components";
 
-declare const ActionPopoverDivider: React.FunctionComponent;
+declare function ActionPopoverDivider(
+  attrs: StyledComponentProps<"div", {}, {}, "">
+): JSX.Element;
 
 export default ActionPopoverDivider;

@@ -1,2 +1,2 @@
-export { default } from './menu-divider';
-export * from './menu-divider';
+export { default } from "./menu-divider";
+export * from "./menu-divider";
