@@ -7,7 +7,7 @@ import Button from "../../button";
 import MultiActionButton from "../../multi-action-button";
 import { Table, TableCell, TableHeader, TableRow } from "..";
 import TextArea from "../../textarea";
-import DateInput from "../../../__experimental__/components/date";
+import DateInput from "../../date";
 import TextBox from "../../textbox";
 import { getCommonTextboxProps } from "../../textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";

@@ -4,8 +4,8 @@ import I18n from "i18n-js";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
 
-import Popover from "../../../__internal__/popover";
-import DateHelper from "../../../utils/helpers/date/date";
+import Popover from "../../__internal__/popover";
+import DateHelper from "../../utils/helpers/date/date";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
 import StyledDayPicker from "./day-picker.style";

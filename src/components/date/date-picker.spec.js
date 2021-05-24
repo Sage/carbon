@@ -9,8 +9,8 @@ import DayPicker from "react-day-picker";
 
 import DatePicker from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";
-import Popover from "../../../__internal__/popover";
-import { noThemeSnapshot } from "../../../__spec_helper__/enzyme-snapshot-helper";
+import Popover from "../../__internal__/popover";
+import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
 const inputElement = {
   value: "12-12-2012",

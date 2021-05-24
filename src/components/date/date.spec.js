@@ -1,27 +1,32 @@
 import moment from "moment";
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertStyleMatch,
+} from "../../__spec_helper__/test-utils";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
-import InputPresentationStyle from "../input/input-presentation.style";
-import InputIconToggle from "../../../__internal__/input-icon-toggle";
+import InputIconToggle from "../../__internal__/input-icon-toggle";
 import DatePicker from "./date-picker.component";
-import Textbox from "../../../components/textbox";
+import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
-import DateHelper from "../../../utils/helpers/date/date";
-import { isEdge } from "../../../utils/helpers/browser-type-check";
-import Label from "../label";
+import DateHelper from "../../utils/helpers/date/date";
+import { isEdge } from "../../utils/helpers/browser-type-check";
+import Label from "../../__experimental__/components/label";
+import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
-jest.mock("../../../utils/helpers/browser-type-check");
+jest.mock("../../utils/helpers/browser-type-check");
 
 describe("StyledDateInput", () => {
   it("renders correctly for default theme", () => {
-    const wrapper = TestRenderer.create(<StyledDateInput size="large" />);
-    expect(wrapper).toMatchSnapshot();
+    assertStyleMatch(
+      { flex: "none", width: "140px" },
+      mount(<StyledDateInput size="large" />),
+      { modifier: `& ${StyledInputPresentation}` }
+    );
   });
 });
 
@@ -64,9 +69,10 @@ describe("Date", () => {
   });
 
   describe.each(["value", "defaultValue"])(
-    "when the %s is  an empty string",
+    "when the %s is an empty string",
     (prop) => {
       const currentDate = getFormattedDate(moment());
+
       it('then the input element value should be set to today if the "allowEmptyValue" prop is falsy', () => {
         wrapper = render({ [prop]: "" });
         simulateBlurOnInput(wrapper);
@@ -105,6 +111,7 @@ describe("Date", () => {
 
       container = null;
     });
+
     it("then component's input should be focused after render", () => {
       wrapper = render({ autoFocus: true });
       const input = wrapper
@@ -851,7 +858,7 @@ describe("datepicker container", () => {
     expect(wrapper.find(DatePicker).exists()).toBe(true);
 
     expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
-      wrapper.find(InputPresentationStyle).getDOMNode()
+      wrapper.find(StyledInputPresentation).getDOMNode()
     );
   });
 });
@@ -879,8 +886,8 @@ describe("required", () => {
   });
 });
 
-function render(props, renderer = mount) {
-  return renderer(<DateInput {...props} />, {
+function render(props = {}) {
+  return mount(<DateInput {...props} />, {
     attachTo: document.getElementById("enzymeContainer"),
   });
 }

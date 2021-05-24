@@ -10,7 +10,7 @@ import StyledInput from "../../../__experimental__/components/input/input.style"
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
 import mintTheme from "../../../style/themes/mint";
-import Date from "../../../__experimental__/components/date";
+import Date from "../../date";
 import TextArea from "../../textarea";
 import TextBox from "../../textbox";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";

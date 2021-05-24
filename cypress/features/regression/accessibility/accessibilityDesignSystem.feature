@@ -109,6 +109,7 @@ Feature: Accessibility tests - Design System folder
       | Batch Selection   |
       | Checkbox          |
       | Content           |
+      | Date Input        |
       | Draggable         |
       | Fieldset          |
       | Flat Table        |
@@ -228,6 +229,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textarea            |
+      | date-input          |
       | textbox             |
       | fieldset            |
 
@@ -238,6 +240,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textarea            |
+      | date-input          |
       | textbox             |
       | fieldset            |
 
@@ -248,6 +251,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | textarea            |
+      | date-input          |
       | textbox             |
       | fieldset            | 
 
