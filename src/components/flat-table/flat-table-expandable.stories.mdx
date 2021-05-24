@@ -472,6 +472,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
         return [
           <FlatTableRow selected={selectedRows[row].subOne}>
             <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
@@ -486,6 +487,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
           </FlatTableRow>,
           <FlatTableRow selected={selectedRows[row].subTwo}>
             <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
@@ -520,6 +522,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
@@ -537,6 +540,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("one")}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one.parent}
                   onChange={() => handleSelectRow("one", "parent")}
                 />
@@ -557,6 +561,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("two")}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two.parent}
                   onChange={() => handleSelectRow("two", "parent")}
                 />
@@ -577,6 +582,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("three")}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three.parent}
                   onChange={() => handleSelectRow("three", "parent")}
                 />
@@ -597,6 +603,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("four")}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four.parent}
                   onChange={() => handleSelectRow("four", "parent")}
                 />
@@ -663,6 +670,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
       const SubRows = [
         <FlatTableRow>
           <FlatTableCheckbox
+            onClick={(e) => e.stopPropagation()}
             selectable={false}
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
@@ -674,6 +682,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
         </FlatTableRow>,
         <FlatTableRow>
           <FlatTableCheckbox
+            onClick={(e) => e.stopPropagation()}
             selectable={false}
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
@@ -704,6 +713,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
@@ -723,6 +733,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
@@ -739,6 +750,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
@@ -754,7 +766,8 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 expandable
                 subRows={SubRows}
               >
-                <FlatTableCheckbox
+                <FlatTableCheckbox 
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
@@ -771,6 +784,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
@@ -860,6 +874,7 @@ By writing your own selectable logic, the child rows only can be made selectable
             highlighted={highlightedRow === `${row}.subOne`}
           >
             <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
@@ -874,6 +889,7 @@ By writing your own selectable logic, the child rows only can be made selectable
             highlighted={highlightedRow === `${row}.subTwo`}
           >
             <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
@@ -904,6 +920,7 @@ By writing your own selectable logic, the child rows only can be made selectable
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
@@ -921,7 +938,7 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("one")}
               >
-                <FlatTableCheckbox selectable={false} />
+                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
@@ -933,7 +950,7 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("two")}
               >
-                <FlatTableCheckbox selectable={false} />
+                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
@@ -945,7 +962,7 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("three")}
               >
-                <FlatTableCheckbox selectable={false} />
+                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
@@ -957,7 +974,7 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("four")}
               >
-                <FlatTableCheckbox selectable={false} />
+                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
