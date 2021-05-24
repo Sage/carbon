@@ -6,6 +6,11 @@ import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
 
+const horizontalBorderSizes = {
+  medium: "2px",
+  large: "4px",
+};
+
 const stickyColumnFocusStyling = (index, theme) => {
   return `
     border-bottom: 1px solid transparent;
@@ -59,6 +64,12 @@ const StyledFlatTableRow = styled.tr`
   ${StyledFlatTableRowHeader},
   ${StyledFlatTableCheckbox} {
     ${({ bgColor }) => bgColor && `background-color: ${bgColor};`}
+    ${({ horizontalBorderSize, theme }) =>
+      horizontalBorderSize !== "small" &&
+      css`
+        border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
+          ${theme.table.secondary};
+      `}
   }
 
   ${({ stickyOffset }) =>
@@ -260,6 +271,7 @@ const StyledFlatTableRow = styled.tr`
 
 StyledFlatTableRow.defaultProps = {
   theme: baseTheme,
+  horizontalBorderSize: "small",
 };
 
 export default StyledFlatTableRow;

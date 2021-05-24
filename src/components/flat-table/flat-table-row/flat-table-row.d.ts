@@ -1,5 +1,7 @@
 import * as React from "react";
 
+export type TableBorderSize = "small" | "medium" | "large";
+
 export interface FlatTableRowProps {
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: React.ReactNode;
@@ -11,6 +13,8 @@ export interface FlatTableRowProps {
   expandableArea?: "wholeRow" | "firstColumn";
   /** Allows developers to manually control highlighted state for the row. */
   highlighted?: boolean;
+  /** Sets the weight of the bottom border in the row */
+  horizontalBorderSize?: TableBorderSize;
   /** Function to handle click event. If provided the Component could be focused with tab key. */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Allows developers to manually control selected state for the row. */

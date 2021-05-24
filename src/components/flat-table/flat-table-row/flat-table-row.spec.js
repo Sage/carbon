@@ -1052,6 +1052,31 @@ describe("FlatTableRow", () => {
         });
       });
     });
+
+    describe.each([
+      ["medium", "2px solid #CCD6DB"],
+      ["large", "4px solid #CCD6DB"],
+    ])(
+      "when the horizontalBorderSize prop is set to %s",
+      (horizontalBorderSize, expectedValue) => {
+        let wrapper;
+
+        it("it overrides the cell bottom-border size", () => {
+          wrapper = renderFlatTableRow({
+            highlighted: true,
+            horizontalBorderSize,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              borderBottom: expectedValue,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
+      }
+    );
   });
 });
 
