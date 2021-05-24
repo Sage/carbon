@@ -20,7 +20,10 @@ import { toColor } from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/browser-type-check");
-jest.mock("@tippyjs/react/headless");
+jest.mock("@tippyjs/react/headless", () => ({
+  __esModule: true,
+  default: ({ children }) => children,
+}));
 
 function render(props, renderer = shallow) {
   return renderer(<Icon type="add" {...props} />);
@@ -148,9 +151,57 @@ describe("Icon component", () => {
 
       it("renders properly colored Icon when hovered", () => {
         const wrapper = mount(<Icon color={color} type="message" />);
+        expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
+          "color",
+          shade(0.2, toColor(baseTheme, color)),
+          { modifier: ":hover" }
+        );
+      });
+
+      it("takes precedence over iconColor and renders properly colored Icon with tooltip", () => {
+        const wrapper = mount(
+          <Icon
+            type="home"
+            color={color}
+            bg={color}
+            tooltipMessage="tooltip message"
+          />
+        );
+
+        assertStyleMatch(
+          {
+            color: toColor(baseTheme, color),
+          },
+          wrapper.find(StyledIcon)
+        );
+        assertStyleMatch(
+          {
+            backgroundColor: toColor(baseTheme, color),
+          },
+          wrapper.find(StyledIcon)
+        );
+      });
+
+      it("renders properly colored Icon with tooltip when hovered", () => {
+        const wrapper = mount(
+          <Icon
+            type="home"
+            color={color}
+            bg={color}
+            tooltipMessage="tooltip message"
+          />
+        );
+
         assertStyleMatch(
           {
             color: shade(0.2, toColor(baseTheme, color)),
+          },
+          wrapper.find(StyledIcon),
+          { modifier: ":hover" }
+        );
+        assertStyleMatch(
+          {
+            backgroundColor: shade(0.2, toColor(baseTheme, color)),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }
@@ -170,11 +221,9 @@ describe("Icon component", () => {
 
       it("renders properly colored Icon when hovered", () => {
         const wrapper = mount(<Icon bg={color} type="message" />);
-        assertStyleMatch(
-          {
-            backgroundColor: shade(0.2, toColor(baseTheme, color)),
-          },
-          wrapper.find(StyledIcon),
+        expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
+          "background-color",
+          shade(0.2, toColor(baseTheme, color)),
           { modifier: ":hover" }
         );
       });
@@ -244,7 +293,10 @@ describe("Icon component", () => {
       "when the background theme is %s",
       (darkIconBackground) => {
         it("renders a dark icon", () => {
-          const wrapper = renderStyles({ bgTheme: darkIconBackground });
+          const wrapper = renderStyles({
+            bgTheme: darkIconBackground,
+            isInteractive: true,
+          });
           assertStyleMatch(
             {
               color: baseTheme.icon.default,
@@ -281,6 +333,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({
           iconColor: "on-light-background",
           bgTheme: "none",
+          isInteractive: true,
         });
         assertStyleMatch(
           {
@@ -319,6 +372,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({
           iconColor: "business-color",
           bgTheme: "none",
+          isInteractive: true,
         });
         assertStyleMatch(
           {
@@ -366,13 +420,14 @@ describe("Icon component", () => {
     describe.each(["info", "error", "success", "warning"])(
       "when bgTheme is set to one of the statuses",
       (status) => {
-        const wrapper = renderStyles({ bgTheme: status });
+        const wrapper = renderStyles({ bgTheme: status, isInteractive: true });
         const hoverColors = {
           info: "#005C9B",
           error: "#9F2D3F",
           success: "#008D00",
           warning: "#BA5000",
         };
+
         it(`renders proper background color for ${status}`, () => {
           assertStyleMatch(
             {
@@ -393,7 +448,10 @@ describe("Icon component", () => {
     );
 
     describe("when bgTheme is set to business", () => {
-      const wrapper = renderStyles({ bgTheme: "business" });
+      const wrapper = renderStyles({
+        bgTheme: "business",
+        isInteractive: true,
+      });
 
       it("renders proper background color", () => {
         assertStyleMatch(
