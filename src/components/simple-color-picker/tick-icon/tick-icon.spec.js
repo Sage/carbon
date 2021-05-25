@@ -1,8 +1,8 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledTickIcon from "./tick-icon.style";
-import baseTheme from "../../../../style/themes/base";
+import baseTheme from "../../../style/themes/base";
 
 function render(props) {
   return TestRenderer.create(<StyledTickIcon {...props} type="tick" />);

@@ -1,10 +1,10 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 
-import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSimpleColorInput from "./simple-color-input.style";
 import StyledColorSampleBox from "../color-sample-box/color-sample-box.style";
-import baseTheme from "../../../../style/themes/base";
+import baseTheme from "../../../style/themes/base";
 
 function render(props) {
   return TestRenderer.create(<StyledSimpleColorInput {...props} />);

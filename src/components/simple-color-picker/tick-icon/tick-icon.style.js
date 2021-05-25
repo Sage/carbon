@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import Icon from "../../../../components/icon";
-import getRgbValues from "../../../../style/utils/get-rgb-values";
-import baseTheme from "../../../../style/themes/base";
+import Icon from "../../icon";
+import getRgbValues from "../../../style/utils/get-rgb-values";
+import baseTheme from "../../../style/themes/base";
 
 const getIconColor = (color, theme) => {
   const rgbValues = getRgbValues(color);
