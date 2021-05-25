@@ -3,8 +3,22 @@ import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
 
+const verticalBorderSizes = {
+  small: "1px",
+  medium: "2px",
+  large: "4px",
+};
+
 const StyledFlatTableRowHeader = styled.th`
-  ${({ align, theme, colWidth, leftPosition, isTruncated, expandable }) => css`
+  ${({
+    align,
+    theme,
+    colWidth,
+    leftPosition,
+    isTruncated,
+    expandable,
+    verticalBorder,
+  }) => css`
     background-color: #fff;
     border: 1px solid ${theme.table.secondary};
     border-top: none;
@@ -50,6 +64,13 @@ const StyledFlatTableRowHeader = styled.th`
     ${expandable &&
     css`
       white-space: nowrap;
+    `}
+
+    ${verticalBorder &&
+    css`
+      &&& {
+        border-right-width: ${verticalBorderSizes[verticalBorder]};
+      }
     `}
   `}
 `;

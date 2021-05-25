@@ -81,6 +81,8 @@ FlatTableHeader.propTypes = {
   reportCellWidth: PropTypes.func,
   /** If true sets alternative background color */
   alternativeBgColor: PropTypes.bool,
+  /** Sets a custom vertical right border */
+  verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 FlatTableHeader.defaultProps = {

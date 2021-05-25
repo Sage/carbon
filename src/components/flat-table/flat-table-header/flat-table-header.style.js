@@ -3,6 +3,12 @@ import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
 
+const verticalBorderSizes = {
+  small: "1px",
+  medium: "2px",
+  large: "4px",
+};
+
 const StyledFlatTableHeader = styled.th`
   ${({
     align,
@@ -11,6 +17,7 @@ const StyledFlatTableHeader = styled.th`
     colWidth,
     leftPosition,
     makeCellSticky,
+    verticalBorder,
   }) => css`
     background-color: transparent;
     border-width: 0;
@@ -74,6 +81,15 @@ const StyledFlatTableHeader = styled.th`
           }
         }
     `
+    }
+
+    ${
+      verticalBorder &&
+      css`
+        &&& {
+          border-right-width: ${verticalBorderSizes[verticalBorder]};
+        }
+      `
     }
   `}
 `;

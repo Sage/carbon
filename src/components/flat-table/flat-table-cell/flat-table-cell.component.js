@@ -120,6 +120,8 @@ FlatTableCell.propTypes = {
    * Callback to report the offsetWidth
    */
   reportCellWidth: PropTypes.func,
+  /** Sets a custom vertical right border */
+  verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 export default FlatTableCell;

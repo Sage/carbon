@@ -44,4 +44,26 @@ describe("FlatTableHeader", () => {
       );
     });
   });
+
+  describe.each([
+    ["small", "1px"],
+    ["medium", "2px"],
+    ["large", "4px"],
+  ])(
+    "when the verticalBorder prop is set to %s",
+    (verticalBorder, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the header border-right-width", () => {
+        wrapper = mount(<FlatTableHeader verticalBorder={verticalBorder} />);
+        assertStyleMatch(
+          {
+            borderRightWidth: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
 });

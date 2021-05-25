@@ -1,5 +1,6 @@
 import * as React from "react";
 import { PaddingProps } from "styled-system";
+import { TableBorderSize } from "..";
 
 export interface FlatTableRowHeaderProps extends PaddingProps {
   /** Content alignment */
@@ -11,6 +12,8 @@ export interface FlatTableRowHeaderProps extends PaddingProps {
   truncate?: boolean;
   /** Title text to display if cell content truncates */
   title?: string;
+  /** Sets a custom vertical right border */
+  verticalBorder?: TableBorderSize;
 }
 
 declare function FlatTableRowHeader(props: FlatTableRowHeaderProps): JSX.Element;

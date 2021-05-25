@@ -1,6 +1,5 @@
 import * as React from "react";
-
-export type TableBorderSize = "small" | "medium" | "large";
+import { TableBorderSize } from "..";
 
 export interface FlatTableRowProps {
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */

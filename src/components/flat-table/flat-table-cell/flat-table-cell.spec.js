@@ -79,4 +79,26 @@ describe("FlatTableRowCell", () => {
       });
     });
   });
+
+  describe.each([
+    ["small", "1px solid #CCD6DB"],
+    ["medium", "2px solid #CCD6DB"],
+    ["large", "4px solid #CCD6DB"],
+  ])(
+    "when the verticalBorder prop is set to %s",
+    (verticalBorder, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the cell border-right size", () => {
+        wrapper = mount(<FlatTableRowCell verticalBorder={verticalBorder} />);
+        assertStyleMatch(
+          {
+            borderRight: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
 });
