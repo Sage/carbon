@@ -70,10 +70,6 @@ export { default as MyComponent } from "./my-component"; // If the js export typ
 export { MySubComponent } from "./my-sub-component/my-sub-component";
 ```
 
-#### Shared types
-
-Any types which can be used in multiple components should be defined in the [options helper file](../src/utils/helpers/options-helper/options-helper.d.ts) and imported into the interface file for usage.
-
 ### Linting
 
 #### TSLint

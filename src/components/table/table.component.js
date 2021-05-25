@@ -14,7 +14,6 @@ import TableSubheader from "./table-subheader";
 import DraggableTableCell from "./draggable-table-cell";
 import Pager from "../pager";
 import Loader from "../loader";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Logger from "../../utils/logger/logger";
 
 let deprecatedWarnTriggered = false;
@@ -581,9 +580,16 @@ Table.propTypes = {
   /** The HTML id of the element that contains a description of this table. */
   "aria-describedby": PropTypes.string,
   /** Renders as 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent' */
-  theme: PropTypes.oneOf(OptionsHelper.tableThemes),
+  theme: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "dark",
+    "light",
+    "transparent",
+  ]),
   /** Used to define the tables size Renders as:  'compact', 'small', 'medium' and 'large' */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes),
+  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
   /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool,
   /** Set if data is passive and requires no hover added styling */
@@ -612,8 +618,8 @@ Table.childContextTypes = {
 };
 
 Table.defaultProps = {
-  theme: OptionsHelper.tableThemes[0],
-  size: OptionsHelper.tableSizes[2],
+  theme: "primary",
+  size: "medium",
 };
 
 export {

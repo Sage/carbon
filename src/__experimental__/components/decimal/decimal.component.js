@@ -255,7 +255,7 @@ Decimal.propTypes = {
   /**
    * The default value alignment on the input
    */
-  align: PropTypes.string,
+  align: PropTypes.oneOf(["right", "left"]),
   /**
    * The decimal precision of the value in the input
    */

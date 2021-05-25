@@ -3,9 +3,15 @@ import { text, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 
 import SplitButton from "./split-button.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Box from "../box";
+import { ICONS } from "../icon/icon-config";
+import {
+  SPLIT_BUTTON_ALIGNMENTS,
+  SPLIT_BUTTON_ICON_POSITIONS,
+  SPLIT_BUTTON_SIZES,
+  SPLIT_BUTTON_THEMES,
+} from "./split-button.config";
 
 export default {
   title: "Split Button/Test",
@@ -26,13 +32,11 @@ const getIconKnobs = () => {
   const hasIcon = boolean("has icon", false);
 
   return {
-    iconType: hasIcon
-      ? select("iconType", [...OptionsHelper.icons, ""], "")
-      : undefined,
+    iconType: hasIcon ? select("iconType", [ICONS, ""], "") : undefined,
     iconPosition: hasIcon
       ? select(
           "iconPosition",
-          [...OptionsHelper.buttonIconPositions],
+          [...SPLIT_BUTTON_ICON_POSITIONS],
           defaultPosition
         )
       : undefined,
@@ -43,21 +47,17 @@ const getKnobs = () => {
   return {
     buttonType: select(
       "buttonType",
-      OptionsHelper.themesBinary,
+      SPLIT_BUTTON_THEMES,
       Button.defaultProps.as
     ),
     dataElement: text("data-element"),
     dataRole: text("data-role"),
     disabled: boolean("disabled", Button.defaultProps.disabled),
     onClick: (ev) => action("click")(ev),
-    size: select(
-      "size",
-      OptionsHelper.sizesRestricted,
-      Button.defaultProps.size
-    ),
+    size: select("size", SPLIT_BUTTON_SIZES, Button.defaultProps.size),
     align: select(
       "align",
-      OptionsHelper.alignBinary,
+      SPLIT_BUTTON_ALIGNMENTS,
       SplitButton.defaultProps.align
     ),
     textContent: text("text", "Example Split Button"),

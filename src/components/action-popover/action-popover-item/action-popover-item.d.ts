@@ -1,5 +1,5 @@
+import { IconTypes } from "components/icon/icon-types";
 import * as React from "react";
-import { IconTypes } from "../../../utils/helpers/options-helper/options-helper";
 import { ActionPopoverMenuProps } from "../action-popover-menu/action-popover-menu";
 
 export interface ActionPopoverItemProps {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { text, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Confirm from ".";
+import { CONFIRM_SIZES } from "./confirm.config";
 
 export default {
   title: "Confirm/Test",
@@ -23,11 +23,7 @@ export const Default = () => {
   const disableEscKey = boolean("disableEscKey", false);
   const height = text("height", "");
   const subtitle = text("subtitle", "");
-  const size = select(
-    "size",
-    OptionsHelper.sizesFull,
-    Confirm.defaultProps.size
-  );
+  const size = select("size", CONFIRM_SIZES, Confirm.defaultProps.size);
   const showCloseIcon = boolean(
     "showCloseIcon",
     Confirm.defaultProps.showCloseIcon

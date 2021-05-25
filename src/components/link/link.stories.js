@@ -1,8 +1,9 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Link from "./link.component";
+import { ICONS } from "../icon/icon-config";
+import { LINK_ALIGNMENTS, LINK_POSITIONS } from "./link.config";
 
 export default {
   title: "Link/Test",
@@ -22,16 +23,12 @@ export const Default = () => {
   const children = text("children", "Link");
   const disabled = boolean("disabled", false);
   const href = text("href");
-  const icon = select("icon", ["", ...OptionsHelper.icons], "");
-  const iconAlign = select("iconAlign", OptionsHelper.alignBinary, "left");
+  const icon = select("icon", ["", ...ICONS], "");
+  const iconAlign = select("iconAlign", LINK_ALIGNMENTS, "left");
   const tabbable = boolean("tabbable", true);
   const tooltipMessage = icon ? text("tooltipMessage", "") : undefined;
   const tooltipPosition = tooltipMessage
-    ? select(
-        "tooltipPosition",
-        OptionsHelper.positions,
-        OptionsHelper.positions[0]
-      )
+    ? select("tooltipPosition", LINK_POSITIONS, LINK_POSITIONS[0])
     : undefined;
   const hasOnClick = boolean("onClick", false);
   const onClick = hasOnClick ? action("click") : undefined;

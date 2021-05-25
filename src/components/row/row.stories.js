@@ -1,8 +1,7 @@
 import React from "react";
 import { text, boolean, select } from "@storybook/addon-knobs";
-
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { Row, Column } from ".";
+import { ROW_SIZES } from "./row.config";
 
 export default {
   title: "Row/Test",
@@ -20,11 +19,7 @@ export default {
 
 export const Default = () => {
   const columnDivide = boolean("columnDivide", true);
-  const gutter = select(
-    "gutter",
-    OptionsHelper.sizesFull,
-    Row.defaultProps.gutter
-  );
+  const gutter = select("gutter", ROW_SIZES, Row.defaultProps.gutter);
 
   const columnAlign = select(
     "columnAlign",

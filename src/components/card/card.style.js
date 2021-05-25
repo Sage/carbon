@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
-
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import { CARD_SIZES } from "./card.config";
 
 const paddingSizes = {
   small: "0 24px",
@@ -62,7 +61,7 @@ StyledCard.propTypes = {
   cardWidth: PropTypes.string,
   interactive: PropTypes.bool,
   draggable: PropTypes.bool,
-  spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  spacing: PropTypes.oneOf(CARD_SIZES),
   theme: PropTypes.object,
 };
 

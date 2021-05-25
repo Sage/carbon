@@ -7,7 +7,6 @@ import Icon from "components/icon";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import BaseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -15,6 +14,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
+import { BUTTON_VARIANTS } from "./button.config";
 
 const render = (props, renderer = shallow) => {
   return renderer(<Button {...props} />);
@@ -99,7 +99,7 @@ describe("Button", () => {
     describe.each(["before", "after"])(
       'when position is set to "%s"',
       (position) => {
-        describe.each(OptionsHelper.buttonTypes)(
+        describe.each(BUTTON_VARIANTS)(
           "and the button type is %s",
           (buttonType) => {
             let wrapper;
@@ -125,7 +125,7 @@ describe("Button", () => {
   });
 
   describe("When icon type is specified and button has no children", () => {
-    describe.each(OptionsHelper.buttonTypes)(
+    describe.each(BUTTON_VARIANTS)(
       "and the button type is %s",
       (buttonType) => {
         let wrapper;

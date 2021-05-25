@@ -1,6 +1,5 @@
 import * as React from "react";
 import { PaddingProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 export interface PopoverContainerProps extends PaddingProps {
   /** The element that will open popover-container */
@@ -10,7 +9,7 @@ export interface PopoverContainerProps extends PaddingProps {
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
-  position?: OptionsHelper.AlignBinaryType;
+  position?: "left" | "right";
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */

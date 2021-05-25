@@ -3,7 +3,6 @@ import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import I18n from "i18n-js";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import MessageStyle from "./message.style";
 import Message from "./message.component";
 import {
@@ -81,7 +80,7 @@ describe("Message", () => {
 
   describe("when transparent prop is not passed", () => {
     it("should render the message with border in a proper color and a white background", () => {
-      OptionsHelper.messages.forEach((messageType) => {
+      ["info", "error", "success", "warning"].forEach((messageType) => {
         assertStyleMatch(
           {
             border: `1px solid ${baseTheme.colors[messageType]}`,

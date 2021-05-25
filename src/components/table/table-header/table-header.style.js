@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 import StyledIcon from "../../icon/icon.style";
 
 const StyledTableHeader = styled.th`
@@ -78,7 +77,7 @@ function applySortableStyling(align, colors, table) {
 
 StyledTableHeader.propTypes = {
   /** Sets the alignment from the content */
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
 
   /** Toggles whether column is sortable */
   sortable: PropTypes.bool,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { CardSizes } from "./card-types";
 
 export interface CardProps extends MarginProps {
   /** action to be executed when card is clicked or enter pressed */
@@ -13,7 +13,7 @@ export interface CardProps extends MarginProps {
   /** flag to indicate if card is draggable */
   draggable?: boolean;
   /** size of card for applying padding (small | medium | large) */
-  spacing?: OptionsHelper.SizesRestricted;
+  spacing?: CardSizes;
   dataRole?: string;
 }
 

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import StyledTableHeader from "./table-header.style";
 import Icon from "../../icon";
 import { validProps } from "../../../utils/ether/ether";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 
 /**
  * A TableHeader widget.
@@ -180,7 +179,7 @@ class TableHeader extends React.Component {
 
 TableHeader.propTypes = {
   /** Aligns the content of the cell (can be "left", "center" or "right"). */
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
 
   /** The body of the content component. */
   children: PropTypes.node,

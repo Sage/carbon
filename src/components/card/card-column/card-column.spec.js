@@ -2,9 +2,9 @@ import React from "react";
 import { shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CardColumn from "./card-column.component";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import "jest-styled-components";
+import { CARD_ALIGNS } from "../card.config";
 
 describe("CardColumn", () => {
   describe("when the content is added as children", () => {
@@ -22,21 +22,18 @@ describe("CardColumn", () => {
     });
   });
 
-  describe.each(OptionsHelper.alignFull)(
-    'when the "align" prop is set to %s',
-    (align) => {
-      it(`then the text-align should be set to ${align}`, () => {
-        const wrapper = renderCardColumn({ align }, TestRenderer.create);
+  describe.each(CARD_ALIGNS)('when the "align" prop is set to %s', (align) => {
+    it(`then the text-align should be set to ${align}`, () => {
+      const wrapper = renderCardColumn({ align }, TestRenderer.create);
 
-        assertStyleMatch(
-          {
-            textAlign: align,
-          },
-          wrapper.toJSON()
-        );
-      });
-    }
-  );
+      assertStyleMatch(
+        {
+          textAlign: align,
+        },
+        wrapper.toJSON()
+      );
+    });
+  });
 });
 
 function renderCardColumn(props = {}, renderer = shallow) {

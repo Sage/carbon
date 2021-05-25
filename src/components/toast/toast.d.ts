@@ -1,13 +1,12 @@
 import * as React from "react";
-import * as OptionsHelper from "../../utils/helpers/options-helper";
 
 export interface ToastPropTypes {
   /** The rendered children of the component. */
   children: React.ReactNode;
   /** Customizes the appearance in the DLS theme */
-  variant?: OptionsHelper.ColorTypes;
+  variant?: "default" | "error" | "help" | "info" | "maintenance" | "new" | "success" | "warning";
   /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
-  as?: OptionsHelper.ColorTypes;
+  as?: "default" | "error" | "help" | "info" | "maintenance" | "new" | "success" | "warning";
   /** Custom className */
   className?: string;
   /** Custom id  */

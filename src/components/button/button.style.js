@@ -5,8 +5,13 @@ import propTypes from "@styled-system/prop-types";
 
 import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import StyledIcon from "../icon/icon.style";
+import {
+  BUTTON_ICON_POSITIONS,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from "./button.config";
+import { ICONS } from "../icon/icon-config";
 
 const StyledButton = styled.button`
   ${space}
@@ -112,17 +117,17 @@ StyledButton.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
   /** Button types for new business themes */
-  buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
+  buttonType: PropTypes.oneOf(BUTTON_VARIANTS),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
   /** Defines an Icon position within the button */
-  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, ""]),
+  iconPosition: PropTypes.oneOf([...BUTTON_ICON_POSITIONS, ""]),
   /** Defines an Icon type within the button (see Icon for options) */
-  iconType: PropTypes.oneOf([...OptionsHelper.icons, ""]),
+  iconType: PropTypes.oneOf([...ICONS, ""]),
   /** Assigns a size to the button */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(BUTTON_SIZES),
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
 };

@@ -1,11 +1,11 @@
 import * as React from "react";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { ButtonToggleIconSizes } from "./button-toggle-types";
 
 export interface ButtonToggleProps {
   /** buttonIcon to render. */
   buttonIcon?: string;
   /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize?: OptionsHelper.SizesType;
+  buttonIconSize?: ButtonToggleIconSizes;
   /** Set the checked value of the radio button */
   checked?: boolean;
   /** A required prop. This is the button text. */

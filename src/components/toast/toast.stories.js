@@ -3,7 +3,7 @@ import { select, text, boolean, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Toast from ".";
 import Button from "../button";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import { TOAST_COLORS } from "./toast.config";
 
 export default {
   title: "Design System/Toast/Test",
@@ -40,7 +40,7 @@ export const Default = () => {
       <Button onClick={handleOpen}>Open Toast</Button>
 
       <Toast
-        variant={select("variant", OptionsHelper.colors, "warning")}
+        variant={select("variant", TOAST_COLORS, "warning")}
         isCenter={boolean("isCenter", true)}
         id="toast-dismissible"
         open={isOpen}

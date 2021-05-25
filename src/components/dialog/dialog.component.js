@@ -14,8 +14,7 @@ import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Form from "../form";
-
-const TOP_MARGIN = 20;
+import { TOP_MARGIN } from "./dialog.config";
 
 const Dialog = ({
   className,

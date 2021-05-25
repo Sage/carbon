@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { padding } from "styled-system";
 import PropTypes from "prop-types";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 import BaseTheme from "../../../style/themes/base";
-
-const { sizesRestricted } = OptionsHelper;
+import { CARD_SIZES } from "../card.config";
 
 const StyledCardRow = styled.div`
   ${padding}
@@ -12,7 +10,7 @@ const StyledCardRow = styled.div`
 `;
 
 StyledCardRow.propTypes = {
-  spacing: PropTypes.oneOf(sizesRestricted),
+  spacing: PropTypes.oneOf(CARD_SIZES),
 };
 
 StyledCardRow.defaultProps = {

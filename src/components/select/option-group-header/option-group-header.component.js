@@ -15,7 +15,11 @@ const OptionGroupHeader = ({ label, icon }) => {
 OptionGroupHeader.propTypes = {
   /** Heading text */
   label: PropTypes.string.isRequired,
-  /** Any valid Carbon icon name */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Any valid Carbon icon name
+   */
   icon: PropTypes.string,
 };
 
