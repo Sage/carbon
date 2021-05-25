@@ -19,7 +19,7 @@ Then("icon on link component preview is {string}", (iconName) => {
 });
 
 Then("Link is tabbable", () => {
-  linkPreview().children().should("have.attr", "tabindex", "0");
+  linkPreview().children().wait(100).should("have.attr", "tabindex", "0");
 });
 
 Then("Link is not tabbable", () => {

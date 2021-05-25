@@ -86,6 +86,7 @@ Then("accordionRow is expanded", () => {
 
 Then("accordionRow has golden border outline", () => {
   accordionDefaultTitle()
+    .wait(100)
     .should("have.css", "outline", "rgb(255, 181, 0) solid 2px")
     .and("be.visible");
 });
@@ -93,6 +94,7 @@ Then("accordionRow has golden border outline", () => {
 Then("Accordion {int} row is focused", (index) => {
   accordionTitleContainerByPosition(index)
     .parent()
+    .wait(100)
     .should("have.css", "outline", "rgb(255, 181, 0) solid 2px")
     .and("be.visible");
 });

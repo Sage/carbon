@@ -73,11 +73,14 @@ When("I focus on cross icon", () => {
 Then("Cross icon has golden border", () => {
   searchCrossIcon()
     .parent()
+    .wait(100)
     .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });
 
 Then("search icon has golden border", () => {
-  searchButton().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  searchButton()
+    .wait(100)
+    .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });
 
 Then("search icon has proper inner color", () => {

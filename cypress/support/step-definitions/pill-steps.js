@@ -17,13 +17,13 @@ When("I focus Pill close icon", () => {
 });
 
 Then("Pill close icon has golden border outline", () => {
-  pillCloseIcon().should(
-    "have.css",
-    "box-shadow",
-    "rgb(255, 181, 0) 0px 0px 0px 3px"
-  );
+  pillCloseIcon()
+    .wait(100)
+    .should("have.css", "box-shadow", "rgb(255, 181, 0) 0px 0px 0px 3px");
 });
 
 Then("Pill close icon has {string} backgroundColor", (backgroundColor) => {
-  pillCloseIcon().should("have.css", "background-color", backgroundColor);
+  pillCloseIcon()
+    .wait(100)
+    .should("have.css", "background-color", backgroundColor);
 });

@@ -30,7 +30,7 @@ When(
   "I press keyboard {string} key times {int} on actionPopover open icon",
   (key, times) => {
     for (let i = 0; i < times; i++) {
-      actionPopoverButton().first().trigger("keydown", keyCode(key));
+      actionPopoverButton().wait(100).first().trigger("keydown", keyCode(key));
     }
   }
 );
@@ -68,7 +68,7 @@ When("I press Enter onto {int} submenu actionPopoverInnerItem", (element) => {
 });
 
 When("I press {word} on first element", (key) => {
-  actionPopoverButton().first().trigger("keydown", keyCode(key));
+  actionPopoverButton().wait(100).first().trigger("keydown", keyCode(key));
 });
 
 Then("{string} action was called in Actions Tab for actionPopover", (event) => {

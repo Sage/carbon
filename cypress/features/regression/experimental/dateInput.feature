@@ -31,6 +31,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario: Change Date Input component minDate
     Given I open "Experimental Date Input Test" component page "default"
+      And I wait 100
       And I set minDate to today
       And I set dateInput to today
     When I choose date yesterday via DayPicker
@@ -39,6 +40,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario: Change Date Input component maxDate
     Given I open "Experimental Date Input Test" component page "default"
+      And I wait 100
       And I set maxDate to today
       And I set dateInput to today
     When I choose date tomorrow via DayPicker
@@ -47,6 +49,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario: Check Date Input today date
     Given I open "Experimental Date Input Test" component page "default"
+      And I wait 100
     When I set dateInput to today
     Then the date is set to today
 

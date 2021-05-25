@@ -89,6 +89,7 @@ Then(
     cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
     flatTableBodyRowByPosition(index)
       .focus()
+      .wait(100)
       .should("have.css", "outline-color", gold);
   }
 );
@@ -96,6 +97,7 @@ Then(
 Then("press Enter key on the row element", () => {
   flatTableBodyRowByPositionInIframe(2)
     .focus()
+    .wait(100)
     .trigger("keydown", { keyCode: 13, which: 13, force: true });
 });
 
@@ -236,11 +238,12 @@ When("I click on the first cell", () => {
 });
 
 Then("The first cell in the third content row has focus", () => {
-  flatTableCell(8).should("have.css", "outline-color", gold);
+  flatTableCell(8).wait(100).should("have.css", "outline-color", gold);
 });
 
 Then("The {word} content row has focus", (position) => {
   flatTableBodyRowByPosition(positionOfElement(position))
+    .wait(100)
     .should("have.focus")
     .and("have.css", "outline-color", gold);
 });
@@ -248,6 +251,7 @@ Then("The {word} content row has focus", (position) => {
 Then("The {word} subrow action popover has focus", (position) => {
   flatTableSubrowByPosition(positionOfElement(position))
     .find('[data-component="action-popover-button"]')
+    .wait(100)
     .should("have.focus")
     .and("have.css", "outline", `${gold} solid 2px`);
 });

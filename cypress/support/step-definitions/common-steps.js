@@ -184,6 +184,7 @@ Then(
   "closeIcon has the border outline color {string} and width {string}",
   (color, width) => {
     closeIconButton()
+      .wait(100)
       .should("have.css", "outline-color", color)
       .and("have.css", "outline-width", width);
   }
@@ -237,12 +238,12 @@ When("I close Sidebar", () => {
 
 When("I press keyboard {string} key times {int}", (key, times) => {
   for (let i = 0; i < times; i++) {
-    cy.focused().trigger("keydown", keyCode(key));
+    cy.focused().wait(100).trigger("keydown", keyCode(key));
   }
 });
 
 When("I press {string} onto focused element", (key) => {
-  cy.focused().trigger("keydown", keyCode(key));
+  cy.focused().wait(100).trigger("keydown", keyCode(key));
 });
 
 When("I press Tab onto focused element", () => {

@@ -29,7 +29,7 @@ export const actionsTab = () => cy.get(FORM).find("button").contains("Actions");
 export const knobsNameTab = (name) =>
   cy.get(TAB_LIST).eq(1).find("button").contains(name);
 export const eventInAction = (event) =>
-  cy.get(FORM).find("span").contains(event);
+  cy.get(FORM).find("span").contains(event).wait(100);
 
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);

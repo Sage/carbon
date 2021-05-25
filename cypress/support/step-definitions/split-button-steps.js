@@ -133,6 +133,7 @@ Then(
   "Split Button expandable {string} element has golden border on focus",
   (element) => {
     additionalButton(positionOfElement(element))
+      .wait(100)
       .should("have.css", "background-color", "rgb(0, 64, 46)")
       .and("have.css", "outline", "rgb(255, 181, 0) solid 3px");
   }

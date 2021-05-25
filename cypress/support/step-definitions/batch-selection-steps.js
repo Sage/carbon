@@ -22,5 +22,6 @@ When("I focus Batch selection {string} button", (index) => {
 Then("Batch selection component {string} button is focused", (index) => {
   batchSelectionButtonsByPosition(positionOfElement(index))
     .parent()
+    .wait(100)
     .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });

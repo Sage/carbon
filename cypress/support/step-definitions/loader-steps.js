@@ -37,5 +37,7 @@ Then("I focus loader button", () => {
 });
 
 Then("loader button has golden border outline", () => {
-  loaderInsideButton().should("have.css", "outline-color", "rgb(255, 181, 0)");
+  loaderInsideButton()
+    .wait(100)
+    .should("have.css", "outline-color", "rgb(255, 181, 0)");
 });
