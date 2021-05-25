@@ -1,3 +1,10 @@
+### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* **sidebar:** make close button css more specific ([bb7adaf](https://github.com/Sage/carbon/commit/bb7adaf721a4b457328ae6757962fe9ed5766b64)), closes [#3943](https://github.com/Sage/carbon/issues/3943)
+
 ## [74.5.0](https://github.com/Sage/carbon/compare/v74.4.0...v74.5.0) (2021-05-21)
 
 
