@@ -3,7 +3,6 @@ import React from "react";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import StepSequenceStyle from "./step-sequence.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -32,7 +31,7 @@ StepSequence.propTypes = {
   /** Step sequence items to be rendered */
   children: PropTypes.node,
   /** The direction that step sequence items should be rendered */
-  orientation: PropTypes.oneOf(OptionsHelper.orientation),
+  orientation: PropTypes.oneOf(["horizontal", "vertical"]),
 };
 
 StepSequence.defaultProps = {

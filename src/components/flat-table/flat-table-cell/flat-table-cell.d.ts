@@ -1,11 +1,10 @@
 import * as React from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize } from "..";
-import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
 export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
-  align?: OptionsHelper.AlignFull;
+  align?: "left" | "center" | "right";
   children?: React.ReactNode | string;
   /** Number of columns that a cell should span */
   colspan?: number | string;

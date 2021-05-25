@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { Checkbox } from ".";
 import AutoFocus from "../../utils/helpers/auto-focus";
 
@@ -76,7 +75,7 @@ function defaultKnobs(type, autoFocusDefault = false) {
       type
     ),
     labelSpacing: select("labelSpacing", [1, 2], 1),
-    size: select("size", OptionsHelper.sizesBinary, "small", type),
+    size: select("size", ["small", "large"], "small", type),
     value: text("value", type, type),
     ml: text("ml", "0", type),
     adaptiveSpacingBreakpoint: number("adaptiveSpacingBreakpoint"),

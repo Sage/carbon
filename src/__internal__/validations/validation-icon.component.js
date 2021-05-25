@@ -5,7 +5,6 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../../components/icon";
 import ValidationIconStyle from "./validation-icon.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -96,7 +95,7 @@ const ValidationIcon = ({
 ValidationIcon.propTypes = {
   ...marginPropTypes,
   /** A small string to indicate the size of the icon */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** The unique id of the component (used with aria-describedby for accessibility) */
   iconId: PropTypes.string,
   /** Define position of the tooltip */
@@ -107,7 +106,9 @@ ValidationIcon.propTypes = {
     const isValid =
       prop &&
       Array.isArray(prop) &&
-      prop.every((placement) => OptionsHelper.positions.includes(placement));
+      prop.every((placement) =>
+        ["bottom", "left", "right", "top"].includes(placement)
+      );
 
     if (!prop || isValid) {
       return null;

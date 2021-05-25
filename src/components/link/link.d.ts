@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
+import { IconType } from "components/icon/icon";
 
 export interface LinkProps {
   /** Classes to apply to the component. */
@@ -9,7 +9,7 @@ export interface LinkProps {
   /** An href for an anchor tag. */
   href?: string;
   /** An icon to display next to the link. */
-  icon?: IconTypes;
+  icon?: IconType;
   /** Which side of the link to the render the link. */
   iconAlign?: "left" | "right";
   /** Function called when the mouse is clicked. */

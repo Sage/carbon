@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { Row, Column } from "../row";
 import Label from "../../__internal__/label";
 import StyledInlineInputs from "./inline-inputs.style";
@@ -66,7 +65,16 @@ InlineInputs.propTypes = {
   /** The id of the corresponding input control for the label */
   htmlFor: PropTypes.string,
   /** Gutter prop gets passed down to Row component if false gutter value is "none" */
-  gutter: PropTypes.oneOf(["none", ...OptionsHelper.sizesFull]),
+  gutter: PropTypes.oneOf([
+    "none",
+    "extra-small",
+    "small",
+    "medium-small",
+    "medium",
+    "medium-large",
+    "large",
+    "extra-large",
+  ]),
 };
 
 InlineInputs.defaultProps = {

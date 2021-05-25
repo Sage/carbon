@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import Textbox from "../../textbox";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 const SelectTextbox = ({
   value,
@@ -92,7 +91,7 @@ const formInputPropTypes = {
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth: PropTypes.number,
   /** Size of an input */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Placeholder string to be displayed in input */
   placeholder: PropTypes.string,
   /** A custom callback for when changes occur */

@@ -10,7 +10,6 @@ import propTypes from "@styled-system/prop-types";
 import classNames from "classnames";
 
 import StyledMenuItemWrapper from "./menu-item.style";
-import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
 import Events from "../../../utils/helpers/events";
 import MenuContext from "../menu.context";
@@ -213,17 +212,22 @@ MenuItem.propTypes = {
   className: PropTypes.string,
   /** onClick handler */
   onClick: PropTypes.func,
-  /** Either prop `icon` must be defined or this node must have children. */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Either prop `icon` must be defined or this node must have children.
+   * */
   icon: (props, propName, ...rest) => {
     if (!props.icon && !props.children) {
       return new Error(
         "Either prop `icon` must be defined or this node must have children."
       );
     }
-    return PropTypes.oneOfType([
-      PropTypes.oneOf(OptionHelper.icons),
-      PropTypes.node,
-    ])(props, propName, ...rest);
+    return PropTypes.oneOfType([PropTypes.string, PropTypes.node])(
+      props,
+      propName,
+      ...rest
+    );
   },
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection: PropTypes.string,

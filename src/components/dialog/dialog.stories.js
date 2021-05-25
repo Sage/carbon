@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Dialog from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
@@ -9,6 +8,7 @@ import Button from "../button";
 import DateInput from "../date";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
+import { DIALOG_SIZES } from "./dialog.config";
 
 export default {
   title: "Dialog/Test",
@@ -30,11 +30,7 @@ export const Default = () => {
   const height = text("height", "");
   const title = text("title", "Example Dialog");
   const subtitle = text("subtitle", "Example Subtitle");
-  const size = select(
-    "size",
-    OptionsHelper.sizesFull,
-    Dialog.defaultProps.size
-  );
+  const size = select("size", DIALOG_SIZES, Dialog.defaultProps.size);
   const showCloseIcon = boolean(
     "showCloseIcon",
     Dialog.defaultProps.showCloseIcon

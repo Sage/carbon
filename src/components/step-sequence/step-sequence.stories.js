@@ -2,7 +2,10 @@ import React from "react";
 import { text, select } from "@storybook/addon-knobs";
 import StepSequence from "./step-sequence.component";
 import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import {
+  STEP_SEQUENCE_ORIENTATION,
+  STEP_SEQUENCE_STEPS,
+} from "./step-sequence.config";
 
 export default {
   title: "Step Sequence/Test",
@@ -21,7 +24,7 @@ export default {
 export const stepSequence = () => {
   const orientation = select(
     "orientation",
-    OptionsHelper.orientation,
+    STEP_SEQUENCE_ORIENTATION,
     StepSequence.defaultProps.orientation
   );
 
@@ -80,7 +83,7 @@ export const stepSequenceItem = () => {
   const indicator = text("indicator", "1");
   const status = select(
     "status",
-    OptionsHelper.steps,
+    STEP_SEQUENCE_STEPS,
     StepSequenceItem.defaultProps.status
   );
   const hiddenCompleteLabel = text("hiddenCompleteLabel");

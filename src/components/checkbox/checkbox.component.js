@@ -128,7 +128,7 @@ Checkbox.propTypes = {
    * Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["small", "large"]),
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string,
   /** Indicate that error has occurred

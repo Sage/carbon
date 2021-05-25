@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Icon from "../../components/icon";
 import InputIconToggleStyle from "./input-icon-toggle.style";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import ValidationIcon from "../validations/validation-icon.component";
 
 const shouldDisplayValidationIcon = ({ error, warning, info }) => {
@@ -77,7 +76,7 @@ InputIconToggle.propTypes = {
   onBlur: PropTypes.func,
   onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   align: PropTypes.oneOf(["left", "right"]),
   useValidationIcon: PropTypes.bool,
   iconTabIndex: PropTypes.number,

@@ -1,5 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TypeIcon when rendered with no addition props should match the snapshot for error 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no addition props should match the snapshot for info 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #0073C2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no addition props should match the snapshot for success 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #00B000;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no addition props should match the snapshot for warning 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #E96400;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
 exports[`TypeIcon when rendered with no additional props should match the snapshot for error 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -88,6 +204,122 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
 `;
 
 exports[`TypeIcon when rendered with no additional props should match the snapshot for warning 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #E96400;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props with no addition props should match the snapshot for error 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props with no addition props should match the snapshot for info 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #0073C2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props with no addition props should match the snapshot for success 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #00B000;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props with no addition props should match the snapshot for warning 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;

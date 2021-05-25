@@ -7,7 +7,6 @@ import {
   text,
 } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import {
   FlatTable,
   FlatTableHead,
@@ -19,6 +18,7 @@ import {
   Sort,
 } from ".";
 import guid from "../../utils/helpers/guid";
+import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
 
 export default {
   title: "Design System/Flat Table/Test",
@@ -40,18 +40,10 @@ export const Default = () => {
   const hasHeaderRow = boolean("hasHeaderRow", false);
   const hasClickableRows = boolean("hasClickableRows", false);
   const caption = text("caption", "");
-  const colorTheme = select(
-    "colorTheme",
-    [...OptionsHelper.flatTableThemes],
-    "dark"
-  );
+  const colorTheme = select("colorTheme", [...FLAT_TABLE_THEMES], "dark");
   const firstColumnWidth = number("first column width", 150);
   const secondColumnWidth = number("second column width", 120);
-  const size = select(
-    "size",
-    OptionsHelper.tableSizes,
-    FlatTable.defaultProps.size
-  );
+  const size = select("size", FLAT_TABLE_SIZES, FlatTable.defaultProps.size);
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -159,11 +151,7 @@ export const Default = () => {
 };
 
 export const Sortable = () => {
-  const colorTheme = select(
-    "colorTheme",
-    [...OptionsHelper.flatTableThemes],
-    "dark"
-  );
+  const colorTheme = select("colorTheme", [...FLAT_TABLE_THEMES], "dark");
 
   const headDataItems = [
     { name: "client", isActive: false },

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { StyledTile, TileContent } from "./tile.style.js";
 
 const Tile = ({
@@ -60,7 +59,7 @@ Tile.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
-  as: PropTypes.oneOf(OptionsHelper.tileThemes),
+  as: PropTypes.oneOf(["tile", "transparent"]),
   /**
    * The content to render within the tile. Each child will be wrapped with
    * a TileContent wrapper, which allows any individual child component to take a
@@ -70,7 +69,7 @@ Tile.propTypes = {
    */
   children: PropTypes.node,
   /** The orientation of the tile - set to either horizontal or vertical */
-  orientation: PropTypes.oneOf(OptionsHelper.orientation),
+  orientation: PropTypes.oneOf(["horizontal", "vertical"]),
   /**
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.

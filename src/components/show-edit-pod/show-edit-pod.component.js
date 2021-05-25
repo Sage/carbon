@@ -195,7 +195,13 @@ class ShowEditPod extends React.Component {
 ShowEditPod.propTypes = {
   ...marginPropTypes,
   /** Pod theme variant. */
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "tile",
+    "transparent",
+  ]),
   /** Enable/disable the border on the Pod. */
   border: PropTypes.bool,
   /** This component supports children. */
@@ -216,7 +222,7 @@ ShowEditPod.propTypes = {
   /** A callback triggered after clicking the save button */
   onSave: PropTypes.func,
   /** Controls which direction the form buttons align */
-  buttonAlign: PropTypes.string,
+  buttonAlign: PropTypes.oneOf(["left", "right"]),
   /** Set to false to hide the cancel button */
   cancel: PropTypes.bool,
   /** Supply custom text for the cancel button */

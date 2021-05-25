@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { text, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import ShowEditPod, { BaseShowEditPod } from "./show-edit-pod.component";
 import Content from "../content";
 
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
+import {
+  SHOW_EDIT_POD_ALIGNMENTS,
+  SHOW_EDIT_POD_THEMES,
+} from "./show-edit-pod.config";
 
 export default {
   title: "ShowEditPod/Test",
@@ -72,7 +75,7 @@ export const Default = () => {
   const border = boolean("border", BaseShowEditPod.defaultProps.border);
   const buttonAlign = select(
     "buttonAlign",
-    OptionsHelper.alignBinary,
+    SHOW_EDIT_POD_ALIGNMENTS,
     BaseShowEditPod.defaultProps.buttonAlign
   );
   const cancel = boolean("cancel", BaseShowEditPod.defaultProps.cancel);
@@ -87,7 +90,7 @@ export const Default = () => {
   );
   const variant = select(
     "variant",
-    OptionsHelper.themesFull,
+    SHOW_EDIT_POD_THEMES,
     BaseShowEditPod.defaultProps.variant
   );
 
