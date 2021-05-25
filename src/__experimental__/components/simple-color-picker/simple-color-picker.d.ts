@@ -3,9 +3,11 @@ import { MarginProps } from "styled-system";
 import { ValidationPropTypes } from "../../../components/validations";
 import { SimpleColorProps } from "./simple-color/simple-color";
 
+type SimpleColorPickerChild = React.ReactElement<SimpleColorProps> | boolean | null | undefined;
+
 export interface SimpleColorPickerProps extends ValidationPropTypes, MarginProps {
   /** The SimpleColor components to be rendered in the group */
-  children: React.ReactElement<SimpleColorProps> | Array<React.ReactElement<SimpleColorProps>>;
+  children?: SimpleColorPickerChild | SimpleColorPickerChild[];
   /** prop that represents childWidth */
   childWidth?: string;
   /** Should the onBlur callback prop be initially blocked? */

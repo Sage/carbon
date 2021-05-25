@@ -9,8 +9,6 @@ export interface RadioButtonProps extends CommonCheckableInputProps, MarginProps
   inline?: boolean;
   /** Text alignment of the label */
   labelAlign?: OptionsHelper.AlignBinaryType;
-  /** The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component) */
-  name?: string;
   /**
    * Set the size of the radio button to 'small' (16x16 - default) or 'large' (24x24).
    */

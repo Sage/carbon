@@ -658,4 +658,16 @@ describe("AccordionGroup", () => {
 
     expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
   });
+
+  it("accepts empty children", () => {
+    expect(() => {
+      mount(
+        <AccordionGroup>
+          {null}
+          {false}
+          {undefined}
+        </AccordionGroup>
+      );
+    }).not.toThrow();
+  });
 });

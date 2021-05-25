@@ -5,7 +5,7 @@ import baseTheme from "../../../style/themes/base";
 const StyledFlatTableCheckbox = styled.td`
   ${({ as, theme, leftPosition, makeCellSticky }) => css`
     ${as === "td" &&
-    `
+    css`
       background-color: ${theme.colors.white};
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
@@ -26,7 +26,7 @@ const StyledFlatTableCheckbox = styled.td`
     `}
 
     ${as === "th" &&
-    `
+    css`
       background-color: transparent;
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};

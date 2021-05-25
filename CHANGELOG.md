@@ -1,3 +1,57 @@
+### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* **sidebar:** make close button css more specific ([bb7adaf](https://github.com/Sage/carbon/commit/bb7adaf721a4b457328ae6757962fe9ed5766b64)), closes [#3943](https://github.com/Sage/carbon/issues/3943)
+
+## [74.5.0](https://github.com/Sage/carbon/compare/v74.4.0...v74.5.0) (2021-05-21)
+
+
+### Features
+
+* **drawer:** add sticky footer option ([42de058](https://github.com/Sage/carbon/commit/42de058c7438c090b2af3f900aba5a6efdb95fe5))
+* **drawer:** add sticky header option ([6ffd744](https://github.com/Sage/carbon/commit/6ffd7449ace605b20233f3c8c246f4a777414904))
+* **sticky-footer:** add new internal sticky footer component ([b3383a7](https://github.com/Sage/carbon/commit/b3383a706f44b7e253149a9613e94aef95f52943))
+
+## [74.4.0](https://github.com/Sage/carbon/compare/v74.3.1...v74.4.0) (2021-05-21)
+
+
+### Features
+
+* **grouped-character:** add styled-system margin support ([04c5055](https://github.com/Sage/carbon/commit/04c50556bf03120e284459ae11a808a37442627f))
+
+### [74.3.1](https://github.com/Sage/carbon/compare/v74.3.0...v74.3.1) (2021-05-19)
+
+
+### Bug Fixes
+
+* **checkable-inputs:** fix name prop forwarding ([0c98eab](https://github.com/Sage/carbon/commit/0c98eab2091bd656b5a393cbf1b3694c3a7dd503))
+
+## [74.3.0](https://github.com/Sage/carbon/compare/v74.2.0...v74.3.0) (2021-05-19)
+
+
+### Features
+
+* **accordion-group:** allow empty children ([d925be9](https://github.com/Sage/carbon/commit/d925be9d1080e03b17174361e661fe06cabda0d6))
+* **draggable-container:** allow empty children ([6803776](https://github.com/Sage/carbon/commit/6803776c38f4aef73bf6f05c786327cae0647f4a))
+* **grid:** allow empty children ([c0ad597](https://github.com/Sage/carbon/commit/c0ad5978fd0efc55064b27667c97446ff5e43782))
+* **simple-color-picker:** allow empty children ([58da22c](https://github.com/Sage/carbon/commit/58da22c4d64975e89e5b8eac80eb4b55513ae277))
+
+## [74.2.0](https://github.com/Sage/carbon/compare/v74.1.2...v74.2.0) (2021-05-19)
+
+
+### Features
+
+* **decimal:** add styled-system margin props ([77dcd95](https://github.com/Sage/carbon/commit/77dcd95b7877b558d63fc5811a547c57fa01d3be))
+
+### [74.1.2](https://github.com/Sage/carbon/compare/v74.1.1...v74.1.2) (2021-05-18)
+
+
+### Bug Fixes
+
+* **pill:** fix text wrap if there are multiple words ([a9333ff](https://github.com/Sage/carbon/commit/a9333fffb7040a84ccabec6e524c1845085561ed))
+
 ### [74.1.1](https://github.com/Sage/carbon/compare/v74.1.0...v74.1.1) (2021-05-14)
 
 

@@ -5,6 +5,7 @@ import Textbox from "../../__experimental__/components/textbox";
 import SidebarStyle from "./sidebar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import StyledIconButton from "../icon-button/icon-button.style";
 import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
 
 describe("Sidebar", () => {
@@ -35,6 +36,21 @@ describe("Sidebar", () => {
         expect(wrapper.find('div[data-component="sidebar"]').text()).toEqual(
           ""
         );
+      });
+
+      describe("when onCancel prop is set", () => {
+        it("should add the correct styles to the icon button", () => {
+          assertStyleMatch(
+            {
+              position: "absolute",
+              zIndex: "1",
+              right: "25px",
+              top: "25px",
+            },
+            wrapper.find(SidebarStyle),
+            { modifier: `> ${StyledIconButton}:first-of-type` }
+          );
+        });
       });
     });
 
