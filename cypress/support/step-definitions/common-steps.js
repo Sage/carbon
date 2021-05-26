@@ -32,9 +32,7 @@ import {
   getElementNoIframe,
   helpIcon,
 } from "../../locators";
-import { dialogTitle } from "../../locators/dialog";
 import DEBUG_FLAG from "..";
-import { pagerSummary } from "../../locators/pager";
 
 const TEXT_ALIGN = "justify-content";
 
@@ -113,10 +111,6 @@ When("I open component preview in noIFrame", () => {
 
 When("I click {string} button on preview", (text) => {
   getDataElementByValue("main-text").contains(text).click();
-});
-
-Then("component title on preview is {word}", (title) => {
-  dialogTitle().should("have.text", title);
 });
 
 Then("label on preview is {word} in NoIFrame", (text) => {
@@ -270,10 +264,6 @@ When("I press {string} key times {int}", (key, times) => {
 
 When("I click onto root in Test directory in no iFrame", () => {
   cy.get("#root").click({ force: true });
-});
-
-Then("totalRecords is set to {string} {word}", (totalRecords, element) => {
-  pagerSummary().invoke("text").should("contain", `${totalRecords} ${element}`);
 });
 
 Then("label Align on preview is {string} in NoIFrame", (direction) => {
