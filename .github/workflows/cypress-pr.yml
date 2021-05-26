@@ -22,7 +22,7 @@ jobs:
             11, 12, 13, 14, 15,
             16, 17, 18, 19, 20
             ]
-    container: cypress/browsers:node14.16.0-chrome89-ff86
+    container: cypress/browsers:node14.16.0-chrome90-ff88
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -57,7 +57,7 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v2.10.2
         with:
           install: false
           start: npm start
