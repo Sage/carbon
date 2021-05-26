@@ -1,5 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
+
 import ValidationIcon from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
 import {
@@ -94,6 +96,32 @@ describe("ValidationIcon", () => {
     wrapper.simulate("focus");
     wrapper.simulate("blur");
     expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
+  });
+
+  describe("event handlers", () => {
+    describe("validation", () => {
+      it("onFocus", () => {
+        const mockOnFocus = jest.fn();
+        const wrapper = mount(
+          <ValidationIcon error="Message" onFocus={mockOnFocus} />
+        );
+        act(() => {
+          wrapper.find(ValidationIconStyle).props().onFocus();
+        });
+        expect(mockOnFocus).toHaveBeenCalled();
+      });
+
+      it("onBlur", () => {
+        const mockOnBlur = jest.fn();
+        const wrapper = mount(
+          <ValidationIcon error="Message" onBlur={mockOnBlur} />
+        );
+        act(() => {
+          wrapper.find(ValidationIconStyle).props().onBlur();
+        });
+        expect(mockOnBlur).toHaveBeenCalled();
+      });
+    });
   });
 
   describe("tooltipFlipOverrides", () => {
