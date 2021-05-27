@@ -21,6 +21,8 @@ export interface CommonCheckableInputProps extends ValidationPropTypes {
   labelSpacing?: 1 | 2;
   /** Label width */
   labelWidth?: number;
+  /** The name of the the input */
+  name?: string;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */

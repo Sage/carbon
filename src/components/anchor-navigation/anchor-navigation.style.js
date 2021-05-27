@@ -6,8 +6,6 @@ const StyledAnchorNavigation = styled.div`
   display: flex;
   align-items: flex-start;
   width: 100%;
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 const StyledNavigation = styled.ul`
@@ -18,15 +16,11 @@ const StyledNavigation = styled.ul`
   margin: 0;
   padding: 0;
   max-width: 240px;
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 const StyledContent = styled.div`
   flex: 1;
   margin-left: 32px;
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 const StyledNavigationItem = styled.li`
@@ -70,8 +64,6 @@ const StyledNavigationItem = styled.li`
         border-left-color: ${theme.colors.primary};
       `}
   }
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 const StyledAnchorDivider = styled.div.attrs({
@@ -79,8 +71,6 @@ const StyledAnchorDivider = styled.div.attrs({
 })`
   background-color: ${({ theme }) => theme.anchorNavigation.divider};
   height: 1px;
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 StyledAnchorNavigation.defaultProps = {

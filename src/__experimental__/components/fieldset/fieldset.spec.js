@@ -2,11 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
-import {
-  LegendContainerStyle,
-  FieldsetStyle,
-  FieldsetContentStyle,
-} from "./fieldset.style";
+import { LegendContainerStyle, FieldsetContentStyle } from "./fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -76,31 +72,6 @@ describe("Fieldset", () => {
         },
         mount(<FieldsetContentStyle inline />)
       );
-    });
-  });
-
-  describe("style overrides", () => {
-    let wrapper;
-    const customStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    const styleOverride = {
-      root: customStyleObject,
-      legend: customStyleObject,
-    };
-
-    beforeEach(() => {
-      wrapper = render({ styleOverride, legend: "Legend" }, mount);
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(FieldsetStyle));
-    });
-
-    it("renders legend element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(LegendContainerStyle));
     });
   });
 });

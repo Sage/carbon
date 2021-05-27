@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
@@ -6,6 +6,8 @@ import Events from "../../utils/helpers/events";
 import StyledPortal from "../portal/portal.style";
 import ModalManager from "./__internal__/modal-manager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
+
+export const ModalContext = React.createContext({});
 
 const Modal = ({
   children,
@@ -21,6 +23,7 @@ const Modal = ({
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
   const originalOverflow = useRef(undefined);
+  const [isAnimationComplete, setAnimationComplete] = useState(false);
 
   const setOverflow = useCallback(() => {
     if (
@@ -168,6 +171,8 @@ const Modal = ({
               appear
               classNames="modal-background"
               timeout={timeout}
+              onEntered={() => setAnimationComplete(true)}
+              onExiting={() => setAnimationComplete(false)}
             >
               {background}
             </CSSTransition>
@@ -176,7 +181,9 @@ const Modal = ({
         <TransitionGroup>
           {content && (
             <CSSTransition appear classNames="modal" timeout={timeout}>
-              {content}
+              <ModalContext.Provider value={{ isAnimationComplete }}>
+                {content}
+              </ModalContext.Provider>
             </CSSTransition>
           )}
         </TransitionGroup>

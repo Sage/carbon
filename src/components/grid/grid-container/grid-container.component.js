@@ -13,14 +13,26 @@ const GridContainer = (props) => {
   );
 };
 
-const gridItemType = PropTypes.shape({
-  type: PropTypes.oneOf([GridItem]),
-});
-
 GridContainer.propTypes = {
   /** Defines the Components to be rendered within the GridContainer. Requires a GridItem */
-  children: PropTypes.oneOfType([gridItemType, PropTypes.arrayOf(gridItemType)])
-    .isRequired,
+  children: (props, propName, componentName) => {
+    let error;
+    const prop = props[propName];
+
+    React.Children.forEach(prop, (child) => {
+      if (!child) {
+        return;
+      }
+
+      if (GridItem.displayName !== child.type.displayName) {
+        error = new Error(
+          `\`${componentName}\` only accepts children of type \`${GridItem.displayName}\`.`
+        );
+      }
+    });
+
+    return error;
+  },
   ...propTypes.space,
   gridGap: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

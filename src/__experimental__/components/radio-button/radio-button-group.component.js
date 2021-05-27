@@ -5,24 +5,14 @@ import tagComponent from "../../../utils/helpers/tags";
 import Fieldset from "../../../__internal__/fieldset";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import RadioButtonMapper from "./radio-button-mapper.component";
-import Logger from "../../../utils/logger/logger";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-
-let deprecatedWarnTriggered = false;
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
 const RadioButtonGroup = (props) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    // eslint-disable-next-line max-len
-    Logger.deprecate(
-      "`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed."
-    );
-  }
   const {
     children,
     name,
@@ -42,7 +32,6 @@ const RadioButtonGroup = (props) => {
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
     required,
-    styleOverride = {},
   } = props;
 
   const marginProps = filterStyledSystemMarginProps(props);
@@ -76,7 +65,6 @@ const RadioButtonGroup = (props) => {
       legendWidth={legendWidth}
       legendAlign={legendAlign}
       legendSpacing={legendSpacing}
-      styleOverride={styleOverride}
       isRequired={required}
       {...tagComponent("radiogroup", props)}
       {...marginProps}
@@ -88,7 +76,6 @@ const RadioButtonGroup = (props) => {
         role="group"
         inline={inline}
         legendInline={inlineLegend}
-        styleOverride={styleOverride.content}
       >
         <RadioButtonMapper
           name={name}
@@ -155,12 +142,6 @@ RadioButtonGroup.propTypes = {
   adaptiveLegendBreakpoint: PropTypes.number,
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint: PropTypes.number,
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react";
+import React, { useMemo, useCallback } from "react";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -6,22 +6,29 @@ import Events from "../../utils/helpers/events";
 import Accordion from "./accordion.component.js";
 import { StyledAccordionGroup } from "./accordion.style.js";
 
-const marginProps = filterStyledSystemMarginProps(styledSystemPropTypes);
+const marginProptypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const AccordionGroup = ({ children, ...rest }) => {
-  const refs = useRef(
-    React.Children.map(children, (child) => child.ref || React.createRef())
+  const filteredChildren = useMemo(() => React.Children.toArray(children), [
+    children,
+  ]);
+
+  const refs = useMemo(
+    () => filteredChildren.map((child) => child.ref || React.createRef()),
+    [filteredChildren]
   );
 
   const focusAccordion = useCallback(
     (ev, index) => {
       ev.preventDefault();
       if (index === -1) {
-        refs.current[refs.current.length - 1].current.focus();
-      } else if (index === refs.current.length) {
-        refs.current[0].current.focus();
+        refs[refs.length - 1].current.focus();
+      } else if (index === refs.length) {
+        refs[0].current.focus();
       } else {
-        refs.current[index].current.focus();
+        refs[index].current.focus();
       }
     },
     [refs]
@@ -39,17 +46,17 @@ const AccordionGroup = ({ children, ...rest }) => {
         focusAccordion(ev, 0);
       }
       if (Events.isEndKey(ev)) {
-        focusAccordion(ev, refs.current.length - 1);
+        focusAccordion(ev, refs.length - 1);
       }
     },
-    [focusAccordion]
+    [focusAccordion, refs]
   );
 
   return (
     <StyledAccordionGroup {...rest}>
-      {React.Children.map(children, (child, index) =>
+      {filteredChildren.map((child, index) =>
         React.cloneElement(child, {
-          ref: refs.current[index],
+          ref: refs[index],
           index,
           handleKeyboardAccessibility,
         })
@@ -59,12 +66,16 @@ const AccordionGroup = ({ children, ...rest }) => {
 };
 
 AccordionGroup.propTypes = {
-  ...marginProps,
+  ...marginProptypes,
   children: (props, propName, componentName) => {
     let error;
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
+      if (!child) {
+        return;
+      }
+
       if (Accordion.displayName !== child.type.displayName) {
         error = new Error(
           `\`${componentName}\` only accepts children of type \`${Accordion.displayName}\`.`

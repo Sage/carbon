@@ -1,4 +1,10 @@
-import React, { useCallback, useState, useRef, useEffect } from "react";
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+  useEffect,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Events from "../../../utils/helpers/events";
@@ -35,25 +41,25 @@ const SimpleColorPicker = (props) => {
     ...rest
   } = props;
 
+  const filteredChildren = useMemo(() => React.Children.toArray(children), [
+    children,
+  ]);
+
   const myRef = useRef(null);
   const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
   const [focusedElement, setFocusedElement] = useState(null);
   const itemsPerRow = Math.floor(maxWidth / childWidth);
-  const rowCount = Math.ceil(children.length / itemsPerRow);
-  let blankSlots = itemsPerRow * rowCount - children.length;
+  const rowCount = Math.ceil(filteredChildren?.length / itemsPerRow);
+  let blankSlots = itemsPerRow * rowCount - filteredChildren?.length;
   let currentRow = 1;
   let loopCounter = 1;
 
-  const gridItemRefs = useRef(
-    Array.from(
-      {
-        length: React.Children.count(children),
-      },
-      () => React.createRef()
-    )
+  const gridItemRefs = useMemo(
+    () => filteredChildren.map((child) => child.ref || React.createRef()),
+    [filteredChildren]
   );
 
-  const navigationGrid = React.Children.map(children, (child, index) => {
+  const navigationGrid = filteredChildren.map((child, index) => {
     const allowUp = currentRow !== 1;
     let allowDown = false;
 
@@ -86,7 +92,7 @@ const SimpleColorPicker = (props) => {
     }
 
     const childProps = {
-      ref: gridItemRefs.current[index],
+      ref: gridItemRefs[index],
       "data-up": allowUp,
       "data-down": allowDown,
       "data-item-up": upItem,
@@ -256,6 +262,10 @@ SimpleColorPicker.propTypes = {
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
+      if (child === null) {
+        return;
+      }
+
       if (SimpleColor.displayName !== child.type.displayName) {
         error = new Error(
           `\`${componentName}\` only accepts children of type \`${SimpleColor.displayName}\`.`

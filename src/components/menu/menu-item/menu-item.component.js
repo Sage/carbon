@@ -35,6 +35,7 @@ const MenuItem = ({
   showDropdownArrow = true,
   ariaLabel,
   clickToOpen,
+  maxWidth,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -102,12 +103,16 @@ const MenuItem = ({
     ref,
   };
 
+  const getTitle = (title) =>
+    maxWidth && typeof title === "string" ? title : "";
+
   if (submenu) {
     return (
       <StyledMenuItem
         role="presentation"
         menuType={menuContext.menuType}
         display="inline-block"
+        title={getTitle(submenu)}
         {...rest}
       >
         <Submenu
@@ -115,6 +120,7 @@ const MenuItem = ({
           submenuDirection={submenuDirection}
           showDropdownArrow={showDropdownArrow}
           clickToOpen={clickToOpen}
+          maxWidth={maxWidth}
           {...elementProps}
           {...rest}
         >
@@ -130,6 +136,7 @@ const MenuItem = ({
       menuType={menuContext.menuType}
       inSubmenu={submenuContext.handleKeyDown !== undefined}
       display="inline-block"
+      title={getTitle(children)}
       {...rest}
     >
       <StyledMenuItemWrapper
@@ -140,6 +147,7 @@ const MenuItem = ({
         {...elementProps}
         role="menuitem"
         ariaLabel={ariaLabel}
+        maxWidth={maxWidth}
       >
         {children}
       </StyledMenuItemWrapper>
@@ -210,6 +218,8 @@ MenuItem.propTypes = {
     }
     return PropTypes.string(props, ...rest);
   },
+  /** Maximum width. Any valid CSS string */
+  maxWidth: PropTypes.string,
 };
 
 export default MenuItem;

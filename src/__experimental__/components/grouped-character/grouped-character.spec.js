@@ -1,6 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
+
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import GroupedCharacter from "./grouped-character.component";
+import FormFieldStyle from "../form-field/form-field.style";
 import Label from "../label";
 
 const mountComponent = (props) => mount(<GroupedCharacter {...props} />);
@@ -10,6 +13,13 @@ describe("GroupedCharacter", () => {
   const basicGroupConfig = [2, 2, 4];
   const separator = "-";
   const valueString = "12345678";
+
+  testStyledSystemMargin(
+    (props) => <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />,
+    undefined,
+    (wrapper) => wrapper.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
 
   describe("uncontrolled behaviour", () => {
     let instance, input, onChange;
