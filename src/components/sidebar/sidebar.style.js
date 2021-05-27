@@ -13,34 +13,37 @@ const sidebarSizes = {
 };
 
 const SidebarStyle = styled.div`
-  background-color: ${({ theme }) => theme.disabled.input};
-  border-radius: 1px;
-  bottom: 0;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+  ${({ onCancel, position, size, theme }) => css`
+    background-color: ${theme.disabled.input};
+    border-radius: 1px;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    z-index: ${theme.zIndex.fullScreenModal};
 
-  ${({ size }) =>
-    size &&
+    ${size &&
     css`
       width: ${sidebarSizes[size]};
-    `};
+    `}
 
-  ${({ position, theme }) =>
-    position &&
+    ${position &&
     css`
       box-shadow: ${theme.shadows.depth3};
       ${position}: 0;
-    `};
+    `}
 
-  ${StyledIconButton} {
-    position: absolute;
-    z-index: 1;
-    right: 25px;
-    top: 25px;
-  }
+    ${onCancel &&
+    css`
+      > ${StyledIconButton}:first-of-type {
+        position: absolute;
+        z-index: 1;
+        right: 25px;
+        top: 25px;
+      }
+    `}
+  `}
 `;
 
 SidebarStyle.defaultProps = {

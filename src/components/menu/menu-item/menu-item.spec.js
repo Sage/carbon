@@ -18,6 +18,7 @@ import { MenuContext } from "../menu.component";
 import SubmenuBlock from "../submenu-block";
 import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";
+import { StyledMenuItem } from "../menu.style";
 
 const events = {
   enter: {
@@ -99,6 +100,30 @@ describe("MenuItem", () => {
     expect(wrapper.find(StyledMenuItemWrapper).props().className).toBe(
       "carbon-menu-item--has-link"
     );
+  });
+
+  describe("with maxWidth prop set", () => {
+    beforeEach(() => {
+      wrapper = mount(<MenuItem maxWidth="100px">Item One</MenuItem>);
+    });
+
+    it("should add a title attribute with the full title", () => {
+      expect(wrapper.find(StyledMenuItem).props().title).toEqual("Item One");
+    });
+
+    it("should add the correct styles", () => {
+      assertStyleMatch(
+        {
+          maxWidth: "inherit",
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          verticalAlign: "bottom",
+        },
+        wrapper.find(StyledMenuItemWrapper),
+        { modifier: "button" }
+      );
+    });
   });
 
   describe("submenu", () => {
@@ -267,6 +292,38 @@ describe("MenuItem", () => {
             false
           );
         });
+      });
+    });
+
+    describe("with maxWidth prop set", () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType: "light" }}>
+            <MenuItem maxWidth="100px" submenu="submenu title">
+              <MenuItem>Item one</MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        );
+      });
+
+      it("should add a title attribute with the full title", () => {
+        expect(wrapper.find(StyledMenuItem).at(0).props().title).toEqual(
+          "submenu title"
+        );
+      });
+
+      it("should add the correct styles", () => {
+        assertStyleMatch(
+          {
+            maxWidth: "inherit",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            verticalAlign: "bottom",
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: "button" }
+        );
       });
     });
   });

@@ -1,9 +1,14 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
+
 import StyledInput from "../input/input.style";
 import { StyledLabelContainer } from "../label/label.style";
 import InputIconToggleStyle from "../input-icon-toggle/input-icon-toggle.style";
+import BaseTheme from "../../../style/themes/base";
 
 const StyledTextarea = styled.div`
+  ${margin};
+
   ${StyledInput} {
     resize: none;
     min-height: 40px;
@@ -24,5 +29,9 @@ const StyledTextarea = styled.div`
     height: 40px;
   }
 `;
+
+StyledTextarea.defaultProps = {
+  theme: BaseTheme,
+};
 
 export default StyledTextarea;

@@ -23,9 +23,6 @@ import {
 } from "./accordion.style";
 import Button from "../button";
 import ValidationIcon from "../validations";
-import Logger from "../../utils/logger/logger";
-
-let deprecatedWarnTriggered = false;
 
 const Accordion = React.forwardRef(
   (
@@ -42,7 +39,6 @@ const Accordion = React.forwardRef(
       iconAlign = "right",
       scheme = "white",
       size = "large",
-      styleOverride = {},
       subTitle,
       title,
       width,
@@ -58,14 +54,6 @@ const Accordion = React.forwardRef(
     },
     ref
   ) => {
-    if (!deprecatedWarnTriggered) {
-      deprecatedWarnTriggered = true;
-      // eslint-disable-next-line max-len
-      Logger.deprecate(
-        "`styleOverride` that is used in the `Accordion` component is deprecated and will soon be removed."
-      );
-    }
-
     const isControlled = expanded !== undefined;
 
     const [isExpandedInternal, setIsExpandedInternal] = useState(
@@ -131,7 +119,6 @@ const Accordion = React.forwardRef(
         width={width}
         borders={borders}
         scheme={scheme}
-        styleOverride={styleOverride.root}
         buttonHeading={buttonHeading}
         {...rest}
       >
@@ -149,7 +136,6 @@ const Accordion = React.forwardRef(
           isExpanded={isExpanded}
           buttonHeading={buttonHeading}
           buttonWidth={buttonWidth}
-          styleOverride={styleOverride.headerArea}
           {...headerSpacing}
         >
           {buttonHeading && (
@@ -172,7 +158,6 @@ const Accordion = React.forwardRef(
                 <StyledAccordionTitle
                   data-element="accordion-title"
                   size={size}
-                  styleOverride={styleOverride.header}
                 >
                   {title}
                 </StyledAccordionTitle>
@@ -198,7 +183,6 @@ const Accordion = React.forwardRef(
                 type={iconType}
                 isExpanded={isExpanded}
                 iconAlign={iconAlign}
-                styleOverride={styleOverride.icon}
               />
             </>
           )}
@@ -213,7 +197,6 @@ const Accordion = React.forwardRef(
             id={contentId}
             aria-labelledby={headerId}
             ref={accordionContent}
-            styleOverride={styleOverride.content}
             disableContentPadding={disableContentPadding}
           >
             {children}
@@ -241,14 +224,6 @@ Accordion.propTypes = {
   iconType: PropTypes.oneOf(["chevron_down", "dropdown"]),
   /** Sets icon alignment - accepted values: 'left', 'right' (default) */
   iconAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    headerArea: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    header: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange: PropTypes.func,
   /** Sets accordion title */

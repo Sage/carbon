@@ -1,3 +1,147 @@
+### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* **sidebar:** make close button css more specific ([bb7adaf](https://github.com/Sage/carbon/commit/bb7adaf721a4b457328ae6757962fe9ed5766b64)), closes [#3943](https://github.com/Sage/carbon/issues/3943)
+
+## [74.5.0](https://github.com/Sage/carbon/compare/v74.4.0...v74.5.0) (2021-05-21)
+
+
+### Features
+
+* **drawer:** add sticky footer option ([42de058](https://github.com/Sage/carbon/commit/42de058c7438c090b2af3f900aba5a6efdb95fe5))
+* **drawer:** add sticky header option ([6ffd744](https://github.com/Sage/carbon/commit/6ffd7449ace605b20233f3c8c246f4a777414904))
+* **sticky-footer:** add new internal sticky footer component ([b3383a7](https://github.com/Sage/carbon/commit/b3383a706f44b7e253149a9613e94aef95f52943))
+
+## [74.4.0](https://github.com/Sage/carbon/compare/v74.3.1...v74.4.0) (2021-05-21)
+
+
+### Features
+
+* **grouped-character:** add styled-system margin support ([04c5055](https://github.com/Sage/carbon/commit/04c50556bf03120e284459ae11a808a37442627f))
+
+### [74.3.1](https://github.com/Sage/carbon/compare/v74.3.0...v74.3.1) (2021-05-19)
+
+
+### Bug Fixes
+
+* **checkable-inputs:** fix name prop forwarding ([0c98eab](https://github.com/Sage/carbon/commit/0c98eab2091bd656b5a393cbf1b3694c3a7dd503))
+
+## [74.3.0](https://github.com/Sage/carbon/compare/v74.2.0...v74.3.0) (2021-05-19)
+
+
+### Features
+
+* **accordion-group:** allow empty children ([d925be9](https://github.com/Sage/carbon/commit/d925be9d1080e03b17174361e661fe06cabda0d6))
+* **draggable-container:** allow empty children ([6803776](https://github.com/Sage/carbon/commit/6803776c38f4aef73bf6f05c786327cae0647f4a))
+* **grid:** allow empty children ([c0ad597](https://github.com/Sage/carbon/commit/c0ad5978fd0efc55064b27667c97446ff5e43782))
+* **simple-color-picker:** allow empty children ([58da22c](https://github.com/Sage/carbon/commit/58da22c4d64975e89e5b8eac80eb4b55513ae277))
+
+## [74.2.0](https://github.com/Sage/carbon/compare/v74.1.2...v74.2.0) (2021-05-19)
+
+
+### Features
+
+* **decimal:** add styled-system margin props ([77dcd95](https://github.com/Sage/carbon/commit/77dcd95b7877b558d63fc5811a547c57fa01d3be))
+
+### [74.1.2](https://github.com/Sage/carbon/compare/v74.1.1...v74.1.2) (2021-05-18)
+
+
+### Bug Fixes
+
+* **pill:** fix text wrap if there are multiple words ([a9333ff](https://github.com/Sage/carbon/commit/a9333fffb7040a84ccabec6e524c1845085561ed))
+
+### [74.1.1](https://github.com/Sage/carbon/compare/v74.1.0...v74.1.1) (2021-05-14)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect gaps between date fields ([70507ba](https://github.com/Sage/carbon/commit/70507ba053215e541f32ed9918709ab63643e110))
+
+## [74.1.0](https://github.com/Sage/carbon/compare/v74.0.0...v74.1.0) (2021-05-14)
+
+
+### Features
+
+* **icon:** 7 new icons, carets directions and larger size ([beb20ec](https://github.com/Sage/carbon/commit/beb20ec3a1cc8b464c6624a3fb0502a38485e6ad))
+
+## [74.0.0](https://github.com/Sage/carbon/compare/v73.6.1...v74.0.0) (2021-05-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** Fixes FE-2759
+* **action-popover:** Fixes FE-2757
+* **anchor-navigation:** Fixes FE-2758
+* **accordion:** Fixes FE-2756
+* **textbox:** Fixes FE-2755
+* **radio-button-group:** Fixes FE-2754
+* **label:** Fixes FE-2753
+* **input:** Fixes FE-2752
+* **fieldset:** Fixes FE-2750
+* **form-field:** Fixes FE-2751
+
+### Code Refactoring
+
+* **accordion:** remove style override props ([cd59de6](https://github.com/Sage/carbon/commit/cd59de6c2a01752470f07d0b67700878eef62159))
+* **action-popover:** remove style override props ([b373382](https://github.com/Sage/carbon/commit/b37338274758ea00cbbc6f48c3bf7af8069ac03e))
+* **anchor-navigation:** remove style override props ([1d4aeb2](https://github.com/Sage/carbon/commit/1d4aeb2e49ebf828e5b4ae7d5bfce4a48e5deb22))
+* **button:** remove style override props ([b7cb8e2](https://github.com/Sage/carbon/commit/b7cb8e26af944cb979b7b9c3e2211be084beec5c))
+* **fieldset:** remove style override props ([cedd350](https://github.com/Sage/carbon/commit/cedd35047f55b558c5149990a4433696677e1e27))
+* **form-field:** remove style override props ([3bcc36e](https://github.com/Sage/carbon/commit/3bcc36e80239e040fc1dd5822eea9fe02c2b2c40))
+* **input:** remove style override props ([00c222b](https://github.com/Sage/carbon/commit/00c222bb00c603f5d2b77b44efb9871c5eda164c))
+* **label:** remove style override props ([6397187](https://github.com/Sage/carbon/commit/6397187f9ac2f1882e19ae3316fbac2eda636d8f))
+* **radio-button-group:** remove style override props ([5ba73b6](https://github.com/Sage/carbon/commit/5ba73b6d48bee44fc6bd8e25735d0632eb37ab41))
+* **textbox:** remove style override props ([38c827b](https://github.com/Sage/carbon/commit/38c827bfdd347c7979dc12642c639469df27c9c0))
+
+### [73.6.1](https://github.com/Sage/carbon/compare/v73.6.0...v73.6.1) (2021-05-13)
+
+
+### Bug Fixes
+
+* **portrait:** fix portrait tooltip error ([3631635](https://github.com/Sage/carbon/commit/3631635463e7e2000c90294ed27a4ca4aed38bc0))
+
+## [73.6.0](https://github.com/Sage/carbon/compare/v73.5.0...v73.6.0) (2021-05-13)
+
+
+### Features
+
+* **menu-item:** add max width prop for truncation ([d9e58da](https://github.com/Sage/carbon/commit/d9e58da0cf0f3877d62d248c532592b28a62c3ff))
+
+## [73.5.0](https://github.com/Sage/carbon/compare/v73.4.0...v73.5.0) (2021-05-13)
+
+
+### Features
+
+* **textarea:** add styled-system margin prop support ([d5825a5](https://github.com/Sage/carbon/commit/d5825a5cecbd1edcecc152a4d8a9f645c506eeaf))
+
+## [73.4.0](https://github.com/Sage/carbon/compare/v73.3.0...v73.4.0) (2021-05-13)
+
+
+### Features
+
+* **date:** add styled-system margin support ([9ab0c56](https://github.com/Sage/carbon/commit/9ab0c569e0f838362546be8880e7373dd1a4fa3e))
+
+## [73.3.0](https://github.com/Sage/carbon/compare/v73.2.0...v73.3.0) (2021-05-13)
+
+
+### Features
+
+* **dialog,dialog-full-screen:** add help prop ([79b5d41](https://github.com/Sage/carbon/commit/79b5d412ebf6d5bd59cb42a9a02c2367abd44aca))
+
+
+### Bug Fixes
+
+* **dialog:** title wrapping ([e259aed](https://github.com/Sage/carbon/commit/e259aedf4ce8716a41c04c8ecfabfa23929f507c))
+
+## [73.2.0](https://github.com/Sage/carbon/compare/v73.1.0...v73.2.0) (2021-05-12)
+
+
+### Features
+
+* **button-toggle-group:** add styled-system props ([510a643](https://github.com/Sage/carbon/commit/510a64392403d0e4fa6706465478bcd3bbde21ac))
+
 ## [73.1.0](https://github.com/Sage/carbon/compare/v73.0.0...v73.1.0) (2021-05-12)
 
 

@@ -9,7 +9,6 @@ const StyledFieldset = styled.fieldset`
   padding: 0;
   min-width: 0;
   min-inline-size: 0;
-  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledFieldset.defaultProps = {
@@ -52,8 +51,6 @@ const StyledLegendContainer = styled.div`
         margin-left: ${theme.spacing}px;
       }
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledLegendContainer.defaultProps = {

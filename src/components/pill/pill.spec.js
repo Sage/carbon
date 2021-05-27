@@ -23,6 +23,17 @@ describe("Pill", () => {
     return renderer(<Pill {...props}>My Text</Pill>);
   };
 
+  it("has required styles", () => {
+    const wrapper = render();
+
+    assertStyleMatch(
+      {
+        whiteSpace: "nowrap",
+      },
+      wrapper
+    );
+  });
+
   describe("when the children prop is passed to the component", () => {
     let instance, pill;
     beforeEach(() => {

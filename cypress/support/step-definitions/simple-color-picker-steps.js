@@ -2,7 +2,10 @@ import {
   simpleColorPickerDiv,
   simpleColorPickerLegendNoIFrame,
 } from "../../locators/simple-color-picker";
-import { experimentalSimpleColorPickerInputInIframe } from "../../locators/advanced-color-picker/index";
+import {
+  experimentalSimpleColorPickerInputInIframe,
+  experimentalSimpleColorPickerInput,
+} from "../../locators/advanced-color-picker/index";
 import {
   getKnobsInput,
   commonDataElementInputPreviewNoIframe,
@@ -39,11 +42,15 @@ When("I select {int} color", (index) => {
   experimentalSimpleColorPickerInputInIframe(index).click();
 });
 
-When("I press {word} on the {int} color", (key, index) => {
+When("I press {word} on the {int} color in IFrame", (key, index) => {
   experimentalSimpleColorPickerInputInIframe(index).trigger(
     "keydown",
     keyCode(key)
   );
+});
+
+When("I press {word} on the {int} color", (key, index) => {
+  experimentalSimpleColorPickerInput(index).trigger("keydown", keyCode(key));
 });
 
 Then("It renders with all colors", () => {
