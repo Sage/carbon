@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { assign } from "lodash";
 import DateInput from "../date";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import tagComponent from "../../../utils/helpers/tags";
@@ -68,6 +67,14 @@ class DateRange extends React.Component {
     });
   }
 
+  startDateOnChange = (ev) => {
+    this._onChange("startDate", ev);
+  };
+
+  endDateOnChange = (ev) => {
+    this._onChange("endDate", ev);
+  };
+
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
     this.setState({ [`${changedDate}Value`]: { ...ev.target.value } }, () => {
@@ -91,11 +98,11 @@ class DateRange extends React.Component {
 
   isBlurBlocked = () => {
     const startBlocked =
-      this.startDateInputRef.current.isBlurBlocked ||
-      this.startDateInputRef.current.inputFocusedViaPicker;
+      this.startDateInputRef?.current?.isBlurBlocked ||
+      this.startDateInputRef?.current?.inputFocusedViaPicker;
     const endBlocked =
-      this.endDateInputRef.current.isBlurBlocked ||
-      this.endDateInputRef.current.inputFocusedViaPicker;
+      this.endDateInputRef?.current?.isBlurBlocked ||
+      this.endDateInputRef?.current?.inputFocusedViaPicker;
     return startBlocked || endBlocked;
   };
 
@@ -162,25 +169,18 @@ class DateRange extends React.Component {
   dateProps(propsKey) {
     const dateProps = this.props[`${propsKey}DateProps`] || {};
 
-    const props = assign(
-      {},
-      {
-        label: this.props[`${propsKey}Label`],
-        labelInline: this.props.labelsInline,
-        onChange: this._onChange.bind(null, `${propsKey}Date`),
-        onBlur: this._onBlur.bind(null),
-        value: this.state[`${propsKey}DateValue`].rawValue,
-        error: this.props[`${propsKey}Error`],
-        warning: this.props[`${propsKey}Warning`],
-        info: this.props[`${propsKey}Info`],
-        validationOnLabel: this.props.validationOnLabel,
-      },
-      dateProps
-    );
-
-    props.className = dateProps.className;
-
-    return props;
+    return {
+      label: this.props[`${propsKey}Label`],
+      labelInline: this.props.labelsInline,
+      value: this.state[`${propsKey}DateValue`].rawValue,
+      error: this.props[`${propsKey}Error`],
+      warning: this.props[`${propsKey}Warning`],
+      info: this.props[`${propsKey}Info`],
+      validationOnLabel: this.props.validationOnLabel,
+      onBlur: this._onBlur,
+      onChange: this[`${propsKey}DateOnChange`],
+      ...dateProps,
+    };
   }
 
   render() {
