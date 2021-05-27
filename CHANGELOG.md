@@ -1,3 +1,15 @@
+## [75.1.0](https://github.com/Sage/carbon/compare/v75.0.1...v75.1.0) (2021-05-27)
+
+
+### Features
+
+* **duelling-picklist:** add context to support focusing elements after an item or group moves ([984d42b](https://github.com/Sage/carbon/commit/984d42b087bd4f04f8652b625a08067f28ffc117))
+
+
+### Bug Fixes
+
+* **duelling-picklist:** add error if children do not have 2 picklist ([1ccb1ab](https://github.com/Sage/carbon/commit/1ccb1abb1793ef58472e5f95a657c5802ac62b4b))
+
 ### [75.0.1](https://github.com/Sage/carbon/compare/v75.0.0...v75.0.1) (2021-05-27)
 
 
