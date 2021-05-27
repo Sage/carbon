@@ -50,7 +50,8 @@ const SwitchSlider = (props) => {
   const loaderProps = {
     isInsideButton: true,
     isActive: props.checked,
-    ...props,
+    size,
+    ...filterStyledSystemMarginProps(props),
   };
 
   const sliderContent = (
