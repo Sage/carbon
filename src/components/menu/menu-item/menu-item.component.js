@@ -113,6 +113,7 @@ const MenuItem = ({
         menuType={menuContext.menuType}
         display="inline-block"
         title={getTitle(submenu)}
+        maxWidth={maxWidth}
         {...rest}
       >
         <Submenu
@@ -137,6 +138,7 @@ const MenuItem = ({
       inSubmenu={submenuContext.handleKeyDown !== undefined}
       display="inline-block"
       title={getTitle(children)}
+      maxWidth={maxWidth}
       {...rest}
     >
       <StyledMenuItemWrapper
@@ -218,8 +220,6 @@ MenuItem.propTypes = {
     }
     return PropTypes.string(props, ...rest);
   },
-  /** Maximum width. Any valid CSS string */
-  maxWidth: PropTypes.string,
 };
 
 export default MenuItem;

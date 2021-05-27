@@ -114,7 +114,7 @@ describe("MenuItem", () => {
     it("should add the correct styles", () => {
       assertStyleMatch(
         {
-          maxWidth: "100px",
+          maxWidth: "inherit",
           textOverflow: "ellipsis",
           overflow: "hidden",
           whiteSpace: "nowrap",
@@ -315,7 +315,7 @@ describe("MenuItem", () => {
       it("should add the correct styles", () => {
         assertStyleMatch(
           {
-            maxWidth: "100px",
+            maxWidth: "inherit",
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",
