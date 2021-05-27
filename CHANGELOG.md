@@ -1,3 +1,10 @@
+### [75.0.1](https://github.com/Sage/carbon/compare/v75.0.0...v75.0.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix react-testing-library errors ([1102017](https://github.com/Sage/carbon/commit/11020174cdbc341219d55486458335908f60ea4c))
+
 ## [75.0.0](https://github.com/Sage/carbon/compare/v74.5.1...v75.0.0) (2021-05-27)
 
 
