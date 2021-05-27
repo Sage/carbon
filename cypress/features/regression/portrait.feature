@@ -9,3 +9,13 @@ Feature: Portrait default component
 			| alt                          | nameOfObject        |
 			| mp150ú¿¡üßä                  | altOtherLanguage    |
 			| !@#$%^*()_+-=~[];:.,?{}&"'<> | altSpecialCharacter |
+
+	@positive
+	Scenario Outline: Render specified icon type <iconType>
+		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		Then <iconType> icon component should be rendered
+		Examples:
+			| iconType   | nameOfObject  |
+			| individual | iconTypeNone  |
+			| image      | iconTypeImage |
+			| copy       | iconTypeCopy  |
