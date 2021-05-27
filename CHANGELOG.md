@@ -1,3 +1,10 @@
+### [75.2.2](https://github.com/Sage/carbon/compare/v75.2.1...v75.2.2) (2021-05-27)
+
+
+### Bug Fixes
+
+* **search:** update vertical alignment of the close input icon ([e53cd6b](https://github.com/Sage/carbon/commit/e53cd6b5616363ebeb0d1c5b5939c2b999c32c9e))
+
 ### [75.2.1](https://github.com/Sage/carbon/compare/v75.2.0...v75.2.1) (2021-05-27)
 
 
