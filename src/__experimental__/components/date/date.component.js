@@ -42,6 +42,8 @@ class BaseDateInput extends React.Component {
 
   hasMounted = false;
 
+  inputPresentationRef = React.createRef();
+
   state = {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
@@ -95,7 +97,7 @@ class BaseDateInput extends React.Component {
 
   assignInput = (input) => {
     this.input = input.current;
-    this.inputRef = input;
+    this.inputPresentationRef.current = input.current.parentElement;
   };
 
   shouldAllowBlur = () => {
@@ -364,12 +366,11 @@ class BaseDateInput extends React.Component {
     return (
       <div onClick={this.markCurrentDatepicker} role="presentation">
         <DatePicker
-          inputElement={this.inputRef}
+          inputElement={this.inputPresentationRef}
           selectedDate={this.state.selectedDate}
           handleDateSelect={this.handleDateSelect}
           inputDate={visibleValue}
           disablePortal={this.props.disablePortal}
-          size={this.props.size}
           {...dateRangeProps}
         />
       </div>

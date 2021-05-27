@@ -336,9 +336,12 @@ const StyledTabTitle = styled.li`
   ${({ isTabSelected, theme }) =>
     !isTabSelected &&
     css`
-      &:hover,
-      &:focus {
+      &:hover {
         background: ${theme.tab.background};
+        color: ${theme.text.color};
+        outline: none;
+      }
+      &:focus {
         color: ${theme.text.color};
         outline: none;
       }
