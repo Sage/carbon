@@ -18,8 +18,6 @@ export interface TabsProps extends MarginProps {
   onTabChange?: (tabId: string) => void;
   /** The position of the tab title. */
   position?: "top" | "left";
-  /** Sets the selected tabId in the URL. */
-  setLocation?: boolean;
   /** Sets size of the tab titles. */
   size?: "default" | "large";
   /** Sets the divider of the tab titles header to extend the full width of the parent. */
