@@ -62,12 +62,20 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 <Preview>
   <Story name="sizes">
     {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const [isCheckedLarge, setIsCheckedLarge] = useState(false);
       return ["small", "large"].map((size) => (
         <Switch
           label={size}
           key={`switch-${size}`}
           name={`switch-${size}`}
           size={size}
+          checked={size === "large" ? isCheckedLarge : isChecked}
+          onChange={(e) =>
+            size === "large"
+              ? setIsCheckedLarge(e.target.checked)
+              : setIsChecked(e.target.checked)
+          }
         />
       ));
     }}
@@ -107,7 +115,16 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="reversed">
-    <Switch label="Reversed switch" reverse={false} />
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="Reversed switch"
+          reverse={false}
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -115,14 +132,25 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="With labelInline">
-    <>
-      <Switch label="With labelInline" labelInline />
-      <Switch
-        label="With labelInline and reversed"
-        labelInline
-        reverse={false}
-      />
-    </>
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With labelInline"
+            labelInline
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With labelInline and reversed"
+            labelInline
+            reverse={false}
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+        </>
+      );
+    }}
   </Story>
 </Preview>
 
@@ -130,17 +158,25 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="with fieldHelp">
-    <>
-      <Switch
-        label="With fieldHelp"
-        fieldHelp="This text provides help for the input."
-      />
-      <Switch
-        label="With inline fieldHelp"
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-      />
-    </>
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With fieldHelp"
+            fieldHelp="This text provides help for the input."
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With inline fieldHelp"
+            fieldHelp="This text provides help for the input."
+            fieldHelpInline
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+        </>
+      );
+    }}
   </Story>
 </Preview>
 
@@ -148,10 +184,16 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="with labelHelp">
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-    />
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="With labelHelp"
+          labelHelp="This text provides more information for the label."
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -164,21 +206,33 @@ please visit the props table at the bottom of this page.
 
 <Preview>
   <Story name="with margin">
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      m={2}
-    />
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      m={4}
-    />
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      m="9px"
-    />
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      const [isCheckedThree, setIsCheckedThree] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m={2}
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m={4}
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m="9px"
+            onChange={(e) => setIsCheckedThree((state) => !state)}
+          />
+        </>
+      );
+    }}
   </Story>
 </Preview>
 
@@ -196,17 +250,19 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="single switch - string validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
         <Switch
           id={`switch${type}`}
           key={`switch-${type}`}
           {...{ [type]: "Message" }}
           label={`Example switch (${type})`}
           name={`switch-${type}`}
+          onChange={(e) => setIsChecked((state) => !state)}
         />
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -214,8 +270,9 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="single switch - string validation - validationOnLabel">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
         <Switch
           id={`switch${type}-label`}
           key={`switch-${type}-label`}
@@ -223,9 +280,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
           label={`Example switch (${type})`}
           name={`switch-${type}-label`}
           validationOnLabel
+          onChange={(e) => setIsChecked((state) => !state)}
         />
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -233,17 +291,19 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="single switch - boolean validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
         <Switch
           id={`switch_${type}-boolean`}
           key={`switch-${type}-boolean`}
           {...{ [type]: true }}
           label={`Example switch (${type})`}
           name={`switch-${type}-boolean`}
+          onChange={(e) => setIsChecked((state) => !state)}
         />
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
