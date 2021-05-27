@@ -1,3 +1,10 @@
+## [75.2.0](https://github.com/Sage/carbon/compare/v75.1.0...v75.2.0) (2021-05-27)
+
+
+### Features
+
+* **portrait:** adds prop to specify fallback icon ([3b78281](https://github.com/Sage/carbon/commit/3b782818bc9db6de3813bb4ef4345e48ac96f42d))
+
 ## [75.1.0](https://github.com/Sage/carbon/compare/v75.0.1...v75.1.0) (2021-05-27)
 
 
