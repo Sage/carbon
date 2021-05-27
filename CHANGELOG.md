@@ -1,3 +1,17 @@
+## [75.0.0](https://github.com/Sage/carbon/compare/v74.5.1...v75.0.0) (2021-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** Internal support for updating window location has been removed from the `Tabs`
+component, the `setLocation` prop has also been removed as it serves no purpose beyond serving as a
+guard for this functionality. Consumers who wish to have this functionality should utilise the
+`onTabChange` and `selectedTabId` props with whatever `history` implementation they want to.
+
+### Features
+
+* **tabs:** remove internal support for history and url manipulation ([bd76906](https://github.com/Sage/carbon/commit/bd7690686d17911a8417f927f9797ed4a5231d50)), closes [#3520](https://github.com/Sage/carbon/issues/3520)
+
 ### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
 
 

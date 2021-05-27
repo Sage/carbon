@@ -20,9 +20,10 @@ An example of how to use the Carbon `Button` and `Link` components as links with
 Note the use of the `useHistory` hook from `react-router-dom`.
 
 ```jsx
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "carbon-react/lib/components/button";
 import Link from "carbon-react/lib/components/link";
+import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 
 import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 
@@ -44,6 +45,20 @@ const CarbonLinkWithReactRouter = ({ to, children }) => {
   return <Link onClick={onClick}>{children}</Link>;
 };
 
+const CarbonTabsWithReactRouter = ({ children }) => {
+  const history = useHistory();
+  const [activeTab, setActiveTab] = useState();
+  const handleTabChange = useCallback(
+    (tabId) => {
+      history.push(tabId);
+      setActiveTab(tabId);
+    },
+    [history]
+  );
+
+  return <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>{children}</Tabs>;
+};
+
 const Home = () => (
   <div>
     <CarbonButtonWithReactRouter to="settings">
@@ -58,11 +73,25 @@ const Settings = () => (
   </div>
 );
 
+const Overview = () => (
+  <div>
+    <CarbonTabsWithReactRouter>
+      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+        Content for tab 1
+      </Tab>
+      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
+        Content for tab 2
+      </Tab>
+    </CarbonTabsWithReactRouter>
+  </div>
+);
+
 const App = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" element={<Home />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/overview" element={<Overview />} />
     </Switch>
   </BrowserRouter>
 );
@@ -74,9 +103,10 @@ An example of how to use the Carbon `Button` and `Link` components as links with
 Note the use of the `useNavigate` hook from `react-router-dom`.
 
 ```jsx
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "carbon-react/lib/components/button";
 import Link from "carbon-react/lib/components/link";
+import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
@@ -98,6 +128,20 @@ const CarbonLinkWithReactRouter = ({ to, children }) => {
   return <Link onClick={onClick}>{children}</Link>;
 };
 
+const CarbonTabsWithReactRouter = ({ children }) => {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState();
+  const handleTabChange = useCallback(
+    (tabId) => {
+      navigate(tabId);
+      setActiveTab(tabId);
+    },
+    [navigate]
+  );
+
+  return <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>{children}</Tabs>;
+};
+
 const Home = () => (
   <div>
     <CarbonButtonWithReactRouter to="settings">
@@ -112,11 +156,25 @@ const Settings = () => (
   </div>
 );
 
+const Overview = () => (
+  <div>
+    <CarbonTabsWithReactRouter>
+      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+        Content for tab 1
+      </Tab>
+      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
+        Content for tab 2
+      </Tab>
+    </CarbonTabsWithReactRouter>
+  </div>
+);
+
 const App = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="settings" element={<Settings />} />
+      <Route path="overview" element={<Overview />} />
     </Routes>
   </BrowserRouter>
 );
@@ -131,3 +189,4 @@ There are many components that you can use this method with, including:
 - `Link`
 - `MenuItem`
 - `Tab`
+- `Tabs`
