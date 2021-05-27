@@ -1,8 +1,17 @@
 {
   "altOtherLanguage": {
-    "alt": "mp150ú¿¡üßä"
+    "alt": "mp150ú¿¡üßä",
+    "initials": "AZ"
   },
   "altSpecialCharacter": {
-    "alt": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "alt": "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+    "initials": "AZ"
+  },
+  "iconTypeNone": {},
+  "iconTypeImage": {
+    "iconType": "image"
+  },
+  "iconTypeCopy": {
+    "iconType": "copy"
   }
 }
