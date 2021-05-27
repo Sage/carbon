@@ -1,3 +1,10 @@
+### [75.2.1](https://github.com/Sage/carbon/compare/v75.2.0...v75.2.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect date picker positioning ([6fb85c6](https://github.com/Sage/carbon/commit/6fb85c6b0a565b58223698535092422ec7dcde21))
+
 ## [75.2.0](https://github.com/Sage/carbon/compare/v75.1.0...v75.2.0) (2021-05-27)
 
 
