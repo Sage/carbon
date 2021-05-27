@@ -12,6 +12,8 @@ export interface FlatTableRowProps {
   expandableArea?: "wholeRow" | "firstColumn";
   /** Allows developers to manually control highlighted state for the row. */
   highlighted?: boolean;
+  /** Sets the color of the bottom border in the row */
+  horizontalBorderColor?: string;
   /** Sets the weight of the bottom border in the row */
   horizontalBorderSize?: TableBorderSize;
   /** Function to handle click event. If provided the Component could be focused with tab key. */

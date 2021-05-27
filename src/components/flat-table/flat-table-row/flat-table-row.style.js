@@ -56,6 +56,7 @@ const borderColor = (colorTheme, theme) => {
 const StyledFlatTableRow = styled.tr`
   ${({
     bgColor,
+    horizontalBorderColor,
     horizontalBorderSize,
     stickyOffset,
     isRowInteractive,
@@ -73,6 +74,9 @@ const StyledFlatTableRow = styled.tr`
     theme,
   }) => {
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
+    const customBorderColor = horizontalBorderColor
+      ? toColor(theme, horizontalBorderColor)
+      : undefined;
     const colorOfSelected = isInSidebar
       ? theme.flatTable.drawerSidebar.selected
       : theme.flatTable.selected;
@@ -96,6 +100,11 @@ const StyledFlatTableRow = styled.tr`
         css`
           border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
             ${theme.table.secondary};
+        `}
+
+        ${customBorderColor &&
+        css`
+          border-bottom-color: ${customBorderColor};
         `}
       }
 
@@ -157,11 +166,12 @@ const StyledFlatTableRow = styled.tr`
       ${![-1, 0].includes(rowHeaderIndex) &&
       css`
         td:nth-of-type(${rowHeaderIndex + 1}) {
-          border-left: 1px solid ${theme.table.secondary};
+          border-left: 1px solid ${customBorderColor || theme.table.secondary};
         }
 
         th:nth-of-type(${rowHeaderIndex + 2}) {
-          border-left: 1px solid ${borderColor(colorTheme, theme)};
+          border-left: 1px solid
+            ${customBorderColor || borderColor(colorTheme, theme)};
         }
       `}
 
@@ -176,6 +186,7 @@ const StyledFlatTableRow = styled.tr`
 
         ${StyledFlatTableHeader} {
           background-color: ${theme.flatTable.drawerSidebar.headerBackground};
+          border-bottom-color: ${theme.table.secondary};
         }
 
         td:first-of-type,

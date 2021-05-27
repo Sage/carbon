@@ -30,6 +30,7 @@ const FlatTableRow = React.forwardRef(
       selected,
       subRows,
       bgColor,
+      horizontalBorderColor,
       horizontalBorderSize = "small",
     },
     ref
@@ -145,6 +146,7 @@ const FlatTableRow = React.forwardRef(
               colorTheme={colorTheme}
               stickyOffset={stickyOffset}
               bgColor={bgColor}
+              horizontalBorderColor={horizontalBorderColor}
               horizontalBorderSize={horizontalBorderSize}
               {...interactiveRowProps}
             >
@@ -212,6 +214,8 @@ FlatTableRow.propTypes = {
   expandableArea: PropTypes.oneOf(["wholeRow", "firstColumn"]),
   /** Sets an expandable row to be expanded on start */
   expanded: PropTypes.bool,
+  /** Sets the color of the bottom border in the row */
+  horizontalBorderColor: PropTypes.string,
   /** Sets the weight of the bottom border in the row */
   horizontalBorderSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** @ignore @private */

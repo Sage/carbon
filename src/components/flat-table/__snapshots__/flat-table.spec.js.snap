@@ -160,6 +160,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #335C6D;
   border-right: 1px solid #668592;
   color: #FFFFFF;
+  border-bottom-color: #668592;
 }
 
 <div

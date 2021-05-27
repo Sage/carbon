@@ -215,7 +215,7 @@ describe("FlatTableRow", () => {
     describe.each([
       StyledFlatTableCell,
       StyledFlatTableRowHeader,
-      StyledFlatTableCheckbox
+      StyledFlatTableCheckbox,
     ])('with the "bgColor" also provided', (element) => {
       it(`it overrides the ${element} "background-color"`, () => {
         const customColor = "#CCCCCC";
@@ -1070,6 +1070,31 @@ describe("FlatTableRow", () => {
           assertStyleMatch(
             {
               borderBottom: expectedValue,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
+      }
+    );
+
+    describe.each([
+      ["goldTint10", "#FFBC1A"],
+      ["#000", "#000"],
+    ])(
+      "when the horizontalBorderColor prop is set to %s",
+      (horizontalBorderColor, expectedValue) => {
+        let wrapper;
+
+        it("it overrides the cell bottom-border color", () => {
+          wrapper = renderFlatTableRow({
+            highlighted: true,
+            horizontalBorderColor,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              borderBottomColor: expectedValue,
             },
             wrapper,
             { modifier: `${StyledFlatTableCell}` }
