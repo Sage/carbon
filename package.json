@@ -7,10 +7,6 @@
     "npm": "^6.0.0",
     "node": ">=14.16.0"
   },
-  "files": [
-    "lib",
-    "postinstall.js"
-  ],
   "scripts": {
     "start": "node ./check_version.js && start-storybook -p 9001 -s .assets -c .storybook",
     "test": "jest --config=./jest.conf.json",
