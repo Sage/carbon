@@ -10,6 +10,8 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import StyledTextInput from "../../__experimental__/components/input/input-presentation.style";
+import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
+
 import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
@@ -198,6 +200,17 @@ describe("Search", () => {
           borderBottom: "none",
         },
         wrapper
+      );
+    });
+
+    it("applies the expected styling to the close icon", () => {
+      wrapper = renderWrapper({ value: "FooBar" }, mount);
+      assertStyleMatch(
+        {
+          marginBottom: "-1px",
+        },
+        wrapper,
+        { modifier: `${StyledInputIconToggle}` }
       );
     });
   });

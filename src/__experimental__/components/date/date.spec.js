@@ -5,6 +5,7 @@ import { mount } from "enzyme";
 
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
+import InputPresentationStyle from "../input/input-presentation.style";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import DatePicker from "./date-picker.component";
 import Textbox from "../../../components/textbox";
@@ -839,6 +840,19 @@ describe("when the calendar icon is clicked", () => {
     wrapper.find(DatePicker).parent().props().onClick();
     wrapper.update();
     expect(wrapper.find(DatePicker).exists()).toBe(true);
+  });
+});
+
+describe("datepicker container", () => {
+  it("should be the InputPresentationStyle element", () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+
+    expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
+      wrapper.find(InputPresentationStyle).getDOMNode()
+    );
   });
 });
 

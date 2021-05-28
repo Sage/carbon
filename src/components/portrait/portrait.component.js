@@ -16,6 +16,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
 class Portrait extends React.Component {
   state = {
     externalError: false,
@@ -44,6 +45,7 @@ class Portrait extends React.Component {
       alt,
       darkBackground,
       gravatar,
+      iconType,
       initials,
       shape,
       size,
@@ -63,7 +65,7 @@ class Portrait extends React.Component {
 
     let portrait = (
       <StyledIcon
-        type="individual"
+        type={iconType}
         size={size}
         shape={shape}
         darkBackground={darkBackground}
@@ -168,6 +170,8 @@ Portrait.propTypes = {
   initials: PropTypes.string,
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
+  /** The icon to render as fallback */
+  iconType: PropTypes.string,
   /** Prop for `onClick` events. */
   onClick: PropTypes.func,
   /** The message to be displayed within the tooltip */
@@ -193,6 +197,7 @@ Portrait.defaultProps = {
   shape: "square",
   darkBackground: false,
   alt: "",
+  iconType: "individual",
 };
 
 export default Portrait;

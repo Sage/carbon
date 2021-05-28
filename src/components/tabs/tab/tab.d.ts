@@ -31,7 +31,7 @@ export interface TabProps extends PaddingProps {
   /** Allows Tab to be a link */
   href?: string;
   /** Overrides default layout with a one defined in this prop */
-  customLayout: React.ReactNode;
+  customLayout?: React.ReactNode;
 }
 
 export interface TabAllProps {
