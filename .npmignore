@@ -22,7 +22,7 @@ script
 src
 yarn.lock
 .assets
-.codesandbox
+
 .storybook
 change_log
 cypress
@@ -33,7 +33,7 @@ rfcs
 .nvmrc
 .prettierignore
 .prettierrc.json
-.babel.config.js
+babel.config.js
 CHANGELOG-OLD.md
 check_version.js
 cypress.env.json
