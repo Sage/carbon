@@ -83,13 +83,14 @@ const StyledFlatTableHeader = styled.th`
     `
     }
 
-    ${
-      verticalBorder &&
-      css`
-        &&& {
+    &&& {
+      ${
+        verticalBorder &&
+        css`
           border-right-width: ${verticalBorderSizes[verticalBorder]};
-        }
-      `
+        `
+      }
+      }
     }
   `}
 `;

@@ -174,4 +174,27 @@ describe("FlatTableRowHeader", () => {
       });
     }
   );
+
+  describe.each([
+    ["goldTint10", "#FFBC1A"],
+    ["#000", "#000"],
+  ])(
+    "when the verticalBorderColor prop is set to %s",
+    (verticalBorderColor, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the row header border-right-color", () => {
+        wrapper = mount(
+          <FlatTableRowHeader verticalBorderColor={verticalBorderColor} />
+        );
+        assertStyleMatch(
+          {
+            borderRightColor: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
 });

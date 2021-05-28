@@ -84,6 +84,8 @@ FlatTableRowHeader.propTypes = {
   onKeyDown: PropTypes.func,
   /** Sets a custom vertical right border */
   verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Sets a custom vertical right border */
+  verticalBorderColor: PropTypes.string,
 };
 
 export default FlatTableRowHeader;

@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
+import { toColor } from "../../../style/utils/color";
 
 const verticalBorderSizes = {
   small: "1px",
@@ -20,6 +21,7 @@ const StyledFlatTableCell = styled.td`
     isTruncated,
     expandable,
     verticalBorder,
+    verticalBorderColor,
   }) => css`
     background-color: #fff;
     border-width: 0;
@@ -56,6 +58,11 @@ const StyledFlatTableCell = styled.td`
       css`
         border-right: ${verticalBorderSizes[verticalBorder]} solid
           ${theme.table.secondary};
+      `}
+
+      ${verticalBorderColor &&
+      css`
+        border-right-color: ${toColor(theme, verticalBorderColor)};
       `}
     }
 

@@ -14,6 +14,8 @@ export interface FlatTableRowHeaderProps extends PaddingProps {
   title?: string;
   /** Sets a custom vertical right border */
   verticalBorder?: TableBorderSize;
+  /** Sets the color of the right border */
+  verticalBorderColor?: string;
 }
 
 declare function FlatTableRowHeader(props: FlatTableRowHeaderProps): JSX.Element;
