@@ -79,6 +79,7 @@
     "axe-core": "^3.5.5",
     "babel-eslint": "10.0.3",
     "babel-jest": "^26.6.3",
+    "browserslist": "^4.16.6",
     "carbon-state-management": "^1.0.0",
     "chalk": "^4.1.1",
     "chromatic": "^5.6.1",
