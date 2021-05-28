@@ -1,5 +1,6 @@
 import { mount } from "enzyme";
 
+import { sprintf } from "sprintf-js";
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
 
@@ -446,6 +447,39 @@ const testStyledSystemBackground = (component, styleContainer) => {
   );
 };
 
+const expectError = (errorMessage) => {
+  if (!errorMessage) {
+    throw new Error("no error message provided");
+  }
+  expect.assertions(1);
+
+  const { error } = global.console;
+  let errorArgs;
+
+  jest.spyOn(global.console, "error").mockImplementation((...args) => {
+    if (!args.length) return;
+
+    const msg = args.join(" ");
+    const params = args.slice(1, args.length);
+
+    if (sprintf(msg, ...params).includes(errorMessage)) {
+      errorArgs = args;
+      return;
+    }
+
+    error(...args);
+  });
+
+  return () => {
+    if (errorArgs) {
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(...errorArgs);
+    }
+
+    global.console.error = error;
+  };
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -469,4 +503,5 @@ export {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemBackground,
+  expectError,
 };
