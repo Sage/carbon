@@ -81,22 +81,6 @@ import Textbox from "carbon-react/lib/components/textbox";
   </Story>
 </Preview>
 
-### Paddings
-
-<Preview>
-  <Story name="paddings">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return (
-        <Textbox label="Textbox" value={state} onChange={setValue} p={4} />
-      );
-    }}
-  </Story>
-</Preview>
-
 ### AutoFocus
 
 <Preview>
@@ -285,14 +269,4 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Textbox
 
-<<<<<<< HEAD:src/**experimental**/components/textbox/textbox.stories.mdx
-
-# <StyledSystemProps of={OriginalTextbox} noHeader margin />
-
-<StyledSystemProps
-  of={OriginalTextbox}
-  spacing
-  noHeader
-  defaults={{ mt: "3", mb: "3" }}
-/>
->>>>>>> major/move-experimental-components:src/components/textbox/textbox.stories.mdx
+<StyledSystemProps of={OriginalTextbox} noHeader margin />
