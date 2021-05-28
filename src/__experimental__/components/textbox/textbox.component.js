@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import {
+  filterStyledSystemMarginProps,
+  filterStyledSystemPaddingProps,
+} from "../../../style/utils";
 import { Input, InputPresentation } from "../input";
 import InputIconToggle from "../input-icon-toggle";
 import FormField from "../form-field";
@@ -8,6 +13,20 @@ import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { InputBehaviour } from "../../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
+// Padding props filtering is a temporary solution until FormField and all related components are refactored
+// FIXME FE-3370
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
+const filterOutPaddingProps = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !paddingPropTypes[key])
+  );
 
 const Textbox = ({
   children,
@@ -34,7 +53,7 @@ const Textbox = ({
       <FormField
         childOfForm={childOfForm}
         isOptional={isOptional}
-        {...props}
+        {...filterOutPaddingProps(props)}
         useValidationIcon={validationOnLabel}
         labelWidth={labelWidth}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
@@ -87,8 +106,8 @@ function visibleValue(value, formattedValue) {
 }
 
 Textbox.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /**
    * An optional alternative for props.value, this is useful if the
    * real value is an ID but you want to show a human-readable version.

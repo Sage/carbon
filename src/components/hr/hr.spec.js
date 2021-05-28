@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import {
   assertStyleMatch,
   mockMatchMedia,
-  testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import Hr from "./hr.component";
 import StyledHr from "./hr.style";
@@ -20,7 +20,7 @@ describe("Hr", () => {
     wrapper = render();
   });
 
-  testStyledSystemSpacing((props) => <Hr {...props} />, {
+  testStyledSystemMargin((props) => <Hr {...props} />, {
     mt: "24px",
     mb: "24px",
   });
