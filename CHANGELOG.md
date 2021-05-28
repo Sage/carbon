@@ -1,3 +1,10 @@
+### [75.2.6](https://github.com/Sage/carbon/compare/v75.2.5...v75.2.6) (2021-05-28)
+
+
+### Bug Fixes
+
+* **tile-select:** incorrect ts type definitions ([c40625c](https://github.com/Sage/carbon/commit/c40625c03ca49e20fd368e258e90ffab99bbcf8a))
+
 ### [75.2.5](https://github.com/Sage/carbon/compare/v75.2.4...v75.2.5) (2021-05-28)
 
 
