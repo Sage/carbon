@@ -1,14 +1,14 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { mount } from "enzyme";
 import { css } from "styled-components";
 import Tile from ".";
-import { StyledTile, TileContent } from "./tile.style";
+import { TileContent } from "./tile.style";
 import Content from "../content";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
+  testStyledSystemWidth,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 
@@ -64,6 +64,13 @@ describe("Tile", () => {
   });
 
   describe("styles", () => {
+    testStyledSystemSpacing(
+      (props) => <Tile {...props} headerSpace={{ p: 3 }} />,
+      { p: 3 }
+    );
+
+    testStyledSystemWidth((props) => <Tile {...props} />);
+
     describe("as", () => {
       it('renders a white background when as === "tile"', () => {
         const wrapper = render({ as: "tile" }).toJSON();
@@ -94,35 +101,6 @@ describe("Tile", () => {
           assertStyleMatch({ flexDirection: "column" }, wrapper);
         });
       });
-
-      describe("width", () => {
-        it("sets width to 100% when width prop is undefined", () => {
-          const wrapper = render().toJSON();
-
-          assertStyleMatch({ width: "100%" }, wrapper);
-        });
-
-        it("sets width to 100% when width prop is 0", () => {
-          const wrapper = render({ width: 0 }).toJSON();
-
-          assertStyleMatch({ width: "100%" }, wrapper);
-        });
-
-        it("sets width to the passed percentage value when width prop is non-zero", () => {
-          const wrapper = render({ width: 25 }).toJSON();
-
-          assertStyleMatch({ width: "25%" }, wrapper);
-        });
-
-        it.each([1, 150, 500])(
-          "is overridden when the pixelWidth prop is set to %s",
-          (pixelWidth) => {
-            const wrapper = render({ pixelWidth, width: 25 }).toJSON();
-
-            assertStyleMatch({ width: `${pixelWidth}px` }, wrapper);
-          }
-        );
-      });
     });
   });
 
@@ -134,12 +112,13 @@ describe("Tile", () => {
         ).toJSON();
       }
 
-      // eslint-disable-next-line max-len
-      testStyledSystemSpacing(
-        (props) => <Tile {...props} headerSpace={{ p: 3 }} />,
-        { p: 3 },
-        (wrapper) => wrapper.find(StyledTile)
-      );
+      testStyledSystemSpacing((props) => (
+        <TileContent {...props}>Test</TileContent>
+      ));
+
+      testStyledSystemWidth((props) => (
+        <TileContent {...props}>Test</TileContent>
+      ));
 
       it("has the correct base styles", () => {
         const wrapper = renderTileContent();
@@ -247,14 +226,6 @@ describe("Tile", () => {
             `,
           }
         );
-      });
-
-      describe("width", () => {
-        it("sets width to the passed percentage value and flex-grow to 0 when width prop is non-zero", () => {
-          const wrapper = renderTileContent({ width: 25 });
-
-          assertStyleMatch({ flexGrow: "0", width: "25%" }, wrapper);
-        });
       });
     });
   });

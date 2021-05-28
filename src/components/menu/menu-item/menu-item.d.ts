@@ -1,8 +1,8 @@
 import * as React from "react";
+import { FlexboxProps, LayoutProps } from "styled-system";
 import * as OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
-import { BoxProps } from "../../box/box";
 
-export interface MenuItemBaseProps extends BoxProps {
+export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   /** Custom className */
   className?: string;
   /** onClick handler */

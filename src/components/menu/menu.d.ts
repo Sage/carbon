@@ -1,4 +1,5 @@
 import * as React from "react";
+import { LayoutProps, FlexBoxProps } from "../../utils/helpers/options-helper";
 
 interface MenuContextProps {
   menuType: "light" | "dark";
@@ -8,7 +9,7 @@ interface MenuContextProps {
   openSubmenu: boolean;
 }
 
-export interface MenuProps {
+export interface MenuProps extends LayoutProps, FlexBoxProps {
   /** Children elements */
   children: React.ReactNode;
   /** Defines the color scheme of the component */
