@@ -44,31 +44,7 @@ describe("DatePicker", () => {
 
         expect(
           wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-11, 5]);
-      });
-
-      describe("when size prop is small", () => {
-        it("should have the correct overhang", () => {
-          wrapper = render(
-            { selectedDate: currentDate, inputDate: firstDate, size: "small" },
-            mount
-          );
-
-          expect(
-            wrapper.find(Popover).props().modifiers[0].options.offset
-          ).toEqual([-8, 5]);
-        });
-      });
-
-      describe("when size prop is large", () => {
-        wrapper = render(
-          { selectedDate: currentDate, inputDate: firstDate, size: "large" },
-          mount
-        );
-
-        expect(
-          wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([-13, 5]);
+        ).toEqual([0, 3]);
       });
     });
   });
