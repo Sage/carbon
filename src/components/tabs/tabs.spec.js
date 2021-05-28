@@ -290,7 +290,7 @@ describe("Tabs", () => {
     });
 
     it("updates to make the associated Tab visible", () => {
-      const wrapper = render({ setLocation: false });
+      const wrapper = render();
       act(() => {
         wrapper
           .find(TabTitle)
@@ -322,15 +322,14 @@ describe("Tabs", () => {
       expect(onTabChange).toHaveBeenCalledWith("uniqueid2");
     });
 
-    it('calls the "onTabChange" callback if one is passed and a new selectedTabId value is passed', () => {
-      const onTabChange = jest.fn();
-      const wrapper = render({ onTabChange, selectedTabId: "uniqueid1" });
+    it("updates the selected tab when a new id is passed via the 'selectedTabId' prop", () => {
+      const wrapper = render({ selectedTabId: "uniqueid1" });
       wrapper.setProps({ selectedTabId: "uniqueid2" });
       wrapper.update();
-      expect(onTabChange).toHaveBeenCalledWith("uniqueid2");
+      expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(true);
       wrapper.setProps({ selectedTabId: "uniqueid1" });
       wrapper.update();
-      expect(onTabChange).toHaveBeenCalledWith("uniqueid1");
+      expect(wrapper.find(Tab).at(0).props().isTabSelected).toEqual(true);
     });
 
     it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {

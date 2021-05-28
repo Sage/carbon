@@ -9,7 +9,7 @@ export interface TileSelectProps extends MarginProps {
   /** subtitle of the TileSelect */
   subtitle?: string;
   /** description of the TileSelect */
-  description?: string;
+  description?: React.ReactNode;
   /** disables the TileSelect input */
   disabled?: boolean;
   /** the value that is represented by this TileSelect */
@@ -19,9 +19,9 @@ export interface TileSelectProps extends MarginProps {
   /** input name */
   name?: string;
   /** Callback triggered when user selects or deselects this tile */
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Callback triggered when the user blurs this tile */
-  onBlur?: (ev: React.SyntheticEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** determines if this tile is selected or unselected */
   checked?: boolean;
   /** Custom class name passed to the root element of TileSelect */
@@ -32,6 +32,8 @@ export interface TileSelectProps extends MarginProps {
   customActionButton?: (onClick: () => void) => JSX.Element;
   /** An additional help info icon rendered next to the action button */
   actionButtonAdornment?: React.ReactNode;
+  /** footer of the TileSelect */
+  footer?: React.ReactNode;
 }
 
 declare function TileSelect(props: TileSelectProps): JSX.Element;

@@ -175,7 +175,7 @@ const SimpleColorPicker = (props) => {
   const handleOnBlur = (ev) => {
     ev.preventDefault();
 
-    if (!blurBlocked) {
+    if (!blurBlocked && onBlur) {
       onBlur(ev);
     }
   };
