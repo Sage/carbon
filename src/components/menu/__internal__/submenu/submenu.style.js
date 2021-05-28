@@ -5,7 +5,7 @@ import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
 import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style";
-import StyledSearch from "../../../../__experimental__/components/search/search.style";
+import StyledSearch from "../../../search/search.style";
 
 const StyledSubmenuWrapper = styled.div`
   position: relative;

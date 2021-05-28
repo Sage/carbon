@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
 import { RadioButton, RadioButtonGroup } from ".";
-import FieldHelpStyle from "../field-help/field-help.style";
+import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";

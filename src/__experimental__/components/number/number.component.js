@@ -1,5 +1,5 @@
 import React from "react";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 
 class Number extends React.Component {
   render() {

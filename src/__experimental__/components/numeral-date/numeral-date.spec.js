@@ -3,7 +3,7 @@ import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import NumeralDate from "./numeral-date.component";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import {
   assertStyleMatch,

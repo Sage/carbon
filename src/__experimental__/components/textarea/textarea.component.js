@@ -11,7 +11,7 @@ import Input from "../input/input.component";
 import { InputBehaviour } from "../../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
-import InputIconToggle from "../input-icon-toggle";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
 
 import guid from "../../../utils/helpers/guid/guid";
 import StyledTextarea from "./textarea.style";

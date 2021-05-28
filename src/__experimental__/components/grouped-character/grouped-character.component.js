@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(

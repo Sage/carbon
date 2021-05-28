@@ -11,13 +11,11 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | number-input        |
       | simple-color-picker |
       | switch              |
       | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -28,12 +26,10 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -44,12 +40,10 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -60,12 +54,10 @@ Feature: Accessibility tests - Experimental folder
       | date-range          |
       | date-input          |
       | decimal-input       |
-      | fieldset            |
       | groupedcharacter    |
       | simple-color-picker |
       | number-input        |
       | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story

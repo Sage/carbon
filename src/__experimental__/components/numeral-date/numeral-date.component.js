@@ -8,7 +8,7 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../utils/helpers/events";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import guid from "../../../utils/helpers/guid";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";

@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import { css } from "styled-components";
 import Checkbox from "./checkbox.component";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import FieldHelpStyle from "../field-help/field-help.style";
+import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import guid from "../../../utils/helpers/guid";

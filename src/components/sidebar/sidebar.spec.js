@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import Sidebar from "./sidebar.component";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import SidebarStyle from "./sidebar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";

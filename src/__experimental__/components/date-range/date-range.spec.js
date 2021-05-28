@@ -3,7 +3,7 @@ import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import MockDate from "mockdate";
 import DateRange from "./date-range.component";
-import Textbox from "../textbox/textbox.component";
+import Textbox from "../../../components/textbox/textbox.component";
 import { BaseDateInput } from "../date";
 import {
   elementsTagTest,

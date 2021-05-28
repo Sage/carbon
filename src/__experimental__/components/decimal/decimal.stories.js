@@ -3,7 +3,7 @@ import { number, select, boolean, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import I18n from "i18n-js";
 import Decimal from "./decimal.component";
-import { getCommonTextboxProps } from "../textbox/textbox.stories";
+import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import guid from "../../../utils/helpers/guid";
 

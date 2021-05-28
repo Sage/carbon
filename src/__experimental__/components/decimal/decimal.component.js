@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import invariant from "invariant";
-import Textbox from "../textbox";
+import Textbox from "../../../components/textbox";
 import I18nHelper from "../../../utils/helpers/i18n";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 

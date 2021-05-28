@@ -5,7 +5,7 @@ import I18n from "i18n-js";
 
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import Decimal from "./decimal.component";
-import Textbox from "../textbox/textbox.component";
+import Textbox from "../../../components/textbox/textbox.component";
 import Label from "../label";
 import FormFieldStyle from "../form-field/form-field.style";
 

@@ -11,7 +11,7 @@ import {
 
 import Dialog from "../dialog/dialog.component";
 import { Checkbox } from "../../__experimental__/components/checkbox";
-import Search from "../../__experimental__/components/search";
+import Search from "../search";
 import Button from "../button";
 import Typography from "../typography";
 

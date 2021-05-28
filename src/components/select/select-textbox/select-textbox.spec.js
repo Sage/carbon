@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import SelectTextbox from "./select-textbox.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 
 describe("SelectTextbox", () => {
   describe("when rendered", () => {

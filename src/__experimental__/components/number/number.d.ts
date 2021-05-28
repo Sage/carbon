@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextboxProps } from "../textbox/textbox";
+import { TextboxProps } from "../../../components/textbox";
 
 declare class Number extends React.Component<TextboxProps> {}
 
