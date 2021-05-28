@@ -1,3 +1,10 @@
+### [75.2.5](https://github.com/Sage/carbon/compare/v75.2.4...v75.2.5) (2021-05-28)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** add guard to prevent calling onBlur when undefined ([58d954f](https://github.com/Sage/carbon/commit/58d954f8890a38991716f95b0b938f583db48129)), closes [#4062](https://github.com/Sage/carbon/issues/4062)
+
 ### [75.2.4](https://github.com/Sage/carbon/compare/v75.2.3...v75.2.4) (2021-05-28)
 
 
