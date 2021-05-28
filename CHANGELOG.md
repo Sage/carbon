@@ -1,3 +1,62 @@
+## [76.0.0](https://github.com/Sage/carbon/compare/v75.2.6...v76.0.0) (2021-05-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** stop padding support for the checkbox component
+* **navigation-bar:** Navigation Bar no longer extends Box
+Fixes FE-3560
+* **textbox:** Textbox no longer supports styled-system padding props
+* **multi-action-button:** Removed several `get` functions as part of the refactor which could have been
+accessed in a consuming application
+* **flat-table:** FlatTable uses margin. FlatTableCell FlatTableHeader FlatTableRowHeader use padding
+* **tile:** `pixelWidth` prop has been removed
+* **show-edit-pod:** `padding` prop on ShowEditPod component has been renamed to `size`.
+To help with migration use `rename-prop` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **pod:** `padding` prop on Pod component has been renamed to `size`.
+To help with migration use `rename-prop` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **form-summary:** FormSummary has been moved to __internal__ folder, to fix issues you will
+have to update your imports
+* **scrollable-block:** ScrollableBlock no longer extends Box
+* **menu-item:** MenuItem no longer extends Box
+* **menu:** Menu component no longer extends Box
+* **hr:** Use margin only. Padding has been removed.
+* **tile-footer:** `margin` props no longer supported in `TileFooter`
+
+### Features
+
+* **form:** add padding and margin with styled-system ([c3e0837](https://github.com/Sage/carbon/commit/c3e0837a4b1a0eba8651491670ebea554b87bd37))
+* **multi-action-button:** surface styled system margin props ([869f714](https://github.com/Sage/carbon/commit/869f714f3ae6dcde99446a017855a6a1ef05a214))
+* **pod:** add styled-system margin prop support ([9b4dc77](https://github.com/Sage/carbon/commit/9b4dc77227ae6e4dd2daf4c00ca3e40014a206ca))
+* **show-edit-pod:** add styled-system margin prop support ([3e0c531](https://github.com/Sage/carbon/commit/3e0c531cc9bb57baa8f8046721a607dc6de7d56c))
+* **textbox:** update styled-system props ([1dee3e8](https://github.com/Sage/carbon/commit/1dee3e8a203ffbd40c27984ec049257dcf6329b3))
+* **tile:** add support for styled system width ([3d09671](https://github.com/Sage/carbon/commit/3d09671bf130b1dffc97c83e09dbd57c7054b41a))
+
+
+### Bug Fixes
+
+* **navigation-bar:** allow padding props to override media query styles ([29ba9f3](https://github.com/Sage/carbon/commit/29ba9f3264d9140e4c4fc6d60f90976b7111f575))
+
+
+### Miscellaneous Chores
+
+* **form-summary:** move files to __internal__ folder ([960f2c6](https://github.com/Sage/carbon/commit/960f2c62afb7ca3a806dca24cdade1799dae6b58))
+
+
+### Code Refactoring
+
+* **checkbox:** update styled system implementation ([59fbf2b](https://github.com/Sage/carbon/commit/59fbf2bf50d97711138563d4cbc84cd43a6f957d))
+* **flat-table:** update styled system implementation ([140a287](https://github.com/Sage/carbon/commit/140a2874dee6bb05c2e21ff0c6e91c6bdf6729ff))
+* **hr:** update styled system implementation ([9549bc3](https://github.com/Sage/carbon/commit/9549bc32a8cfa9da0155c7f2d3eabbce6b667355))
+* **menu:** replace box extension with flexbox and layout props ([f6294fd](https://github.com/Sage/carbon/commit/f6294fdf534999cf99734dc1d806c710a5edefb8))
+* **menu-item:** replace box extension with flexbox and layout props ([c61d4a0](https://github.com/Sage/carbon/commit/c61d4a0fc4d6ed719f6149428b98c127c84fee50))
+* **multi-action-button:** convert to functional component ([177d66e](https://github.com/Sage/carbon/commit/177d66ea1bb860a02a23f53c9d5fdc03a1511012))
+* **navigation-bar:** replace box extension with flexbox and padding props ([94327c5](https://github.com/Sage/carbon/commit/94327c5952b5325c945a9411ac9ee0ea8b41b51b))
+* **scrollable-block:** replace box extension with composition ([5f07251](https://github.com/Sage/carbon/commit/5f072516a1914f1ee990dab11893f5f9d6680672))
+* **tile-footer:** remove support for styled system margin props ([025697a](https://github.com/Sage/carbon/commit/025697a7398b03f5c8e385816f8c8ebb2186adfb))
+
 ### [75.2.6](https://github.com/Sage/carbon/compare/v75.2.5...v75.2.6) (2021-05-28)
 
 
