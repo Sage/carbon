@@ -21,6 +21,7 @@
     "prepublishOnly": "npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "build-storybook -c .storybook -s .assets",
+    "start:static": "npx http-server -p 9001 ./storybook-static",
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap)\" ../lib/ --cwd=src --parents",
