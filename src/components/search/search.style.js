@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
+
+import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
 import StyledInput from "../../__experimental__/components/input/input.style";
 import StyledIcon from "../icon/icon.style";
@@ -154,6 +156,7 @@ const StyledSearch = styled.div`
             color: ${theme.search.icon};
           `
         }
+
         width: 20px;
         height: 20px;
         cursor: pointer;
@@ -169,7 +172,16 @@ const StyledSearch = styled.div`
               color: ${theme.search.iconHover};
             `
           }
-        };
+        }
+      }
+
+      ${StyledInputIconToggle} {
+        ${
+          searchHasValue &&
+          css`
+            margin-bottom: -1px;
+          `
+        }
       }
     `;
   }}

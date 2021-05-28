@@ -1,38 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import CheckboxStyle from "./checkbox.style";
 import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Checkbox = ({
   id,
   label,
   onChange,
+  name,
+  /* FIXME: FE-4102 */
+  onClick,
   onBlur,
   value,
   fieldHelp,
   autoFocus,
   labelHelp,
   labelSpacing = 1,
-  ml,
+  labelWidth,
   adaptiveSpacingBreakpoint,
   required,
-  name,
+  error,
+  warning,
+  info,
+  fieldHelpInline,
+  reverse,
+  checked,
+  disabled,
+  inputWidth,
+  size,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
-
-  let marginLeft = ml;
-  if (adaptiveSpacingBreakpoint && !largeScreen) {
-    marginLeft = "0";
-  }
+  const adaptiveSpacingSmallScreen = !!(
+    adaptiveSpacingBreakpoint && !largeScreen
+  );
 
   const inputProps = {
-    ...props,
-    name,
+    onClick,
     onChange,
     onBlur,
     labelInline: true,
@@ -40,20 +53,38 @@ const Checkbox = ({
     label,
     inputValue: value,
     inputType: "checkbox",
-    reverse: !props.reverse,
+    name,
+    reverse: !reverse,
     fieldHelp,
     autoFocus,
     labelHelp,
     labelSpacing,
-    ml: marginLeft,
     required,
+    error,
+    warning,
+    info,
+    fieldHelpInline,
+    checked,
+    disabled,
+    inputWidth,
+    labelWidth,
   };
 
   return (
     <CheckboxStyle
       {...tagComponent("checkbox", props)}
-      {...props}
+      disabled={disabled}
       labelSpacing={labelSpacing}
+      inputWidth={inputWidth}
+      labelWidth={labelWidth}
+      adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
+      error={error}
+      warning={warning}
+      info={info}
+      fieldHelpInline={fieldHelpInline}
+      reverse={reverse}
+      size={size}
+      {...props}
     >
       <CheckableInput {...inputProps}>
         <CheckboxSvg />
@@ -63,7 +94,8 @@ const Checkbox = ({
 };
 
 Checkbox.propTypes = {
-  ...propTypes.space,
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -88,6 +120,8 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   /** Accepts a callback function which is triggered on blur event */
   onBlur: PropTypes.func,
+  /** Accepts a callback function which is triggered on click event */
+  onClick: PropTypes.func,
   /** Reverses label and checkbox display */
   reverse: PropTypes.bool,
   /**

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { PaddingProps } from "styled-system";
 
-export interface FlatTableRowHeaderProps extends SpaceProps {
+export interface FlatTableRowHeaderProps extends PaddingProps {
   /** Content alignment */
   align?: string;
   children?: React.ReactNode | string;

@@ -1,10 +1,11 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import Textbox from ".";
+
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import FormField from "../../__experimental__/components/form-field";
 import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
@@ -16,6 +17,13 @@ import FormFieldStyle from "../../__experimental__/components/form-field/form-fi
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
 
 describe("Textbox", () => {
+  testStyledSystemMargin(
+    (props) => <Textbox {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
+
   it("renders with InputPresentation and Input and correct props passed to Input", () => {
     const wrapper = shallow(
       <Textbox value="foobar" leftChildren="southpaw children">
@@ -123,11 +131,4 @@ describe("Textbox", () => {
       ).toEqual(<Component />);
     });
   });
-
-  testStyledSystemSpacing(
-    (props) => <Textbox {...props} />,
-    undefined,
-    (wrapper) => wrapper.find(FormFieldStyle),
-    { modifier: "&&&" }
-  );
 });

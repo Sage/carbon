@@ -33,6 +33,10 @@ module.exports = (on) => {
     if (browser.family === "chromium" && browser.name !== "electron") {
       launchOptions.args.push("--disable-site-isolation-trials");
       launchOptions.args.push("--disable-gpu");
+      // disable update for chrome for CI
+      launchOptions.args.push(
+        `--simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'`
+      );
     }
     if (browser.name === "firefox") {
       // works only for macOS

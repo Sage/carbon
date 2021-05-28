@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import ReactDOM from "react-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import Pod from "../pod";
 import Form from "../form";
 import Button from "../button";
@@ -12,6 +14,10 @@ import Events from "../../utils/helpers/events";
 import { validProps } from "../../utils/ether";
 import tagComponent from "../../utils/helpers/tags";
 import StyledPod from "./show-edit-pod.style";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 class ShowEditPod extends React.Component {
   state = {
@@ -187,6 +193,7 @@ class ShowEditPod extends React.Component {
 }
 
 ShowEditPod.propTypes = {
+  ...marginPropTypes,
   /** Pod theme variant. */
   variant: PropTypes.string,
   /** Enable/disable the border on the Pod. */

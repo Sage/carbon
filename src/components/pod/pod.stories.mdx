@@ -1,19 +1,20 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import Pod from './';
-import Heading from '../heading';
-import Button from '../button';
-import {Row, Column} from '../row';
-import PodManager from './pod-manager.component';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
-<Meta
-  title="Pod"
-  parameters={{ info: { disable: true }}}
-/>
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Pod from "./";
+import Heading from "../heading";
+import Button from "../button";
+import { Row, Column } from "../row";
+import PodManager from "./pod-manager.component";
+
+<Meta title="Pod" parameters={{ info: { disable: true } }} />
 
 # Pod
+
 Presents content grouped visually together. This can be text, or other components. A good example is a ‘tile’ showing contact information for an individual.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
 - [Designer Notes](#designer-notes)
@@ -41,6 +42,7 @@ Choose from various visual options, including padding, borders, and primary, sec
 Set the pod to flex to the width of its content, or take up the full width of its container.
 
 ## Related Components
+
 - Editing a number of closely related inputs? [Try Fieldset](/?path=/docs/design-system-fieldset-address-fieldset-examples--canada "Fieldset").
 - Filling in a broad series of inputs? [Try Form](/?path=/docs/design-system-form--default-with-sticky-footer "Form").
 - Using Fieldset and Pod components together? [Try Show/Edit Pod](/?path=/docs/showeditpod--default-story "Show/Edit Pod").
@@ -51,9 +53,7 @@ Set the pod to flex to the width of its content, or take up the full width of it
 
 <Preview>
   <Story name="default">
-    <Pod title="Title">
-      Content
-    </Pod>
+    <Pod title="Title">Content</Pod>
   </Story>
 </Preview>
 
@@ -63,7 +63,7 @@ Pod accepts collapsed prop which sets the intial state of the Pod and allows it
 to be collapsible. If the prop is not passed the Pod will not be collapsible.
 
 <Preview>
-  <Story name="collapsable" >
+  <Story name="collapsable">
     <Pod title="Title" collapsed>
       Content
     </Pod>
@@ -71,47 +71,48 @@ to be collapsible. If the prop is not passed the Pod will not be collapsible.
 </Preview>
 
 ### PodManager
-If you want to have the same height of the Pods based on the heighest one, use `PodManager` to achieve it.
+
+If you want to have the same height of the Pods based on the highest one, use `PodManager` to achieve it.
 The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 <Preview>
   <Story name="even Height with PodManager">
-    {()=>{
-    return (
-      <PodManager>
-        <Row>
-          <Column>
-            <Pod>
-              <Row>
-                <Column>
-                 <Button>Button 1</Button>
-                </Column>
-              </Row>
-              <Row>
-                <Column>
-                 <Button>Button 2</Button>
-                </Column>
-              </Row>
-            </Pod>
-          </Column>
-          <Column>
-            <Pod>
-              <Button>Button 3</Button>
-            </Pod>
-          </Column>
-        </Row>
-        </PodManager>
-    );
-    }}
+    <PodManager>
+      <Row>
+        <Column>
+          <Pod>
+            <Row>
+              <Column>
+                <Button>Button 1</Button>
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <Button>Button 2</Button>
+              </Column>
+            </Row>
+          </Pod>
+        </Column>
+        <Column>
+          <Pod>
+            <Button>Button 3</Button>
+          </Pod>
+        </Column>
+      </Row>
+    </PodManager>
   </Story>
 </Preview>
-
 
 ### With subtitle, description and footer
 
 <Preview>
   <Story name="with subtitle description and footer">
-    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer">
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+    >
       Content
     </Pod>
   </Story>
@@ -121,7 +122,13 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 <Preview>
   <Story name="without border">
-    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer" border={false}>
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      border={false}
+    >
       Content
     </Pod>
   </Story>
@@ -130,8 +137,14 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 ### With edit button
 
 <Preview>
-  <Story name="with edit button" parameters={{ chromatic: { disable: true }}}>
-    <Pod title="Title" subtitle="Subtitle" description="Description" footer="Footer" onEdit={() => {}}>
+  <Story name="with edit button" parameters={{ chromatic: { disable: true } }}>
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onEdit={() => {}}
+    >
       Content
     </Pod>
   </Story>
@@ -140,7 +153,10 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 ### With edit button and displayEditButtonOnHover
 
 <Preview>
-  <Story parameters={{ chromatic: { disable: true }}} name="with displayEditButtonOnHover">
+  <Story
+    parameters={{ chromatic: { disable: true } }}
+    name="with displayEditButtonOnHover"
+  >
     <Pod
       title="Title"
       subtitle="Subtitle"
@@ -192,55 +208,47 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 <Preview>
   <Story name="with different variants">
-    {() => [
-      'primary',
-      'secondary',
-      'tertiary',
-      'tile',
-      'transparent'
-    ].map(variant =>
-      <>
-        <Pod
-          title="Title"
-          subtitle="Subtitle"
-          description="Description"
-          footer="Footer"
-          onEdit={() => {}}
-          variant={variant}
-        >
-          {variant}
-        </Pod>
-        <div style={{ marginBottom: 24 }}/>
-      </>
-    )}
+    {() =>
+      ["primary", "secondary", "tertiary", "tile", "transparent"].map(
+        (variant) => (
+          <Pod
+            key={variant}
+            title="Title"
+            subtitle="Subtitle"
+            description="Description"
+            footer="Footer"
+            onEdit={() => {}}
+            variant={variant}
+            mb={3}
+          >
+            {variant}
+          </Pod>
+        )
+      )
+    }
   </Story>
 </Preview>
 
-### With different paddings
+### With different sizes
 
 <Preview>
-  <Story name="with different paddings">
-    {() => [
-      'extra-small',
-      'small',
-      'medium',
-      'large',
-      'extra-large'
-    ].map(padding =>
-      <>
+  <Story name="with different sizes">
+    {() =>
+      ["extra-small", "small", "medium", "large", "extra-large"].map((size) => (
         <Pod
+          key={size}
           title="Title"
           subtitle="Subtitle"
           description="Description"
           footer="Footer"
           onEdit={() => {}}
-          padding={padding}
+          size={size}
+          mb={3}
         >
-          {padding}
+          {size}
         </Pod>
-        <div style={{ marginBottom: 24 }}/>
-      </>
-    )}
+      ))
+    }
   </Story>
 </Preview>
 
@@ -248,53 +256,56 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 <Preview>
   <Story name="with different title alignments">
-    {() => [
-      'left',
-      'center',
-      'right',
-    ].map(alignment =>
-      <>
+    {() =>
+      ["left", "center", "right"].map((alignment) => (
         <Pod
+          key={alignment}
           title="Title"
           subtitle="Subtitle"
           description="Description"
           footer="Footer"
           onEdit={() => {}}
           alignTitle={alignment}
+          mb={3}
         >
           {alignment}
         </Pod>
-        <div style={{ marginBottom: 24 }}/>
-      </>
-    )}
+      ))
+    }
   </Story>
 </Preview>
 
 ### Address pod
+
 <Preview>
   <Story name="address example">
-    <Pod
-      internalEditButton
-      variant='tertiary'
-    >
-      <h5 style={ { margin: 0 } }>Unit 1</h5>
+    <Pod internalEditButton variant="tertiary">
+      <h5 style={{ margin: 0 }}>Unit 1</h5>
       <div>South Nelson Industrial Estate</div>
       <div>Cramlington</div>
       <div>NE23 1WF</div>
       <div>United Kingdom</div>
-      <div style={ { fontWeight: 900, borderTop: '1px solid #ccd6db', marginTop: '15px', paddingTop: '5px' } }>
-        <Button
-          buttonType='tertiary'
-          size='small'
-          px={0}
-        >Select a different address</Button>
+      <div
+        style={{
+          fontWeight: 900,
+          borderTop: "1px solid #ccd6db",
+          marginTop: "15px",
+          paddingTop: "5px",
+        }}
+      >
+        <Button buttonType="tertiary" size="small" px={0}>
+          Select a different address
+        </Button>
       </div>
-      <div style={ { position: 'absolute', right: '8px', top: '8px' } }>
+      <div style={{ position: "absolute", right: "8px", top: "8px" }}>
         <Button
-          buttonType='tertiary'
-          size='small'
-          iconType='edit'
-          iconPosition='after'>Edit</Button>
+          buttonType="tertiary"
+          size="small"
+          iconType="edit"
+          iconPosition="after"
+        >
+          Edit
+        </Button>
       </div>
     </Pod>
   </Story>
@@ -303,4 +314,5 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
 ## Props
 
 ### Pod
-<Props of={Pod} />
+
+<StyledSystemProps of={Pod} margin noHeader />
