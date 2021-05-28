@@ -23,21 +23,3 @@ src
 yarn.lock
 .assets
 
-.storybook
-change_log
-cypress
-release_notes
-rfcs
-.eslintignore
-.eslintrc
-.nvmrc
-.prettierignore
-.prettierrc.json
-babel.config.js
-CHANGELOG-OLD.md
-check_version.js
-cypress.env.json
-cypress.json
-svgTransform.js
-tsconfig.json
-tslint.json
