@@ -1,3 +1,65 @@
+### [75.2.3](https://github.com/Sage/carbon/compare/v75.2.2...v75.2.3) (2021-05-27)
+
+
+### Bug Fixes
+
+* **tab:** make customLayout prop optional in TS definition ([a97721b](https://github.com/Sage/carbon/commit/a97721bf84b2dcd97c465661a18f41e89c8bccc1)), closes [#4025](https://github.com/Sage/carbon/issues/4025)
+* **tabs:** add missing colon to tab-title styles ([9541462](https://github.com/Sage/carbon/commit/9541462b2c90c62e75851fcf52a3cac3a46cd0f1)), closes [#4048](https://github.com/Sage/carbon/issues/4048)
+
+### [75.2.2](https://github.com/Sage/carbon/compare/v75.2.1...v75.2.2) (2021-05-27)
+
+
+### Bug Fixes
+
+* **search:** update vertical alignment of the close input icon ([e53cd6b](https://github.com/Sage/carbon/commit/e53cd6b5616363ebeb0d1c5b5939c2b999c32c9e))
+
+### [75.2.1](https://github.com/Sage/carbon/compare/v75.2.0...v75.2.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect date picker positioning ([6fb85c6](https://github.com/Sage/carbon/commit/6fb85c6b0a565b58223698535092422ec7dcde21))
+
+## [75.2.0](https://github.com/Sage/carbon/compare/v75.1.0...v75.2.0) (2021-05-27)
+
+
+### Features
+
+* **portrait:** adds prop to specify fallback icon ([3b78281](https://github.com/Sage/carbon/commit/3b782818bc9db6de3813bb4ef4345e48ac96f42d))
+
+## [75.1.0](https://github.com/Sage/carbon/compare/v75.0.1...v75.1.0) (2021-05-27)
+
+
+### Features
+
+* **duelling-picklist:** add context to support focusing elements after an item or group moves ([984d42b](https://github.com/Sage/carbon/commit/984d42b087bd4f04f8652b625a08067f28ffc117))
+
+
+### Bug Fixes
+
+* **duelling-picklist:** add error if children do not have 2 picklist ([1ccb1ab](https://github.com/Sage/carbon/commit/1ccb1abb1793ef58472e5f95a657c5802ac62b4b))
+
+### [75.0.1](https://github.com/Sage/carbon/compare/v75.0.0...v75.0.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix react-testing-library errors ([1102017](https://github.com/Sage/carbon/commit/11020174cdbc341219d55486458335908f60ea4c))
+
+## [75.0.0](https://github.com/Sage/carbon/compare/v74.5.1...v75.0.0) (2021-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** Internal support for updating window location has been removed from the `Tabs`
+component, the `setLocation` prop has also been removed as it serves no purpose beyond serving as a
+guard for this functionality. Consumers who wish to have this functionality should utilise the
+`onTabChange` and `selectedTabId` props with whatever `history` implementation they want to.
+
+### Features
+
+* **tabs:** remove internal support for history and url manipulation ([bd76906](https://github.com/Sage/carbon/commit/bd7690686d17911a8417f927f9797ed4a5231d50)), closes [#3520](https://github.com/Sage/carbon/issues/3520)
+
 ### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
 
 

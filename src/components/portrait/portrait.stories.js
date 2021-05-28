@@ -38,7 +38,8 @@ function commonKnobs() {
     ),
     gravatar: source === "gravatar" ? text("gravatar") : undefined,
     src: source === "src" ? text("src") : undefined,
-    initials: text("initials", "AZ"),
+    initials: text("initials", ""),
+    iconType: select("iconType", OptionsHelper.icons),
     onClick: (ev) => action("click")(ev),
   };
 }
