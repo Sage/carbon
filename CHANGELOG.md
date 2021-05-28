@@ -1,3 +1,10 @@
+### [75.2.4](https://github.com/Sage/carbon/compare/v75.2.3...v75.2.4) (2021-05-28)
+
+
+### Bug Fixes
+
+* **decimal:** fix not working inputs in stories ([dde6934](https://github.com/Sage/carbon/commit/dde6934f713a29836e7563aee0ec06341e0c64f8))
+
 ### [75.2.3](https://github.com/Sage/carbon/compare/v75.2.2...v75.2.3) (2021-05-27)
 
 
