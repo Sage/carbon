@@ -1,0 +1,30 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:9001/?path=/story/alert--default-story",
+        "http://localhost:9001/?path=/story/appwrapper--default-story",
+        "http://localhost:9001/?path=/story/design-system-button--primary",
+        "http://localhost:9001/?path=/story/design-system-loader--default-story"
+      ],
+      "numberOfRuns": 1,
+      "settings": { 
+        "throttling": { "cpuSlowdownMultiplier": 2 },
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["error", {"minScore": 0.15}],
+        "categories:accessibility": ["warn", {"minScore": 0.9}],
+        "categories:best-practice": "off",
+        "categories:seo": "off",
+        "categories:pwa": "off"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

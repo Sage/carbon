@@ -27,7 +27,8 @@
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap)\" ../lib/ --cwd=src --parents",
     "commit": "git-cz",
     "chromatic": "chromatic",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "lighthouse-prepare": "npm run build-storybook && npx sb extract && node ./lighthouse_ci/json-extract.js"
   },
   "repository": {
     "type": "git",
@@ -148,6 +149,7 @@
     "moment": "~2.20.1",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
+    "puppeteer": "^8.0.0",
     "react-day-picker": "~6.1.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
