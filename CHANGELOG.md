@@ -1,3 +1,10 @@
+### [76.0.1](https://github.com/Sage/carbon/compare/v76.0.0...v76.0.1) (2021-05-31)
+
+
+### Bug Fixes
+
+* **step-sequence:** fix incorrect item alignment ([0b9ad66](https://github.com/Sage/carbon/commit/0b9ad661a76ac0c2fea1ca8f4e1435f17bfb87a0))
+
 ## [76.0.0](https://github.com/Sage/carbon/compare/v75.2.6...v76.0.0) (2021-05-28)
 
 
