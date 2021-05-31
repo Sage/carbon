@@ -20,5 +20,5 @@ Then("ariaLabel is set to {word}", (label) => {
 });
 
 Then("children is set {word}", (children) => {
-  ariaLabel(ARIA_LABEL).should("have.text", `${INDICATOR} ${children}`);
+  ariaLabel(ARIA_LABEL).should("have.text", `${INDICATOR}${children}`);
 });
