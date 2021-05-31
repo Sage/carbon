@@ -1,17 +1,12 @@
-import {
-  linkPreview,
-  linkChildren,
-  linkIcon,
-  skipLink,
-  relLink,
-} from "../../locators/link";
+import { link } from "../../locators";
+import { linkChildren, linkIcon, skipLink, relLink } from "../../locators/link";
 
 Then("children on preview is {word}", (children) => {
   linkChildren().should("have.text", children);
 });
 
 Then("Link on preview target is set to {word}", (target) => {
-  linkPreview().children().should("have.attr", "target", `${target}`);
+  link().children().should("have.attr", "target", `${target}`);
 });
 
 Then("icon on link component preview is {string}", (iconName) => {
@@ -19,11 +14,11 @@ Then("icon on link component preview is {string}", (iconName) => {
 });
 
 Then("Link is tabbable", () => {
-  linkPreview().children().should("have.attr", "tabindex", "0");
+  link().children().should("have.attr", "tabindex", "0");
 });
 
 Then("Link is not tabbable", () => {
-  linkPreview().children().should("have.attr", "tabindex", "-1");
+  link().children().should("have.attr", "tabindex", "-1");
 });
 
 Then("Skip link is visible", () => {
