@@ -1,7 +1,7 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { PaddingProps } from "styled-system";
 
-export interface TileFooterProps extends SpaceProps {
+export interface TileFooterProps extends PaddingProps {
   /** set which background color variant should be used */
   variant?: "default" | "transparent";
 }

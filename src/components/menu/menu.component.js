@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 
 import { StyledMenuWrapper } from "./menu.style";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
@@ -66,6 +67,10 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
 };
 
 Menu.propTypes = {
+  /** Styled system flex props */
+  ...propTypes.flexbox,
+  /** Styled system layout props */
+  ...propTypes.layout,
   /** Defines the color scheme of the component */
   menuType: PropTypes.oneOf(["light", "dark"]),
   /** Children elements */

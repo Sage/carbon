@@ -3,7 +3,8 @@ import { shallow, mount } from "enzyme";
 import NavigationBar from "./navigation-bar.component";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemPadding,
+  testStyledSystemFlexBox,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar from "./navigation-bar.style";
@@ -11,11 +12,16 @@ import StyledNavigationBar from "./navigation-bar.style";
 describe("NavigationBar", () => {
   let wrapper;
 
-  describe("style overrides", () => {
-    testStyledSystemSpacing((props) => (
-      <NavigationBar {...props}>test content</NavigationBar>
-    ));
-  });
+  testStyledSystemPadding(
+    (props) => <NavigationBar {...props}>test content</NavigationBar>,
+    undefined,
+    undefined,
+    { modifier: "&&" }
+  );
+
+  testStyledSystemFlexBox((props) => (
+    <NavigationBar {...props}>test content</NavigationBar>
+  ));
 
   it("should render child correctly", () => {
     wrapper = shallow(
@@ -97,6 +103,26 @@ describe("NavigationBar", () => {
         color: baseTheme.colors.white,
       },
       wrapper
+    );
+  });
+
+  it.each([
+    ["only screen and (max-width: 599px)", "0 16px"],
+    ["only screen and (max-width: 959px)", "0 24px"],
+    ["only screen and (max-width: 1259px)", "0 32px"],
+  ])("should set correct padding on media queries", (query, value) => {
+    wrapper = mount(
+      <StyledNavigationBar>
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        padding: value,
+      },
+      wrapper,
+      { media: query }
     );
   });
 });

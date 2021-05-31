@@ -1,12 +1,17 @@
 import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import {
   StyledFlatTableCell,
   StyledCellContent,
 } from "./flat-table-cell.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import Icon from "../../icon";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTableCell = ({
   align = "left",
@@ -67,8 +72,8 @@ const FlatTableCell = ({
 };
 
 FlatTableCell.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Styled system padding props */
+  ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
