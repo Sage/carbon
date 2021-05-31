@@ -3,7 +3,7 @@ import I18n from "i18n-js";
 import PropTypes from "prop-types";
 
 import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
-import Icon from "../icon";
+import Icon from "../../icon";
 
 const warningAppend = ({ errors, warnings }, type) =>
   errors > 0 && warnings > 0 && type === "warnings";
