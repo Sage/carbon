@@ -4,6 +4,9 @@ import propTypes from "@styled-system/prop-types";
 
 import StyledHr from "./hr.style";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(propTypes.space);
 
 const Hr = ({ adaptiveMxBreakpoint, ml, mr, ...props }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveMxBreakpoint);
@@ -27,8 +30,8 @@ const Hr = ({ adaptiveMxBreakpoint, ml, mr, ...props }) => {
 };
 
 Hr.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
    * Enables the adaptive behaviour when set */
   adaptiveMxBreakpoint: PropTypes.number,

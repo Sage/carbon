@@ -336,9 +336,12 @@ const StyledTabTitle = styled.li`
   ${({ isTabSelected, theme }) =>
     !isTabSelected &&
     css`
-      &:hover,
-      &:focus {
+      &:hover {
         background: ${theme.tab.background};
+        color: ${theme.text.color};
+        outline: none;
+      }
+      &:focus {
         color: ${theme.text.color};
         outline: none;
       }
@@ -562,26 +565,24 @@ const StyledSelectedIndicator = styled.div`
   ${({ position, size, theme }) =>
     position === "top" &&
     css`
-    bottom: 0px;
-    left: 0px
-    box-shadow: inset 0px ${size === "large" ? "-4px" : "-2px"} 0px ${
-      theme.colors.primary
-    };
-    width: 100%;
-    height: ${size === "large" ? "4px" : "2px"};
-  `}
+      bottom: 0px;
+      left: 0px;
+      box-shadow: inset 0px ${size === "large" ? "-4px" : "-2px"} 0px
+        ${theme.colors.primary};
+      width: 100%;
+      height: ${size === "large" ? "4px" : "2px"};
+    `}
 
   ${({ position, size, theme }) =>
     position === "left" &&
     css`
-    top: 0px;
-    right: 0px
-    box-shadow: inset ${size === "large" ? "-4px" : "-2px"} 0px 0px 0px ${
-      theme.colors.primary
-    };
-    height: 100%;
-    width: ${size === "large" ? "4px" : "2px"};
-  `}
+      top: 0px;
+      right: 0px;
+      box-shadow: inset ${size === "large" ? "-4px" : "-2px"} 0px 0px 0px
+        ${theme.colors.primary};
+      height: 100%;
+      width: ${size === "large" ? "4px" : "2px"};
+    `}
 `;
 
 StyledTabTitle.propTypes = {

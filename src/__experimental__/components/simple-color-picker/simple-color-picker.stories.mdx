@@ -48,7 +48,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
         setState(target.value);
       };
       return (
-        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker name="picker-default-example" legend="Legend" onChange={onChange} value={state}>
           {colors.map(({ color, label }) => (
             <SimpleColor
               value={color}
@@ -73,7 +73,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
         setState(target.value);
       };
       return (
-        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker name="picker-disabled-example" legend="Legend" onChange={onChange} value={state}>
           {[
             { color: "transparent", label: "transparent" },
             { color: "#0073C1", label: "blue" },
@@ -110,6 +110,7 @@ You can use the `required` prop to indicate if the field is mandatory.
           required
           onChange={onChange}
           value={state}
+          name="picker-required-example"
         >
           {[
             { color: "transparent", label: "transparent" },
