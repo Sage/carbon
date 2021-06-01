@@ -2,6 +2,6 @@
 const STORY_ROOT = "#root";
 
 export const STEP_SEQUENCE_ITEM = `${STORY_ROOT} > li`;
-export const STEP_SEQUENCE_ITEM_INDICATOR = `${STEP_SEQUENCE_ITEM} > span > span`;
+export const STEP_SEQUENCE_ITEM_INDICATOR = `${STEP_SEQUENCE_ITEM} > span > span:first-child`;
 export const STEP_SEQUENCE_DATA_COMPONENT =
   '[data-component="step-sequence-item"]';
