@@ -9,7 +9,7 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import { Checkbox } from "../checkbox";
 import Typography from "../typography";
 import Box from "../box";
 import Button from "../button";

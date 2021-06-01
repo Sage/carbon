@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../utils/helpers/tags";
 import { StyledCheckboxGroup } from "./checkbox.style";
-import Fieldset from "../../../__internal__/fieldset";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import Fieldset from "../../__internal__/fieldset";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
