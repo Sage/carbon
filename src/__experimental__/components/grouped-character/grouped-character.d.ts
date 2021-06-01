@@ -7,7 +7,7 @@ export interface GroupedCharacterProps extends TextboxProps {
   /** pattern by which input value should be grouped */
   groups?: number[];
   /** Handler for blur event */
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Handler for change event if input is meant to be used as a controlled component */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
