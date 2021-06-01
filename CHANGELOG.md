@@ -1,3 +1,10 @@
+### [76.1.1](https://github.com/Sage/carbon/compare/v76.1.0...v76.1.1) (2021-06-01)
+
+
+### Bug Fixes
+
+* incorrect typescript onFocus and onBlur definitions ([4008096](https://github.com/Sage/carbon/commit/40080961bff7627d440b9af02b10bafb3e1eba02))
+
 ## [76.1.0](https://github.com/Sage/carbon/compare/v76.0.1...v76.1.0) (2021-06-01)
 
 
