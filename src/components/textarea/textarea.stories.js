@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { boolean, number, text, select } from "@storybook/addon-knobs";
 
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import Textarea from ".";
 
 export default {
-  title: "Experimental/Textarea/Test",
+  title: "Design System/Textarea/Test",
   component: Textarea,
   parameters: {
     info: {
