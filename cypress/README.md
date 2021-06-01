@@ -56,7 +56,7 @@ Before starting please ensure you have the latest version of [docker](https://do
 
 You will need to be able to access storybook, either from https://carbon.sage.com or from your local machine.
 If you are using your local machine, please run `npm ci`. Once complete you can use `npm start` or if you have limited RAM
-you can use `npm run build-storybook && npm run storybook:static` which will build the storybook and serve it without starting the storybook development server.
+you can use `npm run build-storybook && npm run start:static` which will build the storybook and serve it without starting the storybook development server.
 
 ### Replicating GitHub Actions
 
