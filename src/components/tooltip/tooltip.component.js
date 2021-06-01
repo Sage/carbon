@@ -68,18 +68,26 @@ const Tooltip = React.forwardRef(
         delay={TOOLTIP_DELAY}
         {...(isVisible !== undefined && { visible: isVisible })}
         render={(attrs) => tooltip(attrs, message)}
-        {...(flipOverrides && {
-          popperOptions: {
-            modifiers: [
-              {
-                name: "flip",
-                options: {
-                  fallbackPlacements: flipOverrides,
-                },
+        popperOptions={{
+          modifiers: [
+            ...(flipOverrides
+              ? [
+                  {
+                    name: "flip",
+                    options: {
+                      fallbackPlacements: flipOverrides,
+                    },
+                  },
+                ]
+              : []),
+            {
+              name: "computeStyles",
+              options: {
+                gpuAcceleration: false,
               },
-            ],
-          },
-        })}
+            },
+          ],
+        }}
       >
         {children}
       </Tippy>
