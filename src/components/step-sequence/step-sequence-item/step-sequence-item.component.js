@@ -45,7 +45,8 @@ const StepSequenceItem = (props) => {
     >
       {hiddenLabel()}
       <StepSequenceItemContentStyle>
-        {icon()} {props.children}
+        {icon()}
+        <span>{props.children}</span>
       </StepSequenceItemContentStyle>
     </StepSequenceItemStyle>
   );
