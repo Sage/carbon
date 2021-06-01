@@ -1,22 +1,21 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import TestRenderer from "react-test-renderer";
 
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/test-utils";
 import CharacterCount from "./character-count";
 import Textarea from ".";
-import baseTheme from "../../../style/themes/base";
-import InputPresentation from "../input/input-presentation.component";
-import { Input } from "../input";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
-import Label from "../label";
-import guid from "../../../utils/helpers/guid";
-import { StyledLabelContainer } from "../label/label.style";
+import baseTheme from "../../style/themes/base";
+import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
+import { Input } from "../../__experimental__/components/input";
+import ValidationIcon from "../validations/validation-icon.component";
+import Label from "../../__experimental__/components/label";
+import guid from "../../utils/helpers/guid";
+import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Textarea", () => {
@@ -133,10 +132,6 @@ describe("Textarea", () => {
 
     it("should have not a CharacterCount as it's child", () => {
       expect(wrapper.find(CharacterCount).exists()).toBe(false);
-    });
-
-    it("should render default", () => {
-      expect(renderTextarea({}, TestRenderer.create)).toMatchSnapshot();
     });
 
     it("should only have a placeholder if not disabled", () => {

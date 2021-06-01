@@ -118,6 +118,7 @@ Feature: Accessibility tests - Design System folder
       | Select            |
       | Select Filterable |
       | Tabs              |
+      | Textarea          |
       | Textbox           |
       | Text Editor       |
       | Tile Select       |
@@ -225,6 +226,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
+      | textarea            |
       | textbox             |
       | fieldset            |
 
@@ -234,6 +236,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
+      | textarea            |
       | textbox             |
       | fieldset            |
 
@@ -243,6 +246,7 @@ Feature: Accessibility tests - Design System folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
+      | textarea            |
       | textbox             |
       | fieldset            | 
 

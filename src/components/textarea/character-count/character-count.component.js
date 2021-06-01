@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withTheme } from "styled-components";
-import baseTheme from "../../../../style/themes/base";
+import baseTheme from "../../../style/themes/base";
 import StyledCharacterCount from "./character-count.style";
 
 const CharacterCount = ({ value, limit, theme, ...props }) => (

@@ -6,7 +6,7 @@ import countriesList from "../../../../.storybook/utils/xhr/data/countries";
 import Button from "../../button";
 import MultiActionButton from "../../multi-action-button";
 import { Table, TableCell, TableHeader, TableRow } from "..";
-import TextArea from "../../../__experimental__/components/textarea";
+import TextArea from "../../textarea";
 import DateInput from "../../../__experimental__/components/date";
 import TextBox from "../../textbox";
 import { getCommonTextboxProps } from "../../textbox/textbox.stories";
