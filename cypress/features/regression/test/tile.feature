@@ -11,15 +11,6 @@ Feature: Tile component
       | transparent | rgba(0, 0, 0, 0)   | asTransparent |
 
   @positive
-  Scenario Outline: Change Tile pixelWidth to <pixelWidth>
-    When I open Test default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
-    Then Tile pixel width is set to <pixelWidth>
-    Examples:
-      | pixelWidth | nameOfObject   |
-      | 100        | pixelWidth100  |
-      | 1999       | pixelWidth1999 |
-
-  @positive
   Scenario Outline: Change Tile width to <width>
     When I open Test default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile width is set to <width>

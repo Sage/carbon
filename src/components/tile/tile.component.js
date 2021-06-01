@@ -72,15 +72,10 @@ Tile.propTypes = {
   /** The orientation of the tile - set to either horizontal or vertical */
   orientation: PropTypes.oneOf(OptionsHelper.orientation),
   /**
-   * Set a pixel with for the Tile component. If both are set to non-zero values, this
-   * takes precedence over the percentage-based "width" prop.
-   */
-  pixelWidth: PropTypes.number,
-  /**
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.
    */
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Tile;

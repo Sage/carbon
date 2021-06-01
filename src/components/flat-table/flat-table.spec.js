@@ -10,7 +10,10 @@ import FlatTableRow from "./flat-table-row/flat-table-row.component";
 import FlatTableHeader from "./flat-table-header/flat-table-header.component";
 import FlatTableCell from "./flat-table-cell/flat-table-cell.component";
 import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
@@ -27,6 +30,31 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import cellSizes from "./cell-sizes.style";
+
+const RenderComponent = (props) => (
+  <FlatTable {...props}>
+    <FlatTableHead>
+      <FlatTableRow>
+        <FlatTableRowHeader>row header</FlatTableRowHeader>
+        <FlatTableHeader>header1</FlatTableHeader>
+        <FlatTableHeader>header2</FlatTableHeader>
+        <FlatTableHeader>header3</FlatTableHeader>
+      </FlatTableRow>
+    </FlatTableHead>
+    <FlatTableBody>
+      <FlatTableRow>
+        <FlatTableRowHeader>row header</FlatTableRowHeader>
+        <FlatTableCell>cell1</FlatTableCell>
+        <FlatTableCell>cell2</FlatTableCell>
+        <FlatTableCell rowspan="2">cell3</FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableRowHeader>row header</FlatTableRowHeader>
+        <FlatTableCell colspan="2">cell1</FlatTableCell>
+      </FlatTableRow>
+    </FlatTableBody>
+  </FlatTable>
+);
 
 describe("FlatTable", () => {
   it("ariaDescribedby prop should have been propagated to the table", () => {
@@ -58,7 +86,10 @@ describe("FlatTable", () => {
     });
 
     it("should have the overflow-y css property set to to auto", () => {
-      expect(wrapper).toHaveStyleRule("overflow-y", "auto");
+      expect(wrapper.find(StyledFlatTableBox)).toHaveStyleRule(
+        "overflow-y",
+        "auto"
+      );
     });
 
     it("should set position sticky on all th inside the table head", () => {
@@ -388,33 +419,14 @@ describe("FlatTable", () => {
       );
     });
   });
+
+  describe("styled system", () => {
+    testStyledSystemMargin(RenderComponent);
+  });
 });
 
 function renderFlatTable(props = {}, renderer = TestRenderer.create) {
-  return renderer(
-    <FlatTable {...props}>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableRowHeader>row header</FlatTableRowHeader>
-          <FlatTableHeader>header1</FlatTableHeader>
-          <FlatTableHeader>header2</FlatTableHeader>
-          <FlatTableHeader>header3</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableRowHeader>row header</FlatTableRowHeader>
-          <FlatTableCell>cell1</FlatTableCell>
-          <FlatTableCell>cell2</FlatTableCell>
-          <FlatTableCell rowspan="2">cell3</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableRowHeader>row header</FlatTableRowHeader>
-          <FlatTableCell colspan="2">cell1</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  );
+  return renderer(<RenderComponent {...props} />);
 }
 
 function renderFlatTableWithDiv(props = {}, renderer = TestRenderer.create) {

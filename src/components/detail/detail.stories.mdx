@@ -1,5 +1,4 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
-
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Detail from "./detail.component";
 import Card from "../card";
@@ -98,7 +97,7 @@ In this example, Detail is nested inside of the `Tile` component.
 
 <Preview>
   <Story name="inside of tile">
-    <Tile width={60}>
+    <Tile width="60%">
       <div style={{ paddingTop: "16px" }}>
         <Detail>This example of Detail just has children.</Detail>
       </div>

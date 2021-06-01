@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../../utils/helpers/tags";
 import { StyledCheckboxGroup } from "./checkbox.style";
 import Fieldset from "../../../__internal__/fieldset";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const CheckboxGroup = (props) => {
   const {
@@ -12,7 +18,6 @@ const CheckboxGroup = (props) => {
     error,
     warning,
     info,
-    mb,
     required,
     legendInline,
     legendWidth,
@@ -30,10 +35,10 @@ const CheckboxGroup = (props) => {
       error={error}
       warning={warning}
       info={info}
-      mb={mb}
       isRequired={required}
       {...tagComponent("checkboxgroup", props)}
       blockGroupBehaviour={!(error || warning || info)}
+      {...filterStyledSystemMarginProps(props)}
     >
       <StyledCheckboxGroup
         data-component="checkbox-group"
@@ -54,6 +59,8 @@ const CheckboxGroup = (props) => {
 };
 
 CheckboxGroup.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** The content for the CheckboxGroup Legend */
   legend: PropTypes.string,
   /** When true, legend is placed in line with the checkboxes */
@@ -80,8 +87,6 @@ CheckboxGroup.propTypes = {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Flag to configure component as mandatory */

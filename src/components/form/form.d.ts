@@ -1,7 +1,8 @@
 import * as React from "react";
+import { SpaceProps } from "styled-system";
 import { FormFieldSpacing } from "../../utils/helpers/options-helper/options-helper";
 
-export interface FormProps {
+export interface FormProps extends SpaceProps {
   /** Alignment of buttons */
   buttonAlignment?: "left" | "right";
   /** Child elements */
