@@ -13,6 +13,8 @@ services:
       - install
   # Open Cypress and attach to a X11 server
   # docker-compose --profile open up
+  # Unable to open X display? ensure you have added 127.0.0.1 to xhost allow list
+  # xhost +127.0.0.1
   open:
     image: "cypress/browsers:node14.16.0-chrome90-ff88"
     environment:
@@ -23,21 +25,22 @@ services:
     volumes:
       - ../:/e2e
       - cache:/root/.cache/Cypress/
-      - /tmp/.X11-unix:/tmp/.X11-unix
     profiles:
       - open
   # Run Cypress tests using the Cypress dashboard
   # CYPRESS_RECORD_KEY=FAKE-FAKE-FAKE-FAKE-FAKE BUILD_ID=$(uuidgen) docker-compose --profile run up
   run:
     deploy:
+      # Change this value to adjust the parallelisation
       replicas: 3
     image: "cypress/browsers:node14.16.0-chrome90-ff88"
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - CYPRESS_RECORD_KEY=${CYPRESS_RECORD_KEY}
     command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID}
+    # Run specific Cypress test(s) using the Cypress dashboard
+    # command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID} --spec cypress/features/regression/accessibility/accessibility*
     working_dir: /e2e
-    network_mode: host
     volumes:
       - ../:/e2e
       - cache:/root/.cache/Cypress/
