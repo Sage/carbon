@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
 
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Textbox, { OriginalTextbox } from ".";
 
 <Meta title="Design System/Textbox" parameters={{ info: { disable: true } }} />
@@ -11,6 +11,7 @@ import Textbox, { OriginalTextbox } from ".";
 Captures a single line of text.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
@@ -23,6 +24,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 ```
 
 ## Designer Notes
+
 - Use placeholder text to give the user examples of data formats (e.g. AB123456C for a UK National Insurance number).
 - Use prefixes if your data always begins with a certain sequence (e.g. a UK VAT number usually starts with ‘GB’).
 - If content in a textbox is never editable, think about removing the field border so it appears as static text.
@@ -72,21 +74,9 @@ import Textbox from "carbon-react/lib/components/textbox";
       const setValue = ({ target }) => {
         setState(target.value);
       };
-      return <Textbox label="Textbox" value={state} onChange={setValue} m={4} />;
-    }}
-  </Story>
-</Preview>
-
-### Paddings
-
-<Preview>
-  <Story name="paddings">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return <Textbox label="Textbox" value={state} onChange={setValue} p={4} />;
+      return (
+        <Textbox label="Textbox" value={state} onChange={setValue} m={4} />
+      );
     }}
   </Story>
 </Preview>
@@ -279,9 +269,4 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Textbox
 
-<StyledSystemProps
-  of={OriginalTextbox}
-  spacing
-  noHeader
-  defaults={{ mt: '3', mb: '3' }}
-/>
+<StyledSystemProps of={OriginalTextbox} noHeader margin />

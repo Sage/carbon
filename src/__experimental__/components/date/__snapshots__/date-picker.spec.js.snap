@@ -8,8 +8,8 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
         "name": "offset",
         "options": Object {
           "offset": Array [
-            -11,
-            5,
+            0,
+            3,
           ],
         },
       },

@@ -13,10 +13,11 @@ import { Select, Option } from "../select";
 import { Checkbox } from "../../__experimental__/components/checkbox";
 import Hr from "../../components/hr";
 import Switch from "../../__experimental__/components/switch";
-import Button from "../button";
-import DialogFullScreen from "../dialog-full-screen";
-import Dialog from "../dialog";
-import AppWrapper from "../app-wrapper";
+import Button from '../button';
+import DialogFullScreen from '../dialog-full-screen';
+import Dialog from '../dialog';
+import AppWrapper from '../app-wrapper';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Form" parameters={{ info: { disable: true } }} />
 
@@ -618,5 +619,4 @@ Please click on "Show code" below to see how to set these components up for alig
 ## Props
 
 ### Form
-
-<Props of={Form} />
+<StyledSystemProps of={Form} spacing noHeader />

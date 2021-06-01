@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { action } from "@storybook/addon-actions";
-import Drawer from "..";
+import Drawer from ".";
 import {
   FlatTable,
   FlatTableHead,
@@ -8,7 +8,11 @@ import {
   FlatTableRow,
   FlatTableHeader,
   FlatTableCell,
-} from "../../flat-table";
+} from "../flat-table";
+import { Checkbox } from "../../__experimental__/components/checkbox";
+import Typography from "../typography";
+import Box from "../box";
+import Button from "../button";
 
 export default {
   component: Drawer,
@@ -307,6 +311,157 @@ export const Visual = () => {
               <li>link b</li>
               <li>link c</li>
             </ul>
+          }
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+      <div style={{ height: "400px", marginBottom: "20px" }}>
+        <Drawer
+          title={<Typography variant="h2">Drawer title</Typography>}
+          stickyHeader
+          showControls
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          sidebar={
+            <>
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+                mb={4}
+              />
+            </>
+          }
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+      <div style={{ height: "400px", marginBottom: "20px" }}>
+        <Drawer
+          title={<Typography variant="h2">Drawer title</Typography>}
+          stickyHeader
+          stickyFooter
+          showControls
+          expandedWidth="40%"
+          animationDuration="0.5s"
+          footer={
+            <Box display="flex" justifyContent="flex-end" p="16px 40px">
+              <Button mr="16px">Cancel</Button>
+              <Button buttonType="primary" type="submit">
+                Action
+              </Button>
+            </Box>
+          }
+          sidebar={
+            <>
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+              />
+              <Checkbox
+                label="Example checkbox"
+                name="checkbox-default"
+                ml="40px"
+                mt="30px"
+                mb={4}
+              />
+            </>
           }
         >
           content body content body content body content body content body

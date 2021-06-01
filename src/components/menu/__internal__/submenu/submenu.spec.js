@@ -12,8 +12,8 @@ import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import { baseTheme, mintTheme } from "../../../../style/themes";
-import Search from "../../../../__experimental__/components/search";
-import StyledSearch from "../../../../__experimental__/components/search/search.style";
+import Search from "../../../search";
+import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
 
 const events = {

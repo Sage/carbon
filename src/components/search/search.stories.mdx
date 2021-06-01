@@ -1,9 +1,9 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import {useState} from 'react';
-import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Search from '.';
-import Button from '../../../components/button';
-import Box from '../../../components/box';
+import Button from '../button';
+import Box from '../box';
 
 <Meta title="Design System/Search" />
 
@@ -19,7 +19,7 @@ This search component should be used if you require the user to conduct a search
 Import `Search` into the project.
 
 ```javascript
-import Search from 'carbon-react/lib/__experimental__/components/search';
+import Search from 'carbon-react/lib/components/search';
 ```
 
 ## Examples
@@ -28,7 +28,7 @@ import Search from 'carbon-react/lib/__experimental__/components/search';
 
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
-    <Search placeholder="Search..." defaultValue=""/>
+    <Search placeholder="Search..." defaultValue="" />
   </Story>
 </Preview>
 
@@ -57,7 +57,7 @@ import Search from 'carbon-react/lib/__experimental__/components/search';
 
 <Preview>
   <Story name="with SearchButton" parameters={{ info: { disable: true }}} >
-    <Search defaultValue="Search" searchButton/>
+    <Search defaultValue="Here is some text" searchButton/>
   </Story>
 </Preview>
 
@@ -73,7 +73,7 @@ import Search from 'carbon-react/lib/__experimental__/components/search';
 
 <Preview style={{backgroundColor: '#e6ebed'}}>
   <Story name="with SearchButton and colour background" parameters={{ info: { disable: true }, chromatic: { disable: true }}} >
-    <Search placeholder="Search..." defaultValue="Search" searchButton/>
+    <Search placeholder="Search..." defaultValue="Here is some text" searchButton/>
   </Story>
 </Preview>
 
@@ -91,7 +91,7 @@ In this example the `searchWidth` prop is 375px.
 
 <Preview>
   <Story name="with SearchButton and Custom Width using px" parameters={{ info: { disable: true }}} >
-    <Search defaultValue="Search" searchButton searchWidth="375px"/>
+    <Search defaultValue="Here is some text" searchButton searchWidth="375px"/>
   </Story>
 </Preview>
 
@@ -109,7 +109,7 @@ In this example the `searchWidth` prop is 70%.
 
 <Preview>
   <Story name="with SearchButton and Custom Width using %" parameters={{ info: { disable: true }}} >
-    <Search defaultValue="Search" searchButton searchWidth="70%"/>
+    <Search defaultValue="Here is some text" searchButton searchWidth="70%"/>
   </Story>
 </Preview>
 
@@ -122,7 +122,7 @@ In this example the `variant` prop is "dark" and `searchButton` is true.
       <div style={{padding: "32px", backgroundColor: "#003349"}}>
         <Search
           placeholder="Search..."
-          defaultValue="Search"
+          defaultValue="Here is some text"
           searchButton
           variant="dark"
         />
