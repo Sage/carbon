@@ -3,17 +3,17 @@ import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import NumeralDate from "./numeral-date.component";
-import Textbox from "../../../components/textbox";
+import Textbox from "../textbox";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
-import StyledInputPresentation from "../input/input-presentation.style";
-import FormFieldStyle from "../form-field/form-field.style";
-import FormField from "../form-field";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
-import Label from "../label";
+} from "../../__spec_helper__/test-utils";
+import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
+import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
+import FormField from "../../__experimental__/components/form-field";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import Label from "../../__experimental__/components/label";
 
 describe("NumeralDate", () => {
   let wrapper;

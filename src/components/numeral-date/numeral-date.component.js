@@ -4,14 +4,14 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import I18n from "i18n-js";
 
-import { filterStyledSystemMarginProps } from "../../../style/utils";
-import Events from "../../../utils/helpers/events";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import Events from "../../utils/helpers/events";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
-import Textbox from "../../../components/textbox";
-import guid from "../../../utils/helpers/guid";
-import FormField from "../form-field";
-import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
+import Textbox from "../textbox";
+import guid from "../../utils/helpers/guid";
+import FormField from "../../__experimental__/components/form-field";
+import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

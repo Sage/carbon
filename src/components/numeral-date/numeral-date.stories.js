@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { array, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import NumeralDate from ".";
-import Box from "../../../components/box";
+import Box from "../box";
 
 export default {
   title: "Design System/Numeral Date/Test",
