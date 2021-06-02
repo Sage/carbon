@@ -51,7 +51,7 @@ export interface DateRangeProps extends MarginProps {
   /** Specify a callback triggered on change */
   onChange?: (ev: DateRangeChangeEvent) => void;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: DateRangeChangeEvent) => void;
   /** Props for the child start Date component */
   startDateProps?: DateInputProps;
   /** Optional label for startDate field */

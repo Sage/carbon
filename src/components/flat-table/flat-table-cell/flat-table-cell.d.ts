@@ -1,8 +1,8 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { PaddingProps } from "styled-system";
 import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
-export interface FlatTableCellProps extends SpaceProps {
+export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
   align?: OptionsHelper.AlignFull;
   children?: React.ReactNode | string;

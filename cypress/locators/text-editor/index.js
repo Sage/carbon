@@ -1,3 +1,4 @@
+import { LINK } from "../locators";
 import {
   TEXT_EDITOR_COUNTER,
   TEXT_EDITOR_INPUT,
@@ -18,5 +19,4 @@ export const innerTextList = (typeOfList, index) =>
     .find(`${typeOfList}`)
     .find(`li:nth-child(${index})`)
     .find("div");
-export const innerTextLink = () =>
-  textEditorInput().find('div[data-component="link"]').children();
+export const innerTextLink = () => textEditorInput().find(LINK).children();

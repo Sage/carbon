@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding } from "styled-system";
 import { baseTheme } from "../../../style/themes";
 
 const StyledTileFooter = styled.div`
-  ${space}
+  ${padding}
 
   ${({ variant, theme }) => css`
     background: ${variant === "transparent"

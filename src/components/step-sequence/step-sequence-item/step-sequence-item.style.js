@@ -19,9 +19,13 @@ const StepSequenceItemStyle = styled.li`
     background-color: ${({ theme }) => theme.disabled.disabled};
   }
 
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   ${StyledIcon} {
-    position: relative;
-    top: -2px;
     margin-right: 8px;
     color: ${({ theme }) => theme.colors.base};
   }

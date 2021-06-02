@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import { css } from "styled-components";
-import "jest-styled-components";
 import TestRenderer from "react-test-renderer";
 
 import Pod from "./pod.component";
@@ -19,7 +18,10 @@ import {
   StyledTitle,
   StyledArrow,
 } from "./pod.style.js";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import {
   elementsTagTest,
   rootTagTest,
@@ -35,6 +37,8 @@ describe("Pod", () => {
   beforeEach(() => {
     wrapper = shallow(<Pod />);
   });
+
+  testStyledSystemMargin((props) => <Pod {...props} />);
 
   describe("functionality", () => {
     it("sets the collapsed state same as collapsed prop on mount", () => {
@@ -748,9 +752,9 @@ describe("StyledFooter", () => {
     });
   });
 
-  describe("when padding prop is set", () => {
+  describe("when size prop is set", () => {
     it("should have expected padding", () => {
-      wrapper = renderStyledFooter({ padding: "medium" });
+      wrapper = renderStyledFooter({ size: "medium" });
       assertStyleMatch(
         {
           padding: "10px 15px",
@@ -775,11 +779,11 @@ describe("StyledHeader", () => {
   });
 
   describe("when the internalEditButton prop is set and alignTitle prop is set to right", () => {
-    it("should have expected margin right style dependent on the padding prop", () => {
+    it("should have expected margin right style dependent on the size prop", () => {
       wrapper = renderStyledHeader({
         internalEditButton: true,
         alignTitle: "right",
-        padding: "medium",
+        size: "medium",
       });
       assertStyleMatch(
         {
