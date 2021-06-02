@@ -10,19 +10,19 @@ const Dl = ({
   w = 50,
   dtTextAlign = "right",
   ddTextAlign = "left",
-  ...props
+  ...rest
 }) => {
   const dlComponent = [];
   const listChildren = React.Children.toArray(children);
   let key = "";
 
-  const composeDlComponent = (array) => {
+  const composeDlComponent = (childrenArray) => {
     let dtLabel;
     let ddContent = [];
     let isLastChild;
     let nextItemIsNotDd;
 
-    array.forEach((child, index) => {
+    childrenArray.forEach((child, index) => {
       if (child.type === React.Fragment) {
         composeDlComponent(child.props.children);
       } else {
@@ -33,10 +33,10 @@ const Dl = ({
           ddContent.push(child);
         }
 
-        isLastChild = index === listChildren.length - 1;
+        isLastChild = index === childrenArray.length - 1;
         nextItemIsNotDd =
           !isLastChild &&
-          [Dt, React.Fragment].includes(listChildren[index + 1].type);
+          [Dt, React.Fragment].includes(childrenArray[index + 1].type);
 
         if (dtLabel && (nextItemIsNotDd || isLastChild)) {
           key = `${key + 1}`;
@@ -57,7 +57,7 @@ const Dl = ({
   };
 
   return (
-    <StyledDl w={w} data-component="dl" {...props}>
+    <StyledDl w={w} data-component="dl" {...rest}>
       {composeDlComponent(listChildren)}
     </StyledDl>
   );
