@@ -4,7 +4,11 @@ import { act } from "react-dom/test-utils";
 
 import { MenuItem } from "..";
 import Link from "../../link";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  testStyledSystemLayout,
+  testStyledSystemFlexBox,
+  assertStyleMatch,
+} from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Submenu from "../__internal__/submenu/submenu.component";
@@ -81,6 +85,9 @@ describe("MenuItem", () => {
     }
   });
 
+  testStyledSystemLayout((props) => <MenuItem {...props}>Item One</MenuItem>);
+  testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
+
   it("should render children correctly", () => {
     wrapper = shallow(<MenuItem>Item One</MenuItem>);
 
@@ -107,7 +114,7 @@ describe("MenuItem", () => {
     it("should add the correct styles", () => {
       assertStyleMatch(
         {
-          maxWidth: "100px",
+          maxWidth: "inherit",
           textOverflow: "ellipsis",
           overflow: "hidden",
           whiteSpace: "nowrap",
@@ -308,7 +315,7 @@ describe("MenuItem", () => {
       it("should add the correct styles", () => {
         assertStyleMatch(
           {
-            maxWidth: "100px",
+            maxWidth: "inherit",
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",

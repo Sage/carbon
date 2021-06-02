@@ -766,6 +766,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
@@ -779,6 +780,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
             <FlatTableBody>
               <FlatTableRow selected={selectedRows.one}>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
@@ -789,6 +791,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.two}>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
@@ -799,6 +802,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.three}>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
@@ -809,6 +813,7 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.four}>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
@@ -959,6 +964,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
@@ -976,6 +982,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "one"}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
@@ -990,6 +997,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "two"}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
@@ -1004,6 +1012,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "three"}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
@@ -1018,6 +1027,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "four"}
               >
                 <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
@@ -1387,6 +1397,7 @@ of the button control.
               <FlatTableHead>
                 <FlatTableRow>
                   <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
                     as="th"
                     checked={selectAll}
                     onChange={() => handleSelectAllRows()}
@@ -1404,6 +1415,7 @@ of the button control.
                   highlighted={highlightedRow === "one"}
                 >
                   <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.one}
                     onChange={() => handleSelectRow("one")}
                   />
@@ -1418,6 +1430,7 @@ of the button control.
                   highlighted={highlightedRow === "two"}
                 >
                   <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.two}
                     onChange={() => handleSelectRow("two")}
                   />
@@ -1432,6 +1445,7 @@ of the button control.
                   highlighted={highlightedRow === "three"}
                 >
                   <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.three}
                     onChange={() => handleSelectRow("three")}
                   />
@@ -1446,6 +1460,7 @@ of the button control.
                   highlighted={highlightedRow === "four"}
                 >
                   <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.four}
                     onChange={() => handleSelectRow("four")}
                   />

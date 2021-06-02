@@ -15,9 +15,9 @@ export interface DateInputProps extends TextboxProps {
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
-  onFocus?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** The current date YYYY-MM-DD */
   value?: string;
 }

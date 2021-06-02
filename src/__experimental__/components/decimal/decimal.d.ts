@@ -16,7 +16,7 @@ export interface DecimalProps extends CommonTextboxProps, MarginProps {
   /** Handler for change event if input is meant to be used as a controlled component */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Handler for blur event */
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Handler for key press event */
   onKeyPress?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** The input name */
