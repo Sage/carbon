@@ -37,8 +37,8 @@ describe("Menu", () => {
     );
   });
 
-  testStyledSystemLayout((props) => <Menu {...props} />);
-  testStyledSystemFlexBox((props) => <Menu {...props} />);
+  testStyledSystemLayout((props) => <Menu {...props}>Foo</Menu>);
+  testStyledSystemFlexBox((props) => <Menu {...props}>Foo</Menu>);
 
   it("should render with correct `data-component`", () => {
     expect(wrapper.prop("data-component")).toEqual("menu");
