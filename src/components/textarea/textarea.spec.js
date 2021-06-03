@@ -10,8 +10,8 @@ import Textarea from ".";
 import baseTheme from "../../style/themes/base";
 import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
 import { Input } from "../../__experimental__/components/input";
-import ValidationIcon from "../validations/validation-icon.component";
 import Label from "../../__internal__/label";
+import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import guid from "../../utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 

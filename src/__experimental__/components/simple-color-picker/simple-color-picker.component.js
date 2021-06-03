@@ -13,7 +13,7 @@ import Fieldset from "../../../__internal__/fieldset";
 import SimpleColor from "./simple-color";
 import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
+import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import { InputGroupContext } from "../../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 

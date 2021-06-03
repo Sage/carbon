@@ -5,7 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import FormField from "../../__experimental__/components/form-field";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
-import ValidationIcon from "../validations/validation-icon.component";
+import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

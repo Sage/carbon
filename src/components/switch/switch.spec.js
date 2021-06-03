@@ -19,7 +19,7 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import StyledValidationIcon from "../validations/validation-icon.style";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import { baseTheme } from "../../style/themes";
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle from "./switch.style";

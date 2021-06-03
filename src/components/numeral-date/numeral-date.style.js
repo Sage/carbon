@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import StyledValidationIcon from "../validations/validation-icon.style";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import { baseTheme } from "../../style/themes";
 import StyledFormField from "../../__experimental__/components/form-field/form-field.style";

@@ -12,7 +12,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 
-import ValidationIcon from "../../components/validations/validation-icon.component";
+import ValidationIcon from "../validations/validation-icon.component";
 
 const Component = () => <div />;
 const RenderComponent = (props) => (

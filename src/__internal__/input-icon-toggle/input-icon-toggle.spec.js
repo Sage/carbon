@@ -4,8 +4,8 @@ import { act } from "react-dom/test-utils";
 
 import Icon from "components/icon";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import ValidationIcon from "../../components/validations/validation-icon.component";
-import ValidationIconStyle from "../../components/validations/validation-icon.style";
+import ValidationIconStyle from "../validations/validation-icon.style";
+import ValidationIcon from "../validations/validation-icon.component";
 
 import InputIconToggle from "./input-icon-toggle.component";
 import InputIconToggleStyle from "./input-icon-toggle.style";

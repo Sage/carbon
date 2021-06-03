@@ -10,7 +10,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
-import StyledValidationIcon from "../../../components/validations/validation-icon.style";
+import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../../__internal__/fieldset";
 
 const colorValues = [
