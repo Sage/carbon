@@ -21,7 +21,7 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
-import AccordionGroup from "./accordion-group.component";
+import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
 
