@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
-import StyledDateInput from "../date/date.style";
+import StyledDateInput from "../../../components/date/date.style";
 import { StyledLabelContainer } from "../label/label.style.js";
 import { StyledInputPresentationContainer } from "../input/input-presentation.style.js";
 import baseTheme from "../../../style/themes/base";

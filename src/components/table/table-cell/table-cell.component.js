@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StyledTableCell from "./table-cell.style";
-import Date from "../../../__experimental__/components/date";
+import Date from "../../date";
 import TextArea from "../../textarea";
 import { validProps } from "../../../utils/ether";
 import tagComponent from "../../../utils/helpers/tags";

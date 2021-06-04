@@ -2,9 +2,9 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
 
-import baseTheme from "../../../style/themes/base";
-import InputPresentationStyle from "../input/input-presentation.style";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import baseTheme from "../../style/themes/base";
+import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const datePickerWidth = {
   large: "140px",
@@ -15,7 +15,7 @@ const datePickerWidth = {
 const StyledDateInput = styled.div`
   ${margin}
 
-  & ${InputPresentationStyle} {
+  & ${StyledInputPresentation} {
     flex: none;
     width: ${({ size }) => (size ? datePickerWidth[size] : "135px")};
   }

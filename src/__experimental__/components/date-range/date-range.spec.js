@@ -4,14 +4,14 @@ import TestRenderer from "react-test-renderer";
 import MockDate from "mockdate";
 import DateRange from "./date-range.component";
 import Textbox from "../../../components/textbox/textbox.component";
-import { BaseDateInput } from "../date";
+import { BaseDateInput } from "../../../components/date/date.component";
 import {
   elementsTagTest,
   rootTagTest,
 } from "../../../utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import StyledDateRange from "./date-range.style";
-import StyledDateInput from "../date/date.style";
+import StyledDateInput from "../../../components/date/date.style";
 
 jest.useFakeTimers();
 

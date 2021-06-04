@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { boolean, number, text } from "@storybook/addon-knobs";
 import DateInput from "./date.component";
-import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
+import { getCommonTextboxProps } from "../textbox/textbox.stories";
 
 export default {
-  title: "Experimental/Date Input/Test",
+  title: "Design System/Date Input/Test",
   component: DateInput,
   parameters: {
     info: {
