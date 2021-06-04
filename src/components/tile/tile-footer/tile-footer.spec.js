@@ -1,7 +1,10 @@
 import React from "react";
 import { mount } from "enzyme";
 import TileFooter from "./tile-footer.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/test-utils";
 import StyledTileFooter from "./tile-footer.style";
 import { baseTheme } from "../../../style/themes";
 
@@ -11,6 +14,8 @@ const renderWrapper = (props, renderType = mount) => {
 
 describe("TileFooter", () => {
   let wrapper;
+
+  testStyledSystemPadding((props) => <TileFooter {...props} />);
 
   beforeEach(() => {
     wrapper = renderWrapper();
@@ -40,7 +45,7 @@ describe("TileFooter", () => {
     );
   });
 
-  it("should render correct background if `transparent` variant is provied", () => {
+  it("should render correct background if `transparent` variant is provided", () => {
     wrapper = renderWrapper({ variant: "transparent" });
   });
 });

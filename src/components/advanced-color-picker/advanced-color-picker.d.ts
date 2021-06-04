@@ -14,7 +14,7 @@ export interface AdvancedColorPickerPropTypes extends MarginProps {
   /** Specifies the name prop to be applied to each color in the group */
   name: string;
   /** Prop for `onBlur` event */
-  onBlur?: (ev: React.SyntheticEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onChange` event */
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
   /** Prop for `onClose` event */

@@ -40,7 +40,7 @@ exports[`Link renders as expected 1`] = `
   padding: 0;
 }
 
-<div
+<span
   className="c0"
   data-component="link"
   disabled={false}
@@ -56,5 +56,5 @@ exports[`Link renders as expected 1`] = `
       test
     </span>
   </a>
-</div>
+</span>
 `;

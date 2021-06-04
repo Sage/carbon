@@ -23,7 +23,7 @@ export interface TileProps extends SpaceProps {
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.
    */
-  width?: number;
+  width?: string | number;
 }
 
 declare function Tile(props: TileProps): JSX.Element;

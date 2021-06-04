@@ -2,9 +2,10 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { space } from "styled-system";
 import baseTheme from "../../style/themes/base";
+import computeWidth from "../../style/utils/width";
 
 const TileContent = styled.div`
-  ${({ width, isHorizontal, isVertical, theme }) => css`
+  ${({ isHorizontal, isVertical, theme, width }) => css`
     ${space}
     box-sizing: border-box;
     position: relative;
@@ -46,36 +47,36 @@ const TileContent = styled.div`
       }
     `}
 
-    ${width && width !== 0
-      ? `
+    ${width &&
+    css`
       flex-grow: 0;
-      width: ${width}%;
-    `
-      : ""}
+      ${computeWidth}
+    `}
   `}
 `;
 
 const StyledTile = styled.div`
-  ${({ isHorizontal, pixelWidth, tileTheme, theme, width }) => css`
+  ${({ isHorizontal, tileTheme, theme, width }) => css`
     ${space}
     box-sizing: border-box;
-    background-color: ${
-      tileTheme === "tile" ? theme.colors.white : "transparent"
-    };
+    background-color: ${tileTheme === "tile"
+      ? theme.colors.white
+      : "transparent"};
     border: 1px solid ${theme.tile.border};
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};
     position: relative;
     width: 100%;
 
-    ${width && width !== 0 ? `width: ${width}%;` : ""}
-    ${pixelWidth && pixelWidth !== 0 ? `width: ${pixelWidth}px;` : ""}
-    }
+    ${width &&
+    css`
+      ${computeWidth}
+    `}
   `}
 `;
 
 TileContent.propTypes = {
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 TileContent.defaultProps = {
@@ -86,7 +87,7 @@ StyledTile.propTypes = {
   orientation: PropTypes.string,
   padding: PropTypes.string,
   tileTheme: PropTypes.string,
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 StyledTile.defaultProps = {

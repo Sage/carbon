@@ -1,16 +1,20 @@
 import styled, { css } from "styled-components";
+import { layout, flexbox } from "styled-system";
+
 import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
 import { baseTheme } from "../../style/themes";
-import Box from "../box";
 
-const StyledMenuWrapper = styled(Box).attrs({ as: "ul" })`
+const StyledMenuWrapper = styled.ul`
   line-height: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  ${layout}
+  ${flexbox}
 
   ${StyledVerticalWrapper} {
     ${({ menuType, theme }) => css`
@@ -32,7 +36,10 @@ const StyledMenuWrapper = styled(Box).attrs({ as: "ul" })`
   }
 `;
 
-const StyledMenuItem = styled(Box).attrs({ as: "li" })`
+const StyledMenuItem = styled.li`
+  ${layout}
+  ${flexbox}
+  
   ${({ inSubmenu }) => css`
     ${inSubmenu &&
     css`

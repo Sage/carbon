@@ -4,6 +4,18 @@ exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  popperOptions={
+    Object {
+      "modifiers": Array [
+        Object {
+          "name": "computeStyles",
+          "options": Object {
+            "gpuAcceleration": false,
+          },
+        },
+      ],
+    }
+  }
   render={[Function]}
   visible={false}
 >
@@ -17,6 +29,18 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  popperOptions={
+    Object {
+      "modifiers": Array [
+        Object {
+          "name": "computeStyles",
+          "options": Object {
+            "gpuAcceleration": false,
+          },
+        },
+      ],
+    }
+  }
   render={[Function]}
   visible={true}
 >
@@ -30,6 +54,18 @@ exports[`Tooltip default props matches snapshot 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  popperOptions={
+    Object {
+      "modifiers": Array [
+        Object {
+          "name": "computeStyles",
+          "options": Object {
+            "gpuAcceleration": false,
+          },
+        },
+      ],
+    }
+  }
   render={[Function]}
 >
   <div>
