@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MarginSpacingProps } from "../../utils/helpers/options-helper";
-import ActionPopoverDivider from "./action-popover-divider";
-import { ActionPopoverItemProps } from "./action-popover-item";
+import ActionPopoverDivider from "./action-popover-divider/action-popover-divider";
+import { ActionPopoverItemProps } from "./action-popover-item/action-popover-item";
 
 export interface RenderButtonProps {
   tabIndex: number;
