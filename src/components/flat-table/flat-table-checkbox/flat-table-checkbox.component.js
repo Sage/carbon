@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
-import { Checkbox } from "../../../__experimental__/components/checkbox";
+import { Checkbox } from "../../checkbox";
 
 const FlatTableCheckbox = ({
   as = "td",
