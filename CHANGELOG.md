@@ -1,3 +1,10 @@
+### [76.1.4](https://github.com/Sage/carbon/compare/v76.1.3...v76.1.4) (2021-06-04)
+
+
+### Bug Fixes
+
+* **accordion:** fix incorrect content height ([3a2b425](https://github.com/Sage/carbon/commit/3a2b425d67af59cea45de7f8037de5549b655d50))
+
 ### [76.1.3](https://github.com/Sage/carbon/compare/v76.1.2...v76.1.3) (2021-06-02)
 
 
