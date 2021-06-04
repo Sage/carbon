@@ -5,8 +5,10 @@ import { act } from "react-dom/test-utils";
 import Icon from "components/icon";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import ValidationIcon from "../../components/validations/validation-icon.component";
+import ValidationIconStyle from "../../components/validations/validation-icon.style";
 
 import InputIconToggle from "./input-icon-toggle.component";
+import InputIconToggleStyle from "./input-icon-toggle.style";
 
 describe("InputIconToggle", () => {
   describe("when initiated with the disabled prop set to true", () => {
@@ -193,6 +195,60 @@ describe("InputIconToggle", () => {
         wrapper.simulate("keydown", event);
       });
       expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("event handlers", () => {
+    describe("validation", () => {
+      it("onFocus", () => {
+        const mockOnFocus = jest.fn();
+        const wrapper = render(
+          { error: "error", onFocus: mockOnFocus, useValidationIcon: true },
+          mount
+        );
+        act(() => {
+          wrapper.find(ValidationIconStyle).props().onFocus();
+        });
+        expect(mockOnFocus).toHaveBeenCalled();
+      });
+
+      it("onBlur", () => {
+        const mockOnBlur = jest.fn();
+        const wrapper = render(
+          { error: "error", onBlur: mockOnBlur, useValidationIcon: true },
+          mount
+        );
+        act(() => {
+          wrapper.find(ValidationIconStyle).props().onBlur();
+        });
+        expect(mockOnBlur).toHaveBeenCalled();
+      });
+    });
+
+    describe("basic", () => {
+      it("onFocus", () => {
+        const mockOnFocus = jest.fn();
+        const wrapper = render(
+          { inputIcon: "dropdown", onFocus: mockOnFocus },
+          mount
+        );
+        act(() => {
+          wrapper.find(InputIconToggleStyle).props().onFocus();
+        });
+        expect(mockOnFocus).toHaveBeenCalled();
+      });
+
+      it("onBlur", () => {
+        const mockOnBlur = jest.fn();
+        const wrapper = render(
+          { inputIcon: "dropdown", onBlur: mockOnBlur },
+          mount
+        );
+        act(() => {
+          wrapper.find(InputIconToggleStyle).props().onBlur();
+        });
+        expect(mockOnBlur).toHaveBeenCalled();
+      });
     });
   });
 });

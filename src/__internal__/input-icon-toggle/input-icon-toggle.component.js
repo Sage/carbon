@@ -16,6 +16,8 @@ const InputIconToggle = ({
   size,
   inputIcon: type,
   onClick,
+  onFocus,
+  onBlur,
   onMouseDown,
   error,
   warning,
@@ -30,14 +32,17 @@ const InputIconToggle = ({
     shouldDisplayValidationIcon({ error, warning, info })
   ) {
     return (
-      <InputIconToggleStyle size={size} tabIndex={iconTabIndex}>
+      <InputIconToggleStyle size={size}>
         <ValidationIcon
           error={error}
           warning={warning}
           info={info}
           size={size}
           onClick={onClick}
+          onFocus={onFocus}
+          onBlur={onBlur}
           isPartOfInput
+          tabIndex={iconTabIndex}
           tooltipPosition={align === "right" ? "left" : "right"}
         />
       </InputIconToggleStyle>
@@ -49,6 +54,8 @@ const InputIconToggle = ({
       <InputIconToggleStyle
         size={size}
         onClick={onClick}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onMouseDown={onMouseDown}
         tabIndex={iconTabIndex}
       >
@@ -66,6 +73,8 @@ InputIconToggle.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
