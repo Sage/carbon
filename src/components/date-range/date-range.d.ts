@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { DateInputProps } from "../../../components/date/date";
+import { DateInputProps } from "../date/date";
 
 export interface DateRangeChangeEvent {
   target: {

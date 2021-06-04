@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
-import StyledDateInput from "../../../components/date/date.style";
-import { StyledLabelContainer } from "../label/label.style.js";
-import { StyledInputPresentationContainer } from "../input/input-presentation.style.js";
-import baseTheme from "../../../style/themes/base";
+import StyledDateInput from "../date/date.style";
+import { StyledLabelContainer } from "../../__experimental__/components/label/label.style.js";
+import { StyledInputPresentationContainer } from "../../__experimental__/components/input/input-presentation.style.js";
+import baseTheme from "../../style/themes/base";
 
 const StyledDateRange = styled.div`
   ${margin}

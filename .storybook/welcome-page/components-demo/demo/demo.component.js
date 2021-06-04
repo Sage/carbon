@@ -13,7 +13,7 @@ import {
   StyledComponentWrapper,
 } from "./demo.style";
 import DemoTable from "./demo-table";
-import DateRange from "../../../../src/__experimental__/components/date-range";
+import DateRange from "../../../../src/components/date-range";
 import Heading from "../component-heading";
 
 const Demo = () => {

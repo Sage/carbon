@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import DateRange from "./date-range.component";
 
 export default {
-  title: "Experimental/Date Range/Test",
+  title: "Design System/Date Range/Test",
   component: DateRange,
   parameters: {
     info: {

@@ -110,6 +110,7 @@ Feature: Accessibility tests - Design System folder
       | Checkbox          |
       | Content           |
       | Date Input        |
+      | Date Range        |
       | Draggable         |
       | Fieldset          |
       | Flat Table        |
@@ -230,6 +231,7 @@ Feature: Accessibility tests - Design System folder
       | component           |
       | textarea            |
       | date-input          |
+      | date-range          |
       | textbox             |
       | fieldset            |
 
@@ -241,6 +243,7 @@ Feature: Accessibility tests - Design System folder
       | component           |
       | textarea            |
       | date-input          |
+      | date-range          |
       | textbox             |
       | fieldset            |
 
@@ -252,6 +255,7 @@ Feature: Accessibility tests - Design System folder
       | component           |
       | textarea            |
       | date-input          |
+      | date-range          |
       | textbox             |
       | fieldset            | 
 
