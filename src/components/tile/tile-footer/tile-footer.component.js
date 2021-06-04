@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import StyledTileFooter from "./tile-footer.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const TileFooter = ({ variant, children, ...props }) => {
   return (
@@ -12,7 +17,7 @@ const TileFooter = ({ variant, children, ...props }) => {
 };
 
 TileFooter.propTypes = {
-  ...propTypes.space,
+  ...paddingPropTypes,
   /** set which background color variant should be used */
   variant: PropTypes.oneOf(["default", "transparent"]),
   children: PropTypes.node,

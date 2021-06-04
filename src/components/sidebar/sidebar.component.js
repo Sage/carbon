@@ -44,6 +44,7 @@ const Sidebar = ({
       size={size}
       data-element="sidebar"
       role="complementary"
+      onCancel={onCancel}
     >
       {closeIcon()}
       {header && <SidebarHeader>{header}</SidebarHeader>}

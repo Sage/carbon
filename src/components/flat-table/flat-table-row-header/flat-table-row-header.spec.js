@@ -5,12 +5,12 @@ import { StyledFlatTableRowHeader } from "./flat-table-row-header.style";
 import FlatTableRowHeader from "./flat-table-row-header.component";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import StyledIcon from "../../icon/icon.style";
 
 describe("FlatTableRowHeader", () => {
-  testStyledSystemSpacing(
+  testStyledSystemPadding(
     (props) => <FlatTableRowHeader {...props} />,
     { py: "10px", px: 3 },
     null,

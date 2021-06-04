@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { ValidationPropTypes } from ".";
 import * as OptionsHelper from "../../utils/helpers/options-helper";
 
@@ -16,6 +18,10 @@ export interface ValidationIconProps extends ValidationPropTypes {
   tooltipFlipOverrides?: OptionsHelper.Positions[];
   /** An onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** An onBlur handler */
+  onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
+  /** An onFocus handler */
+  onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
   /** A boolean to indicate if the icon is part of an input */
   isPartOfInput?: boolean;
   /** Overrides the default tabindex of the component */

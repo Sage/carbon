@@ -6,8 +6,8 @@ import Dialog from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
-import DateInput from "../../__experimental__/components/date";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import DateInput from "../date";
+import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 
 export default {

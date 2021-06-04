@@ -4,8 +4,8 @@ import { margin } from "styled-system";
 import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
 import ValidationIconStyle from "../validations/validation-icon.style";
 import StyledIcon from "../icon/icon.style";
-import CheckboxStyle from "../../__experimental__/components/checkbox/checkbox.style";
 import baseTheme from "../../style/themes/base";
+import CheckboxStyle from "../checkbox/checkbox.style";
 
 const FieldsetStyle = styled.fieldset`
   ${margin}

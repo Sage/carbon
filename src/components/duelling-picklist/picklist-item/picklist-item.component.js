@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
@@ -7,6 +7,7 @@ import {
   StyledButton,
   StyledLockIcon,
 } from "./picklist-item.style";
+import FocusContext from "../duelling-picklist.context";
 import Events from "../../../utils/helpers/events";
 
 const PicklistItem = React.forwardRef(
@@ -20,19 +21,55 @@ const PicklistItem = React.forwardRef(
       highlighted,
       locked,
       tooltipMessage = "This item is locked and can not be moved",
+      index,
+      listIndex,
+      groupIndex,
+      isLastGroup,
+      isLastItem,
       ...rest
     },
     ref
   ) => {
-    const handleClick = useCallback(() => onChange(item), [onChange, item]);
+    const { setElementToFocus } = useContext(FocusContext);
+
+    const calculateFocusIndex = useCallback(() => {
+      if (isLastItem) {
+        const toggledListIndex = listIndex === 0 ? 1 : 0;
+        const incrementedGroupIndex =
+          groupIndex === 0 && index !== 0 ? 1 : groupIndex;
+
+        return {
+          itemIndex: isLastGroup ? 0 : incrementedGroupIndex,
+          list: isLastGroup ? toggledListIndex : listIndex,
+          group: undefined,
+        };
+      }
+      return {
+        itemIndex: index,
+        list: listIndex,
+        group: groupIndex,
+      };
+    }, [groupIndex, index, isLastGroup, isLastItem, listIndex]);
+
+    const updateFocusElement = useCallback(() => {
+      const { itemIndex, list, group } = calculateFocusIndex();
+      setElementToFocus(itemIndex, list, group);
+    }, [calculateFocusIndex, setElementToFocus]);
+
+    const handleClick = useCallback(() => {
+      onChange(item);
+      updateFocusElement();
+    }, [onChange, item, updateFocusElement]);
+
     const handleKeydown = useCallback(
       (event) => {
         if (Events.isEnterKey(event) || Events.isSpaceKey(event)) {
           event.preventDefault();
           onChange(item);
+          updateFocusElement();
         }
       },
-      [onChange, item]
+      [onChange, item, updateFocusElement]
     );
 
     return (
@@ -92,6 +129,16 @@ PicklistItem.propTypes = {
   tooltipMessage: PropTypes.string,
   /** @private @ignore */
   highlighted: PropTypes.bool,
+  /** @private @ignore */
+  index: PropTypes.number,
+  /** @private @ignore */
+  groupIndex: PropTypes.number,
+  /** @private @ignore */
+  listIndex: PropTypes.number,
+  /** @private @ignore */
+  isLastItem: PropTypes.bool,
+  /** @private @ignore */
+  isLastGroup: PropTypes.bool,
 };
 
 export default PicklistItem;
