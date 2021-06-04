@@ -2,8 +2,6 @@ import * as React from "react";
 import { SpaceProps } from "styled-system";
 import { ValidationPropTypes } from "../../../components/validations";
 
-export type FormFieldSize = "small" | "medium" | "large";
-
 export interface CommonFormFieldPropTypes
   extends SpaceProps,
     ValidationPropTypes {
@@ -37,8 +35,6 @@ export interface CommonFormFieldPropTypes
   labelWidth?: number;
   /** If true the label switches position with the input */
   reverse?: boolean;
-  /** Size of an input */
-  size?: FormFieldSize;
 }
 
 export interface FormFieldPropTypes extends CommonFormFieldPropTypes {

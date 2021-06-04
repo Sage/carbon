@@ -83,7 +83,7 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   position: absolute;
 }
 
-<div
+<span
   className="c0 c1"
   data-component="link"
   disabled={false}
@@ -97,7 +97,7 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
       className="carbon-link__content"
     />
   </a>
-</div>
+</span>
 `;
 
 exports[`StyledEditContainer when internalEditButton prop is set should have expected styles 1`] = `

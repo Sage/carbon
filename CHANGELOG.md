@@ -1,3 +1,31 @@
+### [76.1.3](https://github.com/Sage/carbon/compare/v76.1.2...v76.1.3) (2021-06-02)
+
+
+### Bug Fixes
+
+* **link:** change wrapper from div to span ([0aa3a99](https://github.com/Sage/carbon/commit/0aa3a99c89c92260c433d576364552380a40aee5))
+
+### [76.1.2](https://github.com/Sage/carbon/compare/v76.1.1...v76.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **tooltip:** fix arrow misalignment in left positioned tooltip ([b317b02](https://github.com/Sage/carbon/commit/b317b029bdcf2c15d263c9cd53f45c2119baac12))
+
+### [76.1.1](https://github.com/Sage/carbon/compare/v76.1.0...v76.1.1) (2021-06-01)
+
+
+### Bug Fixes
+
+* incorrect typescript onFocus and onBlur definitions ([4008096](https://github.com/Sage/carbon/commit/40080961bff7627d440b9af02b10bafb3e1eba02))
+
+## [76.1.0](https://github.com/Sage/carbon/compare/v76.0.1...v76.1.0) (2021-06-01)
+
+
+### Features
+
+* **flat-table-checkbox:** surface onclick prop and remove internal onclick from  composed checkbox ([8408258](https://github.com/Sage/carbon/commit/84082583f4fbcb6297784a7b751c29e57a1ab72d))
+
 ### [76.0.1](https://github.com/Sage/carbon/compare/v76.0.0...v76.0.1) (2021-05-31)
 
 

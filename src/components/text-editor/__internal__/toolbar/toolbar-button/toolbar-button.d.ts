@@ -8,8 +8,8 @@ export interface ToolbarButtonProps {
   onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-  onFocus?: (event: React.MouseEvent<HTMLElement>) => void;
-  onBlur?: (event: React.MouseEvent<HTMLElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
   tabbable?: boolean;
 }
 
