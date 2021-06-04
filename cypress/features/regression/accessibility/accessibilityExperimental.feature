@@ -7,14 +7,10 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | checkbox            |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
       | switch              |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -22,12 +18,9 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -35,12 +28,9 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -48,12 +38,9 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | textarea            |
 
   @accessibility
   Scenario Outline: Experimental checkbox component <story> story
@@ -75,11 +62,6 @@ Feature: Accessibility tests - Experimental folder
       | single switch boolean validation                    |
       | single switch string validation                     |
       | single switch string validation validation on label |
-
-  @accessibility
-  Scenario: Experimental checkbox with asterisk
-    When I open "Experimental checkbox validations" component page "required" in no iframe
-    Then "Experimental checkbox with asterisk" component has no accessibility violations
 
   @accessibility
   Scenario: Component radiobutton with legend and labels story

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TableCell from "../table-cell";
 import TableHeader from "../table-header";
-import { Checkbox } from "../../../__experimental__/components/checkbox";
+import { Checkbox } from "../../checkbox";
 import guid from "../../../utils/helpers/guid";
 import WithDrop from "../../drag-and-drop/with-drop";
 import DraggableTableCell from "../draggable-table-cell";
