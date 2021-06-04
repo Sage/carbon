@@ -27,6 +27,8 @@ const ValidationIcon = ({
   warning,
   info,
   size,
+  onFocus,
+  onBlur,
   iconId,
   isPartOfInput,
   tabIndex,
@@ -59,8 +61,14 @@ const ValidationIcon = ({
       onClick={onClick}
       onMouseOver={() => setTriggeredByIcon(true)}
       onMouseLeave={() => setTriggeredByIcon(false)}
-      onFocus={() => setTriggeredByIcon(true)}
-      onBlur={() => setTriggeredByIcon(false)}
+      onFocus={(e) => {
+        setTriggeredByIcon(true);
+        if (onFocus) onFocus(e);
+      }}
+      onBlur={(e) => {
+        setTriggeredByIcon(false);
+        if (onBlur) onBlur(e);
+      }}
       {...filterStyledSystemMarginProps(rest)}
     >
       <Icon
@@ -114,6 +122,10 @@ ValidationIcon.propTypes = {
   },
   /** An onClick handler */
   onClick: PropTypes.func,
+  /** An onFocus handler */
+  onFocus: PropTypes.func,
+  /** An onBlur handler */
+  onBlur: PropTypes.func,
   /** A boolean to indicate if the icon is part of an input */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
