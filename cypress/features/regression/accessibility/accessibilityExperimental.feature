@@ -43,17 +43,6 @@ Feature: Accessibility tests - Experimental folder
       | simple-color-picker |
 
   @accessibility
-  Scenario Outline: Experimental checkbox component <story> story
-    When I open "Experimental checkbox validations" component page "<story>" in no iframe
-    Then "Experimental checkbox <story> story" component has no accessibility violations
-    Examples:
-      | story                              |
-      | group checkbox boolean validation  |
-      | group checkbox string validation   |
-      | single checkbox boolean validation |
-      | single checkbox string validation  |
-
-  @accessibility
   Scenario Outline: Experimental switch component <story> story
     When I open "Experimental switch" component page "<story>" in no iframe
     Then "Experimental switch <story> story" component has no accessibility violations
