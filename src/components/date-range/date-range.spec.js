@@ -1,15 +1,17 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
 import MockDate from "mockdate";
 import DateRange from "./date-range.component";
-import Textbox from "../../../components/textbox/textbox.component";
-import { BaseDateInput } from "../date";
+import Textbox from "../textbox/textbox.component";
+import { BaseDateInput } from "../date/date.component";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../../utils/helpers/tags/tags-specs";
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+} from "../../utils/helpers/tags/tags-specs/tags-specs";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
 
@@ -401,21 +403,25 @@ describe("DateRange Uncontrolled behaviour", () => {
 
 describe("StyledDateRange", () => {
   it("renders Date inputs correctly when the labels are inline", () => {
-    const wrapper = TestRenderer.create(
+    const wrapper = mount(
       <StyledDateRange labelsInline>
         <StyledDateInput />
       </StyledDateRange>
     );
-    expect(wrapper).toMatchSnapshot();
+    assertStyleMatch({ verticalAlign: "top" }, wrapper, {
+      modifier: `& ${StyledDateInput}`,
+    });
   });
 
   it("renders Date inputs correctly when the labels are not inline", () => {
-    const wrapper = TestRenderer.create(
+    const wrapper = mount(
       <StyledDateRange>
         <StyledDateInput />
       </StyledDateRange>
     );
-    expect(wrapper).toMatchSnapshot();
+    assertStyleMatch({ verticalAlign: "bottom" }, wrapper, {
+      modifier: `& ${StyledDateInput}`,
+    });
   });
 });
 

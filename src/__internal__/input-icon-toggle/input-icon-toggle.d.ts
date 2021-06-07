@@ -8,6 +8,8 @@ export interface InputIconToggleProps {
   readOnly?: boolean;
   size?: "small" | "medium" | "large";
   onClick?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
+  onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
   onMouseDown?: (ev: React.ChangeEvent<HTMLElement>) => void;
   inputIcon?: string;
   align?: "left" | "right";

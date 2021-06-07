@@ -3,7 +3,7 @@ Feature: Date Range component
 
   @positive
   Scenario Outline: Change Date Range start label to <label>
-    When I open default "Experimental Date Range Test" component in noIFrame with "dateRange" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Date Range Test" component in noIFrame with "dateRange" json from "designSystem" using "<nameOfObject>" object name
     Then startLabel on preview is <label>
     Examples:
       | label                        | nameOfObject               |
@@ -12,7 +12,7 @@ Feature: Date Range component
 
   @positive
   Scenario Outline: Change Date Range end label to <label>
-    When I open default "Experimental Date Range Test" component in noIFrame with "dateRange" json from "experimental" using "<nameOfObject>" object name
+    When I open default "Design System Date Range Test" component in noIFrame with "dateRange" json from "designSystem" using "<nameOfObject>" object name
     Then endLabel on preview is <label>
     Examples:
       | label                        | nameOfObject             |

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextboxProps } from "../../../components/textbox/textbox";
+import { TextboxProps } from "../textbox/textbox";
 
 export interface DateInputProps extends TextboxProps {
   /** Boolean to allow the input to have an empty value */

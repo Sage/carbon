@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import invariant from "invariant";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { filterStyledSystemMarginProps } from "../../../style/utils";
-import Events from "../../../utils/helpers/events";
-import DateHelper from "../../../utils/helpers/date";
-import tagComponent from "../../../utils/helpers/tags";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import Events from "../../utils/helpers/events/events";
+import DateHelper from "../../utils/helpers/date/date";
+import tagComponent from "../../utils/helpers/tags/tags";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
-import Textbox from "../../../components/textbox";
-import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
-import { isEdge } from "../../../utils/helpers/browser-type-check";
+import Textbox from "../textbox";
+import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
+import { isEdge } from "../../utils/helpers/browser-type-check";
 
 const defaultDateFormat = "DD/MM/YYYY";
 const hiddenDateFormat = "YYYY-MM-DD";
