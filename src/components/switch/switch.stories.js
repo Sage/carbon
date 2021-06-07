@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import I18n from "i18n-js";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import Switch, { BaseSwitch } from "./switch.component";
 
 export default {
-  title: "Experimental/Switch/Test",
+  title: "Design System/Switch/Test",
   component: Switch,
   parameters: {
     info: {

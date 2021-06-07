@@ -2,11 +2,12 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { css, ThemeProvider } from "styled-components";
+
 import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
-import Loader from "../../../components/loader/loader.component";
+import Loader from "../../loader/loader.component";
 import SwitchSlider from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import { baseTheme } from "../../../style/themes";

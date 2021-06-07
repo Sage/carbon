@@ -1,33 +1,32 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { css, ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 import I18n from "i18n-js";
 
 import Switch from ".";
-import CheckableInput from "../../../__internal__/checkable-input";
-import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
-import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
-import { StyledLabelContainer } from "../label/label.style";
-import StyledSwitchSlider from "./switch-slider.style";
-import guid from "../../../utils/helpers/guid";
+import CheckableInput from "../../__internal__/checkable-input";
+import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
+import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
+import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import StyledSwitchSlider from "./__internal__/switch-slider.style";
+import guid from "../../utils/helpers/guid";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
-import StyledValidationIcon from "../../../components/validations/validation-icon.style";
-import { baseTheme } from "../../../style/themes";
-import SwitchSliderPanel from "./switch-slider-panel.style";
+} from "../../__spec_helper__/test-utils";
+import StyledValidationIcon from "../validations/validation-icon.style";
+import { baseTheme } from "../../style/themes";
+import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle from "./switch.style";
-import SwitchSlider from "./switch-slider.component";
-import Label from "../label";
+import SwitchSlider from "./__internal__/switch-slider.component";
+import Label from "../../__experimental__/components/label";
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Switch", () => {
@@ -143,13 +142,9 @@ describe("Switch", () => {
   });
 
   describe("base theme", () => {
-    it("renders as expected", () => {
-      expect(render()).toMatchSnapshot();
-    });
-
     describe("when reverse=false", () => {
       describe("default", () => {
-        const wrapper = render({ reverse: false }).toJSON();
+        const wrapper = render({ reverse: false });
 
         it("applies the correct Label styles", () => {
           assertStyleMatch(
@@ -170,7 +165,7 @@ describe("Switch", () => {
         const wrapper = render({
           reverse: false,
           fieldHelpInline: true,
-        }).toJSON();
+        });
 
         it("applies the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -193,7 +188,7 @@ describe("Switch", () => {
           fieldHelpInline: false,
           labelInline: true,
           reverse: false,
-        }).toJSON();
+        });
 
         it("applies the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -212,7 +207,7 @@ describe("Switch", () => {
     });
 
     describe("when fieldHelpInline=true", () => {
-      const wrapper = render({ fieldHelpInline: true }).toJSON();
+      const wrapper = render({ fieldHelpInline: true });
 
       it("applies the correct FieldHelp styles", () => {
         assertStyleMatch(
@@ -231,7 +226,7 @@ describe("Switch", () => {
 
     describe("when labelInline=true", () => {
       it("applies the correct Label styles", () => {
-        const wrapper = render({ labelInline: true }).toJSON();
+        const wrapper = render({ labelInline: true });
         assertStyleMatch(
           {
             marginBottom: "0",
@@ -246,7 +241,7 @@ describe("Switch", () => {
       });
 
       it("applies the correct FieldHelp styles", () => {
-        const wrapper = render({ labelInline: true }).toJSON();
+        const wrapper = render({ labelInline: true });
         assertStyleMatch(
           {
             marginTop: "0",
@@ -319,7 +314,7 @@ describe("Switch", () => {
       const wrapper = render({
         fieldHelpInline: true,
         labelInline: true,
-      }).toJSON();
+      });
 
       it("applies the correct CheckableInput styles", () => {
         assertStyleMatch(
@@ -366,7 +361,7 @@ describe("Switch", () => {
 
     describe("when size=large", () => {
       describe("default", () => {
-        const wrapper = render({ size: "large" }).toJSON();
+        const wrapper = render({ size: "large" });
 
         const largeSizes = {
           height: "40px",
@@ -400,7 +395,7 @@ describe("Switch", () => {
 
       describe("and labelInline=true", () => {
         it("applies the correct Label styles", () => {
-          const wrapper = render({ size: "large", labelInline: true }).toJSON();
+          const wrapper = render({ size: "large", labelInline: true });
 
           assertStyleMatch(
             {
@@ -422,7 +417,7 @@ describe("Switch", () => {
             size: "large",
             labelInline: true,
             reverse: false,
-          }).toJSON();
+          });
 
           it("applies the correct FieldHelp styles", () => {
             assertStyleMatch(
@@ -547,7 +542,7 @@ describe("Switch", () => {
     "when the theme is set to %s",
     (themeName, theme) => {
       describe("default", () => {
-        const wrapper = renderWithTheme({}, theme).toJSON();
+        const wrapper = renderWithTheme({}, theme);
         const expectedOutlineStyle = {
           outline: `solid 3px ${theme.colors.focus}`,
         };
@@ -587,11 +582,11 @@ describe("Switch", () => {
   });
 });
 
-function render(props, renderer = TestRenderer.create) {
+function render(props, renderer = mount) {
   return renderer(<Switch name="my-switch" value="test" {...props} />);
 }
 
-function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+function renderWithTheme(props, theme, renderer = mount) {
   return renderer(
     <ThemeProvider theme={theme}>
       <Switch name="my-switch" value="test" {...props} />
