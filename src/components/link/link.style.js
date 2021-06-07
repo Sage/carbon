@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
-const LinkStyle = styled.div`
+const LinkStyle = styled.span`
   ${({ isSkipLink, theme, iconAlign, hasContent, disabled }) => css`
     display: inline-block;
 
