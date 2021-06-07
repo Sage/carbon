@@ -13,6 +13,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 # Definition List
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
 - [Examples](#examples)
@@ -54,9 +55,7 @@ Definition List most of the time is in use with other components. Look at the ex
   <Story name="action popover and icon support">
     <Dl>
       <Dt>
-        <Box paddingTop="4px">
-          Term example
-        </Box>
+        <Box paddingTop="4px">Term example</Box>
       </Dt>
       <Dd>
         <Box display="inline-flex" alignItems="center">
@@ -65,9 +64,7 @@ Definition List most of the time is in use with other components. Look at the ex
         </Box>
       </Dd>
       <Dt>
-        <Box paddingTop="4px">
-          Term example
-        </Box>
+        <Box paddingTop="4px">Term example</Box>
       </Dt>
       <Dd>
         <Box display="inline-flex" alignItems="center">
@@ -85,7 +82,7 @@ Definition List most of the time is in use with other components. Look at the ex
 
 ### Conditional rendering with `<React.Fragment />`
 
-*CAUTION: don't use nested `<React.Fragment />`*
+_CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`_
 
 <Preview>
   <Story
