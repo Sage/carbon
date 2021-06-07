@@ -14,8 +14,8 @@ import {
 import {
   StyledAnchorNavigation,
   StyledNavigation,
-  StyledNavigationItem,
 } from "./anchor-navigation.style";
+import StyledNavigationItem from "./anchor-navigation-item/anchor-navigation-item.style";
 
 const expectNavigationItemToBeSelected = (index, wrapper) =>
   assertStyleMatch(
