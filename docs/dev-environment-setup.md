@@ -80,7 +80,10 @@ This extension helps with the readability of the code for styled-components. The
 ### Node.js & NPM
 
 The recommended way to install `node` and `npm` is using [Node Version Manager](https://github.com/nvm-sh/nvm).
-Once you have installed `nvm` you should run `nvm install lts/fermium` which will install a suitable version of `node` and `npm`.
+Once you have installed `nvm` you should run `nvm install lts/fermium` which will install a version of `node`.
+
+We have upgraded to `npm@7` as version 6 is no loner maintained. `nvm` will have installed `npm@6` to upgrade use the command
+`npm install -g npm@7`.
 
 You can check your installation using `node --version` and `npm --v`.
 

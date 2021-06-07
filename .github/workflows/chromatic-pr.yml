@@ -16,6 +16,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '>=14.16.0 14'
+    - run: npm install -g npm@7
     - run: npm ci
     - uses: chromaui/action@v1
       with:
