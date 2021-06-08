@@ -5,13 +5,11 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import invariant from "invariant";
 import Textbox from "../textbox";
-import I18nHelper from "../../../utils/helpers/i18n";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
-
 class Decimal extends React.Component {
   static maxPrecision = 15;
 
@@ -145,11 +143,11 @@ class Decimal extends React.Component {
   };
 
   removeDelimiters = (value) => {
-    const format = I18nHelper.format();
-    const delimiter = `\\${format.delimiter}`;
-    const delimiterMatcher = new RegExp(`[${delimiter}]*`, "g");
-    const noDelimiters = value.replace(delimiterMatcher, "");
-    return noDelimiters;
+    const delimiterMatcher = new RegExp(
+      `[\\${this.getSeparator("group")} ]*`,
+      "g"
+    );
+    return value.replace(delimiterMatcher, "");
   };
 
   /**
@@ -166,15 +164,37 @@ class Decimal extends React.Component {
       return value;
     }
 
-    return I18nHelper.formatDecimal(value, this.props.precision, {
-      round: false,
-    });
+    const separator = this.getSeparator("decimal");
+    const [integer, remainder] = value.split(".");
+    const formattedInteger = Intl.NumberFormat(this.props.locale, {
+      maximumFractionDigits: 0,
+    }).format(integer);
+
+    let formattedNumber = formattedInteger;
+    if (remainder && remainder.length > this.props.precision) {
+      formattedNumber += `${separator + remainder}`;
+    } else if (remainder && remainder.length <= this.props.precision) {
+      formattedNumber += `${
+        separator +
+        remainder +
+        "0".repeat(this.props.precision - remainder.length)
+      }`;
+    } else {
+      formattedNumber += `${
+        this.props.precision ? separator + "0".repeat(this.props.precision) : ""
+      }`;
+    }
+    return formattedNumber;
   };
 
   /**
    * Convert raw input to a standard decimal format
    */
   toStandardDecimal = (i18nValue) => {
+    const valueWithoutNBS =
+      this.getSeparator("group").match(/\s+/) && !i18nValue.match(/\s{2,}/)
+        ? i18nValue.replace(/\s+/g, "")
+        : i18nValue;
     /* If a value is passed in that is a number but has too many delimiters in succession, we want to handle this
     value without formatting it or removing delimiters. We also want to consider that,
     if a value consists of only delimiters, we want to treat that 
@@ -184,14 +204,28 @@ class Decimal extends React.Component {
       `([^A-Za-z0-9]{2,})|(^[^A-Za-z0-9-]+)|([^0-9a-z-,.])|([^0-9-,.]+)|([W,.])$`,
       "g"
     );
-    if (i18nValue.match(errorsWithDelimiter)) {
-      return i18nValue;
+    const separator = this.getSeparator("decimal");
+    const separatorRegex = new RegExp(
+      separator === "." ? `\\${separator}` : separator,
+      "g"
+    );
+    if (
+      valueWithoutNBS.match(errorsWithDelimiter) ||
+      (valueWithoutNBS.match(separatorRegex) || []).length > 1
+    ) {
+      return valueWithoutNBS;
     }
 
-    const withoutDelimiters = this.removeDelimiters(i18nValue);
-    const { separator } = I18nHelper.format();
+    const withoutDelimiters = this.removeDelimiters(valueWithoutNBS);
     return withoutDelimiters.replace(new RegExp(`\\${separator}`, "g"), ".");
   };
+
+  getSeparator(separatorType) {
+    const numberWithGroupAndDecimalSeparator = 10000.1;
+    return Intl.NumberFormat(this.props.locale)
+      .formatToParts(numberWithGroupAndDecimalSeparator)
+      .find((part) => part.type === separatorType).value;
+  }
 
   render() {
     const { name, defaultValue, ...rest } = this.props;
@@ -279,12 +313,17 @@ Decimal.propTypes = {
   allowEmptyValue: PropTypes.bool,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /**
+   * The locale string - default en
+   */
+  locale: PropTypes.string,
 };
 
 Decimal.defaultProps = {
   align: "right",
   precision: 2,
   allowEmptyValue: false,
+  locale: "en",
 };
 
 export default Decimal;
