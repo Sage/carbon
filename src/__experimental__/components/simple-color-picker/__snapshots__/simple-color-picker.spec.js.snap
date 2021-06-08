@@ -49,11 +49,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 24px;
 }
 
-.c10:hover {
-  color: #005c9a;
-  background-color: transparent;
-}
-
 .c10::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
