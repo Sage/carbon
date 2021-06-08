@@ -58,7 +58,7 @@ exports[`StepSequence renders correctly 1`] = `
 
 .c1 .c4 {
   margin-right: 8px;
-  color: #00A376;
+  color: #00815D;
 }
 
 .c1:first-child {
@@ -183,7 +183,7 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
 
 .c1 .c4 {
   margin-right: 8px;
-  color: #00A376;
+  color: #00815D;
 }
 
 .c1:first-child {
