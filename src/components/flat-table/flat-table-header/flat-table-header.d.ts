@@ -1,8 +1,8 @@
 import * as React from "react";
-import { PaddingProps } from "styled-system";
+import { PaddingProps, MarginProps } from "styled-system";
 import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
-export interface FlatTableHeaderProps extends PaddingProps {
+export interface FlatTableHeaderProps extends PaddingProps, MarginProps {
   /** Content alignment */
   align?: OptionsHelper.AlignFull;
   children?: React.ReactNode | string;
