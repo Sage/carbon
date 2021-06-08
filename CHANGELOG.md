@@ -1,3 +1,10 @@
+## [76.3.0](https://github.com/Sage/carbon/compare/v76.2.0...v76.3.0) (2021-06-08)
+
+
+### Features
+
+* **button-toggle-group:** restrict children to button-toggle only ([c1a51b0](https://github.com/Sage/carbon/commit/c1a51b0aeab65baae0edce89286c25ea6e7ec466))
+
 ## [76.2.0](https://github.com/Sage/carbon/compare/v76.1.5...v76.2.0) (2021-06-07)
 
 
