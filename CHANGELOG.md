@@ -1,3 +1,10 @@
+### [76.3.1](https://github.com/Sage/carbon/compare/v76.3.0...v76.3.1) (2021-06-08)
+
+
+### Bug Fixes
+
+* **step-sequence-item:** update theme colours for completed steps ([a05449f](https://github.com/Sage/carbon/commit/a05449f072b35a38847e0a2eced4a38da98eab52)), closes [#4117](https://github.com/Sage/carbon/issues/4117)
+
 ## [76.3.0](https://github.com/Sage/carbon/compare/v76.2.0...v76.3.0) (2021-06-08)
 
 
