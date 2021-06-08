@@ -1,3 +1,10 @@
+## [76.4.0](https://github.com/Sage/carbon/compare/v76.3.2...v76.4.0) (2021-06-08)
+
+
+### Features
+
+* **anchor-navigation:** add stickynavigation prop structure warning ([0e3b4be](https://github.com/Sage/carbon/commit/0e3b4be459a8b8e2b7219305e685fdd101c15383))
+
 ### [76.3.2](https://github.com/Sage/carbon/compare/v76.3.1...v76.3.2) (2021-06-08)
 
 
