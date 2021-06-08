@@ -1,3 +1,24 @@
+## [76.2.0](https://github.com/Sage/carbon/compare/v76.1.5...v76.2.0) (2021-06-07)
+
+
+### Features
+
+* **icon:** 4 new icons, undo, sage coin and currency envelopes ([a29083b](https://github.com/Sage/carbon/commit/a29083b378e0ce80ac2e75d108c10881a298c6ea))
+
+### [76.1.5](https://github.com/Sage/carbon/compare/v76.1.4...v76.1.5) (2021-06-07)
+
+
+### Bug Fixes
+
+* **definition-list:** fix conditional rendering logic ([20aa302](https://github.com/Sage/carbon/commit/20aa3024a506b6c64d56f9e08a8fb906e8a804ab)), closes [#4013](https://github.com/Sage/carbon/issues/4013)
+
+### [76.1.4](https://github.com/Sage/carbon/compare/v76.1.3...v76.1.4) (2021-06-04)
+
+
+### Bug Fixes
+
+* **accordion:** fix incorrect content height ([3a2b425](https://github.com/Sage/carbon/commit/3a2b425d67af59cea45de7f8037de5549b655d50))
+
 ### [76.1.3](https://github.com/Sage/carbon/compare/v76.1.2...v76.1.3) (2021-06-02)
 
 
