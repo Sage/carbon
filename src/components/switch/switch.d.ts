@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
+import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 
 export type SwitchSize = "small" | "large";
 export type LabelAlign = "left" | "right";
