@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import Label from "../label";
+import Label from "../../../__internal__/label";
 import FieldHelp from "../../../__internal__/field-help";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import tagComponent from "../../../utils/helpers/tags";

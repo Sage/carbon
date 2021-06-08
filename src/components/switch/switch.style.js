@@ -4,7 +4,7 @@ import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledSwitchSlider from "./__internal__/switch-slider.style";
 import StyledValidationIcon from "../validations/validation-icon.style";

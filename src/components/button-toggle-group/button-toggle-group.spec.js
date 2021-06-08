@@ -12,7 +12,7 @@ import {
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
 import ValidationIcon from "../validations";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";

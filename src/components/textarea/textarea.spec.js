@@ -11,9 +11,9 @@ import baseTheme from "../../style/themes/base";
 import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
 import { Input } from "../../__experimental__/components/input";
 import ValidationIcon from "../validations/validation-icon.component";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import guid from "../../utils/helpers/guid";
-import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");

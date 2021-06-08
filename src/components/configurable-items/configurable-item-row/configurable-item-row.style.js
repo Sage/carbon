@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import Icon from "../../icon";
 import baseTheme from "../../../style/themes/base";
-import { StyledLabelContainer } from "../../../__experimental__/components/label/label.style";
+import { StyledLabelContainer } from "../../../__internal__/label/label.style";
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: grab;

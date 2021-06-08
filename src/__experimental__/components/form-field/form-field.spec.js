@@ -4,7 +4,7 @@ import { shallow, mount } from "enzyme";
 import FormField from ".";
 import FieldHelp from "../../../__internal__/field-help";
 import { FieldLineStyle } from "./form-field.style";
-import Label from "../label/label.component";
+import Label from "../../../__internal__/label";
 import { TabContext } from "../../../components/tabs/tab";
 import { mockMatchMedia } from "../../../__spec_helper__/test-utils";
 
