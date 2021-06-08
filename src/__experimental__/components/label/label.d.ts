@@ -14,8 +14,6 @@ export interface LabelPropTypes extends ValidationPropTypes {
   htmlFor?: string;
   /** When true label is inline */
   inline?: boolean;
-  /** Size of an input Label is used in */
-  inputSize?: "small" | "medium" | "large";
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
   /** The unique id of the label element */

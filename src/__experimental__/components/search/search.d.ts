@@ -11,7 +11,7 @@ export interface SearchProps extends MarginProps {
   /** Prop for `name` */
   name?: string;
   /** Prop for `onBlur` events */
-  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onChange` events */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Prop for `onClick` events.

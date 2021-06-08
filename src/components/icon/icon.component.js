@@ -36,6 +36,7 @@ const Icon = React.forwardRef(
     },
     ref
   ) => {
+    const isInteractive = !!tooltipMessage && !disabled;
     /** Return Icon type with overrides */
     const iconType = () => {
       // switch tweaks icon names for actual icons in the set
@@ -64,6 +65,7 @@ const Icon = React.forwardRef(
       color,
       disabled,
       fontSize,
+      isInteractive,
       iconColor,
       tabIndex,
       type: iconType(),
