@@ -1,3 +1,10 @@
+### [76.3.2](https://github.com/Sage/carbon/compare/v76.3.1...v76.3.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* **icon:** hover only for interactive icons ([a9cd54f](https://github.com/Sage/carbon/commit/a9cd54fe57bc975e01d28960f7e4f82c7b73ea75))
+
 ### [76.3.1](https://github.com/Sage/carbon/compare/v76.3.0...v76.3.1) (2021-06-08)
 
 
