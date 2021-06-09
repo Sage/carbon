@@ -1,8 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 import Number from "./number.component";
-import Textbox from "../../../components/textbox";
-import Label from "../../../__internal__/label";
+import Textbox from "../textbox";
+import Label from "../../__internal__/label";
 
 describe("Number Input", () => {
   let wrapper, input, onChangeFn, onKeyDownFn;
@@ -92,22 +92,15 @@ describe("Number Input", () => {
   });
 
   describe("when a key is pressed on it's input", () => {
-    const keyDownParams = { target: { selectionStart: 2, selectionEnd: 4 } };
-    let wrapperInstance;
+    const keyDownParams = { target: { selectionStart, selectionEnd } };
 
     beforeEach(() => {
       onKeyDownFn = jest.fn();
       wrapper = renderNumberInput({
         value: defaultInputValue,
       });
-      wrapperInstance = wrapper.instance();
-      input = wrapper.find("input");
-    });
 
-    it("component's selection start and end should mirror the input ones", () => {
-      input.simulate("keyDown", keyDownParams);
-      expect(wrapperInstance.selectionStart).toBe(selectionStart);
-      expect(wrapperInstance.selectionEnd).toBe(selectionEnd);
+      input = wrapper.find("input");
     });
 
     describe("and when onKeyDown prop is defined", () => {

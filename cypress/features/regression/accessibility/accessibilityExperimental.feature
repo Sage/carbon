@@ -9,7 +9,6 @@ Feature: Accessibility tests - Experimental folder
       | component           |
       | decimal-input       |
       | groupedcharacter    |
-      | number-input        |
       | simple-color-picker |
 
   @accessibility
@@ -21,7 +20,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -32,7 +30,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -43,7 +40,6 @@ Feature: Accessibility tests - Experimental folder
       | decimal-input       |
       | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
 
   @accessibility
   Scenario: Component radiobutton with legend and labels story

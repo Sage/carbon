@@ -1,8 +1,8 @@
-Feature: Experimental Number Input component
-  I want to check Experimental Number Input component properties
+Feature: Number Input component
+  I want to check Number Input component properties
 
-  Background: Open Experimental Number Input component page
-    Given I open "Experimental Number Input Test" component page "default"
+  Background: Open Number Input component page
+    Given I open "Number Input Test" component page "default"
 
   @positive
   Scenario: Enable onChangeDeferred action

@@ -6,7 +6,7 @@ import {
   StyledPagerNavInner,
   StyledPagerNoSelect,
 } from "../pager.style";
-import NumberInput from "../../../__experimental__/components/number";
+import NumberInput from "../../number";
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
