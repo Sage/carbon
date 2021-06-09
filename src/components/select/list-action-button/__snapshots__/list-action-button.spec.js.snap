@@ -9,11 +9,6 @@ exports[`Option renders properly 1`] = `
   vertical-align: middle;
 }
 
-.c4:hover {
-  color: #006800;
-  background-color: transparent;
-}
-
 .c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
