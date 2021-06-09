@@ -42,11 +42,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   vertical-align: middle;
 }
 
-.c3:hover {
-  color: #006800;
-  background-color: transparent;
-}
-
 .c3::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

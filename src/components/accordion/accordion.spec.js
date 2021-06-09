@@ -16,12 +16,13 @@ import {
   StyledAccordionContainer,
   StyledAccordionSubTitle,
   StyledAccordionTitleContainer,
+  StyledAccordionTitle,
   StyledAccordionIcon,
   StyledAccordionContent,
   StyledAccordionContentContainer,
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
-import AccordionGroup from "./accordion-group.component";
+import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
 
@@ -94,6 +95,15 @@ describe("Accordion", () => {
       },
       wrapper.find(StyledAccordionContent)
     );
+  });
+
+  describe("when title prop is not a string", () => {
+    it("should not render inside of a StyledAccordionTitle", () => {
+      render({ title: <div id="customTitle">Title content</div> });
+
+      expect(wrapper.find(StyledAccordionTitle).exists()).toBe(false);
+      expect(wrapper.find("#customTitle").exists()).toBe(true);
+    });
   });
 
   describe(" with headerSpacing prop", () => {

@@ -13,7 +13,8 @@ const StepSequenceStyle = styled.ol`
     css`
       flex-direction: column;
       padding: 0;
-    `};
+    `}
+
   ${margin}
 `;
 
