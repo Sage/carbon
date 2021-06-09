@@ -337,6 +337,10 @@ export default (palette) => {
         "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
     },
 
+    stepSequence: {
+      completedText: palette.genericGreenShade(15),
+    },
+
     switch: {
       off: "#CCD6DB",
     },

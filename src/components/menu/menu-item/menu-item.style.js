@@ -24,12 +24,14 @@ const StyledMenuItemWrapper = styled.a`
     position: relative;
     cursor: pointer;
     background-color: ${theme.menu.light.background};
+    max-width: inherit;
 
     a,
     button {
       ${maxWidth &&
       css`
-        max-width: ${maxWidth};
+        box-sizing: border-box;
+        max-width: inherit;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

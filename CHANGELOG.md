@@ -1,3 +1,236 @@
+## [76.5.0](https://github.com/Sage/carbon/compare/v76.4.0...v76.5.0) (2021-06-09)
+
+
+### Features
+
+* **numeral-date:** add size prop ([582c512](https://github.com/Sage/carbon/commit/582c51284f23563b4007fec65e3722f5406c156e))
+
+## [76.4.0](https://github.com/Sage/carbon/compare/v76.3.2...v76.4.0) (2021-06-08)
+
+
+### Features
+
+* **anchor-navigation:** add stickynavigation prop structure warning ([0e3b4be](https://github.com/Sage/carbon/commit/0e3b4be459a8b8e2b7219305e685fdd101c15383))
+
+### [76.3.2](https://github.com/Sage/carbon/compare/v76.3.1...v76.3.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* **icon:** hover only for interactive icons ([a9cd54f](https://github.com/Sage/carbon/commit/a9cd54fe57bc975e01d28960f7e4f82c7b73ea75))
+
+### [76.3.1](https://github.com/Sage/carbon/compare/v76.3.0...v76.3.1) (2021-06-08)
+
+
+### Bug Fixes
+
+* **step-sequence-item:** update theme colours for completed steps ([a05449f](https://github.com/Sage/carbon/commit/a05449f072b35a38847e0a2eced4a38da98eab52)), closes [#4117](https://github.com/Sage/carbon/issues/4117)
+
+## [76.3.0](https://github.com/Sage/carbon/compare/v76.2.0...v76.3.0) (2021-06-08)
+
+
+### Features
+
+* **button-toggle-group:** restrict children to button-toggle only ([c1a51b0](https://github.com/Sage/carbon/commit/c1a51b0aeab65baae0edce89286c25ea6e7ec466))
+
+## [76.2.0](https://github.com/Sage/carbon/compare/v76.1.5...v76.2.0) (2021-06-07)
+
+
+### Features
+
+* **icon:** 4 new icons, undo, sage coin and currency envelopes ([a29083b](https://github.com/Sage/carbon/commit/a29083b378e0ce80ac2e75d108c10881a298c6ea))
+
+### [76.1.5](https://github.com/Sage/carbon/compare/v76.1.4...v76.1.5) (2021-06-07)
+
+
+### Bug Fixes
+
+* **definition-list:** fix conditional rendering logic ([20aa302](https://github.com/Sage/carbon/commit/20aa3024a506b6c64d56f9e08a8fb906e8a804ab)), closes [#4013](https://github.com/Sage/carbon/issues/4013)
+
+### [76.1.4](https://github.com/Sage/carbon/compare/v76.1.3...v76.1.4) (2021-06-04)
+
+
+### Bug Fixes
+
+* **accordion:** fix incorrect content height ([3a2b425](https://github.com/Sage/carbon/commit/3a2b425d67af59cea45de7f8037de5549b655d50))
+
+### [76.1.3](https://github.com/Sage/carbon/compare/v76.1.2...v76.1.3) (2021-06-02)
+
+
+### Bug Fixes
+
+* **link:** change wrapper from div to span ([0aa3a99](https://github.com/Sage/carbon/commit/0aa3a99c89c92260c433d576364552380a40aee5))
+
+### [76.1.2](https://github.com/Sage/carbon/compare/v76.1.1...v76.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **tooltip:** fix arrow misalignment in left positioned tooltip ([b317b02](https://github.com/Sage/carbon/commit/b317b029bdcf2c15d263c9cd53f45c2119baac12))
+
+### [76.1.1](https://github.com/Sage/carbon/compare/v76.1.0...v76.1.1) (2021-06-01)
+
+
+### Bug Fixes
+
+* incorrect typescript onFocus and onBlur definitions ([4008096](https://github.com/Sage/carbon/commit/40080961bff7627d440b9af02b10bafb3e1eba02))
+
+## [76.1.0](https://github.com/Sage/carbon/compare/v76.0.1...v76.1.0) (2021-06-01)
+
+
+### Features
+
+* **flat-table-checkbox:** surface onclick prop and remove internal onclick from  composed checkbox ([8408258](https://github.com/Sage/carbon/commit/84082583f4fbcb6297784a7b751c29e57a1ab72d))
+
+### [76.0.1](https://github.com/Sage/carbon/compare/v76.0.0...v76.0.1) (2021-05-31)
+
+
+### Bug Fixes
+
+* **step-sequence:** fix incorrect item alignment ([0b9ad66](https://github.com/Sage/carbon/commit/0b9ad661a76ac0c2fea1ca8f4e1435f17bfb87a0))
+
+## [76.0.0](https://github.com/Sage/carbon/compare/v75.2.6...v76.0.0) (2021-05-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **checkbox:** stop padding support for the checkbox component
+* **navigation-bar:** Navigation Bar no longer extends Box
+Fixes FE-3560
+* **textbox:** Textbox no longer supports styled-system padding props
+* **multi-action-button:** Removed several `get` functions as part of the refactor which could have been
+accessed in a consuming application
+* **flat-table:** FlatTable uses margin. FlatTableCell FlatTableHeader FlatTableRowHeader use padding
+* **tile:** `pixelWidth` prop has been removed
+* **show-edit-pod:** `padding` prop on ShowEditPod component has been renamed to `size`.
+To help with migration use `rename-prop` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **pod:** `padding` prop on Pod component has been renamed to `size`.
+To help with migration use `rename-prop` codemod:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **form-summary:** FormSummary has been moved to __internal__ folder, to fix issues you will
+have to update your imports
+* **scrollable-block:** ScrollableBlock no longer extends Box
+* **menu-item:** MenuItem no longer extends Box
+* **menu:** Menu component no longer extends Box
+* **hr:** Use margin only. Padding has been removed.
+* **tile-footer:** `margin` props no longer supported in `TileFooter`
+
+### Features
+
+* **form:** add padding and margin with styled-system ([c3e0837](https://github.com/Sage/carbon/commit/c3e0837a4b1a0eba8651491670ebea554b87bd37))
+* **multi-action-button:** surface styled system margin props ([869f714](https://github.com/Sage/carbon/commit/869f714f3ae6dcde99446a017855a6a1ef05a214))
+* **pod:** add styled-system margin prop support ([9b4dc77](https://github.com/Sage/carbon/commit/9b4dc77227ae6e4dd2daf4c00ca3e40014a206ca))
+* **show-edit-pod:** add styled-system margin prop support ([3e0c531](https://github.com/Sage/carbon/commit/3e0c531cc9bb57baa8f8046721a607dc6de7d56c))
+* **textbox:** update styled-system props ([1dee3e8](https://github.com/Sage/carbon/commit/1dee3e8a203ffbd40c27984ec049257dcf6329b3))
+* **tile:** add support for styled system width ([3d09671](https://github.com/Sage/carbon/commit/3d09671bf130b1dffc97c83e09dbd57c7054b41a))
+
+
+### Bug Fixes
+
+* **navigation-bar:** allow padding props to override media query styles ([29ba9f3](https://github.com/Sage/carbon/commit/29ba9f3264d9140e4c4fc6d60f90976b7111f575))
+
+
+### Miscellaneous Chores
+
+* **form-summary:** move files to __internal__ folder ([960f2c6](https://github.com/Sage/carbon/commit/960f2c62afb7ca3a806dca24cdade1799dae6b58))
+
+
+### Code Refactoring
+
+* **checkbox:** update styled system implementation ([59fbf2b](https://github.com/Sage/carbon/commit/59fbf2bf50d97711138563d4cbc84cd43a6f957d))
+* **flat-table:** update styled system implementation ([140a287](https://github.com/Sage/carbon/commit/140a2874dee6bb05c2e21ff0c6e91c6bdf6729ff))
+* **hr:** update styled system implementation ([9549bc3](https://github.com/Sage/carbon/commit/9549bc32a8cfa9da0155c7f2d3eabbce6b667355))
+* **menu:** replace box extension with flexbox and layout props ([f6294fd](https://github.com/Sage/carbon/commit/f6294fdf534999cf99734dc1d806c710a5edefb8))
+* **menu-item:** replace box extension with flexbox and layout props ([c61d4a0](https://github.com/Sage/carbon/commit/c61d4a0fc4d6ed719f6149428b98c127c84fee50))
+* **multi-action-button:** convert to functional component ([177d66e](https://github.com/Sage/carbon/commit/177d66ea1bb860a02a23f53c9d5fdc03a1511012))
+* **navigation-bar:** replace box extension with flexbox and padding props ([94327c5](https://github.com/Sage/carbon/commit/94327c5952b5325c945a9411ac9ee0ea8b41b51b))
+* **scrollable-block:** replace box extension with composition ([5f07251](https://github.com/Sage/carbon/commit/5f072516a1914f1ee990dab11893f5f9d6680672))
+* **tile-footer:** remove support for styled system margin props ([025697a](https://github.com/Sage/carbon/commit/025697a7398b03f5c8e385816f8c8ebb2186adfb))
+
+### [75.2.6](https://github.com/Sage/carbon/compare/v75.2.5...v75.2.6) (2021-05-28)
+
+
+### Bug Fixes
+
+* **tile-select:** incorrect ts type definitions ([c40625c](https://github.com/Sage/carbon/commit/c40625c03ca49e20fd368e258e90ffab99bbcf8a))
+
+### [75.2.5](https://github.com/Sage/carbon/compare/v75.2.4...v75.2.5) (2021-05-28)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** add guard to prevent calling onBlur when undefined ([58d954f](https://github.com/Sage/carbon/commit/58d954f8890a38991716f95b0b938f583db48129)), closes [#4062](https://github.com/Sage/carbon/issues/4062)
+
+### [75.2.4](https://github.com/Sage/carbon/compare/v75.2.3...v75.2.4) (2021-05-28)
+
+
+### Bug Fixes
+
+* **decimal:** fix not working inputs in stories ([dde6934](https://github.com/Sage/carbon/commit/dde6934f713a29836e7563aee0ec06341e0c64f8))
+
+### [75.2.3](https://github.com/Sage/carbon/compare/v75.2.2...v75.2.3) (2021-05-27)
+
+
+### Bug Fixes
+
+* **tab:** make customLayout prop optional in TS definition ([a97721b](https://github.com/Sage/carbon/commit/a97721bf84b2dcd97c465661a18f41e89c8bccc1)), closes [#4025](https://github.com/Sage/carbon/issues/4025)
+* **tabs:** add missing colon to tab-title styles ([9541462](https://github.com/Sage/carbon/commit/9541462b2c90c62e75851fcf52a3cac3a46cd0f1)), closes [#4048](https://github.com/Sage/carbon/issues/4048)
+
+### [75.2.2](https://github.com/Sage/carbon/compare/v75.2.1...v75.2.2) (2021-05-27)
+
+
+### Bug Fixes
+
+* **search:** update vertical alignment of the close input icon ([e53cd6b](https://github.com/Sage/carbon/commit/e53cd6b5616363ebeb0d1c5b5939c2b999c32c9e))
+
+### [75.2.1](https://github.com/Sage/carbon/compare/v75.2.0...v75.2.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix incorrect date picker positioning ([6fb85c6](https://github.com/Sage/carbon/commit/6fb85c6b0a565b58223698535092422ec7dcde21))
+
+## [75.2.0](https://github.com/Sage/carbon/compare/v75.1.0...v75.2.0) (2021-05-27)
+
+
+### Features
+
+* **portrait:** adds prop to specify fallback icon ([3b78281](https://github.com/Sage/carbon/commit/3b782818bc9db6de3813bb4ef4345e48ac96f42d))
+
+## [75.1.0](https://github.com/Sage/carbon/compare/v75.0.1...v75.1.0) (2021-05-27)
+
+
+### Features
+
+* **duelling-picklist:** add context to support focusing elements after an item or group moves ([984d42b](https://github.com/Sage/carbon/commit/984d42b087bd4f04f8652b625a08067f28ffc117))
+
+
+### Bug Fixes
+
+* **duelling-picklist:** add error if children do not have 2 picklist ([1ccb1ab](https://github.com/Sage/carbon/commit/1ccb1abb1793ef58472e5f95a657c5802ac62b4b))
+
+### [75.0.1](https://github.com/Sage/carbon/compare/v75.0.0...v75.0.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* **date-range:** fix react-testing-library errors ([1102017](https://github.com/Sage/carbon/commit/11020174cdbc341219d55486458335908f60ea4c))
+
+## [75.0.0](https://github.com/Sage/carbon/compare/v74.5.1...v75.0.0) (2021-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** Internal support for updating window location has been removed from the `Tabs`
+component, the `setLocation` prop has also been removed as it serves no purpose beyond serving as a
+guard for this functionality. Consumers who wish to have this functionality should utilise the
+`onTabChange` and `selectedTabId` props with whatever `history` implementation they want to.
+
+### Features
+
+* **tabs:** remove internal support for history and url manipulation ([bd76906](https://github.com/Sage/carbon/commit/bd7690686d17911a8417f927f9797ed4a5231d50)), closes [#3520](https://github.com/Sage/carbon/issues/3520)
+
 ### [74.5.1](https://github.com/Sage/carbon/compare/v74.5.0...v74.5.1) (2021-05-21)
 
 
