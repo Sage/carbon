@@ -1,3 +1,10 @@
+## [76.5.0](https://github.com/Sage/carbon/compare/v76.4.0...v76.5.0) (2021-06-09)
+
+
+### Features
+
+* **numeral-date:** add size prop ([582c512](https://github.com/Sage/carbon/commit/582c51284f23563b4007fec65e3722f5406c156e))
+
 ## [76.4.0](https://github.com/Sage/carbon/compare/v76.3.2...v76.4.0) (2021-06-08)
 
 
