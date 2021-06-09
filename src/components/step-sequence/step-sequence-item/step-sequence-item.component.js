@@ -55,7 +55,7 @@ const StepSequenceItem = (props) => {
 StepSequenceItem.propTypes = {
   /** Text content for the step item */
   children: PropTypes.node.isRequired,
-  /** Value to be displayed before text for uncomplete steps */
+  /** Value to be displayed before text for uncompleted steps */
   indicator: PropTypes.string.isRequired,
   /** Aria label */
   ariaLabel: PropTypes.string,

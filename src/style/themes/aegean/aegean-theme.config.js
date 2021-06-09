@@ -16,5 +16,9 @@ export default (palette) => {
       hoveredTabKeyline: palette.productBlueTint(30),
       disabled: palette.productBlueTint(40),
     },
+
+    stepSequence: {
+      completedText: palette.productBlueShade(23),
+    },
   };
 };

@@ -9,11 +9,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   vertical-align: middle;
 }
 
-.c5:hover {
-  color: #006800;
-  background-color: transparent;
-}
-
 .c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

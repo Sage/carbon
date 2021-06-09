@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
+import { isFragment } from "react-is";
 
 import Event from "../../utils/helpers/events";
 import {
@@ -157,18 +158,35 @@ const AnchorNavigation = ({ children, stickyNavigation }) => {
 
 AnchorNavigation.propTypes = {
   children: PropTypes.node,
-  /** The AnchorNavigationItems components to be rendered in the sticky navigation */
+  /** The AnchorNavigationItems components to be rendered in the sticky navigation.
+  It is important to maintain proper structure.
+  List of AnchorNavigationItems has to be wrapped in React.Fragment */
   stickyNavigation: (props, propName, componentName) => {
     let error;
     const prop = props[propName];
+    const errorsList = [];
 
+    if (!isFragment(prop)) {
+      errorsList.push(
+        `Prop ${propName} container supplied to ${componentName} should be a React.Fragment.`
+      );
+    }
+
+    let isAnyChildIncorrect = false;
     React.Children.forEach(prop.props.children, (child) => {
       if (AnchorNavigationItem.displayName !== child.type.displayName) {
-        error = new Error(
-          `\`${componentName}\` only accepts children of type \`${AnchorNavigationItem.displayName}\`.`
-        );
+        isAnyChildIncorrect = true;
       }
     });
+    if (isAnyChildIncorrect) {
+      errorsList.push(
+        `Prop ${propName} container supplied to ${componentName} only accepts children of type ${AnchorNavigationItem.displayName}.`
+      );
+    }
+
+    if (errorsList.length) {
+      error = new Error(errorsList.join(" "));
+    }
 
     return error;
   },
