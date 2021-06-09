@@ -8,7 +8,7 @@ import Icon from "../../icon";
 import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.style";
 
 describe("StepSequenceItem", () => {
-  const wrapper = (props, renderer = TestRenderer.create) =>
+  const render = (props, renderer = mount) =>
     renderer(<StepSequenceItem {...props}>Item</StepSequenceItem>);
 
   const defaultProps = {
@@ -19,35 +19,39 @@ describe("StepSequenceItem", () => {
   };
 
   it("renders correctly", () => {
-    expect(wrapper({ ...defaultProps, theme: mintTheme })).toMatchSnapshot();
+    expect(
+      render({ ...defaultProps, theme: mintTheme }, TestRenderer.create)
+    ).toMatchSnapshot();
   });
 
   describe("when complete", () => {
     it("renders the tick item", () => {
-      const instance = wrapper(
-        { ...defaultProps, status: "complete", theme: mintTheme },
-        mount
-      );
-      expect(instance.find(Icon).exists()).toBe(true);
+      const wrapper = render({
+        ...defaultProps,
+        status: "complete",
+        theme: mintTheme,
+      });
+      expect(wrapper.find(Icon).exists()).toBe(true);
     });
 
     it("renders the hidden label", () => {
-      const instance = wrapper(
-        { ...defaultProps, status: "complete", theme: mintTheme },
-        mount
-      );
-      expect(instance.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
+      const wrapper = render({
+        ...defaultProps,
+        status: "complete",
+        theme: mintTheme,
+      });
+      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
         true
       );
-      expect(instance.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
+      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
         "HiddenComplete"
       );
     });
   });
 
-  describe("when cureent", () => {
+  describe("when current", () => {
     it("renders the correct styling", () => {
-      const instance = wrapper({
+      const wrapper = render({
         ...defaultProps,
         status: "current",
         theme: mintTheme,
@@ -56,19 +60,20 @@ describe("StepSequenceItem", () => {
         {
           color: mintTheme.text.color,
         },
-        instance.toJSON()
+        wrapper
       );
     });
 
     it("renders the hidden label", () => {
-      const instance = wrapper(
-        { ...defaultProps, status: "current", theme: mintTheme },
-        mount
-      );
-      expect(instance.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
+      const wrapper = render({
+        ...defaultProps,
+        status: "current",
+        theme: mintTheme,
+      });
+      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
         true
       );
-      expect(instance.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
+      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
         "HiddenCurrent"
       );
     });

@@ -1,11 +1,14 @@
 import * as React from "react";
 import { ValidationPropTypes } from "../validations";
+import { ButtonToggleProps } from "../button-toggle";
+
+type ButtonToggle = React.ReactElement<ButtonToggleProps>;
 
 export interface ButtonToggleGroupProps extends ValidationPropTypes {
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
   /** Children to be rendered (ButtonToggle). */
-  children: React.ReactNode;
+  children: ButtonToggle | ButtonToggle[];
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** Text for the label. */
