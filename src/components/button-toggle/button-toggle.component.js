@@ -111,4 +111,5 @@ ButtonToggle.defaultProps = {
   buttonIconSize: "small",
 };
 
+ButtonToggle.displayName = "ButtonToggle";
 export default ButtonToggle;

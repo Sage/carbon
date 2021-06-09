@@ -278,24 +278,68 @@ describe("AnchorNavigation", () => {
     ).toHaveLength(1);
   });
 
-  it("validates the incorrect stickyNavigation prop", () => {
-    jest.spyOn(global.console, "error").mockImplementation(() => {});
+  describe("validates the incorrect stickyNavigation prop content", () => {
+    it("has wrong item", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
 
-    mount(
-      <AnchorNavigation
-        stickyNavigation={
-          <>
-            <p>Invalid children</p>
-          </>
-        }
-      />
-    );
+      mount(
+        <AnchorNavigation
+          stickyNavigation={
+            <>
+              <p>Invalid children</p>
+            </>
+          }
+        />
+      );
 
-    const expected =
-      "Warning: Failed prop type: `AnchorNavigation` only accepts children of" +
-      " type `AnchorNavigationItem`.\n    in AnchorNavigation";
+      const expected =
+        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation only accepts children of" +
+        " type AnchorNavigationItem.\n    in AnchorNavigation";
 
-    expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    });
+
+    it("has wrong container", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      mount(
+        <AnchorNavigation
+          stickyNavigation={
+            <div>
+              <AnchorNavigationItem>First</AnchorNavigationItem>
+            </div>
+          }
+        />
+      );
+
+      const expected =
+        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation should be a React.Fragment." +
+        "\n    in AnchorNavigation";
+
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    });
+
+    it("has wrong container and items", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      mount(
+        <AnchorNavigation
+          stickyNavigation={
+            <div>
+              <AnchorNavigationItem>First</AnchorNavigationItem>
+              <p>Invalid item</p>
+            </div>
+          }
+        />
+      );
+
+      const expected =
+        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation should be a React.Fragment." +
+        " Prop stickyNavigation container supplied to AnchorNavigation only accepts children of type AnchorNavigationItem." +
+        "\n    in AnchorNavigation";
+
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    });
   });
 
   it("renders not selected navigation item with proper background when hovered", () => {

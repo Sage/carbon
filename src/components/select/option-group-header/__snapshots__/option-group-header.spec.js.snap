@@ -68,11 +68,6 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   width: 24px;
 }
 
-.c2:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
 .c2::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
