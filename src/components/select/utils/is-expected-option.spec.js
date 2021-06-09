@@ -36,7 +36,9 @@ describe("isExpectedOption", () => {
     describe("and it's value prop is an object", () => {
       describe("with the same id prop as the second argument's id", () => {
         it("then it should return true", () => {
-          const element = <Option value={{ id: "foo", value: "foo" }} />;
+          const element = (
+            <Option text="bar" value={{ id: "foo", value: "foo" }} />
+          );
           const expectedValue = { id: "foo", value: "foo" };
 
           expect(isExpectedOption(element, expectedValue)).toBe(true);
@@ -45,7 +47,9 @@ describe("isExpectedOption", () => {
 
       describe("with different id prop than the second argument's id", () => {
         it("then it should return false", () => {
-          const element = <Option value={{ id: "foo", value: "foo" }} />;
+          const element = (
+            <Option text="bar" value={{ id: "foo", value: "foo" }} />
+          );
           const expectedValue = { id: "bar", value: "foo" };
 
           expect(isExpectedOption(element, expectedValue)).toBe(false);

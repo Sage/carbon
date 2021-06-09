@@ -155,6 +155,7 @@
     "react-dnd-touch-backend": "0.2.7",
     "react-is": "^17.0.2",
     "react-transition-group": "^4.4.1",
+    "sprintf-js": "^1.1.2",
     "styled-system": "^5.1.5",
     "superagent": "~3.8.2",
     "wait-on": "^5.2.1"

@@ -67,6 +67,9 @@ describe("WithDrop", () => {
   }
 
   beforeEach(() => {
+    jest.spyOn(global.console, "error").mockImplementation(() => {});
+    jest.spyOn(global.console, "warn").mockImplementation(() => {});
+
     hoverContextSpy = jasmine.createSpy().and.callThrough();
     hoverPropSpy = jasmine.createSpy().and.callThrough();
 
@@ -85,6 +88,11 @@ describe("WithDrop", () => {
     spyOn(mockSelection, "removeAllRanges");
 
     spyOn(Browser, "getWindow").and.returnValue(mockWindow);
+  });
+
+  afterEach(() => {
+    global.console.error.mockReset();
+    global.console.warn.mockReset();
   });
 
   describe("without custom props", () => {

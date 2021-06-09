@@ -12,12 +12,16 @@ describe("withFilter", () => {
         [renderFilteredOptionRows, "GreenLight"],
       ])("then only that option should be rendered", (renderer, text) => {
         const wrapper = renderer({ filterText: "gre" });
+        const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find('ul[data-element="select-list"]').children()
+          wrapper.find(`${element}[data-element="select-list"]`).children()
         ).toHaveLength(1);
         expect(
-          wrapper.find('ul[data-element="select-list"]').children().text()
+          wrapper
+            .find(`${element}[data-element="select-list"]`)
+            .children()
+            .text()
         ).toBe(text);
       });
     });
@@ -28,15 +32,24 @@ describe("withFilter", () => {
         [renderFilteredOptionRows, ["BlueLight", "BlackDark"]],
       ])("then only these options should be rendered", (renderer, texts) => {
         const wrapper = renderer({ filterText: "bl" });
+        const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find('ul[data-element="select-list"]').children()
+          wrapper.find(`${element}[data-element="select-list"]`).children()
         ).toHaveLength(2);
         expect(
-          wrapper.find('ul[data-element="select-list"]').children().at(0).text()
+          wrapper
+            .find(`${element}[data-element="select-list"]`)
+            .children()
+            .at(0)
+            .text()
         ).toBe(texts[0]);
         expect(
-          wrapper.find('ul[data-element="select-list"]').children().at(1).text()
+          wrapper
+            .find(`${element}[data-element="select-list"]`)
+            .children()
+            .at(1)
+            .text()
         ).toBe(texts[1]);
       });
     });
@@ -47,8 +60,10 @@ describe("withFilter", () => {
         (renderer) => {
           const filterText = "xyz";
           const wrapper = renderer({ filterText });
+          const element = renderer === renderFilteredOptions ? "ul" : "tbody";
+
           const children = wrapper
-            .find('ul[data-element="select-list"]')
+            .find(`${element}[data-element="select-list"]`)
             .children();
 
           expect(children).toHaveLength(1);
@@ -65,8 +80,10 @@ describe("withFilter", () => {
               filterText: "xyz",
               noResultsMessage: customMessage,
             });
+            const element = renderer === renderFilteredOptions ? "ul" : "tbody";
+
             const children = wrapper
-              .find('ul[data-element="select-list"]')
+              .find(`${element}[data-element="select-list"]`)
               .children();
 
             expect(children).toHaveLength(1);
@@ -82,9 +99,10 @@ describe("withFilter", () => {
       "then all options should be rendered",
       (renderer) => {
         const wrapper = renderer({ filterText: "" });
+        const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find('ul[data-element="select-list"]').children()
+          wrapper.find(`${element}[data-element="select-list"]`).children()
         ).toHaveLength(6);
       }
     );
@@ -109,25 +127,36 @@ const ListComponent = ({ children }) => {
   return <ul data-element="select-list">{children}</ul>;
 };
 
+// eslint-disable-next-line react/prop-types
+const TableListComponent = ({ children }) => {
+  return (
+    <table>
+      <tbody data-element="select-list">{children}</tbody>
+    </table>
+  );
+};
+
 const FilteredListComponent = withFilter(ListComponent);
 
 function renderFilteredOptions(props, renderer = mount) {
   return renderer(
     <FilteredListComponent {...props}>
-      <Option />
-      <Option text="blue" />
-      <Option text="green" />
-      <Option text="black" />
-      <Option text="purple" />
-      <Option text="brown" />
+      <Option text="red" value="0" />
+      <Option text="blue" value="1" />
+      <Option text="green" value="2" />
+      <Option text="black" value="3" />
+      <Option text="purple" value="4" />
+      <Option text="brown" value="5" />
     </FilteredListComponent>
   );
 }
 
+const FilteredTableListComponent = withFilter(TableListComponent);
+
 function renderFilteredOptionRows(props, renderer = mount) {
   return renderer(
-    <FilteredListComponent multiColumn {...props}>
-      <OptionRow text="amber">
+    <FilteredTableListComponent multiColumn {...props}>
+      <OptionRow text="amber" value="0">
         <td>
           <div />
         </td>
@@ -135,27 +164,27 @@ function renderFilteredOptionRows(props, renderer = mount) {
           <div />
         </td>
       </OptionRow>
-      <OptionRow text="blue">
+      <OptionRow text="blue" value="1">
         <td>Blue</td>
         <td>Light</td>
       </OptionRow>
-      <OptionRow text="green">
+      <OptionRow text="green" value="2">
         <td>Green</td>
         <td>Light</td>
       </OptionRow>
-      <OptionRow text="black">
+      <OptionRow text="black" value="3">
         <td>Black</td>
         <td>Dark</td>
       </OptionRow>
-      <OptionRow text="purple">
+      <OptionRow text="purple" value="4">
         <td>Purple</td>
         <td>Dark</td>
       </OptionRow>
-      <OptionRow text="brown">
+      <OptionRow text="brown" value="5">
         <td>Brown</td>
         <td>Dark</td>
       </OptionRow>
-    </FilteredListComponent>
+    </FilteredTableListComponent>
   );
 }
 

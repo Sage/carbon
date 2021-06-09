@@ -10,6 +10,11 @@ const Page = ({ title, children, ...props }) => {
   return (
     <CSSTransition
       className="carbon-carousel__transition"
+      timeout={{
+        appear: 0,
+        enter: 0,
+        exit: 0,
+      }}
       // eslint-disable-next-line react/prop-types
       classNames={props.transitionName()}
       {...props}
