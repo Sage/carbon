@@ -8,9 +8,7 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component           |
       | decimal-input       |
-      | number-input        |
       | simple-color-picker |
-      | switch              |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -20,7 +18,6 @@ Feature: Accessibility tests - Experimental folder
       | component           |
       | decimal-input       |
       | simple-color-picker |
-      | number-input        |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -30,7 +27,6 @@ Feature: Accessibility tests - Experimental folder
       | component           |
       | decimal-input       |
       | simple-color-picker |
-      | number-input        |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -40,17 +36,6 @@ Feature: Accessibility tests - Experimental folder
       | component           |
       | decimal-input       |
       | simple-color-picker |
-      | number-input        |
-
-  @accessibility
-  Scenario Outline: Experimental switch component <story> story
-    When I open "Experimental switch" component page "<story>" in no iframe
-    Then "Experimental switch <story> story" component has no accessibility violations
-    Examples:
-      | story                                               |
-      | single switch boolean validation                    |
-      | single switch string validation                     |
-      | single switch string validation validation on label |
 
   @accessibility
   Scenario: Component radiobutton with legend and labels story

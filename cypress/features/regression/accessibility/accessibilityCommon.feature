@@ -33,6 +33,7 @@ Feature: Accessibility tests - Common list
       | Split-button        |
       | Step-sequence       |
       | Multi-action-button |
+      | Number-Input        |
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
@@ -62,6 +63,7 @@ Feature: Accessibility tests - Common list
     Examples:
       | component        |
       | GroupedCharacter |
+      | Number-Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string story page
@@ -70,6 +72,7 @@ Feature: Accessibility tests - Common list
     Examples:
       | component        |
       | GroupedCharacter |
+      | Number-Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story page
@@ -78,3 +81,4 @@ Feature: Accessibility tests - Common list
     Examples:
       | component        |
       | GroupedCharacter |
+      | Number-Input     |

@@ -9,7 +9,7 @@ import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import Button from "../../button";
-import Label from "../../../__experimental__/components/label";
+import Label from "../../../__internal__/label";
 
 describe("FilterableSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));

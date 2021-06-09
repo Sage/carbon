@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ValidationIconStyle from "../../../components/validations/validation-icon.style";
-import StyledHelp from "../../../components/help/help.style";
-import baseTheme from "../../../style/themes/base";
+import ValidationIconStyle from "../../components/validations/validation-icon.style";
+import StyledHelp from "../../components/help/help.style";
+import baseTheme from "../../style/themes/base";
 
 const IconWrapperStyle = styled.div`
   display: inline-block;

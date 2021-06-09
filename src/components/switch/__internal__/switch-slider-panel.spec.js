@@ -2,12 +2,13 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import "jest-styled-components";
 import { css } from "styled-components";
+
 import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
-import StyledLoader from "../../../components/loader/loader.style";
-import StyledLoaderSquare from "../../../components/loader/loader-square.style";
+import StyledLoader from "../../loader/loader.style";
+import StyledLoaderSquare from "../../loader/loader-square.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 
 function render(props) {

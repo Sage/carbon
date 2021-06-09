@@ -8,7 +8,7 @@ import {
 import { RadioButton, RadioButtonGroup } from ".";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import Fieldset from "../../../__internal__/fieldset";
-import Label from "../label";
+import Label from "../../../__internal__/label";
 
 const buttonValues = ["test-1", "test-2"];
 const name = "test-group";

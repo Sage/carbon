@@ -3,10 +3,10 @@ import { action } from "@storybook/addon-actions";
 import { boolean, number } from "@storybook/addon-knobs";
 
 import Number from "./number.component";
-import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
+import { getCommonTextboxProps } from "../textbox/textbox.stories";
 
 export default {
-  title: "Experimental/Number Input/Test",
+  title: "Number Input/Test",
   component: Number,
   parameters: {
     info: {
