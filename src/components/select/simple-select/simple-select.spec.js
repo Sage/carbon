@@ -15,7 +15,7 @@ import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-
 import StyledInput from "../../../__experimental__/components/input/input.style";
 import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
 import { baseTheme } from "../../../style/themes";
-import Label from "../../../__experimental__/components/label";
+import Label from "../../../__internal__/label";
 
 describe("SimpleSelect", () => {
   describe("when an HTML element is clicked when the SelectList is open", () => {

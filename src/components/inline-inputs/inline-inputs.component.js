@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import { Row, Column } from "../row";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import StyledInlineInputs from "./inline-inputs.style";
 import createGuid from "../../utils/helpers/guid";
 

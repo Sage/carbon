@@ -6,7 +6,7 @@ import I18n from "i18n-js";
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import Decimal from "./decimal.component";
 import Textbox from "../../../components/textbox/textbox.component";
-import Label from "../label";
+import Label from "../../../__internal__/label";
 import FormFieldStyle from "../form-field/form-field.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative

@@ -1,21 +1,18 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
 
-import Help from "../../../components/help";
-import Label from "./label.component";
+import Help from "../../components/help";
+import Label from ".";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import ValidationIcon from "../../../components/validations/validation-icon.component";
-import baseTheme from "../../../style/themes/base";
-import mintTheme from "../../../style/themes/mint";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+import ValidationIcon from "../../components/validations/validation-icon.component";
+import baseTheme from "../../style/themes/base";
+import mintTheme from "../../style/themes/mint";
 import IconWrapperStyle from "./icon-wrapper.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 jest.mock("@tippyjs/react/headless");
 
@@ -23,7 +20,7 @@ const validationTypes = ["error", "warning", "info"];
 
 describe("Label", () => {
   it("renders the label", () => {
-    expect(render({}, TestRenderer.create)).toMatchSnapshot();
+    expect(noThemeSnapshot(render({}, shallow))).toMatchSnapshot();
   });
 
   describe("context handlers", () => {
@@ -130,7 +127,7 @@ describe("Label", () => {
         {
           paddingRight: "16px",
         },
-        render({ inline: true, pr: 2 }, TestRenderer.create).toJSON()
+        render({ inline: true, pr: 2 })
       );
     });
 

@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import Number from "./number.component";
 import Textbox from "../textbox";
-import Label from "../../__experimental__/components/label";
+import Label from "../../../__internal__/label";
 
 describe("Number Input", () => {
   let wrapper, input, onChangeFn, onKeyDownFn;

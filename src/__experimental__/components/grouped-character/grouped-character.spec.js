@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import GroupedCharacter from "./grouped-character.component";
 import FormFieldStyle from "../form-field/form-field.style";
-import Label from "../label";
+import Label from "../../../__internal__/label";
 
 const mountComponent = (props) => mount(<GroupedCharacter {...props} />);
 
