@@ -9,7 +9,7 @@ import {
   StyledNavigation,
   StyledContent,
 } from "./anchor-navigation.style";
-import AnchorNavigationItem from "./anchor-navigation-item.component";
+import AnchorNavigationItem from "./anchor-navigation-item/anchor-navigation-item.component";
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
