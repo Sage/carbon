@@ -164,7 +164,7 @@ const StyledAccordionContentContainer = styled.div`
 
 const StyledAccordionContent = styled.div`
   padding: 0 ${({ theme }) => theme.spacing * 3}px;
-  overflow: auto;
+  overflow: hidden;
 
   ${({ disableContentPadding }) =>
     disableContentPadding &&
