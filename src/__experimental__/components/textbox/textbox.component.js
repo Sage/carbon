@@ -135,6 +135,8 @@ Textbox.propTypes = {
   deferTimeout: PropTypes.number,
   /** Label */
   label: PropTypes.string,
+  /** Indicate whether label text is aligned to the left or right */
+  labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Text applied to label help tooltip */
   labelHelp: PropTypes.node,
   /** When true, label is placed in line an input */
