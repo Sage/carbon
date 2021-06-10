@@ -3,7 +3,6 @@ import { shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import CardColumn from "./card-column.component";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import "jest-styled-components";
 import { CARD_ALIGNS } from "../card.config";
 
 describe("CardColumn", () => {

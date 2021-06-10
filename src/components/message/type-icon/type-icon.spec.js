@@ -10,7 +10,7 @@ const messages = ["info", "error", "success", "warning"];
 
 describe("TypeIcon", () => {
   describe("when rendered", () => {
-    describe.each(messages)("with no addition props", (variant) => {
+    describe.each(messages)("with no additional props", (variant) => {
       it(`should match the snapshot for ${variant}`, () => {
         const wrapper = render({ variant });
         expect(wrapper).toMatchSnapshot();

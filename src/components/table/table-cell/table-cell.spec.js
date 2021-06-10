@@ -1,5 +1,4 @@
 import React from "react";
-import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TableCell from ".";

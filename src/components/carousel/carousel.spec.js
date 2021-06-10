@@ -18,7 +18,6 @@ import {
 } from "./carousel.style";
 import mintTheme from "../../style/themes/mint";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import "jest-styled-components";
 
 describe("BaseCarousel", () => {
   let instance;

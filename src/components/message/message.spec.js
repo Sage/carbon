@@ -1,6 +1,5 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import I18n from "i18n-js";
 import MessageStyle from "./message.style";

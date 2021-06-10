@@ -1,4 +1,3 @@
-
 export type IconSize = "small" | "medium" | "large" | "extra-large";
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 export type BackgroundTheme = "info" | "error" | "success" | "warning" | "business" | "none";

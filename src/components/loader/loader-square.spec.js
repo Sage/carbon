@@ -1,6 +1,5 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import StyledLoaderSquare from "./loader-square.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";

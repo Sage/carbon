@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const DIALOG_SIZES = [
   "extra-small",
   "small",
