@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Editor, Modifier } from "draft-js";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
+  expectError,
 } from "../../__spec_helper__/test-utils";
 import mintTheme from "../../style/themes/mint";
 import TextEditor, {
@@ -109,6 +110,7 @@ describe("TextEditor", () => {
         value={createContent()}
         labelText="Text Editor Label"
         labelId="foo"
+        onChange={jest.fn}
         {...props}
       />
     ));
@@ -908,16 +910,28 @@ describe("TextEditor", () => {
   });
 
   describe("custom row prop type", () => {
-    it("throws an error if value less than 2 passed", () => {
-      jest.spyOn(global.console, "error");
-      wrapper = render({ rows: 1 });
-      expect(console.error).toHaveBeenCalled();
+    describe("when value is number less than 2", () => {
+      it("throws an error", () => {
+        TextEditor.displayName = "EditorWithRowsLessThan2";
+        const errorMessage =
+          "Warning: Failed prop type: Prop `rows` must be a number value greater than 2 to override the min-height of the `EditorWithRowsLessThan2`";
+
+        const assert = expectError(errorMessage);
+        render({ rows: 1 }, shallow);
+        assert();
+      });
     });
 
-    it("throws an error if value is not a number", () => {
-      jest.spyOn(global.console, "error");
-      wrapper = render({ rows: "foo" });
-      expect(console.error).toHaveBeenCalled();
+    describe("when value is not a number", () => {
+      it("throws an error", () => {
+        TextEditor.displayName = "EditorWithRowsAsString";
+        const errorMessage =
+          "Warning: Failed prop type: Prop `rows` must be a number value greater than 2 to override the min-height of the `EditorWithRowsAsString`";
+
+        const assert = expectError(errorMessage);
+        render({ rows: "foo" }, shallow);
+        assert();
+      });
     });
   });
 

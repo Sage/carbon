@@ -6,6 +6,7 @@ import FormField from "../../__experimental__/components/form-field";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
 import ValidationIcon from "../validations/validation-icon.component";
+import ButtonToggle from "../button-toggle";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -13,7 +14,7 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const BaseButtonToggleGroup = (props) => {
+const ButtonToggleGroup = (props) => {
   const {
     name,
     inputWidth,
@@ -63,12 +64,25 @@ const BaseButtonToggleGroup = (props) => {
   );
 };
 
-BaseButtonToggleGroup.propTypes = {
+ButtonToggleGroup.propTypes = {
   ...marginPropTypes,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
   /** Children to be rendered (ButtonToggle). */
-  children: PropTypes.node.isRequired,
+  children: (props, propName, componentName) => {
+    let error;
+    const prop = props[propName];
+
+    React.Children.forEach(prop, (child) => {
+      if (ButtonToggle.displayName !== child.type.displayName) {
+        error = new Error(
+          `\`${componentName}\` only accepts children of type \`${ButtonToggle.displayName}\`.`
+        );
+      }
+    });
+
+    return error;
+  },
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
@@ -109,10 +123,10 @@ BaseButtonToggleGroup.propTypes = {
   value: PropTypes.string,
 };
 
-BaseButtonToggleGroup.defaultProps = {
+ButtonToggleGroup.defaultProps = {
   validationOnLabel: false,
 };
 
-BaseButtonToggleGroup.displayName = "BaseButtonToggleGroup";
+ButtonToggleGroup.displayName = "ButtonToggleGroup";
 
-export default BaseButtonToggleGroup;
+export default ButtonToggleGroup;

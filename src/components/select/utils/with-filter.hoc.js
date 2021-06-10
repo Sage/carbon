@@ -8,9 +8,7 @@ import OptionRow from "../option-row/option-row.component";
 import highlightPartOfText from "./highlight-part-of-text";
 
 const filterOptions = (option, filterText) => {
-  if (!option.props.text) return null;
-
-  const processedText = option.props.text.toLowerCase();
+  const processedText = option.props.text?.toLowerCase();
   const processedValue = filterText.toLowerCase();
   if (processedText.includes(processedValue)) {
     return option;

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 
 const StyledNoteContent = styled.div`
   position: relative;
@@ -47,8 +47,8 @@ const StyledTitle = styled.header`
 
 const StyledFooterContent = styled.div`
   line-height: 21px;
-  align-items: baseline
-    ${({ theme }) => `
+  align-items: baseline;
+  ${({ theme }) => `
     &:first-of-type {
       font-weight: bold;
       font-size: 14px;

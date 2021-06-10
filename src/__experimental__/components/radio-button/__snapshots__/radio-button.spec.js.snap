@@ -441,6 +441,7 @@ exports[`RadioButton base renders as expected 1`] = `
         <div
           checked={false}
           className="c2"
+          name="my-radio-group"
         >
           <div
             className="c3 c4"
@@ -458,6 +459,7 @@ exports[`RadioButton base renders as expected 1`] = `
                   checked={false}
                   className="c9 c10"
                   id="guid-12345"
+                  name="my-radio-group"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}

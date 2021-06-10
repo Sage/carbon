@@ -40,12 +40,13 @@ exports[`Link renders as expected 1`] = `
   padding: 0;
 }
 
-<div
+<span
   className="c0"
   data-component="link"
   disabled={false}
 >
   <a
+    href="www.foo.com"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex="0"
@@ -56,5 +57,5 @@ exports[`Link renders as expected 1`] = `
       test
     </span>
   </a>
-</div>
+</span>
 `;

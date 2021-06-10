@@ -1,3 +1,3 @@
 // component preview locators
-export const LINK_PREVIEW = '[data-component="link"]';
+/* eslint-disable import/prefer-default-export */
 export const SKIP_LINK = '[data-element="skip-link"]';
