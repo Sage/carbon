@@ -14,9 +14,9 @@ import Events from "../../utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../utils/helpers/guid";
-import ActionPopoverMenu from "./action-popover-menu.component";
-import ActionPopoverItem from "./action-popover-item.component";
-import ActionPopoverDivider from "./action-popover-divider.component";
+import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
+import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
+import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "./action-popover-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
