@@ -1,3 +1,10 @@
+### [76.5.2](https://github.com/Sage/carbon/compare/v76.5.1...v76.5.2) (2021-06-10)
+
+
+### Bug Fixes
+
+* **note:** add decorator to content to ensure correct html applied ([8a31825](https://github.com/Sage/carbon/commit/8a31825b2e85229a111699cc8964235a874bc995)), closes [#4137](https://github.com/Sage/carbon/issues/4137)
+
 ### [76.5.1](https://github.com/Sage/carbon/compare/v76.5.0...v76.5.1) (2021-06-09)
 
 
