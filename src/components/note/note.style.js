@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 
 const StyledNoteContent = styled.div`
   position: relative;

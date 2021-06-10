@@ -65,7 +65,12 @@ describe("WithDrag", () => {
 
   describe("without custom props", () => {
     beforeEach(() => {
+      jest.spyOn(global.console, "warn").mockImplementation(() => {});
       createWrapper();
+    });
+
+    afterEach(() => {
+      global.console.warn.mockReset();
     });
 
     describe("beginDrag", () => {

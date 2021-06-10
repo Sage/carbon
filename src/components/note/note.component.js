@@ -11,9 +11,9 @@ import {
   StyledFooter,
   StyledFooterContent,
 } from "./note.style.js";
-import StatusWithTooltip from "./status-with-tooltip";
-import { ActionPopover } from "../../action-popover";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import StatusWithTooltip from "./__internal__/status-with-tooltip";
+import { ActionPopover } from "../action-popover";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

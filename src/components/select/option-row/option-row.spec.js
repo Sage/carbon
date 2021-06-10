@@ -43,7 +43,7 @@ describe("OptionRow", () => {
       const onSelect = jest.fn();
       const props = { value: "1", text: "foo", onSelect };
       const wrapper = renderOptionRow(props, mount);
-      wrapper.simulate("click");
+      wrapper.find(OptionRow).simulate("click");
 
       expect(onSelect).toHaveBeenCalledWith({
         text: props.text,
@@ -54,5 +54,13 @@ describe("OptionRow", () => {
 });
 
 function renderOptionRow(props, renderer = shallow) {
-  return renderer(<OptionRow {...props} />);
+  return renderer(
+    <table>
+      <tbody>
+        <OptionRow {...props}>
+          <td>foo</td>
+        </OptionRow>
+      </tbody>
+    </table>
+  );
 }

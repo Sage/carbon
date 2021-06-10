@@ -7,6 +7,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import StyledIconButton from "./icon-button.style";
+import Icon from "../icon";
 
 describe("IconButton component", () => {
   let wrapper, onDismiss, onBlur;
@@ -24,7 +25,9 @@ describe("IconButton component", () => {
 
     describe("styled system", () => {
       testStyledSystemMargin((props) => (
-        <IconButton {...props}>test content</IconButton>
+        <IconButton onAction={() => {}} {...props}>
+          <Icon type="home" />
+        </IconButton>
       ));
     });
 
@@ -42,7 +45,11 @@ describe("IconButton component", () => {
 
     describe("if disabled prop provided", () => {
       it("should have `not allowed` cursor property", () => {
-        wrapper = mount(<IconButton onDismiss={() => {}} disabled />);
+        wrapper = mount(
+          <IconButton onAction={() => {}} disabled>
+            <Icon type="home" />
+          </IconButton>
+        );
 
         assertStyleMatch(
           {

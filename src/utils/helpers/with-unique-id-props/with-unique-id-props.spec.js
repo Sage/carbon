@@ -15,7 +15,7 @@ describe("withUniqueIdProps HOC", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("adds a name prop to a component passed as a paramater", () => {
+  it("adds a name prop to a component passed as a parameter", () => {
     wrapper = shallow(<MockComponent />);
     expect(wrapper.props().name).toEqual(undefined);
     wrapper = mount(<InputComponent />);
@@ -24,14 +24,17 @@ describe("withUniqueIdProps HOC", () => {
     ).not.toEqual(undefined);
   });
 
-  it("either allows the name prop to be overriden or randomnly generates one", () => {
+  it("either allows the name prop to be overriden or randomly generates one", () => {
     wrapper = shallow(<InputComponent name="foo" />);
     expect(wrapper.props().name).toEqual("foo");
   });
 
   it("the generated name prop is persisted even after re-render", () => {
-    wrapper = shallow(<InputComponent value="foo" />);
-    const wrapper2 = mount(<InputComponent value="foo" />);
+    const mockChange = jest.fn();
+    wrapper = shallow(<InputComponent value="foo" onChange={mockChange} />);
+    const wrapper2 = mount(
+      <InputComponent value="foo" onChange={mockChange} />
+    );
     expect(
       wrapper2.find(InputComponent).first().childAt(0).childAt(0).props().name
     ).not.toEqual(wrapper.props().name);
