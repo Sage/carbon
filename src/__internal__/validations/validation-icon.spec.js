@@ -4,11 +4,8 @@ import { act } from "react-dom/test-utils";
 
 import ValidationIcon from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../__internal__/input-behaviour";
-import Tooltip from "../tooltip";
+import { InputContext, InputGroupContext } from "../input-behaviour";
+import Tooltip from "../../components/tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");

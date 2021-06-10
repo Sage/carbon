@@ -2,12 +2,9 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import Icon from "../icon";
+import Icon from "../../components/icon";
 import ValidationIconStyle from "./validation-icon.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

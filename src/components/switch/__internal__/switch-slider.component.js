@@ -6,7 +6,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import Loader from "../../loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
-import ValidationIcon from "../../validations/validation-icon.component";
+import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(

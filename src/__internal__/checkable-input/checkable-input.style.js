@@ -6,7 +6,7 @@ import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import StyledHelp from "../../components/help/help.style";
 import baseTheme from "../../style/themes/base";
-import StyledValidationIcon from "../../components/validations/validation-icon.style";
+import StyledValidationIcon from "../validations/validation-icon.style";
 
 const StyledCheckableInput = styled.div`
   display: inline-block;

@@ -10,10 +10,9 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
-import StyledValidationIcon from "../validations/validation-icon.style";
-import ValidationIcon from "../validations";
 import Label from "../../__internal__/label";
-
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import ValidationIcon from "../../__internal__/validations";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";

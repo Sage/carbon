@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ValidationPropTypes } from "../validations";
+import { ValidationPropTypes } from "../../__internal__/validations";
 
 export interface ButtonToggleGroupProps extends ValidationPropTypes {
   /** Specifies the name prop to be applied to each button in the group */
