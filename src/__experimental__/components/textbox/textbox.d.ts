@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
 import { ValidationPropTypes } from "../../../components/validations";
+import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
 export interface CommonTextboxProps extends ValidationPropTypes {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
@@ -31,7 +32,7 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   /** Label content */
   label?: string;
   /** Label text alignment */
-  labelAlign?: "left" | "right";
+  labelAlign?: OptionsHelper.AlignBinaryType;
   /** A message that the Help component will display */
   labelHelp?: React.ReactNode;
   /** When true label is inline */
@@ -59,7 +60,7 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */
-  size?: "small" | "medium" | "large";
+  size?: OptionsHelper.SizesRestricted;
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Input */
