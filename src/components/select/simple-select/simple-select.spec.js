@@ -12,8 +12,8 @@ import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
-import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
+import StyledInput from "../../../__internal__/input/input.style";
+import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { baseTheme } from "../../../style/themes";
 import Label from "../../../__internal__/label";
 

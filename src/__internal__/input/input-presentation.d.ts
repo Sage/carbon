@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ValidationPropTypes } from "../../../__internal__/validations";
+import { ValidationPropTypes } from "../validations";
 
 export interface CommonInputPresentationProps extends ValidationPropTypes {
   /** If true, the component will be disabled */

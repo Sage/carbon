@@ -5,14 +5,11 @@ import { InputPresentation } from ".";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 describe("InputPresentation", () => {
   it("renders presentational div and context provider for its children", () => {

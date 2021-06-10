@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
-import extractProps from "../../../utils/helpers/extract-props";
+import extractProps from "../../utils/helpers/extract-props";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
-
-const InputPresentation = (props) => {
+const InputPresentation = ({
+  children,
+  positionedChildren,
+  inputWidth,
+  ...rest
+}) => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
     InputContext
   );
@@ -22,7 +23,6 @@ const InputPresentation = (props) => {
     onMouseLeave: onGroupMouseLeave,
   } = useContext(InputGroupContext);
 
-  const { children, positionedChildren, inputWidth, ...rest } = props;
   const styleProps = extractProps(rest, InputPresentationStyle);
 
   const handleMouseEnter = (e) => {

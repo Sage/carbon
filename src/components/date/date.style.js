@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { margin } from "styled-system";
 
 import baseTheme from "../../style/themes/base";
-import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const datePickerWidth = {

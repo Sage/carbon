@@ -1,4 +1,5 @@
 import * as React from "react";
+
 export interface CommonInputProps {
   /** If true the Component will be focused when rendered */
   autoFocus?: boolean;

@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { Input } from "../../__experimental__/components/input";
+import { Input } from "../../__internal__/input";
 import Button from "../button";
 import Search from "./search.component";
 import { StyledSearchButton } from "./search.style";
@@ -9,7 +9,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import StyledTextInput from "../../__experimental__/components/input/input-presentation.style";
+import StyledTextInput from "../../__internal__/input/input-presentation.style";
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 
 import Icon from "../icon";

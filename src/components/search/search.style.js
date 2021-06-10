@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
-import StyledInput from "../../__experimental__/components/input/input.style";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
+import StyledInput from "../../__internal__/input/input.style";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import { baseTheme } from "../../style/themes";

@@ -4,10 +4,10 @@ import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import OptionsHelper from "../../utils/helpers/options-helper";
-import { InputPresentation } from "../../__experimental__/components/input";
+import { InputPresentation } from "../../__internal__/input";
 import FormField from "../../__experimental__/components/form-field";
 import CharacterCount from "./character-count";
-import Input from "../../__experimental__/components/input/input.component";
+import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

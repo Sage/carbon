@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
-import sizes from "../../__experimental__/components/input/input-sizes.style";
+import sizes from "../input/input-sizes.style";
 
 const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
   // eslint-disable-next-line consistent-return

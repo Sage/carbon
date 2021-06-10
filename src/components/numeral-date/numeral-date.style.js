@@ -3,7 +3,7 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import { baseTheme } from "../../style/themes";
 import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
-import StyledInputPresentantion from "../../__experimental__/components/input/input-presentation.style";
+import StyledInputPresentantion from "../../__internal__/input/input-presentation.style";
 import StyledIcon from "../icon/icon.style";
 
 export const StyledNumeralDate = styled.div`
