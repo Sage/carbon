@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { ThemeProvider } from "styled-components";
 import guid from "../../utils/helpers/guid";
 import { baseTheme, mintTheme } from "../../style/themes";
