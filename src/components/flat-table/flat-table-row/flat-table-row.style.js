@@ -108,6 +108,10 @@ const StyledFlatTableRow = styled.tr`
         `}
       }
 
+      ${StyledFlatTableHeader} {
+        border-bottom: 1px solid ${borderColor(colorTheme, theme)};
+      }
+
       ${stickyOffset > 0 &&
       css`
         && th {

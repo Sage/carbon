@@ -21,7 +21,6 @@ const StyledFlatTableHeader = styled.th`
   }) => css`
     background-color: transparent;
     border-width: 0;
-    border-bottom: 1px solid ${theme.table.secondary};
     box-sizing: border-box;
     font-weight: 700;
     left: auto;
