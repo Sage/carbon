@@ -13,11 +13,11 @@ import {
   MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
-} from "./action-popover.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
-import Events from "../../utils/helpers/events";
-import createGuid from "../../utils/helpers/guid";
-import ActionPopoverContext from "./action-popover-context";
+} from "../action-popover.style";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+import Events from "../../../utils/helpers/events";
+import createGuid from "../../../utils/helpers/guid";
+import ActionPopoverContext from "../action-popover-context";
 
 const INTERVAL = 150;
 

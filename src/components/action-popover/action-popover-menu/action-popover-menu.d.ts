@@ -1,6 +1,6 @@
 import * as React from "react";
-import ActionPopoverDivider from "./action-popover-divider";
-import { ActionPopoverItemProps } from "./action-popover-item";
+import ActionPopoverDivider from "../action-popover-divider/action-popover-divider";
+import { ActionPopoverItemProps } from "../action-popover-item/action-popover-item";
 
 type ActionPopoverChild =
   | React.ReactElement<ActionPopoverItemProps>

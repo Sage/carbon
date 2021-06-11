@@ -14,6 +14,7 @@ import {
 import StatusWithTooltip from "./__internal__/status-with-tooltip";
 import { ActionPopover } from "../action-popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { getDecoratedValue } from "../text-editor/__internal__/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -63,7 +64,7 @@ const Note = ({
       )}
 
       <StyledNoteContent>
-        <Editor readOnly editorState={noteContent} />
+        <Editor readOnly editorState={getDecoratedValue(noteContent)} />
       </StyledNoteContent>
 
       {name && createdDate && (
