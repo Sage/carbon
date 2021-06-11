@@ -1,5 +1,21 @@
 import StyledIcon from "../icon/icon.style";
 
+/**
+ *
+ * You should always use tokens provided by theme.
+ * If the color you want to use is missing in theme,
+ * then probably there's an issue with the
+ * documentation or design tokens library itself.
+ *
+ * However there still exists possibility of using so
+ * called "generic tokens" by importing them straight
+ * from design tokens library.
+ *
+ * Eventually, below file will be imported from @sage/design-tokens
+ *
+ */
+import genericTokens from "../../style/themes/sbiz/generic.tokens";
+
 export function makeColors(color) {
   return `
   color: ${color};
@@ -21,11 +37,11 @@ export default (theme, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-    background: ${theme.sagedsGenericColorsSlate100};
+    background: ${genericTokens.sagedsColorsSlate100};
     color: ${theme.sagedsColorsTextBlack30};
     &:hover {
-      background: ${theme.sagedsGenericColorsSlate100};
-      border-color: ${theme.sagedsGenericColorsSlate100};
+      background: ${genericTokens.sagedsColorsSlate100};
+      border-color: ${genericTokens.sagedsColorsSlate100};
       color: ${theme.sagedsColorsTextBlack30};
     }
   `
@@ -44,10 +60,10 @@ export default (theme, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      background: ${theme.sagedsGenericColorsSlate100};
+      background: ${genericTokens.sagedsColorsSlate100};
       color: ${theme.sagedsColorsTextBlack30};
       &:hover {
-        background: ${theme.sagedsGenericColorsSlate100};
+        background: ${genericTokens.sagedsColorsSlate100};
         color: ${theme.sagedsColorsTextBlack30};
       }
     `
@@ -87,11 +103,11 @@ export default (theme, isDisabled, destructive) => ({
       ${
         isDisabled
           ? `
-        border-color: ${theme.sagedsGenericColorsSlate100};
+        border-color: ${genericTokens.sagedsColorsSlate100};
         color: ${theme.sagedsColorsTextBlack30};
         &:hover {
           background: transparent
-          border-color: ${theme.sagedsGenericColorsSlate100};
+          border-color: ${genericTokens.sagedsColorsSlate100};
           ${makeColors(theme.sagedsColorsTextBlack30)}
         }
     `
@@ -130,11 +146,11 @@ export default (theme, isDisabled, destructive) => ({
   `,
   dashed: `
     background: transparent;
-    border: 2px solid ${theme.sagedsGenericColorsSlate100} // find color
+    border: 2px solid ${genericTokens.sagedsColorsSlate100} // find color
     border-style: dashed;
     color: ${theme.sagedsColorsTextBlack90};
     &:hover {
-      background-color: ${theme.sagedsGenericColorsSlate200}
+      background-color: ${genericTokens.sagedsColorsSlate200}
     }
 
     ${
@@ -151,7 +167,7 @@ export default (theme, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      border-color: ${theme.sagedsGenericColorsSlate100};
+      border-color: ${genericTokens.sagedsColorsSlate100};
       color: ${theme.sagedsColorsTextBlack30};
       &:hover {
         background-color: transparent;
@@ -173,10 +189,10 @@ export default (theme, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      background: ${theme.sagedsGenericColorsSlate100};
+      background: ${genericTokens.sagedsColorsSlate100};
       color: ${theme.sagedsColorsTextBlack30};
       &:hover {
-        background: ${theme.sagedsGenericColorsSlate100};
+        background: ${genericTokens.sagedsColorsSlate100};
         ${makeColors(theme.sagedsColorsTextBlack30)}
       }
     `

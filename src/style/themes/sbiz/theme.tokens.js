@@ -1,11 +1,8 @@
 // mocked tokens
-// Eventually this will be imported from @sage/design-tokens library.
-
-import genericTokens from "./generic.tokens";
+// Eventually this file will be imported from @sage/design-tokens library.
 import baseTokens from "./base.tokens";
 
 export default {
-  ...genericTokens,
   ...baseTokens,
 
   sagedsColorsBase400: "#00815D",

@@ -1,5 +1,5 @@
 // mocked tokens
-// Eventually this will be imported from @sage/design-tokens library.
+// Eventually this file will be imported from @sage/design-tokens library.
 
 export default {
   sagedsColorsTextBlack30: "rgba(0,0,0,0.3)",
