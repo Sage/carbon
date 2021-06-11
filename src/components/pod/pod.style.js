@@ -300,6 +300,7 @@ StyledTitle.defaultProps = {
 };
 StyledArrow.defaultProps = {
   theme: baseTheme,
+  type: "dropdown",
 };
 
 export {

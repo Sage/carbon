@@ -40,7 +40,7 @@ export interface ButtonBaseProps extends SpaceProps {
   onChange?: (ev: React.ChangeEvent<HTMLButtonElement>) => void;
   /** Specify a callback triggered on focus */
   onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
-  /** pecify a callback triggered on keuyDown */
+  /** Specify a callback triggered on keyDown */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: "small" | "medium" | "large";

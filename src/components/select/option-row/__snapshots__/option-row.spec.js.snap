@@ -18,12 +18,18 @@ exports[`OptionRow renders properly 1`] = `
   font-weight: 700;
 }
 
-<tr
-  className="c0"
-  data-component="option-row"
-  onClick={[Function]}
-  role="option"
->
-  bar
-</tr>
+<table>
+  <tbody>
+    <tr
+      className="c0"
+      data-component="option-row"
+      onClick={[Function]}
+      role="option"
+    >
+      <td>
+        foo
+      </td>
+    </tr>
+  </tbody>
+</table>
 `;

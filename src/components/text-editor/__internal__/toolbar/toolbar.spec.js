@@ -18,6 +18,11 @@ import StyledToolbarButton from "./toolbar-button/toolbar-button.style";
 import ToolbarButton from "./toolbar-button/toolbar-button.component";
 import Tooltip from "../../../tooltip";
 
+jest.mock("@tippyjs/react/headless", () => ({
+  __esModule: true,
+  default: ({ children }) => children,
+}));
+
 const setInlineStyle = jest.fn();
 const setBlockStyle = jest.fn();
 
@@ -242,6 +247,7 @@ describe("Toolbar", () => {
     beforeEach(() => {
       wrapper = render({});
     });
+
     it.each([0, 1, 2, 3])(
       "shows when the style control at position %s on mouse enter and hides on leave",
       (i) => {
