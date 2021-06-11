@@ -9,24 +9,24 @@ export function makeColors(color) {
   `;
 }
 
-export default ({ colors, disabled }, isDisabled, destructive) => ({
+export default (theme, isDisabled, destructive) => ({
   primary: `
-    background: ${colors.primary};
+    background: ${theme.sagedsColorsBase400};
     border-color: transparent;
-    color: ${colors.white};
+    color: ${theme.sagedsColorsTextWhite};
     &:hover {
-      background: ${colors.secondary};
+      background: ${theme.sagedsColorsBase500};
     }
 
     ${
       isDisabled
         ? `
-    background: ${disabled.button};
-    color: ${disabled.text};
+    background: ${theme.sagedsGenericColorsSlate100};
+    color: ${theme.sagedsColorsTextBlack30};
     &:hover {
-      background: ${disabled.button};
-      border-color: ${disabled.button};
-      color: ${disabled.text};
+      background: ${theme.sagedsGenericColorsSlate100};
+      border-color: ${theme.sagedsGenericColorsSlate100};
+      color: ${theme.sagedsColorsTextBlack30};
     }
   `
         : ""
@@ -34,21 +34,21 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
 
     ${
       destructive
-        ? `background: ${colors.error};
+        ? `background: ${theme.sagedsColorsSemanticNegative};
     border-color: transparent;
-    color: ${colors.white};
+    color: ${theme.sagedsColorsTextWhite};
     &:hover {
-      background: ${colors.destructive.hover};
+      background: ${theme.sagedsColorsSupportingNegative};
     }
 
     ${
       isDisabled
         ? `
-      background: ${disabled.button};
-      color: ${disabled.text};
+      background: ${theme.sagedsGenericColorsSlate100};
+      color: ${theme.sagedsColorsTextBlack30};
       &:hover {
-        background: ${disabled.button};
-        color: ${disabled.text};
+        background: ${theme.sagedsGenericColorsSlate100};
+        color: ${theme.sagedsColorsTextBlack30};
       }
     `
         : ""
@@ -58,27 +58,27 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   `,
   secondary: `
       background: transparent;
-      border-color: ${colors.primary};
-      color: ${colors.primary};
+      border-color: ${theme.sagedsColorsBase400};
+      color: ${theme.sagedsColorsBase400};
       &:hover {
-        background: ${colors.secondary};
-        border-color: ${colors.secondary};
-       ${makeColors(colors.white)}
+        background: ${theme.sagedsColorsBase500};
+        border-color: ${theme.sagedsColorsBase500};
+       ${makeColors(theme.sagedsColorsTextWhite)}
       }
 
       ${
         destructive
           ? `
-        border-color: ${colors.error};
-        ${makeColors(colors.error)}
+        border-color: ${theme.sagedsColorsSemanticNegative};
+        ${makeColors(theme.sagedsColorsSemanticNegative)}
         &:focus {
-          ${makeColors(colors.white)}
-          background: ${colors.destructive.hover};
+          ${makeColors(theme.sagedsColorsTextWhite)}
+          background: ${theme.sagedsColorsSupportingNegative};
         }
         &:hover {
-          ${makeColors(colors.white)}
-          border-color: ${colors.destructive.hover};
-          background: ${colors.destructive.hover};
+          ${makeColors(theme.sagedsColorsTextWhite)}
+          border-color: ${theme.sagedsColorsSupportingNegative};
+          background: ${theme.sagedsColorsSupportingNegative};
         }
       `
           : ""
@@ -87,12 +87,12 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       ${
         isDisabled
           ? `
-        border-color: ${disabled.button};
-        color: ${disabled.text};
+        border-color: ${theme.sagedsGenericColorsSlate100};
+        color: ${theme.sagedsColorsTextBlack30};
         &:hover {
           background: transparent
-          border-color: ${disabled.button};
-          ${makeColors(disabled.text)}
+          border-color: ${theme.sagedsGenericColorsSlate100};
+          ${makeColors(theme.sagedsColorsTextBlack30)}
         }
     `
           : ""
@@ -101,17 +101,17 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   tertiary: `
     background: transparent;
     border-color: transparent;
-    color: ${colors.primary};
+    color: ${theme.sagedsColorsBase400};
     &:hover {
-      ${makeColors(colors.secondary)}
+      ${makeColors(theme.sagedsColorsBase500)}
     }
 
     ${
       destructive
         ? `
-      ${makeColors(colors.error)}
+      ${makeColors(theme.sagedsColorsSemanticNegative)}
       &:hover {
-        ${makeColors(colors.destructive.hover)}
+        ${makeColors(theme.sagedsColorsSupportingNegative)}
       }
       `
         : ""
@@ -120,9 +120,9 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      color: ${disabled.text};
+      color: ${theme.sagedsColorsTextBlack30};
       &:hover {
-        ${makeColors(disabled.text)}
+        ${makeColors(theme.sagedsColorsTextBlack30)}
       }
     `
         : ""
@@ -130,19 +130,19 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   `,
   dashed: `
     background: transparent;
-    border: 2px solid ${colors.dashedBorder}
+    border: 2px solid ${theme.sagedsGenericColorsSlate100} // find color
     border-style: dashed;
-    color: ${colors.dashedButtonText};
+    color: ${theme.sagedsColorsTextBlack90};
     &:hover {
-      background-color: ${colors.dashedHoverBackground}
+      background-color: ${theme.sagedsGenericColorsSlate200}
     }
 
     ${
       destructive
         ? `
-      ${makeColors(colors.error)}
+      ${makeColors(theme.sagedsColorsSemanticNegative)}
       &:hover {
-        ${makeColors(colors.destructive.hover)}
+        ${makeColors(theme.sagedsColorsSupportingNegative)}
       }
       `
         : ""
@@ -151,33 +151,33 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      border-color: ${disabled.button};
-      color: ${disabled.text};
+      border-color: ${theme.sagedsGenericColorsSlate100};
+      color: ${theme.sagedsColorsTextBlack30};
       &:hover {
         background-color: transparent;
-        ${makeColors(disabled.text)}
+        ${makeColors(theme.sagedsColorsTextBlack30)}
       }
     `
         : ""
     }
   `,
   darkBackground: `
-    background: ${colors.white};
+    background: ${theme.sagedsColorsTextWhite};
     border-color: transparent;
-    color: ${colors.primary};
+    color: ${theme.sagedsColorsBase400};
     &:hover {
-      background: ${colors.secondary};
-      ${makeColors(colors.white)}
+      background: ${theme.sagedsColorsBase500};
+      ${makeColors(theme.sagedsColorsTextWhite)}
     }
 
     ${
       isDisabled
         ? `
-      background: ${disabled.button};
-      color: ${disabled.text};
+      background: ${theme.sagedsGenericColorsSlate100};
+      color: ${theme.sagedsColorsTextBlack30};
       &:hover {
-        background: ${disabled.button};
-        ${makeColors(disabled.text)}
+        background: ${theme.sagedsGenericColorsSlate100};
+        ${makeColors(theme.sagedsColorsTextBlack30)}
       }
     `
         : ""
