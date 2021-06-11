@@ -1,13 +1,13 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { mintTheme, aegeanTheme, noTheme } from "../../src/style/themes";
+import { mintTheme, aegeanTheme, noTheme, sbiz } from "../../src/style/themes";
 import addons, { makeDecorator } from "@storybook/addons";
 
 export const ADDON_ID = "carbon/theme-selector";
 export const PARAMS_EVENT = `${ADDON_ID}/params`;
 const LOCAL_STORAGE_KEY = `${ADDON_ID}/theme`;
 
-export const modernThemes = [mintTheme, aegeanTheme, noTheme].reduce(
+export const modernThemes = [mintTheme, aegeanTheme, noTheme, sbiz].reduce(
   (themesObject, theme) => {
     themesObject[theme.name] = theme;
     return themesObject;
