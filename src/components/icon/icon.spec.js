@@ -16,7 +16,7 @@ import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
   isSafari,
 } from "../../utils/helpers/browser-type-check";
-import { toColor } from "../../style/utils/color.js";
+import styledColor from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/browser-type-check");
@@ -132,6 +132,7 @@ describe("Icon component", () => {
 
   describe("custom colors", () => {
     const correctColors = [
+      "primary",
       "red",
       "slateShade50",
       "rgb(0,123,100)",
@@ -141,9 +142,14 @@ describe("Icon component", () => {
     describe.each(correctColors)("when color prop is provided", (color) => {
       it("takes precedence over iconColor and renders properly colored Icon", () => {
         const wrapper = mount(<Icon type="home" color={color} />);
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
+
         assertStyleMatch(
           {
-            color: toColor(baseTheme, color),
+            color: renderedColor,
           },
           wrapper.find(StyledIcon)
         );
@@ -151,9 +157,13 @@ describe("Icon component", () => {
 
       it("renders properly colored Icon when hovered", () => {
         const wrapper = mount(<Icon color={color} type="message" />);
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
         expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
           "color",
-          shade(0.2, toColor(baseTheme, color)),
+          shade(0.2, renderedColor),
           { modifier: ":hover" }
         );
       });
@@ -167,16 +177,19 @@ describe("Icon component", () => {
             tooltipMessage="tooltip message"
           />
         );
-
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
         assertStyleMatch(
           {
-            color: toColor(baseTheme, color),
+            color: renderedColor,
           },
           wrapper.find(StyledIcon)
         );
         assertStyleMatch(
           {
-            backgroundColor: toColor(baseTheme, color),
+            backgroundColor: renderedColor,
           },
           wrapper.find(StyledIcon)
         );
@@ -191,17 +204,14 @@ describe("Icon component", () => {
             tooltipMessage="tooltip message"
           />
         );
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
 
         assertStyleMatch(
           {
-            color: shade(0.2, toColor(baseTheme, color)),
-          },
-          wrapper.find(StyledIcon),
-          { modifier: ":hover" }
-        );
-        assertStyleMatch(
-          {
-            backgroundColor: shade(0.2, toColor(baseTheme, color)),
+            color: shade(0.2, renderedColor),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }
@@ -211,19 +221,33 @@ describe("Icon component", () => {
     describe.each(correctColors)("when bg prop is provided", (color) => {
       it("takes precedence over bgTheme and renders properly colored Icon", () => {
         const wrapper = mount(<Icon bg={color} type="message" />);
+        const { backgroundColor } = styledColor({
+          theme: baseTheme,
+          bg: color,
+        });
+
         assertStyleMatch(
           {
-            backgroundColor: toColor(baseTheme, color),
+            backgroundColor,
           },
           wrapper.find(StyledIcon)
         );
       });
 
       it("renders properly colored Icon when hovered", () => {
-        const wrapper = mount(<Icon bg={color} type="message" />);
-        expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
-          "background-color",
-          shade(0.2, toColor(baseTheme, color)),
+        const wrapper = mount(
+          <Icon bg={color} type="message" tooltipMessage="test" />
+        );
+        const { backgroundColor } = styledColor({
+          theme: baseTheme,
+          bg: color,
+        });
+
+        assertStyleMatch(
+          {
+            backgroundColor: shade(0.2, backgroundColor),
+          },
+          wrapper.find(StyledIcon),
           { modifier: ":hover" }
         );
       });
