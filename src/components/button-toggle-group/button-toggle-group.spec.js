@@ -16,8 +16,8 @@ import ValidationIcon from "../../__internal__/validations";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
-import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
-import FormField from "../../__experimental__/components/form-field";
+import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import FormField from "../../__internal__/form-field";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");

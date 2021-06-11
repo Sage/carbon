@@ -10,7 +10,7 @@ import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
-import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
 

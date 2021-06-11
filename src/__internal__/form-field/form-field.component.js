@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import Label from "../../../__internal__/label";
-import FieldHelp from "../../../__internal__/field-help";
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import tagComponent from "../../../utils/helpers/tags";
-import { TabContext } from "../../../components/tabs/tab";
-import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
+import Label from "../label";
+import FieldHelp from "../field-help";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import tagComponent from "../../utils/helpers/tags";
+import { TabContext } from "../../components/tabs/tab";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
 const FormField = ({
   children,
@@ -38,7 +38,7 @@ const FormField = ({
   useValidationIcon,
   adaptiveLabelBreakpoint,
   isRequired,
-  ...props
+  ...rest
 }) => {
   const context = useContext(TabContext);
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -100,15 +100,15 @@ const FormField = ({
     "py",
     "paddingBottom",
   ].reduce((prev, curr) => {
-    if (Object.prototype.hasOwnProperty.call(props, curr)) {
-      prev[curr] = props[curr];
+    if (Object.prototype.hasOwnProperty.call(rest, curr)) {
+      prev[curr] = rest[curr];
     }
     return prev;
   }, {});
 
   return (
     <FormFieldStyle
-      {...tagComponent(props["data-component"], props)}
+      {...tagComponent(rest["data-component"], rest)}
       {...spacingProps}
     >
       <FieldLineStyle inline={inlineLabel}>

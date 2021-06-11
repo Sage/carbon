@@ -7,7 +7,7 @@ import StyledInput from "../../__internal__/input/input.style";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import { baseTheme } from "../../style/themes";
-import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 const StyledSearch = styled.div`
   ${({

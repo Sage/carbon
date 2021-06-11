@@ -7,7 +7,7 @@ import { StyledCheckableInput } from "../../../__internal__/checkable-input/chec
 import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { StyledLabelContainer } from "../../../__internal__/label/label.style";
 import baseTheme from "../../../style/themes/base";
-import FormFieldStyle from "../form-field/form-field.style";
+import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
 
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({ disabled, fieldHelpInline, reverse, size, theme, inline }) => css`

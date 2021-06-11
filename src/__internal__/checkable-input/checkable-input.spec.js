@@ -6,7 +6,7 @@ import { css } from "styled-components";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";
 import FieldHelpStyle from "../field-help/field-help.style";
-import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
+import { FieldLineStyle } from "../form-field/form-field.style";
 import Label from "../label";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, { StyledLabelContainer } from "../label/label.style";

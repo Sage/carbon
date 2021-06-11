@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
 
-import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
+import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";

@@ -7,12 +7,12 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import FormField from "../../__experimental__/components/form-field";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
+import FormField from "../../__internal__/form-field";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../../__internal__/label";
-import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
+import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
 

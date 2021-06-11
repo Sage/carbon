@@ -10,7 +10,7 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import Textbox from "../textbox";
 import guid from "../../utils/helpers/guid";
-import FormField from "../../__experimental__/components/form-field";
+import FormField from "../../__internal__/form-field";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 
 const marginPropTypes = filterStyledSystemMarginProps(

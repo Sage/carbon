@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { space } from "styled-system";
-import BaseTheme from "../../../style/themes/base";
+import BaseTheme from "../../style/themes/base";
 
 const FormFieldStyle = styled.div`
   & + & {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
-import { ValidationPropTypes } from "../../../__internal__/validations";
+import { ValidationPropTypes } from "../validations";
 
 export type FormFieldSize = "small" | "medium" | "large";
 
