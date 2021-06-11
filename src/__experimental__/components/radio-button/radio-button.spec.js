@@ -25,7 +25,7 @@ function render(props = {}, theme = mintTheme, renderer = mount) {
   };
   return renderer(
     <ThemeProvider theme={theme}>
-      <RadioButtonGroup {...groupProps}>
+      <RadioButtonGroup name="my-radio-group" {...groupProps}>
         <RadioButton name="my-radio" value="test" {...buttonProps} />
       </RadioButtonGroup>
     </ThemeProvider>

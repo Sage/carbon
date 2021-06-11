@@ -11,6 +11,7 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
+  expectError,
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
@@ -158,6 +159,17 @@ describe("Button", () => {
         },
         wrapper
       );
+    });
+  });
+
+  describe("when there are no iconType or children passed", () => {
+    it("throws an error", () => {
+      const errorMessage =
+        "Warning: Failed prop type: Either prop `iconType` must be defined or this node must have children.";
+      const assert = expectError(errorMessage);
+
+      render({}, mount);
+      assert();
     });
   });
 

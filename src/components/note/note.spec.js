@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 import { EditorState } from "draft-js";
 import Note from "./note.component";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 import {
   StyledNoteContent,
   StyledInlineControl,
@@ -11,12 +11,12 @@ import {
   StyledFooter,
   StyledFooterContent,
 } from "./note.style";
-import { ActionPopover, ActionPopoverItem } from "../../action-popover";
-import StyledStatusIconWrapper from "./status-with-tooltip/status.style";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
+import StyledStatusIconWrapper from "./__internal__/status-with-tooltip/status.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/test-utils";
 
 function render(props = {}) {
   const defaultProps = {
