@@ -64,6 +64,7 @@ const Accordion = React.forwardRef(
 
     const observer = useRef(
       new ResizeObserver(() => {
+        /* istanbul ignore else */
         if (accordionContent.current) {
           setContentHeight(accordionContent.current.scrollHeight);
         }
@@ -73,7 +74,7 @@ const Accordion = React.forwardRef(
     useEffect(() => {
       const observerRef = observer.current;
       const referenceRef = accordionContent.current;
-      observer.current.observe(referenceRef);
+      observerRef.observe(referenceRef);
 
       return () => {
         observerRef.unobserve(referenceRef);
