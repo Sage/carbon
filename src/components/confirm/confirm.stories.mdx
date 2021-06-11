@@ -6,7 +6,7 @@ import Button from '../button';
 
 <Meta
   title="Confirm"
-  parameters={{ info: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
 />
 
 # Confirm
@@ -47,7 +47,7 @@ A good example could be confirming deletion of a large number of records.
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{ chromatic: { disable: true }}}>
+  <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -56,6 +56,7 @@ A good example could be confirming deletion of a large number of records.
             Open Confirm
           </Button>
           <Confirm
+            cancelButtonDestructive
             title="Are you sure?"
             subtitle="Subtitle"
             open={ isOpen }
@@ -74,7 +75,7 @@ A good example could be confirming deletion of a large number of records.
 ### Single action
 
 <Preview>
-  <Story name="single action" parameters={{ chromatic: { disable: true }}}>
+  <Story name="single action">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -100,7 +101,7 @@ A good example could be confirming deletion of a large number of records.
 ### Destructive buttons
 
 <Preview>
-  <Story name="destructive" parameters={{ chromatic: { disable: true }}}>
+  <Story name="destructive">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -125,10 +126,10 @@ A good example could be confirming deletion of a large number of records.
   </Story>
 </Preview>
 
-### Disable confirm button
+### Destructive cancel button
 
 <Preview>
-  <Story name="disableConfirm" parameters={{ chromatic: { disable: true }}}>
+  <Story name="cancelButtonDestructive">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -139,7 +140,62 @@ A good example could be confirming deletion of a large number of records.
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
-            destructive
+            cancelButtonDestructive
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Destructive confirm button
+
+<Preview>
+  <Story name="confirmButtonDestructive">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            confirmButtonDestructive
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disable confirm button
+
+<Preview>
+  <Story name="disableConfirm">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            confirmButtonDestructive
+            cancelButtonDestructive
             disableConfirm
             open={ isOpen }
             onConfirm={ () => setIsOpen(false) }
@@ -156,7 +212,7 @@ A good example could be confirming deletion of a large number of records.
 ### Disable cancel button
 
 <Preview>
-  <Story name="disableCancel" parameters={{ chromatic: { disable: true }}}>
+  <Story name="disableCancel">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -185,7 +241,7 @@ A good example could be confirming deletion of a large number of records.
 Allows to set variant which is supported in `<Button />` and it will be applied to the `cancel` button
 
 <Preview>
-  <Story name="cancelButtonType" parameters={{ chromatic: { disable: true }}}>
+  <Story name="cancelButtonType">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -209,10 +265,67 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
   </Story>
 </Preview>
 
+### Change confirm button type
+Allows to set variant which is supported in `<Button />` and it will be applied to the `confirm` button
+
+<Preview>
+  <Story name="confirmButtonType">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            confirmButtonType="tertiary"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Change buttons icons
+
+<Preview>
+  <Story name="buttonsIcons">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(!isOpen) }>
+            Open Confirm
+          </Button>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            confirmButtonIconType="save"
+            confirmButtonIconPosition="after"
+            cancelButtonIconType="bin"
+            open={ isOpen }
+            onConfirm={ () => setIsOpen(false) }
+            onCancel={ () => setIsOpen(false) }
+          >
+            Content
+          </Confirm>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Confirm button loading
 
 <Preview>
-  <Story name="isLoadingConfirm" parameters={{ chromatic: { disable: true }}}>
+  <Story name="isLoadingConfirm">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
