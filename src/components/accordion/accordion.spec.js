@@ -230,8 +230,29 @@ describe("Accordion", () => {
       isCollapsed(wrapper);
     });
 
-    describe("when window resizes", () => {
+    describe("resize observer", () => {
+      const NativeResizeObserver = window.ResizeObserver;
+      let callbackMock;
+      const observeMock = jest.fn();
+      const unobserveMock = jest.fn();
+      const disconnectMock = jest.fn();
+
       beforeEach(() => {
+        window.ResizeObserver = function (callback) {
+          callbackMock = callback;
+          return {
+            observe: (element) => {
+              observeMock(element);
+            },
+            unobserve: (element) => {
+              unobserveMock(element);
+            },
+            disconnect: () => {
+              disconnectMock();
+            },
+          };
+        };
+
         wrapper = mount(
           <AccordionGroup>
             <Accordion title="Title_1" defaultExpanded>
@@ -239,6 +260,27 @@ describe("Accordion", () => {
             </Accordion>
           </AccordionGroup>
         );
+      });
+
+      afterEach(() => {
+        window.ResizeObserver = NativeResizeObserver;
+      });
+
+      it("observes element on mount", () => {
+        act(() => render({ expanded: true }));
+        expect(observeMock).toHaveBeenCalledWith(
+          wrapper.find(StyledAccordionContent).getDOMNode()
+        );
+      });
+
+      it("unobserves element and disconnects on unmount", () => {
+        act(() => render({ expanded: true }));
+        const accordionContentRef = wrapper
+          .find(StyledAccordionContent)
+          .getDOMNode();
+        wrapper.unmount();
+        expect(unobserveMock).toHaveBeenCalledWith(accordionContentRef);
+        expect(disconnectMock).toHaveBeenCalled();
       });
 
       it("recalculates the content height", () => {
@@ -262,11 +304,12 @@ describe("Accordion", () => {
             "get"
           )
           .mockImplementation(() => newContentHeight);
+
         act(() => {
           global.innerWidth = 500;
           global.innerHeight = 500;
 
-          global.dispatchEvent(new Event("resize"));
+          callbackMock();
         });
         wrapper.update();
 
@@ -276,10 +319,6 @@ describe("Accordion", () => {
           },
           wrapper.find(StyledAccordionContentContainer)
         );
-      });
-
-      afterEach(() => {
-        wrapper.unmount();
       });
     });
   });
