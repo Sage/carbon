@@ -1,3 +1,11 @@
+### [76.5.6](https://github.com/Sage/carbon/compare/v76.5.5...v76.5.6) (2021-06-14)
+
+
+### Bug Fixes
+
+* **accordion:** fix unit test coverage ([00e8e26](https://github.com/Sage/carbon/commit/00e8e26a29f18d2b5048cb7d943ba578e9b5e8dc))
+* **accordion:** resize accordion when children resize ([f27ebc7](https://github.com/Sage/carbon/commit/f27ebc76f9f525ac6ba596f7abe9ccd048fba7fa))
+
 ### [76.5.5](https://github.com/Sage/carbon/compare/v76.5.4...v76.5.5) (2021-06-14)
 
 
