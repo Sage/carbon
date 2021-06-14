@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../../../__internal__/validations";
+import { ValidationPropTypes } from "../../__internal__/validations";
 
 export interface RadioButtonGroupProps
   extends ValidationPropTypes,

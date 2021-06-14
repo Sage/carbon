@@ -11,7 +11,7 @@ import Events from "../../../utils/helpers/events";
 import tagComponent from "../../../utils/helpers/tags/tags";
 import Fieldset from "../../../__internal__/fieldset";
 import SimpleColor from "./simple-color";
-import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../../../components/radio-button/radio-button-mapper.component";
 import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
 import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import { InputGroupContext } from "../../../__internal__/input-behaviour";
