@@ -1,9 +1,9 @@
-Feature: Experimental GroupedCharacter component
-  I want to check Experimental Grouped character component properties
+Feature: GroupedCharacter component
+  I want to check Grouped character component properties
 
   @positive
   Scenario Outline: Set groups to <nameOfObject> and verify input
-    Given I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Given I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
     When I put "<example>" example grouped character in no Iframe
     Then example grouped character is "<result>"
     Examples:
@@ -14,7 +14,7 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Set separator to <separator>
-    Given I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Given I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
     When I put "<text>" example grouped character in no Iframe
     Then example grouped character is "<result>"
     Examples:
@@ -31,7 +31,7 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Change fieldHelp text to <fieldHelp>
-    When I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    When I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -40,7 +40,7 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    When I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
       | label                        | nameOfObject          |
@@ -49,7 +49,7 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario Outline: Change labelHelp text to <labelHelp>
-    Given I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
+    Given I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
     When I hover mouse onto help icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -59,5 +59,5 @@ Feature: Experimental GroupedCharacter component
 
   @positive
   Scenario: Check icon inside of input is visible
-    When I open default "Experimental GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "experimental" using "inputIconAdd" object name
+    When I open default "GroupedCharacter Test" component in noIFrame with "groupedCharacter" json from "commonComponents" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"

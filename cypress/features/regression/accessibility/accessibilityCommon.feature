@@ -16,6 +16,7 @@ Feature: Accessibility tests - Common list
       | Configurable-items  |
       | Detail              |
       | Dialog              |
+      | GroupedCharacter    |
       | Heading             |
       | Help                |
       | Icon                |
@@ -60,21 +61,24 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page "validations boolean" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component    |
-      | Number-Input |
+      | component        |
+      | GroupedCharacter |
+      | Number-Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string story page
     When I open "<component>" component page "validations string component" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component    |
-      | Number-Input |
+      | component        |
+      | GroupedCharacter |
+      | Number-Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story page
     When I open "<component>" component page "validations string label" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component    |
-      | Number-Input |
+      | component        |
+      | GroupedCharacter |
+      | Number-Input     |
