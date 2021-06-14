@@ -1,3 +1,24 @@
+### [76.5.5](https://github.com/Sage/carbon/compare/v76.5.4...v76.5.5) (2021-06-14)
+
+
+### Bug Fixes
+
+* **search:** remove the onClick prop from the input ([b767581](https://github.com/Sage/carbon/commit/b7675817c320770c8dc2785770106cf0bebfcf7a))
+
+### [76.5.4](https://github.com/Sage/carbon/compare/v76.5.3...v76.5.4) (2021-06-11)
+
+
+### Bug Fixes
+
+* **icon:** implement color values from theme correctly ([9a60fb9](https://github.com/Sage/carbon/commit/9a60fb9f8f80f028872cfef9fbca86c87f29f5b8))
+
+### [76.5.3](https://github.com/Sage/carbon/compare/v76.5.2...v76.5.3) (2021-06-11)
+
+
+### Bug Fixes
+
+* **radio-button:** allow ref forwarding to allow access to the underlying input ([e241985](https://github.com/Sage/carbon/commit/e2419850832c7be7337e5156c5716cbfe199c199))
+
 ### [76.5.2](https://github.com/Sage/carbon/compare/v76.5.1...v76.5.2) (2021-06-10)
 
 
