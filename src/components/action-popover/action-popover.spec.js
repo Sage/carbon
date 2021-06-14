@@ -20,6 +20,7 @@ import {
 import {
   MenuButton,
   Menu,
+  MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
 } from "./action-popover.style";
@@ -1308,6 +1309,40 @@ describe("ActionPopover", () => {
         },
         menuButton,
         { modifier: `${StyledButton}:focus ` }
+      );
+    });
+  });
+
+  describe("when the horizontalAlignment prop is set to right", () => {
+    beforeEach(() => {
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover horizontalAlignment="right">
+            <ActionPopoverItem key="1" href="#" icon="download">
+              test download
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
+    });
+
+    it("then menu item content should be right aligned", () => {
+      openMenu();
+      assertStyleMatch(
+        {
+          justifyContent: "flex-end",
+        },
+        wrapper.find(ActionPopoverItem)
+      );
+    });
+
+    it("then menu item icon should have correct left padding", () => {
+      openMenu();
+      assertStyleMatch(
+        {
+          paddingLeft: "8px",
+        },
+        wrapper.find(MenuItemIcon)
       );
     });
   });
