@@ -14,7 +14,7 @@ import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__internal__/label";
-import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
+import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 
 const StyledInput = styled.input`
   background: transparent;

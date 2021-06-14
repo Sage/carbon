@@ -1,10 +1,7 @@
 import React, { useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import StyledInput from "./input.style";
-import {
-  InputContext,
-  InputGroupContext,
-} from "../../../__internal__/input-behaviour";
+import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const Input = React.forwardRef(
   (
@@ -93,7 +90,8 @@ const Input = React.forwardRef(
 Input.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
-  inputRef: PropTypes.func, // a callback to retrieve the input reference
+  /** A callback to retrieve the input reference */
+  inputRef: PropTypes.func,
   name: PropTypes.string,
   onBlur: PropTypes.func,
   onClick: PropTypes.func,

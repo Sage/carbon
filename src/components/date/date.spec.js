@@ -14,7 +14,7 @@ import StyledDateInput from "./date.style";
 import DateHelper from "../../utils/helpers/date/date";
 import { isEdge } from "../../utils/helpers/browser-type-check";
 import Label from "../../__internal__/label";
-import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();

@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
+import baseTheme from "../../style/themes/base";
+import OptionsHelper from "../../utils/helpers/options-helper";
 import sizes from "./input-sizes.style";
 import StyledInput from "./input.style";
-import StyledInlineInputs from "../../../components/inline-inputs/inline-inputs.style";
+import StyledInlineInputs from "../../components/inline-inputs/inline-inputs.style";
 
 export const StyledInputPresentationContainer = styled.div`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;

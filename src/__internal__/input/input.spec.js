@@ -4,10 +4,10 @@ import TestRenderer from "react-test-renderer";
 import { Input } from ".";
 import StyledInput from "./input.style";
 
-import { InputContext } from "../../../__internal__/input-behaviour";
+import { InputContext } from "../input-behaviour";
 
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import baseTheme from "../../../style/themes/base";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import baseTheme from "../../style/themes/base";
 
 describe("Input", () => {
   let container;
@@ -46,24 +46,24 @@ describe("Input", () => {
   });
 
   it("aligns the text as per the align prop", () => {
-    const wrapper = TestRenderer.create(<Input align="right" />);
+    const wrapper = mount(<Input align="right" />);
 
     assertStyleMatch(
       {
         textAlign: "right",
       },
-      wrapper.toJSON()
+      wrapper
     );
   });
 
   it("renders the text with proper color when readOnly", () => {
-    const wrapper = TestRenderer.create(<Input readOnly />);
+    const wrapper = mount(<Input readOnly />);
 
     assertStyleMatch(
       {
         color: baseTheme.readOnly.textboxText,
       },
-      wrapper.toJSON()
+      wrapper
     );
   });
 

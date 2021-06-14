@@ -9,7 +9,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import StyledInputPresentation from "../../__experimental__/components/input/input-presentation.style";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
 import FormField from "../../__experimental__/components/form-field";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";

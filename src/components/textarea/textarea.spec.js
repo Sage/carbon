@@ -8,8 +8,8 @@ import {
 import CharacterCount from "./character-count";
 import Textarea from ".";
 import baseTheme from "../../style/themes/base";
-import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
-import { Input } from "../../__experimental__/components/input";
+import InputPresentation from "../../__internal__/input/input-presentation.component";
+import { Input } from "../../__internal__/input";
 import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import guid from "../../utils/helpers/guid";

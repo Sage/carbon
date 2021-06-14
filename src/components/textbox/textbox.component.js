@@ -6,10 +6,7 @@ import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
-import {
-  Input,
-  InputPresentation,
-} from "../../__experimental__/components/input";
+import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__experimental__/components/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";

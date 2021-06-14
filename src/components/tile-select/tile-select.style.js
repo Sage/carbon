@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import Fieldset from "../fieldset";
-import { Input } from "../../__experimental__/components/input";
+import { Input } from "../../__internal__/input";
 import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
