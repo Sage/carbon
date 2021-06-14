@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
-import { ValidationPropTypes } from "../validations";
+import { ValidationPropTypes } from "../../__internal__/validations";
 import { FormFieldSize } from "../../__experimental__/components/form-field/form-field";
 
 export interface CommonTextboxProps extends ValidationPropTypes {

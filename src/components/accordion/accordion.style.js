@@ -3,7 +3,7 @@ import { space, margin } from "styled-system";
 
 import Icon from "../icon";
 import { baseTheme } from "../../style/themes";
-import ValidationIconStyle from "../validations/validation-icon.style";
+import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 
 const StyledAccordionGroup = styled.div`
   ${margin};

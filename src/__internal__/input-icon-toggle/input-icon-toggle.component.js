@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Icon from "../../components/icon";
 import InputIconToggleStyle from "./input-icon-toggle.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
-import ValidationIcon from "../../components/validations/validation-icon.component";
+import ValidationIcon from "../validations/validation-icon.component";
 
 const shouldDisplayValidationIcon = ({ error, warning, info }) => {
   const validation = error || warning || info || null;

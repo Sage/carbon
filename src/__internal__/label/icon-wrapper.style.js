@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ValidationIconStyle from "../../components/validations/validation-icon.style";
+import ValidationIconStyle from "../validations/validation-icon.style";
 import StyledHelp from "../../components/help/help.style";
 import baseTheme from "../../style/themes/base";
 

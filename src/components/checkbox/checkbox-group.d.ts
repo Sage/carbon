@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../../../components/validations";
+import { ValidationPropTypes } from "../../__internal__/validations";
 
 interface CheckboxGroupProps extends ValidationPropTypes, MarginProps {
   /** The content for the CheckboxGroup Legend */

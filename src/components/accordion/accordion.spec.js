@@ -22,8 +22,8 @@ import {
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
 import AccordionGroup from "./accordion-group.component";
-import ValidationIcon from "../validations";
-import StyledValidationIcon from "../validations/validation-icon.style";
+import ValidationIcon from "../../__internal__/validations";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 
 const contentHeight = 200;
 

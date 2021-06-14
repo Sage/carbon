@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import StyledValidationicon from "../../../components/validations/validation-icon.style";
+import StyledValidationicon from "../../../__internal__/validations/validation-icon.style";
 import baseTheme from "../../../style/themes/base";
 
 const BORDER_WIDTH = 2;

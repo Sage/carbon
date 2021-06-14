@@ -8,7 +8,7 @@ import Label from ".";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
-import ValidationIcon from "../../components/validations/validation-icon.component";
+import ValidationIcon from "../validations/validation-icon.component";
 import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import IconWrapperStyle from "./icon-wrapper.style";

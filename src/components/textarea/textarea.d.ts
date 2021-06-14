@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 
-import { ValidationPropTypes } from "../validations";
+import { ValidationPropTypes } from "../../__internal__/validations";
 import { FormFieldSize } from "../../__experimental__/components/form-field/form-field";
 
 export interface TextareaProps extends ValidationPropTypes, MarginProps {

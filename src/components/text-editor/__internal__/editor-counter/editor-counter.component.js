@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { StyledCounterWrapper, StyledCounter } from "./editor-counter.style";
-import ValidationIcon from "../../../validations";
+import ValidationIcon from "../../../../__internal__/validations";
 
 const Counter = ({ count = 0, limit = 3000, error, warning, info }) => (
   <StyledCounterWrapper

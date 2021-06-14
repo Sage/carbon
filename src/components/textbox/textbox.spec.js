@@ -9,7 +9,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import FormField from "../../__experimental__/components/form-field";
 import InputPresentation from "../../__experimental__/components/input/input-presentation.component";
-import StyledValidationIcon from "../validations/validation-icon.style";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
