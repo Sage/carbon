@@ -1,12 +1,19 @@
 import { commonDataElementInputPreviewNoIframe } from "../../locators";
 
-When("I set Decimal input to the {word}", (input) => {
+When("I set Decimal input to the {string}", (input) => {
   commonDataElementInputPreviewNoIframe().clear().type(input).blur();
 });
 
-Then("Decimal Input is set to {word}", (input) => {
+Then("Decimal Input is set to {string}", (input) => {
   commonDataElementInputPreviewNoIframe()
-    .should("have.attr", "value", input)
+    .invoke("val")
+    .then(($el) => {
+      for (let number = 0; number < $el.length; number++) {
+        expect(
+          $el.replace(/(\s)|(&nbsp;)|(\u00a0)/g, " ").charCodeAt(number)
+        ).to.equals(input.charCodeAt(number));
+      }
+    })
     .wait(50);
 });
 
