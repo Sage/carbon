@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { filterStyledSystemMarginProps } from "../../../style/utils";
-import Textbox from "../../../components/textbox";
+import Textbox from "../textbox";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import { generateGroups, toSum } from "./grouped-character.utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(

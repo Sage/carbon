@@ -8,7 +8,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component           |
       | decimal-input       |
-      | groupedcharacter    |
       | simple-color-picker |
 
   @accessibility
@@ -18,7 +17,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component           |
       | decimal-input       |
-      | groupedcharacter    |
       | simple-color-picker |
 
   @accessibility
@@ -28,7 +26,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component           |
       | decimal-input       |
-      | groupedcharacter    |
       | simple-color-picker |
 
   @accessibility
@@ -38,7 +35,6 @@ Feature: Accessibility tests - Experimental folder
     Examples:
       | component           |
       | decimal-input       |
-      | groupedcharacter    |
       | simple-color-picker |
 
   @accessibility
