@@ -8,7 +8,7 @@ import {
 } from "../../style/utils";
 import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
-import FormField from "../../__experimental__/components/form-field";
+import FormField from "../../__internal__/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { InputBehaviour } from "../../__internal__/input-behaviour";

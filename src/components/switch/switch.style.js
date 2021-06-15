@@ -8,7 +8,7 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledSwitchSlider from "./__internal__/switch-slider.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
-import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
+import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 
 const StyledSwitch = styled.div`
   ${({

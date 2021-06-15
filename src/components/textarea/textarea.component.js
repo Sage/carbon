@@ -5,7 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import OptionsHelper from "../../utils/helpers/options-helper";
 import { InputPresentation } from "../../__internal__/input";
-import FormField from "../../__experimental__/components/form-field";
+import FormField from "../../__internal__/form-field";
 import CharacterCount from "./character-count";
 import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";

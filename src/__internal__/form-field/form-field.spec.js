@@ -1,12 +1,15 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
+
 import FormField from ".";
-import FieldHelp from "../../../__internal__/field-help";
+import FieldHelp from "../field-help";
 import { FieldLineStyle } from "./form-field.style";
-import Label from "../../../__internal__/label";
-import { TabContext } from "../../../components/tabs/tab";
-import { mockMatchMedia } from "../../../__spec_helper__/test-utils";
+import Label from "../label";
+import { TabContext } from "../../components/tabs/tab";
+import {
+  assertStyleMatch,
+  mockMatchMedia,
+} from "../../__spec_helper__/test-utils";
 
 const setError = jest.fn();
 const setWarning = jest.fn();
@@ -31,15 +34,17 @@ function renderWithContext(props) {
 }
 
 describe("FormField", () => {
-  describe("default", () => {
-    it("renders children with styling", () => {
-      expect(render({}, TestRenderer.create)).toMatchSnapshot();
-    });
-  });
-
   describe("with mb prop set", () => {
     it("should set the correct bottom margin", () => {
-      expect(render({ mb: 5 }, TestRenderer.create)).toMatchSnapshot();
+      const wrapper = render({ mb: 5 }, mount);
+
+      assertStyleMatch(
+        {
+          marginBottom: "40px",
+        },
+        wrapper,
+        { modifier: "&&&" }
+      );
     });
   });
 

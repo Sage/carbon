@@ -2,7 +2,7 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 import { ValidationPropTypes } from "../../__internal__/validations";
-import { FormFieldSize } from "../../__experimental__/components/form-field/form-field";
+import { FormFieldSize } from "../../__internal__/form-field/form-field";
 
 export interface TextareaProps extends ValidationPropTypes, MarginProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */

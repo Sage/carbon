@@ -7,7 +7,7 @@ import {
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
 import { InputBehaviour } from "../input-behaviour";
-import FormField from "../../__experimental__/components/form-field";
+import FormField from "../form-field";
 import HiddenCheckableInput from "./hidden-checkable-input.component";
 import guid from "../../utils/helpers/guid";
 
