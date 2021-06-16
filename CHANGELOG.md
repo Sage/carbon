@@ -1,3 +1,19 @@
+## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** The decimal component no longer uses `i18n-js` for decimal formatting,
+you should use the `locale` prop instead.
+* **decimal:** `formatDecimal` no longer supports the `round` option first introduced in v73.0.0
+
+closes FE-3500
+closes FE-4148
+
+### Features
+
+* **decimal:** add locale support ([7cec047](https://github.com/Sage/carbon/commit/7cec0471db24e5b0d3c6150be6ea71038e14ecae)), closes [#3559](https://github.com/Sage/carbon/issues/3559)
+
 ### [76.5.6](https://github.com/Sage/carbon/compare/v76.5.5...v76.5.6) (2021-06-14)
 
 
