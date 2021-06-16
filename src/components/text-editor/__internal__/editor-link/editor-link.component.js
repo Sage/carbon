@@ -25,6 +25,7 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
       target="_blank"
       rel="noopener noreferrer"
       tabbable={false}
+      type="LINK"
       {...rest}
     >
       {children}
