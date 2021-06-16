@@ -29,6 +29,8 @@ export interface DecimalProps extends CommonTextboxProps, MarginProps {
   required?: boolean;
   /** The value of the input if it's used as a controlled component */
   value?: string;
+  /** The locale string - default en */
+  locale?: string;
 }
 
 declare class Decimal extends React.Component<DecimalProps> {}

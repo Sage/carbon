@@ -32,12 +32,12 @@ Feature: Decimal input component
   @positive
   Scenario Outline: Check Decimal component input field will accept characters to <input>
     Given I open "Experimental Decimal Input Test" component page "default" in no iframe
-    When I set Decimal input to the <input>
-    Then Decimal Input is set to <input>
+    When I set Decimal input to the "<input>"
+    Then Decimal Input is set to "<input>"
     Examples:
-      | input                       |
-      | mpú¿¡üßä                    |
-      | !@#$%^*()_+=~[];:?{}&"'<>´^ |
+      | input                        |
+      | mpú¿¡üßä                     |
+      | !@#$%^*()_+=~[];:?{}&\"'<>´^ |
 
   @positive
   Scenario: Check Decimal component input field will accept white-space only
