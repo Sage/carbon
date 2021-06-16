@@ -16,12 +16,13 @@ import {
   StyledAccordionContainer,
   StyledAccordionSubTitle,
   StyledAccordionTitleContainer,
+  StyledAccordionTitle,
   StyledAccordionIcon,
   StyledAccordionContent,
   StyledAccordionContentContainer,
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
-import AccordionGroup from "./accordion-group.component";
+import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
 
@@ -94,6 +95,15 @@ describe("Accordion", () => {
       },
       wrapper.find(StyledAccordionContent)
     );
+  });
+
+  describe("when title prop is not a string", () => {
+    it("should not render inside of a StyledAccordionTitle", () => {
+      render({ title: <div id="customTitle">Title content</div> });
+
+      expect(wrapper.find(StyledAccordionTitle).exists()).toBe(false);
+      expect(wrapper.find("#customTitle").exists()).toBe(true);
+    });
   });
 
   describe(" with headerSpacing prop", () => {
@@ -220,8 +230,29 @@ describe("Accordion", () => {
       isCollapsed(wrapper);
     });
 
-    describe("when window resizes", () => {
+    describe("resize observer", () => {
+      const NativeResizeObserver = window.ResizeObserver;
+      let callbackMock;
+      const observeMock = jest.fn();
+      const unobserveMock = jest.fn();
+      const disconnectMock = jest.fn();
+
       beforeEach(() => {
+        window.ResizeObserver = function (callback) {
+          callbackMock = callback;
+          return {
+            observe: (element) => {
+              observeMock(element);
+            },
+            unobserve: (element) => {
+              unobserveMock(element);
+            },
+            disconnect: () => {
+              disconnectMock();
+            },
+          };
+        };
+
         wrapper = mount(
           <AccordionGroup>
             <Accordion title="Title_1" defaultExpanded>
@@ -229,6 +260,27 @@ describe("Accordion", () => {
             </Accordion>
           </AccordionGroup>
         );
+      });
+
+      afterEach(() => {
+        window.ResizeObserver = NativeResizeObserver;
+      });
+
+      it("observes element on mount", () => {
+        act(() => render({ expanded: true }));
+        expect(observeMock).toHaveBeenCalledWith(
+          wrapper.find(StyledAccordionContent).getDOMNode()
+        );
+      });
+
+      it("unobserves element and disconnects on unmount", () => {
+        act(() => render({ expanded: true }));
+        const accordionContentRef = wrapper
+          .find(StyledAccordionContent)
+          .getDOMNode();
+        wrapper.unmount();
+        expect(unobserveMock).toHaveBeenCalledWith(accordionContentRef);
+        expect(disconnectMock).toHaveBeenCalled();
       });
 
       it("recalculates the content height", () => {
@@ -252,11 +304,12 @@ describe("Accordion", () => {
             "get"
           )
           .mockImplementation(() => newContentHeight);
+
         act(() => {
           global.innerWidth = 500;
           global.innerHeight = 500;
 
-          global.dispatchEvent(new Event("resize"));
+          callbackMock();
         });
         wrapper.update();
 
@@ -266,10 +319,6 @@ describe("Accordion", () => {
           },
           wrapper.find(StyledAccordionContentContainer)
         );
-      });
-
-      afterEach(() => {
-        wrapper.unmount();
       });
     });
   });

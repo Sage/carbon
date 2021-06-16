@@ -12,7 +12,11 @@ describe("Row", () => {
 
   describe("render", () => {
     it("renders a parent div with calculated CSS classes", () => {
-      wrapper = shallow(<Row />);
+      wrapper = shallow(
+        <Row>
+          <Column />
+        </Row>
+      );
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -64,7 +68,11 @@ describe("Row", () => {
     ["extra-large", 90],
   ])("gutter", (gutter, size) => {
     it("applies proper css values to Row element", () => {
-      wrapper = mount(<Row gutter={gutter} />);
+      wrapper = mount(
+        <Row gutter={gutter}>
+          <Column />
+        </Row>
+      );
       assertStyleMatch(
         {
           marginBottom: `-${size}px`,
@@ -75,7 +83,11 @@ describe("Row", () => {
     });
 
     it("applies proper css values to Column element", () => {
-      wrapper = mount(<Row gutter={gutter} />);
+      wrapper = mount(
+        <Row gutter={gutter}>
+          <Column />
+        </Row>
+      );
       assertStyleMatch(
         {
           marginBottom: `${size}px`,
@@ -87,7 +99,11 @@ describe("Row", () => {
     });
 
     it("applies proper css values to Column element when columnDivide is provided", () => {
-      wrapper = mount(<Row gutter={gutter} columnDivide />);
+      wrapper = mount(
+        <Row gutter={gutter} columnDivide>
+          <Column />
+        </Row>
+      );
       assertStyleMatch({ position: "relative" }, wrapper.find(StyledRow), {
         modifier: `${StyledColumn}`,
       });

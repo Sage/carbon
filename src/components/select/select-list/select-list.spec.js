@@ -80,7 +80,7 @@ describe("SelectList", () => {
         ["Escape", escapeKeyDownEvent],
         ["Tab", tabKeyDownEvent],
         ["Enter", enterKeyDownEvent],
-      ])("and it's the %s key", (keyName, keyEvent) => {
+      ])("and it's the %s key", (_, keyEvent) => {
         it("then the onSelectListClose prop should be called", () => {
           testContainer.dispatchEvent(keyEvent);
           expect(onSelectListCloseFn).toHaveBeenCalled();
@@ -317,7 +317,9 @@ describe("SelectList", () => {
             width: 400,
           };
         };
-        window.dispatchEvent(new Event("resize"));
+        act(() => {
+          window.dispatchEvent(new Event("resize"));
+        });
         wrapper.update();
         assertStyleMatch(
           { width: "400px" },
@@ -401,7 +403,9 @@ describe("SelectList", () => {
               isLoading
             >
               {multiColumn ? (
-                <OptionRow value="opt1" text="red" />
+                <OptionRow value="opt1" text="red">
+                  <td>foo</td>
+                </OptionRow>
               ) : (
                 <Option value="opt1" text="red" />
               )}

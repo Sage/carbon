@@ -369,13 +369,13 @@ TextEditor.propTypes = {
   /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
   toolbarElements: PropTypes.node,
   /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
-  rows: (props, propName) => {
+  rows: (props, propName, component) => {
     if (
       props[propName] &&
       (typeof props[propName] !== "number" || props[propName] < 2)
     ) {
       return new Error(
-        `Prop \`${propName}\` must be a number value greater than 2 to override the min-height of the \`TextEditor\``
+        `Prop \`${propName}\` must be a number value greater than 2 to override the min-height of the \`${component}\``
       );
     }
 

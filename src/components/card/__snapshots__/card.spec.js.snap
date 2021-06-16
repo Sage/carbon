@@ -42,11 +42,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   vertical-align: middle;
 }
 
-.c3:hover {
-  color: #006800;
-  background-color: transparent;
-}
-
 .c3::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -123,7 +118,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   data-element="card-footer"
   spacing="medium"
 >
-  <div
+  <span
     className="c1"
     data-component="link"
     disabled={false}
@@ -148,6 +143,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
         View Stripe Dashboard
       </span>
     </a>
-  </div>
+  </span>
 </div>
 `;

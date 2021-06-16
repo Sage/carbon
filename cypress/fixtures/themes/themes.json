@@ -10,8 +10,8 @@
         "none": "rgb(0, 130, 0)"
     },
     "step-sequence-item": {
-        "mint": "rgb(0, 163, 118)",
-        "aegean": "rgb(0, 119, 200)",
-        "none": "rgb(0, 163, 118)"
+        "mint": "rgb(0, 126, 91)",
+        "aegean": "rgb(0, 92, 154)",
+        "none": "rgb(0, 130, 0)"
     }
 }

@@ -120,7 +120,10 @@ FocusTrap.propTypes = {
   /** flag to set focus automatically on first render */
   autoFocus: PropTypes.bool,
   /** provide a custom first element to focus */
-  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
+  focusFirstElement: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap: PropTypes.func,
   /** a ref to the container wrapping the focusable elements */

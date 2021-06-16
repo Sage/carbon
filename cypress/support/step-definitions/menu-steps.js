@@ -1,3 +1,4 @@
+import { LINK } from "../../locators/locators";
 import {
   submenuBlock,
   innerMenu,
@@ -11,28 +12,31 @@ import {
 } from "../../locators/menu";
 import { positionOfElement, keyCode } from "../helper";
 
+const span = "span";
+const div = "div";
+
 When("I hover over third expandable Menu component", () => {
   submenu().trigger("mouseover");
 });
 
 Then("Menu third expandable element has inner elements", () => {
   submenuBlock().children().should("have.length", 4);
-  innerMenu(positionOfElement("second")).should(
+  innerMenu(positionOfElement("second"), span).should(
     "have.attr",
     "data-component",
     "link"
   );
-  innerMenu(positionOfElement("third")).should(
+  innerMenu(positionOfElement("third"), div).should(
     "have.attr",
     "data-component",
     "menu-divider"
   );
-  innerMenu(positionOfElement("fourth")).should(
+  innerMenu(positionOfElement("fourth"), span).should(
     "have.attr",
     "data-component",
     "link"
   );
-  innerMenu(positionOfElement("fifth")).should(
+  innerMenu(positionOfElement("fifth"), span).should(
     "have.attr",
     "data-component",
     "link"
@@ -40,7 +44,7 @@ Then("Menu third expandable element has inner elements", () => {
 });
 
 When("I open the {string} submenu", (position) => {
-  submenu().eq(positionOfElement(position)).trigger("mouseover");
+  submenu().eq(positionOfElement(position), div).trigger("mouseover");
 });
 
 When("I scroll to the bottom of the block", () => {
@@ -48,13 +52,13 @@ When("I scroll to the bottom of the block", () => {
 });
 
 Then("The last element is visible", () => {
-  lastSubmenuElement().should("be.visible");
+  lastSubmenuElement(div).should("be.visible");
 });
 
 Then(
   "Inner menu search input has alternate {string} background colour",
   (color) => {
-    innerMenu(positionOfElement("fifth")).should(
+    innerMenu(positionOfElement("fifth"), div).should(
       "have.css",
       "background-color",
       color
@@ -74,11 +78,19 @@ Then("{string} is visible", (text) => {
 });
 
 Then("{string} submenu has alternate colour theme", (position) => {
-  innerMenu(positionOfElement(position)).should(
-    "have.css",
-    "background-color",
-    "rgb(230, 235, 237)"
-  );
+  if (position === "fourth") {
+    innerMenu(positionOfElement(position), div).should(
+      "have.css",
+      "background-color",
+      "rgb(230, 235, 237)"
+    );
+  } else {
+    innerMenu(positionOfElement(position), LINK).should(
+      "have.css",
+      "background-color",
+      "rgb(230, 235, 237)"
+    );
+  }
 });
 
 When(
@@ -116,10 +128,10 @@ Given(
 
 Then("Menu {string} expandable element has inner elements", (position) => {
   submenuItem(positionOfElement(position)).should("have.length", 2);
-  innerMenu(positionOfElement("second"))
+  innerMenu(positionOfElement("second"), span)
     .should("have.attr", "data-component", "link")
     .and("be.visible");
-  innerMenu(positionOfElement("third"))
+  innerMenu(positionOfElement("third"), span)
     .should("have.attr", "data-component", "link")
     .and("be.visible");
 });

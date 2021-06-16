@@ -18,7 +18,15 @@ class CheckableInput extends React.Component {
   }
 
   render() {
-    const { children, onChange, onBlur, required, label, ...rest } = this.props;
+    const {
+      children,
+      onChange,
+      onBlur,
+      required,
+      label,
+      inputRef,
+      ...rest
+    } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;
@@ -62,6 +70,7 @@ class CheckableInput extends React.Component {
       helpId,
       id,
       required,
+      inputRef,
     };
 
     return (
@@ -132,6 +141,11 @@ CheckableInput.propTypes = {
   ml: PropTypes.string,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** A callback to retrieve the input reference */
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 CheckableInput.defaultProps = {

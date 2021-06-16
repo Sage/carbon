@@ -23,11 +23,6 @@ exports[`BatchSelection component should render correctly 1`] = `
   width: 24px;
 }
 
-.c5:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
 .c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
