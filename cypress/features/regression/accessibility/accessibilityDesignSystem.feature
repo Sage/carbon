@@ -229,38 +229,38 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System <component>" component page "validations boolean" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | textarea            |
-      | date-input          |
-      | date-range          |
-      | textbox             |
-      | fieldset            |
+      | component  |
+      | textarea   |
+      | date-input |
+      | date-range |
+      | textbox    |
+      | fieldset   |
 
   @accessibility
   Scenario Outline: Design System <component> validations string story page
     When I open "Design System <component>" component page "validations string component" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | textarea            |
-      | date-input          |
-      | date-range          |
-      | textbox             |
-      | fieldset            |
+      | component  |
+      | textarea   |
+      | date-input |
+      | date-range |
+      | textbox    |
+      | fieldset   |
 
   @accessibility
   Scenario Outline: Design System <component> validations string label story page
     When I open "Design System <component>" component page "validations string label" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | textarea            |
-      | date-input          |
-      | date-range          |
-      | textbox             |
-      | fieldset            | 
+      | component  |
+      | textarea   |
+      | date-input |
+      | date-range |
+      | textbox    |
+      | fieldset   |
 
-  @accessibility    
+  @accessibility
   Scenario: Image component default story
     When I open "Design System Image" component page "default story" in no iframe
     Then "Image default story" component has no accessibility violations
@@ -280,7 +280,8 @@ Feature: Accessibility tests - Design System folder
   Scenario: Design System checkbox with asterisk
     When I open "Design System checkbox validations" component page "required" in no iframe
     Then "Design System checkbox with asterisk" component has no accessibility violations
-    
+
+  @accessibility
   Scenario Outline: Design System switch component <story> story
     When I open "Design System switch" component page "<story>" in no iframe
     Then "Design System switch <story> story" component has no accessibility violations
@@ -289,3 +290,12 @@ Feature: Accessibility tests - Design System folder
       | single switch boolean validation                    |
       | single switch string validation                     |
       | single switch string validation validation on label |
+
+  @accessibility
+  Scenario Outline: Design System Radiobutton component with <story> story
+    When I open "Design System Radiobutton" component page "<story>" in no iframe
+    Then "Design System Radiobutton with <story> story" component has no accessibility violations
+    Examples:
+      | story                       |
+      | with legend and labels      |
+      | with validations on buttons |
