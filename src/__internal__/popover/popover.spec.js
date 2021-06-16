@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 import { createPopper } from "@popperjs/core";
 
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover from "./popover.component";
 
 jest.mock("@popperjs/core");
+jest.mock("../../hooks/__internal__/useResizeObserver");
 
 const Component = (props) => {
   const [ref, setRef] = useState({});
@@ -76,8 +78,12 @@ describe("Popover", () => {
 
   describe("popper - ", () => {
     const destroyFunc = jest.fn();
+    const updateFunc = jest.fn();
 
-    createPopper.mockImplementation(() => ({ destroy: destroyFunc }));
+    createPopper.mockImplementation(() => ({
+      destroy: destroyFunc,
+      update: updateFunc,
+    }));
 
     it("popper instance is initialized again after props change", () => {
       jest.clearAllMocks();
@@ -97,6 +103,16 @@ describe("Popover", () => {
       myWrapper.unmount();
 
       expect(destroyFunc).toHaveBeenCalled();
+    });
+
+    it("popper instance is updated when reference element resizes", () => {
+      mount(<Component />);
+
+      useResizeObserver.mock.calls[
+        useResizeObserver.mock.calls.length - 1
+      ][1]();
+
+      expect(updateFunc).toHaveBeenCalled();
     });
 
     it("createPopper is called with proper arguments", () => {
