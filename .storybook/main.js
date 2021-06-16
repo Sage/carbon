@@ -23,6 +23,12 @@ module.exports = {
       },
       extensions: [".js"],
     };
+
+    // Workaround to stop hashes being added to font filenames, so we can pre-load them
+    config.module.rules.find((rule) =>
+      rule.test.toString().includes("woff2")
+    ).options.name = "static/media/[name].[ext]";
+
     return config;
   },
 };
