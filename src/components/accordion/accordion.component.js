@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
@@ -68,16 +62,23 @@ const Accordion = React.forwardRef(
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
 
-    useLayoutEffect(() => {
-      const resizedContentHeight = () => {
-        setContentHeight(accordionContent.current.scrollHeight);
-      };
+    const observer = useRef(
+      new ResizeObserver(() => {
+        /* istanbul ignore else */
+        if (accordionContent.current) {
+          setContentHeight(accordionContent.current.scrollHeight);
+        }
+      })
+    );
 
-      const event = "resize";
-      window.addEventListener(event, resizedContentHeight);
+    useEffect(() => {
+      const observerRef = observer.current;
+      const referenceRef = accordionContent.current;
+      observerRef.observe(referenceRef);
 
-      return function cleanup() {
-        window.removeEventListener(event, resizedContentHeight);
+      return () => {
+        observerRef.unobserve(referenceRef);
+        observerRef.disconnect();
       };
     }, []);
 

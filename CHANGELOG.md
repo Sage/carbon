@@ -1,3 +1,34 @@
+## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** The decimal component no longer uses `i18n-js` for decimal formatting,
+you should use the `locale` prop instead.
+* **decimal:** `formatDecimal` no longer supports the `round` option first introduced in v73.0.0
+
+closes FE-3500
+closes FE-4148
+
+### Features
+
+* **decimal:** add locale support ([7cec047](https://github.com/Sage/carbon/commit/7cec0471db24e5b0d3c6150be6ea71038e14ecae)), closes [#3559](https://github.com/Sage/carbon/issues/3559)
+
+### [76.5.6](https://github.com/Sage/carbon/compare/v76.5.5...v76.5.6) (2021-06-14)
+
+
+### Bug Fixes
+
+* **accordion:** fix unit test coverage ([00e8e26](https://github.com/Sage/carbon/commit/00e8e26a29f18d2b5048cb7d943ba578e9b5e8dc))
+* **accordion:** resize accordion when children resize ([f27ebc7](https://github.com/Sage/carbon/commit/f27ebc76f9f525ac6ba596f7abe9ccd048fba7fa))
+
+### [76.5.5](https://github.com/Sage/carbon/compare/v76.5.4...v76.5.5) (2021-06-14)
+
+
+### Bug Fixes
+
+* **search:** remove the onClick prop from the input ([b767581](https://github.com/Sage/carbon/commit/b7675817c320770c8dc2785770106cf0bebfcf7a))
+
 ### [76.5.4](https://github.com/Sage/carbon/compare/v76.5.3...v76.5.4) (2021-06-11)
 
 

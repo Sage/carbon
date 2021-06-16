@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { number, select, boolean, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import I18n from "i18n-js";
 import Decimal from "./decimal.component";
 import { getCommonTextboxProps } from "../textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper";
@@ -88,32 +87,7 @@ export const Default = () => {
 export const Locale = () => {
   const [state, setState] = useState("0.00");
 
-  // French translations
-  I18n.translations.fr = {
-    number: {
-      format: {
-        delimiter: ".",
-        separator: ",",
-      },
-    },
-  };
-
-  // Norwegian translations
-  I18n.translations.no = {
-    number: {
-      format: {
-        delimiter: " ",
-        separator: ",",
-      },
-    },
-  };
-
-  I18n.defaultLocale = "en";
-
-  const locale = select("locale", ["en", "fr", "no"]);
-
-  I18n.locale = locale;
-  I18n.currentLocale();
+  const locale = select("locale", ["en", "fr", "no", "es-ES", "pt-PT"]);
 
   const setValue = (ev) => {
     action("onChange")(ev);
@@ -125,6 +99,7 @@ export const Locale = () => {
       key={precision} // Don't do this in production, testing purposes only
       {...props}
       precision={precision}
+      locale={locale}
       {...getCommonTextboxProps()}
       value={state}
       onChange={setValue}
