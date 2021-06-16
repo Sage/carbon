@@ -5,8 +5,8 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import ShowEditPod, { BaseShowEditPod } from "./show-edit-pod.component";
 import Content from "../content";
 
-import Textbox from "../../__experimental__/components/textbox";
-import Fieldset from "../../__experimental__/components/fieldset";
+import Textbox from "../textbox";
+import Fieldset from "../fieldset";
 
 export default {
   title: "ShowEditPod/Test",

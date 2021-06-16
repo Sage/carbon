@@ -1,11 +1,17 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../../../components/validations";
+import { ValidationPropTypes } from "../../../__internal__/validations";
 import { SimpleColorProps } from "./simple-color/simple-color";
 
-type SimpleColorPickerChild = React.ReactElement<SimpleColorProps> | boolean | null | undefined;
+type SimpleColorPickerChild =
+  | React.ReactElement<SimpleColorProps>
+  | boolean
+  | null
+  | undefined;
 
-export interface SimpleColorPickerProps extends ValidationPropTypes, MarginProps {
+export interface SimpleColorPickerProps
+  extends ValidationPropTypes,
+    MarginProps {
   /** The SimpleColor components to be rendered in the group */
   children?: SimpleColorPickerChild | SimpleColorPickerChild[];
   /** prop that represents childWidth */

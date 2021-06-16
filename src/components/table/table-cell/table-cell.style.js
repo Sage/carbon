@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
+import StyledInputPresentation from "../../../__internal__/input/input-presentation.style";
+import StyledInput from "../../../__internal__/input/input.style";
 import tableSizes from "../table-sizes.style.js";
 import StyledIcon from "../../icon/icon.style";
 

@@ -16,7 +16,7 @@ import {
   StyledAccordionContent,
 } from "./accordion.style";
 import Button from "../button";
-import ValidationIcon from "../validations";
+import ValidationIcon from "../../__internal__/validations";
 
 const Accordion = React.forwardRef(
   (

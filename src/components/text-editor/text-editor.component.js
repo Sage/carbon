@@ -30,7 +30,7 @@ import {
 } from "./text-editor.style";
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import Events from "../../utils/helpers/events/events";
 import createGuid from "../../utils/helpers/guid";
 import LabelWrapper from "./__internal__/label-wrapper";

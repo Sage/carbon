@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import baseTheme from "../../../../style/themes/base";
-import { Input as SimpleColorInput } from "../../input";
+import { Input as SimpleColorInput } from "../../../../__internal__/input";
 import StyledColorSampleBox from "../color-sample-box/color-sample-box.style";
 
 const StyledSimpleColorInput = styled(SimpleColorInput)`

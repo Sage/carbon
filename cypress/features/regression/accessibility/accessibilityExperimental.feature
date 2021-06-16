@@ -7,17 +7,8 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | checkbox            |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
-      | fieldset            |
-      | groupedcharacter    |
-      | number-input        |
       | simple-color-picker |
-      | switch              |
-      | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story
@@ -25,15 +16,8 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
-      | fieldset            |
-      | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
-      | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string story
@@ -41,15 +25,8 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
-      | fieldset            |
-      | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
-      | textarea            |
-      | textbox             |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story
@@ -57,41 +34,8 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | date-range          |
-      | date-input          |
       | decimal-input       |
-      | fieldset            |
-      | groupedcharacter    |
       | simple-color-picker |
-      | number-input        |
-      | textarea            |
-      | textbox             |
-
-  @accessibility
-  Scenario Outline: Experimental checkbox component <story> story
-    When I open "Experimental checkbox validations" component page "<story>" in no iframe
-    Then "Experimental checkbox <story> story" component has no accessibility violations
-    Examples:
-      | story                              |
-      | group checkbox boolean validation  |
-      | group checkbox string validation   |
-      | single checkbox boolean validation |
-      | single checkbox string validation  |
-
-  @accessibility
-  Scenario Outline: Experimental switch component <story> story
-    When I open "Experimental switch" component page "<story>" in no iframe
-    Then "Experimental switch <story> story" component has no accessibility violations
-    Examples:
-      | story                                               |
-      | single switch boolean validation                    |
-      | single switch string validation                     |
-      | single switch string validation validation on label |
-
-  @accessibility
-  Scenario: Experimental checkbox with asterisk
-    When I open "Experimental checkbox validations" component page "required" in no iframe
-    Then "Experimental checkbox with asterisk" component has no accessibility violations
 
   @accessibility
   Scenario: Component radiobutton with legend and labels story

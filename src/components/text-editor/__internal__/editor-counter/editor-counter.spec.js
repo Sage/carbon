@@ -4,7 +4,7 @@ import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import baseTheme from "../../../../style/themes/base";
 import Counter from "./editor-counter.component";
 import { StyledCounter } from "./editor-counter.style";
-import ValidationIcon from "../../../validations";
+import ValidationIcon from "../../../../__internal__/validations";
 
 const render = (props = {}, renderer = mount) => {
   return renderer(<Counter {...props} />);

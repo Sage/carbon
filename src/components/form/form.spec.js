@@ -22,7 +22,7 @@ import {
 } from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
-import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { FieldsetStyle } from "../fieldset/fieldset.style";
 
 describe("Form", () => {
   let wrapper;
