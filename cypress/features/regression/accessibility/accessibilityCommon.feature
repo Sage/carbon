@@ -16,6 +16,7 @@ Feature: Accessibility tests - Common list
       | Configurable-items  |
       | Detail              |
       | Dialog              |
+      | Decimal-Input       |
       | GroupedCharacter    |
       | Heading             |
       | Help                |
@@ -62,6 +63,7 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
+      | Decimal-Input    |
       | GroupedCharacter |
       | Number-Input     |
 
@@ -71,6 +73,7 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
+      | Decimal-Input    |
       | GroupedCharacter |
       | Number-Input     |
 
@@ -80,5 +83,6 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
+      | Decimal-Input    |
       | GroupedCharacter |
       | Number-Input     |

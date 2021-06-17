@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import { mount as enzymeMount } from "enzyme";
 
 import Decimal from "./decimal.component";
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
-import Textbox from "../../../components/textbox/textbox.component";
-import Label from "../../../__internal__/label";
-import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import Textbox from "../textbox/textbox.component";
+import Label from "../../__internal__/label";
+import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.

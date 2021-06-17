@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { number, select, boolean, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Decimal from "./decimal.component";
-import { getCommonTextboxProps } from "../../../components/textbox/textbox.stories";
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import guid from "../../../utils/helpers/guid";
+import { getCommonTextboxProps } from "../textbox/textbox.stories";
+import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import guid from "../../utils/helpers/guid/guid";
 
 export default {
-  title: "Experimental/Decimal Input/Test",
+  title: "Decimal Input/Test",
   component: Decimal,
   parameters: {
     info: {

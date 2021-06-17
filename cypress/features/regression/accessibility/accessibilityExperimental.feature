@@ -7,7 +7,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | decimal-input       |
       | simple-color-picker |
 
   @accessibility
@@ -16,7 +15,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | decimal-input       |
       | simple-color-picker |
 
   @accessibility
@@ -25,7 +23,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | decimal-input       |
       | simple-color-picker |
 
   @accessibility
@@ -34,7 +31,6 @@ Feature: Accessibility tests - Experimental folder
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
-      | decimal-input       |
       | simple-color-picker |
 
   @accessibility
