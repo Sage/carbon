@@ -9,7 +9,6 @@ exports[`FormField with a label renders the label component above the childen 1`
     help="Help me!"
     htmlFor="formField"
     inline={true}
-    inputSize="small"
     pr={2}
     width={20}
   >

@@ -9,23 +9,21 @@ import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
 import { baseTheme } from "../../style/themes";
 
-function renderLink(props, renderer = mount) {
+function renderLink(props = {}, renderer = mount) {
   return renderer(<Link {...props}>Link Component</Link>);
 }
-
-const render = (props) => {
-  return TestRenderer.create(<Link {...props}>test</Link>);
-};
 
 describe("Link", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = renderLink({});
+    wrapper = renderLink();
   });
 
   it("renders as expected", () => {
-    expect(render()).toMatchSnapshot();
+    expect(
+      TestRenderer.create(<Link href="www.foo.com">test</Link>)
+    ).toMatchSnapshot();
   });
 
   describe("If `isSkipLink` provided", () => {
@@ -75,7 +73,7 @@ describe("Link", () => {
         {
           cursor: "not-allowed",
         },
-        render({ disabled: true }).toJSON(),
+        renderLink({ disabled: true }),
         { modifier: "a:hover" }
       );
     });
@@ -145,7 +143,7 @@ describe("Link", () => {
           marginRight: "5px",
           position: "relative",
         },
-        TestRenderer.create(wrapper.find(LinkStyle)).toJSON(),
+        wrapper.find(LinkStyle),
         { modifier: `a ${StyledIcon}` }
       );
     });
@@ -158,7 +156,7 @@ describe("Link", () => {
           marginLeft: "5px",
           position: "relative",
         },
-        TestRenderer.create(wrapper.find(LinkStyle)).toJSON(),
+        wrapper.find(LinkStyle),
         { modifier: `a ${StyledIcon}` }
       );
     });
@@ -173,7 +171,7 @@ describe("Link", () => {
           marginLeft: "0",
           position: "relative",
         },
-        TestRenderer.create(wrapper.find(LinkStyle)).toJSON(),
+        wrapper.find(LinkStyle),
         { modifier: `a ${StyledIcon}` }
       );
     });

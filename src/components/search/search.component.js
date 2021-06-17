@@ -169,7 +169,6 @@ const Search = ({
         iconOnMouseDown={handleMouseDown}
         aria-label={ariaLabel}
         onFocus={onFocus}
-        onClick={onClick}
         onBlur={onBlur}
         onChange={onChange}
         onKeyDown={onKeyDown}

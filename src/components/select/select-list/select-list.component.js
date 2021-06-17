@@ -65,7 +65,7 @@ const SelectList = React.forwardRef(
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [listHeight, setListHeight] = useState(0);
     const [listWidth, setListWidth] = useState(null);
-    const [placement, setPlacement] = useState("bottom");
+    const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
     const tableRef = useRef();
@@ -80,9 +80,12 @@ const SelectList = React.forwardRef(
       }).filter((child) => child)
     );
 
-    const setPlacementCallback = useCallback((popper) => {
-      setPlacement(popper.placement);
-    }, []);
+    const setPlacementCallback = useCallback(
+      (popper) => {
+        placement.current = popper.placement;
+      },
+      [placement]
+    );
 
     const anchorRef = useMemo(
       () => ({
@@ -407,7 +410,7 @@ const SelectList = React.forwardRef(
           <StyledSelectListContainer
             data-element="select-list-wrapper"
             height={listHeight}
-            placement={placement}
+            placement={placement.current}
             {...listProps}
           >
             <StyledSelectList

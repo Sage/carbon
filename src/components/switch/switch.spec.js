@@ -60,12 +60,12 @@ describe("Switch", () => {
 
   describe("controlled behaviour", () => {
     it("passes checked value to the CheckableInput", () => {
-      const wrapper = render({ checked: true }, mount);
+      const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(true);
     });
 
     it("reacts properly to checked prop change", () => {
-      const wrapper = render({ checked: true }, mount);
+      const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(true);
       act(() => {
         wrapper.setProps({ checked: false });
@@ -74,7 +74,7 @@ describe("Switch", () => {
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(false);
     });
 
-    it("passess event to the provided onChange prop when change is triggered", () => {
+    it("passes event to the provided onChange prop when change is triggered", () => {
       const onChangeMock = jest.fn();
       const event = {
         target: {
@@ -114,12 +114,12 @@ describe("Switch", () => {
 
     describe("default translation", () => {
       it("has default translation for on", () => {
-        const wrapper = render({ checked: true }, mount);
+        const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("ON");
       });
 
       it("has default translation for off", () => {
-        const wrapper = render({ checked: false }, mount);
+        const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("OFF");
       });
     });
@@ -130,12 +130,12 @@ describe("Switch", () => {
       });
 
       it("can use i18n for on", () => {
-        const wrapper = render({ checked: true }, mount);
+        const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("SUR");
       });
 
       it("can use i18n for off", () => {
-        const wrapper = render({ checked: false }, mount);
+        const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("DE");
       });
     });

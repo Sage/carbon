@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { MenuButtonOverrideWrapper } from "./action-popover.style";
-import Button from "../button";
+import { MenuButtonOverrideWrapper } from "../action-popover.style";
+import Button from "../../button";
 
 const ActionPopoverMenuButton = ({
   buttonType,

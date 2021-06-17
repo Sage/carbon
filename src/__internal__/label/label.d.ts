@@ -11,10 +11,12 @@ export interface LabelPropTypes {
   childOfForm: boolean;
   /** When true, label is placed in line an input */
   inline?: boolean;
+  /** Flag to configure component as mandatory */
+  isRequired?: boolean;
   /** If true, the component will be disabled */
-  disabled: boolean;
+  disabled?: boolean;
   /** Flag to configure component as optional in Form */
-  optional: boolean;
+  optional?: boolean;
   /** The unique id of the label element */
   labelId?: string;
   /** The unique id of the Help component */
@@ -45,8 +47,6 @@ export interface LabelPropTypes {
   pl?: 1 | 2;
   /** Allows to override existing component styles */
   styleOverride?: () => object | object;
-  /** Flag to configure component as mandatory */
-  isRequired: boolean;
 }
 
 declare const Label: React.FunctionComponent<LabelPropTypes>;

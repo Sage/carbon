@@ -29,7 +29,7 @@ export interface SimpleColorPickerProps
   /** Prop for `onKeyDown` events */
   onKeyDown?: (ev: React.SyntheticEvent) => void;
   /** Prop for `onBlur` events */
-  onBlur?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** When true, validation icon will be placed on legend instead of being placed by the input */

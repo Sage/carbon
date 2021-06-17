@@ -8,6 +8,7 @@ const FlatTableCheckbox = ({
   checked,
   onChange,
   selectable = true,
+  onClick,
   leftPosition,
   cellIndex,
   reportCellWidth,
@@ -29,10 +30,10 @@ const FlatTableCheckbox = ({
       leftPosition={leftPosition || 0}
       data-element={dataElement}
       as={as}
+      onClick={onClick}
     >
       {selectable && (
         <Checkbox
-          onClick={(e) => e.stopPropagation()}
           checked={checked}
           onChange={onChange}
           name="flat-table-checkbox"
@@ -50,6 +51,8 @@ FlatTableCheckbox.propTypes = {
   checked: PropTypes.bool,
   /** Callback to be called onChange in Checkbox */
   onChange: PropTypes.func,
+  /** Callback function to be called when click event received */
+  onClick: PropTypes.func,
   /** Whether to render the checkbox or not, defaults to true */
   selectable: PropTypes.bool,
   /**

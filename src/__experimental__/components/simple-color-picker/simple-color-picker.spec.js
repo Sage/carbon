@@ -9,6 +9,7 @@ import { StyledLegendContainer } from "../../../__internal__/fieldset/fieldset.s
 import {
   assertStyleMatch,
   testStyledSystemMargin,
+  expectError,
 } from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../../__internal__/fieldset";
@@ -582,8 +583,11 @@ describe("SimpleColorPicker", () => {
 
   describe("propTypes", () => {
     it("validates the incorrect children prop", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const errorMessage =
+        "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
+        " type `SimpleColor`.\n    in SimpleColorPicker";
 
+      const assert = expectError(errorMessage);
       mount(
         <SimpleColorPicker name={name} legend="SimpleColorPicker Legend">
           <p>Invalid children</p>
@@ -591,11 +595,7 @@ describe("SimpleColorPicker", () => {
         </SimpleColorPicker>
       );
 
-      const expected =
-        "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
-        " type `SimpleColor`.\n    in SimpleColorPicker";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      assert();
     });
   });
 

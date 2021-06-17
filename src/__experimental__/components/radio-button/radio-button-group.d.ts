@@ -28,7 +28,7 @@ export interface RadioButtonGroupProps
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
   /** Callback fired when each RadioButton is blurred */
-  onBlur?: (ev: React.SyntheticEvent) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Callback fired when the user selects a RadioButton */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */

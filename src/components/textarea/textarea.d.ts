@@ -2,7 +2,6 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 import { ValidationPropTypes } from "../../__internal__/validations";
-import { FormFieldSize } from "../../__internal__/form-field/form-field";
 
 export interface TextareaProps extends ValidationPropTypes, MarginProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
@@ -50,7 +49,7 @@ export interface TextareaProps extends ValidationPropTypes, MarginProps {
   /** The number of visible text lines for the control */
   rows?: number;
   /** Size of an input */
-  size?: FormFieldSize;
+  size?: "small" | "medium" | "large";
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage?: string;
   /** When true, validation icon will be placed on label instead of being placed on the input */
@@ -63,5 +62,5 @@ export interface TextareaProps extends ValidationPropTypes, MarginProps {
 
 declare class Textarea extends React.Component<TextareaProps> {}
 
-export { Textarea as OriginalTextarea, FormFieldSize };
+export { Textarea as OriginalTextarea };
 export default Textarea;

@@ -31,7 +31,6 @@ const FormField = ({
   name,
   id,
   reverse,
-  size = "medium",
   childOfForm,
   isOptional,
   readOnly,
@@ -130,7 +129,6 @@ const FormField = ({
             htmlFor={id}
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
-            inputSize={size}
             width={labelWidth}
             childOfForm={childOfForm}
             optional={isOptional}
@@ -206,7 +204,6 @@ FormField.propTypes = {
   labelWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,

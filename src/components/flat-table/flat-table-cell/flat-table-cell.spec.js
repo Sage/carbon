@@ -7,7 +7,15 @@ import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 describe("FlatTableRowCell", () => {
   it("renders with proper width style rule when width prop is passed", () => {
-    const wrapper = mount(<FlatTableRowCell width={40} />);
+    const wrapper = mount(
+      <table>
+        <tbody>
+          <tr>
+            <FlatTableRowCell width={40} />
+          </tr>
+        </tbody>
+      </table>
+    );
     assertStyleMatch(
       {
         width: "40px",
@@ -27,7 +35,15 @@ describe("FlatTableRowCell", () => {
   describe("when truncate prop is true", () => {
     let wrapper;
     beforeEach(() => {
-      wrapper = mount(<FlatTableRowCell truncate>Foo</FlatTableRowCell>);
+      wrapper = mount(
+        <table>
+          <tbody>
+            <tr>
+              <FlatTableRowCell truncate>Foo</FlatTableRowCell>
+            </tr>
+          </tbody>
+        </table>
+      );
     });
 
     it("should apply expected styling", () => {
@@ -49,9 +65,15 @@ describe("FlatTableRowCell", () => {
     describe("and title prop is set", () => {
       it("should override the default behaviour", () => {
         wrapper = mount(
-          <FlatTableRowCell truncate title="Bar">
-            Foo
-          </FlatTableRowCell>
+          <table>
+            <tbody>
+              <tr>
+                <FlatTableRowCell truncate title="Bar">
+                  Foo
+                </FlatTableRowCell>
+              </tr>
+            </tbody>
+          </table>
         );
         expect(wrapper.find("div").props().title).toEqual("Bar");
       });

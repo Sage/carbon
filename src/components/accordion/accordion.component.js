@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
@@ -68,16 +62,23 @@ const Accordion = React.forwardRef(
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
 
-    useLayoutEffect(() => {
-      const resizedContentHeight = () => {
-        setContentHeight(accordionContent.current.scrollHeight);
-      };
+    const observer = useRef(
+      new ResizeObserver(() => {
+        /* istanbul ignore else */
+        if (accordionContent.current) {
+          setContentHeight(accordionContent.current.scrollHeight);
+        }
+      })
+    );
 
-      const event = "resize";
-      window.addEventListener(event, resizedContentHeight);
+    useEffect(() => {
+      const observerRef = observer.current;
+      const referenceRef = accordionContent.current;
+      observerRef.observe(referenceRef);
 
-      return function cleanup() {
-        window.removeEventListener(event, resizedContentHeight);
+      return () => {
+        observerRef.unobserve(referenceRef);
+        observerRef.disconnect();
       };
     }, []);
 
@@ -155,12 +156,16 @@ const Accordion = React.forwardRef(
                 data-element="accordion-headings-container"
                 hasValidationIcon={showValidationIcon}
               >
-                <StyledAccordionTitle
-                  data-element="accordion-title"
-                  size={size}
-                >
-                  {title}
-                </StyledAccordionTitle>
+                {typeof title === "string" ? (
+                  <StyledAccordionTitle
+                    data-element="accordion-title"
+                    size={size}
+                  >
+                    {title}
+                  </StyledAccordionTitle>
+                ) : (
+                  title
+                )}
 
                 {showValidationIcon && (
                   <ValidationIcon
@@ -226,8 +231,8 @@ Accordion.propTypes = {
   iconAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange: PropTypes.func,
-  /** Sets accordion title */
-  title: PropTypes.string.isRequired,
+  /** Sets accordion title. Will render inside a h3 if set to a string */
+  title: PropTypes.node.isRequired,
   /** Sets accordion sub title */
   subTitle: PropTypes.string,
   /** Sets accordion size */

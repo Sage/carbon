@@ -24,7 +24,7 @@ export interface CommonCheckableInputProps extends ValidationPropTypes {
   /** The name of the the input */
   name?: string;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */

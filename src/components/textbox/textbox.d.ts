@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
+
 import { ValidationPropTypes } from "../../__internal__/validations";
-import { FormFieldSize } from "../../__internal__/form-field/form-field";
 
 export interface CommonTextboxProps extends ValidationPropTypes {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
@@ -58,7 +58,7 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */
-  size?: FormFieldSize;
+  size?: "small" | "medium" | "large";
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Input */
@@ -81,5 +81,5 @@ declare function TextboxWithUniqueIdProps(
   props: TextboxProps & React.RefAttributes<HTMLInputElement>
 ): JSX.Element;
 
-export { Textbox as OriginalTextbox, FormFieldSize };
+export { Textbox as OriginalTextbox };
 export default TextboxWithUniqueIdProps;

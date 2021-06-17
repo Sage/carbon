@@ -12,13 +12,13 @@ export interface CommonInputProps {
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** pecify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
-  onFocus?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** pecify a callback triggered on keuyDown */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Placeholder string to be displayed in input */

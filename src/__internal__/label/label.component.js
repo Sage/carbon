@@ -19,7 +19,6 @@ const Label = ({
   disabled,
   inline,
   align = "right",
-  inputSize,
   width,
   childOfForm,
   optional,
@@ -112,7 +111,6 @@ const Label = ({
     <StyledLabelContainer
       align={align}
       inline={inline}
-      inputSize={inputSize}
       width={width}
       optional={optional}
       childOfForm={childOfForm}
@@ -140,8 +138,6 @@ Label.propTypes = {
   width: PropTypes.number,
   /** Label alignment */
   align: PropTypes.oneOf(["left", "right"]),
-  /** Size of an input Label is used in */
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** Flag to indicate that component is used in a Form */
   childOfForm: PropTypes.bool,
   /** When true, label is placed in line an input */

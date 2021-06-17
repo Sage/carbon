@@ -70,6 +70,8 @@ export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
   onChange?: (ev: NumeralDateEvent) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Size of an input */
+  size?: "small" | "medium" | "large";
   /** When true, validation icons will be placed on labels instead of being placed on the inputs */
   validationOnLabel?: boolean;
 }

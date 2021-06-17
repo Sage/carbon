@@ -256,6 +256,26 @@ describe("Search", () => {
         mount
       );
     });
+
+    it("input does not call onClick", () => {
+      onClick = jest.fn();
+      wrapper = renderWrapper(
+        {
+          defaultValue: "FooBar",
+          onClick,
+          id: "Search",
+          name: "Search",
+        },
+        mount
+      );
+      act(() => {
+        const textbox = wrapper.find("input");
+        textbox.simulate("click");
+      });
+      wrapper.update();
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
     it("accepts a default value", () => {
       wrapper = renderWrapper({ defaultValue: "Bar" }, mount);
       const input = wrapper.find("input");

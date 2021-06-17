@@ -72,7 +72,6 @@ export const StyledLabelContainer = styled.div`
 
 StyledLabelContainer.defaultProps = {
   align: "right",
-  inputSize: "medium",
   theme: BaseTheme,
   width: 30,
 };
@@ -80,7 +79,6 @@ StyledLabelContainer.defaultProps = {
 StyledLabelContainer.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   inline: PropTypes.bool,
-  inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number,
   readOnly: PropTypes.bool,
   pr: PropTypes.number,
