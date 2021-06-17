@@ -1,3 +1,10 @@
+### [77.0.1](https://github.com/Sage/carbon/compare/v77.0.0...v77.0.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* **select-list:** add data role to internal loader component ([c9bc71a](https://github.com/Sage/carbon/commit/c9bc71af3cbd8f86d30df0857f341a61f4acf9d8))
+
 ## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
 
 
