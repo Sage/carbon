@@ -130,7 +130,7 @@ const FilterableSelect = React.forwardRef(
         );
 
         if (!matchingOption || matchingOption.props.text === undefined) {
-          setTextValue("");
+          setTextValue(filterText || "");
         } else if (
           isClosing ||
           matchingOption.props.text

@@ -471,33 +471,6 @@ describe("FilterableSelect", () => {
       });
       expect(wrapper.update().find(SelectList).exists()).toBe(false);
     });
-
-    describe("and the changed visible text is not matching any option", () => {
-      it("then the formattedValue prop in Textbox should be cleared", () => {
-        const selectedOptionTextValue = "green";
-        const onChangeFn = jest.fn();
-        const wrapper = renderSelect({
-          onChange: onChangeFn,
-          defaultValue: "opt2",
-        });
-        const changeEventObject = { target: { value: "Foo" } };
-
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        expect(wrapper.find(Textbox).prop("formattedValue")).toBe(
-          selectedOptionTextValue
-        );
-        wrapper.find("input").simulate("change", changeEventObject);
-        expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Foo");
-        act(() => {
-          wrapper.find(SelectList).prop("onSelectListClose")();
-        });
-        expect(wrapper.update().find(Textbox).prop("formattedValue")).toBe("");
-      });
-    });
   });
 
   describe("when an HTML element is clicked when the SelectList is open", () => {
@@ -694,14 +667,6 @@ describe("FilterableSelect", () => {
         });
 
         describe("and an an empty value has been passed", () => {
-          it("then the textbox displayed value should be cleared", () => {
-            expect(wrapper.find(Textbox).props().formattedValue).toBe("blue");
-            wrapper.setProps({ value: "" });
-            expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
-              ""
-            );
-          });
-
           it("then the textbox value should be cleared", () => {
             expect(wrapper.find(Textbox).props().value).toBe("opt1");
             wrapper.setProps({ value: "" });
