@@ -396,6 +396,7 @@ const SimpleSelect = React.forwardRef(
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="simple-select-list-loader"
       >
         {children}
       </SelectList>
