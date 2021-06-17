@@ -231,7 +231,7 @@ const FilterableSelect = React.forwardRef(
       );
 
       setSelectedValue((prevValue) => {
-        if (isControlled.current && prevValue !== newValue) {
+        if (value && isControlled.current && prevValue !== newValue) {
           setMatchingText(newValue);
         }
 
