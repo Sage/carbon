@@ -1,3 +1,10 @@
+## [77.1.0](https://github.com/Sage/carbon/compare/v77.0.1...v77.1.0) (2021-06-18)
+
+
+### Features
+
+* **confirm:** more flexible button usage ([f76a088](https://github.com/Sage/carbon/commit/f76a088c126bafab4881a1f39346e685e1e95f21))
+
 ### [77.0.1](https://github.com/Sage/carbon/compare/v77.0.0...v77.0.1) (2021-06-17)
 
 
