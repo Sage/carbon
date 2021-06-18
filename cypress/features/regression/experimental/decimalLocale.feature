@@ -3,7 +3,7 @@ Feature: Decimal component - locale
 
   @positive
   Scenario Outline: Check Decimal component input field with <nameOfObject> and input <labelInput>
-    Given I open locale "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
+    Given I open locale "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "<nameOfObject>" object name
     When I set Decimal input to the "<labelInput>"
     Then Decimal Input is set to "<output>"
     Examples:
@@ -21,24 +21,24 @@ Feature: Decimal component - locale
 
   @negative
   Scenario: Check Decimal component input field with localeFR object and input 1  1  1  1  1,25
-    Given I open locale "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "localeFR" object name
+    Given I open locale "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "localeFR" object name
     When I set Decimal input to the "1  1  1  1  1,25"
     Then Decimal Input is set to "1  1  1  1  1,25"
 
   @positive
   Scenario: Check Decimal component input field with localePT locale and input 111 11,25
-    Given I open locale "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "localePT" object name
+    Given I open locale "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "localePT" object name
     When I set Decimal input to the "111 11,25"
     Then Decimal Input is set to "11 111,250"
 
   @positive
   Scenario: Check Decimal component input field with localeNO locale and input 111 11,25
-    Given I open locale "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "localeNO" object name
+    Given I open locale "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "localeNO" object name
     When I set Decimal input to the "111 1 1,25"
     Then Decimal Input is set to "11 111,250"
 
   @negative
   Scenario: Check Decimal component input field with localeNO object and input 1  1  1  1  1,25
-    Given I open locale "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "localeNO" object name
+    Given I open locale "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "localeNO" object name
     When I set Decimal input to the "1  1  1  1  1,25"
     Then Decimal Input is set to "1  1  1  1  1,25"

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import invariant from "invariant";
-import Textbox from "../../../components/textbox";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import Textbox from "../textbox";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
