@@ -658,6 +658,19 @@ describe("MultiSelect", () => {
     });
   });
 
+  describe('when the "onFilter" prop has been passed and the input text changed', () => {
+    it("then that prop should be called", () => {
+      const filterText = "foo";
+      const onFilterChangeFn = jest.fn();
+      const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
+
+      wrapper
+        .find("input")
+        .simulate("change", { target: { value: filterText } });
+      expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
+    });
+  });
+
   describe('when the "onSelectListClose" is called in the SelectList', () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });

@@ -28,6 +28,7 @@ const MultiSelect = React.forwardRef(
       readOnly,
       children,
       onOpen,
+      onFilterChange,
       onChange,
       onClick,
       onFocus,
@@ -249,6 +250,12 @@ const MultiSelect = React.forwardRef(
         window.removeEventListener(clickEvent, handleGlobalClick);
       };
     }, [handleGlobalClick]);
+
+    useEffect(() => {
+      if (onFilterChange) {
+        onFilterChange(filterText);
+      }
+    }, [filterText, onFilterChange]);
 
     useEffect(() => {
       if (!isControlled.current && onChange) {
@@ -503,6 +510,8 @@ MultiSelect.propTypes = {
   ]),
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
+  /** A custom callback for when the input text changes */
+  onFilterChange: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the Component opens on focus */
