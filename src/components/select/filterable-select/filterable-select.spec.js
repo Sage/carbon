@@ -772,6 +772,19 @@ describe("FilterableSelect", () => {
     });
   });
 
+  describe('when the "onFilter" prop has been passed and the input text changed', () => {
+    it("then that prop should be called", () => {
+      const filterText = "foo";
+      const onFilterChangeFn = jest.fn();
+      const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
+
+      wrapper
+        .find("input")
+        .simulate("change", { target: { value: filterText } });
+      expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
+    });
+  });
+
   describe('when the "openOnFocus" prop is set', () => {
     describe("and the Textbox Input is focused", () => {
       it("the SelectList should be rendered", () => {

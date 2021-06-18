@@ -19,6 +19,8 @@ export interface FilterableSelectProps extends FormInputPropTypes {
   multiColumn?: boolean;
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage?: string;
+  /** A custom callback for when the input text changes */
+  onFilterChange?: (filterText: string) => void;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
   /** A callback for when the Action Button is triggered */

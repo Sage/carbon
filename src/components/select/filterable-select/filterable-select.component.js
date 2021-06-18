@@ -22,6 +22,7 @@ const FilterableSelect = React.forwardRef(
       children,
       onOpen,
       onChange,
+      onFilterChange,
       onClick,
       onKeyDown,
       onFocus,
@@ -267,6 +268,12 @@ const FilterableSelect = React.forwardRef(
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, children]);
+
+    useEffect(() => {
+      if (onFilterChange) {
+        onFilterChange(filterText);
+      }
+    }, [filterText, onFilterChange]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -518,6 +525,8 @@ FilterableSelect.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
+  /** A custom callback for when the input text changes */
+  onFilterChange: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the Component opens on focus */
