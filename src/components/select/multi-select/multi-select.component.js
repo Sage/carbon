@@ -387,7 +387,6 @@ const MultiSelect = React.forwardRef(
 
     function onSelectListClose() {
       setOpenState(false);
-      setTextValue("");
       setFilterText("");
     }
 
