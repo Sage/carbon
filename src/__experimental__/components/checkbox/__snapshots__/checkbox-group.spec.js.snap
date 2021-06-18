@@ -158,7 +158,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
       >
         <div
           className="c4"
-          name="check-required"
         >
           <div
             className="c5 c6"
@@ -211,7 +210,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
       >
         <div
           className="c4"
-          name="check-optional"
         >
           <div
             className="c5 c6"

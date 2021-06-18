@@ -69,7 +69,7 @@ const Switch = ({
   return (
     <SwitchStyle {...tagComponent("Switch", props)} {...switchProps}>
       <CheckableInput
-        useValidationIcon={shouldValidationBeOnLabel && !disabled}
+        validationOnLabel={shouldValidationBeOnLabel && !disabled}
         {...inputProps}
       >
         <SwitchSlider
