@@ -58,6 +58,7 @@ const SelectList = React.forwardRef(
       onListScrollBottom,
       multiColumn,
       tableHeader,
+      loaderDataRole,
       ...listProps
     },
     listContainerRef
@@ -375,7 +376,7 @@ const SelectList = React.forwardRef(
 
     const loader = () => (
       <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>
-        <Loader />
+        <Loader data-role={loaderDataRole} />
       </StyledSelectLoaderContainer>
     );
 
@@ -472,6 +473,8 @@ SelectList.propTypes = {
   tableHeader: PropTypes.node,
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn: PropTypes.bool,
+  /** Data role for loader component */
+  loaderDataRole: PropTypes.string,
 };
 
 export default SelectList;
