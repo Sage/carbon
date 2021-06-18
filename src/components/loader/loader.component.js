@@ -11,17 +11,24 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const Loader = (props) => {
-  const marginProps = filterStyledSystemMarginProps(props);
+const Loader = ({ isInsideButton, isActive, size, ...rest }) => {
   return (
-    <StyledLoader
-      {...props}
-      {...tagComponent("loader", props)}
-      {...marginProps}
-    >
-      <StyledLoaderSquare {...props} />
-      <StyledLoaderSquare {...props} />
-      <StyledLoaderSquare {...props} />
+    <StyledLoader {...rest} {...tagComponent("loader", rest)}>
+      <StyledLoaderSquare
+        isInsideButton={isInsideButton}
+        isActive={isActive}
+        size={size}
+      />
+      <StyledLoaderSquare
+        isInsideButton={isInsideButton}
+        isActive={isActive}
+        size={size}
+      />
+      <StyledLoaderSquare
+        isInsideButton={isInsideButton}
+        isActive={isActive}
+        size={size}
+      />
     </StyledLoader>
   );
 };
