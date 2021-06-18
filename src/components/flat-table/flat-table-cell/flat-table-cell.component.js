@@ -18,8 +18,7 @@ const FlatTableCell = ({
   children,
   colspan,
   rowspan,
-  py,
-  px,
+  pl,
   expandable = false,
   onClick,
   onKeyDown,
@@ -48,8 +47,7 @@ const FlatTableCell = ({
       data-element="flat-table-cell"
       colSpan={colspan}
       rowSpan={rowspan}
-      py={py}
-      px={px}
+      pl={pl}
       onClick={expandable && onClick ? onClick : undefined}
       tabIndex={expandable && onClick ? 0 : undefined}
       onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}

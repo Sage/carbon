@@ -171,6 +171,7 @@ const FlatTableRow = React.forwardRef(
                     reportCellWidth:
                       index < rowHeaderIndex ? reportCellWidth : undefined,
                     leftPosition: leftPositions[index],
+                    pl: index === firstCellIndex() && expandable ? "4px" : null,
                     ...child.props,
                   })
                 );
