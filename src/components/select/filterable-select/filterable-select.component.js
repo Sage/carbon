@@ -478,6 +478,7 @@ const FilterableSelect = React.forwardRef(
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="filterable-select-list-loader"
       >
         {children}
       </FilterableSelectList>
