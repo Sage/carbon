@@ -2,6 +2,7 @@ import React from "react";
 import I18n from "i18n-js";
 import PropTypes from "prop-types";
 
+import Logger from "../../utils/logger/logger";
 import Heading from "../heading";
 import Dialog from "../dialog";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
@@ -9,11 +10,20 @@ import Button from "../button/button.component";
 import Icon from "../icon";
 import Loader from "../loader";
 
+let deprecatedWarnTriggered = false;
+
 const Confirm = ({
   open,
   children,
   destructive,
+  cancelButtonDestructive,
+  confirmButtonDestructive,
   cancelButtonType,
+  confirmButtonType,
+  cancelButtonIconType,
+  cancelButtonIconPosition,
+  confirmButtonIconType,
+  confirmButtonIconPosition,
   cancelLabel,
   onCancel,
   disableCancel,
@@ -26,6 +36,13 @@ const Confirm = ({
   title,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && destructive) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      "`destructive` prop is deprecated and will soon be removed. Please use `cancelButtonDestructive` and `confirmButtonDestructive` props."
+    );
+  }
+
   const renderCancelButton = () => {
     if (!onCancel) return null;
 
@@ -34,8 +51,10 @@ const Confirm = ({
         onClick={onCancel}
         data-element="cancel"
         buttonType={cancelButtonType}
-        destructive={destructive}
+        destructive={destructive || cancelButtonDestructive}
         disabled={disableCancel}
+        iconType={cancelButtonIconType}
+        iconPosition={cancelButtonIconPosition}
       >
         {cancelLabel || I18n.t("confirm.no", { defaultValue: "No" })}
       </Button>
@@ -46,10 +65,12 @@ const Confirm = ({
     <Button
       onClick={onConfirm}
       data-element="confirm"
-      buttonType="primary"
-      destructive={destructive}
+      buttonType={confirmButtonType}
+      destructive={destructive || confirmButtonDestructive}
       disabled={isLoadingConfirm || disableConfirm}
       ml={cancelButtonType === "tertiary" ? "3px" : 2}
+      iconType={confirmButtonIconType}
+      iconPosition={confirmButtonIconPosition}
     >
       {isLoadingConfirm ? (
         <Loader isInsideButton isActive />
@@ -100,8 +121,11 @@ Confirm.defaultProps = {
   size: "extra-small",
   showCloseIcon: false,
   destructive: false,
+  cancelButtonDestructive: false,
+  confirmButtonDestructive: false,
   iconType: null,
   cancelButtonType: "secondary",
+  confirmButtonType: "primary",
 };
 
 Confirm.propTypes = {
@@ -144,14 +168,42 @@ Confirm.propTypes = {
   cancelLabel: PropTypes.string,
   /** Apply destructive style to the buttons */
   destructive: PropTypes.bool,
+  /** Apply destructive style to the cancel button */
+  cancelButtonDestructive: PropTypes.bool,
+  /** Apply destructive style to the confirm button */
+  confirmButtonDestructive: PropTypes.bool,
+  /** Defines a cancel button Icon position related to the children: "before" | "after" */
+  cancelButtonIconPosition: PropTypes.oneOf(["before", "after"]),
+  /* FIXME use import { ICONS } from "../icon/icon-config"; when #4134 is merged */
+  /** Defines an Icon type within the cancel button (see Icon for options) */
+  cancelButtonIconType: PropTypes.string,
+  /** Defines a confirm button Icon position related to the children: "before" | "after" */
+  confirmButtonIconPosition: PropTypes.oneOf(["before", "after"]),
+  /* FIXME use import { ICONS } from "../icon/icon-config"; when #4134 is merged */
+  /** Defines an Icon type within the confirm button (see Icon for options) */
+  confirmButtonIconType: PropTypes.string,
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf(["error", "warning"]),
   /** Makes cancel button disabled */
   disableCancel: PropTypes.bool,
   /** Makes confirm button disabled */
   disableConfirm: PropTypes.bool,
-  /** Allows to setup buttonType into cancel button */
-  cancelButtonType: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
+  cancelButtonType: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "dashed",
+    "darkBackground",
+  ]),
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
+  confirmButtonType: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "dashed",
+    "darkBackground",
+  ]),
   /** Adds isLoading state into confirm button */
   isLoadingConfirm: PropTypes.bool,
 };
