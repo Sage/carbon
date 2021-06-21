@@ -1,3 +1,10 @@
+### [77.1.1](https://github.com/Sage/carbon/compare/v77.1.0...v77.1.1) (2021-06-21)
+
+
+### Bug Fixes
+
+* **pod:** update incorrect type definition from padding to size ([52f2246](https://github.com/Sage/carbon/commit/52f2246a8ba5d99ce757647e0be3e9cf4bbbf013))
+
 ## [77.1.0](https://github.com/Sage/carbon/compare/v77.0.1...v77.1.0) (2021-06-18)
 
 
