@@ -58,15 +58,6 @@ const I18nHelper = {
       groupSize: 3,
     };
 
-    // valueToFormat is "en" formatted.
-    const [integer, remainder] = String(valueToFormat).split(".");
-
-    // `bignumber.js` rounds when remainder is greater than precision. This prevents rounding.
-    if (!options.round && remainder && remainder.length > precision) {
-      const bigInt = new BigNumber(integer);
-      const formatBigInt = bigInt.toFormat(0, format);
-      return `${formatBigInt + separator + remainder}`;
-    }
     const num = new BigNumber(valueToFormat);
     return num.toFormat(precision, format);
   },

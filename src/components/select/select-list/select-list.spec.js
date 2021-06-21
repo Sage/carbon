@@ -349,8 +349,12 @@ describe("SelectList", () => {
       const wrapper = renderSelectList({
         isLoading: true,
         onListAction: () => {},
+        loaderDataRole: "select-list-loader",
       });
       expect(wrapper.find("li").last().find(Loader).exists()).toBe(true);
+      expect(wrapper.find("li").last().find(Loader).prop("data-role")).toEqual(
+        "select-list-loader"
+      );
     });
 
     it("and is in multiColum mode, then a Loader Component should be rendered as the last element of the list", () => {

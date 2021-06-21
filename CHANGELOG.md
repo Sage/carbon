@@ -1,3 +1,33 @@
+## [77.1.0](https://github.com/Sage/carbon/compare/v77.0.1...v77.1.0) (2021-06-18)
+
+
+### Features
+
+* **confirm:** more flexible button usage ([f76a088](https://github.com/Sage/carbon/commit/f76a088c126bafab4881a1f39346e685e1e95f21))
+
+### [77.0.1](https://github.com/Sage/carbon/compare/v77.0.0...v77.0.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* **select-list:** add data role to internal loader component ([c9bc71a](https://github.com/Sage/carbon/commit/c9bc71af3cbd8f86d30df0857f341a61f4acf9d8))
+
+## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** The decimal component no longer uses `i18n-js` for decimal formatting,
+you should use the `locale` prop instead.
+* **decimal:** `formatDecimal` no longer supports the `round` option first introduced in v73.0.0
+
+closes FE-3500
+closes FE-4148
+
+### Features
+
+* **decimal:** add locale support ([7cec047](https://github.com/Sage/carbon/commit/7cec0471db24e5b0d3c6150be6ea71038e14ecae)), closes [#3559](https://github.com/Sage/carbon/issues/3559)
+
 ### [76.5.6](https://github.com/Sage/carbon/compare/v76.5.5...v76.5.6) (2021-06-14)
 
 

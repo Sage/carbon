@@ -66,5 +66,25 @@
   },
   "precision15": {
     "precision": 15
+  },
+  "localeEN": {
+    "locale": "en",
+    "precision": 3
+  },
+  "localeFR": {
+    "locale": "fr",
+    "precision": 3
+  },
+  "localeNO": {
+    "locale": "no",
+    "precision": 3
+  },
+  "localeES": {
+    "locale": "es-ES",
+    "precision": 3
+  },
+  "localePT": {
+    "locale": "pt-PT",
+    "precision": 3
   }
 }
