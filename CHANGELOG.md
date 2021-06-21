@@ -1,3 +1,10 @@
+### [77.1.3](https://github.com/Sage/carbon/compare/v77.1.2...v77.1.3) (2021-06-21)
+
+
+### Bug Fixes
+
+* **card:** extend styled system margin props in ts interface ([d44372a](https://github.com/Sage/carbon/commit/d44372aafdc410041ae27bcd84fa4996a0c3f064))
+
 ### [77.1.2](https://github.com/Sage/carbon/compare/v77.1.1...v77.1.2) (2021-06-21)
 
 
