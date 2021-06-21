@@ -458,6 +458,7 @@ const MultiSelect = React.forwardRef(
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="multi-select-list-loader"
       >
         {children}
       </FilterableSelectList>
