@@ -214,9 +214,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         data-component="radio-button"
       >
         <div
-          checked={false}
           className="c3"
-          name="test-group"
         >
           <div
             className="c4 c5"
@@ -277,9 +275,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         data-component="radio-button"
       >
         <div
-          checked={false}
           className="c3"
-          name="test-group"
         >
           <div
             className="c4 c5"
