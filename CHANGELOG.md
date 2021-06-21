@@ -1,3 +1,10 @@
+### [77.1.2](https://github.com/Sage/carbon/compare/v77.1.1...v77.1.2) (2021-06-21)
+
+
+### Bug Fixes
+
+* **loader:** destructure props and only spread rest props on root element ([aeb92f6](https://github.com/Sage/carbon/commit/aeb92f64f79a7d75e8779320ffb383b08f9ac2f9))
+
 ### [77.1.1](https://github.com/Sage/carbon/compare/v77.1.0...v77.1.1) (2021-06-21)
 
 
