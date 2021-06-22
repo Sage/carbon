@@ -1,3 +1,11 @@
+### [77.1.4](https://github.com/Sage/carbon/compare/v77.1.3...v77.1.4) (2021-06-22)
+
+
+### Bug Fixes
+
+* **search:** update onkeydown and onclick type definitions to not use synthetic event ([2082fac](https://github.com/Sage/carbon/commit/2082fac6b5360aad6d2a762dace113af59ffd2ee))
+* **simple-color-picker, simple-color:** update onkeydown and onmousedown to not use synthetic event ([e20752c](https://github.com/Sage/carbon/commit/e20752c46c31c6dc80707d380c4126fca7d0f967))
+
 ### [77.1.3](https://github.com/Sage/carbon/compare/v77.1.2...v77.1.3) (2021-06-21)
 
 
