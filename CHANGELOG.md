@@ -1,3 +1,21 @@
+## [77.2.0](https://github.com/Sage/carbon/compare/v77.1.4...v77.2.0) (2021-06-22)
+
+
+### Features
+
+* **flat-table:** add alternative header background color ([88271cd](https://github.com/Sage/carbon/commit/88271cdf32a2e9c6d1fb6ecb8abe4d7bdd04db04))
+* **flat-table:** add horizontal border color control ([a18d043](https://github.com/Sage/carbon/commit/a18d043e725e807a9668c4388e0dacd680490492))
+* **flat-table:** add horizontal border size control ([d131634](https://github.com/Sage/carbon/commit/d131634900b75196f6e9d16596badfbd25112abe))
+* **flat-table:** add row background color prop ([c275359](https://github.com/Sage/carbon/commit/c275359c9afbba720353dd74b4487e09168405f0))
+* **flat-table:** add toColor util to bgColor prop ([db9e495](https://github.com/Sage/carbon/commit/db9e4959d1045a4692c488be8fcedd518b010d23))
+* **flat-table:** add vertical border color control ([0a25e76](https://github.com/Sage/carbon/commit/0a25e765849b2d7ee9bcd004c6d927bb8ba34c7b))
+* **flat-table:** add vertical border size control ([d10a217](https://github.com/Sage/carbon/commit/d10a2171ca845e40d6682f6696d4c8abe18855c6))
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect border color in multiline headers ([bf93744](https://github.com/Sage/carbon/commit/bf93744cc832caa3cec5deb4cc8c3fea3ae9d2ae))
+
 ### [77.1.4](https://github.com/Sage/carbon/compare/v77.1.3...v77.1.4) (2021-06-22)
 
 
