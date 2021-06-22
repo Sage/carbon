@@ -29,6 +29,9 @@ const FlatTableRow = React.forwardRef(
       highlighted,
       selected,
       subRows,
+      bgColor,
+      horizontalBorderColor,
+      horizontalBorderSize = "small",
     },
     ref
   ) => {
@@ -142,6 +145,9 @@ const FlatTableRow = React.forwardRef(
               rowHeaderIndex={rowHeaderIndex}
               colorTheme={colorTheme}
               stickyOffset={stickyOffset}
+              bgColor={bgColor}
+              horizontalBorderColor={horizontalBorderColor}
+              horizontalBorderSize={horizontalBorderSize}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -190,6 +196,8 @@ const FlatTableRow = React.forwardRef(
 );
 
 FlatTableRow.propTypes = {
+  /** Overrides default cell color */
+  bgColor: PropTypes.string,
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: PropTypes.node.isRequired,
   /** Function to handle click event. If provided the Component could be focused with tab key. */
@@ -206,6 +214,10 @@ FlatTableRow.propTypes = {
   expandableArea: PropTypes.oneOf(["wholeRow", "firstColumn"]),
   /** Sets an expandable row to be expanded on start */
   expanded: PropTypes.bool,
+  /** Sets the color of the bottom border in the row */
+  horizontalBorderColor: PropTypes.string,
+  /** Sets the weight of the bottom border in the row */
+  horizontalBorderSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** @ignore @private */
   isSubRow: PropTypes.bool,
   /** @ignore @private */
