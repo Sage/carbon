@@ -280,6 +280,31 @@ You can use the `required` prop to indicate if the field is mandatory.
   </Story>
 </Preview>
 
+### Size
+You can use the `size` prop to set the size of the field.
+
+<Preview>
+  <Story name="size">
+    <>
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="small"
+      />
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="medium"
+      />
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="large"
+      />
+    </>
+  </Story>
+</Preview>
+
 ## Props 
 
 ### NumeralDate

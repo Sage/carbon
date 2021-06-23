@@ -439,7 +439,6 @@ exports[`RadioButton base renders as expected 1`] = `
         data-component="radio-button"
       >
         <div
-          checked={false}
           className="c2"
         >
           <div
@@ -458,6 +457,7 @@ exports[`RadioButton base renders as expected 1`] = `
                   checked={false}
                   className="c9 c10"
                   id="guid-12345"
+                  name="radio-button-name"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}

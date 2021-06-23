@@ -32,6 +32,10 @@ exports[`FlatTableRow should have expected styles 1`] = `
   outline: 2px solid #0000;
 }
 
+.c0 .c2 {
+  border-bottom: 1px solid #668592;
+}
+
 <table>
   <tbody>
     <tr

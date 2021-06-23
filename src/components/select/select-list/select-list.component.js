@@ -58,6 +58,7 @@ const SelectList = React.forwardRef(
       onListScrollBottom,
       multiColumn,
       tableHeader,
+      loaderDataRole,
       ...listProps
     },
     listContainerRef
@@ -65,7 +66,7 @@ const SelectList = React.forwardRef(
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [listHeight, setListHeight] = useState(0);
     const [listWidth, setListWidth] = useState(null);
-    const [placement, setPlacement] = useState("bottom");
+    const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
     const tableRef = useRef();
@@ -80,9 +81,12 @@ const SelectList = React.forwardRef(
       }).filter((child) => child)
     );
 
-    const setPlacementCallback = useCallback((popper) => {
-      setPlacement(popper.placement);
-    }, []);
+    const setPlacementCallback = useCallback(
+      (popper) => {
+        placement.current = popper.placement;
+      },
+      [placement]
+    );
 
     const anchorRef = useMemo(
       () => ({
@@ -372,7 +376,7 @@ const SelectList = React.forwardRef(
 
     const loader = () => (
       <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>
-        <Loader />
+        <Loader data-role={loaderDataRole} />
       </StyledSelectLoaderContainer>
     );
 
@@ -407,7 +411,7 @@ const SelectList = React.forwardRef(
           <StyledSelectListContainer
             data-element="select-list-wrapper"
             height={listHeight}
-            placement={placement}
+            placement={placement.current}
             {...listProps}
           >
             <StyledSelectList
@@ -469,6 +473,8 @@ SelectList.propTypes = {
   tableHeader: PropTypes.node,
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn: PropTypes.bool,
+  /** Data role for loader component */
+  loaderDataRole: PropTypes.string,
 };
 
 export default SelectList;

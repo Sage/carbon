@@ -483,7 +483,7 @@ describe("CarouselPreviousButtonWrapperStyle", () => {
 
 describe("CarouselStyledIcon", () => {
   it("should render matched style when modern themed", () => {
-    const wrapper = mount(<CarouselStyledIcon theme={mintTheme} />);
+    const wrapper = mount(<CarouselStyledIcon type="home" theme={mintTheme} />);
     assertStyleMatch(
       {
         color: "rgba(0,0,0,0.65)",

@@ -4,7 +4,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c11 {
   background-color: transparent;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DB;
   box-sizing: border-box;
   font-weight: 700;
   left: auto;
@@ -90,16 +89,16 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1000;
 }
 
+.c9.c9.c9 {
+  left: 0px;
+}
+
 .c9.c9.c9 > div {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 24px;
   padding-right: 24px;
-}
-
-.c9.c9.c9 {
-  left: 0px;
 }
 
 .c7 {
@@ -110,6 +109,10 @@ exports[`FlatTable when rendered with proper table data should have expected str
   table-layout: fixed;
   width: auto;
   outline: 2px solid #0000;
+}
+
+.c7 .c10 {
+  border-bottom: 1px solid #668592;
 }
 
 .c5 .c8,
@@ -161,6 +164,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   background-color: #335C6D;
   border-right: 1px solid #668592;
   color: #FFFFFF;
+  border-bottom-color: #668592;
 }
 
 <div

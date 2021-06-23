@@ -1,7 +1,8 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
-export interface CardProps {
+export interface CardProps extends MarginProps {
   /** action to be executed when card is clicked or enter pressed */
   action?: (ev: React.MouseEvent<HTMLDivElement>) => void;
   children: React.ReactNode;

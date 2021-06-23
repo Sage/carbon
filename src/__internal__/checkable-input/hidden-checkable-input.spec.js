@@ -13,7 +13,7 @@ const render = (
   return mount(
     <InputGroupContext.Provider value={inputGroupContextValue}>
       <InputContext.Provider value={inputContextValue}>
-        <HiddenCheckableInput {...props} />
+        <HiddenCheckableInput inputType="test" {...props} />
       </InputContext.Provider>
     </InputGroupContext.Provider>
   );

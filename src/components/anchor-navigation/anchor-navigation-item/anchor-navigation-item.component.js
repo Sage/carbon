@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledNavigationItem } from "./anchor-navigation.style";
+import StyledNavigationItem from "./anchor-navigation-item.style";
 
 const AnchorNavigationItem = React.forwardRef(
   ({ children, onKeyDown, onClick, href, tabIndex, isSelected }, ref) => (

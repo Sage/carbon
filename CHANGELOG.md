@@ -1,3 +1,159 @@
+## [77.2.0](https://github.com/Sage/carbon/compare/v77.1.4...v77.2.0) (2021-06-22)
+
+
+### Features
+
+* **flat-table:** add alternative header background color ([88271cd](https://github.com/Sage/carbon/commit/88271cdf32a2e9c6d1fb6ecb8abe4d7bdd04db04))
+* **flat-table:** add horizontal border color control ([a18d043](https://github.com/Sage/carbon/commit/a18d043e725e807a9668c4388e0dacd680490492))
+* **flat-table:** add horizontal border size control ([d131634](https://github.com/Sage/carbon/commit/d131634900b75196f6e9d16596badfbd25112abe))
+* **flat-table:** add row background color prop ([c275359](https://github.com/Sage/carbon/commit/c275359c9afbba720353dd74b4487e09168405f0))
+* **flat-table:** add toColor util to bgColor prop ([db9e495](https://github.com/Sage/carbon/commit/db9e4959d1045a4692c488be8fcedd518b010d23))
+* **flat-table:** add vertical border color control ([0a25e76](https://github.com/Sage/carbon/commit/0a25e765849b2d7ee9bcd004c6d927bb8ba34c7b))
+* **flat-table:** add vertical border size control ([d10a217](https://github.com/Sage/carbon/commit/d10a2171ca845e40d6682f6696d4c8abe18855c6))
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect border color in multiline headers ([bf93744](https://github.com/Sage/carbon/commit/bf93744cc832caa3cec5deb4cc8c3fea3ae9d2ae))
+
+### [77.1.4](https://github.com/Sage/carbon/compare/v77.1.3...v77.1.4) (2021-06-22)
+
+
+### Bug Fixes
+
+* **search:** update onkeydown and onclick type definitions to not use synthetic event ([2082fac](https://github.com/Sage/carbon/commit/2082fac6b5360aad6d2a762dace113af59ffd2ee))
+* **simple-color-picker, simple-color:** update onkeydown and onmousedown to not use synthetic event ([e20752c](https://github.com/Sage/carbon/commit/e20752c46c31c6dc80707d380c4126fca7d0f967))
+
+### [77.1.3](https://github.com/Sage/carbon/compare/v77.1.2...v77.1.3) (2021-06-21)
+
+
+### Bug Fixes
+
+* **card:** extend styled system margin props in ts interface ([d44372a](https://github.com/Sage/carbon/commit/d44372aafdc410041ae27bcd84fa4996a0c3f064))
+
+### [77.1.2](https://github.com/Sage/carbon/compare/v77.1.1...v77.1.2) (2021-06-21)
+
+
+### Bug Fixes
+
+* **loader:** destructure props and only spread rest props on root element ([aeb92f6](https://github.com/Sage/carbon/commit/aeb92f64f79a7d75e8779320ffb383b08f9ac2f9))
+
+### [77.1.1](https://github.com/Sage/carbon/compare/v77.1.0...v77.1.1) (2021-06-21)
+
+
+### Bug Fixes
+
+* **pod:** update incorrect type definition from padding to size ([52f2246](https://github.com/Sage/carbon/commit/52f2246a8ba5d99ce757647e0be3e9cf4bbbf013))
+
+## [77.1.0](https://github.com/Sage/carbon/compare/v77.0.1...v77.1.0) (2021-06-18)
+
+
+### Features
+
+* **confirm:** more flexible button usage ([f76a088](https://github.com/Sage/carbon/commit/f76a088c126bafab4881a1f39346e685e1e95f21))
+
+### [77.0.1](https://github.com/Sage/carbon/compare/v77.0.0...v77.0.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* **select-list:** add data role to internal loader component ([c9bc71a](https://github.com/Sage/carbon/commit/c9bc71af3cbd8f86d30df0857f341a61f4acf9d8))
+
+## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** The decimal component no longer uses `i18n-js` for decimal formatting,
+you should use the `locale` prop instead.
+* **decimal:** `formatDecimal` no longer supports the `round` option first introduced in v73.0.0
+
+closes FE-3500
+closes FE-4148
+
+### Features
+
+* **decimal:** add locale support ([7cec047](https://github.com/Sage/carbon/commit/7cec0471db24e5b0d3c6150be6ea71038e14ecae)), closes [#3559](https://github.com/Sage/carbon/issues/3559)
+
+### [76.5.6](https://github.com/Sage/carbon/compare/v76.5.5...v76.5.6) (2021-06-14)
+
+
+### Bug Fixes
+
+* **accordion:** fix unit test coverage ([00e8e26](https://github.com/Sage/carbon/commit/00e8e26a29f18d2b5048cb7d943ba578e9b5e8dc))
+* **accordion:** resize accordion when children resize ([f27ebc7](https://github.com/Sage/carbon/commit/f27ebc76f9f525ac6ba596f7abe9ccd048fba7fa))
+
+### [76.5.5](https://github.com/Sage/carbon/compare/v76.5.4...v76.5.5) (2021-06-14)
+
+
+### Bug Fixes
+
+* **search:** remove the onClick prop from the input ([b767581](https://github.com/Sage/carbon/commit/b7675817c320770c8dc2785770106cf0bebfcf7a))
+
+### [76.5.4](https://github.com/Sage/carbon/compare/v76.5.3...v76.5.4) (2021-06-11)
+
+
+### Bug Fixes
+
+* **icon:** implement color values from theme correctly ([9a60fb9](https://github.com/Sage/carbon/commit/9a60fb9f8f80f028872cfef9fbca86c87f29f5b8))
+
+### [76.5.3](https://github.com/Sage/carbon/compare/v76.5.2...v76.5.3) (2021-06-11)
+
+
+### Bug Fixes
+
+* **radio-button:** allow ref forwarding to allow access to the underlying input ([e241985](https://github.com/Sage/carbon/commit/e2419850832c7be7337e5156c5716cbfe199c199))
+
+### [76.5.2](https://github.com/Sage/carbon/compare/v76.5.1...v76.5.2) (2021-06-10)
+
+
+### Bug Fixes
+
+* **note:** add decorator to content to ensure correct html applied ([8a31825](https://github.com/Sage/carbon/commit/8a31825b2e85229a111699cc8964235a874bc995)), closes [#4137](https://github.com/Sage/carbon/issues/4137)
+
+### [76.5.1](https://github.com/Sage/carbon/compare/v76.5.0...v76.5.1) (2021-06-09)
+
+
+### Bug Fixes
+
+* **button:** update forwardref prop type to allow function or object ([158b413](https://github.com/Sage/carbon/commit/158b413ee20fe57972a9d3e2d5392126cc65e5de))
+* **row:** add support for none gutter value ([fc4df58](https://github.com/Sage/carbon/commit/fc4df58cac73cceef54fafb59afaed5e577ea026))
+
+## [76.5.0](https://github.com/Sage/carbon/compare/v76.4.0...v76.5.0) (2021-06-09)
+
+
+### Features
+
+* **numeral-date:** add size prop ([582c512](https://github.com/Sage/carbon/commit/582c51284f23563b4007fec65e3722f5406c156e))
+
+## [76.4.0](https://github.com/Sage/carbon/compare/v76.3.2...v76.4.0) (2021-06-08)
+
+
+### Features
+
+* **anchor-navigation:** add stickynavigation prop structure warning ([0e3b4be](https://github.com/Sage/carbon/commit/0e3b4be459a8b8e2b7219305e685fdd101c15383))
+
+### [76.3.2](https://github.com/Sage/carbon/compare/v76.3.1...v76.3.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* **icon:** hover only for interactive icons ([a9cd54f](https://github.com/Sage/carbon/commit/a9cd54fe57bc975e01d28960f7e4f82c7b73ea75))
+
+### [76.3.1](https://github.com/Sage/carbon/compare/v76.3.0...v76.3.1) (2021-06-08)
+
+
+### Bug Fixes
+
+* **step-sequence-item:** update theme colours for completed steps ([a05449f](https://github.com/Sage/carbon/commit/a05449f072b35a38847e0a2eced4a38da98eab52)), closes [#4117](https://github.com/Sage/carbon/issues/4117)
+
+## [76.3.0](https://github.com/Sage/carbon/compare/v76.2.0...v76.3.0) (2021-06-08)
+
+
+### Features
+
+* **button-toggle-group:** restrict children to button-toggle only ([c1a51b0](https://github.com/Sage/carbon/commit/c1a51b0aeab65baae0edce89286c25ea6e7ec466))
+
 ## [76.2.0](https://github.com/Sage/carbon/compare/v76.1.5...v76.2.0) (2021-06-07)
 
 

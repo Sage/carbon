@@ -5,6 +5,12 @@ import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-ro
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
+import { toColor } from "../../../style/utils/color";
+
+const horizontalBorderSizes = {
+  medium: "2px",
+  large: "4px",
+};
 
 const stickyColumnFocusStyling = (index, theme) => {
   return `
@@ -48,83 +54,16 @@ const borderColor = (colorTheme, theme) => {
 };
 
 const StyledFlatTableRow = styled.tr`
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  outline: 2px solid #0000;
-
-  ${({ stickyOffset }) =>
-    stickyOffset > 0 &&
-    css`
-      && th {
-        top: ${stickyOffset}px;
-      }
-    `}
-
-  ${({ isRowInteractive, theme, rowHeaderIndex }) =>
-    isRowInteractive &&
-    css`
-      cursor: pointer;
-
-      :focus {
-        outline: 2px solid ${theme.colors.focus};
-        outline-offset: -1px;
-
-        ${StyledFlatTableRowHeader} {
-          ${stickyColumnFocusStyling(rowHeaderIndex, theme)}
-        }
-
-        ${![-1, 0].includes(rowHeaderIndex) &&
-        css`
-          ${Array.from({ length: rowHeaderIndex }).map((_, index) => {
-            return `
-              td:nth-of-type(${index + 1}) {
-                ${stickyColumnFocusStyling(index, theme)}
-              }
-            `;
-          })}
-        `}
-      }
-
-      :hover {
-        ${StyledFlatTableCell},
-        ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
-          background-color: ${theme.flatTable.hover};
-        }
-      }
-    `}
-    ${({ isFirstColumnInteractive, firstCellIndex, theme }) =>
-    isFirstColumnInteractive &&
-    css`
-      td:nth-child(${firstCellIndex + 1}),
-      th:nth-child(${firstCellIndex + 1}) {
-        cursor: pointer;
-
-        :focus {
-          outline: 2px solid ${theme.colors.focus};
-          outline-offset: -1px;
-        }
-
-        :hover {
-          background-color: ${theme.flatTable.hover};
-        }
-      }
-    `}
-    ${({ colorTheme, rowHeaderIndex, theme }) =>
-    ![-1, 0].includes(rowHeaderIndex) &&
-    css`
-      td:nth-of-type(${rowHeaderIndex + 1}) {
-        border-left: 1px solid ${theme.table.secondary};
-      }
-
-      th:nth-of-type(${rowHeaderIndex + 2}) {
-        border-left: 1px solid ${borderColor(colorTheme, theme)};
-      }
-    `}
-    ${({
+  ${({
+    bgColor,
+    horizontalBorderColor,
+    horizontalBorderSize,
+    stickyOffset,
+    isRowInteractive,
+    isFirstColumnInteractive,
+    rowHeaderIndex,
+    firstCellIndex,
+    colorTheme,
     expandable,
     selected,
     highlighted,
@@ -134,24 +73,129 @@ const StyledFlatTableRow = styled.tr`
     isFirstSubRow,
     theme,
   }) => {
+    const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
+    const customBorderColor = horizontalBorderColor
+      ? toColor(theme, horizontalBorderColor)
+      : undefined;
     const colorOfSelected = isInSidebar
       ? theme.flatTable.drawerSidebar.selected
       : theme.flatTable.selected;
     const colorOfHighlighted = isInSidebar
       ? theme.flatTable.drawerSidebar.highlighted
       : theme.flatTable.highlighted;
+    const allCellTypes = `${StyledFlatTableRowHeader}, ${StyledFlatTableCell}, ${StyledFlatTableCheckbox}`;
 
     return css`
-      ${isInSidebar &&
-      `
-        ${StyledFlatTableHeader},
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCell},
-        ${StyledFlatTableCheckbox} {
-          background-color: ${theme.flatTable.drawerSidebar.headerBackground};
+      border-collapse: separate;
+      border-radius: 0px;
+      border-spacing: 0;
+      min-width: 100%;
+      table-layout: fixed;
+      width: auto;
+      outline: 2px solid #0000;
+
+      ${allCellTypes} {
+        ${backgroundColor && `background-color: ${backgroundColor};`}
+
+        ${horizontalBorderSize !== "small" &&
+        css`
+          border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
+            ${theme.table.secondary};
+        `}
+
+        ${customBorderColor &&
+        css`
+          border-bottom-color: ${customBorderColor};
+        `}
+      }
+
+      ${StyledFlatTableHeader} {
+        border-bottom: 1px solid ${borderColor(colorTheme, theme)};
+      }
+
+      ${stickyOffset > 0 &&
+      css`
+        && th {
+          top: ${stickyOffset}px;
+        }
+      `}
+
+      ${isRowInteractive &&
+      css`
+        cursor: pointer;
+
+        :focus {
+          outline: 2px solid ${theme.colors.focus};
+          outline-offset: -1px;
+
+          ${StyledFlatTableRowHeader} {
+            ${stickyColumnFocusStyling(rowHeaderIndex, theme)}
+          }
+
+          ${![-1, 0].includes(rowHeaderIndex) &&
+          css`
+            ${Array.from({ length: rowHeaderIndex }).map((_, index) => {
+              return `
+                td:nth-of-type(${index + 1}) {
+                  ${stickyColumnFocusStyling(index, theme)}
+                }
+              `;
+            })}
+          `}
         }
 
-        td:first-of-type, th:first-of-type {
+        :hover {
+          ${allCellTypes} {
+            background-color: ${backgroundColor || theme.flatTable.hover};
+          }
+        }
+      `}
+
+      ${isFirstColumnInteractive &&
+      css`
+        td:nth-child(${firstCellIndex + 1}),
+        th:nth-child(${firstCellIndex + 1}) {
+          cursor: pointer;
+
+          :focus {
+            outline: 2px solid ${theme.colors.focus};
+            outline-offset: -1px;
+          }
+
+          :hover {
+            background-color: ${backgroundColor || theme.flatTable.hover};
+          }
+        }
+      `}
+
+      ${![-1, 0].includes(rowHeaderIndex) &&
+      css`
+        td:nth-of-type(${rowHeaderIndex + 1}) {
+          border-left: 1px solid ${customBorderColor || theme.table.secondary};
+        }
+
+        th:nth-of-type(${rowHeaderIndex + 2}) {
+          border-left: 1px solid
+            ${customBorderColor || borderColor(colorTheme, theme)};
+        }
+      `}
+
+      ${isInSidebar &&
+      css`
+        ${allCellTypes} {
+          background-color: ${
+            bgColor || theme.flatTable.drawerSidebar.headerBackground
+          };
+          };
+        }
+
+        ${StyledFlatTableHeader} {
+          background-color: ${theme.flatTable.drawerSidebar.headerBackground};
+          border-bottom-color: ${theme.table.secondary};
+        }
+
+        td:first-of-type,
+        th:first-of-type {
           border-left: none;
         }
 
@@ -162,10 +206,13 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableCheckbox} {
           border-right: 1px solid ${colorOfHighlighted};
         }
-        
+
         :hover {
-          ${StyledFlatTableCell}, ${StyledFlatTableCheckbox}:not(th) {
-            background-color: ${theme.flatTable.drawerSidebar.hover};
+          ${StyledFlatTableCell},
+          ${StyledFlatTableCheckbox}:not(th) {
+            background-color: ${
+              backgroundColor || theme.flatTable.drawerSidebar.hover
+            };
           }
         }
       `}
@@ -189,10 +236,9 @@ const StyledFlatTableRow = styled.tr`
 
       ${isSubRow &&
       css`
-        ${StyledFlatTableCell},
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox} {
-          background-color: ${theme.flatTable.subRow.background};
+        ${allCellTypes} {
+          background-color: ${backgroundColor ||
+          theme.flatTable.subRow.background};
         }
 
         ${StyledFlatTableCell}:first-child > div,
@@ -204,50 +250,48 @@ const StyledFlatTableRow = styled.tr`
 
       ${isFirstSubRow &&
       css`
-        ${StyledFlatTableCell},
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox} {
+        ${allCellTypes} {
           box-shadow: inset 0 6px 4px -4px ${theme.flatTable.subRow.shadow};
         }
       `}
 
       ${highlighted &&
       css`
-        ${StyledFlatTableCell},
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox} {
-          background-color: ${colorOfHighlighted};
+        ${allCellTypes} {
+          background-color: ${backgroundColor || colorOfHighlighted};
         }
 
         :hover {
           ${StyledFlatTableCell},
           ${StyledFlatTableRowHeader},
           ${StyledFlatTableCheckbox}:not(th) {
-            background-color: ${colorOfHighlighted};
+            background-color: ${backgroundColor || colorOfHighlighted};
           }
         }
       `}
 
       ${selected &&
-      `
-        ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
-          background-color: ${colorOfSelected};
+      css`
+        ${StyledFlatTableCell},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${backgroundColor || colorOfSelected};
         }
 
         :hover {
           ${StyledFlatTableCell},
           ${StyledFlatTableRowHeader},
           ${StyledFlatTableCheckbox}:not(th) {
-            background-color: ${colorOfSelected};
+            background-color: ${backgroundColor || colorOfSelected};
           }
         }
       `}
     `;
-  }};
+  }}
 `;
 
 StyledFlatTableRow.defaultProps = {
   theme: baseTheme,
+  horizontalBorderSize: "small",
 };
 
 export default StyledFlatTableRow;
