@@ -219,6 +219,7 @@ class Pod extends React.Component {
       internalEditButton,
       onEdit,
       size,
+      title,
       ...rest
     } = this.props;
 
