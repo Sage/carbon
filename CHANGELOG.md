@@ -1,3 +1,10 @@
+### [77.2.1](https://github.com/Sage/carbon/compare/v77.2.0...v77.2.1) (2021-06-23)
+
+
+### Bug Fixes
+
+* **menu-item:** stop hover css applying to span ([f336f4f](https://github.com/Sage/carbon/commit/f336f4fcb13e61453841214c829fa5c730b403f7)), closes [#4178](https://github.com/Sage/carbon/issues/4178)
+
 ## [77.2.0](https://github.com/Sage/carbon/compare/v77.1.4...v77.2.0) (2021-06-22)
 
 
