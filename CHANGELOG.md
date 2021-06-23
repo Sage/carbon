@@ -1,3 +1,64 @@
+## [77.2.0](https://github.com/Sage/carbon/compare/v77.1.4...v77.2.0) (2021-06-22)
+
+
+### Features
+
+* **flat-table:** add alternative header background color ([88271cd](https://github.com/Sage/carbon/commit/88271cdf32a2e9c6d1fb6ecb8abe4d7bdd04db04))
+* **flat-table:** add horizontal border color control ([a18d043](https://github.com/Sage/carbon/commit/a18d043e725e807a9668c4388e0dacd680490492))
+* **flat-table:** add horizontal border size control ([d131634](https://github.com/Sage/carbon/commit/d131634900b75196f6e9d16596badfbd25112abe))
+* **flat-table:** add row background color prop ([c275359](https://github.com/Sage/carbon/commit/c275359c9afbba720353dd74b4487e09168405f0))
+* **flat-table:** add toColor util to bgColor prop ([db9e495](https://github.com/Sage/carbon/commit/db9e4959d1045a4692c488be8fcedd518b010d23))
+* **flat-table:** add vertical border color control ([0a25e76](https://github.com/Sage/carbon/commit/0a25e765849b2d7ee9bcd004c6d927bb8ba34c7b))
+* **flat-table:** add vertical border size control ([d10a217](https://github.com/Sage/carbon/commit/d10a2171ca845e40d6682f6696d4c8abe18855c6))
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect border color in multiline headers ([bf93744](https://github.com/Sage/carbon/commit/bf93744cc832caa3cec5deb4cc8c3fea3ae9d2ae))
+
+### [77.1.4](https://github.com/Sage/carbon/compare/v77.1.3...v77.1.4) (2021-06-22)
+
+
+### Bug Fixes
+
+* **search:** update onkeydown and onclick type definitions to not use synthetic event ([2082fac](https://github.com/Sage/carbon/commit/2082fac6b5360aad6d2a762dace113af59ffd2ee))
+* **simple-color-picker, simple-color:** update onkeydown and onmousedown to not use synthetic event ([e20752c](https://github.com/Sage/carbon/commit/e20752c46c31c6dc80707d380c4126fca7d0f967))
+
+### [77.1.3](https://github.com/Sage/carbon/compare/v77.1.2...v77.1.3) (2021-06-21)
+
+
+### Bug Fixes
+
+* **card:** extend styled system margin props in ts interface ([d44372a](https://github.com/Sage/carbon/commit/d44372aafdc410041ae27bcd84fa4996a0c3f064))
+
+### [77.1.2](https://github.com/Sage/carbon/compare/v77.1.1...v77.1.2) (2021-06-21)
+
+
+### Bug Fixes
+
+* **loader:** destructure props and only spread rest props on root element ([aeb92f6](https://github.com/Sage/carbon/commit/aeb92f64f79a7d75e8779320ffb383b08f9ac2f9))
+
+### [77.1.1](https://github.com/Sage/carbon/compare/v77.1.0...v77.1.1) (2021-06-21)
+
+
+### Bug Fixes
+
+* **pod:** update incorrect type definition from padding to size ([52f2246](https://github.com/Sage/carbon/commit/52f2246a8ba5d99ce757647e0be3e9cf4bbbf013))
+
+## [77.1.0](https://github.com/Sage/carbon/compare/v77.0.1...v77.1.0) (2021-06-18)
+
+
+### Features
+
+* **confirm:** more flexible button usage ([f76a088](https://github.com/Sage/carbon/commit/f76a088c126bafab4881a1f39346e685e1e95f21))
+
+### [77.0.1](https://github.com/Sage/carbon/compare/v77.0.0...v77.0.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* **select-list:** add data role to internal loader component ([c9bc71a](https://github.com/Sage/carbon/commit/c9bc71af3cbd8f86d30df0857f341a61f4acf9d8))
+
 ## [77.0.0](https://github.com/Sage/carbon/compare/v76.5.6...v77.0.0) (2021-06-16)
 
 

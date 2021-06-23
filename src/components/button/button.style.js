@@ -67,7 +67,7 @@ export const StyledButtonSubtext = styled.span`
 
 function additionalIconStyle({ iconType }) {
   if (iconType === "services") return "6px";
-  return "16px;";
+  return "16px";
 }
 
 function stylingForType({ disabled, buttonType, theme, size, destructive }) {
