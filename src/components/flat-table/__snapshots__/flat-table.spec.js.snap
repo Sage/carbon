@@ -142,10 +142,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c3 .c12 > div,
 .c3 .c10 > div,
-.c3 .c8 > div {
+.c3 .c8 > div,
+.c3 .c15 > div {
   font-size: 14px;
-  padding-left: 11px;
-  padding-right: 11px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .c0 {
@@ -186,6 +187,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c6 c7"
             data-element="flat-table-row"
             onClick={[Function]}
+            size="medium"
           >
             <th
               className="c8 c9"
@@ -228,6 +230,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c6 c7"
             data-element="flat-table-row"
             onClick={[Function]}
+            size="medium"
           >
             <th
               className="c8 c9"
@@ -275,6 +278,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
             className="c6 c7"
             data-element="flat-table-row"
             onClick={[Function]}
+            size="medium"
           >
             <th
               className="c8 c9"

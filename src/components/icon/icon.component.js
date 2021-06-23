@@ -131,7 +131,7 @@ Icon.propTypes = {
   type: PropTypes.string.isRequired,
   /** Background size */
   bgSize: PropTypes.oneOf([
-    "extraSmall",
+    "extra-small",
     "small",
     "medium",
     "large",

@@ -52,7 +52,8 @@ const StyledFlatTable = styled.table`
 
       ${StyledFlatTableCell} > div,
       ${StyledFlatTableHeader} > div,
-      ${StyledFlatTableRowHeader} > div {
+      ${StyledFlatTableRowHeader} > div,
+      ${StyledFlatTableCheckbox} > div {
         font-size: ${fontSize};
         padding-left: ${paddingSize};
         padding-right: ${paddingSize};

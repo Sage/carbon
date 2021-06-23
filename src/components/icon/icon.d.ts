@@ -3,7 +3,7 @@ import { MarginProps } from "styled-system";
 import * as OptionsHelper from "../../utils/helpers/options-helper";
 
 export type BgSize =
-  | "extraSmall"
+  | "extra-small"
   | "small"
   | "medium"
   | "large"

@@ -693,7 +693,7 @@ describe("FlatTableRow", () => {
       "applies the correct th styling when colorTheme is %s",
       (colorTheme) => {
         const wrapper = mount(
-          <FlatTableThemeContext.Provider value={colorTheme}>
+          <FlatTableThemeContext.Provider value={{ colorTheme }}>
             <table>
               <thead>
                 <FlatTableRow onClick={() => {}}>
@@ -1126,6 +1126,29 @@ describe("FlatTableRow", () => {
         });
       }
     );
+
+    describe("when the size of the table is 'compact'", () => {
+      it("should add the correct padding to child row cells", () => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={{ size: "compact" }}>
+            <FlatTableRow expandable expanded subRows={SubRows}>
+              <FlatTableCell>cell1</FlatTableCell>
+              <FlatTableCell>cell2</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableThemeContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            paddingLeft: "32px",
+          },
+          wrapper.find(StyledFlatTableRow).at(1),
+          {
+            modifier: `${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div`,
+          }
+        );
+      });
+    });
   });
 });
 
