@@ -30,4 +30,40 @@ describe("FlatTableHeader", () => {
       { modifier: "&&& > div" }
     );
   });
+
+  describe('with the "alternativeBgColor" prop set', () => {
+    it('it overrides the header "background-color"', () => {
+      const wrapper = mount(<FlatTableHeader alternativeBgColor />);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "#1A475B",
+        },
+        wrapper.find(StyledFlatTableHeader),
+        { modifier: "&&&" }
+      );
+    });
+  });
+
+  describe.each([
+    ["small", "1px"],
+    ["medium", "2px"],
+    ["large", "4px"],
+  ])(
+    "when the verticalBorder prop is set to %s",
+    (verticalBorder, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the header border-right-width", () => {
+        wrapper = mount(<FlatTableHeader verticalBorder={verticalBorder} />);
+        assertStyleMatch(
+          {
+            borderRightWidth: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
 });

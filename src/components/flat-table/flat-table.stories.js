@@ -59,6 +59,15 @@ export const Default = () => {
     width: "auto",
     overflowX: "auto",
   };
+  const horizontalBorderSize = select("horizontalBorderSize", [
+    "small",
+    "medium",
+    "large",
+  ]);
+  const horizontalBorderColor = text("horizontalBorderColor", "");
+  const bgColor = text("bgColor", "");
+  const verticalBorder = select("verticalBorder", ["small", "medium", "large"]);
+  const verticalBorderColor = text("verticalBorderColor", "");
   let onClickFn;
   let rowWithInputs;
 
@@ -85,7 +94,10 @@ export const Default = () => {
         ariaDescribedby={ariaDescribedby}
       >
         <FlatTableHead>
-          <FlatTableRow key={processed.headData.id}>
+          <FlatTableRow
+            key={processed.headData.id}
+            horizontalBorderSize={horizontalBorderSize && horizontalBorderSize}
+          >
             {processed.headData.data.map((cellData, index) => {
               let Component = FlatTableHeader;
 
@@ -98,6 +110,7 @@ export const Default = () => {
                   key={cellData.id}
                   {...(index === 0 && { width: firstColumnWidth })}
                   {...(index === 1 && { width: secondColumnWidth })}
+                  verticalBorder={verticalBorder && verticalBorder}
                 >
                   {cellData.content}
                 </Component>
@@ -108,7 +121,17 @@ export const Default = () => {
         <FlatTableBody>
           {rowWithInputs}
           {processed.bodyData.map((rowData) => (
-            <FlatTableRow key={rowData.id} onClick={onClickFn}>
+            <FlatTableRow
+              key={rowData.id}
+              onClick={onClickFn}
+              horizontalBorderSize={
+                horizontalBorderSize && horizontalBorderSize
+              }
+              horizontalBorderColor={
+                horizontalBorderColor && horizontalBorderColor
+              }
+              bgColor={bgColor && bgColor}
+            >
               {rowData.bodyData.map((cellData, index) => {
                 let Component = FlatTableCell;
 
@@ -117,7 +140,12 @@ export const Default = () => {
                 }
 
                 return (
-                  <Component key={cellData.id} align={cellData.align}>
+                  <Component
+                    key={cellData.id}
+                    align={cellData.align}
+                    verticalBorder={verticalBorder}
+                    verticalBorderColor={verticalBorderColor}
+                  >
                     {cellData.content}
                   </Component>
                 );

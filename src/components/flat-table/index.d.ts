@@ -1,3 +1,6 @@
+
+export type TableBorderSize = "small" | "medium" | "large";
+
 export { default as FlatTable } from "./flat-table";
 export { default as FlatTableHead } from "./flat-table-head";
 export { default as FlatTableHeader } from "./flat-table-header";
