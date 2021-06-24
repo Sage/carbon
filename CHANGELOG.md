@@ -1,3 +1,10 @@
+### [77.2.2](https://github.com/Sage/carbon/compare/v77.2.1...v77.2.2) (2021-06-24)
+
+
+### Bug Fixes
+
+* **flat-table:** fix styled-system pl support ([c74748f](https://github.com/Sage/carbon/commit/c74748fa748d9d4aa8615f45c3909bc172dc743c)), closes [#4145](https://github.com/Sage/carbon/issues/4145)
+
 ### [77.2.1](https://github.com/Sage/carbon/compare/v77.2.0...v77.2.1) (2021-06-23)
 
 
