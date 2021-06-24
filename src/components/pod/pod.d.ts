@@ -17,8 +17,6 @@ export interface PodProps {
     | "extra-large";
   /** Prop to apply a theme to the Pod */
   variant?: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
-  /** The collapsed state of the pod */
-  collapsed?: boolean;
   /** Title for the pod h4 element always shown */
   title?: string | React.ReactNode;
   /** Optional subtitle for the pod */

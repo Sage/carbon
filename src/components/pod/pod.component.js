@@ -18,7 +18,6 @@ import {
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
-  StyledArrow,
 } from "./pod.style.js";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -27,16 +26,11 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 class Pod extends React.Component {
   state = {
-    isCollapsed: this.props.collapsed,
     isHovered: false,
     isFocused: false,
   };
 
   static contextType = PodContext;
-
-  toggleCollapse = () => {
-    this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
-  };
 
   toggleHoverState = (val) => {
     this.setState({ isHovered: val });
@@ -59,24 +53,15 @@ class Pod extends React.Component {
       return null;
     }
 
-    const { isCollapsed } = this.state;
-
-    const isCollapsable = isCollapsed !== undefined;
-
     return (
       <StyledHeader
         alignTitle={alignTitle}
         internalEditButton={internalEditButton}
         size={size}
-        isCollapsed={isCollapsed}
-        onClick={isCollapsable ? this.toggleCollapse : undefined}
       >
         <StyledTitle data-element="title">{title}</StyledTitle>
         {subtitle && (
           <StyledSubtitle data-element="subtitle">{subtitle}</StyledSubtitle>
-        )}
-        {isCollapsable && (
-          <StyledArrow isCollapsed={isCollapsed} type="dropdown" />
         )}
       </StyledHeader>
     );
@@ -93,17 +78,6 @@ class Pod extends React.Component {
       );
     }
     return null;
-  }
-
-  podContent() {
-    if (this.state.isCollapsed) return null;
-
-    return (
-      <>
-        {this.podDescription()}
-        <div>{this.props.children}</div>
-      </>
-    );
   }
 
   footer() {
@@ -264,7 +238,8 @@ class Pod extends React.Component {
         >
           <StyledContent data-element="content" size={size}>
             {this.podHeader()}
-            {this.podContent()}
+            {this.podDescription()}
+            <div>{this.props.children}</div>
           </StyledContent>
           {this.footer()}
         </StyledBlock>
@@ -315,15 +290,6 @@ Pod.propTypes = {
   ]),
 
   /**
-   * The collapsed state of the pod
-   *
-   * undefined - Pod is not collapsible |
-   * true - Pod is closed |
-   * false - Pod is open
-   */
-  collapsed: PropTypes.bool,
-
-  /**
    * Title for the pod h4 element
    * always shown
    */
@@ -341,7 +307,6 @@ Pod.propTypes = {
 
   /**
    * Description for the pod
-   * Not shown if collapsed
    */
   description: PropTypes.string,
 
