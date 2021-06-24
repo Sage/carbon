@@ -1,5 +1,6 @@
 const dlsConfig = {
   backgroundSize: {
+    extraSmall: "16px",
     small: "24px",
     medium: "32px",
     large: "40px",
