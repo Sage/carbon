@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../utils/helpers/tags";
 import RadioButtonStyle from "./radio-button.style";
-import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
+import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

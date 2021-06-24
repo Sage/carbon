@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../../utils/helpers/tags";
-import Fieldset from "../../../__internal__/fieldset";
+import tagComponent from "../../utils/helpers/tags";
+import Fieldset from "../../__internal__/fieldset";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import RadioButtonMapper from "./radio-button-mapper.component";
-import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

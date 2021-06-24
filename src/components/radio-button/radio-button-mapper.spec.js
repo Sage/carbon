@@ -5,10 +5,10 @@ import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import PropTypes from "prop-types";
 
-import mintTheme from "../../../style/themes/mint";
+import mintTheme from "../../style/themes/mint";
 import RadioButtonMapper from "./radio-button-mapper.component";
 import { RadioButton } from ".";
-import Button from "../../../components/button";
+import Button from "../button";
 
 const buttonValues = ["test-1", "test-2"];
 const name = "test-group";

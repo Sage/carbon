@@ -3,17 +3,17 @@ import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
 import { RadioButton, RadioButtonGroup } from ".";
-import FieldHelpStyle from "../../../__internal__/field-help/field-help.style";
-import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
-import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import guid from "../../../utils/helpers/guid";
-import baseTheme from "../../../style/themes/base";
-import mintTheme from "../../../style/themes/mint";
+import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
+import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import guid from "../../utils/helpers/guid/guid";
+import baseTheme from "../../style/themes/base";
+import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 
-jest.mock("../../../utils/helpers/guid");
+jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 function render(props = {}, theme = mintTheme, renderer = mount) {

@@ -1,11 +1,11 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 import { RadioButtonGroup, RadioButton, PrivateRadioButton } from '.';
-import Typography from '../../../components/typography';
+import Typography from '../typography';
 
 <Meta
-  title="Experimental/RadioButton"
+  title="Design System/RadioButton"
   parameters={{ info: { disable: true }}}
 />
 
@@ -24,7 +24,7 @@ Used to provide a group of selectable radio buttons.
 To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
 
 ```javascript
-import { RadioButton, RadioButtonGroup } from "carbon-react/lib/__experimental__/components/radio-button";
+import { RadioButton, RadioButtonGroup } from "carbon-react/lib/components/radio-button";
 ```
 
 ## Designer Notes
@@ -33,9 +33,9 @@ Useful to show less than about 10 options.
 Disabled or read-only radio buttons might be difficult for a user to distinguish visually, so try to avoid this.
 
 ## Related Components
-- Choosing one option from a very long list? [Try Select](/?path=/docs/design-system-select--default-story "Try Select").
-- Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--default "Try Checkbox").
-- Choosing one option from a highly visible small range? [Try Button Toggle](/?path=/story/button-toggle--default "Try Button Toggle").
+- Choosing one option from a very long list? [Try Select](/docs/design-system-select--default-story "Try Select").
+- Choosing more than one option? [Try Checkbox](/docs/design-system-checkbox--default-story "Try Checkbox").
+- Choosing one option from a highly visible small range? [Try Button Toggle](/story/button-toggle--default "Try Button Toggle").
 
 ## Examples
 
@@ -45,22 +45,22 @@ A legend can be set for the group, and each radio button can have a label.
 <Preview>
   <Story name="with legend and labels">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="legend-and-labels-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
     <RadioButton 
-      id="radio1" 
+      id="legend-and-labels-radio-1" 
       value="radio1"
       label="Radio Option 1"
     />
     <RadioButton 
-      id="radio2" 
+      id="legend-and-labels-radio-2" 
       value="radio2" 
       label="Radio Option 2"
     />
     <RadioButton 
-      id="radio3" 
+      id="legend-and-labels-radio-3" 
       value="radio3" 
       label="Radio Option 3"
     />
@@ -74,7 +74,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 <Preview>
   <Story name="required">
     <RadioButtonGroup
-      name="paperless_billing"
+      name="required-group"
       onChange={ () => console.log('change') }
       legend="Paperless Billing"
       required
@@ -103,24 +103,24 @@ The spacing between the legend and the radio buttons can be changed with the `le
 <Preview>
   <Story name="with inline legend">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="inline-legend-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       legendInline
-      legendWidth="10"
+      legendWidth={10}
     >
     <RadioButton 
-      id="radio1" 
+      id="inline-legend-radio-1" 
       value="radio1"
       label="Radio Option 1"
     />
     <RadioButton 
-      id="radio2" 
+      id="inline-legend-radio-2" 
       value="radio2" 
       label="Radio Option 2"
     />
     <RadioButton 
-      id="radio3" 
+      id="inline-legend-radio-3" 
       value="radio3" 
       label="Radio Option 3"
     />
@@ -134,23 +134,23 @@ A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below
 <Preview>
   <Story name="with left margin">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="left-margin-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       ml="20%"
     >
     <RadioButton 
-      id="radio1" 
+      id="left-margin-radio-1" 
       value="radio1"
       label="Radio Option 1"
     />
     <RadioButton 
-      id="radio2" 
+      id="left-margin-radio-2" 
       value="radio2" 
       label="Radio Option 2"
     />
     <RadioButton 
-      id="radio3" 
+      id="left-margin-radio-3" 
       value="radio3" 
       label="Radio Option 3"
     />
@@ -164,7 +164,7 @@ Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props 
 <Preview>
   <Story name="enable adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="enable-adaptive-behaviour-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       ml="20%"
@@ -172,17 +172,17 @@ Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props 
       adaptiveSpacingBreakpoint={960}
     >
     <RadioButton 
-      id="radio1" 
+      id="enable-adaptive-behaviour-radio-1" 
       value="radio1"
       label="Radio Option 1"
     />
     <RadioButton 
-      id="radio2" 
+      id="enable-adaptive-behaviour-radio-2" 
       value="radio2" 
       label="Radio Option 2"
     />
     <RadioButton 
-      id="radio3" 
+      id="enable-adaptive-behaviour-radio-3" 
       value="radio3" 
       label="Radio Option 3"
     />
@@ -196,23 +196,23 @@ The spacing between radio buttons and their labels can be changed with the `labe
 <Preview>
   <Story name="different label spacing">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="different-label-spacing-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       labelSpacing={2}
     >
     <RadioButton 
-      id="radio1" 
+      id="different-label-spacing-radio-1" 
       value="radio1"
       label="Radio Option 1"
     />
     <RadioButton 
-      id="radio2" 
+      id="different-label-spacing-radio-2" 
       value="radio2" 
       label="Radio Option 2"
     />
     <RadioButton 
-      id="radio3" 
+      id="different-label-spacing-radio-3" 
       value="radio3" 
       label="Radio Option 3"
     />
@@ -226,23 +226,23 @@ The radio buttons can be made inline with the `inline` prop.
 <Preview>
   <Story name="inline radio buttons">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="inline-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       inline
     >
-    <RadioButton 
-      id="radio1" 
+    <RadioButton
+      id="inline-radio-1"
       value="radio1"
       label="Radio Option 1"
     />
-    <RadioButton 
-      id="radio2" 
+    <RadioButton
+      id="inline-radio-2"
       value="radio2" 
       label="Radio Option 2"
     />
-    <RadioButton 
-      id="radio3" 
+    <RadioButton
+      id="inline-radio-3"
       value="radio3" 
       label="Radio Option 3"
     />
@@ -256,24 +256,24 @@ The radio buttons and labels can be flipped around using the `reverse` prop on e
 <Preview>
   <Story name="reverse radio buttons">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="reverse-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
-    <RadioButton 
-      id="radio1" 
+    <RadioButton
+      id="reverse-radio-1" 
       value="radio1"
       label="Radio Option 1"
       reverse
     />
-    <RadioButton 
-      id="radio2" 
+    <RadioButton
+      id="reverse-radio-2" 
       value="radio2" 
       label="Radio Option 2"
       reverse
     />
-    <RadioButton 
-      id="radio3" 
+    <RadioButton
+      id="reverse-radio-3" 
       value="radio3" 
       label="Radio Option 3"
       reverse
@@ -288,24 +288,24 @@ The radio buttons and labels can be disabled using the `disabled` prop on each r
 <Preview>
   <Story name="disable radio buttons">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="disable-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
     <RadioButton 
-      id="radio1" 
+      id="disable-radio-1" 
       value="radio1"
       label="Radio Option 1"
       disabled
     />
     <RadioButton 
-      id="radio2" 
+      id="disable-radio-2" 
       value="radio2" 
       label="Radio Option 2"
       disabled
     />
     <RadioButton 
-      id="radio3" 
+      id="disable-radio-3" 
       value="radio3" 
       label="Radio Option 3"
       disabled
@@ -320,24 +320,24 @@ Help text for each input can be added with the `fieldHelp` prop on `RadioButton`
 <Preview>
   <Story name="with field help">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="field-help-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
     <RadioButton 
-      id="radio1" 
+      id="field-help-radio-1" 
       value="radio1"
       label="Radio Option 1"
       fieldHelp="Some help text for this input."
     />
     <RadioButton 
-      id="radio2" 
+      id="field-help-radio-2" 
       value="radio2" 
       label="Radio Option 2"
       fieldHelp="Some help text for this input."
     />
     <RadioButton 
-      id="radio3" 
+      id="field-help-radio-3" 
       value="radio3" 
       label="Radio Option 3"
       fieldHelp="Some help text for this input."
@@ -352,26 +352,26 @@ Passing in `large` for the `size` prop on each radio button will increase the si
 <Preview>
   <Story name="with large radio buttons">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="large-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
     <RadioButton 
-      id="radio1" 
+      id="large-radio-1" 
       value="radio1"
       label="Radio Option 1"
       size="large"
       fieldHelp="Some help text for this input."
     />
     <RadioButton 
-      id="radio2" 
+      id="large-radio-2" 
       value="radio2" 
       label="Radio Option 2"
       size="large"
       fieldHelp="Some help text for this input."
     />
     <RadioButton 
-      id="radio3" 
+      id="large-radio-3" 
       value="radio3" 
       label="Radio Option 3"
       size="large"
@@ -387,24 +387,24 @@ Validations can be added to the radio buttons as strings or booleans.
 <Preview>
   <Story name="with validations on buttons">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="validations-on-buttons-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
     <RadioButton 
-      id="radio1" 
+      id="validations-on-buttons-radio-1" 
       value="radio1"
       label="Radio Option 1"
       error="message"
     />
     <RadioButton 
-      id="radio2" 
+      id="validations-on-buttons-radio-2" 
       value="radio2" 
       label="Radio Option 2"
       warning="message"
     />
     <RadioButton 
-      id="radio3" 
+      id="validations-on-buttons-radio-3" 
       value="radio3" 
       label="Radio Option 3"
       info="message"
@@ -419,23 +419,23 @@ Validations can be added to the radio group as a string or boolean.
 <Preview>
   <Story name="with validations on group">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="validations-on-group-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
       error="message"
     >
       <RadioButton 
-        id="radio1" 
+        id="validations-on-group-radio-1" 
         value="radio1"
         label="Radio Option 1"
       />
       <RadioButton 
-        id="radio2" 
+        id="validations-on-group-radio-2" 
         value="radio2" 
         label="Radio Option 2"
       />
       <RadioButton 
-        id="radio3" 
+        id="validations-on-group-radio-3" 
         value="radio3" 
         label="Radio Option 3"
       />
@@ -450,12 +450,12 @@ Labels could be customized using the Typography Component
 <Preview>
   <Story name="with custom styled label">
     <RadioButtonGroup
-      name="mybuttongroup"
+      name="custom-styled-label-group"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
     >
       <RadioButton 
-        id="radio1" 
+        id="custom-styled-label-radio-1" 
         value="radio1"
         label={ (
           <>
@@ -466,7 +466,7 @@ Labels could be customized using the Typography Component
         ) }
       />
       <RadioButton 
-        id="radio2" 
+        id="custom-styled-label-radio-2" 
         value="radio2" 
         label={ (
           <>
@@ -477,7 +477,7 @@ Labels could be customized using the Typography Component
         ) }
       />
       <RadioButton 
-        id="radio3" 
+        id="custom-styled-label-radio-3" 
         value="radio3" 
         label={ (
           <>

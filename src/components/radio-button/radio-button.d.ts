@@ -1,6 +1,6 @@
 import { MarginProps } from "styled-system";
-import * as OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
-import { CommonCheckableInputProps } from "../../../__internal__/checkable-input";
+import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 
 export interface RadioButtonProps extends CommonCheckableInputProps, MarginProps {
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
