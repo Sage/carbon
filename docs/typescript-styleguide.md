@@ -76,16 +76,16 @@ Any types which can be used in multiple components should be defined in the [opt
 
 ### Linting
 
-#### TSLint
+#### ESLint
 
-To detect errors and potential problems in our TypeScript we currently use TSLint. We will soon look to migrate to ESLint however as TSLint has been deprecated (https://palantir.github.io/tslint/)
+To detect errors and potential problems in our TypeScript we use ESLint. ESLint is designed to allow the creation of custom linting rules and Carbon's configuration extends the [Airbnb TypeScript Style Guide](https://github.com/iamturns/eslint-config-airbnb-typescript) and [ESLint-plugin-React](https://www.npmjs.com/package/eslint-plugin-react) with a few of our own custom configurations.
 
 #### Rules
 
-Our linting rules are defined in [tsconfig.json](../tsconfig.json) at the root of the project. You can run our linting rules against your code locally with:
+Our linting rules are defined in [.eslintrc](../.eslintrc) at the root of the project, these rules do change from time-to-time so please check this file and cross reference it against the [ESLint Rules](https://eslint.org/docs/rules/). You can run our linting rules against your code locally with:
 
 ```
-npm run lint-ts
+npm run lint
 ```
 
 ### Tips
