@@ -1,7 +1,6 @@
 import {
   podContent,
   podSubTitle,
-  podDescription,
   podEditIframe,
   podEdit,
   podFooter,
@@ -19,10 +18,6 @@ Then("Pod title on preview is set to {word}", (text) => {
 
 Then("Pod subtitle on preview is set to {word}", (text) => {
   podSubTitle().should("have.text", text);
-});
-
-Then("Pod description on preview is set to {word}", (text) => {
-  podDescription().should("have.text", text);
 });
 
 Then("Pod footer on preview is set to {word}", (text) => {

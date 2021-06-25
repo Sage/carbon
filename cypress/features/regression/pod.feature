@@ -29,15 +29,6 @@ Feature: Pod component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtitleSpecialCharacter |
 
   @positive
-  Scenario Outline: Change Pod description to <description>
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
-    Then Pod description on preview is set to <description>
-    Examples:
-      | description                  | nameOfObject                |
-      | mp150ú¿¡üßä                  | descriptionOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> | descriptionSpecialCharacter |
-
-  @positive
   Scenario Outline: Change Pod footer to <footer>
     When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
     Then Pod footer on preview is set to <footer>

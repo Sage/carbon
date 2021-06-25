@@ -23,8 +23,6 @@ export interface PodProps {
   subtitle?: string;
   /** Aligns the title to left, right or center */
   alignTitle?: "left" | "center" | "right";
-  /** Description for the pod */
-  description?: string;
   /** A component to render as a Pod footer */
   footer?: string | React.ReactNode;
   /** Supplies an edit action to the pod */

@@ -95,12 +95,6 @@ const StyledContent = styled.div`
   flex-grow: 1;
 `;
 
-const StyledDescription = styled.div`
-  background: none;
-  margin-bottom: 10px;
-  font-size: 13px;
-`;
-
 const footerPaddings = {
   "extra-small": "6px",
   small: "10px",
@@ -259,9 +253,6 @@ StyledBlock.defaultProps = {
 StyledContent.defaultProps = {
   theme: baseTheme,
 };
-StyledDescription.defaultProps = {
-  theme: baseTheme,
-};
 StyledEditAction.defaultProps = {
   theme: baseTheme,
 };
@@ -287,7 +278,6 @@ StyledTitle.defaultProps = {
 export {
   StyledBlock,
   StyledContent,
-  StyledDescription,
   StyledEditAction,
   StyledEditContainer,
   StyledFooter,
