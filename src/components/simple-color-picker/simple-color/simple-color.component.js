@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import tagComponent from "../../../../utils/helpers/tags/tags";
+import tagComponent from "../../../utils/helpers/tags/tags";
 import StyledSimpleColor from "./simple-color.style";
 import ColorSampleBox from "../color-sample-box";
 import StyledSimpleColorInput from "../simple-color-input/simple-color-input.style";
@@ -54,7 +54,9 @@ SimpleColor.propTypes = {
   name: PropTypes.string,
   /** called when the user selects or deselects this color option */
   onChange: PropTypes.func,
+  /** A callback triggered when a color is selected. */
   onBlur: PropTypes.func,
+  /** A callback triggered when a color is selected. */
   onMouseDown: PropTypes.func,
   /** determines if this color option is selected or unselected */
   checked: PropTypes.bool,

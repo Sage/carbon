@@ -17,11 +17,6 @@ Feature: Accessibility tests - Design System folder
     Then "Accordion default page" component has no accessibility violations
 
   @accessibility
-  Scenario: Design System Advanced Color Picker component default story page
-    When I open "Design System Advanced Color Picker" component page "default story" in no iframe
-    Then "Advanced Color Picker" component has no accessibility violations
-
-  @accessibility
   Scenario Outline: Design System <component> default story page
     When I open "Test <component>" component page "default" in no iframe
     Then "<component>" component has no accessibility violations
@@ -104,28 +99,30 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System <component>" component page "default story" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component         |
-      | Badge             |
-      | Batch Selection   |
-      | Checkbox          |
-      | Content           |
-      | Date Input        |
-      | Date Range        |
-      | Draggable         |
-      | Fieldset          |
-      | Flat Table        |
-      | Hr                |
-      | Loader            |
-      | Pager             |
-      | Search            |
-      | Select            |
-      | Select Filterable |
-      | Switch            |
-      | Tabs              |
-      | Textarea          |
-      | Textbox           |
-      | Text Editor       |
-      | Tile Select       |
+      | component             |
+      | Advanced Color Picker |
+      | Badge                 |
+      | Batch Selection       |
+      | Content               |
+      | Date Input            |
+      | Date Range            |
+      | Draggable             |
+      | Fieldset              |
+      | Flat Table            |
+      | Hr                    |
+      | Image                 |
+      | Loader                |
+      | Pager                 |
+      | Simple color picker   |
+      | Search                |
+      | Select                |
+      | Select Filterable     |
+      | Switch                |
+      | Tabs                  |
+      | Textarea              |
+      | Textbox               |
+      | Text Editor           |
+      | Tile Select           |
 
   @accessibility
   Scenario Outline: Design System Text Editor component <story> page
@@ -229,36 +226,39 @@ Feature: Accessibility tests - Design System folder
     When I open "Design System <component>" component page "validations boolean" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component  |
-      | textarea   |
-      | date-input |
-      | date-range |
-      | textbox    |
-      | fieldset   |
+      | component           |
+      | simple-color-picker |
+      | textarea            |
+      | date-input          |
+      | date-range          |
+      | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Design System <component> validations string story page
     When I open "Design System <component>" component page "validations string component" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component  |
-      | textarea   |
-      | date-input |
-      | date-range |
-      | textbox    |
-      | fieldset   |
+      | component           |
+      | simple-color-picker |
+      | textarea            |
+      | date-input          |
+      | date-range          |
+      | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario Outline: Design System <component> validations string label story page
     When I open "Design System <component>" component page "validations string label" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component  |
-      | textarea   |
-      | date-input |
-      | date-range |
-      | textbox    |
-      | fieldset   |
+      | component           |
+      | simple-color-picker |
+      | textarea            |
+      | date-input          |
+      | date-range          |
+      | textbox             |
+      | fieldset            |
 
   @accessibility
   Scenario: Image component default story
@@ -299,3 +299,4 @@ Feature: Accessibility tests - Design System folder
       | story                       |
       | with legend and labels      |
       | with validations on buttons |
+      

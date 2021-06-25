@@ -1,8 +1,8 @@
-Feature: Simple Color Picker component
-  I want to test Simple Color Picker component
+Feature: Design System Simple Color Picker component
+  I want to test Design System Simple Color Picker component
 
   Background: Open Simple Color Picker component default page
-    Given I open "Experimental Simple Color Picker Test" component page "default"
+    Given I open "Design System Simple Color Picker Test" component page "default"
 
   @positive
   Scenario: When avaiableColors prop is provided changes rendnered colors

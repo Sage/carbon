@@ -4,15 +4,15 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
-import baseTheme from "../../../style/themes/base";
-import { StyledLegendContainer } from "../../../__internal__/fieldset/fieldset.style";
+import baseTheme from "../../style/themes/base";
+import { StyledLegendContainer } from "../../__internal__/fieldset/fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
   expectError,
-} from "../../../__spec_helper__/test-utils";
-import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
-import Fieldset from "../../../__internal__/fieldset";
+} from "../../__spec_helper__/test-utils";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import Fieldset from "../../__internal__/fieldset";
 
 const colorValues = [
   { color: "#00A376" },
@@ -22,7 +22,7 @@ const colorValues = [
 
 const name = "test-group";
 
-function render(renderer = TestRenderer.create, props, childProps) {
+function render(props, childProps) {
   const children = colorValues.map((color, index) => {
     return (
       <SimpleColor
@@ -36,7 +36,7 @@ function render(renderer = TestRenderer.create, props, childProps) {
     );
   });
 
-  return renderer(
+  return mount(
     <SimpleColorPicker
       name={name}
       legend="SimpleColorPicker Legend"
@@ -51,7 +51,7 @@ function render(renderer = TestRenderer.create, props, childProps) {
 
 describe("SimpleColorPicker", () => {
   it("renders as expected", () => {
-    expect(render()).toMatchSnapshot();
+    expect(TestRenderer.create(render())).toMatchSnapshot();
   });
 
   describe("Styled System", () => {
@@ -72,11 +72,11 @@ describe("SimpleColorPicker", () => {
     describe("onKeyDown", () => {
       beforeEach(() => {
         onChange = jest.fn();
-        wrapper = render(mount, { maxWidth: "58", childWith: "58", onChange });
+        wrapper = render({ maxWidth: "58", childWith: "58", onChange });
       });
       it("fires onKeyDown callback if provided", () => {
         const onKeyDown = jest.fn();
-        wrapper = render(mount, {
+        wrapper = render({
           maxWidth: "58",
           childWith: "58",
           onChange,
@@ -119,7 +119,7 @@ describe("SimpleColorPicker", () => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
-          wrapper = render(mount, {
+          wrapper = render({
             maxWidth: "58",
             childWith: "58",
             onChange,
@@ -164,7 +164,7 @@ describe("SimpleColorPicker", () => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
-          wrapper = render(mount, {
+          wrapper = render({
             maxWidth: "58",
             childWith: "58",
             onChange,
@@ -244,7 +244,7 @@ describe("SimpleColorPicker", () => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
-          wrapper = render(mount, {
+          wrapper = render({
             maxWidth: "58",
             childWith: "58",
             onChange,
@@ -315,7 +315,7 @@ describe("SimpleColorPicker", () => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
-          wrapper = render(mount, {
+          wrapper = render({
             maxWidth: "58",
             childWith: "58",
             onChange,
@@ -391,7 +391,7 @@ describe("SimpleColorPicker", () => {
 
     describe("renders two rows", () => {
       it("confirms that last color has data-down attribute false", () => {
-        wrapper = render(mount, { maxWidth: "120", childWith: "58" });
+        wrapper = render({ maxWidth: "120", childWith: "58" });
         const colorFirst = wrapper.find(SimpleColor).first();
         const colorLast = wrapper.find(SimpleColor).last();
         expect(colorFirst.prop("data-down")).toBeTruthy();
@@ -416,7 +416,7 @@ describe("SimpleColorPicker", () => {
         });
       };
       onBlur = jest.fn();
-      wrapper = render(mount, { onBlur });
+      wrapper = render({ onBlur });
     });
 
     describe("handleOnMouseDown", () => {
@@ -508,7 +508,7 @@ describe("SimpleColorPicker", () => {
 
         describe("when blur is blocked", () => {
           it("calls onBlur on blur event", () => {
-            wrapper = render(mount, { isBlurBlocked: true, onBlur });
+            wrapper = render({ isBlurBlocked: true, onBlur });
             wrapper
               .find(SimpleColor)
               .first()
@@ -527,7 +527,7 @@ describe("SimpleColorPicker", () => {
 
     describe.each(validationTypes)("when %s passed as string", (type) => {
       it("renders validation icon by the input", () => {
-        const wrapper = render(mount, { [type]: "Message" });
+        const wrapper = render({ [type]: "Message" });
         expect(
           wrapper
             .find(StyledLegendContainer)
@@ -538,7 +538,7 @@ describe("SimpleColorPicker", () => {
       });
 
       it("renders validation icon by the label if validationOnLegend is also passed as true", () => {
-        const wrapper = render(mount, {
+        const wrapper = render({
           [type]: "Message",
           validationOnLegend: true,
         });
@@ -551,7 +551,7 @@ describe("SimpleColorPicker", () => {
       });
 
       it("renders proper outline", () => {
-        const wrapper = render(mount, { [type]: "Message" });
+        const wrapper = render({ [type]: "Message" });
         const outlineWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
@@ -564,12 +564,12 @@ describe("SimpleColorPicker", () => {
 
     describe.each(validationTypes)("when %s passed as true boolean", (type) => {
       it("do not renders validation icon", () => {
-        const wrapper = render(mount, { [type]: true });
+        const wrapper = render({ [type]: true });
         expect(wrapper.find(StyledValidationIcon).exists()).toBe(false);
       });
 
       it("renders proper outline", () => {
-        const wrapper = render(mount, { [type]: true });
+        const wrapper = render({ [type]: true });
         const outlineWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
@@ -602,8 +602,8 @@ describe("SimpleColorPicker", () => {
   describe("required", () => {
     let wrapper;
 
-    beforeAll(() => {
-      wrapper = render(mount, { required: true });
+    beforeEach(() => {
+      wrapper = render({ required: true });
     });
 
     it("the required prop is passed to the inputs", () => {

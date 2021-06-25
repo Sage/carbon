@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { SimpleColorPicker, SimpleColor } from ".";
 
 export default {
-  title: "Experimental/Simple Color Picker/Test",
+  title: "Design System/Simple Color Picker/Test",
   component: SimpleColorPicker,
   parameters: {
     info: {
