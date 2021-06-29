@@ -1,3 +1,10 @@
+### [77.3.1](https://github.com/Sage/carbon/compare/v77.3.0...v77.3.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect bottom border color in transparent headers ([8ec5262](https://github.com/Sage/carbon/commit/8ec52626f1176e510101eebd8643d721a6de2d73))
+
 ## [77.3.0](https://github.com/Sage/carbon/compare/v77.2.2...v77.3.0) (2021-06-29)
 
 
