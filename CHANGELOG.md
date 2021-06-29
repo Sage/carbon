@@ -1,3 +1,10 @@
+### [77.3.3](https://github.com/Sage/carbon/compare/v77.3.2...v77.3.3) (2021-06-29)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** allow empty and false children ([5621624](https://github.com/Sage/carbon/commit/56216243f2bc30e583b24733bda3e821022e078a))
+
 ### [77.3.2](https://github.com/Sage/carbon/compare/v77.3.1...v77.3.2) (2021-06-29)
 
 
