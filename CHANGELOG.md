@@ -1,3 +1,10 @@
+### [77.3.2](https://github.com/Sage/carbon/compare/v77.3.1...v77.3.2) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** fix pl and px props not being applied ([58a8291](https://github.com/Sage/carbon/commit/58a82910f9fa5b3243baed2df39ca57c1c3c99c4))
+
 ### [77.3.1](https://github.com/Sage/carbon/compare/v77.3.0...v77.3.1) (2021-06-29)
 
 
