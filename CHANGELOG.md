@@ -1,3 +1,10 @@
+## [77.3.0](https://github.com/Sage/carbon/compare/v77.2.2...v77.3.0) (2021-06-29)
+
+
+### Features
+
+* **action-popover:** add horizontalAlignment prop ([9b827d8](https://github.com/Sage/carbon/commit/9b827d85a03802a623b4afc63f9c8720314e7a01))
+
 ### [77.2.2](https://github.com/Sage/carbon/compare/v77.2.1...v77.2.2) (2021-06-24)
 
 
