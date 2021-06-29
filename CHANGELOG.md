@@ -1,3 +1,31 @@
+### [77.3.2](https://github.com/Sage/carbon/compare/v77.3.1...v77.3.2) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** fix pl and px props not being applied ([58a8291](https://github.com/Sage/carbon/commit/58a82910f9fa5b3243baed2df39ca57c1c3c99c4))
+
+### [77.3.1](https://github.com/Sage/carbon/compare/v77.3.0...v77.3.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect bottom border color in transparent headers ([8ec5262](https://github.com/Sage/carbon/commit/8ec52626f1176e510101eebd8643d721a6de2d73))
+
+## [77.3.0](https://github.com/Sage/carbon/compare/v77.2.2...v77.3.0) (2021-06-29)
+
+
+### Features
+
+* **action-popover:** add horizontalAlignment prop ([9b827d8](https://github.com/Sage/carbon/commit/9b827d85a03802a623b4afc63f9c8720314e7a01))
+
+### [77.2.2](https://github.com/Sage/carbon/compare/v77.2.1...v77.2.2) (2021-06-24)
+
+
+### Bug Fixes
+
+* **flat-table:** fix styled-system pl support ([c74748f](https://github.com/Sage/carbon/commit/c74748fa748d9d4aa8615f45c3909bc172dc743c)), closes [#4145](https://github.com/Sage/carbon/issues/4145)
+
 ### [77.2.1](https://github.com/Sage/carbon/compare/v77.2.0...v77.2.1) (2021-06-23)
 
 
