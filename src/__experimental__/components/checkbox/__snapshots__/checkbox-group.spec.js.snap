@@ -176,8 +176,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c9 c10"
             >
               <input
-                aria-describedby="cId-required-help"
-                aria-labelledby="cId-required-label"
+                aria-describedby="cId-required help"
+                aria-labelledby="cId-required label"
                 className="c11 c12"
                 id="cId-required"
                 name="check-required"
@@ -228,8 +228,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c9 c10"
             >
               <input
-                aria-describedby="cId-optional-help"
-                aria-labelledby="cId-optional-label"
+                aria-describedby="cId-optional help"
+                aria-labelledby="cId-optional label"
                 className="c11 c12"
                 id="cId-optional"
                 name="check-optional"
