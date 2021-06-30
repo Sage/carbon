@@ -13,6 +13,7 @@ import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 import Search from "../../__experimental__/components/search";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
 
@@ -458,6 +459,7 @@ is rendered.
 <Preview>
   <Story name="full navbar alignment example">
     {() => {
+      const isBelowBreakpoint = (value) => useMediaQuery(`(max-width: ${value})`);
       return (
         <div style={{ minHeight: "250px" }}>
           <NavigationBar>
@@ -466,7 +468,7 @@ is rendered.
               <VerticalDivider displayInline pr={0} />
             </Box>
             <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}} submenu="Menu Item One">
+              <MenuItem flex="1" onClick={() => {}} maxWidth={isBelowBreakpoint("850px") ? "130px" : undefined} submenu="Menu Item One">
                 <MenuItem href="#">Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
                 <MenuDivider />
@@ -475,10 +477,10 @@ is rendered.
                 </MenuItem>
                 <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
-              <MenuItem flex="0 0 auto" href="#">
+              <MenuItem flex="0 0 auto" href="#" maxWidth={isBelowBreakpoint("800px") ? "120px" : undefined}>
                 Menu Item Two
               </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+              <MenuItem flex="0 0 auto" maxWidth={isBelowBreakpoint("770px") ? "130px" : undefined} submenu="Menu Item Three">
                 <MenuItem href="#">Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
                 <MenuDivider />
@@ -487,7 +489,7 @@ is rendered.
                 </MenuItem>
                 <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+              <MenuItem flex="0 0 auto" maxWidth={isBelowBreakpoint("750px") ? "130px" : undefined} submenu="Menu Item Four">
                 <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
               </MenuItem>
