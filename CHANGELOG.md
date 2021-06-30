@@ -1,3 +1,13 @@
+### [77.3.4](https://github.com/Sage/carbon/compare/v77.3.3...v77.3.4) (2021-06-30)
+
+
+### Bug Fixes
+
+* **filterable-select:** remove call to set open state of select list on textbox blur ([ae1d406](https://github.com/Sage/carbon/commit/ae1d406c724ef2da9f46c4275997fb8981cb2839))
+* **multi-select:** remove call to set open state of select list on textbox blur ([07f6b46](https://github.com/Sage/carbon/commit/07f6b4632281a180c7441817f262ce56bac2b6e7))
+* **simple-select:** remove call to set open state of select list on textbox blur ([c814c78](https://github.com/Sage/carbon/commit/c814c7834f296798b76d37190b5918b7e728da8d))
+* **tab-title:** remove call to stoppropagation onclick of tab title ([7a19c7a](https://github.com/Sage/carbon/commit/7a19c7a81e899e934494ab424379bb3558cbd277))
+
 ### [77.3.3](https://github.com/Sage/carbon/compare/v77.3.2...v77.3.3) (2021-06-29)
 
 
