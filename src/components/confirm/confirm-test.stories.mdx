@@ -1,0 +1,103 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Button from "../button";
+import Confirm from ".";
+
+<Meta
+  title="Confirm/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: [
+        "extra-small",
+        "small",
+        "medium-small",
+        "medium",
+        "large",
+        "extra-large",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+    iconType: {
+      options: ["error", "warning", null],
+      control: {
+        type: "select",
+      },
+    },
+    cancelButtonType: {
+      options: ["primary", "secondary", "tertiary"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const ConfirmStory = (args) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleCancel = () => {
+    action("cancel")();
+    setIsOpen(false);
+  };
+  const handleOpen = () => {
+    action("open")();
+    setIsOpen(true);
+  };
+  const handleConfirm = () => {
+    action("confirm")();
+    setIsOpen(false);
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Confirm</Button>
+      <Confirm
+        open={isOpen}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        {...args}
+      />
+    </>
+  );
+};
+
+# Confirm
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "This is an example of a confirm.",
+      title: "Are you sure?",
+      disableEscKey: false,
+      height: "",
+      subtitle: "",
+      size: Confirm.defaultProps.size,
+      showCloseIcon: Confirm.defaultProps.showCloseIcon,
+      autoFocus: Confirm.defaultProps.autoFocus,
+      confirmLabel: "",
+      cancelLabel: "",
+      destructive: false,
+      iconType: null,
+      isLoadingConfirm: false,
+      disableConfirm: false,
+      disableCancel: false,
+      cancelButtonType: "secondary",
+    }}
+  >
+    {ConfirmStory.bind({})}
+  </Story>
+</Preview>

@@ -9,18 +9,18 @@ import { Table, TableCell, TableHeader, TableRow } from "..";
 import TextArea from "../../../__experimental__/components/textarea";
 import TextBox from "../../../__experimental__/components/textbox";
 import DateInput from "../../../__experimental__/components/date";
-import { getCommonTextboxProps } from "../../../__experimental__/components/textbox/textbox.stories";
+// TODO import { getCommonTextboxProps } from "../../../__experimental__/components/textbox/textbox.stories";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 const pickInput = (name) => {
   const { inputTypes } = OptionsHelper;
   switch (name) {
     case inputTypes[1]:
-      return <TextArea {...getCommonTextboxProps} />;
+      return <TextArea /* {...getCommonTextboxProps} */ />;
     case inputTypes[2]:
-      return <DateInput {...getCommonTextboxProps} />;
+      return <DateInput /* {...getCommonTextboxProps} */ />;
     default:
-      return <TextBox {...getCommonTextboxProps} />;
+      return <TextBox /* {...getCommonTextboxProps} */ />;
   }
 };
 

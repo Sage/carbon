@@ -1,0 +1,41 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import i18n from "i18n-js";
+
+import I18nComponent from "./i18n.js";
+
+<Meta
+  title="i18nComponent/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const I18nStory = (args) => {
+  i18n.translations.en["my"] = {
+    example: "# My __example__ translation.",
+  };
+  return <I18nComponent {...args} />;
+};
+
+# I18n
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      markdown: true,
+      inline: I18nComponent.defaultProps.inline,
+      scope: "my.example",
+    }}
+  >
+    {I18nStory.bind({})}
+  </Story>
+</Preview>

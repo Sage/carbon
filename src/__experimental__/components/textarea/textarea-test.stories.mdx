@@ -1,0 +1,104 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import Textarea from ".";
+
+<Meta
+  title="Experimental/Textarea/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    labelAlign: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    cols: {
+      control: {
+        min: 0,
+        max: 100,
+        step: 1,
+        type: "range",
+      },
+    },
+    rows: {
+      control: {
+        min: 0,
+        max: 100,
+        step: 1,
+        type: "range",
+      },
+    },
+    inputWidth: {
+      control: {
+        min: 0,
+        max: 100,
+        step: 1,
+        type: "range",
+      },
+    },
+    labelWidth: {
+      control: {
+        min: 0,
+        max: 100,
+        step: 1,
+        type: "range",
+      },
+    },
+    adaptiveLabelBreakpoint: {
+      control: {
+        type: "number",
+      },
+    },
+  }}
+/>
+
+export const TextareaStory = (args) => {
+  const [state, setState] = useState("");
+  const handleChange = ({ target: { value } }) => {
+    setState(value);
+  };
+  return (
+    <Textarea name="textarea" onChange={handleChange} value={state} {...args} />
+  );
+};
+
+# Textarea
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      expandable: Textarea.defaultProps.expandable,
+      cols: 0,
+      rows: 0,
+      disabled: false,
+      autoFocus: false,
+      readOnly: false,
+      placeholder: "",
+      characterLimit: "",
+      inputWidth: 100,
+      warnOverLimit: Textarea.defaultProps.warnOverLimit,
+      enforceCharacterLimit: Textarea.defaultProps.enforceCharacterLimit,
+      label: "",
+      labelHelp: "",
+      labelInline: false,
+      labelWidth: 30,
+      labelAlign: undefined,
+      adaptiveLabelBreakpoint: undefined,
+      required: false,
+    }}
+  >
+    {TextareaStory.bind({})}
+  </Story>
+</Preview>

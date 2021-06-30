@@ -1,0 +1,111 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import I18n from "i18n-js";
+
+import Switch, { BaseSwitch } from "./switch.component";
+
+<Meta
+  title="Experimental/Switch/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    labelAlign: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    labelSpacing: {
+      options: [1, 2],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["small", "large"],
+      control: {
+        type: "select",
+      },
+    },
+    inputWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    },
+    labelWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    },
+  }}
+/>
+
+export const SwitchStory = (args) => {
+  const { translations } = I18n;
+  I18n.translations = {
+    ...translations,
+    fr: {
+      ...translations.fr,
+      switch: {
+        on: "sur",
+        off: "de",
+      },
+    },
+  };
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (ev) => {
+    const { checked } = ev.target;
+    setIsChecked(checked);
+    action("change")(`checked: ${checked}`);
+  };
+  return (
+    <Switch
+      onChange={handleChange}
+      name="switch-default"
+      checked={isChecked}
+      onBlur={action("onBlur")}
+      {...args}
+    />
+  );
+};
+
+# Switch
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      fieldHelp: "This text provides help for the input.",
+      fieldHelpInline: false,
+      label: "Switch on this component?",
+      labelHelp: "Switch off and on this component.",
+      labelInline: false,
+      loading: false,
+      inputWidth: 0,
+      labelAlign: "left",
+      labelSpacing: 1,
+      reverse: BaseSwitch.defaultProps.reverse,
+      value: "test-value",
+      disabled: false,
+      size: "small",
+    }}
+  >
+    {SwitchStory.bind({})}
+  </Story>
+</Preview>

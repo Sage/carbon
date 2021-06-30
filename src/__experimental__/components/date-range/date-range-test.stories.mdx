@@ -1,0 +1,66 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import DateRange from "./date-range.component";
+
+<Meta
+  title="Experimental/Date Range/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const DateRangeStory = ({
+  allowEmptyValueOnStartDate,
+  allowEmptyValueOnEndDate,
+  ...args
+}) => {
+  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+  const handleChange = (evt) => {
+    const newValue = [
+      evt.target.value[0].rawValue,
+      evt.target.value[1].rawValue,
+    ];
+    setState(newValue);
+    action("changed")(evt.target.value);
+  };
+  return (
+    <DateRange
+      onChange={handleChange}
+      onBlur={action("blur")}
+      startDateProps={{
+        allowEmptyValue: allowEmptyValueOnStartDate,
+      }}
+      endDateProps={{
+        allowEmptyValue: allowEmptyValueOnEndDate,
+      }}
+      {...args}
+    />
+  );
+};
+
+# Date Range
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      startLabel: "",
+      endLabel: "",
+      allowEmptyValueOnStartDate: true,
+      allowEmptyValueOnEndDate: true,
+      labelsInline: false,
+    }}
+  >
+    {DateRangeStory.bind({})}
+  </Story>
+</Preview>

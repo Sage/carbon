@@ -1,0 +1,69 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Link from "./link.component";
+
+<Meta
+  title="Link/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    icon: {
+      options: ["", ...OptionsHelper.icons],
+      control: {
+        type: "select",
+      },
+    },
+    iconAlign: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    tooltipPosition: {
+      options: ["bottom", "left", "right", "top"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const LinkStory = ({ hasOnClick, onClick, ...args }) => {
+  const link = (
+    <Link onClick={hasOnClick ? action("click") : undefined} {...args} />
+  );
+  return <div style={{ margin: "64px" }}>{link}</div>;
+};
+
+# Link
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "Link",
+      disabled: false,
+      href: "",
+      icon: "",
+      iconAlign: "left",
+      tabbable: true,
+      tooltipMessage: "",
+      tooltipPosition: "bottom",
+      hasOnClick: false,
+      target: "_blank",
+    }}
+  >
+    {LinkStory.bind({})}
+  </Story>
+</Preview>

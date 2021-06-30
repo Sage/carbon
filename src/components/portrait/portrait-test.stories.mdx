@@ -1,0 +1,62 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Portrait from "./portrait.component";
+
+<Meta
+  title="Portrait/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    iconType: {
+      options: OptionsHelper.icons,
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["XS", "S", "M", "ML", "L", "XL", "XXL"],
+      control: {
+        type: "select",
+      },
+    },
+    shape: {
+      options: ["circle", "square"],
+      control: {
+        type: "select",
+      },
+    }
+  }}
+/>
+
+export const PortraitStory = (args) => <Portrait onClick={action("click")} {...args} />;
+
+# Portrait
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+        alt: Portrait.defaultProps.alt,
+        darkBackground: Portrait.defaultProps.darkBackground,
+        gravatar: "",
+        src: "",
+        initials: "",
+        iconType: undefined,
+        size: "M",
+        shape: "square"
+    }}
+  >
+    {PortraitStory.bind({})}
+  </Story>
+</Preview>

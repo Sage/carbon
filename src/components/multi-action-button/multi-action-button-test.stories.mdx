@@ -1,0 +1,76 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import MultiActionButton from "./multi-action-button.component";
+import Button from "../button";
+import OptionsHelper from "../../utils/helpers/options-helper";
+
+<Meta
+  title="Multi Action Button/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    align: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    buttonType: {
+      options: ["primary", "secondary"],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const MultiActionButtonStory = ({
+  buttonType,
+  textContent,
+  subtext,
+  ...args
+}) => (
+  <MultiActionButton
+    buttonType={buttonType}
+    text={textContent}
+    subtext={subtext}
+    {...args}
+  >
+    <Button {...args}>Example Button</Button>
+    <Button {...args}>Example Button with long text</Button>
+    <Button {...args}>Short</Button>
+  </MultiActionButton>
+);
+
+# Multi Action Button
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      align: "left",
+      buttonType: Button.defaultProps.as,
+      size: Button.defaultProps.size,
+      subtext: Button.defaultProps.subtext,
+      text: "Example Multi Action Button",
+    }}
+  >
+    {MultiActionButtonStory.bind({})}
+  </Story>
+</Preview>

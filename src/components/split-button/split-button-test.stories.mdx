@@ -1,0 +1,113 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import SplitButton from "./split-button.component";
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Button from "../button";
+import Box from "../box";
+
+<Meta
+  title="Split Button/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    iconType: {
+      options: [...OptionsHelper.icons, undefined],
+      control: {
+        type: "select",
+      },
+    },
+    iconPosition: {
+      options: ["before", "after"],
+      control: {
+        type: "select",
+      },
+    },
+    buttonType: {
+      options: ["primary", "secondary"],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: {
+        type: "select",
+      },
+    },
+    align: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const SplitButtonStory = ({
+  buttonType,
+  dataElement,
+  dataRole,
+  textContent,
+  subtext,
+  iconType,
+  iconPosition,
+  ...args
+}) => {
+  return (
+    <Box height={400} mt={100} ml={100}>
+      <SplitButton
+        buttonType={buttonType}
+        data-element={dataElement}
+        data-role={dataRole}
+        text={textContent}
+        subtext={subtext}
+        iconType={iconType}
+        iconPosition={iconPosition}
+        {...args}
+        onClick={action("click")}
+      >
+        <Button {...args} onClick={action("click")}>
+          Example Button
+        </Button>
+        <Button {...args} onClick={action("click")}>
+          Example Button with long text
+        </Button>
+        <Button {...args} onClick={action("click")}>
+          Short
+        </Button>
+      </SplitButton>
+    </Box>
+  );
+};
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      iconType: "",
+      iconPosition: Button.defaultProps.iconPosition,
+      buttonType: Button.defaultProps.as,
+      dataElement: "data-element",
+      dataRole: "",
+      disabled: Button.defaultProps.disabled,
+      size: Button.defaultProps.size,
+      align: SplitButton.defaultProps.align,
+      text: "Example Split Button",
+      subtext: Button.defaultProps.subtext,
+    }}
+  >
+    {SplitButtonStory.bind({})}
+  </Story>
+</Preview>

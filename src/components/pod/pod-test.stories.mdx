@@ -1,0 +1,69 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Pod from "./pod.component";
+
+<Meta
+  title="Pod/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: ["extra-small", "small", "medium", "large", "extra-large"],
+      control: {
+        type: "select",
+      },
+    },
+    alignTitle: {
+      options: ["center", "left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    variant: {
+      options: ["primary", "secondary", "tertiary", "tile", "transparent"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const PodStory = ({ onEdit, ...args }) => (
+  <Pod onEdit={onEdit ? action("edit") : undefined} {...args} />
+);
+
+# Pod
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      border: Pod.defaultProps.border,
+      children: "This is some example content for a Pod",
+      size: Pod.defaultProps.size,
+      title: "",
+      subtitle: "",
+      alignTitle: Pod.defaultProps.alignTitle,
+      description: "",
+      footer: "",
+      onEdit: false,
+      editContentFullWidth: false,
+      displayEditButtonOnHover: false,
+      triggerEditOnContent: false,
+      internalEditButton: false,
+      variant: Pod.defaultProps.variant,
+    }}
+  >
+    {PodStory.bind({})}
+  </Story>
+</Preview>

@@ -1,0 +1,41 @@
+import {
+  Meta,
+  Story,
+  Preview as PreviewStorybook,
+} from "@storybook/addon-docs/blocks";
+
+import Preview from "./preview.component";
+
+<Meta
+  title="Preview/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const PreviewStory = (args) => <Preview {...args} />;
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "Text rendered as children component.",
+      height: "",
+      lines: Preview.defaultProps.lines,
+      loading: true,
+      width: "",
+    }}
+  >
+    {PreviewStory.bind({})}
+  </Story>
+</Preview>

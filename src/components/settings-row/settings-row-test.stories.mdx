@@ -1,0 +1,37 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import SettingsRow from ".";
+
+<Meta
+  title="Setting Row/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const SettingsRowStory = (args) => <SettingsRow {...args} />;
+
+# Settings Row
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "Content for settings",
+      description:
+        "This provides more information about what this group of settings are for.",
+      divider: true,
+      title: "A GROUP OF SETTINGS",
+    }}
+  >
+    {SettingsRowStory.bind({})}
+  </Story>
+</Preview>

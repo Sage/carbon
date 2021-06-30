@@ -1,0 +1,70 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Help from "./help.component";
+
+<Meta
+  title="Help/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    tooltipFlipOverrides: {
+      options: ["left", "right", "top", "bottom"],
+      control: {
+        type: "select",
+      },
+    },
+    tooltipPosition: {
+      options: ["bottom", "left", "right", "top"],
+      control: {
+        type: "select",
+      },
+    },
+    type: {
+      options: OptionsHelper.icons,
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const HelpStory = ({ tooltipFlipOverrides, ...args }) => {
+  const flipOverrides = tooltipFlipOverrides
+    ? [tooltipFlipOverrides]
+    : undefined;
+  return (
+    <div style={{ margin: "200px" }}>
+      <Help tooltipFlipOverrides={flipOverrides} {...args} />
+    </div>
+  );
+};
+
+# Help
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "This is help text",
+      tooltipPosition: Help.defaultProps.tooltipPosition,
+      href: "http://www.sage.com",
+      type: "help",
+      tooltipBgColor: "",
+      tooltipFontColor: "",
+      isVertical: false,
+      tooltipFlipOverrides: "left",
+    }}
+  >
+    {HelpStory.bind({})}
+  </Story>
+</Preview>

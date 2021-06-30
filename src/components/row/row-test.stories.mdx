@@ -1,0 +1,66 @@
+import { text, boolean, select } from "@storybook/addon-knobs";
+
+import { Row, Column } from ".";
+
+<Meta
+  title="Row/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    gutter: {
+      options: [
+        "extra-small",
+        "small",
+        "medium-small",
+        "medium",
+        "large",
+        "extra-large",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+    columnAlign: {
+      options: ["left", "middle", "center", "right"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const RowStory = ({ columnDivide, gutter, ...args }) => (
+  <Row columnDivide={columnDivide} gutter={gutter}>
+    <Column {...args} />
+    <Column {...args} />
+    <Column {...args} />
+    <Column {...args} />
+  </Row>
+);
+
+# Row
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      columnDivide: true,
+      gutter: Row.defaultProps.gutter,
+      columnAlign: Column.defaultProps.columnAlign,
+      columnOffset: Column.defaultProps.columnOffset,
+      columnSpan: Column.defaultProps.columnSpan,
+      children: "content",
+    }}
+  >
+    {RowStory.bind({})}
+  </Story>
+</Preview>

@@ -1,0 +1,75 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Alert from ".";
+import Modal from "../modal";
+import Dialog from "../dialog";
+import Button from "../button";
+
+<Meta
+  title="Alert/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: [
+        "extra-small",
+        "small",
+        "medium-small",
+        "medium",
+        "large",
+        "extra-large",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const AlertStory = (args) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleCancel = () => {
+    setIsOpen(false);
+    action("cancel")();
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Alert</Button>
+      <Alert onCancel={handleCancel} open={isOpen} {...args} />
+    </>
+  );
+};
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      title: "Title",
+      disableEscKey: false,
+      height: "",
+      subtitle: "",
+      showCloseIcon: true,
+      size: Alert.defaultProps.size,
+      children: "This is an example of an alert",
+    }}
+  >
+    {AlertStory.bind({})}
+  </Story>
+</Preview>

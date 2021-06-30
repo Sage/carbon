@@ -1,0 +1,61 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import ButtonToggle from ".";
+
+<Meta
+  title="Button Toggle/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const ButtonToggleStory = (args) => (
+  <div>
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-1"
+      onChange={() => action("onChange")("foo")}
+      onFocus={() => action("onFocus")("foo")}
+      onBlur={() => action("onBlur")("foo")}
+      {...args}
+    />
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-2"
+      onChange={() => action("onChange")("bar")}
+      onFocus={() => action("onFocus")("bar")}
+      onBlur={() => action("onBlur")("bar")}
+      {...args}
+    />
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-3"
+      onChange={() => action("onChange")("baz")}
+      onFocus={() => action("onFocus")("baz")}
+      onBlur={() => action("onBlur")("baz")}
+      {...args}
+    />
+  </div>
+);
+
+# ToggleButton
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "Option",
+    }}
+  >
+    {ButtonToggleStory.bind({})}
+  </Story>
+</Preview>

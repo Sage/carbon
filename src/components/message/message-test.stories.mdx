@@ -1,0 +1,65 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Button from "../button";
+import Message from "./message.component";
+
+<Meta
+  title="Message/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    type: {
+      options: ["info", "error", "success", "warning"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const MessageStory = (args) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onDismiss = (evt) => {
+    setIsOpen(false);
+    action("click")(evt);
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Message</Button>
+      <Message open={isOpen} onDismiss={onDismiss} {...args} />
+    </>
+  );
+};
+
+# Message
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      type: "info",
+      title: "",
+      id: "custom-id",
+      transparent: false,
+      children: "This is some information from the Message Component.",
+      showCloseIcon: false,
+    }}
+  >
+    {MessageStory.bind({})}
+  </Story>
+</Preview>

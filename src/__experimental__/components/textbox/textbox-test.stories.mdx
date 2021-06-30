@@ -1,0 +1,113 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Textbox from ".";
+import OptionsHelper from "../../../utils/helpers/options-helper";
+
+export const commonTextboxArgTypes = {
+  labelAlign: {
+    options: ["left", "right"],
+    control: {
+      type: "select",
+    },
+  },
+  size: {
+    options: ["small", "medium", "large"],
+    control: {
+      type: "select",
+    },
+  },
+  inputIcon: {
+    options: ["", ...OptionsHelper.icons],
+    control: {
+      type: "select",
+    },
+  },
+  labelWidth: {
+    control: {
+      type: "range",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
+  inputWidth: {
+    control: {
+      type: "range",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
+  adaptiveLabelBreakpoint: {
+    control: {
+      type: "number",
+    },
+  },
+};
+
+<Meta
+  title="Experimental/Textbox/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={commonTextboxArgTypes}
+/>
+
+export const getCommonTextboxArgs = (
+  autoFocusDefault = false,
+  disabledDefault = false,
+  readOnlyDefault = false
+) => {
+  return {
+    disabled: disabledDefault,
+    readOnly: disabledDefault,
+    autoFocus: autoFocusDefault,
+    prefix: "",
+    fieldHelp: "",
+    label: "Label",
+    labelHelp: "",
+    labelInline: false,
+    adaptiveLabelBreakpoint: undefined,
+    labelWidth: 30,
+    inputWidth: 70,
+    labelAlign: undefined,
+    size: "medium",
+    inputIcon: undefined,
+    required: false,
+    placeholder: "",
+  };
+};
+
+export const TextboxStory = (args) => <Textbox {...args} />;
+
+export const MultipleTextboxStory = (args) => (
+  <>
+    <Textbox {...args} />
+    <Textbox {...args} />
+  </>
+);
+
+# Textbox
+
+### Default
+
+<Preview>
+  <Story name="default" args={getCommonTextboxArgs()}>
+    {TextboxStory.bind({})}
+  </Story>
+</Preview>
+
+### Multiple
+
+<Preview>
+  <Story name="multiple" args={getCommonTextboxArgs()}>
+    {MultipleTextboxStory.bind({})}
+  </Story>
+</Preview>

@@ -1,0 +1,128 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import DialogFullScreen from ".";
+import Dialog from "../dialog";
+import Button from "../button";
+import Form from "../form";
+
+<Meta
+  title="Dialog Full Screen/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+/>
+
+export const DialogFullScreenStory = ({
+  stickyFooter,
+  formHeight,
+  children,
+  ...args
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleCancel = () => {
+    setIsOpen(false);
+    action("cancel")();
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  const handleClick = (evt) => {
+    action("click")(evt);
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Dialog</Button>
+      <DialogFullScreen onCancel={handleCancel} open={isOpen} {...args}>
+        <Form
+          stickyFooter={stickyFooter}
+          leftSideButtons={<Button onClick={handleCancel}>Cancel</Button>}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          {children}
+          <div style={{ height: formHeight }} />
+        </Form>
+      </DialogFullScreen>
+    </>
+  );
+};
+
+export const DialogFullScreenNestedStory = (args) => {
+  const [mainDialogOpen, setMainDialogOpen] = useState(false);
+  const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
+  const handleMainDialogOpen = () => {
+    setMainDialogOpen(true);
+    action("main dialog open")();
+  };
+  const handleMainDialogCancel = () => {
+    setMainDialogOpen(false);
+    action("main dialog cancel")();
+  };
+  const handleNestedDialogOpen = () => {
+    setNestedDialogOpen(true);
+    action("nested dialog open")();
+  };
+  const handleNestedDialogCancel = () => {
+    setNestedDialogOpen(false);
+    action("nested dialog cancel")();
+  };
+  return (
+    <>
+      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
+      <DialogFullScreen
+        open={mainDialogOpen}
+        onCancel={handleMainDialogCancel}
+        title="Main Dialog"
+      >
+        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
+        <Dialog
+          open={nestedDialogOpen}
+          onCancel={handleNestedDialogCancel}
+          title="Nested Dialog"
+        >
+          Nested Dialog Content
+        </Dialog>
+      </DialogFullScreen>
+    </>
+  );
+};
+
+# DialogFullScreen
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      title: "Example Dialog",
+      subtitle: "Example Subtitle",
+      children: "Text Content",
+      disableEscKey: false,
+      titshowCloseIconle: true,
+      formHeight: "2000px",
+      stickyFooter: false,
+      disableContentPadding: false,
+    }}
+  >
+    {DialogFullScreenStory.bind({})}
+  </Story>
+</Preview>
+
+### Nested
+
+<Preview>
+  <Story name="nested">{DialogFullScreenNestedStory.bind({})}</Story>
+</Preview>

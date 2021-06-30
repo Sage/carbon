@@ -1,0 +1,114 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Icon from ".";
+
+<Meta
+  title="Icon/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    type: {
+      options: OptionsHelper.icons,
+      control: {
+        type: "select",
+      },
+    },
+    tooltipPosition: {
+      options: ["bottom", "left", "right", "top"],
+      control: {
+        type: "select",
+      },
+    },
+    tooltipFlipOverrides: {
+      options: [undefined, "bottom", "left", "right", "top"],
+      control: {
+        type: "select",
+      },
+    },
+    bgTheme: {
+      options: ["info", "error", "success", "warning", "business", "none"],
+      control: {
+        type: "select",
+      },
+    },
+    fontSize: {
+      options: ["small", "medium", "large", "extra-large"],
+      control: {
+        type: "select",
+      },
+    },
+    bgSize: {
+      options: ["small", "medium", "large", "extra-large"],
+      control: {
+        type: "select",
+      },
+    },
+    bgShape: {
+      options: ["circle", "rounded-rect", "square"],
+      control: {
+        type: "select",
+      },
+    },
+    iconColor: {
+      options: [
+        "default",
+        "on-light-background",
+        "on-dark-background",
+        "business-color",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const IconStory = ({ tooltipFlipOverrides, ...args }) => {
+  const flipOverrides = tooltipFlipOverrides
+    ? [tooltipFlipOverrides]
+    : undefined;
+  return (
+    <div style={{ margin: 100 }}>
+      <Icon tooltipFlipOverrides={flipOverrides} {...args} />
+    </div>
+  );
+};
+
+# Icon
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      tooltipMessage: "",
+      tooltipPosition: "top",
+      enableFlipOverrides: false,
+      type: "add",
+      tooltipBgColor: "",
+      tooltipFontColor: "",
+      tooltipFlipOverrides: "right",
+      bgTheme: "none",
+      fontSize: Icon.defaultProps.fontSize,
+      ml: 0,
+      mr: 0,
+      color: "",
+      bg: "",
+      bgSize: Icon.defaultProps.bgSize,
+      bgShape: "circle",
+      iconColor: "default",
+      disabled: Icon.defaultProps.disabled,
+    }}
+  >
+    {IconStory.bind({})}
+  </Story>
+</Preview>

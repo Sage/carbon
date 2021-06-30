@@ -1,0 +1,49 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import {
+  commonTextboxArgTypes,
+  getCommonTextboxArgs,
+} from "../textbox/textbox-test.stories.mdx";
+import GroupedCharacter from "./grouped-character.component";
+
+<Meta
+  title="Experimental/GroupedCharacter/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={commonTextboxArgTypes}
+/>
+
+export const GroupedCharacterStory = (args) => {
+  const [state, setState] = useState("");
+  const onChange = (ev) => {
+    setState(ev.target.value.rawValue);
+    action("change")(ev);
+  };
+  return <GroupedCharacter value={state} onChange={onChange} {...args} />;
+};
+
+# Grouped Character
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      groups: [2, 2, 4],
+      separator: "-",
+      ...getCommonTextboxArgs(),
+    }}
+  >
+    {GroupedCharacterStory.bind({})}
+  </Story>
+</Preview>

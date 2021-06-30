@@ -1,0 +1,44 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+
+import OptionsHelper from "../../utils/helpers/options-helper";
+import Detail from "./detail.component";
+
+<Meta
+  title="Configurable Items/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    icon: {
+      options: OptionsHelper.icons,
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const DetailStory = (args) => <Detail {...args} />;
+
+# Detail
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      icon: null,
+      footnote: "This detail may require a footnote.",
+      children: "An example of a detail.",
+    }}
+  >
+    {DetailStory.bind({})}
+  </Story>
+</Preview>

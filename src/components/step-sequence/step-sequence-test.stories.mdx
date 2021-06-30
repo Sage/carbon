@@ -1,0 +1,114 @@
+import StepSequence from "./step-sequence.component";
+import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
+
+<Meta
+  title="Step Sequence/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    orientation: {
+      options: ["horizontal", "vertical"],
+      control: {
+        type: "select",
+      },
+    },
+    status: {
+      options: ["complete", "current", "incomplete"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const StepSequenceStory = (args) => (
+  <StepSequence {...args}>
+    <StepSequenceItem
+      aria-label="Step 1 of 5"
+      hiddenCompleteLabel="Complete"
+      hiddenCurrentLabel="Current"
+      indicator="1"
+      status="complete"
+    >
+      Name
+    </StepSequenceItem>
+    <StepSequenceItem
+      aria-label="Step 2 of 5"
+      hiddenCompleteLabel="Complete"
+      hiddenCurrentLabel="Current"
+      indicator="2"
+      status="complete"
+    >
+      Delivery Address
+    </StepSequenceItem>
+    <StepSequenceItem
+      aria-label="Step 3 of 5"
+      hiddenCompleteLabel="Complete"
+      hiddenCurrentLabel="Current"
+      indicator="3"
+      status="current"
+    >
+      Delivery Details
+    </StepSequenceItem>
+    <StepSequenceItem
+      aria-label="Step 4 of 5"
+      hiddenCompleteLabel="Complete"
+      hiddenCurrentLabel="Current"
+      indicator="4"
+      status="incomplete"
+    >
+      Payment
+    </StepSequenceItem>
+    <StepSequenceItem
+      aria-label="Step 5 of 5"
+      hiddenCompleteLabel="Complete"
+      hiddenCurrentLabel="Current"
+      indicator="5"
+      status="incomplete"
+    >
+      Confirm
+    </StepSequenceItem>
+  </StepSequence>
+);
+
+export const StepSequenceItemStory = (args) => <StepSequenceItem {...args} />;
+
+# Step Sequence
+
+### Step Sequence
+
+<Preview>
+  <Story
+    name="Step Sequence"
+    args={{
+      orientation: StepSequence.defaultProps.orientation,
+    }}
+  >
+    {StepSequenceStory.bind({})}
+  </Story>
+</Preview>
+
+### Step Sequence Item
+
+<Preview>
+  <Story
+    name="Step Sequence Item"
+    args={{
+      indicator: "1",
+      status: StepSequenceItem.defaultProps.status,
+      hiddenCompleteLabel: "",
+      hiddenCurrentLabel: "",
+      ariaLabel: "Step 1 of 5",
+      children: "Step Label"
+    }}
+  >
+    {StepSequenceItemStory.bind({})}
+  </Story>
+</Preview>

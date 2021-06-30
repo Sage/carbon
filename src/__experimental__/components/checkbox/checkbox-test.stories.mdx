@@ -1,0 +1,101 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import { Checkbox } from ".";
+import AutoFocus from "../../../utils/helpers/auto-focus";
+
+<Meta
+  title="Experimental/Checkbox/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    labelSpacing: {
+      options: [1, 2],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["small", "large"],
+      control: {
+        type: "select",
+      },
+    },
+    inputWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    },
+    labelWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    },
+    adaptiveSpacingBreakpoint: {
+      control: {
+        type: "number",
+      },
+    },
+  }}
+/>
+
+export const CheckboxStory = (args) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChange = (ev) => {
+    const { checked } = ev.target;
+    setIsChecked(checked);
+    action("change")(`checked: ${checked}`);
+  };
+  return (
+    <Checkbox
+      onChange={handleChange}
+      checked={isChecked}
+      onBlur={action("onBlur")}
+      {...args}
+    />
+  );
+};
+
+# Checkbox
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      key: "",
+      label: "Example Checkbox",
+      autoFocus: false,
+      disabled: false,
+      fieldHelp: "This text provides help for the input.",
+      fieldHelpInline: false,
+      reverse: false,
+      labelHelp: "This text provides more information for the label.",
+      inputWidth: 0,
+      labelWidth: 0,
+      labelSpacing: 1,
+      size: "small",
+      value: "",
+      ml: "0",
+      adaptiveSpacingBreakpoint: undefined,
+      required: false,
+    }}
+  >
+    {CheckboxStory.bind({})}
+  </Story>
+</Preview>

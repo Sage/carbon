@@ -1,0 +1,46 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Profile from "./profile.component";
+
+<Meta
+  title="Profile/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: ["XS", "S", "M", "ML", "L", "XL", "XXL"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const ProfileStory = (args) => <Profile {...args} />;
+
+# Profile
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      email: "johnsmith@sage.com",
+      initials: "JS",
+      size: "XS",
+      name: "John Smith",
+      src: "",
+    }}
+  >
+    {ProfileStory.bind({})}
+  </Story>
+</Preview>

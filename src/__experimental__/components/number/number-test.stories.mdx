@@ -1,0 +1,71 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import Number from "./number.component";
+import {
+  commonTextboxArgTypes,
+  getCommonTextboxArgs,
+} from "../textbox/textbox-test.stories.mdx";
+
+<Meta
+  title="Experimental/Number Input/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    deferTimeout: {
+      control: {
+        type: "number",
+      },
+    },
+    ...commonTextboxArgTypes
+  }}
+/>
+
+export const NumberStory = ({
+  onKeyDownEnabled,
+  onChangeDeferredEnabled,
+  ...args
+}) => {
+  const [state, setState] = useState("");
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value);
+  };
+  return (
+    <Number
+      value={state}
+      onChange={setValue}
+      onKeyDown={onKeyDownEnabled ? action("onKeyDown") : undefined}
+      onChangeDeferred={
+        onChangeDeferredEnabled ? action("onChangeDeferred") : undefined
+      }
+      {...args}
+    />
+  );
+};
+
+# Number
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      onChangeDeferredEnabled: false,
+      onKeyDownEnabled: false,
+      deferTimeout: undefined,
+      ...getCommonTextboxArgs()
+    }}
+  >
+    {NumberStory.bind({})}
+  </Story>
+</Preview>
