@@ -1,0 +1,74 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import LinkTo from "@storybook/addon-links/react";
+import { action } from "@storybook/addon-actions";
+
+import Alert from ".";
+import Modal from "../modal";
+import Dialog from "../dialog";
+import Button from "../button";
+
+<Meta
+  title="Alert/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    knobs: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      control: {
+        type: "select",
+        options: [
+          "extra-small",
+          "small",
+          "medium-small",
+          "medium",
+          "large",
+          "extra-large",
+        ],
+      },
+    },
+  }}
+/>
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      title: "Title",
+      disableEscKey: false,
+      height: "",
+      subtitle: "",
+      showCloseIcon: true,
+      size: Alert.defaultProps.size,
+      children: "This is an example of an alert",
+    }}
+  >
+    {(args) => {
+      const [isOpen, setIsOpen] = useState(true);
+      const handleCancel = () => {
+        setIsOpen(false);
+        action("cancel")();
+      };
+      const handleOpen = () => {
+        setIsOpen(true);
+        action("open")();
+      };
+      return (
+        <>
+          <Button onClick={handleOpen}>Open Alert</Button>
+          <Alert onCancel={handleCancel} open={isOpen} {...args} />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
