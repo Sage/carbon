@@ -39,7 +39,7 @@ const StyledFlatTableRowHeader = styled.th`
       width: ${colWidth}px;
     `}
 
-    &&& {
+    &&&& {
       > div {
         box-sizing: border-box;
 
