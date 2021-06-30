@@ -1,0 +1,179 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import {
+  ICONS,
+  ICON_BACKGROUNDS,
+  ICON_COLORS,
+  ICON_SHAPES,
+  ICON_SIZES,
+  ICON_TOOLTIP_POSITIONS,
+} from "./icon-config";
+import Icon from ".";
+
+<Meta
+  title="Icon/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    type: {
+      options: ICONS,
+      control: {
+        type: "select",
+      },
+    },
+    tooltipPosition: {
+      options: ICON_TOOLTIP_POSITIONS,
+      control: {
+        type: "select",
+      },
+    },
+    tooltipFlipOverrides: {
+      options: [undefined, ...ICON_TOOLTIP_POSITIONS],
+      control: {
+        type: "select",
+      },
+    },
+    bgTheme: {
+      options: ICON_BACKGROUNDS,
+      control: {
+        type: "select",
+      },
+    },
+    fontSize: {
+      options: ICON_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    bgSize: {
+      options: ICON_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    bgShape: {
+      options: ICON_SHAPES,
+      control: {
+        type: "select",
+      },
+    },
+    iconColor: {
+      options: ICON_BACKGROUNDS,
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const IconStory = ({ tooltipFlipOverrides, ...args }) => {
+  const flipOverrides = tooltipFlipOverrides
+    ? [tooltipFlipOverrides]
+    : undefined;
+  return (
+    <div style={{ margin: 100 }}>
+      <Icon tooltipFlipOverrides={flipOverrides} {...args} />
+    </div>
+  );
+};
+
+export const IconAllStory = () => (
+  <>
+    {ICONS.map((type) =>
+      ICON_SIZES.map((fontSize) => (
+        <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
+      ))
+    )}
+    {[true, false].map((disabled) =>
+      ICON_SIZES.map((fontSize) =>
+        ICON_BACKGROUNDS.map((bgTheme) => {
+          if (bgTheme !== "none") {
+            return ICON_SHAPES.map((bgShape) => {
+              return ICON_SIZES.map((bgSize) => (
+                <Icon
+                  type="add"
+                  disabled={disabled}
+                  key={`${fontSize}_${disabled}_${bgTheme}_${bgShape}_${bgSize}`}
+                  fontSize={fontSize}
+                  bgTheme={bgTheme}
+                  bgShape={bgShape}
+                  bgSize={bgSize}
+                />
+              ));
+            });
+          }
+          return ICON_COLORS.map((iconColor) => (
+            <Icon
+              type="add"
+              disabled={disabled}
+              key={`${fontSize}_${disabled}_${bgTheme}_${iconColor}`}
+              bgTheme={iconColor === "on-dark-background" ? "info" : bgTheme}
+              iconColor={iconColor}
+            />
+          ));
+        })
+      )
+    )}
+    {/* Custom colors */}
+    <Icon type="add" color="blackOpacity65" />
+    <Icon type="add" color="brilliantGreenShade20" />
+    <Icon type="add" color="red" />
+    <Icon type="add" color="#123456" />
+    <Icon type="add" color="rgb(0, 123, 10)" />
+    <Icon type="add" color="white" bg="blackOpacity65" />
+    <Icon type="add" bg="brilliantGreenShade20" />
+    <Icon type="add" bg="red" />
+    <Icon type="add" color="white" bg="#123456" />
+    <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
+  </>
+);
+
+# Icon
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      tooltipMessage: "",
+      tooltipPosition: "top",
+      enableFlipOverrides: false,
+      type: "add",
+      tooltipBgColor: "",
+      tooltipFontColor: "",
+      tooltipFlipOverrides: "right",
+      bgTheme: "none",
+      fontSize: Icon.defaultProps.fontSize,
+      ml: 0,
+      mr: 0,
+      color: "",
+      bg: "",
+      bgSize: Icon.defaultProps.bgSize,
+      bgShape: "circle",
+      iconColor: "default",
+      disabled: Icon.defaultProps.disabled,
+    }}
+  >
+    {IconStory.bind({})}
+  </Story>
+</Preview>
+
+### All
+
+<Preview>
+  <Story
+    name="all"
+    parameters={{
+      chromatic: {
+        disable: false,
+      },
+    }}
+  >
+    {IconAllStory.bind({})}
+  </Story>
+</Preview>

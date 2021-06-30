@@ -1,14 +1,11 @@
-import {
-  toastComponent,
-  toastTogglePreview,
-} from "../../locators/toast";
+import { toastComponent, toastTogglePreview } from "../../locators/toast";
 
 When("I click on {string} Toggle Preview", (e) => {
   toastTogglePreview(e).scrollIntoView();
   toastTogglePreview(e).click();
 });
 
-Then("Toast children is set to {string}", (text) => {
+Then("Toast children is set to {word}", (text) => {
   toastComponent().children().should("have.text", text);
 });
 

@@ -30,10 +30,12 @@
     "totalRecords": -100
   },
   "totalRecordsOtherLanguage": {
-    "totalRecords": "mp150ú¿¡üßä"
+    "totalRecords": "",
+    "totalRecordsSpecialCharacters": "otherLanguage"
   },
   "totalRecordsSpecialCharacter": {
-    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "totalRecords": "",
+    "totalRecordsSpecialCharacters": "specialCharacters"
   },
   "pageSize10": {
     "showPageSizeSelection": true,

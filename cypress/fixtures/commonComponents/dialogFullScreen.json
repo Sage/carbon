@@ -6,22 +6,28 @@
     "showCloseIcon": true
   },
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   },
   "subtitleOtherLanguage": {
-    "subtitle": "mp150ú¿¡üßä"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "otherLanguage"
   },
   "subtitleSpecialCharacter": {
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "specialCharacters"
   },
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   },
   "disableEscKey": {
     "disableEscKey": true

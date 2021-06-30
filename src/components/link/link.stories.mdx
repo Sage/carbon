@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import Link, { InternalLink } from "./link.component";
-import Box from '../box';
-import {Menu, MenuItem} from '../menu';
-import Typography from '../typography';
+import Box from "../box";
+import { Menu, MenuItem } from "../menu";
+import Typography from "../typography";
 
 <Meta title="Link" parameters={{ info: { disable: true } }} />
 
@@ -13,6 +13,7 @@ import Typography from '../typography';
 Navigates the user to another location.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
@@ -57,14 +58,17 @@ Setting the `disabled` prop to true disables the link.
 </Preview>
 
 ### isSkipLink
-`Skip Link` is specific use case for the `Link` component, specifically to enhance keyboard accessibility. 
-The `Skip Link` has been created to allow users to use keyboard controls to skip over something like a `Menu`. 
-It allows a user to jump into the main content without going through the whole `Menu` component, button by button. 
+
+`Skip Link` is specific use case for the `Link` component, specifically to enhance keyboard accessibility.
+The `Skip Link` has been created to allow users to use keyboard controls to skip over something like a `Menu`.
+It allows a user to jump into the main content without going through the whole `Menu` component, button by button.
 To show how it works, press the TAB key and you will be able to see how `Skip Link` will displays.
 
 <Preview>
   <Story name="isSkipLink" parameters={{ chromatic: { disable: true } }}>
-    <Link href="#main-content" isSkipLink>This is a link</Link>
+    <Link href="#main-content" isSkipLink>
+      This is a link
+    </Link>
     <Menu>
       <MenuItem>Menu Item 1</MenuItem>
       <MenuItem>Menu Item 2</MenuItem>
@@ -73,20 +77,25 @@ To show how it works, press the TAB key and you will be able to see how `Skip Li
       <MenuItem>Menu Item 5</MenuItem>
     </Menu>
     <Box py={2} id="main-content">
-      <Typography mb={1} variant="h1"> This is header of main content container </Typography>
-      <Typography variant="p"> 
-        Laborum anim magna pariatur ea mollit elit cillum exercitation irure consectetur. 
-        Lorem qui dolor reprehenderit reprehenderit ut ad. 
-        Esse magna aliquip ea culpa nulla laborum deserunt cupidatat ullamco fugiat in enim. 
-        Sunt velit tempor anim occaecat. Culpa ut consectetur sunt tempor eu est deserunt veniam. 
-        Voluptate commodo consequat ipsum aliquip elit aute pariatur occaecat eiusmod culpa dolore voluptate Lorem commodo.
-        Consectetur anim exercitation esse irure est amet adipisicing cupidatat laborum non commodo id.
-        Ex id nostrud aute deserunt. 
-        Qui non aute ea eu commodo anim labore dolor minim enim cillum eiusmod commodo ipsum. 
-        Consectetur ipsum consectetur Lorem tempor proident cillum eu minim. 
-        Adipisicing in nostrud sit Lorem ex aute tempor aliquip aute. 
-        Duis dolore laboris labore exercitation enim dolore anim occaecat anim laboris dolor ut. 
-        Lorem ullamco adipisicing duis aute non minim. Adipisicing consequat labore non aliquip anim.
+      <Typography mb={1} variant="h1">
+        {" "}
+        This is header of main content container{" "}
+      </Typography>
+      <Typography variant="p">
+        Laborum anim magna pariatur ea mollit elit cillum exercitation irure
+        consectetur. Lorem qui dolor reprehenderit reprehenderit ut ad. Esse
+        magna aliquip ea culpa nulla laborum deserunt cupidatat ullamco fugiat
+        in enim. Sunt velit tempor anim occaecat. Culpa ut consectetur sunt
+        tempor eu est deserunt veniam. Voluptate commodo consequat ipsum aliquip
+        elit aute pariatur occaecat eiusmod culpa dolore voluptate Lorem
+        commodo. Consectetur anim exercitation esse irure est amet adipisicing
+        cupidatat laborum non commodo id. Ex id nostrud aute deserunt. Qui non
+        aute ea eu commodo anim labore dolor minim enim cillum eiusmod commodo
+        ipsum. Consectetur ipsum consectetur Lorem tempor proident cillum eu
+        minim. Adipisicing in nostrud sit Lorem ex aute tempor aliquip aute.
+        Duis dolore laboris labore exercitation enim dolore anim occaecat anim
+        laboris dolor ut. Lorem ullamco adipisicing duis aute non minim.
+        Adipisicing consequat labore non aliquip anim.
       </Typography>
       <Link href="www.carbon.sage.com">Carbon Page</Link>
     </Box>
@@ -105,12 +114,18 @@ The `href` prop provides the ability for the Link to take the user to a differen
 
 ### rel
 
-The `rel` prop provides the ability for the Link to set relationship between the current document 
+The `rel` prop provides the ability for the Link to set relationship between the current document
 and the linked document
 
 <Preview>
   <Story name="with rel" parameters={{ chromatic: { disable: true } }}>
-    <Link href="https://carbon.sage.com/" target="_blank" rel="noreferrer noopener">This is a link</Link>
+    <Link
+      href="https://carbon.sage.com/"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      This is a link
+    </Link>
   </Story>
 </Preview>
 
@@ -181,4 +196,5 @@ Use the `target` prop to modify the behaviour when the Link component is clicked
 ## Props
 
 ### Link
+
 <Props of={InternalLink} />

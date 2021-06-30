@@ -1,0 +1,66 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import { ROW_SIZES } from "./row.config";
+import { Row, Column } from ".";
+
+<Meta
+  title="Row/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    gutter: {
+      options: ROW_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    columnAlign: {
+      options: ["left", "middle", "center", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    childrenSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const RowStory = ({
+  columnDivide,
+  gutter,
+  children,
+  childrenSpecialCharacters,
+  ...args
+}) => (
+  <Row columnDivide={columnDivide} gutter={gutter}>
+    <Column children={children || childrenSpecialCharacters} {...args} />
+    <Column children={children || childrenSpecialCharacters} {...args} />
+    <Column children={children || childrenSpecialCharacters} {...args} />
+    <Column children={children || childrenSpecialCharacters} {...args} />
+  </Row>
+);
+
+# Row
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      columnDivide: true,
+      gutter: Row.defaultProps.gutter,
+      columnAlign: Column.defaultProps.columnAlign,
+      columnOffset: Column.defaultProps.columnOffset,
+      columnSpan: Column.defaultProps.columnSpan,
+      children: "content",
+      childrenSpecialCharacters: undefined,
+    }}
+  >
+    {RowStory.bind({})}
+  </Story>
+</Preview>
