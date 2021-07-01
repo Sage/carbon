@@ -32,6 +32,7 @@ const MenuItem = ({
   focusItem,
   download,
   href,
+  horizontalAlignment,
   ...rest
 }) => {
   const { setOpenPopover, isOpenPopover, focusButton } = useContext(
@@ -195,6 +196,14 @@ const MenuItem = ({
     "aria-expanded": isOpen,
   };
 
+  const renderMenuItemIcon = () => {
+    return (
+      icon && (
+        <MenuItemIcon type={icon} horizontalAlignment={horizontalAlignment} />
+      )
+    );
+  };
+
   return (
     <StyledMenuItem
       {...rest}
@@ -223,8 +232,9 @@ const MenuItem = ({
       {submenu && checkRef(ref) && isLeftAligned && (
         <SubMenuItemIcon type="chevron_left" />
       )}
-      {icon && <MenuItemIcon type={icon} />}
+      {horizontalAlignment === "left" && renderMenuItemIcon()}
       {children}
+      {horizontalAlignment === "right" && renderMenuItemIcon()}
       {submenu && checkRef(ref) && !isLeftAligned && (
         <SubMenuItemIcon type="chevron_right" />
       )}
@@ -292,6 +302,8 @@ const propTypes = {
   placement: PropTypes.oneOf(["bottom", "top"]),
   /** @ignore @private */
   focusItem: PropTypes.bool,
+  /** @ignore @private */
+  horizontalAlignment: PropTypes.oneOf(["left", "right"]),
 };
 
 ActionPopoverItem.propTypes = { ...propTypes };
