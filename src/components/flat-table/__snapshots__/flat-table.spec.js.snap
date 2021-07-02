@@ -119,8 +119,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: none;
   border-right: none;
   font-weight: 700;
-  left: 0;
-  top: 0;
   z-index: 1000;
 }
 
