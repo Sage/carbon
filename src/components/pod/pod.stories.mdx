@@ -57,23 +57,9 @@ Set the pod to flex to the width of its content, or take up the full width of it
   </Story>
 </Preview>
 
-### Collapsable
-
-Pod accepts collapsed prop which sets the intial state of the Pod and allows it
-to be collapsible. If the prop is not passed the Pod will not be collapsible.
-
-<Preview>
-  <Story name="collapsable">
-    <Pod title="Title" collapsed>
-      Content
-    </Pod>
-  </Story>
-</Preview>
-
 ### PodManager
 
 If you want to have the same height of the Pods based on the highest one, use `PodManager` to achieve it.
-The `PodManager` does not work if `Pod` uses `collapsed` prop
 
 <Preview>
   <Story name="even Height with PodManager">
@@ -103,14 +89,13 @@ The `PodManager` does not work if `Pod` uses `collapsed` prop
   </Story>
 </Preview>
 
-### With subtitle, description and footer
+### With subtitle and footer
 
 <Preview>
   <Story name="with subtitle description and footer">
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
     >
       Content

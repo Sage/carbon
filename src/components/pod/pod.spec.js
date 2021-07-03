@@ -7,8 +7,6 @@ import Pod from "./pod.component";
 import Button from "../button";
 import {
   StyledBlock,
-  StyledCollapsibleContent,
-  StyledDescription,
   StyledEditAction,
   StyledEditContainer,
   StyledFooter,
@@ -16,7 +14,6 @@ import {
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
-  StyledArrow,
 } from "./pod.style.js";
 import {
   assertStyleMatch,
@@ -40,13 +37,6 @@ describe("Pod", () => {
 
   testStyledSystemMargin((props) => <Pod {...props} />);
 
-  describe("functionality", () => {
-    it("sets the collapsed state same as collapsed prop on mount", () => {
-      const initialWrapper = shallow(<Pod collapsed />);
-      expect(initialWrapper.state().isCollapsed).toBeTruthy();
-    });
-  });
-
   describe("podHeader", () => {
     it("is not rendered if title prop not passed", () => {
       expect(wrapper.find(StyledHeader).exists()).toBeFalsy();
@@ -60,17 +50,6 @@ describe("Pod", () => {
     it("renders subtitle when subtitle is passed as a prop", () => {
       wrapper.setProps({ title: "Title", subtitle: "Subtitle" });
       expect(wrapper.find(StyledSubtitle).props().children).toEqual("Subtitle");
-    });
-
-    it("adds an additional collapsible arrow to the the header when pod is collapsible", () => {
-      wrapper.setProps({ title: "Title" });
-      wrapper.setState({ isCollapsed: true });
-      expect(wrapper.find(StyledArrow).exists()).toBeTruthy();
-    });
-
-    it("does not add additional collapsible arrow when pod is NOT collapsible", () => {
-      wrapper.setProps({ title: "Title" });
-      expect(wrapper.find(StyledArrow).exists()).toBeFalsy();
     });
   });
 
@@ -89,82 +68,6 @@ describe("Pod", () => {
       },
       wrapper.find(StyledBlock)
     );
-  });
-
-  describe("collapsability", () => {
-    const ContentComp = () => <div />;
-
-    it("initializes component as collapsed when collapsed prop is passed as true", () => {
-      const collapsableWrapper = shallow(
-        <Pod collapsed>
-          <ContentComp />
-        </Pod>
-      );
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(false);
-      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
-    });
-
-    it("initializes component as not collapsed when collapsed prop is passed as false", () => {
-      const collapsableWrapper = shallow(
-        <Pod collapsed={false}>
-          <ContentComp />
-        </Pod>
-      );
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(true);
-      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
-    });
-
-    it("clicking on Header toggles isCollapsed state", () => {
-      const collapsableWrapper = shallow(
-        <Pod collapsed title="Title">
-          <ContentComp />
-        </Pod>
-      );
-      collapsableWrapper.find(StyledHeader).props().onClick();
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(true);
-      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
-      collapsableWrapper.find(StyledHeader).props().onClick();
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(false);
-      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
-    });
-
-    it("the Arrow icon should be flipped", () => {
-      wrapper = mount(
-        <Pod collapsed title="collapsed">
-          <ContentComp />
-        </Pod>
-      );
-
-      assertStyleMatch(
-        {
-          transform: "rotate(180deg)",
-        },
-        wrapper.find(StyledArrow)
-      );
-
-      wrapper.unmount();
-    });
-  });
-
-  describe("podDescription", () => {
-    it("renders a description when description prop is passed", () => {
-      wrapper.setProps({ description: "Description" });
-      expect(wrapper.find(StyledDescription).props().children).toEqual(
-        "Description"
-      );
-    });
-
-    it("does not render description when description prop is not passed", () => {
-      expect(wrapper.find(StyledDescription).exists()).toEqual(false);
-    });
   });
 
   describe("podFooter", () => {
@@ -788,19 +691,6 @@ describe("StyledHeader", () => {
       assertStyleMatch(
         {
           marginRight: "30px",
-        },
-        wrapper
-      );
-    });
-  });
-
-  describe("when isCollapsed prop is set", () => {
-    it("should have cursor pointer and no margin bottom", () => {
-      wrapper = renderStyledHeader({ isCollapsed: true });
-      assertStyleMatch(
-        {
-          marginBottom: "0",
-          cursor: "pointer",
         },
         wrapper
       );
