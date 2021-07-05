@@ -160,6 +160,7 @@ export default (palette) => {
 
       hover: palette.slateTint(95),
       headerIconColor: palette.slateTint(60),
+      headerAlternativeBackground: palette.slateTint(10),
       selected: palette.slateTint(85),
       highlighted: palette.slateTint(90),
     },

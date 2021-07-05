@@ -22,7 +22,7 @@ describe("FlatTableRowHeader", () => {
     ),
     { py: "10px", px: 3 },
     null,
-    { modifier: "&&& > div" }
+    { modifier: "&&&& > div" }
   );
 
   it("renders with proper width style rule when width prop is passed", () => {
@@ -47,7 +47,7 @@ describe("FlatTableRowHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableRowHeader),
-      { modifier: "&&& > div" }
+      { modifier: "&&&& > div" }
     );
   });
 
@@ -127,7 +127,7 @@ describe("FlatTableRowHeader", () => {
           whiteSpace: "nowrap",
         },
         wrapper.find(StyledFlatTableRowHeader),
-        { modifier: "&&& > div" }
+        { modifier: "&&&& > div" }
       );
     });
 
@@ -152,4 +152,49 @@ describe("FlatTableRowHeader", () => {
       });
     });
   });
+
+  describe.each([
+    ["small", "1px"],
+    ["medium", "2px"],
+    ["large", "4px"],
+  ])(
+    "when the verticalBorder prop is set to %s",
+    (verticalBorder, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the cell border-right-width", () => {
+        wrapper = mount(<FlatTableRowHeader verticalBorder={verticalBorder} />);
+        assertStyleMatch(
+          {
+            borderRightWidth: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&&" }
+        );
+      });
+    }
+  );
+
+  describe.each([
+    ["goldTint10", "#FFBC1A"],
+    ["#000", "#000"],
+  ])(
+    "when the verticalBorderColor prop is set to %s",
+    (verticalBorderColor, expectedValue) => {
+      let wrapper;
+
+      it("it overrides the row header border-right-color", () => {
+        wrapper = mount(
+          <FlatTableRowHeader verticalBorderColor={verticalBorderColor} />
+        );
+        assertStyleMatch(
+          {
+            borderRightColor: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&&" }
+        );
+      });
+    }
+  );
 });

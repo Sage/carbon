@@ -100,8 +100,8 @@ const Tabs = ({
     if (Event.isEventType(ev, "keydown")) {
       return;
     }
-
     const { tabid } = ev.target.dataset;
+
     updateVisibleTab(tabid);
   };
 
