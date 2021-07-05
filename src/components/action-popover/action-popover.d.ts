@@ -18,6 +18,8 @@ type ActionPopoverChild =
 export interface ActionPopoverProps extends MarginSpacingProps {
   /** Children for popover component */
   children?: ActionPopoverChild | ActionPopoverChild[];
+  /** Horizontal alignment of menu items content */
+  horizontalAlignment?: "left" | "right";
   /** Unique ID */
   id?: string;
   /** Callback to be called on menu open */

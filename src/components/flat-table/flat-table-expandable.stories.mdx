@@ -301,6 +301,73 @@ Rows with row headers can also be made expandable.
   </Story>
 </Preview>
 
+### With row headers with custom paddings
+Rows with row headers can also be made expandable and can also have custom paddings. 
+In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as having an icon.
+
+<Preview>
+  <Story name="row headers with custom paddings">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableRowHeader px={8}>Child one</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableRowHeader pl={5}>
+            <Icon type="individual"/> Child two
+          </FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <div style={{ width: "380px", overflowX: "auto" }}>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableRowHeader px={8}>Name</FlatTableRowHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow expandable subRows={SubRows} expanded>
+                <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows} expanded>
+                <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### With pagination
 Tables with pagination can have expandable rows.
 

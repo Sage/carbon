@@ -4,7 +4,9 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Pod from "./";
 import Heading from "../heading";
 import Button from "../button";
-import { Row, Column } from "../row";
+import Typography from "../typography";
+import { GridContainer, GridItem } from "../grid";
+
 import PodManager from "./pod-manager.component";
 
 <Meta title="Pod" parameters={{ info: { disable: true } }} />
@@ -70,36 +72,76 @@ to be collapsible. If the prop is not passed the Pod will not be collapsible.
   </Story>
 </Preview>
 
-### PodManager
-
-If you want to have the same height of the Pods based on the highest one, use `PodManager` to achieve it.
-The `PodManager` does not work if `Pod` uses `collapsed` prop
+### Custom height
 
 <Preview>
-  <Story name="even Height with PodManager">
-    <PodManager>
-      <Row>
-        <Column>
-          <Pod>
-            <Row>
-              <Column>
-                <Button>Button 1</Button>
-              </Column>
-            </Row>
-            <Row>
-              <Column>
-                <Button>Button 2</Button>
-              </Column>
-            </Row>
-          </Pod>
-        </Column>
-        <Column>
-          <Pod>
-            <Button>Button 3</Button>
-          </Pod>
-        </Column>
-      </Row>
-    </PodManager>
+  <Story name="with custom height">
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      height={350}
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### Even height
+
+If you want to have the same height of the Pods based on the highest one, use `Grid` component to position `Pods`
+and then set `height` prop to `100%` on each `Pod` so that it fills the entire height of `GridItem`
+
+<Preview>
+  <Story name="even height multiple Pods">
+    <GridContainer>
+      <GridItem gridColumn="1/5">
+        <Pod height="100%">
+          <Typography variant="big" mb={2}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMa
+            ker including versions of Lorem Ipsum.
+          </Typography>
+        </Pod>
+      </GridItem>
+      <GridItem gridColumn="5/9">
+        <Pod height="100%">
+          <Typography mb={2}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software lie Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </Typography>
+        </Pod>
+      </GridItem>
+      <GridItem gridColumn="9/13">
+        <Pod height="100%">
+          <Typography mb={2}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </Typography>
+        </Pod>
+      </GridItem>
+    </GridContainer>
   </Story>
 </Preview>
 

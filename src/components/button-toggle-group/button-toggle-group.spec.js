@@ -116,6 +116,18 @@ describe("ButtonToggleGroup", () => {
 
       expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
     });
+
+    it("accepts empty children", () => {
+      expect(() => {
+        mount(
+          <ButtonToggleGroup>
+            {null}
+            {false}
+            {undefined}
+          </ButtonToggleGroup>
+        );
+      }).not.toThrow();
+    });
   });
 
   testStyledSystemMargin(
