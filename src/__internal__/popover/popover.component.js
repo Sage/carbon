@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
 
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+
 const Popover = ({
   children,
   placement,
@@ -31,25 +33,9 @@ const Popover = ({
     popperElementRef = popperRef;
   }
 
-  /* istanbul ignore next */
-  const observer = useRef(
-    new ResizeObserver(() => {
-      if (popperInstance.current) {
-        popperInstance.current.update();
-      }
-    })
-  );
-
-  useEffect(() => {
-    const observerRef = observer.current;
-    const referenceRef = reference.current;
-    observer.current.observe(referenceRef);
-
-    return () => {
-      observerRef.unobserve(referenceRef);
-      observerRef.disconnect();
-    };
-  }, [reference]);
+  useResizeObserver(reference, () => {
+    popperInstance?.current?.update();
+  });
 
   useLayoutEffect(() => {
     if (reference.current) {

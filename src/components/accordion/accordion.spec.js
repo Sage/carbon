@@ -9,7 +9,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
-
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../../__experimental__/components/textbox";
 import { Accordion } from ".";
 import {
@@ -25,6 +25,8 @@ import {
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../validations";
 import StyledValidationIcon from "../validations/validation-icon.style";
+
+jest.mock("../../hooks/__internal__/useResizeObserver");
 
 const contentHeight = 200;
 
@@ -231,58 +233,6 @@ describe("Accordion", () => {
     });
 
     describe("resize observer", () => {
-      const NativeResizeObserver = window.ResizeObserver;
-      let callbackMock;
-      const observeMock = jest.fn();
-      const unobserveMock = jest.fn();
-      const disconnectMock = jest.fn();
-
-      beforeEach(() => {
-        window.ResizeObserver = function (callback) {
-          callbackMock = callback;
-          return {
-            observe: (element) => {
-              observeMock(element);
-            },
-            unobserve: (element) => {
-              unobserveMock(element);
-            },
-            disconnect: () => {
-              disconnectMock();
-            },
-          };
-        };
-
-        wrapper = mount(
-          <AccordionGroup>
-            <Accordion title="Title_1" defaultExpanded>
-              <div>Foo</div>
-            </Accordion>
-          </AccordionGroup>
-        );
-      });
-
-      afterEach(() => {
-        window.ResizeObserver = NativeResizeObserver;
-      });
-
-      it("observes element on mount", () => {
-        act(() => render({ expanded: true }));
-        expect(observeMock).toHaveBeenCalledWith(
-          wrapper.find(StyledAccordionContent).getDOMNode()
-        );
-      });
-
-      it("unobserves element and disconnects on unmount", () => {
-        act(() => render({ expanded: true }));
-        const accordionContentRef = wrapper
-          .find(StyledAccordionContent)
-          .getDOMNode();
-        wrapper.unmount();
-        expect(unobserveMock).toHaveBeenCalledWith(accordionContentRef);
-        expect(disconnectMock).toHaveBeenCalled();
-      });
-
       it("recalculates the content height", () => {
         act(() => render({ expanded: true }));
         wrapper.update();
@@ -309,7 +259,9 @@ describe("Accordion", () => {
           global.innerWidth = 500;
           global.innerHeight = 500;
 
-          callbackMock();
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
         });
         wrapper.update();
 

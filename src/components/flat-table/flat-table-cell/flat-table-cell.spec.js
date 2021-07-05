@@ -3,7 +3,10 @@ import { mount } from "enzyme";
 
 import { StyledFlatTableCell } from "./flat-table-cell.style";
 import FlatTableRowCell from "./flat-table-cell.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/test-utils";
 
 describe("FlatTableRowCell", () => {
   it("renders with proper width style rule when width prop is passed", () => {
@@ -124,4 +127,21 @@ describe("FlatTableRowCell", () => {
       });
     }
   );
+
+  describe("styled system", () => {
+    testStyledSystemPadding(
+      (props) => (
+        <table>
+          <tbody>
+            <tr>
+              <FlatTableRowCell {...props} />
+            </tr>
+          </tbody>
+        </table>
+      ),
+      {},
+      null,
+      { modifier: "&&& > div" }
+    );
+  });
 });

@@ -116,6 +116,16 @@ exports[`CheckboxGroup renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .c1 .c16::before {
   font-size: 16px;
 }
@@ -146,111 +156,107 @@ exports[`CheckboxGroup renders as expected 1`] = `
   data-component="checkboxgroup"
 >
   <div
-    className=""
+    className="c1"
+    data-component="checkbox-group"
   >
     <div
-      className="c1"
-      data-component="checkbox-group"
+      className="c2 c3"
+      data-component="checkbox"
     >
       <div
-        className="c2 c3"
-        data-component="checkbox"
+        className="c4"
       >
         <div
-          className="c4"
+          className="c5 c6"
         >
           <div
-            className="c5 c6"
+            className="c7 c8"
           >
             <div
-              className="c7 c8"
+              className="c9 c10"
             >
+              <input
+                aria-describedby="cId-required-help"
+                aria-labelledby="cId-required-label"
+                className="c11 c12"
+                id="cId-required"
+                name="check-required"
+                onBlur={[Function]}
+                onChange={[MockFunction]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="checkbox"
+                type="checkbox"
+                value="required"
+              />
               <div
-                className="c9 c10"
+                className="c13 "
               >
-                <input
-                  aria-describedby="cId-required-help"
-                  aria-labelledby="cId-required-label"
-                  className="c11 c12"
-                  id="cId-required"
-                  name="check-required"
-                  onBlur={[Function]}
-                  onChange={[MockFunction]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="checkbox"
-                  type="checkbox"
-                  value="required"
-                />
-                <div
-                  className="c13 "
+                <svg
+                  focusable="false"
+                  height="10"
+                  viewBox="0 0 12 10"
+                  width="12"
                 >
-                  <svg
-                    focusable="false"
-                    height="10"
-                    viewBox="0 0 12 10"
-                    width="12"
-                  >
-                    <path
-                      d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
-                      fill="#FFFFFF"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                  <path
+                    d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                    fill="#FFFFFF"
+                    fillRule="evenodd"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      className="c2 c3"
+      data-component="checkbox"
+    >
       <div
-        className="c2 c3"
-        data-component="checkbox"
+        className="c4"
       >
         <div
-          className="c4"
+          className="c5 c6"
         >
           <div
-            className="c5 c6"
+            className="c7 c8"
           >
             <div
-              className="c7 c8"
+              className="c9 c10"
             >
+              <input
+                aria-describedby="cId-optional-help"
+                aria-labelledby="cId-optional-label"
+                className="c11 c12"
+                id="cId-optional"
+                name="check-optional"
+                onBlur={[Function]}
+                onChange={[MockFunction]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="checkbox"
+                type="checkbox"
+                value="optional"
+              />
               <div
-                className="c9 c10"
+                className="c13 "
               >
-                <input
-                  aria-describedby="cId-optional-help"
-                  aria-labelledby="cId-optional-label"
-                  className="c11 c12"
-                  id="cId-optional"
-                  name="check-optional"
-                  onBlur={[Function]}
-                  onChange={[MockFunction]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="checkbox"
-                  type="checkbox"
-                  value="optional"
-                />
-                <div
-                  className="c13 "
+                <svg
+                  focusable="false"
+                  height="10"
+                  viewBox="0 0 12 10"
+                  width="12"
                 >
-                  <svg
-                    focusable="false"
-                    height="10"
-                    viewBox="0 0 12 10"
-                    width="12"
-                  >
-                    <path
-                      d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
-                      fill="#FFFFFF"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                  <path
+                    d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                    fill="#FFFFFF"
+                    fillRule="evenodd"
+                  />
+                </svg>
               </div>
             </div>
           </div>

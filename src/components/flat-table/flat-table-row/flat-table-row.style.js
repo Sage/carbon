@@ -221,8 +221,6 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
-          padding-left: 4px;
-
           ${StyledIcon} {
             transition: transform 0.3s;
             ${!isExpanded &&

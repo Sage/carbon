@@ -22,7 +22,7 @@ describe("FlatTableRowHeader", () => {
     ),
     { py: "10px", px: 3 },
     null,
-    { modifier: "&&& > div" }
+    { modifier: "&&&& > div" }
   );
 
   it("renders with proper width style rule when width prop is passed", () => {
@@ -47,7 +47,7 @@ describe("FlatTableRowHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableRowHeader),
-      { modifier: "&&& > div" }
+      { modifier: "&&&& > div" }
     );
   });
 
@@ -127,7 +127,7 @@ describe("FlatTableRowHeader", () => {
           whiteSpace: "nowrap",
         },
         wrapper.find(StyledFlatTableRowHeader),
-        { modifier: "&&& > div" }
+        { modifier: "&&&& > div" }
       );
     });
 
@@ -169,7 +169,7 @@ describe("FlatTableRowHeader", () => {
             borderRightWidth: expectedValue,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&&" }
         );
       });
     }
@@ -192,7 +192,7 @@ describe("FlatTableRowHeader", () => {
             borderRightColor: expectedValue,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&&" }
         );
       });
     }

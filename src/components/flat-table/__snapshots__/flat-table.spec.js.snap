@@ -89,11 +89,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1000;
 }
 
-.c9.c9.c9 {
+.c9.c9.c9.c9 {
   left: 0px;
 }
 
-.c9.c9.c9 > div {
+.c9.c9.c9.c9 > div {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;

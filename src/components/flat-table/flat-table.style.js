@@ -122,7 +122,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentBase
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentBase.border};
-            border-bottom-color: ${theme.flatTable.transparentBase.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
 
@@ -134,7 +134,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentWhite
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentWhite.border};
-            border-bottom-color: ${theme.flatTable.transparentWhite.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
       // default theme is "dark"

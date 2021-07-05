@@ -10,15 +10,18 @@ const RadioButtonMapper = ({
   onKeyDown,
   value,
 }) => {
+  const filteredChildren = useMemo(() => React.Children.toArray(children), [
+    children,
+  ]);
   const anyChecked = useMemo(() => {
     let result = false;
-    React.Children.forEach(children, (child) => {
+    filteredChildren.forEach((child) => {
       if (Object.prototype.hasOwnProperty.call(child.props, "defaultChecked")) {
         result = true;
       }
     });
     return result;
-  }, [children]);
+  }, [filteredChildren]);
 
   const isControlled = value !== undefined;
 
@@ -35,7 +38,7 @@ const RadioButtonMapper = ({
     [onChange, setCheckedValue, isControlled]
   );
 
-  const buttons = React.Children.map(children, (child) => {
+  const buttons = filteredChildren.map((child) => {
     let checked;
     if (isControlled) {
       // The user is controlling the input via the value prop
@@ -64,7 +67,7 @@ const RadioButtonMapper = ({
 
 RadioButtonMapper.propTypes = {
   /** The RadioButton objects to be rendered in the group */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
   /** Callback fired when each RadioButton is blurred */

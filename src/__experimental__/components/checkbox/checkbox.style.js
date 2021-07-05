@@ -203,6 +203,9 @@ CheckboxStyle.propTypes = {
 };
 
 const StyledCheckboxGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+
   ${StyledIcon}::before {
     font-size: 16px;
   }

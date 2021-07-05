@@ -37,7 +37,8 @@ const MenuItemFactory = (button) => styled(button)`
     disabled ? theme.menu.itemColorDisabled : theme.menu.itemColor};
   font-size: 14px;
   font-weight: 700;
-  text-align: left;
+  justify-content: ${({ horizontalAlignment }) =>
+    horizontalAlignment === "left" ? "flex-start" : "flex-end"};
   &:focus,
   &:hover {
     ${({ disabled }) =>
@@ -116,7 +117,11 @@ const iconThemeProviderFactory = (Component, themeFn) =>
 
 const ButtonIcon = iconThemeProviderFactory(Icon, (palette) => palette.slate);
 const MenuItemIcon = styled(iconThemeProviderFactory(Icon, () => "inherit"))`
-  ${({ theme }) => `padding-right: ${theme.spacing}px;`}
+  ${({ theme, horizontalAlignment }) => css`
+    ${horizontalAlignment === "right"
+      ? "padding-left"
+      : "padding-right"}: ${theme.spacing}px;
+  `}
 `;
 
 const SubMenuItemIcon = styled(ButtonIcon)`

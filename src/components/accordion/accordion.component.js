@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import createGuid from "../../utils/helpers/guid";
 import Events from "../../utils/helpers/events";
 import {
@@ -61,25 +62,9 @@ const Accordion = React.forwardRef(
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
 
-    const observer = useRef(
-      new ResizeObserver(() => {
-        /* istanbul ignore else */
-        if (accordionContent.current) {
-          setContentHeight(accordionContent.current.scrollHeight);
-        }
-      })
-    );
-
-    useEffect(() => {
-      const observerRef = observer.current;
-      const referenceRef = accordionContent.current;
-      observerRef.observe(referenceRef);
-
-      return () => {
-        observerRef.unobserve(referenceRef);
-        observerRef.disconnect();
-      };
-    }, []);
+    useResizeObserver(accordionContent, () => {
+      setContentHeight(accordionContent.current.scrollHeight);
+    });
 
     useEffect(() => {
       setContentHeight(accordionContent.current.scrollHeight);

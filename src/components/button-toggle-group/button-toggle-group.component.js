@@ -74,6 +74,10 @@ ButtonToggleGroup.propTypes = {
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
+      if (!child) {
+        return;
+      }
+
       if (ButtonToggle.displayName !== child.type.displayName) {
         error = new Error(
           `\`${componentName}\` only accepts children of type \`${ButtonToggle.displayName}\`.`

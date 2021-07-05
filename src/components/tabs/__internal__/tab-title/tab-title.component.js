@@ -62,7 +62,6 @@ const TabTitle = React.forwardRef(
 
     const handleClick = (ev) => {
       ev.preventDefault();
-      ev.stopPropagation();
 
       const customEvent = {
         ...ev,
@@ -124,7 +123,6 @@ const TabTitle = React.forwardRef(
         info={info}
         size={size}
         noRightBorder={noRightBorder}
-        onClick={onClick}
         alternateStyling={alternateStyling || isInSidebar}
         borders={borders}
         isInSidebar={isInSidebar}

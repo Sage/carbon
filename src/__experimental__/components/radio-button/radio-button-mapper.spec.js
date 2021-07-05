@@ -55,6 +55,18 @@ describe("RadioButtonMapper", () => {
     expect(render()).toMatchSnapshot();
   });
 
+  it("accepts empty children", () => {
+    expect(() => {
+      mount(
+        <RadioButtonMapper name={name} legend="Test RadioButtonGroup Legend">
+          {null}
+          {false}
+          {undefined}
+        </RadioButtonMapper>
+      );
+    }).not.toThrow();
+  });
+
   describe("child RadioButton prop / key mapping", () => {
     const wrapper = render(mount);
     const buttons = getRadioButtons(wrapper);

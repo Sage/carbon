@@ -189,6 +189,37 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
   </Story>
 </Preview>
 
+### With item content aligned to right
+
+<Preview>
+  <Story name="with item content aligned to right">
+    <div style={{ height: "250px" }}>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover horizontalAlignment="right">
+              <ActionPopoverItem icon="email">
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem icon="delete">
+                Delete
+              </ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
+
 ### With no icons
 
 Menu items can also be displayed without icons.
