@@ -1,3 +1,10 @@
+## [77.4.0](https://github.com/Sage/carbon/compare/v77.3.5...v77.4.0) (2021-07-05)
+
+
+### Features
+
+* **pod:** add height prop support ([2ed2535](https://github.com/Sage/carbon/commit/2ed25352d14f2d4cc4c972b6bde49ee19f2be007))
+
 ### [77.3.5](https://github.com/Sage/carbon/compare/v77.3.4...v77.3.5) (2021-07-01)
 
 
