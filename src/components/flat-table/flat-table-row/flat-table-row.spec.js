@@ -738,6 +738,16 @@ describe("FlatTableRow", () => {
       expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
     });
 
+    it("then the component should have tabIndex of undefined if no onClick is passed and firstColumnExpandable", () => {
+      const wrapper = renderFlatTableRow({
+        expandable: true,
+        subRows: SubRows,
+        expandableArea: "firstColumn",
+      });
+
+      expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(undefined);
+    });
+
     describe("when clicked", () => {
       it("should expand the sub rows", () => {
         const wrapper = renderFlatTableRow({
@@ -770,6 +780,20 @@ describe("FlatTableRow", () => {
           wrapper.update();
 
           expect(onClickFn).toHaveBeenCalled();
+        });
+
+        it("then the component should have tabIndex of undefined if firstColumnExpandable", () => {
+          const onClickFn = jest.fn();
+          const wrapper = renderFlatTableRow({
+            expandable: true,
+            subRows: SubRows,
+            onClick: onClickFn,
+            expandableArea: "firstColumn",
+          });
+
+          expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(
+            undefined
+          );
         });
       });
 
