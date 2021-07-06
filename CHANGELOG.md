@@ -1,3 +1,10 @@
+## [77.5.0](https://github.com/Sage/carbon/compare/v77.4.0...v77.5.0) (2021-07-06)
+
+
+### Features
+
+* **switch:** change hover behaviour ([fcf2f31](https://github.com/Sage/carbon/commit/fcf2f31f77c111a10f9de2805e5211dea0752e05))
+
 ## [77.4.0](https://github.com/Sage/carbon/compare/v77.3.5...v77.4.0) (2021-07-05)
 
 
