@@ -1,3 +1,10 @@
+## [77.6.0](https://github.com/Sage/carbon/compare/v77.5.0...v77.6.0) (2021-07-06)
+
+
+### Features
+
+* **tabs:** add tabsHeaderWidth prop ([b76b8a7](https://github.com/Sage/carbon/commit/b76b8a746ec1c0233ce21c62f93ebb12676468a6)), closes [#4024](https://github.com/Sage/carbon/issues/4024)
+
 ## [77.5.0](https://github.com/Sage/carbon/compare/v77.4.0...v77.5.0) (2021-07-06)
 
 
