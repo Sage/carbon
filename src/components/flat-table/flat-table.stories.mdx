@@ -377,34 +377,71 @@ Setting a custom background color will also override hover, highlight and row se
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">Name</FlatTableHeader>
-          <FlatTableHeader verticalBorder="medium" verticalBorderColor="goldTint10">Location</FlatTableHeader>
-          <FlatTableHeader verticalBorder="large">Relationship Status</FlatTableHeader>
+          <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">
+            Name
+          </FlatTableHeader>
+          <FlatTableHeader
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Location
+          </FlatTableHeader>
+          <FlatTableHeader verticalBorder="large">
+            Relationship Status
+          </FlatTableHeader>
           <FlatTableHeader>Dependents</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">John Doe</FlatTableCell>
-          <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">London</FlatTableCell>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            John Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            London
+          </FlatTableCell>
           <FlatTableCell verticalBorder="large">Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">Jane Doe</FlatTableCell>
-          <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">York</FlatTableCell>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            Jane Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            York
+          </FlatTableCell>
           <FlatTableCell verticalBorder="large">Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">John Smith</FlatTableCell>
-          <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">Edinburgh</FlatTableCell>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            John Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Edinburgh
+          </FlatTableCell>
           <FlatTableCell verticalBorder="large">Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">Jane Smith</FlatTableCell>
-          <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">Newcastle</FlatTableCell>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            Jane Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Newcastle
+          </FlatTableCell>
           <FlatTableCell verticalBorder="large">Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
         </FlatTableRow>
@@ -647,10 +684,7 @@ of `180px`. There is not enough data to fill the flatTable but the style remains
 remains sticky.
 
 <Preview>
-  <Story
-    name="with sticky footer inside of larger div"
-    parameters={{ chromatic: { disable: true } }}
-  >
+  <Story name="with sticky footer inside of larger div">
     {() => {
       const rows = [
         <FlatTableRow key="0">
@@ -681,7 +715,7 @@ remains sticky.
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "180px", marginBottom: "16px" }}>
+        <div style={{ height: "220px", marginBottom: "16px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -1537,7 +1571,7 @@ of the button control.
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "200px" }}>
+        <div style={{ height: "240px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -1795,11 +1829,7 @@ of the button control.
 
 ### FlatTableCell
 
-<StyledSystemProps
-  of={FlatTableCell}
-  spacing
-  noHeader
-/>
+<StyledSystemProps of={FlatTableCell} spacing noHeader />
 
 ### FlatTableRowHeader
 

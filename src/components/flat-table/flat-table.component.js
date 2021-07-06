@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import {
-  StyledFlatTableRoot,
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
@@ -10,6 +9,7 @@ import {
 } from "./flat-table.style";
 import { SidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Box from "../box";
 
 export const FlatTableThemeContext = React.createContext({});
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -20,12 +20,12 @@ const FlatTable = ({
   caption,
   children,
   hasStickyHead,
-  colorTheme,
+  colorTheme = "dark",
   footer,
   hasStickyFooter = false,
   height,
   isZebra,
-  size,
+  size = "medium",
   hasMaxHeight = false,
   ariaDescribedby,
   ...rest
@@ -44,12 +44,15 @@ const FlatTable = ({
   return (
     <SidebarContext.Consumer>
       {(context) => (
-        <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
+        <Box
+          {...filterStyledSystemMarginProps(rest)}
+          height={addDefaultHeight && !hasMaxHeight ? "100%" : height}
+          maxHeight={hasMaxHeight ? "100%" : undefined}
+        >
           <StyledFlatTableBox
             {...rest}
             {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
-            height={addDefaultHeight && !hasMaxHeight ? "100%" : height}
-            maxHeight={hasMaxHeight ? "100%" : undefined}
+            height={footer ? "calc(100% - 40px)" : "100%"}
           >
             <StyledFlatTableWrapper
               isInSidebar={context && context.isInSidebar}
@@ -73,7 +76,7 @@ const FlatTable = ({
               {footer}
             </StyledFlatTableFooter>
           )}
-        </StyledFlatTableRoot>
+        </Box>
       )}
     </SidebarContext.Consumer>
   );
@@ -108,11 +111,6 @@ FlatTable.propTypes = {
   size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight: PropTypes.bool,
-};
-
-FlatTable.defaultProps = {
-  colorTheme: "dark",
-  size: "medium",
 };
 
 export default FlatTable;
