@@ -1,3 +1,10 @@
+### [77.6.1](https://github.com/Sage/carbon/compare/v77.6.0...v77.6.1) (2021-07-06)
+
+
+### Bug Fixes
+
+* **date:** provide proper focus outline color ([0591951](https://github.com/Sage/carbon/commit/0591951da80a4b797f91e18d6f49d09c9b1033df))
+
 ## [77.6.0](https://github.com/Sage/carbon/compare/v77.5.0...v77.6.0) (2021-07-06)
 
 
