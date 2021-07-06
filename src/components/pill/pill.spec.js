@@ -1,5 +1,4 @@
 import React from "react";
-import "jest-styled-components";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import { shade } from "polished";

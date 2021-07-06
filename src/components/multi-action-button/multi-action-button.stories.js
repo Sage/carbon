@@ -4,7 +4,11 @@ import { action } from "@storybook/addon-actions";
 
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import {
+  MULTI_ACTION_BUTTON_ALIGNMENTS,
+  MULTI_ACTION_BUTTON_SIZES,
+  MULTI_ACTION_BUTTON_THEMES,
+} from "./multi-action-button.config";
 
 export default {
   title: "Multi Action Button/Test",
@@ -24,21 +28,17 @@ const getKnobs = () => {
   return {
     align: select(
       "align",
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
+      MULTI_ACTION_BUTTON_ALIGNMENTS,
+      MULTI_ACTION_BUTTON_ALIGNMENTS[0]
     ),
     buttonType: select(
       "buttonType",
-      OptionsHelper.themesBinary,
+      MULTI_ACTION_BUTTON_THEMES,
       Button.defaultProps.as
     ),
     disabled: boolean("disabled", Button.defaultProps.disabled),
     onClick: (ev) => action("click")(ev),
-    size: select(
-      "size",
-      OptionsHelper.sizesRestricted,
-      Button.defaultProps.size
-    ),
+    size: select("size", MULTI_ACTION_BUTTON_SIZES, Button.defaultProps.size),
     subtext: text("subtext", Button.defaultProps.subtext),
     textContent: text("text", "Example Multi Action Button"),
   };

@@ -174,13 +174,19 @@ Confirm.propTypes = {
   confirmButtonDestructive: PropTypes.bool,
   /** Defines a cancel button Icon position related to the children: "before" | "after" */
   cancelButtonIconPosition: PropTypes.oneOf(["before", "after"]),
-  /* FIXME use import { ICONS } from "../icon/icon-config"; when #4134 is merged */
-  /** Defines an Icon type within the cancel button (see Icon for options) */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   *  Defines an Icon type within the cancel button (see Icon for options)
+   * */
   cancelButtonIconType: PropTypes.string,
   /** Defines a confirm button Icon position related to the children: "before" | "after" */
   confirmButtonIconPosition: PropTypes.oneOf(["before", "after"]),
-  /* FIXME use import { ICONS } from "../icon/icon-config"; when #4134 is merged */
-  /** Defines an Icon type within the confirm button (see Icon for options) */
+  /**
+   *  <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Defines an Icon type within the confirm button (see Icon for options)
+   * */
   confirmButtonIconType: PropTypes.string,
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf(["error", "warning"]),

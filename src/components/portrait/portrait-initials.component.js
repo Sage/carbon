@@ -2,15 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withTheme } from "styled-components";
 
-import sizeParams from "./portrait-size.config";
 import BaseTheme from "../../style/themes/base";
 import Browser from "../../utils/helpers/browser";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import {
   StyledPortraitInitials,
   StyledPortraitInitialsImg,
   getColorsForInitials,
 } from "./portrait.style";
+import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
@@ -41,7 +40,7 @@ class PortraitInitials extends React.Component {
     let canvas = Browser.getDocument().createElement("canvas");
     let context = canvas.getContext("2d");
 
-    let { dimensions } = sizeParams[size];
+    let { dimensions } = PORTRAIT_SIZE_PARAMS[size];
 
     dimensions -= 2;
 
@@ -117,11 +116,11 @@ PortraitInitials.propTypes = {
   /** The user's initials to render. */
   initials: PropTypes.string.isRequired,
   /** The size of the initials image. */
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
+  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]).isRequired,
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
   /** The shape of the Portrait. */
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
+  shape: PropTypes.oneOf(["circle", "square"]),
   /** The `alt` HTML string. */
   alt: PropTypes.string,
 };

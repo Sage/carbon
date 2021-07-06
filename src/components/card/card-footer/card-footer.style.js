@@ -1,11 +1,9 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { space } from "styled-system";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 import BaseTheme from "../../../style/themes/base";
 import StyledCardColumn from "../card-column/card-column.style";
-
-const { sizesRestricted } = OptionsHelper;
+import { CARD_SIZES } from "../card.config";
 
 const marginSizes = {
   small: "0 -24px",
@@ -42,7 +40,7 @@ const StyledCardFooter = styled.div`
 `;
 
 StyledCardFooter.propTypes = {
-  spacing: PropTypes.oneOf(sizesRestricted),
+  spacing: PropTypes.oneOf(CARD_SIZES),
 };
 
 StyledCardFooter.defaultProps = {

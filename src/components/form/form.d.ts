@@ -1,6 +1,5 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
-import { FormFieldSpacing } from "../../utils/helpers/options-helper/options-helper";
 
 export interface FormProps extends SpaceProps {
   /** Alignment of buttons */
@@ -10,7 +9,7 @@ export interface FormProps extends SpaceProps {
   /** The total number of errors present in the form */
   errorCount?: number;
   /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
-  fieldSpacing?: FormFieldSpacing;
+  fieldSpacing?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Additional buttons rendered on the left side of the save button */
   leftSideButtons?: React.ReactNode;
   /** Disable HTML5 validation */

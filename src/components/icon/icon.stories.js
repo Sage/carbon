@@ -1,7 +1,14 @@
 import React from "react";
 import { text, number, select, boolean } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Icon from ".";
+import {
+  ICONS,
+  ICON_BACKGROUNDS,
+  ICON_COLORS,
+  ICON_SHAPES,
+  ICON_SIZES,
+  ICON_TOOLTIP_POSITIONS,
+} from "./icon-config";
 
 export default {
   title: "Icon/Test",
@@ -21,7 +28,7 @@ const commonKnobs = () => {
   const tooltipMessage = text("tooltipMessage", "");
 
   const tooltipPosition = tooltipMessage
-    ? select("position", OptionsHelper.positions, "top")
+    ? select("position", ICON_TOOLTIP_POSITIONS, "top")
     : undefined;
 
   const isVertical = ["top", "bottom"].includes(tooltipPosition);
@@ -31,7 +38,7 @@ const commonKnobs = () => {
 
   return {
     tooltipMessage,
-    type: select("type", OptionsHelper.icons, "add"),
+    type: select("type", ICONS, "add"),
     tooltipPosition,
     tooltipBgColor: tooltipMessage
       ? text("tooltipBgColor", undefined)
@@ -51,12 +58,8 @@ const commonKnobs = () => {
 };
 
 const dlsKnobs = () => {
-  const bgTheme = select("bgTheme", [...OptionsHelper.iconBackgrounds], "none");
-  const fontSize = select(
-    "fontSize",
-    OptionsHelper.iconSizes,
-    Icon.defaultProps.fontSize
-  );
+  const bgTheme = select("bgTheme", [...ICON_BACKGROUNDS], "none");
+  const fontSize = select("fontSize", ICON_SIZES, Icon.defaultProps.fontSize);
   const hasBg = bgTheme !== "none";
 
   return {
@@ -67,17 +70,11 @@ const dlsKnobs = () => {
     color: text("color", undefined),
     bg: text("bg", undefined),
     bgSize: hasBg
-      ? select("bgSize", OptionsHelper.iconSizes, Icon.defaultProps.bgSize)
+      ? select("bgSize", ICON_SIZES, Icon.defaultProps.bgSize)
       : undefined,
-    bgShape: hasBg
-      ? select("bgShape", OptionsHelper.shapes, OptionsHelper.shapes[0])
-      : undefined,
+    bgShape: hasBg ? select("bgShape", ICON_SHAPES, ICON_SHAPES[0]) : undefined,
     iconColor: hasBg
-      ? select(
-          "iconColor",
-          [...OptionsHelper.iconColors],
-          OptionsHelper.iconColors[0]
-        )
+      ? select("iconColor", [...ICON_COLORS], ICON_COLORS[0])
       : undefined,
     disabled: boolean("disabled", Icon.defaultProps.disabled),
   };
@@ -107,18 +104,18 @@ export const Default = () => {
 
 export const All = () => (
   <>
-    {OptionsHelper.icons.map((type) =>
-      OptionsHelper.iconSizes.map((fontSize) => (
+    {ICONS.map((type) =>
+      ICON_SIZES.map((fontSize) => (
         <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
       ))
     )}
 
     {[true, false].map((disabled) =>
-      OptionsHelper.iconSizes.map((fontSize) =>
-        OptionsHelper.iconBackgrounds.map((bgTheme) => {
+      ICON_SIZES.map((fontSize) =>
+        ICON_BACKGROUNDS.map((bgTheme) => {
           if (bgTheme !== "none") {
-            return OptionsHelper.shapes.map((bgShape) => {
-              return OptionsHelper.iconSizes.map((bgSize) => (
+            return ICON_SHAPES.map((bgShape) => {
+              return ICON_SIZES.map((bgSize) => (
                 <Icon
                   type="add"
                   disabled={disabled}
@@ -131,7 +128,7 @@ export const All = () => (
               ));
             });
           }
-          return OptionsHelper.iconColors.map((iconColor) => (
+          return ICON_COLORS.map((iconColor) => (
             <Icon
               type="add"
               disabled={disabled}

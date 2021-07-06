@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IconTypes } from "../../utils/helpers/options-helper/options-helper";
+import { IconTypes } from "components/icon/icon-types";
 
 export interface LinkProps {
   /** Classes to apply to the component. */

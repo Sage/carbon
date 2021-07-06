@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Icon from "../icon";
 import Event from "../../utils/helpers/events";
 import LinkStyle from "./link.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import tagComponent from "../../utils/helpers/tags";
 
 class InternalLink extends React.Component {
@@ -130,7 +129,11 @@ InternalLink.propTypes = {
   disabled: PropTypes.bool,
   /** An href for an anchor tag. */
   href: PropTypes.string,
-  /** An icon to display next to the link. */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * An icon to display next to the link.
+   */
   icon: PropTypes.string,
   /** Which side of the link to the render the link. */
   iconAlign: PropTypes.string,
@@ -145,7 +148,7 @@ InternalLink.propTypes = {
   /** A message to display as a tooltip to the link. */
   tooltipMessage: PropTypes.string,
   /** Positions the tooltip with the link. */
-  tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
+  tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   /** Allows to create skip link */
   isSkipLink: PropTypes.bool,
   /** Target property in which link should open ie: _blank, _self, _parent, _top */

@@ -23,6 +23,8 @@ class Detail extends React.Component {
     className: PropTypes.string,
 
     /**
+     * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+     *
      * The type of icon to use.
      */
     icon: PropTypes.string,

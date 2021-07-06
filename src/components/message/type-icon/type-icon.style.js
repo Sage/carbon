@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 
 const TypeIconStyle = styled.div`
   align-items: center;
@@ -36,7 +35,16 @@ TypeIconStyle.defaultProps = {
 };
 
 TypeIconStyle.propTypes = {
-  variant: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf([
+    "default",
+    "error",
+    "help",
+    "info",
+    "maintenance",
+    "new",
+    "success",
+    "warning",
+  ]),
   border: PropTypes.bool,
   transparent: PropTypes.bool,
 };

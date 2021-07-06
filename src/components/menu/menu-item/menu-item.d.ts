@@ -1,6 +1,6 @@
+import { IconTypes } from "components/icon/icon-types";
 import * as React from "react";
 import { FlexboxProps, LayoutProps } from "styled-system";
-import * as OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   /** Custom className */
@@ -30,12 +30,12 @@ export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
 export interface MenuWithChildren extends MenuItemBaseProps {
   children: React.ReactNode;
   /** Either prop `icon` must be defined or this node must have children. */
-  icon?: OptionsHelper.IconTypes;
+  icon?: IconTypes;
 }
 
 export interface MenuWithIcon extends MenuItemBaseProps {
   /** Either prop `icon` must be defined or this node must have children. */
-  icon: OptionsHelper.IconTypes;
+  icon: IconTypes;
   children?: React.ReactNode;
 }
 

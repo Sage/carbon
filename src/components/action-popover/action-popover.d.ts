@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MarginSpacingProps } from "../../utils/helpers/options-helper";
+import { MarginProps } from 'styled-system';
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider";
 import { ActionPopoverItemProps } from "./action-popover-item/action-popover-item";
 
@@ -15,7 +15,7 @@ type ActionPopoverChild =
   | null
   | undefined;
 
-export interface ActionPopoverProps extends MarginSpacingProps {
+export interface ActionPopoverProps extends MarginProps {
   /** Children for popover component */
   children?: ActionPopoverChild | ActionPopoverChild[];
   /** Horizontal alignment of menu items content */

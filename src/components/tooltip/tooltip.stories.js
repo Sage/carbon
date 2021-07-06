@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { boolean, text, select } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import Tooltip from ".";
+import { TOOLTIP_POSITIONS } from "./tooltip.config";
 
 export default {
   title: "Design System/Tooltip/Test",
@@ -18,7 +18,7 @@ export default {
 };
 
 const props = () => {
-  const position = select("position", OptionsHelper.positions, "top");
+  const position = select("position", TOOLTIP_POSITIONS, "top");
   const isVertical = ["top", "bottom"].includes(position);
   const enableFlipOverrides = boolean("enable flip overrides", false);
 

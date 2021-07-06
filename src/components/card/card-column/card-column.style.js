@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 
 const StyledCardColumn = styled.div`
   flex-grow: 1;
@@ -9,7 +8,7 @@ const StyledCardColumn = styled.div`
 `;
 
 StyledCardColumn.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
   theme: PropTypes.object,
 };
 

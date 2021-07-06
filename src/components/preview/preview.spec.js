@@ -1,6 +1,5 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import Preview from "./preview.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 

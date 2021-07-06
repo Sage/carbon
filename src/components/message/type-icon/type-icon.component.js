@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import TypeIconStyle from "./type-icon.style";
 import Icon from "../../icon";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 
 const TypeIcon = ({ variant, transparent }) => {
   return (
@@ -18,7 +17,16 @@ TypeIcon.defaultProps = {
 };
 
 TypeIcon.propTypes = {
-  variant: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf([
+    "default",
+    "error",
+    "help",
+    "info",
+    "maintenance",
+    "new",
+    "success",
+    "warning",
+  ]),
   transparent: PropTypes.bool,
 };
 

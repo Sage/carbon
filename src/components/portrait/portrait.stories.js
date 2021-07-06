@@ -2,8 +2,9 @@ import React from "react";
 import { select, text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Portrait from "./portrait.component";
+import { ICONS } from "../icon/icon-config";
+import { PORTRAIT_SHAPES, PORTRAIT_SIZES } from "./portrait.config";
 
 export default {
   title: "Portrait/Test",
@@ -39,14 +40,14 @@ function commonKnobs() {
     gravatar: source === "gravatar" ? text("gravatar") : undefined,
     src: source === "src" ? text("src") : undefined,
     initials: text("initials", ""),
-    iconType: select("iconType", OptionsHelper.icons),
+    iconType: select("iconType", ICONS),
     onClick: (ev) => action("click")(ev),
   };
 }
 
 function dlsKnobs() {
   return {
-    size: select("size", OptionsHelper.sizesPortrait, "M"),
-    shape: select("shape", OptionsHelper.shapesPortrait, "square"),
+    size: select("size", PORTRAIT_SIZES, "M"),
+    shape: select("shape", PORTRAIT_SHAPES, "square"),
   };
 }

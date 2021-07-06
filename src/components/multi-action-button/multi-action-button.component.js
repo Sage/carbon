@@ -6,7 +6,6 @@ import {
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
 import Button, { ButtonWithForwardRef } from "../button";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Events from "../../utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -256,8 +255,8 @@ MultiActionButton.propTypes = {
   /** A custom value for the data-element attribute. */
   "data-role": PropTypes.string,
 
-  /** Aligns the button's options. */
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  /** Aligns the button's options */
+  align: PropTypes.oneOf(["left", "right"]),
 };
 
 export default MultiActionButton;

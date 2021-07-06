@@ -1,9 +1,8 @@
 import * as React from "react";
-import * as OptionsHelper from "../../utils/helpers/options-helper";
 
 export interface StepSequenceProps {
   /** The direction that step sequence items should be rendered */
-  orientation?: OptionsHelper.Orientation;
+  orientation?: "horizontal" | "vertical";
 }
 
 declare function StepSequence(props: React.PropsWithChildren<StepSequenceProps>): JSX.Element;

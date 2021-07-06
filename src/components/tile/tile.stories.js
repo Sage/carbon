@@ -1,8 +1,8 @@
 import React from "react";
 import { text, select } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Tile from ".";
 import Content from "../content";
+import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
 export default {
   title: "Design System/Tile/Test",
@@ -21,10 +21,10 @@ export default {
 
 export const Default = () => {
   const tileProps = {
-    as: select("as", OptionsHelper.tileThemes, "tile", "Default"),
+    as: select("as", TILE_THEMES, "tile", "Default"),
     orientation: select(
       "orientation",
-      OptionsHelper.orientation,
+      TILE_ORIENTATIONS,
       "horizontal",
       "Default"
     ),

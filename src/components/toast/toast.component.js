@@ -11,7 +11,6 @@ import {
   ToastWrapper,
   StyledPortal,
 } from "./toast.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../utils/helpers/events/events";
@@ -127,9 +126,27 @@ class Toast extends React.Component {
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf([
+    "default",
+    "error",
+    "help",
+    "info",
+    "maintenance",
+    "new",
+    "success",
+    "warning",
+  ]),
   /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
-  as: PropTypes.oneOf(OptionsHelper.colors),
+  as: PropTypes.oneOf([
+    "default",
+    "error",
+    "help",
+    "info",
+    "maintenance",
+    "new",
+    "success",
+    "warning",
+  ]),
   /** Custom className */
   className: PropTypes.string,
   /** Custom id  */
