@@ -21,7 +21,7 @@ export interface SimpleColorPickerProps extends ValidationPropTypes, MarginProps
   /** Prop for `onChange` events */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Prop for `onKeyDown` events */
-  onKeyDown?: (ev: React.SyntheticEvent) => void;
+  onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Prop for `onBlur` events */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */

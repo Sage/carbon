@@ -548,22 +548,38 @@ describe("Switch", () => {
     (themeName, theme) => {
       describe("default", () => {
         const wrapper = renderWithTheme({}, theme).toJSON();
-        const expectedOutlineStyle = {
-          outline: `solid 3px ${theme.colors.focus}`,
-        };
 
-        describe.each(["hover", "focus"])(
-          "and %s is applied to the element",
-          (selector) => {
-            it("then the correct outline should be rendered", () => {
-              assertStyleMatch(expectedOutlineStyle, wrapper, {
+        describe("and hover is applied to the element", () => {
+          it("then the correct background should be rendered", () => {
+            assertStyleMatch(
+              {
+                backgroundColor: theme.switch.offHover,
+              },
+              wrapper,
+              {
                 modifier: css`
-                  ${`${HiddenCheckableInputStyle}:not([disabled]):${selector} + ${StyledSwitchSlider}`}
+                  ${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}
                 `,
-              });
-            });
-          }
-        );
+              }
+            );
+          });
+        });
+
+        describe("and focus is applied to the element", () => {
+          it("then the correct outline should be rendered", () => {
+            assertStyleMatch(
+              {
+                outline: `solid 3px ${theme.colors.focus}`,
+              },
+              wrapper,
+              {
+                modifier: css`
+                  ${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}
+                `,
+              }
+            );
+          });
+        });
       });
     }
   );

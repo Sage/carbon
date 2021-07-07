@@ -32,7 +32,6 @@ const Note = ({
 }) => {
   invariant(width > 0, "<Note> width must be greater than 0");
   invariant(createdDate, "<Note> createdDate is required");
-  invariant(name, "<Note> name is required");
   invariant(noteContent, "<Note> noteContent is required");
   invariant(!status || status.text, "<Note> status.text is required");
   invariant(!status || status.timeStamp, "<Note> status.timeStamp is required");
@@ -49,7 +48,12 @@ const Note = ({
     const { text, timeStamp } = status;
 
     return (
-      <StyledFooterContent data-component="note-status">
+      <StyledFooterContent
+        hasName={!!name}
+        mt={2}
+        ml={3}
+        data-component="note-status"
+      >
         <StatusWithTooltip tooltipMessage={timeStamp}>{text}</StatusWithTooltip>
       </StyledFooterContent>
     );
@@ -67,11 +71,21 @@ const Note = ({
         <Editor readOnly editorState={getDecoratedValue(noteContent)} />
       </StyledNoteContent>
 
-      {name && createdDate && (
+      {createdDate && (
         <StyledNoteContent>
           <StyledFooter>
-            <StyledFooterContent>{name}</StyledFooterContent>
-            <StyledFooterContent>{createdDate}</StyledFooterContent>
+            {name && (
+              <StyledFooterContent hasName={!!name} mt={2}>
+                {name}
+              </StyledFooterContent>
+            )}
+            <StyledFooterContent
+              hasName={!!name}
+              mt={2}
+              ml={name ? 2 : undefined}
+            >
+              {createdDate}
+            </StyledFooterContent>
             {renderStatus()}
           </StyledFooter>
         </StyledNoteContent>
@@ -91,7 +105,7 @@ Note.propTypes = {
   /** Adds a Title to the Note */
   title: PropTypes.string,
   /** Adds a name to the Note footer */
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   /** Adds a created on date to the Note footer */
   createdDate: PropTypes.string.isRequired,
   /** Adds a status and tooltip to the Note footer */

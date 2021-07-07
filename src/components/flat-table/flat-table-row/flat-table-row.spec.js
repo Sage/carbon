@@ -211,6 +211,46 @@ describe("FlatTableRow", () => {
         );
       });
     });
+
+    describe.each([
+      StyledFlatTableCell,
+      StyledFlatTableRowHeader,
+      StyledFlatTableCheckbox,
+    ])('with the "bgColor" also provided', (element) => {
+      it(`it overrides the ${element} "background-color"`, () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          selected: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `${element}` }
+        );
+      });
+
+      it('it overrides the cell "background-color" on hover', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          selected: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `:hover ${StyledFlatTableCell}` }
+        );
+      });
+    });
   });
 
   describe('when the "highlighted" prop is passed as true', () => {
@@ -243,6 +283,42 @@ describe("FlatTableRow", () => {
       );
     });
 
+    describe('with the "bgColor" also provided', () => {
+      it('it overrides the cell "background-color"', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          highlighted: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `${StyledFlatTableCell}` }
+        );
+      });
+
+      it('it overrides the cell "background-color" on hover', () => {
+        const customColor = "#CCCCCC";
+
+        wrapper = renderFlatTableRow({
+          highlighted: true,
+          bgColor: customColor,
+        });
+        wrapper.find(FlatTableRow).at(0).simulate("focus");
+        assertStyleMatch(
+          {
+            backgroundColor: customColor,
+          },
+          wrapper,
+          { modifier: `:hover ${StyledFlatTableCell}` }
+        );
+      });
+    });
+
     describe('when the "selected" prop is also passed as true', () => {
       it('it applies the correct "background-color"', () => {
         wrapper = renderFlatTableRow({
@@ -258,6 +334,26 @@ describe("FlatTableRow", () => {
           wrapper,
           { modifier: `:hover ${StyledFlatTableCell}` }
         );
+      });
+
+      describe('with the "bgColor" also provided', () => {
+        it('it overrides the cell "background-color"', () => {
+          const customColor = "#CCCCCC";
+
+          wrapper = renderFlatTableRow({
+            selected: true,
+            highlighted: true,
+            bgColor: customColor,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              backgroundColor: customColor,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
       });
     });
   });
@@ -642,6 +738,16 @@ describe("FlatTableRow", () => {
       expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
     });
 
+    it("then the component should have tabIndex of undefined if no onClick is passed and firstColumnExpandable", () => {
+      const wrapper = renderFlatTableRow({
+        expandable: true,
+        subRows: SubRows,
+        expandableArea: "firstColumn",
+      });
+
+      expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(undefined);
+    });
+
     describe("when clicked", () => {
       it("should expand the sub rows", () => {
         const wrapper = renderFlatTableRow({
@@ -674,6 +780,20 @@ describe("FlatTableRow", () => {
           wrapper.update();
 
           expect(onClickFn).toHaveBeenCalled();
+        });
+
+        it("then the component should have tabIndex of undefined if firstColumnExpandable", () => {
+          const onClickFn = jest.fn();
+          const wrapper = renderFlatTableRow({
+            expandable: true,
+            subRows: SubRows,
+            onClick: onClickFn,
+            expandableArea: "firstColumn",
+          });
+
+          expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(
+            undefined
+          );
         });
       });
 
@@ -956,6 +1076,56 @@ describe("FlatTableRow", () => {
         });
       });
     });
+
+    describe.each([
+      ["medium", "2px solid #CCD6DB"],
+      ["large", "4px solid #CCD6DB"],
+    ])(
+      "when the horizontalBorderSize prop is set to %s",
+      (horizontalBorderSize, expectedValue) => {
+        let wrapper;
+
+        it("it overrides the cell bottom-border size", () => {
+          wrapper = renderFlatTableRow({
+            highlighted: true,
+            horizontalBorderSize,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              borderBottom: expectedValue,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
+      }
+    );
+
+    describe.each([
+      ["goldTint10", "#FFBC1A"],
+      ["#000", "#000"],
+    ])(
+      "when the horizontalBorderColor prop is set to %s",
+      (horizontalBorderColor, expectedValue) => {
+        let wrapper;
+
+        it("it overrides the cell bottom-border color", () => {
+          wrapper = renderFlatTableRow({
+            highlighted: true,
+            horizontalBorderColor,
+          });
+          wrapper.find(FlatTableRow).at(0).simulate("focus");
+          assertStyleMatch(
+            {
+              borderBottomColor: expectedValue,
+            },
+            wrapper,
+            { modifier: `${StyledFlatTableCell}` }
+          );
+        });
+      }
+    );
   });
 });
 

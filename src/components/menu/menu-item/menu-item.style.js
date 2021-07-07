@@ -155,12 +155,11 @@ const StyledMenuItemWrapper = styled.a`
       css`
         ${!href &&
         css`
-          && :hover {
+          && a:hover,
+          && button:hover {
             background-color: ${theme.menu.dark.submenuBackground};
             color: ${theme.colors.white};
 
-            a,
-            button,
             [data-component="icon"] {
               color: ${theme.colors.white};
             }
@@ -208,12 +207,11 @@ const StyledMenuItemWrapper = styled.a`
       css`
         ${!href &&
         css`
-          && :hover {
+          && a:hover,
+          && b:hover {
             background-color: ${theme.colors.white};
             color: ${theme.colors.black};
 
-            a,
-            button,
             [data-component="icon"] {
               color: ${theme.colors.black};
             }
