@@ -371,30 +371,18 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableBox)
       );
     });
+  });
+
+  describe("hasMaxHeight prop", () => {
+    let wrapper;
 
     it("applies correct styles when hasMaxHeight is true", () => {
-      wrapper = renderFlatTableWithDiv(
-        { footer: <Footer />, hasMaxHeight: true },
-        mount
-      );
+      wrapper = renderFlatTableWithDiv({ hasMaxHeight: true }, mount);
       assertStyleMatch(
         {
           maxHeight: "100%",
         },
-        wrapper.find(StyledFlatTableBox)
-      );
-    });
-
-    it("applies correct styles when hasMaxHeight is false", () => {
-      wrapper = renderFlatTableWithDiv(
-        { footer: <Footer />, hasMaxHeight: false },
-        mount
-      );
-      assertStyleMatch(
-        {
-          maxHeight: undefined,
-        },
-        wrapper.find(StyledFlatTableBox)
+        wrapper
       );
     });
   });

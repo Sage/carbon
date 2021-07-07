@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FlatTable when rendered with proper table data should have expected structure and styles 1`] = `
-.c11 {
+.c10 {
   background-color: transparent;
   border-width: 0;
   box-sizing: border-box;
@@ -19,12 +19,33 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c11:first-child {
+.c10:first-child {
   padding-left: 1px;
 }
 
-.c11.c11.c11 > div {
+.c10.c10.c10 > div {
   box-sizing: border-box;
+}
+
+.c12 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0;
+}
+
+.c12.c12.c12 > div {
+  box-sizing: border-box;
+}
+
+.c12:first-of-type {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c12:last-of-type {
+  border-right: 1px solid #CCD6DB;
 }
 
 .c13 {
@@ -48,32 +69,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-right: 1px solid #CCD6DB;
 }
 
-.c14 {
-  background-color: #fff;
-  border-width: 0;
-  border-bottom: 1px solid #CCD6DB;
-  text-align: left;
-  vertical-align: middle;
-  padding: 0;
-}
-
-.c14.c14.c14 > div {
-  box-sizing: border-box;
-}
-
-.c14:first-of-type {
+.c13:first-of-type + .c11 {
   border-left: 1px solid #CCD6DB;
 }
 
-.c14:last-of-type {
-  border-right: 1px solid #CCD6DB;
-}
-
-.c14:first-of-type + .c12 {
-  border-left: 1px solid #CCD6DB;
-}
-
-.c9 {
+.c8 {
   background-color: #fff;
   border: 1px solid #CCD6DB;
   border-top: none;
@@ -89,11 +89,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1000;
 }
 
-.c9.c9.c9.c9 {
+.c8.c8.c8.c8 {
   left: 0px;
 }
 
-.c9.c9.c9.c9 > div {
+.c8.c8.c8.c8 > div {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -101,7 +101,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-right: 24px;
 }
 
-.c7 {
+.c6 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -110,12 +110,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
   width: auto;
 }
 
-.c7 .c10 {
+.c6 .c9 {
   border-bottom: 1px solid #668592;
 }
 
-.c5 .c8,
-.c5 .c15 {
+.c4 .c7,
+.c4 .c14 {
   border-left: none;
   border-right: none;
   font-weight: 700;
@@ -124,12 +124,13 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1000;
 }
 
-.c1 {
+.c0 {
+  height: 100%;
   box-shadow: inset 0px 0px 0px 1px #CCD6DB;
   box-sizing: border-box;
 }
 
-.c3 {
+.c2 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -137,29 +138,25 @@ exports[`FlatTable when rendered with proper table data should have expected str
   width: 100%;
 }
 
-.c3 .c6 {
+.c2 .c5 {
   height: 40px;
 }
 
-.c3 .c12 > div,
-.c3 .c10 > div,
-.c3 .c8 > div {
+.c2 .c11 > div,
+.c2 .c9 > div,
+.c2 .c7 > div {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;
 }
 
-.c0 {
-  height: 100%;
-}
-
-.c2 {
+.c1 {
   max-height: 100%;
 }
 
-.c2 .c4 .c15,
-.c2 .c10,
-.c2 .c4 .c8 {
+.c1 .c3 .c14,
+.c1 .c9,
+.c1 .c3 .c7 {
   background-color: #335C6D;
   border-right: 1px solid #668592;
   color: #FFFFFF;
@@ -167,29 +164,30 @@ exports[`FlatTable when rendered with proper table data should have expected str
 }
 
 <div
-  className="c0"
+  className=""
 >
   <div
-    className="c1"
+    className="c0"
+    height="100%"
   >
     <div
-      className="c2"
+      className="c1"
     >
       <table
-        className="c3"
+        className="c2"
         data-component="flat-table"
         size="medium"
       >
         <thead
-          className="c4 c5"
+          className="c3 c4"
         >
           <tr
-            className="c6 c7"
+            className="c5 c6"
             data-element="flat-table-row"
             onClick={[Function]}
           >
             <th
-              className="c8 c9"
+              className="c7 c8"
               data-element="flat-table-row-header"
             >
               <div
@@ -199,7 +197,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </th>
             <th
-              className="c10 c11"
+              className="c9 c10"
               data-element="flat-table-header"
             >
               <div>
@@ -207,7 +205,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </th>
             <th
-              className="c10 c11"
+              className="c9 c10"
               data-element="flat-table-header"
             >
               <div>
@@ -215,7 +213,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </th>
             <th
-              className="c10 c11"
+              className="c9 c10"
               data-element="flat-table-header"
             >
               <div>
@@ -226,12 +224,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
         </thead>
         <tbody>
           <tr
-            className="c6 c7"
+            className="c5 c6"
             data-element="flat-table-row"
             onClick={[Function]}
           >
             <th
-              className="c8 c9"
+              className="c7 c8"
               data-element="flat-table-row-header"
             >
               <div
@@ -241,7 +239,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </th>
             <td
-              className="c12 c13"
+              className="c11 c12"
               data-element="flat-table-cell"
             >
               <div
@@ -251,7 +249,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </td>
             <td
-              className="c12 c13"
+              className="c11 c12"
               data-element="flat-table-cell"
             >
               <div
@@ -261,7 +259,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </td>
             <td
-              className="c12 c14"
+              className="c11 c13"
               data-element="flat-table-cell"
               rowSpan="2"
             >
@@ -273,12 +271,12 @@ exports[`FlatTable when rendered with proper table data should have expected str
             </td>
           </tr>
           <tr
-            className="c6 c7"
+            className="c5 c6"
             data-element="flat-table-row"
             onClick={[Function]}
           >
             <th
-              className="c8 c9"
+              className="c7 c8"
               data-element="flat-table-row-header"
             >
               <div
@@ -288,7 +286,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
               </div>
             </th>
             <td
-              className="c12 c13"
+              className="c11 c12"
               colSpan="2"
               data-element="flat-table-cell"
             >

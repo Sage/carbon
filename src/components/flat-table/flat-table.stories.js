@@ -47,11 +47,7 @@ export const Default = () => {
   );
   const firstColumnWidth = number("first column width", 150);
   const secondColumnWidth = number("second column width", 120);
-  const size = select(
-    "size",
-    OptionsHelper.tableSizes,
-    FlatTable.defaultProps.size
-  );
+  const size = select("size", OptionsHelper.tableSizes, "medium");
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
