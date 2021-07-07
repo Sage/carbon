@@ -1,3 +1,10 @@
+### [77.6.4](https://github.com/Sage/carbon/compare/v77.6.3...v77.6.4) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** ensure date aligns when no edited status ([f3c6dbe](https://github.com/Sage/carbon/commit/f3c6dbef6aa5b1e09478610e28a8e96b4ed14683))
+
 ### [77.6.3](https://github.com/Sage/carbon/compare/v77.6.2...v77.6.3) (2021-07-07)
 
 
