@@ -80,7 +80,7 @@ const StyledFooterContent = styled.div`
         color: ${theme.note.timeStamp};
       }
 
-      &:last-of-type {
+      &:last-of-type:not(:first-of-type) {
         font-size: 12px;
         color: ${theme.note.timeStamp};
         cursor: pointer;

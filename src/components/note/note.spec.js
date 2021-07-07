@@ -223,6 +223,17 @@ describe("Note", () => {
         wrapper.find(StyledFooterContent),
         { modifier: ":first-of-type" }
       );
+
+      assertStyleMatch(
+        {
+          fontSize: "12px",
+          color: baseTheme.note.timeStamp,
+          cursor: "pointer",
+          marginLeft: "24px",
+        },
+        wrapper.find(StyledFooterContent),
+        { modifier: ":last-of-type:not(:first-of-type)" }
+      );
     });
 
     it('renders the "name" and "createdDate" when props have value', () => {
