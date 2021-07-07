@@ -21,22 +21,24 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 .c2 {
   display: inline-block;
   position: relative;
-  height: 38px;
+  box-sizing: border-box;
+  height: 40px;
   padding: 0 24px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid #668592;
-  font-size: 14px;
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #004500;
+.c2 .c8 {
+  color: #000000;
 }
 
-input:checked ~ .c2 .c7 {
-  color: #FFFFFF;
+input:checked ~ .c2.c2 {
+  background-color: #E6F5E6;
+  border-color: #006300;
+  cursor: auto;
 }
 
 input:focus ~ .c2 {
@@ -44,9 +46,14 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
-  background-color: #E6F5E6;
-  border-color: #004500;
+input:not(:checked) ~ .c2:hover {
+  background-color: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+input:not(:checked) ~ .c2:hover .c8 {
+  color: #FFFFFF;
 }
 
 .c5 .c3 {
@@ -61,13 +68,19 @@ input:focus ~ .c2 {
   flex-direction: column;
 }
 
+.c7 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .c0 {
   display: inline-block;
   vertical-align: middle;
 }
 
 .c0:not(:first-of-type) {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .c0:not(:first-of-type) {
@@ -97,6 +110,7 @@ input:focus ~ .c2 {
     <label
       className="c2"
       htmlFor="guid-12345"
+      size="medium"
     >
       <div
         className="c3 c4"
@@ -120,6 +134,7 @@ input:focus ~ .c2 {
     <label
       className="c2"
       htmlFor="guid-12345"
+      size="medium"
     >
       <div
         className="c3 c4"
@@ -132,7 +147,7 @@ input:focus ~ .c2 {
 `;
 
 exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = `
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -149,31 +164,27 @@ exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = 
   height: 100%;
 }
 
-.c5 .c3 {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
 .c2 {
   display: inline-block;
   position: relative;
-  height: 38px;
+  box-sizing: border-box;
+  height: 40px;
   padding: 0 24px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid #668592;
-  font-size: 14px;
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #004472;
+.c2 .c4 {
+  color: #000000;
 }
 
-input:checked ~ .c2 .c6 {
-  color: #FFFFFF;
+input:checked ~ .c2.c2 {
+  background-color: #E6F1FA;
+  border-color: #005C9A;
+  cursor: auto;
 }
 
 input:focus ~ .c2 {
@@ -181,9 +192,14 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
-  background-color: #E6F1FA;
-  border-color: #004472;
+input:not(:checked) ~ .c2:hover {
+  background-color: #005C9A;
+  border-color: #005C9A;
+  color: #FFFFFF;
+}
+
+input:not(:checked) ~ .c2:hover .c4 {
+  color: #FFFFFF;
 }
 
 .c0 {
@@ -192,7 +208,7 @@ input:focus ~ .c2 {
 }
 
 .c0:not(:first-of-type) {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .c1 {
@@ -217,9 +233,10 @@ input:focus ~ .c2 {
   <label
     className="c2"
     htmlFor="guid-12345"
+    size="medium"
   >
     <div
-      className="c3 c4"
+      className="c3"
     >
       Button
     </div>
@@ -248,22 +265,24 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
 .c2 {
   display: inline-block;
   position: relative;
-  height: 38px;
+  box-sizing: border-box;
+  height: 40px;
   padding: 0 24px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid #668592;
-  font-size: 14px;
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #00402E;
+.c2 .c4 {
+  color: #000000;
 }
 
-input:checked ~ .c2 .c4 {
-  color: #FFFFFF;
+input:checked ~ .c2.c2 {
+  background-color: #E6F6F1;
+  border-color: #006046;
+  cursor: auto;
 }
 
 input:focus ~ .c2 {
@@ -271,9 +290,14 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-.c2:hover {
-  background-color: #E6F6F1;
-  border-color: #00402E;
+input:not(:checked) ~ .c2:hover {
+  background-color: #006046;
+  border-color: #006046;
+  color: #FFFFFF;
+}
+
+input:not(:checked) ~ .c2:hover .c4 {
+  color: #FFFFFF;
 }
 
 .c0 {
@@ -282,7 +306,7 @@ input:focus ~ .c2 {
 }
 
 .c0:not(:first-of-type) {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .c1 {
@@ -307,6 +331,7 @@ input:focus ~ .c2 {
   <label
     className="c2"
     htmlFor="guid-12345"
+    size="medium"
   >
     <div
       className="c3"
