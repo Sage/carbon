@@ -1,3 +1,10 @@
+### [77.6.3](https://github.com/Sage/carbon/compare/v77.6.2...v77.6.3) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** removes required constraint from name prop type ([f1ec59c](https://github.com/Sage/carbon/commit/f1ec59c1c4a2b79d2c42266d61fbd15456cd7879))
+
 ### [77.6.2](https://github.com/Sage/carbon/compare/v77.6.1...v77.6.2) (2021-07-07)
 
 
