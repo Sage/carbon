@@ -48,30 +48,46 @@ const StyledTitle = styled.header`
 const StyledFooterContent = styled.div`
   line-height: 21px;
   align-items: baseline;
-  ${({ theme }) => `
-    &:first-of-type {
-      font-weight: bold;
-      font-size: 14px;
-      margin-top: ${2 * theme.spacing}px;
-    }
+  font-weight: bold;
 
-    &:nth-of-type(2) {
-      font-weight: bold;
-      font-size: 12px;
-      color: ${theme.note.timeStamp};
-      margin-left: ${2 * theme.spacing}px;
-      margin-top: ${2 * theme.spacing}px;
-    }
+  ${({ theme, hasName }) => css`
+    margin-top: ${2 * theme.spacing}px;
 
-    &:last-of-type:not(:nth-of-type(2)) {
-      font-weight: bold;
-      font-size: 12px;
-      color: ${theme.note.timeStamp};
-      cursor: pointer;
-      margin-top: ${2 * theme.spacing}px;
-      margin-left: ${3 * theme.spacing}px;
-    }
-  `};
+    ${hasName &&
+    css`
+      &:first-of-type {
+        font-size: 14px;
+      }
+
+      &:nth-of-type(2) {
+        font-size: 12px;
+        color: ${theme.note.timeStamp};
+        margin-left: ${2 * theme.spacing}px;
+      }
+
+      &:last-of-type:not(:nth-of-type(2)) {
+        font-size: 12px;
+        color: ${theme.note.timeStamp};
+        cursor: pointer;
+        margin-left: ${3 * theme.spacing}px;
+      }
+    `}
+
+    ${!hasName &&
+    css`
+      &:first-of-type {
+        font-size: 12px;
+        color: ${theme.note.timeStamp};
+      }
+
+      &:last-of-type {
+        font-size: 12px;
+        color: ${theme.note.timeStamp};
+        cursor: pointer;
+        margin-left: ${3 * theme.spacing}px;
+      }
+    `}
+  `}
 `;
 
 const StyledFooter = styled.div`
