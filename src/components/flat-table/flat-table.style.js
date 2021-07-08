@@ -176,6 +176,8 @@ const StyledFlatTableWrapper = styled.div`
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         z-index: ${({ theme }) => theme.zIndex.overlay + 2};
+        top: 0;
+        left: 0;
       }
     `}
 `;

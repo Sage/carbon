@@ -1,3 +1,24 @@
+### [77.7.3](https://github.com/Sage/carbon/compare/v77.7.2...v77.7.3) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix incorrect row outline in safari ([343a179](https://github.com/Sage/carbon/commit/343a1790e1ac616bcf0c2e0d09d3a0ef1964f40e))
+
+### [77.7.2](https://github.com/Sage/carbon/compare/v77.7.1...v77.7.2) (2021-07-08)
+
+
+### Bug Fixes
+
+* **numeral-date:** update size prop type to have correct oneOf syntax ([be912c4](https://github.com/Sage/carbon/commit/be912c409873d985755c86363b5d6f3daa86f45d))
+
+### [77.7.1](https://github.com/Sage/carbon/compare/v77.7.0...v77.7.1) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** scrolling content in table header ([6de6e67](https://github.com/Sage/carbon/commit/6de6e67857a7c97d1da87b59efdff0d99353b850))
+
 ## [77.7.0](https://github.com/Sage/carbon/compare/v77.6.4...v77.7.0) (2021-07-07)
 
 

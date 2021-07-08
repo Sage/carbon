@@ -97,7 +97,7 @@ describe("FlatTableRow", () => {
           borderBottom: "1px solid transparent",
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
           backgroundClip: "padding-box",
-          zIndex: "1000",
+          zIndex: "2000",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -106,11 +106,11 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `1px solid ${baseTheme.colors.focus}`,
+          borderBottom: `2px solid ${baseTheme.colors.focus}`,
           display: "block",
           left: "0px",
           top: "-1px",
-          height: "99%",
+          height: "calc(100% - 1px)",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
@@ -675,11 +675,11 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `1px solid ${baseTheme.colors.focus}`,
+          borderBottom: `2px solid ${baseTheme.colors.focus}`,
           display: "block",
           left: "0px",
           top: "-1px",
-          height: "99%",
+          height: "calc(100% - 1px)",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
