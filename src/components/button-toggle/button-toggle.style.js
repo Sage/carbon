@@ -73,7 +73,7 @@ const StyledButtonToggleLabel = styled.label`
       z-index: 100;
     }
 
-    input:not(:checked) ~ &:hover {
+    input:not(:checked):not(:disabled) ~ &:hover {
       background-color: ${theme.colors.secondary};
       border-color: ${theme.colors.secondary};
       color: ${theme.colors.white};

@@ -46,13 +46,13 @@ input:focus ~ .c6 {
   z-index: 100;
 }
 
-input:not(:checked) ~ .c6:hover {
+input:not(:checked):not(:disabled) ~ .c6:hover {
   background-color: #006046;
   border-color: #006046;
   color: #FFFFFF;
 }
 
-input:not(:checked) ~ .c6:hover .c8 {
+input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
   color: #FFFFFF;
 }
 
