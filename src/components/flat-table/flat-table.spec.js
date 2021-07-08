@@ -168,6 +168,8 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           zIndex: "1002",
+          top: "0",
+          left: "0",
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }

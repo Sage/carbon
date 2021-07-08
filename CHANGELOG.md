@@ -1,3 +1,10 @@
+### [77.7.1](https://github.com/Sage/carbon/compare/v77.7.0...v77.7.1) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** scrolling content in table header ([6de6e67](https://github.com/Sage/carbon/commit/6de6e67857a7c97d1da87b59efdff0d99353b850))
+
 ## [77.7.0](https://github.com/Sage/carbon/compare/v77.6.4...v77.7.0) (2021-07-07)
 
 
