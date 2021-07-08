@@ -1,3 +1,10 @@
+### [77.7.2](https://github.com/Sage/carbon/compare/v77.7.1...v77.7.2) (2021-07-08)
+
+
+### Bug Fixes
+
+* **numeral-date:** update size prop type to have correct oneOf syntax ([be912c4](https://github.com/Sage/carbon/commit/be912c409873d985755c86363b5d6f3daa86f45d))
+
 ### [77.7.1](https://github.com/Sage/carbon/compare/v77.7.0...v77.7.1) (2021-07-08)
 
 
