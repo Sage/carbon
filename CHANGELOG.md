@@ -1,3 +1,10 @@
+### [77.7.4](https://github.com/Sage/carbon/compare/v77.7.3...v77.7.4) (2021-07-08)
+
+
+### Bug Fixes
+
+* **button-toggle:** fix hover styling on disabled state ([9133223](https://github.com/Sage/carbon/commit/9133223df176e9c6ee1cd7f12e5003493a752664))
+
 ### [77.7.3](https://github.com/Sage/carbon/compare/v77.7.2...v77.7.3) (2021-07-08)
 
 
