@@ -94,7 +94,7 @@ const FlatTableRow = React.forwardRef(
     if (onClick || expandable) {
       interactiveRowProps = {
         isRowInteractive: !firstColumnExpandable,
-        tabIndex: firstColumnExpandable || isSubRow ? undefined : 0,
+        tabIndex: firstColumnExpandable ? undefined : 0,
         onKeyDown,
         isFirstColumnInteractive: firstColumnExpandable,
         isExpanded,
@@ -171,6 +171,7 @@ const FlatTableRow = React.forwardRef(
                     reportCellWidth:
                       index < rowHeaderIndex ? reportCellWidth : undefined,
                     leftPosition: leftPositions[index],
+                    pl: index === firstCellIndex() && expandable ? "4px" : null,
                     ...child.props,
                   })
                 );

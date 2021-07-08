@@ -1,5 +1,5 @@
 import React from "react";
-import { select, withKnobs } from "@storybook/addon-knobs";
+import { select, withKnobs, text } from "@storybook/addon-knobs";
 import { Tabs, Tab } from "./tabs.component";
 
 export default {
@@ -19,6 +19,7 @@ export default {
 export const Default = () => {
   return (
     <Tabs
+      headerWidth={text("headerWidth", "")}
       align={select("align", ["left", "right"], "left")}
       position={select("position", ["top", "left"], "top")}
       borders={select(

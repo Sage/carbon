@@ -1,3 +1,118 @@
+## [77.7.0](https://github.com/Sage/carbon/compare/v77.6.4...v77.7.0) (2021-07-07)
+
+
+### Features
+
+* **button-toggle:** enhance button toggle visuals ([98d32c6](https://github.com/Sage/carbon/commit/98d32c69ca79ff20e4933b8f4626a5616f62c2c5))
+
+### [77.6.4](https://github.com/Sage/carbon/compare/v77.6.3...v77.6.4) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** ensure date aligns when no edited status ([f3c6dbe](https://github.com/Sage/carbon/commit/f3c6dbef6aa5b1e09478610e28a8e96b4ed14683))
+
+### [77.6.3](https://github.com/Sage/carbon/compare/v77.6.2...v77.6.3) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** removes required constraint from name prop type ([f1ec59c](https://github.com/Sage/carbon/commit/f1ec59c1c4a2b79d2c42266d61fbd15456cd7879))
+
+### [77.6.2](https://github.com/Sage/carbon/compare/v77.6.1...v77.6.2) (2021-07-07)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add support for setting tabindex on subrows with onclick handler passed ([aebcfc6](https://github.com/Sage/carbon/commit/aebcfc643eeada4518999d5c2cae8835b76809f6)), closes [#4214](https://github.com/Sage/carbon/issues/4214)
+
+### [77.6.1](https://github.com/Sage/carbon/compare/v77.6.0...v77.6.1) (2021-07-06)
+
+
+### Bug Fixes
+
+* **date:** provide proper focus outline color ([0591951](https://github.com/Sage/carbon/commit/0591951da80a4b797f91e18d6f49d09c9b1033df))
+
+## [77.6.0](https://github.com/Sage/carbon/compare/v77.5.0...v77.6.0) (2021-07-06)
+
+
+### Features
+
+* **tabs:** add tabsHeaderWidth prop ([b76b8a7](https://github.com/Sage/carbon/commit/b76b8a746ec1c0233ce21c62f93ebb12676468a6)), closes [#4024](https://github.com/Sage/carbon/issues/4024)
+
+## [77.5.0](https://github.com/Sage/carbon/compare/v77.4.0...v77.5.0) (2021-07-06)
+
+
+### Features
+
+* **switch:** change hover behaviour ([fcf2f31](https://github.com/Sage/carbon/commit/fcf2f31f77c111a10f9de2805e5211dea0752e05))
+
+## [77.4.0](https://github.com/Sage/carbon/compare/v77.3.5...v77.4.0) (2021-07-05)
+
+
+### Features
+
+* **pod:** add height prop support ([2ed2535](https://github.com/Sage/carbon/commit/2ed25352d14f2d4cc4c972b6bde49ee19f2be007))
+
+### [77.3.5](https://github.com/Sage/carbon/compare/v77.3.4...v77.3.5) (2021-07-01)
+
+
+### Bug Fixes
+
+* **fieldset:** fix incorrect html structure in internal fieldset ([7e23e48](https://github.com/Sage/carbon/commit/7e23e4814f83114995d30371c96640bce30667d2))
+
+### [77.3.4](https://github.com/Sage/carbon/compare/v77.3.3...v77.3.4) (2021-06-30)
+
+
+### Bug Fixes
+
+* **filterable-select:** remove call to set open state of select list on textbox blur ([ae1d406](https://github.com/Sage/carbon/commit/ae1d406c724ef2da9f46c4275997fb8981cb2839))
+* **multi-select:** remove call to set open state of select list on textbox blur ([07f6b46](https://github.com/Sage/carbon/commit/07f6b4632281a180c7441817f262ce56bac2b6e7))
+* **simple-select:** remove call to set open state of select list on textbox blur ([c814c78](https://github.com/Sage/carbon/commit/c814c7834f296798b76d37190b5918b7e728da8d))
+* **tab-title:** remove call to stoppropagation onclick of tab title ([7a19c7a](https://github.com/Sage/carbon/commit/7a19c7a81e899e934494ab424379bb3558cbd277))
+
+### [77.3.3](https://github.com/Sage/carbon/compare/v77.3.2...v77.3.3) (2021-06-29)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** allow empty and false children ([5621624](https://github.com/Sage/carbon/commit/56216243f2bc30e583b24733bda3e821022e078a))
+
+### [77.3.2](https://github.com/Sage/carbon/compare/v77.3.1...v77.3.2) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** fix pl and px props not being applied ([58a8291](https://github.com/Sage/carbon/commit/58a82910f9fa5b3243baed2df39ca57c1c3c99c4))
+
+### [77.3.1](https://github.com/Sage/carbon/compare/v77.3.0...v77.3.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** incorrect bottom border color in transparent headers ([8ec5262](https://github.com/Sage/carbon/commit/8ec52626f1176e510101eebd8643d721a6de2d73))
+
+## [77.3.0](https://github.com/Sage/carbon/compare/v77.2.2...v77.3.0) (2021-06-29)
+
+
+### Features
+
+* **action-popover:** add horizontalAlignment prop ([9b827d8](https://github.com/Sage/carbon/commit/9b827d85a03802a623b4afc63f9c8720314e7a01))
+
+### [77.2.2](https://github.com/Sage/carbon/compare/v77.2.1...v77.2.2) (2021-06-24)
+
+
+### Bug Fixes
+
+* **flat-table:** fix styled-system pl support ([c74748f](https://github.com/Sage/carbon/commit/c74748fa748d9d4aa8615f45c3909bc172dc743c)), closes [#4145](https://github.com/Sage/carbon/issues/4145)
+
+### [77.2.1](https://github.com/Sage/carbon/compare/v77.2.0...v77.2.1) (2021-06-23)
+
+
+### Bug Fixes
+
+* **menu-item:** stop hover css applying to span ([f336f4f](https://github.com/Sage/carbon/commit/f336f4fcb13e61453841214c829fa5c730b403f7)), closes [#4178](https://github.com/Sage/carbon/issues/4178)
+
 ## [77.2.0](https://github.com/Sage/carbon/compare/v77.1.4...v77.2.0) (2021-06-22)
 
 

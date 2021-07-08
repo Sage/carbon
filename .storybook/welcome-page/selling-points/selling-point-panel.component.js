@@ -1,19 +1,19 @@
-import React from 'react';
-import { Panel, Image, Heading, Text  } from './selling-points.style';
+import React from "react";
+import { Panel, Image, Heading, Text } from "./selling-points.style";
 
 const images = {
-  flexible: require('./images/flexible.svg'),
-  hammer: require('./images/hammer.svg'),
-  plug: require('./images/plug.svg'),
-  point: require('./images/point.svg'),
-  brush: require('./images/brush.svg'),
-  collaborate: require('./images/collaborate.svg')
+  flexible: require("../../../.assets/flexible.svg"),
+  hammer: require("../../../.assets/hammer.svg"),
+  plug: require("../../../.assets/plug.svg"),
+  point: require("../../../.assets/point.svg"),
+  brush: require("../../../.assets/brush.svg"),
+  collaborate: require("../../../.assets/collaborate.svg"),
 };
 
 export default ({ icon, heading, text }) => (
   <Panel>
-    <Image src={ images[icon] } />
-    <Heading>{ heading }</Heading>
-    <Text>{ text }</Text>
+    <Image src={images[icon]} />
+    <Heading>{heading}</Heading>
+    <Text>{text}</Text>
   </Panel>
 );
