@@ -15,7 +15,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 
 function render(props) {
   return mount(
@@ -666,7 +666,7 @@ describe("Tabs", () => {
     describe("custom targeting", () => {
       it("supports overriding the targeted content", () => {
         const wrapper = mount(
-          <SidebarContext.Provider value={{ isInSidebar: true }}>
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <Tabs>
               <Tab
                 title="Tab Title 1"
@@ -678,7 +678,7 @@ describe("Tabs", () => {
                 TabContent
               </Tab>
             </Tabs>
-          </SidebarContext.Provider>
+          </DrawerSidebarContext.Provider>
         );
         act(() => {
           wrapper

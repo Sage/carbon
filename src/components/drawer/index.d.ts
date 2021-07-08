@@ -1,1 +1,1 @@
-export { default, SidebarContext } from "./drawer";
+export { default, DrawerSidebarContext } from "./drawer";
