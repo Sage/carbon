@@ -477,9 +477,25 @@ exports[`RadioButton base renders as expected 1`] = `
               <div
                 className="c12 "
               >
-                <svg
-                  focusable="false"
-                  viewBox="0 0 15 15"
+                <input
+                  aria-checked={false}
+                  aria-describedby="guid-12345 help"
+                  aria-labelledby="guid-12345 label"
+                  checked={false}
+                  className="c9 c10"
+                  id="guid-12345"
+                  name="radio-button-name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="radio"
+                  type="radio"
+                  value="test"
+                />
+                <div
+                  className="c11 "
                 >
                   <g
                     fill="none"

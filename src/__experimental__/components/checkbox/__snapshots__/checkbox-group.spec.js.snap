@@ -193,11 +193,23 @@ exports[`CheckboxGroup renders as expected 1`] = `
               <div
                 className="c13 "
               >
-                <svg
-                  focusable="false"
-                  height="10"
-                  viewBox="0 0 12 10"
-                  width="12"
+                <input
+                  aria-describedby="cId-required help"
+                  aria-labelledby="cId-required label"
+                  className="c11 c12"
+                  id="cId-required"
+                  name="check-required"
+                  onBlur={[Function]}
+                  onChange={[MockFunction]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="checkbox"
+                  type="checkbox"
+                  value="required"
+                />
+                <div
+                  className="c13 "
                 >
                   <path
                     d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
@@ -245,11 +257,23 @@ exports[`CheckboxGroup renders as expected 1`] = `
               <div
                 className="c13 "
               >
-                <svg
-                  focusable="false"
-                  height="10"
-                  viewBox="0 0 12 10"
-                  width="12"
+                <input
+                  aria-describedby="cId-optional help"
+                  aria-labelledby="cId-optional label"
+                  className="c11 c12"
+                  id="cId-optional"
+                  name="check-optional"
+                  onBlur={[Function]}
+                  onChange={[MockFunction]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="checkbox"
+                  type="checkbox"
+                  value="optional"
+                />
+                <div
+                  className="c13 "
                 >
                   <path
                     d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
