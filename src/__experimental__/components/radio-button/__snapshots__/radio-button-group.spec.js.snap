@@ -244,8 +244,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="rId-0-help"
-                aria-labelledby="rId-0-label"
+                aria-describedby="rId-0 help"
+                aria-labelledby="rId-0 label"
                 checked={false}
                 className="c12 c13"
                 id="rId-0"
@@ -262,25 +262,9 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <div
                 className="c14 "
               >
-                <input
-                  aria-checked={false}
-                  aria-describedby="rId-0 help"
-                  aria-labelledby="rId-0 label"
-                  checked={false}
-                  className="c10 c11"
-                  id="rId-0"
-                  name="test-group"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="radio"
-                  type="radio"
-                  value="test-1"
-                />
-                <div
-                  className="c12 "
+                <svg
+                  focusable="false"
+                  viewBox="0 0 15 15"
                 >
                   <g
                     fill="none"
@@ -321,8 +305,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="rId-1-help"
-                aria-labelledby="rId-1-label"
+                aria-describedby="rId-1 help"
+                aria-labelledby="rId-1 label"
                 checked={false}
                 className="c12 c13"
                 id="rId-1"
@@ -339,25 +323,9 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <div
                 className="c14 "
               >
-                <input
-                  aria-checked={false}
-                  aria-describedby="rId-1 help"
-                  aria-labelledby="rId-1 label"
-                  checked={false}
-                  className="c10 c11"
-                  id="rId-1"
-                  name="test-group"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="radio"
-                  type="radio"
-                  value="test-2"
-                />
-                <div
-                  className="c12 "
+                <svg
+                  focusable="false"
+                  viewBox="0 0 15 15"
                 >
                   <g
                     fill="none"
