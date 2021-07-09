@@ -126,6 +126,18 @@ It's also possible to create ordered and unordered lists using the `List`, `List
   </Story>
 </Preview>
 
+## Example of truncate
+The `truncate` prop is a boolean prop that automatically applies the styles required to trunacte a piece of text.
+<Preview>
+  <Story name="truncate" parameters={{ info: { disable: true } }}>
+    <div style={{height: "80px", width: "80px", backgroundColor: "yellow"}}>
+      <Typography truncate>
+        The is an example of using the truncate prop. This is an example of some text with applied.
+      </Typography>
+    </div>
+  </Story>
+</Preview>
+
 ## Reccomended body text colors
 
 | Color                 | White Background | App Background | Notes              |
@@ -192,6 +204,26 @@ It's also possible to create ordered and unordered lists using the `List`, `List
       name: "listStyleType",
       type: { summary: "string" },
       description: "Override the list-style-type",
+    },
+    {
+      name: "whiteSpace",
+      type: { summary: "string" },
+      description: "Override the white-space type",
+    },
+    {
+      name: "wordWrap",
+      type: { summary: "string" },
+      description: "Override the word-wrap type",
+    },
+   {
+      name: "textOverflow",
+      type: { summary: "string" },
+      description: "Override the text-overflow type",
+    },
+   {
+      name: "truncate",
+      type: { summary: "boolean" },
+      description: "Applies styling for truncation",
     },
   ]}
 />
