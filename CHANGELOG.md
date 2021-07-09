@@ -1,3 +1,11 @@
+## [77.8.0](https://github.com/Sage/carbon/compare/v77.7.4...v77.8.0) (2021-07-09)
+
+
+### Features
+
+* **flat-table:** add new extra-large size ([49ffb8f](https://github.com/Sage/carbon/commit/49ffb8f68ad13a3a53ec826a3386efd40c83bf4a))
+* **icon:** add extraSmall option to bgSize prop ([c5d1ed5](https://github.com/Sage/carbon/commit/c5d1ed5ac6c0bd81e6c6d1a885039c109f242770))
+
 ### [77.7.4](https://github.com/Sage/carbon/compare/v77.7.3...v77.7.4) (2021-07-08)
 
 
