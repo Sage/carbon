@@ -15,6 +15,7 @@ import { baseTheme, mintTheme } from "../../../../style/themes";
 import Search from "../../../../__experimental__/components/search";
 import StyledSearch from "../../../../__experimental__/components/search/search.style";
 import openSubmenu from "../spec-helper";
+import SubmenuContext from "./submenu.context";
 
 const events = {
   arrowDown: {
@@ -108,7 +109,10 @@ const menuContextValues = (menuType) => ({
 });
 
 describe("Submenu component", () => {
-  let container;
+  const element = document.createElement("div");
+  const htmlElement = document.body.appendChild(element);
+  const tabKey = new KeyboardEvent("keydown", events.tab);
+  const shiftTabKey = new KeyboardEvent("keydown", events.shiftTab);
   let wrapper;
 
   const render = (menuType, props) => {
@@ -122,22 +126,13 @@ describe("Submenu component", () => {
           <MenuItem>Broccoli</MenuItem>
         </Submenu>
       </MenuContext.Provider>,
-      { attachTo: container }
+      { attachTo: htmlElement }
     );
   };
 
-  beforeEach(() => {
-    container = document.createElement("div");
-    container.id = "enzymeContainer";
-    document.body.appendChild(container);
-  });
-
   afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
     if (wrapper) {
       wrapper.unmount();
-      wrapper = null;
     }
   });
 
@@ -269,22 +264,14 @@ describe("Submenu component", () => {
 
         it("should focus the first menu item when tab is pressed", () => {
           openSubmenu(wrapper);
-
-          act(() => {
-            wrapper
-              .find(StyledMenuItemWrapper)
-              .at(0)
-              .props()
-              .onKeyDown(events.tab);
-          });
-
+          document.dispatchEvent(tabKey);
           wrapper.update();
 
           expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
 
-          expect(
+          expect(document.activeElement).toMatchObject(
             wrapper.find('[data-component="submenu-wrapper"]').find("a").at(1)
-          ).toBeFocused();
+          );
         });
 
         it("should do nothing when character key pressed", () => {
@@ -378,7 +365,7 @@ describe("Submenu component", () => {
     });
   });
 
-  describe("keybord navigation", () => {
+  describe("keyboard navigation", () => {
     describe("when closed", () => {
       let submenuItem;
 
@@ -856,23 +843,16 @@ describe("Submenu component", () => {
 
       describe("when tab key pressed", () => {
         it("should focus the next item", () => {
-          act(() => {
-            wrapper
-              .find(StyledMenuItemWrapper)
-              .at(0)
-              .props()
-              .onKeyDown(events.tab);
-          });
-
+          document.dispatchEvent(tabKey);
           wrapper.update();
 
-          expect(
+          expect(document.activeElement).toMatchObject(
             wrapper
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(1)
               .find("a")
-          ).toBeFocused();
+          );
         });
 
         describe("when focus on last menu item", () => {
@@ -914,23 +894,16 @@ describe("Submenu component", () => {
 
           wrapper.update();
 
-          act(() => {
-            wrapper
-              .find(StyledMenuItemWrapper)
-              .at(0)
-              .props()
-              .onKeyDown(events.shiftTab);
-          });
-
+          document.dispatchEvent(shiftTabKey);
           wrapper.update();
 
-          expect(
+          expect(document.activeElement).toMatchObject(
             wrapper
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(2)
               .find("a")
-          ).toBeFocused();
+          );
         });
 
         describe("when focus on first menu item", () => {
@@ -1018,7 +991,7 @@ describe("Submenu component", () => {
             </ScrollableBlock>
           </Submenu>
         </MenuContext.Provider>,
-        { attachTo: container }
+        { attachTo: htmlElement }
       );
     };
 
@@ -1037,7 +1010,6 @@ describe("Submenu component", () => {
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" tabIndex={-1} {...props}>
               <MenuItem>Apple</MenuItem>
-              <MenuItem>Banana</MenuItem>
               <MenuItem variant="alternate">
                 <Search
                   defaultValue=""
@@ -1046,10 +1018,41 @@ describe("Submenu component", () => {
                   onChange={() => {}}
                 />
               </MenuItem>
+              <MenuItem>Banana</MenuItem>
             </Submenu>
           </MenuContext.Provider>
         </ThemeProvider>,
-        { attachTo: container }
+        { attachTo: htmlElement }
+      );
+    };
+
+    const mockSubmenuhandleKeyDown = jest.fn();
+    const submenuContextValues = (isFocused) => ({
+      handleKeyDown: mockSubmenuhandleKeyDown,
+      isFocused,
+    });
+
+    const renderWithSearchDefaultValue = (menuType, props) => {
+      return mount(
+        <ThemeProvider theme={mintTheme}>
+          <MenuContext.Provider value={menuContextValues(menuType)}>
+            <SubmenuContext.Provider value={submenuContextValues(false)}>
+              <Submenu title="title" tabIndex={-1} {...props} href="/path">
+                <MenuItem>Apple</MenuItem>
+                <MenuItem variant="alternate">
+                  <Search
+                    defaultValue="FooBar"
+                    placeholder="Dark variant"
+                    variant="dark"
+                    onChange={() => {}}
+                  />
+                </MenuItem>
+                <MenuItem>Banana</MenuItem>
+              </Submenu>
+            </SubmenuContext.Provider>
+          </MenuContext.Provider>
+        </ThemeProvider>,
+        { attachTo: htmlElement }
       );
     };
 
@@ -1098,6 +1101,93 @@ describe("Submenu component", () => {
           `,
         }
       );
+    });
+
+    it("should be focusable by using down arrow key", () => {
+      wrapper = renderWithSearch("dark");
+      openSubmenu(wrapper);
+      const searchInput = wrapper.find(StyledSearch).find("input");
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItemWrapper)
+          .at(0)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+      wrapper.update();
+
+      expect(searchInput).toBeFocused();
+    });
+
+    it("should update focusIndex when Search is clicked", () => {
+      wrapper = renderWithSearch("dark");
+      openSubmenu(wrapper);
+      const searchInput = wrapper.find(StyledSearch).find("input");
+
+      act(() => {
+        searchInput.simulate("click");
+      });
+      wrapper.update();
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItemWrapper)
+          .at(1)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+
+      expect(
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a")
+      ).toBeFocused();
+    });
+
+    /* This test is purely to achieve coverage for the else of the `handleKeyDown` 
+    callback function in the menu-item component. */
+    it("should not call SubmenuContext.handleKeyDown if Search has a value and is currently focused", () => {
+      wrapper = renderWithSearchDefaultValue("dark", { clickToOpen: true });
+      wrapper.find("a").getDOMNode().click();
+      wrapper.update();
+
+      act(() => {
+        wrapper.find(StyledMenuItemWrapper).at(0).props().onKeyDown(events.tab);
+      });
+
+      wrapper.update();
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItemWrapper)
+          .at(1)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+
+      wrapper.update();
+
+      act(() => {
+        wrapper.find(StyledMenuItemWrapper).at(2).props().onKeyDown(events.tab);
+      });
+
+      wrapper.update();
+
+      expect(mockSubmenuhandleKeyDown).not.toHaveBeenCalled();
+    });
+
+    /* This test is purely to achieve coverage for the else of `Events.isTabKey(event)` in the 
+    handleKeyDown function in the submenu component */
+    it("should increment focusIndex and make blockDoubleFocus true", () => {
+      wrapper = renderWithSearchDefaultValue("dark");
+      openSubmenu(wrapper);
+      wrapper.update();
+      expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+
+      act(() => {
+        wrapper.find(StyledMenuItemWrapper).at(0).props().onKeyDown(events.tab);
+      });
+
+      wrapper.update();
     });
   });
 });

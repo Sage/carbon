@@ -8,6 +8,7 @@ import {
   searchDefaultInnerIcon,
   searchInnerIcon,
   searchInputIframe,
+  searchDefaultInputIframe,
 } from "../../locators/search";
 import { keyCode } from "../helper";
 
@@ -97,4 +98,8 @@ Then("search icon as button is not visible", () => {
 
 When("I press onto cross icon using {string} key", (key) => {
   searchCrossIcon().trigger("keydown", keyCode(key));
+});
+
+When("Type {string} text into search input inIFrame", (text) => {
+  searchDefaultInputIframe().type(text);
 });
