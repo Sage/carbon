@@ -1,3 +1,10 @@
+### [77.8.1](https://github.com/Sage/carbon/compare/v77.8.0...v77.8.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **menu:** focus search using arrow keys ([d590812](https://github.com/Sage/carbon/commit/d590812972185e4302a7c0f6f4b3f04a4654251a))
+
 ## [77.8.0](https://github.com/Sage/carbon/compare/v77.7.4...v77.8.0) (2021-07-09)
 
 
