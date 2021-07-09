@@ -48,7 +48,9 @@ const FlatTableRowHeader = ({
         }
         expandable={expandable}
       >
-        {expandable && <Icon type="chevron_down_thick" />}
+        {expandable && (
+          <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
+        )}
         {children}
       </StyledFlatTableRowHeaderContent>
     </StyledFlatTableRowHeader>

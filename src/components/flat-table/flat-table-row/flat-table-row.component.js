@@ -44,7 +44,7 @@ const FlatTableRow = React.forwardRef(
     const rowHeaderIndex = childrenArray.findIndex(
       (child) => child.type === FlatTableRowHeader
     );
-    const colorTheme = useContext(FlatTableThemeContext);
+    const themeContext = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -143,7 +143,8 @@ const FlatTableRow = React.forwardRef(
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
-              colorTheme={colorTheme}
+              colorTheme={themeContext.colorTheme}
+              size={themeContext.size}
               stickyOffset={stickyOffset}
               bgColor={bgColor}
               horizontalBorderColor={horizontalBorderColor}
@@ -171,7 +172,6 @@ const FlatTableRow = React.forwardRef(
                     reportCellWidth:
                       index < rowHeaderIndex ? reportCellWidth : undefined,
                     leftPosition: leftPositions[index],
-                    pl: index === firstCellIndex() && expandable ? "4px" : null,
                     ...child.props,
                   })
                 );
