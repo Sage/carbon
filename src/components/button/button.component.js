@@ -72,6 +72,8 @@ const renderStyledButton = (buttonProps) => {
     size,
     noWrap,
     tooltipMessage,
+    target,
+    rel,
     ...rest
   } = buttonProps;
 
@@ -116,6 +118,8 @@ const renderStyledButton = (buttonProps) => {
       px={px || paddingX}
       noWrap={noWrap}
       iconOnly={!rest.children && iconType}
+      target={target}
+      rel={rel}
       {...tagComponent("button", buttonProps)}
       {...rest}
       ref={ref}
@@ -202,6 +206,10 @@ Button.propTypes = {
   iconTooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   /** HTML button type property */
   type: PropTypes.string,
+  /** HTML target attribute */
+  target: PropTypes.string,
+  /** HTML rel attribute */
+  rel: PropTypes.string,
 };
 
 Button.defaultProps = {
