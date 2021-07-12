@@ -46,13 +46,13 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-input:not(:checked) ~ .c2:hover {
+input:not(:checked):not(:disabled) ~ .c2:hover {
   background-color: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-input:not(:checked) ~ .c2:hover .c8 {
+input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
   color: #FFFFFF;
 }
 
@@ -192,13 +192,13 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-input:not(:checked) ~ .c2:hover {
+input:not(:checked):not(:disabled) ~ .c2:hover {
   background-color: #005C9A;
   border-color: #005C9A;
   color: #FFFFFF;
 }
 
-input:not(:checked) ~ .c2:hover .c4 {
+input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
   color: #FFFFFF;
 }
 
@@ -290,13 +290,13 @@ input:focus ~ .c2 {
   z-index: 100;
 }
 
-input:not(:checked) ~ .c2:hover {
+input:not(:checked):not(:disabled) ~ .c2:hover {
   background-color: #006046;
   border-color: #006046;
   color: #FFFFFF;
 }
 
-input:not(:checked) ~ .c2:hover .c4 {
+input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
   color: #FFFFFF;
 }
 

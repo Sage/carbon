@@ -278,7 +278,7 @@ const OptionsHelper = {
 
   sizesPod: ["extra-small", "small", "medium", "large", "extra-large"],
 
-  iconSizes: ["small", "medium", "large", "extra-large"],
+  iconSizes: ["extra-small", "small", "medium", "large", "extra-large"],
 
   sizesRestricted: ["small", "medium", "large"],
 

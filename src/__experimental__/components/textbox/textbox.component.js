@@ -46,6 +46,7 @@ const Textbox = ({
   adaptiveLabelBreakpoint,
   required,
   positionedChildren,
+  inputRef,
   ...props
 }) => {
   return (
@@ -76,6 +77,7 @@ const Textbox = ({
               props.disabled || props.readOnly ? "" : props.placeholder
             }
             aria-invalid={!!props.error}
+            inputRef={inputRef}
             value={visibleValue(value, formattedValue)}
           />
           {children}
@@ -196,6 +198,8 @@ Textbox.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */
   required: PropTypes.bool,
+  /** A callback to retrieve the input reference */
+  inputRef: PropTypes.func,
 };
 
 Textbox.defaultProps = {

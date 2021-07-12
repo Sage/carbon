@@ -13,7 +13,7 @@ Feature: Search component
   @positive
   Scenario: Verify proper color for search icon button
     Given I open "Design System Search Test" component page "default"
-      And Type "Sea" text into search input
+      And Type "Sea" text into search input inIFrame
     When I click onto search icon
     Then search icon has proper inner color
 
@@ -21,7 +21,7 @@ Feature: Search component
   Scenario: Check the change event for Search component
     Given I open "Design System Search Test" component page "default"
       And clear all actions in Actions Tab
-    When Type "Search" text into search input
+    When Type "Search" text into search input inIFrame
     Then change action was called in Actions Tab
 
   @positive
@@ -35,7 +35,7 @@ Feature: Search component
   @positive
   Scenario: Click event for Search icon
     Given I open "Design System Search Test" component page "default"
-      And Type "Search" text into search input
+      And Type "Search" text into search input inIFrame
       And clear all actions in Actions Tab
     When I click onto search icon
     Then click action was called in Actions Tab

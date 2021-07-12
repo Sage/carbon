@@ -68,3 +68,42 @@ Feature: Design Systems Menu component
       | Space     |
       | downarrow |
       | uparrow   |
+
+  @positive
+  Scenario: Check that the Search component is focusable by using the downarrow key
+    Given I open "Design System Menu" component page "submenu with search" in no iframe
+      And I click onto root in Test directory in no iFrame
+      And I hit Tab key 1 time in no Iframe
+      And I wait 50
+      And I press "Enter" onto focused element
+      And I wait 50
+    When I press keyboard "downarrow" key times 1
+    Then Search component input should be focused
+
+  @positive
+  Scenario: Check that the Search component is focusable by using the uparrow key
+    Given I open "Design System Menu" component page "submenu with search" in no iframe
+      And I click onto root in Test directory in no iFrame
+      And I hit Tab key 1 time in no Iframe
+      And I wait 50
+      And I press "Enter" onto focused element
+      And I wait 50
+      And I hit Tab key 2 time in no Iframe
+      And I wait 50
+    When I press keyboard "uparrow" key times 1
+    Then Search component input should be focused
+
+  @positive
+  Scenario: Check that the Search component close icon is focusable in Menu when using keyboard navigation
+    Given I open "Design System Menu" component page "submenu with search" in no iframe
+      And I click onto root in Test directory in no iFrame
+      And I hit Tab key 1 times in no Iframe
+      And I wait 50
+      And I press "Enter" onto focused element
+      And I wait 50
+      And I press keyboard "downarrow" key times 1
+      And I wait 50
+      And Type "FooBar" text into search input
+      And I wait 50
+    When I press Tab on Search component
+    Then Search component input icon should be focused

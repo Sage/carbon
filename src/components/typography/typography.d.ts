@@ -38,6 +38,14 @@ export interface TypographyProps extends SpaceProps, ColorProps {
   display?: string;
   /** Override the list-style-type */
   listStyleType?: string;
+  /** Override the white-space type */
+  whiteSpace?: string;
+  /** Override the word-wrap type */
+  wordWrap?: string;
+  /** Override the text-overflow type */
+  textOverflow?: string;
+  /** Apply truncation */
+  truncate?: boolean;
 }
 
 declare function Typography(attrs: StyledComponentProps<"div", {}, TypographyProps, "">): JSX.Element;
