@@ -1,3 +1,53 @@
+## [77.10.0](https://github.com/Sage/carbon/compare/v77.9.0...v77.10.0) (2021-07-12)
+
+
+### Features
+
+* **carbon-provider:** add carbon-provider component (contains default theme and global style) ([04d3ec2](https://github.com/Sage/carbon/commit/04d3ec20038c3c53dd43550d6868efbcc8c5268f))
+
+## [77.9.0](https://github.com/Sage/carbon/compare/v77.8.1...v77.9.0) (2021-07-09)
+
+
+### Features
+
+* **typography:** add support for white-space styling and truncation ([bb9316f](https://github.com/Sage/carbon/commit/bb9316fec25010833e7eea9b45cbe1c675a25c04)), closes [#4122](https://github.com/Sage/carbon/issues/4122)
+
+### [77.8.1](https://github.com/Sage/carbon/compare/v77.8.0...v77.8.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **menu:** focus search using arrow keys ([d590812](https://github.com/Sage/carbon/commit/d590812972185e4302a7c0f6f4b3f04a4654251a))
+
+## [77.8.0](https://github.com/Sage/carbon/compare/v77.7.4...v77.8.0) (2021-07-09)
+
+
+### Features
+
+* **flat-table:** add new extra-large size ([49ffb8f](https://github.com/Sage/carbon/commit/49ffb8f68ad13a3a53ec826a3386efd40c83bf4a))
+* **icon:** add extraSmall option to bgSize prop ([c5d1ed5](https://github.com/Sage/carbon/commit/c5d1ed5ac6c0bd81e6c6d1a885039c109f242770))
+
+### [77.7.4](https://github.com/Sage/carbon/compare/v77.7.3...v77.7.4) (2021-07-08)
+
+
+### Bug Fixes
+
+* **button-toggle:** fix hover styling on disabled state ([9133223](https://github.com/Sage/carbon/commit/9133223df176e9c6ee1cd7f12e5003493a752664))
+
+### [77.7.3](https://github.com/Sage/carbon/compare/v77.7.2...v77.7.3) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix incorrect row outline in safari ([343a179](https://github.com/Sage/carbon/commit/343a1790e1ac616bcf0c2e0d09d3a0ef1964f40e))
+
+### [77.7.2](https://github.com/Sage/carbon/compare/v77.7.1...v77.7.2) (2021-07-08)
+
+
+### Bug Fixes
+
+* **numeral-date:** update size prop type to have correct oneOf syntax ([be912c4](https://github.com/Sage/carbon/commit/be912c409873d985755c86363b5d6f3daa86f45d))
+
 ### [77.7.1](https://github.com/Sage/carbon/compare/v77.7.0...v77.7.1) (2021-07-08)
 
 

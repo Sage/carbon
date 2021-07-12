@@ -157,6 +157,10 @@ const Typography = styled.span.attrs(
     display,
     variant,
     listStyleType,
+    whiteSpace,
+    wordWrap,
+    textOverflow,
+    truncate,
   }) => css`
     font-style: normal;
     font-size: ${size};
@@ -166,10 +170,17 @@ const Typography = styled.span.attrs(
     line-height: ${lineHeight};
     margin: ${defaultMargin};
     padding: 0;
-    ${variant === "sup" && "vertical-align: super;"}
-    ${variant === "sub" && "vertical-align: sub;"}
-${display && `display: ${display};`}
-${listStyleType && `list-style-type: ${listStyleType};`}
+    white-space: ${truncate ? "nowrap" : whiteSpace};
+    word-wrap: ${wordWrap};
+    text-overflow: ${truncate ? "ellipsis" : textOverflow};
+    ${truncate &&
+    css`
+      overflow: hidden;
+    `};
+    ${variant === "sup" && "vertical-align: super;"};
+    ${variant === "sub" && "vertical-align: sub;"};
+    ${display && `display: ${display};`};
+    ${listStyleType && `list-style-type: ${listStyleType};`}; ;
   `}
   ${space}
 ${color}
@@ -223,5 +234,13 @@ Typography.propTypes = {
   display: PropTypes.string,
   /** Override the list-style-type */
   listStyleType: PropTypes.string,
+  /** Override the white-space type */
+  whiteSpace: PropTypes.string,
+  /** Override the word-wrap type */
+  wordWrap: PropTypes.string,
+  /** Override the text-overflow type */
+  textOverflow: PropTypes.string,
+  /** Apply truncation */
+  truncate: PropTypes.bool,
 };
 export default Typography;

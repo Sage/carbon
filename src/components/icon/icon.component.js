@@ -130,7 +130,13 @@ Icon.propTypes = {
   /** Icon type */
   type: PropTypes.string.isRequired,
   /** Background size */
-  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
+  bgSize: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
   /** Background shape */
   bgShape: PropTypes.oneOf(["circle", "rounded-rect", "square"]),
   /** Background color theme */
