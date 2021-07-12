@@ -1,3 +1,10 @@
+## [77.10.0](https://github.com/Sage/carbon/compare/v77.9.0...v77.10.0) (2021-07-12)
+
+
+### Features
+
+* **carbon-provider:** add carbon-provider component (contains default theme and global style) ([04d3ec2](https://github.com/Sage/carbon/commit/04d3ec20038c3c53dd43550d6868efbcc8c5268f))
+
 ## [77.9.0](https://github.com/Sage/carbon/compare/v77.8.1...v77.9.0) (2021-07-09)
 
 
