@@ -39,7 +39,7 @@ const Icon = React.forwardRef(
     },
     ref
   ) => {
-    if (!deprecatedWarnTriggered && (iconColor || bgTheme)) {
+    if ((iconColor || bgTheme) && !deprecatedWarnTriggered) {
       deprecatedWarnTriggered = true;
       Logger.deprecate(
         "`iconColor` and `bgTheme` props are deprecated and will soon be removed"
