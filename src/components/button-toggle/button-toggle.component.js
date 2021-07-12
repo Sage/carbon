@@ -14,16 +14,17 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 
 const ButtonToggle = (props) => {
   const {
-    name,
-    checked,
-    grouped,
-    children,
-    disabled,
     buttonIcon,
     buttonIconSize,
+    checked,
+    children,
+    disabled,
+    grouped,
+    name,
+    onBlur,
     onChange,
     onFocus,
-    onBlur,
+    size,
     value,
   } = props;
   const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
@@ -70,6 +71,7 @@ const ButtonToggle = (props) => {
         htmlFor={inputGuid}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        size={size}
       >
         <StyledButtonToggleContentWrapper>
           {icon}
@@ -91,6 +93,8 @@ ButtonToggle.propTypes = {
   onFocus: PropTypes.func,
   /** Callback triggered by blur event on the input. */
   onBlur: PropTypes.func,
+  /** ButtonToggle size */
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
@@ -108,6 +112,7 @@ ButtonToggle.propTypes = {
 };
 
 ButtonToggle.defaultProps = {
+  size: "medium",
   buttonIconSize: "small",
 };
 

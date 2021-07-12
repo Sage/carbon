@@ -35,6 +35,8 @@ export interface SearchProps extends MarginProps {
   value?: string;
   /** Prop to specify the styling of the search component */
   variant?: string;
+  /** A callback to retrieve the input reference */
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 declare function Search(props: SearchProps): JSX.Element;

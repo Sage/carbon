@@ -62,6 +62,8 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   validationOnLabel?: boolean;
   /** The value of the Input */
   value?: string | string[] | object | object[];
+  /** A callback to retrieve the input reference */
+  inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
 }
 
 export interface TextboxProps extends CommonTextboxProps, SpaceProps {

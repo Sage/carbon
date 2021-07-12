@@ -21,22 +21,24 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
 .c6 {
   display: inline-block;
   position: relative;
-  height: 38px;
+  box-sizing: border-box;
+  height: 40px;
   padding: 0 24px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid #668592;
-  font-size: 14px;
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c6 {
-  color: #FFFFFF;
-  background-color: #00402E;
+.c6 .c8 {
+  color: #000000;
 }
 
-input:checked ~ .c6 .c8 {
-  color: #FFFFFF;
+input:checked ~ .c6.c6 {
+  background-color: #E6F6F1;
+  border-color: #006046;
+  cursor: auto;
 }
 
 input:focus ~ .c6 {
@@ -44,9 +46,14 @@ input:focus ~ .c6 {
   z-index: 100;
 }
 
-.c6:hover {
-  background-color: #E6F6F1;
-  border-color: #00402E;
+input:not(:checked):not(:disabled) ~ .c6:hover {
+  background-color: #006046;
+  border-color: #006046;
+  color: #FFFFFF;
+}
+
+input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
+  color: #FFFFFF;
 }
 
 .c4 {
@@ -55,7 +62,7 @@ input:focus ~ .c6 {
 }
 
 .c4:not(:first-of-type) {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .c5 {
@@ -116,6 +123,7 @@ input:focus ~ .c6 {
           htmlFor="guid-12345"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
+          size="medium"
         >
           <div
             className="c7"
@@ -145,6 +153,7 @@ input:focus ~ .c6 {
           htmlFor="guid-12345"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
+          size="medium"
         >
           <div
             className="c7"

@@ -1,3 +1,95 @@
+### [77.10.1](https://github.com/Sage/carbon/compare/v77.10.0...v77.10.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* **input:** remove background on input when required ([f4d3642](https://github.com/Sage/carbon/commit/f4d36422c696c43f5aab1fa834dcbe9223c4014c))
+
+## [77.10.0](https://github.com/Sage/carbon/compare/v77.9.0...v77.10.0) (2021-07-12)
+
+
+### Features
+
+* **carbon-provider:** add carbon-provider component (contains default theme and global style) ([04d3ec2](https://github.com/Sage/carbon/commit/04d3ec20038c3c53dd43550d6868efbcc8c5268f))
+
+## [77.9.0](https://github.com/Sage/carbon/compare/v77.8.1...v77.9.0) (2021-07-09)
+
+
+### Features
+
+* **typography:** add support for white-space styling and truncation ([bb9316f](https://github.com/Sage/carbon/commit/bb9316fec25010833e7eea9b45cbe1c675a25c04)), closes [#4122](https://github.com/Sage/carbon/issues/4122)
+
+### [77.8.1](https://github.com/Sage/carbon/compare/v77.8.0...v77.8.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **menu:** focus search using arrow keys ([d590812](https://github.com/Sage/carbon/commit/d590812972185e4302a7c0f6f4b3f04a4654251a))
+
+## [77.8.0](https://github.com/Sage/carbon/compare/v77.7.4...v77.8.0) (2021-07-09)
+
+
+### Features
+
+* **flat-table:** add new extra-large size ([49ffb8f](https://github.com/Sage/carbon/commit/49ffb8f68ad13a3a53ec826a3386efd40c83bf4a))
+* **icon:** add extraSmall option to bgSize prop ([c5d1ed5](https://github.com/Sage/carbon/commit/c5d1ed5ac6c0bd81e6c6d1a885039c109f242770))
+
+### [77.7.4](https://github.com/Sage/carbon/compare/v77.7.3...v77.7.4) (2021-07-08)
+
+
+### Bug Fixes
+
+* **button-toggle:** fix hover styling on disabled state ([9133223](https://github.com/Sage/carbon/commit/9133223df176e9c6ee1cd7f12e5003493a752664))
+
+### [77.7.3](https://github.com/Sage/carbon/compare/v77.7.2...v77.7.3) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix incorrect row outline in safari ([343a179](https://github.com/Sage/carbon/commit/343a1790e1ac616bcf0c2e0d09d3a0ef1964f40e))
+
+### [77.7.2](https://github.com/Sage/carbon/compare/v77.7.1...v77.7.2) (2021-07-08)
+
+
+### Bug Fixes
+
+* **numeral-date:** update size prop type to have correct oneOf syntax ([be912c4](https://github.com/Sage/carbon/commit/be912c409873d985755c86363b5d6f3daa86f45d))
+
+### [77.7.1](https://github.com/Sage/carbon/compare/v77.7.0...v77.7.1) (2021-07-08)
+
+
+### Bug Fixes
+
+* **flat-table:** scrolling content in table header ([6de6e67](https://github.com/Sage/carbon/commit/6de6e67857a7c97d1da87b59efdff0d99353b850))
+
+## [77.7.0](https://github.com/Sage/carbon/compare/v77.6.4...v77.7.0) (2021-07-07)
+
+
+### Features
+
+* **button-toggle:** enhance button toggle visuals ([98d32c6](https://github.com/Sage/carbon/commit/98d32c69ca79ff20e4933b8f4626a5616f62c2c5))
+
+### [77.6.4](https://github.com/Sage/carbon/compare/v77.6.3...v77.6.4) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** ensure date aligns when no edited status ([f3c6dbe](https://github.com/Sage/carbon/commit/f3c6dbef6aa5b1e09478610e28a8e96b4ed14683))
+
+### [77.6.3](https://github.com/Sage/carbon/compare/v77.6.2...v77.6.3) (2021-07-07)
+
+
+### Bug Fixes
+
+* **note:** removes required constraint from name prop type ([f1ec59c](https://github.com/Sage/carbon/commit/f1ec59c1c4a2b79d2c42266d61fbd15456cd7879))
+
+### [77.6.2](https://github.com/Sage/carbon/compare/v77.6.1...v77.6.2) (2021-07-07)
+
+
+### Bug Fixes
+
+* **flat-table-row:** add support for setting tabindex on subrows with onclick handler passed ([aebcfc6](https://github.com/Sage/carbon/commit/aebcfc643eeada4518999d5c2cae8835b76809f6)), closes [#4214](https://github.com/Sage/carbon/issues/4214)
+
 ### [77.6.1](https://github.com/Sage/carbon/compare/v77.6.0...v77.6.1) (2021-07-06)
 
 

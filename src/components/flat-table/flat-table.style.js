@@ -52,7 +52,8 @@ const StyledFlatTable = styled.table`
 
       ${StyledFlatTableCell} > div,
       ${StyledFlatTableHeader} > div,
-      ${StyledFlatTableRowHeader} > div {
+      ${StyledFlatTableRowHeader} > div,
+      ${StyledFlatTableCheckbox} > div {
         font-size: ${fontSize};
         padding-left: ${paddingSize};
         padding-right: ${paddingSize};
@@ -176,6 +177,8 @@ const StyledFlatTableWrapper = styled.div`
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         z-index: ${({ theme }) => theme.zIndex.overlay + 2};
+        top: 0;
+        left: 0;
       }
     `}
 `;

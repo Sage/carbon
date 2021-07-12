@@ -1,3 +1,4 @@
+import { DLS_ROOT } from "../locators";
 import {
   SUBMENU,
   SCROLL_BLOCK,
@@ -20,3 +21,4 @@ export const menuComponent = (index) =>
   cy.get(MENU).first().find(`li:nth-child(${index})`);
 export const submenuItem = (index) =>
   menuComponent(index).find(SUBMENU).find("ul > li");
+export const menuCanvas = () => cy.get(DLS_ROOT);

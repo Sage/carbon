@@ -11,7 +11,7 @@ export interface NoteProps  extends MarginProps {
   /** Adds a Title to the Note */
   title?: string;
   /** Adds a name to the Note footer */
-  name: string;
+  name?: string;
   /** Adds a created on date to the Note footer */
   createdDate: string;
   /** Adds a status and tooltip to the Note footer */
