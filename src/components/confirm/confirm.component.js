@@ -36,7 +36,7 @@ const Confirm = ({
   title,
   ...rest
 }) => {
-  if (!deprecatedWarnTriggered && destructive) {
+  if (destructive && !deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(
       "`destructive` prop is deprecated and will soon be removed. Please use `cancelButtonDestructive` and `confirmButtonDestructive` props."
