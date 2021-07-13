@@ -755,8 +755,8 @@ exports[`Switch base theme renders as expected 1`] = `
         >
           <input
             aria-checked={false}
-            aria-describedby="guid-12345-help"
-            aria-labelledby="guid-12345-label"
+            aria-describedby="guid-12345 help"
+            aria-labelledby="guid-12345 label"
             checked={false}
             className="c8 c9"
             id="guid-12345"

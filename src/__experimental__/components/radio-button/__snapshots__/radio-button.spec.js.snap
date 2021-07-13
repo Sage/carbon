@@ -434,12 +434,11 @@ exports[`RadioButton base renders as expected 1`] = `
 <fieldset
   className="c0"
   data-component="radiogroup"
-  role="radiogroup"
 >
   <div
     className="c1"
     data-component="radio-button-group"
-    role="group"
+    role="radiogroup"
   >
     <div
       className="c2"
@@ -459,8 +458,8 @@ exports[`RadioButton base renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="guid-12345-help"
-                aria-labelledby="guid-12345-label"
+                aria-describedby="guid-12345 help"
+                aria-labelledby="guid-12345 label"
                 checked={false}
                 className="c10 c11"
                 id="guid-12345"
