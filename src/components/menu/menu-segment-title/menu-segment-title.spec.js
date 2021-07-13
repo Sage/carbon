@@ -3,7 +3,7 @@ import { shallow, mount } from "enzyme";
 
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import MenuSegmentTitle from "./menu-segment-title.component";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import { MenuItem } from "..";
 import StyledTitle from "./menu-segment-title.style";
 import { baseTheme } from "../../../style/themes";

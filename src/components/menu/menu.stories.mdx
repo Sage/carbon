@@ -1,4 +1,5 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   Menu,
@@ -7,6 +8,7 @@ import {
   MenuDivider,
   MenuSegmentTitle,
   ScrollableBlock,
+  MenuFullscreen,
 } from ".";
 import Box from "../box";
 import NavigationBar from "../navigation-bar";
@@ -711,9 +713,11 @@ A title attribute is added to the item when using this prop, containing the full
 </Preview>
 
 ### Responsive composition
+This story is best viewed in the `canvas` view and by adjusting the size of the window to see the various Menu compositions 
+at the different breakpoints.
 
 <Preview>
-  <Story name="responsive composition">
+  <Story name="responsive composition" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const isBelowBreakpoint1 = useMediaQuery("(max-width: 1600px)");
       const isBelowBreakpoint2 = useMediaQuery("(max-width: 1300px)");
@@ -818,6 +822,107 @@ A title attribute is added to the item when using this prop, containing the full
   </Story>
 </Preview>
 
+### Fullscreen view
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will 
+trigger when the screen size is smaller than `1200px`
+
+<Preview>
+  <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [menuOpen1, setMenuOpen1] = useState(false);
+      const [menuOpen2, setMenuOpen2] = useState(false);
+      const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
+      const responsiveMenuItems = (startPosition, menu) => {
+        if (fullscreenViewBreakPoint) {
+          return [
+            <MenuItem onClick={menu === "1" ? () => setMenuOpen1(true) : () => setMenuOpen2(true)}>
+              Menu
+            </MenuItem>,
+            <MenuFullscreen
+              startPosition={startPosition}
+              isOpen={menu === "1" ? menuOpen1 : menuOpen2}
+              onClose={menu === "1" ? () => setMenuOpen1(false) : () => setMenuOpen2(false)}
+            >
+              <MenuItem href="#">
+                Menu Item One
+              </MenuItem>
+              <MenuItem onClick={() => {}} submenu="Menu Item Two">
+                <MenuItem href="#">
+                  Submenu Item One
+                </MenuItem>
+                <MenuItem href="#">
+                  Submenu Item Two
+                </MenuItem>
+              </MenuItem>
+              <MenuItem href="#">
+                Menu Item Three
+              </MenuItem>
+              <MenuItem href="#">
+                Menu Item Four
+              </MenuItem>
+              <MenuItem submenu="Menu Item Five">
+                <MenuItem href="#">
+                  Submenu Item One
+                </MenuItem>
+                <MenuItem href="#">
+                  Submenu Item Two
+                </MenuItem>
+              </MenuItem>
+              <MenuItem href="#">
+                Menu Item Six
+              </MenuItem>
+            </MenuFullscreen>
+          ];
+        }
+        return [
+          <MenuItem href="#">
+            Menu Item One
+          </MenuItem>,
+          <MenuItem submenu="Menu Item Two">
+            <MenuItem href="#">
+              Submenu Item One
+            </MenuItem>
+             <MenuItem href="#">
+              Submenu Item Two
+            </MenuItem>
+          </MenuItem>,
+          <MenuItem href="#">
+            Menu Item Three
+          </MenuItem>,
+          <MenuItem href="#">
+            Menu Item Four
+          </MenuItem>,
+          <MenuItem submenu="Menu Item Five">
+            <MenuItem href="#">
+              Submenu Item One
+            </MenuItem>
+             <MenuItem href="#">
+              Submenu Item Two
+            </MenuItem>
+          </MenuItem>,
+          <MenuItem href="#">
+            Menu Item Six
+          </MenuItem>
+        ];
+      };
+      return (
+        <>
+        <div style={{ minHeight: "150px" }}>
+          <Menu>
+            {React.Children.map(responsiveMenuItems("left", "1"), items => items)}
+          </Menu>
+        </div>
+         <div style={{ minHeight: "150px" }}>
+          <Menu menuType="dark">
+            {React.Children.map(responsiveMenuItems("right", "2"), items => items)}
+          </Menu>
+        </div>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### Menu
@@ -843,3 +948,7 @@ A title attribute is added to the item when using this prop, containing the full
 ### MenuSegmentTitle
 
 <Props of={MenuSegmentTitle} />
+
+### MenuFullscreen
+
+<Props of={MenuFullscreen} />
