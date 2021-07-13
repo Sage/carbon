@@ -16,6 +16,8 @@ const StyledMenuItemWrapper = styled.a`
     href,
     clickToOpen,
     maxWidth,
+    inFullscreenView,
+    as,
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -24,20 +26,24 @@ const StyledMenuItemWrapper = styled.a`
     position: relative;
     cursor: pointer;
     background-color: ${theme.menu.light.background};
-    max-width: inherit;
 
-    a,
-    button {
-      ${maxWidth &&
-      css`
-        box-sizing: border-box;
-        max-width: inherit;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        vertical-align: bottom;
-      `}
-    }
+    ${!inFullscreenView &&
+    css`
+      max-width: inherit;
+
+      a,
+      button {
+        ${maxWidth &&
+        css`
+          box-sizing: border-box;
+          max-width: inherit;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          vertical-align: bottom;
+        `}
+      }
+    `}
 
     && a:focus,
     && button:focus {
@@ -276,6 +282,28 @@ const StyledMenuItemWrapper = styled.a`
     ${isSearch &&
     css`
       padding: 2px 16px;
+    `}
+
+    ${inFullscreenView &&
+    css`
+      ${as === "div" &&
+      css`
+        width: 100vw;
+        cursor: default;
+        padding: 0 16px;
+
+        :hover {
+          background: transparent;
+        }
+      `}
+
+      a,
+      ${LinkStyle} a,
+      button,
+      ${LinkStyle} button {
+        width: 100vw;
+        box-sizing: border-box;
+      }
     `}
   `}
 `;

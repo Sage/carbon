@@ -3,7 +3,7 @@ import { shallow, mount } from "enzyme";
 
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import MenuDivider from "./menu-divider.component";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import { MenuItem } from "..";
 import { baseTheme } from "../../../style/themes";
 import StyledDivider from "./menu-divider.style";

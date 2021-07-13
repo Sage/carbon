@@ -5,7 +5,7 @@ import { MenuItem, SubmenuBlock } from "..";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import StyledSubmenuBlock from "./submenu-block.style";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 
