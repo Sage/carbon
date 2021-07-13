@@ -1,3 +1,10 @@
+### [77.11.1](https://github.com/Sage/carbon/compare/v77.11.0...v77.11.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* **radio-button, checkable-input:** fix invalid values in ARIA attributes ([284b578](https://github.com/Sage/carbon/commit/284b578619907016791452bfee4850dfaa454fd1))
+
 ## [77.11.0](https://github.com/Sage/carbon/compare/v77.10.1...v77.11.0) (2021-07-12)
 
 
