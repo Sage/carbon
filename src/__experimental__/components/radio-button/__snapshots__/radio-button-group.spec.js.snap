@@ -210,7 +210,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 <fieldset
   className="c0"
   data-component="radiogroup"
-  role="radiogroup"
 >
   <legend
     className="c1"
@@ -224,7 +223,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   <div
     className="c3"
     data-component="radio-button-group"
-    role="group"
+    role="radiogroup"
   >
     <div
       className="c4"
@@ -244,8 +243,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="rId-0-help"
-                aria-labelledby="rId-0-label"
+                aria-describedby="rId-0 help"
+                aria-labelledby="rId-0 label"
                 checked={false}
                 className="c12 c13"
                 id="rId-0"
@@ -305,8 +304,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="rId-1-help"
-                aria-labelledby="rId-1-label"
+                aria-describedby="rId-1 help"
+                aria-labelledby="rId-1 label"
                 checked={false}
                 className="c12 c13"
                 id="rId-1"
