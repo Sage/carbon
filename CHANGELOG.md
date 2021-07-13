@@ -1,3 +1,10 @@
+### [77.11.2](https://github.com/Sage/carbon/compare/v77.11.1...v77.11.2) (2021-07-13)
+
+
+### Bug Fixes
+
+* **flat-table-row:** reduce z-index value when onclick passed to row ([a7d1a10](https://github.com/Sage/carbon/commit/a7d1a105f2a254e83d0e8a3456292965d5cdcbfd))
+
 ### [77.11.1](https://github.com/Sage/carbon/compare/v77.11.0...v77.11.1) (2021-07-13)
 
 
