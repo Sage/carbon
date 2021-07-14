@@ -10,33 +10,40 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const IconButton = React.forwardRef(({ onAction, children, ...rest }, ref) => {
-  const marginProps = filterStyledSystemMarginProps(rest);
-  const onKeyDown = (e) => {
-    if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
-      e.preventDefault();
+const IconButton = React.forwardRef(
+  (
+    { "aria-label": ariaLabel, onAction, children, ...rest },
+
+    ref
+  ) => {
+    const marginProps = filterStyledSystemMarginProps(rest);
+    const onKeyDown = (e) => {
+      if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
+        e.preventDefault();
+        onAction(e);
+      } else {
+        e.stopPropagation();
+      }
+    };
+
+    const handleOnAction = (e) => {
       onAction(e);
-    } else {
-      e.stopPropagation();
-    }
-  };
+    };
 
-  const handleOnAction = (e) => {
-    onAction(e);
-  };
-
-  return (
-    <StyledIconButton
-      {...rest}
-      onKeyDown={onKeyDown}
-      onClick={handleOnAction}
-      ref={ref}
-      {...marginProps}
-    >
-      {children}
-    </StyledIconButton>
-  );
-});
+    return (
+      <StyledIconButton
+        {...rest}
+        aria-label={ariaLabel}
+        onKeyDown={onKeyDown}
+        onClick={handleOnAction}
+        ref={ref}
+        {...marginProps}
+      >
+        {children}
+      </StyledIconButton>
+    );
+  }
+);
 
 IconButton.propTypes = {
   ...marginPropTypes,
@@ -46,6 +53,8 @@ IconButton.propTypes = {
   }).isRequired,
   /** Callback */
   onAction: PropTypes.func.isRequired,
+  /** Prop to specify the aria-label of the icon-button component */
+  "aria-label": PropTypes.string,
 };
 
 export default IconButton;
