@@ -164,21 +164,21 @@ Padding can be set on each cell individually by using the spacing props syntax. 
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader px={5} py={2}>
+          <FlatTableHeader px={1} py={2}>
             Name
           </FlatTableHeader>
-          <FlatTableHeader py={2}>Location</FlatTableHeader>
-          <FlatTableHeader py={2}>Relationship Status</FlatTableHeader>
-          <FlatTableHeader py={2}>Dependents</FlatTableHeader>
+          <FlatTableHeader px={2} py={2}>Location</FlatTableHeader>
+          <FlatTableHeader px={3} py={2}>Relationship Status</FlatTableHeader>
+          <FlatTableHeader px={4} py={2}>Dependents</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
         {[1, 2, 3, 4].map((key) => (
           <FlatTableRow key={key}>
-            <FlatTableCell px={5}>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
+            <FlatTableCell px={key}>John Doe</FlatTableCell>
+            <FlatTableCell pl={key}>London</FlatTableCell>
+            <FlatTableCell p={key}>Single</FlatTableCell>
+            <FlatTableCell pl={key}>5</FlatTableCell>
           </FlatTableRow>
         ))}
       </FlatTableBody>
