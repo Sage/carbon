@@ -29,25 +29,25 @@ exports[`Switch base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c25 {
+.c1 .c33 {
   padding-top: 0;
   width: auto;
 }
 
-.c1 .c25 .c26,
-.c1 .c25 .c27 {
+.c1 .c33 .c34,
+.c1 .c33 .c35 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c25 .c26:hover,
-.c1 .c25 .c27:hover,
-.c1 .c25 .c26:focus,
-.c1 .c25 .c27:focus {
+.c1 .c33 .c34:hover,
+.c1 .c33 .c35:hover,
+.c1 .c33 .c34:focus,
+.c1 .c33 .c35:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c24 {
+.c1 .c32 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -169,10 +169,54 @@ exports[`Switch base theme renders as expected 1`] = `
   z-index: 1;
 }
 
-.c11 .c27 {
+.c11 .c35 {
   position: absolute;
   right: -30px;
   height: 100%;
+}
+
+.c0 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c0 .c6,
+.c0 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c0 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c0 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c0 .c32 {
+  margin-left: 0;
+}
+
+.c0 .c33 {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.c0 .c33 .c35 {
+  position: relative;
+  display: inline-block;
 }
 
 .c17 .c4 {
@@ -197,9 +241,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c17 .c8:not([disabled]):focus + .c10,
-.c17 .c8:not([disabled]):hover + .c10 {
+.c17 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c17 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c18 .c4 {
@@ -224,9 +271,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c18 .c8:not([disabled]):focus + .c10,
-.c18 .c8:not([disabled]):hover + .c10 {
+.c18 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c18 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c19 .c4 {
@@ -251,9 +301,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c19 .c8:not([disabled]):focus + .c10,
-.c19 .c8:not([disabled]):hover + .c10 {
+.c19 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c19 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c19 .c6 {
@@ -296,9 +349,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c20 .c8:not([disabled]):focus + .c10,
-.c20 .c8:not([disabled]):hover + .c10 {
+.c20 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c20 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c21 .c4 {
@@ -323,9 +379,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c21 .c8:not([disabled]):focus + .c10,
-.c21 .c8:not([disabled]):hover + .c10 {
+.c21 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c21 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c21 .c6 {
@@ -367,9 +426,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c22 .c8:not([disabled]):focus + .c10,
-.c22 .c8:not([disabled]):hover + .c10 {
+.c22 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c22 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c22 .c6,
@@ -401,9 +463,12 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c23 .c8:not([disabled]):focus + .c10,
-.c23 .c8:not([disabled]):hover + .c10 {
+.c23 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
+}
+
+.c23 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
 }
 
 .c23 .c6 {
@@ -431,7 +496,7 @@ exports[`Switch base theme renders as expected 1`] = `
   width: 78px;
 }
 
-.c0 .c4 {
+.c24 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -441,8 +506,8 @@ exports[`Switch base theme renders as expected 1`] = `
   flex-flow: row wrap;
 }
 
-.c0 .c6,
-.c0 .c8 {
+.c24 .c6,
+.c24 .c8 {
   border: none;
   box-sizing: border-box;
   height: 24px;
@@ -453,35 +518,231 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c0 .c8:not([disabled]):focus + .c10,
-.c0 .c8:not([disabled]):hover + .c10 {
+.c24 .c8:not([disabled]):focus + .c10 {
   outline: solid 3px #FFB500;
 }
 
-.c0 .c24 {
+.c24 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c25 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c25 .c6,
+.c25 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
   margin-left: 0;
 }
 
-.c0 .c25 {
-  padding: 0;
-  margin-bottom: 8px;
+.c25 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
 }
 
-.c0 .c25 .c27 {
-  position: relative;
-  display: inline-block;
+.c25 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c26 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c26 .c6,
+.c26 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c26 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c26 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c27 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c27 .c6,
+.c27 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c27 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c27 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c28 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c28 .c6,
+.c28 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c28 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c28 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c29 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c29 .c6,
+.c29 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c29 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c29 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c30 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c30 .c6,
+.c30 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c30 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c30 .c8:not([disabled]):hover + .c10 {
+  background-color: #99ADB6;
+}
+
+.c31 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c31 .c6,
+.c31 .c8 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.c31 .c8:not([disabled]):focus + .c10 {
+  outline: solid 3px #FFB500;
+}
+
+.c31 .c8:not([disabled]):hover + .c10 {
+  background-color: #006300;
 }
 
 <div
   checked={false}
   className="c0"
   data-component="Switch"
-  name="my-switch"
 >
   <div
-    checked={false}
     className="c1"
-    name="my-switch"
   >
     <div
       className="c2 c3"
@@ -494,8 +755,8 @@ exports[`Switch base theme renders as expected 1`] = `
         >
           <input
             aria-checked={false}
-            aria-describedby="guid-12345-help"
-            aria-labelledby="guid-12345-label"
+            aria-describedby="guid-12345 help"
+            aria-labelledby="guid-12345 label"
             checked={false}
             className="c8 c9"
             id="guid-12345"

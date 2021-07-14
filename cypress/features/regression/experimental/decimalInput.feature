@@ -30,11 +30,17 @@ Feature: Decimal input component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
-  Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
-    Given I open default "Experimental Decimal Input Test" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
-    When I set Decimal input to <label>
-    Then Decimal input is not set to <label>
+  Scenario Outline: Check Decimal component input field will accept characters to <input>
+    Given I open "Experimental Decimal Input Test" component page "default" in no iframe
+    When I set Decimal input to the "<input>"
+    Then Decimal Input is set to "<input>"
     Examples:
-      | label                        | nameOfObject          |
-      | mp150ú¿¡üßä                  | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
+      | input                        |
+      | mpú¿¡üßä                     |
+      | !@#$%^*()_+=~[];:?{}&\"'<>´^ |
+
+  @positive
+  Scenario: Check Decimal component input field will accept white-space only
+    Given I open "Experimental Decimal Input Test" component page "default" in no iframe
+    When I set Decimal input to a string with only white-space
+    Then Decimal Input is set to white-space only

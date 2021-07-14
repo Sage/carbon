@@ -81,8 +81,6 @@ export const StyledPortraitInitials = styled.div`
     css`
       border: 1px solid ${theme.portrait.border};
     `}
-    
-  ${margin}
 `;
 
 StyledPortraitInitials.propTypes = {
@@ -98,8 +96,6 @@ StyledPortraitInitials.defaultProps = {
 
 export const StyledPortraitInitialsImg = styled.img`
   display: block;
-
-  ${margin}
 `;
 
 StyledPortraitInitialsImg.propTypes = {
@@ -112,8 +108,6 @@ export const StyledPortraitGravatar = styled.img`
   vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
-
-  ${margin}
 `;
 
 StyledPortraitGravatar.propTypes = {
@@ -131,8 +125,6 @@ export const StyledCustomImg = styled.img`
   display: block;
   ${stylingForSize}
   ${stylingForShape}
-
-  ${margin}
 `;
 
 StyledCustomImg.propTypes = {
@@ -157,8 +149,6 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
         border: 1px dashed ${theme.portrait.border};
       `}
   }
-
-  ${margin}
 `;
 
 StyledIcon.propTypes = {
@@ -173,5 +163,15 @@ StyledIcon.defaultProps = {
   darkBackground: false,
   size: "M",
   shape: "square",
+  theme: BaseTheme,
+};
+
+export const StyledPortraitContainer = styled.div`
+  display: inline-block;
+  ${({ onClick }) => onClick && "cursor: pointer"}
+  ${margin}
+`;
+
+StyledPortraitContainer.defaultProps = {
   theme: BaseTheme,
 };

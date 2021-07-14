@@ -18,6 +18,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import { baseTheme } from "../../../style/themes";
@@ -30,6 +31,10 @@ jest.mock("../../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Switch", () => {
+  describe("Styled System", () => {
+    testStyledSystemMargin((props) => <Switch {...props} />);
+  });
+
   describe("uncontrolled behaviour", () => {
     it("sets proper default internal state", () => {
       const wrapper = render({ defaultChecked: true }, mount);
@@ -56,12 +61,12 @@ describe("Switch", () => {
 
   describe("controlled behaviour", () => {
     it("passes checked value to the CheckableInput", () => {
-      const wrapper = render({ checked: true }, mount);
+      const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(true);
     });
 
     it("reacts properly to checked prop change", () => {
-      const wrapper = render({ checked: true }, mount);
+      const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(true);
       act(() => {
         wrapper.setProps({ checked: false });
@@ -70,7 +75,7 @@ describe("Switch", () => {
       expect(wrapper.find(CheckableInput).prop("checked")).toBe(false);
     });
 
-    it("passess event to the provided onChange prop when change is triggered", () => {
+    it("passes event to the provided onChange prop when change is triggered", () => {
       const onChangeMock = jest.fn();
       const event = {
         target: {
@@ -110,12 +115,12 @@ describe("Switch", () => {
 
     describe("default translation", () => {
       it("has default translation for on", () => {
-        const wrapper = render({ checked: true }, mount);
+        const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("ON");
       });
 
       it("has default translation for off", () => {
-        const wrapper = render({ checked: false }, mount);
+        const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("OFF");
       });
     });
@@ -126,12 +131,12 @@ describe("Switch", () => {
       });
 
       it("can use i18n for on", () => {
-        const wrapper = render({ checked: true }, mount);
+        const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("SUR");
       });
 
       it("can use i18n for off", () => {
-        const wrapper = render({ checked: false }, mount);
+        const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("DE");
       });
     });
@@ -543,22 +548,38 @@ describe("Switch", () => {
     (themeName, theme) => {
       describe("default", () => {
         const wrapper = renderWithTheme({}, theme).toJSON();
-        const expectedOutlineStyle = {
-          outline: `solid 3px ${theme.colors.focus}`,
-        };
 
-        describe.each(["hover", "focus"])(
-          "and %s is applied to the element",
-          (selector) => {
-            it("then the correct outline should be rendered", () => {
-              assertStyleMatch(expectedOutlineStyle, wrapper, {
+        describe("and hover is applied to the element", () => {
+          it("then the correct background should be rendered", () => {
+            assertStyleMatch(
+              {
+                backgroundColor: theme.switch.offHover,
+              },
+              wrapper,
+              {
                 modifier: css`
-                  ${`${HiddenCheckableInputStyle}:not([disabled]):${selector} + ${StyledSwitchSlider}`}
+                  ${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}
                 `,
-              });
-            });
-          }
-        );
+              }
+            );
+          });
+        });
+
+        describe("and focus is applied to the element", () => {
+          it("then the correct outline should be rendered", () => {
+            assertStyleMatch(
+              {
+                outline: `solid 3px ${theme.colors.focus}`,
+              },
+              wrapper,
+              {
+                modifier: css`
+                  ${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}
+                `,
+              }
+            );
+          });
+        });
       });
     }
   );

@@ -3,9 +3,9 @@ import propTypes from "@styled-system/prop-types";
 import PropTypes from "prop-types";
 import { StyledDt } from "./definition-list.style";
 
-const Dt = ({ pr = 3, children, mb = 2, ...props }) => {
+const Dt = ({ pr = 3, children, mb = 2, ...rest }) => {
   return (
-    <StyledDt data-element="dt" mb={mb} pr={pr} {...props}>
+    <StyledDt data-element="dt" mb={mb} pr={pr} {...rest}>
       {children}
     </StyledDt>
   );
@@ -13,8 +13,8 @@ const Dt = ({ pr = 3, children, mb = 2, ...props }) => {
 
 Dt.propTypes = {
   ...propTypes.space,
-  /** prop to render string for `<Dt />` */
-  children: PropTypes.string.isRequired,
+  /** Child elements */
+  children: PropTypes.node.isRequired,
 };
 
 export default Dt;

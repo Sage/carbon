@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import ButtonToggle from '../button-toggle';
-import ButtonToggleGroup from './button-toggle-group.component';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import ButtonToggle from "../button-toggle";
+import ButtonToggleGroup from "./button-toggle-group.component";
 
 <Meta title="Button Toggle Group" />
 
@@ -11,49 +13,49 @@ import ButtonToggleGroup from './button-toggle-group.component';
 Press one of the buttons to make selection. ButtonToggleGroup component should be used when user has to make a choice between a small number of options.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
 
 To use the `ButtonToggleGroup` component you have to import two components: `<ButtonToggleGroup />` and `<ButtonToggle />`:
 
 ```javascript
-import ButtonToggle from 'carbon-react/lib/components/button-toggle';
-import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
+import ButtonToggle from "carbon-react/lib/components/button-toggle";
+import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ```
 
 ## Designer Notes
+
 - Always insert `ButtonToggle` Components inside the `ButtonToggleGroup`.
 - An icon could be added to make the meaning of an option clearer.
 
 ## Examples
+
 ### Default
 
 <Preview>
-  <Story name='default' parameters={{ info: { disable: true }}} >
+  <Story name="default" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
-      id='button-toggle-group-default-id'
-      name='button-toggle-group-default'
-      label='Default example'
-      labelHelp='help message'
-      fieldHelp='field help message'
-      onChange={ action('onChange') }
+      id="button-toggle-group-default-id"
+      name="button-toggle-group-default"
+      label="Default example"
+      labelHelp="help message"
+      fieldHelp="field help message"
+      onChange={action("onChange")}
     >
-      <ButtonToggle
-        key='foo'
-        value='foo'
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        key='bar'
-        value='bar'
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        key='baz'
-        value='baz'
-      >Baz</ButtonToggle>
+      <ButtonToggle key="foo" value="foo">
+        Foo
+      </ButtonToggle>
+      <ButtonToggle key="bar" value="bar">
+        Bar
+      </ButtonToggle>
+      <ButtonToggle key="baz" value="baz">
+        Baz
+      </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -61,35 +63,32 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 ### Controlled
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="controlled" parameters={{ info: { disable: true } }}>
     {() => {
-      const [value, setValue] = useState('bar');
+      const [value, setValue] = useState("bar");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action('value set');
-      };
+        action("value set");
+      }
       return (
         <ButtonToggleGroup
-          id='button-toggle-group-controlled-id'
-          name='button-toggle-group-controlled'
-          label='Controlled example'
-          labelHelp='help message'
-          fieldHelp='field help mesage'
-          onChange={ onChangeHandler }
-          value={ value }
+          id="button-toggle-group-controlled-id"
+          name="button-toggle-group-controlled"
+          label="Controlled example"
+          labelHelp="help message"
+          fieldHelp="field help mesage"
+          onChange={onChangeHandler}
+          value={value}
         >
-          <ButtonToggle
-            key='foo'
-            value='foo'
-          >Foo</ButtonToggle>
-          <ButtonToggle
-            key='bar'
-            value='bar'
-          >Bar</ButtonToggle>
-          <ButtonToggle
-            key='baz'
-            value='baz'
-          >Baz</ButtonToggle>
+          <ButtonToggle key="foo" value="foo">
+            Foo
+          </ButtonToggle>
+          <ButtonToggle key="bar" value="bar">
+            Bar
+          </ButtonToggle>
+          <ButtonToggle key="baz" value="baz">
+            Baz
+          </ButtonToggle>
         </ButtonToggleGroup>
       );
     }}
@@ -99,30 +98,24 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 ### Grouped
 
 <Preview>
-  <Story name='grouped' parameters={{ info: { disable: true }}} >
+  <Story name="grouped" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
-      id='button-toggle-group-grouped-id'
-      name='button-toggle-group-grouped'
-      label='Grouped example'
-      labelHelp='help message'
-      fieldHelp='field help mesage'
-      onChange={ () => {} }
+      id="button-toggle-group-grouped-id"
+      name="button-toggle-group-grouped"
+      label="Grouped example"
+      labelHelp="help message"
+      fieldHelp="field help mesage"
+      onChange={() => {}}
     >
-      <ButtonToggle
-        key='foo'
-        value='foo'
-        grouped
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        key='bar'
-        value='bar'
-        grouped
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        key='baz'
-        value='baz'
-        grouped
-      >Baz</ButtonToggle>
+      <ButtonToggle key="foo" value="foo" grouped>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle key="bar" value="bar" grouped>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle key="baz" value="baz" grouped>
+        Baz
+      </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -130,28 +123,25 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 ### With field help inline
 
 <Preview>
-  <Story name='fieldhelp inline' parameters={{ info: { disable: true }}} >
+  <Story name="fieldhelp inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
-      id='button-toggle-group-help-inline-id'
-      name='button-toggle-group-help-inline'
-      label='FieldHelp inline example'
-      labelHelp='help message'
-      fieldHelp='field help mesage'
+      id="button-toggle-group-help-inline-id"
+      name="button-toggle-group-help-inline"
+      label="FieldHelp inline example"
+      labelHelp="help message"
+      fieldHelp="field help mesage"
       fieldHelpInline
-      onChange={ () => {} }
+      onChange={() => {}}
     >
-      <ButtonToggle
-        key='foo'
-        value='foo'
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        key='bar'
-        value='bar'
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        key='baz'
-        value='baz'
-      >Baz</ButtonToggle>
+      <ButtonToggle key="foo" value="foo">
+        Foo
+      </ButtonToggle>
+      <ButtonToggle key="bar" value="bar">
+        Bar
+      </ButtonToggle>
+      <ButtonToggle key="baz" value="baz">
+        Baz
+      </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -159,28 +149,25 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 ### With label inline
 
 <Preview>
-  <Story name='label inline' parameters={{ info: { disable: true }}} >
+  <Story name="label inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
-      id='button-toggle-group-label-inline-id'
-      name='button-toggle-group-label-inline'
-      label='Label inline example'
-      labelHelp='help message'
-      fieldHelp='field help mesage'
+      id="button-toggle-group-label-inline-id"
+      name="button-toggle-group-label-inline"
+      label="Label inline example"
+      labelHelp="help message"
+      fieldHelp="field help mesage"
       labelInline
-      onChange={ () => {} }
+      onChange={() => {}}
     >
-      <ButtonToggle
-        key='foo'
-        value='foo'
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        key='bar'
-        value='bar'
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        key='baz'
-        value='baz'
-      >Baz</ButtonToggle>
+      <ButtonToggle key="foo" value="foo">
+        Foo
+      </ButtonToggle>
+      <ButtonToggle key="bar" value="bar">
+        Bar
+      </ButtonToggle>
+      <ButtonToggle key="baz" value="baz">
+        Baz
+      </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -189,7 +176,7 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 
 ### Props of the ButtonToggleGroup
 
-<Props of={ButtonToggleGroup} />
+<StyledSystemProps of={ButtonToggleGroup} margin noHeader />
 
 ### Props of the ButtonToggle
 

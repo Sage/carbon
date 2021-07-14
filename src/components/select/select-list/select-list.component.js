@@ -13,6 +13,7 @@ import {
   StyledPopoverContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
+  StyledSelectListTableBody,
 } from "./select-list.style";
 import Popover from "../../../__internal__/popover";
 import OptionRow from "../option-row/option-row.component";
@@ -57,6 +58,7 @@ const SelectList = React.forwardRef(
       onListScrollBottom,
       multiColumn,
       tableHeader,
+      loaderDataRole,
       ...listProps
     },
     listContainerRef
@@ -64,9 +66,10 @@ const SelectList = React.forwardRef(
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [listHeight, setListHeight] = useState(0);
     const [listWidth, setListWidth] = useState(null);
-    const [placement, setPlacement] = useState("bottom");
+    const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
+    const tableRef = useRef();
     const listActionButtonRef = useRef();
 
     const optionRefs = useRef(
@@ -78,9 +81,12 @@ const SelectList = React.forwardRef(
       }).filter((child) => child)
     );
 
-    const setPlacementCallback = useCallback((popper) => {
-      setPlacement(popper.placement);
-    }, []);
+    const setPlacementCallback = useCallback(
+      (popper) => {
+        placement.current = popper.placement;
+      },
+      [placement]
+    );
 
     const anchorRef = useMemo(
       () => ({
@@ -266,13 +272,21 @@ const SelectList = React.forwardRef(
       [children, currentOptionsListIndex, handleSelect, isLoading]
     );
 
-    useLayoutEffect(() => {
+    const assignListWidth = useCallback(() => {
       if (!disablePortal && anchorElement) {
         const inputBoundingRect = anchorElement.getBoundingClientRect();
         const width = `${inputBoundingRect.width}px`;
         setListWidth(width);
       }
-    }, [disablePortal, anchorElement]);
+    }, [anchorElement, disablePortal]);
+
+    useLayoutEffect(() => {
+      assignListWidth();
+      window.addEventListener("resize", assignListWidth);
+      return () => {
+        window.removeEventListener("resize", assignListWidth);
+      };
+    }, [assignListWidth]);
 
     useLayoutEffect(() => {
       let newHeight;
@@ -321,11 +335,15 @@ const SelectList = React.forwardRef(
 
         const indexOfMatch = getIndexOfMatch(match.props.value);
 
-        updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
+        updateListScrollTop(
+          indexOfMatch,
+          multiColumn ? tableRef.current : listRef.current,
+          optionRefs.current
+        );
 
         return indexOfMatch;
       });
-    }, [childrenList, filterText, getIndexOfMatch, lastFilter]);
+    }, [childrenList, filterText, getIndexOfMatch, lastFilter, multiColumn]);
 
     useEffect(() => {
       if (!highlightedValue) {
@@ -334,8 +352,12 @@ const SelectList = React.forwardRef(
       const indexOfMatch = getIndexOfMatch(highlightedValue);
 
       setCurrentOptionsListIndex(indexOfMatch);
-      updateListScrollTop(indexOfMatch, listRef.current, optionRefs.current);
-    }, [childrenList, getIndexOfMatch, highlightedValue]);
+      updateListScrollTop(
+        indexOfMatch,
+        multiColumn ? tableRef.current : listRef.current,
+        optionRefs.current
+      );
+    }, [childrenList, getIndexOfMatch, highlightedValue, multiColumn]);
 
     useEffect(() => {
       if (isLoading && currentOptionsListIndex === lastOptionIndex) {
@@ -354,7 +376,7 @@ const SelectList = React.forwardRef(
 
     const loader = () => (
       <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>
-        <Loader />
+        <Loader data-role={loaderDataRole} />
       </StyledSelectLoaderContainer>
     );
 
@@ -366,7 +388,9 @@ const SelectList = React.forwardRef(
           <StyledSelectListTableHeader>
             {tableHeader}
           </StyledSelectListTableHeader>
-          <tbody>{childrenWithListProps}</tbody>
+          <StyledSelectListTableBody ref={tableRef}>
+            {childrenWithListProps}
+          </StyledSelectListTableBody>
         </StyledSelectListTable>
       );
     }
@@ -387,7 +411,7 @@ const SelectList = React.forwardRef(
           <StyledSelectListContainer
             data-element="select-list-wrapper"
             height={listHeight}
-            placement={placement}
+            placement={placement.current}
             {...listProps}
           >
             <StyledSelectList
@@ -399,6 +423,7 @@ const SelectList = React.forwardRef(
               ref={listRef}
               tabIndex="0"
               isLoading={isLoading}
+              multiColumn={multiColumn}
             >
               {selectListContent}
               {isLoading && loader()}
@@ -448,6 +473,8 @@ SelectList.propTypes = {
   tableHeader: PropTypes.node,
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn: PropTypes.bool,
+  /** Data role for loader component */
+  loaderDataRole: PropTypes.string,
 };
 
 export default SelectList;

@@ -18,33 +18,33 @@ Feature: Simple Color Picker component
 
   @positive
   Scenario: When on last color, going forward selects first color
-    When I press rightarrow on the 10 color
+    When I press rightarrow on the 10 color in IFrame
     Then Experimental Simple Color Picker 1 element was picked up
 
   @positive
   Scenario: When on first color, going backward selects last color
-    When I press leftarrow on the 1 color
+    When I press leftarrow on the 1 color in IFrame
     Then Experimental Simple Color Picker 10 element was picked up
 
   @positive
   Scenario: Left arrow moves selection left
-    When I press leftarrow on the 3 color
+    When I press leftarrow on the 3 color in IFrame
     Then Experimental Simple Color Picker 2 element was picked up
 
   @positive
   Scenario: Right arrow moves selection right
-    When I press rightarrow on the 3 color
+    When I press rightarrow on the 3 color in IFrame
     Then Experimental Simple Color Picker 4 element was picked up
 
   @positive
   Scenario: Up arrow moves selection up
     Given I select 6 color
-    When I press uparrow on the 6 color
+    When I press uparrow on the 6 color in IFrame
     Then Experimental Simple Color Picker 1 element was picked up
 
   @positive
   Scenario: Down arrow moves selection down
-    When I press downarrow on the 3 color
+    When I press downarrow on the 3 color in IFrame
     Then Experimental Simple Color Picker 8 element was picked up
 
   @positive

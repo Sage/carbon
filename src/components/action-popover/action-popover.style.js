@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider, css, withTheme } from "styled-components";
+import { margin } from "styled-system";
+
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
@@ -35,7 +37,8 @@ const MenuItemFactory = (button) => styled(button)`
     disabled ? theme.menu.itemColorDisabled : theme.menu.itemColor};
   font-size: 14px;
   font-weight: 700;
-  text-align: left;
+  justify-content: ${({ horizontalAlignment }) =>
+    horizontalAlignment === "left" ? "flex-start" : "flex-end"};
   &:focus,
   &:hover {
     ${({ disabled }) =>
@@ -80,6 +83,7 @@ const MenuButton = styled.div`
   }
   width: fit-content;
   margin: auto;
+  ${margin}
   ${({ isOpen, theme }) => isOpen && `background-color: ${theme.colors.white}`}
   &:hover, &:focus {
     background-color: ${({ theme }) => theme.colors.white};
@@ -113,7 +117,11 @@ const iconThemeProviderFactory = (Component, themeFn) =>
 
 const ButtonIcon = iconThemeProviderFactory(Icon, (palette) => palette.slate);
 const MenuItemIcon = styled(iconThemeProviderFactory(Icon, () => "inherit"))`
-  ${({ theme }) => `padding-right: ${theme.spacing}px;`}
+  ${({ theme, horizontalAlignment }) => css`
+    ${horizontalAlignment === "right"
+      ? "padding-left"
+      : "padding-right"}: ${theme.spacing}px;
+  `}
 `;
 
 const SubMenuItemIcon = styled(ButtonIcon)`

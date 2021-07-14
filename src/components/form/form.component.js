@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import ElementResize from "../../utils/helpers/element-resize";
-import FormSummary from "./form-summary.component";
+import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
   StyledFormFooter,
@@ -11,7 +12,7 @@ import {
   StyledRightButtons,
 } from "./form.style";
 
-const SCROLL_THROTTLE = 100;
+const SCROLL_THROTTLE = 50;
 
 const Form = ({
   children,
@@ -23,6 +24,7 @@ const Form = ({
   onSubmit,
   buttonAlignment = "right",
   stickyFooter,
+  dialogRef,
   fieldSpacing = 3,
   noValidate = true,
   ...rest
@@ -35,11 +37,15 @@ const Form = ({
 
   const checkStickyFooter = useCallback(
     throttle(() => {
-      const footerHeight = 40;
       const { bottom } = formRef.current.getBoundingClientRect();
+      let isBottomBelowScreen;
 
-      const isBottomBelowScreen =
-        bottom - footerHeight / 2 > window.innerHeight;
+      if (dialogRef) {
+        isBottomBelowScreen =
+          bottom > dialogRef.current.getBoundingClientRect().bottom;
+      } else {
+        isBottomBelowScreen = bottom > window.innerHeight;
+      }
 
       if (isBottomBelowScreen) {
         setIsFooterSticky(true);
@@ -116,6 +122,7 @@ const Form = ({
 };
 
 Form.propTypes = {
+  ...styledSystemPropTypes.space,
   /** Alignment of buttons */
   buttonAlignment: PropTypes.oneOf(["left", "right"]),
 
@@ -148,6 +155,12 @@ Form.propTypes = {
 
   /** Disable HTML5 validation */
   noValidate: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   * Used to detect if FormFooter should be sticky when used in Dialog component
+   */
+  dialogRef: PropTypes.shape({ current: PropTypes.any }),
 };
 
 export default Form;

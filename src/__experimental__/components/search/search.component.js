@@ -1,19 +1,29 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import StyledSearch, {
   StyledSearchButton,
   StyledButtonIcon,
 } from "./search.style";
+import tagComponent from "../../../utils/helpers/tags";
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Icon from "../../../components/icon";
 import Textbox from "../textbox";
 import Button from "../../../components/button";
 import Events from "../../../utils/helpers/events";
 
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
 const Search = ({
   defaultValue,
   onChange,
   onClick,
+  onFocus,
+  onBlur,
+  onKeyDown,
   value,
   id,
   name,
@@ -23,6 +33,7 @@ const Search = ({
   placeholder,
   variant = "default",
   "aria-label": ariaLabel = "search",
+  inputRef,
   ...rest
 }) => {
   const isControlled = value !== undefined;
@@ -41,7 +52,10 @@ const Search = ({
     const isSearchValueEmpty = !isControlled
       ? searchValue.length === 0
       : value.length === 0;
-    const isFocusedOrActive = isFocused || searchIsActive;
+    const isFocusedOrActive =
+      isFocused ||
+      searchIsActive ||
+      inputRef?.current === document.activeElement;
     setSearchIsActive(
       !isControlled
         ? searchValue.length >= threshold
@@ -69,6 +83,7 @@ const Search = ({
     searchIsActive,
     threshold,
     searchButton,
+    inputRef,
   ]);
 
   const handleChange = (e) => {
@@ -113,6 +128,10 @@ const Search = ({
     }
   };
 
+  const handleMouseDown = (ev) => {
+    ev.preventDefault();
+  };
+
   const handleBlur = () => {
     setIsFocused(false);
   };
@@ -123,35 +142,49 @@ const Search = ({
     }
   };
 
+  const assignInput = (input) => {
+    if (inputRef) {
+      inputRef.current = input.current;
+    }
+  };
+
   return (
     <StyledSearch
-      searchWidth={searchWidth}
-      showSearchButton={searchButton}
-      onFocus={handleOnFocus}
-      onClick={handleOnFocus}
-      onBlur={handleBlur}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
       isFocused={isFocused}
+      searchWidth={searchWidth}
       searchIsActive={searchIsActive}
-      id={id}
-      data-component="search"
-      name={name}
-      variant={variant}
       searchHasValue={
         !isControlled
           ? searchValue && searchValue.length
           : value && value.length
       }
+      showSearchButton={searchButton}
+      variant={variant}
+      mb={0}
+      {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("search", rest)}
+      id={id}
+      onFocus={handleOnFocus}
+      onClick={handleOnFocus}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      name={name}
+      {...rest}
     >
       <Textbox
-        {...rest}
         placeholder={placeholder}
         value={!isControlled ? searchValue : value}
         inputIcon={iconType}
         iconTabIndex={iconTabIndex}
         iconOnClick={handleIconClick}
+        iconOnMouseDown={handleMouseDown}
         aria-label={ariaLabel}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        inputRef={assignInput}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -171,6 +204,8 @@ const Search = ({
 };
 
 Search.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Prop for `uncontrolled` use */
   defaultValue: PropTypes.string,
   /** Prop for `controlled` use */
@@ -184,9 +219,11 @@ Search.propTypes = {
   onKeyDown: PropTypes.func,
   /** Prop boolean to state whether the `search` icon renders */
   searchButton: PropTypes.bool,
-  /** Prop for specifing an input width length.
+  /** Prop for specifying an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%' */
   searchWidth: PropTypes.string,
+  /** Prop for `onFocus` events */
+  onFocus: PropTypes.func,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `id` */
@@ -211,6 +248,12 @@ Search.propTypes = {
   variant: PropTypes.oneOf(["default", "dark"]),
   /** Prop to specify the aria-label of the search component */
   "aria-label": PropTypes.string,
+  /**
+   * @private
+   * @ignore
+   * A callback to retrieve the input reference
+   */
+  inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
 export default Search;

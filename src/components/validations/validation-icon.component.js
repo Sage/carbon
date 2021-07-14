@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import Icon from "../icon";
 import ValidationIconStyle from "./validation-icon.style";
@@ -8,6 +9,11 @@ import {
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const getValidationType = ({ error, warning, info }) => {
   if (error) return "error";
@@ -27,8 +33,7 @@ const ValidationIcon = ({
   onClick,
   tooltipPosition,
   tooltipFlipOverrides,
-  ml,
-  mr,
+  ...rest
 }) => {
   const { hasFocus, hasMouseOver } = useContext(InputContext);
   const {
@@ -56,6 +61,7 @@ const ValidationIcon = ({
       onMouseLeave={() => setTriggeredByIcon(false)}
       onFocus={() => setTriggeredByIcon(true)}
       onBlur={() => setTriggeredByIcon(false)}
+      {...filterStyledSystemMarginProps(rest)}
     >
       <Icon
         key={`${validationType}-icon`}
@@ -77,14 +83,13 @@ const ValidationIcon = ({
         }
         isPartOfInput={isPartOfInput}
         inputSize={size}
-        ml={ml}
-        mr={mr}
       />
     </ValidationIconStyle>
   );
 };
 
 ValidationIcon.propTypes = {
+  ...marginPropTypes,
   /** A small string to indicate the size of the icon */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** The unique id of the component (used with aria-describedby for accessibility) */
@@ -119,10 +124,6 @@ ValidationIcon.propTypes = {
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of info */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr: PropTypes.number,
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml: PropTypes.number,
 };
 
 ValidationIcon.defaultProps = {

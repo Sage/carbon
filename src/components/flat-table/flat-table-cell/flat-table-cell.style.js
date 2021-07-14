@@ -1,7 +1,14 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
+import { toColor } from "../../../style/utils/color";
+
+const verticalBorderSizes = {
+  small: "1px",
+  medium: "2px",
+  large: "4px",
+};
 
 const StyledFlatTableCell = styled.td`
   ${({
@@ -13,6 +20,8 @@ const StyledFlatTableCell = styled.td`
     colWidth,
     isTruncated,
     expandable,
+    verticalBorder,
+    verticalBorderColor,
   }) => css`
     background-color: #fff;
     border-width: 0;
@@ -42,8 +51,19 @@ const StyledFlatTableCell = styled.td`
           width: ${colWidth}px;
         `}
  
-        ${space}
+        ${padding}
       }
+
+      ${verticalBorder &&
+      css`
+        border-right: ${verticalBorderSizes[verticalBorder]} solid
+          ${theme.table.secondary};
+      `}
+
+      ${verticalBorderColor &&
+      css`
+        border-right-color: ${toColor(theme, verticalBorderColor)};
+      `}
     }
 
     &:first-of-type {
@@ -63,7 +83,6 @@ const StyledFlatTableCell = styled.td`
 
     ${makeCellSticky &&
     css`
-      top: auto;
       left: ${leftPosition}px;
       position: sticky;
     `}

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import NavigationBar from './navigation-bar.component';
-import { SpacingProps } from '../../utils/helpers/options-helper';
+import * as React from "react";
+import NavigationBar from "./navigation-bar.component";
+import { SpaceProps } from "styled-system";
 
-export interface NavigationBarProp extends SpacingProps {
+export interface NavigationBarProp extends SpaceProps {
   children?: React.ReactNode;
   ariaLabel?: string;
-  navigationType?: 'light' | 'dark';
+  navigationType?: "light" | "dark";
   isLoading?: boolean;
 }
 
-declare const NavigationBar: React.FunctionComponent<NavigationBarProp>;
+declare function NavigationBar(props: NavigationBarProp): JSX.Element;
 
 export default NavigationBar;

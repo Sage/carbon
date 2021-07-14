@@ -20,89 +20,97 @@ const radioButtonGroupPassedProps = {
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
-const RadioButton = ({
-  checked,
-  disabled,
-  fieldHelp,
-  fieldHelpInline,
-  id,
-  inline,
-  inputWidth,
-  label,
-  labelAlign,
-  labelSpacing,
-  labelWidth,
-  name,
-  onChange,
-  onBlur,
-  value,
-  reverse,
-  required,
-  size,
-  error,
-  warning,
-  info,
-  ...props
-}) => {
-  const marginProps = filterStyledSystemMarginProps(props);
-  const handleChange = useCallback(
-    (ev) => {
-      onChange(ev);
-      // trigger focus, as Safari doesn't focus radioButtons on click by default
-      ev.target.focus();
+const RadioButton = React.forwardRef(
+  (
+    {
+      checked,
+      disabled,
+      fieldHelp,
+      fieldHelpInline,
+      id,
+      inline,
+      inputWidth,
+      label,
+      labelAlign,
+      labelSpacing,
+      labelWidth,
+      name,
+      onChange,
+      onBlur,
+      value,
+      reverse,
+      required,
+      size,
+      error,
+      warning,
+      info,
+      ...props
     },
-    [onChange]
-  );
+    ref
+  ) => {
+    const marginProps = filterStyledSystemMarginProps(props);
+    const handleChange = useCallback(
+      (ev) => {
+        onChange(ev);
+        // trigger focus, as Safari doesn't focus radioButtons on click by default
+        ev.target.focus();
+      },
+      [onChange]
+    );
 
-  const commonProps = {
-    disabled,
-    fieldHelpInline,
-    inputWidth,
-    labelSpacing,
-    error,
-    warning,
-    info,
-  };
+    const commonProps = {
+      disabled,
+      fieldHelpInline,
+      inputWidth,
+      labelSpacing,
+      error,
+      warning,
+      info,
+    };
 
-  const inputProps = {
-    ...commonProps,
-    checked,
-    fieldHelp,
-    name,
-    onChange: handleChange,
-    onBlur,
-    helpTag: "span",
-    labelAlign,
-    labelInline: true,
-    labelWidth,
-    inputId: id,
-    inputLabel: label,
-    inputValue: value,
-    inputType: "radio",
-    /**
-     * Invert the reverse prop, to ensure the FormField component renders the components
-     * in the desired order (other elements which use FormField render their sub-components the
-     * opposite way around by default)
-     */
-    reverse: !reverse,
-    required,
-  };
+    const inputProps = {
+      ...commonProps,
+      checked,
+      fieldHelp,
+      name,
+      onChange: handleChange,
+      onBlur,
+      helpTag: "span",
+      labelAlign,
+      labelInline: true,
+      labelWidth,
+      inputId: id,
+      label,
+      inputValue: value,
+      inputType: "radio",
+      /**
+       * Invert the reverse prop, to ensure the FormField component renders the components
+       * in the desired order (other elements which use FormField render their sub-components the
+       * opposite way around by default)
+       */
+      reverse: !reverse,
+      required,
+      inputRef: ref,
+    };
 
-  return (
-    <RadioButtonStyle
-      inline={inline}
-      reverse={reverse}
-      size={size}
-      {...commonProps}
-      {...marginProps}
-      {...tagComponent("radio-button", props)}
-    >
-      <CheckableInput {...inputProps}>
-        <RadioButtonSvg />
-      </CheckableInput>
-    </RadioButtonStyle>
-  );
-};
+    return (
+      <RadioButtonStyle
+        inline={inline}
+        reverse={reverse}
+        size={size}
+        {...commonProps}
+        {...marginProps}
+        {...tagComponent("radio-button", props)}
+      >
+        <CheckableInput {...inputProps}>
+          <RadioButtonSvg />
+        </CheckableInput>
+      </RadioButtonStyle>
+    );
+  }
+);
+
+RadioButton.displayName = "RadioButton";
 
 RadioButton.propTypes = {
   ...marginPropTypes,

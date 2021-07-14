@@ -1,30 +1,25 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
-import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { mount } from "enzyme";
 import Browser from "../../utils/helpers/browser/browser";
 import Dialog from "./dialog.component";
-import {
-  DialogStyle,
-  DialogContentStyle,
-  DialogInnerContentStyle,
-  DialogTitleStyle,
-} from "./dialog.style";
+import { DialogStyle, DialogTitleStyle } from "./dialog.style";
 import Button from "../button";
 import Heading from "../heading";
 import { Row, Column } from "../row";
 import ElementResize from "../../utils/helpers/element-resize/element-resize";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Form from "../form";
-import { StyledForm, StyledFormFooter } from "../form/form.style";
+import { StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
-
-/* global jest */
+import Help from "../help";
 
 describe("Dialog", () => {
-  let instance, onCancel, mockWindow;
+  let onCancel;
+  let mockWindow;
+  let addElementResizeSpy;
+  let removeElementResizeSpy;
 
+  let wrapper;
   beforeEach(() => {
     onCancel = jasmine.createSpy("cancel");
     mockWindow = {
@@ -37,125 +32,80 @@ describe("Dialog", () => {
     Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
   });
 
-  describe("Lifecycle functions", () => {
-    describe("componentDidMount", () => {
-      describe("when dialog is open", () => {
-        it("centers the dialog", () => {
-          instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={onCancel}>
-              <Form />
-            </Dialog>
-          );
-          spyOn(instance, "centerDialog");
-          instance.componentDidMount();
-          expect(instance.centerDialog).toHaveBeenCalled();
-        });
-      });
-
-      describe("when dialog is closed", () => {
-        it("does not center the dialog", () => {
-          instance = TestUtils.renderIntoDocument(
-            <Dialog open={false} onCancel={onCancel} />
-          );
-          spyOn(instance, "centerDialog");
-          instance.componentDidMount();
-          expect(instance.centerDialog).not.toHaveBeenCalled();
-        });
-      });
+  describe("event listeners", () => {
+    beforeEach(() => {
+      addElementResizeSpy = jest.spyOn(ElementResize, "addListener");
+      removeElementResizeSpy = jest.spyOn(ElementResize, "removeListener");
     });
 
-    describe("componentDidUpdate", () => {
-      let wrapper;
-
-      describe("when the dialog is open", () => {
-        beforeEach(() => {
-          jest.useFakeTimers();
-          wrapper = mount(<Dialog open={false} onCancel={onCancel} />);
-          instance = wrapper.instance();
-        });
-
-        afterEach(() => {
-          jest.useRealTimers();
-        });
-
-        it("centers the dialog", () => {
-          spyOn(instance, "centerDialog");
-          wrapper.setProps({ open: true });
-          jest.runAllTimers();
-          expect(instance.centerDialog).toHaveBeenCalled();
-        });
-
-        it("sets up event listeners to resize and close the dialog", () => {
-          spyOn(ElementResize, "addListener");
-          spyOn(mockWindow, "addEventListener");
-          wrapper.setProps({ open: true });
-          jest.runAllTimers();
-          expect(mockWindow.addEventListener.calls.count()).toEqual(2);
-          expect(mockWindow.addEventListener).toHaveBeenCalledWith(
-            "resize",
-            instance.centerDialog
-          );
-          expect(ElementResize.addListener).toHaveBeenCalledWith(
-            instance._innerContent,
-            instance.applyFixedBottom
-          );
-        });
-
-        describe("when the dialog is already listening", () => {
-          it("does not set up event listeners", () => {
-            spyOn(mockWindow, "addEventListener");
-
-            instance.listening = true;
-            wrapper.setProps({ open: true });
-
-            expect(mockWindow.addEventListener.calls.count()).toEqual(0);
-            expect(mockWindow.addEventListener).not.toHaveBeenCalled();
-            expect(mockWindow.addEventListener).not.toHaveBeenCalled();
-          });
-        });
-      });
-
-      describe("when the dialog is closed", () => {
-        beforeEach(() => {
-          wrapper = mount(<Dialog open onCancel={onCancel} stickyFormFooter />);
-          instance = wrapper.instance();
-          instance.listening = true;
-        });
-
-        it("removes event listeners for resize and closing", () => {
-          spyOn(ElementResize, "removeListener");
-          spyOn(mockWindow, "removeEventListener");
-          wrapper.setProps({ open: false });
-
-          expect(mockWindow.removeEventListener.calls.count()).toEqual(2);
-          expect(mockWindow.removeEventListener).toHaveBeenCalledWith(
-            "resize",
-            instance.centerDialog
-          );
-          expect(ElementResize.removeListener).toHaveBeenCalledWith(
-            instance._innerContent,
-            instance.applyFixedBottom
-          );
-        });
-      });
+    afterEach(() => {
+      jest.clearAllMocks();
     });
-  });
 
-  describe("renders children when they are not a JSX component", () => {
-    it("should render matched snpashot", () => {
-      const wrapper = mount(
-        <Dialog
-          onCancel={() => {}}
-          onConfirm={() => {}}
-          open
-          subtitle="Test"
-          title="Test"
-          ariaRole="dialog"
-        >
-          foo
+    it("binds the key event listener to the document on mount", () => {
+      wrapper = mount(
+        <Dialog open>
+          <div />
         </Dialog>
       );
-      expect(wrapper.instance().props.children).toMatchSnapshot();
+
+      expect(addElementResizeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not bind if component is not open on mount", () => {
+      wrapper = mount(
+        <Dialog open={false}>
+          <div />
+        </Dialog>
+      );
+
+      expect(addElementResizeSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it("removes the event listener if modal was open on unmount", () => {
+      wrapper = mount(
+        <Dialog open>
+          <div />
+        </Dialog>
+      );
+      wrapper.unmount();
+
+      expect(removeElementResizeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not remove the event listener if it was not in use on unmount", () => {
+      wrapper = mount(
+        <Dialog open={false}>
+          <div />
+        </Dialog>
+      );
+      wrapper.unmount();
+
+      expect(removeElementResizeSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it("adds event listeners on modal open", () => {
+      wrapper = mount(
+        <Dialog open={false}>
+          <div />
+        </Dialog>
+      );
+
+      wrapper.setProps({ open: true });
+
+      expect(addElementResizeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("removes event listeners on modal close", () => {
+      wrapper = mount(
+        <Dialog open>
+          <div />
+        </Dialog>
+      );
+
+      wrapper.setProps({ open: false });
+
+      expect(removeElementResizeSpy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -177,153 +127,75 @@ describe("Dialog", () => {
     }).not.toThrow();
   });
 
-  describe("renders children when they are a JSX component", () => {
-    it("should render matched snpashot", () => {
-      const wrapper = mount(
-        <Dialog
-          onCancel={() => {}}
-          onConfirm={() => {}}
-          open
-          subtitle="Test"
-          title="Test"
-          ariaRole="dialog"
-        >
-          <Heading />
-        </Dialog>
-      );
-      expect(wrapper.instance().props.children).toMatchSnapshot();
-    });
-  });
-
-  describe("centerDialog", () => {
+  describe("dialog is centered on open", () => {
     beforeEach(() => {
-      mockWindow = {
-        ...mockWindow,
-        innerHeight: 300,
-        innerWidth: 100,
-        pageYOffset: 10,
-        pageXOffset: 10,
-      };
+      window.innerHeight = 300;
+      window.innerWidth = 100;
+    });
 
-      Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
-
-      instance = TestUtils.renderIntoDocument(
-        <Dialog open onCancel={onCancel} />
-      );
+    afterEach(() => {
+      window.innerHeight = 768;
+      window.innerWidth = 1024;
+      jest.clearAllMocks();
     });
 
     describe("when dialog is lower than 20px", () => {
       it("sets top position to the correct value", () => {
-        instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual("150px");
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
+        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
+          "150px"
+        );
       });
     });
 
     describe("when dialog is higher than 20px", () => {
       it("sets top position to 20px", () => {
-        instance._dialog = {
-          style: {},
-          offsetHeight: 261,
-        };
-        instance.centerDialog();
-        expect(instance._dialog.style.top).toEqual("20px");
+        jest
+          .spyOn(Element.prototype, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            height: 261,
+          }));
+
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
+
+        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
+          "20px"
+        );
       });
     });
 
     describe("when dialog is less than 20px from the side", () => {
       it("sets top position to 20px", () => {
-        instance._dialog = {
-          style: {},
-          offsetWidth: 361,
-        };
-        instance.centerDialog();
-        expect(instance._dialog.style.left).toEqual("20px");
-      });
-    });
+        jest
+          .spyOn(Element.prototype, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            width: 361,
+          }));
 
-    describe("when there is no content", () => {
-      it("does not apply height to the content", () => {
-        instance._content = undefined;
-        instance.centerDialog();
-        expect(instance._content).toEqual(undefined);
-      });
-    });
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
 
-    describe("when there is content and no title", () => {
-      it("applies height to content with 0 title", () => {
-        instance._content = { style: {} };
-        instance.centerDialog();
-        expect(instance._content.style.height).toEqual("calc(100% - 0px)");
-      });
-    });
-
-    describe("when there is content and a title", () => {
-      it("applies height to content based on title", () => {
-        instance._title = { offsetHeight: "100" };
-        instance._content = { style: {} };
-        instance.centerDialog();
-        expect(instance._content.style.height).toEqual("calc(100% - 100px)");
-      });
-    });
-
-    describe("when animating", () => {
-      beforeEach(() => {
-        jest.useFakeTimers();
-      });
-
-      afterEach(() => {
-        jest.clearAllTimers();
-        jest.useRealTimers();
-      });
-
-      it("applies the fixed bottom after 500ms", () => {
-        spyOn(instance, "applyFixedBottom");
-        instance.centerDialog(true);
-        jest.runTimersToTime(500);
-        expect(instance.applyFixedBottom).toHaveBeenCalled();
-      });
-    });
-
-    describe("when not animating", () => {
-      it("applies the fixed bottom immediately", () => {
-        spyOn(instance, "applyFixedBottom");
-        instance.centerDialog();
-        expect(instance.applyFixedBottom).toHaveBeenCalled();
+        expect(wrapper.find(DialogStyle).getDOMNode().style.left).toEqual(
+          "20px"
+        );
       });
     });
   });
 
   describe("form styles", () => {
-    it("applies proper styles to form and form footer when height prop is defined on dialog", () => {
-      const wrapper = mount(
-        <Dialog open height="500">
-          <Form />
-        </Dialog>
-      );
-
-      assertStyleMatch(
-        {
-          minHeight: "inherit",
-          paddingBottom: "88px",
-          boxSizing: "border-box",
-        },
-        wrapper.find(DialogStyle),
-        { modifier: `${StyledForm}` }
-      );
-
-      assertStyleMatch(
-        {
-          bottom: "0px",
-          position: "absolute",
-          width: "100%",
-        },
-        wrapper.find(DialogStyle),
-        { modifier: `${StyledFormFooter}` }
-      );
-    });
-
     it("applies proper styles to sticky form footer", () => {
-      const wrapper = mount(
+      wrapper = mount(
         <Dialog open>
           <Form />
         </Dialog>
@@ -332,73 +204,35 @@ describe("Dialog", () => {
       assertStyleMatch(
         {
           marginLeft: "-35px",
-          left: "auto",
-          width: "750px",
-          position: "fixed",
+          bottom: "-30px",
+          marginBottom: "-30px",
+          width: "calc(100% + 70px)",
+          position: "sticky",
+          paddingLeft: "35px",
+          paddingRight: "35px",
         },
         wrapper.find(DialogStyle),
         { modifier: `${StyledFormFooter}.sticky` }
       );
     });
-  });
 
-  describe("applyFixedBottom", () => {
-    beforeEach(() => {
-      const wrapper = mount(<Dialog onCancel={onCancel} open />);
-      instance = wrapper.instance();
-      spyOn(instance, "forceUpdate");
-    });
+    it("passes Dialog ref to the Form component when it is a children", () => {
+      wrapper = mount(
+        <Dialog open>
+          <Form />
+        </Dialog>
+      );
 
-    describe("when it should have a fixed bottom", () => {
-      it("sets appliedFixedBottom and calls forceUpdate", () => {
-        instance._innerContent = {
-          offsetHeight: 100,
-          offsetTop: 100,
-        };
-        instance._dialog = {
-          offsetTop: 10,
-        };
-        instance.window = {
-          innerHeight: 100,
-        };
-        instance.applyFixedBottom();
-        expect(instance.appliedFixedBottom).toBeTruthy();
-        expect(instance.forceUpdate).toHaveBeenCalled();
-      });
-    });
-
-    describe("when it should not have a fixed bottom", () => {
-      it("resets appliedFixedBottom and calls forceUpdate", () => {
-        instance._innerContent = {
-          offsetHeight: 10,
-          offsetTop: 10,
-        };
-        instance._dialog = {
-          offsetTop: 10,
-        };
-        instance.window = {
-          innerHeight: 100,
-        };
-        instance.appliedFixedBottom = true;
-        instance.applyFixedBottom();
-        expect(instance.appliedFixedBottom).toBeFalsy();
-        expect(instance.forceUpdate).toHaveBeenCalled();
-      });
-
-      it("resets appliedFixedBottom and calls forceUpdate", () => {
-        instance._innerContent = undefined;
-        instance.appliedFixedBottom = true;
-        instance.applyFixedBottom();
-        expect(instance.appliedFixedBottom).toBeFalsy();
-        expect(instance.forceUpdate).toHaveBeenCalled();
-      });
+      expect(wrapper.find(Form).props().dialogRef.current).toEqual(
+        wrapper.find(DialogStyle).getDOMNode()
+      );
     });
   });
 
   describe("dialog headers", () => {
     describe("when a props title or subtitle is passed", () => {
       it("sets a dialog headers", () => {
-        const wrapper = mount(
+        wrapper = mount(
           <Dialog
             onCancel={onCancel}
             open
@@ -413,36 +247,47 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when a props object title is passed", () => {
-      it("wraps it within a div", () => {
-        const wrapper = mount(
-          <Dialog
-            onCancel={onCancel}
-            open
-            title={
-              <Row>
-                <Column>Row1</Column>
-                <Column>Row2</Column>
-              </Row>
-            }
-          />
+    describe("when jsx is passed as title prop value", () => {
+      it("Heading component is not used", () => {
+        const TitleComponent = () => (
+          <Row>
+            <Column>Row1</Column>
+            <Column>Row2</Column>
+          </Row>
         );
-        expect(wrapper.find(".carbon-dialog__title")).toMatchSnapshot();
+
+        wrapper = mount(
+          <Dialog onCancel={onCancel} open title={<TitleComponent />} />
+        );
+
+        expect(
+          wrapper.find(DialogTitleStyle).find(TitleComponent).exists()
+        ).toBe(true);
+        expect(wrapper.find(Heading).exists()).toBe(false);
       });
     });
 
     describe("when a props title is not passed", () => {
-      it("defaults to null", () => {
-        const wrapper = mount(<Dialog onCancel={onCancel} open />);
-        expect(wrapper.instance().dialogTitle).toBeFalsy();
+      it("title is not rendered", () => {
+        wrapper = mount(<Dialog onCancel={onCancel} open />);
+        expect(wrapper.find(DialogTitleStyle).exists()).toBe(false);
+        expect(wrapper.find(Heading).exists()).toBe(false);
+      });
+    });
+
+    describe("when prop help is passed", () => {
+      it("should render Help component", () => {
+        wrapper = mount(
+          <Dialog open title="This is test title" help="this is help text" />
+        );
+
+        expect(wrapper.find(Help).exists()).toBe(true);
       });
     });
   });
 
   describe("render", () => {
     describe("when dialog is open", () => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = mount(
           <Dialog
@@ -465,10 +310,10 @@ describe("Dialog", () => {
       });
 
       it("has the correct content, tags, elements etc", () => {
-        expect(wrapper.instance().props["data-element"]).toEqual("bar");
-        expect(wrapper.instance().props["data-role"]).toEqual("baz");
-        expect(wrapper.instance().props.showCloseIcon).toEqual(true);
-        expect(wrapper.instance().props.children.length).toEqual(2);
+        expect(wrapper.props()["data-element"]).toEqual("bar");
+        expect(wrapper.props()["data-role"]).toEqual("baz");
+        expect(wrapper.props().showCloseIcon).toEqual(true);
+        expect(wrapper.props().children.length).toEqual(2);
       });
 
       it("closes when the exit icon is click", () => {
@@ -491,7 +336,7 @@ describe("Dialog", () => {
 
     describe("when dialog is closed", () => {
       it("only renders a parent div with mainClasses attached", () => {
-        const wrapper = mount(<Dialog open={false} onCancel={onCancel} />);
+        wrapper = mount(<Dialog open={false} onCancel={onCancel} />);
 
         expect(wrapper.find(".carbon-dialog").at(0).length).toEqual(1);
         expect(wrapper.find(".carbon-dialog__dialog").length).toEqual(0);
@@ -500,8 +345,6 @@ describe("Dialog", () => {
   });
 
   describe("a11y", () => {
-    let wrapper;
-
     beforeEach(() => {
       wrapper = mount(
         <Dialog
@@ -533,77 +376,40 @@ describe("Dialog", () => {
     });
   });
 
-  describe("when fixedBottom is passed to the DialogStyle", () => {
-    it("should add the correct styles to DialogStyle", () => {
+  describe("when topMargin is passed to the DialogStyle", () => {
+    it("should set correct max-height on DialogStyle", () => {
       assertStyleMatch(
         {
-          bottom: "0",
+          maxHeight: "calc(100vh - 30px)",
         },
-        TestRenderer.create(<DialogStyle open fixedBottom />).toJSON()
+        mount(<DialogStyle topMargin={30} />)
       );
     });
   });
 
-  describe("when height is passed to the DialogStyle", () => {
-    it("should render matched snapshot", () => {
-      assertStyleMatch(
-        {
-          minHeight: "360px",
-        },
-        TestRenderer.create(<DialogStyle open height="400" />).toJSON()
-      );
-    });
-  });
+  describe.each(["400", "400px"])(
+    "when height is passed to the Dialog",
+    (height) => {
+      it("have proper value passed as height css rule", () => {
+        wrapper = mount(<Dialog open height={height} />);
 
-  describe("when fixedBottom and stickyFormFooter are passed to the DialogStyle", () => {
-    const wrapper = TestRenderer.create(
-      <DialogStyle open stickyFormFooter fixedBottom />
-    );
-    it("should render matched snapshot", () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
-  describe("when fixedBottom is passed to the DialogContentStyle", () => {
-    it("should render matched snpashot", () => {
-      assertStyleMatch(
-        {
-          overflowY: "auto",
-        },
-        TestRenderer.create(<DialogContentStyle fixedBottom />).toJSON()
-      );
-    });
-  });
-
-  describe("when height is passed to the DialogInnerContentStyle", () => {
-    it("should render matched snapshot", () => {
-      assertStyleMatch(
-        {
-          minHeight: "360px",
-        },
-        TestRenderer.create(
-          <DialogInnerContentStyle height={400} fixedBottom />
-        ).toJSON()
-      );
-    });
-  });
+        assertStyleMatch(
+          {
+            height: "400px",
+          },
+          wrapper.find(DialogStyle)
+        );
+      });
+    }
+  );
 
   describe("when showCloseIcon prop is true", () => {
     it("DialogTitleStyle should have padding-right: 85px", () => {
-      const wrapper = mount(<Dialog title="Heading" open />);
+      wrapper = mount(<Dialog title="Heading" open />);
 
       const DialogTitle = wrapper.find(DialogTitleStyle);
 
       assertStyleMatch({ paddingRight: "85px" }, DialogTitle);
-    });
-  });
-
-  describe("when focus trap disabled", () => {
-    it("should not have a removeFocusTrap method", () => {
-      const wrapper = mount(<Dialog open disableFocusTrap />);
-      instance = wrapper.instance();
-      instance.handleClose();
-      expect(instance.removeFocusTrap).toEqual(undefined);
     });
   });
 

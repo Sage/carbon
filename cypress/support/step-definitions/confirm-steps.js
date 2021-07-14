@@ -54,9 +54,16 @@ Then("dialog subtitle context is {word}", (title) => {
 });
 
 Then("Confirm dialog input height is {int}", (height) => {
-  dialogPreview()
-    .should("have.attr", "style")
-    .and("contain", `min-height: ${height}px`);
+  const { viewportHeight } = Cypress.config();
+
+  let resultHeight;
+  if (height >= viewportHeight - 20) {
+    resultHeight = viewportHeight - 20;
+  } else {
+    resultHeight = height;
+  }
+
+  dialogPreview().should("have.css", "height", `${resultHeight}px`);
 });
 
 Then("Confirm dialog size property on preview is {int}", (size) => {

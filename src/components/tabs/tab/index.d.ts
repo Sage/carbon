@@ -1,2 +1,2 @@
-export { default } from './tab';
-export * from './tab';
+export { default } from "./tab";
+export * from "./tab";

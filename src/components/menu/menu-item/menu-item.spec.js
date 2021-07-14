@@ -4,28 +4,26 @@ import { act } from "react-dom/test-utils";
 
 import { MenuItem } from "..";
 import Link from "../../link";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  testStyledSystemLayout,
+  testStyledSystemFlexBox,
+  assertStyleMatch,
+} from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-
 import { MenuContext } from "../menu.component";
 import SubmenuBlock from "../submenu-block";
 import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";
+import { StyledMenuItem } from "../menu.style";
 
 const events = {
   enter: {
     key: "Enter",
     which: 13,
     preventDefault: jest.fn(),
-  },
-  space: {
-    key: "Space",
-    which: 32,
-    preventDefault: jest.fn(),
-    defaultPrevented: true,
   },
   escape: {
     key: "Escape",
@@ -37,9 +35,8 @@ const events = {
 const mockMenuhandleKeyDown = jest.fn();
 const mockSubmenuhandleKeyDown = jest.fn();
 
-const menuContextValues = (isFirstElement, isFocused) => ({
+const menuContextValues = (isFocused) => ({
   handleKeyDown: mockMenuhandleKeyDown,
-  isFirstElement,
   menuType: "light",
   isFocused,
 });
@@ -53,11 +50,9 @@ describe("MenuItem", () => {
   let container;
   let wrapper;
 
-  const renderMenuContext = (isFirstElement, isFocused, props) => {
+  const renderMenuContext = (isFocused, props) => {
     return mount(
-      <MenuContext.Provider
-        value={menuContextValues(isFirstElement, isFocused)}
-      >
+      <MenuContext.Provider value={menuContextValues(isFocused)}>
         <MenuItem {...props}>Item One</MenuItem>
       </MenuContext.Provider>,
       { attachTo: container }
@@ -89,6 +84,9 @@ describe("MenuItem", () => {
     }
   });
 
+  testStyledSystemLayout((props) => <MenuItem {...props}>Item One</MenuItem>);
+  testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
+
   it("should render children correctly", () => {
     wrapper = shallow(<MenuItem>Item One</MenuItem>);
 
@@ -101,6 +99,30 @@ describe("MenuItem", () => {
     expect(wrapper.find(StyledMenuItemWrapper).props().className).toBe(
       "carbon-menu-item--has-link"
     );
+  });
+
+  describe("with maxWidth prop set", () => {
+    beforeEach(() => {
+      wrapper = mount(<MenuItem maxWidth="100px">Item One</MenuItem>);
+    });
+
+    it("should add a title attribute with the full title", () => {
+      expect(wrapper.find(StyledMenuItem).props().title).toEqual("Item One");
+    });
+
+    it("should add the correct styles", () => {
+      assertStyleMatch(
+        {
+          maxWidth: "inherit",
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          verticalAlign: "bottom",
+        },
+        wrapper.find(StyledMenuItemWrapper),
+        { modifier: "button" }
+      );
+    });
   });
 
   describe("submenu", () => {
@@ -271,13 +293,45 @@ describe("MenuItem", () => {
         });
       });
     });
+
+    describe("with maxWidth prop set", () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType: "light" }}>
+            <MenuItem maxWidth="100px" submenu="submenu title">
+              <MenuItem>Item one</MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        );
+      });
+
+      it("should add a title attribute with the full title", () => {
+        expect(wrapper.find(StyledMenuItem).at(0).props().title).toEqual(
+          "submenu title"
+        );
+      });
+
+      it("should add the correct styles", () => {
+        assertStyleMatch(
+          {
+            maxWidth: "inherit",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            verticalAlign: "bottom",
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: "button" }
+        );
+      });
+    });
   });
 
   describe("when focused from menu context", () => {
     let menuItem;
 
     it("should be focused", () => {
-      wrapper = renderMenuContext(false, true);
+      wrapper = renderMenuContext(true);
       menuItem = wrapper.find(MenuItem).find("a");
 
       expect(menuItem).toBeFocused();
@@ -288,7 +342,7 @@ describe("MenuItem", () => {
     describe("when onKeyDown prop passed in", () => {
       it("should call onKeyDown", () => {
         const onKeyDownFn = jest.fn();
-        wrapper = renderMenuContext(false, false, { onKeyDown: onKeyDownFn });
+        wrapper = renderMenuContext(false, { onKeyDown: onKeyDownFn });
 
         act(() => {
           wrapper
@@ -306,7 +360,7 @@ describe("MenuItem", () => {
 
     describe("when escape key pressed", () => {
       it("should focus the current menu item", () => {
-        wrapper = renderMenuContext(false, false);
+        wrapper = renderMenuContext(false);
 
         act(() => {
           wrapper
@@ -320,26 +374,6 @@ describe("MenuItem", () => {
         const menuItem = wrapper.find(MenuItem).find("a");
 
         expect(menuItem).toBeFocused();
-      });
-    });
-
-    describe("when space key pressed", () => {
-      it("should call onClick", () => {
-        const onClickFn = jest.fn();
-
-        wrapper = renderMenuContext(false, false, { onClick: onClickFn });
-
-        act(() => {
-          wrapper
-            .find(StyledMenuItemWrapper)
-            .at(0)
-            .props()
-            .onKeyDown(events.space);
-        });
-
-        wrapper.update();
-
-        expect(onClickFn).toHaveBeenCalled();
       });
     });
 
@@ -413,22 +447,15 @@ describe("MenuItem", () => {
 
   describe("icon only menus and submenus", () => {
     it("should render an icon into the menu item", () => {
-      wrapper = mount(
-        <MenuItem icon="settings" ariaLabel="Settings" keyboardOverride="s" />
-      );
+      wrapper = mount(<MenuItem icon="settings" ariaLabel="Settings" />);
 
       expect(wrapper.find(StyledIcon).first().exists()).toBe(true);
     });
 
     it("should render an icon into the submenu item", () => {
       wrapper = mount(
-        <MenuItem
-          icon="settings"
-          submenu
-          ariaLabel="Settings"
-          keyboardOverride="s"
-        >
-          <MenuItem icon="home" ariaLabel="Home" keyboardOverride="s" />
+        <MenuItem icon="settings" submenu ariaLabel="Settings">
+          <MenuItem icon="home" ariaLabel="Home" />
         </MenuItem>
       );
 
@@ -437,13 +464,8 @@ describe("MenuItem", () => {
 
     it("should render an icon into the submenu item with text", () => {
       wrapper = mount(
-        <MenuItem
-          icon="settings"
-          submenu="Settings"
-          ariaLabel="Settings"
-          keyboardOverride="s"
-        >
-          <MenuItem icon="home" ariaLabel="Home" keyboardOverride="s" />
+        <MenuItem icon="settings" submenu="Settings" ariaLabel="Settings">
+          <MenuItem icon="home" ariaLabel="Home" />
         </MenuItem>
       );
 
@@ -451,16 +473,14 @@ describe("MenuItem", () => {
     });
 
     it("add aria-label when it is set", () => {
-      wrapper = mount(
-        <MenuItem icon="settings" ariaLabel="Settings" keyboardOverride="s" />
-      );
+      wrapper = mount(<MenuItem icon="settings" ariaLabel="Settings" />);
 
       expect(wrapper.find(Icon).props().ariaLabel).toBe("Settings");
     });
 
     it("give error when `aria-label` is not set and menu item has no child text", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
-      wrapper = mount(<MenuItem icon="settings" keyboardOverride="s" />);
+      wrapper = mount(<MenuItem icon="settings" />);
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: If no text is provided an ariaLabel" +
@@ -469,20 +489,9 @@ describe("MenuItem", () => {
       global.console.error.mockReset();
     });
 
-    it("give error when `keyboardOverride` is not set and menu item has no child text", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      wrapper = mount(<MenuItem icon="settings" ariaLabel="Settings" />);
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Either a keyboard override or child" +
-          " text must be provided to facilitate keyboard navigation.\n    in MenuItem"
-      );
-      global.console.error.mockReset();
-    });
-
     it("give error when no children or icon is given", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
-      wrapper = mount(<MenuItem keyboardOverride="a" ariaLabel="a" />);
+      wrapper = mount(<MenuItem ariaLabel="a" />);
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: Either prop `icon` must be defined or this node must have children.\n    in MenuItem"

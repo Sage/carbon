@@ -1,54 +1,64 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { useState, useRef } from 'react';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
-import { 
-  FlatTable, 
-  FlatTableHead, 
-  FlatTableBody, 
-  FlatTableRow, 
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { useState, useRef } from "react";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
   FlatTableCheckbox,
-  Sort
-} from '.';
-import BatchSelection from '../batch-selection';
-import IconButton from '../icon-button';
-import Icon from '../icon';
-import Textbox from '../../__experimental__/components/textbox';
-import Pager from '../pager'
-import { ActionPopover, ActionPopoverItem, ActionPopoverMenu } from '../action-popover';
-import { SidebarContext } from '../drawer';
-import Box from '../box';
+  Sort,
+} from ".";
+import BatchSelection from "../batch-selection";
+import IconButton from "../icon-button";
+import Icon from "../icon";
+import Textbox from "../../__experimental__/components/textbox";
+import Pager from "../pager";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+} from "../action-popover";
+import { SidebarContext } from "../drawer";
+import Box from "../box";
 
-<Meta title="Design System/Flat Table" parameters={{ info: { disable: true }}} />
+<Meta
+  title="Design System/Flat Table"
+  parameters={{ info: { disable: true } }}
+/>
 
 # Flat Table
+
 Logically structure content in a grid for the user to enter, view, or work with.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
+
 Import all the necessary components from the flat table folder
 
-```javascript 
-import { 
-  FlatTable, 
-  FlatTableHead, 
-  FlatTableBody, 
-  FlatTableRow, 
+```javascript
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
   FlatTableCheckbox,
-  Sort
-} from 'carbon-react/lib/components/flat-table';
+  Sort,
+} from "carbon-react/lib/components/flat-table";
 ```
 
-## Examples 
+## Examples
 
 ### Default
 
@@ -94,11 +104,12 @@ import {
 </Preview>
 
 ### With row headers
+
 Any cells preceding the `FlatTableRowHeader`s will automatically also be made sticky as seen in the example below.
 
 <Preview>
-  <Story name="with row header" parameters={{ chromatic: { disable: true }}}>
-    <div style={ { width: '380px', overflowX: 'auto' } }>
+  <Story name="with row header" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ width: "380px", overflowX: "auto" }}>
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -145,6 +156,7 @@ Any cells preceding the `FlatTableRowHeader`s will automatically also be made st
 </Preview>
 
 ### With custom cell paddings
+
 Padding can be set on each cell individually by using the spacing props syntax. Check prop tables at the bottom of this document for more information.
 
 <Preview>
@@ -152,27 +164,30 @@ Padding can be set on each cell individually by using the spacing props syntax. 
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader px={5} py={2}>Name</FlatTableHeader>
+          <FlatTableHeader px={5} py={2}>
+            Name
+          </FlatTableHeader>
           <FlatTableHeader py={2}>Location</FlatTableHeader>
           <FlatTableHeader py={2}>Relationship Status</FlatTableHeader>
           <FlatTableHeader py={2}>Dependents</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-        {[1,2,3,4].map((key) => 
+        {[1, 2, 3, 4].map((key) => (
           <FlatTableRow key={key}>
             <FlatTableCell px={5}>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>5</FlatTableCell>
           </FlatTableRow>
-        )}
+        ))}
       </FlatTableBody>
     </FlatTable>
   </Story>
 </Preview>
 
 ### With custom column width
+
 Column width can be set by passing number as a `width` prop to the column header or cell component.
 **Column width can't be smaller than the sum of horizontal cell padding and content width.**
 
@@ -185,33 +200,312 @@ Column width can be set by passing number as a `width` prop to the column header
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader width={200}>Notes</FlatTableHeader>
           <FlatTableHeader width={40} px={1}>
-            <Icon iconColor="on-dark-background" type="settings"/>
+            <Icon iconColor="on-dark-background" type="settings" />
           </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-        {[1,2,3,4].map((key) => 
+        {[1, 2, 3, 4].map((key) => (
           <FlatTableRow key={key}>
             <FlatTableCell>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell><Textbox size="small"/></FlatTableCell>
+            <FlatTableCell>
+              <Textbox size="small" />
+            </FlatTableCell>
             <FlatTableCell px={1}>
               <ActionPopover>
-                <ActionPopoverItem onClick={() => {}} icon='graph'>Business</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}} icon='email'>Email Invoice</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}} icon="graph">
+                  Business
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}} icon="email">
+                  Email Invoice
+                </ActionPopoverItem>
               </ActionPopover>
             </FlatTableCell>
           </FlatTableRow>
-        )}
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With custom row background color
+
+Setting a custom background color will also override hover, highlight and row selection colors.
+
+<Preview>
+  <Story name="with custom row background color">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableRowHeader>No.</FlatTableRowHeader>
+          <FlatTableHeader />
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>1</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>2</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>3</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>4</FlatTableRowHeader>
+          <FlatTableCheckbox />
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With custom horizontal border size
+
+<Preview>
+  <Story name="with custom horizontal border size">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow horizontalBorderSize="medium">
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderSize="large">
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With custom horizontal border color
+
+<Preview>
+  <Story name="with custom horizontal border color">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow horizontalBorderColor="goldTint10">
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderColor="blue">
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderColor="#000">
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With custom vertical borders
+
+<Preview>
+  <Story name="with custom vertical borders">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">
+            Name
+          </FlatTableHeader>
+          <FlatTableHeader
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Location
+          </FlatTableHeader>
+          <FlatTableHeader verticalBorder="large">
+            Relationship Status
+          </FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            John Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            London
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            Jane Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            York
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            John Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Edinburgh
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+            Jane Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Newcastle
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With alternative header background
+
+<Preview>
+  <Story name="with alternative header background">
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader rowspan="2">Name</FlatTableHeader>
+          <FlatTableHeader colspan="2">Location</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
+          <FlatTableHeader alternativeBgColor>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Scotland</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
   </Story>
 </Preview>
 
 ### With truncated cell content
-When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping 
-and add ellipsis to any content that overflows the given width. By default the `title` will be set to the children if it 
-is a string. However, if the passed children are not a string it is possible to override it by passing in a different 
+
+When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping
+and add ellipsis to any content that overflows the given width. By default the `title` will be set to the children if it
+is a string. However, if the passed children are not a string it is possible to override it by passing in a different
 `title` string.
 
 <Preview>
@@ -225,13 +519,19 @@ is a string. However, if the passed children are not a string it is possible to 
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-        {[1,2,3,4].map((key) => 
+        {[1, 2, 3, 4].map((key) => (
           <FlatTableRow key={key}>
-            <FlatTableCell width={60} pr={0} truncate>John Doe</FlatTableCell>
-            <FlatTableCell width={50} pr={0} truncate title="Alternate Title">London</FlatTableCell>
-            <FlatTableCell><Textbox size="small"/></FlatTableCell>
+            <FlatTableCell width={60} pr={0} truncate>
+              John Doe
+            </FlatTableCell>
+            <FlatTableCell width={50} pr={0} truncate title="Alternate Title">
+              London
+            </FlatTableCell>
+            <FlatTableCell>
+              <Textbox size="small" />
+            </FlatTableCell>
           </FlatTableRow>
-        )}
+        ))}
       </FlatTableBody>
     </FlatTable>
   </Story>
@@ -239,9 +539,11 @@ is a string. However, if the passed children are not a string it is possible to 
 
 ### With stickyHead prop set to true
 
+It is possible to have one or any number of header rows set to sticky.
+
 <Preview>
-  <Story name="with sticky head" parameters={{ chromatic: { disable: true }}}>
-    <div style={ { height: '150px' } }>
+  <Story name="with sticky head" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ height: "150px" }}>
       <FlatTable hasStickyHead>
         <FlatTableHead>
           <FlatTableRow>
@@ -285,45 +587,48 @@ is a string. However, if the passed children are not a string it is possible to 
 ### With stickyFooter prop set to true
 
 <Preview>
-  <Story name="with sticky footer" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with sticky footer"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const rows = [
-        <FlatTableRow key='0'>
+        <FlatTableRow key="0">
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='1'>
+        <FlatTableRow key="1">
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='2'>
+        <FlatTableRow key="2">
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='3'>
+        <FlatTableRow key="3">
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
         </FlatTableRow>,
-       <FlatTableRow key='4'>
+        <FlatTableRow key="4">
           <FlatTableCell>Liz Anya</FlatTableCell>
           <FlatTableCell>Stoke</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='5'>
+        <FlatTableRow key="5">
           <FlatTableCell>Karl Ickbred</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
       const [currentPage, setCurrentPage] = useState(1);
@@ -340,21 +645,24 @@ is a string. However, if the passed children are not a string it is possible to 
         setCurrentPage(newPage);
       };
       return (
-        <div style={ { height: "180px", marginBottom: "16px" } }>
-          <FlatTable hasStickyHead hasStickyFooter footer={
-            <Pager
-              totalRecords={ rows.length }
-              showPageSizeSelection
-              pageSize={ 5 }
-              currentPage={ currentPage }
-              onPagination={ (next, size) => handlePagination(next, size) }
-              pageSizeSelectionOptions={ 
-                [
-                  { id: '1', name: 1 },
-                  { id: '5', name: 5 },
+        <div style={{ height: "180px", marginBottom: "16px" }}>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
                 ]}
-            />
-          }>
+              />
+            }
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -363,13 +671,11 @@ is a string. However, if the passed children are not a string it is possible to 
                 <FlatTableHeader>Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
-            <FlatTableBody>
-              { renderRows() }
-            </FlatTableBody>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
           </FlatTable>
         </div>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
@@ -378,21 +684,24 @@ of `180px`. There is not enough data to fill the flatTable but the style remains
 remains sticky.
 
 <Preview>
-  <Story name="with sticky footer inside of larger div" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with sticky footer inside of larger div"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const rows = [
-        <FlatTableRow key='0'>
+        <FlatTableRow key="0">
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='1'>
+        <FlatTableRow key="1">
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
       const [currentPage, setCurrentPage] = useState(1);
@@ -409,21 +718,24 @@ remains sticky.
         setCurrentPage(newPage);
       };
       return (
-        <div style={ { height: "180px", marginBottom: "16px" } }>
-          <FlatTable hasStickyHead hasStickyFooter footer={
-            <Pager
-              totalRecords={ rows.length }
-              showPageSizeSelection
-              pageSize={ 5 }
-              currentPage={ currentPage }
-              onPagination={ (next, size) => handlePagination(next, size) }
-              pageSizeSelectionOptions={ 
-                [
-                  { id: '1', name: 1 },
-                  { id: '5', name: 5 },
+        <div style={{ height: "180px", marginBottom: "16px" }}>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
                 ]}
-            />
-          }>
+              />
+            }
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -432,35 +744,37 @@ remains sticky.
                 <FlatTableHeader>Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
-            <FlatTableBody>
-              { renderRows() }
-            </FlatTableBody>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
           </FlatTable>
         </div>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### With hasMaxHeight
+
 By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
 
 <Preview>
-  <Story name="with sticky footer and hasMaxHeight" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with sticky footer and hasMaxHeight"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const rows = [
-        <FlatTableRow key='0'>
+        <FlatTableRow key="0">
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='1'>
+        <FlatTableRow key="1">
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
       const [currentPage, setCurrentPage] = useState(1);
@@ -477,21 +791,25 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
         setCurrentPage(newPage);
       };
       return (
-        <div style={ { height: "180px", marginBottom: "16px" } }>
-          <FlatTable hasStickyHead hasStickyFooter hasMaxHeight footer={
-            <Pager
-              totalRecords={ rows.length }
-              showPageSizeSelection
-              pageSize={ 5 }
-              currentPage={ currentPage }
-              onPagination={ (next, size) => handlePagination(next, size) }
-              pageSizeSelectionOptions={ 
-                [
-                  { id: '1', name: 1 },
-                  { id: '5', name: 5 },
+        <div style={{ height: "180px", marginBottom: "16px" }}>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            hasMaxHeight
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
                 ]}
-            />
-          }>
+              />
+            }
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -500,20 +818,21 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
                 <FlatTableHeader>Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
-            <FlatTableBody>
-              { renderRows() }
-            </FlatTableBody>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
           </FlatTable>
         </div>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### With clickable rows
 
 <Preview>
-  <Story name="with clickable rows" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with clickable rows"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
@@ -524,25 +843,25 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-        <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow onClick={() => {}}>
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow onClick={() => {}}>
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow onClick={() => {}}>
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
-        <FlatTableRow onClick={ () => {} }>
+        <FlatTableRow onClick={() => {}}>
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
@@ -573,13 +892,13 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
@@ -599,28 +918,33 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 ### With sorting headers
 
 <Preview>
-  <Story id="design-system-flat-table-test--sortable" name="with sorting headers" />
+  <Story
+    id="design-system-flat-table-test--sortable"
+    name="with sorting headers"
+  />
 </Preview>
 
-### With a cell spanning the whole row 
+### With a cell spanning the whole row
 
 <Preview>
   <Story name="with colspan">
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell colspan='4' align='center'>No results</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell colspan="4" align="center">
+            No results
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   </Story>
 </Preview>
 
@@ -628,34 +952,35 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 <Preview>
   <Story name="with rowspan">
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Parent Name</FlatTableHeader>
-            <FlatTableHeader>Child Name</FlatTableHeader>
-            <FlatTableHeader>Child Age</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell rowspan='3'>Jane Smith</FlatTableCell>
-            <FlatTableCell>Tim Smith</FlatTableCell>
-            <FlatTableCell>8</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Chris Smith</FlatTableCell>
-            <FlatTableCell>8</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Alice Smith</FlatTableCell>
-            <FlatTableCell>12</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Parent Name</FlatTableHeader>
+          <FlatTableHeader>Child Name</FlatTableHeader>
+          <FlatTableHeader>Child Age</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell rowspan="3">Jane Smith</FlatTableCell>
+          <FlatTableCell>Tim Smith</FlatTableCell>
+          <FlatTableCell>8</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Chris Smith</FlatTableCell>
+          <FlatTableCell>8</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Alice Smith</FlatTableCell>
+          <FlatTableCell>12</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   </Story>
 </Preview>
 
 ### With Selectable Rows
+
 It is possible to use the selected prop on the FlatTableRow to handle the selection of multiple rows of data.
 
 To take an action across multiple table rows, the user can first select relevant rows with their checkboxes, then apply an action at the top left of the table.
@@ -667,13 +992,20 @@ If a given action is available for some, but not all, selected rows, then the ac
 Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
 
 <Preview>
-  <Story name="selectable rows" parameters={{ chromatic: { disable: true }}}>
+  <Story name="selectable rows" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [selectAll, setSelectAll] = useState(false);
-      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
+      const [selectedRows, setSelectedRows] = useState({
+        one: false,
+        two: false,
+        three: false,
+        four: false,
+      });
       const handleSelectAllRows = () => {
         const newState = {};
-        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
+        Object.keys(selectedRows).forEach(
+          (key) => (newState[key] = !selectAll)
+        );
         setSelectedRows({ ...newState });
         setSelectAll(!selectAll);
       };
@@ -683,21 +1015,33 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
         }
         setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
       };
-      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      const selectedCount = Object.keys(selectedRows).filter((key) =>
+        Boolean(selectedRows[key])
+      ).length;
       return (
         <>
-          <BatchSelection disabled={ selectedCount === 0 } selectedCount={ selectedCount }>
-            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
           </BatchSelection>
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
-                  as='th'
-                  checked={ selectAll }
-                  onChange={ () => handleSelectAllRows() }
+                  onClick={(e) => e.stopPropagation()}
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader>Name</FlatTableHeader>
                 <FlatTableHeader>Location</FlatTableHeader>
@@ -706,29 +1050,45 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
-              <FlatTableRow selected={ selectedRows.one }>
-                <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
+              <FlatTableRow selected={selectedRows.one}>
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.one}
+                  onChange={() => handleSelectRow("one")}
+                />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selected={ selectedRows.two }>
-                <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
+              <FlatTableRow selected={selectedRows.two}>
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.two}
+                  onChange={() => handleSelectRow("two")}
+                />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selected={ selectedRows.three }>
-                <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
+              <FlatTableRow selected={selectedRows.three}>
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.three}
+                  onChange={() => handleSelectRow("three")}
+                />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selected={ selectedRows.four }>
-                <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
+              <FlatTableRow selected={selectedRows.four}>
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.four}
+                  onChange={() => handleSelectRow("four")}
+                />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
@@ -738,24 +1098,28 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
           </FlatTable>
         </>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### With Highlightable Rows
+
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 
 <Preview>
-  <Story name="highlightable rows" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="highlightable rows"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
-      const [highlightedRow, setHighlightedRow] = useState('');
+      const [highlightedRow, setHighlightedRow] = useState("");
       const handleHighlightRow = (id) => {
         if (highlightedRow === id) {
-          setHighlightedRow('')
+          setHighlightedRow("");
         } else {
           setHighlightedRow(id);
         }
-      }
+      };
       return (
         <FlatTable>
           <FlatTableHead>
@@ -767,25 +1131,37 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
             </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
-            <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
+            <FlatTableRow
+              onClick={() => handleHighlightRow("one")}
+              highlighted={highlightedRow === "one"}
+            >
               <FlatTableCell>John Doe</FlatTableCell>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
-            <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
+            <FlatTableRow
+              onClick={() => handleHighlightRow("two")}
+              highlighted={highlightedRow === "two"}
+            >
               <FlatTableCell>Jane Doe</FlatTableCell>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
-            <FlatTableRow onClick={ () => handleHighlightRow('three') }highlighted={ highlightedRow === 'three' }>
+            <FlatTableRow
+              onClick={() => handleHighlightRow("three")}
+              highlighted={highlightedRow === "three"}
+            >
               <FlatTableCell>John Smith</FlatTableCell>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
-            <FlatTableRow onClick={ () => handleHighlightRow('four') } highlighted={ highlightedRow === 'four' }>
+            <FlatTableRow
+              onClick={() => handleHighlightRow("four")}
+              highlighted={highlightedRow === "four"}
+            >
               <FlatTableCell>Jane Smith</FlatTableCell>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
@@ -794,22 +1170,33 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
           </FlatTableBody>
         </FlatTable>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### With Selectable and Highlightable Rows
+
 It is also possible to integrate selection of multiple rows and the highlighting of single rows.
 
 <Preview>
-  <Story name="selectable and highlightable rows" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="selectable and highlightable rows"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
-      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
-      const [highlightedRow, setHighlightedRow] = useState('');
+      const [selectedRows, setSelectedRows] = useState({
+        one: false,
+        two: false,
+        three: false,
+        four: false,
+      });
+      const [highlightedRow, setHighlightedRow] = useState("");
       const handleSelectAllRows = () => {
         const newState = {};
-        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
+        Object.keys(selectedRows).forEach(
+          (key) => (newState[key] = !selectAll)
+        );
         setSelectedRows({ ...newState });
         setSelectAll(!selectAll);
       };
@@ -819,28 +1206,40 @@ It is also possible to integrate selection of multiple rows and the highlighting
         }
         setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
       };
-      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      const selectedCount = Object.keys(selectedRows).filter((key) =>
+        Boolean(selectedRows[key])
+      ).length;
       const handleHighlightRow = (id) => {
         if (highlightedRow === id) {
-          setHighlightedRow('')
+          setHighlightedRow("");
         } else {
           setHighlightedRow(id);
         }
-      }
+      };
       return (
         <>
-          <BatchSelection disabled={ selectedCount === 0 } selectedCount={ selectedCount }>
-            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
           </BatchSelection>
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
-                  as='th'
-                  checked={ selectAll }
-                  onChange={ () => handleSelectAllRows() }
+                  onClick={(e) => e.stopPropagation()}
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader>Name</FlatTableHeader>
                 <FlatTableHeader>Location</FlatTableHeader>
@@ -849,29 +1248,61 @@ It is also possible to integrate selection of multiple rows and the highlighting
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
-              <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one } highlighted={ highlightedRow === 'one' }>
-                <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
+              <FlatTableRow
+                onClick={() => handleHighlightRow("one")}
+                selected={selectedRows.one}
+                highlighted={highlightedRow === "one"}
+              >
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.one}
+                  onChange={() => handleSelectRow("one")}
+                />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two } highlighted={ highlightedRow === 'two' }>
-                <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
+              <FlatTableRow
+                onClick={() => handleHighlightRow("two")}
+                selected={selectedRows.two}
+                highlighted={highlightedRow === "two"}
+              >
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.two}
+                  onChange={() => handleSelectRow("two")}
+                />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three } highlighted={ highlightedRow === 'three' }>
-                <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
+              <FlatTableRow
+                onClick={() => handleHighlightRow("three")}
+                selected={selectedRows.three}
+                highlighted={highlightedRow === "three"}
+              >
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.three}
+                  onChange={() => handleSelectRow("three")}
+                />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four } highlighted={ highlightedRow === 'four' }>
-                <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
+              <FlatTableRow
+                onClick={() => handleHighlightRow("four")}
+                selected={selectedRows.four}
+                highlighted={highlightedRow === "four"}
+              >
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  checked={selectedRows.four}
+                  onChange={() => handleSelectRow("four")}
+                />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
@@ -881,11 +1312,12 @@ It is also possible to integrate selection of multiple rows and the highlighting
           </FlatTable>
         </>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### With Pagination
+
 If pagination is needed, this can be shown at the bottom of the table.
 
 Balance performance concerns with the convenience of the user being able to see more data - we suggest giving the user the option of showing 25, 50, and 100 table rows before pagination, with a default of 50. Whatever the user selects, make this sticky per user, per table, and between sessions.
@@ -894,42 +1326,42 @@ Balance performance concerns with the convenience of the user being able to see 
   <Story name="paginated">
     {() => {
       const rows = [
-        <FlatTableRow key='0'>
+        <FlatTableRow key="0">
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='1'>
+        <FlatTableRow key="1">
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='2'>
+        <FlatTableRow key="2">
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='3'>
+        <FlatTableRow key="3">
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
         </FlatTableRow>,
-       <FlatTableRow key='4'>
+        <FlatTableRow key="4">
           <FlatTableCell>Liz Anya</FlatTableCell>
           <FlatTableCell>Stoke</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='5'>
+        <FlatTableRow key="5">
           <FlatTableCell>Karl Ickbred</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
       const [currentPage, setCurrentPage] = useState(1);
@@ -947,20 +1379,21 @@ Balance performance concerns with the convenience of the user being able to see 
       };
       return (
         <>
-          <FlatTable footer={
-            <Pager
-              totalRecords={ rows.length }
-              showPageSizeSelection
-              pageSize={ 5 }
-              currentPage={ currentPage }
-              onPagination={ (next, size) => handlePagination(next, size) }
-              pageSizeSelectionOptions={ 
-                [
-                  { id: '1', name: 1 },
-                  { id: '5', name: 5 },
+          <FlatTable
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
                 ]}
-            />
-          }>
+              />
+            }
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -969,152 +1402,161 @@ Balance performance concerns with the convenience of the user being able to see 
                 <FlatTableHeader>Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
-            <FlatTableBody>
-              { renderRows() }
-            </FlatTableBody>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
           </FlatTable>
         </>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### Paginated with sticky header
-When using the `Pager` and a sticky `FlatTableHead` some of the child elements may have style properties that cause the 
-overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning 
-it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top` 
+
+When using the `Pager` and a sticky `FlatTableHead` some of the child elements may have style properties that cause the
+overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning
+it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top`
 of the button control.
 
 <Preview>
-  <Story name="paginated with sticky header" parameters={{ info: { disable: true }}} >
+  <Story
+    name="paginated with sticky header"
+    parameters={{ info: { disable: true } }}
+  >
     {() => {
       const [placementUp, setPlacementUp] = useState(true);
       const rows = [
-        <FlatTableRow key='0'>
+        <FlatTableRow key="0">
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>
             <ActionPopover>
-              <ActionPopoverItem onClick={() => {}}>
-                action
-              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='1'>
+        <FlatTableRow key="1">
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>
             <ActionPopover>
-              <ActionPopoverItem onClick={() => {}} submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>}
+              <ActionPopoverItem
+                onClick={() => {}}
+                submenu={
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
               >
                 action
               </ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='2'>
+        <FlatTableRow key="2">
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>
             <ActionPopover>
-              <ActionPopoverItem onClick={() => {}}>
-                action
-              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='3'>
+        <FlatTableRow key="3">
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>
             <ActionPopover placement={placementUp ? "top" : "bottom"}>
-              <ActionPopoverItem onClick={() => {}}>
-                action
-              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
         </FlatTableRow>,
-       <FlatTableRow key='4'>
+        <FlatTableRow key="4">
           <FlatTableCell>Liz Anya</FlatTableCell>
           <FlatTableCell>Stoke</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>
             <ActionPopover placement={placementUp ? "top" : "bottom"}>
-              <ActionPopoverItem onClick={() => {}} submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
+              <ActionPopoverItem
+                onClick={() => {}}
+                submenu={
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
               >
                 action
               </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}} submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>}
+              <ActionPopoverItem
+                onClick={() => {}}
+                submenu={
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
               >
                 action
               </ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
         </FlatTableRow>,
-        <FlatTableRow key='5'>
+        <FlatTableRow key="5">
           <FlatTableCell>Karl Ickbred</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>
             <ActionPopover>
-              <ActionPopoverItem onClick={() => {}} submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>}
+              <ActionPopoverItem
+                onClick={() => {}}
+                submenu={
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
               >
                 action
               </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}} submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
+              <ActionPopoverItem
+                onClick={() => {}}
+                submenu={
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu>
+                }
               >
                 action
               </ActionPopoverItem>
             </ActionPopover>
           </FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
       const [currentPage, setCurrentPage] = useState(1);
@@ -1132,24 +1574,24 @@ of the button control.
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: '200px' }}>
+        <div style={{ height: "200px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
             footer={
               <Pager
-                totalRecords={ rows.length }
+                totalRecords={rows.length}
                 showPageSizeSelection
-                pageSize={ 5 }
-                currentPage={ currentPage }
-                onPagination={ (next, size) => handlePagination(next, size) }
-                pageSizeSelectionOptions={ 
-                  [
-                    { id: '1', name: 1 },
-                    { id: '5', name: 5 },
-                  ]}
+                pageSize={5}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "1", name: 1 },
+                  { id: "5", name: 5 },
+                ]}
               />
-            }>
+            }
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -1158,27 +1600,35 @@ of the button control.
                 <FlatTableHeader>Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
-            <FlatTableBody>
-              { renderRows() }
-            </FlatTableBody>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
           </FlatTable>
         </div>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
 ### When a child of Sidebar
 
 <Preview>
-  <Story name="when a child of sidebar" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="when a child of sidebar"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
-      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
-      const [highlightedRow, setHighlightedRow] = useState('');
+      const [selectedRows, setSelectedRows] = useState({
+        one: false,
+        two: false,
+        three: false,
+        four: false,
+      });
+      const [highlightedRow, setHighlightedRow] = useState("");
       const handleSelectAllRows = () => {
         const newState = {};
-        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
+        Object.keys(selectedRows).forEach(
+          (key) => (newState[key] = !selectAll)
+        );
         setSelectedRows({ ...newState });
         setSelectAll(!selectAll);
       };
@@ -1188,29 +1638,41 @@ of the button control.
         }
         setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
       };
-      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      const selectedCount = Object.keys(selectedRows).filter((key) =>
+        Boolean(selectedRows[key])
+      ).length;
       const handleHighlightRow = (id) => {
         if (highlightedRow === id) {
-          setHighlightedRow('')
+          setHighlightedRow("");
         } else {
           setHighlightedRow(id);
         }
-      }
+      };
       return (
         <>
-          <BatchSelection disabled={ selectedCount === 0 } selectedCount={ selectedCount }>
-            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
-            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          <BatchSelection
+            disabled={selectedCount === 0}
+            selectedCount={selectedCount}
+          >
+            <IconButton onAction={() => {}}>
+              <Icon type="csv" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="bin" />
+            </IconButton>
+            <IconButton onAction={() => {}}>
+              <Icon type="pdf" />
+            </IconButton>
           </BatchSelection>
-          <SidebarContext.Provider value={{isInSidebar: true}}>
+          <SidebarContext.Provider value={{ isInSidebar: true }}>
             <FlatTable>
               <FlatTableHead>
                 <FlatTableRow>
                   <FlatTableCheckbox
-                    as='th'
-                    checked={ selectAll }
-                    onChange={ () => handleSelectAllRows() }
+                    onClick={(e) => e.stopPropagation()}
+                    as="th"
+                    checked={selectAll}
+                    onChange={() => handleSelectAllRows()}
                   />
                   <FlatTableHeader>Name</FlatTableHeader>
                   <FlatTableHeader>Location</FlatTableHeader>
@@ -1219,29 +1681,61 @@ of the button control.
                 </FlatTableRow>
               </FlatTableHead>
               <FlatTableBody>
-                <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one } highlighted={ highlightedRow === 'one' }>
-                  <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
+                <FlatTableRow
+                  onClick={() => handleHighlightRow("one")}
+                  selected={selectedRows.one}
+                  highlighted={highlightedRow === "one"}
+                >
+                  <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
+                    checked={selectedRows.one}
+                    onChange={() => handleSelectRow("one")}
+                  />
                   <FlatTableCell>John Doe</FlatTableCell>
                   <FlatTableCell>London</FlatTableCell>
                   <FlatTableCell>Single</FlatTableCell>
                   <FlatTableCell>0</FlatTableCell>
                 </FlatTableRow>
-                <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two } highlighted={ highlightedRow === 'two' }>
-                  <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
+                <FlatTableRow
+                  onClick={() => handleHighlightRow("two")}
+                  selected={selectedRows.two}
+                  highlighted={highlightedRow === "two"}
+                >
+                  <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
+                    checked={selectedRows.two}
+                    onChange={() => handleSelectRow("two")}
+                  />
                   <FlatTableCell>Jane Doe</FlatTableCell>
                   <FlatTableCell>York</FlatTableCell>
                   <FlatTableCell>Married</FlatTableCell>
                   <FlatTableCell>2</FlatTableCell>
                 </FlatTableRow>
-                <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three } highlighted={ highlightedRow === 'three' }>
-                  <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
+                <FlatTableRow
+                  onClick={() => handleHighlightRow("three")}
+                  selected={selectedRows.three}
+                  highlighted={highlightedRow === "three"}
+                >
+                  <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
+                    checked={selectedRows.three}
+                    onChange={() => handleSelectRow("three")}
+                  />
                   <FlatTableCell>John Smith</FlatTableCell>
                   <FlatTableCell>Edinburgh</FlatTableCell>
                   <FlatTableCell>Single</FlatTableCell>
                   <FlatTableCell>1</FlatTableCell>
                 </FlatTableRow>
-                <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four } highlighted={ highlightedRow === 'four' }>
-                  <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
+                <FlatTableRow
+                  onClick={() => handleHighlightRow("four")}
+                  selected={selectedRows.four}
+                  highlighted={highlightedRow === "four"}
+                >
+                  <FlatTableCheckbox
+                    onClick={(e) => e.stopPropagation()}
+                    checked={selectedRows.four}
+                    onChange={() => handleSelectRow("four")}
+                  />
                   <FlatTableCell>Jane Smith</FlatTableCell>
                   <FlatTableCell>Newcastle</FlatTableCell>
                   <FlatTableCell>Married</FlatTableCell>
@@ -1252,7 +1746,7 @@ of the button control.
           </SidebarContext.Provider>
         </>
       );
-    }} 
+    }}
   </Story>
 </Preview>
 
@@ -1261,44 +1755,46 @@ of the button control.
 <Preview>
   <Story name="sizes">
     <div>
-      {["compact", "small", "medium", "large"].map(size => <Box mb={3}>
-        <FlatTable size={size}>
-          <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader>Name</FlatTableHeader>
-              <FlatTableHeader>Location</FlatTableHeader>
-              <FlatTableHeader>Relationship Status</FlatTableHeader>
-              <FlatTableHeader>Dependents</FlatTableHeader>
-            </FlatTableRow>
-          </FlatTableHead>
-          <FlatTableBody>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>0</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Doe</FlatTableCell>
-              <FlatTableCell>York</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>2</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>John Smith</FlatTableCell>
-              <FlatTableCell>Edinburgh</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>1</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Newcastle</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>5</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      </Box>)}
+      {["compact", "small", "medium", "large", "extraLarge"].map((size) => (
+        <Box mb={3}>
+          <FlatTable size={size}>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </Box>
+      ))}
     </div>
   </Story>
 </Preview>
@@ -1306,43 +1802,51 @@ of the button control.
 ## Props
 
 ### FlatTable
+
 <Props of={FlatTable} />
 
 ### FlatTableHead
+
 <Props of={FlatTableHead} />
 
 ### FlatTableBody
+
 <Props of={FlatTableBody} />
 
 ### FlatTableRow
+
 <Props of={FlatTableRow} />
 
 ### FlatTableHeader
+
 <StyledSystemProps
-  of={ FlatTableHeader }
+  of={FlatTableHeader}
   spacing
   defaults={{ py: 1, px: 3 }}
   noHeader
 />
 
 ### Sort
+
 <Props of={Sort} />
 
 ### FlatTableCell
+
 <StyledSystemProps
-  of={ FlatTableCell }
+  of={FlatTableCell}
   spacing
-  defaults={{ py: '10px', px: 3 }}
   noHeader
 />
 
 ### FlatTableRowHeader
+
 <StyledSystemProps
-  of={ FlatTableRowHeader }
+  of={FlatTableRowHeader}
   spacing
   defaults={{ py: "10px", px: 3 }}
   noHeader
 />
 
 ### FlatTableCheckbox
+
 <Props of={FlatTableCheckbox} />

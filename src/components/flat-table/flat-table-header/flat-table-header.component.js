@@ -1,8 +1,13 @@
 import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTableHeader = ({
   align,
@@ -45,8 +50,8 @@ const FlatTableHeader = ({
 };
 
 FlatTableHeader.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Styled system padding props */
+  ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -74,6 +79,10 @@ FlatTableHeader.propTypes = {
    * Callback to report the offsetWidth
    */
   reportCellWidth: PropTypes.func,
+  /** If true sets alternative background color */
+  alternativeBgColor: PropTypes.bool,
+  /** Sets a custom vertical right border */
+  verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 FlatTableHeader.defaultProps = {

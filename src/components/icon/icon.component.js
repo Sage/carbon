@@ -1,8 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags";
 import StyledIcon from "./icon.style";
 import Tooltip from "../tooltip";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../utils/logger";
+
+let deprecatedWarnTriggered = false;
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Icon = React.forwardRef(
   (
@@ -17,8 +26,6 @@ const Icon = React.forwardRef(
       fontSize,
       iconColor,
       type,
-      ml,
-      mr,
       tooltipMessage,
       tooltipPosition,
       tooltipVisible,
@@ -32,6 +39,14 @@ const Icon = React.forwardRef(
     },
     ref
   ) => {
+    if (!deprecatedWarnTriggered && (iconColor || bgTheme)) {
+      deprecatedWarnTriggered = true;
+      Logger.deprecate(
+        "`iconColor` and `bgTheme` props are deprecated and will soon be removed"
+      );
+    }
+    const isInteractive = !!tooltipMessage && !disabled;
+
     /** Return Icon type with overrides */
     const iconType = () => {
       // switch tweaks icon names for actual icons in the set
@@ -60,11 +75,11 @@ const Icon = React.forwardRef(
       color,
       disabled,
       fontSize,
+      isInteractive,
       iconColor,
-      mr,
-      ml,
       tabIndex,
       type: iconType(),
+      ...filterStyledSystemMarginProps(rest),
     };
 
     const icon = (
@@ -105,6 +120,7 @@ const Icon = React.forwardRef(
 const placements = ["top", "bottom", "left", "right"];
 
 Icon.propTypes = {
+  ...marginPropTypes,
   /**
    * @private
    * @ignore
@@ -114,7 +130,13 @@ Icon.propTypes = {
   /** Icon type */
   type: PropTypes.string.isRequired,
   /** Background size */
-  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
+  bgSize: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
   /** Background shape */
   bgShape: PropTypes.oneOf(["circle", "rounded-rect", "square"]),
   /** Background color theme */
@@ -141,10 +163,6 @@ Icon.propTypes = {
   bg: PropTypes.string,
   /** Sets the icon in the disabled state */
   disabled: PropTypes.bool,
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr: PropTypes.number,
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml: PropTypes.number,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
   /** The message string to be displayed in the tooltip */

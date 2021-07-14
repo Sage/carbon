@@ -2,11 +2,19 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { render } from "react-dom";
+
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
 import { Checkbox } from "../../__experimental__/components/checkbox";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { StyledDraggableItem } from "./draggable-item.style";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
+} from "../../__spec_helper__/test-utils";
+import {
+  StyledDraggableContainer,
+  StyledDraggableItem,
+} from "./draggable-item.style";
 
 describe("Draggable Checkbox", () => {
   let wrapper;
@@ -29,6 +37,33 @@ describe("Draggable Checkbox", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
+  testStyledSystemMargin(
+    (props) => (
+      <DraggableContainer {...props}>
+        <DraggableItem key="1" id={1}>
+          simple content
+        </DraggableItem>
+        <DraggableItem key="2" id={2}>
+          simple content
+        </DraggableItem>
+      </DraggableContainer>
+    ),
+    null,
+    (component) => component.find(StyledDraggableContainer)
+  );
+
+  testStyledSystemPadding(
+    (props) => (
+      <DraggableContainer>
+        <DraggableItem {...props} key="1`" id={1}>
+          simple content
+        </DraggableItem>
+      </DraggableContainer>
+    ),
+    { py: "8px" },
+    (component) => component.find(StyledDraggableItem)
+  );
 
   it("should return an array with id's", () => {
     wrapper.setProps({ getOrder });
@@ -59,6 +94,37 @@ describe("Draggable Checkbox", () => {
       " type `DraggableItem`.\n    in DraggableContainer";
 
     expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+  });
+
+  it("accepts empty children", () => {
+    expect(() => {
+      mount(
+        <DraggableContainer>
+          {null}
+          {undefined}
+          {false}
+        </DraggableContainer>
+      );
+    }).not.toThrow();
+  });
+
+  it("updates children", () => {
+    wrapper = mount(<DraggableContainer>{null}</DraggableContainer>);
+
+    wrapper.setProps({
+      children: [
+        <DraggableItem key="1" id={1}>
+          simple content
+        </DraggableItem>,
+        <DraggableItem key="2" id={2}>
+          simple content
+        </DraggableItem>,
+      ],
+    });
+
+    wrapper.update();
+
+    expect(wrapper.find(DraggableItem).length).toBe(2);
   });
 
   it("should render correct if isDragging enable", () => {

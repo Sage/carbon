@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -13,6 +14,7 @@ import {
   isRadio,
   setElementFocus,
 } from "./focus-trap-utils";
+import { ModalContext } from "../../components/modal/modal.component";
 
 const FocusTrap = ({
   children,
@@ -25,7 +27,7 @@ const FocusTrap = ({
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
-
+  const { isAnimationComplete } = useContext(ModalContext);
   const hasNewInputs = useCallback(
     (candidate) => {
       if (!focusableElements || candidate.length !== focusableElements.length) {
@@ -39,7 +41,7 @@ const FocusTrap = ({
 
   useLayoutEffect(() => {
     if (wrapperRef) {
-      const ref = wrapperRef.current || wrapperRef;
+      const ref = wrapperRef.current;
 
       const elements = Array.from(
         ref.querySelectorAll(defaultFocusableSelectors)
@@ -54,11 +56,16 @@ const FocusTrap = ({
   }, [children, hasNewInputs, wrapperRef]);
 
   useEffect(() => {
-    if (autoFocus && firstOpen.current && (focusFirstElement || firstElement)) {
+    if (
+      autoFocus &&
+      firstOpen.current &&
+      isAnimationComplete &&
+      (focusFirstElement || firstElement)
+    ) {
       setElementFocus(focusFirstElement || firstElement);
       firstOpen.current = false;
     }
-  }, [autoFocus, firstElement, focusFirstElement]);
+  }, [autoFocus, firstElement, focusFirstElement, isAnimationComplete]);
 
   useEffect(() => {
     const trapFn = (ev) => {
@@ -114,8 +121,8 @@ FocusTrap.propTypes = {
   autoFocus: PropTypes.bool,
   /** provide a custom first element to focus */
   focusFirstElement: PropTypes.oneOfType([
-    PropTypes.shape({ current: PropTypes.any }),
     PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
   ]),
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap: PropTypes.func,

@@ -4,12 +4,10 @@ import Textbox from ".";
 import InputIconToggle from "../input-icon-toggle";
 import {
   assertStyleMatch,
-  testStyledSystemSpacing,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import FormField from "../form-field";
 import InputPresentation from "../input/input-presentation.component";
-import InputPresentationStyle from "../input/input-presentation.style";
-import { StyledLabelContainer } from "../label/label.style";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../label";
@@ -18,6 +16,13 @@ import FormFieldStyle from "../form-field/form-field.style";
 jest.mock("../../../utils/helpers/guid", () => () => "mocked-guid");
 
 describe("Textbox", () => {
+  testStyledSystemMargin(
+    (props) => <Textbox {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
+
   it("renders with InputPresentation and Input and correct props passed to Input", () => {
     const wrapper = shallow(
       <Textbox value="foobar" leftChildren="southpaw children">
@@ -76,43 +81,6 @@ describe("Textbox", () => {
     );
   });
 
-  describe("style overrides", () => {
-    let wrapper;
-    const randomStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    const styleOverride = {
-      root: randomStyleObject,
-      input: randomStyleObject,
-      label: randomStyleObject,
-    };
-
-    beforeEach(() => {
-      wrapper = mount(
-        <Textbox label="test label" styleOverride={styleOverride}>
-          normal children
-        </Textbox>
-      );
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(FormField));
-    });
-
-    it("renders input element with properly assigned styles", () => {
-      assertStyleMatch(
-        randomStyleObject,
-        wrapper.find(InputPresentation).find(InputPresentationStyle)
-      );
-    });
-
-    it("renders label element with properly assigned styles", () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(StyledLabelContainer));
-    });
-  });
-
   describe("when the prefix prop is set", () => {
     it("then a StyledPrefix should be rendered with this prop value", () => {
       const prefixValue = "bar";
@@ -162,11 +130,4 @@ describe("Textbox", () => {
       ).toEqual(<Component />);
     });
   });
-
-  testStyledSystemSpacing(
-    (props) => <Textbox {...props} />,
-    undefined,
-    (wrapper) => wrapper.find(FormFieldStyle),
-    { modifier: "&&&" }
-  );
 });

@@ -10,6 +10,7 @@ import StyledSearch from "../../../../__experimental__/components/search/search.
 const StyledSubmenuWrapper = styled.div`
   position: relative;
   width: fit-content;
+  max-width: inherit;
 
   ${({ isSubmenuOpen, theme }) =>
     isSubmenuOpen &&

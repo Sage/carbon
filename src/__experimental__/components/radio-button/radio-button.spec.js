@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
@@ -22,10 +22,11 @@ function render(props = {}, theme = mintTheme, renderer = mount) {
     error,
     info,
     warning,
+    name: "radio-button-name",
   };
   return renderer(
     <ThemeProvider theme={theme}>
-      <RadioButtonGroup {...groupProps}>
+      <RadioButtonGroup name="my-radio-group" {...groupProps}>
         <RadioButton name="my-radio" value="test" {...buttonProps} />
       </RadioButtonGroup>
     </ThemeProvider>
@@ -48,6 +49,20 @@ describe("RadioButton", () => {
       const actual = console.error.calls.argsFor(0)[0];
       expect(actual).toMatch(expected);
     });
+  });
+
+  it("the input ref should be forwarded", () => {
+    let ref;
+    const WrapperComponent = () => {
+      ref = useRef();
+
+      return <RadioButton name="my-radio" value="test" ref={ref} />;
+    };
+    const wrapper = mount(<WrapperComponent />);
+
+    expect(ref.current).toEqual(
+      wrapper.find(HiddenCheckableInputStyle).getDOMNode()
+    );
   });
 
   describe("base", () => {

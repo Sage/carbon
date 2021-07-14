@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
 import PodContext from "./pod-context";
-
 import {
   StyledBlock,
-  StyledCollapsibleContent,
   StyledContent,
   StyledDescription,
   StyledEditAction,
@@ -19,6 +20,10 @@ import {
   StyledTitle,
   StyledArrow,
 } from "./pod.style.js";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 class Pod extends React.Component {
   state = {
@@ -46,7 +51,7 @@ class Pod extends React.Component {
       title,
       alignTitle,
       internalEditButton,
-      padding,
+      size,
       subtitle,
     } = this.props;
 
@@ -62,7 +67,7 @@ class Pod extends React.Component {
       <StyledHeader
         alignTitle={alignTitle}
         internalEditButton={internalEditButton}
-        padding={padding}
+        size={size}
         isCollapsed={isCollapsed}
         onClick={isCollapsable ? this.toggleCollapse : undefined}
       >
@@ -70,7 +75,9 @@ class Pod extends React.Component {
         {subtitle && (
           <StyledSubtitle data-element="subtitle">{subtitle}</StyledSubtitle>
         )}
-        {isCollapsable && <StyledArrow isCollapsed={isCollapsed} />}
+        {isCollapsable && (
+          <StyledArrow isCollapsed={isCollapsed} type="dropdown" />
+        )}
       </StyledHeader>
     );
   }
@@ -92,22 +99,22 @@ class Pod extends React.Component {
     if (this.state.isCollapsed) return null;
 
     return (
-      <StyledCollapsibleContent>
+      <>
         {this.podDescription()}
         <div>{this.props.children}</div>
-      </StyledCollapsibleContent>
+      </>
     );
   }
 
   footer() {
-    const { footer, padding, variant } = this.props;
+    const { footer, size, variant } = this.props;
 
     if (!footer) {
       return null;
     }
 
     return (
-      <StyledFooter data-element="footer" padding={padding} variant={variant}>
+      <StyledFooter data-element="footer" size={size} variant={variant}>
         {footer}
       </StyledFooter>
     );
@@ -118,7 +125,7 @@ class Pod extends React.Component {
       onEdit,
       internalEditButton,
       variant,
-      padding,
+      size,
       border,
       displayEditButtonOnHover,
       triggerEditOnContent,
@@ -144,7 +151,7 @@ class Pod extends React.Component {
           isFocused={isFocused}
           isHovered={isHovered}
           noBorder={!border}
-          padding={padding}
+          size={size}
           variant={variant}
           {...this.linkProps()}
         >
@@ -210,11 +217,25 @@ class Pod extends React.Component {
       editContentFullWidth,
       internalEditButton,
       onEdit,
-      padding,
+      size,
+      title,
+      height,
       ...rest
     } = this.props;
 
     const { isFocused, isHovered } = this.state;
+
+    let podHeight;
+
+    if (this.context.heightOfTheLongestPod) {
+      podHeight = `${this.context.heightOfTheLongestPod}px`;
+    }
+
+    if (height && typeof height === "number") {
+      podHeight = `${height}px`;
+    } else if (height) {
+      podHeight = height;
+    }
 
     return (
       <StyledPod
@@ -222,6 +243,7 @@ class Pod extends React.Component {
         className={this.props.className}
         internalEditButton={internalEditButton}
         {...tagComponent("pod", this.props)}
+        height={podHeight}
       >
         <StyledBlock
           contentTriggersEdit={this.shouldContentHaveEditEvents()}
@@ -232,12 +254,11 @@ class Pod extends React.Component {
           isHovered={isHovered}
           noBorder={!border}
           variant={variant}
-          height={this.context.heightOfTheLongestPod}
           {...(this.shouldContentHaveEditEvents()
             ? { ...this.editEvents(), tabIndex: "0" }
             : {})}
         >
-          <StyledContent data-element="content" padding={padding}>
+          <StyledContent data-element="content" size={size}>
             {this.podHeader()}
             {this.podContent()}
           </StyledContent>
@@ -250,6 +271,7 @@ class Pod extends React.Component {
 }
 
 Pod.propTypes = {
+  ...marginPropTypes,
   /**
    * Enables/disables the border around the pod.
    */
@@ -266,9 +288,9 @@ Pod.propTypes = {
   className: PropTypes.string,
 
   /**
-   * Determines the padding around the pod.
+   * Determines the size of the pod.
    */
-  padding: PropTypes.oneOf([
+  size: PropTypes.oneOf([
     "none",
     "extra-small",
     "small",
@@ -353,12 +375,17 @@ Pod.propTypes = {
    * Resets edit button styles to an older version
    */
   internalEditButton: PropTypes.bool,
+
+  /**
+   * Sets Pod height, number is changed to pixels and string is passed as raw css value
+   */
+  height: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
 };
 
 Pod.defaultProps = {
   border: true,
   variant: "primary",
-  padding: "medium",
+  size: "medium",
   alignTitle: "left",
 };
 

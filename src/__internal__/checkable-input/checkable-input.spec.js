@@ -36,17 +36,17 @@ describe("CheckableInput", () => {
   }
 
   describe("helpId", () => {
-    describe("when inputLabel and labelHelp props are present", () => {
+    describe("when label and labelHelp props are present", () => {
       it("returns an appropriate helpId property", () => {
         const labelWrapper = mountInput({
           inputId: "foo",
-          inputLabel: "bar",
+          label: "bar",
           labelHelp: "baz",
         })
           .find(Label)
           .find("label");
 
-        expect(labelWrapper.prop("id")).toBe("foo-label");
+        expect(labelWrapper.prop("id")).toBe("foo label");
       });
     });
   });
@@ -202,19 +202,6 @@ describe("StyledCheckableInputWrapper", () => {
             ${StyledLabelContainer}
           `,
         }
-      );
-    });
-  });
-
-  describe("when setting ml", () => {
-    it("renders the correct left margin", () => {
-      const wrapper = render({ ml: "50%" }).toJSON();
-
-      assertStyleMatch(
-        {
-          marginLeft: "50%",
-        },
-        wrapper
       );
     });
   });

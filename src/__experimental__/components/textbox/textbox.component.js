@@ -1,16 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import {
+  filterStyledSystemMarginProps,
+  filterStyledSystemPaddingProps,
+} from "../../../style/utils";
 import { Input, InputPresentation } from "../input";
 import InputIconToggle from "../input-icon-toggle";
 import FormField from "../form-field";
 import withUniqueIdProps from "../../../utils/helpers/with-unique-id-props";
 import OptionsHelper from "../../../utils/helpers/options-helper";
-import Logger from "../../../utils/logger/logger";
 import { InputBehaviour } from "../../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 
-let deprecatedWarnTriggered = false;
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
+// Padding props filtering is a temporary solution until FormField and all related components are refactored
+// FIXME FE-3370
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
+const filterOutPaddingProps = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !paddingPropTypes[key])
+  );
 
 const Textbox = ({
   children,
@@ -21,8 +37,8 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  iconOnMouseDown,
   iconTabIndex,
-  styleOverride,
   validationOnLabel,
   labelWidth,
   inputWidth,
@@ -30,31 +46,23 @@ const Textbox = ({
   adaptiveLabelBreakpoint,
   required,
   positionedChildren,
+  inputRef,
   ...props
 }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      "`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed."
-    );
-  }
-
   return (
     <InputBehaviour>
       <FormField
         childOfForm={childOfForm}
         isOptional={isOptional}
-        {...props}
+        {...filterOutPaddingProps(props)}
         useValidationIcon={validationOnLabel}
         labelWidth={labelWidth}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        styleOverride={styleOverride}
         isRequired={required}
       >
         <InputPresentation
           type="text"
           {...removeParentProps(props)}
-          styleOverride={styleOverride.input}
           inputWidth={inputWidth || 100 - labelWidth}
           positionedChildren={positionedChildren}
         >
@@ -69,6 +77,7 @@ const Textbox = ({
               props.disabled || props.readOnly ? "" : props.placeholder
             }
             aria-invalid={!!props.error}
+            inputRef={inputRef}
             value={visibleValue(value, formattedValue)}
           />
           {children}
@@ -76,6 +85,7 @@ const Textbox = ({
             {...removeParentProps(props)}
             useValidationIcon={!validationOnLabel}
             onClick={iconOnClick || props.onClick}
+            onMouseDown={iconOnMouseDown}
             inputIcon={inputIcon}
             iconTabIndex={iconTabIndex}
           />
@@ -98,8 +108,8 @@ function visibleValue(value, formattedValue) {
 }
 
 Textbox.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /**
    * An optional alternative for props.value, this is useful if the
    * real value is an ID but you want to show a human-readable version.
@@ -147,7 +157,7 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-  /** Flag to configure component as optional in Form */
+  /** [Legacy] Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
@@ -176,35 +186,25 @@ Textbox.propTypes = {
   positionedChildren: PropTypes.node,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
+  /** Optional handler for mousedown event on Textbox icon */
+  iconOnMouseDown: PropTypes.func,
   /** Overrides the default tabindex of the component */
   iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Handler for onClick events */
   onClick: PropTypes.func,
   /** Emphasized part of the displayed text */
   prefix: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */
   required: PropTypes.bool,
-  /**
-   * Allows to override existing component styles
-   * @private
-   * @ignore
-   *
-   */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
+  /** A callback to retrieve the input reference */
+  inputRef: PropTypes.func,
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
   size: "medium",
-  styleOverride: {},
   validationOnLabel: false,
 };
 

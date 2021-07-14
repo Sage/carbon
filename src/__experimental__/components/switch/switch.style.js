@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 import FieldHelpStyle from "../field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -11,6 +12,7 @@ import { FieldLineStyle } from "../form-field/form-field.style";
 
 const StyledSwitch = styled.div`
   ${({
+    checked,
     fieldHelpInline,
     labelInline,
     labelSpacing,
@@ -18,6 +20,7 @@ const StyledSwitch = styled.div`
     size,
     theme,
   }) => css`
+    ${margin}
     ${FieldLineStyle} {
       display: flex;
       flex-flow: row wrap;
@@ -33,8 +36,14 @@ const StyledSwitch = styled.div`
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledSwitchSlider}, &:hover + ${StyledSwitchSlider} {
+      &:focus + ${StyledSwitchSlider} {
         outline: solid 3px ${theme.colors.focus};
+      }
+
+      &:hover + ${StyledSwitchSlider} {
+        background-color: ${checked
+          ? theme.colors.secondary
+          : theme.switch.offHover};
       }
     }
 

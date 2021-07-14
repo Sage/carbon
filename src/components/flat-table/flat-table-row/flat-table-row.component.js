@@ -25,9 +25,13 @@ const FlatTableRow = React.forwardRef(
       expanded = false,
       isSubRow,
       isFirstSubRow,
+      stickyOffset,
       highlighted,
       selected,
       subRows,
+      bgColor,
+      horizontalBorderColor,
+      horizontalBorderSize = "small",
     },
     ref
   ) => {
@@ -40,7 +44,7 @@ const FlatTableRow = React.forwardRef(
     const rowHeaderIndex = childrenArray.findIndex(
       (child) => child.type === FlatTableRowHeader
     );
-    const colorTheme = useContext(FlatTableThemeContext);
+    const themeContext = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -90,7 +94,7 @@ const FlatTableRow = React.forwardRef(
     if (onClick || expandable) {
       interactiveRowProps = {
         isRowInteractive: !firstColumnExpandable,
-        tabIndex: firstColumnExpandable || isSubRow ? undefined : 0,
+        tabIndex: firstColumnExpandable ? undefined : 0,
         onKeyDown,
         isFirstColumnInteractive: firstColumnExpandable,
         isExpanded,
@@ -139,7 +143,12 @@ const FlatTableRow = React.forwardRef(
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
-              colorTheme={colorTheme}
+              colorTheme={themeContext.colorTheme}
+              size={themeContext.size}
+              stickyOffset={stickyOffset}
+              bgColor={bgColor}
+              horizontalBorderColor={horizontalBorderColor}
+              horizontalBorderSize={horizontalBorderSize}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -188,6 +197,8 @@ const FlatTableRow = React.forwardRef(
 );
 
 FlatTableRow.propTypes = {
+  /** Overrides default cell color */
+  bgColor: PropTypes.string,
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: PropTypes.node.isRequired,
   /** Function to handle click event. If provided the Component could be focused with tab key. */
@@ -204,10 +215,16 @@ FlatTableRow.propTypes = {
   expandableArea: PropTypes.oneOf(["wholeRow", "firstColumn"]),
   /** Sets an expandable row to be expanded on start */
   expanded: PropTypes.bool,
+  /** Sets the color of the bottom border in the row */
+  horizontalBorderColor: PropTypes.string,
+  /** Sets the weight of the bottom border in the row */
+  horizontalBorderSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** @ignore @private */
   isSubRow: PropTypes.bool,
   /** @ignore @private */
   isFirstSubRow: PropTypes.bool,
+  /** @ignore @private position in header if multiple rows */
+  stickyOffset: PropTypes.number,
 };
 
 export default FlatTableRow;

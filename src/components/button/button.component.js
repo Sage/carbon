@@ -72,6 +72,8 @@ const renderStyledButton = (buttonProps) => {
     size,
     noWrap,
     tooltipMessage,
+    target,
+    rel,
     ...rest
   } = buttonProps;
 
@@ -116,6 +118,8 @@ const renderStyledButton = (buttonProps) => {
       px={px || paddingX}
       noWrap={noWrap}
       iconOnly={!rest.children && iconType}
+      target={target}
+      rel={rel}
       {...tagComponent("button", buttonProps)}
       {...rest}
       ref={ref}
@@ -177,7 +181,7 @@ Button.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Ref to be forwarded */
-  forwardRef: PropTypes.object,
+  forwardRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Used to transform button into anchor */
@@ -186,10 +190,26 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   /** If provided, the text inside a button will not wrap */
   noWrap: PropTypes.bool,
+  /** Specify a callback triggered on blur */
+  onBlur: PropTypes.func,
+  /** Specify a callback triggered on change */
+  onChange: PropTypes.func,
+  /** Specify a callback triggered on click */
+  onClick: PropTypes.func,
+  /** Specify a callback triggered on focus */
+  onFocus: PropTypes.func,
+  /** Specify a callback triggered on keyDown */
+  onKeyDown: PropTypes.func,
   /** Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage: PropTypes.string,
   /** Provides positioning when the tooltip is displayed. */
   iconTooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** HTML button type property */
+  type: PropTypes.string,
+  /** HTML target attribute */
+  target: PropTypes.string,
+  /** HTML rel attribute */
+  rel: PropTypes.string,
 };
 
 Button.defaultProps = {

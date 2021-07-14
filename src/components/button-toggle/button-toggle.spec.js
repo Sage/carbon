@@ -166,25 +166,76 @@ describe("ButtonToggle", () => {
         );
         expect(wrapper).toMatchSnapshot();
       });
-      it("renders correct styles for a large icon", () => {
-        const wrapper = renderWithTheme({
-          theme,
-          buttonIcon: "add",
-          buttonIconSize: "large",
-        });
-        assertStyleMatch(
-          {
-            minWidth: "104px",
-            height: "102px",
-            padding: "0 16px",
-          },
-          wrapper.find("label")
-        );
-      });
     }
   );
 
   describe("General styling", () => {
+    const heightConfig = {
+      small: 32,
+      medium: 40,
+      large: 48,
+    };
+
+    const fontSizeConfig = {
+      small: 14,
+      medium: 14,
+      large: 16,
+    };
+
+    const paddingConfig = {
+      small: 16,
+      medium: 24,
+      large: 32,
+    };
+
+    const heightLargeIconConfig = {
+      small: 80,
+      medium: 96,
+      large: 112,
+    };
+
+    const paddingLargeIconConfig = {
+      small: 32,
+      medium: 40,
+      large: 48,
+    };
+
+    describe.each(["small", "medium", "large"])(
+      "renders correct styles for %s size",
+      (size) => {
+        it("without icon", () => {
+          const wrapper = render({
+            size,
+            buttonIcon: "add",
+            buttonIconSize: "large",
+          });
+
+          assertStyleMatch(
+            {
+              height: `${heightLargeIconConfig[size]}px`,
+              padding: `0 ${paddingLargeIconConfig[size]}px`,
+              fontSize: `${fontSizeConfig[size]}px`,
+            },
+            wrapper.find(StyledButtonToggleLabel)
+          );
+        });
+
+        it("with large icon", () => {
+          const wrapper = render({
+            size,
+          });
+
+          assertStyleMatch(
+            {
+              height: `${heightConfig[size]}px`,
+              padding: `0 ${paddingConfig[size]}px`,
+              fontSize: `${fontSizeConfig[size]}px`,
+            },
+            wrapper.find(StyledButtonToggleLabel)
+          );
+        });
+      }
+    );
     it("renders correctly when disabled", () => {
       const wrapper = render({
         disabled: true,

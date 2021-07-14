@@ -19,11 +19,15 @@ const StepSequenceItemStyle = styled.li`
     background-color: ${({ theme }) => theme.disabled.disabled};
   }
 
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   ${StyledIcon} {
-    position: relative;
-    top: -2px;
     margin-right: 8px;
-    color: ${({ theme }) => theme.colors.base};
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   &:first-child {
@@ -40,19 +44,19 @@ const StepSequenceItemStyle = styled.li`
       color: ${theme.text.color};
 
       &::before {
-        background-color: ${theme.colors.withOpacity};
+        background-color: ${theme.colors.primary};
       }
-    `};
+    `}
 
   ${({ theme, status }) =>
     status === "complete" &&
     css`
-      color: ${theme.colors.base};
+      color: ${theme.stepSequence.completedText};
 
       &::before {
-        background-color: ${theme.colors.base};
+        background-color: ${theme.colors.primary};
       }
-    `};
+    `}
 
   ${({ orientation }) =>
     orientation === "vertical" &&
@@ -66,7 +70,7 @@ const StepSequenceItemStyle = styled.li`
         height: 24px;
         margin: 12px 8px;
       }
-    `};
+    `}
 `;
 
 StepSequenceItemStyle.defaultProps = {

@@ -7,7 +7,6 @@ exports[`Textbox renders with InputPresentation and Input and correct props pass
     labelWidth={30}
     name="mocked-guid"
     size="medium"
-    styleOverride={Object {}}
     useValidationIcon={false}
   >
     <InputPresentation

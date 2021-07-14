@@ -6,16 +6,16 @@ import React, {
   useContext,
 } from "react";
 import PropTypes from "prop-types";
+import propTypes from "@styled-system/prop-types";
 import classNames from "classnames";
+
 import StyledMenuItemWrapper from "./menu-item.style";
 import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
-import Box from "../../box";
 import Events from "../../../utils/helpers/events";
 import { MenuContext } from "../menu.component";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../../__experimental__/components/search";
@@ -33,7 +33,8 @@ const MenuItem = ({
   variant = "default",
   showDropdownArrow = true,
   ariaLabel,
-  isSearch,
+  clickToOpen,
+  maxWidth,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -41,7 +42,8 @@ const MenuItem = ({
   const ref = useRef(null);
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
-  const isChildrenSearch = children?.type === Search;
+  const isChildSearch = useRef(false);
+  const childRef = useRef();
   const childrenItems = React.Children.map(children, (child) => {
     if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
@@ -50,17 +52,28 @@ const MenuItem = ({
 
       return [...childArray.map((innerChild) => innerChild)];
     }
+    if (child?.type === Search) {
+      isChildSearch.current = true;
+    }
 
     return child;
   });
 
+  const focusRef = isChildSearch.current ? childRef : ref;
   useEffect(() => {
     if (focusFromSubmenu === undefined && focusFromMenu) {
-      ref.current.focus();
+      focusRef.current.focus();
     } else if (focusFromSubmenu) {
-      ref.current.focus();
+      focusRef.current.focus();
     }
-  }, [focusFromMenu, focusFromSubmenu]);
+  }, [focusFromMenu, focusFromSubmenu, focusRef]);
+
+  const updateFocusOnClick = useCallback(() => {
+    /* istanbul ignore else */
+    if (submenuContext.updateFocusIndex) {
+      submenuContext.updateFocusIndex(submenuContext.itemIndex);
+    }
+  }, [submenuContext]);
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -72,19 +85,21 @@ const MenuItem = ({
         ref.current.focus();
       }
 
-      if (!submenu && Events.isSpaceKey(event)) {
-        ref.current.click();
-      }
-
-      if (!event.defaultPrevented) {
-        if (submenuContext.handleKeyDown !== undefined) {
+      if (submenuContext.handleKeyDown !== undefined) {
+        if (
+          !(
+            isChildSearch.current &&
+            document.activeElement === focusRef.current &&
+            focusRef.current?.value
+          )
+        ) {
           submenuContext.handleKeyDown(event);
-        } else {
-          menuContext.handleKeyDown(event);
         }
+      } else {
+        menuContext.handleKeyDown(event);
       }
     },
-    [menuContext, onKeyDown, ref, submenu, submenuContext]
+    [focusRef, menuContext, onKeyDown, submenuContext]
   );
 
   const classes = useMemo(
@@ -99,12 +114,23 @@ const MenuItem = ({
     className: classes,
     href,
     target,
-    onClick,
+    onClick:
+      onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
     icon,
     selected,
-    menuType: menuContext.menuType,
-    tabbable: menuContext.isFirstElement,
+    variant,
+    onKeyDown: handleKeyDown,
+    ref,
   };
+
+  const clonedChildren = isChildSearch.current
+    ? childrenItems.map((child) =>
+        React.cloneElement(child, { inputRef: childRef })
+      )
+    : children;
+
+  const getTitle = (title) =>
+    maxWidth && typeof title === "string" ? title : "";
 
   if (submenu) {
     return (
@@ -112,19 +138,19 @@ const MenuItem = ({
         role="presentation"
         menuType={menuContext.menuType}
         display="inline-block"
+        title={getTitle(submenu)}
+        maxWidth={maxWidth}
+        onClick={updateFocusOnClick}
         {...rest}
       >
         <Submenu
-          {...rest}
-          ref={ref}
-          variant={variant}
           {...(typeof submenu !== "boolean" && { title: submenu })}
-          icon={icon}
           submenuDirection={submenuDirection}
-          tabbable={menuContext.isFirstElement}
-          onKeyDown={handleKeyDown}
-          className={classes}
           showDropdownArrow={showDropdownArrow}
+          clickToOpen={clickToOpen}
+          maxWidth={maxWidth}
+          {...elementProps}
+          {...rest}
         >
           {childrenItems}
         </Submenu>
@@ -138,27 +164,31 @@ const MenuItem = ({
       menuType={menuContext.menuType}
       inSubmenu={submenuContext.handleKeyDown !== undefined}
       display="inline-block"
+      title={getTitle(children)}
+      maxWidth={maxWidth}
       {...rest}
     >
       <StyledMenuItemWrapper
-        ref={ref}
-        onKeyDown={handleKeyDown}
-        as={isChildrenSearch ? "div" : Link}
+        as={isChildSearch.current ? "div" : Link}
         data-component="menu-item"
-        isSearch={isChildrenSearch}
+        isSearch={isChildSearch.current}
+        menuType={menuContext.menuType}
         {...elementProps}
-        variant={variant}
         role="menuitem"
         ariaLabel={ariaLabel}
+        maxWidth={maxWidth}
       >
-        {children}
+        {clonedChildren}
       </StyledMenuItemWrapper>
     </StyledMenuItem>
   );
 };
 
 MenuItem.propTypes = {
-  ...Box.propTypes,
+  /** Styled system flex props */
+  ...propTypes.flexbox,
+  /** Styled system layout props */
+  ...propTypes.layout,
   /** Either prop `icon` must be defined or this node must have children.
    * @type node
    */
@@ -192,6 +222,8 @@ MenuItem.propTypes = {
   selected: PropTypes.bool,
   /** A title for the menu item that has a submenu. */
   submenu: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+  /** When set the submenu opens by click instead of hover */
+  clickToOpen: PropTypes.bool,
   /** The href to use for the menu item. */
   href: PropTypes.string,
   /** onKeyDown handler */
@@ -202,15 +234,6 @@ MenuItem.propTypes = {
   showDropdownArrow: PropTypes.bool,
   /** set the colour variant for a menuType */
   variant: PropTypes.oneOf(["default", "alternate"]),
-  /** Either a keyboard override or child text must be provided to facilitate keyboard navigation. */
-  keyboardOverride: (props, propName, ...rest) => {
-    if (props.icon && !props.children && !props.keyboardOverride) {
-      return new Error(
-        "Either a keyboard override or child text must be provided to facilitate keyboard navigation."
-      );
-    }
-    return PropTypes.string(props, propName, ...rest);
-  },
   /** If no text is provided an ariaLabel should be given to facilitate accessibility. */
   ariaLabel: (props, ...rest) => {
     if (

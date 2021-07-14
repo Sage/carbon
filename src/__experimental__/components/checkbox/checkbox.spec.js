@@ -3,7 +3,6 @@ import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import { css } from "styled-components";
 import Checkbox from "./checkbox.component";
-import CheckableInput from "../../../__internal__/checkable-input/checkable-input.component";
 import { StyledCheckableInput } from "../../../__internal__/checkable-input/checkable-input.style";
 import FieldHelpStyle from "../field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -14,6 +13,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import Label from "../label";
 import Tooltip from "../../../components/tooltip";
@@ -29,6 +29,10 @@ function render(props, renderer = TestRenderer.create, options = {}) {
 }
 
 describe("Checkbox", () => {
+  testStyledSystemMargin((props) => (
+    <Checkbox name="my-checkbox" value="test" {...props} />
+  ));
+
   describe("base theme", () => {
     it("renders as expected", () => {
       expect(render({})).toMatchSnapshot();
@@ -223,14 +227,14 @@ describe("Checkbox", () => {
       });
     });
 
-    describe("with a left margin (ml prop)", () => {
+    describe("with a left margin", () => {
       describe("when adaptiveSpacingBreakpoint prop is set", () => {
         describe("when screen bigger than breakpoint", () => {
           beforeEach(() => {
             mockMatchMedia(true);
           });
 
-          it("should pass the correct margin to CheckableInput", () => {
+          it("should set the correct margin", () => {
             const wrapper = render(
               {
                 label: "Label",
@@ -240,7 +244,7 @@ describe("Checkbox", () => {
               mount
             );
 
-            expect(wrapper.find(CheckableInput).props().ml).toEqual("10%");
+            assertStyleMatch({ marginLeft: "10%" }, wrapper);
           });
         });
 
@@ -249,7 +253,7 @@ describe("Checkbox", () => {
             mockMatchMedia(false);
           });
 
-          it('should pass "0" to CheckableInput', () => {
+          it('should set margin-left "0"', () => {
             const wrapper = render(
               {
                 label: "Label",
@@ -259,7 +263,7 @@ describe("Checkbox", () => {
               mount
             );
 
-            expect(wrapper.find(CheckableInput).props().ml).toEqual("0");
+            assertStyleMatch({ marginLeft: "0" }, wrapper);
           });
         });
       });

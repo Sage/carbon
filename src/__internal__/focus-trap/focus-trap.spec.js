@@ -6,6 +6,7 @@ import {
   RadioButton,
   RadioButtonGroup,
 } from "../../__experimental__/components/radio-button";
+import { ModalContext } from "../../components/modal/modal.component";
 
 jest.useFakeTimers();
 
@@ -14,11 +15,13 @@ const MockComponent = ({ children, ...rest }) => {
   const ref = useRef();
 
   return (
-    <FocusTrap wrapperRef={ref} {...rest}>
-      <div ref={ref} id="myComponent">
-        {children}
-      </div>
-    </FocusTrap>
+    <ModalContext.Provider value={{ isAnimationComplete: true }}>
+      <FocusTrap wrapperRef={ref} {...rest}>
+        <div ref={ref} id="myComponent">
+          {children}
+        </div>
+      </FocusTrap>
+    </ModalContext.Provider>
   );
 };
 
@@ -412,6 +415,20 @@ describe("FocusTrap", () => {
           wrapper.find("button").at(0)
         );
       });
+    });
+  });
+
+  describe("wrapperRef", () => {
+    it("renders without wrapperRef provided", () => {
+      expect(() => {
+        mount(
+          <ModalContext.Provider value={{ isAnimationComplete: true }}>
+            <FocusTrap>
+              <div id="myComponent">Content</div>
+            </FocusTrap>
+          </ModalContext.Provider>
+        );
+      }).not.toThrow();
     });
   });
 });

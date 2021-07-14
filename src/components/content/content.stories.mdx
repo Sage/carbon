@@ -1,31 +1,35 @@
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import Content from './content.component.js';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import Content from "./content.component.js";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Content" parameters={{ info: { disable: true }}} />
+<Meta title="Design System/Content" parameters={{ info: { disable: true } }} />
 
 # Content
+
 Text content with simple styles and useful to show simple text content in a common arrangement.
-The Content component shows a title in bold, with plain text content children. Make sure that the colour of all text has a 
-contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) 
+The Content component shows a title in bold, with plain text content children. Make sure that the colour of all text has a
+contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
 for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/).
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
 
-```js 
+```js
 import Content from "carbon-react/lib/components/content";
 ```
+
 ## Examples
 
 ### Default content
 
 <Preview>
   <Story name="default">
-    <Content title='Title' variant='primary'>
+    <Content title="Title" variant="primary">
       This is an example of some content
     </Content>
   </Story>
@@ -35,7 +39,7 @@ import Content from "carbon-react/lib/components/content";
 
 <Preview>
   <Story name="inline">
-    <Content title='Title' inline>
+    <Content title="Title" inline>
       This is an example of some content
     </Content>
   </Story>
@@ -45,7 +49,7 @@ import Content from "carbon-react/lib/components/content";
 
 <Preview>
   <Story name="secondary styling">
-    <Content title='Title' variant='secondary'>
+    <Content title="Title" variant="secondary">
       This is an example of some content
     </Content>
   </Story>
@@ -53,5 +57,6 @@ import Content from "carbon-react/lib/components/content";
 
 ## Props
 
-### Content 
-<Props of={Content} />
+### Content
+
+<StyledSystemProps of={Content} margin noHeader />

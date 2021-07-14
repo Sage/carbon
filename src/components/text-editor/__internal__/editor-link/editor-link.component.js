@@ -34,7 +34,7 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
 
 EditorLink.propTypes = {
   children: PropTypes.node.isRequired,
-  contentState: PropTypes.object.isRequired,
+  contentState: PropTypes.object,
   entityKey: PropTypes.string,
 };
 

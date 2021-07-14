@@ -13,6 +13,9 @@ const StyledMenuItemWrapper = styled.a`
     variant,
     showDropdownArrow,
     isSearch,
+    href,
+    clickToOpen,
+    maxWidth,
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -21,6 +24,20 @@ const StyledMenuItemWrapper = styled.a`
     position: relative;
     cursor: pointer;
     background-color: ${theme.menu.light.background};
+    max-width: inherit;
+
+    a,
+    button {
+      ${maxWidth &&
+      css`
+        box-sizing: border-box;
+        max-width: inherit;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: bottom;
+      `}
+    }
 
     && a:focus,
     && button:focus {
@@ -136,17 +153,30 @@ const StyledMenuItemWrapper = styled.a`
 
       ${hasSubmenu &&
       css`
-        :hover &,
-        :hover {
-          background-color: ${theme.menu.dark.submenuBackground};
-          color: ${theme.colors.white};
-
-          a,
-          button,
-          [data-component="icon"] {
+        ${!href &&
+        css`
+          && a:hover,
+          && button:hover {
+            background-color: ${theme.menu.dark.submenuBackground};
             color: ${theme.colors.white};
+
+            [data-component="icon"] {
+              color: ${theme.colors.white};
+            }
           }
-        }
+
+          && a:focus,
+          && button:focus {
+            background-color: ${theme.menu.dark.submenuBackground};
+            color: ${theme.colors.white};
+
+            a,
+            button,
+            [data-component="icon"] {
+              color: ${theme.colors.white};
+            }
+          }
+        `}
 
         ${isOpen &&
         css`
@@ -165,24 +195,40 @@ const StyledMenuItemWrapper = styled.a`
 
     ${hasSubmenu &&
     css`
+      a:hover,
+      button:hover {
+        ${!(href || clickToOpen) &&
+        css`
+          cursor: default;
+        `}
+      }
+
       ${menuType === "light" &&
       css`
-        :hover &,
-        :hover {
-          background-color: ${theme.colors.white};
-          color: ${theme.colors.black};
-
-          a,
-          button,
-          [data-component="icon"] {
+        ${!href &&
+        css`
+          && a:hover,
+          && b:hover {
+            background-color: ${theme.colors.white};
             color: ${theme.colors.black};
+
+            [data-component="icon"] {
+              color: ${theme.colors.black};
+            }
           }
 
-          a:focus,
-          button:focus {
-            color: ${theme.colors.white};
+          && a:focus,
+          && button:focus {
+            background-color: ${theme.colors.white};
+            color: ${theme.colors.black};
+
+            a,
+            button,
+            [data-component="icon"] {
+              color: ${theme.colors.black};
+            }
           }
-        }
+        `}
 
         ${isOpen &&
         css`
@@ -193,13 +239,21 @@ const StyledMenuItemWrapper = styled.a`
 
       ${showDropdownArrow &&
       css`
-        > a {
+        > a,
+        > button {
           padding-right: 32px;
-          &:focus::before {
-            border-top-color: ${theme.colors.white};
-          }
+
+          ${href &&
+          css`
+            &:hover::before,
+            &:focus::before {
+              border-top-color: ${theme.colors.white};
+            }
+          `}
         }
-        a::before {
+
+        a::before,
+        button::before {
           display: block;
           margin-top: -2px;
           pointer-events: none;
@@ -216,8 +270,9 @@ const StyledMenuItemWrapper = styled.a`
           border-bottom: 4px solid transparent;
           border-left: 4px solid transparent;
         }
-      `}
+      `};
     `}
+
     ${isSearch &&
     css`
       padding: 2px 16px;

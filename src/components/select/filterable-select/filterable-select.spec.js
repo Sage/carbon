@@ -372,6 +372,12 @@ describe("FilterableSelect", () => {
         value: "Foo",
       },
     };
+    const expectedDeleteEventObject = {
+      target: {
+        ...textboxProps,
+        value: "",
+      },
+    };
 
     describe('with "selectionType" as "click"', () => {
       it("the SelectList should be closed", () => {
@@ -411,10 +417,15 @@ describe("FilterableSelect", () => {
     });
 
     describe("and the onChange prop is passed", () => {
-      it("then that prop should be called with the same value", () => {
-        const onChangeFn = jest.fn();
-        const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
+      const onChangeFn = jest.fn();
+      let wrapper;
 
+      beforeEach(() => {
+        onChangeFn.mockClear();
+        wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
+      });
+
+      it("then that prop should be called with the same value", () => {
         wrapper
           .find(Textbox)
           .find('[type="dropdown"]')
@@ -424,6 +435,27 @@ describe("FilterableSelect", () => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
         expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
+      });
+
+      it("then should be called when value is deleted", () => {
+        act(() => {
+          wrapper.find("input").simulate("change", {
+            target: { value: "" },
+            nativeEvent: { inputType: "delete" },
+          });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(expectedDeleteEventObject);
+      });
+
+      it("then should be called when value is not matched", () => {
+        act(() => {
+          wrapper.find("input").simulate("change", {
+            target: { value: "aaaaa" },
+          });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(expectedDeleteEventObject);
       });
     });
   });
@@ -438,33 +470,6 @@ describe("FilterableSelect", () => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
       expect(wrapper.update().find(SelectList).exists()).toBe(false);
-    });
-
-    describe("and the changed visible text is not matching any option", () => {
-      it("then the formattedValue prop in Textbox should be cleared", () => {
-        const selectedOptionTextValue = "green";
-        const onChangeFn = jest.fn();
-        const wrapper = renderSelect({
-          onChange: onChangeFn,
-          defaultValue: "opt2",
-        });
-        const changeEventObject = { target: { value: "Foo" } };
-
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        expect(wrapper.find(Textbox).prop("formattedValue")).toBe(
-          selectedOptionTextValue
-        );
-        wrapper.find("input").simulate("change", changeEventObject);
-        expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Foo");
-        act(() => {
-          wrapper.find(SelectList).prop("onSelectListClose")();
-        });
-        expect(wrapper.update().find(Textbox).prop("formattedValue")).toBe("");
-      });
     });
   });
 
@@ -662,14 +667,6 @@ describe("FilterableSelect", () => {
         });
 
         describe("and an an empty value has been passed", () => {
-          it("then the textbox displayed value should be cleared", () => {
-            expect(wrapper.find(Textbox).props().formattedValue).toBe("blue");
-            wrapper.setProps({ value: "" });
-            expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
-              ""
-            );
-          });
-
           it("then the textbox value should be cleared", () => {
             expect(wrapper.find(Textbox).props().value).toBe("opt1");
             wrapper.setProps({ value: "" });
@@ -751,17 +748,6 @@ describe("FilterableSelect", () => {
       expect(onBlurFn).toHaveBeenCalled();
     });
 
-    it("then SelectList shouldn't exist", () => {
-      const onBlurFn = jest.fn();
-      const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
-
-      wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
-
-      wrapper.find("input").simulate("blur");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
-    });
-
     describe("and there is a mouseDown reported on open list", () => {
       it("then that prop should not be called", () => {
         const onBlurFn = jest.fn();
@@ -772,6 +758,19 @@ describe("FilterableSelect", () => {
         wrapper.find("input").simulate("blur");
         expect(onBlurFn).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when the "onFilter" prop has been passed and the input text changed', () => {
+    it("then that prop should be called", () => {
+      const filterText = "foo";
+      const onFilterChangeFn = jest.fn();
+      const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
+
+      wrapper
+        .find("input")
+        .simulate("change", { target: { value: filterText } });
+      expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
     });
   });
 

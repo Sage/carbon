@@ -30,18 +30,20 @@ const Submenu = React.forwardRef(
       submenuDirection = "right",
       onKeyDown,
       variant = "default",
-      tabbable,
       showDropdownArrow = true,
+      clickToOpen,
+      href,
+      maxWidth,
       ...rest
     },
     ref
   ) => {
+    const [blockDoubleFocus, setBlockDoubleFocus] = useState(false);
     const menuContext = useContext(MenuContext);
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
+    const [characterString, setCharacterString] = useState("");
     const submenuRef = useRef();
-    const menuContextOpen = menuContext.openSubmenu;
-
     const formattedChildren = React.Children.map(children, (child) => {
       if (child.type === ScrollableBlock) {
         return [...child.props.children];
@@ -50,14 +52,31 @@ const Submenu = React.forwardRef(
       return child;
     });
 
+    const arrayOfFormattedChildren = React.Children.toArray(formattedChildren);
+
     const numberOfChildren = useMemo(
       () => React.Children.count(formattedChildren),
       [formattedChildren]
     );
 
+    const characterTimer = useRef();
+
+    const startCharacterTimeout = useCallback(() => {
+      characterTimer.current = setTimeout(() => {
+        setCharacterString("");
+      }, 1500);
+    }, []);
+
+    const restartCharacterTimeout = useCallback(() => {
+      clearTimeout(characterTimer.current);
+      startCharacterTimeout();
+    }, [startCharacterTimeout]);
+
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
       setSubmenuFocusIndex(undefined);
+      setBlockDoubleFocus(false);
+      setCharacterString("");
     }, []);
 
     const handleKeyDown = useCallback(
@@ -66,17 +85,14 @@ const Submenu = React.forwardRef(
           if (
             Events.isEnterKey(event) ||
             Events.isSpaceKey(event) ||
-            Events.isDownKey(event)
+            Events.isDownKey(event) ||
+            Events.isUpKey(event)
           ) {
             event.preventDefault();
             setSubmenuOpen(true);
-            setSubmenuFocusIndex(0);
-          }
-
-          if (Events.isUpKey(event)) {
-            event.preventDefault();
-            setSubmenuOpen(true);
-            setSubmenuFocusIndex(numberOfChildren - 1);
+            if (!href) {
+              setSubmenuFocusIndex(0);
+            }
           }
 
           if (!event.defaultPrevented) {
@@ -86,34 +102,38 @@ const Submenu = React.forwardRef(
 
         if (submenuOpen) {
           let nextIndex = index;
+          if (Events.isTabKey(event) && !Events.isShiftKey(event)) {
+            if (index === numberOfChildren - 1) {
+              closeSubmenu();
+              return;
+            }
+            nextIndex = index + 1;
+            setBlockDoubleFocus(true);
+          }
+
+          if (Events.isTabKey(event) && Events.isShiftKey(event)) {
+            if (index === 0) {
+              closeSubmenu();
+              return;
+            }
+            nextIndex = index - 1;
+            setBlockDoubleFocus(true);
+          }
 
           if (Events.isDownKey(event)) {
             event.preventDefault();
             if (index < numberOfChildren - 1) {
               nextIndex = index + 1;
-            } else {
-              nextIndex = 0;
             }
+            setBlockDoubleFocus(false);
           }
 
           if (Events.isUpKey(event)) {
             event.preventDefault();
-            if (!index) {
-              nextIndex = numberOfChildren - 1;
-            } else {
+            if (index > 0) {
               nextIndex = index - 1;
             }
-          }
-
-          if (Events.isLeftKey(event) || Events.isRightKey(event)) {
-            menuContext.handleKeyDown(event, true);
-            closeSubmenu();
-            return;
-          }
-
-          if (Events.isTabKey(event)) {
-            closeSubmenu();
-            return;
+            setBlockDoubleFocus(false);
           }
 
           if (Events.isEscKey(event)) {
@@ -133,23 +153,47 @@ const Submenu = React.forwardRef(
           }
 
           if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
-            nextIndex = characterNavigation(
-              event,
-              React.Children.toArray(formattedChildren),
-              index
-            );
+            event.stopPropagation();
+
+            if (characterTimer.current) {
+              restartCharacterTimeout();
+            } else {
+              startCharacterTimeout();
+            }
+
+            setCharacterString(`${characterString}${event.key.toLowerCase()}`);
+          } else {
+            setCharacterString("");
+          }
+
+          if (href && index === undefined) {
+            if (
+              Events.isEnterKey(event) ||
+              (Events.isTabKey(event) && Events.isShiftKey(event))
+            ) {
+              closeSubmenu();
+              return;
+            }
+
+            if (
+              Events.isSpaceKey(event) ||
+              Events.isDownKey(event) ||
+              Events.isUpKey(event) ||
+              Events.isTabKey(event)
+            ) {
+              nextIndex = 0;
+            }
           }
 
           // Defensive check in case an unhandled key event from a child component
           // has bubbled up
-          if (nextIndex === undefined) return;
+          if (!nextIndex && nextIndex !== 0) return;
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
-          const nextChild = React.Children.toArray(formattedChildren)[
-            nextIndex
-          ];
-          if (nextChild && nextChild.type === MenuItem) {
+          const nextChild = arrayOfFormattedChildren[nextIndex];
+
+          if (nextChild?.type === MenuItem) {
             setSubmenuFocusIndex(nextIndex);
           } else {
             handleKeyDown(event, nextIndex);
@@ -157,14 +201,17 @@ const Submenu = React.forwardRef(
         }
       },
       [
-        formattedChildren,
-        closeSubmenu,
-        menuContext,
-        numberOfChildren,
-        onKeyDown,
         submenuFocusIndex,
-        setSubmenuFocusIndex,
         submenuOpen,
+        href,
+        menuContext,
+        arrayOfFormattedChildren,
+        numberOfChildren,
+        closeSubmenu,
+        onKeyDown,
+        characterString,
+        restartCharacterTimeout,
+        startCharacterTimeout,
       ]
     );
 
@@ -179,10 +226,17 @@ const Submenu = React.forwardRef(
     );
 
     useEffect(() => {
-      if (menuContextOpen) {
-        setSubmenuOpen(menuContextOpen);
+      if (characterString !== "") {
+        const nextIndex = characterNavigation(
+          characterString,
+          React.Children.toArray(formattedChildren),
+          submenuFocusIndex
+        );
+
+        setSubmenuFocusIndex(nextIndex);
       }
-    }, [menuContextOpen]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [characterString]);
 
     useEffect(() => {
       if (submenuOpen) {
@@ -198,8 +252,9 @@ const Submenu = React.forwardRef(
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
         role="menuitem"
-        onMouseOver={() => setSubmenuOpen(true)}
+        onMouseOver={!clickToOpen ? () => setSubmenuOpen(true) : undefined}
         onMouseLeave={() => closeSubmenu()}
+        onClick={clickToOpen ? () => setSubmenuOpen(true) : undefined}
         ref={submenuRef}
         isSubmenuOpen={submenuOpen}
       >
@@ -215,9 +270,11 @@ const Submenu = React.forwardRef(
           isOpen={submenuOpen}
           as={Link}
           hasSubmenu
-          tabbable={tabbable}
           showDropdownArrow={showDropdownArrow}
           onKeyDown={handleKeyDown}
+          clickToOpen={clickToOpen}
+          href={href}
+          maxWidth={maxWidth}
         >
           {title}
         </StyledMenuItemWrapper>
@@ -231,12 +288,14 @@ const Submenu = React.forwardRef(
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider
                 value={{
-                  isFocused: submenuFocusIndex === index,
+                  isFocused: !blockDoubleFocus && submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
                   blockIndex: React.Children.toArray(children).findIndex(
                     (item) => item.type === ScrollableBlock
                   ),
+                  updateFocusIndex: setSubmenuFocusIndex,
+                  itemIndex: child.type === MenuItem ? index : undefined,
                 }}
               >
                 {child}
@@ -264,14 +323,14 @@ Submenu.propTypes = {
   onKeyDown: PropTypes.func,
   /** set the colour variant for a menuType */
   variant: PropTypes.oneOf(["default", "alternate"]),
-  /**
-   * @private
-   * @ignore
-   *
-   */
-  tabbable: PropTypes.bool,
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow: PropTypes.bool,
+  /** When set the submenu opens by click instead of hover */
+  clickToOpen: PropTypes.bool,
+  /** The href to use for the menu item. */
+  href: PropTypes.string,
+  /** Maximum width. Any valid CSS string */
+  maxWidth: PropTypes.string,
 };
 
 export default Submenu;

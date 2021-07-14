@@ -5,7 +5,10 @@ import "jest-styled-components";
 import { ThemeProvider } from "styled-components";
 import guid from "../../utils/helpers/guid";
 import { baseTheme, mintTheme } from "../../style/themes";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
 import ValidationIcon from "../validations";
@@ -14,6 +17,7 @@ import Label from "../../__experimental__/components/label";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
+import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
 import FormField from "../../__experimental__/components/form-field";
 
 jest.mock("../../utils/helpers/guid");
@@ -94,6 +98,57 @@ describe("ButtonToggleGroup", () => {
       );
     });
   });
+
+  describe("children", () => {
+    it("validates the incorrect children prop", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const InvalidComponent = React.forwardRef(() => <div />);
+      mount(
+        <ButtonToggleGroup name="name" id="id">
+          <InvalidComponent />
+          <InvalidComponent />
+        </ButtonToggleGroup>
+      );
+
+      const expected =
+        "Warning: Failed prop type: `ButtonToggleGroup` only accepts children of" +
+        " type `ButtonToggle`.\n    in ButtonToggleGroup";
+
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    });
+
+    it("accepts empty children", () => {
+      expect(() => {
+        mount(
+          <ButtonToggleGroup>
+            {null}
+            {false}
+            {undefined}
+          </ButtonToggleGroup>
+        );
+      }).not.toThrow();
+    });
+  });
+
+  testStyledSystemMargin(
+    (props) => (
+      <ButtonToggleGroup
+        id="button-toggle-group-id"
+        name="button-toggle-group"
+        {...props}
+      >
+        <ButtonToggle id="foo" value="foo">
+          Foo
+        </ButtonToggle>
+        <ButtonToggle id="bar" value="bar">
+          Bar
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    ),
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
 
   describe("validations", () => {
     const validationTypes = ["error", "warning", "info"];

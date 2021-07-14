@@ -4,7 +4,10 @@ import { mount, shallow } from "enzyme";
 import { shade } from "polished";
 
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import Icon from "./icon.component";
 import StyledIcon from "./icon.style";
 import OptionsHelper from "../../utils/helpers/options-helper";
@@ -13,11 +16,14 @@ import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
   isSafari,
 } from "../../utils/helpers/browser-type-check";
-import { toColor } from "../../style/utils/color.js";
+import styledColor from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/browser-type-check");
-jest.mock("@tippyjs/react/headless");
+jest.mock("@tippyjs/react/headless", () => ({
+  __esModule: true,
+  default: ({ children }) => children,
+}));
 
 function render(props, renderer = shallow) {
   return renderer(<Icon type="add" {...props} />);
@@ -28,6 +34,8 @@ function renderStyles(props) {
 }
 
 describe("Icon component", () => {
+  testStyledSystemMargin((props) => <Icon type="add" {...props} />);
+
   const mismatchedPairs = [
     { prop: "help", rendersAs: "question" },
     { prop: "maintenance", rendersAs: "settings" },
@@ -124,6 +132,7 @@ describe("Icon component", () => {
 
   describe("custom colors", () => {
     const correctColors = [
+      "primary",
       "red",
       "slateShade50",
       "rgb(0,123,100)",
@@ -133,9 +142,14 @@ describe("Icon component", () => {
     describe.each(correctColors)("when color prop is provided", (color) => {
       it("takes precedence over iconColor and renders properly colored Icon", () => {
         const wrapper = mount(<Icon type="home" color={color} />);
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
+
         assertStyleMatch(
           {
-            color: toColor(baseTheme, color),
+            color: renderedColor,
           },
           wrapper.find(StyledIcon)
         );
@@ -143,9 +157,61 @@ describe("Icon component", () => {
 
       it("renders properly colored Icon when hovered", () => {
         const wrapper = mount(<Icon color={color} type="message" />);
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
+        expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
+          "color",
+          shade(0.2, renderedColor),
+          { modifier: ":hover" }
+        );
+      });
+
+      it("takes precedence over iconColor and renders properly colored Icon with tooltip", () => {
+        const wrapper = mount(
+          <Icon
+            type="home"
+            color={color}
+            bg={color}
+            tooltipMessage="tooltip message"
+          />
+        );
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
         assertStyleMatch(
           {
-            color: shade(0.2, toColor(baseTheme, color)),
+            color: renderedColor,
+          },
+          wrapper.find(StyledIcon)
+        );
+        assertStyleMatch(
+          {
+            backgroundColor: renderedColor,
+          },
+          wrapper.find(StyledIcon)
+        );
+      });
+
+      it("renders properly colored Icon with tooltip when hovered", () => {
+        const wrapper = mount(
+          <Icon
+            type="home"
+            color={color}
+            bg={color}
+            tooltipMessage="tooltip message"
+          />
+        );
+        const { color: renderedColor } = styledColor({
+          theme: baseTheme,
+          color,
+        });
+
+        assertStyleMatch(
+          {
+            color: shade(0.2, renderedColor),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }
@@ -155,19 +221,31 @@ describe("Icon component", () => {
     describe.each(correctColors)("when bg prop is provided", (color) => {
       it("takes precedence over bgTheme and renders properly colored Icon", () => {
         const wrapper = mount(<Icon bg={color} type="message" />);
+        const { backgroundColor } = styledColor({
+          theme: baseTheme,
+          bg: color,
+        });
+
         assertStyleMatch(
           {
-            backgroundColor: toColor(baseTheme, color),
+            backgroundColor,
           },
           wrapper.find(StyledIcon)
         );
       });
 
       it("renders properly colored Icon when hovered", () => {
-        const wrapper = mount(<Icon bg={color} type="message" />);
+        const wrapper = mount(
+          <Icon bg={color} type="message" tooltipMessage="test" />
+        );
+        const { backgroundColor } = styledColor({
+          theme: baseTheme,
+          bg: color,
+        });
+
         assertStyleMatch(
           {
-            backgroundColor: shade(0.2, toColor(baseTheme, color)),
+            backgroundColor: shade(0.2, backgroundColor),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }
@@ -239,7 +317,10 @@ describe("Icon component", () => {
       "when the background theme is %s",
       (darkIconBackground) => {
         it("renders a dark icon", () => {
-          const wrapper = renderStyles({ bgTheme: darkIconBackground });
+          const wrapper = renderStyles({
+            bgTheme: darkIconBackground,
+            isInteractive: true,
+          });
           assertStyleMatch(
             {
               color: baseTheme.icon.default,
@@ -276,6 +357,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({
           iconColor: "on-light-background",
           bgTheme: "none",
+          isInteractive: true,
         });
         assertStyleMatch(
           {
@@ -314,6 +396,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({
           iconColor: "business-color",
           bgTheme: "none",
+          isInteractive: true,
         });
         assertStyleMatch(
           {
@@ -328,32 +411,6 @@ describe("Icon component", () => {
           },
           wrapper.toJSON(),
           { modifier: ":hover" }
-        );
-      });
-    });
-  });
-
-  describe("spacing props", () => {
-    describe("when mr prop is passed", () => {
-      it("renders with proper margin-right style", () => {
-        const wrapper = renderStyles({ mr: 2 });
-        assertStyleMatch(
-          {
-            marginRight: "16px",
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe("when ml prop is passed", () => {
-      it("renders with proper margin-left style", () => {
-        const wrapper = renderStyles({ ml: 2 });
-        assertStyleMatch(
-          {
-            marginLeft: "16px",
-          },
-          wrapper.toJSON()
         );
       });
     });
@@ -387,13 +444,14 @@ describe("Icon component", () => {
     describe.each(["info", "error", "success", "warning"])(
       "when bgTheme is set to one of the statuses",
       (status) => {
-        const wrapper = renderStyles({ bgTheme: status });
+        const wrapper = renderStyles({ bgTheme: status, isInteractive: true });
         const hoverColors = {
           info: "#005C9B",
           error: "#9F2D3F",
           success: "#008D00",
           warning: "#BA5000",
         };
+
         it(`renders proper background color for ${status}`, () => {
           assertStyleMatch(
             {
@@ -414,7 +472,10 @@ describe("Icon component", () => {
     );
 
     describe("when bgTheme is set to business", () => {
-      const wrapper = renderStyles({ bgTheme: "business" });
+      const wrapper = renderStyles({
+        bgTheme: "business",
+        isInteractive: true,
+      });
 
       it("renders proper background color", () => {
         assertStyleMatch(

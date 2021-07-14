@@ -1,9 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
+import { LayoutProps, FlexBoxProps } from "../../utils/helpers/options-helper";
 
-export interface MenuProps {
-  children: React.ReactNode;
-  menuType?: 'light' | 'dark';
+interface MenuContextProps {
+  menuType: "light" | "dark";
+  isFirstElement: boolean;
+  handleKeyDown: (ev, submenuOpen) => void;
+  isFocused: boolean;
+  openSubmenu: boolean;
 }
 
-declare const Menu: React.ComponentType<MenuProps>;
+export interface MenuProps extends LayoutProps, FlexBoxProps {
+  /** Children elements */
+  children: React.ReactNode;
+  /** Defines the color scheme of the component */
+  menuType?: "light" | "dark";
+}
+
+declare const MenuContext: React.Context<MenuContextProps>;
+declare function Menu(props: MenuProps): JSX.Element;
+
+export { MenuContext };
 export default Menu;

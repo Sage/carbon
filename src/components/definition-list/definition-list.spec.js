@@ -83,8 +83,76 @@ describe("DefinitionList", () => {
         </Dl>
       );
 
-      expect(wrapper.find(Dt).at(1).exists()).toBe(true);
-      expect(wrapper.find(Dd).at(1).exists()).toBe(true);
+      expect(wrapper.find(Dt).length).toEqual(2);
+      expect(wrapper.find(Dd).length).toEqual(2);
+    });
+  });
+
+  describe("with conditionally rendered children", () => {
+    describe("with inline definitions", () => {
+      it("should render the correct amount of list items", () => {
+        wrapper = mount(
+          <Dl>
+            {true && (
+              <>
+                <Dt>First</Dt>
+                <Dd>1st Description</Dd>
+              </>
+            )}
+            {false && (
+              <>
+                <Dt>Second</Dt>
+                <Dd>2nd Description</Dd>
+              </>
+            )}
+            {true && (
+              <>
+                <Dt>Third</Dt>
+                <Dd>3rd Description</Dd>
+              </>
+            )}
+          </Dl>
+        );
+
+        expect(wrapper.find(Dt).length).toEqual(2);
+        expect(wrapper.find(Dd).length).toEqual(2);
+      });
+    });
+
+    describe("when mapping from an object", () => {
+      it("should render the correct amount of list items", () => {
+        const definitions = [
+          true && {
+            definition: "First",
+            description: "1st Description",
+          },
+          false && {
+            definition: "Second",
+            description: "2nd Description",
+          },
+          true && {
+            definition: "Third",
+            description: "3rd Description",
+          },
+        ];
+
+        wrapper = mount(
+          <Dl>
+            {definitions.map(
+              (x) =>
+                !!x && (
+                  <React.Fragment key={x.definition}>
+                    <Dt>{x.definition}</Dt>
+                    <Dd>{x.description}</Dd>
+                  </React.Fragment>
+                )
+            )}
+          </Dl>
+        );
+
+        expect(wrapper.find(Dt).length).toEqual(2);
+        expect(wrapper.find(Dd).length).toEqual(2);
+      });
     });
   });
 
@@ -97,7 +165,6 @@ describe("DefinitionList", () => {
           height: "auto",
           width: "100%",
           backgroundColor: "transparent",
-          overflow: "hidden",
           gridTemplateRows: "auto",
           gridTemplateColumns: "50% auto",
         },

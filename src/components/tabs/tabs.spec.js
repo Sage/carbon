@@ -2,16 +2,19 @@
 import React, { useEffect, useContext } from "react";
 import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { css } from "styled-components";
 import TabTitle from "./__internal__/tab-title/tab-title.component";
 import { Tabs, Tab } from "./tabs.component";
 import { TabContext } from "./tab/index";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import StyledTabs from "./tabs.style";
+import StyledTab from "./tab/tab.style";
 import {
   assertStyleMatch,
   simulate,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
+import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { SidebarContext } from "../drawer";
 
 function render(props) {
@@ -155,6 +158,66 @@ describe("Tabs", () => {
     { mt: "0px" }
   );
 
+  describe("when `headerWidth` is provided", () => {
+    describe.each(["35%", "100px", "5em"])(
+      "and value of %s is provided",
+      (headerWidth) => {
+        it("should render correct `width` in `TabsHeader` component, and `Tab` `width` should be `auto`", () => {
+          const wrapper = mount(
+            <Tabs position="left" headerWidth={headerWidth}>
+              <Tab title="Tab Title 1" tabId="uniqueid1">
+                TabContent
+              </Tab>
+            </Tabs>
+          );
+
+          assertStyleMatch(
+            {
+              width: headerWidth,
+            },
+            wrapper,
+            {
+              modifier: css`
+                ${StyledTabsHeaderWrapper}
+              `,
+            }
+          );
+
+          assertStyleMatch(
+            {
+              width: "auto",
+            },
+            wrapper,
+            {
+              modifier: css`
+                ${StyledTab}
+              `,
+            }
+          );
+        });
+      }
+    );
+  });
+
+  describe('when `headerWidth` is provided, and `position="top"`', () => {
+    it(" should render console error", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      mount(
+        <Tabs position="top" headerWidth="500px">
+          <Tab title="Tab Title 1" tabId="uniqueid1">
+            TabContent
+          </Tab>
+        </Tabs>
+      );
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left\n    in Tabs"
+      );
+    });
+  });
+
   describe("when passing custom className as a prop", () => {
     it("adds it to the classList", () => {
       const wrapper = render({ className: "class" });
@@ -290,7 +353,7 @@ describe("Tabs", () => {
     });
 
     it("updates to make the associated Tab visible", () => {
-      const wrapper = render({ setLocation: false });
+      const wrapper = render();
       act(() => {
         wrapper
           .find(TabTitle)
@@ -322,15 +385,14 @@ describe("Tabs", () => {
       expect(onTabChange).toHaveBeenCalledWith("uniqueid2");
     });
 
-    it('calls the "onTabChange" callback if one is passed and a new selectedTabId value is passed', () => {
-      const onTabChange = jest.fn();
-      const wrapper = render({ onTabChange, selectedTabId: "uniqueid1" });
+    it("updates the selected tab when a new id is passed via the 'selectedTabId' prop", () => {
+      const wrapper = render({ selectedTabId: "uniqueid1" });
       wrapper.setProps({ selectedTabId: "uniqueid2" });
       wrapper.update();
-      expect(onTabChange).toHaveBeenCalledWith("uniqueid2");
+      expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(true);
       wrapper.setProps({ selectedTabId: "uniqueid1" });
       wrapper.update();
-      expect(onTabChange).toHaveBeenCalledWith("uniqueid1");
+      expect(wrapper.find(Tab).at(0).props().isTabSelected).toEqual(true);
     });
 
     it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {

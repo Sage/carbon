@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../utils/helpers/events";
 import DateHelper from "../../../utils/helpers/date";
 import tagComponent from "../../../utils/helpers/tags";
@@ -12,6 +15,17 @@ import { isEdge } from "../../../utils/helpers/browser-type-check";
 
 const defaultDateFormat = "DD/MM/YYYY";
 const hiddenDateFormat = "YYYY-MM-DD";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+
+// Spacing props filtering is a temporary solution until FormField and all related components are refactored
+// FIXME FE-3370
+const filterOutSpacingProps = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !styledSystemPropTypes.space[key])
+  );
 
 class BaseDateInput extends React.Component {
   isBlurBlocked = false;
@@ -27,6 +41,8 @@ class BaseDateInput extends React.Component {
   inputFocusedViaPicker = false;
 
   hasMounted = false;
+
+  inputPresentationRef = React.createRef();
 
   state = {
     isDatePickerOpen: false,
@@ -81,7 +97,7 @@ class BaseDateInput extends React.Component {
 
   assignInput = (input) => {
     this.input = input.current;
-    this.inputRef = input;
+    this.inputPresentationRef.current = input.current.parentElement;
   };
 
   shouldAllowBlur = () => {
@@ -350,12 +366,11 @@ class BaseDateInput extends React.Component {
     return (
       <div onClick={this.markCurrentDatepicker} role="presentation">
         <DatePicker
-          inputElement={this.inputRef}
+          inputElement={this.inputPresentationRef}
           selectedDate={this.state.selectedDate}
           handleDateSelect={this.handleDateSelect}
           inputDate={visibleValue}
           disablePortal={this.props.disablePortal}
-          size={this.props.size}
           {...dateRangeProps}
         />
       </div>
@@ -417,9 +432,10 @@ class BaseDateInput extends React.Component {
         size={inputProps.size}
         labelInline={labelInline}
         {...tagComponent("date", this.props)}
+        {...filterStyledSystemMarginProps(this.props)}
       >
         <Textbox
-          {...inputProps}
+          {...filterOutSpacingProps(inputProps)}
           inputIcon="calendar"
           value={this.state.visibleValue}
           labelInline={labelInline}
@@ -467,6 +483,7 @@ const DateInput = withUniqueIdProps(BaseDateInput);
 
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,
+  ...marginPropTypes,
   /** Boolean to allow the input to have an empty value */
   allowEmptyValue: PropTypes.bool,
   /** Automatically focus on component mount */

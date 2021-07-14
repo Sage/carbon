@@ -5,8 +5,12 @@ import { mount } from "enzyme";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import baseTheme from "../../../style/themes/base";
-import { StyledLegendContainer } from "../../../__internal__/fieldset/fieldset.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { StyledLegend } from "../../../__internal__/fieldset/fieldset.style";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+  expectError,
+} from "../../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../../components/validations/validation-icon.style";
 import Fieldset from "../../../__internal__/fieldset";
 
@@ -50,7 +54,19 @@ describe("SimpleColorPicker", () => {
     expect(render()).toMatchSnapshot();
   });
 
-  describe("it renders childs in rows based on maxWidth and childWith", () => {
+  describe("Styled System", () => {
+    testStyledSystemMargin((props) => (
+      <SimpleColorPicker
+        legend="SimpleColorPicker Legend"
+        name="test"
+        {...props}
+      >
+        <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
+      </SimpleColorPicker>
+    ));
+  });
+
+  describe("it renders children in rows based on maxWidth and childWith", () => {
     let wrapper, onChange, secondColor;
 
     describe("onKeyDown", () => {
@@ -513,10 +529,7 @@ describe("SimpleColorPicker", () => {
       it("renders validation icon by the input", () => {
         const wrapper = render(mount, { [type]: "Message" });
         expect(
-          wrapper
-            .find(StyledLegendContainer)
-            .find(StyledValidationIcon)
-            .exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
         ).toBe(false);
         expect(wrapper.find(StyledValidationIcon).exists()).toBe(true);
       });
@@ -527,10 +540,7 @@ describe("SimpleColorPicker", () => {
           validationOnLegend: true,
         });
         expect(
-          wrapper
-            .find(StyledLegendContainer)
-            .find(StyledValidationIcon)
-            .exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
         ).toBe(true);
       });
 
@@ -567,8 +577,11 @@ describe("SimpleColorPicker", () => {
 
   describe("propTypes", () => {
     it("validates the incorrect children prop", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const errorMessage =
+        "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
+        " type `SimpleColor`.\n    in SimpleColorPicker";
 
+      const assert = expectError(errorMessage);
       mount(
         <SimpleColorPicker name={name} legend="SimpleColorPicker Legend">
           <p>Invalid children</p>
@@ -576,11 +589,7 @@ describe("SimpleColorPicker", () => {
         </SimpleColorPicker>
       );
 
-      const expected =
-        "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
-        " type `SimpleColor`.\n    in SimpleColorPicker";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      assert();
     });
   });
 
@@ -601,6 +610,24 @@ describe("SimpleColorPicker", () => {
     it("the isRequired prop is passed to the fieldset", () => {
       const fieldset = wrapper.find(Fieldset);
       expect(fieldset.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("children", () => {
+    it("accepts empty children", () => {
+      expect(() => {
+        mount(
+          <SimpleColorPicker
+            name={name}
+            legend="SimpleColorPicker Legend"
+            onChange={jest.fn()}
+          >
+            {null}
+            {false}
+            {undefined}
+          </SimpleColorPicker>
+        );
+      }).not.toThrow();
     });
   });
 });

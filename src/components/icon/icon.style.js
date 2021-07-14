@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { shade } from "polished";
+import { margin } from "styled-system";
 
 import iconUnicodes from "./icon-unicodes";
 import baseTheme from "../../style/themes/base";
@@ -10,7 +11,7 @@ import OptionsHelper from "../../utils/helpers/options-helper";
 import browserTypeCheck, {
   isSafari,
 } from "../../utils/helpers/browser-type-check";
-import { toColor } from "../../style/utils/color";
+import styledColor from "../../style/utils/color";
 
 const getBackgroundColor = (theme, bgTheme, disabled, isHover) => {
   if (bgTheme !== "none") {
@@ -94,14 +95,13 @@ const StyledIcon = styled.span`
     theme,
     color,
     bg,
+    isInteractive,
     iconColor,
     bgSize,
     bgShape,
     type,
     fontSize,
     disabled,
-    mr,
-    ml,
   }) => {
     let finalColor;
     let finalHoverColor;
@@ -110,8 +110,9 @@ const StyledIcon = styled.span`
 
     try {
       if (color) {
-        finalColor = toColor(theme, color);
-        finalHoverColor = shade(0.2, toColor(theme, color));
+        const { color: renderedColor } = styledColor({ color, theme });
+        finalColor = renderedColor;
+        finalHoverColor = shade(0.2, renderedColor);
       } else {
         finalColor = getIconColor(bgTheme, theme, iconColor, disabled, false);
         finalHoverColor = getIconColor(
@@ -124,8 +125,9 @@ const StyledIcon = styled.span`
       }
 
       if (bg) {
-        bgColor = toColor(theme, bg);
-        bgHoverColor = shade(0.2, toColor(theme, bg));
+        const { backgroundColor } = styledColor({ bg, theme });
+        bgColor = backgroundColor;
+        bgHoverColor = shade(0.2, backgroundColor);
       } else {
         bgColor = getBackgroundColor(theme, bgTheme, disabled, false);
         bgHoverColor = getBackgroundColor(theme, bgTheme, disabled, true);
@@ -142,10 +144,13 @@ const StyledIcon = styled.span`
       background-color: ${bgColor};
       vertical-align: middle;
 
-      &:hover {
-        color: ${finalHoverColor};
-        background-color: ${bgHoverColor};
-      }
+      ${isInteractive &&
+      css`
+        &:hover {
+          color: ${finalHoverColor};
+          background-color: ${bgHoverColor};
+        }
+      `}
 
       ${bgTheme !== "none" &&
       css`
@@ -185,14 +190,7 @@ const StyledIcon = styled.span`
         display: block;
       }
 
-      ${ml &&
-      css`
-        margin-left: ${ml * theme.spacing}px;
-      `};
-      ${mr &&
-      css`
-        margin-right: ${mr * theme.spacing}px;
-      `};
+      ${margin}
     `;
   }}
 `;
@@ -200,8 +198,15 @@ const StyledIcon = styled.span`
 StyledIcon.propTypes = {
   theme: PropTypes.object,
   type: PropTypes.string,
+  isInteractive: PropTypes.bool,
   disabled: PropTypes.bool,
-  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
+  bgSize: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
   bgTheme: PropTypes.oneOf([
     ...OptionsHelper.colors,
@@ -210,8 +215,6 @@ StyledIcon.propTypes = {
   ]),
   fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
   iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
-  mr: PropTypes.number,
-  ml: PropTypes.number,
 };
 
 StyledIcon.defaultProps = {

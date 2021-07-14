@@ -6,11 +6,8 @@ import Label from "../label";
 import FieldHelp from "../field-help";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import tagComponent from "../../../utils/helpers/tags";
-import Logger from "../../../utils/logger/logger";
 import { TabContext } from "../../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
-
-let deprecatedWarnTriggered = false;
 
 const FormField = ({
   children,
@@ -34,24 +31,14 @@ const FormField = ({
   name,
   id,
   reverse,
-  size = "medium",
   childOfForm,
   isOptional,
   readOnly,
   useValidationIcon,
   adaptiveLabelBreakpoint,
-  styleOverride = {},
   isRequired,
   ...props
 }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    // eslint-disable-next-line max-len
-    Logger.deprecate(
-      "`styleOverride` that is used in the `FormField` component is deprecated and will soon be removed."
-    );
-  }
-
   const context = useContext(TabContext);
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
   let inlineLabel = labelInline;
@@ -121,7 +108,6 @@ const FormField = ({
   return (
     <FormFieldStyle
       {...tagComponent(props["data-component"], props)}
-      styleOverride={styleOverride.root}
       {...spacingProps}
     >
       <FieldLineStyle inline={inlineLabel}>
@@ -143,14 +129,12 @@ const FormField = ({
             htmlFor={id}
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
-            inputSize={size}
             width={labelWidth}
             childOfForm={childOfForm}
             optional={isOptional}
             useValidationIcon={useValidationIcon}
             pr={!reverse ? labelSpacing : undefined}
             pl={reverse ? labelSpacing : undefined}
-            styleOverride={styleOverride.label}
             isRequired={isRequired}
           >
             {label}
@@ -220,17 +204,11 @@ FormField.propTypes = {
   labelWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   isRequired: PropTypes.bool,
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  }),
 };
 
 export default FormField;

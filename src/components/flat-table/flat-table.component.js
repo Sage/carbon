@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import {
+  StyledFlatTableRoot,
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
   StyledFlatTableBox,
 } from "./flat-table.style";
 import { SidebarContext } from "../drawer";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTable = ({
   caption,
@@ -38,7 +44,7 @@ const FlatTable = ({
   return (
     <SidebarContext.Consumer>
       {(context) => (
-        <>
+        <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
           <StyledFlatTableBox
             {...rest}
             {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
@@ -56,7 +62,7 @@ const FlatTable = ({
                 {...tableStylingProps}
               >
                 {caption ? <caption>{caption}</caption> : null}
-                <FlatTableThemeContext.Provider value={colorTheme}>
+                <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
                   {children}
                 </FlatTableThemeContext.Provider>
               </StyledFlatTable>
@@ -67,13 +73,14 @@ const FlatTable = ({
               {footer}
             </StyledFlatTableFooter>
           )}
-        </>
+        </StyledFlatTableRoot>
       )}
     </SidebarContext.Consumer>
   );
 };
 
 FlatTable.propTypes = {
+  ...marginPropTypes,
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby: PropTypes.string,
   /** A string to render as the table's caption */
@@ -97,8 +104,8 @@ FlatTable.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool,
-  /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
-  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
+  /** Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' */
+  size: PropTypes.oneOf(["compact", "small", "medium", "large", "extraLarge"]),
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight: PropTypes.bool,
 };

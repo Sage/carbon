@@ -2,12 +2,12 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
+import { LegendContainerStyle, FieldsetContentStyle } from "./fieldset.style";
 import {
-  LegendContainerStyle,
-  FieldsetStyle,
-  FieldsetContentStyle,
-} from "./fieldset.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
+import { noThemeSnapshot } from "../../../__spec_helper__/enzyme-snapshot-helper";
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -20,8 +20,14 @@ function render(props, renderer = shallow) {
 const basicWrapper = render();
 
 describe("Fieldset", () => {
+  testStyledSystemMargin((props) => (
+    <Fieldset {...props}>
+      <Textbox />
+    </Fieldset>
+  ));
+
   it("renders correctly", () => {
-    expect(basicWrapper).toMatchSnapshot();
+    expect(noThemeSnapshot(basicWrapper)).toMatchSnapshot();
   });
 
   describe("Fieldset Legend", () => {
@@ -66,31 +72,6 @@ describe("Fieldset", () => {
         },
         mount(<FieldsetContentStyle inline />)
       );
-    });
-  });
-
-  describe("style overrides", () => {
-    let wrapper;
-    const customStyleObject = {
-      backgroundColor: "red",
-      display: "flex",
-      fontSize: "200px",
-    };
-    const styleOverride = {
-      root: customStyleObject,
-      legend: customStyleObject,
-    };
-
-    beforeEach(() => {
-      wrapper = render({ styleOverride, legend: "Legend" }, mount);
-    });
-
-    it("renders root element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(FieldsetStyle));
-    });
-
-    it("renders legend element with properly assigned styles", () => {
-      assertStyleMatch(customStyleObject, wrapper.find(LegendContainerStyle));
     });
   });
 });

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ToolbarButtonProps {
   ariaLabel?: string;
@@ -8,11 +8,11 @@ export interface ToolbarButtonProps {
   onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-  onFocus?: (event: React.MouseEvent<HTMLElement>) => void;
-  onBlur?: (event: React.MouseEvent<HTMLElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
   tabbable?: boolean;
 }
 
-declare const ToolbarButton: React.FunctionComponent<ToolbarButtonProps>;
+declare function ToolbarButton(props: ToolbarButtonProps & React.RefAttributes<HTMLButtonElement>): JSX.Element;
 
 export default ToolbarButton;

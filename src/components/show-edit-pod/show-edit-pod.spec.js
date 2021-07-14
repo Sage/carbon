@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import "jest-styled-components";
+
 import ShowEditPod from "./show-edit-pod.component";
 import Form from "../form";
 import Pod from "../pod";
@@ -9,9 +9,12 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import StyledDeleteButton from "./delete-button.style";
 
 describe("ShowEditPod", () => {
+  testStyledSystemMargin((props) => <ShowEditPod {...props} />);
+
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
     let container;
@@ -349,7 +352,14 @@ describe("ShowEditPod", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      const wrapper = mount(<ShowEditPod data-element="bar" data-role="baz" />);
+      const wrapper = mount(
+        <ShowEditPod
+          saveText="Save"
+          cancelText="Cancel"
+          data-element="bar"
+          data-role="baz"
+        />
+      );
 
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapper.find(Pod), "show-edit-pod", "bar", "baz");
@@ -357,7 +367,14 @@ describe("ShowEditPod", () => {
     });
 
     describe("on internal elements", () => {
-      const wrapper = mount(<ShowEditPod editing onEdit={() => {}} />);
+      const wrapper = mount(
+        <ShowEditPod
+          saveText="Save"
+          cancelText="Cancel"
+          editing
+          onEdit={() => {}}
+        />
+      );
       const form = wrapper.find('[data-component="form"]').hostNodes();
       expect(form.type()).toEqual("form");
       elementsTagTest(form, ["edit-form"]);
@@ -365,8 +382,11 @@ describe("ShowEditPod", () => {
   });
 });
 
-function renderShowEditPod(props, renderer = mount) {
-  return renderer(<ShowEditPod {...props} />, {
-    attachTo: document.getElementById("enzymeContainer"),
-  });
+function renderShowEditPod(props = {}, renderer = mount) {
+  return renderer(
+    <ShowEditPod saveText="Save" cancelText="Cancel" {...props} />,
+    {
+      attachTo: document.getElementById("enzymeContainer"),
+    }
+  );
 }

@@ -14,6 +14,7 @@ const StyledInput = styled.input`
   width: 30px;
 
   &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #fff inset;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     -webkit-box-border: none;
   }
@@ -36,7 +37,8 @@ const StyledInput = styled.input`
     `}
 
   &:invalid, &:required {
-    box-shadow: none;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   }
 
   ${({ readOnly, theme }) =>
@@ -44,8 +46,6 @@ const StyledInput = styled.input`
     css`
       color: ${theme.readOnly.textboxText};
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledInput.defaultProps = {
@@ -54,7 +54,6 @@ StyledInput.defaultProps = {
 
 StyledInput.propTypes = {
   disabled: PropTypes.bool,
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 export default StyledInput;

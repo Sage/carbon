@@ -139,60 +139,6 @@ export const InFullScreenDialog = () => {
   );
 };
 
-export const WithOverridenStyles = () => {
-  const ref1 = useRef();
-  const ref2 = useRef();
-  const ref3 = useRef();
-  const ref4 = useRef();
-  const ref5 = useRef();
-
-  return (
-    <AnchorNavigation
-      styleOverride={{
-        root: { backgroundColor: "#F2F5F6" },
-        content: { marginLeft: 96, marginRight: 96 },
-        navigation: { maxWidth: 450, top: 100, marginTop: 24 },
-      }}
-      stickyNavigation={
-        <>
-          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref4}>
-            Navigation item with very long label
-          </AnchorNavigationItem>
-          <AnchorNavigationItem
-            target={ref5}
-            styleOverride={{ textDecoration: "underline" }}
-          >
-            Fifth
-          </AnchorNavigationItem>
-        </>
-      }
-    >
-      <div ref={ref1}>
-        <Content title="First section" />
-      </div>
-      <AnchorSectionDivider styleOverride={{ backgroundColor: "white" }} />
-      <div ref={ref2}>
-        <Content title="Second section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref3}>
-        <Content noTextbox title="Third section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref4}>
-        <Content title="Fourth section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref5}>
-        <Content title="Fifth section" />
-      </div>
-    </AnchorNavigation>
-  );
-};
-
 Default.story = {
   name: "default",
   parameters: {
@@ -207,15 +153,6 @@ InFullScreenDialog.story = {
   parameters: {
     chromatic: {
       disable: true,
-    },
-  },
-};
-
-WithOverridenStyles.story = {
-  name: "with overriden styles",
-  parameters: {
-    chromatic: {
-      disable: false,
     },
   },
 };

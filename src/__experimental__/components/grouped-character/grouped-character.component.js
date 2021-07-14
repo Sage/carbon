@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Textbox from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const buildCustomTarget = ({ target }, value) => {
   const { name, id } = target;
@@ -107,6 +114,7 @@ const GroupedCharacter = ({
 };
 
 GroupedCharacter.propTypes = {
+  ...marginPropTypes,
   /** character to be used as separator - has to be a 1 character string */
   separator: (props, propName, componentName) => {
     if (typeof props[propName] !== "string" || props[propName].length > 1) {

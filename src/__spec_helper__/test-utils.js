@@ -1,5 +1,6 @@
 import { mount } from "enzyme";
 
+import { sprintf } from "sprintf-js";
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
 
@@ -163,6 +164,7 @@ const layoutProps = [
   ["overflowX", "overflow-x", "hidden"],
   ["overflowY", "overflow-y", "hidden"],
 ];
+
 const flexBoxProps = [
   ["alignItems", "alignItems", "center"],
   ["alignContent", "alignContent", "center"],
@@ -177,6 +179,17 @@ const flexBoxProps = [
   ["justifySelf", "justifySelf", "center"],
   ["alignSelf", "alignSelf", "center"],
   ["order", "order", "1"],
+];
+
+const backgroundProps = [
+  [
+    "background",
+    "background",
+    "lightblue url('foo.jpg') no-repeat fixed center",
+  ],
+  ["backgroundImage", "background-image", "url(foo.jpg)"],
+  ["backgroundSize", "background-size", "center"],
+  ["backgroundRepeat", "background-repeat", "no-repeat"],
 ];
 
 const getDefaultValue = (value) => {
@@ -413,6 +426,61 @@ const testStyledSystemFlexBox = (component, styleContainer) => {
   );
 };
 
+const testStyledSystemBackground = (component, styleContainer) => {
+  describe.each(backgroundProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: value };
+        wrapper = mount(component({ ...props }));
+
+        expect(
+          assertStyleMatch(
+            { [styledSystemProp]: value },
+            styleContainer ? styleContainer(wrapper) : wrapper
+          )
+        );
+      });
+    }
+  );
+};
+
+const expectError = (errorMessage) => {
+  if (!errorMessage) {
+    throw new Error("no error message provided");
+  }
+
+  expect.assertions(1);
+
+  const { error } = global.console;
+  let errorArgs;
+
+  jest.spyOn(global.console, "error").mockImplementation((...args) => {
+    if (!args.length) return;
+
+    const msg = args.join(" ");
+    const params = args.slice(1, args.length);
+
+    if (sprintf(msg, ...params).includes(errorMessage)) {
+      errorArgs = args;
+      return;
+    }
+
+    error(...args);
+  });
+
+  return () => {
+    if (errorArgs) {
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(...errorArgs);
+    }
+
+    global.console.error = error;
+  };
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -435,4 +503,6 @@ export {
   testStyledSystemWidth,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  testStyledSystemBackground,
+  expectError,
 };

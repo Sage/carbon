@@ -160,6 +160,7 @@ export default (palette) => {
 
       hover: palette.slateTint(95),
       headerIconColor: palette.slateTint(60),
+      headerAlternativeBackground: palette.slateTint(10),
       selected: palette.slateTint(85),
       highlighted: palette.slateTint(90),
     },
@@ -337,8 +338,13 @@ export default (palette) => {
         "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
     },
 
+    stepSequence: {
+      completedText: palette.genericGreenShade(15),
+    },
+
     switch: {
-      off: "#CCD6DB",
+      off: palette.slateTint(80),
+      offHover: palette.slateTint(60),
     },
 
     tile: {

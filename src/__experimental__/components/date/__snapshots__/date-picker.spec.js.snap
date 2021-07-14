@@ -8,8 +8,8 @@ exports[`StyledDayPicker i18n translation renders properly 1`] = `
         "name": "offset",
         "options": Object {
           "offset": Array [
-            -11,
-            5,
+            0,
+            3,
           ],
         },
       },
@@ -349,6 +349,10 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   padding: 0;
 }
 
+.c0 .DayPicker-wrapper:focus {
+  outline: 3px solid #FFB500;
+}
+
 .c0 .DayPicker-Month {
   margin: 0 0 2px;
 }
@@ -382,6 +386,10 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 .c0 .DayPicker-Day:hover {
   background-color: #F2F5F6;
   color: rgba(0,0,0,0.9);
+}
+
+.c0 .DayPicker-Day:focus {
+  outline: 3px solid #FFB500;
 }
 
 .c0 .DayPicker-Day + * {

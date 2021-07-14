@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import I18n from "i18n-js";
 
+import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../utils/helpers/events";
 import OptionsHelper from "../../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
@@ -10,6 +12,10 @@ import Textbox from "../textbox";
 import guid from "../../../utils/helpers/guid";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const isDayValid = (day) => (day ? +day > 0 && +day < 32 : true);
 
@@ -55,8 +61,10 @@ const NumeralDate = ({
   fieldHelp,
   adaptiveLabelBreakpoint,
   required,
+  size,
   enableInternalError,
   enableInternalWarning,
+  ...rest
 }) => {
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
@@ -168,6 +176,7 @@ const NumeralDate = ({
         fieldHelp={fieldHelp}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
         isRequired={required}
+        {...filterStyledSystemMarginProps(rest)}
       >
         <StyledNumeralDate
           name={name}
@@ -209,6 +218,7 @@ const NumeralDate = ({
                       warning: internalWarning,
                       info,
                     })}
+                  size={size}
                 />
               </StyledDateField>
             );
@@ -220,6 +230,8 @@ const NumeralDate = ({
 };
 
 NumeralDate.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Array of strings to define custom input layout.
   Allowed formats:
   ['dd', 'mm', 'yyyy'],
@@ -294,6 +306,8 @@ NumeralDate.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Size of an input */
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 export default NumeralDate;

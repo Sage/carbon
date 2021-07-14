@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import Card from ".";
-import CardRow from "./card-row";
-import CardFooter from "./card-footer";
-import CardColumn from "./card-column";
+import {
+  Card,
+  CardRow,
+  CardFooter,
+  CardColumn,
+}  from ".";
 import Heading from "../heading";
 import Link from "../link";
 import Typography from "../typography";
@@ -30,10 +32,12 @@ Organise and present content and actions about a single subject.
 ## Quick start
 
 ```javascript
-import Card from "carbon-react/lib/components/card";
-import CardRow from "carbon-react/lib/components/card/card-row";
-import CardFooter from "carbon-react/lib/components/card/card-footer";
-import CardColumn from "carbon-react/lib/components/card/card-column";
+import {
+  Card,
+  CardRow,
+  CardFooter,
+  CardColumn,
+} from "carbon-react/lib/components/card";
 ```
 
 ## Designer Notes
@@ -528,7 +532,7 @@ Click on the card to see the effect
 
 ### Card
 
-<Props of={Card} />
+<StyledSystemProps noHeader margin of={Card} />
 
 ### CardRow
 

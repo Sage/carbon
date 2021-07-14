@@ -28,6 +28,7 @@ const MultiSelect = React.forwardRef(
       readOnly,
       children,
       onOpen,
+      onFilterChange,
       onChange,
       onClick,
       onFocus,
@@ -251,6 +252,12 @@ const MultiSelect = React.forwardRef(
     }, [handleGlobalClick]);
 
     useEffect(() => {
+      if (onFilterChange) {
+        onFilterChange(filterText);
+      }
+    }, [filterText, onFilterChange]);
+
+    useEffect(() => {
       if (!isControlled.current && onChange) {
         onChange(createCustomEvent(selectedValue));
       }
@@ -293,7 +300,6 @@ const MultiSelect = React.forwardRef(
       }
 
       isInputFocused.current = false;
-      setOpenState(false);
 
       if (onBlur) {
         onBlur(event);
@@ -387,7 +393,6 @@ const MultiSelect = React.forwardRef(
 
     function onSelectListClose() {
       setOpenState(false);
-      setTextValue("");
       setFilterText("");
     }
 
@@ -425,6 +430,7 @@ const MultiSelect = React.forwardRef(
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
         iconOnClick: handleDropdownIconClick,
+        iconOnMouseDown: handleTextboxMouseDown,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         ...textboxProps,
@@ -457,6 +463,7 @@ const MultiSelect = React.forwardRef(
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="multi-select-list-loader"
       >
         {children}
       </FilterableSelectList>
@@ -502,6 +509,8 @@ MultiSelect.propTypes = {
   ]),
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
+  /** A custom callback for when the input text changes */
+  onFilterChange: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the Component opens on focus */

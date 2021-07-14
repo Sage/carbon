@@ -1,12 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
+import Icon from "../../icon";
 import {
   StyledFlatTableRowHeader,
   StyledFlatTableRowHeaderContent,
 } from "./flat-table-row-header.style";
-import Icon from "../../icon";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 const FlatTableRowHeader = ({
   align = "left",
@@ -43,7 +48,9 @@ const FlatTableRowHeader = ({
         }
         expandable={expandable}
       >
-        {expandable && <Icon type="chevron_down_thick" />}
+        {expandable && (
+          <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
+        )}
         {children}
       </StyledFlatTableRowHeaderContent>
     </StyledFlatTableRowHeader>
@@ -51,8 +58,8 @@ const FlatTableRowHeader = ({
 };
 
 FlatTableRowHeader.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Styled system padding props */
+  ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -77,6 +84,10 @@ FlatTableRowHeader.propTypes = {
    * @ignore
    */
   onKeyDown: PropTypes.func,
+  /** Sets a custom vertical right border */
+  verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Sets a custom vertical right border */
+  verticalBorderColor: PropTypes.string,
 };
 
 export default FlatTableRowHeader;

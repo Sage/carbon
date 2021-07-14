@@ -4,7 +4,6 @@ import Help from "../../../components/help";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
 import ValidationIcon from "../../../components/validations/validation-icon.component";
 import IconWrapperStyle from "./icon-wrapper.style";
-import Logger from "../../../utils/logger/logger";
 import {
   InputContext,
   InputGroupContext,
@@ -19,13 +18,10 @@ const tooltipPosition = ({ error, warning, info, inline }) => {
   return (error || warning || info) && inline === true ? "top" : "right";
 };
 
-let deprecatedWarnTriggered = false;
-
 const Label = ({
   disabled,
   inline,
   align = "right",
-  inputSize,
   width,
   childOfForm,
   optional,
@@ -44,14 +40,7 @@ const Label = ({
   pr,
   pl,
   isRequired,
-  styleOverride = {},
 }) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      "`styleOverride` that is used in the `Label` component is deprecated and will soon be removed."
-    );
-  }
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
   const {
@@ -125,13 +114,11 @@ const Label = ({
     <StyledLabelContainer
       align={align}
       inline={inline}
-      inputSize={inputSize}
       width={width}
       optional={optional}
       childOfForm={childOfForm}
       pr={pr}
       pl={pl}
-      styleOverride={styleOverride}
     >
       <StyledLabel
         data-element="label"
@@ -154,8 +141,6 @@ Label.propTypes = {
   width: PropTypes.number,
   /** Label alignment */
   align: PropTypes.oneOf(["left", "right"]),
-  /** Size of an input Label is used in */
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** Flag to indicate that component is used in a Form */
   childOfForm: PropTypes.bool,
   /** When true, label is placed in line an input */
@@ -192,8 +177,6 @@ Label.propTypes = {
   pr: PropTypes.oneOf([1, 2]),
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl: PropTypes.oneOf([1, 2]),
-  /** Allows to override existing component styles */
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   /** Flag to configure component as mandatory */
   isRequired: PropTypes.bool,
 };

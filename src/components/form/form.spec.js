@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import baseTheme from "../../style/themes/base";
 import ElementResize from "../../utils/helpers/element-resize";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/test-utils";
 import Form from "./form.component";
 import {
   StyledLeftButtons,
@@ -12,8 +15,11 @@ import {
   StyledFormFooter,
   StyledForm,
 } from "./form.style";
-import FormSummary from "./form-summary.component";
-import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
+import FormSummary from "./__internal__/form-summary.component";
+import {
+  StyledFormSummary,
+  StyledInternalSummary,
+} from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
@@ -25,6 +31,8 @@ describe("Form", () => {
     jest.useFakeTimers();
     wrapper = mount(<Form />);
   });
+
+  testStyledSystemSpacing((props) => <Form {...props} />);
 
   it("allows custom classes to be added to the Form", () => {
     wrapper.setProps({ className: "foo" });
@@ -94,7 +102,7 @@ describe("Form", () => {
       expect(wrapper.find(StyledFormFooter).hasClass("sticky")).toBe(true);
       assertStyleMatch(
         {
-          paddingBottom: "100px",
+          paddingBottom: "88px",
         },
         wrapper.find(StyledForm)
       );
@@ -136,54 +144,108 @@ describe("Form", () => {
       );
     };
 
-    beforeEach(() => {
-      wrapper = mount(<Form stickyFooter />);
-      window.innerHeight = 1000;
-      const footerNode = wrapper.find(StyledFormFooter).getDOMNode();
-      jest
-        .spyOn(footerNode, "offsetHeight", "get")
-        .mockImplementation(() => 100);
+    describe("without container", () => {
+      beforeEach(() => {
+        wrapper = mount(<Form stickyFooter />);
+        window.innerHeight = 1000;
+      });
+
+      afterEach(() => {
+        window.innerHeight = 768;
+      });
+
+      it("renders footer with sticky styles if form bottom is below the window", () => {
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1051,
+          }));
+
+        assertThatFooterIsSticky();
+      });
+
+      it("renders form footer without sticky styles if form bottom is above the bottom of window", () => {
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            top: 100,
+            bottom: 900,
+          }));
+
+        assertThatFooterIsNotSticky();
+      });
+
+      it("does not change stickyFooter state if it does not need to change", () => {
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1100,
+          }));
+
+        assertThatFooterIsSticky();
+
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1101,
+          }));
+
+        assertThatFooterIsSticky();
+      });
     });
 
-    afterEach(() => {
-      window.innerHeight = 768;
-    });
+    describe("with custom container", () => {
+      const Component = () => {
+        const ref = useRef();
+        return (
+          <div id="test-container" ref={ref}>
+            <Form stickyFooter dialogRef={ref}>
+              <span>form content</span>
+            </Form>
+          </div>
+        );
+      };
 
-    it("renders footer with sticky styles if form bottom is below the window", () => {
-      const formNode = wrapper.find(StyledForm).getDOMNode();
-      jest.spyOn(formNode, "getBoundingClientRect").mockImplementation(() => ({
-        top: 100,
-        bottom: 1051,
-      }));
+      beforeEach(() => {
+        wrapper = mount(<Component />);
+      });
 
-      assertThatFooterIsSticky();
-    });
+      it("renders footer with sticky styles if form bottom is below the container", () => {
+        const containerNode = wrapper.find("#test-container").getDOMNode();
+        jest
+          .spyOn(containerNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1000,
+          }));
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1050,
+          }));
 
-    it("renders form footer without sticky styles if form bottom is above the bottom of window", () => {
-      const formNode = wrapper.find(StyledForm).getDOMNode();
-      jest.spyOn(formNode, "getBoundingClientRect").mockImplementation(() => ({
-        top: 100,
-        bottom: 900,
-      }));
+        assertThatFooterIsSticky();
+      });
 
-      assertThatFooterIsNotSticky();
-    });
+      it("renders form footer without sticky styles if form bottom is above the bottom of window", () => {
+        const containerNode = wrapper.find("#test-container").getDOMNode();
+        jest
+          .spyOn(containerNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1100,
+          }));
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1050,
+          }));
 
-    it("does not change stickyFooter state if it does not need to change", () => {
-      const formNode = wrapper.find(StyledForm).getDOMNode();
-      jest.spyOn(formNode, "getBoundingClientRect").mockImplementation(() => ({
-        top: 100,
-        bottom: 1100,
-      }));
-
-      assertThatFooterIsSticky();
-
-      jest.spyOn(formNode, "getBoundingClientRect").mockImplementation(() => ({
-        top: 100,
-        bottom: 1101,
-      }));
-
-      assertThatFooterIsSticky();
+        assertThatFooterIsNotSticky();
+      });
     });
   });
 

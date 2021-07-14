@@ -80,6 +80,13 @@ const OptionsHelper = {
     "camera",
     "card_view",
     "caret_down",
+    "caret_left",
+    "caret_right",
+    "caret_up",
+    "caret_large_down",
+    "caret_large_left",
+    "caret_large_right",
+    "caret_large_up",
     "cart",
     "chat",
     "chart_bar",
@@ -125,6 +132,8 @@ const OptionsHelper = {
     "email_switch",
     "ellipsis_horizontal",
     "ellipsis_vertical",
+    "envelope_dollar",
+    "envelope_euro",
     "error",
     "error_square",
     "euro",
@@ -195,6 +204,7 @@ const OptionsHelper = {
     "refresh",
     "refresh_clock",
     "remove",
+    "sage_coin",
     "save",
     "scan",
     "search",
@@ -216,6 +226,7 @@ const OptionsHelper = {
     "three_boxes",
     "tick",
     "tick_circle",
+    "undo",
     "unlocked",
     "upload",
     "uploaded",
@@ -267,7 +278,7 @@ const OptionsHelper = {
 
   sizesPod: ["extra-small", "small", "medium", "large", "extra-large"],
 
-  iconSizes: ["small", "medium", "large", "extra-large"],
+  iconSizes: ["extra-small", "small", "medium", "large", "extra-large"],
 
   sizesRestricted: ["small", "medium", "large"],
 

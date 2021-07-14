@@ -1,34 +1,43 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import { Basic } from './action-popover.stories';
-import { Preview as MyPreview } from '@storybook/components';
-import {  
-  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu, ActionPopoverMenuButton
-} from '.';
-import { MenuItem } from './action-popover-item.component';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Basic } from "./action-popover.stories";
+import { Preview as MyPreview } from "@storybook/components";
+import LinkTo from "@storybook/addon-links/react";
+
 import {
-  Table, TableRow, TableCell, TableHeader
-} from '../table';
-import { Accordion } from '../accordion'
-import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
-import Link from '../link';
-import LinkTo from '@storybook/addon-links/react';
-import { 
-  FlatTable, 
-  FlatTableHead, 
-  FlatTableBody, 
-  FlatTableRow, 
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+  ActionPopoverMenuButton,
+} from ".";
+import { MenuItem } from "./action-popover-item/action-popover-item.component";
+import { Table, TableRow, TableCell, TableHeader } from "../table";
+import { Accordion } from "../accordion";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import DocsWrapper from "../../../.storybook/docs-helpers/components/iframe-wrapper";
+import Link from "../link";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
   FlatTableHeader,
   FlatTableCell,
-} from '../flat-table';
+} from "../flat-table";
 
-<Meta title="Design System/Action Popover" parameters={{info: { disable: true }, chromatic: { disable: true }}} />
+<Meta
+  title="Design System/Action Popover"
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+/>
 
 # ActionPopover
+
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
 Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -36,48 +45,58 @@ Click the ellipsis icon to show actions the user can take on a specific table ro
 - [Props](#props)
 
 ## Quick Start
+
 To use action popover, import `ActionPopover` alongside `ActionPopoverItem` and the other components that you would like to use in relation,
-to the action popover. 
+to the action popover.
 
 ```javascript
-import {  
-  ActionPopover, 
-  ActionPopoverDivider, 
-  ActionPopoverItem, 
-  ActionPopoverMenu, 
-  ActionPopoverMenuButton
-} from "carbon-react/lib/components/action-popover"
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+  ActionPopoverMenuButton,
+} from "carbon-react/lib/components/action-popover";
 ```
 
 ## Designer Notes
+
 - Action Popovers only perform commands - they aren’t used to collect data, or choose between data items as in a form.
-- Place the most common and useful actions within them. Although designs for separator rows and sub-menus are provided, 
-these add complexity, so use them sparingly.
+- Place the most common and useful actions within them. Although designs for separator rows and sub-menus are provided,
+  these add complexity, so use them sparingly.
 - Clicking the table row or tile links the user to that item. Only clicking the Action Popover's icon displays its items.
 - Action popovers appear in front of all other UI elements.
-- If they are in a position to be cut off by the browser or screen’s edge, the Action Popover can instead appear to the 
-left, right, or above the element that generates it.
+- If they are in a position to be cut off by the browser or screen’s edge, the Action Popover can instead appear to the
+  left, right, or above the element that generates it.
 - Content in the popover is usually left aligned.
 
 ## Related Components
+
 - Data entry rather than an action? <LinkTo kind='Design System/Select' story='default-story'>Try Select</LinkTo>.
 - Only a single action? <LinkTo kind='Design System/Button' story='primary'>Try Button</LinkTo>.
-- Doesn’t relate to a single table row or tile? <LinkTo kind='Split Button' story='default'>Try Split Button</LinkTo>, or 
-<LinkTo kind='Multi Action Button' story='default'>Multi Action Button</LinkTo>.
+- Doesn’t relate to a single table row or tile? <LinkTo kind='Split Button' story='default'>Try Split Button</LinkTo>, or
+  <LinkTo kind="Multi Action Button" story="default">
+    Multi Action Button
+  </LinkTo>
+  .
 
 ## Examples
 
 ### Default
+
 Story showing most of the functionality of the action popover and what can be achieved by using it
+
 <Preview>
   <Story id="design-system-action-popover-test--default" />
 </Preview>
 
 ### With icons
+
 Each item is clickable and represents an action to be taken on a given row.
+
 <Preview>
   <Story name="with icons">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -89,14 +108,13 @@ Each item is clickable and represents an action to be taken on a given row.
           <TableCell>Doe</TableCell>
           <TableCell>
             <ActionPopover>
-              <ActionPopoverItem
-                icon='email'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -106,10 +124,12 @@ Each item is clickable and represents an action to be taken on a given row.
 </Preview>
 
 ### With disabled item
+
 ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can still be navigated with the keyboard.
+
 <Preview>
   <Story name="with disabled item">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -121,15 +141,13 @@ ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can
           <TableCell>Doe</TableCell>
           <TableCell>
             <ActionPopover>
-              <ActionPopoverItem
-                icon='email'
-                disabled
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" disabled onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -139,10 +157,12 @@ ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can
 </Preview>
 
 ### With menu right aligned
+
 It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
+
 <Preview>
   <Story name="with menu right aligned">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -154,15 +174,44 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
           <TableCell>Doe</TableCell>
           <TableCell>
             <ActionPopover rightAlignMenu>
-              <ActionPopoverItem
-                icon='email'
-                disabled
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" disabled onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
+
+### With item content aligned to right
+
+<Preview>
+  <Story name="with item content aligned to right">
+    <div style={{ height: "250px" }}>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover horizontalAlignment="right">
+              <ActionPopoverItem icon="email">
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -172,10 +221,12 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
 </Preview>
 
 ### With no icons
+
 Menu items can also be displayed without icons.
+
 <Preview>
   <Story name="with no icons">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -200,13 +251,14 @@ Menu items can also be displayed without icons.
   </Story>
 </Preview>
 
-
 ### With custom menu button
-It is possible to use the &quot;renderButton&quot; prop to override the default button used to trigger the opening and closing of 
+
+It is possible to use the &quot;renderButton&quot; prop to override the default button used to trigger the opening and closing of
 ActionPopoverMenu. See the prop tables below for the properties surfaced to any custom component being passed in.
+
 <Preview>
   <Story name="with custom menu button">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -217,28 +269,27 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
           <TableCell>John</TableCell>
           <TableCell>Doe</TableCell>
           <TableCell>
-            <ActionPopover 
-              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+            <ActionPopover
+              renderButton={({ tabIndex, "data-element": dataElement }) => (
                 <ActionPopoverMenuButton
-                  buttonType='tertiary'
-                  iconType='dropdown'
-                  iconPosition='after'
-                  size='small'
-                  tabIndex={ tabIndex }
-                  data-element={ dataElement }
+                  buttonType="tertiary"
+                  iconType="dropdown"
+                  iconPosition="after"
+                  size="small"
+                  tabIndex={tabIndex}
+                  data-element={dataElement}
                 >
                   More
                 </ActionPopoverMenuButton>
-              ) }
+              )}
             >
-              <ActionPopoverItem
-                icon='email'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -246,25 +297,24 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
           <TableCell>John</TableCell>
           <TableCell>Doe</TableCell>
           <TableCell>
-            <ActionPopover 
-              renderButton={ ({ 'data-element': dataElement }) => (
+            <ActionPopover
+              renderButton={({ "data-element": dataElement }) => (
                 <Link
                   onClick={() => {}}
                   tabbable={false}
-                  data-element={ dataElement }
+                  data-element={dataElement}
                 >
                   More
                 </Link>
-              ) }
+              )}
             >
-              <ActionPopoverItem
-                icon='email'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -273,18 +323,18 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
   </Story>
 </Preview>
 
-
 ### With submenu
-A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron 
+
+A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron
 icons pointing in the direction that the sub-menu will open; by default it will open to the left.
 
-Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will 
-close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse 
+Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will
+close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
 leave.
 
 <Preview>
   <Story name="with submenu">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -297,9 +347,9 @@ leave.
           <TableCell>
             <ActionPopover>
               <ActionPopoverItem
-                icon='print'
+                icon="print"
                 onClick={() => {}}
-                submenu={ 
+                submenu={
                   <ActionPopoverMenu>
                     <ActionPopoverItem onClick={() => {}}>
                       CSV
@@ -307,13 +357,15 @@ leave.
                     <ActionPopoverItem onClick={() => {}}>
                       PDF
                     </ActionPopoverItem>
-                  </ActionPopoverMenu> 
+                  </ActionPopoverMenu>
                 }
               >
                 Print
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -323,10 +375,12 @@ leave.
 </Preview>
 
 ### With disabled submenu
+
 A sub-menu will not open if the item is in a disabled state.
+
 <Preview>
   <Story name="with disabled submenu">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -340,9 +394,9 @@ A sub-menu will not open if the item is in a disabled state.
             <ActionPopover>
               <ActionPopoverItem
                 disabled
-                icon='print'
+                icon="print"
                 onClick={() => {}}
-                submenu={ 
+                submenu={
                   <ActionPopoverMenu>
                     <ActionPopoverItem onClick={() => {}}>
                       CSV
@@ -350,13 +404,15 @@ A sub-menu will not open if the item is in a disabled state.
                     <ActionPopoverItem onClick={() => {}}>
                       PDF
                     </ActionPopoverItem>
-                  </ActionPopoverMenu> 
+                  </ActionPopoverMenu>
                 }
               >
                 Print
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -366,9 +422,14 @@ A sub-menu will not open if the item is in a disabled state.
 </Preview>
 
 ### With submenu aligned right
+
 The sub-menu will open to the right side when there is no space to render the sub-menu to the left.
-<Story name="with submenu aligned right" parameters={{ docs: { disable: true }}}>
-  <div style={{ height: '250px' }}>
+
+<Story
+  name="with submenu aligned right"
+  parameters={{ docs: { disable: true } }}
+>
+  <div style={{ height: "250px" }}>
     <Table>
       <TableRow>
         <TableHeader>&nbsp;</TableHeader>
@@ -379,23 +440,25 @@ The sub-menu will open to the right side when there is no space to render the su
         <TableCell>
           <ActionPopover>
             <ActionPopoverItem
-              icon='print'
+              icon="print"
               onClick={() => {}}
-              submenu={ 
+              submenu={
                 <ActionPopoverMenu>
-                  <ActionPopoverItem icon='csv' onClick={() => {}}>
+                  <ActionPopoverItem icon="csv" onClick={() => {}}>
                     CSV
                   </ActionPopoverItem>
-                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                  <ActionPopoverItem icon="pdf" onClick={() => {}}>
                     PDF
                   </ActionPopoverItem>
-                </ActionPopoverMenu> 
+                </ActionPopoverMenu>
               }
             >
               Print
             </ActionPopoverItem>
             <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            <ActionPopoverItem onClick={() => {}} icon="delete">
+              Delete
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
         <TableCell>John</TableCell>
@@ -406,17 +469,19 @@ The sub-menu will open to the right side when there is no space to render the su
 </Story>
 
 <MyPreview>
-  <DocsWrapper 
-    src='iframe.html?id=design-system-action-popover--with-submenu-aligned-right'
-    height='250px'
+  <DocsWrapper
+    src="iframe.html?id=design-system-action-popover--with-submenu-aligned-right"
+    height="250px"
   />
 </MyPreview>
 
 ### With menu opening above
+
 The menu can also be rendered above the button control by setting using `placement="top"`.
+
 <Preview>
   <Story name="with menu opening above">
-    <div style={{ paddingTop: '120px', height: '250px' }}>
+    <div style={{ paddingTop: "120px", height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -429,9 +494,9 @@ The menu can also be rendered above the button control by setting using `placeme
           <TableCell>
             <ActionPopover placement="top">
               <ActionPopoverItem
-                icon='print'
+                icon="print"
                 onClick={() => {}}
-                submenu={ 
+                submenu={
                   <ActionPopoverMenu>
                     <ActionPopoverItem onClick={() => {}}>
                       CSV
@@ -439,13 +504,15 @@ The menu can also be rendered above the button control by setting using `placeme
                     <ActionPopoverItem onClick={() => {}}>
                       PDF
                     </ActionPopoverItem>
-                  </ActionPopoverMenu> 
+                  </ActionPopoverMenu>
                 }
               >
                 Print
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -454,22 +521,24 @@ The menu can also be rendered above the button control by setting using `placeme
   </Story>
 </Preview>
 
-### Keyboard navigation 
+### Keyboard navigation
+
 ActionPopover and ActionPopoverItem have extensive keyboard support. It is possible to open the menu when the
-ActionPopover is focused: pressing either the "enter" or "down" key will open the menu and focus the first item; 
+ActionPopover is focused: pressing either the "enter" or "down" key will open the menu and focus the first item;
 pressing the "up" key when the button is focused will open the menu and focus the last element.
 
-Once the menu is open, it is possible to navigate the items using the "up" and "down" arrow keys. Alpha keys can also 
-be used as shortcuts to navigate the items: pressing a-z selects the next item in the list starting with that letter, 
-wrapping around to the start if required. Pressing an alpha key which doesn't match any items in the menu list will 
+Once the menu is open, it is possible to navigate the items using the "up" and "down" arrow keys. Alpha keys can also
+be used as shortcuts to navigate the items: pressing a-z selects the next item in the list starting with that letter,
+wrapping around to the start if required. Pressing an alpha key which doesn't match any items in the menu list will
 result leave the focus on the current item.
 
-Pressing the "enter" key will trigger the action associated with the currently focused item. Pressing either the "esc" 
-or "tab" key will close the menu with no action being triggered and focus the next focusable element. Pressing 
+Pressing the "enter" key will trigger the action associated with the currently focused item. Pressing either the "esc"
+or "tab" key will close the menu with no action being triggered and focus the next focusable element. Pressing
 "shift + tab" will close the menu and focus the previously focused element.
+
 <Preview>
   <Story name="keyboard navigation">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -481,27 +550,19 @@ or "tab" key will close the menu with no action being triggered and focus the ne
           <TableCell>Doe</TableCell>
           <TableCell>
             <ActionPopover>
-              <ActionPopoverItem
-                icon='email'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="email" onClick={() => {}}>
                 Email Invoice
               </ActionPopoverItem>
-              <ActionPopoverItem
-                disabled
-                icon='csv'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
                 Download CSV
               </ActionPopoverItem>
-              <ActionPopoverItem
-                icon='pdf'
-                onClick={() => {}}
-              >
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
                 Download PDF
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -511,13 +572,15 @@ or "tab" key will close the menu with no action being triggered and focus the ne
 </Preview>
 
 ### Keyboard navigation left aligned submenu
-Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to 
-the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate 
-the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without 
-triggering an action. 
+
+Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to
+the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate
+the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without
+triggering an action.
+
 <Preview>
   <Story name="keyboard navigation left aligned submenu">
-    <div style={{ height: '250px' }}>
+    <div style={{ height: "250px" }}>
       <Table>
         <TableRow>
           <TableHeader>First Name</TableHeader>
@@ -530,39 +593,41 @@ triggering an action.
           <TableCell>
             <ActionPopover>
               <ActionPopoverItem
-                icon='csv'
+                icon="csv"
                 onClick={() => {}}
-                submenu={ 
+                submenu={
                   <ActionPopoverMenu>
-                    <ActionPopoverItem icon='csv' onClick={() => {}}>
+                    <ActionPopoverItem icon="csv" onClick={() => {}}>
                       CSV
                     </ActionPopoverItem>
-                    <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                    <ActionPopoverItem icon="pdf" onClick={() => {}}>
                       PDF
                     </ActionPopoverItem>
-                  </ActionPopoverMenu> 
+                  </ActionPopoverMenu>
                 }
               >
                 Download
               </ActionPopoverItem>
               <ActionPopoverItem
-                icon='pdf'
+                icon="pdf"
                 onClick={() => {}}
-                submenu={ 
+                submenu={
                   <ActionPopoverMenu>
-                    <ActionPopoverItem icon='csv' onClick={() => {}}>
+                    <ActionPopoverItem icon="csv" onClick={() => {}}>
                       CSV
                     </ActionPopoverItem>
-                    <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                    <ActionPopoverItem icon="pdf" onClick={() => {}}>
                       PDF
                     </ActionPopoverItem>
-                  </ActionPopoverMenu> 
+                  </ActionPopoverMenu>
                 }
               >
                 Print
               </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}} icon="delete">
+                Delete
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -572,66 +637,73 @@ triggering an action.
 </Preview>
 
 ### Keyboard navigation right aligned submenu
-When sub-menus aligns to the right hand side, the key shortcuts are switiched: pressingt the "right" key whilst focus 
-is on a item will open a sub-menu if it has one and pressing the "left" key will close it. 
-<Story name="keyboard access right aligned submenu" parameters={{ docs: { disable: true }}}>
-  <div style={{ height: '250px' }}>
-  <Table>
-    <TableRow>
-      <TableHeader>&nbsp;</TableHeader>
-      <TableHeader>First Name</TableHeader>
-      <TableHeader>Last Name</TableHeader>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon='csv'
-            onClick={() => {}}
-            submenu={ 
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon='csv' onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon='pdf' onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu> 
-            }
-          >
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem
-            icon='pdf'
-            onClick={() => {}}
-            submenu={ 
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon='csv' onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon='pdf' onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu> 
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-        </ActionPopover>
-      </TableCell>
-      <TableCell>John</TableCell>
-      <TableCell>Doe</TableCell>
-    </TableRow>
-  </Table>
+
+When sub-menus aligns to the right hand side, the key shortcuts are switiched: pressingt the "right" key whilst focus
+is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
+
+<Story
+  name="keyboard access right aligned submenu"
+  parameters={{ docs: { disable: true } }}
+>
+  <div style={{ height: "250px" }}>
+    <Table>
+      <TableRow>
+        <TableHeader>&nbsp;</TableHeader>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon="csv"
+              onClick={() => {}}
+              submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem icon="csv" onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+            >
+              Download
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon="pdf"
+              onClick={() => {}}
+              submenu={
+                <ActionPopoverMenu>
+                  <ActionPopoverItem icon="csv" onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu>
+              }
+            >
+              Print
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon="delete">
+              Delete
+            </ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+      </TableRow>
+    </Table>
   </div>
 </Story>
 
 <MyPreview>
   <DocsWrapper
-    src='iframe.html?id=design-system-action-popover--keyboard-access-right-aligned-submenu'
-    height='250px'
+    src="iframe.html?id=design-system-action-popover--keyboard-access-right-aligned-submenu"
+    height="250px"
   />
 </MyPreview>
 
@@ -642,10 +714,10 @@ used actions, in this example "manage devices".
 
 <Preview>
   <Story name="with additional options">
-    <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Table isZebra>
         <TableRow>
-          <TableHeader colSpan='3'>Devices</TableHeader>
+          <TableHeader colSpan="3">Devices</TableHeader>
         </TableRow>
         <TableRow>
           <TableCell>Mobile Phone</TableCell>
@@ -653,23 +725,29 @@ used actions, in this example "manage devices".
           <TableCell>
             <ActionPopover
               rightAlignMenu
-              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+              renderButton={({ tabIndex, "data-element": dataElement }) => (
                 <ActionPopoverMenuButton
-                  buttonType='tertiary'
-                  iconType='dropdown'
-                  iconPosition='after'
-                  size='small'
-                  tabIndex={ tabIndex }
-                  data-element={ dataElement }
+                  buttonType="tertiary"
+                  iconType="dropdown"
+                  iconPosition="after"
+                  size="small"
+                  tabIndex={tabIndex}
+                  data-element={dataElement}
                 >
                   More
                 </ActionPopoverMenuButton>
-              ) }
+              )}
             >
-              <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
-              <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Enroll Device
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Assign Owner
+              </ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Manage Devices
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -682,10 +760,10 @@ used actions, in this example "manage devices".
 
 <Preview>
   <Story name="with download button">
-    <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Table isZebra>
         <TableRow>
-          <TableHeader colSpan='3'>Devices</TableHeader>
+          <TableHeader colSpan="3">Devices</TableHeader>
         </TableRow>
         <TableRow>
           <TableCell>Mobile Phone</TableCell>
@@ -693,22 +771,36 @@ used actions, in this example "manage devices".
           <TableCell>
             <ActionPopover
               rightAlignMenu
-              renderButton={ ({ tabIndex, 'data-element': dataElement }) => (
+              renderButton={({ tabIndex, "data-element": dataElement }) => (
                 <ActionPopoverMenuButton
-                  buttonType='tertiary'
-                  iconType='dropdown'
-                  iconPosition='after'
-                  size='small'
-                  tabIndex={ tabIndex }
-                  data-element={ dataElement }
+                  buttonType="tertiary"
+                  iconType="dropdown"
+                  iconPosition="after"
+                  size="small"
+                  tabIndex={tabIndex}
+                  data-element={dataElement}
                 >
                   More
                 </ActionPopoverMenuButton>
-              ) }
+              )}
             >
-              <ActionPopoverItem download icon="download" href={"example-img.jpg"}>Download</ActionPopoverItem>
-              <ActionPopoverItem icon="settings" onClick={ () => {} }>Assign Owner</ActionPopoverItem>
-              <ActionPopoverItem disabled icon="download" href={"example-img.jpg"}>Download</ActionPopoverItem>
+              <ActionPopoverItem
+                download
+                icon="download"
+                href={"example-img.jpg"}
+              >
+                Download
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="settings" onClick={() => {}}>
+                Assign Owner
+              </ActionPopoverItem>
+              <ActionPopoverItem
+                disabled
+                icon="download"
+                href={"example-img.jpg"}
+              >
+                Download
+              </ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>
@@ -721,21 +813,27 @@ used actions, in this example "manage devices".
 
 <Preview>
   <Story name="in overflow hidden container">
-    <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
-      <Accordion title='Heading'>
+    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
+      <Accordion title="Heading">
         <Table isZebra>
           <TableRow>
-            <TableHeader colSpan='3'>Devices</TableHeader>
+            <TableHeader colSpan="3">Devices</TableHeader>
           </TableRow>
           <TableRow>
             <TableCell>Mobile Phone</TableCell>
             <TableCell>Online</TableCell>
             <TableCell>
               <ActionPopover>
-                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
-                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Enroll Device
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Assign Owner
+                </ActionPopoverItem>
                 <ActionPopoverDivider />
-                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Manage Devices
+                </ActionPopoverItem>
               </ActionPopover>
             </TableCell>
           </TableRow>
@@ -744,10 +842,16 @@ used actions, in this example "manage devices".
             <TableCell>Online</TableCell>
             <TableCell>
               <ActionPopover>
-                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
-                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Enroll Device
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Assign Owner
+                </ActionPopoverItem>
                 <ActionPopoverDivider />
-                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Manage Devices
+                </ActionPopoverItem>
               </ActionPopover>
             </TableCell>
           </TableRow>
@@ -756,10 +860,16 @@ used actions, in this example "manage devices".
             <TableCell>Online</TableCell>
             <TableCell>
               <ActionPopover>
-                <ActionPopoverItem onClick={ () => {} }>Enroll Device</ActionPopoverItem>
-                <ActionPopoverItem onClick={ () => {} }>Assign Owner</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Enroll Device
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Assign Owner
+                </ActionPopoverItem>
                 <ActionPopoverDivider />
-                <ActionPopoverItem onClick={ () => {} }>Manage Devices</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Manage Devices
+                </ActionPopoverItem>
               </ActionPopover>
             </TableCell>
           </TableRow>
@@ -770,16 +880,18 @@ used actions, in this example "manage devices".
 </Preview>
 
 ## In FlatTable with highlightable rows
+
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+
 <Preview>
-  <Story name="in FlatTable" parameters={{ chromatic: { disable: true }}}>
+  <Story name="in FlatTable" parameters={{ chromatic: { disable: true } }}>
     {() => {
-      const [highlightedRow, setHighlightedRow] = useState('');
+      const [highlightedRow, setHighlightedRow] = useState("");
       const handleHighlightRow = (id) => {
         setHighlightedRow(id);
-      }
+      };
       return (
-         <div style={{ paddingTop: '120px', height: '250px' }}>
+        <div style={{ paddingTop: "120px", height: "250px" }}>
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
@@ -790,16 +902,22 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
-              <FlatTableRow onClick={ () => handleHighlightRow('one') } highlighted={ highlightedRow === 'one' }>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("one")}
+                highlighted={highlightedRow === "one"}
+              >
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
                 <FlatTableCell>
-                  <ActionPopover placement="top" onOpen={() => handleHighlightRow('one')}>
+                  <ActionPopover
+                    placement="top"
+                    onOpen={() => handleHighlightRow("one")}
+                  >
                     <ActionPopoverItem
-                      icon='print'
+                      icon="print"
                       onClick={() => {}}
-                      submenu={ 
+                      submenu={
                         <ActionPopoverMenu>
                           <ActionPopoverItem onClick={() => {}}>
                             CSV
@@ -807,26 +925,34 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
                           <ActionPopoverItem onClick={() => {}}>
                             PDF
                           </ActionPopoverItem>
-                        </ActionPopoverMenu> 
+                        </ActionPopoverMenu>
                       }
                     >
                       Print
                     </ActionPopoverItem>
                     <ActionPopoverDivider />
-                    <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}} icon="delete">
+                      Delete
+                    </ActionPopoverItem>
                   </ActionPopover>
                 </FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={ () => handleHighlightRow('two') } highlighted={ highlightedRow === 'two' }>
+              <FlatTableRow
+                onClick={() => handleHighlightRow("two")}
+                highlighted={highlightedRow === "two"}
+              >
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
                 <FlatTableCell>
-                  <ActionPopover placement="top" onOpen={() => handleHighlightRow('two')}>
+                  <ActionPopover
+                    placement="top"
+                    onOpen={() => handleHighlightRow("two")}
+                  >
                     <ActionPopoverItem
-                      icon='print'
+                      icon="print"
                       onClick={() => {}}
-                      submenu={ 
+                      submenu={
                         <ActionPopoverMenu>
                           <ActionPopoverItem onClick={() => {}}>
                             CSV
@@ -834,13 +960,15 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
                           <ActionPopoverItem onClick={() => {}}>
                             PDF
                           </ActionPopoverItem>
-                        </ActionPopoverMenu> 
+                        </ActionPopoverMenu>
                       }
                     >
                       Print
                     </ActionPopoverItem>
                     <ActionPopoverDivider />
-                    <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}} icon="delete">
+                      Delete
+                    </ActionPopoverItem>
                   </ActionPopover>
                 </FlatTableCell>
               </FlatTableRow>
@@ -853,11 +981,15 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 </Preview>
 
 ## Props
+
 ### ActionPopover Props
-<Props of={ActionPopover} />
+
+<StyledSystemProps of={ActionPopover} margin noHeader />
 
 ### ActionPopoverMenu Props
+
 <Props of={ActionPopoverMenu} />
 
 ### ActionPopoverItem Props
+
 <Props of={MenuItem} />

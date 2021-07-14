@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import DialogFullScreen from ".";
@@ -9,7 +9,7 @@ import Button from "../button";
 import Form from "../form";
 import Textbox from "../../__experimental__/components/textbox";
 import Pill from "../../components/pill";
-import Drawer from "../drawer/__internal__/drawer.component";
+import Drawer from "../drawer/drawer.component";
 import { Tabs, Tab } from "../tabs";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Link from "../link";
@@ -19,16 +19,14 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
 
-<Meta
-  title="Dialog Full Screen"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Dialog Full Screen" parameters={{ info: { disable: true } }} />
 
 # DialogFullScreen
 
 A full-width and full-height dialog overlaid on top of any page.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -59,7 +57,7 @@ A good example could be importing a large volume of data, and checking for error
 ### Default
 
 <Preview>
-  <Story name="default" parameters={{viewports: [400, 1000, 1400]}}>
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -539,7 +537,6 @@ to have a possibility to manage active `Tabs` group
             headerChildren={HeaderChildren}
             enableBackgroundUI={false}
             disableEscKey={false}
-            ariaRole="dialog"
             onClick={handleClick}
             showCloseIcon
             disableContentPadding
@@ -557,7 +554,10 @@ to have a possibility to manage active `Tabs` group
 ### With disableContentPadding
 
 <Preview>
-  <Story name="with disableContentPadding" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with disableContentPadding"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -660,10 +660,60 @@ to have a possibility to manage active `Tabs` group
   </Story>
 </Preview>
 
+### With help
+
+<Preview>
+  <Story name="with help">
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={() => setIsOpen(!isOpen)}>
+            Open DialogFullScreen
+          </Button>
+          <DialogFullScreen
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="An example of a long header"
+            subtitle="Subtitle"
+            help="Some help text"
+          >
+            <Form
+              stickyFooter={true}
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" type="submit">
+                  Save
+                </Button>
+              }
+            >
+              <div>
+                This is an example of a full screen Dialog with a Form as
+                content
+              </div>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
+            </Form>
+          </DialogFullScreen>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### With hidable header children
 
 <Preview>
-  <Story name="with hidable header children" parameters={{viewports: [500, 1400]}}>
+  <Story
+    name="with hidable header children"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
@@ -747,7 +797,7 @@ to have a possibility to manage active `Tabs` group
 ### With AppWrapper
 
 <Preview>
-  <Story name="with app wrapper" parameters={{ chromatic: { disable: true }}}>
+  <Story name="with app wrapper" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -785,6 +835,76 @@ to have a possibility to manage active `Tabs` group
                 <Textbox label="Address" />
               </Form>
             </AppWrapper>
+          </DialogFullScreen>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Overriding the first focused element
+By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed. 
+However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference 
+to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element 
+you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop 
+and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example). 
+
+<Preview>
+  <Story name="focusing a different first element" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [isOpenOne, setIsOpenOne] = useState(false);
+      const [isOpenTwo, setIsOpenTwo] = useState(false);
+      const ref = useRef();
+      return (
+        <>
+          <Button onClick={() => setIsOpenOne(true)}>Open Demo using focusFirstElement</Button>
+          <DialogFullScreen
+            focusFirstElement={ref}
+            open={isOpenOne}
+            onCancel={() => setIsOpenOne(false)}
+            title="Title"
+            subtitle="Subtitle"
+          >
+            <p>Focus an element that doesnt support autofocus</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                height: "150px"
+              }}
+            >
+              <Button onClick={() => setisOpenOne(false)}>Not focused</Button>
+              <Button
+                forwardRef={ref}
+                onClick={() => setisOpenOne(false)}
+              >
+                This should be focused first now
+              </Button>
+            </div>
+            <Textbox value="Not Focused" />
+          </DialogFullScreen>
+          <Button ml={2} onClick={() => setIsOpenTwo(true)}>Open Demo using autoFocus</Button>
+          <DialogFullScreen
+            disableAutoFocus
+            open={isOpenTwo}
+            onCancel={() => setIsOpenTwo(false)}
+            title="Title"
+            subtitle="Subtitle"
+          >
+            <p>Focus an element that supports autoFocus</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                height: "150px"
+              }}
+            >
+              <Button onClick={() => setisOpenTwo(false)}>Not focused</Button>
+              <Button onClick={() => setisOpenTwo(false)}>Not focused</Button>
+            </div>
+            <Textbox autoFocus value="This should be focused first now" />
           </DialogFullScreen>
         </>
       );

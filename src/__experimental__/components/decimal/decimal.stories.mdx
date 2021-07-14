@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import Decimal from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../../../components/button";
@@ -12,14 +13,15 @@ import Box from "../../../components/box";
 />
 
 # Decimal
+
 Captures a number with a decimal point, or a currency value.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
-
 
 ## Quick Start
 
@@ -28,6 +30,7 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 ```
 
 ## Designer Notes
+
 - For currency values, show currency symbols outside the field rather than inserting one for the user dynamically.
 - Carbon offers a Precision configuration, so you can choose how many decimal places to show.
 - Decimals are usually right-aligned, so that the decimal places of numbers presented in rows line up for easy comparison by the user.
@@ -54,17 +57,26 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="sizes">
-    {() =>
-      ["small", "medium", "large"].map((size) => (
+    {() => {
+      const [state, setState] = useState({
+        small: "0.01",
+        medium: "0.01",
+        large: "0.01",
+      });
+      const handleChange = (size) => (e) => {
+        setState({ ...state, [size]: e.target.value.rawValue });
+      };
+      return ["small", "medium", "large"].map((size) => (
         <Decimal
           key={`Decimal - ${size}`}
           label={`Decimal - ${size}`}
-          value="0.01"
+          value={state[size]}
+          onChange={handleChange(size)}
           size={size}
           mb={2}
         />
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -80,18 +92,26 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="labelAlign">
-     {() => 
-      ['right', 'left'].map((alignment) => (
+    {() => {
+      const [state, setState] = useState({
+        right: "0.01",
+        left: "0.01",
+      });
+      const handleChange = (alignment) => (e) => {
+        setState({ ...state, [alignment]: e.target.value.rawValue });
+      };
+      return ["right", "left"].map((alignment) => (
         <Decimal
           label="Decimal"
           labelInline
           inputWidth={50}
-          key={alignment} 
+          key={alignment}
           labelAlign={alignment}
-          value="0.01"
+          value={state[alignment]}
+          onChange={handleChange(alignment)}
         />
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -115,15 +135,41 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="with custom precision">
-    <Decimal label="Decimal" value="0.0001" precision={4} />
+    {() => {
+      const [state, setState] = useState("0.0001");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          precision={4}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
 ### With labelInline
 
 <Preview>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true }}}>
-    <Decimal label="Decimal" value="0.01" labelInline />
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          labelInline
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -131,13 +177,22 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="with custom labelWidth and inputWidth">
-    <Decimal
-      label="Decimal"
-      value="0.01"
-      labelInline
-      labelWidth={10}
-      inputWidth={90}
-    />
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          labelInline
+          labelWidth={10}
+          inputWidth={90}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -145,7 +200,20 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="with fieldHelp">
-    <Decimal label="Decimal" value="0.01" fieldHelp="Help" />
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          fieldHelp="Help"
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -153,7 +221,20 @@ import Decimal from "carbon-react/lib/__experimental__/components/decimal";
 
 <Preview>
   <Story name="with labelHelp">
-    <Decimal label="Decimal" value="0.01" labelHelp="Help" />
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          labelHelp="Help"
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -163,17 +244,39 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
   <Story name="required">
-    <Decimal label="Decimal" value="0.01" required />
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal label="Decimal" value={state} onChange={setValue} required />
+      );
+    }}
   </Story>
 </Preview>
 
 ### Left aligned
 
-You can use the `required` prop to indicate if the field is mandatory.
+You can use the `align` prop to choose how the the characters inside the component align.
+In this example, `align` has been assigned the value `left`.
 
 <Preview>
   <Story name="left aligned">
-    <Decimal label="Decimal" value="0.01" align="left" />
+    {() => {
+      const [state, setState] = useState("0.01");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <Decimal
+          label="Decimal"
+          value={state}
+          onChange={setValue}
+          align="left"
+        />
+      );
+    }}
   </Story>
 </Preview>
 
@@ -191,12 +294,21 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="validations - string - component">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
+    {() => {
+      const [state, setState] = useState({
+        error: "0.01",
+        warning: "0.01",
+        info: "0.01",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-string-component`}>
           <Decimal
             label="Decimal"
-            value="0.01"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
             {...{ [validationType]: "Message" }}
             mb={2}
           />
@@ -208,8 +320,8 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             mb={2}
           />
         </div>
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -217,12 +329,21 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="validations - string - label">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
+    {() => {
+      const [state, setState] = useState({
+        error: "0.01",
+        warning: "0.01",
+        info: "0.01",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-string-label`}>
           <Decimal
             label="Decimal"
-            value="0.01"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
             validationOnLabel
             {...{ [validationType]: "Message" }}
             mb={2}
@@ -236,8 +357,8 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             mb={2}
           />
         </div>
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -245,12 +366,21 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 <Preview>
   <Story name="validations - boolean">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
+    {() => {
+      const [state, setState] = useState({
+        error: "0.01",
+        warning: "0.01",
+        info: "0.01",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
         <div key={`${validationType}-boolean-component`}>
           <Decimal
             label="Decimal"
-            value="0.01"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
             {...{ [validationType]: true }}
             mb={2}
           />
@@ -262,8 +392,8 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             mb={2}
           />
         </div>
-      ))
-    }
+      ));
+    }}
   </Story>
 </Preview>
 
@@ -271,10 +401,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### Decimal
 
-<Props of={Decimal} />
+<StyledSystemProps of={Decimal} noHeader margin />
 
 ### Textbox
 
-Due to the `Textbox` component being used internally by the `Decimal` component most of the `Textbox` props are appliable to `Decimal`
+Due to the `Textbox` component being used internally by the `Decimal` component, most of the `Textbox` props are appliable to `Decimal`
 
 <Props of={OriginalTextbox} />

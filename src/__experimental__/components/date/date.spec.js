@@ -2,8 +2,12 @@ import moment from "moment";
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
+
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
 import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
 import InputIconToggle from "../input-icon-toggle";
+import InputPresentationStyle from "../input/input-presentation.style";
+
 import DatePicker from "./date-picker.component";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
@@ -25,6 +29,8 @@ describe("StyledDateInput", () => {
 describe("Date", () => {
   let wrapper;
   let container;
+
+  testStyledSystemMargin((props) => <DateInput {...props} />);
 
   describe("external validations", () => {
     it.each([["error"], ["warning"], ["info"]])(
@@ -835,6 +841,19 @@ describe("when the calendar icon is clicked", () => {
     wrapper.find(DatePicker).parent().props().onClick();
     wrapper.update();
     expect(wrapper.find(DatePicker).exists()).toBe(true);
+  });
+});
+
+describe("datepicker container", () => {
+  it("should be the InputPresentationStyle element", () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+
+    expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
+      wrapper.find(InputPresentationStyle).getDOMNode()
+    );
   });
 });
 

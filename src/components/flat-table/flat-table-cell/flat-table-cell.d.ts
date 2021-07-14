@@ -1,9 +1,11 @@
-import * as React from 'react';
-import { SpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { PaddingProps } from "styled-system";
+import { TableBorderSize } from "..";
+import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
-export interface FlatTableCellProps extends SpacingProps {
+export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
-  align?: 'center' | 'left' | 'right';
+  align?: OptionsHelper.AlignFull;
   children?: React.ReactNode | string;
   /** Number of columns that a cell should span */
   colspan?: number | string;
@@ -15,8 +17,12 @@ export interface FlatTableCellProps extends SpacingProps {
   truncate?: boolean;
   /** Title text to display if cell content truncates */
   title?: string;
+  /** Sets a custom vertical right border */
+  verticalBorder?: TableBorderSize;
+  /** Sets the color of the right border */
+  verticalBorderColor?: string;
 }
 
-declare const FlatTableCell: React.FunctionComponent<FlatTableCellProps>;
+declare function FlatTableCell(props: FlatTableCellProps): JSX.Element;
 
 export default FlatTableCell;

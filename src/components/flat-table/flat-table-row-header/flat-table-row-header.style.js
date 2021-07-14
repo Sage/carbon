@@ -1,10 +1,26 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { padding } from "styled-system";
 
 import baseTheme from "../../../style/themes/base";
+import { toColor } from "../../../style/utils/color";
+
+const verticalBorderSizes = {
+  small: "1px",
+  medium: "2px",
+  large: "4px",
+};
 
 const StyledFlatTableRowHeader = styled.th`
-  ${({ align, theme, colWidth, leftPosition, isTruncated, expandable }) => css`
+  ${({
+    align,
+    theme,
+    colWidth,
+    leftPosition,
+    isTruncated,
+    expandable,
+    verticalBorder,
+    verticalBorderColor,
+  }) => css`
     background-color: #fff;
     border: 1px solid ${theme.table.secondary};
     border-top: none;
@@ -16,13 +32,14 @@ const StyledFlatTableRowHeader = styled.th`
     top: auto;
     vertical-align: middle;
     padding: 0;
+    z-index: ${baseTheme.zIndex.overlay};
 
     ${colWidth &&
     css`
       width: ${colWidth}px;
     `}
 
-    &&& {
+    &&&& {
       > div {
         box-sizing: border-box;
 
@@ -38,12 +55,20 @@ const StyledFlatTableRowHeader = styled.th`
           width: ${colWidth}px;
         `}
  
-        ${space}
+        ${padding}
       }
-    }
 
-    &&& {
       left: ${leftPosition}px;
+
+      ${verticalBorder &&
+      css`
+        border-right-width: ${verticalBorderSizes[verticalBorder]};
+      `}
+
+      ${verticalBorderColor &&
+      css`
+        border-right-color: ${toColor(theme, verticalBorderColor)};
+      `}
     }
 
     ${expandable &&

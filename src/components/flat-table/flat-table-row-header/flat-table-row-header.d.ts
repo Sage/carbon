@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { SpacingProps } from '../../../utils/helpers/options-helper';
+import * as React from "react";
+import { PaddingProps } from "styled-system";
+import { TableBorderSize } from "..";
 
-export interface FlatTableRowHeaderProps extends SpacingProps {
+export interface FlatTableRowHeaderProps extends PaddingProps {
   /** Content alignment */
   align?: string;
   children?: React.ReactNode | string;
@@ -11,8 +12,12 @@ export interface FlatTableRowHeaderProps extends SpacingProps {
   truncate?: boolean;
   /** Title text to display if cell content truncates */
   title?: string;
+  /** Sets a custom vertical right border */
+  verticalBorder?: TableBorderSize;
+  /** Sets the color of the right border */
+  verticalBorderColor?: string;
 }
 
-declare const FlatTableRowHeader: React.FunctionComponent<FlatTableRowHeaderProps>;
+declare function FlatTableRowHeader(props: FlatTableRowHeaderProps): JSX.Element;
 
 export default FlatTableRowHeader;

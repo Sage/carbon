@@ -5,12 +5,12 @@ import baseTheme from "../../../style/themes/base";
 const StyledFlatTableCheckbox = styled.td`
   ${({ as, theme, leftPosition, makeCellSticky }) => css`
     ${as === "td" &&
-    `
+    css`
       background-color: ${theme.colors.white};
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
       overflow: visible;
-      padding: 10px 24px;
+      padding: 0;
       text-align: left;
       text-overflow: ellipsis;
       vertical-align: middle;
@@ -26,14 +26,14 @@ const StyledFlatTableCheckbox = styled.td`
     `}
 
     ${as === "th" &&
-    `
+    css`
       background-color: transparent;
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
       box-sizing: border-box;
       font-weight: 700;
       left: auto;
-      padding: 8px 24px;
+      padding: 0;
       text-align: left;
       top: 0;
       user-select: none;

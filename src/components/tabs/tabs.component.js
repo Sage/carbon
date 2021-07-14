@@ -11,7 +11,6 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import Tab from "./tab";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
-import Browser from "../../utils/helpers/browser/browser";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
@@ -30,15 +29,14 @@ const Tabs = ({
   selectedTabId,
   renderHiddenTabs = true,
   position = "top",
-  setLocation = true,
   extendedLine = true,
   size,
   borders = "off",
   variant = "default",
   validationStatusOverride,
+  headerWidth,
   ...rest
 }) => {
-  const firstRender = useRef(true);
   const tabRefs = useRef([]);
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
@@ -46,41 +44,15 @@ const Tabs = ({
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
-  const _window = Browser.getWindow();
-  const isInSidebar = !!(sidebarContext && sidebarContext.isInSidebar);
+  const isInSidebar = !!sidebarContext?.isInSidebar;
 
   useLayoutEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      let selectedTab;
-      if (selectedTabId) {
-        selectedTab = selectedTabId;
-      } else {
-        const hash = _window.location.hash.substring(1);
+    const selectedTab =
+      selectedTabId || React.Children.toArray(children)[0].props.tabId;
 
-        if (Array.isArray(children)) {
-          const filteredChildren = children.filter((child) => child);
-          let useHash = false;
-
-          if (hash) {
-            for (const index in filteredChildren) {
-              const child = filteredChildren[index];
-
-              if (child.props.tabId === hash) {
-                useHash = true;
-                break;
-              }
-            }
-          }
-
-          selectedTab = useHash ? hash : filteredChildren[0].props.tabId;
-        } else {
-          selectedTab = children.props.tabId;
-        }
-      }
-      setSelectedTabIdState(selectedTab);
-    }
-  }, [_window.location.hash, children, firstRender, selectedTabId]);
+    setSelectedTabIdState(selectedTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateErrors = useCallback(
     (id, hasError) => {
@@ -112,25 +84,13 @@ const Tabs = ({
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
     (tabid) => {
-      if (setLocation && !sidebarContext) {
-        const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
-        _window.history.replaceState(null, "change-tab", url);
-      }
-
       setSelectedTabIdState(tabid);
 
       if (onTabChange) {
         onTabChange(tabid);
       }
     },
-    [
-      _window.history,
-      _window.location.origin,
-      _window.location.pathname,
-      sidebarContext,
-      onTabChange,
-      setLocation,
-    ]
+    [onTabChange]
   );
 
   /** Determines if the tab titles are in a vertical format. */
@@ -141,8 +101,8 @@ const Tabs = ({
     if (Event.isEventType(ev, "keydown")) {
       return;
     }
-
     const { tabid } = ev.target.dataset;
+
     updateVisibleTab(tabid);
   };
 
@@ -150,12 +110,14 @@ const Tabs = ({
   const focusTab = (ref) => ref.focus();
 
   /** The children nodes converted into an Array */
-  const filteredChildren = () =>
-    React.Children.toArray(children).filter((child) => child);
+  const filteredChildren = React.useMemo(
+    () => React.Children.toArray(children).filter((child) => child),
+    [children]
+  );
 
   /** Array of the tabIds for the child nodes */
   const tabIds = () => {
-    return filteredChildren().map((child) => child.props.tabId);
+    return filteredChildren.map((child) => child.props.tabId);
   };
 
   /** Will trigger the tab at the given index. */
@@ -203,7 +165,7 @@ const Tabs = ({
 
   /** Build the headers for the tab component */
   const renderTabHeaders = () => {
-    const tabTitles = filteredChildren().map((child, index) => {
+    const tabTitles = filteredChildren.map((child, index) => {
       const {
         tabId,
         title,
@@ -302,7 +264,7 @@ const Tabs = ({
   const visibleTab = () => {
     let tab;
 
-    filteredChildren().forEach((child) => {
+    filteredChildren.forEach((child) => {
       if (isTabSelected(child.props.tabId)) {
         tab = child;
       }
@@ -323,7 +285,7 @@ const Tabs = ({
       return visibleTab();
     }
 
-    const tabs = filteredChildren().map((child) => {
+    const tabs = filteredChildren.map((child) => {
       return React.cloneElement(child, {
         ...child.props,
         role: "tabpanel",
@@ -343,16 +305,11 @@ const Tabs = ({
   useEffect(() => {
     if (previousSelectedTabId.current !== selectedTabId) {
       if (selectedTabId !== selectedTabIdState) {
-        updateVisibleTab(selectedTabId);
+        setSelectedTabIdState(selectedTabId);
       }
       previousSelectedTabId.current = selectedTabId;
     }
-  }, [
-    previousSelectedTabId,
-    selectedTabId,
-    selectedTabIdState,
-    updateVisibleTab,
-  ]);
+  }, [previousSelectedTabId, selectedTabId, selectedTabIdState]);
 
   return (
     <StyledTabs
@@ -363,6 +320,7 @@ const Tabs = ({
       {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
       mt={position === "left" || isInSidebar ? "0px" : "15px"}
+      headerWidth={headerWidth}
       {...rest}
     >
       {renderTabHeaders()}
@@ -388,8 +346,6 @@ Tabs.propTypes = {
   onTabChange: PropTypes.func,
   /** The position of the tab title. */
   position: PropTypes.oneOf(["top", "left"]),
-  /** Sets the selected tabId in the URL. */
-  setLocation: PropTypes.bool,
   /** Sets size of the tab titles. */
   size: PropTypes.oneOf(["default", "large"]),
   /** Sets the divider of the tab titles header to extend the full width of the parent. */
@@ -402,6 +358,18 @@ Tabs.propTypes = {
     "no right side",
     "no sides",
   ]),
+  /** sets width to the tab headers. Can be any valid CSS string.
+   * The headerWidth prop works only for `position="left"`
+   */
+  headerWidth: (props, propName, componentName) => {
+    if (props.position !== "left" && props[propName] !== undefined) {
+      return new Error(
+        `Invalid usage of prop ${propName} in ${componentName}. The ${propName} can be used only if position is set to left`
+      );
+    }
+
+    return null;
+  },
   /** Adds an alternate styling variant to the tab titles. */
   variant: PropTypes.oneOf(["default", "alternate"]),
   /** An object to support overriding validation statuses, when the Tabs have custom targets for example.

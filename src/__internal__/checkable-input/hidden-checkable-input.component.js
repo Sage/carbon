@@ -9,8 +9,8 @@ const HiddenCheckableInput = ({
   name,
   inputType,
   inputValue,
-  role,
   tabindex,
+  inputRef,
   ...props
 }) => {
   const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
@@ -51,7 +51,7 @@ const HiddenCheckableInput = ({
       aria-labelledby={labelId}
       aria-describedby={helpId}
       name={name}
-      role={role || inputType}
+      role={inputType}
       tabIndex={tabindex}
       type={inputType}
       value={inputValue}
@@ -60,6 +60,7 @@ const HiddenCheckableInput = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      ref={inputRef}
     />
   );
 };
@@ -73,8 +74,12 @@ HiddenCheckableInput.propTypes = {
   onFocus: PropTypes.func,
   inputType: PropTypes.string.isRequired,
   inputValue: PropTypes.string,
-  role: PropTypes.string,
   tabindex: PropTypes.number,
+  /** A callback to retrieve the input reference */
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 export default React.memo(HiddenCheckableInput);

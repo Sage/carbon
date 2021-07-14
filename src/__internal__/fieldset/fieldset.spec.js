@@ -4,40 +4,35 @@ import Fieldset from "./fieldset.component";
 
 import {
   StyledFieldset,
-  StyledLegendContainer,
-  StyledFieldsetContent,
+  StyledLegend,
+  StyledLegendContent,
 } from "./fieldset.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 
 import ValidationIcon from "../../components/validations/validation-icon.component";
 
 const Component = () => <div />;
+const RenderComponent = (props) => (
+  <Fieldset {...props}>
+    <Component />
+  </Fieldset>
+);
 
-const render = (props) =>
-  mount(
-    <Fieldset {...props}>
-      <Component />
-    </Fieldset>
-  );
+const render = (props) => mount(<RenderComponent {...props} />);
 
 const validationTypes = ["error", "warning", "info"];
 
 describe("Fieldset", () => {
   let wrapper;
 
+  testStyledSystemMargin((props) => <RenderComponent {...props} />);
+
   it("renders passed on children", () => {
     wrapper = render();
     expect(wrapper.find(Component).exists()).toBe(true);
-  });
-
-  it("applies the correct inline styles", () => {
-    wrapper = render({ inline: true });
-    assertStyleMatch(
-      {
-        display: "flex",
-      },
-      wrapper.find(StyledFieldsetContent)
-    );
   });
 
   describe("when ml prop set", () => {
@@ -67,12 +62,12 @@ describe("Fieldset", () => {
   describe("Fieldset Legend", () => {
     it("is rendered if supplied", () => {
       wrapper = render({ legend: "Legend" });
-      expect(wrapper.find(StyledLegendContainer).exists()).toEqual(true);
+      expect(wrapper.find(StyledLegend).exists()).toEqual(true);
     });
 
     it("is not rendered if omitted", () => {
       wrapper = render();
-      expect(wrapper.find(StyledLegendContainer).exists()).toEqual(false);
+      expect(wrapper.find(StyledLegend).exists()).toEqual(false);
     });
 
     describe("when inline", () => {
@@ -82,11 +77,10 @@ describe("Fieldset", () => {
           {
             boxSizing: "border-box",
             margin: "0",
-            height: "34px",
             justifyContent: "flex-end",
             paddingRight: "16px",
           },
-          wrapper.find(StyledLegendContainer)
+          wrapper.find(StyledLegend)
         );
       });
 
@@ -96,7 +90,7 @@ describe("Fieldset", () => {
           {
             width: "10%",
           },
-          wrapper.find(StyledLegendContainer)
+          wrapper.find(StyledLegend)
         );
       });
 
@@ -110,7 +104,7 @@ describe("Fieldset", () => {
           {
             justifyContent: "flex-end",
           },
-          wrapper.find(StyledLegendContainer)
+          wrapper.find(StyledLegend)
         );
       });
 
@@ -120,7 +114,7 @@ describe("Fieldset", () => {
           {
             paddingRight: "8px",
           },
-          wrapper.find(StyledLegendContainer)
+          wrapper.find(StyledLegend)
         );
       });
 
@@ -135,7 +129,7 @@ describe("Fieldset", () => {
             {
               justifyContent: "flex-start",
             },
-            wrapper.find(StyledLegendContainer)
+            wrapper.find(StyledLegend)
           );
         });
       });
@@ -161,7 +155,7 @@ describe("Fieldset", () => {
         fontWeight: "700",
         marginLeft: "8px",
       },
-      mount(<StyledLegendContainer isRequired />),
+      mount(<StyledLegendContent isRequired />),
       { modifier: "::after" }
     );
   });

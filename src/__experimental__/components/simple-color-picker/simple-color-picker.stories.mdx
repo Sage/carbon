@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import { SimpleColorPicker, SimpleColor } from ".";
 import Box from "../../../components/box";
 
@@ -48,7 +48,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
         setState(target.value);
       };
       return (
-        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker name="picker-default-example" legend="Legend" onChange={onChange} value={state}>
           {colors.map(({ color, label }) => (
             <SimpleColor
               value={color}
@@ -73,7 +73,7 @@ import SimpleColorPicker from "carbon-react/lib/__experimental__/components/simp
         setState(target.value);
       };
       return (
-        <SimpleColorPicker legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker name="picker-disabled-example" legend="Legend" onChange={onChange} value={state}>
           {[
             { color: "transparent", label: "transparent" },
             { color: "#0073C1", label: "blue" },
@@ -110,6 +110,7 @@ You can use the `required` prop to indicate if the field is mandatory.
           required
           onChange={onChange}
           value={state}
+          name="picker-required-example"
         >
           {[
             { color: "transparent", label: "transparent" },
@@ -251,11 +252,49 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+#### With margin
+
+<Preview>
+  <Story name="with margin">
+    {() => {
+      const [state, setState] = useState("transparent");
+      const onChange = ({ target }) => {
+        setState(target.value);
+      };
+      const colors = [
+        { color: "transparent", label: "transparent" },
+        { color: "#0073C1", label: "blue" },
+        { color: "#582C83", label: "purple" },
+      ];
+      return ["error", "warning", "info"].map((validationType) => (
+        <SimpleColorPicker
+          key={`${validationType}-boolean-component`}
+          name={`picker-${validationType}-validation-boolean`}
+          legend="Legend"
+          onChange={onChange}
+          {...{ [validationType]: true }}
+          value={state}
+          m={4}
+        >
+          {colors.map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={`${validationType}-${color}`}
+            />
+          ))}
+        </SimpleColorPicker>
+      ));
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### SimpleColorPicker
 
-<Props of={SimpleColorPicker} />
+<StyledSystemProps of={SimpleColorPicker} noHeader margin />
 
 ### SimpleColor
 

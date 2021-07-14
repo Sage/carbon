@@ -1,9 +1,13 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { space, margin } from "styled-system";
 
 import Icon from "../icon";
 import { baseTheme } from "../../style/themes";
 import ValidationIconStyle from "../validations/validation-icon.style";
+
+const StyledAccordionGroup = styled.div`
+  ${margin};
+`;
 
 const StyledAccordionContainer = styled.div`
   ${space};
@@ -38,8 +42,6 @@ const StyledAccordionContainer = styled.div`
     border-top: 1px solid ${({ theme }) => theme.accordion.border};
     border-bottom: 1px solid ${({ theme }) => theme.accordion.border};
   }
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
 const StyledAccordionTitle = styled.h3`
@@ -48,7 +50,6 @@ const StyledAccordionTitle = styled.h3`
   line-height: 1;
   user-select: none;
   margin: 0;
-  ${({ styleOverride }) => styleOverride};
 `;
 
 const StyledAccordionSubTitle = styled.span`
@@ -67,7 +68,6 @@ const StyledAccordionIcon = styled(Icon)`
         : "transform: rotate(-90deg)")
     );
   }};
-  ${({ styleOverride }) => styleOverride};
 `;
 
 const StyledAccordionHeadingsContainer = styled.div`
@@ -96,15 +96,7 @@ const StyledAccordionHeadingsContainer = styled.div`
 `;
 
 const StyledAccordionTitleContainer = styled.div`
-  ${({
-    buttonHeading,
-    buttonWidth,
-    iconAlign,
-    isExpanded,
-    size,
-    styleOverride,
-    theme,
-  }) => css`
+  ${({ buttonHeading, buttonWidth, iconAlign, isExpanded, size, theme }) => css`
     padding: ${size === "small" ? theme.spacing * 2 : theme.spacing * 3}px;
     ${space};
     ${buttonHeading && "padding: 0"}
@@ -151,7 +143,6 @@ const StyledAccordionTitleContainer = styled.div`
       transition: transform 0.3s;
       ${!isExpanded && "transform: rotate(90deg)"};
     }
-    ${styleOverride};
   `}
 `;
 
@@ -173,16 +164,18 @@ const StyledAccordionContentContainer = styled.div`
 
 const StyledAccordionContent = styled.div`
   padding: 0 ${({ theme }) => theme.spacing * 3}px;
+  overflow: hidden;
 
   ${({ disableContentPadding }) =>
     disableContentPadding &&
     css`
       padding: 0;
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
+StyledAccordionGroup.defaultProps = {
+  theme: baseTheme,
+};
 StyledAccordionContainer.defaultProps = {
   theme: baseTheme,
 };
@@ -203,6 +196,7 @@ StyledAccordionContentContainer.defaultProps = {
 };
 
 export {
+  StyledAccordionGroup,
   StyledAccordionContainer,
   StyledAccordionHeadingsContainer,
   StyledAccordionSubTitle,

@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { mount as enzymeMount } from "enzyme";
-import I18n from "i18n-js";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 import Decimal from "./decimal.component";
 import Textbox from "../textbox/textbox.component";
-import StyledWiggle, { wiggleAnimation } from "./decimal.style";
 import Label from "../label";
+import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+import FormFieldStyle from "../form-field/form-field.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -114,23 +113,6 @@ describe("Decimal", () => {
     const clipboardData = new ClipboardData({ "text/plain": obj.key });
     return press({ clipboardData }, where, "paste");
   };
-  let translations;
-
-  beforeAll(() => {
-    translations = { ...I18n.translations };
-    I18n.translations.fr = {
-      number: {
-        format: {
-          delimiter: ".",
-          separator: ",",
-        },
-      },
-    };
-  });
-
-  afterAll(() => {
-    I18n.translations = translations;
-  });
 
   beforeEach(() => {
     container = document.createElement("div");
@@ -147,43 +129,15 @@ describe("Decimal", () => {
     }
   });
 
+  testStyledSystemMargin(
+    (props) => <Decimal {...props} />,
+    undefined,
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
+  );
+
   it("renders in ReactDOM", () => {
     render(null, DOM);
-  });
-
-  describe("Wiggle animation", () => {
-    const animation = `0.4s ${wiggleAnimation.name} 1 ease-in forwards`;
-
-    it("is triggered by invalid keypress", () => {
-      render();
-      press({ key: "-" }, "0.|00");
-      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
-    });
-
-    it("is triggered by pasting an invalid value", () => {
-      render();
-      paste({ key: "a" }, "0.|00");
-      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
-    });
-
-    it("is not triggered when Decimal has readOnly prop", () => {
-      render({ readOnly: true });
-
-      paste({ key: "a" }, "0.|00");
-      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule("animation");
-
-      press({ key: "-" }, "0.|00");
-      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule("animation");
-    });
-
-    it("turns off the animation after finishing", () => {
-      render();
-      paste({ key: "a" }, "0.|00");
-      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
-      wrapper.find(StyledWiggle).props().onAnimationEnd();
-      wrapper.update();
-      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule("animation");
-    });
   });
 
   describe("Uncontrolled", () => {
@@ -206,18 +160,51 @@ describe("Decimal", () => {
       expect(hiddenValue()).toBe("-1234.56");
     });
 
+    it("fixes incorrectly placed delimiters", () => {
+      const onBlur = jest.fn();
+      render({ onBlur, defaultValue: "0.00" });
+      type("1,1");
+      blur();
+      expect(value()).toBe("11.00");
+      expect(hiddenValue()).toBe("11.00");
+    });
+
+    it("formats a value correctly (extra separator)", () => {
+      render();
+      type("1,2,34576.00");
+      blur();
+      expect(value()).toBe("1,234,576.00");
+      expect(hiddenValue()).toBe("1234576.00");
+    });
+
+    it("does not format a value with numbers, letters and too many separators", () => {
+      render();
+      type("123a,123a,123a");
+      blur();
+      expect(value()).toBe("123a,123a,123a");
+      expect(hiddenValue()).toBe("123a,123a,123a");
+    });
+
+    it("does not format a value with numbers, letters, too many separators that end with a separator", () => {
+      render();
+      type("123a,123a,123a,");
+      blur();
+      expect(value()).toBe("123a,123a,123a,");
+      expect(hiddenValue()).toBe("123a,123a,123a,");
+    });
+
     it.each([
       ["0.00", {}],
       ["", { allowEmptyValue: true }],
     ])(
-      "entering a negative sign and blurring should revert to the defaultValue (%s)",
+      "entering a negative sign and blurring should not revert to the defaultValue (%s)",
       (expectedValue, props) => {
         const onBlur = jest.fn();
         render({ onBlur, defaultValue: "-1234.56", ...props });
         type("-");
         blur();
-        expect(value()).toBe(expectedValue);
-        expect(hiddenValue()).toBe(expectedValue);
+        expect(value()).toBe("-");
+        expect(hiddenValue()).toBe("-");
         expect(onChange).toHaveBeenCalledWith(
           expect.objectContaining({
             target: {
@@ -228,22 +215,12 @@ describe("Decimal", () => {
             },
           })
         );
-        expect(onChange).toHaveBeenCalledWith(
-          expect.objectContaining({
-            target: {
-              value: {
-                formattedValue: expectedValue,
-                rawValue: expectedValue,
-              },
-            },
-          })
-        );
         expect(onBlur).toHaveBeenCalledWith(
           expect.objectContaining({
             target: {
               value: {
-                formattedValue: expectedValue,
-                rawValue: expectedValue,
+                formattedValue: "-",
+                rawValue: "-",
               },
             },
           })
@@ -251,142 +228,66 @@ describe("Decimal", () => {
       }
     );
 
-    describe("invariant", () => {
-      beforeEach(() => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
-      });
-
-      afterEach(() => {
-        global.console.error.mockReset();
-      });
-
-      it.each(["12.85.1", "12.,85", "12a.85", "12,85"])(
-        "throws if the defaultValue is not a number (%s)",
-        (defaultValue) => {
-          expect(() => {
-            render({ defaultValue });
-          }).toThrow(`The supplied decimal (${defaultValue}) is not a number`);
-        }
-      );
-
-      it("throws if the precision is greater than 15", () => {
-        // Legacy restriction, probably something to do with the i18n implementation
-        expect(() => {
-          render({ defaultValue: "12345.654", precision: 16 });
-        }).toThrow("Decimal `precision` prop cannot be greater than 15");
-      });
-
-      it("throws if the precision is not a number (string)", () => {
-        expect(() => {
-          render({ defaultValue: "12345.654", precision: "" });
-        }).toThrow("Decimal `precision` prop should be a number");
-      });
-
-      it("throws if the precision is not a number (NaN)", () => {
-        expect(() => {
-          render({ defaultValue: "12345.654", precision: NaN });
-        }).toThrow("Decimal `precision` prop should be a number");
-      });
-
-      it("throws if the precision is not a positive number", () => {
-        expect(() => {
-          render({ defaultValue: "12345.654", precision: -1 });
-        }).toThrow("Decimal `precision` prop cannot be negative");
-      });
-
-      it("throws if the value is not a string", () => {
-        expect(() => {
-          render({ value: 123 });
-        }).toThrow("Decimal `value` prop must be a string");
-      });
-
-      it("throws if the value is an empty string", () => {
-        expect(() => {
-          render({ value: "" });
-        }).toThrow(
-          "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`"
-        );
-      });
-    });
-
     describe("precision", () => {
-      it("has a default precision of 2 (rounding up)", () => {
-        render({ defaultValue: "12345.655" });
-        expect(value()).toBe("12,345.66");
-        expect(hiddenValue()).toBe("12345.66");
-      });
-
-      it("has a default precision of 2 (rounding down)", () => {
-        render({ defaultValue: "12345.654" });
+      it("supports having a precision of 0", () => {
+        render({ defaultValue: "12345.65", precision: 0 });
         expect(value()).toBe("12,345.65");
         expect(hiddenValue()).toBe("12345.65");
       });
 
-      it("supports having a bigger precision", () => {
+      it("precision is not lost if the defaultValue has more precision", () => {
+        render({ defaultValue: "12345.655", precision: 2 });
+        expect(value()).toBe("12,345.655");
+        expect(hiddenValue()).toBe("12345.655");
+      });
+
+      it("supports having a bigger precision than default", () => {
         render({ defaultValue: "12345.654", precision: 3 });
         expect(value()).toBe("12,345.654");
         expect(hiddenValue()).toBe("12345.654");
       });
 
-      it("allows the user to change the precision", () => {
-        render({ defaultValue: "1234.56789", precision: 5 });
-
-        expect(value()).toBe("1,234.56789");
-        expect(hiddenValue()).toBe("1234.56789");
-
-        setProps({ precision: 4 });
-
-        expect(value()).toBe("1,234.5679");
-        expect(hiddenValue()).toBe("1234.5679");
-        expect(onChange).toHaveBeenCalledWith(
-          expect.objectContaining({
-            target: {
-              value: {
-                formattedValue: "1,234.5679",
-                rawValue: "1234.5679",
-              },
-            },
-          })
+      it("triggers an error message if the precision value is greater than 15", () => {
+        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        mount(<Decimal defaultValue="12345.654" precision={16} />);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledWith(
+          "Warning: Failed prop type: Precision prop must be a number greater than 0 or equal to or less than 15.\n    in Decimal"
         );
-
-        setProps({ precision: 3 });
-
-        expect(value()).toBe("1,234.568");
-        expect(hiddenValue()).toBe("1234.568");
-
-        setProps({ precision: 2 });
-
-        expect(value()).toBe("1,234.57");
-        expect(hiddenValue()).toBe("1234.57");
-
-        setProps({ precision: 1 });
-
-        expect(value()).toBe("1,234.6");
-        expect(hiddenValue()).toBe("1234.6");
-
-        setProps({ precision: 2 });
-
-        expect(value()).toBe("1,234.60");
-        expect(hiddenValue()).toBe("1234.60");
-
-        onChange.mockReset();
-
-        setProps({ precision: 3 });
-
-        expect(value()).toBe("1,234.600");
-        expect(hiddenValue()).toBe("1234.600");
-
-        expect(onChange).toHaveBeenCalledWith(
-          expect.objectContaining({
-            target: {
-              value: {
-                formattedValue: "1,234.600",
-                rawValue: "1234.600",
-              },
-            },
-          })
-        );
+        global.console.error.mockReset();
       });
+
+      it.each([
+        [0, "150"],
+        [1, "130.4"],
+        [2, "136.42"],
+        [3, "150.456"],
+        [4, "130.5776"],
+        [5, "136.42345"],
+        [6, "150.234543"],
+        [7, "130.4234435"],
+        [8, "136.87556431"],
+        [9, "150.192837564"],
+        [10, "130.1988745670"],
+        [11, "136.10029938475"],
+        [12, "136.129034895673"],
+        [13, "150.1290238945785"],
+        [14, "130.10299288377462"],
+        [15, "136.896647588492756"],
+      ])(
+        "setting precision to (%s) formats value correctly",
+        (precisionValue, decimalValue) => {
+          render({ defaultValue: decimalValue, precision: precisionValue });
+          expect(value()).toBe(decimalValue);
+          expect(hiddenValue()).toBe(decimalValue);
+        }
+      );
+    });
+
+    it("concatenates a 0 to the value if the value doesn't meet the precision", () => {
+      render({ defaultValue: "12345", precision: 1 });
+      expect(value()).toBe("12,345.0");
+      expect(hiddenValue()).toBe("12345.0");
     });
 
     it("calls onChange when the user enters a value", () => {
@@ -567,7 +468,6 @@ describe("Decimal", () => {
       "(1",
       ")1",
       "_1",
-      "+1",
       "`1",
       "¬1",
       "\\1",
@@ -589,23 +489,31 @@ describe("Decimal", () => {
       "11111a",
       "a111111",
       "1111a1111",
-    ])(
-      "prevents the user from pasting anything but a number, separator, delimiter or negative sign (%s)",
-      (key) => {
-        render();
+    ])("allows the user to paste (%s)", (key) => {
+      render();
 
-        const { preventDefault } = paste({ key }, "0|.00");
-        expect(preventDefault).toHaveBeenCalled();
-      }
-    );
+      const { preventDefault } = paste({ key }, "0|.00");
+      expect(preventDefault).not.toHaveBeenCalled();
+      type(key);
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: {
+            value: {
+              formattedValue: key,
+              rawValue: key,
+            },
+          },
+        })
+      );
+    });
 
     it.each(["0|.00", "0.|00", "0.0|0", "0.00|"])(
-      "prevents the user from typing the negative symbol within the number (%s)",
+      "allows the user to type the negative symbol within the number (%s)",
       (where) => {
         render();
 
         const { preventDefault } = press({ key: "-" }, where);
-        expect(preventDefault).toHaveBeenCalled();
+        expect(preventDefault).not.toHaveBeenCalled();
       }
     );
 
@@ -626,329 +534,6 @@ describe("Decimal", () => {
       render();
       const { preventDefault } = press({ key: "r", metaKey: true }, "0.00|");
       expect(preventDefault).not.toHaveBeenCalled();
-    });
-
-    const PASTE_MULTIPLE = "paste (multiple chars)";
-    describe.each([
-      ["type", press],
-      ["paste (single char)", paste],
-      [PASTE_MULTIPLE, paste, (key) => `${key}${key}`],
-    ])("%s", (event, fn, mutate = (key) => key) => {
-      it.each([
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
-        "!",
-        '"',
-        "£",
-        "$",
-        "%",
-        "^",
-        "&",
-        "*",
-        "(",
-        ")",
-        "_",
-        "+",
-        "`",
-        "¬",
-        "\\",
-        "|",
-        "[",
-        "{",
-        "]",
-        "}",
-        ":",
-        ";",
-        "@",
-        "'",
-        "~",
-        "#",
-        "<",
-        ">",
-        "?",
-        "/",
-      ])(
-        "prevents the user from entering anything but a number, separator, delimiter or negative sign (%s)",
-        (key) => {
-          render();
-
-          const { preventDefault } = fn({ key: mutate(key) }, "0|.00");
-          expect(preventDefault).toHaveBeenCalled();
-        }
-      );
-
-      it.each([
-        "|123.45",
-        "1|23.45",
-        "12|3.45",
-        "123|.45",
-        "|1|23.45",
-        "|12|3.45",
-        "|123|.45",
-        "|123.|45",
-        "|123.4|5",
-        "|123.45|",
-        "1|2|3.45",
-        "1|23|.45",
-        "1|23.|45",
-        "1|23.4|5",
-        "1|23.45|",
-        "12|3|.45",
-        "12|3.|45",
-        "12|3.4|5",
-        "12|3.45|",
-        "123|.|45",
-        "123|.4|5",
-        "123|.45|",
-      ])("allows the user to change the whole (%s)", (which) => {
-        render({ defaultValue: "123.45" });
-        const { preventDefault } = fn({ key: mutate("1") }, which);
-        expect(preventDefault).not.toHaveBeenCalled();
-        // Unable to assert on value because the change event won't be triggered
-      });
-
-      it.each(["123.|45", "123.4|5", "123.45|"])(
-        "prevent the user from extending the fraction beyond the precision (%s)",
-        (where) => {
-          render({ defaultValue: "123.45" });
-          const { preventDefault } = fn({ key: mutate("1") }, where);
-          expect(preventDefault).toHaveBeenCalled();
-        }
-      );
-
-      if (event === PASTE_MULTIPLE) {
-        it("allows the user to replace the fraction (%s)", () => {
-          render({ defaultValue: "123.45" });
-          const { preventDefault } = fn({ key: mutate("1") }, "123.|45|");
-          expect(preventDefault).not.toHaveBeenCalled();
-        });
-      } else {
-        it.each(["123.|45|", "123.|4|5", "123.4|5|"])(
-          "allows the user to replace the fraction (%s)",
-          (where) => {
-            render({ defaultValue: "123.45" });
-            const { preventDefault } = fn({ key: "1" }, where);
-            expect(preventDefault).not.toHaveBeenCalled();
-          }
-        );
-      }
-
-      it.each(["123.|4", "123.4|", "123.|4|"])(
-        `prevent the user from ${event} the delimiter in the fraction (%s)`,
-        (where) => {
-          render();
-          // We're changing the value to be something that is less than the maximum precision to ensure it's not the
-          // maximum precision preventing us from making the change
-          type("123.4");
-          const { preventDefault } = fn({ key: mutate(",") }, where);
-          expect(preventDefault).toHaveBeenCalled();
-        }
-      );
-      it.each([
-        "|1,234.56",
-        "1|,234.56",
-        "1,|234.56",
-        "1,2|34.56",
-        "1,23|4.56",
-        "1,234|.56",
-        "|1|,234.56",
-        "1|,|234.56",
-        "1,|2|34.56",
-        "1,2|3|4.56",
-        "1,23|4|.56",
-        "|1,|234.56",
-        "|1,2|34.56",
-        "|1,23|4.56",
-        "|1,234|.56",
-        "1|,2|34.56",
-        "1|,23|4.56",
-        "1|,234|.56",
-        "1,|23|4.56",
-        "1,|234|.56",
-        "1,2|34|.56",
-      ])(
-        `allow the user to ${event} the delimiter in the whole (%s)`,
-        (where) => {
-          render({ defaultValue: "1234.56" });
-          const { preventDefault } = fn({ key: mutate(",") }, where);
-          expect(preventDefault).not.toHaveBeenCalled();
-        }
-      );
-
-      it.each([
-        "|1,234.56",
-        "1|,234.56",
-        "1,|234.56",
-        "1,2|34.56",
-        "1,23|4.56",
-        "1,234|.56",
-        "|1|,234.56",
-        "1|,|234.56",
-        "1,|2|34.56",
-        "1,2|3|4.56",
-        "1,23|4|.56",
-        "|1,|234.56",
-        "|1,2|34.56",
-        "|1,23|4.56",
-        "|1,234|.56",
-        "1|,2|34.56",
-        "1|,23|4.56",
-        "1|,234|.56",
-        "1,|23|4.56",
-        "1,|234|.56",
-        "1,2|34|.56",
-      ])(
-        `allow the user to ${event} the delimiter in the whole (%s)`,
-        (where) => {
-          render({ defaultValue: "1234.56" });
-          const { preventDefault } = fn({ key: mutate(",") }, where);
-          expect(preventDefault).not.toHaveBeenCalled();
-        }
-      );
-
-      if (event !== PASTE_MULTIPLE) {
-        it.each([
-          "1|23",
-          "12|3",
-          "123|",
-          "|123|",
-          "1|23|",
-          "12|3|",
-          "1|23|",
-          "|12|3",
-        ])(
-          `allow the user to ${event} the separator in the whole (%s)`,
-          (where) => {
-            render();
-            type("123");
-            const { preventDefault } = fn({ key: "." }, where);
-            expect(preventDefault).not.toHaveBeenCalled();
-          }
-        );
-
-        // Multiple paste would fail this test because there are two separators, this is covered in another test
-        it(`prevents the user ${event} the separator in the whole where it would exceed the precision`, () => {
-          render();
-          type("123");
-          const { preventDefault } = fn({ key: "." }, "|123");
-          expect(preventDefault).toHaveBeenCalled();
-        });
-      }
-
-      it.each([
-        "|1,234.56",
-        "1|,234.56",
-        "1,|234.56",
-        "1,2|34.56",
-        "1,23|4.56",
-        "1,234|.56",
-        "1,234.5|6",
-        "1,234.56|",
-        "|1|,234.56",
-        "1|,|234.56",
-        "1,|2|34.56",
-        "1,2|3|4.56",
-        "1,23|4|.56",
-        "1,234.|5|6",
-        "1,234.5|6|",
-        "|1,|234.56",
-        "|1,2|34.56",
-        "|1,23|4.56",
-        "|1,234|.56",
-        "1|,2|34.56",
-        "1|,23|4.56",
-        "1|,234|.56",
-        "1,|23|4.56",
-        "1,|234|.56",
-        "1,2|3|4.56",
-        "1,2|34|.56",
-        "1,23|4|.56",
-      ])(
-        `prevents the user from ${event} the separator (.) if there is already a separator (%s)`,
-        (where) => {
-          render({ defaultValue: "1234.56" });
-          const { preventDefault } = fn({ key: mutate(".") }, where);
-          expect(preventDefault).toHaveBeenCalled();
-        }
-      );
-
-      if (event !== PASTE_MULTIPLE) {
-        it.each([
-          "1,234|.|56",
-          "1,234|.5|6",
-          "1,234|.56|",
-          "|1,234.56|",
-          "|1,234.5|6",
-          "|1,234.|56",
-          "1|,234.56|",
-          "1|,234.5|6",
-          "1|,234.|56",
-          "1,|234.56|",
-          "1,|234.5|6",
-          "1,|234.|56",
-          "1,2|34.56|",
-          "1,2|34.5|6",
-          "1,2|34.|56",
-          "1,23|4.56|",
-          "1,23|4.5|6",
-          "1,23|4.|56",
-        ])("allows the user to replace the separator (.) (%s)", (where) => {
-          render({ defaultValue: "1234.56" });
-          const { preventDefault } = fn({ key: "." }, where);
-          expect(preventDefault).not.toHaveBeenCalled();
-        });
-      }
-      // END
     });
 
     describe.each(["Backspace", "Delete"])(
@@ -1010,166 +595,68 @@ describe("Decimal", () => {
     );
 
     describe("i18n", () => {
-      beforeAll(() => {
-        I18n.locale = "fr";
-      });
-
-      afterAll(() => {
-        I18n.locale = undefined;
-      });
-
-      it("has a defaultValue of 0,00", () => {
-        render();
-        expect(value()).toBe("0,00");
-        expect(hiddenValue()).toBe("0.00");
-      });
-
-      it("allows the defaultValue to be defined", () => {
-        render({ defaultValue: "12345.67" });
-        expect(value()).toBe("12.345,67");
-        expect(hiddenValue()).toBe("12345.67");
-      });
-
-      it("formats a value correctly", () => {
-        render();
-        type("1234576");
-        blur();
-        expect(value()).toBe("1.234.576,00");
-        expect(hiddenValue()).toBe("1234576.00");
-      });
-
-      it("formats a value correctly (extra separator)", () => {
-        render();
-        type("1.2.34576,00");
-        blur();
-        expect(value()).toBe("1.234.576,00");
-        expect(hiddenValue()).toBe("1234576.00");
-      });
-
-      it("renders a negative value", () => {
-        render({ defaultValue: "-1234.56" });
-        expect(value()).toBe("-1.234,56");
-        expect(hiddenValue()).toBe("-1234.56");
-      });
-
-      it.each([
-        ["0,00", "0.00", {}],
-        ["", "", { allowEmptyValue: true }],
-      ])(
-        "entering a negative sign and blurring should revert to the defaultValue (%s)",
-        (formattedValue, rawValue, props) => {
+      describe("en", () => {
+        const enProps = { locale: "en" };
+        it.each([
+          ["1,1,1,1,1.1", "11,111.10", "11111.1"],
+          ["1,1,1222,12,1.1", "111,222,121.10", "111222121.1"],
+          ["1,,1,,1", "1,,1,,1", "1,,1,,1"],
+        ])("format %s to %s and rawValue %s", (input, formatted, rawValue) => {
           const onBlur = jest.fn();
-          render({ onBlur, defaultValue: "-1234.56", ...props });
-          type("-");
+          render({ onBlur, ...enProps });
+          type(input);
           blur();
-          expect(value()).toBe(formattedValue);
-          expect(hiddenValue()).toBe(rawValue);
-          expect(onChange).toHaveBeenCalledWith(
-            expect.objectContaining({
-              target: {
-                value: {
-                  formattedValue: "-",
-                  rawValue: "-",
-                },
-              },
-            })
-          );
-          expect(onChange).toHaveBeenCalledWith(
-            expect.objectContaining({
-              target: {
-                value: {
-                  formattedValue,
-                  rawValue,
-                },
-              },
-            })
-          );
           expect(onBlur).toHaveBeenCalledWith(
             expect.objectContaining({
               target: {
                 value: {
-                  formattedValue,
+                  formattedValue: formatted,
                   rawValue,
                 },
               },
             })
           );
-        }
-      );
+        });
+      });
 
-      describe("precision", () => {
-        it("has a default precision of 2 (rounding up)", () => {
-          render({ defaultValue: "12345.655" });
-          expect(value()).toBe("12.345,66");
-          expect(hiddenValue()).toBe("12345.66");
+      describe("es", () => {
+        const esProps = { locale: "es-ES" };
+
+        it.each([
+          ["1000.23", "1000,23"],
+          ["10000.00", "10.000,00"],
+          ["10000.23", "10.000,23"],
+          ["100000.00", "100.000,00"],
+          ["1000000.00", "1.000.000,00"],
+        ])("format %s to %s", (input, formatted) => {
+          render({ value: input, ...esProps });
+          expect(value()).toBe(formatted);
+          expect(hiddenValue()).toBe(input);
         });
 
-        it("has a default precision of 2 (rounding down)", () => {
-          render({ defaultValue: "12345.654" });
-          expect(value()).toBe("12.345,65");
-          expect(hiddenValue()).toBe("12345.65");
-        });
-
-        it("supports having a bigger precision", () => {
-          render({ defaultValue: "12345.654", precision: 3 });
-          expect(value()).toBe("12.345,654");
-          expect(hiddenValue()).toBe("12345.654");
-        });
-
-        it("allows the user to change the precision", () => {
-          render({ defaultValue: "1234.56789", precision: 5 });
-
-          expect(value()).toBe("1.234,56789");
-          expect(hiddenValue()).toBe("1234.56789");
-
-          setProps({ precision: 4 });
-
-          expect(value()).toBe("1.234,5679");
-          expect(hiddenValue()).toBe("1234.5679");
-          expect(onChange).toHaveBeenCalledWith(
+        it.each([
+          ["1.1.1.1.1.1,1", "111.111,10", "111111.1"],
+          ["2.123", "2123,00", "2123"],
+          ["21.21.111.1,013", "21.211.111,013", "21211111.013"],
+          ["2.,12.,1", "2.,12.,1", "2.,12.,1"],
+          ["100", "100,00", "100"],
+          ["1000", "1000,00", "1000"],
+          ["1000,23", "1000,23", "1000.23"],
+          ["10000", "10.000,00", "10000"],
+          ["10000,23", "10.000,23", "10000.23"],
+          ["100000", "100.000,00", "100000"],
+          ["1000000", "1.000.000,00", "1000000"],
+        ])("format %s to %s and rawValue %s", (input, formatted, rawValue) => {
+          const onBlur = jest.fn();
+          render({ onBlur, ...esProps });
+          type(input);
+          blur();
+          expect(onBlur).toHaveBeenCalledWith(
             expect.objectContaining({
               target: {
                 value: {
-                  formattedValue: "1.234,5679",
-                  rawValue: "1234.5679",
-                },
-              },
-            })
-          );
-
-          setProps({ precision: 3 });
-
-          expect(value()).toBe("1.234,568");
-          expect(hiddenValue()).toBe("1234.568");
-
-          setProps({ precision: 2 });
-
-          expect(value()).toBe("1.234,57");
-          expect(hiddenValue()).toBe("1234.57");
-
-          setProps({ precision: 1 });
-
-          expect(value()).toBe("1.234,6");
-          expect(hiddenValue()).toBe("1234.6");
-
-          setProps({ precision: 2 });
-
-          expect(value()).toBe("1.234,60");
-          expect(hiddenValue()).toBe("1234.60");
-
-          onChange.mockReset();
-
-          setProps({ precision: 3 });
-
-          expect(value()).toBe("1.234,600");
-          expect(hiddenValue()).toBe("1234.600");
-
-          expect(onChange).toHaveBeenCalledWith(
-            expect.objectContaining({
-              target: {
-                value: {
-                  formattedValue: "1.234,600",
-                  rawValue: "1234.600",
+                  formattedValue: formatted,
+                  rawValue,
                 },
               },
             })
@@ -1177,405 +664,395 @@ describe("Decimal", () => {
         });
       });
 
-      it("calls onChange when the user enters a value", () => {
-        render();
-        type("12345,56");
-        expect(onChange).toHaveBeenCalledWith(
-          expect.objectContaining({
-            target: {
-              value: {
-                formattedValue: "12.345,56",
-                rawValue: "12345.56",
+      describe("pt", () => {
+        const ptProps = { locale: "pt-PT" };
+
+        it.each([
+          ["1000.23", "1000,23"],
+          ["10000.00", "10\xa0000,00"],
+          ["10000.23", "10\xa0000,23"],
+          ["100000.00", "100\xa0000,00"],
+          ["1000000.00", "1\xa0000\xa0000,00"],
+        ])("format %s to %s", (a, b) => {
+          render({ value: a, ...ptProps });
+          expect(value()).toBe(b);
+          expect(hiddenValue()).toBe(a);
+        });
+
+        it.each([
+          ["1111,2", "1111,20", "1111.2"],
+          ["100", "100,00", "100"],
+          ["1000", "1000,00", "1000"],
+          ["1000.23", "1000,23", "1000.23"],
+          ["10000", "10\xa0000,00", "10000"],
+          ["10000.23", "10\xa0000,23", "10000.23"],
+          ["100000", "100\xa0000,00", "100000"],
+          ["1000000", "1\xa0000\xa0000,00", "1000000"],
+        ])("format %s to %s and rawValue %s", (input, formatted, rawValue) => {
+          const onBlur = jest.fn();
+          render({ onBlur, ...ptProps });
+          type(input);
+          blur();
+          expect(onBlur).toHaveBeenCalledWith(
+            expect.objectContaining({
+              target: {
+                value: {
+                  formattedValue: formatted,
+                  rawValue,
+                },
               },
-            },
-          })
-        );
-      });
-
-      it("calls onBlur when the field loses focus", () => {
-        const onBlur = jest.fn();
-        render({ onBlur });
-        type("12345,56");
-        blur();
-        expect(onBlur).toHaveBeenCalledWith(
-          expect.objectContaining({
-            target: {
-              value: {
-                formattedValue: "12.345,56",
-                rawValue: "12345.56",
-              },
-            },
-          })
-        );
-      });
-
-      describe.each([
-        ["type", press],
-        ["paste (single char)", paste],
-        [PASTE_MULTIPLE, paste, (key) => `${key}${key}`],
-      ])("%s", (event, fn, mutate = (key) => key) => {
-        it.each([
-          "a",
-          "b",
-          "c",
-          "d",
-          "e",
-          "f",
-          "g",
-          "h",
-          "i",
-          "j",
-          "k",
-          "l",
-          "m",
-          "n",
-          "o",
-          "p",
-          "q",
-          "r",
-          "s",
-          "t",
-          "u",
-          "v",
-          "w",
-          "x",
-          "y",
-          "z",
-          "A",
-          "B",
-          "C",
-          "D",
-          "E",
-          "F",
-          "G",
-          "H",
-          "I",
-          "J",
-          "K",
-          "L",
-          "M",
-          "N",
-          "O",
-          "P",
-          "Q",
-          "R",
-          "S",
-          "T",
-          "U",
-          "V",
-          "W",
-          "X",
-          "Y",
-          "Z",
-          "!",
-          '"',
-          "£",
-          "$",
-          "%",
-          "^",
-          "&",
-          "*",
-          "(",
-          ")",
-          "_",
-          "+",
-          "`",
-          "¬",
-          "\\",
-          "|",
-          "[",
-          "{",
-          "]",
-          "}",
-          ":",
-          ";",
-          "@",
-          "'",
-          "~",
-          "#",
-          "<",
-          ">",
-          "?",
-          "/",
-        ])(
-          "prevents the user from entering anything but a number, separator, delimiter or negative sign (%s)",
-          (key) => {
-            render();
-            const { preventDefault } = fn({ key: mutate(key) }, "0|,00");
-            expect(preventDefault).toHaveBeenCalled();
-          }
-        );
-
-        it.each([
-          "|123,45",
-          "1|23,45",
-          "12|3,45",
-          "123|,45",
-          "|1|23,45",
-          "|12|3,45",
-          "|123|,45",
-          "|123,|45",
-          "|123,4|5",
-          "|123,45|",
-          "1|2|3,45",
-          "1|23|,45",
-          "1|23,|45",
-          "1|23,4|5",
-          "1|23,45|",
-          "12|3|,45",
-          "12|3,|45",
-          "12|3,4|5",
-          "12|3,45|",
-          "123|,|45",
-          "123|,4|5",
-          "123|,45|",
-        ])("allows the user to change the whole (%s)", (which) => {
-          render({ defaultValue: "123.45" });
-          const { preventDefault } = fn({ key: mutate("1") }, which);
-          expect(preventDefault).not.toHaveBeenCalled();
-          // Unable to assert on value because the change event won't be triggered
-        });
-
-        it.each(["123,|45", "123,4|5", "123,45|"])(
-          "prevent the user from extending the fraction beyond the precision (%s)",
-          (where) => {
-            render({ defaultValue: "123.45" });
-            const { preventDefault } = fn({ key: mutate("1") }, where);
-            expect(preventDefault).toHaveBeenCalled();
-          }
-        );
-
-        if (event === PASTE_MULTIPLE) {
-          it("allows the user to replace the fraction (%s)", () => {
-            render({ defaultValue: "123.45" });
-            const { preventDefault } = fn({ key: mutate("1") }, "123,|45|");
-            expect(preventDefault).not.toHaveBeenCalled();
-          });
-        } else {
-          it.each(["123,|45|", "123,|4|5", "123,4|5|"])(
-            "allows the user to replace the fraction (%s)",
-            (where) => {
-              render({ defaultValue: "123.45" });
-              const { preventDefault } = fn({ key: "1" }, where);
-              expect(preventDefault).not.toHaveBeenCalled();
-            }
+            })
           );
-        }
+        });
 
-        it.each(["123,|4", "123,4|", "123,|4|"])(
-          `prevent the user from ${event} the delimiter in the fraction (%s)`,
-          (where) => {
-            render();
-            // We're changing the value to be something that is less than the maximum precision to ensure it's not the
-            // maximum precision preventing us from making the change
-            type("123,4");
-            const { preventDefault } = fn({ key: mutate(".") }, where);
-            expect(preventDefault).toHaveBeenCalled();
-          }
-        );
+        it("handles a value that has white-spaces", () => {
+          render({ ...ptProps });
+          type("10 000,00");
+          blur();
+          expect(value()).toBe("10\xa0000,00");
+          expect(hiddenValue()).toBe("10000.00");
+        });
 
-        it.each([
-          "|1.234,56",
-          "1|.234,56",
-          "1.|234,56",
-          "1.2|34,56",
-          "1.23|4,56",
-          "1.234|,56",
-          "|1|.234,56",
-          "1|.|234,56",
-          "1.|2|34,56",
-          "1.2|3|4,56",
-          "1.23|4|,56",
-          "|1.|234,56",
-          "|1.2|34,56",
-          "|1.23|4,56",
-          "|1.234|,56",
-          "1|.2|34,56",
-          "1|.23|4,56",
-          "1|.234|,56",
-          "1.|23|4,56",
-          "1.|234|,56",
-          "1.2|34|,56",
-        ])(
-          `allow the user to ${event} the delimiter in the whole (%s)`,
-          (where) => {
-            render({ defaultValue: "1234.56" });
-            const { preventDefault } = fn({ key: mutate(".") }, where);
-            expect(preventDefault).not.toHaveBeenCalled();
-          }
-        );
+        it("handles a value that has white-spaces in wrong place", () => {
+          render({ ...ptProps });
+          type("1 0000,00");
+          blur();
+          expect(value()).toBe("10\xa0000,00");
+          expect(hiddenValue()).toBe("10000.00");
+        });
 
-        if (event !== PASTE_MULTIPLE) {
-          it.each([
-            "1|23",
-            "12|3",
-            "123|",
-            "|123|",
-            "1|23|",
-            "12|3|",
-            "1|23|",
-            "|12|3",
-          ])(
-            `allow the user to ${event} the separator in the whole (%s)`,
-            (where) => {
-              render();
-              type("123");
-              const { preventDefault } = fn({ key: "," }, where);
-              expect(preventDefault).not.toHaveBeenCalled();
-            }
-          );
+        it("handles a value that has multiple white-spaces", () => {
+          render({ ...ptProps });
+          type("1  0000,00");
+          blur();
+          expect(value()).toBe("1  0000,00");
+          expect(hiddenValue()).toBe("1  0000,00");
+        });
 
-          it(`prevents the user ${event} the separator in the whole where it would exceed the precision`, () => {
-            render();
-            type("123");
-            const { preventDefault } = fn({ key: "," }, "|123");
-            expect(preventDefault).toHaveBeenCalled();
-          });
-        }
-
-        it.each([
-          "|1.234,56",
-          "1|.234,56",
-          "1.|234,56",
-          "1.2|34,56",
-          "1.23|4,56",
-          "1.234|,56",
-          "1.234,5|6",
-          "1.234,56|",
-          "|1|.234,56",
-          "1|.|234,56",
-          "1.|2|34,56",
-          "1.2|3|4,56",
-          "1.23|4|,56",
-          "1.234,|5|6",
-          "1.234,5|6|",
-          "|1.|234,56",
-          "|1.2|34,56",
-          "|1.23|4,56",
-          "|1.234|,56",
-          "1|.2|34,56",
-          "1|.23|4,56",
-          "1|.234|,56",
-          "1.|23|4,56",
-          "1.|234|,56",
-          "1.2|3|4,56",
-          "1.2|34|,56",
-          "1.23|4|,56",
-        ])(
-          `prevents the user from ${event} the separator (,) if there is already a separator (%s)`,
-          (where) => {
-            render({ defaultValue: "1234.56" });
-            const { preventDefault } = fn({ key: mutate(",") }, where);
-            expect(preventDefault).toHaveBeenCalled();
-          }
-        );
-
-        if (event !== PASTE_MULTIPLE) {
-          it.each([
-            "1.234|,|56",
-            "1.234|,5|6",
-            "1.234|,56|",
-            "|1.234,56|",
-            "|1.234,5|6",
-            "|1.234,|56",
-            "1|.234,56|",
-            "1|.234,5|6",
-            "1|.234,|56",
-            "1.|234,56|",
-            "1.|234,5|6",
-            "1.|234,|56",
-            "1.2|34,56|",
-            "1.2|34,5|6",
-            "1.2|34,|56",
-            "1.23|4,56|",
-            "1.23|4,5|6",
-            "1.23|4,|56",
-          ])("allows the user to replace the separator (,) (%s)", (where) => {
-            render({ defaultValue: "1234.56" });
-            const { preventDefault } = fn({ key: "," }, where);
-            expect(preventDefault).not.toHaveBeenCalled();
-          });
-        }
+        it("handles a value that has multiple groups with white-spaces", () => {
+          render({ ...ptProps });
+          type("1 0000 000,00");
+          blur();
+          expect(value()).toBe("10\xa0000\xa0000,00");
+          expect(hiddenValue()).toBe("10000000.00");
+        });
       });
 
-      describe.each(["Backspace", "Delete"])(
-        "allows the user to delete part of the decimal (%s)",
-        (key) => {
-          it.each([
-            "|1.234,56",
-            "1|.234,56",
-            "1.|234,56",
-            "1.2|34,56",
-            "1.23|4,56",
-            "1.234|,56",
-            "1.234,|56",
-            "1.234,5|6",
-            "1.234,56|",
-            "|1|.234,56",
-            "|1.|234,56",
-            "|1.2|34,56",
-            "|1.23|4,56",
-            "|1.234|,56",
-            "|1.234,|56",
-            "|1.234,5|6",
-            "|1.234,56|",
-            "1|.|234,56",
-            "1|.2|34,56",
-            "1|.23|4,56",
-            "1|.234|,56",
-            "1|.234,|56",
-            "1|.234,5|6",
-            "1|.234,56|",
-            "1.|2|34,56",
-            "1.|23|4,56",
-            "1.|234|,56",
-            "1.|234,|56",
-            "1.|234,5|6",
-            "1.|234,56|",
-            "1.2|3|4,56",
-            "1.2|34|,56",
-            "1.2|34,|56",
-            "1.2|34,5|6",
-            "1.2|34,56|",
-            "1.23|4|,56",
-            "1.23|4,|56",
-            "1.23|4,5|6",
-            "1.23|4,56|",
-            "1.234|,|56",
-            "1.234|,5|6",
-            "1.234|,56|",
-            "1.234,|5|6",
-            "1.234,|56|",
-            "1.234,5|6|",
-            "|1.234,56|",
-          ])("%s", (where) => {
-            render({ defaultValue: "1234.56" });
-            const { preventDefault } = press({ key }, where);
-            expect(preventDefault).not.toHaveBeenCalled();
-          });
-        }
-      );
-
-      describe("invariant", () => {
-        beforeEach(() => {
-          jest.spyOn(global.console, "error").mockImplementation(() => {});
-        });
-
-        afterEach(() => {
-          global.console.error.mockReset();
-        });
-
-        it.each(["12,85,1", "12.85.1", "12a.85", "12,85"])(
-          "throws if the defaultValue is not a number (%s)",
-          (defaultValue) => {
-            expect(() => {
-              render({ defaultValue });
-            }).toThrow(
-              `The supplied decimal (${defaultValue}) is not a number`
+      describe("fr", () => {
+        const frProps = { locale: "fr" };
+        it.each([["11111,25", "11 111,25", "11111.25"]])(
+          "format %s to %s and rawValue %s",
+          (input, formatted, rawValue) => {
+            const onBlur = jest.fn();
+            render({ onBlur, ...frProps });
+            type(input);
+            blur();
+            expect(onBlur).toHaveBeenCalled();
+            expect(onBlur).toHaveBeenCalledWith(
+              expect.objectContaining({
+                target: {
+                  id: undefined,
+                  name: undefined,
+                  value: {
+                    formattedValue: formatted,
+                    rawValue,
+                  },
+                },
+              })
             );
           }
         );
       });
+
+      describe("it", () => {
+        const itProps = { locale: "it" };
+
+        it("has a defaultValue of 0,00", () => {
+          render({ ...itProps });
+          expect(value()).toBe("0,00");
+          expect(hiddenValue()).toBe("0.00");
+        });
+
+        it("allows the defaultValue to be defined", () => {
+          render({ defaultValue: "12345.67", ...itProps });
+          expect(value()).toBe("12.345,67");
+          expect(hiddenValue()).toBe("12345.67");
+        });
+
+        it("formats a value correctly", () => {
+          render({ ...itProps });
+          type("1234576");
+          blur();
+          expect(value()).toBe("1.234.576,00");
+          expect(hiddenValue()).toBe("1234576.00");
+        });
+
+        it("formats a value correctly (extra separator)", () => {
+          render({ ...itProps });
+          type("1.2.34576,00");
+          blur();
+          expect(value()).toBe("1.234.576,00");
+          expect(hiddenValue()).toBe("1234576.00");
+        });
+
+        it("fixes incorrectly placed delimiters", () => {
+          const onBlur = jest.fn();
+          render({ onBlur, defaultValue: "0.00", ...itProps });
+          type("1.1");
+          blur();
+          expect(value()).toBe("11,00");
+          expect(hiddenValue()).toBe("11.00");
+        });
+
+        it("renders a negative value", () => {
+          render({ defaultValue: "-1234.56", ...itProps });
+          expect(value()).toBe("-1.234,56");
+          expect(hiddenValue()).toBe("-1234.56");
+        });
+        describe("precision", () => {
+          it("fires a console error when precision is changed once component is loaded.", () => {
+            jest.spyOn(global.console, "error").mockImplementation(() => {});
+            render({ defaultValue: "12345", precision: 2, ...itProps });
+            setProps({ precision: 1 });
+            expect(console.error).toHaveBeenCalledWith(
+              "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
+            );
+          });
+
+          it("supports a precision of 0", () => {
+            render({ defaultValue: "12345", precision: 0, ...itProps });
+            expect(value()).toBe("12.345");
+            expect(hiddenValue()).toBe("12345");
+          });
+
+          it("supports having a bigger precision", () => {
+            render({ defaultValue: "12345.654", precision: 3, ...itProps });
+            expect(value()).toBe("12.345,654");
+            expect(hiddenValue()).toBe("12345.654");
+          });
+
+          it("has a default precision of 2 and does not round", () => {
+            const onBlur = jest.fn();
+            render({ onBlur, ...itProps });
+            type("12345,566");
+            blur();
+            expect(onBlur).toHaveBeenCalledWith(
+              expect.objectContaining({
+                target: {
+                  value: {
+                    formattedValue: "12.345,566",
+                    rawValue: "12345.566",
+                  },
+                },
+              })
+            );
+          });
+
+          it("adds additional zeros if required", () => {
+            const onBlur = jest.fn();
+            render({ onBlur, precision: 4, ...itProps });
+            type("12345,56");
+            blur();
+            expect(value()).toBe("12.345,5600");
+            expect(hiddenValue()).toBe("12345.5600");
+          });
+
+          it("does not format a value with numbers and too many delimiters", () => {
+            const onBlur = jest.fn();
+            render({ onBlur, precision: 4, ...itProps });
+            type("123..45,56");
+            blur();
+            expect(value()).toBe("123..45,56");
+            expect(hiddenValue()).toBe("123..45,56");
+          });
+
+          it("does not format a value with numbers and too many separators", () => {
+            const onBlur = jest.fn();
+            render({ onBlur, precision: 4, ...itProps });
+            type("1,,2345,56");
+            blur();
+            expect(value()).toBe("1,,2345,56");
+            expect(hiddenValue()).toBe("1,,2345,56");
+          });
+
+          it("supports having a shorter number", () => {
+            render({ defaultValue: "12345.6", precision: 3, ...itProps });
+            expect(value()).toBe("12.345,600");
+            expect(hiddenValue()).toBe("12345.600");
+          });
+
+          it("supports having a longer number on default", () => {
+            render({ defaultValue: "123123.99999", precision: 3, ...itProps });
+            expect(value()).toBe("123.123,99999");
+            expect(hiddenValue()).toBe("123123.99999");
+          });
+
+          it("supports having a longer number on change", () => {
+            render({ value: "123123.99999", precision: 3, ...itProps });
+            expect(value()).toBe("123.123,99999");
+            expect(hiddenValue()).toBe("123123.99999");
+          });
+        });
+
+        it("calls onChange when the user enters a value", () => {
+          render({ ...itProps });
+          type("12345,56");
+          expect(onChange).toHaveBeenCalledWith(
+            expect.objectContaining({
+              target: {
+                value: {
+                  formattedValue: "12.345,56",
+                  rawValue: "12345.56",
+                },
+              },
+            })
+          );
+        });
+
+        it("calls onBlur when the field loses focus", () => {
+          const onBlur = jest.fn();
+          render({ onBlur, ...itProps });
+          type("12345,56");
+          blur();
+          expect(onBlur).toHaveBeenCalledWith(
+            expect.objectContaining({
+              target: {
+                value: {
+                  formattedValue: "12.345,56",
+                  rawValue: "12345.56",
+                },
+              },
+            })
+          );
+        });
+
+        describe.each(["Backspace", "Delete"])(
+          "allows the user to delete part of the decimal (%s)",
+          (key) => {
+            it.each([
+              "|1.234,56",
+              "1|.234,56",
+              "1.|234,56",
+              "1.2|34,56",
+              "1.23|4,56",
+              "1.234|,56",
+              "1.234,|56",
+              "1.234,5|6",
+              "1.234,56|",
+              "|1|.234,56",
+              "|1.|234,56",
+              "|1.2|34,56",
+              "|1.23|4,56",
+              "|1.234|,56",
+              "|1.234,|56",
+              "|1.234,5|6",
+              "|1.234,56|",
+              "1|.|234,56",
+              "1|.2|34,56",
+              "1|.23|4,56",
+              "1|.234|,56",
+              "1|.234,|56",
+              "1|.234,5|6",
+              "1|.234,56|",
+              "1.|2|34,56",
+              "1.|23|4,56",
+              "1.|234|,56",
+              "1.|234,|56",
+              "1.|234,5|6",
+              "1.|234,56|",
+              "1.2|3|4,56",
+              "1.2|34|,56",
+              "1.2|34,|56",
+              "1.2|34,5|6",
+              "1.2|34,56|",
+              "1.23|4|,56",
+              "1.23|4,|56",
+              "1.23|4,5|6",
+              "1.23|4,56|",
+              "1.234|,|56",
+              "1.234|,5|6",
+              "1.234|,56|",
+              "1.234,|5|6",
+              "1.234,|56|",
+              "1.234,5|6|",
+              "|1.234,56|",
+            ])("%s", (where) => {
+              render({ defaultValue: "1234.56", ...itProps });
+              const { preventDefault } = press({ key }, where);
+              expect(preventDefault).not.toHaveBeenCalled();
+            });
+          }
+        );
+
+        it.each([
+          ["0,00", "0.00", {}],
+          ["", "", { allowEmptyValue: true }],
+        ])(
+          "entering a negative sign and blurring should revert to the defaultValue (%s)",
+          (formattedValue, rawValue, props) => {
+            const onBlur = jest.fn();
+            render({
+              onBlur,
+              defaultValue: "-1234.56",
+              ...props,
+              ...itProps,
+            });
+            type("-");
+            blur();
+            expect(value()).toBe("-");
+            expect(hiddenValue()).toBe("-");
+            expect(onChange).toHaveBeenCalledWith(
+              expect.objectContaining({
+                target: {
+                  value: {
+                    formattedValue: "-",
+                    rawValue: "-",
+                  },
+                },
+              })
+            );
+            expect(onChange).toHaveBeenCalledWith(
+              expect.objectContaining({
+                target: {
+                  value: {
+                    formattedValue: "-",
+                    rawValue: "-",
+                  },
+                },
+              })
+            );
+            expect(onBlur).toHaveBeenCalledWith(
+              expect.objectContaining({
+                target: {
+                  value: {
+                    formattedValue: "-",
+                    rawValue: "-",
+                  },
+                },
+              })
+            );
+          }
+        );
+      });
+    });
+
+    it.each([
+      ",,,,",
+      "....",
+      "££££",
+      "$$$$",
+      "%%%%",
+      "@@@@",
+      "!!!!",
+      "****",
+      "####",
+    ])("should not format multiple %s characters", (char) => {
+      const onBlur = jest.fn();
+      render({ onBlur });
+      type(char);
+      blur();
+      expect(value()).toBe(char);
+      expect(hiddenValue()).toBe(char);
     });
 
     it("calls the onKeyPress callback", () => {
@@ -1633,20 +1110,128 @@ describe("Decimal", () => {
       expect(onChange).not.toHaveBeenCalled();
     });
 
-    it("typing a negative value reverts to the default value", () => {
+    it("typing a negative value does not revert to the default value", () => {
       render({ value: "123" });
       setProps({ value: "-" });
       expect(onChange).not.toHaveBeenCalled();
-      expect(value()).toBe("0.00");
-      expect(hiddenValue()).toBe("0.00");
+      expect(value()).toBe("-");
+      expect(hiddenValue()).toBe("-");
     });
 
-    it("typing a negative value reverts to the default value (allowEmptyValue)", () => {
+    it("typing a negative value does not revert to the default value (allowEmptyValue)", () => {
       render({ value: "", allowEmptyValue: true });
       setProps({ value: "-" });
       expect(onChange).not.toHaveBeenCalled();
-      expect(value()).toBe("");
-      expect(hiddenValue()).toBe("");
+      expect(value()).toBe("-");
+      expect(hiddenValue()).toBe("-");
+    });
+
+    it("does not format a value that is not a number", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: "FooBar" });
+      blur();
+      expect(value()).toBe("FooBar");
+      expect(hiddenValue()).toBe("FooBar");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("handles a value that is white-space only", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: "     " });
+      blur();
+      expect(value()).toBe("     ");
+      expect(hiddenValue()).toBe("     ");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("handles a value that is delimiters only", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: ",,," });
+      blur();
+      expect(value()).toBe(",,,");
+      expect(hiddenValue()).toBe(",,,");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("handles a value that is special characters and delimiters only", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: "^^&^%%$,,,," });
+      blur();
+      expect(value()).toBe("^^&^%%$,,,,");
+      expect(hiddenValue()).toBe("^^&^%%$,,,,");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("does not format a value that has numbers and has too many delimiters", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: "10,.10,.11,.6" });
+      blur();
+      expect(value()).toBe("10,.10,.11,.6");
+      expect(hiddenValue()).toBe("10,.10,.11,.6");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("handles a value that is numbers, delimiters and special characters only", () => {
+      const onBlur = jest.fn();
+      render({
+        value: "",
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true,
+      });
+
+      setProps({ value: "1,234$" });
+      blur();
+      expect(value()).toBe("1,234$");
+      expect(hiddenValue()).toBe("1,234$");
+      expect(onBlur).toHaveBeenCalled();
     });
 
     it("formats a empty value prop when firing events (allowEmptyValue)", () => {

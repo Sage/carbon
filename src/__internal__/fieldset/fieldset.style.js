@@ -1,49 +1,24 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 
 const StyledFieldset = styled.fieldset`
-  ${({ ml, mb, theme }) => css`
-    border: none;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-    min-inline-size: 0;
-
-    ${ml && `margin-left: ${ml};`}
-    ${mb && `margin-bottom: ${mb * theme.spacing}px;`}
-    ${({ styleOverride }) => styleOverride};
-  `}
+  ${margin}
+  border: none;
+  padding: 0;
+  min-width: 0;
+  min-inline-size: 0;
 `;
 
 StyledFieldset.defaultProps = {
   theme: BaseTheme,
 };
 
-const StyledFieldsetContent = styled.div`
-  ${({ inline }) => inline && "display: flex;"}
-`;
-
-const StyledLegendContainer = styled.div`
+const StyledLegendContent = styled.span`
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  ${({ inline, width, align, rightPadding, theme }) =>
-    inline &&
-    css`
-      box-sizing: border-box;
-      margin: 0;
-      height: 34px;
-      ${width && `width: ${width}%`};
-      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
-      padding-right: ${rightPadding * theme.spacing}px;
-    `}
-
-  legend {
-    padding: 0;
-    font-weight: 600;
-    line-height: 24px;
-  }
+  align-items: center;
+  line-height: 24px;
 
   ${({ isRequired, theme }) =>
     isRequired &&
@@ -56,20 +31,41 @@ const StyledLegendContainer = styled.div`
         margin-left: ${theme.spacing}px;
       }
     `}
-
-  ${({ styleOverride }) => styleOverride};
 `;
 
-StyledLegendContainer.defaultProps = {
+StyledLegendContent.defaultProps = {
+  theme: BaseTheme,
+};
+
+const StyledLegend = styled.legend`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+
+  ${({ inline, width, align, rightPadding, theme }) =>
+    inline &&
+    css`
+      float: left;
+      box-sizing: border-box;
+      margin: 0;
+      ${width && `width: ${width}%`};
+      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
+      padding-right: ${rightPadding * theme.spacing}px;
+    `}
+`;
+
+StyledLegend.defaultProps = {
   align: "right",
   theme: BaseTheme,
 };
 
-StyledLegendContainer.propTypes = {
+StyledLegend.propTypes = {
   inline: PropTypes.bool,
   width: PropTypes.number,
   align: PropTypes.oneOf(["left", "right"]),
   rightPadding: PropTypes.oneOf([1, 2]),
 };
 
-export { StyledFieldset, StyledFieldsetContent, StyledLegendContainer };
+export { StyledFieldset, StyledLegend, StyledLegendContent };

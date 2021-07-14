@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
 import Link from "../link";
@@ -11,6 +12,8 @@ const StyledPod = styled.div`
   width: 100%;
   text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && "position: relative"};
+  ${margin}
+  ${({ height }) => height && `height: ${height}`};
 
   &:focus {
     outline: none;
@@ -37,12 +40,13 @@ const StyledBlock = styled.div`
     internalEditButton,
     isHovered,
     isFocused,
-    height,
   }) => css`
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     background-color: ${blockBackgrounds(variant, theme)};
     width: 100%;
-    ${height && `height: ${height}px`};
+    height: 100%;
     ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
     ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
     ${editable && !(fullWidth || internalEditButton) && "width: auto;"};
@@ -88,10 +92,9 @@ const contentPaddings = {
 
 const StyledContent = styled.div`
   text-align: left;
-  padding: ${({ padding }) => contentPaddings[padding]};
+  padding: ${({ size }) => contentPaddings[size]};
+  flex-grow: 1;
 `;
-
-const StyledCollapsibleContent = styled.div``;
 
 const StyledDescription = styled.div`
   background: none;
@@ -108,7 +111,7 @@ const footerPaddings = {
 };
 
 const StyledFooter = styled.div`
-  ${({ theme, variant, padding }) => css`
+  ${({ theme, variant, size }) => css`
     background-color: ${theme.pod.footerBackground};
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
     color: ${theme.text.color};
@@ -118,7 +121,7 @@ const StyledFooter = styled.div`
       border-top: 1px solid ${theme.pod.border};
     `};
 
-    padding: ${footerPaddings[padding]};
+    padding: ${footerPaddings[size]};
   `}
 `;
 
@@ -153,7 +156,7 @@ const editBackgrounds = (variant, theme) =>
 const StyledEditAction = styled(Link)`
   ${({
     theme,
-    padding,
+    size,
     variant,
     noBorder,
     isFocused,
@@ -172,7 +175,7 @@ const StyledEditAction = styled(Link)`
       button {
         width: 15px;
         height: 15px;
-        padding: ${editPaddings[padding]}px;
+        padding: ${editPaddings[size]}px;
         background-color: transparent;
       }
 
@@ -205,7 +208,7 @@ const StyledEditAction = styled(Link)`
         border: none;
         > a,
         button {
-          padding: ${editPaddings[padding] +
+          padding: ${editPaddings[size] +
           (noBorder || internalEditButton ? 0 : 1)}px;
         }
       `};
@@ -227,7 +230,7 @@ const headerRightAlignMargins = {
 };
 
 const StyledHeader = styled.div`
-  ${({ alignTitle, internalEditButton, padding, isCollapsed }) => css`
+  ${({ alignTitle, internalEditButton, size, isCollapsed }) => css`
     margin-bottom: 24px;
     text-align: ${alignTitle};
 
@@ -240,7 +243,7 @@ const StyledHeader = styled.div`
     ${alignTitle === "right" &&
     internalEditButton &&
     css`
-      margin-right: ${headerRightAlignMargins[padding]}px;
+      margin-right: ${headerRightAlignMargins[size]}px;
     `};
   `}
 `;
@@ -264,9 +267,6 @@ const StyledArrow = styled(Icon).attrs({ type: "dropdown" })`
 `;
 
 StyledBlock.defaultProps = {
-  theme: baseTheme,
-};
-StyledCollapsibleContent.defaultProps = {
   theme: baseTheme,
 };
 StyledContent.defaultProps = {
@@ -298,11 +298,11 @@ StyledTitle.defaultProps = {
 };
 StyledArrow.defaultProps = {
   theme: baseTheme,
+  type: "dropdown",
 };
 
 export {
   StyledBlock,
-  StyledCollapsibleContent,
   StyledContent,
   StyledDescription,
   StyledEditAction,
