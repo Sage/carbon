@@ -5,7 +5,7 @@ export default {
   errorRed: "C7384F",
   genericGreen: "009900",
   gold: "FFB500",
-  productGreen: "00A376",
+  productGreen: "4050FB",
   productBlue: "0077C8",
   navyBlue: "004B87",
   amethyst: "582C83",

@@ -3,10 +3,10 @@ export default (palette) => {
     name: "mint",
 
     colors: {
-      base: palette.productGreen,
-      primary: palette.productGreenShade(21),
-      secondary: palette.productGreenShade(41),
-      tertiary: palette.productGreenShade(61),
+      base: "#6875FC",
+      primary: "#4050FB",
+      secondary: "#333FC6",
+      tertiary: "#262F94",
       whiteMix: palette.productGreenTint(90),
       hoveredTabKeyline: palette.productGreenTint(30),
       disabled: palette.productGreenTint(40),
