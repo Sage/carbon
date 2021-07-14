@@ -19,7 +19,7 @@ const stickyColumnFocusStyling = (index, theme) => {
       index === 0 ? theme.colors.focus : theme.table.secondary
     };
     background-clip: padding-box;
-    z-index: ${theme.zIndex.popover};
+    z-index: ${theme.zIndex.overlay + 1};
 
     :before {
       content: "";

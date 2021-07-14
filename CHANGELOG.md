@@ -1,3 +1,25 @@
+## [77.12.0](https://github.com/Sage/carbon/compare/v77.11.2...v77.12.0) (2021-07-14)
+
+
+### Features
+
+* **filterable-select:** add onFilterChange prop ([9ecb067](https://github.com/Sage/carbon/commit/9ecb067c4ea1f37e6b44e8830b7c77ca6108d1e0))
+* **multi-select:** add onFilterChange prop ([8058dab](https://github.com/Sage/carbon/commit/8058dabe83609b437eccea2852a141d5e4618057))
+
+
+### Bug Fixes
+
+* **filterable-select:** text value cleared when option list changes ([8190fe0](https://github.com/Sage/carbon/commit/8190fe0eba28468d5eb8e55ec9634f1265a708f0))
+* **filterable-select:** text value cleared when select is closed ([0fe05fc](https://github.com/Sage/carbon/commit/0fe05fcfb6e43ce22682c9f91a93d480b7388849))
+* **multi-select:** text value cleared when select is closed ([d65759a](https://github.com/Sage/carbon/commit/d65759ae3929dd61a29e449dbab2ac2e9e1fe738))
+
+### [77.11.2](https://github.com/Sage/carbon/compare/v77.11.1...v77.11.2) (2021-07-13)
+
+
+### Bug Fixes
+
+* **flat-table-row:** reduce z-index value when onclick passed to row ([a7d1a10](https://github.com/Sage/carbon/commit/a7d1a105f2a254e83d0e8a3456292965d5cdcbfd))
+
 ### [77.11.1](https://github.com/Sage/carbon/compare/v77.11.0...v77.11.1) (2021-07-13)
 
 

@@ -97,7 +97,7 @@ describe("FlatTableRow", () => {
           borderBottom: "1px solid transparent",
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
           backgroundClip: "padding-box",
-          zIndex: "2000",
+          zIndex: "1001",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -1131,10 +1131,14 @@ describe("FlatTableRow", () => {
       it("should add the correct padding to child row cells", () => {
         const wrapper = mount(
           <FlatTableThemeContext.Provider value={{ size: "compact" }}>
-            <FlatTableRow expandable expanded subRows={SubRows}>
-              <FlatTableCell>cell1</FlatTableCell>
-              <FlatTableCell>cell2</FlatTableCell>
-            </FlatTableRow>
+            <table>
+              <tbody>
+                <FlatTableRow expandable expanded subRows={SubRows}>
+                  <FlatTableCell>cell1</FlatTableCell>
+                  <FlatTableCell>cell2</FlatTableCell>
+                </FlatTableRow>
+              </tbody>
+            </table>
           </FlatTableThemeContext.Provider>
         );
 
