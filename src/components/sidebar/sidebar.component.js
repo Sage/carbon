@@ -9,6 +9,8 @@ import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
 
+export const SidebarContext = React.createContext({});
+
 const Sidebar = ({
   open,
   disableEscKey,
@@ -55,7 +57,9 @@ const Sidebar = ({
         scrollVariant="light"
         overflow="auto"
       >
-        {children}
+        <SidebarContext.Provider value={{ isInSidebar: true }}>
+          {children}
+        </SidebarContext.Provider>
       </Box>
     </SidebarStyle>
   );
