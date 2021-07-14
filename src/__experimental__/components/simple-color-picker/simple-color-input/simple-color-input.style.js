@@ -14,6 +14,10 @@ const StyledSimpleColorInput = styled(SimpleColorInput)`
     cursor: pointer;
   }
 
+  &:disabled:hover {
+    cursor: not-allowed;
+  }
+
   &:focus + ${StyledColorSampleBox} {
     box-shadow: inset 0px 0px 0px 3px ${({ theme }) => theme.colors.white};
     border: 2px solid ${({ theme }) => theme.colors.focus};
