@@ -38,12 +38,12 @@ const Submenu = React.forwardRef(
     },
     ref
   ) => {
+    const [blockDoubleFocus, setBlockDoubleFocus] = useState(false);
     const menuContext = useContext(MenuContext);
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const [characterString, setCharacterString] = useState("");
     const submenuRef = useRef();
-
     const formattedChildren = React.Children.map(children, (child) => {
       if (child.type === ScrollableBlock) {
         return [...child.props.children];
@@ -51,6 +51,8 @@ const Submenu = React.forwardRef(
 
       return child;
     });
+
+    const arrayOfFormattedChildren = React.Children.toArray(formattedChildren);
 
     const numberOfChildren = useMemo(
       () => React.Children.count(formattedChildren),
@@ -73,6 +75,7 @@ const Submenu = React.forwardRef(
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
       setSubmenuFocusIndex(undefined);
+      setBlockDoubleFocus(false);
       setCharacterString("");
     }, []);
 
@@ -99,13 +102,13 @@ const Submenu = React.forwardRef(
 
         if (submenuOpen) {
           let nextIndex = index;
-
           if (Events.isTabKey(event) && !Events.isShiftKey(event)) {
             if (index === numberOfChildren - 1) {
               closeSubmenu();
               return;
             }
             nextIndex = index + 1;
+            setBlockDoubleFocus(true);
           }
 
           if (Events.isTabKey(event) && Events.isShiftKey(event)) {
@@ -114,6 +117,7 @@ const Submenu = React.forwardRef(
               return;
             }
             nextIndex = index - 1;
+            setBlockDoubleFocus(true);
           }
 
           if (Events.isDownKey(event)) {
@@ -121,6 +125,7 @@ const Submenu = React.forwardRef(
             if (index < numberOfChildren - 1) {
               nextIndex = index + 1;
             }
+            setBlockDoubleFocus(false);
           }
 
           if (Events.isUpKey(event)) {
@@ -128,6 +133,7 @@ const Submenu = React.forwardRef(
             if (index > 0) {
               nextIndex = index - 1;
             }
+            setBlockDoubleFocus(false);
           }
 
           if (Events.isEscKey(event)) {
@@ -185,10 +191,9 @@ const Submenu = React.forwardRef(
 
           // Check that next index contains a MenuItem
           // If not, call handleKeyDown again
-          const nextChild = React.Children.toArray(formattedChildren)[
-            nextIndex
-          ];
-          if (nextChild && nextChild.type === MenuItem) {
+          const nextChild = arrayOfFormattedChildren[nextIndex];
+
+          if (nextChild?.type === MenuItem) {
             setSubmenuFocusIndex(nextIndex);
           } else {
             handleKeyDown(event, nextIndex);
@@ -196,19 +201,17 @@ const Submenu = React.forwardRef(
         }
       },
       [
-        characterString,
-        characterTimer,
-        startCharacterTimeout,
-        restartCharacterTimeout,
-        formattedChildren,
-        closeSubmenu,
+        submenuFocusIndex,
+        submenuOpen,
         href,
         menuContext,
+        arrayOfFormattedChildren,
         numberOfChildren,
+        closeSubmenu,
         onKeyDown,
-        submenuFocusIndex,
-        setSubmenuFocusIndex,
-        submenuOpen,
+        characterString,
+        restartCharacterTimeout,
+        startCharacterTimeout,
       ]
     );
 
@@ -285,12 +288,14 @@ const Submenu = React.forwardRef(
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider
                 value={{
-                  isFocused: submenuFocusIndex === index,
+                  isFocused: !blockDoubleFocus && submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
                   blockIndex: React.Children.toArray(children).findIndex(
                     (item) => item.type === ScrollableBlock
                   ),
+                  updateFocusIndex: setSubmenuFocusIndex,
+                  itemIndex: child.type === MenuItem ? index : undefined,
                 }}
               >
                 {child}

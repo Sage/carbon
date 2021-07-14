@@ -7,7 +7,6 @@ import Pod from "./pod.component";
 import Button from "../button";
 import {
   StyledBlock,
-  StyledCollapsibleContent,
   StyledDescription,
   StyledEditAction,
   StyledEditContainer,
@@ -87,7 +86,7 @@ describe("Pod", () => {
       {
         height: "100px",
       },
-      wrapper.find(StyledBlock)
+      wrapper.find(StyledPod)
     );
   });
 
@@ -100,9 +99,6 @@ describe("Pod", () => {
           <ContentComp />
         </Pod>
       );
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(false);
       expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
     });
 
@@ -112,9 +108,6 @@ describe("Pod", () => {
           <ContentComp />
         </Pod>
       );
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(true);
       expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
     });
 
@@ -125,14 +118,8 @@ describe("Pod", () => {
         </Pod>
       );
       collapsableWrapper.find(StyledHeader).props().onClick();
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(true);
       expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
       collapsableWrapper.find(StyledHeader).props().onClick();
-      expect(
-        collapsableWrapper.find(StyledCollapsibleContent).exists()
-      ).toEqual(false);
       expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
     });
 
@@ -564,6 +551,30 @@ describe("StyledEditAction", () => {
         );
       });
     });
+  });
+});
+
+describe("StyledPod", () => {
+  it("sets correct height when height prop value is a number", () => {
+    const wrapper = mount(<Pod height={400}>Content</Pod>);
+
+    assertStyleMatch(
+      {
+        height: "400px",
+      },
+      wrapper.find(StyledPod)
+    );
+  });
+
+  it("sets correct height when height prop value is a string", () => {
+    const wrapper = mount(<Pod height="100%">Content</Pod>);
+
+    assertStyleMatch(
+      {
+        height: "100%",
+      },
+      wrapper.find(StyledPod)
+    );
   });
 });
 

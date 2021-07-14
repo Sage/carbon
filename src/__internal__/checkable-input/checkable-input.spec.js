@@ -46,7 +46,7 @@ describe("CheckableInput", () => {
           .find(Label)
           .find("label");
 
-        expect(labelWrapper.prop("id")).toBe("foo-label");
+        expect(labelWrapper.prop("id")).toBe("foo label");
       });
     });
   });

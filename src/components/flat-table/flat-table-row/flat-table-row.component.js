@@ -44,7 +44,7 @@ const FlatTableRow = React.forwardRef(
     const rowHeaderIndex = childrenArray.findIndex(
       (child) => child.type === FlatTableRowHeader
     );
-    const colorTheme = useContext(FlatTableThemeContext);
+    const themeContext = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -94,7 +94,7 @@ const FlatTableRow = React.forwardRef(
     if (onClick || expandable) {
       interactiveRowProps = {
         isRowInteractive: !firstColumnExpandable,
-        tabIndex: firstColumnExpandable || isSubRow ? undefined : 0,
+        tabIndex: firstColumnExpandable ? undefined : 0,
         onKeyDown,
         isFirstColumnInteractive: firstColumnExpandable,
         isExpanded,
@@ -143,7 +143,8 @@ const FlatTableRow = React.forwardRef(
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
-              colorTheme={colorTheme}
+              colorTheme={themeContext.colorTheme}
+              size={themeContext.size}
               stickyOffset={stickyOffset}
               bgColor={bgColor}
               horizontalBorderColor={horizontalBorderColor}

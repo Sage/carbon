@@ -52,7 +52,8 @@ const StyledFlatTable = styled.table`
 
       ${StyledFlatTableCell} > div,
       ${StyledFlatTableHeader} > div,
-      ${StyledFlatTableRowHeader} > div {
+      ${StyledFlatTableRowHeader} > div,
+      ${StyledFlatTableCheckbox} > div {
         font-size: ${fontSize};
         padding-left: ${paddingSize};
         padding-right: ${paddingSize};
@@ -122,7 +123,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentBase
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentBase.border};
-            border-bottom-color: ${theme.flatTable.transparentBase.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
 
@@ -134,7 +135,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentWhite
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentWhite.border};
-            border-bottom-color: ${theme.flatTable.transparentWhite.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
       // default theme is "dark"
@@ -176,6 +177,8 @@ const StyledFlatTableWrapper = styled.div`
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         z-index: ${({ theme }) => theme.zIndex.overlay + 2};
+        top: 0;
+        left: 0;
       }
     `}
 `;

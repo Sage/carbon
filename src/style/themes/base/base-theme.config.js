@@ -343,7 +343,8 @@ export default (palette) => {
     },
 
     switch: {
-      off: "#CCD6DB",
+      off: palette.slateTint(80),
+      offHover: palette.slateTint(60),
     },
 
     tile: {

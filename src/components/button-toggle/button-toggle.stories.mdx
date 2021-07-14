@@ -1,54 +1,245 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import ButtonToggle from '../button-toggle';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import ButtonToggle from "../button-toggle";
 
-<Meta
-  title="Button Toggle"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Button Toggle" parameters={{ info: { disable: true } }} />
 
 # Button Toggle
 
 Press one of the buttons to make selection. ButtonToggle component should be used when user has to make a choice between a small number of options.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
 
 To use the `ButtonToggle` component you have to import the `<ButtonToggle />` component:
 
 ```javascript
-import ButtonToggle from 'carbon-react/lib/components/button-toggle';
+import ButtonToggle from "carbon-react/lib/components/button-toggle";
 ```
 
-## Designer Notes 
+## Designer Notes
 
 - An icon could be added to make the meaning of an option clearer.
 - This component should not be used as part of the `Form`, `ButtonToggleGroup` should be used instead.
 
 ## Examples
-### Default 
+
+### Default
 
 <Preview>
-  <Story name='default'>
+  <Story name="default">
+    <div>
+      <ButtonToggle name="default" key="foo">
+        Foo
+      </ButtonToggle>
+      <ButtonToggle name="default" key="bar">
+        Bar
+      </ButtonToggle>
+      <ButtonToggle name="default" key="baz">
+        Baz
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Default with small icon
+
+<Preview>
+  <Story name="default with small icon">
+    <div>
+      <ButtonToggle name="sizes" key="foo" buttonIcon="add">
+        Add
+      </ButtonToggle>
+      <ButtonToggle name="sizes" key="bar" buttonIcon="share">
+        Share
+      </ButtonToggle>
+      <ButtonToggle name="sizes" key="baz" buttonIcon="tick">
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Default with large icon
+
+<Preview>
+  <Story name="default with large icon">
     <div>
       <ButtonToggle
-        name='default'
-        key='foo'
-      >Foo</ButtonToggle>
+        name="sizes"
+        key="foo"
+        buttonIcon="add"
+        buttonIconSize="large"
+      >
+        Add
+      </ButtonToggle>
       <ButtonToggle
-        name='default'
-        key='bar'
-      >Bar</ButtonToggle>
+        name="sizes"
+        key="bar"
+        buttonIcon="share"
+        buttonIconSize="large"
+      >
+        Share
+      </ButtonToggle>
       <ButtonToggle
-        name='default'
-        key='baz'
-     >Baz</ButtonToggle>
+        name="sizes"
+        key="baz"
+        buttonIcon="tick"
+        buttonIconSize="large"
+      >
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Small
+
+<Preview>
+  <Story name="small">
+    <div>
+      <ButtonToggle size="small" name="sizes" key="foo">
+        Add
+      </ButtonToggle>
+      <ButtonToggle size="small" name="sizes" key="bar">
+        Share
+      </ButtonToggle>
+      <ButtonToggle size="small" name="sizes" key="baz">
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Small with small icon
+
+<Preview>
+  <Story name="small with small icon">
+    <div>
+      <ButtonToggle size="small" name="sizes" key="foo" buttonIcon="add">
+        Add
+      </ButtonToggle>
+      <ButtonToggle size="small" name="sizes" key="bar" buttonIcon="share">
+        Share
+      </ButtonToggle>
+      <ButtonToggle size="small" name="sizes" key="baz" buttonIcon="tick">
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Small with large icon
+
+<Preview>
+  <Story name="small with large icon">
+    <div>
+      <ButtonToggle
+        size="small"
+        name="sizes"
+        key="foo"
+        buttonIcon="add"
+        buttonIconSize="large"
+      >
+        Add
+      </ButtonToggle>
+      <ButtonToggle
+        size="small"
+        name="sizes"
+        key="bar"
+        buttonIcon="share"
+        buttonIconSize="large"
+      >
+        Share
+      </ButtonToggle>
+      <ButtonToggle
+        size="small"
+        name="sizes"
+        key="baz"
+        buttonIcon="tick"
+        buttonIconSize="large"
+      >
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Large
+
+<Preview>
+  <Story name="large">
+    <div>
+      <ButtonToggle size="large" name="sizes" key="foo">
+        Add
+      </ButtonToggle>
+      <ButtonToggle size="large" name="sizes" key="bar">
+        Share
+      </ButtonToggle>
+      <ButtonToggle size="large" name="sizes" key="baz">
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Large with small icon
+
+<Preview>
+  <Story name="large with small icon">
+    <div>
+      <ButtonToggle size="large" name="sizes" key="foo" buttonIcon="add">
+        Add
+      </ButtonToggle>
+      <ButtonToggle size="large" name="sizes" key="bar" buttonIcon="share">
+        Share
+      </ButtonToggle>
+      <ButtonToggle size="large" name="sizes" key="baz" buttonIcon="tick">
+        Tick
+      </ButtonToggle>
+    </div>
+  </Story>
+</Preview>
+
+### Large with large icon
+
+<Preview>
+  <Story name="large with large icon">
+    <div>
+      <ButtonToggle
+        size="large"
+        name="sizes"
+        key="foo"
+        buttonIcon="add"
+        buttonIconSize="large"
+      >
+        Add
+      </ButtonToggle>
+      <ButtonToggle
+        size="large"
+        name="sizes"
+        key="bar"
+        buttonIcon="share"
+        buttonIconSize="large"
+      >
+        Share
+      </ButtonToggle>
+      <ButtonToggle
+        size="large"
+        name="sizes"
+        key="baz"
+        buttonIcon="tick"
+        buttonIconSize="large"
+      >
+        Tick
+      </ButtonToggle>
     </div>
   </Story>
 </Preview>
@@ -56,23 +247,17 @@ import ButtonToggle from 'carbon-react/lib/components/button-toggle';
 ### Disabled
 
 <Preview>
-  <Story name='disabled'>
+  <Story name="disabled">
     <div>
-      <ButtonToggle
-        name='disabled'
-        key='foo'
-        disabled
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        name='disabled'
-        key='bar'
-        disabled
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        name='disabled'
-        key='baz'
-        disabled
-      >Baz</ButtonToggle>
+      <ButtonToggle name="disabled" key="foo" disabled>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle name="disabled" key="bar" disabled>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle name="disabled" key="baz" disabled>
+        Baz
+      </ButtonToggle>
     </div>
   </Story>
 </Preview>
@@ -80,74 +265,17 @@ import ButtonToggle from 'carbon-react/lib/components/button-toggle';
 ### Grouped
 
 <Preview>
-  <Story name='grouped'>
+  <Story name="grouped">
     <div>
-      <ButtonToggle
-        name='grouped'
-        key='foo'
-        grouped
-      >Foo</ButtonToggle>
-      <ButtonToggle
-        name='grouped'
-        key='bar'
-        grouped
-      >Bar</ButtonToggle>
-      <ButtonToggle
-        name='grouped'
-        key='baz'
-        grouped
-      >Baz</ButtonToggle>
-    </div>
-  </Story>
-</Preview>
-
-### With large icon
-
-<Preview>
-  <Story name='with large icon'>
-    <div>
-      <ButtonToggle
-        name='sizes'
-        key='foo'
-        buttonIcon='add'
-        buttonIconSize='large'
-      >add</ButtonToggle>
-      <ButtonToggle
-        name='sizes'
-        key='bar'
-        buttonIcon='share'
-        buttonIconSize='large'
-      >share</ButtonToggle>
-      <ButtonToggle
-        name='sizes'
-        key='baz'
-        buttonIcon='tick'
-        buttonIconSize='large'
-      >tick</ButtonToggle>
-    </div>
-  </Story>
-</Preview>
-
-### With small icon
-
-<Preview>
-  <Story name='with small icon'>
-    <div>
-      <ButtonToggle
-        name='sizes'
-        key='foo'
-        buttonIcon='add'
-      >add</ButtonToggle>
-      <ButtonToggle
-        name='sizes'
-        key='bar'
-        buttonIcon='share'
-      >share</ButtonToggle>
-      <ButtonToggle
-        name='sizes'
-        key='baz'
-        buttonIcon='tick'
-      >tick</ButtonToggle>
+      <ButtonToggle name="grouped" key="foo" grouped>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle name="grouped" key="bar" grouped>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle name="grouped" key="baz" grouped>
+        Baz
+      </ButtonToggle>
     </div>
   </Story>
 </Preview>
@@ -155,4 +283,5 @@ import ButtonToggle from 'carbon-react/lib/components/button-toggle';
 ## Props
 
 ### Button Toggle
+
 <Props of={ButtonToggle} />

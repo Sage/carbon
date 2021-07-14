@@ -33,6 +33,7 @@ const Search = ({
   placeholder,
   variant = "default",
   "aria-label": ariaLabel = "search",
+  inputRef,
   ...rest
 }) => {
   const isControlled = value !== undefined;
@@ -51,7 +52,10 @@ const Search = ({
     const isSearchValueEmpty = !isControlled
       ? searchValue.length === 0
       : value.length === 0;
-    const isFocusedOrActive = isFocused || searchIsActive;
+    const isFocusedOrActive =
+      isFocused ||
+      searchIsActive ||
+      inputRef?.current === document.activeElement;
     setSearchIsActive(
       !isControlled
         ? searchValue.length >= threshold
@@ -79,6 +83,7 @@ const Search = ({
     searchIsActive,
     threshold,
     searchButton,
+    inputRef,
   ]);
 
   const handleChange = (e) => {
@@ -137,6 +142,12 @@ const Search = ({
     }
   };
 
+  const assignInput = (input) => {
+    if (inputRef) {
+      inputRef.current = input.current;
+    }
+  };
+
   return (
     <StyledSearch
       isFocused={isFocused}
@@ -159,6 +170,7 @@ const Search = ({
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       name={name}
+      {...rest}
     >
       <Textbox
         placeholder={placeholder}
@@ -172,6 +184,7 @@ const Search = ({
         onBlur={onBlur}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        inputRef={assignInput}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -235,6 +248,12 @@ Search.propTypes = {
   variant: PropTypes.oneOf(["default", "dark"]),
   /** Prop to specify the aria-label of the search component */
   "aria-label": PropTypes.string,
+  /**
+   * @private
+   * @ignore
+   * A callback to retrieve the input reference
+   */
+  inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
 export default Search;

@@ -13,6 +13,7 @@ const StyledPod = styled.div`
   text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && "position: relative"};
   ${margin}
+  ${({ height }) => height && `height: ${height}`};
 
   &:focus {
     outline: none;
@@ -39,12 +40,13 @@ const StyledBlock = styled.div`
     internalEditButton,
     isHovered,
     isFocused,
-    height,
   }) => css`
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     background-color: ${blockBackgrounds(variant, theme)};
     width: 100%;
-    ${height && `height: ${height}px`};
+    height: 100%;
     ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
     ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
     ${editable && !(fullWidth || internalEditButton) && "width: auto;"};
@@ -91,9 +93,8 @@ const contentPaddings = {
 const StyledContent = styled.div`
   text-align: left;
   padding: ${({ size }) => contentPaddings[size]};
+  flex-grow: 1;
 `;
-
-const StyledCollapsibleContent = styled.div``;
 
 const StyledDescription = styled.div`
   background: none;
@@ -268,9 +269,6 @@ const StyledArrow = styled(Icon).attrs({ type: "dropdown" })`
 StyledBlock.defaultProps = {
   theme: baseTheme,
 };
-StyledCollapsibleContent.defaultProps = {
-  theme: baseTheme,
-};
 StyledContent.defaultProps = {
   theme: baseTheme,
 };
@@ -305,7 +303,6 @@ StyledArrow.defaultProps = {
 
 export {
   StyledBlock,
-  StyledCollapsibleContent,
   StyledContent,
   StyledDescription,
   StyledEditAction,

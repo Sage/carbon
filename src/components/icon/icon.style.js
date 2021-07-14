@@ -200,7 +200,13 @@ StyledIcon.propTypes = {
   type: PropTypes.string,
   isInteractive: PropTypes.bool,
   disabled: PropTypes.bool,
-  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
+  bgSize: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
   bgTheme: PropTypes.oneOf([
     ...OptionsHelper.colors,
@@ -209,8 +215,6 @@ StyledIcon.propTypes = {
   ]),
   fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
   iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
-  mr: PropTypes.number,
-  ml: PropTypes.number,
 };
 
 StyledIcon.defaultProps = {

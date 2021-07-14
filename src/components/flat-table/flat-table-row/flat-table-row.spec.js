@@ -97,7 +97,7 @@ describe("FlatTableRow", () => {
           borderBottom: "1px solid transparent",
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
           backgroundClip: "padding-box",
-          zIndex: "1000",
+          zIndex: "1001",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -106,11 +106,11 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `1px solid ${baseTheme.colors.focus}`,
+          borderBottom: `2px solid ${baseTheme.colors.focus}`,
           display: "block",
           left: "0px",
           top: "-1px",
-          height: "99%",
+          height: "calc(100% - 1px)",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
@@ -675,11 +675,11 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `1px solid ${baseTheme.colors.focus}`,
+          borderBottom: `2px solid ${baseTheme.colors.focus}`,
           display: "block",
           left: "0px",
           top: "-1px",
-          height: "99%",
+          height: "calc(100% - 1px)",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
@@ -693,7 +693,7 @@ describe("FlatTableRow", () => {
       "applies the correct th styling when colorTheme is %s",
       (colorTheme) => {
         const wrapper = mount(
-          <FlatTableThemeContext.Provider value={colorTheme}>
+          <FlatTableThemeContext.Provider value={{ colorTheme }}>
             <table>
               <thead>
                 <FlatTableRow onClick={() => {}}>
@@ -738,6 +738,16 @@ describe("FlatTableRow", () => {
       expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
     });
 
+    it("then the component should have tabIndex of undefined if no onClick is passed and firstColumnExpandable", () => {
+      const wrapper = renderFlatTableRow({
+        expandable: true,
+        subRows: SubRows,
+        expandableArea: "firstColumn",
+      });
+
+      expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(undefined);
+    });
+
     describe("when clicked", () => {
       it("should expand the sub rows", () => {
         const wrapper = renderFlatTableRow({
@@ -770,6 +780,20 @@ describe("FlatTableRow", () => {
           wrapper.update();
 
           expect(onClickFn).toHaveBeenCalled();
+        });
+
+        it("then the component should have tabIndex of undefined if firstColumnExpandable", () => {
+          const onClickFn = jest.fn();
+          const wrapper = renderFlatTableRow({
+            expandable: true,
+            subRows: SubRows,
+            onClick: onClickFn,
+            expandableArea: "firstColumn",
+          });
+
+          expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(
+            undefined
+          );
         });
       });
 
@@ -1102,6 +1126,33 @@ describe("FlatTableRow", () => {
         });
       }
     );
+
+    describe("when the size of the table is 'compact'", () => {
+      it("should add the correct padding to child row cells", () => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={{ size: "compact" }}>
+            <table>
+              <tbody>
+                <FlatTableRow expandable expanded subRows={SubRows}>
+                  <FlatTableCell>cell1</FlatTableCell>
+                  <FlatTableCell>cell2</FlatTableCell>
+                </FlatTableRow>
+              </tbody>
+            </table>
+          </FlatTableThemeContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            paddingLeft: "32px",
+          },
+          wrapper.find(StyledFlatTableRow).at(1),
+          {
+            modifier: `${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div`,
+          }
+        );
+      });
+    });
   });
 });
 

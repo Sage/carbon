@@ -17,6 +17,7 @@ import IconButton from "../icon-button";
 import Button from "../button";
 import Icon from "../icon";
 import Pager from "../pager";
+import Box from "../box";
 import {
   ActionPopover,
   ActionPopoverItem,
@@ -33,6 +34,7 @@ import {
 ## Examples
 
 ### Default
+
 Flat table rows can be made expandable, with any number of sub rows.
 
 <Preview>
@@ -94,7 +96,74 @@ Flat table rows can be made expandable, with any number of sub rows.
   </Story>
 </Preview>
 
+### Keyboard accessible subrows
+In order to make the subrows keyboard accessible you will need to pass a callback to the `onClick` prop as in the example 
+below.
+
+<Preview>
+  <Story
+    name="keyboard accessible subrows"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const SubRows = [
+        <FlatTableRow onClick={() => {}}>
+          <FlatTableCell>Child one</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow onClick={() => {}}>
+          <FlatTableCell>Child two</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Expandable by first column only
+
 Only clicking on the first column can expand the row with this option set.
 
 <Preview>
@@ -176,6 +245,7 @@ Only clicking on the first column can expand the row with this option set.
 </Preview>
 
 ### With initially expanded rows
+
 Set the rows to be open by default.
 
 <Preview>
@@ -238,6 +308,7 @@ Set the rows to be open by default.
 </Preview>
 
 ### With row headers
+
 Rows with row headers can also be made expandable.
 
 <Preview>
@@ -301,7 +372,75 @@ Rows with row headers can also be made expandable.
   </Story>
 </Preview>
 
+### With row headers with custom paddings
+Rows with row headers can also be made expandable and can also have custom paddings. 
+In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as having an icon.
+
+<Preview>
+  <Story name="row headers with custom paddings">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableRowHeader px={8}>Child one</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableRowHeader pl={5}>
+            <Icon type="individual"/> Child two
+          </FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      return (
+        <div style={{ width: "380px", overflowX: "auto" }}>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableRowHeader px={8}>Name</FlatTableRowHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow expandable subRows={SubRows} expanded>
+                <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows} expanded>
+                <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable subRows={SubRows}>
+                <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### With pagination
+
 Tables with pagination can have expandable rows.
 
 <Preview>
@@ -407,6 +546,7 @@ Tables with pagination can have expandable rows.
 </Preview>
 
 ### With parent and children selectable
+
 By writing your own selectable logic, both parent and child rows can be made selectable.
 
 <Preview>
@@ -627,6 +767,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
 </Preview>
 
 ### Parent only selectable
+
 By writing your own selectable logic, the parent rows only can be made selectable.
 
 <Preview>
@@ -766,7 +907,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 expandable
                 subRows={SubRows}
               >
-                <FlatTableCheckbox 
+                <FlatTableCheckbox
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
@@ -802,6 +943,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
 </Preview>
 
 ### Children only selectable
+
 By writing your own selectable logic, the child rows only can be made selectable.
 
 <Preview>
@@ -938,7 +1080,10 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("one")}
               >
-                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  selectable={false}
+                />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
@@ -950,7 +1095,10 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("two")}
               >
-                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  selectable={false}
+                />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
@@ -962,7 +1110,10 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("three")}
               >
-                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  selectable={false}
+                />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
@@ -974,7 +1125,10 @@ By writing your own selectable logic, the child rows only can be made selectable
                 expandable
                 subRows={subRows("four")}
               >
-                <FlatTableCheckbox onClick={(e) => e.stopPropagation()} selectable={false} />
+                <FlatTableCheckbox
+                  onClick={(e) => e.stopPropagation()}
+                  selectable={false}
+                />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
@@ -989,7 +1143,8 @@ By writing your own selectable logic, the child rows only can be made selectable
 </Preview>
 
 ### Truncated cell content
-In order to achieve the content truncation when using the `expandable` feature you will need to pass in a node with the 
+
+In order to achieve the content truncation when using the `expandable` feature you will need to pass in a node with the
 truncated styling applied, this is because of the caret icon that is rendered within the cell.
 
 <Preview>
@@ -997,13 +1152,17 @@ truncated styling applied, this is because of the caret icon that is rendered wi
     {() => {
       const SubRows = [
         <FlatTableRow>
-          <FlatTableCell width={60} pr={0} truncate>Child one</FlatTableCell>
+          <FlatTableCell width={60} pr={0} truncate>
+            Child one
+          </FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
         <FlatTableRow>
-          <FlatTableCell width={60} pr={0} truncate>Child two</FlatTableCell>
+          <FlatTableCell width={60} pr={0} truncate>
+            Child two
+          </FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
@@ -1028,25 +1187,33 @@ truncated styling applied, this is because of the caret icon that is rendered wi
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell><Truncate title="John Doe">John Doe</Truncate></FlatTableCell>
+              <FlatTableCell>
+                <Truncate title="John Doe">John Doe</Truncate>
+              </FlatTableCell>
               <FlatTableCell>London</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>0</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell><Truncate title="Jane Doe">Jane Doe</Truncate></FlatTableCell>
+              <FlatTableCell>
+                <Truncate title="Jane Doe">Jane Doe</Truncate>
+              </FlatTableCell>
               <FlatTableCell>York</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>2</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell><Truncate title="John Smith">John Smith</Truncate></FlatTableCell>
+              <FlatTableCell>
+                <Truncate title="John Smith">John Smith</Truncate>
+              </FlatTableCell>
               <FlatTableCell>Edinburgh</FlatTableCell>
               <FlatTableCell>Single</FlatTableCell>
               <FlatTableCell>1</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell><Truncate title="Jane Smith">Jane Smith</Truncate></FlatTableCell>
+              <FlatTableCell>
+                <Truncate title="Jane Smith">Jane Smith</Truncate>
+              </FlatTableCell>
               <FlatTableCell>Newcastle</FlatTableCell>
               <FlatTableCell>Married</FlatTableCell>
               <FlatTableCell>5</FlatTableCell>
@@ -1061,10 +1228,7 @@ truncated styling applied, this is because of the caret icon that is rendered wi
 ### Controlled
 
 <Preview>
-  <Story
-    name="controlled"
-    parameters={{ chromatic: { disable: true } }}
-    >
+  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [expanded, setExpanded] = useState(true);
       const SubRows = [
@@ -1083,46 +1247,209 @@ truncated styling applied, this is because of the caret icon that is rendered wi
       ];
       return (
         <>
-         <Button onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? "Collapse All" : "Expand All"}
-        </Button>
-        <FlatTable>
-          <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader>Name</FlatTableHeader>
-              <FlatTableHeader>Location</FlatTableHeader>
-              <FlatTableHeader>Relationship Status</FlatTableHeader>
-              <FlatTableHeader>Dependents</FlatTableHeader>
-            </FlatTableRow>
-          </FlatTableHead>
-          <FlatTableBody>
-            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>0</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
-              <FlatTableCell>Jane Doe</FlatTableCell>
-              <FlatTableCell>York</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>2</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
-              <FlatTableCell>John Smith</FlatTableCell>
-              <FlatTableCell>Edinburgh</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>1</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Newcastle</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>5</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
+          <Button onClick={() => setExpanded((prev) => !prev)}>
+            {expanded ? "Collapse All" : "Expand All"}
+          </Button>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expanded={expanded} expandable subRows={SubRows}>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
         </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Table Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({
+        one: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        two: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        three: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+        four: {
+          parent: false,
+          subOne: false,
+          subTwo: false,
+        },
+      });
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => {
+          newState[key] = {
+            parent: !selectAll,
+            subOne: !selectAll,
+            subTwo: !selectAll,
+          };
+        });
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (row, subRow) => {
+        if (selectedRows[row][subRow]) {
+          setSelectAll(false);
+        }
+        setSelectedRows({
+          ...selectedRows,
+          [row]: {
+            ...selectedRows[row],
+            [subRow]: !selectedRows[row][subRow],
+          },
+        });
+      };
+      const subRows = (row) => {
+        return [
+          <FlatTableRow selected={selectedRows[row].subOne}>
+            <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
+              checked={selectedRows[row].subOne}
+              onChange={() => handleSelectRow(row, "subOne")}
+            />
+            <FlatTableCell>Child one</FlatTableCell>
+            <FlatTableCell>York</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+          </FlatTableRow>,
+          <FlatTableRow selected={selectedRows[row].subTwo}>
+            <FlatTableCheckbox
+              onClick={(e) => e.stopPropagation()}
+              checked={selectedRows[row].subTwo}
+              onChange={() => handleSelectRow(row, "subTwo")}
+            />
+            <FlatTableCell>Child two</FlatTableCell>
+            <FlatTableCell>Edinburgh</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+          </FlatTableRow>,
+        ];
+      };
+      return (
+        <div>
+          {["compact", "small", "medium", "large", "extraLarge"].map(
+            (size, index) => (
+              <Box mb={3} key={index}>
+                <FlatTable size={size}>
+                  <FlatTableHead>
+                    <FlatTableRow>
+                      <FlatTableCheckbox
+                        onClick={(e) => e.stopPropagation()}
+                        as="th"
+                        checked={selectAll}
+                        onChange={() => handleSelectAllRows()}
+                      />
+                      <FlatTableHeader>Name</FlatTableHeader>
+                      <FlatTableHeader>Location</FlatTableHeader>
+                      <FlatTableHeader>Relationship Status</FlatTableHeader>
+                    </FlatTableRow>
+                  </FlatTableHead>
+                  <FlatTableBody>
+                    <FlatTableRow
+                      selected={selectedRows.one.parent}
+                      expandable
+                      subRows={subRows("one")}
+                    >
+                      <FlatTableCheckbox
+                        onClick={(e) => e.stopPropagation()}
+                        checked={selectedRows.one.parent}
+                        onChange={() => handleSelectRow("one", "parent")}
+                      />
+                      <FlatTableCell>John Doe</FlatTableCell>
+                      <FlatTableCell>London</FlatTableCell>
+                      <FlatTableCell>Single</FlatTableCell>
+                    </FlatTableRow>
+                    <FlatTableRow
+                      selected={selectedRows.two.parent}
+                      expandable
+                      subRows={subRows("two")}
+                    >
+                      <FlatTableCheckbox
+                        onClick={(e) => e.stopPropagation()}
+                        checked={selectedRows.two.parent}
+                        onChange={() => handleSelectRow("two", "parent")}
+                      />
+                      <FlatTableCell>Jane Doe</FlatTableCell>
+                      <FlatTableCell>York</FlatTableCell>
+                      <FlatTableCell>Married</FlatTableCell>
+                    </FlatTableRow>
+                    <FlatTableRow
+                      selected={selectedRows.three.parent}
+                      expandable
+                      subRows={subRows("three")}
+                    >
+                      <FlatTableCheckbox
+                        onClick={(e) => e.stopPropagation()}
+                        checked={selectedRows.three.parent}
+                        onChange={() => handleSelectRow("three", "parent")}
+                      />
+                      <FlatTableCell>John Smith</FlatTableCell>
+                      <FlatTableCell>Edinburgh</FlatTableCell>
+                      <FlatTableCell>Single</FlatTableCell>
+                    </FlatTableRow>
+                    <FlatTableRow
+                      selected={selectedRows.four.parent}
+                      expandable
+                      subRows={subRows("four")}
+                    >
+                      <FlatTableCheckbox
+                        onClick={(e) => e.stopPropagation()}
+                        checked={selectedRows.four.parent}
+                        onChange={() => handleSelectRow("four", "parent")}
+                      />
+                      <FlatTableCell>Jane Smith</FlatTableCell>
+                      <FlatTableCell>Newcastle</FlatTableCell>
+                      <FlatTableCell>Married</FlatTableCell>
+                    </FlatTableRow>
+                  </FlatTableBody>
+                </FlatTable>
+              </Box>
+            )
+          )}
+        </div>
       );
     }}
   </Story>
@@ -1131,4 +1458,5 @@ truncated styling applied, this is because of the caret icon that is rendered wi
 ## Props
 
 ### FlatTableRow
+
 <Props of={FlatTableRow} />

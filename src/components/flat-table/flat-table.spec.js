@@ -110,6 +110,7 @@ describe("FlatTable", () => {
           backgroundColor: baseTheme.flatTable.dark.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.dark.border}`,
           color: baseTheme.colors.white,
+          borderBottomColor: baseTheme.flatTable.dark.border,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -124,6 +125,7 @@ describe("FlatTable", () => {
         {
           backgroundColor: baseTheme.flatTable.light.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.light.border}`,
+          borderBottomColor: baseTheme.flatTable.light.border,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -138,6 +140,7 @@ describe("FlatTable", () => {
         {
           backgroundColor: baseTheme.flatTable.transparentBase.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.transparentBase.border}`,
+          borderBottomColor: baseTheme.table.secondary,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -153,6 +156,7 @@ describe("FlatTable", () => {
           backgroundColor:
             baseTheme.flatTable.transparentWhite.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.transparentWhite.border}`,
+          borderBottomColor: baseTheme.table.secondary,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -164,6 +168,8 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           zIndex: "1002",
+          top: "0",
+          left: "0",
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }

@@ -26,6 +26,10 @@ export interface TabsProps extends MarginProps {
   borders?: "off" | "on" | "no left side" | "no right side" | "no sides";
   /** Adds an alternate styling variant to the tab titles. */
   variant?: "default" | "alternate";
+  /** sets width to the tab headers. Can be any valid CSS string.
+   * The headerWidth prop works only for `position="left"`
+   */
+  headerWidth?: string;
   /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
    * The `id` property should match the `tabId`s for the rendered Tabs.
    */
