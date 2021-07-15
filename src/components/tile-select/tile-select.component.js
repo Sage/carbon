@@ -113,10 +113,14 @@ const TileSelect = ({
                 {subtitle}
               </StyledSubtitle>
             )}
-
             {titleAdornment && (
               <StyledAdornment>{titleAdornment}</StyledAdornment>
             )}
+
+            <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+              {renderActionButton()}
+              {actionButtonAdornment}
+            </StyledDeselectWrapper>
           </StyledTitleContainer>
           <StyledDescription
             {...(typeof description !== "string" && { as: "div" })}
@@ -126,10 +130,6 @@ const TileSelect = ({
           {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
         </StyledTileSelect>
       </StyledFocusWrapper>
-      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
-        {renderActionButton()}
-        {actionButtonAdornment}
-      </StyledDeselectWrapper>
     </StyledTileSelectContainer>
   );
 };
