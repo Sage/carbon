@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface SidebarContextProps {
+export interface DrawerSidebarContextProps {
   isInSidebar: boolean;
 }
 
@@ -37,8 +37,8 @@ export interface DrawerPropTypes {
   stickyFooter?: boolean;
 }
 
-declare const SidebarContext: React.Context<SidebarContextProps>;
+declare const DrawerSidebarContext: React.Context<DrawerSidebarContextProps>;
 declare function Drawer(props: DrawerPropTypes): JSX.Element;
 
-export { SidebarContext };
+export { DrawerSidebarContext };
 export default Drawer;

@@ -10,43 +10,6 @@ import baseTheme from "../../style/themes/base";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 
-export const StyledForm = styled.form`
-  ${space}
-
-  & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
-    margin-top: 0;
-    margin-bottom: ${({ fieldSpacing, theme }) =>
-      theme.spacing * fieldSpacing}px;
-  }
-
-  ${({ stickyFooter }) =>
-    stickyFooter &&
-    css`
-      padding-bottom: 88px;
-    `}
-`;
-
-export const StyledRightButtons = styled.div`
-  display: flex;
-  margin-left: 16px;
-  ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1"};
-
-  ${StyledButton}:last-child {
-    margin-right: 0;
-  }
-`;
-
-export const StyledLeftButtons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 16px;
-  ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1"};
-
-  ${StyledButton}:last-child {
-    margin-right: 0;
-  }
-`;
-
 const FormButtonAnimation = keyframes`
   0%   { transform: translateY(50px); }
   100% { transform: translateY(0px); }
@@ -78,6 +41,53 @@ export const StyledFormFooter = styled.div`
       z-index: 1000;
     `}
   `}
+`;
+
+export const StyledForm = styled.form`
+  ${space}
+
+  & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
+    margin-top: 0;
+    margin-bottom: ${({ fieldSpacing, theme }) =>
+      theme.spacing * fieldSpacing}px;
+  }
+
+  ${({ stickyFooter, isInSidebar }) =>
+    stickyFooter &&
+    css`
+      padding-bottom: 88px;
+
+      ${isInSidebar &&
+      css`
+        // important keyword is needed because original style is provided in inline style mode
+        position: static !important;
+
+        ${StyledFormFooter} {
+          position: absolute;
+        }
+      `}
+    `}
+`;
+
+export const StyledRightButtons = styled.div`
+  display: flex;
+  margin-left: 16px;
+  ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1"};
+
+  ${StyledButton}:last-child {
+    margin-right: 0;
+  }
+`;
+
+export const StyledLeftButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 16px;
+  ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1"};
+
+  ${StyledButton}:last-child {
+    margin-right: 0;
+  }
 `;
 
 StyledForm.propTypes = {

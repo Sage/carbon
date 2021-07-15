@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 import Event from "../../../utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { SidebarContext } from "../../drawer";
+import { DrawerSidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header";
 import { FlatTableThemeContext } from "../flat-table.component";
@@ -128,7 +128,7 @@ const FlatTableRow = React.forwardRef(
     }, [expanded]);
 
     return (
-      <SidebarContext.Consumer>
+      <DrawerSidebarContext.Consumer>
         {(context) => (
           <>
             <StyledFlatTableRow
@@ -191,7 +191,7 @@ const FlatTableRow = React.forwardRef(
               )}
           </>
         )}
-      </SidebarContext.Consumer>
+      </DrawerSidebarContext.Consumer>
     );
   }
 );
