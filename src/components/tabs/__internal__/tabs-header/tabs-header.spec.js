@@ -59,7 +59,6 @@ describe("TabsHeader", () => {
         {
           flexDirection: "column",
           boxShadow: `inset -2px 0px 0px 0px ${baseTheme.tab.background}`,
-          margin: "0 0 0 10px",
         },
         wrapper.find(StyledTabsHeaderList)
       );
@@ -140,7 +139,7 @@ describe("TabsHeader", () => {
     const wrapper = render({ isInSidebar: true, position: "left" }, mount);
     assertStyleMatch(
       {
-        margin: "auto",
+        margin: "0",
       },
       wrapper.find(StyledTabsHeaderList)
     );
