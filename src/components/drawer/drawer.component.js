@@ -16,7 +16,7 @@ import {
 } from "./drawer.style";
 import StickyFooter from "../../__internal__/sticky-footer";
 
-const SidebarContext = React.createContext();
+const DrawerSidebarContext = React.createContext();
 
 const Drawer = ({
   defaultExpanded = true,
@@ -177,9 +177,9 @@ const Drawer = ({
           scrollVariant="light"
           ref={scrollableContentRef}
         >
-          <SidebarContext.Provider value={{ isInSidebar: true }}>
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             {sidebar}
-          </SidebarContext.Provider>
+          </DrawerSidebarContext.Provider>
           {footer && (
             <StickyFooter
               containerRef={scrollableContentRef}
@@ -226,6 +226,6 @@ Drawer.propTypes = {
   stickyFooter: PropTypes.bool,
 };
 
-export { SidebarContext };
+export { DrawerSidebarContext };
 
 export default Drawer;

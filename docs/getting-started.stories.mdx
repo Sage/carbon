@@ -1,3 +1,5 @@
+import LinkTo from "@storybook/addon-links/react";
+
 <Meta title="Documentation/Getting Started" />
 
 # Getting started with Carbon
@@ -174,15 +176,23 @@ import ReactDOM from "react-dom";
 
 #### Theming
 
-Carbon uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are define within the Carbon library.
+Carbon provides the <LinkTo kind="Carbon Provider" story="default">Carbon Provider</LinkTo> component that uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are define within the Carbon library. `mintTheme` is provided by default.
 
 ```js
-import { ThemeProvider } from "styled-components";
-import mintTheme from "carbon-react/lib/style/themes/mint";
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import aegeanTheme from "carbon-react/lib/style/themes/aegean";
 ```
 
+Default `mintTheme`:
+
 ```html
-<ThemeProvider theme="{mintTheme}"> Children </ThemeProvider>
+<CarbonProvider>Children</CarbonProvider>
+```
+
+Provided `aegeanTheme`:
+
+```html
+<CarbonProvider theme={aegeanTheme}>Children</CarbonProvider>
 ```
 
 #### AppWrapper
@@ -190,7 +200,7 @@ import mintTheme from "carbon-react/lib/style/themes/mint";
 This component wraps all components within the width constrains of your application.
 
 ```html
-<AppWrapper> Children </AppWrapper>
+<AppWrapper>Children</AppWrapper>
 ```
 
 You should refer to our [Storybook documentation](https://carbon.sage.com/?path=/docs/app-wrapper--default) for details.

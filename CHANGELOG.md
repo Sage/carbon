@@ -1,3 +1,60 @@
+### [77.12.1](https://github.com/Sage/carbon/compare/v77.12.0...v77.12.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* **sidebar:** support for Form with stickyFooter ([164aebb](https://github.com/Sage/carbon/commit/164aebbbe63d00bfffbd11d6e90a1e6f3692787c))
+
+## [77.12.0](https://github.com/Sage/carbon/compare/v77.11.2...v77.12.0) (2021-07-14)
+
+
+### Features
+
+* **filterable-select:** add onFilterChange prop ([9ecb067](https://github.com/Sage/carbon/commit/9ecb067c4ea1f37e6b44e8830b7c77ca6108d1e0))
+* **multi-select:** add onFilterChange prop ([8058dab](https://github.com/Sage/carbon/commit/8058dabe83609b437eccea2852a141d5e4618057))
+
+
+### Bug Fixes
+
+* **filterable-select:** text value cleared when option list changes ([8190fe0](https://github.com/Sage/carbon/commit/8190fe0eba28468d5eb8e55ec9634f1265a708f0))
+* **filterable-select:** text value cleared when select is closed ([0fe05fc](https://github.com/Sage/carbon/commit/0fe05fcfb6e43ce22682c9f91a93d480b7388849))
+* **multi-select:** text value cleared when select is closed ([d65759a](https://github.com/Sage/carbon/commit/d65759ae3929dd61a29e449dbab2ac2e9e1fe738))
+
+### [77.11.2](https://github.com/Sage/carbon/compare/v77.11.1...v77.11.2) (2021-07-13)
+
+
+### Bug Fixes
+
+* **flat-table-row:** reduce z-index value when onclick passed to row ([a7d1a10](https://github.com/Sage/carbon/commit/a7d1a105f2a254e83d0e8a3456292965d5cdcbfd))
+
+### [77.11.1](https://github.com/Sage/carbon/compare/v77.11.0...v77.11.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* **radio-button, checkable-input:** fix invalid values in ARIA attributes ([284b578](https://github.com/Sage/carbon/commit/284b578619907016791452bfee4850dfaa454fd1))
+
+## [77.11.0](https://github.com/Sage/carbon/compare/v77.10.1...v77.11.0) (2021-07-12)
+
+
+### Features
+
+* **button:** add target and rel props ([e12e9da](https://github.com/Sage/carbon/commit/e12e9daa4a7b63941d577299324c71f64fd1788e)), closes [#4231](https://github.com/Sage/carbon/issues/4231)
+
+### [77.10.1](https://github.com/Sage/carbon/compare/v77.10.0...v77.10.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* **input:** remove background on input when required ([f4d3642](https://github.com/Sage/carbon/commit/f4d36422c696c43f5aab1fa834dcbe9223c4014c))
+
+## [77.10.0](https://github.com/Sage/carbon/compare/v77.9.0...v77.10.0) (2021-07-12)
+
+
+### Features
+
+* **carbon-provider:** add carbon-provider component (contains default theme and global style) ([04d3ec2](https://github.com/Sage/carbon/commit/04d3ec20038c3c53dd43550d6868efbcc8c5268f))
+
 ## [77.9.0](https://github.com/Sage/carbon/compare/v77.8.1...v77.9.0) (2021-07-09)
 
 

@@ -8,7 +8,7 @@ import {
   StyledFlatTableFooter,
   StyledFlatTableBox,
 } from "./flat-table.style";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
@@ -42,7 +42,7 @@ const FlatTable = ({
   }
 
   return (
-    <SidebarContext.Consumer>
+    <DrawerSidebarContext.Consumer>
       {(context) => (
         <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
           <StyledFlatTableBox
@@ -75,7 +75,7 @@ const FlatTable = ({
           )}
         </StyledFlatTableRoot>
       )}
-    </SidebarContext.Consumer>
+    </DrawerSidebarContext.Consumer>
   );
 };
 
