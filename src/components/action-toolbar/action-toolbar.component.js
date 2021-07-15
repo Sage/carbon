@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import I18n from "i18n-js";
 import Link from "../link";
 import tagComponent from "../../utils/helpers/tags";
 import {
@@ -10,6 +9,7 @@ import {
   StyledActionToolbarActions,
 } from "./action-toolbar.style";
 import Logger from "../../utils/logger/logger";
+import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;
 
@@ -140,7 +140,9 @@ class ActionToolbar extends React.Component {
         <StyledActionToolbarTotal>
           <strong data-element="total">{this.state.total}</strong>
           &nbsp;
-          {I18n.t("action_toolbar.selected", { defaultValue: "Selected" })}
+          <LocaleContext.Consumer>
+            {(l) => l.actionToolbar.selected}
+          </LocaleContext.Consumer>
         </StyledActionToolbarTotal>
         <StyledActionToolbarActions disabled={!this.isActive()}>
           {this.actions()}

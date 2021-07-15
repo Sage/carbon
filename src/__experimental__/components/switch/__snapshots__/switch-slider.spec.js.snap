@@ -32,6 +32,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   position: absolute;
+  text-transform: uppercase;
   top: 0;
   width: 60px;
   z-index: 2;

@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import I18n from "i18n-js";
 import guid from "../../utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
@@ -15,10 +14,25 @@ import {
 } from "./pager.style";
 import NumberInput from "../../__experimental__/components/number";
 import StyledOption from "../select/option/option.style";
+import { isSingular } from "../../locales/en-gb";
+import I18nProvider from "../i18n-provider";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
+const wrappingComponent = (props) => (
+  <I18nProvider
+    {...props}
+    locale={{
+      locale: "fr",
+      pager: {
+        show: "Spectacle",
+        records: (count) =>
+          `${count} ${isSingular(count) ? "article" : "articles"}`,
+      },
+    }}
+  />
+);
 const pageSizeSelectionOptions = [
   { id: "10", name: 10 },
   { id: "25", name: 25 },
@@ -26,8 +40,8 @@ const pageSizeSelectionOptions = [
   { id: "100", name: 100 },
 ];
 
-function render(props = {}, renderType = mount) {
-  return renderType(<Pager onPagination={jest.fn()} {...props} />);
+function render(props = {}, renderType = mount, params) {
+  return renderType(<Pager onPagination={jest.fn()} {...props} />, params);
 }
 
 describe("Pager", () => {
@@ -360,38 +374,12 @@ describe("Pager", () => {
   });
 
   describe("i18n", () => {
-    const { translations } = I18n;
-    const { locale } = I18n.locale;
-    beforeAll(() => {
-      I18n.translations = {
-        ...translations,
-        fr: {
-          ...translations.fr,
-          pager: {
-            show: "Spectacle",
-            records: {
-              one: "article",
-              zero: "articles",
-              other: "articles",
-            },
-          },
-        },
-      };
-    });
-
-    afterAll(() => {
-      I18n.translations = translations;
-      I18n.locale = locale;
-    });
-
     const getShow = (wrapper) =>
       wrapper.find("div[data-component='simple-select']").getDOMNode()
         .parentElement.firstChild.textContent;
     const getRecords = (wrapper) =>
       wrapper.find("div[data-component='simple-select']").getDOMNode()
         .parentElement.lastChild.textContent;
-    const getTotalRecords = (wrapper) =>
-      wrapper.getDOMNode().lastChild.textContent;
 
     describe("default", () => {
       it("show", () => {
@@ -400,54 +388,36 @@ describe("Pager", () => {
       });
 
       it("records", () => {
-        expect(getRecords(render({ ...props, pageSize: 100 }))).toBe("items");
-        expect(getRecords(render({ ...props, pageSize: 1 }))).toBe("item");
-        expect(getRecords(render({ ...props, pageSize: 0 }))).toBe("items");
-      });
-
-      it("total records", () => {
-        expect(getTotalRecords(render({ ...props, totalRecords: 100 }))).toBe(
+        expect(getRecords(render({ ...props, pageSize: 100 }))).toBe(
           "100 items"
         );
-        expect(getTotalRecords(render({ ...props, totalRecords: 1 }))).toBe(
-          "1 item"
-        );
-        expect(getTotalRecords(render({ ...props, totalRecords: 0 }))).toBe(
-          "0 items"
-        );
+        expect(getRecords(render({ ...props, pageSize: 1 }))).toBe("1 item");
+        expect(getRecords(render({ ...props, pageSize: 0 }))).toBe("0 items");
       });
     });
 
     describe("fr", () => {
-      beforeAll(() => {
-        I18n.locale = "fr";
-      });
-
       it("show", () => {
-        const wrapper = render({ ...props });
+        const wrapper = render({ ...props }, mount, { wrappingComponent });
         expect(getShow(wrapper)).toBe("Spectacle");
       });
 
       it("records", () => {
-        expect(getRecords(render({ ...props, pageSize: "100" }))).toBe(
-          "articles"
-        );
-        expect(getRecords(render({ ...props, pageSize: "1" }))).toBe("article");
-        expect(getRecords(render({ ...props, pageSize: "0" }))).toBe(
-          "articles"
-        );
-      });
-
-      it("total records", () => {
-        expect(getTotalRecords(render({ ...props, totalRecords: 100 }))).toBe(
-          "100 articles"
-        );
-        expect(getTotalRecords(render({ ...props, totalRecords: 1 }))).toBe(
-          "1 article"
-        );
-        expect(getTotalRecords(render({ ...props, totalRecords: 0 }))).toBe(
-          "0 articles"
-        );
+        expect(
+          getRecords(
+            render({ ...props, pageSize: "100" }, mount, { wrappingComponent })
+          )
+        ).toBe("100 articles");
+        expect(
+          getRecords(
+            render({ ...props, pageSize: "1" }, mount, { wrappingComponent })
+          )
+        ).toBe("1 article");
+        expect(
+          getRecords(
+            render({ ...props, pageSize: "0" }, mount, { wrappingComponent })
+          )
+        ).toBe("0 articles");
       });
     });
   });

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import I18n from "i18n-js";
 import { withTheme } from "styled-components";
 import tagComponent from "../../utils/helpers/tags/tags";
 import { DraggableContext } from "../drag-and-drop";
@@ -14,10 +13,13 @@ import {
 import Form from "../form";
 import baseTheme from "../../style/themes/base";
 import Logger from "../../utils/logger/logger";
+import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;
 
 class ConfigurableItems extends React.Component {
+  static contextType = LocaleContext;
+
   constructor(props) {
     super(props);
     if (!deprecatedWarnTriggered) {
@@ -44,7 +46,7 @@ class ConfigurableItems extends React.Component {
         buttonType="tertiary"
         onClick={this.onReset}
       >
-        {I18n.t("actions.reset", { defaultValue: "Reset Columns" })}
+        {this.context.actions.reset}
       </ConfigurableItemsButtonReset>
     );
   };

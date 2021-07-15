@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
-import I18n from "i18n-js";
 
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../utils/helpers/events";
@@ -10,6 +9,7 @@ import OptionsHelper from "../../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import Textbox from "../textbox";
 import guid from "../../../utils/helpers/guid";
+import useLocale from "../../../hooks/__internal__/useLocale";
 import FormField from "../form-field";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 
@@ -27,18 +27,6 @@ const validations = {
   dd: isDayValid,
   mm: isMonthValid,
   yyyy: isYearValid,
-};
-
-const validationMessages = {
-  dd: I18n.t("numeralDate.day", {
-    defaultValue: "Day should be a number within a 1-31 range.",
-  }),
-  mm: I18n.t("numeralDate.month", {
-    defaultValue: "Month should be a number within a 1-12 range.",
-  }),
-  yyyy: I18n.t("numeralDate.year", {
-    defaultValue: "Year should be a number within a 1800-2200 range.",
-  }),
 };
 
 const NumeralDate = ({
@@ -66,6 +54,7 @@ const NumeralDate = ({
   enableInternalWarning,
   ...rest
 }) => {
+  const l = useLocale();
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
@@ -84,6 +73,12 @@ const NumeralDate = ({
       modeSwitchedMessage
     );
   }, [value]);
+
+  const validationMessages = {
+    dd: l.numeralDate.validation.day,
+    mm: l.numeralDate.validation.month,
+    yyyy: l.numeralDate.validation.year,
+  };
 
   const [dateValue, setDateValue] = useState({
     ...(initialValue ||

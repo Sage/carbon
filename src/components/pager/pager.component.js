@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import PagerNavigation from "./__internal__/pager-navigation.component";
 import Option from "../select/option/option.component";
+import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledPagerContainer,
   StyledPagerSizeOptions,
@@ -37,6 +37,7 @@ const Pager = ({
   variant = "default",
   ...rest
 }) => {
+  const l = useLocale();
   const [page, setPage] = useState(currentPage);
   const [currentPageSize, setCurrentPageSize] = useState(pageSize);
   const [value, setValue] = useState(pageSize);
@@ -64,16 +65,6 @@ const Pager = ({
       setPage(Number(currentPage));
     }
   }, [currentPageSize, pageCount, currentPage, totalRecords, getPageCount]);
-
-  /** Term used to describe table data */
-  const records = (count) =>
-    I18n.t("pager.records", {
-      count: Number(count),
-      defaultValue: {
-        one: "item",
-        other: "items",
-      },
-    });
 
   const handleOnFirst = useCallback(
     (e) => {
@@ -158,25 +149,21 @@ const Pager = ({
   };
 
   const renderPageSizeOptions = () => {
-    const show = I18n.t("pager.show", { defaultValue: "Show" });
-
     return (
       showPageSizeSelection && (
         <StyledPagerSizeOptionsInner>
-          {showPageSizeLabelBefore && <span>{show}</span>}
+          {showPageSizeLabelBefore && <span>{l.pager.show}</span>}
           {sizeSelector()}
-          {showPageSizeLabelAfter && <span>{records(currentPageSize)}</span>}
+          {showPageSizeLabelAfter && (
+            <span>{l.pager.records(currentPageSize)}</span>
+          )}
         </StyledPagerSizeOptionsInner>
       )
     );
   };
 
   const renderTotalRecords = () =>
-    showTotalRecords && (
-      <>
-        {totalRecords} {records(totalRecords)}
-      </>
-    );
+    showTotalRecords && l.pager.records(totalRecords);
 
   return (
     <StyledPagerContainer data-component="pager" variant={variant} {...rest}>

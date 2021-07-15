@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
+import useLocale from "../../../hooks/__internal__/useLocale";
 import StyledOptionRow from "../option-row/option-row.style";
 import StyledOption from "../option/option.style";
 import Option from "../option/option.component";
@@ -65,6 +65,7 @@ const withFilter = (WrappedComponent) => {
       },
       forwardedRef
     ) => {
+      const l = useLocale();
       const getFilteredChildren = useCallback(() => {
         let filteredElements = children;
 
@@ -72,10 +73,7 @@ const withFilter = (WrappedComponent) => {
           filteredElements = filterChildren(filterText)(children);
 
           if (!filteredElements) {
-            const noResultsText = I18n.t("select.no_results_for_term", {
-              defaultValue: 'No results for "%{term}"',
-              term: filterText,
-            });
+            const noResultsText = l.select.noResultsForTerm(filterText);
 
             if (multiColumn) {
               const colSpan = React.Children.count(
@@ -106,6 +104,7 @@ const withFilter = (WrappedComponent) => {
         multiColumn,
         noResultsMessage,
         tableHeader,
+        l,
       ]);
 
       return (

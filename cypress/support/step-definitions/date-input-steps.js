@@ -10,13 +10,13 @@ import {
 } from "../../locators/date-input/index";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
-const TODAY_CALENDAR = Cypress.dayjs().format("ddd MMM D, YYYY");
+const TODAY_CALENDAR = Cypress.dayjs().format("ddd D MMM YYYY");
 const YESTERDAY_CALENDAR = Cypress.dayjs()
   .subtract(1, "days")
-  .format("ddd MMM D, YYYY");
+  .format("ddd D MMM YYYY");
 const TOMORROW_CALENDAR = Cypress.dayjs()
   .add(1, "days")
-  .format("ddd MMM D, YYYY");
+  .format("ddd D MMM YYYY");
 const TODAY_KNOBS = Cypress.dayjs().format("YYYY-MM-DD");
 const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
 

@@ -1,4 +1,3 @@
-import I18n from "i18n-js";
 import moment from "moment";
 import MockDate from "mockdate";
 import React from "react";
@@ -11,6 +10,7 @@ import DatePicker from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../__internal__/popover";
 import { noThemeSnapshot } from "../../../__spec_helper__/enzyme-snapshot-helper";
+import I18nProvider from "../../../components/i18n-provider";
 
 const inputElement = {
   value: "12-12-2012",
@@ -21,6 +21,14 @@ const secondDate = "2019-02-08";
 const invalidDate = "2019-02-";
 const noDate = "";
 const currentDate = moment().toDate();
+const wrappingComponent = (props) => (
+  <I18nProvider
+    {...props}
+    locale={{
+      locale: "fr",
+    }}
+  />
+);
 
 describe("DatePicker", () => {
   let wrapper;
@@ -216,29 +224,29 @@ describe("StyledDayPicker", () => {
   });
 
   describe("i18n", () => {
-    const { locale } = I18n;
-    beforeAll(() => {
-      I18n.locale = "fr";
-    });
-
-    afterAll(() => {
-      I18n.locale = locale;
-    });
-
     describe("translation", () => {
       it("renders properly", () => {
-        const wrapper = render({
-          inputDate: firstDate,
-          selectedDate: new Date("2019-04-01"),
-        });
+        const wrapper = render(
+          {
+            inputDate: firstDate,
+            selectedDate: new Date("2019-04-01"),
+          },
+          shallow,
+          {
+            wrappingComponent,
+          }
+        );
         expect(noThemeSnapshot(wrapper)).toMatchSnapshot();
       });
     });
   });
 });
 
-function render(props, renderer = shallow) {
-  return renderer(<DatePicker inputElement={inputElement} {...props} />);
+function render(props, renderer = shallow, params) {
+  return renderer(
+    <DatePicker inputElement={inputElement} {...props} />,
+    params
+  );
 }
 
 function renderStyledDayPicker(props) {

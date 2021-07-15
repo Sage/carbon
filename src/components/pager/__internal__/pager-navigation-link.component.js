@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import { StyledPagerLinkStyles } from "../pager.style";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 const PagerNavigationLink = ({
   type,
@@ -11,22 +11,23 @@ const PagerNavigationLink = ({
   onClick,
   onPagination,
 }) => {
+  const l = useLocale();
   const linkRef = useRef();
   const navLinkConfig = {
     first: {
-      text: I18n.t("pager.first", { defaultValue: "First" }),
+      text: l.pager.first,
       destination: "1",
     },
     last: {
-      text: I18n.t("pager.last", { defaultValue: "Last" }),
+      text: l.pager.last,
       destination: pageCount,
     },
     next: {
-      text: I18n.t("pager.next", { defaultValue: "Next" }),
+      text: l.pager.next,
       destination: currentPage + 1,
     },
     previous: {
-      text: I18n.t("pager.previous", { defaultValue: "Previous" }),
+      text: l.pager.previous,
       destination: currentPage - 1,
     },
   };

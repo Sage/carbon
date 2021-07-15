@@ -1,57 +1,18 @@
 import React from "react";
-import I18n from "i18n-js";
 import PropTypes from "prop-types";
 
 import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
 import Icon from "../../icon";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
-const warningAppend = ({ errors, warnings }, type) =>
-  errors > 0 && warnings > 0 && type === "warnings";
+const Summary = ({ type, errors, warnings }) => {
+  const l = useLocale();
 
-const translationKey = (props, type) =>
-  warningAppend(props, type) ? "errors_and_warnings" : type;
-
-const defaultTranslations = (errorCount, warningCount) => ({
-  errors: {
-    defaultValue: {
-      one: "There is %{count} error",
-      other: "There are %{count} errors",
-    },
-    count: parseInt(errorCount, 10),
-  },
-  warnings: {
-    defaultValue: {
-      one: "There is %{count} warning",
-      other: "There are %{count} warnings",
-    },
-    count: parseInt(warningCount, 10),
-  },
-  errors_and_warnings: {
-    defaultValue: {
-      one: "and %{count} warning",
-      other: "and %{count} warnings",
-    },
-    count: parseInt(warningCount, 10),
-  },
-});
-
-const translation = (props, type) => {
-  const parsedKey = translationKey(props, type);
-
-  const defaultTranslation = defaultTranslations(props.errors, props.warnings)[
-    parsedKey
-  ];
-  const location = `errors.messages.form_summary.${parsedKey}`;
-
-  return I18n.t(location, defaultTranslation);
-};
-
-const Summary = ({ type, ...props }) => {
-  if (props[type] > 0) {
+  if (errors || warnings) {
     return (
       <StyledInternalSummary type={type} data-element={type}>
         <Icon type={type.slice(0, -1)} />
-        <span>{translation(props, type)}</span>
+        <span>{l.errors.messages.formSummary(errors, warnings)}</span>
       </StyledInternalSummary>
     );
   }
@@ -60,6 +21,8 @@ const Summary = ({ type, ...props }) => {
 
 Summary.propTypes = {
   type: PropTypes.oneOf(["errors", "warnings"]),
+  errors: PropTypes.number,
+  warnings: PropTypes.number,
 };
 
 const FormSummary = (props) => (

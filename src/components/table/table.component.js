@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Immutable from "immutable";
-import I18n from "i18n-js";
 import ActionToolbar from "../action-toolbar";
 import Icon from "../icon";
 import Link from "../link";
@@ -16,10 +15,13 @@ import Pager from "../pager";
 import Loader from "../loader";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Logger from "../../utils/logger/logger";
+import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;
 
 class Table extends React.Component {
+  static contextType = LocaleContext;
+
   constructor(props) {
     super(props);
     if (!deprecatedWarnTriggered) {
@@ -425,7 +427,7 @@ class Table extends React.Component {
     return (
       <TableRow key="__loading__" selectable={false} highlightable={false}>
         <TableCell colSpan="42" align="center">
-          {I18n.t("table.no_data", { defaultValue: "No results to display" })}
+          {this.context.table.noData}
         </TableCell>
       </TableRow>
     );

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import Textbox from "../../../__experimental__/components/textbox";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 const SelectTextbox = ({
   value,
@@ -17,9 +17,7 @@ const SelectTextbox = ({
   required,
   ...restProps
 }) => {
-  const defaultPlaceholder = I18n.t("select.placeholder", {
-    defaultValue: "Please Select...",
-  });
+  const l = useLocale();
 
   function handleTextboxClick(event) {
     if (disabled || readOnly) {
@@ -47,7 +45,7 @@ const SelectTextbox = ({
 
   function getTextboxProps() {
     return {
-      placeholder: placeholder || defaultPlaceholder,
+      placeholder: placeholder || l.select.placeholder,
       disabled,
       readOnly,
       required,

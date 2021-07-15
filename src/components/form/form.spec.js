@@ -24,6 +24,8 @@ import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
 
+jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+
 describe("Form", () => {
   let wrapper;
 
@@ -452,30 +454,29 @@ describe("Form", () => {
 
     describe("when either errorCount or warningCount or both are set on Form", () => {
       it.each([
-        [1, 0, "There is 1 error", null],
-        [2, 0, "There are 2 errors", null],
-        [0, 1, null, "There is 1 warning"],
-        [0, 2, null, "There are 2 warnings"],
-        [1, 1, "There is 1 error", "and 1 warning"],
-        [2, 1, "There are 2 errors", "and 1 warning"],
-        [2, 2, "There are 2 errors", "and 2 warnings"],
+        [1, 0, "There is 1 error"],
+        [2, 0, "There are 2 errors"],
+        [0, 1, "There is 1 warning"],
+        [0, 2, "There are 2 warnings"],
+        [1, 1, "There is 1 error and 1 warning"],
+        [2, 1, "There are 2 errors and 1 warning"],
+        [2, 2, "There are 2 errors and 2 warnings"],
       ])(
         "properly pluralized translation of error and warning messages is rendered",
-        (errorCount, warningCount, errMessage, warnMessage) => {
+        (errorCount, warningCount, message) => {
           wrapper.setProps({ errorCount, warningCount });
-          const warningPosition = errorCount ? 1 : 0;
-          if (errorCount) {
-            expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
-              errMessage
-            );
-          }
-          if (warningCount) {
-            expect(
-              wrapper.find(StyledInternalSummary).at(warningPosition).text()
-            ).toBe(warnMessage);
-          }
+
+          expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
+            message
+          );
         }
       );
+
+      it("", () => {
+        wrapper.setProps({ errorCount: 0, warningCount: 0 });
+
+        expect(wrapper.find(StyledInternalSummary).exists()).toBe(false);
+      });
     });
   });
 

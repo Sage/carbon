@@ -14,6 +14,7 @@ import StyledDateInput from "./date.style";
 import DateHelper from "../../../utils/helpers/date/date";
 import { isEdge } from "../../../utils/helpers/browser-type-check";
 import Label from "../label";
+import enGB from "../../../locales/en-gb";
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
@@ -572,7 +573,14 @@ describe("Date", () => {
         jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find(DatePicker).props().selectedDate).toEqual(
-          DateHelper.stringToDate(DateHelper.formatValue(initialDate))
+          DateHelper.stringToDate(
+            DateHelper.formatValue({
+              value: initialDate,
+              locale: enGB.locale,
+              formats: enGB.date.formats.inputs,
+              format: enGB.date.formats.javascript,
+            })
+          )
         );
       });
     });

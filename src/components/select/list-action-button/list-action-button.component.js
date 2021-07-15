@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import StyledListActionButtonWrapper from "./list-action-button.style";
+import useLocale from "../../../hooks/__internal__/useLocale";
 import Button from "../../button";
 
 const ListActionButton = React.forwardRef(
   ({ listActionButton, onListAction }, ref) => {
-    const listActionButtonDefaultText = I18n.t("select.action_button_text", {
-      defaultValue: "Add New Item",
-    });
+    const l = useLocale();
 
     function renderListActionButton() {
       if (!listActionButton || listActionButton === true) {
@@ -19,7 +17,7 @@ const ListActionButton = React.forwardRef(
             iconType="add"
             iconPosition="after"
           >
-            {listActionButtonDefaultText}
+            {l.select.actionButtonText}
           </Button>
         );
       }

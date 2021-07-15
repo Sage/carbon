@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import I18n from "i18n-js";
 
+import LocaleContext from "../../../__internal__/i18n-context";
 import {
   StyledStep,
   StyledStepContent,
@@ -262,37 +262,43 @@ class Step extends React.Component {
 
     if (this.isLastStep) {
       submitButton = (
-        <StyledStepButton
-          buttonType="primary"
-          data-element="submit"
-          onClick={this.handleOnSubmit}
-        >
-          {I18n.t("wizards.multi_step_wizard.buttons.submit", {
-            defaultValue: "Submit",
-          })}
-        </StyledStepButton>
+        <LocaleContext.Consumer>
+          {(l) => (
+            <StyledStepButton
+              buttonType="primary"
+              data-element="submit"
+              onClick={this.handleOnSubmit}
+            >
+              {l.wizards.multiStep.buttons.submit}
+            </StyledStepButton>
+          )}
+        </LocaleContext.Consumer>
       );
     } else {
       nextButton = (
-        <StyledStepButton
-          buttonType="primary"
-          data-element="next"
-          onClick={this.handleOnNext}
-        >
-          {I18n.t("wizards.multi_step_wizard.buttons.next", {
-            defaultValue: "Next",
-          })}
-        </StyledStepButton>
+        <LocaleContext.Consumer>
+          {(l) => (
+            <StyledStepButton
+              buttonType="primary"
+              data-element="next"
+              onClick={this.handleOnNext}
+            >
+              {l.wizards.multiStep.buttons.next}
+            </StyledStepButton>
+          )}
+        </LocaleContext.Consumer>
       );
     }
 
     if (!this.isFirstStep) {
       backButton = (
-        <StyledStepButton data-element="back" onClick={this.handleOnBack}>
-          {I18n.t("wizards.multi_step_wizard.buttons.back", {
-            defaultValue: "Back",
-          })}
-        </StyledStepButton>
+        <LocaleContext.Consumer>
+          {(l) => (
+            <StyledStepButton data-element="back" onClick={this.handleOnBack}>
+              {l.wizards.multiStep.buttons.back}
+            </StyledStepButton>
+          )}
+        </LocaleContext.Consumer>
       );
     }
 

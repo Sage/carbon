@@ -14,6 +14,7 @@ const StyledSwitchSlider = styled.span`
     left: 0;
     letter-spacing: 1px;
     position: absolute;
+    text-transform: uppercase;
     top: 0;
     width: 60px;
     z-index: 2;

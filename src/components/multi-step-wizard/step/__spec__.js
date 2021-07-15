@@ -2,7 +2,7 @@ import React from "react";
 import TestUtils from "react-dom/test-utils";
 import Step from "./step";
 import Button from "./../../button";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 
 describe("Step", () => {
   let instance,
@@ -405,7 +405,7 @@ describe("Step", () => {
   describe("component tags", () => {
     describe("button tags", () => {
       describe("next button", () => {
-        let wrapper = shallow(<Step stepNumber={1}>Demo Step</Step>, {
+        let wrapper = mount(<Step stepNumber={1}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
 
@@ -416,7 +416,7 @@ describe("Step", () => {
       });
 
       describe("back button", () => {
-        let wrapper = shallow(<Step stepNumber={2}>Demo Step</Step>, {
+        let wrapper = mount(<Step stepNumber={2}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
 
@@ -427,7 +427,7 @@ describe("Step", () => {
       });
 
       describe("submit button", () => {
-        let wrapper = shallow(<Step stepNumber={3}>Demo Step</Step>, {
+        let wrapper = mount(<Step stepNumber={3}>Demo Step</Step>, {
           context: { wizard: { totalSteps: 3 } },
         });
 

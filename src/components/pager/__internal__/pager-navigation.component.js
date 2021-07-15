@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import {
   StyledPagerNavigation,
   StyledPagerNavInner,
@@ -11,6 +10,7 @@ import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
 import Label from "../../../__experimental__/components/label";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 const PagerNavigation = ({
   pageSize,
@@ -26,6 +26,7 @@ const PagerNavigation = ({
   showPreviousAndNextButtons = true,
   showPageCount = true,
 }) => {
+  const l = useLocale();
   const guid = useRef(createGuid());
   const currentPageId = `Pager_${guid.current}`;
   const hasOnePage = pageCount <= 1;
@@ -108,9 +109,7 @@ const PagerNavigation = ({
       {!hasOnePage && renderButtonsBeforeCount()}
       {showPageCount && (
         <StyledPagerNavInner>
-          <StyledPagerNoSelect>
-            {I18n.t("pager.page_x", { defaultValue: "Page " })}
-          </StyledPagerNoSelect>
+          <StyledPagerNoSelect>{l.pager.pageX}</StyledPagerNoSelect>
           <Label htmlFor={currentPageId}>
             <NumberInput
               value={currentPage.toString()}
@@ -123,10 +122,7 @@ const PagerNavigation = ({
               }
             />
           </Label>
-          <StyledPagerNoSelect>
-            {I18n.t("pager.of_y", { defaultValue: " of " })}
-            {pageCount}
-          </StyledPagerNoSelect>
+          <StyledPagerNoSelect>{l.pager.ofY(pageCount)}</StyledPagerNoSelect>
         </StyledPagerNavInner>
       )}
       {!hasOnePage && renderButtonsAfterCount()}

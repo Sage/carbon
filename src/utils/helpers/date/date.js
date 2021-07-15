@@ -1,9 +1,7 @@
-import I18n from "i18n-js";
 import moment from "moment";
 import { merge } from "lodash";
 
 const isoDateFormat = "YYYY-MM-DD";
-const defaultDateFormat = "DD/MM/YYYY";
 
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
@@ -32,8 +30,14 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {Boolean}
    */
-  isValidDate: (value, options = {}) => {
-    return DateHelper._parseDate(value, options).isValid();
+  isValidDate: ({ value, options = {}, locale, formats, format }) => {
+    return DateHelper._parseDate({
+      value,
+      options,
+      locale,
+      formats,
+      format,
+    }).isValid();
   },
 
   /**
@@ -45,8 +49,21 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {String} formatted date
    */
-  formatValue: (value, formatTo = isoDateFormat, options = {}) => {
-    const date = DateHelper._parseDate(value, options);
+  formatValue: ({
+    value,
+    formatTo = isoDateFormat,
+    options = {},
+    locale,
+    formats,
+    format,
+  }) => {
+    const date = DateHelper._parseDate({
+      value,
+      options,
+      locale,
+      formats,
+      format,
+    });
     return date.isValid() ? date.format(formatTo) : value;
   },
 
@@ -89,8 +106,8 @@ const DateHelper = {
    * @param {String} locale - defaulted to I18n.locale
    * @return {Array}
    */
-  weekdaysMinified: () => {
-    return moment.localeData(I18n.locale)._weekdaysMin;
+  weekdaysMinified: (locale) => {
+    return moment.localeData(locale)._weekdaysMin;
   },
 
   /**
@@ -99,8 +116,13 @@ const DateHelper = {
    * @param {String} units - defaulted to days
    * @return {Boolean}
    */
-  withinRange: (value, limit, units) => {
-    const momentValue = DateHelper._parseDate(value),
+  withinRange: ({ value, limit, units, locale, formats, format }) => {
+    const momentValue = DateHelper._parseDate({
+        value,
+        locale,
+        formats,
+        format,
+      }),
       today = moment();
 
     const difference = Math.abs(today.diff(momentValue, units));
@@ -116,85 +138,13 @@ const DateHelper = {
    * strict - moment js strict mode
    * sanitize - should value be sanitized before parsing
    */
-  _defaultMomentOptions: () => {
+  _defaultMomentOptions: (locale, formats) => {
     return {
-      formats: DateHelper._dateFormats(),
-      locale: I18n.locale,
+      locale,
+      formats,
       strict: true,
       sanitize: true,
     };
-  },
-
-  /**
-   * Large set of default date formats for if a
-   * i18n is not supplied
-   *
-   * @private
-   */
-  _defaultDateFormats: () => {
-    return [
-      "DDMMYYYY",
-      "DDMMYY",
-      "DD/MM/YYYY",
-      "DD/MM/YY",
-      "MMDDYYYY",
-      "MMDDYY",
-      "MM/DD/YYYY",
-      "MM/DD/YY",
-      "DDMMM",
-      "DD/MMM",
-      "DDMM",
-      "DD/MM",
-      "YYYYMMDD",
-      "YYYY/MM/DD",
-      "D/MM/YYYY",
-      "D/M/YYYY",
-      "D/MM/YY",
-      "D/M/YY",
-      "DD/M/YYYY",
-      "DD/M/YY",
-      "DD/M/YY",
-      "D/MMM/YYYY",
-      "DD/MMM/YYYY",
-      "DD/MMM/YY",
-      "D/MMMM/YYYY",
-      "DD/MMMM/YYYY",
-      "DD/MMMM/YY",
-      "MMM/YYYY",
-      "MMM/YY",
-      "MMMM/YYYY",
-      "MMMM/YY",
-      "Do/MMM/YYYY",
-      "Do/MMM/YY",
-      "Do/M/YYYY",
-      "Do/M/YY",
-      "Do/MM/YYYY",
-      "Do/MM/YY",
-      "Do/MMMM/YYYY",
-      "Do/MMMM/YY",
-      "MMMM/Do/YYYY",
-      "MMMM/Do/YY",
-      "MMMM/Do",
-      "MMM/Do/YYYY",
-      "MMM/Do/YY",
-      "MMM/Do",
-      "Do/MMM",
-      "D/MMM",
-      "D/MM",
-      "D/M",
-      "Do/MMMM",
-      "Do/MM",
-      "Do/M",
-      "D/MMMM",
-      "DD/MMMM",
-      "DD/MMM",
-      "DD/M",
-      "MMM",
-      "MMMM",
-      "DD",
-      "Do",
-      "D",
-    ];
   },
 
   /**
@@ -206,38 +156,30 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {Moment}
    */
-  _parseDate(value, options) {
-    const opts = merge(DateHelper._defaultMomentOptions(), options);
-    const val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
-    return moment(
-      val,
-      [this._visibleFormat(), ...opts.formats],
-      opts.locale,
-      opts.strict
+  _parseDate({ value, options, locale, formats, format }) {
+    const opts = merge(
+      DateHelper._defaultMomentOptions(locale, formats),
+      options,
+      {
+        locale,
+        formats,
+        format,
+      }
     );
+    const val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
+    return moment(val, [format, ...opts.formats], opts.locale, opts.strict);
   },
 
-  /**
-   * Formats valid for entry
-   *
-   * @private
-   * @method validFormats
-   * @return {Array} formatted date strings
-   */
-  _dateFormats: () => {
-    return I18n.t("date.formats.inputs", {
-      defaultValue: DateHelper._defaultDateFormats(),
-    });
-  },
-
-  _visibleFormat: () =>
-    I18n.t("date.formats.javascript", {
-      defaultValue: defaultDateFormat,
-    }).toUpperCase(),
-
-  formatDateToCurrentLocale(value) {
-    return DateHelper.formatValue(value, this._visibleFormat(), {
-      formats: [this._visibleFormat()],
+  formatDateToCurrentLocale({ value, locale, formats, format }) {
+    return DateHelper.formatValue({
+      value,
+      formatTo: format,
+      options: {
+        formats: [format],
+      },
+      locale,
+      formats,
+      format,
     });
   },
 };
