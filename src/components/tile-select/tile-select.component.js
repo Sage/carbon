@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags/tags";
-import Button from "../button";
 
 import {
   StyledTileSelectContainer,
@@ -17,6 +16,8 @@ import {
   StyledDeselectWrapper,
   StyledFooterWrapper,
   StyledFocusWrapper,
+  StyledTitleAndSubtitleWrapper,
+  StyledActionButton,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -60,11 +61,14 @@ const TileSelect = ({
     if (customActionButton) return customActionButton(handleDeselect);
 
     return (
-      checked && (
-        <Button buttonType="tertiary" size="small" onClick={handleDeselect}>
-          {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
-        </Button>
-      )
+      <StyledActionButton
+        checked={checked}
+        buttonType="tertiary"
+        size="small"
+        onClick={handleDeselect}
+      >
+        {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
+      </StyledActionButton>
     );
   };
 
@@ -106,23 +110,32 @@ const TileSelect = ({
         />
         <StyledTileSelect disabled={disabled} checked={checked}>
           <StyledTitleContainer>
-            {title && (
-              <StyledTitle {...(typeof title !== "string" && { as: "div" })}>
-                {title}
-              </StyledTitle>
-            )}
+            <div>
+              <StyledTitleAndSubtitleWrapper>
+                {title && (
+                  <StyledTitle
+                    {...(typeof title !== "string" && { as: "div" })}
+                  >
+                    {title}
+                  </StyledTitle>
+                )}
 
-            {subtitle && (
-              <StyledSubtitle
-                {...(typeof subtitle !== "string" && { as: "div" })}
-              >
-                {subtitle}
-              </StyledSubtitle>
-            )}
+                {subtitle && (
+                  <StyledSubtitle
+                    {...(typeof subtitle !== "string" && { as: "div" })}
+                  >
+                    {subtitle}
+                  </StyledSubtitle>
+                )}
+              </StyledTitleAndSubtitleWrapper>
 
-            {titleAdornment && (
               <StyledAdornment>{titleAdornment}</StyledAdornment>
-            )}
+            </div>
+
+            <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+              {renderActionButton()}
+              {actionButtonAdornment}
+            </StyledDeselectWrapper>
           </StyledTitleContainer>
           <StyledDescription
             {...(typeof description !== "string" && { as: "div" })}
@@ -132,10 +145,6 @@ const TileSelect = ({
           {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
         </StyledTileSelect>
       </StyledFocusWrapper>
-      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
-        {renderActionButton()}
-        {actionButtonAdornment}
-      </StyledDeselectWrapper>
     </StyledTileSelectContainer>
   );
 };

@@ -5,12 +5,17 @@ import { Input } from "../../__internal__/input";
 import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
+import Button from "../button";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
   font-weight: 900;
   margin: 0;
   margin-right: 16px;
+`;
+
+const StyledActionButton = styled(Button)`
+  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
 `;
 
 const StyledSubtitle = styled.h4`
@@ -21,11 +26,14 @@ const StyledSubtitle = styled.h4`
 `;
 
 const StyledAdornment = styled.div`
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 500;
+  position: static;
+  z-index: 200;
+  margin-right: 16px;
+  visibility: ${({ children }) => (children ? "visible" : "hidden")};
+
+  > :first-child {
+    top: 4px;
+  }
 `;
 
 const StyledDescription = styled.p`
@@ -117,23 +125,31 @@ const StyledTitleContainer = styled.div`
   align-items: flex-end;
   margin-bottom: 8px;
   position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+  top: -8px;
+
+  > div:nth-child(1) {
+    display: flex;
+    flex-grow: 1;
+  }
+`;
+
+const StyledTitleAndSubtitleWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;
 
 const StyledDeselectWrapper = styled.div`
-  ${({ hasActionAdornment, theme }) => css`
-    position: absolute;
-    top: ${2 * theme.spacing}px;
-    right: ${theme.spacing}px;
-    z-index: 200;
+  position: static;
+  margin-right: -16px;
+  z-index: 200;
 
-    ${hasActionAdornment &&
-    `
-      margin-right: ${2 * theme.spacing}px;
-      display: flex;
-      align-items: center;
-      min-height: ${4 * theme.spacing}px;
+  ${({ hasActionAdornment }) =>
+    hasActionAdornment &&
+    css`
+      margin-right: 0;
     `}
-  `}
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
@@ -208,4 +224,6 @@ export {
   StyledDeselectWrapper,
   StyledFooterWrapper,
   StyledFocusWrapper,
+  StyledTitleAndSubtitleWrapper,
+  StyledActionButton,
 };
