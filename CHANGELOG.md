@@ -1,3 +1,10 @@
+### [77.12.2](https://github.com/Sage/carbon/compare/v77.12.1...v77.12.2) (2021-07-15)
+
+
+### Bug Fixes
+
+* **tile-select:** prevent focus outline when tile select is disabled ([e6c9a17](https://github.com/Sage/carbon/commit/e6c9a174401e6162d6d44273ca0e1af398e11256)), closes [#4227](https://github.com/Sage/carbon/issues/4227)
+
 ### [77.12.1](https://github.com/Sage/carbon/compare/v77.12.0...v77.12.1) (2021-07-14)
 
 
