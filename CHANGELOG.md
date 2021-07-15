@@ -1,3 +1,10 @@
+### [77.12.1](https://github.com/Sage/carbon/compare/v77.12.0...v77.12.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* **sidebar:** support for Form with stickyFooter ([164aebb](https://github.com/Sage/carbon/commit/164aebbbe63d00bfffbd11d6e90a1e6f3692787c))
+
 ## [77.12.0](https://github.com/Sage/carbon/compare/v77.11.2...v77.12.0) (2021-07-14)
 
 

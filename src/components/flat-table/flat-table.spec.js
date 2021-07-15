@@ -25,7 +25,7 @@ import {
   StyledFlatTableBox,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
@@ -253,7 +253,7 @@ describe("FlatTable", () => {
     let wrapper;
     beforeEach(() => {
       wrapper = mount(
-        <SidebarContext.Provider value={{ isInSidebar: true }}>
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
           <FlatTable>
             <tbody>
               <tr>
@@ -261,7 +261,7 @@ describe("FlatTable", () => {
               </tr>
             </tbody>
           </FlatTable>
-        </SidebarContext.Provider>
+        </DrawerSidebarContext.Provider>
       );
     });
 
