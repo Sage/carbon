@@ -381,6 +381,24 @@ describe("TileSelectGroup", () => {
     });
   });
 
+  describe("when input becomes disabled", () => {
+    it("removes the focus outline", () => {
+      wrapper = mount(<TileSelect />);
+
+      wrapper.find(StyledTileSelectInput).first().simulate("focus");
+      expect(wrapper.find(StyledFocusWrapper).first().prop("hasFocus")).toEqual(
+        true
+      );
+
+      wrapper.setProps({ disabled: true });
+      wrapper.update();
+
+      expect(wrapper.find(StyledFocusWrapper).first().prop("hasFocus")).toEqual(
+        false
+      );
+    });
+  });
+
   describe("propTypes", () => {
     it("validates the incorrect children prop", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});

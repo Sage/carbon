@@ -12,6 +12,7 @@ import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 
 const StyledSwitch = styled.div`
   ${({
+    checked,
     fieldHelpInline,
     labelInline,
     labelSpacing,
@@ -35,8 +36,14 @@ const StyledSwitch = styled.div`
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledSwitchSlider}, &:hover + ${StyledSwitchSlider} {
+      &:focus + ${StyledSwitchSlider} {
         outline: solid 3px ${theme.colors.focus};
+      }
+
+      &:hover + ${StyledSwitchSlider} {
+        background-color: ${checked
+          ? theme.colors.secondary
+          : theme.switch.offHover};
       }
     }
 

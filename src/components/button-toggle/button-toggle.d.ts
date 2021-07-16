@@ -6,6 +6,8 @@ export interface ButtonToggleProps {
   buttonIcon?: string;
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize?: OptionsHelper.SizesType;
+  /** ButtonToggle size */
+  size?: "small" | "medium" | "large";
   /** Set the checked value of the radio button */
   checked?: boolean;
   /** A required prop. This is the button text. */

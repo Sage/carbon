@@ -307,7 +307,7 @@ NumeralDate.propTypes = {
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf("small", "medium", "large"),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 export default NumeralDate;

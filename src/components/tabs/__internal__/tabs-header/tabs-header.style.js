@@ -16,6 +16,7 @@ const StyledTabsHeaderWrapper = styled.div`
     css`
       overflow-y: auto;
       padding: 2px;
+      box-sizing: border-box;
 
       ${!isInSidebar &&
       css`

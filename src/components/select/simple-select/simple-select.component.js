@@ -251,8 +251,6 @@ const SimpleSelect = React.forwardRef(
         return;
       }
 
-      setOpenState(false);
-
       if (onBlur) {
         onBlur(event);
       }
@@ -396,6 +394,7 @@ const SimpleSelect = React.forwardRef(
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="simple-select-list-loader"
       >
         {children}
       </SelectList>

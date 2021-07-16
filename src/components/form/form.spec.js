@@ -247,6 +247,27 @@ describe("Form", () => {
         assertThatFooterIsNotSticky();
       });
     });
+
+    describe("when stickyFooter is provided and it is used in Sidebar", () => {
+      it("should render correct styles", () => {
+        wrapper = mount(<StyledForm stickyFooter isInSidebar />);
+
+        assertStyleMatch(
+          {
+            position: "static !important",
+          },
+          wrapper
+        );
+
+        assertStyleMatch(
+          {
+            position: "absolute",
+          },
+          wrapper,
+          { modifier: `${StyledFormFooter}` }
+        );
+      });
+    });
   });
 
   describe("form buttons", () => {

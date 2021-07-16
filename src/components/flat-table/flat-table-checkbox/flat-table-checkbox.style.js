@@ -10,7 +10,7 @@ const StyledFlatTableCheckbox = styled.td`
       border-width: 0;
       border-bottom: 1px solid ${theme.table.secondary};
       overflow: visible;
-      padding: 10px 24px;
+      padding: 0;
       text-align: left;
       text-overflow: ellipsis;
       vertical-align: middle;
@@ -33,7 +33,7 @@ const StyledFlatTableCheckbox = styled.td`
       box-sizing: border-box;
       font-weight: 700;
       left: auto;
-      padding: 8px 24px;
+      padding: 0;
       text-align: left;
       top: 0;
       user-select: none;

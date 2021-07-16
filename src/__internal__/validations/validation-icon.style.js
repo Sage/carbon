@@ -3,7 +3,7 @@ import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIcon from "../../components/icon/icon.style";
 
-const ValidationIconStyle = styled.div`
+const ValidationIconStyle = styled.span`
   background: none;
   cursor: pointer;
   display: flex;

@@ -16,7 +16,6 @@ import Events from "../../../utils/helpers/events";
 import { MenuContext } from "../menu.component";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-
 import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../search";
@@ -43,7 +42,8 @@ const MenuItem = ({
   const ref = useRef(null);
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
-  const isChildrenSearch = children?.type === Search;
+  const isChildSearch = useRef(false);
+  const childRef = useRef();
   const childrenItems = React.Children.map(children, (child) => {
     if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
@@ -52,17 +52,28 @@ const MenuItem = ({
 
       return [...childArray.map((innerChild) => innerChild)];
     }
+    if (child?.type === Search) {
+      isChildSearch.current = true;
+    }
 
     return child;
   });
 
+  const focusRef = isChildSearch.current ? childRef : ref;
   useEffect(() => {
     if (focusFromSubmenu === undefined && focusFromMenu) {
-      ref.current.focus();
+      focusRef.current.focus();
     } else if (focusFromSubmenu) {
-      ref.current.focus();
+      focusRef.current.focus();
     }
-  }, [focusFromMenu, focusFromSubmenu]);
+  }, [focusFromMenu, focusFromSubmenu, focusRef]);
+
+  const updateFocusOnClick = useCallback(() => {
+    /* istanbul ignore else */
+    if (submenuContext.updateFocusIndex) {
+      submenuContext.updateFocusIndex(submenuContext.itemIndex);
+    }
+  }, [submenuContext]);
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -75,12 +86,20 @@ const MenuItem = ({
       }
 
       if (submenuContext.handleKeyDown !== undefined) {
-        submenuContext.handleKeyDown(event);
+        if (
+          !(
+            isChildSearch.current &&
+            document.activeElement === focusRef.current &&
+            focusRef.current?.value
+          )
+        ) {
+          submenuContext.handleKeyDown(event);
+        }
       } else {
         menuContext.handleKeyDown(event);
       }
     },
-    [menuContext, onKeyDown, ref, submenuContext]
+    [focusRef, menuContext, onKeyDown, submenuContext]
   );
 
   const classes = useMemo(
@@ -95,13 +114,20 @@ const MenuItem = ({
     className: classes,
     href,
     target,
-    onClick,
+    onClick:
+      onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
     icon,
     selected,
     variant,
     onKeyDown: handleKeyDown,
     ref,
   };
+
+  const clonedChildren = isChildSearch.current
+    ? childrenItems.map((child) =>
+        React.cloneElement(child, { inputRef: childRef })
+      )
+    : children;
 
   const getTitle = (title) =>
     maxWidth && typeof title === "string" ? title : "";
@@ -114,6 +140,7 @@ const MenuItem = ({
         display="inline-block"
         title={getTitle(submenu)}
         maxWidth={maxWidth}
+        onClick={updateFocusOnClick}
         {...rest}
       >
         <Submenu
@@ -142,16 +169,16 @@ const MenuItem = ({
       {...rest}
     >
       <StyledMenuItemWrapper
-        as={isChildrenSearch ? "div" : Link}
+        as={isChildSearch.current ? "div" : Link}
         data-component="menu-item"
-        isSearch={isChildrenSearch}
+        isSearch={isChildSearch.current}
         menuType={menuContext.menuType}
         {...elementProps}
         role="menuitem"
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
       >
-        {children}
+        {clonedChildren}
       </StyledMenuItemWrapper>
     </StyledMenuItem>
   );

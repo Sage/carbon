@@ -4,8 +4,8 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
+import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 import baseTheme from "../../style/themes/base";
-import { StyledLegendContainer } from "../../__internal__/fieldset/fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -529,10 +529,7 @@ describe("SimpleColorPicker", () => {
       it("renders validation icon by the input", () => {
         const wrapper = render({ [type]: "Message" });
         expect(
-          wrapper
-            .find(StyledLegendContainer)
-            .find(StyledValidationIcon)
-            .exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
         ).toBe(false);
         expect(wrapper.find(StyledValidationIcon).exists()).toBe(true);
       });
@@ -543,10 +540,7 @@ describe("SimpleColorPicker", () => {
           validationOnLegend: true,
         });
         expect(
-          wrapper
-            .find(StyledLegendContainer)
-            .find(StyledValidationIcon)
-            .exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
         ).toBe(true);
       });
 

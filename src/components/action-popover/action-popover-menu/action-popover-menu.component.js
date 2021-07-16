@@ -18,6 +18,7 @@ const ActionPopoverMenu = React.forwardRef(
       setOpen,
       setFocusIndex,
       placement = "bottom",
+      horizontalAlignment,
       ...rest
     },
     ref
@@ -99,12 +100,13 @@ const ActionPopoverMenu = React.forwardRef(
           return React.cloneElement(child, {
             focusItem: isOpen && focusIndex === index - 1,
             placement: child.props.submenu ? placement : undefined,
+            horizontalAlignment,
           });
         }
 
         return child;
       });
-    }, [children, focusIndex, isOpen, placement]);
+    }, [children, focusIndex, isOpen, placement, horizontalAlignment]);
 
     return (
       <Menu
@@ -164,6 +166,8 @@ ActionPopoverMenu.propTypes = {
   onClick: PropTypes.func,
   /** @ignore @private */
   placement: PropTypes.oneOf(["bottom", "top"]),
+  /** @ignore @private */
+  horizontalAlignment: PropTypes.oneOf(["left", "right"]),
 };
 
 ActionPopoverMenu.displayName = "ActionPopoverMenu";

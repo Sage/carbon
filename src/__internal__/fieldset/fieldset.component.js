@@ -4,8 +4,8 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import {
   StyledFieldset,
-  StyledFieldsetContent,
-  StyledLegendContainer,
+  StyledLegend,
+  StyledLegendContent,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
@@ -30,33 +30,32 @@ const Fieldset = ({
   ...rest
 }) => (
   <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-    <StyledFieldset data-component="fieldset" m={0} {...rest}>
-      <StyledFieldsetContent inline={inline}>
-        {legend && (
-          <StyledLegendContainer
-            inline={inline}
-            width={legendWidth}
-            align={legendAlign}
-            rightPadding={legendSpacing}
-            isRequired={isRequired}
-          >
-            <InputGroupContext.Consumer>
-              {({ onMouseEnter, onMouseLeave }) => (
-                <legend onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                  {legend}
-                </legend>
-              )}
-            </InputGroupContext.Consumer>
-            <ValidationIcon
-              error={error}
-              warning={warning}
-              info={info}
-              tooltipFlipOverrides={["top", "bottom"]}
-            />
-          </StyledLegendContainer>
-        )}
-        {children}
-      </StyledFieldsetContent>
+    <StyledFieldset data-component="fieldset" m={0} inline={inline} {...rest}>
+      {legend && (
+        <InputGroupContext.Consumer>
+          {({ onMouseEnter, onMouseLeave }) => (
+            <StyledLegend
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              inline={inline}
+              width={legendWidth}
+              align={legendAlign}
+              rightPadding={legendSpacing}
+            >
+              <StyledLegendContent isRequired={isRequired}>
+                {legend}
+                <ValidationIcon
+                  error={error}
+                  warning={warning}
+                  info={info}
+                  tooltipFlipOverrides={["top", "bottom"]}
+                />
+              </StyledLegendContent>
+            </StyledLegend>
+          )}
+        </InputGroupContext.Consumer>
+      )}
+      {children}
     </StyledFieldset>
   </InputGroupBehaviour>
 );

@@ -14,7 +14,7 @@ import tagComponent from "../../utils/helpers/tags/tags";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -34,12 +34,13 @@ const Tabs = ({
   borders = "off",
   variant = "default",
   validationStatusOverride,
+  headerWidth,
   ...rest
 }) => {
   const tabRefs = useRef([]);
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
-  const sidebarContext = useContext(SidebarContext);
+  const sidebarContext = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
@@ -100,8 +101,8 @@ const Tabs = ({
     if (Event.isEventType(ev, "keydown")) {
       return;
     }
-
     const { tabid } = ev.target.dataset;
+
     updateVisibleTab(tabid);
   };
 
@@ -319,6 +320,7 @@ const Tabs = ({
       {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
       mt={position === "left" || isInSidebar ? "0px" : "15px"}
+      headerWidth={headerWidth}
       {...rest}
     >
       {renderTabHeaders()}
@@ -356,6 +358,18 @@ Tabs.propTypes = {
     "no right side",
     "no sides",
   ]),
+  /** sets width to the tab headers. Can be any valid CSS string.
+   * The headerWidth prop works only for `position="left"`
+   */
+  headerWidth: (props, propName, componentName) => {
+    if (props.position !== "left" && props[propName] !== undefined) {
+      return new Error(
+        `Invalid usage of prop ${propName} in ${componentName}. The ${propName} can be used only if position is set to left`
+      );
+    }
+
+    return null;
+  },
   /** Adds an alternate styling variant to the tab titles. */
   variant: PropTypes.oneOf(["default", "alternate"]),
   /** An object to support overriding validation statuses, when the Tabs have custom targets for example.

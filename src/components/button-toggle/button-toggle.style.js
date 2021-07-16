@@ -3,6 +3,36 @@ import styled, { css } from "styled-components";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
+const heightConfig = {
+  small: 32,
+  medium: 40,
+  large: 48,
+};
+
+const fontSizeConfig = {
+  small: 14,
+  medium: 14,
+  large: 16,
+};
+
+const paddingConfig = {
+  small: 16,
+  medium: 24,
+  large: 32,
+};
+
+const heightLargeIconConfig = {
+  small: 80,
+  medium: 96,
+  large: 112,
+};
+
+const paddingLargeIconConfig = {
+  small: 32,
+  medium: 40,
+  large: 48,
+};
+
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -14,23 +44,28 @@ const StyledButtonToggleContentWrapper = styled.div`
 const StyledButtonToggleLabel = styled.label`
   display: inline-block;
   position: relative;
-  height: 38px;
-  padding: 0 24px;
+  box-sizing: border-box;
+  ${({ size }) => css`
+    height: ${heightConfig[size]}px;
+    padding: 0 ${paddingConfig[size]}px;
+    font-size: ${fontSizeConfig[size]}px;
+  `}
   font-weight: 600;
   cursor: pointer;
 
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.border};
-    font-size: ${theme.text.size};
     background-color: ${theme.colors.white};
 
-    input:checked ~ & {
-      color: ${theme.colors.white};
-      background-color: ${theme.colors.tertiary};
+    ${StyledIcon} {
+      color: ${theme.colors.black};
+    }
 
-      ${StyledIcon} {
-        color: ${theme.colors.white};
-      }
+    input:checked ~ && {
+      background-color: ${theme.colors.whiteMix};
+      border-color: ${theme.colors.secondary};
+      color: ${theme.colors.text};
+      cursor: auto;
     }
 
     input:focus ~ & {
@@ -38,19 +73,23 @@ const StyledButtonToggleLabel = styled.label`
       z-index: 100;
     }
 
-    &:hover {
-      background-color: ${theme.colors.whiteMix};
-      border-color: ${theme.colors.tertiary};
+    input:not(:checked):not(:disabled) ~ &:hover {
+      background-color: ${theme.colors.secondary};
+      border-color: ${theme.colors.secondary};
+      color: ${theme.colors.white};
+
+      ${StyledIcon} {
+        color: ${theme.colors.white};
+      }
     }
   `};
 
-  ${({ buttonIcon, buttonIconSize }) =>
+  ${({ buttonIcon, buttonIconSize, size }) =>
     buttonIcon &&
     buttonIconSize === "large" &&
     css`
-      min-width: 104px;
-      height: 102px;
-      padding: 0 16px;
+      height: ${heightLargeIconConfig[size]}px;
+      padding: 0 ${paddingLargeIconConfig[size]}px;
 
       ${StyledButtonToggleContentWrapper} {
         flex-direction: column;
@@ -107,7 +146,7 @@ const StyledButtonToggle = styled.div`
   vertical-align: middle;
 
   &:not(:first-of-type) {
-    margin-left: 10px;
+    margin-left: 8px;
   }
 
   ${({ grouped }) =>

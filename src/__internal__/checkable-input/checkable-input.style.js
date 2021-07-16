@@ -20,18 +20,12 @@ const StyledCheckableInputWrapper = styled.div`
     inputWidth,
     labelWidth,
     labelInline,
-    ml,
     reverse,
     theme,
   }) => css`
     ${FieldLineStyle} {
       display: flex;
     }
-
-    ${ml &&
-    css`
-      margin-left: ${ml};
-    `}
 
     ${StyledLabelContainer} {
       ${labelInline &&

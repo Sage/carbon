@@ -8,7 +8,7 @@ export interface PodProps {
   /** Custom className */
   className?: string;
   /** Determines the padding around the pod */
-  padding?:
+  size?:
     | "none"
     | "extra-small"
     | "small"

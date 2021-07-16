@@ -48,7 +48,9 @@ const FlatTableRowHeader = ({
         }
         expandable={expandable}
       >
-        {expandable && <Icon type="chevron_down_thick" />}
+        {expandable && (
+          <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
+        )}
         {children}
       </StyledFlatTableRowHeaderContent>
     </StyledFlatTableRowHeader>
@@ -82,6 +84,10 @@ FlatTableRowHeader.propTypes = {
    * @ignore
    */
   onKeyDown: PropTypes.func,
+  /** Sets a custom vertical right border */
+  verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Sets a custom vertical right border */
+  verticalBorderColor: PropTypes.string,
 };
 
 export default FlatTableRowHeader;

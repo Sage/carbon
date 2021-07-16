@@ -397,5 +397,4 @@ export type ButtonTypes =
   | "secondary"
   | "tertiary"
   | "dashed"
-  | "destructive"
   | "darkBackground";

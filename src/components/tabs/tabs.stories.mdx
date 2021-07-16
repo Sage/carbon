@@ -1629,6 +1629,64 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
   </Story>
 </Preview>
 
+### With headerWidth
+The `headerWidth` prop works only if prop `position` is set to `left`.
+
+<Preview>
+  <Story name="with headerWidth">
+    {() => {
+      return (
+        <div style={{ padding: "4px" }}>
+          <Tabs headerWidth="400px" align="left" position="left">
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Very long title for Tab 1 without with prop it would be not well aligned with the second Tabs group"
+              key="tab-1"
+            >
+              Content for tab 1
+            </Tab>
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+            >
+              Content for tab 2
+            </Tab>
+          </Tabs>
+          <Tabs headerWidth="400px" align="left" position="left">
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
+            >
+              Content for tab 1
+            </Tab>
+            <Tab
+              errorMessage="error"
+              warningMessage="warning"
+              infoMessage="info"
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+            >
+              Content for tab 2
+            </Tab>
+          </Tabs>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
 ### With custom spacing
 
 The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.

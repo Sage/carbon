@@ -29,7 +29,7 @@ const StyledSelectList = styled.ul`
     margin: 0;
     outline: none;
     overflow-x: hidden;
-    overflow-y: ${multiColumn ? "hidden" : "auto"}
+    overflow-y: ${multiColumn ? "hidden" : "auto"};
     padding: 0;
 
     ${

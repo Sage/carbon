@@ -160,6 +160,7 @@ export default (palette) => {
 
       hover: palette.slateTint(95),
       headerIconColor: palette.slateTint(60),
+      headerAlternativeBackground: palette.slateTint(10),
       selected: palette.slateTint(85),
       highlighted: palette.slateTint(90),
     },
@@ -342,7 +343,8 @@ export default (palette) => {
     },
 
     switch: {
-      off: "#CCD6DB",
+      off: palette.slateTint(80),
+      offHover: palette.slateTint(60),
     },
 
     tile: {
@@ -358,6 +360,13 @@ export default (palette) => {
 
     note: {
       timeStamp: "rgba(0,0,0,0.65)",
+    },
+
+    editorLinkPreview: {
+      background: palette.slateTint(95),
+      hoverBackground: palette.slateTint(80),
+      border: palette.slateTint(90),
+      url: palette.slateTint(10),
     },
 
     zIndex: {

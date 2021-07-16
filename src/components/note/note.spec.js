@@ -13,6 +13,7 @@ import {
 } from "./note.style";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import StyledStatusIconWrapper from "./__internal__/status-with-tooltip/status.style";
+import LinkPreview from "../link-preview";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -20,7 +21,6 @@ import {
 
 function render(props = {}) {
   const defaultProps = {
-    name: "Carbon",
     createdDate: "23 May 2020, 12:08 PM",
     noteContent: EditorState.createEmpty(),
     ...props,
@@ -84,7 +84,7 @@ describe("Note", () => {
           borderTop: `solid 1px ${baseTheme.tile.separator}`,
         },
         content,
-        { modifier: `+ ${StyledNoteContent}` }
+        { modifier: ":last-of-type:not(:first-of-type)" }
       );
     });
 
@@ -169,15 +169,15 @@ describe("Note", () => {
       assertStyleMatch(
         {
           alignItems: "baseline",
+          fontWeight: "bold",
+          marginTop: "16px",
         },
         wrapper.find(StyledFooterContent)
       );
 
       assertStyleMatch(
         {
-          fontWeight: "bold",
           fontSize: "14px",
-          marginTop: "16px",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":first-of-type" }
@@ -185,9 +185,7 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          fontWeight: "bold",
           fontSize: "12px",
-          marginTop: "16px",
           color: baseTheme.note.timeStamp,
           marginLeft: "16px",
         },
@@ -197,15 +195,45 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          fontWeight: "bold",
           fontSize: "12px",
-          marginTop: "16px",
           color: baseTheme.note.timeStamp,
           cursor: "pointer",
           marginLeft: "24px",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":last-of-type:not(:nth-of-type(2))" }
+      );
+    });
+
+    it("renders the correct styling for the footer and content when no name is passed", () => {
+      const wrapper = render({ createdDate });
+
+      assertStyleMatch(
+        {
+          fontWeight: "bold",
+          marginTop: "16px",
+        },
+        wrapper.find(StyledFooterContent)
+      );
+
+      assertStyleMatch(
+        {
+          fontSize: "12px",
+          color: baseTheme.note.timeStamp,
+        },
+        wrapper.find(StyledFooterContent),
+        { modifier: ":first-of-type" }
+      );
+
+      assertStyleMatch(
+        {
+          fontSize: "12px",
+          color: baseTheme.note.timeStamp,
+          cursor: "pointer",
+          marginLeft: "24px",
+        },
+        wrapper.find(StyledFooterContent),
+        { modifier: ":last-of-type:not(:first-of-type)" }
       );
     });
 
@@ -253,12 +281,6 @@ describe("Note", () => {
       }).toThrow("<Note> createdDate is required");
     });
 
-    it("throws if name is not defined", () => {
-      expect(() => {
-        render({ name: undefined });
-      }).toThrow("<Note> name is required");
-    });
-
     it("throws if noteContent is not defined", () => {
       expect(() => {
         render({ noteContent: undefined });
@@ -281,6 +303,21 @@ describe("Note", () => {
       expect(() => {
         render({ inlineControl: <button type="button">A Button</button> });
       }).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
+    });
+  });
+
+  describe("Link Previews", () => {
+    it("renders any LinkPreviews passed in via the `previews` prop", () => {
+      const previews = [
+        <LinkPreview url="foo" />,
+        <LinkPreview url="bar" />,
+        <LinkPreview url="wiz" />,
+      ];
+      const wrapper = render({ previews });
+      expect(wrapper.find(LinkPreview).length).toEqual(3);
+      wrapper
+        .find(LinkPreview)
+        .forEach((preview) => expect(preview.find("a").exists()).toBeTruthy());
     });
   });
 });

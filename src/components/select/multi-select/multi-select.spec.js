@@ -148,17 +148,6 @@ describe("MultiSelect", () => {
       expect(onBlurFn).toHaveBeenCalled();
     });
 
-    it("then SelectList shouldn't exist", () => {
-      const onBlurFn = jest.fn();
-      const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
-
-      wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
-
-      wrapper.find("input").simulate("blur");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
-    });
-
     describe("and there is a mouseDown reported on open list", () => {
       it("then that prop should not be called", () => {
         const onBlurFn = jest.fn();
@@ -655,6 +644,19 @@ describe("MultiSelect", () => {
           expect(onChangeFn).not.toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('when the "onFilter" prop has been passed and the input text changed', () => {
+    it("then that prop should be called", () => {
+      const filterText = "foo";
+      const onFilterChangeFn = jest.fn();
+      const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
+
+      wrapper
+        .find("input")
+        .simulate("change", { target: { value: filterText } });
+      expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
     });
   });
 

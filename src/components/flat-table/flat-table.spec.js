@@ -25,7 +25,7 @@ import {
   StyledFlatTableBox,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
@@ -110,6 +110,7 @@ describe("FlatTable", () => {
           backgroundColor: baseTheme.flatTable.dark.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.dark.border}`,
           color: baseTheme.colors.white,
+          borderBottomColor: baseTheme.flatTable.dark.border,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -124,6 +125,7 @@ describe("FlatTable", () => {
         {
           backgroundColor: baseTheme.flatTable.light.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.light.border}`,
+          borderBottomColor: baseTheme.flatTable.light.border,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -138,6 +140,7 @@ describe("FlatTable", () => {
         {
           backgroundColor: baseTheme.flatTable.transparentBase.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.transparentBase.border}`,
+          borderBottomColor: baseTheme.table.secondary,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -153,6 +156,7 @@ describe("FlatTable", () => {
           backgroundColor:
             baseTheme.flatTable.transparentWhite.headerBackground,
           borderRight: `1px solid ${baseTheme.flatTable.transparentWhite.border}`,
+          borderBottomColor: baseTheme.table.secondary,
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -164,6 +168,8 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           zIndex: "1002",
+          top: "0",
+          left: "0",
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }
@@ -247,7 +253,7 @@ describe("FlatTable", () => {
     let wrapper;
     beforeEach(() => {
       wrapper = mount(
-        <SidebarContext.Provider value={{ isInSidebar: true }}>
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
           <FlatTable>
             <tbody>
               <tr>
@@ -255,7 +261,7 @@ describe("FlatTable", () => {
               </tr>
             </tbody>
           </FlatTable>
-        </SidebarContext.Provider>
+        </DrawerSidebarContext.Provider>
       );
     });
 

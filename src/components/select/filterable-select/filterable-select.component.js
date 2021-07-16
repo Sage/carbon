@@ -22,6 +22,7 @@ const FilterableSelect = React.forwardRef(
       children,
       onOpen,
       onChange,
+      onFilterChange,
       onClick,
       onKeyDown,
       onFocus,
@@ -130,7 +131,7 @@ const FilterableSelect = React.forwardRef(
         );
 
         if (!matchingOption || matchingOption.props.text === undefined) {
-          setTextValue("");
+          setTextValue(filterText || "");
         } else if (
           isClosing ||
           matchingOption.props.text
@@ -231,7 +232,7 @@ const FilterableSelect = React.forwardRef(
       );
 
       setSelectedValue((prevValue) => {
-        if (isControlled.current && prevValue !== newValue) {
+        if (value && isControlled.current && prevValue !== newValue) {
           setMatchingText(newValue);
         }
 
@@ -267,6 +268,12 @@ const FilterableSelect = React.forwardRef(
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, children]);
+
+    useEffect(() => {
+      if (onFilterChange) {
+        onFilterChange(filterText);
+      }
+    }, [filterText, onFilterChange]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -384,7 +391,6 @@ const FilterableSelect = React.forwardRef(
       }
 
       isInputFocused.current = false;
-      setOpen(false);
 
       if (onBlur) {
         onBlur(event);
@@ -478,6 +484,7 @@ const FilterableSelect = React.forwardRef(
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        loaderDataRole="filterable-select-list-loader"
       >
         {children}
       </FilterableSelectList>
@@ -517,6 +524,8 @@ FilterableSelect.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: PropTypes.node.isRequired,
+  /** A custom callback for when the input text changes */
+  onFilterChange: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
   /** If true the Component opens on focus */

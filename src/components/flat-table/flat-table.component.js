@@ -8,7 +8,7 @@ import {
   StyledFlatTableFooter,
   StyledFlatTableBox,
 } from "./flat-table.style";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
@@ -42,7 +42,7 @@ const FlatTable = ({
   }
 
   return (
-    <SidebarContext.Consumer>
+    <DrawerSidebarContext.Consumer>
       {(context) => (
         <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
           <StyledFlatTableBox
@@ -62,7 +62,7 @@ const FlatTable = ({
                 {...tableStylingProps}
               >
                 {caption ? <caption>{caption}</caption> : null}
-                <FlatTableThemeContext.Provider value={colorTheme}>
+                <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
                   {children}
                 </FlatTableThemeContext.Provider>
               </StyledFlatTable>
@@ -75,7 +75,7 @@ const FlatTable = ({
           )}
         </StyledFlatTableRoot>
       )}
-    </SidebarContext.Consumer>
+    </DrawerSidebarContext.Consumer>
   );
 };
 
@@ -104,8 +104,8 @@ FlatTable.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool,
-  /** Used to define the tables size Renders as: 'compact', 'small', 'medium' and 'large' */
-  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
+  /** Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' */
+  size: PropTypes.oneOf(["compact", "small", "medium", "large", "extraLarge"]),
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight: PropTypes.bool,
 };

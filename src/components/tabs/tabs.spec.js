@@ -2,17 +2,20 @@
 import React, { useEffect, useContext } from "react";
 import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { css } from "styled-components";
 import TabTitle from "./__internal__/tab-title/tab-title.component";
 import { Tabs, Tab } from "./tabs.component";
 import { TabContext } from "./tab/index";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import StyledTabs from "./tabs.style";
+import StyledTab from "./tab/tab.style";
 import {
   assertStyleMatch,
   simulate,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { SidebarContext } from "../drawer";
+import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
+import { DrawerSidebarContext } from "../drawer";
 
 function render(props) {
   return mount(
@@ -154,6 +157,66 @@ describe("Tabs", () => {
     ),
     { mt: "0px" }
   );
+
+  describe("when `headerWidth` is provided", () => {
+    describe.each(["35%", "100px", "5em"])(
+      "and value of %s is provided",
+      (headerWidth) => {
+        it("should render correct `width` in `TabsHeader` component, and `Tab` `width` should be `auto`", () => {
+          const wrapper = mount(
+            <Tabs position="left" headerWidth={headerWidth}>
+              <Tab title="Tab Title 1" tabId="uniqueid1">
+                TabContent
+              </Tab>
+            </Tabs>
+          );
+
+          assertStyleMatch(
+            {
+              width: headerWidth,
+            },
+            wrapper,
+            {
+              modifier: css`
+                ${StyledTabsHeaderWrapper}
+              `,
+            }
+          );
+
+          assertStyleMatch(
+            {
+              width: "auto",
+            },
+            wrapper,
+            {
+              modifier: css`
+                ${StyledTab}
+              `,
+            }
+          );
+        });
+      }
+    );
+  });
+
+  describe('when `headerWidth` is provided, and `position="top"`', () => {
+    it(" should render console error", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+      mount(
+        <Tabs position="top" headerWidth="500px">
+          <Tab title="Tab Title 1" tabId="uniqueid1">
+            TabContent
+          </Tab>
+        </Tabs>
+      );
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        "Warning: Failed prop type: Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left\n    in Tabs"
+      );
+    });
+  });
 
   describe("when passing custom className as a prop", () => {
     it("adds it to the classList", () => {
@@ -603,7 +666,7 @@ describe("Tabs", () => {
     describe("custom targeting", () => {
       it("supports overriding the targeted content", () => {
         const wrapper = mount(
-          <SidebarContext.Provider value={{ isInSidebar: true }}>
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <Tabs>
               <Tab
                 title="Tab Title 1"
@@ -615,7 +678,7 @@ describe("Tabs", () => {
                 TabContent
               </Tab>
             </Tabs>
-          </SidebarContext.Provider>
+          </DrawerSidebarContext.Provider>
         );
         act(() => {
           wrapper

@@ -9,7 +9,6 @@ import tagComponent from "../../utils/helpers/tags/tags";
 import PodContext from "./pod-context";
 import {
   StyledBlock,
-  StyledCollapsibleContent,
   StyledContent,
   StyledDescription,
   StyledEditAction,
@@ -100,10 +99,10 @@ class Pod extends React.Component {
     if (this.state.isCollapsed) return null;
 
     return (
-      <StyledCollapsibleContent>
+      <>
         {this.podDescription()}
         <div>{this.props.children}</div>
-      </StyledCollapsibleContent>
+      </>
     );
   }
 
@@ -219,10 +218,24 @@ class Pod extends React.Component {
       internalEditButton,
       onEdit,
       size,
+      title,
+      height,
       ...rest
     } = this.props;
 
     const { isFocused, isHovered } = this.state;
+
+    let podHeight;
+
+    if (this.context.heightOfTheLongestPod) {
+      podHeight = `${this.context.heightOfTheLongestPod}px`;
+    }
+
+    if (height && typeof height === "number") {
+      podHeight = `${height}px`;
+    } else if (height) {
+      podHeight = height;
+    }
 
     return (
       <StyledPod
@@ -230,6 +243,7 @@ class Pod extends React.Component {
         className={this.props.className}
         internalEditButton={internalEditButton}
         {...tagComponent("pod", this.props)}
+        height={podHeight}
       >
         <StyledBlock
           contentTriggersEdit={this.shouldContentHaveEditEvents()}
@@ -240,7 +254,6 @@ class Pod extends React.Component {
           isHovered={isHovered}
           noBorder={!border}
           variant={variant}
-          height={this.context.heightOfTheLongestPod}
           {...(this.shouldContentHaveEditEvents()
             ? { ...this.editEvents(), tabIndex: "0" }
             : {})}
@@ -362,6 +375,11 @@ Pod.propTypes = {
    * Resets edit button styles to an older version
    */
   internalEditButton: PropTypes.bool,
+
+  /**
+   * Sets Pod height, number is changed to pixels and string is passed as raw css value
+   */
+  height: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
 };
 
 Pod.defaultProps = {

@@ -52,7 +52,8 @@ const StyledFlatTable = styled.table`
 
       ${StyledFlatTableCell} > div,
       ${StyledFlatTableHeader} > div,
-      ${StyledFlatTableRowHeader} > div {
+      ${StyledFlatTableRowHeader} > div,
+      ${StyledFlatTableCheckbox} > div {
         font-size: ${fontSize};
         padding-left: ${paddingSize};
         padding-right: ${paddingSize};
@@ -110,6 +111,7 @@ const StyledFlatTableWrapper = styled.div`
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: ${theme.flatTable.light.headerBackground};
             border-right: 1px solid ${theme.flatTable.light.border};
+            border-bottom-color: ${theme.flatTable.light.border};
           }
         `;
 
@@ -121,6 +123,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentBase
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentBase.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
 
@@ -132,6 +135,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.transparentWhite
               .headerBackground};
             border-right: 1px solid ${theme.flatTable.transparentWhite.border};
+            border-bottom-color: ${theme.table.secondary};
           }
         `;
       // default theme is "dark"
@@ -143,6 +147,7 @@ const StyledFlatTableWrapper = styled.div`
             background-color: ${theme.flatTable.dark.headerBackground};
             border-right: 1px solid ${theme.flatTable.dark.border};
             color: ${theme.colors.white};
+            border-bottom-color: ${theme.flatTable.dark.border};
           }
         `;
     }
@@ -157,6 +162,7 @@ const StyledFlatTableWrapper = styled.div`
         border-right: 2px solid
           ${theme.flatTable.drawerSidebar.headerBackground};
         color: ${theme.colors.black};
+        border-bottom-color: ${theme.table.secondary};
       }
     `}
 
@@ -171,6 +177,8 @@ const StyledFlatTableWrapper = styled.div`
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         z-index: ${({ theme }) => theme.zIndex.overlay + 2};
+        top: 0;
+        left: 0;
       }
     `}
 `;
