@@ -1,3 +1,10 @@
+### [77.13.2](https://github.com/Sage/carbon/compare/v77.13.1...v77.13.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* **search:** correct onClick prop ts type ([e5b3b7b](https://github.com/Sage/carbon/commit/e5b3b7b8c3124d2ba4da233378de53fb11cc4ae0)), closes [#4185](https://github.com/Sage/carbon/issues/4185)
+
 ### [77.13.1](https://github.com/Sage/carbon/compare/v77.13.0...v77.13.1) (2021-07-16)
 
 
