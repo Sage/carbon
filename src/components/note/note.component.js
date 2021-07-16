@@ -15,6 +15,7 @@ import StatusWithTooltip from "./__internal__/status-with-tooltip";
 import { ActionPopover } from "../action-popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { getDecoratedValue } from "../text-editor/__internal__/utils";
+import { EditorContext } from "../text-editor/text-editor.component";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -28,6 +29,8 @@ const Note = ({
   name,
   createdDate,
   status,
+  previews,
+  onLinkAdded,
   ...rest
 }) => {
   invariant(width > 0, "<Note> width must be greater than 0");
@@ -48,49 +51,44 @@ const Note = ({
     const { text, timeStamp } = status;
 
     return (
-      <StyledFooterContent
-        hasName={!!name}
-        mt={2}
-        ml={3}
-        data-component="note-status"
-      >
+      <StyledFooterContent hasName={!!name} data-component="note-status">
         <StatusWithTooltip tooltipMessage={timeStamp}>{text}</StatusWithTooltip>
       </StyledFooterContent>
     );
   };
 
   return (
-    <StyledNote width={width} {...rest} data-component="note">
-      {title && <StyledTitle>{title}</StyledTitle>}
+    <EditorContext.Provider value={{ onLinkAdded, editMode: false }}>
+      <StyledNote width={width} {...rest} data-component="note">
+        {title && <StyledTitle>{title}</StyledTitle>}
 
-      {inlineControl && (
-        <StyledInlineControl>{inlineControl}</StyledInlineControl>
-      )}
+        {inlineControl && (
+          <StyledInlineControl>{inlineControl}</StyledInlineControl>
+        )}
 
-      <StyledNoteContent>
-        <Editor readOnly editorState={getDecoratedValue(noteContent)} />
-      </StyledNoteContent>
-
-      {createdDate && (
         <StyledNoteContent>
-          <StyledFooter>
-            {name && (
-              <StyledFooterContent hasName={!!name} mt={2}>
-                {name}
-              </StyledFooterContent>
-            )}
-            <StyledFooterContent
-              hasName={!!name}
-              mt={2}
-              ml={name ? 2 : undefined}
-            >
-              {createdDate}
-            </StyledFooterContent>
-            {renderStatus()}
-          </StyledFooter>
+          <Editor readOnly editorState={getDecoratedValue(noteContent)} />
         </StyledNoteContent>
-      )}
-    </StyledNote>
+        {React.Children.map(previews, (preview) =>
+          React.cloneElement(preview, { as: "a", onClose: undefined })
+        )}
+        {createdDate && (
+          <StyledNoteContent hasPreview={!!React.Children.count(previews)}>
+            <StyledFooter>
+              {name && (
+                <StyledFooterContent hasName={!!name}>
+                  {name}
+                </StyledFooterContent>
+              )}
+              <StyledFooterContent hasName={!!name}>
+                {createdDate}
+              </StyledFooterContent>
+              {renderStatus()}
+            </StyledFooter>
+          </StyledNoteContent>
+        )}
+      </StyledNote>
+    </EditorContext.Provider>
   );
 };
 
@@ -113,6 +111,10 @@ Note.propTypes = {
     text: PropTypes.string.isRequired,
     timeStamp: PropTypes.string.isRequired,
   }),
+  /** The previews to display of any links added to the Editor */
+  previews: PropTypes.arrayOf(PropTypes.node),
+  /** Callback to report a url when a link is added */
+  onLinkAdded: PropTypes.func,
 };
 
 export default Note;

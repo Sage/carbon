@@ -2,12 +2,13 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
+import { StyledLinkPreview } from "../link-preview/link-preview.style";
 
 const StyledNoteContent = styled.div`
   position: relative;
   width: 100%;
 
-  ${({ theme }) => `
+  ${({ theme, hasPreview }) => css`
     &:not(:last-of-type) {
       padding-bottom: 24px;
     }
@@ -25,9 +26,14 @@ const StyledNoteContent = styled.div`
       line-height: 21px;
     }
 
-    & + & {
+    &:last-of-type:not(:first-of-type) {
       border-top: solid 1px ${theme.tile.separator};
     }
+
+    ${hasPreview &&
+    `
+      margin-top: ${2 * theme.spacing}px;
+    `}
   `}
 `;
 
@@ -112,6 +118,14 @@ const StyledNote = styled.div`
       width: auto;
     }
   `}
+
+  ${StyledLinkPreview} {
+    margin: 0px;
+
+    :not(:first-of-type) {
+      margin-top: 8px;
+    }
+  }
 
   ${margin}
 `;

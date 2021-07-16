@@ -1,4 +1,5 @@
 import "cypress-axe";
+import "cypress-real-events/support";
 
 require("cypress-plugin-tab");
 

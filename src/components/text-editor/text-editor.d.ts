@@ -23,6 +23,10 @@ export interface TextEditorProps extends MarginProps {
   info?: string;
   /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
   rows?: number;
+  /** The previews to display of any links added to the Editor */
+  previews?: React.ReactNode[];
+  /** Callback to report a url when a link is added */
+  onLinkAdded?: (url: string) => void;
 }
 
 declare function TextEditor(props: TextEditorProps & React.RefAttributes<Editor>): JSX.Element;
