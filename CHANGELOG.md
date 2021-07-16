@@ -1,3 +1,10 @@
+### [77.13.1](https://github.com/Sage/carbon/compare/v77.13.0...v77.13.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** set cursor to not-allowed when component is disabled ([790c8e2](https://github.com/Sage/carbon/commit/790c8e23b3f133377d0d6297eb4431b858348fc8))
+
 ## [77.13.0](https://github.com/Sage/carbon/compare/v77.12.2...v77.13.0) (2021-07-16)
 
 
