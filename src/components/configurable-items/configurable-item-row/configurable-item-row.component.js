@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { withTheme } from "styled-components";
 import tagComponent from "../../../utils/helpers/tags";
 import { WithDrag, WithDrop } from "../../drag-and-drop";
-import { Checkbox } from "../../../__experimental__/components/checkbox";
+import { Checkbox } from "../../checkbox";
 import {
   ConfigurableItemRowStyle,
   ConfigurableItemRowContentWrapperStyle,

@@ -5,7 +5,7 @@ import { render } from "react-dom";
 
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import { Checkbox } from "../checkbox";
 import {
   assertStyleMatch,
   testStyledSystemMargin,

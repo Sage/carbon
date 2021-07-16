@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import I18n from "i18n-js";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
 
 const SelectTextbox = ({

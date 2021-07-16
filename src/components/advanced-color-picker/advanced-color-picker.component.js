@@ -7,10 +7,7 @@ import {
   StyledAdvancedColorPickerPreview,
   DialogStyle,
 } from "./advanced-color-picker.style";
-import {
-  SimpleColorPicker,
-  SimpleColor,
-} from "../../__experimental__/components/simple-color-picker";
+import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import Events from "../../utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
