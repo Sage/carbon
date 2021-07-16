@@ -59,6 +59,12 @@ Option.propTypes = {
    * @ignore
    * True when option should be hidden from the view (prop added by the SelectList component) */
   hidden: PropTypes.bool,
+  /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */
+  // eslint-disable-next-line react/no-unused-prop-types
+  borderColor: PropTypes.string,
+  /** MultiSelect only - fill Pill background with color */
+  // eslint-disable-next-line react/no-unused-prop-types
+  fill: PropTypes.bool,
 };
 
 export default Option;
