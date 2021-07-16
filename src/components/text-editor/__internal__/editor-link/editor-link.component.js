@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import StyledLink from "./editor-link.style";
+import { EditorContext } from "../../text-editor.component";
 
 const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
   const url =
@@ -17,6 +18,15 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
 
   const validUrl = buildValidUrl();
 
+  const { onLinkAdded, editMode } = useContext(EditorContext);
+
+  useEffect(() => {
+    if (onLinkAdded) {
+      onLinkAdded(validUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validUrl]);
+
   return (
     <StyledLink
       href={validUrl}
@@ -24,7 +34,7 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
       aria-label={validUrl}
       target="_blank"
       rel="noopener noreferrer"
-      tabbable={false}
+      tabbable={!editMode}
       {...rest}
     >
       {children}

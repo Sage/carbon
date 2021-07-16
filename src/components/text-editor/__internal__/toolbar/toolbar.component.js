@@ -64,6 +64,7 @@ const Toolbar = ({
         setTabbable(false);
       } else if (Events.isRightKey(ev)) {
         if (focusIndex === 3) {
+          controlRefs[0].current.focus();
           setFocusIndex(0);
         } else {
           controlRefs[focusIndex + 1].current.focus();

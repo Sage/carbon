@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags/tags";
@@ -67,6 +67,12 @@ const TileSelect = ({
       )
     );
   };
+
+  useEffect(() => {
+    if (disabled && hasFocus) {
+      setHasFocus(false);
+    }
+  }, [disabled, hasFocus]);
 
   return (
     <StyledTileSelectContainer
