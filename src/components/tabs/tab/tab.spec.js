@@ -57,29 +57,23 @@ function renderStyles(props) {
 describe("Tab", () => {
   let wrapper;
 
-  testStyledSystemPadding(
-    (props) => (
-      <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
-        TabContent
-      </Tab>
-    ),
-    { pt: "10px" }
-  );
+  testStyledSystemPadding((props) => (
+    <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
+      TabContent
+    </Tab>
+  ));
 
-  testStyledSystemPadding(
-    (props) => (
-      <Tab
-        position="left"
-        title="Tab Title 1"
-        tabId="uniqueid1"
-        isTabSelected
-        {...props}
-      >
-        TabContent
-      </Tab>
-    ),
-    { pl: "10px" }
-  );
+  testStyledSystemPadding((props) => (
+    <Tab
+      position="left"
+      title="Tab Title 1"
+      tabId="uniqueid1"
+      isTabSelected
+      {...props}
+    >
+      TabContent
+    </Tab>
+  ));
 
   it("has display property equals to none", () => {
     wrapper = renderStyles();

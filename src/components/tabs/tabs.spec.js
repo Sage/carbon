@@ -124,39 +124,33 @@ const MockWrapper = ({
 };
 
 describe("Tabs", () => {
-  testStyledSystemMargin(
-    (props) => (
-      <Tabs {...props}>
-        <Tab
-          errorMessage=""
-          warningMessage=""
-          infoMessage=""
-          title="Tab Title 1"
-          tabId="uniqueid1"
-        >
-          TabContent
-        </Tab>
-      </Tabs>
-    ),
-    { mt: "15px" }
-  );
+  testStyledSystemMargin((props) => (
+    <Tabs {...props}>
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ));
 
-  testStyledSystemMargin(
-    (props) => (
-      <Tabs {...props} position="left">
-        <Tab
-          errorMessage=""
-          warningMessage=""
-          infoMessage=""
-          title="Tab Title 1"
-          tabId="uniqueid1"
-        >
-          TabContent
-        </Tab>
-      </Tabs>
-    ),
-    { mt: "0px" }
-  );
+  testStyledSystemMargin((props) => (
+    <Tabs {...props} position="left">
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ));
 
   describe("when `headerWidth` is provided", () => {
     describe.each(["35%", "100px", "5em"])(
