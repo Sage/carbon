@@ -1,3 +1,17 @@
+## [77.13.0](https://github.com/Sage/carbon/compare/v77.12.2...v77.13.0) (2021-07-16)
+
+
+### Features
+
+* **link-preview:** add new component to support displaying link previews ([4348aaf](https://github.com/Sage/carbon/commit/4348aaf65e095dce3d0393449d579286d9bab931))
+* **note:** add support for rendering link previews ([5519c30](https://github.com/Sage/carbon/commit/5519c3045cf3f81bc18f4e426e19c3d01a021201))
+* **text-editor:** add support for rendering editor link previews ([a436ea5](https://github.com/Sage/carbon/commit/a436ea5b2ee05e4d54afa2a930815aedf4673e84))
+
+
+### Bug Fixes
+
+* **toolbar:** add missing focus trigger when right key press and last button focused ([5d713fd](https://github.com/Sage/carbon/commit/5d713fda086d0e40d619e1a955f9849ddff7397a))
+
 ### [77.12.2](https://github.com/Sage/carbon/compare/v77.12.1...v77.12.2) (2021-07-15)
 
 
