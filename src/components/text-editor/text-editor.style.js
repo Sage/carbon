@@ -14,9 +14,12 @@ StyledEditorWrapper.defaultProps = {
 };
 
 const StyledEditorContainer = styled.div`
-  ${({ theme, hasError, rows }) => css`
-    min-height: ${rows ? `${rows * lineHeight}` : "220"}px;
+  ${({ theme, hasError, rows, hasPreview }) => css`
+    min-height: ${rows
+      ? `${rows * lineHeight}`
+      : `${hasPreview ? 125 : 220}`}px;
     min-width: 320px;
+    position: relative;
 
     div.DraftEditor-root {
       min-height: inherit;

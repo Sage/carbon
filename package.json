@@ -144,6 +144,7 @@
     "bowser": "~1.5.0",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
+    "cypress-real-events": "^1.5.0",
     "escape-string-regexp": "^4.0.0",
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
