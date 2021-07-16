@@ -4,6 +4,7 @@ import { margin } from "styled-system";
 import { baseTheme } from "../../style/themes";
 import Link from "../link";
 import Icon from "../icon";
+import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 
 const StyledPod = styled.div`
@@ -33,60 +34,75 @@ const StyledBlock = styled.div`
   ${({
     theme,
     variant,
+    softDelete,
     noBorder,
-    editable,
+    hasButtons,
     contentTriggersEdit,
     fullWidth,
     internalEditButton,
     isHovered,
     isFocused,
-  }) => css`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background-color: ${blockBackgrounds(variant, theme)};
-    width: 100%;
-    height: 100%;
-    ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
-    ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
-    ${editable && !(fullWidth || internalEditButton) && "width: auto;"};
-    ${contentTriggersEdit && "cursor: pointer"};
-    ${(isHovered || isFocused) &&
+  }) =>
     css`
-      background-color: ${theme.pod.hoverBackground};
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      background-color: ${blockBackgrounds(variant, theme)};
+      width: 100%;
+      height: 100%;
 
-      ${internalEditButton &&
-      variant === "tile" &&
-      "background-color: transparent;"}
-      ${contentTriggersEdit &&
+      ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
+
+      ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
+
+      ${hasButtons && !(fullWidth || internalEditButton) && "width: auto;"};
+
+      ${contentTriggersEdit && "cursor: pointer"};
+
+      ${(isHovered || isFocused) &&
       css`
-        background-color: ${theme.colors.primary};
-        * {
-          color: ${theme.colors.white};
-        }
-      `}
-    `}
+        background-color: ${theme.pod.hoverBackground};
 
-    ${isFocused &&
-    (!internalEditButton || contentTriggersEdit) &&
-    css`
-      outline: 3px solid ${theme.colors.focus};
-      border: none;
-      ${noBorder ? "" : "padding: 1px"};
-    `};
-    ${!isFocused &&
-    (!internalEditButton || contentTriggersEdit) &&
-    css`
-      outline: none;
-    `};
-  `}
+        ${internalEditButton &&
+        variant === "tile" &&
+        "background-color: transparent;"}
+
+        ${contentTriggersEdit &&
+        css`
+          background-color: ${theme.colors.secondary};
+          * {
+            color: ${theme.colors.white};
+          }
+        `}
+      `}
+
+      ${isFocused &&
+      (!internalEditButton || contentTriggersEdit) &&
+      css`
+        outline: 3px solid ${theme.colors.focus};
+        border: none;
+        ${noBorder ? "" : "padding: 1px"};
+      `};
+
+      ${!isFocused &&
+      (!internalEditButton || contentTriggersEdit) &&
+      css`
+        outline: none;
+      `};
+
+      ${softDelete &&
+      css`
+        color: ${theme.pod.softDeleteText};
+        background-color: ${theme.pod.tertiaryBackground};
+      `};
+    `}
 `;
 
 const contentPaddings = {
-  "extra-small": "6px",
-  small: "10px",
-  medium: "15px",
-  large: "30px 25px",
+  "extra-small": "8px",
+  small: "8px",
+  medium: "16px",
+  large: "32px 24px",
   "extra-large": "40px",
 };
 
@@ -103,29 +119,35 @@ const StyledDescription = styled.div`
 `;
 
 const footerPaddings = {
-  "extra-small": "6px",
-  small: "10px",
-  medium: "10px 15px",
-  large: "15px 25px",
-  "extra-large": "20px 40px",
+  "extra-small": "8px",
+  small: "8px",
+  medium: "8px 16px",
+  large: "16px 24px",
+  "extra-large": "24px 40px",
 };
 
 const StyledFooter = styled.div`
-  ${({ theme, variant, size }) => css`
+  ${({ theme, variant, size, softDelete }) => css`
     background-color: ${theme.pod.footerBackground};
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
     color: ${theme.text.color};
+    padding: ${footerPaddings[size]};
+
+    ${softDelete &&
+    css`
+      color: ${theme.pod.softDeleteText};
+    `}
 
     ${variant === "tile" &&
     css`
       border-top: 1px solid ${theme.pod.border};
     `};
-
-    padding: ${footerPaddings[size]};
   `}
 `;
+const StyledActionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 
-const StyledEditContainer = styled.div`
   ${({ internalEditButton }) =>
     internalEditButton &&
     css`
@@ -136,15 +158,15 @@ const StyledEditContainer = styled.div`
     `}
 `;
 
-const editPaddings = {
-  "extra-small": 6,
-  small: 10,
-  medium: 15,
-  large: 15,
-  "extra-large": 15,
+const actionButtonPaddings = {
+  "extra-small": 8,
+  small: 8,
+  medium: 16,
+  large: 16,
+  "extra-large": 16,
 };
 
-const editBackgrounds = (variant, theme) =>
+const actionButtonBackgrounds = (variant, theme) =>
   ({
     primary: theme.colors.white,
     secondary: theme.pod.secondaryBackground,
@@ -153,72 +175,105 @@ const editBackgrounds = (variant, theme) =>
     tile: theme.colors.white,
   }[variant]);
 
-const StyledEditAction = styled(Link)`
-  ${({
-    theme,
-    size,
-    variant,
-    noBorder,
-    isFocused,
-    isHovered,
-    displayOnlyOnHover,
-    internalEditButton,
-    contentTriggersEdit,
-  }) => css`
-    && {
-      cursor: pointer;
-      background-color: ${editBackgrounds(variant, theme)};
-      border: 1px solid ${theme.pod.border};
-      margin-left: 8px;
+const getButtonStyles = ({
+  theme,
+  size,
+  variant,
+  noBorder,
+  isFocused,
+  isHovered,
+  internalEditButton,
+  iconColor,
+  hoverBackgroundColor,
+}) => css`
+  cursor: pointer;
+  background-color: ${actionButtonBackgrounds(variant, theme)};
+  border: 1px solid ${theme.pod.border};
+  margin-left: 8px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: ${actionButtonPaddings[size]}px;
 
-      > a,
-      button {
-        width: 15px;
-        height: 15px;
-        padding: ${editPaddings[size]}px;
-        background-color: transparent;
-      }
+  ${StyledIcon} {
+    top: -2px;
+    height: 16px;
+    width: 16px;
+    color: ${iconColor};
+  }
 
-      ${StyledIcon} {
-        top: -2px;
-      }
-      ${noBorder && "border: none;"}
-      ${internalEditButton &&
-      css`
-        border: none;
-        background: transparent;
-      `}
+  ${noBorder && "border: none;"}
 
-      ${displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
-      ${(isHovered || isFocused) &&
-      !internalEditButton &&
-      css`
-        background-color: ${theme.colors.primary};
-        color: ${theme.colors.white};
+  ${internalEditButton &&
+  css`
+    border: none;
+    background: transparent;
+  `}
+    
+  ${(isHovered || isFocused) &&
+  !internalEditButton &&
+  css`
+    background-color: ${hoverBackgroundColor};
+    color: ${theme.colors.white};
 
-        ${StyledIcon} {
-          color: ${theme.colors.white};
-        }
-      `}
-
-      ${isFocused &&
-      (!internalEditButton || !contentTriggersEdit) &&
-      css`
-        outline: 3px solid ${theme.colors.focus};
-        border: none;
-        > a,
-        button {
-          padding: ${editPaddings[size] +
-          (noBorder || internalEditButton ? 0 : 1)}px;
-        }
-      `};
-
-      .carbon-link__content {
-        clip: rect(1px, 1px, 1px, 1px);
-        position: absolute;
-      }
+    ${StyledIcon} {
+      color: ${theme.colors.white};
     }
   `}
+  
+  ${isFocused &&
+  css`
+    outline: 3px solid ${theme.colors.focus};
+    border: none;
+    padding: ${actionButtonPaddings[size] +
+    (noBorder || internalEditButton ? 0 : 1)}px;
+  `};
+`;
+
+const StyledEditAction = styled(Link)`
+  && > a,
+  && button {
+    ${({ displayOnlyOnHover, isHovered, isFocused }) =>
+      displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
+
+    ${(props) =>
+      getButtonStyles({
+        ...props,
+        iconColor: props.theme.colors.primary,
+        hoverBackgroundColor: props.theme.colors.secondary,
+      })}
+  }
+
+  .carbon-link__content {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
+`;
+
+const StyledDeleteButton = styled(IconButton)`
+  && {
+    ${({ displayOnlyOnHover }) => displayOnlyOnHover && "display: none;"}
+    ${(props) =>
+      getButtonStyles({
+        ...props,
+        iconColor: props.theme.colors.error,
+        hoverBackgroundColor: props.theme.colors.destructive.hover,
+      })}
+  }
+`;
+
+const StyledUndoButton = styled(IconButton)`
+  && {
+    ${({ displayOnlyOnHover, isHovered, isFocused }) =>
+      displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
+    ${(props) =>
+      getButtonStyles({
+        ...props,
+        iconColor: props.theme.colors.primary,
+        hoverBackgroundColor: props.theme.colors.secondary,
+      })}
+  }
 `;
 
 const headerRightAlignMargins = {
@@ -278,7 +333,13 @@ StyledDescription.defaultProps = {
 StyledEditAction.defaultProps = {
   theme: baseTheme,
 };
-StyledEditContainer.defaultProps = {
+StyledDeleteButton.defaultProps = {
+  theme: baseTheme,
+};
+StyledUndoButton.defaultProps = {
+  theme: baseTheme,
+};
+StyledActionsContainer.defaultProps = {
   theme: baseTheme,
 };
 StyledFooter.defaultProps = {
@@ -306,7 +367,9 @@ export {
   StyledContent,
   StyledDescription,
   StyledEditAction,
-  StyledEditContainer,
+  StyledActionsContainer,
+  StyledDeleteButton,
+  StyledUndoButton,
   StyledFooter,
   StyledPod,
   StyledHeader,

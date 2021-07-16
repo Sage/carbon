@@ -192,6 +192,44 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
   </Story>
 </Preview>
 
+### With delete button
+
+<Preview>
+  <Story
+    name="with delete button"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      onUndo={() => {}}
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### Soft delete state
+
+<Preview>
+  <Story name="soft delete state" parameters={{ chromatic: { disable: true } }}>
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onUndo={() => {}}
+      softDelete
+    >
+      <Typography color="blackOpacity30">Soft delete state</Typography>
+    </Pod>
+  </Story>
+</Preview>
+
 ### With edit button and displayEditButtonOnHover
 
 <Preview>
@@ -205,6 +243,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       description="Description"
       footer="Footer"
       onEdit={() => {}}
+      onDelete={() => {}}
       displayEditButtonOnHover
     >
       Content
@@ -222,6 +261,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       description="Description"
       footer="Footer"
       onEdit={() => {}}
+      onDelete={() => {}}
       editContentFullWidth
     >
       Content
@@ -240,6 +280,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       footer="Footer"
       internalEditButton
       onEdit={() => {}}
+      onDelete={() => {}}
     >
       Content
     </Pod>
@@ -260,6 +301,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
             description="Description"
             footer="Footer"
             onEdit={() => {}}
+            onDelete={() => {}}
             variant={variant}
             mb={3}
           >
@@ -284,6 +326,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
           description="Description"
           footer="Footer"
           onEdit={() => {}}
+          onDelete={() => {}}
           size={size}
           mb={3}
         >
