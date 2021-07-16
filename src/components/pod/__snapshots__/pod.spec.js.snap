@@ -1,27 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StyledBlock should match expected styles 1`] = `
+exports[`ActionButtons StyledDeleteButton when isHovered prop is set should match expected styles 1`] = `
 .c0 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #CCD6DB;
-  outline: none;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-<div
-  className="c0"
+.c0:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+.c0::-moz-focus-inner {
+  border: none;
+}
+
+.c0 .c2 {
+  position: relative;
+}
+
+.c0 .c2:focus {
+  border: none;
+}
+
+.c1.c1 {
+  cursor: pointer;
+  border: 1px solid #CCD6DB;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: px;
+  background-color: #9F2D3F;
+  color: #FFFFFF;
+}
+
+.c1.c1 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c1.c1 .c2 {
+  color: #FFFFFF;
+}
+
+<button
+  className="c0 c1"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
 />
 `;
 
-exports[`StyledEditAction when isHovered prop is set should match expected styles 1`] = `
+exports[`ActionButtons StyledEditAction when isHovered prop is set should match expected styles 1`] = `
 .c0 {
   display: inline-block;
 }
@@ -61,31 +102,34 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   padding: 0;
 }
 
-.c1.c1 {
+.c1.c1 > a,
+.c1.c1 button {
   cursor: pointer;
   border: 1px solid #CCD6DB;
   margin-left: 8px;
-  background-color: #008200;
-  color: #FFFFFF;
-}
-
-.c1.c1 > a,
-.c1.c1 button {
-  width: 15px;
-  height: 15px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
   padding: px;
-  background-color: transparent;
-}
-
-.c1.c1 .c2 {
-  top: -2px;
-}
-
-.c1.c1 .c2 {
+  background-color: #006300;
   color: #FFFFFF;
 }
 
-.c1.c1 .carbon-link__content {
+.c1.c1 > a .c2,
+.c1.c1 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c1.c1 > a .c2,
+.c1.c1 button .c2 {
+  color: #FFFFFF;
+}
+
+.c1 .carbon-link__content {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   position: absolute;
@@ -108,12 +152,102 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
 </span>
 `;
 
-exports[`StyledEditContainer when internalEditButton prop is set should have expected styles 1`] = `
+exports[`ActionButtons StyledUndoButton when isHovered prop is set should match expected styles 1`] = `
 .c0 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c0:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+.c0::-moz-focus-inner {
+  border: none;
+}
+
+.c0 .c2 {
+  position: relative;
+}
+
+.c0 .c2:focus {
+  border: none;
+}
+
+.c1.c1 {
+  cursor: pointer;
+  border: 1px solid #CCD6DB;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: px;
+  background-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1.c1 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c1.c1 .c2 {
+  color: #FFFFFF;
+}
+
+<button
+  className="c0 c1"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+/>
+`;
+
+exports[`StyledActionsContainer when internalEditButton prop is set should have expected styles 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   position: absolute;
   right: 2px;
   top: 2px;
   z-index: 10;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`StyledBlock should match expected styles 1`] = `
+.c0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #CCD6DB;
+  outline: none;
 }
 
 <div

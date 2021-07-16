@@ -30,6 +30,9 @@ export const Default = () => {
   const description = text("description", "");
   const footer = text("footer", "");
   const onEdit = boolean("onEdit", false);
+  const onDelete = boolean("onDelete", false);
+  const onUndo = boolean("onUndo", false);
+  const softDelete = boolean("softDelete", false);
   const editContentFullWidth = onEdit
     ? boolean("editContentFullWidth", false)
     : undefined;
@@ -58,6 +61,9 @@ export const Default = () => {
       description={description}
       footer={footer}
       onEdit={onEdit ? action("edit") : undefined}
+      onDelete={onDelete ? action("delete") : undefined}
+      onUndo={onUndo ? action("undo") : undefined}
+      softDelete={softDelete}
       editContentFullWidth={editContentFullWidth}
       displayEditButtonOnHover={displayEditButtonOnHover}
       triggerEditOnContent={triggerEditOnContent}
