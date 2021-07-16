@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { StyledFormFooter } from "../form/form.style.js";
-import { StyledEditAction } from "../pod/pod.style.js";
+import { StyledContent } from "../pod/pod.style.js";
 import Pod from "../pod";
 import StyledDeleteButton from "./delete-button.style.js";
 import { baseTheme } from "../../style/themes";
@@ -10,13 +10,8 @@ const StyledPod = styled(Pod)`
     margin-top: 24px;
   }
 
-  ${StyledEditAction} {
-    > a,
-    button {
-      height: 16px;
-      width: 16px;
-      padding: 16px;
-    }
+  ${StyledContent} {
+    padding: 16px;
   }
 
   ${StyledDeleteButton} {

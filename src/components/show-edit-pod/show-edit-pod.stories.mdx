@@ -149,6 +149,27 @@ More guidance is available for each of the individual inputs you might place ins
   </Story>
 </Preview>
 
+### Soft delete
+
+<Preview>
+  <Story name="soft delete">
+    <ShowEditPod
+      title="With borders"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      onUndo={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      border
+      softDelete
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+    >
+      <Content title="Content title">Content</Content>
+    </ShowEditPod>
+  </Story>
+</Preview>
+
 ### Custom transition
 
 <Preview>
