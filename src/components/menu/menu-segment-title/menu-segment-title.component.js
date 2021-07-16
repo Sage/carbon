@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledTitle from "./menu-segment-title.style";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import { StyledMenuItem } from "../menu.style";
 
 const MenuSegmentTitle = React.forwardRef(

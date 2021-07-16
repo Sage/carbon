@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { css, ThemeProvider } from "styled-components";
 
 import { MenuItem } from "../..";
-import { MenuContext } from "../../menu.component";
+import MenuContext from "../../menu.context";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
 import MenuDivider from "../../menu-divider/menu-divider.component";

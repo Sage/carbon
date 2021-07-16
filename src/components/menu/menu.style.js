@@ -34,6 +34,12 @@ const StyledMenuWrapper = styled.ul`
       top: -1px;
     }
   }
+
+  ${({ inFullscreenView }) =>
+    inFullscreenView &&
+    css`
+      padding-bottom: 24px;
+    `}
 `;
 
 const StyledMenuItem = styled.li`
@@ -46,6 +52,13 @@ const StyledMenuItem = styled.li`
       display: list-item;
     `}
   `}
+
+    ${({ inFullscreenView }) =>
+    inFullscreenView &&
+    css`
+      padding-top: 16px;
+      padding-bottom: 16px;
+    `}
 `;
 
 StyledMenuWrapper.defaultProps = {
