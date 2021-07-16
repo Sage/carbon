@@ -7,8 +7,14 @@ export interface OptionProps {
   children?: React.ComponentType;
   /** The option's invisible internal value */
   value: string | object;
+  /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */
+  borderColor?: string;
+  /** MultiSelect only - fill Pill background with color */
+  fill?: boolean;
 }
 
-declare function Option(props: OptionProps & React.RefAttributes<HTMLLIElement>): JSX.Element;
+declare function Option(
+  props: OptionProps & React.RefAttributes<HTMLLIElement>
+): JSX.Element;
 
 export default Option;
