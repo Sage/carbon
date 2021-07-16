@@ -13,6 +13,7 @@ import {
 } from "./note.style";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import StyledStatusIconWrapper from "./__internal__/status-with-tooltip/status.style";
+import LinkPreview from "../link-preview";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -83,7 +84,7 @@ describe("Note", () => {
           borderTop: `solid 1px ${baseTheme.tile.separator}`,
         },
         content,
-        { modifier: `+ ${StyledNoteContent}` }
+        { modifier: ":last-of-type:not(:first-of-type)" }
       );
     });
 
@@ -302,6 +303,21 @@ describe("Note", () => {
       expect(() => {
         render({ inlineControl: <button type="button">A Button</button> });
       }).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
+    });
+  });
+
+  describe("Link Previews", () => {
+    it("renders any LinkPreviews passed in via the `previews` prop", () => {
+      const previews = [
+        <LinkPreview url="foo" />,
+        <LinkPreview url="bar" />,
+        <LinkPreview url="wiz" />,
+      ];
+      const wrapper = render({ previews });
+      expect(wrapper.find(LinkPreview).length).toEqual(3);
+      wrapper
+        .find(LinkPreview)
+        .forEach((preview) => expect(preview.find("a").exists()).toBeTruthy());
     });
   });
 });

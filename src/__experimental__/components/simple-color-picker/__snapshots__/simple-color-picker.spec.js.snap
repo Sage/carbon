@@ -212,6 +212,10 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   cursor: pointer;
 }
 
+.c7:disabled:hover {
+  cursor: not-allowed;
+}
+
 .c7:focus + .c8 {
   box-shadow: inset 0px 0px 0px 3px #FFFFFF;
   border: 2px solid #FFB500;
