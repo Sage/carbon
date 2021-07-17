@@ -279,10 +279,8 @@ describe("TileSelect", () => {
 
       assertStyleMatch(
         {
-          marginRight: "16px",
-          display: "flex",
-          alignItems: "center",
-          minHeight: "32px",
+          position: "static",
+          zIndex: "200",
         },
         wrapper.find(StyledDeselectWrapper)
       );

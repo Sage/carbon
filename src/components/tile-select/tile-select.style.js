@@ -21,11 +21,10 @@ const StyledSubtitle = styled.h4`
 `;
 
 const StyledAdornment = styled.div`
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 500;
+  position: static;
+  z-index: 200;
+  margin-right: 16px;
+  flex-grow: 1;
 `;
 
 const StyledDescription = styled.p`
@@ -117,23 +116,21 @@ const StyledTitleContainer = styled.div`
   align-items: flex-end;
   margin-bottom: 8px;
   position: relative;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 `;
 
 const StyledDeselectWrapper = styled.div`
-  ${({ hasActionAdornment, theme }) => css`
-    position: absolute;
-    top: ${2 * theme.spacing}px;
-    right: ${theme.spacing}px;
-    z-index: 200;
+  position: static;
+  margin-right: -16px;
+  z-index: 200;
 
-    ${hasActionAdornment &&
-    `
-      margin-right: ${2 * theme.spacing}px;
-      display: flex;
-      align-items: center;
-      min-height: ${4 * theme.spacing}px;
+  ${({ hasActionAdornment }) =>
+    hasActionAdornment &&
+    css`
+      margin-right: 0;
     `}
-  `}
 `;
 
 const StyledTileSelectFieldset = styled(Fieldset)`
