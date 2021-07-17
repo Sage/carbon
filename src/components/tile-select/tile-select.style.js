@@ -114,7 +114,7 @@ const StyledTileSelectInput = styled(Input)`
 const StyledTitleContainer = styled.div`
   display: inline-flex;
   align-items: flex-end;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
   position: relative;
   align-items: center;
   flex-wrap: wrap;
