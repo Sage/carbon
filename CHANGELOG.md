@@ -1,3 +1,10 @@
+### [77.13.3](https://github.com/Sage/carbon/compare/v77.13.2...v77.13.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* **tabs:** remove default margins and paddings ([d301b3a](https://github.com/Sage/carbon/commit/d301b3a7e87d20c3f26a1dfe6fe0534e74afba7a))
+
 ### [77.13.2](https://github.com/Sage/carbon/compare/v77.13.1...v77.13.2) (2021-07-16)
 
 
