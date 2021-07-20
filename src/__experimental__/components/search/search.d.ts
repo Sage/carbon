@@ -17,7 +17,10 @@ export interface SearchProps extends MarginProps {
   /** Prop for `onClick` events.
    *  `onClick` events are triggered when the `searchButton` is clicked
    */
-  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (
+    ev: React.ChangeEvent<HTMLInputElement> &
+      React.MouseEvent<HTMLButtonElement>
+  ) => void;
   /** Prop for `onKeyDown` events */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Prop for a placeholder */
@@ -35,6 +38,8 @@ export interface SearchProps extends MarginProps {
   value?: string;
   /** Prop to specify the styling of the search component */
   variant?: string;
+  /** A callback to retrieve the input reference */
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 declare function Search(props: SearchProps): JSX.Element;

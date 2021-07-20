@@ -14,6 +14,7 @@ const StyledInput = styled.input`
   width: 30px;
 
   &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #fff inset;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     -webkit-box-border: none;
   }
@@ -36,7 +37,8 @@ const StyledInput = styled.input`
     `}
 
   &:invalid, &:required {
-    box-shadow: none;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   }
 
   ${({ readOnly, theme }) =>

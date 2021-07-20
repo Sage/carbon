@@ -507,6 +507,81 @@ describe("Typography", () => {
         );
       });
     });
+
+    it.each([
+      "normal",
+      "nowrap",
+      "pre",
+      "pre-wrap",
+      "pre-line",
+      "break-spaces",
+    ])("applies white-space of %s", (prop) => {
+      const wrapper = mount(
+        <ThemeProvider theme={mintTheme}>
+          <Typography whiteSpace={prop}>FooBar</Typography>
+        </ThemeProvider>
+      );
+
+      assertStyleMatch(
+        {
+          whiteSpace: prop,
+        },
+        wrapper.find(Typography)
+      );
+    });
+
+    it.each(["normal", "break-word", "initial", "inherit"])(
+      "applies word-wrap of %s",
+      (prop) => {
+        const wrapper = mount(
+          <ThemeProvider theme={mintTheme}>
+            <Typography wordWrap={prop}>FooBar</Typography>
+          </ThemeProvider>
+        );
+
+        assertStyleMatch(
+          {
+            wordWrap: prop,
+          },
+          wrapper.find(Typography)
+        );
+      }
+    );
+
+    it.each(["clip", "ellipsis", "string", "initial", "inherit"])(
+      "applies text-overflow of %s",
+      (prop) => {
+        const wrapper = mount(
+          <ThemeProvider theme={mintTheme}>
+            <Typography textOverflow={prop}>FooBar</Typography>
+          </ThemeProvider>
+        );
+
+        assertStyleMatch(
+          {
+            textOverflow: prop,
+          },
+          wrapper.find(Typography)
+        );
+      }
+    );
+
+    it("applies truncation when truncate prop is true", () => {
+      const wrapper = mount(
+        <ThemeProvider theme={mintTheme}>
+          <Typography truncate>FooBar</Typography>
+        </ThemeProvider>
+      );
+
+      assertStyleMatch(
+        {
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+        wrapper.find(Typography)
+      );
+    });
   });
 
   testStyledSystemSpacing((props) => <Typography {...props} />);

@@ -21,5 +21,9 @@
   "transform": {
     "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.js"
+  },
+  "moduleNameMapper": {
+    "\\.(png)$": "<rootDir>/__mocks__/imageMock.js"
   }
+
 }

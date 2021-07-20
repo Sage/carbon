@@ -661,5 +661,20 @@ describe("Button", () => {
         expect(preventDefaultSpy).not.toHaveBeenCalled();
       });
     });
+
+    describe("with target and rel props", () => {
+      it("should set the correct html attributes", () => {
+        wrapper = mount(
+          <Button href="/" target="_blank" rel="noopener noreferrer">
+            Test
+          </Button>
+        );
+
+        expect(wrapper.find(StyledButton).props().target).toEqual("_blank");
+        expect(wrapper.find(StyledButton).props().rel).toEqual(
+          "noopener noreferrer"
+        );
+      });
+    });
   });
 });

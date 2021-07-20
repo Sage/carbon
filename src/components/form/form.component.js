@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
 import styledSystemPropTypes from "@styled-system/prop-types";
@@ -11,6 +17,7 @@ import {
   StyledLeftButtons,
   StyledRightButtons,
 } from "./form.style";
+import { SidebarContext } from "../sidebar/sidebar.component";
 
 const SCROLL_THROTTLE = 50;
 
@@ -30,11 +37,10 @@ const Form = ({
   ...rest
 }) => {
   const [isFooterSticky, setIsFooterSticky] = useState(false);
-
+  const { isInSidebar } = useContext(SidebarContext);
   const formRef = useRef();
   const formFooterRef = useRef();
   const stickyListenersAddedRef = useRef(false);
-
   const checkStickyFooter = useCallback(
     throttle(() => {
       const { bottom } = formRef.current.getBoundingClientRect();
@@ -91,6 +97,7 @@ const Form = ({
       data-component="form"
       fieldSpacing={fieldSpacing}
       noValidate={noValidate}
+      isInSidebar={isInSidebar}
       {...rest}
     >
       {children}

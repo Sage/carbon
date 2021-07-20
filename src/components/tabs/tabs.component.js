@@ -14,7 +14,7 @@ import tagComponent from "../../utils/helpers/tags/tags";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -40,7 +40,7 @@ const Tabs = ({
   const tabRefs = useRef([]);
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
-  const sidebarContext = useContext(SidebarContext);
+  const sidebarContext = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});

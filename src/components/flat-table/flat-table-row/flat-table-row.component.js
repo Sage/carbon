@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 import Event from "../../../utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { SidebarContext } from "../../drawer";
+import { DrawerSidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header";
 import { FlatTableThemeContext } from "../flat-table.component";
@@ -44,7 +44,7 @@ const FlatTableRow = React.forwardRef(
     const rowHeaderIndex = childrenArray.findIndex(
       (child) => child.type === FlatTableRowHeader
     );
-    const colorTheme = useContext(FlatTableThemeContext);
+    const themeContext = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -128,7 +128,7 @@ const FlatTableRow = React.forwardRef(
     }, [expanded]);
 
     return (
-      <SidebarContext.Consumer>
+      <DrawerSidebarContext.Consumer>
         {(context) => (
           <>
             <StyledFlatTableRow
@@ -143,7 +143,8 @@ const FlatTableRow = React.forwardRef(
               firstCellIndex={firstCellIndex()}
               ref={rowRef}
               rowHeaderIndex={rowHeaderIndex}
-              colorTheme={colorTheme}
+              colorTheme={themeContext.colorTheme}
+              size={themeContext.size}
               stickyOffset={stickyOffset}
               bgColor={bgColor}
               horizontalBorderColor={horizontalBorderColor}
@@ -171,7 +172,6 @@ const FlatTableRow = React.forwardRef(
                     reportCellWidth:
                       index < rowHeaderIndex ? reportCellWidth : undefined,
                     leftPosition: leftPositions[index],
-                    pl: index === firstCellIndex() && expandable ? "4px" : null,
                     ...child.props,
                   })
                 );
@@ -191,7 +191,7 @@ const FlatTableRow = React.forwardRef(
               )}
           </>
         )}
-      </SidebarContext.Consumer>
+      </DrawerSidebarContext.Consumer>
     );
   }
 );

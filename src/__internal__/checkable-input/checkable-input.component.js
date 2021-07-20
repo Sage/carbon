@@ -40,8 +40,8 @@ const CheckableInput = ({
   warning,
 }) => {
   const { current: id } = useRef(inputId || guid());
-  const labelId = `${id}-label`;
-  const helpId = `${id}-help`;
+  const labelId = `${id} label`;
+  const helpId = `${id} help`;
   const isRadio = inputType === "radio";
 
   const formFieldProps = {

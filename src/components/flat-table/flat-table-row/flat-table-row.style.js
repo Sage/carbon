@@ -19,7 +19,7 @@ const stickyColumnFocusStyling = (index, theme) => {
       index === 0 ? theme.colors.focus : theme.table.secondary
     };
     background-clip: padding-box;
-    z-index: ${theme.zIndex.popover};
+    z-index: ${theme.zIndex.overlay + 1};
 
     :before {
       content: "";
@@ -71,6 +71,7 @@ const StyledFlatTableRow = styled.tr`
     isInSidebar,
     isSubRow,
     isFirstSubRow,
+    size,
     theme,
   }) => {
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
@@ -242,7 +243,7 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
-          padding-left: 30px;
+          padding-left: ${size === "compact" ? "32px" : "40px"};
         }
       `}
 

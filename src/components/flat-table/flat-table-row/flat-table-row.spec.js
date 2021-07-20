@@ -12,7 +12,7 @@ import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-ro
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
-import { SidebarContext } from "../../drawer";
+import { DrawerSidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
@@ -97,7 +97,7 @@ describe("FlatTableRow", () => {
           borderBottom: "1px solid transparent",
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
           backgroundClip: "padding-box",
-          zIndex: "2000",
+          zIndex: "1001",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -693,7 +693,7 @@ describe("FlatTableRow", () => {
       "applies the correct th styling when colorTheme is %s",
       (colorTheme) => {
         const wrapper = mount(
-          <FlatTableThemeContext.Provider value={colorTheme}>
+          <FlatTableThemeContext.Provider value={{ colorTheme }}>
             <table>
               <thead>
                 <FlatTableRow onClick={() => {}}>
@@ -1126,6 +1126,33 @@ describe("FlatTableRow", () => {
         });
       }
     );
+
+    describe("when the size of the table is 'compact'", () => {
+      it("should add the correct padding to child row cells", () => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={{ size: "compact" }}>
+            <table>
+              <tbody>
+                <FlatTableRow expandable expanded subRows={SubRows}>
+                  <FlatTableCell>cell1</FlatTableCell>
+                  <FlatTableCell>cell2</FlatTableCell>
+                </FlatTableRow>
+              </tbody>
+            </table>
+          </FlatTableThemeContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            paddingLeft: "32px",
+          },
+          wrapper.find(StyledFlatTableRow).at(1),
+          {
+            modifier: `${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div`,
+          }
+        );
+      });
+    });
   });
 });
 
@@ -1144,7 +1171,7 @@ function renderFlatTableRow(props = {}, renderer = mount) {
 
 function renderRowWithContext(props = {}) {
   return mount(
-    <SidebarContext.Provider value={{ isInSidebar: true }}>
+    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
       <table>
         <tbody>
           <FlatTableRow {...props}>
@@ -1153,7 +1180,7 @@ function renderRowWithContext(props = {}) {
           </FlatTableRow>
         </tbody>
       </table>
-    </SidebarContext.Provider>
+    </DrawerSidebarContext.Provider>
   );
 }
 
