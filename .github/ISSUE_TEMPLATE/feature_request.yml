@@ -35,15 +35,15 @@ body:
     validations:
       required: false
   - type: input
-      id: url
-      attributes:
-        label: CodeSandbox or Storybook URL
-        description: >- 
-          Please fork [this template](https://codesandbox.io/s/carbon-quickstart-xi5jc), and ensure you save your changes.
-          Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
-        placeholder: https://codesandbox.io/s/carbon-quickstart-xi5jc
-      validations:
-        required: false
+    id: url
+    attributes:
+      label: CodeSandbox or Storybook URL
+      description: >- 
+        Please fork [this template](https://codesandbox.io/s/carbon-quickstart-xi5jc), and ensure you save your changes.
+        Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
+      placeholder: https://codesandbox.io/s/carbon-quickstart-xi5jc
+    validations:
+      required: false
   - type: textarea
     id: additional-info
     attributes:
