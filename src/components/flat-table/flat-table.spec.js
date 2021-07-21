@@ -249,6 +249,56 @@ describe("FlatTable", () => {
     });
   });
 
+  describe("When FlatTable has sticky header and uses FlatTableRowHeaders so that the second column is made sticky", () => {
+    let wrapper;
+    const render = () => {
+      wrapper = mount(
+        <FlatTable hasStickyHead>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader rowSpan={2}>heading one</FlatTableHeader>
+              <FlatTableRowHeader rowSpan={2}>heading two</FlatTableRowHeader>
+              <FlatTableHeader colspan={2}>heading three</FlatTableHeader>
+              <FlatTableHeader rowSpan={2} />
+              <FlatTableHeader colspan={2}>heading four</FlatTableHeader>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableHeader>header 1</FlatTableHeader>
+              <FlatTableHeader>heading 2</FlatTableHeader>
+              <FlatTableHeader>heading 3</FlatTableHeader>
+              <FlatTableHeader>heading 4</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>name</FlatTableCell>
+              <FlatTableRowHeader>unique id</FlatTableRowHeader>
+              <FlatTableCell>city</FlatTableCell>
+              <FlatTableCell>status</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    };
+
+    it("should not overlap the first column of FlatTableHeader by applying expected z-index", () => {
+      act(() => render());
+
+      assertStyleMatch(
+        {
+          zIndex: "1002",
+        },
+        wrapper.find(StyledFlatTableHeader),
+        {
+          modifier: `&&&`,
+        }
+      );
+    });
+  });
+
   describe("when FlatTable is a child of Sidebar", () => {
     let wrapper;
     beforeEach(() => {

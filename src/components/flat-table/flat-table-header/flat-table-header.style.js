@@ -70,9 +70,12 @@ const StyledFlatTableHeader = styled.th`
       css`
       left: ${leftPosition}px;
       position: sticky;
+      &&& {
+        z-index: 1002;
+      }
 
       &:first-child {
-        padding-right: 0.395em;
+        padding-right: 0.425em;
 
         @media not all and (min-resolution:.001dpcm) {
           @supports (-webkit-appearance:none) and (stroke-color:transparent) {
@@ -89,6 +92,10 @@ const StyledFlatTableHeader = styled.th`
           border-right-width: ${verticalBorderSizes[verticalBorder]};
         `
       }
+
+        &:first-child {
+          border-left: 1px solid ${theme.flatTable.dark.border};
+        }
       }
     }
   `}
