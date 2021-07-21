@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 
 import ScrollableBlock from ".";
 import MenuItem from "../menu-item";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
