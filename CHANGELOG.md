@@ -1,3 +1,10 @@
+## [77.14.0](https://github.com/Sage/carbon/compare/v77.13.3...v77.14.0) (2021-07-21)
+
+
+### Features
+
+* **menu-full-screen:** add new component to achieve fullscreen menu view ([55d42a2](https://github.com/Sage/carbon/commit/55d42a28ca1a21349b8ac5158624586d8e0f6bc5))
+
 ### [77.13.3](https://github.com/Sage/carbon/compare/v77.13.2...v77.13.3) (2021-07-20)
 
 
