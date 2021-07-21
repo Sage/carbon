@@ -56,7 +56,6 @@ const RadioButtonGroup = (props) => {
 
   return (
     <Fieldset
-      role="radiogroup"
       legend={legend}
       error={error}
       warning={warning}
@@ -73,7 +72,7 @@ const RadioButtonGroup = (props) => {
     >
       <RadioButtonGroupStyle
         data-component="radio-button-group"
-        role="group"
+        role="radiogroup"
         inline={inline}
         legendInline={inlineLegend}
       >

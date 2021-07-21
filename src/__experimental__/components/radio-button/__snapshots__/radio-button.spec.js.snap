@@ -434,12 +434,11 @@ exports[`RadioButton base renders as expected 1`] = `
 <fieldset
   className="c0"
   data-component="radiogroup"
-  role="radiogroup"
 >
   <div
     className="c1"
     data-component="radio-button-group"
-    role="group"
+    role="radiogroup"
   >
     <div
       className="c2"

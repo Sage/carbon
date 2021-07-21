@@ -161,7 +161,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System Note component
-    When I open "Design System Note" component page "inline controls" in no iframe
+    When I open "Design System Note" component page "with inline controls" in no iframe
     Then "Note inline controls" component has no accessibility violations
 
   @accessibility

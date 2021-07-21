@@ -48,6 +48,10 @@ export interface ButtonBaseProps extends SpaceProps {
   subtext?: string;
   /** HTML button type property */
   type?: string;
+  /** HTML target attribute */
+  target?: string;
+  /** HTML rel attribute */
+  rel?: string;
 }
 
 export interface ButtonLinkProps extends ButtonBaseProps {

@@ -1,0 +1,70 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import aegeanTheme from "../../style/themes/aegean";
+import baseTheme from "../../style/themes/base";
+import Button from "../button";
+import CarbonProvider from ".";
+
+<Meta title="Carbon Provider" parameters={{ info: { disable: true } }} />
+
+# Carbon Provider
+
+A Carbon Provider uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are defined within the Carbon library.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
+
+```javascript
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+```
+
+## Examples
+
+### Default
+
+This is an example of `mintTheme` provided by default.
+
+<Preview>
+  <Story name="default">
+    <CarbonProvider>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  </Story>
+</Preview>
+
+### Theming
+
+<Preview>
+  <Story name="theming">
+    <CarbonProvider theme={aegeanTheme}>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  </Story>
+</Preview>
+
+### Mixing
+
+<Preview>
+  <Story name="mixing">
+    <CarbonProvider>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+    <CarbonProvider theme={aegeanTheme}>
+      <Button buttonType="primary">Button</Button>
+      <CarbonProvider theme={baseTheme}>
+        <Button buttonType="primary">Button</Button>
+      </CarbonProvider>
+    </CarbonProvider>
+  </Story>
+</Preview>
+
+## Props
+
+### Carbon Provider
+
+<Props of={CarbonProvider} />

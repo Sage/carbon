@@ -19,6 +19,10 @@ export interface NoteProps  extends MarginProps {
     text: string;
     timeStamp: string;
   };
+  /** The previews to display of any links added to the Editor */
+  previews?: React.ReactNode[];
+  /** Callback to report a url when a link is added */
+  onLinkAdded?: (url: string) => void;
 }
 
 declare function Note(props: NoteProps): JSX.Element;

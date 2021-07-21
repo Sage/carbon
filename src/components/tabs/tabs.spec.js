@@ -15,7 +15,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
-import { SidebarContext } from "../drawer";
+import { DrawerSidebarContext } from "../drawer";
 
 function render(props) {
   return mount(
@@ -124,39 +124,33 @@ const MockWrapper = ({
 };
 
 describe("Tabs", () => {
-  testStyledSystemMargin(
-    (props) => (
-      <Tabs {...props}>
-        <Tab
-          errorMessage=""
-          warningMessage=""
-          infoMessage=""
-          title="Tab Title 1"
-          tabId="uniqueid1"
-        >
-          TabContent
-        </Tab>
-      </Tabs>
-    ),
-    { mt: "15px" }
-  );
+  testStyledSystemMargin((props) => (
+    <Tabs {...props}>
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ));
 
-  testStyledSystemMargin(
-    (props) => (
-      <Tabs {...props} position="left">
-        <Tab
-          errorMessage=""
-          warningMessage=""
-          infoMessage=""
-          title="Tab Title 1"
-          tabId="uniqueid1"
-        >
-          TabContent
-        </Tab>
-      </Tabs>
-    ),
-    { mt: "0px" }
-  );
+  testStyledSystemMargin((props) => (
+    <Tabs {...props} position="left">
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ));
 
   describe("when `headerWidth` is provided", () => {
     describe.each(["35%", "100px", "5em"])(
@@ -666,7 +660,7 @@ describe("Tabs", () => {
     describe("custom targeting", () => {
       it("supports overriding the targeted content", () => {
         const wrapper = mount(
-          <SidebarContext.Provider value={{ isInSidebar: true }}>
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <Tabs>
               <Tab
                 title="Tab Title 1"
@@ -678,7 +672,7 @@ describe("Tabs", () => {
                 TabContent
               </Tab>
             </Tabs>
-          </SidebarContext.Provider>
+          </DrawerSidebarContext.Provider>
         );
         act(() => {
           wrapper

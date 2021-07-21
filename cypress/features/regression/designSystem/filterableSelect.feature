@@ -108,12 +108,6 @@ Feature: Design System Filterable Select component
     Then "filterable" Select list is opened
 
   @positive
-  Scenario: Value is cleared when the filter does not match any options
-    Given I open "Design System Select filterable" component page "controlled" in no iframe
-    When I select value "xzw"
-    Then Select input has no value
-
-  @positive
   Scenario: Check that Filterable Select has multiColumns in option list
     Given I open "Design System Select filterable" component page "with multiple columns" in no iframe
     When I click on dropdown button
