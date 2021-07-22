@@ -7,14 +7,14 @@ import {
   testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import MultiSelect from "./multi-select.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
-import Label from "../../../__experimental__/components/label";
-import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
+import Label from "../../../__internal__/label";
+import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));

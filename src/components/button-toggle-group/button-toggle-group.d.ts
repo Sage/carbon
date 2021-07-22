@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ValidationPropTypes } from "../validations";
+
 import { ButtonToggleProps } from "../button-toggle";
+import { ValidationPropTypes } from "../../__internal__/validations";
 
 type ButtonToggle =
   | React.ReactElement<ButtonToggleProps>

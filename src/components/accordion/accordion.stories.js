@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Accordion from "./accordion.component";
 import AccordionGroup from "./accordion-group/accordion-group.component";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Box from "../box";
 
 export default {

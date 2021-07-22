@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import Tab from "./tab.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
 import {
   assertStyleMatch,
