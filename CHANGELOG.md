@@ -1,3 +1,10 @@
+### [77.14.3](https://github.com/Sage/carbon/compare/v77.14.2...v77.14.3) (2021-07-22)
+
+
+### Bug Fixes
+
+* **dependency:** move cypress-real-events to dev dependency ([f93d2b2](https://github.com/Sage/carbon/commit/f93d2b20350608fa9cddfff3dc0422c4d1126c77))
+
 ### [77.14.2](https://github.com/Sage/carbon/compare/v77.14.1...v77.14.2) (2021-07-22)
 
 
