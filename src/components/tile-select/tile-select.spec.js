@@ -49,6 +49,12 @@ describe("TileSelect", () => {
     render();
   });
 
+  it("should disable default button if disable props is provided", () => {
+    render({ checked: true, disabled: true });
+
+    expect(wrapper.find(TileSelect).find(Button).props().disabled).toBe(true);
+  });
+
   it("TileSelect invokes passed onChange callback", () => {
     const onChangeMock = jest.fn();
     render({ onChange: onChangeMock });
