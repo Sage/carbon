@@ -1,3 +1,10 @@
+### [77.14.2](https://github.com/Sage/carbon/compare/v77.14.1...v77.14.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **textbox:** added missing labeAlign propType definition ([8dff28b](https://github.com/Sage/carbon/commit/8dff28b51820f2e52452d9d8adf6bbf0210ea8b1))
+
 ### [77.14.1](https://github.com/Sage/carbon/compare/v77.14.0...v77.14.1) (2021-07-21)
 
 
