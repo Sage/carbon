@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import StyledScrollableBlock from "./scrollable-block.style";
 import Box from "../../box";
