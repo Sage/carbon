@@ -83,7 +83,6 @@ const Tab = ({
         aria-labelledby={ariaLabelledby}
         position={position}
         {...tagComponent("tab", rest)}
-        {...(position === "top" ? { pt: "10px" } : { pl: "10px" })}
         {...rest}
       >
         {!href && children}

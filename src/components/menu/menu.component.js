@@ -5,8 +5,7 @@ import propTypes from "@styled-system/prop-types";
 import { StyledMenuWrapper } from "./menu.style";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import Events from "../../utils/helpers/events";
-
-const MenuContext = React.createContext({});
+import MenuContext from "./menu.context";
 
 const Menu = ({ menuType = "light", children, ...rest }) => {
   const [focusedItemIndex, setFocusedItemIndex] = useState(undefined);

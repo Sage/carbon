@@ -1,3 +1,26 @@
+### [77.14.1](https://github.com/Sage/carbon/compare/v77.14.0...v77.14.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* **checkable-input:** fix invalid aria formats ([4db6af4](https://github.com/Sage/carbon/commit/4db6af4a265e34821dae89eb56471408f9a4d9ea))
+* **flat-table:** add aria-label to various stories ([613786b](https://github.com/Sage/carbon/commit/613786b2945b4f4827a46c388cbf0ef781088236))
+* **icon-button:** ensure buttons have discernible text ([70ce422](https://github.com/Sage/carbon/commit/70ce4220e57b72da9b6f4fecf105c0ccfb5c9cc1))
+
+## [77.14.0](https://github.com/Sage/carbon/compare/v77.13.3...v77.14.0) (2021-07-21)
+
+
+### Features
+
+* **menu-full-screen:** add new component to achieve fullscreen menu view ([55d42a2](https://github.com/Sage/carbon/commit/55d42a28ca1a21349b8ac5158624586d8e0f6bc5))
+
+### [77.13.3](https://github.com/Sage/carbon/compare/v77.13.2...v77.13.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* **tabs:** remove default margins and paddings ([d301b3a](https://github.com/Sage/carbon/commit/d301b3a7e87d20c3f26a1dfe6fe0534e74afba7a))
+
 ### [77.13.2](https://github.com/Sage/carbon/compare/v77.13.1...v77.13.2) (2021-07-16)
 
 
