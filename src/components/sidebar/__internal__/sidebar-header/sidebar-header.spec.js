@@ -28,7 +28,7 @@ describe("SidebarHeaderStyle", () => {
       {
         backgroundColor: baseTheme.colors.white,
         boxShadow: `inset 0 -1px 0 0 ${baseTheme.disabled.border}`,
-        boxSizing: "content-box",
+        boxSizing: "border-box",
         padding: "27px 32px 32px 32px",
         width: "100%",
         color: baseTheme.text.color,

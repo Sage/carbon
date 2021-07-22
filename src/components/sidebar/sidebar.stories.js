@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { boolean, select } from "@storybook/addon-knobs";
+import { boolean, select, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import OptionsHelper from "../../utils/helpers/options-helper";
 import Sidebar from ".";
@@ -20,6 +20,7 @@ export default {
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
+
   const enableBackgroundUI = boolean(
     "enableBackgroundUI",
     Sidebar.defaultProps.enableBackgroundUI
@@ -43,6 +44,8 @@ export const Default = () => {
   const openSidebar = () => {
     setIsOpen(true);
   };
+
+  const headerChildren = text("header", "");
   return (
     <>
       <Button onClick={openSidebar}>Open sidebar</Button>
@@ -52,6 +55,7 @@ export const Default = () => {
         position={position}
         size={size}
         onCancel={onCancel}
+        header={headerChildren}
       >
         <div>
           <Button as="primary">Test</Button>
