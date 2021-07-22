@@ -49,3 +49,10 @@ Feature: Design System Select filterable component
     Given I click on dropdown button in iframe
     When I hit ESC key
     Then "filterable" Select list is closed in iframe
+
+  @positive
+  Scenario: Check the onFilterChange events after typed string into the input
+    Given clear all actions in Actions Tab
+      And I focus default Select input
+    When I type "b" into default input
+    Then onFilterChange action was called in Actions Tab

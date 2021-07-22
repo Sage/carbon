@@ -1,3 +1,54 @@
+### [77.14.3](https://github.com/Sage/carbon/compare/v77.14.2...v77.14.3) (2021-07-22)
+
+
+### Bug Fixes
+
+* **dependency:** move cypress-real-events to dev dependency ([f93d2b2](https://github.com/Sage/carbon/commit/f93d2b20350608fa9cddfff3dc0422c4d1126c77))
+
+### [77.14.2](https://github.com/Sage/carbon/compare/v77.14.1...v77.14.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **textbox:** added missing labeAlign propType definition ([8dff28b](https://github.com/Sage/carbon/commit/8dff28b51820f2e52452d9d8adf6bbf0210ea8b1))
+
+### [77.14.1](https://github.com/Sage/carbon/compare/v77.14.0...v77.14.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* **checkable-input:** fix invalid aria formats ([4db6af4](https://github.com/Sage/carbon/commit/4db6af4a265e34821dae89eb56471408f9a4d9ea))
+* **flat-table:** add aria-label to various stories ([613786b](https://github.com/Sage/carbon/commit/613786b2945b4f4827a46c388cbf0ef781088236))
+* **icon-button:** ensure buttons have discernible text ([70ce422](https://github.com/Sage/carbon/commit/70ce4220e57b72da9b6f4fecf105c0ccfb5c9cc1))
+
+## [77.14.0](https://github.com/Sage/carbon/compare/v77.13.3...v77.14.0) (2021-07-21)
+
+
+### Features
+
+* **menu-full-screen:** add new component to achieve fullscreen menu view ([55d42a2](https://github.com/Sage/carbon/commit/55d42a28ca1a21349b8ac5158624586d8e0f6bc5))
+
+### [77.13.3](https://github.com/Sage/carbon/compare/v77.13.2...v77.13.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* **tabs:** remove default margins and paddings ([d301b3a](https://github.com/Sage/carbon/commit/d301b3a7e87d20c3f26a1dfe6fe0534e74afba7a))
+
+### [77.13.2](https://github.com/Sage/carbon/compare/v77.13.1...v77.13.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* **search:** correct onClick prop ts type ([e5b3b7b](https://github.com/Sage/carbon/commit/e5b3b7b8c3124d2ba4da233378de53fb11cc4ae0)), closes [#4185](https://github.com/Sage/carbon/issues/4185)
+
+### [77.13.1](https://github.com/Sage/carbon/compare/v77.13.0...v77.13.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** set cursor to not-allowed when component is disabled ([790c8e2](https://github.com/Sage/carbon/commit/790c8e23b3f133377d0d6297eb4431b858348fc8))
+
 ## [77.13.0](https://github.com/Sage/carbon/compare/v77.12.2...v77.13.0) (2021-07-16)
 
 

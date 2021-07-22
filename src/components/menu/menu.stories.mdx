@@ -1,4 +1,5 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   Menu,
@@ -7,11 +8,13 @@ import {
   MenuDivider,
   MenuSegmentTitle,
   ScrollableBlock,
+  MenuFullscreen,
 } from ".";
 import Box from "../box";
 import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import Search from "../search";
 
 <Meta title="Design System/Menu" parameters={{ info: { disable: true } }} />
@@ -458,6 +461,8 @@ is rendered.
 <Preview>
   <Story name="full navbar alignment example">
     {() => {
+      const isBelowBreakpoint = (value) =>
+        useMediaQuery(`(max-width: ${value})`);
       return (
         <div style={{ minHeight: "250px" }}>
           <NavigationBar>
@@ -466,7 +471,12 @@ is rendered.
               <VerticalDivider displayInline pr={0} />
             </Box>
             <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}} submenu="Menu Item One">
+              <MenuItem
+                flex="1"
+                onClick={() => {}}
+                maxWidth={isBelowBreakpoint("850px") ? "130px" : undefined}
+                submenu="Menu Item One"
+              >
                 <MenuItem href="#">Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
                 <MenuDivider />
@@ -475,10 +485,18 @@ is rendered.
                 </MenuItem>
                 <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
-              <MenuItem flex="0 0 auto" href="#">
+              <MenuItem
+                flex="0 0 auto"
+                href="#"
+                maxWidth={isBelowBreakpoint("800px") ? "120px" : undefined}
+              >
                 Menu Item Two
               </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+              <MenuItem
+                flex="0 0 auto"
+                maxWidth={isBelowBreakpoint("770px") ? "130px" : undefined}
+                submenu="Menu Item Three"
+              >
                 <MenuItem href="#">Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
                 <MenuDivider />
@@ -487,7 +505,11 @@ is rendered.
                 </MenuItem>
                 <MenuItem href="#">Item Submenu Four</MenuItem>
               </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+              <MenuItem
+                flex="0 0 auto"
+                maxWidth={isBelowBreakpoint("750px") ? "130px" : undefined}
+                submenu="Menu Item Four"
+              >
                 <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
                 <MenuItem href="#">Item Submenu Two</MenuItem>
               </MenuItem>
@@ -708,6 +730,166 @@ A title attribute is added to the item when using this prop, containing the full
   </Story>
 </Preview>
 
+### Responsive composition
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window to see the various Menu compositions
+at the different breakpoints.
+
+<Preview>
+  <Story
+    name="responsive composition"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const isBelowBreakpoint1 = useMediaQuery("(max-width: 1600px)");
+      const isBelowBreakpoint2 = useMediaQuery("(max-width: 1300px)");
+      const isBelowBreakpoint3 = useMediaQuery("(max-width: 1000px)");
+      const isBelowBreakpoint4 = useMediaQuery("(max-width: 850px)");
+      const responsiveMenuItems = () => {
+        if (isBelowBreakpoint4) {
+          return [
+            <MenuItem submenu="More">
+              <MenuItem href="#">Menu Item One</MenuItem>
+              <MenuItem href="#">Menu Item Two</MenuItem>
+              <MenuItem href="#">Menu Item Three</MenuItem>
+              <MenuItem href="#">Menu Item Four</MenuItem>
+            </MenuItem>,
+          ];
+        }
+        if (isBelowBreakpoint3) {
+          return [
+            <MenuItem href="#">Menu Item One</MenuItem>,
+            <MenuItem submenu="More">
+              <MenuItem href="#">Menu Item Two</MenuItem>
+              <MenuItem href="#">Menu Item Three</MenuItem>
+              <MenuItem href="#">Menu Item Four</MenuItem>
+            </MenuItem>,
+          ];
+        }
+        if (isBelowBreakpoint2) {
+          return [
+            <MenuItem href="#">Menu Item One</MenuItem>,
+            <MenuItem href="#">Menu Item Two</MenuItem>,
+            <MenuItem submenu="More">
+              <MenuItem href="#">Menu Item Three</MenuItem>
+              <MenuItem href="#">Menu Item Four</MenuItem>
+            </MenuItem>,
+          ];
+        }
+        if (isBelowBreakpoint1) {
+          return [
+            <MenuItem href="#">Menu Item One</MenuItem>,
+            <MenuItem href="#">Menu Item Two</MenuItem>,
+            <MenuItem href="#">Menu Item Three</MenuItem>,
+            <MenuItem submenu="More">
+              <MenuItem href="#">Menu Item Four</MenuItem>
+            </MenuItem>,
+          ];
+        }
+        return [
+          <MenuItem href="#">Menu Item One</MenuItem>,
+          <MenuItem href="#">Menu Item Two</MenuItem>,
+          <MenuItem href="#">Menu Item Three</MenuItem>,
+          <MenuItem href="#">Menu Item Four</MenuItem>,
+        ];
+      };
+      return (
+        <div style={{ minHeight: "250px" }}>
+          <Menu>
+            {React.Children.map(responsiveMenuItems(), (items) => items)}
+          </Menu>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Fullscreen view
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
+trigger when the screen size is smaller than `1200px`
+
+<Preview>
+  <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [menuOpen1, setMenuOpen1] = useState(false);
+      const [menuOpen2, setMenuOpen2] = useState(false);
+      const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
+      const responsiveMenuItems = (startPosition, menu) => {
+        if (fullscreenViewBreakPoint) {
+          return [
+            <MenuItem
+              onClick={
+                menu === "1"
+                  ? () => setMenuOpen1(true)
+                  : () => setMenuOpen2(true)
+              }
+            >
+              Menu
+            </MenuItem>,
+            <MenuFullscreen
+              startPosition={startPosition}
+              isOpen={menu === "1" ? menuOpen1 : menuOpen2}
+              onClose={
+                menu === "1"
+                  ? () => setMenuOpen1(false)
+                  : () => setMenuOpen2(false)
+              }
+            >
+              <MenuItem href="#">Menu Item One</MenuItem>
+              <MenuItem onClick={() => {}} submenu="Menu Item Two">
+                <MenuItem href="#">Submenu Item One</MenuItem>
+                <MenuItem href="#">Submenu Item Two</MenuItem>
+              </MenuItem>
+              <MenuItem href="#">Menu Item Three</MenuItem>
+              <MenuItem href="#">Menu Item Four</MenuItem>
+              <MenuItem submenu="Menu Item Five">
+                <MenuItem href="#">Submenu Item One</MenuItem>
+                <MenuItem href="#">Submenu Item Two</MenuItem>
+              </MenuItem>
+              <MenuItem href="#">Menu Item Six</MenuItem>
+            </MenuFullscreen>,
+          ];
+        }
+        return [
+          <MenuItem href="#">Menu Item One</MenuItem>,
+          <MenuItem submenu="Menu Item Two">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>,
+          <MenuItem href="#">Menu Item Three</MenuItem>,
+          <MenuItem href="#">Menu Item Four</MenuItem>,
+          <MenuItem submenu="Menu Item Five">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>,
+          <MenuItem href="#">Menu Item Six</MenuItem>,
+        ];
+      };
+      return (
+        <>
+          <div style={{ minHeight: "150px" }}>
+            <Menu>
+              {React.Children.map(
+                responsiveMenuItems("left", "1"),
+                (items) => items
+              )}
+            </Menu>
+          </div>
+          <div style={{ minHeight: "150px" }}>
+            <Menu menuType="dark">
+              {React.Children.map(
+                responsiveMenuItems("right", "2"),
+                (items) => items
+              )}
+            </Menu>
+          </div>
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
 ## Props
 
 ### Menu
@@ -733,3 +915,7 @@ A title attribute is added to the item when using this prop, containing the full
 ### MenuSegmentTitle
 
 <Props of={MenuSegmentTitle} />
+
+### MenuFullscreen
+
+<Props of={MenuFullscreen} />

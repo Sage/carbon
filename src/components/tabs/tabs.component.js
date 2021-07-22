@@ -319,7 +319,6 @@ const Tabs = ({
       updateWarnings={updateWarnings}
       {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
-      mt={position === "left" || isInSidebar ? "0px" : "15px"}
       headerWidth={headerWidth}
       {...rest}
     >

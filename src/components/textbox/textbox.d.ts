@@ -31,6 +31,8 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   leftChildren?: React.ReactNode;
   /** Label content */
   label?: string;
+  /** Inline label alignment */
+  labelAlign?: "left" | "right";
   /** A message that the Help component will display */
   labelHelp?: React.ReactNode;
   /** When true label is inline */

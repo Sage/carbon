@@ -17,26 +17,49 @@ const StyledSubmenuWrapper = styled.div`
     css`
       z-index: ${theme.zIndex.popover};
     `}
+
+  ${({ inFullscreenView, menuType, asPassiveItem, theme }) =>
+    inFullscreenView &&
+    asPassiveItem &&
+    css`
+      ${StyledMenuItemWrapper} {
+        outline: none;
+        color: ${menuType === "light"
+          ? theme.menu.light.title
+          : theme.menu.dark.title};
+      }
+    `}
 `;
 
 const StyledSubmenu = styled.ul`
-  ${({ menuType, theme, submenuDirection, variant }) => css`
-    box-shadow: 0 5px 5px 0 rgba(0, 20, 29, 0.2),
-      0 10px 10px 0 rgba(0, 20, 29, 0.1);
+  ${({ menuType, theme, submenuDirection, variant, inFullscreenView }) => css`
+    ${!inFullscreenView &&
+    css`
+      box-shadow: 0 5px 5px 0 rgba(0, 20, 29, 0.2),
+        0 10px 10px 0 rgba(0, 20, 29, 0.1);
+      position: absolute;
+      background-color: ${theme.colors.white};
+
+      a,
+      button,
+      ${LinkStyle} a,
+      ${LinkStyle} button {
+        width: 100%;
+      }
+    `}
+
+    ${inFullscreenView &&
+    css`
+      ${StyledMenuItem} {
+        width: 100vw;
+      }
+    `}
+
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
-    position: absolute;
-    background-color: ${theme.colors.white};
     min-width: 100%;
-
-    a,
-    button,
-    ${LinkStyle} a,
-    ${LinkStyle} button {
-      width: 100%;
-    }
 
     ${StyledMenuItemWrapper}:after, ${StyledMenuItemWrapper}:hover:after {
       display: none;
@@ -63,7 +86,7 @@ const StyledSubmenu = styled.ul`
 
       ${menuType === "light" &&
       css`
-        background-color: ${theme.colors.white};
+        ${!inFullscreenView && `background-color: ${theme.colors.white};`}
         color: ${theme.colors.black};
       `}
 
@@ -91,7 +114,8 @@ const StyledSubmenu = styled.ul`
         : theme.colors.slate};
 
       ${StyledMenuItemWrapper} {
-        background-color: ${theme.menu.dark.submenuBackground};
+        ${!inFullscreenView &&
+        `background-color: ${theme.menu.dark.submenuBackground};`}
         color: ${theme.colors.white};
 
         a,

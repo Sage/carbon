@@ -13,7 +13,7 @@ import StyledMenuItemWrapper from "./menu-item.style";
 import OptionHelper from "../../../utils/helpers/options-helper";
 import Link from "../../link";
 import Events from "../../../utils/helpers/events";
-import { MenuContext } from "../menu.component";
+import MenuContext from "../menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import SubmenuBlock from "../submenu-block/submenu-block.component";
@@ -35,6 +35,7 @@ const MenuItem = ({
   ariaLabel,
   clickToOpen,
   maxWidth,
+  menuOpen,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -44,6 +45,7 @@ const MenuItem = ({
   const focusFromSubmenu = submenuContext.isFocused;
   const isChildSearch = useRef(false);
   const childRef = useRef();
+  const { inFullscreenView } = menuContext;
   const childrenItems = React.Children.map(children, (child) => {
     if (child && child.type === SubmenuBlock) {
       const childArray = Array.isArray(child.props.children)
@@ -119,7 +121,7 @@ const MenuItem = ({
     icon,
     selected,
     variant,
-    onKeyDown: handleKeyDown,
+    onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
     ref,
   };
 
@@ -133,6 +135,8 @@ const MenuItem = ({
     maxWidth && typeof title === "string" ? title : "";
 
   if (submenu) {
+    const asPassiveItem = !(onClick || href);
+
     return (
       <StyledMenuItem
         role="presentation"
@@ -142,6 +146,7 @@ const MenuItem = ({
         maxWidth={maxWidth}
         onClick={updateFocusOnClick}
         {...rest}
+        inFullscreenView={inFullscreenView}
       >
         <Submenu
           {...(typeof submenu !== "boolean" && { title: submenu })}
@@ -149,6 +154,7 @@ const MenuItem = ({
           showDropdownArrow={showDropdownArrow}
           clickToOpen={clickToOpen}
           maxWidth={maxWidth}
+          asPassiveItem={asPassiveItem}
           {...elementProps}
           {...rest}
         >
@@ -167,6 +173,8 @@ const MenuItem = ({
       title={getTitle(children)}
       maxWidth={maxWidth}
       {...rest}
+      inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
+      menuOpen={menuOpen}
     >
       <StyledMenuItemWrapper
         as={isChildSearch.current ? "div" : Link}
@@ -177,6 +185,7 @@ const MenuItem = ({
         role="menuitem"
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
+        inFullscreenView={inFullscreenView}
       >
         {clonedChildren}
       </StyledMenuItemWrapper>
