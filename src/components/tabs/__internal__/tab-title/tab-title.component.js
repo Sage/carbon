@@ -7,7 +7,7 @@ import {
   StyledSelectedIndicator,
 } from "./tab-title.style";
 import tagComponent from "../../../../utils/helpers/tags/tags";
-import ValidationIcon from "../../../validations/validation-icon.component";
+import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
 import createGuid from "../../../../utils/helpers/guid";
 import Icon from "../../../icon";
 import Events from "../../../../utils/helpers/events/events";

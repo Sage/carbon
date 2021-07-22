@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../../../style/themes/base";
 import StyledIcon from "../../../icon/icon.style";
-import StyledValidationIcon from "../../../validations/validation-icon.style";
+import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 
 const StyledTitleContent = styled.div`
   outline: none;

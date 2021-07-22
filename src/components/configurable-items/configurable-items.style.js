@@ -5,8 +5,8 @@ import {
   ConfigurableItemRowIconStyle,
   ConfigurableItemRowStyle,
 } from "./configurable-item-row/configurable-item-row.style";
-import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
-import StyledCheckbox from "../../__experimental__/components/checkbox/checkbox.style";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
+import StyledCheckbox from "../checkbox/checkbox.style";
 
 import baseTheme from "../../style/themes/base";
 

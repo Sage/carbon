@@ -10,7 +10,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import { Accordion } from ".";
 import {
   StyledAccordionContainer,
@@ -23,8 +23,8 @@ import {
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
 import AccordionGroup from "./accordion-group/accordion-group.component";
-import ValidationIcon from "../validations";
-import StyledValidationIcon from "../validations/validation-icon.style";
+import ValidationIcon from "../../__internal__/validations";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 

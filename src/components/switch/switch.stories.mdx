@@ -1,0 +1,314 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Switch from ".";
+
+<Meta title="Design System/Switch" parameters={{ info: { disable: true } }} />
+
+# Switch
+
+Switches provide a way to efficiently toggle between two states. They are often used on settings pages to switch on and off individual features.
+
+Disabled or read-only Switches might be difficult for a user to distinguish visually, so try to avoid this.
+
+Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Switch from "carbon-react/lib/components/switch";
+```
+
+## Related Components
+
+- Choosing more than one option? [Try Checkbox](/?path=/docs/experimental-checkbox--default-story "Checkbox").
+- Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
+- Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--default-story "Select").
+- Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
+
+## Translations
+
+The switch component uses `switch.on` and `switch.off` to retrieve the translations from I18n-js.
+
+## Examples
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="Label"
+          name="switch-name"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="sizes">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const [isCheckedLarge, setIsCheckedLarge] = useState(false);
+      return ["small", "large"].map((size) => (
+        <Switch
+          label={size}
+          key={`switch-${size}`}
+          name={`switch-${size}`}
+          size={size}
+          checked={size === "large" ? isCheckedLarge : isChecked}
+          onChange={(e) =>
+            size === "large"
+              ? setIsCheckedLarge(e.target.checked)
+              : setIsChecked(e.target.checked)
+          }
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <Switch label="Disabled switch" disabled />
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    {() => {
+      const [checked, setState] = useState(false);
+      return (
+        <Switch
+          label="Terms and Conditions"
+          name="required"
+          required
+          checked={checked}
+          onChange={(e) => setState((state) => !state)}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### Reversed
+
+<Preview>
+  <Story name="reversed">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="Reversed switch"
+          reverse={false}
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With labelInline
+
+<Preview>
+  <Story name="With labelInline">
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With labelInline"
+            labelInline
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With labelInline and reversed"
+            labelInline
+            reverse={false}
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="with fieldHelp">
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With fieldHelp"
+            fieldHelp="This text provides help for the input."
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With inline fieldHelp"
+            fieldHelp="This text provides help for the input."
+            fieldHelpInline
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="with labelHelp">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Switch
+          label="With labelHelp"
+          labelHelp="This text provides more information for the label."
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With margin
+
+Margins can be applied to the `Switch` component using styled-system. To see a full list of available margin props,
+please visit the props table at the bottom of this page.
+
+[Visit Props Table](#props)
+
+<Preview>
+  <Story name="with margin">
+    {() => {
+      const [isCheckedOne, setIsCheckedOne] = useState(false);
+      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
+      const [isCheckedThree, setIsCheckedThree] = useState(false);
+      return (
+        <>
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m={2}
+            onChange={(e) => setIsCheckedOne((state) => !state)}
+          />
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m={4}
+            onChange={(e) => setIsCheckedTwo((state) => !state)}
+          />
+          <Switch
+            label="With labelHelp"
+            labelHelp="This text provides more information for the label."
+            m="9px"
+            onChange={(e) => setIsCheckedThree((state) => !state)}
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+#### As a string
+
+<Preview>
+  <Story name="single switch - string validation">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}`}
+          key={`switch-${type}`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}`}
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
+#### As a string with validationOnLabel
+
+<Preview>
+  <Story name="single switch - string validation - validationOnLabel">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}-label`}
+          key={`switch-${type}-label`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-label`}
+          validationOnLabel
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
+#### As a boolean
+
+<Preview>
+  <Story name="single switch - boolean validation">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch_${type}-boolean`}
+          key={`switch-${type}-boolean`}
+          {...{ [type]: true }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-boolean`}
+          onChange={(e) => setIsChecked((state) => !state)}
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
+## Props
+
+### Switch
+
+<StyledSystemProps of={Switch} noHeader margin />
