@@ -3,7 +3,7 @@ import { mount, shallow } from "enzyme";
 import { act } from "react-test-renderer";
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
-import { SimpleColor } from "../../__experimental__/components/simple-color-picker";
+import { SimpleColor } from "../simple-color-picker";
 import guid from "../../utils/helpers/guid";
 import {
   assertStyleMatch,

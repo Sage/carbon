@@ -1,9 +1,8 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import "jest-styled-components";
 import SidebarHeader from "./sidebar-header.component";
 import SidebarHeaderStyle from "./sidebar-header.style";
-import Textbox from "../../../../__experimental__/components/textbox";
+import Textbox from "../../../textbox";
 import baseTheme from "../../../../style/themes/base";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 

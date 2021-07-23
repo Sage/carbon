@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
-import "jest-styled-components";
 import { ThemeProvider } from "styled-components";
 import guid from "../../utils/helpers/guid";
 import { baseTheme, mintTheme } from "../../style/themes";
@@ -10,15 +9,14 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
-import StyledValidationIcon from "../validations/validation-icon.style";
-import ValidationIcon from "../validations";
-import Label from "../../__experimental__/components/label";
-
+import Label from "../../__internal__/label";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import ValidationIcon from "../../__internal__/validations";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
-import FormFieldStyle from "../../__experimental__/components/form-field/form-field.style";
-import FormField from "../../__experimental__/components/form-field";
+import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import FormField from "../../__internal__/form-field";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");

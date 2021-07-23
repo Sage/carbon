@@ -1,11 +1,10 @@
 import * as React from "react";
 import { TableBorderSize } from "..";
 import { PaddingProps } from "styled-system";
-import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
 export interface FlatTableHeaderProps extends PaddingProps {
   /** Content alignment */
-  align?: OptionsHelper.AlignFull;
+  align?: "left" | "center" | "right";
   /** If true sets alternative background color */
   alternativeBgColor?: boolean;
   children?: React.ReactNode | string;

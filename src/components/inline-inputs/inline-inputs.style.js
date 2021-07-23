@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import StyledRow from "../row/row.style";
 import StyledColumn from "../row/column/column.style";
 
-import { StyledLabelContainer } from "../../__experimental__/components/label/label.style";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 
 const spacings = {

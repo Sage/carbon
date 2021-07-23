@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Label from "../../../../__experimental__/components/label";
+import Label from "../../../../__internal__/label";
 import LabelWrapper from "./label-wrapper.component";
 
 describe("LabelWrapper", () => {

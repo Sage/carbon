@@ -14,7 +14,6 @@ import {
   SubMenuItemIcon,
   StyledMenuItem,
 } from "../action-popover.style";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import ActionPopoverContext from "../action-popover-context";
@@ -277,8 +276,12 @@ const propTypes = {
   children: PropTypes.string.isRequired,
   /** Flag to indicate if item is disabled */
   disabled: PropTypes.bool,
-  /** The name of the icon to display next to the label */
-  icon: PropTypes.oneOf(OptionsHelper.icons),
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * The name of the icon to display next to the label
+   * */
+  icon: PropTypes.string,
   /** Callback to run when item is clicked */
   onClick: PropTypes.func,
   /** allows to provide download prop that works dependent with href */

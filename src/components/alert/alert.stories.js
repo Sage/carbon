@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { boolean, text, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from "../button";
 import Alert from ".";
 
@@ -27,7 +26,19 @@ export const Default = () => {
   const disableEscKey = boolean("disableEscKey", false);
   const height = text("height", "");
   const showCloseIcon = boolean("showCloseIcon", true);
-  const size = select("size", OptionsHelper.sizesFull, Alert.defaultProps.size);
+  const size = select(
+    "size",
+    [
+      "extra-small",
+      "small",
+      "medium-small",
+      "medium",
+      "medium-large",
+      "large",
+      "extra-large",
+    ],
+    Alert.defaultProps.size
+  );
 
   const handleCancel = () => {
     setIsOpen(false);

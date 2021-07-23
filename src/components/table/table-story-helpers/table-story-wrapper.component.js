@@ -6,18 +6,17 @@ import countriesList from "../../../../.storybook/utils/xhr/data/countries";
 import Button from "../../button";
 import MultiActionButton from "../../multi-action-button";
 import { Table, TableCell, TableHeader, TableRow } from "..";
-import TextArea from "../../../__experimental__/components/textarea";
-import TextBox from "../../../__experimental__/components/textbox";
-import DateInput from "../../../__experimental__/components/date";
-import { getCommonTextboxProps } from "../../../__experimental__/components/textbox/textbox.stories";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
+import TextArea from "../../textarea";
+import DateInput from "../../date";
+import TextBox from "../../textbox";
+import { getCommonTextboxProps } from "../../textbox/textbox.stories";
+import { TABLE_INPUT_TYPES } from "../table.config";
 
 const pickInput = (name) => {
-  const { inputTypes } = OptionsHelper;
   switch (name) {
-    case inputTypes[1]:
+    case TABLE_INPUT_TYPES[1]:
       return <TextArea {...getCommonTextboxProps} />;
-    case inputTypes[2]:
+    case TABLE_INPUT_TYPES[2]:
       return <DateInput {...getCommonTextboxProps} />;
     default:
       return <TextBox {...getCommonTextboxProps} />;

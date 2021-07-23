@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { toColor } from "../../style/utils/color";
 
 const pointerColor = (type, theme, bgColor) => {
@@ -66,7 +65,7 @@ StyledTooltipPointer.defaultProps = {
 };
 
 StyledTooltipPointer.propTypes = {
-  position: PropTypes.oneOf(OptionsHelper.positions),
+  position: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   theme: PropTypes.object,
   type: PropTypes.string,
 };

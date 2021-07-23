@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { boolean, select, text } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Sidebar from ".";
 import Button from "../button";
+import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
 
 export default {
   title: "Sidebar/Test",
@@ -27,14 +27,10 @@ export const Default = () => {
   );
   const position = select(
     "position",
-    OptionsHelper.alignBinary,
+    SIDEBAR_ALIGNMENTS,
     Sidebar.defaultProps.position
   );
-  const size = select(
-    "size",
-    OptionsHelper.sizesFull,
-    Sidebar.defaultProps.size
-  );
+  const size = select("size", SIDEBAR_SIZES, Sidebar.defaultProps.size);
 
   const onCancel = () => {
     setIsOpen(false);
