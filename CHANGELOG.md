@@ -1,3 +1,10 @@
+### [79.0.1](https://github.com/Sage/carbon/compare/v79.0.0...v79.0.1) (2021-07-23)
+
+
+### Bug Fixes
+
+* **sidebar:** fix header not respecting container width ([de13810](https://github.com/Sage/carbon/commit/de13810885f244731dd4e9b32a22dd8ca6724ec2)), closes [#4240](https://github.com/Sage/carbon/issues/4240)
+
 ## [79.0.0](https://github.com/Sage/carbon/compare/v78.0.0...v79.0.0) (2021-07-23)
 
 
