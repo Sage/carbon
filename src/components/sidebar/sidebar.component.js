@@ -27,7 +27,7 @@ const Sidebar = ({
   const closeIcon = () => {
     if (!onCancel) return null;
     return (
-      <IconButton onAction={onCancel} data-element="close">
+      <IconButton aria-label="close" onAction={onCancel} data-element="close">
         <Icon type="close" />
       </IconButton>
     );
