@@ -1,3 +1,79 @@
+## [79.0.0](https://github.com/Sage/carbon/compare/v78.0.0...v79.0.0) (2021-07-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **options-helper:** OptionsHelper has been removed. All references will stop work.
+Types are exported from their own files.
+
+All affected files are listed below:
+- checkbox
+- date
+- decimal
+- form-field
+- input-presentation
+- input-icon
+- label
+- numeral-date
+- radio-button
+- switch
+- textarea
+- textbox
+- accordion
+- action-popover-item
+- alert
+- story-constants
+- batch-selection
+- button
+- button-toggle
+- card
+- confirm
+- detail
+- dialog
+- flat-table
+- form
+- help
+- icon
+- inline-inputs
+- link
+- loader
+- message
+- message-content
+- multi-action-button
+- menu
+- pod
+- tile
+- popover-container
+- portrait
+- profile
+- row
+- select-textbox
+- show-edit-pod
+- sidebar
+- split-button
+- step-sequence
+- table
+- tabs-header
+- toast
+- tooltip
+- validation-cion
+- vertical-divider
+- image
+- action-popover
+- accordion
+- input-definition
+- styled-system-interfaces
+- options-helper
+
+### Bug Fixes
+
+* remove jest-styled-components ([33582ca](https://github.com/Sage/carbon/commit/33582ca2042fcef23e74d71b31ab924d04ae5a62))
+
+
+### Code Refactoring
+
+* **options-helper:** remove util ([84ce69f](https://github.com/Sage/carbon/commit/84ce69f48d09df294086f1d4ec231e00dd1bba33))
+
 ## [78.0.0](https://github.com/Sage/carbon/compare/v77.14.3...v78.0.0) (2021-07-22)
 
 
