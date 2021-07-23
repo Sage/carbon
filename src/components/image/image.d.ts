@@ -1,10 +1,6 @@
 import * as React from "react";
 import { StyledComponentProps } from "styled-components";
-import { MarginProps } from "styled-system";
-import {
-  BackgroundProps,
-  LayoutProps,
-} from "../../utils/helpers/options-helper";
+import { MarginProps, BackgroundProps, LayoutProps } from "styled-system";
 
 export interface ImageProps
   extends MarginProps,

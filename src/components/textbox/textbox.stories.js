@@ -3,8 +3,7 @@ import React from "react";
 import { boolean, text, select, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Textbox from ".";
-
-import OptionsHelper from "../../utils/helpers/options-helper";
+import { ICONS } from "../icon/icon-config";
 
 export default {
   title: "Design System/Textbox/Test",
@@ -58,14 +57,14 @@ export const getCommonTextboxProps = (
       ? number("inputWidth", 70, percentageRange)
       : undefined;
   const labelAlign = labelInline
-    ? select("labelAlign", OptionsHelper.alignBinary)
+    ? select("labelAlign", ["left", "right"])
     : undefined;
-  const size = select("size", OptionsHelper.sizesRestricted, "medium");
+  const size = select("size", ["small", "medium", "large"], "medium");
 
   const onClick = action("onClick");
   const iconOnClick = action("iconOnClick");
   const inputIcon = !config.disableInputIcon
-    ? select("inputIcon", ["", ...OptionsHelper.icons])
+    ? select("inputIcon", ["", ...ICONS])
     : undefined;
 
   const required = config.requiredKnob ? boolean("required", false) : undefined;

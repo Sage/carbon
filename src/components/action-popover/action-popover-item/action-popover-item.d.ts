@@ -1,5 +1,5 @@
+import { IconType } from "components/icon/icon";
 import * as React from "react";
-import { IconTypes } from "../../../utils/helpers/options-helper/options-helper";
 import { ActionPopoverMenuProps } from "../action-popover-menu/action-popover-menu";
 
 export interface ActionPopoverItemProps {
@@ -12,7 +12,7 @@ export interface ActionPopoverItemProps {
   /** allows to provide href prop */
   href?: string;
   /** The name of the icon to display next to the label */
-  icon?: IconTypes;
+  icon?: IconType;
   /** Callback to run when item is clicked */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Submenu component for item */

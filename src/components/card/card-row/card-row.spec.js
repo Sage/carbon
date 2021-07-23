@@ -6,7 +6,6 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
-import "jest-styled-components";
 
 describe("CardRow", () => {
   describe("when the content is added as children", () => {

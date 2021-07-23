@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { boolean, number, text, select } from "@storybook/addon-knobs";
 
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Textarea from ".";
 
 export default {
@@ -61,7 +60,7 @@ export const Default = ({ autoFocusDefault }) => {
     ? number("labelWidth", 30, percentageRange)
     : undefined;
   const labelAlign = labelInline
-    ? select("labelAlign", OptionsHelper.alignBinary)
+    ? select("labelAlign", ["left", "right"])
     : undefined;
   const adaptiveLabelBreakpoint = labelInline
     ? number("adaptiveLabelBreakpoint")

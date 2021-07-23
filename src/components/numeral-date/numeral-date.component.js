@@ -6,7 +6,6 @@ import I18n from "i18n-js";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../utils/helpers/events";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import Textbox from "../textbox";
 import guid from "../../utils/helpers/guid";
@@ -16,6 +15,14 @@ import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+const ALLOWED_DATE_FORMATS = [
+  ["dd", "mm", "yyyy"],
+  ["mm", "dd", "yyyy"],
+  ["dd", "mm"],
+  ["mm", "dd"],
+  ["mm", "yyyy"],
+];
 
 const isDayValid = (day) => (day ? +day > 0 && +day < 32 : true);
 
@@ -243,7 +250,7 @@ NumeralDate.propTypes = {
     const dateFormat = props[propName];
     const isAllowed =
       !dateFormat ||
-      OptionsHelper.dateFormats.find(
+      ALLOWED_DATE_FORMATS.find(
         (allowedDateFormat) =>
           JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat)
       );

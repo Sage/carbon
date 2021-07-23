@@ -1,8 +1,8 @@
 import React from "react";
 import { select, boolean } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Loader from ".";
 import Button from "../button";
+import { LOADER_SIZES } from "./loader.config";
 
 export default {
   title: "Design System/Loader/Test",
@@ -16,11 +16,7 @@ export default {
 };
 
 export const Default = () => {
-  const size = select(
-    "size",
-    OptionsHelper.sizesBinary,
-    Loader.defaultProps.size
-  );
+  const size = select("size", LOADER_SIZES, Loader.defaultProps.size);
   const isInsideButton = boolean("isInsideButton", false);
   const isActive = isInsideButton
     ? boolean("isActive", Loader.defaultProps.isActive)

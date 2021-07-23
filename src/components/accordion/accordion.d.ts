@@ -1,8 +1,6 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
 
-import { AlignBinaryType } from "../../utils/helpers/options-helper/options-helper";
-
 export interface AccordionProps extends SpaceProps {
   /** Toggles left and right borders */
   borders?: "default" | "full" | "none";
@@ -25,7 +23,7 @@ export interface AccordionProps extends SpaceProps {
   /** Sets icon type - accepted values: 'chevron_down' (default), 'dropdown' */
   iconType?: "chevron_down" | "dropdown";
   /** Sets icon alignment - accepted values: 'left', 'right' (default) */
-  iconAlign?: AlignBinaryType;
+  iconAlign?: "left" | "right";
   /** Sets accordion title */
   title: React.ReactNode;
   /** An info message to be displayed in the tooltip */

@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import sizes from "./input-sizes.style";
 import StyledInput from "./input.style";
 import StyledInlineInputs from "../../components/inline-inputs/inline-inputs.style";
@@ -121,7 +120,7 @@ InputPresentationStyle.propTypes = {
   hasFocus: PropTypes.bool,
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

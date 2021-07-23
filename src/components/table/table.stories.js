@@ -1,8 +1,8 @@
 import React from "react";
 import { boolean, text, select, number } from "@storybook/addon-knobs";
 import TableWrapper from "./table-story-helpers/table-story-wrapper.component";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { Table } from ".";
+import { TABLE_INPUT_TYPES, TABLE_SIZES, TABLE_THEMES } from "./table.config";
 
 export default {
   title: "Table/Test",
@@ -50,14 +50,10 @@ const dlsKnobs = () => {
   return {
     theme: select(
       "tableTheme",
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1],
-        OptionsHelper.tableThemes[2],
-      ],
+      [TABLE_THEMES[0], TABLE_THEMES[1], TABLE_THEMES[2]],
       Table.defaultProps.theme
     ),
-    size: select("size", OptionsHelper.tableSizes, Table.defaultProps.size),
+    size: select("size", TABLE_SIZES, Table.defaultProps.size),
     isZebra: boolean("zebra striping", false),
   };
 };
@@ -66,12 +62,8 @@ const inputKnobs = () => {
   return {
     inputType: select(
       "input type",
-      [
-        OptionsHelper.inputTypes[0],
-        OptionsHelper.inputTypes[1],
-        OptionsHelper.inputTypes[2],
-      ],
-      OptionsHelper.inputTypes[0]
+      [TABLE_INPUT_TYPES[0], TABLE_INPUT_TYPES[1], TABLE_INPUT_TYPES[2]],
+      TABLE_INPUT_TYPES[0]
     ),
   };
 };

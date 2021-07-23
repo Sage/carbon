@@ -1,6 +1,5 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import "jest-styled-components";
 import { css, ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 import I18n from "i18n-js";

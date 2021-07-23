@@ -5,7 +5,6 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import tagComponent from "../../utils/helpers/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
@@ -78,7 +77,16 @@ const Message = ({
 Message.propTypes = {
   ...marginPropTypes,
   /** set type of message based on new DLS standard */
-  variant: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf([
+    "default",
+    "error",
+    "help",
+    "info",
+    "maintenance",
+    "new",
+    "success",
+    "warning",
+  ]),
   /** set content to component */
   children: PropTypes.node,
   /** set custom class to component */

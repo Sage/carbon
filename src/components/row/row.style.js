@@ -2,24 +2,14 @@ import styled, { css } from "styled-components";
 
 import baseTheme from "../../style/themes/base";
 import StyledColumn from "./column/column.style";
-
-const sizes = {
-  none: 0,
-  "extra-small": 2,
-  small: 5,
-  "medium-small": 10,
-  medium: 15,
-  "medium-large": 30,
-  large: 60,
-  "extra-large": 90,
-};
+import { ROW_SIZES_CSS } from "./row.config";
 
 const StyledRow = styled.div`
   clear: both;
   position: relative;
 
   ${({ gutter, columnDivide }) => {
-    const size = sizes[gutter];
+    const size = ROW_SIZES_CSS[gutter];
     return css`
       margin-bottom: -${size}px;
       margin-left: -${size}px;

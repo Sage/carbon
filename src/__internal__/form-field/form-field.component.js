@@ -4,7 +4,6 @@ import propTypes from "@styled-system/prop-types";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
 import FieldHelp from "../field-help";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import tagComponent from "../../utils/helpers/tags";
 import { TabContext } from "../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
@@ -195,7 +194,7 @@ FormField.propTypes = {
   isOptional: PropTypes.bool,
   label: PropTypes.node,
   labelId: PropTypes.string,
-  labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  labelAlign: PropTypes.oneOf(["left", "right"]),
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
