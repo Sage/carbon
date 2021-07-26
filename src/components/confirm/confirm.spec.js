@@ -1,6 +1,5 @@
 import React from "react";
 import { mount } from "enzyme";
-import "jest-styled-components";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Confirm from "./confirm.component";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";

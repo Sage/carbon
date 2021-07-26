@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StyledTableCell from "./table-cell.style";
-import Date from "../../../__experimental__/components/date";
-import TextArea from "../../../__experimental__/components/textarea";
+import Date from "../../date";
+import TextArea from "../../textarea";
 import { validProps } from "../../../utils/ether";
 import tagComponent from "../../../utils/helpers/tags";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 
 /**
  * A TableCell widget.
@@ -89,13 +88,13 @@ TableCell.propTypes = {
   action: PropTypes.bool,
 
   /** Defines the alignment of the cell (eg "left", "center" or "right"). */
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
 
   /** Children elements */
   children: PropTypes.node,
 
   /** Defines the height of a cell used to size an input for example */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes),
+  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
 };
 
 TableCell.defaultProps = {

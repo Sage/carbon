@@ -6,8 +6,11 @@ import { margin } from "styled-system";
 import iconUnicodes from "./icon-unicodes";
 import baseTheme from "../../style/themes/base";
 import generatePalette from "../../style/palette";
-import iconSizeConfig from "./icon-config";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import iconSizeConfig, {
+  ICON_BACKGROUNDS,
+  ICON_COLORS,
+  ICON_SHAPES,
+} from "./icon-config";
 import browserTypeCheck, {
   isSafari,
 } from "../../utils/helpers/browser-type-check";
@@ -200,21 +203,11 @@ StyledIcon.propTypes = {
   type: PropTypes.string,
   isInteractive: PropTypes.bool,
   disabled: PropTypes.bool,
-  bgSize: PropTypes.oneOf([
-    "extra-small",
-    "small",
-    "medium",
-    "large",
-    "extra-large",
-  ]),
-  bgShape: PropTypes.oneOf(OptionsHelper.shapes),
-  bgTheme: PropTypes.oneOf([
-    ...OptionsHelper.colors,
-    ...OptionsHelper.iconBackgrounds,
-    "",
-  ]),
+  bgSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
+  bgShape: PropTypes.oneOf(ICON_SHAPES),
+  bgTheme: PropTypes.oneOf([...ICON_COLORS, ...ICON_BACKGROUNDS, ""]),
   fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
-  iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
+  iconColor: PropTypes.oneOf(ICON_COLORS),
 };
 
 StyledIcon.defaultProps = {

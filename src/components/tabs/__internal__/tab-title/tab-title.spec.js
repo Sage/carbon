@@ -10,8 +10,8 @@ import {
 } from "./tab-title.style";
 import { aegeanTheme, baseTheme } from "../../../../style/themes";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import ValidationIcon from "../../../validations/validation-icon.component";
-import StyledValidationIcon from "../../../validations/validation-icon.style";
+import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
+import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 import StyledIcon from "../../../icon/icon.style";
 
 function render(props, renderer = shallow) {

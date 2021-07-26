@@ -1,13 +1,12 @@
 import * as React from "react";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 export interface SplitButtonProps {
   /** Set align of the rendered content */
-  align?: OptionsHelper.AlignBinaryType;
+  align?: "left" | "right";
   /** Button type: "primary" | "secondary" for legacy theme */
-  as?: OptionsHelper.ThemesBinary;
+  as?: "primary" | "secondary";
   /** Button type: "primary" | "secondary" */
-  buttonType?: OptionsHelper.ThemesBinary;
+  buttonType?: "primary" | "secondary";
   /** The additional button to display. */
   children: React.ReactNode;
   /** A custom value for the data-element attribute */
@@ -19,7 +18,7 @@ export interface SplitButtonProps {
   /** Defines an Icon position within the button: "before" | "after" */
   iconPosition?: "before" | "after";
   /** The size of the buttons in the SplitButton. */
-  size?: OptionsHelper.SizesRestricted;
+  size?: "small" | "medium" | "large";
   /** The text to be displayed in the SplitButton. */
   text: string;
 }

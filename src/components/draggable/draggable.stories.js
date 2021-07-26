@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import { Checkbox } from "../checkbox";
 
 export default {
   component: DraggableContainer,

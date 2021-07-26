@@ -1,7 +1,8 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Help from "./help.component";
+import { HELP_POSITIONS } from "./help.config";
+import { ICONS } from "../icon/icon-config";
 
 export default {
   title: "Help/Test",
@@ -22,12 +23,12 @@ export const Default = () => {
   const tooltipPosition = children
     ? select(
         "tooltipPosition",
-        OptionsHelper.positions,
+        HELP_POSITIONS,
         Help.defaultProps.tooltipPosition
       )
     : undefined;
   const href = text("href", "http://www.sage.com");
-  const type = select("type", OptionsHelper.icons, "help");
+  const type = select("type", ICONS, "help");
   const tooltipBgColor = children
     ? text("tooltipBgColor", undefined)
     : undefined;

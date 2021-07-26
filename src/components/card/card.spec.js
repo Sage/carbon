@@ -10,9 +10,9 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
 import Link from "../link";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledCardFooter from "./card-footer/card-footer.style";
+import { CARD_SIZES } from "./card.config";
 
 describe("Card", () => {
   testStyledSystemMargin((props) => <Card {...props}>Content</Card>);
@@ -31,7 +31,7 @@ describe("Card", () => {
       expect(wrapper.containsMatchingElement(content)).toBe(true);
     });
 
-    describe.each(OptionsHelper.sizesRestricted)(
+    describe.each(CARD_SIZES)(
       'and the "spacing" prop is set to %s',
       (spacing) => {
         it(`then CardRow and CardFooter children should have the "spacing" prop added and set to "${spacing}"`, () => {
@@ -100,9 +100,8 @@ describe("Card", () => {
           children: cardFooter,
         });
 
-        expect(
-          wrapper.find(".mockedContent").at(0).props()[("py", "pt")]
-        ).toBeUndefined();
+        expect(wrapper.find(".mockedContent").at(0).props().py).toBeUndefined();
+        expect(wrapper.find(".mockedContent").at(0).props().pt).toBeUndefined();
       });
     });
   });

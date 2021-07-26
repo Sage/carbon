@@ -1,6 +1,5 @@
 import React from "react";
 import { withKnobs, boolean, select, number } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import BatchSelection from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
@@ -23,7 +22,7 @@ export const Default = () => {
     selectedCount: number("selectedCount", 0),
     colorTheme: select(
       "colorTheme",
-      [...OptionsHelper.flatTableThemes],
+      ["dark", "light", "white", "transparent"],
       "transparent"
     ),
   };

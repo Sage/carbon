@@ -97,7 +97,8 @@ Flat table rows can be made expandable, with any number of sub rows.
 </Preview>
 
 ### Keyboard accessible subrows
-In order to make the subrows keyboard accessible you will need to pass a callback to the `onClick` prop as in the example 
+
+In order to make the subrows keyboard accessible you will need to pass a callback to the `onClick` prop as in the example
 below.
 
 <Preview>
@@ -373,7 +374,8 @@ Rows with row headers can also be made expandable.
 </Preview>
 
 ### With row headers with custom paddings
-Rows with row headers can also be made expandable and can also have custom paddings. 
+
+Rows with row headers can also be made expandable and can also have custom paddings.
 In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as having an icon.
 
 <Preview>
@@ -388,7 +390,7 @@ In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as
         </FlatTableRow>,
         <FlatTableRow>
           <FlatTableRowHeader pl={5}>
-            <Icon type="individual"/> Child two
+            <Icon type="individual" /> Child two
           </FlatTableRowHeader>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
@@ -550,7 +552,7 @@ Tables with pagination can have expandable rows.
 By writing your own selectable logic, both parent and child rows can be made selectable.
 
 <Preview>
-  <Story name="both parent and chidren selectable">
+  <Story name="both parent and children selectable">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({

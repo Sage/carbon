@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import { TileSelect, TileSelectGroup } from ".";
 import { baseTheme } from "../../style/themes";
 import tint from "../../style/utils/tint";

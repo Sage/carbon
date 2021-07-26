@@ -2,13 +2,13 @@ import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
 import { space } from "styled-system";
-import StyledFormField from "../../__experimental__/components/form-field/form-field.style";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper";
-import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { FieldsetStyle } from "../fieldset/fieldset.style";
+import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
 
 const FormButtonAnimation = keyframes`
   0%   { transform: translateY(50px); }
@@ -101,16 +101,16 @@ StyledForm.defaultProps = {
 };
 
 StyledLeftButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
 };
 
 StyledRightButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
 };
 
 StyledFormFooter.propTypes = {
   theme: PropTypes.object,
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
   stickyFooter: PropTypes.bool,
 };
 

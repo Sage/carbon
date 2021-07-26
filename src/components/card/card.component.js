@@ -3,13 +3,10 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import StyledCard from "./card.style";
 import Icon from "../icon";
 import CardRow from "./card-row/card-row.component";
 import CardFooter from "./card-footer/card-footer.component";
-
-const { sizesRestricted } = OptionsHelper;
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -94,7 +91,7 @@ Card.propTypes = {
   /** flag to indicate if card is draggable */
   draggable: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
-  spacing: PropTypes.oneOf(sizesRestricted),
+  spacing: PropTypes.oneOf(["small", "medium", "large"]),
   dataRole: PropTypes.string,
 };
 
