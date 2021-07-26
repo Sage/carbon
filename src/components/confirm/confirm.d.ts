@@ -1,3 +1,4 @@
+import { IconType } from "components/icon/icon";
 import * as React from "react";
 import { DialogProps } from "../dialog/dialog";
 
@@ -18,14 +19,12 @@ export interface ConfirmProps extends DialogProps {
   confirmButtonDestructive?: boolean;
   /** Defines a cancel button Icon position related to the children: "before" | "after" */
   cancelButtonIconPosition?: "before" | "after";
-  /* FIXME use import { IconTypes } from "components/icon/icon-types" when #4134 is merged */
   /** Defines an Icon type within the cancel button (see Icon for options) */
-  cancelButtonIconType?: string;
+  cancelButtonIconType?: IconType;
   /** Defines a cancel button Icon position related to the children: "before" | "after" */
   confirmButtonIconPosition?: "before" | "after";
-  /* FIXME use import { IconTypes } from "components/icon/icon-types" when #4134 is merged */
   /** Defines an Icon type within the confirm button (see Icon for options) */
-  confirmButtonIconType?: string;
+  confirmButtonIconType?: IconType;
   /** Makes cancel button disabled */
   disableCancel?: boolean;
   /** Makes confirm button disabled */

@@ -8,7 +8,6 @@ import {
 import guid from "../../utils/helpers/guid";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import ButtonToggleInput from "./button-toggle-input.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
 
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
@@ -98,7 +97,7 @@ ButtonToggle.propTypes = {
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  buttonIconSize: PropTypes.oneOf(["small", "large"]),
   /** Remove spacing from between buttons. */
   grouped: PropTypes.bool,
   /** Disable all user interaction. */

@@ -4,10 +4,9 @@ import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../utils/helpers/tags";
-import OptionsHelper from "../../utils/helpers/options-helper";
 
 function renderChildren({
-  // eslint-disable-next-line react/prop-types
+  /* eslint-disable react/prop-types */
   iconType,
   iconPosition,
   size,
@@ -17,6 +16,7 @@ function renderChildren({
   buttonType,
   iconTooltipMessage,
   iconTooltipPosition,
+  /* eslint-enable */
 }) {
   const iconColorMap = {
     primary: "on-dark-background",
@@ -150,8 +150,14 @@ Button.propTypes = {
   ...propTypes.space,
   /** Prop to specify the aria-label text. Only to be used in Button when only an icon is rendered. This is required to comply with WCAG 4.1.2 - Buttons must have discernible text  */
   "aria-label": PropTypes.string,
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
-  buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
+  buttonType: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "dashed",
+    "darkBackground",
+  ]),
   /** The text the button displays */
   children: (props, propName, ...rest) => {
     if (!props.iconType && !props.children) {
@@ -166,8 +172,12 @@ Button.propTypes = {
   /** Apply destructive style to the button */
   destructive: PropTypes.bool,
   /** Defines an Icon position related to the children: "before" | "after" */
-  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions]),
-  /** Defines an Icon type within the button (see Icon for options) */
+  iconPosition: PropTypes.oneOf(["before", "after"]),
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Defines an Icon type within the button (see Icon for options)
+   * */
   iconType: (props, propName, ...rest) => {
     if (!props.iconType && !props.children) {
       return new Error(
@@ -177,13 +187,13 @@ Button.propTypes = {
     return PropTypes.node(props, propName, ...rest);
   },
   /** Assigns a size to the button: "small" | "medium" | "large" */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Ref to be forwarded */
   forwardRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   /** Button types for legacy theme: "primary" | "secondary" */
-  as: PropTypes.oneOf(OptionsHelper.themesBinary),
+  as: PropTypes.oneOf(["primary", "secondary"]),
   /** Used to transform button into anchor */
   href: PropTypes.string,
   /** Apply fullWidth style to the button */

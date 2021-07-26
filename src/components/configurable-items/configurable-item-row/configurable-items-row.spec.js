@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import { ConfigurableItemRowWithoutHOC } from "./configurable-item-row.component";
-import { Checkbox } from "../../../__experimental__/components/checkbox";
+import { Checkbox } from "../../checkbox";
 import Icon from "../../icon";
 import { WithDrag, WithDrop } from "../../drag-and-drop";
 import DraggableContext from "../../drag-and-drop/draggable-context";

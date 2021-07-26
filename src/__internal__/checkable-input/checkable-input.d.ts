@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ValidationPropTypes } from "../../components/validations";
+import { ValidationPropTypes } from "../validations";
 
 export interface CommonCheckableInputProps extends ValidationPropTypes {
   /** Set the value of the CheckableInput */

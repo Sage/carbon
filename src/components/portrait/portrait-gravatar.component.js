@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import MD5 from "crypto-js/md5";
 
 import { StyledPortraitGravatar } from "./portrait.style";
-import sizeParams from "./portrait-size.config";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
 class PortraitGravatar extends React.Component {
   /** Generates the Gravatar URL for the specified email address and dimensions. */
   gravatarSrc() {
     const { gravatarEmail, size } = this.props;
-    const { dimensions } = sizeParams[size];
+    const { dimensions } = PORTRAIT_SIZE_PARAMS[size];
     const base = "https://www.gravatar.com/avatar/";
     const hash = MD5(gravatarEmail.toLowerCase());
     const fallbackOption = "404"; // "Return an HTTP 404 File Not Found response"
@@ -42,9 +41,9 @@ PortraitGravatar.propTypes = {
   /** The user's email address for the Gravatar. */
   gravatarEmail: PropTypes.string.isRequired,
   /** The size of the Gravatar. */
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
+  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]).isRequired,
   /** The shape of the Gravatar. */
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
+  shape: PropTypes.oneOf(["circle", "square"]),
   /** The `alt` HTML string. */
   alt: PropTypes.string,
   /** A callback to execute if the Gravatar image fails to load. */

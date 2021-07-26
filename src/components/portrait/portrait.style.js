@@ -2,13 +2,16 @@ import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
-import sizeParams from "./portrait-size.config";
 import BaseTheme from "../../style/themes/base";
 import Icon from "../icon";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import {
+  PORTRAIT_SHAPES,
+  PORTRAIT_SIZES,
+  PORTRAIT_SIZE_PARAMS,
+} from "./portrait.config";
 
 function stylingForSize({ size }) {
-  const params = sizeParams[size];
+  const params = PORTRAIT_SIZE_PARAMS[size];
 
   if (!params) {
     return css``;
@@ -32,7 +35,7 @@ function stylingForShape({ shape }) {
 }
 
 function stylingForIcon({ size, theme, darkBackground }) {
-  const params = sizeParams[size];
+  const params = PORTRAIT_SIZE_PARAMS[size];
 
   if (!params) {
     return css``;
@@ -85,8 +88,8 @@ export const StyledPortraitInitials = styled.div`
 
 StyledPortraitInitials.propTypes = {
   theme: PropTypes.object,
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
+  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
+  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
 };
 
 StyledPortraitInitials.defaultProps = {
@@ -111,8 +114,8 @@ export const StyledPortraitGravatar = styled.img`
 `;
 
 StyledPortraitGravatar.propTypes = {
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
+  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
+  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
 };
@@ -130,8 +133,8 @@ export const StyledCustomImg = styled.img`
 StyledCustomImg.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
+  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
+  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
 };
 
 // && is used here to increase the specificity
@@ -153,8 +156,8 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
 
 StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesPortrait),
-  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
+  size: PropTypes.oneOf(PORTRAIT_SIZES),
+  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
   theme: PropTypes.object,
   type: PropTypes.string.isRequired,
 };

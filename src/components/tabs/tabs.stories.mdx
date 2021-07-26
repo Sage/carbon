@@ -1,8 +1,8 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
-import { Tabs, Tab } from "./tabs.component"
-import { Checkbox } from "../../__experimental__/components/checkbox";
+import { Tabs, Tab } from "./tabs.component";
+import { Checkbox } from "../checkbox";
 import Icon from "../icon";
 import Pill from "../pill";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
@@ -11,9 +11,11 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
 # Tabs
+
 Switch between content panes or filtered views of tables.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -23,10 +25,11 @@ Switch between content panes or filtered views of tables.
 ## Quick Start
 
 ```javascript
-import {Tabs, Tab} from "carbon-react/lib/components/tabs";
+import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 ```
 
 ## Designer Notes
+
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:
   - `top` - shows the tabs in a line, typically above a Table - best for short lists of tabs.
@@ -35,16 +38,18 @@ import {Tabs, Tab} from "carbon-react/lib/components/tabs";
   - sets the text alignment for `left` tabs.
   - sets `left` or `right` page position for `top` tabs.
 - Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs,
-nested tabs, or using vertical and horizontal tabs at the same time.
+  nested tabs, or using vertical and horizontal tabs at the same time.
 - To use `Tabs` with a routing library see our documentation on this here: <LinkTo kind="Documentation/Usage with routing">Usage with routing</LinkTo>
 
 ## Related Components
+
 - Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/design-system-menu)
 - Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/design-system-navigation-bar)
 
 ## Examples
 
 ### Default
+
 The tabs widget also allows you to select a tab on page load. By default this is set to the first tab.
 
 <Preview>
@@ -306,6 +311,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
 </Preview>
 
 ### With Link as a Tab
+
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Preview>
@@ -343,7 +349,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
               title="Tab 3"
               key="tab-3"
             >
-             Content for tab 3
+              Content for tab 3
             </Tab>
           </Tabs>
         </div>
@@ -353,6 +359,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 </Preview>
 
 ### With specified tab visible
+
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Preview>
@@ -419,13 +426,14 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 </Preview>
 
 ### Without extended dividing line
+
 By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this
 is set to "true".
 
 <Preview>
   <Story name="without extended dividing line">
     <div style={{ padding: "4px" }}>
-      <Tabs extendedLine={ false } align="left" position="top">
+      <Tabs extendedLine={false} align="left" position="top">
         <Tab
           errorMessage="error"
           warningMessage="warning"
@@ -440,7 +448,8 @@ is set to "true".
           errorMessage="error"
           warningMessage="warning"
           infoMessage="info"
-          tabId="tab-2" title="Tab 2"
+          tabId="tab-2"
+          title="Tab 2"
           key="tab-2"
         >
           Content for tab 2
@@ -449,7 +458,8 @@ is set to "true".
           errorMessage="error"
           warningMessage="warning"
           infoMessage="info"
-          tabId="tab-3" title="Tab 3"
+          tabId="tab-3"
+          title="Tab 3"
           key="tab-3"
         >
           Content for tab 3
@@ -458,7 +468,8 @@ is set to "true".
           errorMessage="error"
           warningMessage="warning"
           infoMessage="info"
-          tabId="tab-4" title="Tab 4"
+          tabId="tab-4"
+          title="Tab 4"
           key="tab-4"
         >
           Content for tab 4
@@ -467,7 +478,8 @@ is set to "true".
           errorMessage="error"
           warningMessage="warning"
           infoMessage="info"
-          tabId="tab-5" title="Tab 5"
+          tabId="tab-5"
+          title="Tab 5"
           key="tab-5"
         >
           Content for tab 5
@@ -478,6 +490,7 @@ is set to "true".
 </Preview>
 
 ### Large tabs
+
 The `size` prop can be used to set the `TabTitle` to either "default" or "large".
 
 #### Positioned top
@@ -603,6 +616,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 </Preview>
 
 ### With borders
+
 The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values:
 "off" (default), "on", "no left side", "no right side" and "no sides".
 
@@ -855,9 +869,17 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations positioned top">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs align="left" position="top">
@@ -871,20 +893,22 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
@@ -898,19 +922,21 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
@@ -924,18 +950,20 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
               />
               <Checkbox
                 label="Add info"
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -949,9 +977,17 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations sized large positioned top">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs size="large" align="left" position="top">
@@ -965,20 +1001,22 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
@@ -992,19 +1030,21 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
@@ -1018,18 +1058,20 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
               <Checkbox
                 label="Add warning"
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
               />
               <Checkbox
                 label="Add info"
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1043,9 +1085,17 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations positioned left">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs align="left" position="left">
@@ -1059,20 +1109,22 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
@@ -1086,19 +1138,21 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
@@ -1112,18 +1166,20 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
               />
               <Checkbox
                 label="Add info"
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1137,9 +1193,17 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 <Preview>
   <Story name="with validations sized large positioned left">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
-      const [warnings, setWarnings] = useState({one: true, two: true, three: false});
-      const [infos, setInfos] = useState({one: true, two: true, three: true});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
+      const [warnings, setWarnings] = useState({
+        one: true,
+        two: true,
+        three: false,
+      });
+      const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs size="large" align="left" position="left">
@@ -1153,20 +1217,22 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.one }
-                onChange={ () => setWarnings({ ...warnings, one: !warnings.one })}
+                warning={warnings.one}
+                onChange={() =>
+                  setWarnings({ ...warnings, one: !warnings.one })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.one }
-                onChange={ () => setInfos({ ...infos, one: !infos.one })}
+                info={infos.one}
+                onChange={() => setInfos({ ...infos, one: !infos.one })}
                 checked={infos.one}
               />
             </Tab>
@@ -1180,19 +1246,21 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.two }
-                onChange={ () => setWarnings({ ...warnings, two: !warnings.two })}
+                warning={warnings.two}
+                onChange={() =>
+                  setWarnings({ ...warnings, two: !warnings.two })
+                }
                 checked={warnings.two}
               />
               <Checkbox
                 label="Add info"
-                info={ infos.two }
-                onChange={ () => setInfos({ ...infos, two: !infos.two })}
+                info={infos.two}
+                onChange={() => setInfos({ ...infos, two: !infos.two })}
                 checked={infos.two}
               />
             </Tab>
@@ -1206,18 +1274,20 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
-               <Checkbox
+              <Checkbox
                 label="Add warning"
-                warning={ warnings.three }
-                onChange={ () => setWarnings({ ...warnings, three: !warnings.three })}
+                warning={warnings.three}
+                onChange={() =>
+                  setWarnings({ ...warnings, three: !warnings.three })
+                }
               />
               <Checkbox
                 label="Add info"
-                info={ infos.three }
-                onChange={ () => setInfos({ ...infos, three: !infos.three })}
+                info={infos.three}
+                onChange={() => setInfos({ ...infos, three: !infos.three })}
                 checked={infos.three}
               />
             </Tab>
@@ -1229,13 +1299,18 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 </Preview>
 
 ### With additional title siblings
+
 It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
 <Preview>
   <Story name="with additional title siblings">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs align="left" position="top">
@@ -1246,13 +1321,18 @@ can be used to render the `title` "before" (default) or "after" the additional e
               tabId="tab-1"
               title="Tab 1"
               key="tab-1"
-              siblings={[<Pill size="S" pillRole="status" fill>12</Pill>, <Icon type="home" />]}
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
               titlePosition="before"
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
             </Tab>
@@ -1267,8 +1347,8 @@ can be used to render the `title` "before" (default) or "after" the additional e
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
@@ -1278,13 +1358,18 @@ can be used to render the `title` "before" (default) or "after" the additional e
               tabId="tab-3"
               title="Tab 3"
               key="tab-3"
-              siblings={[<Pill size="S" pillRole="status" fill>12</Pill>, <Icon type="home" />]}
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
               titlePosition="after"
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1297,7 +1382,11 @@ can be used to render the `title` "before" (default) or "after" the additional e
 <Preview>
   <Story name="with additional title siblings size large">
     {() => {
-      const [errors, setErrors] = useState({one: true, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: true,
+        two: false,
+        three: false,
+      });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs size="large" align="left" position="top">
@@ -1308,13 +1397,18 @@ can be used to render the `title` "before" (default) or "after" the additional e
               tabId="tab-1"
               title="Tab 1"
               key="tab-1"
-              siblings={[<Pill size="S" pillRole="status" fill>12</Pill>, <Icon type="home" />]}
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="home" />,
+              ]}
               titlePosition="before"
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
                 checked={errors.one}
               />
             </Tab>
@@ -1329,8 +1423,8 @@ can be used to render the `title` "before" (default) or "after" the additional e
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
@@ -1340,13 +1434,18 @@ can be used to render the `title` "before" (default) or "after" the additional e
               tabId="tab-3"
               title="Tab 3"
               key="tab-3"
-              siblings={[<Pill size="S" pillRole="status" fill>12</Pill>, <Icon type="settings" />]}
+              siblings={[
+                <Pill size="S" pillRole="status" fill>
+                  12
+                </Pill>,
+                <Icon type="settings" />,
+              ]}
               titlePosition="after"
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1357,13 +1456,18 @@ can be used to render the `title` "before" (default) or "after" the additional e
 </Preview>
 
 ### With custom layout
+
 It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout`
 prop to the `Tab` component.
 
 <Preview>
   <Story name="with custom layout">
     {() => {
-      const [errors, setErrors] = useState({ one: false, two: false, three: false });
+      const [errors, setErrors] = useState({
+        one: false,
+        two: false,
+        three: false,
+      });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs size="default" align="left" position="left">
@@ -1381,19 +1485,19 @@ prop to the `Tab` component.
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
                     <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
                     </ActionPopover>
                   </div>
-                  <div style={{ gridColumn: "1 / 6" }}>
-                    Tab 1
-                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 1</div>
                 </div>
-               }
+              }
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
               />
             </Tab>
             <Tab
@@ -1410,19 +1514,19 @@ prop to the `Tab` component.
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
                     <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
                     </ActionPopover>
                   </div>
-                  <div style={{ gridColumn: "1 / 6" }}>
-                    Tab 2
-                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 2</div>
                 </div>
-               }
+              }
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
@@ -1439,19 +1543,19 @@ prop to the `Tab` component.
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
                     <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        Edit
+                      </ActionPopoverItem>
                     </ActionPopover>
                   </div>
-                  <div style={{ gridColumn: "1 / 6" }}>
-                    Tab 3
-                  </div>
+                  <div style={{ gridColumn: "1 / 6" }}>Tab 3</div>
                 </div>
               }
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1462,12 +1566,17 @@ prop to the `Tab` component.
 </Preview>
 
 ### With alternate styling
+
 By setting the `variant` prop to "alternate" it is possible to apply some additional styling variants as seen below.
 
 <Preview>
   <Story name="with alternate styling">
     {() => {
-      const [errors, setErrors] = useState({one: false, two: false, three: false});
+      const [errors, setErrors] = useState({
+        one: false,
+        two: false,
+        three: false,
+      });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs variant="alternate" align="left" position="left">
@@ -1481,8 +1590,8 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
             >
               <Checkbox
                 label="Add error"
-                error={ errors.one }
-                onChange={ () => setErrors({ ...errors, one: !errors.one })}
+                error={errors.one}
+                onChange={() => setErrors({ ...errors, one: !errors.one })}
               />
             </Tab>
             <Tab
@@ -1495,8 +1604,8 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
             >
               <Checkbox
                 label="Add error"
-                error={ errors.two }
-                onChange={ () => setErrors({ ...errors, two: !errors.two })}
+                error={errors.two}
+                onChange={() => setErrors({ ...errors, two: !errors.two })}
               />
             </Tab>
             <Tab
@@ -1509,8 +1618,8 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
             >
               <Checkbox
                 label="Add error"
-                error={ errors.three }
-                onChange={ () => setErrors({ ...errors, three: !errors.three })}
+                error={errors.three}
+                onChange={() => setErrors({ ...errors, three: !errors.three })}
               />
             </Tab>
           </Tabs>
@@ -1579,6 +1688,7 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
 </Preview>
 
 ### With custom spacing
+
 The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.
 The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid
 CSS string.
@@ -1648,84 +1758,75 @@ CSS string.
 </Preview>
 
 ### Integrating with an external history
-It is possible to integrate the `Tabs` component with an external `history` to manipulate the location when a given `Tab` 
-is selected. In order to achieve this you should use the `onTabChange` prop to pass a callback that calls `push` or `replace` 
-on the provided `history`. The `selectedTabId` prop can also be used to update which tab is selected. Below is an example 
+
+It is possible to integrate the `Tabs` component with an external `history` to manipulate the location when a given `Tab`
+is selected. In order to achieve this you should use the `onTabChange` prop to pass a callback that calls `push` or `replace`
+on the provided `history`. The `selectedTabId` prop can also be used to update which tab is selected. Below is an example
 implementation using `createHashHistory` from `history@v5.0.0`.
 
 ```jsx
-  import React, { useState, useEffect } from "react";
-  import { Tabs, Tab } from "carbon-react/lib/components/tabs";
-  import { createHashHistory } from "history";
+import React, { useState, useEffect } from "react";
+import { Tabs, Tab } from "carbon-react/lib/components/tabs";
+import { createHashHistory } from "history";
 
-  const tabIds = ["tab-1", "tab-2", "tab-3"];
+const tabIds = ["tab-1", "tab-2", "tab-3"];
 
-  const TabsWithExternalHashHistory = ({ history, children, ...rest }) => {
-    const { pathname } = history?.location;
-    const initialActiveTab = tabIds.includes(pathname)
-      ? pathname
-      : tabIds[0];
-    const [activeTab, setActiveTab] = useState(initialActiveTab);
+const TabsWithExternalHashHistory = ({ history, children, ...rest }) => {
+  const { pathname } = history?.location;
+  const initialActiveTab = tabIds.includes(pathname) ? pathname : tabIds[0];
+  const [activeTab, setActiveTab] = useState(initialActiveTab);
 
-    useEffect(() => {
-      const stopListen = history.listen(({ action, location }) => {
-        if (action === "POP" && !tabIds.includes(location?.pathname)) {
-          // back pressed and no id available from pathname
-          setActiveTab(tabIds[0]);
-        } else if (tabIds.includes(location?.pathname)) {
-          const index = tabIds.findIndex((id) => location?.pathname === id);
-          const tabId = tabIds[index];
+  useEffect(() => {
+    const stopListen = history.listen(({ action, location }) => {
+      if (action === "POP" && !tabIds.includes(location?.pathname)) {
+        // back pressed and no id available from pathname
+        setActiveTab(tabIds[0]);
+      } else if (tabIds.includes(location?.pathname)) {
+        const index = tabIds.findIndex((id) => location?.pathname === id);
+        const tabId = tabIds[index];
 
-          if (tabId && tabId !== activeTab) {
-            setActiveTab(tabId);
-          }
+        if (tabId && tabId !== activeTab) {
+          setActiveTab(tabId);
         }
-      });
+      }
+    });
 
-      return () => stopListen();
-    }, [activeTab, history]);
+    return () => stopListen();
+  }, [activeTab, history]);
 
-    const handleTabChange = (tabid) => history.push(tabid);
+  const handleTabChange = (tabid) => history.push(tabid);
 
-    return (
-      <Tabs {...rest} onTabChange={handleTabChange} selectedTabId={activeTab}>
-        {children}
-      </Tabs>
-    );
-  }
+  return (
+    <Tabs {...rest} onTabChange={handleTabChange} selectedTabId={activeTab}>
+      {children}
+    </Tabs>
+  );
+};
 
-  const App = () => {
-    const history = createHashHistory();
-    return (
-      <TabsWithExternalHashHistory history={history} align="left" position="top">
-        <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-          Content for tab 2
-        </Tab>
-        <Tab tabId="tab-3" title="Tab 3" key="tab-3">
-          Content for tab 3
-        </Tab>
-      </TabsWithExternalHashHistory>
-    );
-  };
+const App = () => {
+  const history = createHashHistory();
+  return (
+    <TabsWithExternalHashHistory history={history} align="left" position="top">
+      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+        Content for tab 1
+      </Tab>
+      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
+        Content for tab 2
+      </Tab>
+      <Tab tabId="tab-3" title="Tab 3" key="tab-3">
+        Content for tab 3
+      </Tab>
+    </TabsWithExternalHashHistory>
+  );
+};
 ```
 
 ## Props
 
 ### Tabs
 
-<StyledSystemProps
-  of={Tabs}
-  margin
-  noHeader
-/>
+<StyledSystemProps of={Tabs} margin noHeader />
 
 ### Tab
 
-<StyledSystemProps
-  of={Tab}
-  padding
-  noHeader
-/>
+<StyledSystemProps of={Tab} padding noHeader />
