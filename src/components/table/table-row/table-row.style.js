@@ -9,7 +9,7 @@ import {
 } from "./table-row-modern.style";
 import baseTheme from "../../../style/themes/base";
 import StyledIcon from "../../icon/icon.style";
-import CheckboxStyle from "../../../__experimental__/components/checkbox/checkbox.style";
+import CheckboxStyle from "../../checkbox/checkbox.style";
 
 /**
  * Current version of react-dnd used in DragAndDrop is incompatible

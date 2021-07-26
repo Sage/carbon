@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import Tab from "./tab.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
 import {
   assertStyleMatch,
@@ -57,29 +57,23 @@ function renderStyles(props) {
 describe("Tab", () => {
   let wrapper;
 
-  testStyledSystemPadding(
-    (props) => (
-      <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
-        TabContent
-      </Tab>
-    ),
-    { pt: "10px" }
-  );
+  testStyledSystemPadding((props) => (
+    <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
+      TabContent
+    </Tab>
+  ));
 
-  testStyledSystemPadding(
-    (props) => (
-      <Tab
-        position="left"
-        title="Tab Title 1"
-        tabId="uniqueid1"
-        isTabSelected
-        {...props}
-      >
-        TabContent
-      </Tab>
-    ),
-    { pl: "10px" }
-  );
+  testStyledSystemPadding((props) => (
+    <Tab
+      position="left"
+      title="Tab Title 1"
+      tabId="uniqueid1"
+      isTabSelected
+      {...props}
+    >
+      TabContent
+    </Tab>
+  ));
 
   it("has display property equals to none", () => {
     wrapper = renderStyles();

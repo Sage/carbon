@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "77.13.2",
+  "version": "79.0.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -97,6 +97,7 @@
     "cypress-axe": "^0.12.2",
     "cypress-cucumber-preprocessor": "^4.0.3",
     "cypress-plugin-tab": "^1.0.5",
+    "cypress-real-events": "^1.5.0",
     "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
     "enzyme": "^3.3.0",
@@ -144,7 +145,6 @@
     "bowser": "~1.5.0",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
-    "cypress-real-events": "^1.5.0",
     "escape-string-regexp": "^4.0.0",
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",

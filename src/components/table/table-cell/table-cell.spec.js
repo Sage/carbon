@@ -1,18 +1,17 @@
 import React from "react";
-import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TableCell from ".";
 import { Table, TableRow } from "..";
 import StyledTableCell from "./table-cell.style";
-import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
+import StyledInputPresentation from "../../../__internal__/input/input-presentation.style";
+import StyledInput from "../../../__internal__/input/input.style";
 import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
 import mintTheme from "../../../style/themes/mint";
-import Date from "../../../__experimental__/components/date";
-import TextArea from "../../../__experimental__/components/textarea";
-import TextBox from "../../../__experimental__/components/textbox";
+import Date from "../../date";
+import TextArea from "../../textarea";
+import TextBox from "../../textbox";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import tableSizes from "../table-sizes.style.js";
 

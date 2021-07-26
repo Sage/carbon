@@ -10,8 +10,8 @@ import {
 } from ".";
 
 import Dialog from "../dialog/dialog.component";
-import { Checkbox } from "../../__experimental__/components/checkbox";
-import Search from "../../__experimental__/components/search";
+import Search from "../search";
+import { Checkbox } from "../checkbox";
 import Button from "../button";
 import Typography from "../typography";
 

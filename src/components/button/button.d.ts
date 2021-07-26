@@ -1,6 +1,14 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
+import { IconType } from "components/icon/icon";
+
+export type ButtonTypes =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "dashed"
+  | "destructive"
+  | "darkBackground";
 
 export interface ButtonBaseProps extends SpaceProps {
   /** Prop to specify the aria-label text.
@@ -9,9 +17,9 @@ export interface ButtonBaseProps extends SpaceProps {
    */
   "aria-label"?: string;
   /** [Legacy] Button types for legacy theme: "primary" | "secondary" */
-  as?: OptionsHelper.ButtonTypes;
+  as?: ButtonTypes;
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
-  buttonType?: OptionsHelper.ButtonTypes;
+  buttonType?: ButtonTypes;
   /** The text the button displays */
   children?: React.ReactNode;
   /** Apply disabled state to the button */
@@ -31,7 +39,7 @@ export interface ButtonBaseProps extends SpaceProps {
   /** Provides positioning when the tooltip is displayed. */
   iconTooltipPosition?: string;
   /** Defines an Icon type within the button */
-  iconType?: OptionsHelper.IconTypes;
+  iconType?: IconType;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
   /** Specify a callback triggered on blur */

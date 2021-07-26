@@ -1,5 +1,4 @@
 import React from "react";
-import "jest-styled-components";
 import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { Table, TableRow } from "..";

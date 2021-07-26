@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import OptionsHelper from "../../../../utils/helpers/options-helper/options-helper";
 import baseTheme from "../../../../style/themes/base";
 
 const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
@@ -15,13 +14,12 @@ const StyledTabsHeaderWrapper = styled.div`
     position === "left" &&
     css`
       overflow-y: auto;
-      padding: 2px;
       box-sizing: border-box;
+      padding: 2px;
 
       ${!isInSidebar &&
       css`
         min-width: 20%;
-        margin: 0 0 0 10px;
       `}
 
       ${isInSidebar &&
@@ -54,7 +52,7 @@ const StyledTabsHeaderList = styled.ul`
       text-align: right;
     `}
 
-  ${({ position, noRightBorder, isInSidebar, theme }) =>
+  ${({ position, noRightBorder, theme }) =>
     position === "left" &&
     css`
       flex-direction: column;
@@ -65,17 +63,7 @@ const StyledTabsHeaderList = styled.ul`
         box-shadow: none;
       `}
 
-      ${!isInSidebar &&
-      css`
-        margin: 0 0 0 10px;
-      `}
-
-    ${isInSidebar &&
-      css`
-        margin: auto;
-      `}
-
-    ${({ align }) =>
+      ${({ align }) =>
         align === "right" &&
         css`
           justify-content: flex-start;
@@ -100,7 +88,7 @@ StyledTabsHeaderList.defaultProps = {
 };
 
 StyledTabsHeaderList.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  align: PropTypes.oneOf(["left", "right"]),
   position: PropTypes.oneOf(["top", "left"]),
   isInSidebar: PropTypes.bool,
 };

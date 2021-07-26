@@ -10,11 +10,10 @@ import React, {
 import PropTypes from "prop-types";
 
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
-import OptionHelper from "../../../../utils/helpers/options-helper";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Link from "../../../link";
 import Events from "../../../../utils/helpers/events";
-import { MenuContext } from "../../menu.component";
+import MenuContext from "../../menu.context";
 import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
 import ScrollableBlock from "../../scrollable-block";
@@ -34,12 +33,14 @@ const Submenu = React.forwardRef(
       clickToOpen,
       href,
       maxWidth,
+      asPassiveItem,
       ...rest
     },
     ref
   ) => {
     const [blockDoubleFocus, setBlockDoubleFocus] = useState(false);
     const menuContext = useContext(MenuContext);
+    const { inFullscreenView } = menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const [characterString, setCharacterString] = useState("");
@@ -248,6 +249,55 @@ const Submenu = React.forwardRef(
       };
     }, [onClickOutside, submenuOpen]);
 
+    if (inFullscreenView) {
+      return (
+        <StyledSubmenuWrapper
+          data-component="submenu-wrapper"
+          role="menuitem"
+          ref={submenuRef}
+          inFullscreenView={inFullscreenView}
+          menuType={menuContext.menuType}
+          asPassiveItem={asPassiveItem}
+        >
+          <StyledMenuItemWrapper
+            {...rest}
+            data-component="menu-item"
+            className={className}
+            menuType={menuContext.menuType}
+            ref={ref}
+            as={asPassiveItem ? "div" : Link}
+            href={!asPassiveItem ? href : undefined}
+            icon={icon}
+            tabIndex={asPassiveItem ? -1 : 0}
+            variant={variant}
+            inFullscreenView={inFullscreenView}
+          >
+            {title}
+          </StyledMenuItemWrapper>
+          <StyledSubmenu
+            variant={variant}
+            menuType={menuContext.menuType}
+            inFullscreenView={inFullscreenView}
+          >
+            {React.Children.map(children, (child, index) => (
+              <SubmenuContext.Provider
+                value={{
+                  isFocused: submenuFocusIndex === index,
+                  focusIndex: submenuFocusIndex,
+                  handleKeyDown,
+                  blockIndex: React.Children.toArray(children).findIndex(
+                    (item) => item.type === ScrollableBlock
+                  ),
+                }}
+              >
+                {child}
+              </SubmenuContext.Provider>
+            ))}
+          </StyledSubmenu>
+        </StyledSubmenuWrapper>
+      );
+    }
+
     return (
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
@@ -313,8 +363,12 @@ Submenu.propTypes = {
   children: PropTypes.node.isRequired,
   /** Custom className */
   className: PropTypes.string,
-  /** Adds an icon to the menu item. */
-  icon: PropTypes.oneOf(OptionHelper.icons),
+  /**
+   * * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Adds an icon to the menu item.
+   * */
+  icon: PropTypes.string,
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection: PropTypes.string,
   /** A title for the menu item that has a submenu. */
@@ -331,6 +385,8 @@ Submenu.propTypes = {
   href: PropTypes.string,
   /** Maximum width. Any valid CSS string */
   maxWidth: PropTypes.string,
+  /** Used to set a submenu parent to passive styling in MenuFullscreen */
+  asPassiveItem: PropTypes.bool,
 };
 
 export default Submenu;

@@ -1,5 +1,5 @@
+import { IconType } from "components/icon/icon";
 import { MarginProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 export interface HelpProps extends MarginProps {
   /** Overrides the default 'as' attribute of the Help component */
@@ -24,11 +24,11 @@ export interface HelpProps extends MarginProps {
    *  must be an array containing some or all of ["top", "bottom", "left", "right"]
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
-  tooltipFlipOverrides?: OptionsHelper.Positions[];
+  tooltipFlipOverrides?: ["top" | "bottom" | "left" | "right"];
   /** Position of tooltip relative to target */
-  tooltipPosition?: OptionsHelper.Positions;
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Help Icon type */
-  type?: OptionsHelper.IconTypes;
+  type?: IconType;
 }
 
 declare function Help(props: HelpProps): JSX.Element;

@@ -13,7 +13,7 @@ import {
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
 } from "./pager.style";
-import NumberInput from "../../__experimental__/components/number";
+import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
 
 jest.mock("../../utils/helpers/guid");
