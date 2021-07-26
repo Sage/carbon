@@ -61,7 +61,12 @@ const TileSelect = ({
 
     return (
       checked && (
-        <Button buttonType="tertiary" size="small" onClick={handleDeselect}>
+        <Button
+          buttonType="tertiary"
+          size="small"
+          disabled={disabled}
+          onClick={handleDeselect}
+        >
           {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
         </Button>
       )
