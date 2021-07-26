@@ -1,3 +1,10 @@
+## [79.1.0](https://github.com/Sage/carbon/compare/v79.0.1...v79.1.0) (2021-07-26)
+
+
+### Features
+
+* **multi-select:** add pill color override functionality ([93e5e3e](https://github.com/Sage/carbon/commit/93e5e3e95a3da680d472e80ca6d13382e18feb6d))
+
 ### [79.0.1](https://github.com/Sage/carbon/compare/v79.0.0...v79.0.1) (2021-07-23)
 
 
