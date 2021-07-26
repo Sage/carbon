@@ -100,9 +100,8 @@ describe("Card", () => {
           children: cardFooter,
         });
 
-        expect(
-          wrapper.find(".mockedContent").at(0).props()[("py", "pt")]
-        ).toBeUndefined();
+        expect(wrapper.find(".mockedContent").at(0).props().py).toBeUndefined();
+        expect(wrapper.find(".mockedContent").at(0).props().pt).toBeUndefined();
       });
     });
   });
