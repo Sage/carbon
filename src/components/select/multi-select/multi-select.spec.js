@@ -127,6 +127,26 @@ describe("MultiSelect", () => {
       expect(wrapper.find(Pill).at(0).prop("title")).toBe("red");
       expect(wrapper.find(Pill).at(1).prop("title")).toBe("green");
     });
+
+    it("then Pills should be rendered with proper borderColor and fill props", () => {
+      const wrapper = renderSelect({
+        value: ["opt1", "opt2"],
+        onChange: jest.fn(),
+      });
+
+      expect(wrapper.find(Pill).at(0).prop("borderColor")).toBe("red");
+      expect(wrapper.find(Pill).at(0).prop("fill")).toBe(true);
+      expect(wrapper.find(Pill).at(1).prop("borderColor")).toBe("green");
+    });
+
+    it("does not throw when no matching option found", () => {
+      expect(() => {
+        renderSelect({
+          value: ["opt10"],
+          onChange: jest.fn(),
+        });
+      }).not.toThrow();
+    });
   });
 
   describe('when the "onFocus" prop has been passed and the input has been focused', () => {
@@ -759,8 +779,8 @@ function renderSelect(props = {}, renderer = mount) {
 function getSelect(props) {
   return (
     <MultiSelect name="testSelect" id="testSelect" {...props}>
-      <Option value="opt1" text="red" />
-      <Option value="opt2" text="green" />
+      <Option value="opt1" text="red" borderColor="red" fill />
+      <Option value="opt2" text="green" borderColor="green" />
       <Option value="opt3" text="blue" />
     </MultiSelect>
   );
