@@ -1,3 +1,10 @@
+### [79.1.1](https://github.com/Sage/carbon/compare/v79.1.0...v79.1.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* **tile-select:** disabled prop is not working correctly ([b74e3ca](https://github.com/Sage/carbon/commit/b74e3caf72853f05863b248db2bdd8203ce564cb))
+
 ## [79.1.0](https://github.com/Sage/carbon/compare/v79.0.1...v79.1.0) (2021-07-26)
 
 
