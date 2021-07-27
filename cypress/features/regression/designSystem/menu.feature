@@ -107,3 +107,39 @@ Feature: Design Systems Menu component
       And I wait 50
     When I press Tab on Search component
     Then Search component input icon should be focused
+
+  @positive
+  Scenario: Check that the fullscreen menu is rendered properly
+    When I open "Design System Menu Test" component page "default" in no iframe
+    Then Menu is in fullscreen mode
+
+  @positive
+  Scenario: Check that the fullscreen menu is closed
+    Given I open "Design System Menu Test" component page "default" in no iframe
+    When I click closeIcon
+    Then Menu is in fullscreen mode is not visible
+  
+  @positive
+  Scenario: Check that close icon is focused in Fullscreen Menu
+    Given I open "Design System Menu Test" component page "default" in no iframe
+    When I hit Tab key 1 times in no Iframe
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+
+  @positive
+  Scenario: Check that inner Menu is available with tabbing in Fullscreen Menu
+    Given I open "Design System Menu Test" component page "default" in no iframe
+    When I hit Tab key 5 times in no Iframe
+    Then "fourth" inner menu element is focused
+  
+  @positive
+  Scenario: Check that previous inner Menu is available with shift tabbing in Fullscreen Menu
+    Given I open "Design System Menu Test" component page "default" in no iframe
+      And I hit Tab key 6 times in no Iframe
+    When I press Shift Tab on focused element
+    Then "fourth" inner menu element is focused
+
+  @positive
+  Scenario: Check that inner Menu without link is NOT available with tabbing in Fullscreen Menu
+    Given I open "Design System Menu Test" component page "default" in no iframe
+    When I hit Tab key 8 times in no Iframe
+    Then inner menu without active redirection is not focused
