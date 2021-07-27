@@ -6,8 +6,8 @@ import Icon from "../icon";
 import tagComponent from "../../utils/helpers/tags";
 import StyledHelp from "./help.style";
 import Events from "../../utils/helpers/events/events";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { HELP_POSITIONS } from "./help.config";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -103,13 +103,17 @@ Help.propTypes = {
   /** Overrides the default 'as' attribute of the Help component */
   as: PropTypes.string,
   /** Position of tooltip relative to target */
-  tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
+  tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   /** A path for the anchor */
   href: PropTypes.string,
   /** A boolean received from IconWrapper */
   isFocused: PropTypes.bool,
-  /** Icon to display, can be received from label component */
-  type: PropTypes.oneOf(OptionsHelper.icons),
+  /** <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Icon to display, can be received from label component
+   *
+   */
+  type: PropTypes.string,
   /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipBgColor: PropTypes.string,
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
@@ -120,7 +124,7 @@ Help.propTypes = {
     const isValid =
       prop &&
       Array.isArray(prop) &&
-      prop.every((placement) => OptionsHelper.positions.includes(placement));
+      prop.every((placement) => HELP_POSITIONS.includes(placement));
 
     if (!prop || isValid) {
       return null;

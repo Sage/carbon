@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { InputPresentation } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import CharacterCount from "./character-count";
@@ -245,7 +244,7 @@ Textarea.propTypes = {
   /** The number of visible text lines for the control */
   rows: PropTypes.number,
   /** One of type of size to apply to the textarea */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** The value of the Textarea */
   value: PropTypes.string,
   /** Whether to display the character count message in red */
@@ -264,7 +263,11 @@ Textarea.propTypes = {
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel: PropTypes.bool,
-  /** Icon to display inside of the Textarea */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Icon to display inside of the Textarea
+   */
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string,

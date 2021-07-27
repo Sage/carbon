@@ -1,6 +1,5 @@
 import React from "react";
 import TestUtils from "react-dom/test-utils";
-import "jest-styled-components";
 import { shallow, mount } from "enzyme";
 import guid from "../../utils/helpers/guid/guid";
 import Toast from "./toast.component";

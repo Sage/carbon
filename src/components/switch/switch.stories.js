@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import I18n from "i18n-js";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Switch, { BaseSwitch } from "./switch.component";
 
 export default {
@@ -54,16 +53,12 @@ export const Default = () => {
       max: 100,
       step: 1,
     }),
-    labelAlign: select(
-      "labelAlign",
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ),
+    labelAlign: select("labelAlign", ["left", "right"], "left"),
     labelSpacing: select("labelSpacing", [1, 2], 1),
     reverse: boolean("reverse", BaseSwitch.defaultProps.reverse),
     value: text("value", "test-value"),
     disabled: boolean("disabled", false),
-    size: select("size", OptionsHelper.sizesBinary, "small"),
+    size: select("size", ["small", "large"], "small"),
   };
 
   const handleChange = (ev) => {

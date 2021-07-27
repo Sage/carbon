@@ -8,7 +8,6 @@ import InputPresentationStyle, {
 import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
 describe("InputPresentation", () => {
@@ -27,18 +26,16 @@ describe("InputPresentation", () => {
   });
 
   describe("style", () => {
-    describe("sizes", () => {
-      OptionsHelper.sizesRestricted.forEach((size) => {
-        it(`has the right style for ${size}-sized inputs`, () => {
-          assertStyleMatch(
-            {
-              minHeight: sizes[size].height,
-              paddingLeft: sizes[size].horizontalPadding,
-              paddingRight: sizes[size].horizontalPadding,
-            },
-            render({ size }).find(InputPresentationStyle)
-          );
-        });
+    describe.each(["small", "medium", "large"])("when %s provided", (size) => {
+      it(`has the right style for ${size}-sized inputs`, () => {
+        assertStyleMatch(
+          {
+            minHeight: sizes[size].height,
+            paddingLeft: sizes[size].horizontalPadding,
+            paddingRight: sizes[size].horizontalPadding,
+          },
+          render({ size }).find(InputPresentationStyle)
+        );
       });
     });
 

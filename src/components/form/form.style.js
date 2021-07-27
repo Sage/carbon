@@ -7,8 +7,8 @@ import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
+import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
 
 const FormButtonAnimation = keyframes`
   0%   { transform: translateY(50px); }
@@ -101,16 +101,16 @@ StyledForm.defaultProps = {
 };
 
 StyledLeftButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
 };
 
 StyledRightButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
 };
 
 StyledFormFooter.propTypes = {
   theme: PropTypes.object,
-  buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
+  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
   stickyFooter: PropTypes.bool,
 };
 

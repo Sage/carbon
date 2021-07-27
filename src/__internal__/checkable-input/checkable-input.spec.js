@@ -1,7 +1,6 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import "jest-styled-components";
 import { css } from "styled-components";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";

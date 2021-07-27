@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -77,7 +76,7 @@ StyledLabelContainer.defaultProps = {
 };
 
 StyledLabelContainer.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  align: PropTypes.oneOf(["left", "right"]),
   inline: PropTypes.bool,
   width: PropTypes.number,
   readOnly: PropTypes.bool,

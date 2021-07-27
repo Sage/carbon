@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import OptionsHelper from "../../../../utils/helpers/options-helper/options-helper";
 import baseTheme from "../../../../style/themes/base";
 
 const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
@@ -89,7 +88,7 @@ StyledTabsHeaderList.defaultProps = {
 };
 
 StyledTabsHeaderList.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  align: PropTypes.oneOf(["left", "right"]),
   position: PropTypes.oneOf(["top", "left"]),
   isInSidebar: PropTypes.bool,
 };

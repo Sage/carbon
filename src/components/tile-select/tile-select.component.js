@@ -66,6 +66,7 @@ const TileSelect = ({
         buttonType="tertiary"
         size="small"
         onClick={handleDeselect}
+        disabled={disabled}
       >
         {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
       </StyledActionButton>

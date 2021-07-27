@@ -186,17 +186,27 @@ const MultiSelect = React.forwardRef(
           isExpectedOption(child, singleValue)
         );
 
-        const matchingOptionText = matchingOption && matchingOption.props.text;
+        let pillProps = {};
+
+        if (matchingOption) {
+          pillProps = {
+            title: matchingOption.props.text,
+            fill: matchingOption.props.fill,
+            borderColor: matchingOption.props.borderColor,
+          };
+        }
+
+        const { title } = pillProps;
 
         return (
-          <StyledSelectPillContainer key={matchingOptionText}>
+          <StyledSelectPillContainer key={title}>
             <Pill
               onDelete={
                 canDelete ? () => removeSelectedValue(index) : undefined
               }
-              title={matchingOptionText}
+              {...pillProps}
             >
-              {matchingOptionText}
+              {title}
             </Pill>
           </StyledSelectPillContainer>
         );

@@ -2,7 +2,7 @@ import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Pod from "./pod.component";
-import OptionsHelper from "../../utils/helpers/options-helper";
+import { POD_ALIGNMENTS, POD_SIZES, POD_THEMES } from "./pod.config";
 
 export default {
   title: "Pod/Test",
@@ -21,11 +21,11 @@ export default {
 export const Default = () => {
   const border = boolean("border", Pod.defaultProps.border);
   const children = text("children", "This is some example content for a Pod");
-  const size = select("size", OptionsHelper.sizesPod, Pod.defaultProps.size);
+  const size = select("size", POD_SIZES, Pod.defaultProps.size);
   const title = text("title", "");
   const subtitle = text("subtitle", "");
   const alignTitle = title
-    ? select("alignTitle", OptionsHelper.alignFull, Pod.defaultProps.alignTitle)
+    ? select("alignTitle", POD_ALIGNMENTS, Pod.defaultProps.alignTitle)
     : undefined;
   const description = text("description", "");
   const footer = text("footer", "");
@@ -42,11 +42,7 @@ export const Default = () => {
   const internalEditButton = onEdit
     ? boolean("internalEditButton", false)
     : undefined;
-  const variant = select(
-    "variant",
-    OptionsHelper.themesFull,
-    Pod.defaultProps.variant
-  );
+  const variant = select("variant", POD_THEMES, Pod.defaultProps.variant);
 
   return (
     <Pod

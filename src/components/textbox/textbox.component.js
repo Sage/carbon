@@ -10,7 +10,6 @@ import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 
@@ -153,7 +152,11 @@ Textbox.propTypes = {
   fieldHelp: PropTypes.node,
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
-  /** Icon to display inside of the Textbox */
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Icon to display inside of the Textbox
+   * */
   inputIcon: PropTypes.string,
   /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
@@ -176,7 +179,7 @@ Textbox.propTypes = {
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Placeholder string to be displayed in input */
   placeholder: PropTypes.string,
   /**

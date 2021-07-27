@@ -4,7 +4,6 @@ import { margin } from "styled-system";
 
 import baseTheme from "../../style/themes/base";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 const datePickerWidth = {
   large: "140px",
@@ -22,7 +21,7 @@ const StyledDateInput = styled.div`
 `;
 
 StyledDateInput.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 StyledDateInput.defaultProps = {

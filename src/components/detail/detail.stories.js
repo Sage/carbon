@@ -1,7 +1,7 @@
 import React from "react";
 import { select, text } from "@storybook/addon-knobs";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Detail from "./detail.component";
+import { ICONS } from "../icon/icon-config";
 
 export default {
   title: "Detail/Test",
@@ -18,7 +18,7 @@ export default {
 };
 
 export const Default = () => {
-  const icon = select("icon", [null, ...OptionsHelper.icons], null);
+  const icon = select("icon", [null, ...ICONS], null);
   const footnote = text("footnote", "This detail may require a footnote.");
   const children = text("children", "An example of a detail.");
 

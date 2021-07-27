@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
-import OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 import sizes from "../input/input-sizes.style";
 
 const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
@@ -38,7 +37,7 @@ InputIconToggleStyle.defaultProps = {
 };
 
 InputIconToggleStyle.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   info: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

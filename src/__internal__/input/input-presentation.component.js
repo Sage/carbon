@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import OptionsHelper from "../../utils/helpers/options-helper";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
@@ -60,7 +59,7 @@ InputPresentation.propTypes = {
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   positionedChildren: PropTypes.node,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

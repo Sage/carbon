@@ -1,6 +1,5 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper/options-helper";
 
 export interface MessageProps extends MarginProps {
   /** set content to component */
@@ -22,7 +21,7 @@ export interface MessageProps extends MarginProps {
   /** set background to be invisible */
   transparent?: boolean;
   /** set type of message based on new DLS standard */
-  variant?: OptionsHelper.ColorTypes;
+  variant?: "default" | "error" | "help" | "info" | "maintenance" | "new" | "success" | "warning";
 }
 
 declare function Message(props: MessageProps): JSX.Element;

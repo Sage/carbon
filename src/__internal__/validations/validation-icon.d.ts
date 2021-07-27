@@ -1,11 +1,10 @@
 import * as React from "react";
 
 import { ValidationPropTypes } from ".";
-import * as OptionsHelper from "../../utils/helpers/options-helper";
 
 export interface ValidationIconProps extends ValidationPropTypes {
   /** A small string to indicate the size of the icon */
-  size?: OptionsHelper.SizesRestricted;
+  size?: "small" | "medium" | "large";
   /** The unique id of the component (used with aria-describedby for accessibility) */
   iconId?: string;
   /** Define position of the tooltip */
@@ -15,7 +14,7 @@ export interface ValidationIconProps extends ValidationPropTypes {
    * must be an array containing some or all of ["top", "bottom", "left", "right"]
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
-  tooltipFlipOverrides?: OptionsHelper.Positions[];
+  tooltipFlipOverrides?: ["top" | "bottom" | "left" | "right"];
   /** An onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** An onBlur handler */

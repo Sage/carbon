@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import "jest-styled-components";
 import SidebarHeader from "./sidebar-header.component";
 import SidebarHeaderStyle from "./sidebar-header.style";
 import Textbox from "../../../textbox";
@@ -28,7 +27,7 @@ describe("SidebarHeaderStyle", () => {
       {
         backgroundColor: baseTheme.colors.white,
         boxShadow: `inset 0 -1px 0 0 ${baseTheme.disabled.border}`,
-        boxSizing: "content-box",
+        boxSizing: "border-box",
         padding: "27px 32px 32px 32px",
         width: "100%",
         color: baseTheme.text.color,
