@@ -41,6 +41,7 @@ const SimpleSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      experimentalBehaviour,
       ...props
     },
     inputRef
@@ -59,6 +60,7 @@ const SimpleSelect = React.forwardRef(
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState("");
+    const [highlightedValue, setHighlightedValue] = useState("");
 
     const childOptions = useMemo(() => React.Children.toArray(children), [
       children,
@@ -104,6 +106,7 @@ const SimpleSelect = React.forwardRef(
           }
 
           setTextValue(match.props.text);
+          setHighlightedValue(match.props.text);
 
           return match.props.value;
         });
@@ -207,6 +210,7 @@ const SimpleSelect = React.forwardRef(
       );
 
       setSelectedValue(newValue);
+      setHighlightedValue(newValue);
     }, [value, defaultValue, onChange]);
 
     useEffect(() => {
@@ -314,7 +318,14 @@ const SimpleSelect = React.forwardRef(
       const { text, value: newValue, selectionType } = optionData;
       const isClickTriggered = selectionType === "click";
 
-      updateValue(newValue, text);
+      setHighlightedValue(newValue);
+
+      if (
+        selectionType !== "navigationKey" ||
+        (selectionType === "navigationKey" && !experimentalBehaviour)
+      ) {
+        updateValue(newValue, text);
+      }
 
       if (selectionType !== "navigationKey") {
         setOpenState(false);
@@ -388,7 +399,7 @@ const SimpleSelect = React.forwardRef(
         onSelect={onSelectOption}
         onMouseDown={handleListMouseDown}
         onSelectListClose={onSelectListClose}
-        highlightedValue={selectedValue}
+        highlightedValue={highlightedValue}
         disablePortal={disablePortal}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}
@@ -452,6 +463,7 @@ SimpleSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  experimentalBehaviour: PropTypes.bool,
 };
 
 SimpleSelect.defaultProps = {
