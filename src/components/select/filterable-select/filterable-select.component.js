@@ -38,6 +38,7 @@ const FilterableSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      experimentalBehaviour,
       ...textboxProps
     },
     inputRef
@@ -94,6 +95,13 @@ const FilterableSelect = React.forwardRef(
             return "";
           }
 
+          if (experimentalBehaviour) {
+            setTextValue(newFilterText);
+            setHighlightedValue(match.props.value);
+
+            return previousValue;
+          }
+
           if (isDeleteEvent) {
             setTextValue(newFilterText);
 
@@ -121,7 +129,7 @@ const FilterableSelect = React.forwardRef(
           return match.props.value;
         });
       },
-      [children, triggerChange]
+      [children, triggerChange, experimentalBehaviour]
     );
 
     const setMatchingText = useCallback(
@@ -313,20 +321,24 @@ const FilterableSelect = React.forwardRef(
         }
 
         if (!isControlled.current) {
-          setSelectedValue(newValue);
+          if (selectionType !== "navigationKey" || !experimentalBehaviour) {
+            setSelectedValue(newValue);
+          }
           setHighlightedValue(newValue);
         }
 
-        setTextValue(text);
-        triggerChange(newValue);
-
         if (selectionType !== "navigationKey") {
+          setTextValue(text);
+          triggerChange(newValue);
           setOpen(false);
           textboxRef.focus();
           textboxRef.select();
+        } else if (!experimentalBehaviour) {
+          setTextValue(text);
+          triggerChange(newValue);
         }
       },
-      [textboxRef, triggerChange]
+      [textboxRef, triggerChange, experimentalBehaviour]
     );
 
     const onSelectListClose = useCallback(() => {
@@ -485,6 +497,7 @@ const FilterableSelect = React.forwardRef(
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         loaderDataRole="filterable-select-list-loader"
+        experimentalBehaviour={experimentalBehaviour}
       >
         {children}
       </FilterableSelectList>
@@ -546,6 +559,7 @@ FilterableSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  experimentalBehaviour: PropTypes.bool,
 };
 
 export default FilterableSelect;
