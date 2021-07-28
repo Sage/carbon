@@ -28,10 +28,7 @@ const MenuFullscreen = ({
   return (
     <li>
       <Portal>
-        <FocusTrap
-          wrapperRef={menuWrapperRef}
-          overrideAnimationComplete={isOpen}
-        >
+        <FocusTrap wrapperRef={menuWrapperRef}>
           <StyledMenuFullscreen
             data-component="menu-fullscreen"
             ref={menuWrapperRef}
