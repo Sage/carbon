@@ -5,7 +5,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import "jest-styled-components";
 import Loader from "./loader.component";
 import StyledLoader from "./loader.style";
 

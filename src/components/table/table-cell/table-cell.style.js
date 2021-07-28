@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../../style/themes/base";
-import OptionsHelper from "../../../utils/helpers/options-helper";
-import StyledInputPresentation from "../../../__experimental__/components/input/input-presentation.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
+import StyledInputPresentation from "../../../__internal__/input/input-presentation.style";
+import StyledInput from "../../../__internal__/input/input.style";
 import tableSizes from "../table-sizes.style.js";
 import StyledIcon from "../../icon/icon.style";
 
@@ -114,10 +113,10 @@ StyledTableCell.propTypes = {
   action: PropTypes.bool,
 
   /** Defines the alignment of the cell (eg "left", "center" or "right"). */
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
 
   /** Defines the height of a cell used to size an input for example */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes),
+  size: PropTypes.oneOf(["compact", "small", "medium", "large"]),
 
   /** Used to toggle the input wrapper height. */
   isTextArea: PropTypes.bool,

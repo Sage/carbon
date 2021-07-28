@@ -1,3 +1,4 @@
+export const PROFILE_SIZES = ["XS", "S", "M", "ML", "L", "XL", "XXL"];
 export default {
   XS: {
     dimensions: 24,

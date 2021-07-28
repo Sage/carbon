@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as OptionsHelper from "../../../utils/helpers/options-helper";
 
 export interface StepSequenceItemProps {
   /** Aria label */
@@ -11,7 +10,7 @@ export interface StepSequenceItemProps {
   /** Value to be displayed before text for uncomplete steps */
   indicator: string;
   /** Status for the step */
-  status?: OptionsHelper.Steps;
+  status?: "complete" | "current" | "incomplete";
 }
 
 declare function StepSequenceItem(props: React.PropsWithChildren<StepSequenceItemProps>): JSX.Element;

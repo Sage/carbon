@@ -54,7 +54,7 @@ When("I press {word} on the {int} color", (key, index) => {
 });
 
 Then("It renders with all colors", () => {
-  cy.fixture("simpleColorPicker.json").then(($json) => {
+  cy.fixture("designSystem/simpleColorPicker.json").then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
       experimentalSimpleColorPickerInputInIframe(i + 1)
         .should("have.value", $json[i].color)
@@ -64,7 +64,7 @@ Then("It renders with all colors", () => {
 });
 
 When("I input new color json into {string} input field", (inputFieldName) => {
-  cy.fixture("simpleColorPickerNew.json").then(($json) => {
+  cy.fixture("designSystem/simpleColorPickerNew.json").then(($json) => {
     getKnobsInput(inputFieldName)
       .clear({ force: true })
       .then(($selector) => $selector.val(JSON.stringify($json)))
@@ -73,7 +73,7 @@ When("I input new color json into {string} input field", (inputFieldName) => {
 });
 
 Then("It renders with all new colors", () => {
-  cy.fixture("simpleColorPickerNew.json").then(($json) => {
+  cy.fixture("designSystem/simpleColorPickerNew.json").then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
       experimentalSimpleColorPickerInputInIframe(i + 1)
         .should("have.value", $json[i].color)

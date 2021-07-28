@@ -1,17 +1,14 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import "jest-styled-components";
 import { css } from "styled-components";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";
-import FieldHelpStyle from "../../__experimental__/components/field-help/field-help.style";
-import { FieldLineStyle } from "../../__experimental__/components/form-field/form-field.style";
-import Label from "../../__experimental__/components/label";
+import FieldHelpStyle from "../field-help/field-help.style";
+import { FieldLineStyle } from "../form-field/form-field.style";
+import Label from "../label";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
-import LabelStyle, {
-  StyledLabelContainer,
-} from "../../__experimental__/components/label/label.style";
+import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,

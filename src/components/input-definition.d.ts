@@ -1,5 +1,4 @@
 import * as React from "react";
-import { AlignBinaryType } from "../utils/helpers/options-helper/options-helper";
 import { Validator } from "../utils/validations/validation-interface";
 
 export interface InputProps {
@@ -17,7 +16,7 @@ export interface InputProps {
   /** Outputs a label for the input. */
   label?: string;
   /** Align the label either 'left' or 'right'. Only works with inline labels. */
-  labelAlign?: AlignBinaryType;
+  labelAlign?: "left" | "right";
   /** Output an info icon next to the label to display additional help to the user. */
   labelHelp?: React.ReactNode;
   /** Displays the label inline with the input. */

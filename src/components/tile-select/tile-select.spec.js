@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import RadioButtonMapper from "../../__experimental__/components/radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import { TileSelect, TileSelectGroup } from ".";
 import { baseTheme } from "../../style/themes";
 import tint from "../../style/utils/tint";
@@ -47,6 +47,12 @@ describe("TileSelect", () => {
 
   beforeEach(() => {
     render();
+  });
+
+  it("should disable default button if disable props is provided", () => {
+    render({ checked: true, disabled: true });
+
+    expect(wrapper.find(TileSelect).find(Button).props().disabled).toBe(true);
   });
 
   it("TileSelect invokes passed onChange callback", () => {

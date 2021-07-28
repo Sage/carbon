@@ -10,8 +10,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Icon from "./icon.component";
 import StyledIcon from "./icon.style";
-import OptionsHelper from "../../utils/helpers/options-helper";
-import iconConfig from "./icon-config";
+import iconConfig, { ICON_SHAPES, ICON_SIZES } from "./icon-config";
 import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
   isSafari,
@@ -505,24 +504,21 @@ describe("Icon component", () => {
       });
     });
 
-    describe.each(OptionsHelper.iconSizes)(
-      "with bgSize prop provided",
-      (size) => {
-        it(`renders in the proper size for ${size}`, () => {
-          const wrapper = renderStyles({ bgSize: size });
-          assertStyleMatch(
-            {
-              width: iconConfig.backgroundSize[size],
-              height: iconConfig.backgroundSize[size],
-            },
-            wrapper.toJSON()
-          );
-        });
-      }
-    );
+    describe.each(ICON_SIZES)("with bgSize prop provided", (size) => {
+      it(`renders in the proper size for ${size}`, () => {
+        const wrapper = renderStyles({ bgSize: size });
+        assertStyleMatch(
+          {
+            width: iconConfig.backgroundSize[size],
+            height: iconConfig.backgroundSize[size],
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
   });
 
-  describe.each(OptionsHelper.shapes)("background shape", (shape) => {
+  describe.each(ICON_SHAPES)("background shape", (shape) => {
     it(`renders in the proper size for ${shape}`, () => {
       const wrapper = renderStyles({ bgShape: shape });
       assertStyleMatch(

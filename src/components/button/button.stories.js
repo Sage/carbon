@@ -1,31 +1,26 @@
 import React from "react";
 import { text, select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Button from ".";
+import { ICONS } from "../icon/icon-config";
+import {
+  BUTTON_ICON_POSITIONS,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from "./button.config";
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
   const hasIcon = boolean("has icon", false);
   return {
-    iconType: hasIcon
-      ? select("iconType", [...OptionsHelper.icons, ""], "")
-      : undefined,
+    iconType: hasIcon ? select("iconType", [...ICONS, ""], "") : undefined,
     iconPosition: hasIcon
-      ? select(
-          "iconPosition",
-          [...OptionsHelper.buttonIconPositions],
-          defaultPosition
-        )
+      ? select("iconPosition", BUTTON_ICON_POSITIONS, defaultPosition)
       : undefined,
   };
 };
 const getKnobs = () => {
-  const size = select(
-    "size",
-    OptionsHelper.sizesRestricted,
-    Button.defaultProps.size
-  );
+  const size = select("size", BUTTON_SIZES, Button.defaultProps.size);
   return {
     children: text("children", "Example Button"),
     disabled: boolean("disabled", Button.defaultProps.disabled),
@@ -33,14 +28,10 @@ const getKnobs = () => {
     size,
     fullWidth: boolean("fullWidth", false),
     subtext:
-      size === OptionsHelper.sizesRestricted[2]
+      size === BUTTON_SIZES[2]
         ? text("subtext", Button.defaultProps.subtext)
         : undefined,
-    buttonType: select(
-      "buttonType",
-      OptionsHelper.buttonTypes,
-      Button.defaultProps.as
-    ),
+    buttonType: select("buttonType", BUTTON_VARIANTS, Button.defaultProps.as),
     href: text("href"),
     destructive: boolean("destructive", false),
     noWrap: boolean("noWrap", false),
@@ -67,11 +58,11 @@ export const asASibling = () => {
 const generateButtons = (buttonType, iconPosition) => () => {
   return (
     <>
-      {["", ...OptionsHelper.icons].map((iconType) => {
+      {["", ...ICONS].map((iconType) => {
         const props = { iconPosition, buttonType, iconType };
         return (
           <div key={`${buttonType}-${iconPosition}-${iconType}`}>
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}`}
               >
@@ -91,7 +82,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                 )}
               </React.Fragment>
             ))}
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}-destructive`}
               >
@@ -112,7 +103,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                 )}
               </React.Fragment>
             ))}
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}-disabled`}
               >
@@ -163,8 +154,8 @@ export const noWrapButtons = () => {
   const noWrap = boolean("noWrap", true);
   return (
     <>
-      {OptionsHelper.buttonTypes.map((buttonType) => {
-        return OptionsHelper.sizesRestricted.map((size) => {
+      {BUTTON_VARIANTS.map((buttonType) => {
+        return BUTTON_SIZES.map((size) => {
           return (
             <div style={{ width: 100 }}>
               <Button buttonType={buttonType} noWrap={noWrap} size={size}>
@@ -218,8 +209,8 @@ export const iconOnlyButtons = () => {
   const binIcon = "bin";
   return (
     <>
-      {OptionsHelper.buttonTypes.map((buttonType) => {
-        return OptionsHelper.sizesRestricted.map((size) => {
+      {BUTTON_VARIANTS.map((buttonType) => {
+        return BUTTON_SIZES.map((size) => {
           return (
             <div style={{ width: 100 }}>
               <Button
@@ -239,11 +230,11 @@ export const iconOnlyButtons = () => {
 export const fullWidthButtons = () => {
   return (
     <>
-      {OptionsHelper.buttonTypes.map((buttonType) => {
+      {BUTTON_VARIANTS.map((buttonType) => {
         const props = { buttonType, fullWidth: true };
         return (
           <React.Fragment key={`${buttonType}-${buttonType}`}>
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment key={`${buttonType}-${buttonType}-${size}`}>
                 <Button key="basic" size={size} {...props} ml={2}>
                   {size}
@@ -297,7 +288,7 @@ export const fullWidthButtons = () => {
                 )}
               </React.Fragment>
             ))}
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${buttonType}-${size}-destructive`}
               >
@@ -363,7 +354,7 @@ export const fullWidthButtons = () => {
                 )}
               </React.Fragment>
             ))}
-            {OptionsHelper.sizesRestricted.map((size) => (
+            {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${buttonType}-${size}-disabled`}
               >

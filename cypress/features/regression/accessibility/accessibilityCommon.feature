@@ -16,6 +16,8 @@ Feature: Accessibility tests - Common list
       | Configurable-items  |
       | Detail              |
       | Dialog              |
+      | Decimal-Input       |
+      | GroupedCharacter    |
       | Heading             |
       | Help                |
       | Icon                |
@@ -32,6 +34,7 @@ Feature: Accessibility tests - Common list
       | Split-button        |
       | Step-sequence       |
       | Multi-action-button |
+      | Number-Input        |
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
@@ -53,3 +56,33 @@ Feature: Accessibility tests - Common list
       | Setting row      |
       | Table-ajax       |
       | Table            |
+
+  @accessibility
+  Scenario Outline: Component <component> validations boolean story page
+    When I open "<component>" component page "validations boolean" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component        |
+      | Decimal-Input    |
+      | GroupedCharacter |
+      | Number-Input     |
+
+  @accessibility
+  Scenario Outline: Component <component> validations string story page
+    When I open "<component>" component page "validations string component" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component        |
+      | Decimal-Input    |
+      | GroupedCharacter |
+      | Number-Input     |
+
+  @accessibility
+  Scenario Outline: Component <component> validations string label story page
+    When I open "<component>" component page "validations string label" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component        |
+      | Decimal-Input    |
+      | GroupedCharacter |
+      | Number-Input     |

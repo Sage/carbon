@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StyledCardColumn from "./card-column.style";
-import OptionsHelper from "../../../utils/helpers/options-helper/options-helper";
-
-const { alignFull } = OptionsHelper;
 
 const CardColumn = ({ align, children, ...props }) => (
   <StyledCardColumn align={align} data-element="card-column" {...props}>
@@ -13,7 +10,7 @@ const CardColumn = ({ align, children, ...props }) => (
 
 CardColumn.propTypes = {
   /** text alignment of the card section text */
-  align: PropTypes.oneOf(alignFull),
+  align: PropTypes.oneOf(["center", "left", "right"]),
   children: PropTypes.node.isRequired,
 };
 

@@ -10,7 +10,6 @@ import React, {
 import PropTypes from "prop-types";
 
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
-import OptionHelper from "../../../../utils/helpers/options-helper";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Link from "../../../link";
 import Events from "../../../../utils/helpers/events";
@@ -364,8 +363,12 @@ Submenu.propTypes = {
   children: PropTypes.node.isRequired,
   /** Custom className */
   className: PropTypes.string,
-  /** Adds an icon to the menu item. */
-  icon: PropTypes.oneOf(OptionHelper.icons),
+  /**
+   * * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * Adds an icon to the menu item.
+   * */
+  icon: PropTypes.string,
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection: PropTypes.string,
   /** A title for the menu item that has a submenu. */
