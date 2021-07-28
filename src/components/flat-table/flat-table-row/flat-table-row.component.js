@@ -129,10 +129,10 @@ const FlatTableRow = React.forwardRef(
 
     return (
       <DrawerSidebarContext.Consumer>
-        {(context) => (
+        {({ isInSidebar }) => (
           <>
             <StyledFlatTableRow
-              isInSidebar={context && context.isInSidebar}
+              isInSidebar={isInSidebar}
               expandable={expandable}
               isSubRow={isSubRow}
               isFirstSubRow={isFirstSubRow}

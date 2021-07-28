@@ -43,7 +43,7 @@ const FlatTable = ({
 
   return (
     <DrawerSidebarContext.Consumer>
-      {(context) => (
+      {({ isInSidebar }) => (
         <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
           <StyledFlatTableBox
             {...rest}
@@ -52,7 +52,7 @@ const FlatTable = ({
             maxHeight={hasMaxHeight ? "100%" : undefined}
           >
             <StyledFlatTableWrapper
-              isInSidebar={context && context.isInSidebar}
+              isInSidebar={isInSidebar}
               hasStickyHead={hasStickyHead}
               colorTheme={colorTheme}
               heightDefaulted={addDefaultHeight}
