@@ -5,6 +5,7 @@ import { configureActions } from "@storybook/addon-actions";
 import sageTheme from "./sageTheme";
 import "./style/fonts.css";
 import "./style/story-root.css";
+import "cypress-storybook/react";
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
@@ -76,6 +77,7 @@ export const parameters = {
   },
   chromatic: { disable: false },
   viewport: { viewports: customViewports },
+  actions: { argTypesRegex: "^on.*" },
 };
 
 export const decorators = [withKnobs, withGlobalStyles, withThemeSelector];

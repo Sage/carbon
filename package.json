@@ -97,6 +97,7 @@
     "cypress-cucumber-preprocessor": "^4.0.3",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.5.0",
+    "cypress-storybook": "^0.5.1",
     "cz-conventional-changelog": "^3.3.0",
     "draft-js": "^0.11.7",
     "enzyme": "^3.3.0",
