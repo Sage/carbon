@@ -1,3 +1,16 @@
+## [80.0.0](https://github.com/Sage/carbon/compare/v79.1.1...v80.0.0) (2021-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **i18n:** Translations are providing via a locale file (https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
+`validationMessage` method of validations helper has been removed.
+`formatDateToCurrentLocale`, `withinRange`, `weekdaysMinified`, `formatValue` and `isValidDate` methods of date helper have been removed.
+
+### Code Refactoring
+
+* **i18n:** remove i18n-js ([2307677](https://github.com/Sage/carbon/commit/2307677498808506e3a8852dbf2a482a443fb3b5))
+
 ### [79.1.1](https://github.com/Sage/carbon/compare/v79.1.0...v79.1.1) (2021-07-26)
 
 
