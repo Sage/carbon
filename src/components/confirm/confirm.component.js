@@ -1,5 +1,4 @@
 import React from "react";
-import I18n from "i18n-js";
 import PropTypes from "prop-types";
 
 import Logger from "../../utils/logger/logger";
@@ -9,6 +8,7 @@ import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
 import Icon from "../icon";
 import Loader from "../loader";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 let deprecatedWarnTriggered = false;
 
@@ -43,6 +43,7 @@ const Confirm = ({
     );
   }
 
+  const l = useLocale();
   const renderCancelButton = () => {
     if (!onCancel) return null;
 
@@ -56,7 +57,7 @@ const Confirm = ({
         iconType={cancelButtonIconType}
         iconPosition={cancelButtonIconPosition}
       >
-        {cancelLabel || I18n.t("confirm.no", { defaultValue: "No" })}
+        {cancelLabel || l.confirm.no()}
       </Button>
     );
   };
@@ -75,7 +76,7 @@ const Confirm = ({
       {isLoadingConfirm ? (
         <Loader isInsideButton isActive />
       ) : (
-        confirmLabel || I18n.t("confirm.yes", { defaultValue: "Yes" })
+        confirmLabel || l.confirm.yes()
       )}
     </Button>
   );

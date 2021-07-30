@@ -21,7 +21,6 @@ Feature: Accessibility tests - Common list
       | Heading             |
       | Help                |
       | Icon                |
-      | I18nComponent       |
       | Link                |
       | Message             |
       | Mount In App        |

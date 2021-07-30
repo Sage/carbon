@@ -1,6 +1,6 @@
 import React from "react";
-import I18n from "i18n-js";
 import PropTypes from "prop-types";
+import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledBatchSelection,
   StyledSelectionCount,
@@ -13,11 +13,7 @@ const BatchSelection = ({
   selectedCount,
   hidden,
 }) => {
-  const getTextForCount = (count) =>
-    I18n.t("batch_selection.selected", {
-      count: Number(count),
-      defaultValue: "selected",
-    });
+  const l = useLocale();
 
   return (
     <StyledBatchSelection
@@ -27,7 +23,7 @@ const BatchSelection = ({
       hidden={hidden}
     >
       <StyledSelectionCount data-element="selection-count">
-        <span>{selectedCount}</span> {getTextForCount(selectedCount)}
+        {l.batchSelection.selected(selectedCount)}
       </StyledSelectionCount>
       {children}
     </StyledBatchSelection>

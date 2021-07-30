@@ -5,7 +5,6 @@ import { TileSelect, TileSelectGroup } from ".";
 import Pill from "../pill/"
 import Icon from "../icon";
 import Button from "../button";
-import I18n from "i18n-js";
 import Box from "../box";
 import Typography from "../typography";
 import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
@@ -128,7 +127,7 @@ access to the `onClick` functionality.
                 type="button"
                 size="small"
               >
-                {I18n.t("tileSelect.reactivate", { defaultValue: "Reactivate" })}
+                Reactivate
               </Button>
             )}
           />
@@ -152,7 +151,7 @@ access to the `onClick` functionality.
                 destructive
                 disabled={removed}
               >
-                {I18n.t("tileSelect.remove", { defaultValue: "Remove" })}
+                Remove
               </Button>
             )}
           />
@@ -194,7 +193,7 @@ It is possible to render an additional adornment next to the action button throu
                 size="small"
                 disabled
               >
-                {I18n.t("tileSelect.reactivate", { defaultValue: "Reactivate" })}
+                Reactivate
               </Button>
             )}
             actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be reactivated at this time" />}
@@ -217,7 +216,7 @@ It is possible to render an additional adornment next to the action button throu
                 destructive
                 disabled
               >
-                {I18n.t("tileSelect.remove", { defaultValue: "Remove" })}
+                Remove
               </Button>
             )}
             actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be removed at this time" />}

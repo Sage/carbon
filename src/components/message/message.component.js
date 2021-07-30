@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
+
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
@@ -9,6 +9,7 @@ import tagComponent from "../../utils/helpers/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -28,19 +29,14 @@ const Message = ({
   ...props
 }) => {
   const marginProps = filterStyledSystemMarginProps(props);
-
+  const l = useLocale();
   const renderCloseIcon = () => {
     if (!showCloseIcon || !onDismiss) return null;
 
     return (
       <IconButton
         data-element="close"
-        aria-label={
-          closeButtonAriaLabel ||
-          I18n.t("message.close-button-aria-label", {
-            defaultValue: "Close",
-          })
-        }
+        aria-label={closeButtonAriaLabel || l.message.closeButtonAriaLabel()}
         onAction={onDismiss}
         variant={variant}
       >
