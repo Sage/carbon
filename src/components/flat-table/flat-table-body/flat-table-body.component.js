@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FlatTableBody = ({ children }) => {
-  return <tbody>{children}</tbody>;
-};
+const FlatTableBody = React.forwardRef(({ children }, ref) => {
+  return <tbody ref={ref}>{children}</tbody>;
+});
 
 FlatTableBody.propTypes = {
   /** Array of FlatTableRow. */
