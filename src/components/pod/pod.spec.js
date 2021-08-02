@@ -1,21 +1,23 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import { css } from "styled-components";
 import TestRenderer from "react-test-renderer";
 
 import Pod from "./pod.component";
 import Button from "../button";
+import Icon from "../icon";
 import {
   StyledBlock,
   StyledDescription,
   StyledEditAction,
-  StyledEditContainer,
+  StyledActionsContainer,
   StyledFooter,
   StyledPod,
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
   StyledArrow,
+  StyledDeleteButton,
+  StyledUndoButton,
 } from "./pod.style.js";
 import {
   assertStyleMatch,
@@ -167,6 +169,124 @@ describe("Pod", () => {
     });
   });
 
+  describe("delete action button", () => {
+    it("renders delete action button when onDelete prop is passed", () => {
+      wrapper.setProps({ onDelete: () => {} });
+      expect(wrapper.find(StyledDeleteButton).exists()).toEqual(true);
+    });
+
+    it("does not render delete action button when onDelete prop is not passed", () => {
+      expect(wrapper.find(StyledDeleteButton).exists()).toEqual(false);
+    });
+
+    it("onDelete prop function gets invoked by clicking delete action button", () => {
+      const event = { preventDefault: () => {} };
+      const onDelete = jest.fn();
+      wrapper.setProps({ onDelete });
+      wrapper.find(StyledDeleteButton).props().onAction(event);
+      expect(onDelete).toHaveBeenCalled();
+    });
+
+    it("onDelete prop function gets invoked by pressing enter key", () => {
+      const event = { preventDefault: () => {}, which: 13, type: "keydown" };
+      const onDelete = jest.fn();
+      wrapper.setProps({ onDelete });
+      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      expect(onDelete).toHaveBeenCalled();
+    });
+
+    it("onEdit prop function is not invoked by pressing non-enter key", () => {
+      const event = { preventDefault: () => {}, which: 15, type: "keydown" };
+      const onDelete = jest.fn();
+      wrapper.setProps({ onDelete });
+      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      expect(onDelete).not.toHaveBeenCalled();
+    });
+
+    it("toggles the hover state when moving the mouse into the action button", () => {
+      wrapper.setProps({ onDelete: () => {} });
+      wrapper.find(StyledDeleteButton).props().onMouseEnter();
+      expect(wrapper.state().isDeleteHovered).toBe(true);
+    });
+
+    it("toggles the hover state when moving the mouse out of the action button", () => {
+      wrapper.setProps({ onDelete: () => {} });
+      wrapper.find(StyledDeleteButton).props().onMouseLeave();
+      expect(wrapper.state().isDeleteHovered).toBe(false);
+    });
+
+    it("toggles the focus state when focusing on the action button", () => {
+      wrapper.setProps({ onDelete: () => {} });
+      wrapper.find(StyledDeleteButton).props().onFocus();
+      expect(wrapper.state().isDeleteFocused).toBe(true);
+    });
+
+    it("toggles the focus state when bluring the action button", () => {
+      wrapper.setProps({ onDelete: () => {} });
+      wrapper.find(StyledDeleteButton).props().onBlur();
+      expect(wrapper.state().isDeleteFocused).toBe(false);
+    });
+  });
+
+  describe("undo action button", () => {
+    it("renders undo action button when onUndo and softDelete props are passed", () => {
+      wrapper.setProps({ onUndo: () => {}, softDelete: true });
+      expect(wrapper.find(StyledUndoButton).exists()).toEqual(true);
+    });
+
+    it("does not render delete action button when onDelete prop is not passed", () => {
+      expect(wrapper.find(StyledUndoButton).exists()).toEqual(false);
+    });
+
+    it("onDelete prop function gets invoked by clicking delete action button", () => {
+      const event = { preventDefault: () => {} };
+      const onUndo = jest.fn();
+      wrapper.setProps({ onUndo, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onAction(event);
+      expect(onUndo).toHaveBeenCalled();
+    });
+
+    it("onDelete prop function gets invoked by pressing enter key", () => {
+      const event = { preventDefault: () => {}, which: 13, type: "keydown" };
+      const onUndo = jest.fn();
+      wrapper.setProps({ onUndo, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      expect(onUndo).toHaveBeenCalled();
+    });
+
+    it("onEdit prop function is not invoked by pressing non-enter key", () => {
+      const event = { preventDefault: () => {}, which: 15, type: "keydown" };
+      const onUndo = jest.fn();
+      wrapper.setProps({ onUndo, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      expect(onUndo).not.toHaveBeenCalled();
+    });
+
+    it("toggles the hover state when moving the mouse into the action button", () => {
+      wrapper.setProps({ onUndo: () => {}, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onMouseEnter();
+      expect(wrapper.state().isUndoHovered).toBe(true);
+    });
+
+    it("toggles the hover state when moving the mouse out of the action button", () => {
+      wrapper.setProps({ onUndo: () => {}, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onMouseLeave();
+      expect(wrapper.state().isUndoHovered).toBe(false);
+    });
+
+    it("toggles the focus state when focusing on the action button", () => {
+      wrapper.setProps({ onUndo: () => {}, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onFocus();
+      expect(wrapper.state().isUndoFocused).toBe(true);
+    });
+
+    it("toggles the focus state when bluring the action button", () => {
+      wrapper.setProps({ onUndo: () => {}, softDelete: true });
+      wrapper.find(StyledUndoButton).props().onBlur();
+      expect(wrapper.state().isUndoFocused).toBe(false);
+    });
+  });
+
   describe("edit action button", () => {
     it("renders edit action button when onEdit prop is passed", () => {
       wrapper.setProps({ onEdit: () => {} });
@@ -195,7 +315,7 @@ describe("Pod", () => {
       const event = { preventDefault: () => {} };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find(StyledEditContainer).props().onClick(event);
+      wrapper.find('[data-element="edit-container"]').props().onClick(event);
       expect(onEdit).toHaveBeenCalled();
     });
 
@@ -203,7 +323,7 @@ describe("Pod", () => {
       const event = { preventDefault: () => {}, which: 13, type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find(StyledEditContainer).props().onKeyDown(event);
+      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
       expect(onEdit).toHaveBeenCalled();
     });
 
@@ -211,32 +331,32 @@ describe("Pod", () => {
       const event = { preventDefault: () => {}, which: 15, type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find(StyledEditContainer).props().onKeyDown(event);
+      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
       expect(onEdit).not.toHaveBeenCalled();
     });
 
     it("toggles the hover state when moving the mouse into the action button", () => {
       wrapper.setProps({ onEdit: () => {} });
-      wrapper.find(StyledEditContainer).props().onMouseEnter();
-      expect(wrapper.state().isHovered).toBe(true);
+      wrapper.find('[data-element="edit-container"]').props().onMouseEnter();
+      expect(wrapper.state().isEditHovered).toBe(true);
     });
 
     it("toggles the hover state when moving the mouse out of the action button", () => {
       wrapper.setProps({ onEdit: () => {} });
-      wrapper.find(StyledEditContainer).props().onMouseLeave();
-      expect(wrapper.state().isHovered).toBe(false);
+      wrapper.find('[data-element="edit-container"]').props().onMouseLeave();
+      expect(wrapper.state().isEditHovered).toBe(false);
     });
 
     it("toggles the focus state when focusing on the action button", () => {
       wrapper.setProps({ onEdit: () => {} });
-      wrapper.find(StyledEditContainer).props().onFocus();
-      expect(wrapper.state().isFocused).toBe(true);
+      wrapper.find('[data-element="edit-container"]').props().onFocus();
+      expect(wrapper.state().isEditFocused).toBe(true);
     });
 
     it("toggles the focus state when bluring the action button", () => {
       wrapper.setProps({ onEdit: () => {} });
-      wrapper.find(StyledEditContainer).props().onBlur();
-      expect(wrapper.state().isFocused).toBe(false);
+      wrapper.find('[data-element="edit-container"]').props().onBlur();
+      expect(wrapper.state().isEditFocused).toBe(false);
     });
   });
 
@@ -256,7 +376,7 @@ describe("Pod", () => {
               onEdit: () => {},
             });
             wrapper.find(StyledBlock).props().onMouseEnter();
-            expect(wrapper.state().isHovered).toBe(true);
+            expect(wrapper.state().isEditHovered).toBe(true);
           });
 
           it("toggles the hover state when moving the mouse out of the pod", () => {
@@ -266,7 +386,7 @@ describe("Pod", () => {
               onEdit: () => {},
             });
             wrapper.find(StyledBlock).props().onMouseLeave();
-            expect(wrapper.state().isHovered).toBe(false);
+            expect(wrapper.state().isEditHovered).toBe(false);
           });
 
           it("toggles the focus state when focusing on the pod", () => {
@@ -276,7 +396,7 @@ describe("Pod", () => {
               onEdit: () => {},
             });
             wrapper.find(StyledBlock).props().onFocus();
-            expect(wrapper.state().isFocused).toBe(true);
+            expect(wrapper.state().isEditFocused).toBe(true);
           });
 
           it("toggles the focus state when bluring on the pod", () => {
@@ -286,7 +406,7 @@ describe("Pod", () => {
               onEdit: () => {},
             });
             wrapper.find(StyledBlock).props().onBlur();
-            expect(wrapper.state().isFocused).toBe(false);
+            expect(wrapper.state().isEditFocused).toBe(false);
           });
 
           describe("and onEdit prop is a function", () => {
@@ -434,65 +554,157 @@ describe("Pod", () => {
   });
 });
 
-describe("StyledEditAction", () => {
-  let wrapper;
+describe("ActionButtons", () => {
+  const commonActionButtonAssertions = ({ renderer, modifier }) => {
+    let wrapper;
 
-  describe("when isHovered prop is set", () => {
-    it("should match expected styles", () => {
-      wrapper = renderEditAction({ isHovered: true }, TestRenderer.create);
-      expect(wrapper.toJSON()).toMatchSnapshot();
+    describe("when isHovered prop is set", () => {
+      it("should match expected styles", () => {
+        wrapper = renderer({ isHovered: true }, TestRenderer.create);
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
     });
-  });
 
-  describe.each([
-    ["primary", baseTheme.colors.white],
-    ["secondary", baseTheme.pod.secondaryBackground],
-    ["tertiary", baseTheme.pod.tertiaryBackground],
-    ["transparent", "transparent"],
-    ["tile", baseTheme.colors.white],
-  ])("when the variant prop is set to %s", (variant, expectedValue) => {
-    it("should have expected backgroundColor", () => {
-      wrapper = renderEditAction({ variant });
-      assertStyleMatch(
-        {
-          backgroundColor: expectedValue,
-        },
-        wrapper,
-        { modifier: css`&&` }
+    describe.each([
+      ["primary", baseTheme.colors.white],
+      ["secondary", baseTheme.pod.secondaryBackground],
+      ["tertiary", baseTheme.pod.tertiaryBackground],
+      ["transparent", "transparent"],
+      ["tile", baseTheme.colors.white],
+    ])("when the variant prop is set to %s", (variant, expectedValue) => {
+      it("should have expected backgroundColor", () => {
+        wrapper = renderer({ variant });
+        assertStyleMatch(
+          {
+            backgroundColor: expectedValue,
+          },
+          wrapper,
+          {
+            modifier,
+          }
+        );
+      });
+    });
+
+    describe("when noBorder prop is set", () => {
+      it("should not render the border", () => {
+        wrapper = renderer({ noBorder: true });
+        assertStyleMatch(
+          {
+            border: "none",
+          },
+          wrapper,
+          {
+            modifier,
+          }
+        );
+      });
+    });
+
+    describe("when displayOnlyOnHover prop is set", () => {
+      it("should not be dislayed", () => {
+        wrapper = renderer({ displayOnlyOnHover: true });
+        assertStyleMatch(
+          {
+            display: "none",
+          },
+          wrapper,
+          {
+            modifier,
+          }
+        );
+      });
+    });
+
+    describe("when isFocused and internalEditButton props are set", () => {
+      it("should match expected styles", () => {
+        wrapper = renderer({
+          isFocused: true,
+          internalEditButton: true,
+        });
+        assertStyleMatch(
+          {
+            border: "none",
+            background: "transparent",
+          },
+          wrapper,
+          {
+            modifier,
+          }
+        );
+      });
+
+      describe("without contentTriggersEdit prop", () => {
+        it("should have expected outline and border", () => {
+          wrapper = renderer({
+            isFocused: true,
+            internalEditButton: true,
+          });
+          assertStyleMatch(
+            {
+              outline: "3px solid #FFB500",
+              border: "none",
+            },
+            wrapper,
+            {
+              modifier,
+            }
+          );
+        });
+      });
+    });
+  };
+
+  describe("StyledEditAction", () => {
+    commonActionButtonAssertions({
+      renderer: renderEditAction,
+      modifier: `&& > a`,
+    });
+
+    let wrapper;
+    describe("when displayOnlyOnHover prop is set", () => {
+      describe.each(["isHovered", "isFocused"])(
+        "with the %s prop set",
+        (prop) => {
+          it("should have undefined display style", () => {
+            wrapper = renderEditAction({
+              displayOnlyOnHover: true,
+              [prop]: true,
+            });
+            assertStyleMatch(
+              {
+                display: undefined,
+              },
+              wrapper,
+              {
+                modifier: `&& > a`,
+              }
+            );
+          });
+        }
       );
     });
   });
 
-  describe("when noBorder prop is set", () => {
-    it("should not render the border", () => {
-      wrapper = renderEditAction({ noBorder: true });
-      assertStyleMatch(
-        {
-          border: "none",
-        },
-        wrapper,
-        { modifier: css`&&` }
-      );
+  describe("StyledDeleteButton", () => {
+    commonActionButtonAssertions({
+      renderer: renderDeleteAction,
+      modifier: "&&",
     });
   });
 
-  describe("when displayOnlyOnHover prop is set", () => {
-    it("should not be dislayed", () => {
-      wrapper = renderEditAction({ displayOnlyOnHover: true });
-      assertStyleMatch(
-        {
-          display: "none",
-        },
-        wrapper,
-        { modifier: css`&&` }
-      );
+  describe("StyledUndoButton", () => {
+    commonActionButtonAssertions({
+      renderer: renderUndoAction,
+      modifier: "&&",
     });
 
+    let wrapper;
     describe.each(["isHovered", "isFocused"])(
       "with the %s prop set",
       (prop) => {
         it("should have undefined display style", () => {
-          wrapper = renderEditAction({
+          wrapper = renderUndoAction({
             displayOnlyOnHover: true,
             [prop]: true,
           });
@@ -501,59 +713,13 @@ describe("StyledEditAction", () => {
               display: undefined,
             },
             wrapper,
-            { modifier: css`&&` }
+            {
+              modifier: `&&`,
+            }
           );
         });
       }
     );
-  });
-
-  describe("when isFocused and internalEditButton props are set", () => {
-    it("should match expected styles", () => {
-      wrapper = renderEditAction({ isFocused: true, internalEditButton: true });
-      assertStyleMatch(
-        {
-          border: "none",
-          background: "transparent",
-        },
-        wrapper,
-        { modifier: css`&&` }
-      );
-    });
-
-    describe("without contentTriggersEdit prop", () => {
-      it("should have expected outline and border", () => {
-        wrapper = renderEditAction({
-          isFocused: true,
-          internalEditButton: true,
-        });
-        assertStyleMatch(
-          {
-            outline: "3px solid #FFB500",
-            border: "none",
-          },
-          wrapper,
-          { modifier: css`&&` }
-        );
-      });
-    });
-
-    describe("with contentTriggersEdit prop", () => {
-      it("should have no outline", () => {
-        wrapper = renderEditAction({
-          isFocused: true,
-          internalEditButton: true,
-          contentTriggersEdit: true,
-        });
-        assertStyleMatch(
-          {
-            outline: undefined,
-          },
-          wrapper,
-          { modifier: css`&&` }
-        );
-      });
-    });
   });
 });
 
@@ -607,9 +773,9 @@ describe("StyledBlock", () => {
     });
   });
 
-  describe("when editable prop is set", () => {
+  describe("when hasButtons prop is set", () => {
     it("should have the width style set to auto", () => {
-      wrapper = renderStyledBlock({ editable: true });
+      wrapper = renderStyledBlock({ hasButtons: true });
       assertStyleMatch(
         {
           width: "auto",
@@ -652,6 +818,19 @@ describe("StyledBlock", () => {
       assertStyleMatch(
         {
           border: "none",
+        },
+        wrapper
+      );
+    });
+  });
+
+  describe("when softDelete prop is set", () => {
+    it("should not render the border", () => {
+      wrapper = renderStyledBlock({ softDelete: true });
+      assertStyleMatch(
+        {
+          color: baseTheme.pod.softDeleteText,
+          backgroundColor: baseTheme.pod.tertiaryBackground,
         },
         wrapper
       );
@@ -743,23 +922,12 @@ describe("StyledFooter", () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
-  it("should match expected styles when pod is hovered", () => {
-    wrapper = renderStyledFooter({ isHovered: true });
-    assertStyleMatch(
-      {
-        color: `${baseTheme.text.color}`,
-      },
-      wrapper
-    );
-  });
-
   describe("when variant prop is set to tile", () => {
     it("should have expected border top style", () => {
       wrapper = renderStyledFooter({ variant: "tile" });
       assertStyleMatch(
         {
           borderTop: `1px solid ${baseTheme.pod.border}`,
-          color: `${baseTheme.text.color}`,
         },
         wrapper
       );
@@ -771,7 +939,19 @@ describe("StyledFooter", () => {
       wrapper = renderStyledFooter({ size: "medium" });
       assertStyleMatch(
         {
-          padding: "10px 15px",
+          padding: "8px 16px",
+        },
+        wrapper
+      );
+    });
+  });
+
+  describe("when softDelete prop is set", () => {
+    it("should have expected padding", () => {
+      wrapper = renderStyledFooter({ softDelete: true });
+      assertStyleMatch(
+        {
+          color: baseTheme.pod.softDeleteText,
         },
         wrapper
       );
@@ -822,11 +1002,11 @@ describe("StyledHeader", () => {
   });
 });
 
-describe("StyledEditContainer", () => {
+describe("StyledActionsContainer", () => {
   describe("when internalEditButton prop is set", () => {
     it("should have expected styles", () => {
       const wrapper = TestRenderer.create(
-        <StyledEditContainer internalEditButton />
+        <StyledActionsContainer internalEditButton />
       );
       expect(wrapper.toJSON()).toMatchSnapshot();
     });
@@ -835,6 +1015,22 @@ describe("StyledEditContainer", () => {
 
 function renderEditAction(props = {}, renderer = mount) {
   return renderer(<StyledEditAction {...props} />);
+}
+
+function renderDeleteAction(props = {}, renderer = mount) {
+  return renderer(
+    <StyledDeleteButton onAction={() => {}} {...props}>
+      <Icon type="delete" />
+    </StyledDeleteButton>
+  );
+}
+
+function renderUndoAction(props = {}, renderer = mount) {
+  return renderer(
+    <StyledUndoButton onAction={() => {}} {...props}>
+      <Icon type="undo" />
+    </StyledUndoButton>
+  );
 }
 
 function renderStyledBlock(props = {}, renderer = mount) {
