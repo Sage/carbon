@@ -1,3 +1,11 @@
+## [80.1.0](https://github.com/Sage/carbon/compare/v80.0.0...v80.1.0) (2021-08-02)
+
+
+### Features
+
+* **pod:** added softDelete, onDelete and onUndo functionalities ([76b23ef](https://github.com/Sage/carbon/commit/76b23ef5964300876f85e00a71056bdd1987e57f))
+* **show-edit-pod:** added softDelete, onDelete and onUndo functionalities ([df467f9](https://github.com/Sage/carbon/commit/df467f93bb7c1775eb1ba8107ec5e6a986012eb4))
+
 ## [80.0.0](https://github.com/Sage/carbon/compare/v79.1.1...v80.0.0) (2021-07-30)
 
 
