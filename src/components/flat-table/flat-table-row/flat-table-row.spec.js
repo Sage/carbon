@@ -366,7 +366,7 @@ describe("FlatTableRow", () => {
       ["StyledFlatTableCell", StyledFlatTableCell],
       ["StyledFlatTableCheckbox", StyledFlatTableCheckbox],
     ])("applies the expected styling to %s", (id, el) => {
-      wrapper = renderRowWithContext();
+      wrapper = renderRowWithContext({ onClick: () => {} });
       assertStyleMatch(
         {
           backgroundColor: baseTheme.flatTable.drawerSidebar.headerBackground,

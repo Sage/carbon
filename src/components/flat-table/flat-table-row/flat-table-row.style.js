@@ -208,13 +208,17 @@ const StyledFlatTableRow = styled.tr`
           border-right: 1px solid ${colorOfHighlighted};
         }
 
-        :hover {
-          ${StyledFlatTableCell},
-          ${StyledFlatTableCheckbox}:not(th) {
-            background-color: ${
-              backgroundColor || theme.flatTable.drawerSidebar.hover
-            };
-          }
+        ${
+          isRowInteractive &&
+          css`
+            :hover {
+              ${StyledFlatTableCell},
+              ${StyledFlatTableCheckbox}:not(th) {
+                background-color: ${backgroundColor ||
+                theme.flatTable.drawerSidebar.hover};
+              }
+            }
+          `
         }
       `}
 
