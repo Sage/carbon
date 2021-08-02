@@ -22,10 +22,12 @@ import ToolbarButton from "./__internal__/toolbar/toolbar-button/toolbar-button.
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
 import guid from "../../utils/helpers/guid/guid";
-import Label from "../../__experimental__/components/label";
+import Label from "../../__internal__/label";
 import LabelWrapper from "./__internal__/label-wrapper";
-import ValidationIcon from "../validations";
+import EditorLinkPreview from "../link-preview";
+import ValidationIcon from "../../__internal__/validations";
 import { isSafari } from "../../utils/helpers/browser-type-check";
+import IconButton from "../icon-button";
 
 jest.mock("../../utils/helpers/browser-type-check");
 isSafari.mockImplementation(() => false);
@@ -932,6 +934,72 @@ describe("TextEditor", () => {
         render({ rows: "foo" }, shallow);
         assert();
       });
+    });
+  });
+
+  describe("Link previews", () => {
+    const onLinkAdded = jest.fn();
+
+    it("reports the url when a valid one is added and enter is pressed", () => {
+      const url = "http://foo.com";
+      wrapper = render({ onLinkAdded });
+
+      act(() => {
+        wrapper
+          .find(TextEditor)
+          .props()
+          .onChange(addToEditorState(url, wrapper.find(Editor).props()));
+      });
+      act(() => {
+        wrapper.update();
+      });
+      act(() => {
+        wrapper.find(Editor).props().handleKeyCommand("split-block");
+      });
+
+      expect(onLinkAdded).toHaveBeenCalledWith(url);
+    });
+
+    it("reports the url when a valid one is inputted and space is pressed", () => {
+      const url = "http://foo.com";
+      wrapper = render({ onLinkAdded });
+
+      act(() => {
+        wrapper
+          .find(TextEditor)
+          .props()
+          .onChange(addToEditorState(url, wrapper.find(Editor).props()));
+      });
+      act(() => {
+        wrapper.update();
+      });
+      act(() => {
+        wrapper.find(Editor).props().handleBeforeInput(" ");
+      });
+
+      expect(onLinkAdded).toHaveBeenCalledWith(url);
+    });
+
+    it("renders any EditorLinkPreviews passed in via the `previews` prop", () => {
+      const previews = [
+        <EditorLinkPreview />,
+        <EditorLinkPreview />,
+        <EditorLinkPreview />,
+      ];
+      wrapper = render({ onLinkAdded, previews });
+      expect(wrapper.find(EditorLinkPreview).length).toEqual(3);
+    });
+
+    it("calls the onClose callback if one is passed when the close icon is clicked", () => {
+      const onClose = jest.fn();
+      const previews = [
+        <EditorLinkPreview onClose={onClose} url="foo" />,
+        <EditorLinkPreview />,
+        <EditorLinkPreview />,
+      ];
+      wrapper = render({ onLinkAdded, previews });
+      wrapper.find(EditorLinkPreview).find(IconButton).simulate("click");
+      expect(onClose).toHaveBeenCalledWith("foo");
     });
   });
 

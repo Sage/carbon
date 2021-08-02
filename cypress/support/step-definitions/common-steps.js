@@ -308,3 +308,7 @@ When("clear all actions in Actions Tab", () => {
 When("I wait {int}", (timeout) => {
   cy.wait(timeout, { log: DEBUG_FLAG });
 });
+
+When("I press Shift Tab on focused element", () => {
+  cy.focused().tab({ shift: true });
+});

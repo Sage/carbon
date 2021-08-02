@@ -7,7 +7,7 @@ import {
   StyledLegend,
   StyledLegendContent,
 } from "./fieldset.style";
-import ValidationIcon from "../../components/validations/validation-icon.component";
+import ValidationIcon from "../validations/validation-icon.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

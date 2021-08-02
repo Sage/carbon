@@ -1,16 +1,7 @@
 import styled, { css } from "styled-components";
 import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
-
-const sidebarSizes = {
-  "extra-small": "214px",
-  small: "314px",
-  "medium-small": "414px",
-  medium: "514px",
-  "medium-large": "614px",
-  large: "714px",
-  "extra-large": "814px",
-};
+import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
 const SidebarStyle = styled.div`
   ${({ onCancel, position, size, theme }) => css`
@@ -25,7 +16,7 @@ const SidebarStyle = styled.div`
 
     ${size &&
     css`
-      width: ${sidebarSizes[size]};
+      width: ${SIDEBAR_SIZES_CSS[size]};
     `}
 
     ${position &&

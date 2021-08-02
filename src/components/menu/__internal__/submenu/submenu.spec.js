@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { css, ThemeProvider } from "styled-components";
 
 import { MenuItem } from "../..";
-import { MenuContext } from "../../menu.component";
+import MenuContext from "../../menu.context";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
 import MenuDivider from "../../menu-divider/menu-divider.component";
@@ -12,8 +12,8 @@ import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import { baseTheme, mintTheme } from "../../../../style/themes";
-import Search from "../../../../__experimental__/components/search";
-import StyledSearch from "../../../../__experimental__/components/search/search.style";
+import Search from "../../../search";
+import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
 import SubmenuContext from "./submenu.context";
 

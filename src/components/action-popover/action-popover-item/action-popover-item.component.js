@@ -6,7 +6,6 @@ import React, {
   useContext,
 } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import { withTheme } from "styled-components";
 import {
   MenuItemFactory,
@@ -14,10 +13,10 @@ import {
   SubMenuItemIcon,
   StyledMenuItem,
 } from "../action-popover.style";
-import OptionsHelper from "../../../utils/helpers/options-helper";
 import Events from "../../../utils/helpers/events";
 import createGuid from "../../../utils/helpers/guid";
 import ActionPopoverContext from "../action-popover-context";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 const INTERVAL = 150;
 
@@ -35,6 +34,7 @@ const MenuItem = ({
   horizontalAlignment,
   ...rest
 }) => {
+  const l = useLocale();
   const { setOpenPopover, isOpenPopover, focusButton } = useContext(
     ActionPopoverContext
   );
@@ -189,9 +189,7 @@ const MenuItem = ({
       },
     }),
     "aria-haspopup": "true",
-    "aria-label": I18n.t("actionpopover.aria-label", {
-      defaultValue: "actions",
-    }),
+    "aria-label": l.actionPopover.ariaLabel(),
     "aria-controls": `ActionPopoverMenu_${guid}`,
     "aria-expanded": isOpen,
   };
@@ -277,8 +275,12 @@ const propTypes = {
   children: PropTypes.string.isRequired,
   /** Flag to indicate if item is disabled */
   disabled: PropTypes.bool,
-  /** The name of the icon to display next to the label */
-  icon: PropTypes.oneOf(OptionsHelper.icons),
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * The name of the icon to display next to the label
+   * */
+  icon: PropTypes.string,
   /** Callback to run when item is clicked */
   onClick: PropTypes.func,
   /** allows to provide download prop that works dependent with href */

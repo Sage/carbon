@@ -15,7 +15,7 @@ import {
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Pager from "../pager";
 import {
   ActionPopover,
@@ -164,21 +164,21 @@ Padding can be set on each cell individually by using the spacing props syntax. 
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader px={5} py={2}>
+          <FlatTableHeader px={1} py={2}>
             Name
           </FlatTableHeader>
-          <FlatTableHeader py={2}>Location</FlatTableHeader>
-          <FlatTableHeader py={2}>Relationship Status</FlatTableHeader>
-          <FlatTableHeader py={2}>Dependents</FlatTableHeader>
+          <FlatTableHeader px={2} py={2}>Location</FlatTableHeader>
+          <FlatTableHeader px={3} py={2}>Relationship Status</FlatTableHeader>
+          <FlatTableHeader px={4} py={2}>Dependents</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
         {[1, 2, 3, 4].map((key) => (
           <FlatTableRow key={key}>
-            <FlatTableCell px={5}>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
+            <FlatTableCell px={key}>John Doe</FlatTableCell>
+            <FlatTableCell pl={key}>London</FlatTableCell>
+            <FlatTableCell p={key}>Single</FlatTableCell>
+            <FlatTableCell pl={key}>5</FlatTableCell>
           </FlatTableRow>
         ))}
       </FlatTableBody>
@@ -528,7 +528,7 @@ is a string. However, if the passed children are not a string it is possible to 
               London
             </FlatTableCell>
             <FlatTableCell>
-              <Textbox size="small" />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
         ))}
@@ -1024,13 +1024,13 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
             disabled={selectedCount === 0}
             selectedCount={selectedCount}
           >
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="csv" onAction={() => {}}>
               <Icon type="csv" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="delete" onAction={() => {}}>
               <Icon type="bin" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="pdf" onAction={() => {}}>
               <Icon type="pdf" />
             </IconButton>
           </BatchSelection>
@@ -1222,13 +1222,13 @@ It is also possible to integrate selection of multiple rows and the highlighting
             disabled={selectedCount === 0}
             selectedCount={selectedCount}
           >
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="csv" onAction={() => {}}>
               <Icon type="csv" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="delete" onAction={() => {}}>
               <Icon type="bin" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="pdf" onAction={() => {}}>
               <Icon type="pdf" />
             </IconButton>
           </BatchSelection>
@@ -1654,13 +1654,13 @@ of the button control.
             disabled={selectedCount === 0}
             selectedCount={selectedCount}
           >
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="csv" onAction={() => {}}>
               <Icon type="csv" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="delete" onAction={() => {}}>
               <Icon type="bin" />
             </IconButton>
-            <IconButton onAction={() => {}}>
+            <IconButton aria-label="pdf" onAction={() => {}}>
               <Icon type="pdf" />
             </IconButton>
           </BatchSelection>

@@ -2,10 +2,7 @@ import React, { useRef } from "react";
 import { mount } from "enzyme";
 
 import FocusTrap from "./focus-trap.component";
-import {
-  RadioButton,
-  RadioButtonGroup,
-} from "../../__experimental__/components/radio-button";
+import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
 import { ModalContext } from "../../components/modal/modal.component";
 
 jest.useFakeTimers();

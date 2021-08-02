@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import ReactDOM from "react-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styledSystemPropTypes from "@styled-system/prop-types";
@@ -13,6 +12,7 @@ import StyledDeleteButton from "./delete-button.style";
 import Events from "../../utils/helpers/events";
 import { validProps } from "../../utils/ether";
 import tagComponent from "../../utils/helpers/tags";
+import LocaleContext from "../../__internal__/i18n-context";
 import StyledPod from "./show-edit-pod.style";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -20,6 +20,8 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 class ShowEditPod extends React.Component {
+  static contextType = LocaleContext;
+
   state = {
     editing: false,
   };
@@ -69,9 +71,7 @@ class ShowEditPod extends React.Component {
   };
 
   deleteButton() {
-    const label =
-      this.props.deleteText ||
-      I18n.t("actions.delete", { defaultValue: "Delete" });
+    const label = this.props.deleteText || this.context.actions.delete();
 
     return (
       <StyledDeleteButton
@@ -199,7 +199,13 @@ class ShowEditPod extends React.Component {
 ShowEditPod.propTypes = {
   ...marginPropTypes,
   /** Pod theme variant. */
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "tile",
+    "transparent",
+  ]),
   /** Enable/disable the border on the Pod. */
   border: PropTypes.bool,
   /** This component supports children. */
@@ -226,7 +232,7 @@ ShowEditPod.propTypes = {
   /** A callback triggered after clicking the save button */
   onSave: PropTypes.func,
   /** Controls which direction the form buttons align */
-  buttonAlign: PropTypes.string,
+  buttonAlign: PropTypes.oneOf(["left", "right"]),
   /** Set to false to hide the cancel button */
   cancel: PropTypes.bool,
   /** Supply custom text for the cancel button */

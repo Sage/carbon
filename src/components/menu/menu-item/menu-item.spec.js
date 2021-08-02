@@ -13,7 +13,8 @@ import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-import { MenuContext } from "../menu.component";
+
+import MenuContext from "../menu.context";
 import SubmenuBlock from "../submenu-block";
 import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";

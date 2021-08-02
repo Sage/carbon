@@ -1,3 +1,261 @@
+## [80.0.0](https://github.com/Sage/carbon/compare/v79.1.1...v80.0.0) (2021-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **i18n:** Translations are providing via a locale file (https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
+`validationMessage` method of validations helper has been removed.
+`formatDateToCurrentLocale`, `withinRange`, `weekdaysMinified`, `formatValue` and `isValidDate` methods of date helper have been removed.
+
+### Code Refactoring
+
+* **i18n:** remove i18n-js ([2307677](https://github.com/Sage/carbon/commit/2307677498808506e3a8852dbf2a482a443fb3b5))
+
+### [79.1.1](https://github.com/Sage/carbon/compare/v79.1.0...v79.1.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* **tile-select:** disabled prop is not working correctly ([b74e3ca](https://github.com/Sage/carbon/commit/b74e3caf72853f05863b248db2bdd8203ce564cb))
+
+## [79.1.0](https://github.com/Sage/carbon/compare/v79.0.1...v79.1.0) (2021-07-26)
+
+
+### Features
+
+* **multi-select:** add pill color override functionality ([93e5e3e](https://github.com/Sage/carbon/commit/93e5e3e95a3da680d472e80ca6d13382e18feb6d))
+
+### [79.0.1](https://github.com/Sage/carbon/compare/v79.0.0...v79.0.1) (2021-07-23)
+
+
+### Bug Fixes
+
+* **sidebar:** fix header not respecting container width ([de13810](https://github.com/Sage/carbon/commit/de13810885f244731dd4e9b32a22dd8ca6724ec2)), closes [#4240](https://github.com/Sage/carbon/issues/4240)
+
+## [79.0.0](https://github.com/Sage/carbon/compare/v78.0.0...v79.0.0) (2021-07-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **options-helper:** OptionsHelper has been removed. All references will stop work.
+Types are exported from their own files.
+
+All affected files are listed below:
+- checkbox
+- date
+- decimal
+- form-field
+- input-presentation
+- input-icon
+- label
+- numeral-date
+- radio-button
+- switch
+- textarea
+- textbox
+- accordion
+- action-popover-item
+- alert
+- story-constants
+- batch-selection
+- button
+- button-toggle
+- card
+- confirm
+- detail
+- dialog
+- flat-table
+- form
+- help
+- icon
+- inline-inputs
+- link
+- loader
+- message
+- message-content
+- multi-action-button
+- menu
+- pod
+- tile
+- popover-container
+- portrait
+- profile
+- row
+- select-textbox
+- show-edit-pod
+- sidebar
+- split-button
+- step-sequence
+- table
+- tabs-header
+- toast
+- tooltip
+- validation-cion
+- vertical-divider
+- image
+- action-popover
+- accordion
+- input-definition
+- styled-system-interfaces
+- options-helper
+
+### Bug Fixes
+
+* remove jest-styled-components ([33582ca](https://github.com/Sage/carbon/commit/33582ca2042fcef23e74d71b31ab924d04ae5a62))
+
+
+### Code Refactoring
+
+* **options-helper:** remove util ([84ce69f](https://github.com/Sage/carbon/commit/84ce69f48d09df294086f1d4ec231e00dd1bba33))
+
+## [78.0.0](https://github.com/Sage/carbon/compare/v77.14.3...v78.0.0) (2021-07-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **simple-color-picker:** SimpleColorPicker has moved to src/components/simple-color-picker
+* **radio-button:** RadioButton has moved to src/components/radio-button
+* **decimal:** Decimal has new import path - carbon-react/lib/components/decimal
+There is a codemod available to assist with this upgrade:
+npx carbon-codemod move-experimental-components <target>
+See https://github.com/Sage/carbon-codemod for more information.
+* **form-field:** FormField has moved to src/__internal__/form-field
+* **input:** Input has moved to src/__internal__/input/
+* **validation-icon:** ValidationIcon has moved to src/__internal__/
+* **label:** Label is now an internal component
+* **date-range:** `DateRange` has been moved to src/components/date-range. There is a codemod
+available to assist with this upgrade
+(https://github.com/Sage/carbon-codemod/tree/master/transforms/move-experimental-components)
+* **date:** Date has been moved to src/components/date. There is a codemod available to assist
+with this upgrade
+(https://github.com/Sage/carbon-codemod/tree/master/transforms/move-experimental-components)
+* **switch:** Switch has moved to src/components/switch
+* **checkbox:** Checkbox and CheckboxGroup have moved
+to src/components/checkbox
+* **numeral-date:** NumeralDate has moved to src/components/numeral-date
+* **grouped-character:** GroupedCharacter has new import path -
+carbon-react/lib/components/grouped-character
+There is a codemod available to assist with this upgrade:
+npx carbon-codemod move-experimental-components <target>
+See https://github.com/Sage/carbon-codemod for more information.
+* **search:** Search has new import path - carbon-react/lib/components/search
+* **textarea:** Textarea has moved to src/components/textarea
+* **number:** Number has new import path - carbon-react/lib/components/number
+There is a codemod available to assist with this upgrade:
+npx carbon-codemod move-experimental-components <target>
+See https://github.com/Sage/carbon-codemod for more information.
+* **field-help:** FieldHelp has moved to the internal folder
+* **fieldset:** Fieldset has moved to src/components/fieldset
+* **textbox:** New component path src/components/textbox
+* **input-icon-toggle:** New component path src/__internal__/input-icon-toggle
+
+### Features
+
+* **input-icon-toggle:** add onblur and onfocus handlers ([8dcbdcd](https://github.com/Sage/carbon/commit/8dcbdcd75e08c477a1daded69da87a76c3de71d4))
+* **validation-icon:** add onblur and onfocus handlers ([32c0c50](https://github.com/Sage/carbon/commit/32c0c50eda739322ec3f269e9ed211a274494eeb))
+
+
+### Bug Fixes
+
+* **switch:** fix console error in sizes story ([035ca1b](https://github.com/Sage/carbon/commit/035ca1be212bbe10a838132e827aeb2b3c996782))
+* **switch-slider:** pass correct props down to loader ([b2f8bce](https://github.com/Sage/carbon/commit/b2f8bcee846dec43c806139b44c42ad02dae2961))
+
+
+### Code Refactoring
+
+* **checkbox:** move from experimental to components ([03ca633](https://github.com/Sage/carbon/commit/03ca633dcc15639ac951d2e6d36bd37546691341))
+* **date:** move from experimental into main components directory ([cc87589](https://github.com/Sage/carbon/commit/cc87589fc5bd8db6c181fa23f753df830384d01c))
+* **date-range:** move component out of experimental into main components directory ([933761e](https://github.com/Sage/carbon/commit/933761efd1c156a49fb35d6e5e918ff63a46cf21))
+* **decimal:** move component from experimental ([ea1fbe9](https://github.com/Sage/carbon/commit/ea1fbe97f3e75ceab68ebbab94a1b1998095af39))
+* **field-help:** move to internal folder ([af60bf8](https://github.com/Sage/carbon/commit/af60bf8d5f0c12e5a48739c37bed6606203400e8))
+* **fieldset:** move fieldset from experimental to components ([72aa35c](https://github.com/Sage/carbon/commit/72aa35c06f59ff85a3a0a8f2145497c05f73445b))
+* **form-field:** move from experimental to internal ([2165bed](https://github.com/Sage/carbon/commit/2165bed7cdbca62bfe253b79ce440adcc4cc305a))
+* **grouped-character:** move component from experimental ([8d66245](https://github.com/Sage/carbon/commit/8d6624504d1aca19cca9b8ca48196dde7dff8438))
+* **input:** move from experimental to internal ([4b36d02](https://github.com/Sage/carbon/commit/4b36d02132f2c08ac0d225bdd6328d3ebe80a8cf))
+* **input-icon-toggle:** make experimental input-icon-toggle component internal ([dc64b1c](https://github.com/Sage/carbon/commit/dc64b1c4240f5a9b7afe949cdca2f29ddef27f28))
+* **label:** make experimental label component an internal one ([02b2dcd](https://github.com/Sage/carbon/commit/02b2dcd865903f521930c026ba7d860136e97619))
+* **number:** move component from experimental to components ([25e9405](https://github.com/Sage/carbon/commit/25e94056cfe3db259c8c14c3ab8f41ccda626439))
+* **numeral-date:** move out of external folder ([c35df12](https://github.com/Sage/carbon/commit/c35df12ae8d25db31fbb57123d50dce59f8aed29))
+* **radio-button:** move from experimental to components ([bc80509](https://github.com/Sage/carbon/commit/bc80509fdfb70ccda46bd8c0a32fcc1cd4878d3c))
+* **search:** make experimental search component a regular one ([6f66963](https://github.com/Sage/carbon/commit/6f66963da54dfc347ef5da891e2b672edc441d3f))
+* **simple-color-picker:** move from experimental to components ([40261dd](https://github.com/Sage/carbon/commit/40261dd5178691aa848e455ee4a3c6b6f5f52a24))
+* **switch:** move from experimental to components ([994e59c](https://github.com/Sage/carbon/commit/994e59c3d0874c041c43a0080e550884fb4eef4c))
+* **textarea:** move from experimental to components ([f09f77f](https://github.com/Sage/carbon/commit/f09f77fd8d62f21f64853cfaae1c8f47aec749fc))
+* **textbox:** make experimental textbox component a regular one ([7012713](https://github.com/Sage/carbon/commit/701271352c4205c7459fd0e6a7bec98ca759b450))
+* **validation-icon:** move to internal folder ([d4032c7](https://github.com/Sage/carbon/commit/d4032c7454845ded424219257c27c84001f6be92))
+
+### [77.14.3](https://github.com/Sage/carbon/compare/v77.14.2...v77.14.3) (2021-07-22)
+
+
+### Bug Fixes
+
+* **dependency:** move cypress-real-events to dev dependency ([f93d2b2](https://github.com/Sage/carbon/commit/f93d2b20350608fa9cddfff3dc0422c4d1126c77))
+
+### [77.14.2](https://github.com/Sage/carbon/compare/v77.14.1...v77.14.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **textbox:** added missing labeAlign propType definition ([8dff28b](https://github.com/Sage/carbon/commit/8dff28b51820f2e52452d9d8adf6bbf0210ea8b1))
+
+### [77.14.1](https://github.com/Sage/carbon/compare/v77.14.0...v77.14.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* **checkable-input:** fix invalid aria formats ([4db6af4](https://github.com/Sage/carbon/commit/4db6af4a265e34821dae89eb56471408f9a4d9ea))
+* **flat-table:** add aria-label to various stories ([613786b](https://github.com/Sage/carbon/commit/613786b2945b4f4827a46c388cbf0ef781088236))
+* **icon-button:** ensure buttons have discernible text ([70ce422](https://github.com/Sage/carbon/commit/70ce4220e57b72da9b6f4fecf105c0ccfb5c9cc1))
+
+## [77.14.0](https://github.com/Sage/carbon/compare/v77.13.3...v77.14.0) (2021-07-21)
+
+
+### Features
+
+* **menu-full-screen:** add new component to achieve fullscreen menu view ([55d42a2](https://github.com/Sage/carbon/commit/55d42a28ca1a21349b8ac5158624586d8e0f6bc5))
+
+### [77.13.3](https://github.com/Sage/carbon/compare/v77.13.2...v77.13.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* **tabs:** remove default margins and paddings ([d301b3a](https://github.com/Sage/carbon/commit/d301b3a7e87d20c3f26a1dfe6fe0534e74afba7a))
+
+### [77.13.2](https://github.com/Sage/carbon/compare/v77.13.1...v77.13.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* **search:** correct onClick prop ts type ([e5b3b7b](https://github.com/Sage/carbon/commit/e5b3b7b8c3124d2ba4da233378de53fb11cc4ae0)), closes [#4185](https://github.com/Sage/carbon/issues/4185)
+
+### [77.13.1](https://github.com/Sage/carbon/compare/v77.13.0...v77.13.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** set cursor to not-allowed when component is disabled ([790c8e2](https://github.com/Sage/carbon/commit/790c8e23b3f133377d0d6297eb4431b858348fc8))
+
+## [77.13.0](https://github.com/Sage/carbon/compare/v77.12.2...v77.13.0) (2021-07-16)
+
+
+### Features
+
+* **link-preview:** add new component to support displaying link previews ([4348aaf](https://github.com/Sage/carbon/commit/4348aaf65e095dce3d0393449d579286d9bab931))
+* **note:** add support for rendering link previews ([5519c30](https://github.com/Sage/carbon/commit/5519c3045cf3f81bc18f4e426e19c3d01a021201))
+* **text-editor:** add support for rendering editor link previews ([a436ea5](https://github.com/Sage/carbon/commit/a436ea5b2ee05e4d54afa2a930815aedf4673e84))
+
+
+### Bug Fixes
+
+* **toolbar:** add missing focus trigger when right key press and last button focused ([5d713fd](https://github.com/Sage/carbon/commit/5d713fda086d0e40d619e1a955f9849ddff7397a))
+
+### [77.12.2](https://github.com/Sage/carbon/compare/v77.12.1...v77.12.2) (2021-07-15)
+
+
+### Bug Fixes
+
+* **tile-select:** prevent focus outline when tile select is disabled ([e6c9a17](https://github.com/Sage/carbon/commit/e6c9a174401e6162d6d44273ca0e1af398e11256)), closes [#4227](https://github.com/Sage/carbon/issues/4227)
+
 ### [77.12.1](https://github.com/Sage/carbon/compare/v77.12.0...v77.12.1) (2021-07-14)
 
 

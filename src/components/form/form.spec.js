@@ -22,7 +22,9 @@ import {
 } from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
-import { FieldsetStyle } from "../../__experimental__/components/fieldset/fieldset.style";
+import { FieldsetStyle } from "../fieldset/fieldset.style";
+
+jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 
 describe("Form", () => {
   let wrapper;
@@ -476,6 +478,12 @@ describe("Form", () => {
           }
         }
       );
+
+      it("when there are no errors and warnings", () => {
+        wrapper.setProps({ errorCount: 0, warningCount: 0 });
+
+        expect(wrapper.find(StyledInternalSummary).exists()).toBe(false);
+      });
     });
   });
 

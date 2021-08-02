@@ -40,6 +40,13 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 .c4 button .c2 {
   position: relative;
   vertical-align: middle;
+  margin-right: 5px;
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  position: relative;
+  vertical-align: middle;
   margin-right: 0;
 }
 
@@ -72,19 +79,6 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   border: none;
 }
 
-.c5.c5 > a .c2,
-.c5.c5 button .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #008200;
-}
-
-.c5.c5 > a .c2,
-.c5.c5 button .c2 {
-  color: #FFFFFF;
-}
-
 .c6.c6 > a .c2,
 .c6.c6 button .c2 {
   top: -2px;
@@ -101,12 +95,22 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   color: #008200;
 }
 
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  color: #FFFFFF;
+}
+
 .c8.c8 > a .c2,
 .c8.c8 button .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
   color: #008200;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  color: #FFFFFF;
 }
 
 .c9.c9 > a .c2,
@@ -123,6 +127,11 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   height: 16px;
   width: 16px;
   color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  color: #FFFFFF;
 }
 
 .c11.c11 > a .c2,
@@ -149,8 +158,77 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   color: #008200;
 }
 
-.c13.c13 > a .c2,
-.c13.c13 button .c2 {
+.c14.c14 > a .c2,
+.c14.c14 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c15.c15 > a .c2,
+.c15.c15 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c16.c16 > a .c2,
+.c16.c16 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c17.c17 > a .c2,
+.c17.c17 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  color: #FFFFFF;
+}
+
+.c19.c19 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  color: #FFFFFF;
+}
+
+.c21.c21 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c21.c21 .c2 {
   color: #FFFFFF;
 }
 
@@ -176,6 +254,50 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 
 .c1.c1 .c2 {
   color: #FFFFFF;
+}
+
+.c22.c22 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c23.c23 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c23.c23 .c2 {
+  color: #FFFFFF;
+}
+
+.c24.c24 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c24.c24 .c2 {
+  color: #FFFFFF;
+}
+
+.c25:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c25 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c25 .c2 svg {
+  margin-top: 0;
 }
 
 <button
@@ -325,6 +447,13 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 .c4 button .c2 {
   position: relative;
   vertical-align: middle;
+  margin-right: 5px;
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  position: relative;
+  vertical-align: middle;
   margin-right: 0;
 }
 
@@ -357,19 +486,6 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   border: none;
 }
 
-.c5.c5 > a .c2,
-.c5.c5 button .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #008200;
-}
-
-.c5.c5 > a .c2,
-.c5.c5 button .c2 {
-  color: #FFFFFF;
-}
-
 .c6.c6 > a .c2,
 .c6.c6 button .c2 {
   top: -2px;
@@ -386,12 +502,22 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   color: #008200;
 }
 
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  color: #FFFFFF;
+}
+
 .c8.c8 > a .c2,
 .c8.c8 button .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
   color: #008200;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  color: #FFFFFF;
 }
 
 .c9.c9 > a .c2,
@@ -408,6 +534,11 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   height: 16px;
   width: 16px;
   color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  color: #FFFFFF;
 }
 
 .c11.c11 > a .c2,
@@ -434,48 +565,49 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   color: #008200;
 }
 
-.c13.c13 > a .c2,
-.c13.c13 button .c2 {
+.c14.c14 > a .c2,
+.c14.c14 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c15.c15 > a .c2,
+.c15.c15 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c16.c16 > a .c2,
+.c16.c16 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c17.c17 > a .c2,
+.c17.c17 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
   color: #FFFFFF;
-}
-
-.c14.c14 .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #C7384F;
-}
-
-.c14.c14 .c2 {
-  color: #FFFFFF;
-}
-
-.c15.c15 .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #C7384F;
-}
-
-.c16.c16 .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #C7384F;
-}
-
-.c17.c17 .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #C7384F;
-}
-
-.c18.c18 .c2 {
-  top: -2px;
-  height: 16px;
-  width: 16px;
-  color: #C7384F;
 }
 
 .c19.c19 .c2 {
@@ -492,11 +624,108 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   color: #C7384F;
 }
 
+.c20.c20 .c2 {
+  color: #FFFFFF;
+}
+
 .c21.c21 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
   color: #C7384F;
+}
+
+.c21.c21 .c2 {
+  color: #FFFFFF;
+}
+
+.c22.c22 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c22.c22 .c2 {
+  color: #FFFFFF;
+}
+
+.c23.c23 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c24.c24 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c25.c25 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c26.c26 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c27.c27 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c28.c28 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c29.c29 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c30.c30 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c31.c31 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c31.c31 .c2 {
+  color: #FFFFFF;
+}
+
+.c32.c32 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c32.c32 .c2 {
+  color: #FFFFFF;
 }
 
 .c1.c1 {
@@ -521,6 +750,21 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 
 .c1.c1 .c2 {
   color: #FFFFFF;
+}
+
+.c33:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c33 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c33 .c2 svg {
+  margin-top: 0;
 }
 
 <button

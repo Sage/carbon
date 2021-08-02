@@ -1,6 +1,5 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import * as OptionsHelper from "../../utils/helpers/options-helper";
 
 export type BgSize =
   | "extra-small"
@@ -8,7 +7,8 @@ export type BgSize =
   | "medium"
   | "large"
   | "extra-large";
-export type FontSize = "small" | "medium" | "large" | "extra-large";
+export type TooltipPositions = "top" | "bottom" | "left" | "right";
+export type FontSize = "extra-small" | "small" | "medium" | "large" | "extra-large";
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 export type BackgroundTheme =
   | "info"
@@ -229,7 +229,7 @@ export interface IconProps extends MarginProps {
   /** The message string to be displayed in the tooltip */
   tooltipMessage?: string;
   /** The position to display the tooltip */
-  tooltipPosition?: OptionsHelper.Positions;
+  tooltipPosition?: TooltipPositions;
   /** Control whether the tooltip is visible */
   tooltipVisible?: boolean;
   /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
@@ -237,7 +237,7 @@ export interface IconProps extends MarginProps {
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
   /** Overrides the default flip behaviour of the Tooltip */
-  tooltipFlipOverrides?: OptionsHelper.Positions[];
+  tooltipFlipOverrides?: TooltipPositions[];
 }
 
 declare function Icon(

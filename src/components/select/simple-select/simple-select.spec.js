@@ -7,15 +7,15 @@ import {
   testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
 import SimpleSelect from "./simple-select.component";
-import Textbox from "../../../__experimental__/components/textbox";
+import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import SelectTextbox from "../select-textbox/select-textbox.component";
-import InputIconToggleStyle from "../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style";
-import StyledInput from "../../../__experimental__/components/input/input.style";
-import InputPresentationStyle from "../../../__experimental__/components/input/input-presentation.style";
+import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
+import StyledInput from "../../../__internal__/input/input.style";
+import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { baseTheme } from "../../../style/themes";
-import Label from "../../../__experimental__/components/label";
+import Label from "../../../__internal__/label";
 
 describe("SimpleSelect", () => {
   describe("when an HTML element is clicked when the SelectList is open", () => {

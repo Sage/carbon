@@ -1,0 +1,138 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import { Checkbox, CheckboxGroup } from ".";
+
+<Meta
+  title="Design System/Checkbox/Validations"
+  parameters={{ info: { disable: true } }}
+/>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string applied to single Checkbox
+
+<Preview>
+  <Story name="single checkbox - string validation">
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <Checkbox
+          id={`checkbox_${type}`}
+          key={`checkbox-${type}`}
+          {...{ [type]: "Message" }}
+          label={`Example checkbox (${type})`}
+          name={`checkbox-${type}`}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean applied to single Checkbox
+
+<Preview>
+  <Story name="single checkbox - boolean validation">
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <Checkbox
+          id={`checkbox_${type}-boolean`}
+          key={`checkbox-${type}-boolean`}
+          {...{ [type]: true }}
+          label={`Example checkbox (${type})`}
+          name={`checkbox-${type}-boolean`}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a string applied to CheckboxGroup
+
+<Preview>
+  <Story name="group checkbox - string validation">
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <div key={`checkbox-group-${type}`} style={{ marginBottom: 16 }}>
+          <CheckboxGroup
+            id={`checkbox-group-${type}`}
+            name={`checkbox-group-${type}`}
+            groupName={`checkbox-group-${type}`}
+            {...{ [type]: "Message" }}
+            legend={`Group ${type}`}
+          >
+            {["One", "Two", "Three"].map((label) => (
+              <Checkbox
+                id={`checkbox_${type}-${label}`}
+                key={`checkbox_${type}-${label}`}
+                name={`checkbox_${type}-${label}`}
+                label={label}
+              />
+            ))}
+          </CheckboxGroup>
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### As a boolean applied to CheckboxGroup
+
+<Preview>
+  <Story name="group checkbox - boolean validation">
+    {() =>
+      ["error", "warning", "info"].map((type) => (
+        <div
+          key={`checkbox-group-${type}-boolean`}
+          style={{ marginBottom: 16 }}
+        >
+          <CheckboxGroup
+            id={`checkbox-group-${type}-boolean`}
+            name={`checkbox-group-${type}-boolean`}
+            key={`checkbox-group-${type}-boolean`}
+            groupName={`checkbox-group-${type}-boolean`}
+            {...{ [type]: true }}
+            legend={`Group ${type}`}
+          >
+            {["One", "Two", "Three"].map((label) => (
+              <Checkbox
+                id={`checkbox_${type}-${label}-boolean`}
+                key={`checkbox_${type}-${label}-boolean`}
+                name={`checkbox_${type}-${label}-boolean`}
+                label={label}
+              />
+            ))}
+          </CheckboxGroup>
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="required">
+    {() => {
+      const [checked, setChecked] = useState(false);
+      return (
+        <Checkbox
+          label="I agree to the Terms and Conditions"
+          name="required"
+          required
+          checked={checked}
+          onChange={(e) => setChecked((checked) => !checked)}
+        />
+      );
+    }}
+  </Story>
+</Preview>

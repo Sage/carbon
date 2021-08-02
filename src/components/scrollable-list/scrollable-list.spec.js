@@ -12,7 +12,6 @@ import {
   click,
 } from "../../__spec_helper__/test-utils";
 import renderListItems from "./test-utils";
-import "jest-styled-components";
 
 describe("ScrollableList", () => {
   const initialItem = 0;

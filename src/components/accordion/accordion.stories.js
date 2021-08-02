@@ -1,10 +1,9 @@
 import React from "react";
 import { select, text, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import OptionsHelper from "../../utils/helpers/options-helper";
 import Accordion from "./accordion.component";
 import AccordionGroup from "./accordion-group/accordion-group.component";
-import Textbox from "../../__experimental__/components/textbox";
+import Textbox from "../textbox";
 import Box from "../box";
 
 export default {
@@ -25,7 +24,7 @@ export const Default = () => {
   return (
     <Accordion
       iconType={select("iconType", ["chevron_down", "dropdown"])}
-      iconAlign={select("iconAlign", OptionsHelper.alignBinary, "right")}
+      iconAlign={select("iconAlign", ["left", "right"], "right")}
       borders={select("borders", ["default", "full"])}
       size={select("size", ["large", "small"])}
       customPadding={number("customPadding", 0)}

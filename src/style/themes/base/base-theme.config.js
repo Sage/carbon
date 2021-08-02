@@ -363,6 +363,13 @@ export default (palette) => {
       timeStamp: "rgba(0,0,0,0.65)",
     },
 
+    editorLinkPreview: {
+      background: palette.slateTint(95),
+      hoverBackground: palette.slateTint(80),
+      border: palette.slateTint(90),
+      url: palette.slateTint(10),
+    },
+
     zIndex: {
       smallOverlay: 10,
       overlay: 1000,
