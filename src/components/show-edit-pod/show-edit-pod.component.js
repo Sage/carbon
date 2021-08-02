@@ -77,7 +77,7 @@ class ShowEditPod extends React.Component {
       <StyledDeleteButton
         buttonType="tertiary"
         data-element="delete-button"
-        size="medium"
+        size="small"
         onClick={this.props.onDelete}
       >
         {label}
@@ -96,6 +96,7 @@ class ShowEditPod extends React.Component {
             <Button
               data-element="cancel-button"
               onClick={this.onCancelEditForm}
+              size="small"
             >
               {this.props.cancelText}
             </Button>
@@ -107,6 +108,7 @@ class ShowEditPod extends React.Component {
             data-element="submit-button"
             buttonType="primary"
             type="submit"
+            size="small"
           >
             {this.props.saveText}
           </Button>
@@ -143,7 +145,7 @@ class ShowEditPod extends React.Component {
   }
 
   universalProps() {
-    const { onEdit, className, ...props } = validProps(
+    const { onEdit, onDelete, className, ...props } = validProps(
       this,
       Object.keys(Pod.propTypes)
     );
@@ -152,13 +154,14 @@ class ShowEditPod extends React.Component {
   }
 
   contentProps() {
+    const { onEdit, onDelete, hideDeleteButtonInViewMode } = this.props;
     const props = this.universalProps();
 
-    if (this.props.onEdit) {
+    if (onEdit) {
       props.onEdit = this.onEdit;
     }
 
-    return props;
+    return { ...props, onDelete: !hideDeleteButtonInViewMode && onDelete };
   }
 
   editingProps() {
@@ -179,6 +182,7 @@ class ShowEditPod extends React.Component {
     return (
       <StyledPod
         className={this.props.className}
+        size="small"
         {...this.podProps()}
         ref={(node) => {
           this.pod = node;
@@ -214,6 +218,12 @@ ShowEditPod.propTypes = {
   onEdit: PropTypes.func,
   /** A callback triggered when the delete action is clicked. */
   onDelete: PropTypes.func,
+  /** A callback triggered when the undo action is clicked. */
+  onUndo: PropTypes.func,
+  /** Sets soft delete state. */
+  softDelete: PropTypes.bool,
+  /** Hide delete button in view mode. */
+  hideDeleteButtonInViewMode: PropTypes.bool,
   /** Define fields to be rendered in the edit state */
   editFields: PropTypes.node,
   /** Define a custom transition between show and edit states */
@@ -244,6 +254,7 @@ ShowEditPod.defaultProps = {
   transitionName: "carbon-show-edit-pod__transition",
   cancel: true,
   saving: false,
+  hideDeleteButtonInViewMode: false,
 };
 
 export default ShowEditPod;

@@ -120,6 +120,25 @@ More guidance is available for each of the individual inputs you might place ins
   </Story>
 </Preview>
 
+### With hidden delete button in view mode
+
+<Preview>
+  <Story name="with hidden delete button in view mode">
+    <ShowEditPod
+      title="With hidden delete button in view mode"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      hideDeleteButtonInViewMode
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+    >
+      <Content title="Content title">Content</Content>
+    </ShowEditPod>
+  </Story>
+</Preview>
+
 ### Various variants
 
 <Preview>
@@ -146,6 +165,27 @@ More guidance is available for each of the individual inputs you might place ins
         )
       )
     }
+  </Story>
+</Preview>
+
+### Soft delete
+
+<Preview>
+  <Story name="soft delete">
+    <ShowEditPod
+      title="With borders"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      onUndo={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      border
+      softDelete
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+    >
+      <Content title="Content title">Content</Content>
+    </ShowEditPod>
   </Story>
 </Preview>
 
