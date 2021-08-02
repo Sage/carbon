@@ -21,11 +21,8 @@ export default {
 
 export const Default = () => {
   const [state, setState] = useState("");
-  const onChangeDeferredEnabled = boolean(
-    'Enable "onChangeDeferred" Action',
-    false
-  );
-  const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
+  const onChangeDeferredEnabled = boolean("onChangeDeferred", false);
+  const onKeyDownEnabled = boolean("onKeyDown", false);
   const deferTimeout = onChangeDeferredEnabled
     ? number("deferTimeout")
     : undefined;
