@@ -31,5 +31,11 @@
   },
   "default": {
     
+  },
+  "minDate": {
+    "minDate": "2019-04-04"
+  },
+  "maxDate": {
+    "maxDate": "2019-04-04"
   }
 }

@@ -3,7 +3,6 @@ import {
   textboxByPosition,
   textboxIcon,
   textboxInput,
-  textboxInIFrame,
   textboxPrefixByPosition,
 } from "../../locators/textbox";
 import {
@@ -96,7 +95,7 @@ When("I click on Textbox", () => {
 });
 
 Then("Textbox input has golden border on focus", () => {
-  textboxInIFrame().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  textbox().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });
 
 Then("Prefix is set to {word}", (prefix) => {

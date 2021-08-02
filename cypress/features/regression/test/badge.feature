@@ -36,3 +36,9 @@ Feature: Badge component
     When I focus onto Badge component
     Then icon name in noIframe on preview is "badge-cross-icon"
       And Badge component cross icon has proper color
+
+  @positive
+  Scenario: Click event
+    Given I open "Design System Badge Test" component page "default" in no iframe
+    When I click onto Badge component
+    Then click action was called in Actions Tab

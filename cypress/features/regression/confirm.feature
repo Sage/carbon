@@ -149,5 +149,17 @@ Feature: Confirm component
   # test ignored until we resolve issue with close icon
   Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via click on close icon
     Given I check disableCancel checkbox
-    When I click closeIcon in IFrame
+    When I click closeIcon
     Then Confirm dialog is visible
+
+  @positive
+  Scenario: Verify the confirm action for Confirm dialog
+    Given I open "Confirm Test" component page "default" in no iframe
+    When I click on a confirmButton
+    Then confirm action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the cancel action for Confirm dialog
+    Given I open "Confirm Test" component page "default" in no iframe
+    When I click on a cancelButton
+    Then cancel action was called in Actions Tab

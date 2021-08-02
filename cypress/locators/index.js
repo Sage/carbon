@@ -16,20 +16,14 @@ import {
   WARNING_ICON,
 } from "./locators";
 
-// actions locators
-export const clearButton = () => cy.get(FORM).find("button").contains("Clear");
-
 // knobs locators
 export const getKnobsInput = (propertyName) =>
   cy.get(`[name="${propertyName}"]`);
 export const getKnobsInputWithName = (propertyName, name) =>
   cy.get(`[name="${propertyName} ${name}"]`);
 export const knobsTab = () => cy.get(FORM).find("button").contains("Knobs");
-export const actionsTab = () => cy.get(FORM).find("button").contains("Actions");
 export const knobsNameTab = (name) =>
   cy.get(TAB_LIST).eq(1).find("button").contains(name);
-export const eventInAction = (event) =>
-  cy.get(FORM).find("span").contains(event);
 
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
@@ -45,11 +39,8 @@ export const fieldHelp = () => cy.iFrame(FIELD_HELP_PREVIEW);
 export const closeIconButtonIFrame = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const helpIconIframe = () => cy.iFrame(HELP_ICON_PREVIEW).first();
 export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
-export const iconIFrame = () => cy.iFrame(ICON);
 export const commonDataElementInputPreview = () =>
   cy.iFrame(COMMMON_DATA_ELEMENT_INPUT);
-export const getDataElementByValueIframe = (element) =>
-  cy.iFrame(`[data-element="${element}"]`);
 export const getComponentIFrame = (component) =>
   cy.iFrame(`[data-component="${component}"]`);
 

@@ -10,4 +10,6 @@ export const experimentalSimpleColorPickerInputInIframe = (index) =>
     .find(`${SIMPLE_COLOR}:nth-child(${index}) > input`);
 export const experimentalSimpleColorPickerInput = (index) =>
   cy.get(SIMPLE_COLOR).find("input").eq(index);
+export const simpleColorPicker = (index) =>
+  cy.get(SIMPLE_COLOR_PICKER).find(SIMPLE_COLOR).eq(index).find("input");
 export const advancedColorPickerCell = () => cy.get(ADVANCED_COLOR_PICKER_CELL);

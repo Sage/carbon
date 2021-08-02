@@ -4,9 +4,6 @@ import {
   showEditPodSaveButton,
   showEditPodDeleteButton,
   showEditPodTitle,
-  showEditPodEditIFrame,
-  showEditPodCancelButtonIFrame,
-  showEditPodDeleteButtonIFrame,
 } from "../../locators/show-edit-pod";
 
 Then("Show Edit Pod saveText on preview is set to {word}", (text) => {
@@ -29,10 +26,6 @@ When("I click edit Show Edit Pod component", () => {
   showEditPodEdit().first().click();
 });
 
-When("I click edit Show Edit Pod component in Iframe", () => {
-  showEditPodEditIFrame().first().click();
-});
-
 Then("Show Edit Pod component hasn't a cancel button", () => {
   showEditPodCancelButton().should("not.exist");
 });
@@ -51,9 +44,9 @@ Then("Show Edit Pod component has saving property", () => {
 });
 
 When("I click delete button", () => {
-  showEditPodDeleteButtonIFrame().click();
+  showEditPodDeleteButton().click();
 });
 
 When("I click cancel button", () => {
-  showEditPodCancelButtonIFrame().click();
+  showEditPodCancelButton().click();
 });

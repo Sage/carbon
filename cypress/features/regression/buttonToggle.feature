@@ -12,8 +12,7 @@ Feature: Button Toggle component
 
   @positive
   Scenario Outline: Verify the onChange event for Button Toggle
-    Given I open "Button Toggle Test" component page "default"
-      And clear all actions in Actions Tab
+    Given I open "Button Toggle Test" component page "default" in no iframe
     When I click on Button Toggle <index>
     Then onChange action was called in Actions Tab
     Examples:

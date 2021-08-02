@@ -27,7 +27,6 @@ Feature: Sidebar component
 
   @positive
   Scenario: Check the cancel click event
-    Given I open "Sidebar Test" component page "default"
-      And clear all actions in Actions Tab
-    When I close Sidebar
+    Given I open "Sidebar Test" component page "default" in no iframe
+    When I click closeIcon
     Then cancel action was called in Actions Tab

@@ -1,7 +1,5 @@
 import {
-  accordionTitleContainerInIframe,
   accordionIcon,
-  accordionTitleContainerByPositionInIfame,
   accordionTitleContainer,
   accordionTitleContainerByPosition,
   accordionDefaultTitle,
@@ -12,29 +10,29 @@ import { icon } from "../../locators";
 Then(
   "Accordion iconAlign property on preview is set to {string}",
   (iconAlign) => {
-    accordionTitleContainerByPositionInIfame(positionOfElement("first"))
+    accordionTitleContainerByPosition(positionOfElement("first"))
       .first()
       .should("have.attr", "data-element", "accordion-headings-container")
       .and("be.visible");
-    accordionTitleContainerByPositionInIfame(positionOfElement("first"))
+    accordionTitleContainerByPosition(positionOfElement("first"))
       .last()
       .should("have.attr", "data-component", "icon")
       .and("be.visible");
     if (iconAlign === "right") {
       // set by default
-      accordionTitleContainerInIframe()
+      accordionTitleContainer()
         .should("have.css", "justify-content", "space-between")
         .and("not.have.css", "flex-direction", "row-reverse");
-      accordionTitleContainerInIframe(positionOfElement("first"))
+      accordionTitleContainer(positionOfElement("first"))
         .first()
         .should("have.css", "margin-right", "0px");
     } else {
-      accordionTitleContainerInIframe().should(
+      accordionTitleContainer().should(
         "have.css",
         "flex-direction",
         "row-reverse"
       );
-      accordionTitleContainerByPositionInIfame(positionOfElement("first"))
+      accordionTitleContainerByPosition(positionOfElement("first"))
         .last()
         .should("have.css", "margin-right", "16px");
     }
@@ -71,7 +69,7 @@ When("I expand Design System accordionRow via click in NoIFrame", () => {
 });
 
 When("I expand accordionRow via click", () => {
-  accordionTitleContainerInIframe().click();
+  accordionTitleContainer().click();
 });
 
 When("I expand accordionRow using {string} key", (key) => {

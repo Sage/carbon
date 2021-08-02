@@ -56,17 +56,15 @@ Feature: Split Button component
 
   @positive
   Scenario: Verify the click function for a main element of Split Button component
-    Given I open "Split Button Test" component page "default"
-      And clear all actions in Actions Tab
-    When I click "main-button" element of Split Button component in IFrame
+    Given I open "Split Button Test" component page "default" in no iframe
+    When I click "main-button" element of Split Button component
     Then click action was called in Actions Tab
 
   @positive
   Scenario Outline: Verify the click function for a <element> element of Split Button component
-    Given I open "Split Button Test" component page "default"
-      And clear all actions in Actions Tab
-      And I hover mouse onto icon
-    When I click "<element>" element of Split Button component in IFrame
+    Given I open "Split Button Test" component page "default" in no iframe
+      And I hover mouse onto "dropdown" icon in no iFrame
+    When I click "<element>" element of Split Button component
     Then click action was called in Actions Tab
     Examples:
       | element |

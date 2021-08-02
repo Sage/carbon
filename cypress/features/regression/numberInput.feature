@@ -33,3 +33,40 @@ Feature: Number Input component
   Scenario: Check icon inside of input is visible
     When I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
+
+  @positive
+  Scenario: Enable onChangeDeferred action
+    Given I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "onChangeDeferred" object name
+    When I input 1 into NumberInput component
+      And I wait 1000
+    Then onChangeDeferred action was called in Actions Tab
+
+  @positive
+  Scenario: Disable onChangeDeferred action
+    When I input 1 into NumberInput component
+    Then onChange action was called in Actions Tab
+
+  @positive
+  Scenario Outline: Enable onKeyDown action uses <key>
+    Given I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "onKeyDown" object name
+    When I press keyboard "<key>" keys into NumberInput input component
+    Then onKeyDown action was called in Actions Tab
+    Examples:
+      | key        |
+      | downarrow  |
+      | leftarrow  |
+      | rightarrow |
+      | uparrow    |
+
+  @positive
+  Scenario Outline: Enable onChangeDeferred action and check deferTimeout set to <deferTimeout>
+    Given I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I input 1 into NumberInput component
+      And onChange action was called in Actions Tab
+      And I wait <deferTimeout>
+    Then onChangeDeferred action was called in Actions Tab
+    Examples:
+      | deferTimeout | nameOfObject      |
+      | 1000         | deferTimeout1000  |
+      | 5000         | deferTimeout5000  |
+      | 10000        | deferTimeout10000 |

@@ -48,9 +48,8 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Cancel event
-    Given I open "Dialog Full Screen Test" component page "default"
-      And clear all actions in Actions Tab
-    When I click closeIcon in IFrame
+    Given I open "Dialog Full Screen Test" component page "default" in no iframe
+    When I click closeIcon
     Then cancel action was called in Actions Tab
 
   @positive

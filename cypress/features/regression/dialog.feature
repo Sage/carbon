@@ -86,3 +86,9 @@ Feature: Dialog component
       | top      |
       | topRight |
       | right    |
+
+  @positive
+  Scenario: Cancel event
+    Given I open "Dialog Test" component page "default" in no iframe
+    When I click closeIcon
+    Then cancel action was called in Actions Tab

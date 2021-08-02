@@ -6,8 +6,6 @@ import {
   positionOfElement,
   keyCode,
   visitComponentUrlWithParameters,
-  clickActionsTab,
-  clickClear,
   pressTABKeyInNoIframe,
   pressShiftTABKeyInNoIframe,
   continuePressingTABKeyInNoIframe,
@@ -19,13 +17,10 @@ import {
   closeIconButtonIFrame,
   getKnobsInput,
   getKnobsInputWithName,
-  iconIFrame,
-  eventInAction,
   tooltipPreview,
   getDataElementByValue,
   knobsNameTab,
   commonButtonPreviewNoIFrameRoot,
-  getDataElementByValueIframe,
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   helpIconByPositionNoIFrame,
@@ -139,11 +134,6 @@ When("I hover mouse onto {string} help icon in NoIFrame", (position) => {
   helpIconByPositionNoIFrame(positionOfElement(position)).trigger("mouseover");
 });
 
-When("I hover mouse onto icon", () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
-  iconIFrame().trigger("mouseover");
-});
-
 Then("I hover mouse onto {string} icon in no iFrame", (name) => {
   getDataElementByValue(name).trigger("mouseover");
 });
@@ -228,11 +218,7 @@ When("I check {word} {word} checkbox", (checkboxName, text) => {
 });
 
 Then("{word} action was called in Actions Tab", (event) => {
-  eventInAction(event);
-});
-
-When("I close Sidebar", () => {
-  closeIconButtonIFrame().click();
+  cy.storyAction(event).should("have.been.called");
 });
 
 When("I press keyboard {string} key times {int}", (key, times) => {
@@ -296,13 +282,8 @@ Then("icon name in noIframe on preview is {string}", (iconName) => {
   getElementNoIframe(iconName);
 });
 
-When("I click {string} icon in iFrame", (iconName) => {
-  getDataElementByValueIframe(iconName).click();
-});
-
-When("clear all actions in Actions Tab", () => {
-  clickActionsTab();
-  clickClear();
+When("I click {string} icon", (iconName) => {
+  getDataElementByValue(iconName).click();
 });
 
 When("I wait {int}", (timeout) => {

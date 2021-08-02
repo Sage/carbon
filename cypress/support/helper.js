@@ -1,7 +1,5 @@
 import {
   knobsTab,
-  actionsTab,
-  clearButton,
   getKnobsInputWithName,
   getElementNoIframe,
 } from "../locators";
@@ -39,25 +37,21 @@ export function visitComponentUrlWithParameters(
   nameOfObject = ""
 ) {
   cy.fixture(`${path}/${json}`).then(($json) => {
+    const today = Cypress.dayjs().format("YYYY-MM-DD");
     const el = $json[nameOfObject];
     let url = "";
     for (const prop in el) {
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
       } else {
+        if (prop === "minDate" || prop === "minDate") {
+          el[prop] = today;
+        }
         url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
       }
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
   });
-}
-
-export function clickActionsTab(iFrameOnly = false) {
-  if (!iFrameOnly) actionsTab().click({ force: true });
-}
-
-export function clickClear() {
-  clearButton().click();
 }
 
 export function dragAndDrop(

@@ -5,16 +5,11 @@ import {
   selectList,
   simpleSelectNoIframe,
   selectDataComponent,
-  simpleSelectIframe,
   multiSelectDataComponent,
   openOnFocusID,
   multiSelectPill,
   multiSelectPillByPosition,
   dropdownButtonInIframe,
-  selectDataComponentInIframe,
-  selectListInIframe,
-  selectOptionInIframe,
-  multiSelectDataComponentInIframe,
   isLoading,
   selectListText,
   multiColumnsSelectListHeader,
@@ -24,9 +19,9 @@ import {
 } from "../../locators/select";
 import { positionOfElement, keyCode } from "../helper";
 import {
-  label,
   getDataElementByValue,
   commonDataElementInputPreviewNoIframe,
+  labelNoIFrame,
 } from "../../locators";
 import { dataComponentButtonByTextNoIFrame } from "../../locators/pages";
 import { loader } from "../../locators/loader";
@@ -36,7 +31,7 @@ When("I focus select input", () => {
 });
 
 When("I focus default Select input", () => {
-  simpleSelectIframe().focus();
+  simpleSelectNoIframe().focus();
 });
 
 When("I focus openOnFocus Select input", () => {
@@ -57,15 +52,6 @@ Then("{string} Select list is closed", (name) => {
   selectList().should("not.exist");
 });
 
-Then("{string} Select list is closed in iframe", (name) => {
-  selectDataComponentInIframe(name).should(
-    "have.attr",
-    "aria-expanded",
-    "false"
-  );
-  selectListInIframe().should("not.exist");
-});
-
 Then("multi Select list is opened", () => {
   multiSelectDataComponent().should("have.attr", "aria-expanded", "true");
   selectList().should("be.visible");
@@ -76,21 +62,12 @@ Then("multi Select list is closed", () => {
   selectList().should("not.exist");
 });
 
-Then("multi Select list is closed in iframe", () => {
-  multiSelectDataComponentInIframe().should(
-    "have.attr",
-    "aria-expanded",
-    "false"
-  );
-  selectListInIframe().should("not.exist");
-});
-
 When("I click on Select input", () => {
   simpleSelectID().click();
 });
 
 When("I click on default Select input", () => {
-  simpleSelectIframe().click();
+  simpleSelectNoIframe().click();
 });
 
 When("I click on Select input in noIframe", () => {
@@ -107,7 +84,7 @@ When("I click onto controlled select using {string} key", (key) => {
 });
 
 When("I click onto default select using {string} key", (key) => {
-  simpleSelectIframe().trigger("keydown", keyCode(key));
+  simpleSelectNoIframe().trigger("keydown", keyCode(key));
 });
 
 Then("Design system Select input has {string} value", (text) => {
@@ -154,7 +131,7 @@ When(
 );
 
 When("I type {string} into default input", (text) => {
-  simpleSelectIframe().type(text);
+  simpleSelectNoIframe().type(text);
 });
 
 When("I type {string} into simple select input in noIframe", (text) => {
@@ -169,12 +146,8 @@ When("I click on {string} option on Select list", (position) => {
   selectOption(positionOfElement(position)).click();
 });
 
-When("I click on {string} option on Select list in iframe", (position) => {
-  selectOptionInIframe(positionOfElement(position)).click();
-});
-
 When("I click on Select label", () => {
-  label().click();
+  labelNoIFrame().click();
 });
 
 When("I click onto {string} button", (buttonName) => {

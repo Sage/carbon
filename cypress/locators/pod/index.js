@@ -15,6 +15,3 @@ export const podContent = () => podComponent().find(POD_CONTENT);
 export const podSubTitle = () => cy.get(POD_SUBTITLE);
 export const podDescription = () => cy.get(POD_DESCRIPTION);
 export const podEdit = () => podComponent().find(POD_EDIT_ICON);
-
-export const podEditIframe = () =>
-  cy.iFrame(POD_DATA_COMPONENT).find(POD_EDIT_ICON);

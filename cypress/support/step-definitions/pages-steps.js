@@ -2,7 +2,6 @@ import {
   dataComponentButtonByText,
   closeDataElement,
   backArrow,
-  closeDataElementIFrame,
 } from "../../locators/pages";
 import DEBUG_FLAG from "..";
 import {
@@ -22,11 +21,6 @@ When("I go to {word} page", (word) => {
 
 When("I close page", () => {
   closeDataElement().click();
-});
-
-When("I close page in IFrame", () => {
-  closeDataElementIFrame().click({ force: true });
-  cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
 });
 
 Then("I go back", () => {

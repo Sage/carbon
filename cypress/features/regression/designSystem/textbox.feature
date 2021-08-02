@@ -61,3 +61,16 @@ Feature: Design System Textbox component
   Scenario: Check icon inside of Textbox is visible
     When I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
+
+  @positive
+  Scenario: Check iconOnClick event
+    Given I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "inputIconAdd" object name
+    When I click on icon inside of Textbox
+    Then iconOnClick action was called in Actions Tab
+
+  @positive
+  Scenario: Check onClick event
+    Given I open default "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "default" object name
+    When I click on Textbox
+    Then onClick action was called in Actions Tab
+      And Textbox input has golden border on focus
