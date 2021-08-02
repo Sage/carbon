@@ -399,7 +399,7 @@ describe("FlatTableRow", () => {
       }
     });
 
-    it('applies an additional "padding-left" to the "FLatTableRow" and removes "border-left" from first child', () => {
+    it('applies an additional "padding-left" to the "FlatTableRow" and removes "border-left" from first child', () => {
       wrapper = renderRowWithContext();
       assertStyleMatch(
         {
@@ -410,7 +410,7 @@ describe("FlatTableRow", () => {
       );
     });
 
-    it('removes "border-right" from "FLatTableRow" first child', () => {
+    it('removes "border-right" from "FlatTableRow" first child', () => {
       wrapper = renderRowWithContext();
       assertStyleMatch(
         {

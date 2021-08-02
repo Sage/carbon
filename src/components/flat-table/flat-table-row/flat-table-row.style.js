@@ -15,9 +15,8 @@ const horizontalBorderSizes = {
 const stickyColumnFocusStyling = (index, theme) => {
   return `
     border-bottom: 1px solid transparent;
-    border-left: 1px solid ${
-      index === 0 ? theme.colors.focus : theme.table.secondary
-    };
+    border-left: 1px solid
+      ${index === 0 ? theme.colors.focus : theme.table.secondary};
     background-clip: padding-box;
     z-index: ${theme.zIndex.overlay + 2};
 
@@ -73,6 +72,7 @@ const StyledFlatTableRow = styled.tr`
     isFirstSubRow,
     size,
     theme,
+    applyBorderLeft,
   }) => {
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
     const customBorderColor = horizontalBorderColor
@@ -176,6 +176,14 @@ const StyledFlatTableRow = styled.tr`
         }
 
         th:nth-of-type(${rowHeaderIndex + 2}) {
+          border-left: 1px solid
+            ${customBorderColor || borderColor(colorTheme, theme)};
+        }
+      `}
+
+      ${applyBorderLeft &&
+      css`
+        th:first-of-type {
           border-left: 1px solid
             ${customBorderColor || borderColor(colorTheme, theme)};
         }

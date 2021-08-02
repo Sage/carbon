@@ -297,6 +297,20 @@ describe("FlatTable", () => {
         }
       );
     });
+
+    it("should apply left border if preceding row has a FlatTableRowHeader and current one does not and when the preceding row has a rowSpan applied", () => {
+      act(() => render());
+
+      assertStyleMatch(
+        {
+          borderLeft: "1px solid #668592",
+        },
+        wrapper.find(StyledFlatTableHead).find(StyledFlatTableRow).at(1),
+        {
+          modifier: `th:first-of-type`,
+        }
+      );
+    });
   });
 
   describe("when FlatTable is a child of Sidebar", () => {

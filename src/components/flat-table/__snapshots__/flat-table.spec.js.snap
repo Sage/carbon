@@ -27,10 +27,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   box-sizing: border-box;
 }
 
-.c11.c11.c11:first-child {
-  border-left: 1px solid #668592;
-}
-
 .c13 {
   background-color: #fff;
   border-width: 0;

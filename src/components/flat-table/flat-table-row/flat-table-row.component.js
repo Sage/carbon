@@ -32,6 +32,7 @@ const FlatTableRow = React.forwardRef(
       bgColor,
       horizontalBorderColor,
       horizontalBorderSize = "small",
+      applyBorderLeft,
     },
     ref
   ) => {
@@ -149,6 +150,7 @@ const FlatTableRow = React.forwardRef(
               bgColor={bgColor}
               horizontalBorderColor={horizontalBorderColor}
               horizontalBorderSize={horizontalBorderSize}
+              applyBorderLeft={applyBorderLeft}
               {...interactiveRowProps}
             >
               {React.Children.map(children, (child, index) => {
@@ -225,6 +227,8 @@ FlatTableRow.propTypes = {
   isFirstSubRow: PropTypes.bool,
   /** @ignore @private position in header if multiple rows */
   stickyOffset: PropTypes.number,
+  /** @ignore @private applies a border-left to the first child */
+  applyBorderLeft: PropTypes.bool,
 };
 
 export default FlatTableRow;
