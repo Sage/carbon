@@ -6,6 +6,7 @@ import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
 import Button from "../button";
+import { isSafari } from "../../utils/helpers/browser-type-check";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
@@ -144,6 +145,11 @@ const StyledDeselectWrapper = styled.div`
   position: static;
   margin-right: -16px;
   z-index: 200;
+
+  ${isSafari(navigator) &&
+  css`
+    margin-left: -2px;
+  `}
 
   ${({ hasActionAdornment }) =>
     hasActionAdornment &&
