@@ -1,0 +1,17 @@
+{ 
+  "iconTypeChevronDown": {
+    "iconType": "chevron_down"
+  },
+  "iconTypeDropdown": {
+    "iconType": "dropdown"
+  },
+  "iconAlignLeft": {
+    "iconAlign": "left"
+  },
+  "iconAlignRight": {
+    "iconAlign": "right"
+  },
+  "default": {
+    
+  }
+}

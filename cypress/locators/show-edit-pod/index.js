@@ -20,8 +20,3 @@ export const showEditPodCollapsibleInnerContent = (element, index) =>
     .eq(1)
     .find(`[data-element=${element}]`)
     .eq(index);
-export const showEditPodEditIFrame = () => cy.iFrame(SHOW_EDIT_POD_EDIT);
-export const showEditPodCancelButtonIFrame = () =>
-  cy.iFrame(SHOW_EDIT_CANCEL_BUTTON);
-export const showEditPodDeleteButtonIFrame = () =>
-  cy.iFrame(SHOW_EDIT_DELETE_BUTTON);

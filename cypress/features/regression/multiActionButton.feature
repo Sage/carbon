@@ -39,8 +39,7 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario: Check click event
-    Given I open "Multi Action Button Test" component page "default"
-      And clear all actions in Actions Tab
+    Given I open "Multi Action Button Test" component page "default" in no iframe
     When I click on "button"
     Then click action was called in Actions Tab
 

@@ -2,7 +2,6 @@ import {
   flatTable,
   flatTableHeaderCells,
   flatTableBodyRowByPosition,
-  flatTableBodyRowByPositionInIframe,
   flatTableCell,
   flatTableClickableRow,
   flatTableSortable,
@@ -80,7 +79,7 @@ Then("First/Last {int} FlatTable rows {word} visible", (count, state) => {
 });
 
 Then("I click on {int} body row", (index) => {
-  flatTableBodyRowByPositionInIframe(index).click();
+  flatTableBodyRowByPosition(index).click({ force: true });
 });
 
 Then(
@@ -94,7 +93,7 @@ Then(
 );
 
 Then("press Enter key on the row element", () => {
-  flatTableBodyRowByPositionInIframe(2)
+  flatTableBodyRowByPosition(2)
     .focus()
     .trigger("keydown", { keyCode: 13, which: 13, force: true });
 });

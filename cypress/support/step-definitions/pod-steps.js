@@ -1,7 +1,7 @@
 import {
   podContent,
   podSubTitle,
-  podEditIframe,
+  podDescription,
   podEdit,
   podFooter,
   podPreview,
@@ -24,8 +24,8 @@ Then("Pod footer on preview is set to {word}", (text) => {
   podFooter().should("have.text", text);
 });
 
-Then("I click onEdit icon in Iframe", () => {
-  podEditIframe().first().click();
+Then("I click onEdit icon", () => {
+  podEdit().first().click();
 });
 
 Then("Pod component has triggerEditOnContent property", () => {

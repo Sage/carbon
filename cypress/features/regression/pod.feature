@@ -51,8 +51,6 @@ Feature: Pod component
 
   @positive
   Scenario: Check the edit event
-    Given I open "Pod Test" component page "default"
-      And I check onEdit checkbox
-      And clear all actions in Actions Tab
-    When I click onEdit icon in Iframe
+    Given I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "onEdit" object name
+    When I click onEdit icon
     Then edit action was called in Actions Tab

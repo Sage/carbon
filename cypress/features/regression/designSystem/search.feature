@@ -51,7 +51,7 @@ Feature: Design System Search component
   Scenario Outline: Clear search input clicking on cross icon via <keyboard>
     Given I open "Design System Search" component page "default story" in no iframe
       And Type "Search" text into default search input
-      And I hit Tab key 1 times in no Iframe
+      And I hit Tab key 1 times
     When I press onto cross icon using "<keyboard>" key
     Then search input is empty
     Examples:

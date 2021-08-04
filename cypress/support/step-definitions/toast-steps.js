@@ -1,7 +1,6 @@
 import {
   toastComponent,
   toastTogglePreview,
-  toastComponentIFrame,
 } from "../../locators/toast";
 
 When("I click on {string} Toggle Preview", (e) => {
@@ -14,7 +13,7 @@ Then("Toast children is set to {string}", (text) => {
 });
 
 Then("Toast component is not visible", () => {
-  toastComponentIFrame().should("not.exist");
+  toastComponent().should("not.exist");
 });
 
 Then("Toast is centred", () => {

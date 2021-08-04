@@ -13,3 +13,9 @@ Feature: Configurable Items component
       | test 1 | 3             |
       | test 2 | 1             |
       | test 3 | 2             |
+  
+  @positive
+  Scenario: Verify the drag function for Configurable Items component
+    Given I open "Configurable Items Test" component page "default" in no iframe
+    When I drag Configurable Items "test 1" to 3
+    Then dragged action was called in Actions Tab

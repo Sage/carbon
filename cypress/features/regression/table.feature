@@ -69,3 +69,34 @@ Feature: Table component
       | 1               | pageSize1    |
       | 2               | pageSize2    |
       | 5               | pageSize5    |
+
+  @positive
+  Scenario Outline: Change event was called for sortedColumn
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+      And I click "<headerName>" header
+    Then change action was called in Actions Tab
+    Examples:
+      | nameOfObject     | headerName |
+      | sortedColumnName | Country    |
+      | sortedColumnCode | Code       |
+
+  @positive
+  Scenario Outline: Change event was called after clicking <button> button
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
+    When I click "<button>" pagination button
+    Then change action was called in Actions Tab
+    Examples:
+      | button |
+      | next   |
+      | last   |
+
+  @positive
+  Scenario Outline: Change event was called after clicking <button> button
+    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
+      And I click "last" pagination button
+      And I click "<button>" pagination button
+    Then change action was called in Actions Tab
+    Examples:
+      | button   |
+      | previous |
+      | first    |

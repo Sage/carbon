@@ -28,5 +28,8 @@
   "triggerEditOnContent": {
     "onEdit": true,
     "triggerEditOnContent": true
+  },
+  "onEdit": {
+    "onEdit": true
   }
 }

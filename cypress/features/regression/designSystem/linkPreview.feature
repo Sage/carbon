@@ -21,16 +21,14 @@ Feature: Design System Link Preview component
 
   @positive
   Scenario: Check the delete event using the mouse
-    Given I open "Design System Link Preview Test" component page "default"
-      And clear all actions in Actions Tab
-    When I click Link Preview close icon in Iframe
+    Given I open "Design System Link Preview Test" component page "default" in no iframe
+    When I click Link Preview close icon
     Then "close icon clicked: \"https://www.sage.com\"" action is called in Actions Tab for Link Preview
 
   @positive
   Scenario Outline: Check the delete event using <key> key
-    Given I open "Design System Link Preview Test" component page "default"
-      And clear all actions in Actions Tab
-      And I focus Link Preview close icon in Iframe 
+    Given I open "Design System Link Preview Test" component page "default" in no iframe
+      And I focus Link Preview close icon 
     When I click onto Link Preview close icon using "<key>" key
     Then "close icon clicked: \"https://www.sage.com\"" action is called in Actions Tab for Link Preview
      Examples:

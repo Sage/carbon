@@ -19,8 +19,6 @@ Feature: Pill component
 
   @positive
   Scenario: Enable onDelete checkbox and check the delete event
-    Given I open "Design System Pill Test" component page "default"
-      And I check onDelete checkbox
-      And clear all actions in Actions Tab
-    When I click cross icon in Iframe
+    Given I open default "Design System Pill Test" component in noIFrame with "pill" json from "designSystem" using "onDelete" object name
+    When I click closeIcon
     Then delete action was called in Actions Tab
