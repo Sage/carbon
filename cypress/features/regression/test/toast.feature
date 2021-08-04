@@ -3,9 +3,8 @@ Feature: Toast component
 
   @positive
   Scenario: Verify the click action in Actions Tab
-    Given I open "Design System Toast Test" component page "default"
-    When clear all actions in Actions Tab
-      And I click closeIcon in IFrame
+    Given I open "Design System Toast Test" component page "default" in no iframe
+    When I click closeIcon
     Then click action was called in Actions Tab
 
   @positive
@@ -19,6 +18,6 @@ Feature: Toast component
 
   @positive
   Scenario: Verify that Toast is closed by pressing Esc key
-    Given I open "Design System Toast Test" component page "default"
+    Given I open "Design System Toast Test" component page "default" in no iframe
     When I hit ESC key
     Then Toast component is not visible

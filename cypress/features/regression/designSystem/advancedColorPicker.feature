@@ -25,7 +25,7 @@ Feature: Advanced Color Picker component
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected
     When I pick simple <position> color
-    Then Simple Color <position> element was picked up in noIframe
+    Then Simple Color <position> element was picked up
     Examples:
       | position |
       | 1        |

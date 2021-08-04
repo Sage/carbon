@@ -16,7 +16,7 @@ Then("pageSize is set to {string} {word}", (pageSize, item) => {
 });
 
 Then("I am on 1st of {string} pages", (count) => {
-  maxPages().should("have.text", ` of ${count}`);
+  maxPages().should("have.text", `of ${count}`);
 });
 
 Then("pagination {string} button is disabled", (button) => {

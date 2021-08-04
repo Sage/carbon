@@ -21,7 +21,6 @@ Feature: Accessibility tests - Common list
       | Heading             |
       | Help                |
       | Icon                |
-      | I18nComponent       |
       | Link                |
       | Message             |
       | Mount In App        |
@@ -39,7 +38,7 @@ Feature: Accessibility tests - Common list
   @accessibility
   Scenario Outline: Component <component> default story with open preview
     Given I open "<component>" component page "default story" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then "<component>" component has no accessibility violations
     Examples:
       | component          |

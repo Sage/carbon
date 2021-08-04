@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import I18n from "i18n-js";
 import Button from "../../../../src/components/button";
 import Textbox from "../../../../src/components/textbox";
 import NumberInput from "../../../../src/components/number";
@@ -22,11 +21,11 @@ const Demo = () => {
     <ComponentShowcaseWrapper>
       <ContentWrapper>
         <Heading
-          title={I18n.t("homepage.component_showcase.heading")}
-          titleSuffix={I18n.t("homepage.component_showcase.heading_suffix")}
+          title="The building blocks of "
+          titleSuffix="awesome UI"
+          text="Powerful components, flexible configurations, easy code, and amazing user experience - all working together to build your incredible web application."
           divider
           centerAlign
-          text={I18n.t("homepage.component_showcase.text")}
         />
         <Wrapper>
           <StyledDemoWrapper>

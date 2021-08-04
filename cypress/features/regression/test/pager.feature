@@ -112,5 +112,5 @@ Feature: Pager component
   Scenario: Current page displays 0 when zero pages
     Given I open "Design System Pager" component page "loading state" in no iframe
       And I click on pagination input
-    When I hit Tab key 1 time in no Iframe
+    When I hit Tab key 1 time
     Then Current page input is set to 0

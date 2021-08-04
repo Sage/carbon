@@ -1,5 +1,6 @@
 import "cypress-axe";
 import "cypress-real-events/support";
+import "cypress-storybook/cypress";
 
 require("cypress-plugin-tab");
 

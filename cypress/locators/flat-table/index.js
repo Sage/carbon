@@ -11,8 +11,6 @@ import {
 export const flatTableInIframe = () => cy.iFrame(FLAT_TABLE_COMPONENT);
 export const flatTableBodyRowsInIframe = () =>
   flatTableInIframe().find("tbody tr");
-export const flatTableBodyRowByPositionInIframe = (index) =>
-  flatTableBodyRowsInIframe().eq(index);
 
 export const flatTable = () => cy.get(FLAT_TABLE_COMPONENT);
 export const flatTableHeader = () => flatTable().find("thead tr");

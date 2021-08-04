@@ -103,11 +103,7 @@ exports[`BatchSelection component should render correctly 1`] = `
     className="c1"
     data-element="selection-count"
   >
-    <span>
-      3
-    </span>
-     
-    selected
+    3 selected
   </span>
   <button
     className="c2 c3"

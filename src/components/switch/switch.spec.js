@@ -2,7 +2,6 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { css, ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
-import I18n from "i18n-js";
 
 import Switch from ".";
 import CheckableInput from "../../__internal__/checkable-input";
@@ -24,9 +23,24 @@ import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle from "./switch.style";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import Label from "../../__internal__/label";
+import I18nProvider from "../i18n-provider";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
+
+const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();
+const wrappingComponent = (props) => (
+  <I18nProvider
+    {...props}
+    locale={{
+      locale: () => "fr-FR",
+      switch: {
+        on: () => "sur",
+        off: () => "de",
+      },
+    }}
+  />
+);
 
 describe("Switch", () => {
   describe("Styled System", () => {
@@ -89,28 +103,7 @@ describe("Switch", () => {
     });
   });
 
-  const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();
-
   describe("i18n", () => {
-    const { translations, locale } = I18n;
-    beforeAll(() => {
-      I18n.translations = {
-        ...translations,
-        fr: {
-          ...translations.fr,
-          switch: {
-            on: "sur",
-            off: "de",
-          },
-        },
-      };
-    });
-
-    afterAll(() => {
-      I18n.translations = translations;
-      I18n.locale = locale;
-    });
-
     describe("default translation", () => {
       it("has default translation for on", () => {
         const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
@@ -120,22 +113,6 @@ describe("Switch", () => {
       it("has default translation for off", () => {
         const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
         expect(getLabel(wrapper)).toBe("OFF");
-      });
-    });
-
-    describe("translation", () => {
-      beforeAll(() => {
-        I18n.locale = "fr";
-      });
-
-      it("can use i18n for on", () => {
-        const wrapper = render({ checked: true, onChange: jest.fn() }, mount);
-        expect(getLabel(wrapper)).toBe("SUR");
-      });
-
-      it("can use i18n for off", () => {
-        const wrapper = render({ checked: false, onChange: jest.fn() }, mount);
-        expect(getLabel(wrapper)).toBe("DE");
       });
     });
   });
@@ -597,14 +574,34 @@ describe("Switch", () => {
   });
 });
 
-function render(props, renderer = mount) {
-  return renderer(<Switch name="my-switch" value="test" {...props} />);
+describe("translation", () => {
+  it("can use i18n for on", () => {
+    const wrapper = render({ checked: true }, mount, {
+      wrappingComponent,
+    });
+
+    expect(getLabel(wrapper)).toBe("sur");
+  });
+
+  it("can use i18n for off", () => {
+    const wrapper = render({ checked: false }, mount, {
+      wrappingComponent,
+    });
+    expect(getLabel(wrapper)).toBe("de");
+  });
+});
+
+function render(props, renderer = mount, params) {
+  return renderer(
+    <Switch name="my-switch" value="test" onChange={() => {}} {...props} />,
+    params
+  );
 }
 
 function renderWithTheme(props, theme, renderer = mount) {
   return renderer(
     <ThemeProvider theme={theme}>
-      <Switch name="my-switch" value="test" {...props} />
+      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
     </ThemeProvider>
   );
 }

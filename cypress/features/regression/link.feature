@@ -38,7 +38,7 @@ Feature: Link component
   @positive
   Scenario: Check skip link is visible when focused
     Given I open "Link" component page "is skip link" in no iframe
-    When I hit Tab key 1 times in no Iframe
+    When I hit Tab key 1 times
     Then Skip link is visible
 
   @positive

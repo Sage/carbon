@@ -174,6 +174,7 @@ export default (palette) => {
       border: palette.slateTint(80),
       secondaryBackground: palette.slateTint(95),
       tertiaryBackground: palette.slateTint(90),
+      softDeleteText: palette.blackOpacity(0.3),
       tileBackground: "#FFFFFF",
       footerBackground: palette.slateTint(95),
       hoverBackground: palette.slateTint(85),

@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
-import I18n from "i18n-js";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
 
 import Popover from "../../__internal__/popover";
 import DateHelper from "../../utils/helpers/date/date";
+import useLocale from "../../hooks/__internal__/useLocale";
 import Navbar from "./navbar";
 import Weekday from "./weekday";
 import StyledDayPicker from "./day-picker.style";
@@ -19,6 +19,7 @@ const DatePicker = ({
   selectedDate,
   disablePortal,
 }) => {
+  const l = useLocale();
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
   );
@@ -42,9 +43,18 @@ const DatePicker = ({
     []
   );
 
+  const localeData = {
+    locale: l.locale(),
+    formats: l.date.formats.inputs(),
+    format: l.date.formats.javascript(),
+  };
+
   useEffect(() => {
     let monthDate;
-    const isoFormattedInputDate = isoFormattedValueString(inputDate);
+    const isoFormattedInputDate = DateHelper.formatValue({
+      value: inputDate,
+      ...localeData,
+    });
 
     if (isDateValid(isoFormattedInputDate)) {
       monthDate = new Date(isoFormattedInputDate);
@@ -54,7 +64,7 @@ const DatePicker = ({
     }
 
     ref.current.showMonth(monthDate);
-  }, [inputDate, lastValidDate]);
+  }, [inputDate, lastValidDate, localeData]);
 
   const handleDayClick = (date, modifiers) => {
     if (!modifiers.disabled) {
@@ -63,20 +73,20 @@ const DatePicker = ({
   };
 
   const datePickerProps = {
-    disabledDays: getDisabledDays(minDate, maxDate),
+    disabledDays: getDisabledDays(minDate, maxDate, localeData),
     enableOutsideDays: true,
     fixedWeeks: true,
     initialMonth: selectedDate || undefined,
     inline: true,
-    locale: I18n.locale,
+    locale: l.locale(),
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: handleDayClick,
     selectedDays: selectedDate || undefined,
     weekdayElement: (weekdayElementProps) => {
       const { className, weekday, localeUtils } = weekdayElementProps;
-      const weekdayLong = localeUtils.formatWeekdayLong(weekday, I18n.locale);
-      const weekdayShort = localeUtils.formatWeekdayShort(weekday, I18n.locale);
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday, l.locale());
+      const weekdayShort = localeUtils.formatWeekdayShort(weekday, l.locale());
 
       return (
         <Weekday className={className} title={weekdayLong}>
@@ -125,35 +135,37 @@ function isDateValid(string) {
   return date.toString() !== "Invalid Date";
 }
 
-function isoFormattedValueString(valueToFormat) {
-  return DateHelper.formatValue(valueToFormat);
-}
-
 /**
  * Returns the disabled array of days specified by props maxDate and minDate
  */
-function getDisabledDays(minDate, maxDate) {
+function getDisabledDays(minDate, maxDate, { locale, formats, format }) {
   const days = [];
 
   if (!minDate && !maxDate) {
     return null;
   }
 
-  if (minDate && checkIsoFormatAndLength(minDate)) {
+  if (minDate && checkIsoFormatAndLength(minDate, locale, formats, format)) {
     days.push({ before: DateHelper.stringToDate(minDate) });
   }
 
-  if (maxDate && checkIsoFormatAndLength(maxDate)) {
+  if (maxDate && checkIsoFormatAndLength(maxDate, locale, formats, format)) {
     days.push({ after: DateHelper.stringToDate(maxDate) });
   }
 
   return days;
 }
 
-function checkIsoFormatAndLength(date) {
+function checkIsoFormatAndLength(date, locale, formats, format) {
   if (
     date.length !== 10 ||
-    !DateHelper.isValidDate(date, { defaultValue: "YYYY-MM-DD" })
+    !DateHelper.isValidDate({
+      value: date,
+      options: { defaultValue: "YYYY-MM-DD" },
+      locale,
+      formats,
+      format,
+    })
   ) {
     return false;
   }

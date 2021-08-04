@@ -12,6 +12,7 @@ import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import { isEdge } from "../../utils/helpers/browser-type-check";
+import LocaleContext from "../../__internal__/i18n-context";
 
 const defaultDateFormat = "DD/MM/YYYY";
 const hiddenDateFormat = "YYYY-MM-DD";
@@ -28,6 +29,14 @@ const filterOutSpacingProps = (obj) =>
   );
 
 class BaseDateInput extends React.Component {
+  static contextType = LocaleContext;
+
+  localeData = {
+    locale: this.context.locale(),
+    formats: this.context.date.formats.inputs(),
+    format: this.context.date.formats.javascript(),
+  };
+
   isBlurBlocked = false;
 
   isOpening = false;
@@ -36,7 +45,7 @@ class BaseDateInput extends React.Component {
 
   isControlled = this.props.value !== undefined;
 
-  initialVisibleValue = generateAdjustedValue(this.props);
+  initialVisibleValue = generateAdjustedValue(this.props, this.localeData);
 
   inputFocusedViaPicker = false;
 
@@ -48,14 +57,20 @@ class BaseDateInput extends React.Component {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
     selectedDate: DateHelper.stringToDate(
-      isoFormattedValueString(this.initialVisibleValue)
+      DateHelper.formatValue({
+        value: this.initialVisibleValue,
+        ...this.localeData,
+      })
     ),
     /** Displayed value, format dependent on a region */
     visibleValue: this.initialVisibleValue,
     /** Stores last valid values to be emitted onBlur if current input is invalid */
     lastValidEventValues: {
       formattedValue: this.initialVisibleValue,
-      rawValue: isoFormattedValueString(this.initialVisibleValue),
+      rawValue: DateHelper.formatValue({
+        value: this.initialVisibleValue,
+        ...this.localeData,
+      }),
     },
     shouldPickerOpen: false,
   };
@@ -138,7 +153,10 @@ class BaseDateInput extends React.Component {
         );
         const event = this.buildCustomEvent(
           { target: this.input, type: "blur" },
-          isoFormattedValueString(dateWithSlashes)
+          DateHelper.formatValue({
+            value: dateWithSlashes,
+            ...this.localeData,
+          })
         );
         this.props.onBlur(event);
       }
@@ -180,7 +198,11 @@ class BaseDateInput extends React.Component {
       return;
     }
     this.updateSelectedDate(
-      this.props.value || isoFormattedValueString(this.state.visibleValue)
+      this.props.value ||
+        DateHelper.formatValue({
+          value: this.state.visibleValue,
+          ...this.localeData,
+        })
     );
     this.setState({ isDatePickerOpen: true });
   };
@@ -188,10 +210,19 @@ class BaseDateInput extends React.Component {
   updateValidEventValues = (value) => {
     if (this.hasMounted) {
       this.setState({
-        visibleValue: DateHelper.formatDateToCurrentLocale(value),
+        visibleValue: DateHelper.formatDateToCurrentLocale({
+          value,
+          ...this.localeData,
+        }),
         lastValidEventValues: {
-          formattedValue: DateHelper.formatDateToCurrentLocale(value),
-          rawValue: isoFormattedValueString(value),
+          formattedValue: DateHelper.formatDateToCurrentLocale({
+            value,
+            ...this.localeData,
+          }),
+          rawValue: DateHelper.formatValue({
+            value,
+            ...this.localeData,
+          }),
         },
       });
     }
@@ -200,7 +231,10 @@ class BaseDateInput extends React.Component {
   reformatVisibleDate = () => {
     const { lastValidEventValues, visibleValue } = this.state;
     if (
-      DateHelper.isValidDate(visibleValue) ||
+      DateHelper.isValidDate({
+        value: visibleValue,
+        ...this.localeData,
+      }) ||
       this.canBeEmptyValues(visibleValue)
     ) {
       this.updateValidEventValues(visibleValue);
@@ -253,7 +287,10 @@ class BaseDateInput extends React.Component {
   };
 
   updateVisibleValue = (date) => {
-    const visibleValue = DateHelper.formatDateToCurrentLocale(date);
+    const visibleValue = DateHelper.formatDateToCurrentLocale({
+      value: date,
+      ...this.localeData,
+    });
     const newDate = this.getDateObject(date);
 
     this.setState(
@@ -282,7 +319,10 @@ class BaseDateInput extends React.Component {
     const { disabled, readOnly } = this.props;
     const value = ev.target.value.formattedValue || ev.target.value;
     const dateWithSlashes = DateHelper.sanitizeDateInput(value);
-    const isValidDate = DateHelper.isValidDate(dateWithSlashes);
+    const isValidDate = DateHelper.isValidDate({
+      value: dateWithSlashes,
+      ...this.localeData,
+    });
     let isoDateString;
 
     if (disabled || readOnly) return;
@@ -290,7 +330,10 @@ class BaseDateInput extends React.Component {
     this.isBlurBlocked = false;
 
     if (isValidDate || this.canBeEmptyValues(value)) {
-      isoDateString = isoFormattedValueString(dateWithSlashes);
+      isoDateString = DateHelper.formatValue({
+        value: dateWithSlashes,
+        ...this.localeData,
+      });
       this.updateSelectedDate(isoDateString);
       this.emitOnChangeCallback(ev, isoDateString);
     }
@@ -306,18 +349,31 @@ class BaseDateInput extends React.Component {
       visibleValue = newValue;
     } else {
       selectedDate = this.getDateObject(newValue);
-      visibleValue = DateHelper.formatDateToCurrentLocale(newValue);
+      visibleValue = DateHelper.formatDateToCurrentLocale({
+        value: newValue,
+        ...this.localeData,
+      });
     }
 
     this.setState({ selectedDate, visibleValue });
   };
 
   getDateObject = (newValue) => {
-    if (!DateHelper.isValidDate(newValue)) {
+    if (
+      !DateHelper.isValidDate({
+        value: newValue,
+        ...this.localeData,
+      })
+    ) {
       return DateHelper.stringToDate(DateHelper.todayFormatted());
     }
 
-    return DateHelper.stringToDate(isoFormattedValueString(newValue));
+    return DateHelper.stringToDate(
+      DateHelper.formatValue({
+        value: newValue,
+        ...this.localeData,
+      })
+    );
   };
 
   emitOnChangeCallback = (ev, isoFormattedValue) => {
@@ -335,7 +391,10 @@ class BaseDateInput extends React.Component {
     const { type } = ev;
     const { id, name, value } = ev.target;
     const { lastValidEventValues } = this.state;
-    const validRawValue = DateHelper.isValidDate(isoFormattedValue);
+    const validRawValue = DateHelper.isValidDate({
+      value: isoFormattedValue,
+      ...this.localeData,
+    });
     const validValues = this.canBeEmptyValues(value)
       ? { formattedValue: "", rawValue: "" }
       : lastValidEventValues;
@@ -345,7 +404,10 @@ class BaseDateInput extends React.Component {
       value: {
         ...validValues,
         ...(validRawValue && {
-          formattedValue: DateHelper.formatDateToCurrentLocale(value),
+          formattedValue: DateHelper.formatDateToCurrentLocale({
+            value,
+            ...this.localeData,
+          }),
         }),
         ...(validRawValue && { rawValue: isoFormattedValue }),
         ...(type === "blur" && { formattedValue: value, rawValue: value }),
@@ -359,7 +421,12 @@ class BaseDateInput extends React.Component {
 
     let { visibleValue } = this.state;
 
-    if (!DateHelper.isValidDate(visibleValue)) {
+    if (
+      !DateHelper.isValidDate({
+        value: visibleValue,
+        ...this.localeData,
+      })
+    ) {
       visibleValue = "";
     }
 
@@ -386,8 +453,17 @@ class BaseDateInput extends React.Component {
   };
 
   hiddenValue = () => {
-    if (DateHelper.isValidDate(this.state.visibleValue)) {
-      return DateHelper.formatValue(this.state.visibleValue, hiddenDateFormat);
+    if (
+      DateHelper.isValidDate({
+        value: this.state.visibleValue,
+        ...this.localeData,
+      })
+    ) {
+      return DateHelper.formatValue({
+        value: this.state.visibleValue,
+        formatTo: hiddenDateFormat,
+        ...this.localeData,
+      });
     }
     return this.state.lastValidEventValues.rawValue;
   };
@@ -416,7 +492,6 @@ class BaseDateInput extends React.Component {
     let events = {};
     delete inputProps.defaultValue;
     delete inputProps.value;
-
     events = {
       onBlur: this.handleBlur,
       onChange: this.handleVisibleInputChange,
@@ -439,7 +514,10 @@ class BaseDateInput extends React.Component {
           inputIcon="calendar"
           value={this.state.visibleValue}
           labelInline={labelInline}
-          rawValue={isoFormattedValueString(this.state.visibleValue)}
+          rawValue={DateHelper.formatValue({
+            value: this.state.visibleValue,
+            ...this.localeData,
+          })}
           inputRef={this.assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           {...events}
@@ -451,32 +529,58 @@ class BaseDateInput extends React.Component {
   }
 }
 
-function isoFormattedValueString(valueToFormat) {
-  return DateHelper.formatValue(valueToFormat);
-}
-
-function generateAdjustedValue({ value, defaultValue, allowEmptyValue }) {
-  if (value !== undefined && canReturnValue(value, allowEmptyValue)) {
-    return DateHelper.formatDateToCurrentLocale(value);
+function generateAdjustedValue(
+  { value, defaultValue, allowEmptyValue },
+  { locale, formats, format }
+) {
+  if (
+    value !== undefined &&
+    canReturnValue(value, allowEmptyValue, locale, formats, format)
+  ) {
+    return DateHelper.formatDateToCurrentLocale({
+      value,
+      locale,
+      formats,
+      format,
+    });
   }
-  if (canReturnValue(defaultValue, allowEmptyValue)) {
-    return DateHelper.formatDateToCurrentLocale(defaultValue);
+  if (canReturnValue(defaultValue, allowEmptyValue, locale, formats, format)) {
+    return DateHelper.formatDateToCurrentLocale({
+      value: defaultValue,
+      locale,
+      formats,
+      format,
+    });
   }
-  return DateHelper.formatDateToCurrentLocale(DateHelper.todayFormatted());
+  return DateHelper.formatDateToCurrentLocale({
+    value: DateHelper.todayFormatted(),
+    locale,
+    formats,
+    format,
+  });
 }
 
-function isValidInitialFormat(value) {
-  return DateHelper.isValidDate(value, { defaultValue: hiddenDateFormat });
+function isValidInitialFormat(value, locale, formats, format) {
+  return DateHelper.isValidDate({
+    value,
+    options: { defaultValue: hiddenDateFormat },
+    locale,
+    formats,
+    format,
+  });
 }
 
-function canReturnValue(value, allowEmptyValue) {
+function canReturnValue(value, allowEmptyValue, locale, formats, format) {
   if (!allowEmptyValue && value && value.length) {
     const message =
       "The Date component must be initialised with a value in the iso (YYYY-MM-DD) format";
-    invariant(isValidInitialFormat(value), message);
+    invariant(isValidInitialFormat(value, locale, formats, format), message);
   }
 
-  return isValidInitialFormat(value) || (allowEmptyValue && !value);
+  return (
+    isValidInitialFormat(value, locale, formats, format) ||
+    (allowEmptyValue && !value)
+  );
 }
 
 const DateInput = withUniqueIdProps(BaseDateInput);

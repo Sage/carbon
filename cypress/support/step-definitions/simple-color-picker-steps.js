@@ -1,21 +1,18 @@
 import {
   simpleColorPickerDiv,
-  simpleColorPickerLegendNoIFrame,
+  simpleColorPickerLegend,
 } from "../../locators/simple-color-picker";
 import {
-  experimentalSimpleColorPickerInputInIframe,
   experimentalSimpleColorPickerInput,
+  simpleColorPicker,
 } from "../../locators/advanced-color-picker/index";
-import {
-  getKnobsInput,
-  commonDataElementInputPreviewNoIframe,
-} from "../../locators";
+import { commonDataElementInputPreview } from "../../locators";
 import { keyCode } from "../helper";
 
 Then("Simple Color Picker {int} element was picked up", (index) => {
   cy.wait(500);
   for (let i = 1; i < index; ++i) {
-    simpleColorPickerDiv(i + 1)
+    simpleColorPickerDiv(i)
       .should("have.attr", "data-element", "tick")
       .and("have.attr", "data-component", "icon");
   }
@@ -23,69 +20,43 @@ Then("Simple Color Picker {int} element was picked up", (index) => {
 
 When("I pick {int} simple color input", (index) => {
   for (let i = 0; i < index; ++i) {
-    experimentalSimpleColorPickerInputInIframe(i + 1).click();
+    experimentalSimpleColorPickerInput(i + 1).click();
   }
 });
 
 Then(
   "Experimental Simple Color Picker {int} element was picked up",
   (index) => {
-    experimentalSimpleColorPickerInputInIframe(index).should(
-      "have.attr",
-      "aria-checked",
-      "true"
-    );
+    simpleColorPicker(index).should("have.attr", "aria-checked", "true");
   }
 );
 
 When("I select {int} color", (index) => {
-  experimentalSimpleColorPickerInputInIframe(index).click();
+  experimentalSimpleColorPickerInput(index).click();
 });
 
-When("I press {word} on the {int} color in IFrame", (key, index) => {
-  experimentalSimpleColorPickerInputInIframe(index).trigger(
-    "keydown",
-    keyCode(key)
-  );
+When("I press {word} on the {int} color", (key, index) => {
+  simpleColorPicker(index).trigger("keydown", keyCode(key));
 });
 
 When("I press {word} on the {int} color", (key, index) => {
   experimentalSimpleColorPickerInput(index).trigger("keydown", keyCode(key));
 });
 
-Then("It renders with all colors", () => {
-  cy.fixture("designSystem/simpleColorPicker.json").then(($json) => {
+Then("It renders with all colors with {string} json", (json) => {
+  cy.fixture(`designSystem/${json}.json`).then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
-      experimentalSimpleColorPickerInputInIframe(i + 1)
+      experimentalSimpleColorPickerInput(i)
         .should("have.value", $json[i].color)
         .and("have.attr", "aria-label", $json[i].label);
     }
   });
 });
 
-When("I input new color json into {string} input field", (inputFieldName) => {
-  cy.fixture("designSystem/simpleColorPickerNew.json").then(($json) => {
-    getKnobsInput(inputFieldName)
-      .clear({ force: true })
-      .then(($selector) => $selector.val(JSON.stringify($json)))
-      .type(" ");
-  });
+When("simple color picker legend on preview is {word}", (text) => {
+  simpleColorPickerLegend().should("have.text", text);
 });
 
-Then("It renders with all new colors", () => {
-  cy.fixture("designSystem/simpleColorPickerNew.json").then(($json) => {
-    for (let i = 0; i < $json.length; ++i) {
-      experimentalSimpleColorPickerInputInIframe(i + 1)
-        .should("have.value", $json[i].color)
-        .and("have.attr", "aria-label", $json[i].label);
-    }
-  });
-});
-
-When("simple color picker legend on preview is {word} in NoIFrame", (text) => {
-  simpleColorPickerLegendNoIFrame().should("have.text", text);
-});
-
-When("simple color picker name {word} in NoIFrame", (name) => {
-  commonDataElementInputPreviewNoIframe().should("have.attr", "name", name);
+When("simple color picker name {word}", (name) => {
+  commonDataElementInputPreview().should("have.attr", "name", name);
 });

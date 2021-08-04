@@ -1,9 +1,6 @@
 import {
   knobsTab,
-  actionsTab,
-  clearButton,
   getKnobsInputWithName,
-  getElementNoIframe,
 } from "../locators";
 import DEBUG_FLAG from ".";
 
@@ -39,25 +36,21 @@ export function visitComponentUrlWithParameters(
   nameOfObject = ""
 ) {
   cy.fixture(`${path}/${json}`).then(($json) => {
+    const today = Cypress.dayjs().format("YYYY-MM-DD");
     const el = $json[nameOfObject];
     let url = "";
     for (const prop in el) {
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
       } else {
+        if (prop === "minDate" || prop === "minDate") {
+          el[prop] = today;
+        }
         url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
       }
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
   });
-}
-
-export function clickActionsTab(iFrameOnly = false) {
-  if (!iFrameOnly) actionsTab().click({ force: true });
-}
-
-export function clickClear() {
-  clearButton().click();
 }
 
 export function dragAndDrop(
@@ -99,43 +92,28 @@ export function dragAndDrop(
 
 export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts override
-  cy.iFrame("body").type("{shift}{esc}");
-}
-
-export function pressESCKeyNoIframe() {
-  // using Shift+Esc - because of storybook shortcuts override
   cy.get("body").type("{shift}{esc}");
 }
 
 export function pressTABKey(count) {
-  for (let i = 0; i < count; i++) {
-    cy.iFrame("body").tab();
-  }
-}
-
-export function pressTABKeyInNoIframe(count) {
   const body = cy.get("body");
   for (let i = 0; i < count; i++) {
     body.tab();
   }
 }
 
-export function pressShiftTABKeyInNoIframe(count) {
+export function pressShiftTABKey(count) {
   const body = cy.get("body");
   for (let i = 0; i < count; i++) {
     body.tab({ shift: true });
   }
 }
 
-export function continuePressingTABKeyInNoIframe(count) {
+export function continuePressingTABKey(count) {
   const focused = cy.focused();
   for (let i = 0; i < count; i++) {
     focused.tab();
   }
-}
-
-export async function asyncWaitForIcon(name) {
-  await getElementNoIframe(name);
 }
 
 export async function asyncWaitForKnobs(propertyName, fieldName) {

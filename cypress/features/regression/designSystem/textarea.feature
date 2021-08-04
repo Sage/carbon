@@ -51,7 +51,7 @@ Feature: Design System Textarea component
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open default "Design System-Textarea Test" component in noIFrame with "textarea" json from "designSystem" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
@@ -86,7 +86,7 @@ Feature: Design System Textarea component
   @positive
   Scenario Outline: Set label to <label>
     When I open default "Design System-Textarea Test" component in noIFrame with "textarea" json from "designSystem" using "<nameOfObject>" object name
-    Then label on preview is <label> in NoIFrame
+    Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
       | mp150ú¿¡üßä                  | labelOtherLanguage    |
@@ -95,7 +95,7 @@ Feature: Design System Textarea component
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I open default "Design System-Textarea Test" component in noIFrame with "textarea" json from "designSystem" using "<nameOfObject>" object name
-      And I hover mouse onto "question" icon in no iFrame
+      And I hover mouse onto "question" icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
