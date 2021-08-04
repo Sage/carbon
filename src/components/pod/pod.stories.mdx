@@ -59,19 +59,6 @@ Set the pod to flex to the width of its content, or take up the full width of it
   </Story>
 </Preview>
 
-### Collapsable
-
-Pod accepts collapsed prop which sets the intial state of the Pod and allows it
-to be collapsible. If the prop is not passed the Pod will not be collapsible.
-
-<Preview>
-  <Story name="collapsable">
-    <Pod title="Title" collapsed>
-      Content
-    </Pod>
-  </Story>
-</Preview>
-
 ### Custom height
 
 <Preview>
@@ -145,14 +132,13 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
   </Story>
 </Preview>
 
-### With subtitle, description and footer
+### With subtitle and footer
 
 <Preview>
-  <Story name="with subtitle description and footer">
+  <Story name="with subtitle and footer">
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
     >
       Content
@@ -167,7 +153,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       border={false}
     >
@@ -183,7 +168,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
     >
@@ -240,7 +224,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
       onDelete={() => {}}
@@ -258,7 +241,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
       onDelete={() => {}}
@@ -276,7 +258,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       internalEditButton
       onEdit={() => {}}
@@ -298,7 +279,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
             key={variant}
             title="Title"
             subtitle="Subtitle"
-            description="Description"
             footer="Footer"
             onEdit={() => {}}
             onDelete={() => {}}
@@ -323,7 +303,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
           key={size}
           title="Title"
           subtitle="Subtitle"
-          description="Description"
           footer="Footer"
           onEdit={() => {}}
           onDelete={() => {}}
@@ -347,7 +326,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
           key={alignment}
           title="Title"
           subtitle="Subtitle"
-          description="Description"
           footer="Footer"
           onEdit={() => {}}
           alignTitle={alignment}

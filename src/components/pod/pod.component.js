@@ -10,7 +10,6 @@ import PodContext from "./pod-context";
 import {
   StyledBlock,
   StyledContent,
-  StyledDescription,
   StyledEditAction,
   StyledActionsContainer,
   StyledDeleteButton,
@@ -20,7 +19,6 @@ import {
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
-  StyledArrow,
 } from "./pod.style.js";
 import Icon from "../icon";
 
@@ -30,7 +28,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 class Pod extends React.Component {
   state = {
-    isCollapsed: this.props.collapsed,
     isEditHovered: false,
     isEditFocused: false,
     isDeleteHovered: false,
@@ -40,10 +37,6 @@ class Pod extends React.Component {
   };
 
   static contextType = PodContext;
-
-  toggleCollapse = () => {
-    this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
-  };
 
   handleEditMouseEnter = () => {
     this.setState({ isEditHovered: true });
@@ -106,50 +99,17 @@ class Pod extends React.Component {
       return null;
     }
 
-    const { isCollapsed } = this.state;
-
-    const isCollapsable = isCollapsed !== undefined;
-
     return (
       <StyledHeader
         alignTitle={alignTitle}
         internalEditButton={internalEditButton}
         size={size}
-        isCollapsed={isCollapsed}
-        onClick={isCollapsable ? this.toggleCollapse : undefined}
       >
         <StyledTitle data-element="title">{title}</StyledTitle>
         {subtitle && (
           <StyledSubtitle data-element="subtitle">{subtitle}</StyledSubtitle>
         )}
-        {isCollapsable && (
-          <StyledArrow isCollapsed={isCollapsed} type="dropdown" />
-        )}
       </StyledHeader>
-    );
-  }
-
-  podDescription() {
-    const { description } = this.props;
-
-    if (description) {
-      return (
-        <StyledDescription data-element="description">
-          {description}
-        </StyledDescription>
-      );
-    }
-    return null;
-  }
-
-  podContent() {
-    if (this.state.isCollapsed) return null;
-
-    return (
-      <>
-        {this.podDescription()}
-        <div>{this.props.children}</div>
-      </>
     );
   }
 
@@ -402,7 +362,7 @@ class Pod extends React.Component {
         >
           <StyledContent data-element="content" size={size}>
             {this.podHeader()}
-            {this.podContent()}
+            <div>{this.props.children}</div>
           </StyledContent>
           {this.footer()}
         </StyledBlock>
@@ -453,15 +413,6 @@ Pod.propTypes = {
   ]),
 
   /**
-   * The collapsed state of the pod
-   *
-   * undefined - Pod is not collapsible |
-   * true - Pod is closed |
-   * false - Pod is open
-   */
-  collapsed: PropTypes.bool,
-
-  /**
    * Title for the pod h4 element
    * always shown
    */
@@ -476,12 +427,6 @@ Pod.propTypes = {
    * Aligns the title to left, right or center
    */
   alignTitle: PropTypes.oneOf(["left", "center", "right"]),
-
-  /**
-   * Description for the pod
-   * Not shown if collapsed
-   */
-  description: PropTypes.string,
 
   /**
    * A component to render as a Pod footer.

@@ -27,7 +27,6 @@ export const Default = () => {
   const alignTitle = title
     ? select("alignTitle", POD_ALIGNMENTS, Pod.defaultProps.alignTitle)
     : undefined;
-  const description = text("description", "");
   const footer = text("footer", "");
   const onEdit = boolean("onEdit", false);
   const onDelete = boolean("onDelete", false);
@@ -54,7 +53,6 @@ export const Default = () => {
       title={title}
       subtitle={subtitle}
       alignTitle={alignTitle}
-      description={description}
       footer={footer}
       onEdit={onEdit ? action("edit") : undefined}
       onDelete={onDelete ? action("delete") : undefined}
