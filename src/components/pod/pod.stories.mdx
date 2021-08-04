@@ -59,19 +59,6 @@ Set the pod to flex to the width of its content, or take up the full width of it
   </Story>
 </Preview>
 
-### Collapsable
-
-Pod accepts collapsed prop which sets the intial state of the Pod and allows it
-to be collapsible. If the prop is not passed the Pod will not be collapsible.
-
-<Preview>
-  <Story name="collapsable">
-    <Pod title="Title" collapsed>
-      Content
-    </Pod>
-  </Story>
-</Preview>
-
 ### Custom height
 
 <Preview>
@@ -145,14 +132,13 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
   </Story>
 </Preview>
 
-### With subtitle, description and footer
+### With subtitle and footer
 
 <Preview>
-  <Story name="with subtitle description and footer">
+  <Story name="with subtitle and footer">
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
     >
       Content
@@ -167,7 +153,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       border={false}
     >
@@ -183,11 +168,48 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
     >
       Content
+    </Pod>
+  </Story>
+</Preview>
+
+### With delete button
+
+<Preview>
+  <Story
+    name="with delete button"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      onUndo={() => {}}
+    >
+      Content
+    </Pod>
+  </Story>
+</Preview>
+
+### Soft delete state
+
+<Preview>
+  <Story name="soft delete state" parameters={{ chromatic: { disable: true } }}>
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      description="Description"
+      footer="Footer"
+      onUndo={() => {}}
+      softDelete
+    >
+      <Typography color="blackOpacity30">Soft delete state</Typography>
     </Pod>
   </Story>
 </Preview>
@@ -202,9 +224,9 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
+      onDelete={() => {}}
       displayEditButtonOnHover
     >
       Content
@@ -219,9 +241,9 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onEdit={() => {}}
+      onDelete={() => {}}
       editContentFullWidth
     >
       Content
@@ -236,10 +258,10 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       internalEditButton
       onEdit={() => {}}
+      onDelete={() => {}}
     >
       Content
     </Pod>
@@ -257,9 +279,9 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
             key={variant}
             title="Title"
             subtitle="Subtitle"
-            description="Description"
             footer="Footer"
             onEdit={() => {}}
+            onDelete={() => {}}
             variant={variant}
             mb={3}
           >
@@ -281,9 +303,9 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
           key={size}
           title="Title"
           subtitle="Subtitle"
-          description="Description"
           footer="Footer"
           onEdit={() => {}}
+          onDelete={() => {}}
           size={size}
           mb={3}
         >
@@ -304,7 +326,6 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
           key={alignment}
           title="Title"
           subtitle="Subtitle"
-          description="Description"
           footer="Footer"
           onEdit={() => {}}
           alignTitle={alignment}

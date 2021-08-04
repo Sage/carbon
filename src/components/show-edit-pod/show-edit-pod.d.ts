@@ -19,12 +19,24 @@ export interface ShowEditPodProps {
   editFields?: React.ReactNode;
   /** Allows developers to control the editing state manually. */
   editing?: boolean;
+  /** Hide delete button in view mode. */
+  hideDeleteButtonInViewMode?: boolean;
+  /** Sets soft delete state. */
+  softDelete?: boolean;
   /** A callback triggered when the form is cancelled */
   onCancel?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** A callback triggered when the delete action is clicked. */
-  onDelete?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onDelete?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
+  /** A callback triggered when the undo action is clicked. */
+  onUndo?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
   /** Callback when edit button is clicked. */
-  onEdit?: (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
+  onEdit?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
   // Props passed to Form
   /** A callback triggered after clicking the save button */
   onSave?: (ev: React.FormEvent<HTMLFormElement>) => void;
