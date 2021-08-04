@@ -26,7 +26,7 @@ const MenuFullscreen = ({
   const { menuType } = useContext(MenuContext);
 
   return (
-    <li>
+    <li aria-label="menu fullscreen" role="menuitem">
       <Portal>
         <FocusTrap wrapperRef={menuWrapperRef}>
           <StyledMenuFullscreen
