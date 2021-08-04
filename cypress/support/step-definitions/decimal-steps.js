@@ -1,11 +1,11 @@
-import { commonDataElementInputPreviewNoIframe } from "../../locators";
+import { commonDataElementInputPreview } from "../../locators";
 
 When("I set Decimal input to the {string}", (input) => {
-  commonDataElementInputPreviewNoIframe().clear().type(input).blur();
+  commonDataElementInputPreview().clear().type(input).blur();
 });
 
 Then("Decimal Input is set to {string}", (input) => {
-  commonDataElementInputPreviewNoIframe()
+  commonDataElementInputPreview()
     .invoke("val")
     .then(($el) => {
       for (let number = 0; number < $el.length; number++) {
@@ -18,9 +18,9 @@ Then("Decimal Input is set to {string}", (input) => {
 });
 
 When("I set Decimal input to a string with only white-space", () => {
-  commonDataElementInputPreviewNoIframe().clear().type("     ").blur();
+  commonDataElementInputPreview().clear().type("     ").blur();
 });
 
 Then("Decimal Input is set to white-space only", () => {
-  commonDataElementInputPreviewNoIframe().should("have.attr", "value", "     ");
+  commonDataElementInputPreview().should("have.attr", "value", "     ");
 });

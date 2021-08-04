@@ -20,8 +20,8 @@ import {
 import { positionOfElement, keyCode } from "../helper";
 import {
   getDataElementByValue,
-  commonDataElementInputPreviewNoIframe,
-  labelNoIFrame,
+  commonDataElementInputPreview,
+  label,
 } from "../../locators";
 import { dataComponentButtonByTextNoIFrame } from "../../locators/pages";
 import { loader } from "../../locators/loader";
@@ -147,7 +147,7 @@ When("I click on {string} option on Select list", (position) => {
 });
 
 When("I click on Select label", () => {
-  labelNoIFrame().click();
+  label().click();
 });
 
 When("I click onto {string} button", (buttonName) => {
@@ -218,7 +218,7 @@ Then("The matching string {string} is underline and bolded", (text) => {
 });
 
 Then("I type {string} into select input", (text) => {
-  commonDataElementInputPreviewNoIframe().type(text);
+  commonDataElementInputPreview().type(text);
 });
 
 When("I scroll page to top", () => {

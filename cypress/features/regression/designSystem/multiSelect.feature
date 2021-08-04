@@ -161,7 +161,7 @@ Feature: Design System Multi Select component
   Scenario: Close Multi Select list using Esc keyboard
     Given I open "Design System Select multiselect" component page "default story" in no iframe
       And I click on dropdown button
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then multi Select list is closed
 
   @positive

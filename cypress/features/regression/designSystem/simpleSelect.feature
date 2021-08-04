@@ -159,5 +159,5 @@ Feature: Design System Select component
   Scenario: Close Select list using Esc keyboard
     Given I open "Design System Select" component page "default story" in no iframe
       And I click on default Select input
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then "simple" Select list is closed

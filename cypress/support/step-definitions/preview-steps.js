@@ -1,5 +1,5 @@
-import { dlsRootNoIframe } from "../../locators";
+const { dlsRoot } = require("../../locators");
 
 Then("Preview children is set to {word}", (text) => {
-  dlsRootNoIframe().should("have.text", text);
+  dlsRoot().should("have.text", text);
 });

@@ -6,25 +6,21 @@ import {
   positionOfElement,
   keyCode,
   visitComponentUrlWithParameters,
-  pressTABKeyInNoIframe,
-  pressShiftTABKeyInNoIframe,
-  continuePressingTABKeyInNoIframe,
-  pressESCKeyNoIframe,
+  pressShiftTABKey,
+  continuePressingTABKey,
 } from "../helper";
 import {
-  helpIconByPosition,
   backgroundUILocator,
-  closeIconButtonIFrame,
   getKnobsInput,
   getKnobsInputWithName,
   tooltipPreview,
   getDataElementByValue,
   knobsNameTab,
-  commonButtonPreviewNoIFrameRoot,
+  commonButtonPreviewRoot,
   closeIconButton,
-  fieldHelpPreviewNoIFrame,
-  helpIconByPositionNoIFrame,
-  getElementNoIframe,
+  fieldHelpPreview,
+  helpIconByPosition,
+  getElement,
   helpIcon,
 } from "../../locators";
 import { dialogTitle } from "../../locators/dialog";
@@ -102,8 +98,8 @@ When("I select {word} {word} to {string}", (propertyName, text, selection) => {
   getKnobsInputWithName(propertyName, text).select(selection);
 });
 
-When("I open component preview in noIFrame", () => {
-  commonButtonPreviewNoIFrameRoot().click();
+When("I open component preview", () => {
+  commonButtonPreviewRoot().click();
 });
 
 When("I click {string} button on preview", (text) => {
@@ -114,7 +110,7 @@ Then("component title on preview is {word}", (title) => {
   dialogTitle().should("have.text", title);
 });
 
-Then("label on preview is {word} in NoIFrame", (text) => {
+Then("label on preview is {word}", (text) => {
   getDataElementByValue("label").should("have.text", text);
 });
 
@@ -130,11 +126,7 @@ When("I hover mouse onto {string} help icon", (position) => {
   helpIconByPosition(positionOfElement(position)).trigger("mouseover");
 });
 
-When("I hover mouse onto {string} help icon in NoIFrame", (position) => {
-  helpIconByPositionNoIFrame(positionOfElement(position)).trigger("mouseover");
-});
-
-Then("I hover mouse onto {string} icon in no iFrame", (name) => {
+Then("I hover mouse onto {string} icon", (name) => {
   getDataElementByValue(name).trigger("mouseover");
 });
 
@@ -142,8 +134,8 @@ Then("tooltipPreview on preview is set to {word}", (text) => {
   tooltipPreview().should("have.text", text);
 });
 
-Then("fieldHelp on preview is set to {word} in NoIFrame", (text) => {
-  fieldHelpPreviewNoIFrame().should("have.text", text);
+Then("fieldHelp on preview is set to {word}", (text) => {
+  fieldHelpPreview().should("have.text", text);
 });
 
 Then("Background UI is enabled", () => {
@@ -152,10 +144,6 @@ Then("Background UI is enabled", () => {
 
 Then("closeIcon is visible", () => {
   closeIconButton().should("be.visible");
-});
-
-Then("I click closeIcon in IFrame", () => {
-  closeIconButtonIFrame().click();
 });
 
 Then("I click closeIcon", () => {
@@ -187,24 +175,16 @@ When("I hit ESC key", () => {
   pressESCKey();
 });
 
-When("I hit ESC key in noIframe", () => {
-  pressESCKeyNoIframe();
-});
-
 When("I hit Tab key {int} time(s)", (times) => {
   pressTABKey(times);
 });
 
-When("I hit Tab key {int} time(s) in no Iframe", (times) => {
-  pressTABKeyInNoIframe(times);
+When("I continue to hit Tab key {int} time(s)", (times) => {
+  continuePressingTABKey(times);
 });
 
-When("I continue to hit Tab key {int} time(s) in no Iframe", (times) => {
-  continuePressingTABKeyInNoIframe(times);
-});
-
-When("I hit shift Tab key {int} time(s) in no Iframe", (times) => {
-  pressShiftTABKeyInNoIframe(times);
+When("I hit shift Tab key {int} time(s)", (times) => {
+  pressShiftTABKey(times);
 });
 
 When("I check {word} checkbox", (checkboxName) => {
@@ -278,8 +258,8 @@ Then("label Align on preview is {string} in NoIFrame", (direction) => {
   }
 });
 
-Then("icon name in noIframe on preview is {string}", (iconName) => {
-  getElementNoIframe(iconName);
+Then("icon name on preview is {string}", (iconName) => {
+  getElement(iconName);
 });
 
 When("I click {string} icon", (iconName) => {

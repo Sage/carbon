@@ -75,44 +75,44 @@ Feature: Confirm component
   @positive
   Scenario: Cancel button type is set to tertiary
     Given I open "Confirm" component page "cancel button type" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then cancel button type is set to "tertiary"
 
   @positive
   Scenario: Buttons have destructive CSS properties
     Given I open "Confirm" component page "destructive" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then cancel button type is set to "destructive"
       And confirm button type is set to "destructive"
 
   @positive
   Scenario: Cancel button is disabled
     Given I open "Confirm" component page "disable cancel" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then "cancel" button is disabled
 
   @positive
   Scenario: Confirm button is disabled
     Given I open "Confirm" component page "disable confirm" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then "confirm" button is disabled
 
   @positive
   Scenario: Confirm button is in loading state
     Given I open "Confirm" component page "is loading confirm" in no iframe
-    When I open component preview in noIFrame
+    When I open component preview
     Then confirm button type is set to "isLoadingConfirm"
 
   @positive
   Scenario: Disable escape key
     Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "disableEscKey" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Confirm dialog is visible
 
   @positive
   Scenario: Enable escape key
     Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "enabledEscKey" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Confirm dialog is not visible
 
   @positive
@@ -142,7 +142,7 @@ Feature: Confirm component
   @positive
   Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via ESC key
     Given I open default "Confirm Test" component in noIFrame with "confirm" json from "commonComponents" using "disableCancelTrue" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Confirm dialog is visible
 
   @ignore

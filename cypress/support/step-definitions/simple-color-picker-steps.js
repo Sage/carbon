@@ -1,12 +1,12 @@
 import {
   simpleColorPickerDiv,
-  simpleColorPickerLegendNoIFrame,
+  simpleColorPickerLegend,
 } from "../../locators/simple-color-picker";
 import {
   experimentalSimpleColorPickerInput,
   simpleColorPicker,
 } from "../../locators/advanced-color-picker/index";
-import { commonDataElementInputPreviewNoIframe } from "../../locators";
+import { commonDataElementInputPreview } from "../../locators";
 import { keyCode } from "../helper";
 
 Then("Simple Color Picker {int} element was picked up", (index) => {
@@ -53,10 +53,10 @@ Then("It renders with all colors with {string} json", (json) => {
   });
 });
 
-When("simple color picker legend on preview is {word} in NoIFrame", (text) => {
-  simpleColorPickerLegendNoIFrame().should("have.text", text);
+When("simple color picker legend on preview is {word}", (text) => {
+  simpleColorPickerLegend().should("have.text", text);
 });
 
-When("simple color picker name {word} in NoIFrame", (name) => {
-  commonDataElementInputPreviewNoIframe().should("have.attr", "name", name);
+When("simple color picker name {word}", (name) => {
+  commonDataElementInputPreview().should("have.attr", "name", name);
 });

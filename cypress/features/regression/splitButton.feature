@@ -22,7 +22,7 @@ Feature: Split Button component
   @positive
   Scenario: I expand Split Button component
     Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
-    When I hover mouse onto "dropdown" icon in no iFrame
+    When I hover mouse onto "dropdown" icon
     Then Split Button is expanded
 
   @ignore
@@ -35,7 +35,7 @@ Feature: Split Button component
   @positive
   Scenario Outline: Verify color palette for second element of Split Button component with focus
     Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
-    When I hover mouse onto "dropdown" icon in no iFrame
+    When I hover mouse onto "dropdown" icon
     Then Split Button second element has proper background-color "<color>" and border "<color>" color and has border-width 2 px
       And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
     Examples:
@@ -45,7 +45,7 @@ Feature: Split Button component
   @positive
   Scenario Outline: Verify hover color and golden border for <element> element of Split Button component
     Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
-      And I hover mouse onto "dropdown" icon in no iFrame
+      And I hover mouse onto "dropdown" icon
     When I click "<element>" element of Split Button component
     Then Split Button expandable "<element>" element has golden border on focus
     Examples:
@@ -63,7 +63,7 @@ Feature: Split Button component
   @positive
   Scenario Outline: Verify the click function for a <element> element of Split Button component
     Given I open "Split Button Test" component page "default" in no iframe
-      And I hover mouse onto "dropdown" icon in no iFrame
+      And I hover mouse onto "dropdown" icon
     When I click "<element>" element of Split Button component
     Then click action was called in Actions Tab
     Examples:
@@ -76,5 +76,5 @@ Feature: Split Button component
   Scenario: Invoking Split Button component in a hidden container
     Given I open "Split Button" component page "in overflow hidden container" in no iframe
       And I expand accordionRow using "Enter" key
-    When I hover mouse onto "dropdown" icon in no iFrame
+    When I hover mouse onto "dropdown" icon
     Then Split Button is expanded

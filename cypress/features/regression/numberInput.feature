@@ -4,7 +4,7 @@ Feature: Number Input component
   @positive
   Scenario Outline: Change field help text to <fieldHelp>
     When I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
@@ -13,7 +13,7 @@ Feature: Number Input component
   @positive
   Scenario Outline: Set label to <label>
     When I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
-    Then label on preview is <label> in NoIFrame
+    Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
       | mp150ú¿¡üßä                  | labelOtherLanguage    |
@@ -32,7 +32,7 @@ Feature: Number Input component
   @positive
   Scenario: Check icon inside of input is visible
     When I open default "Number Input Test" component in noIFrame with "numberInput" json from "experimental" using "inputIconAdd" object name
-    Then icon name in noIframe on preview is "add"
+    Then icon name on preview is "add"
 
   @positive
   Scenario: Enable onChangeDeferred action

@@ -4,7 +4,7 @@ Feature: Design System Simple Color Picker component
   @positive
   Scenario Outline: Set legend to <legend>
     When I open default "Design System Simple Color Picker Test" component in noIFrame with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
-    Then simple color picker legend on preview is <legend> in NoIFrame
+    Then simple color picker legend on preview is <legend>
     Examples:
       | legend                       | nameOfObject           |
       | mp150ú¿¡üßä                  | legendOtherLanguage    |
@@ -13,14 +13,14 @@ Feature: Design System Simple Color Picker component
   @positive
   Scenario Outline: Set name to <name>
     When I open default "Design System Simple Color Picker Test" component in noIFrame with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
-    Then simple color picker name <name> in NoIFrame
+    Then simple color picker name <name>
     Examples:
       | name                         | nameOfObject         |
       | mp150ú¿¡üßä                  | nameOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | nameSpecialCharacter |
 
   @positive
-  Scenario: When avaiableColors prop is provided changes rendnered colors
+  Scenario: When availableColors prop is provided changes rendered colors
     When I open "Design System Simple Color Picker Test" component page "default" in no iframe
     Then It renders with all colors with "simpleColorPicker" json
 
@@ -31,28 +31,17 @@ Feature: Design System Simple Color Picker component
     Then It renders with all colors with "simpleColorPickerNew" json
 
   @positive
-  Scenario: When on last color, going forward selects first color
+  Scenario Outline: Navigate in simpleColorPicker to the <colorWasPickedUp> colorIndex using <keyboardKey> keyboardKey starts from <colorToPressOn> colorIndex
     Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
-    When I press rightarrow on the 9 color
-    Then Experimental Simple Color Picker 0 element was picked up
-
-  @positive
-  Scenario: When on first color, going backward selects last color
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
-    When I press leftarrow on the 0 color
-    Then Experimental Simple Color Picker 9 element was picked up
-
-  @positive
-  Scenario: Left arrow moves selection left
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
-    When I press leftarrow on the 3 color
-    Then Experimental Simple Color Picker 2 element was picked up
-
-  @positive
-  Scenario: Right arrow moves selection right
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
-    When I press rightarrow on the 3 color
-    Then Experimental Simple Color Picker 4 element was picked up
+    When I press <keyboardKey> on the <colorToPressOn> color
+    Then Experimental Simple Color Picker <colorWasPickedUp> element was picked up
+    Examples:
+      | keyboardKey | colorToPressOn | colorWasPickedUp |
+      | rightarrow  | 9              | 0                |
+      | leftarrow   | 0              | 9                |
+      | leftarrow   | 3              | 2                |
+      | rightarrow  | 3              | 4                |
+      | downarrow   | 3              | 8                |
 
   @positive
   Scenario: Up arrow moves selection up
@@ -60,12 +49,6 @@ Feature: Design System Simple Color Picker component
       And I select 6 color
     When I press uparrow on the 6 color
     Then Experimental Simple Color Picker 1 element was picked up
-
-  @positive
-  Scenario: Down arrow moves selection down
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
-    When I press downarrow on the 3 color
-    Then Experimental Simple Color Picker 8 element was picked up
 
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected

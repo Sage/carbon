@@ -4,7 +4,7 @@ Feature: Design System Date Input component
   @positive
   Scenario Outline: Change DateInput component field help to <fieldHelp>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp               | nameOfObject              |
       | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
@@ -13,7 +13,7 @@ Feature: Design System Date Input component
   @positive
   Scenario Outline: Change DateInput label to <label>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
-    Then label on preview is <label> in NoIFrame
+    Then label on preview is <label>
     Examples:
       | label                   | nameOfObject          |
       | mp150ú¿¡üßä             | labelOtherLanguage    |

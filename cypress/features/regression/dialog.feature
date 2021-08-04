@@ -60,13 +60,13 @@ Feature: Dialog component
   Scenario: Disable escape key
     Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "disableEscKey" object name
       And I wait 500
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Dialog is visible
 
   @positive
   Scenario: Enable escape key
     Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enabledEscKey" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Dialog is not visible
 
   @positive

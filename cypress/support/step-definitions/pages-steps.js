@@ -6,8 +6,7 @@ import {
 import DEBUG_FLAG from "..";
 import {
   getDataElementByValue,
-  getComponentNoIframe,
-  getComponentIFrame,
+  getComponent,
 } from "../../locators";
 
 Then("My {word} Page is visible", (word) => {
@@ -51,9 +50,5 @@ Then("page is closed", () => {
 });
 
 Then("I open Pages component preview", () => {
-  getComponentNoIframe("button").click();
-});
-
-Then("I open Pages component preview in Iframe", () => {
-  getComponentIFrame("button").click();
+  getComponent("button").click();
 });

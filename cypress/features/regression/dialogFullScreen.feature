@@ -37,13 +37,13 @@ Feature: Dialog Full Screen component
   @positive
   Scenario: Disable escape key
     Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
     Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enabledEscKey" object name
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Dialog Full Screen is not visible
 
   @positive
@@ -59,8 +59,8 @@ Feature: Dialog Full Screen component
       And I wait 500
       And I click "Open Nested Dialog" button on preview
       And Dialog is visible
-    When I hit ESC key in noIframe
+    When I hit ESC key
     Then Dialog Full Screen is visible
       And Dialog is not visible
-      And I hit ESC key in noIframe
+      And I hit ESC key
       And Dialog Full Screen is not visible

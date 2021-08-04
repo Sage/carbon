@@ -73,7 +73,7 @@ Feature: Design Systems Menu component
   Scenario: Check that the Search component is focusable by using the downarrow key
     Given I open "Design System Menu" component page "submenu with search" in no iframe
       And I click onto root in Test directory in no iFrame
-      And I hit Tab key 1 time in no Iframe
+      And I hit Tab key 1 time
       And I wait 50
       And I press "Enter" onto focused element
       And I wait 50
@@ -84,11 +84,11 @@ Feature: Design Systems Menu component
   Scenario: Check that the Search component is focusable by using the uparrow key
     Given I open "Design System Menu" component page "submenu with search" in no iframe
       And I click onto root in Test directory in no iFrame
-      And I hit Tab key 1 time in no Iframe
+      And I hit Tab key 1 time
       And I wait 50
       And I press "Enter" onto focused element
       And I wait 50
-      And I hit Tab key 2 time in no Iframe
+      And I hit Tab key 2 time
       And I wait 50
     When I press keyboard "uparrow" key times 1
     Then Search component input should be focused
@@ -97,7 +97,7 @@ Feature: Design Systems Menu component
   Scenario: Check that the Search component close icon is focusable in Menu when using keyboard navigation
     Given I open "Design System Menu" component page "submenu with search" in no iframe
       And I click onto root in Test directory in no iFrame
-      And I hit Tab key 1 times in no Iframe
+      And I hit Tab key 1 times
       And I wait 50
       And I press "Enter" onto focused element
       And I wait 50
@@ -122,24 +122,24 @@ Feature: Design Systems Menu component
   @positive
   Scenario: Check that close icon is focused in Fullscreen Menu
     Given I open "Design System Menu Test" component page "default" in no iframe
-    When I hit Tab key 1 times in no Iframe
+    When I hit Tab key 1 times
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario: Check that inner Menu is available with tabbing in Fullscreen Menu
     Given I open "Design System Menu Test" component page "default" in no iframe
-    When I hit Tab key 5 times in no Iframe
+    When I hit Tab key 5 times
     Then "fourth" inner menu element is focused
   
   @positive
   Scenario: Check that previous inner Menu is available with shift tabbing in Fullscreen Menu
     Given I open "Design System Menu Test" component page "default" in no iframe
-      And I hit Tab key 6 times in no Iframe
+      And I hit Tab key 6 times
     When I press Shift Tab on focused element
     Then "fourth" inner menu element is focused
 
   @positive
   Scenario: Check that inner Menu without link is NOT available with tabbing in Fullscreen Menu
     Given I open "Design System Menu Test" component page "default" in no iframe
-    When I hit Tab key 8 times in no Iframe
+    When I hit Tab key 8 times
     Then inner menu without active redirection is not focused
