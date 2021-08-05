@@ -3,7 +3,7 @@ Feature: Anchor Navigation component
 
   Background: Open Anchor Navigation component page
     Given I open "Test AnchorNavigation" component page "in full screen dialog" in no iframe
-      And I open component preview in noIFrame
+      And I open component preview
 
   @positive
   Scenario Outline: Press on <tab> tab and scroll to the the <index> anchor navigation

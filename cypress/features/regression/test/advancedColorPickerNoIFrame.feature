@@ -3,12 +3,12 @@ Feature: Advanced Color Picker component
 
   Background: Open Advanced Color Picker component page
     Given I open "Design System Advanced Color Picker Test" component page "default" in no iframe
-      And I open Advanced Color Picker in noIFrame
+      And I open Advanced Color Picker
 
   @positive
   Scenario Outline: <key> moves selection
     When I press <key> on the 7 color
-    Then Simple Color <index> element was picked up in noIframe
+    Then Simple Color <index> element was picked up
     Examples:
       | key        | index |
       | leftarrow  | 6     |
@@ -19,4 +19,4 @@ Feature: Advanced Color Picker component
   Scenario: down arrow moves selection down
     Given I press uparrow on the 7 color
     When I press downarrow on the 2 color
-    Then Simple Color 7 element was picked up in noIframe
+    Then Simple Color 7 element was picked up

@@ -63,3 +63,9 @@ Feature: Alert component
     Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
     When I click closeIcon
     Then Alert is not visible
+
+  @positive
+  Scenario: Check cancel click event
+    Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
+    When I click closeIcon
+    Then cancel action was called in Actions Tab

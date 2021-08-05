@@ -21,5 +21,23 @@
   },
   "inputIconAdd": {
     "inputIcon": "add"
+  },
+  "onChangeDeferred": {
+    "onChangeDeferred": true
+  },
+  "onKeyDown": {
+    "onKeyDown": true
+  },
+  "deferTimeout1000": {
+    "onChangeDeferred": true,
+    "deferTimeout": 1000
+  },
+  "deferTimeout5000": {
+    "onChangeDeferred": true,
+    "deferTimeout": 5000
+  },
+  "deferTimeout10000": {
+    "onChangeDeferred": true,
+    "deferTimeout": 10000
   }
 }

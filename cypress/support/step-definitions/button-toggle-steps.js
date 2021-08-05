@@ -1,6 +1,6 @@
 import {
   buttonToggleLabelPreview,
-  buttonTogglePreviewIFrame,
+  buttonTogglePreview,
 } from "../../locators/button-toggle";
 import { positionOfElement } from "../helper";
 
@@ -20,5 +20,5 @@ Then("Button Toggle label on preview is {word}", (label) => {
 });
 
 When("I click on Button Toggle {int}", (index) => {
-  buttonTogglePreviewIFrame().eq(index).click();
+  buttonTogglePreview().eq(index).click();
 });

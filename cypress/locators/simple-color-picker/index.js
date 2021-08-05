@@ -13,5 +13,5 @@ export const experimentalSimpleColorPickerInput = (index) =>
   cy
     .iFrame(EXPERIMENTAL_SIMPLE_COLOR_PICKER)
     .find(`${EXPERIMENTAL_SIMPLE_COLOR}:nth-child(${index}) > input`);
-export const simpleColorPickerLegendNoIFrame = () =>
+export const simpleColorPickerLegend = () =>
   cy.get(EXPERIMENTAL_SIMPLE_COLOR_PICKER).find("legend");

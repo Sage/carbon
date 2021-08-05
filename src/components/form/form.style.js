@@ -9,6 +9,7 @@ import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
 import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
+import StyledSearch from "../search/search.style";
 
 const FormButtonAnimation = keyframes`
   0%   { transform: translateY(50px); }
@@ -50,6 +51,10 @@ export const StyledForm = styled.form`
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) =>
       theme.spacing * fieldSpacing}px;
+  }
+
+  ${StyledSearch} ${StyledFormField} {
+    margin-bottom: 0px;
   }
 
   ${({ stickyFooter, isInSidebar }) =>

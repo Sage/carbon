@@ -2,8 +2,6 @@ import {
   splitToggleButton,
   additionalButton,
   splitMainButtonDataComponent,
-  additionalButtonIFrame,
-  splitMainButtonDataComponentIFrame,
 } from "../../locators/split-button";
 import { positionOfElement } from "../helper";
 
@@ -112,22 +110,9 @@ When("I click {string} element of Split Button component", (element) => {
   if (element === "first" || element === "second" || element === "third") {
     additionalButton(positionOfElement(element)).click();
   } else {
-    splitMainButtonDataComponent(positionOfElement("second")).first().click();
+    splitMainButtonDataComponent(positionOfElement("first")).first().click();
   }
 });
-
-When(
-  "I click {string} element of Split Button component in IFrame",
-  (element) => {
-    if (element === "first" || element === "second" || element === "third") {
-      additionalButtonIFrame(positionOfElement(element)).click();
-    } else if (element === "main-button") {
-      splitMainButtonDataComponentIFrame(positionOfElement("first")).click();
-    } else {
-      throw new Error("There is no such split button element");
-    }
-  }
-);
 
 Then(
   "Split Button expandable {string} element has golden border on focus",

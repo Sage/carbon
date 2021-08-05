@@ -2,7 +2,6 @@ import {
   slide,
   nextArrowButton,
   previousArrowButton,
-  slideIFrame,
 } from "../../locators/carousel";
 
 function clickCarouselButton(direction) {
@@ -35,5 +34,5 @@ Then("next button is disabled", () => {
 });
 
 When("I click clickable slide", () => {
-  slideIFrame(1).click();
+  slide(1).click();
 });

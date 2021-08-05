@@ -10,16 +10,17 @@ import PodContext from "./pod-context";
 import {
   StyledBlock,
   StyledContent,
-  StyledDescription,
   StyledEditAction,
-  StyledEditContainer,
+  StyledActionsContainer,
+  StyledDeleteButton,
+  StyledUndoButton,
   StyledFooter,
   StyledPod,
   StyledHeader,
   StyledSubtitle,
   StyledTitle,
-  StyledArrow,
 } from "./pod.style.js";
+import Icon from "../icon";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -27,23 +28,62 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 class Pod extends React.Component {
   state = {
-    isCollapsed: this.props.collapsed,
-    isHovered: false,
-    isFocused: false,
+    isEditHovered: false,
+    isEditFocused: false,
+    isDeleteHovered: false,
+    isDeleteFocused: false,
+    isUndoHovered: false,
+    isUndoFocused: false,
   };
 
   static contextType = PodContext;
 
-  toggleCollapse = () => {
-    this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
+  handleEditMouseEnter = () => {
+    this.setState({ isEditHovered: true });
   };
 
-  toggleHoverState = (val) => {
-    this.setState({ isHovered: val });
+  handleEditMouseLeave = () => {
+    this.setState({ isEditHovered: false });
   };
 
-  toggleFocusState = (val) => {
-    this.setState({ isFocused: val });
+  handleEditFocus = () => {
+    this.setState({ isEditFocused: true });
+  };
+
+  handleEditBlur = () => {
+    this.setState({ isEditFocused: false });
+  };
+
+  handleDeleteMouseEnter = () => {
+    this.setState({ isDeleteHovered: true });
+  };
+
+  handleDeleteMouseLeave = () => {
+    this.setState({ isDeleteHovered: false });
+  };
+
+  handleDeleteFocus = () => {
+    this.setState({ isDeleteFocused: true });
+  };
+
+  handleDeleteBlur = () => {
+    this.setState({ isDeleteFocused: false });
+  };
+
+  handleUndoMouseEnter = () => {
+    this.setState({ isUndoHovered: true });
+  };
+
+  handleUndoMouseLeave = () => {
+    this.setState({ isUndoHovered: false });
+  };
+
+  handleUndoFocus = () => {
+    this.setState({ isUndoFocused: true });
+  };
+
+  handleUndoBlur = () => {
+    this.setState({ isUndoFocused: false });
   };
 
   podHeader() {
@@ -59,70 +99,104 @@ class Pod extends React.Component {
       return null;
     }
 
-    const { isCollapsed } = this.state;
-
-    const isCollapsable = isCollapsed !== undefined;
-
     return (
       <StyledHeader
         alignTitle={alignTitle}
         internalEditButton={internalEditButton}
         size={size}
-        isCollapsed={isCollapsed}
-        onClick={isCollapsable ? this.toggleCollapse : undefined}
       >
         <StyledTitle data-element="title">{title}</StyledTitle>
         {subtitle && (
           <StyledSubtitle data-element="subtitle">{subtitle}</StyledSubtitle>
         )}
-        {isCollapsable && (
-          <StyledArrow isCollapsed={isCollapsed} type="dropdown" />
-        )}
       </StyledHeader>
     );
   }
 
-  podDescription() {
-    const { description } = this.props;
-
-    if (description) {
-      return (
-        <StyledDescription data-element="description">
-          {description}
-        </StyledDescription>
-      );
-    }
-    return null;
-  }
-
-  podContent() {
-    if (this.state.isCollapsed) return null;
-
-    return (
-      <>
-        {this.podDescription()}
-        <div>{this.props.children}</div>
-      </>
-    );
-  }
-
   footer() {
-    const { footer, size, variant } = this.props;
+    const { footer, size, variant, softDelete } = this.props;
 
     if (!footer) {
       return null;
     }
 
     return (
-      <StyledFooter data-element="footer" size={size} variant={variant}>
+      <StyledFooter
+        data-element="footer"
+        size={size}
+        variant={variant}
+        softDelete={softDelete}
+      >
         {footer}
       </StyledFooter>
     );
   }
 
+  actionButtons() {
+    const {
+      onDelete,
+      onEdit,
+      onUndo,
+      softDelete,
+      internalEditButton,
+    } = this.props;
+
+    if (softDelete && onUndo) {
+      return (
+        <StyledActionsContainer internalEditButton={internalEditButton}>
+          {this.undo()}
+        </StyledActionsContainer>
+      );
+    }
+
+    if (!softDelete && (onDelete || onEdit)) {
+      return (
+        <StyledActionsContainer internalEditButton={internalEditButton}>
+          {onEdit && this.edit()}
+          {onDelete && this.delete()}
+        </StyledActionsContainer>
+      );
+    }
+
+    return null;
+  }
+
+  delete() {
+    const {
+      onDelete,
+      internalEditButton,
+      variant,
+      size,
+      border,
+      displayEditButtonOnHover,
+    } = this.props;
+
+    const { isDeleteFocused, isDeleteHovered } = this.state;
+
+    return (
+      <StyledDeleteButton
+        onMouseEnter={this.handleDeleteMouseEnter}
+        onMouseLeave={this.handleDeleteMouseLeave}
+        onFocus={this.handleDeleteFocus}
+        onBlur={this.handleDeleteBlur}
+        data-element="delete"
+        internalEditButton={internalEditButton}
+        displayOnlyOnHover={displayEditButtonOnHover}
+        isFocused={isDeleteFocused}
+        isHovered={isDeleteHovered}
+        noBorder={!border}
+        size={size}
+        variant={variant}
+        onKeyDown={this.processPodAction(onDelete)}
+        onAction={this.processPodAction(onDelete)}
+      >
+        <Icon type="delete" />
+      </StyledDeleteButton>
+    );
+  }
+
   edit() {
     const {
-      onEdit,
       internalEditButton,
       variant,
       size,
@@ -131,27 +205,20 @@ class Pod extends React.Component {
       triggerEditOnContent,
     } = this.props;
 
-    const { isFocused, isHovered } = this.state;
-
-    if (!onEdit) {
-      return null;
-    }
+    const { isEditFocused, isEditHovered } = this.state;
 
     return (
-      <StyledEditContainer
-        {...this.editEvents()}
-        internalEditButton={internalEditButton}
-      >
-        <LocaleContext.Consumer>
-          {(l) => (
+      <LocaleContext.Consumer>
+        {(l) => (
+          <div {...this.editEvents()} data-element="edit-container">
             <StyledEditAction
               contentTriggersEdit={triggerEditOnContent}
               data-element="edit"
               displayOnlyOnHover={displayEditButtonOnHover}
               icon="edit"
               internalEditButton={internalEditButton}
-              isFocused={isFocused}
-              isHovered={isHovered}
+              isFocused={isEditFocused}
+              isHovered={isEditHovered}
               noBorder={!border}
               size={size}
               variant={variant}
@@ -159,9 +226,35 @@ class Pod extends React.Component {
             >
               {l.actions.edit()}
             </StyledEditAction>
-          )}
-        </LocaleContext.Consumer>
-      </StyledEditContainer>
+          </div>
+        )}
+      </LocaleContext.Consumer>
+    );
+  }
+
+  undo() {
+    const { onUndo, internalEditButton, variant, size, border } = this.props;
+
+    const { isUndoFocused, isUndoHovered } = this.state;
+
+    return (
+      <StyledUndoButton
+        onMouseEnter={this.handleUndoMouseEnter}
+        onMouseLeave={this.handleUndoMouseLeave}
+        onFocus={this.handleUndoFocus}
+        onBlur={this.handleUndoBlur}
+        data-element="undo"
+        internalEditButton={internalEditButton}
+        isFocused={isUndoFocused}
+        isHovered={isUndoHovered}
+        noBorder={!border}
+        size={size}
+        variant={variant}
+        onKeyDown={this.processPodAction(onUndo)}
+        onAction={this.processPodAction(onUndo)}
+      >
+        <Icon type="undo" />
+      </StyledUndoButton>
     );
   }
 
@@ -180,28 +273,24 @@ class Pod extends React.Component {
 
   editEvents() {
     const props = {
-      onMouseEnter: this.toggleHoverState.bind(this, true),
-      onMouseLeave: this.toggleHoverState.bind(this, false),
-      onFocus: this.toggleFocusState.bind(this, true),
-      onBlur: this.toggleFocusState.bind(this, false),
+      onMouseEnter: this.handleEditMouseEnter,
+      onMouseLeave: this.handleEditMouseLeave,
+      onFocus: this.handleEditFocus,
+      onBlur: this.handleEditBlur,
     };
 
     if (typeof this.props.onEdit === "function") {
-      props.onClick = this.processPodEditEvent;
-      props.onKeyDown = this.processPodEditEvent;
+      props.onClick = this.processPodAction(this.props.onEdit);
+      props.onKeyDown = this.processPodAction(this.props.onEdit);
     }
 
     return props;
   }
 
-  processPodEditEvent = (ev) => {
+  processPodAction = (action) => (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, "keydown")) {
       ev.preventDefault();
-      this.setState(() => ({
-        isHovered: false,
-        isFocused: false,
-      }));
-      this.props.onEdit(ev);
+      action(ev);
     }
   };
 
@@ -221,13 +310,21 @@ class Pod extends React.Component {
       editContentFullWidth,
       internalEditButton,
       onEdit,
+      onUndo,
+      onDelete,
+      softDelete,
       size,
       title,
       height,
       ...rest
     } = this.props;
 
-    const { isFocused, isHovered } = this.state;
+    const {
+      isEditFocused,
+      isEditHovered,
+      isDeleteFocused,
+      isDeleteHovered,
+    } = this.state;
 
     let podHeight;
 
@@ -251,24 +348,25 @@ class Pod extends React.Component {
       >
         <StyledBlock
           contentTriggersEdit={this.shouldContentHaveEditEvents()}
-          editable={onEdit}
+          hasButtons={onEdit || onDelete || onUndo}
           fullWidth={editContentFullWidth}
           internalEditButton={internalEditButton}
-          isFocused={isFocused}
-          isHovered={isHovered}
+          isFocused={isEditFocused || isDeleteFocused}
+          isHovered={isEditHovered || isDeleteHovered}
           noBorder={!border}
           variant={variant}
+          softDelete={softDelete}
           {...(this.shouldContentHaveEditEvents()
             ? { ...this.editEvents(), tabIndex: "0" }
             : {})}
         >
           <StyledContent data-element="content" size={size}>
             {this.podHeader()}
-            {this.podContent()}
+            <div>{this.props.children}</div>
           </StyledContent>
           {this.footer()}
         </StyledBlock>
-        {this.edit()}
+        {this.actionButtons()}
       </StyledPod>
     );
   }
@@ -315,15 +413,6 @@ Pod.propTypes = {
   ]),
 
   /**
-   * The collapsed state of the pod
-   *
-   * undefined - Pod is not collapsible |
-   * true - Pod is closed |
-   * false - Pod is open
-   */
-  collapsed: PropTypes.bool,
-
-  /**
    * Title for the pod h4 element
    * always shown
    */
@@ -340,12 +429,6 @@ Pod.propTypes = {
   alignTitle: PropTypes.oneOf(["left", "center", "right"]),
 
   /**
-   * Description for the pod
-   * Not shown if collapsed
-   */
-  description: PropTypes.string,
-
-  /**
    * A component to render as a Pod footer.
    */
   footer: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -358,6 +441,19 @@ Pod.propTypes = {
     PropTypes.func,
     PropTypes.object,
   ]),
+  /**
+   * Supplies a delete action to the pod.
+   */
+  onDelete: PropTypes.func,
+  /**
+   * Supplies an undo action to the pod in soft delete state.
+   */
+  onUndo: PropTypes.func,
+
+  /**
+   * Sets soft delete state.
+   */
+  softDelete: PropTypes.bool,
 
   /**
    * Determines if the editable pod content should be full width.
@@ -383,7 +479,7 @@ Pod.propTypes = {
   /**
    * Sets Pod height, number is changed to pixels and string is passed as raw css value
    */
-  height: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Pod.defaultProps = {

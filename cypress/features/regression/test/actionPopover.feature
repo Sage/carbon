@@ -1,17 +1,17 @@
-Feature: Action Popover component in noIFrame
-  I want to change Action Popover component properties in noIFrame
+Feature: Action Popover component
+  I want to change Action Popover component properties
 
   Background: Open Action Popover component page in no iframe
     Given I open "Design System Action Popover Test" component page "default" in no iframe
 
   @positive
   Scenario: Open Action Popover element
-    When I click the menu button element in noiFrame
+    When I click the menu button element
     Then Action Popover element is visible
 
   @positive
-  Scenario Outline: check <innerText> as inner context
-    When I click the menu button element in noiFrame
+  Scenario Outline: Check <innerText> as inner context
+    When I click the menu button element
       And I press keyboard "downarrow" key times <times>
     Then focused element inner content is set to "<innerText>"
       And Action Popover element has golden border on focus
@@ -41,16 +41,16 @@ Feature: Action Popover component in noIFrame
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: verify that the first element Business is focused using Home key
-    Given I click the menu button element in noiFrame
+  Scenario: Verify that the first element Business is focused using Home key
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
     When I press "Home" onto focused element
     Then focused element inner content is set to "Business"
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: verify that the first sub menu 1 element is focused using Home key for submenu
-    Given I click the menu button element in noiFrame
+  Scenario: Verify that the first sub menu 1 element is focused using Home key for submenu
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
@@ -61,22 +61,19 @@ Feature: Action Popover component in noIFrame
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: verify that the last element Delete is focused using Uparrow key
-    When I click the menu button element in noiFrame
-      And I press "uparrow" onto focused element
+  Scenario Outline: Verify that the last element Delete is focused using <key> key
+    When I click the menu button element
+      And I press "<key>" onto focused element
     Then focused element inner content is set to "Delete"
       And Action Popover element has golden border on focus
+    Examples:
+      | key     |
+      | uparrow |
+      | End     |
 
   @positive
-  Scenario: verify that the last element Delete is focused using End key
-    When I click the menu button element in noiFrame
-      And I press "End" onto focused element
-    Then focused element inner content is set to "Delete"
-      And Action Popover element has golden border on focus
-
-  @positive
-  Scenario: verify that the last sub menu 3 element is focused using End key for submenu
-    Given I click the menu button element in noiFrame
+  Scenario: Verify that the last sub menu 3 element is focused using End key for submenu
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
@@ -87,51 +84,51 @@ Feature: Action Popover component in noIFrame
 
   @positive
   Scenario: Open Action Popover and close it using Tab key
-    When I click the menu button element in noiFrame
+    When I click the menu button element
       And I press Tab onto focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it using Shift Tab key
-    When I click the menu button element in noiFrame
+    When I click the menu button element
       And I press ShiftTab onto focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it using ESC key
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
     When I press ESC onto focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Close ActionPopover using ESC key if it hasn't a submenu
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 1
     When I press ESC onto focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Close Action Popover using ESC key if it has a submenu
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
     When I press ESC onto focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it by clicking outside of the component
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
     When I click onto root in Test directory in no iFrame
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it by clicking onto Open icon
-    Given I click the menu button element in noiFrame
-    When I click the menu button element in noiFrame
+    Given I click the menu button element
+    When I click the menu button element
     Then Action Popover element is not visible
 
   @positive
-  Scenario Outline: focus <innerText> element using different keyboard key <key>
-    Given I click the menu button element in noiFrame
+  Scenario Outline: Focus <innerText> element using different keyboard key <key>
+    Given I click the menu button element
     When I press "<key>" key times <times>
     Then Action Popover element is visible
       And focused element inner content is set to "<innerText>"
@@ -145,8 +142,8 @@ Feature: Action Popover component in noIFrame
       | p   | Print Invoice | 1     |
 
   @positive
-  Scenario Outline: check submenu <innerText> as inner context
-    When I click the menu button element in noiFrame
+  Scenario Outline: Check submenu <innerText> as inner context
+    When I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I press "leftarrow" onto focused element
       And I press keyboard "downarrow" key times <times>
@@ -160,7 +157,7 @@ Feature: Action Popover component in noIFrame
 
   @positive
   Scenario Outline: Close Submenu and Action Popover after press Enter keyboard key
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
@@ -176,7 +173,7 @@ Feature: Action Popover component in noIFrame
 
   @positive
   Scenario Outline: Close submenu after press ArrowRight keyboard key
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
@@ -192,7 +189,7 @@ Feature: Action Popover component in noIFrame
 
   @positive
   Scenario Outline:  Close Submenu and Action Popover after press Esc keyboard key
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
@@ -208,13 +205,13 @@ Feature: Action Popover component in noIFrame
 
   @positive
   Scenario Outline:  Close Submenu and Action Popover after clicking on the submenu
-    Given I click the menu button element in noiFrame
+    Given I click the menu button element
       And I press keyboard "downarrow" key times 2
       And I wait 250
       And I press "leftarrow" onto focused element
       And I wait 250
       And I press keyboard "downarrow" key times <times>
-    When I click <times> submenu actionPopoverInnerItem in noIframe
+    When I click <times> submenu actionPopoverInnerItem
     Then Action Popover element is not visible
     Examples:
       | times |

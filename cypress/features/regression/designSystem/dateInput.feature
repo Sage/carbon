@@ -4,7 +4,7 @@ Feature: Design System Date Input component
   @positive
   Scenario Outline: Change DateInput component field help to <fieldHelp>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp               | nameOfObject              |
       | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
@@ -13,7 +13,7 @@ Feature: Design System Date Input component
   @positive
   Scenario Outline: Change DateInput label to <label>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
-    Then label on preview is <label> in NoIFrame
+    Then label on preview is <label>
     Examples:
       | label                   | nameOfObject          |
       | mp150ú¿¡üßä             | labelOtherLanguage    |
@@ -30,23 +30,21 @@ Feature: Design System Date Input component
 
   @positive
   Scenario: Change Date Input component minDate
-    Given I open "Design System Date Input Test" component page "default"
-      And I set minDate to today
+    Given I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "minDate" object name
       And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
 
   @positive
   Scenario: Change Date Input component maxDate
-    Given I open "Design System Date Input Test" component page "default"
-      And I set maxDate to today
+    Given I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "maxDate" object name
       And I set dateInput to today
     When I choose date tomorrow via DayPicker
     Then the date after maxDate is not available
 
   @positive
   Scenario: Check Date Input today date
-    Given I open "Design System Date Input Test" component page "default"
+    Given I open "Design System Date Input Test" component page "default" in no iframe
     When I set dateInput to today
     Then the date is set to today
 

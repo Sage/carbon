@@ -176,7 +176,6 @@ Feature: Button component
 
   @positive 
   Scenario: Verify the click function for a Button component
-    Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
 ```

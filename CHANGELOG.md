@@ -1,3 +1,38 @@
+### [81.0.1](https://github.com/Sage/carbon/compare/v81.0.0...v81.0.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* **search:** incorrect margin when used in Form ([f0a0241](https://github.com/Sage/carbon/commit/f0a0241f5d3b6a44bbfec3b5480e91a1fcf46a32))
+
+## [81.0.0](https://github.com/Sage/carbon/compare/v80.1.0...v81.0.0) (2021-08-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod:** description prop removed,
+functionality could be replicated by rendering a description as Pod child
+there is a codemod available to assist with this change:
+(https://github.com/Sage/carbon-codemod/tree/master/transforms/move-pod-description-to-content)
+* **pod:** collapse functionality removed,
+Accordion Component could be used to replicate it
+There is a codemod available to assist with this change:
+(https://github.com/Sage/carbon-codemod/tree/master/
+transforms/replace-collapsible-pod-with-accordion)
+
+### Code Refactoring
+
+* **pod:** remove collapse functionality ([4babacb](https://github.com/Sage/carbon/commit/4babacb441f1d131221749ba68c7b9384750af29))
+* **pod:** remove description prop ([46f2480](https://github.com/Sage/carbon/commit/46f248021e7b79bcfff6d397a6ecac22055cf06d))
+
+## [80.1.0](https://github.com/Sage/carbon/compare/v80.0.0...v80.1.0) (2021-08-02)
+
+
+### Features
+
+* **pod:** added softDelete, onDelete and onUndo functionalities ([76b23ef](https://github.com/Sage/carbon/commit/76b23ef5964300876f85e00a71056bdd1987e57f))
+* **show-edit-pod:** added softDelete, onDelete and onUndo functionalities ([df467f9](https://github.com/Sage/carbon/commit/df467f93bb7c1775eb1ba8107ec5e6a986012eb4))
+
 ## [80.0.0](https://github.com/Sage/carbon/compare/v79.1.1...v80.0.0) (2021-07-30)
 
 
