@@ -16,6 +16,7 @@ import {
   StyledForm,
 } from "./form.style";
 import FormSummary from "./__internal__/form-summary.component";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 import {
   StyledFormSummary,
   StyledInternalSummary,
@@ -23,6 +24,9 @@ import {
 import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
+import StyledSearch from "../search/search.style";
+
+jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 
 describe("Form", () => {
   let wrapper;
@@ -55,6 +59,20 @@ describe("Form", () => {
     expect(
       ElementResizeSpy.mock.calls.filter((call) => call[0] === formNode)
     ).toHaveLength(1);
+  });
+
+  describe("when search used in Form component", () => {
+    it("should have no addition margin-bottom", () => {
+      wrapper = mount(<StyledForm />);
+
+      assertStyleMatch(
+        {
+          marginBottom: "0px",
+        },
+        wrapper,
+        { modifier: `${StyledSearch} ${StyledFormField}` }
+      );
+    });
   });
 
   describe("When `fieldSpacing` applied", () => {
@@ -476,6 +494,12 @@ describe("Form", () => {
           }
         }
       );
+
+      it("when there are no errors and warnings", () => {
+        wrapper.setProps({ errorCount: 0, warningCount: 0 });
+
+        expect(wrapper.find(StyledInternalSummary).exists()).toBe(false);
+      });
     });
   });
 

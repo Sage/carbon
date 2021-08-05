@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { boolean, text, number, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import I18n from "i18n-js";
 import Switch, { BaseSwitch } from "./switch.component";
 
 export default {
@@ -15,18 +14,6 @@ export default {
       disable: true,
     },
     knobs: { escapeHTML: false },
-  },
-};
-
-const { translations } = I18n;
-I18n.translations = {
-  ...translations,
-  fr: {
-    ...translations.fr,
-    switch: {
-      on: "sur",
-      off: "de",
-    },
   },
 };
 

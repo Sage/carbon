@@ -1,3 +1,74 @@
+### [81.0.4](https://github.com/Sage/carbon/compare/v81.0.3...v81.0.4) (2021-08-05)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure correct z-index is applied to flat-table-header ([0aeb143](https://github.com/Sage/carbon/commit/0aeb1435935e06b59b1f9086945174e9673c8637)), closes [#4226](https://github.com/Sage/carbon/issues/4226)
+* **flat-table-header:** add padding-right specifically for Firefox ([d85e134](https://github.com/Sage/carbon/commit/d85e1342d3c26ed794f87fdb4541b783ef4c4986))
+* **flat-table-row:** apply border-left if preceding row has a row header ([04af1c5](https://github.com/Sage/carbon/commit/04af1c53c32d44f1bf0e95791b8b276926b47389))
+
+### [81.0.3](https://github.com/Sage/carbon/compare/v81.0.2...v81.0.3) (2021-08-05)
+
+
+### Bug Fixes
+
+* **flat-table-row:** remove hover state for rows within drawer sidebar and no onclick ([222f5fb](https://github.com/Sage/carbon/commit/222f5fb7c28c0ccf8de9cecf85c4dea4806119f8)), closes [#4276](https://github.com/Sage/carbon/issues/4276)
+
+### [81.0.2](https://github.com/Sage/carbon/compare/v81.0.1...v81.0.2) (2021-08-05)
+
+
+### Bug Fixes
+
+* **card:** incorrect props on a static card ([1c069b8](https://github.com/Sage/carbon/commit/1c069b860a1657872c1547847a3ba83df1e06434))
+
+### [81.0.1](https://github.com/Sage/carbon/compare/v81.0.0...v81.0.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* **search:** incorrect margin when used in Form ([f0a0241](https://github.com/Sage/carbon/commit/f0a0241f5d3b6a44bbfec3b5480e91a1fcf46a32))
+
+## [81.0.0](https://github.com/Sage/carbon/compare/v80.1.0...v81.0.0) (2021-08-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod:** description prop removed,
+functionality could be replicated by rendering a description as Pod child
+there is a codemod available to assist with this change:
+(https://github.com/Sage/carbon-codemod/tree/master/transforms/move-pod-description-to-content)
+* **pod:** collapse functionality removed,
+Accordion Component could be used to replicate it
+There is a codemod available to assist with this change:
+(https://github.com/Sage/carbon-codemod/tree/master/
+transforms/replace-collapsible-pod-with-accordion)
+
+### Code Refactoring
+
+* **pod:** remove collapse functionality ([4babacb](https://github.com/Sage/carbon/commit/4babacb441f1d131221749ba68c7b9384750af29))
+* **pod:** remove description prop ([46f2480](https://github.com/Sage/carbon/commit/46f248021e7b79bcfff6d397a6ecac22055cf06d))
+
+## [80.1.0](https://github.com/Sage/carbon/compare/v80.0.0...v80.1.0) (2021-08-02)
+
+
+### Features
+
+* **pod:** added softDelete, onDelete and onUndo functionalities ([76b23ef](https://github.com/Sage/carbon/commit/76b23ef5964300876f85e00a71056bdd1987e57f))
+* **show-edit-pod:** added softDelete, onDelete and onUndo functionalities ([df467f9](https://github.com/Sage/carbon/commit/df467f93bb7c1775eb1ba8107ec5e6a986012eb4))
+
+## [80.0.0](https://github.com/Sage/carbon/compare/v79.1.1...v80.0.0) (2021-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **i18n:** Translations are providing via a locale file (https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
+`validationMessage` method of validations helper has been removed.
+`formatDateToCurrentLocale`, `withinRange`, `weekdaysMinified`, `formatValue` and `isValidDate` methods of date helper have been removed.
+
+### Code Refactoring
+
+* **i18n:** remove i18n-js ([2307677](https://github.com/Sage/carbon/commit/2307677498808506e3a8852dbf2a482a443fb3b5))
+
 ### [79.1.1](https://github.com/Sage/carbon/compare/v79.1.0...v79.1.1) (2021-07-26)
 
 

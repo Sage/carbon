@@ -59,15 +59,13 @@ Feature: Pages component
 
   @positive
   Scenario: Open event
-    Given I open "Pages Test" component page "default"
-      And clear all actions in Actions Tab
-    When I open Pages component preview in Iframe
+    Given I open "Pages Test" component page "default" in no iframe
+    When I open Pages component preview
     Then open action was called in Actions Tab
 
   @positive
   Scenario: Cancel event
-    Given I open "Pages Test" component page "default"
-      And I open Pages component preview in Iframe
-      And clear all actions in Actions Tab
-    When I close page in IFrame
+    Given I open "Pages Test" component page "default" in no iframe
+      And I open Pages component preview
+    When I close page
     Then cancel action was called in Actions Tab

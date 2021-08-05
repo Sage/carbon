@@ -9,6 +9,9 @@ import {
   segmentTitle,
   menuComponent,
   submenuItem,
+  fullscreenMenu,
+  menu,
+  menuItem,
 } from "../../locators/menu";
 import {
   searchDefaultInput,
@@ -163,4 +166,51 @@ Then("Search component input icon should be focused", () => {
 
 When("Type {string} text into search input", (text) => {
   searchDefaultInput().type(text);
+});
+
+Then("Menu is in fullscreen mode", () => {
+  fullscreenMenu(positionOfElement("first"))
+    .find("span")
+    .should("have.attr", "data-element", "close")
+    .and("be.visible");
+  fullscreenMenu(positionOfElement("second"))
+    .find("ul")
+    .should("have.attr", "data-component", "menu")
+    .should("be.visible");
+  fullscreenMenu(positionOfElement("second"))
+    .find("ul > li")
+    .should("have.length", 15);
+});
+
+Then("Menu is in fullscreen mode is not visible", () => {
+  fullscreenMenu(positionOfElement("first")).should("not.be.visible");
+  fullscreenMenu(positionOfElement("second")).should("not.be.visible");
+  menu().should("be.visible");
+});
+
+Then("{string} inner menu element is focused", (position) => {
+  menuComponent(positionOfElement(position))
+    .find("ul > li")
+    .eq(1)
+    .children()
+    .children()
+    .should("have.css", "box-shadow")
+    .and("contain", "rgb(255, 181, 0)");
+  menuComponent(positionOfElement(position))
+    .find("ul > li")
+    .eq(1)
+    .children()
+    .children()
+    .should("have.css", "background-color")
+    .and("contain", "rgb(0, 129, 93)");
+  menuComponent(positionOfElement(position))
+    .find("ul > li")
+    .eq(1)
+    .children()
+    .children()
+    .should("be.focused");
+});
+
+Then("inner menu without active redirection is not focused", () => {
+  menuItem().should("not.be.focused");
 });

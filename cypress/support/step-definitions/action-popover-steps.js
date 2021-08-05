@@ -2,12 +2,9 @@ import {
   actionPopoverButton,
   actionPopover,
   actionPopoverInnerItem,
-  actionPopoverButtonNoIframe,
   actionPopoverSubmenu,
-  actionPopoverSubmenuNoIFrame,
   actionPopoverSubmenuByIndex,
 } from "../../locators/action-popover";
-import { eventInAction } from "../../locators";
 import { keyCode } from "../helper";
 
 Then("Action Popover element is visible", () => {
@@ -18,12 +15,8 @@ Then("Action Popover element is not visible", () => {
   actionPopover().should("not.exist");
 });
 
-When("I click the menu button element in noiFrame", () => {
-  actionPopoverButton().eq(0).click();
-});
-
 When("I click the menu button element", () => {
-  actionPopoverButtonNoIframe().eq(0).click();
+  actionPopoverButton().eq(0).click();
 });
 
 When(
@@ -51,10 +44,6 @@ When("I click {int} submenu actionPopoverInnerItem", (element) => {
   actionPopoverSubmenu(element).click({ force: true });
 });
 
-When("I click {int} submenu actionPopoverInnerItem in noIframe", (element) => {
-  actionPopoverSubmenuByIndex(element).click({ force: true });
-});
-
 When("I press {string} onto {int} actionPopoverInnerItem", (key, element) => {
   actionPopoverInnerItem(element).type(`{${key}}`);
 });
@@ -72,11 +61,11 @@ When("I press {word} on first element", (key) => {
 });
 
 Then("{string} action was called in Actions Tab for actionPopover", (event) => {
-  eventInAction(event);
+  cy.storyAction(event);
 });
 
 Then("ActionPopover submenu is not visible", () => {
-  actionPopoverSubmenuNoIFrame().should("not.be.visible");
+  actionPopoverSubmenuByIndex().should("not.be.visible");
 });
 
 Then("Download button has href link {string} and download prop", (link) => {

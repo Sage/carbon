@@ -1,4 +1,4 @@
-import { getComponentNoIframe, getElementNoIframe } from "../../locators";
+import { getComponent, getElement } from "../../locators";
 import {
   buttonToggleComponent,
   linkComponent,
@@ -12,7 +12,7 @@ Then(
   "{string} component css {string} is set to {string} common",
   (componentName, css, themeName) => {
     cy.fixture("themes/themes.json").then((json) => {
-      getComponentNoIframe(componentName).should(
+      getComponent(componentName).should(
         "have.css",
         css,
         json.common[themeName]
@@ -25,7 +25,7 @@ Then(
   "{string} component css {string} is set to {string}",
   (componentName, css, themeName) => {
     cy.fixture("themes/themes.json").then((json) => {
-      getComponentNoIframe(componentName).should(
+      getComponent(componentName).should(
         "have.css",
         css,
         json[componentName][themeName]
@@ -51,7 +51,7 @@ Then(
   "{string} element css {string} is set to {string} common",
   (componentName, css, themeName) => {
     cy.fixture("themes/themes.json").then((json) => {
-      getElementNoIframe(componentName)
+      getElement(componentName)
         .should("have.css", css)
         .and("contains", json.common[themeName]);
     });
@@ -59,7 +59,7 @@ Then(
 );
 
 When("I click {string} component", (componentName) => {
-  getComponentNoIframe(componentName).first().click();
+  getComponent(componentName).first().click();
 });
 
 Then("Link component css color is set to {string}", (themeName) => {

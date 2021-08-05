@@ -120,3 +120,57 @@ Feature: Design System Filterable Select component
     Given I open "Design System Select filterable" component page "with multiple columns" in no iframe
     When I type "Do" into select input
     Then The matching string "Do" is underline and bolded
+
+  @positive
+  Scenario: Check the onChange events after typed string into the input
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+      And I focus default Select input
+    When I type "A" into default input
+    Then onChange action was called in Actions Tab
+
+  @positive
+  Scenario: Check the onClick, onFocus events after clicking on the input
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+    When I click on default Select input
+    Then onFocus action was called in Actions Tab
+      And onClick action was called in Actions Tab
+
+  @positive
+  Scenario: Check the onOpen, onClick, onFocus after clicking on the dropdown button
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+    When I click on dropdown button
+      And I wait 500
+    Then onOpen action was called in Actions Tab
+      And onFocus action was called in Actions Tab
+      And onClick action was called in Actions Tab
+
+  @positive
+  Scenario: Check the onKeyDown event after clicking arrow
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+    When I focus default Select input
+      And I click onto default select using "downarrow" key
+      And I wait 500
+    Then onOpen action was called in Actions Tab
+      And onFocus action was called in Actions Tab
+      And onKeyDown action was called in Actions Tab
+
+  @positive
+  Scenario: Check the onBlur event
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+      And I focus default Select input
+    When I click on Select label
+    Then onBlur action was called in Actions Tab
+
+  @positive
+  Scenario: Close Filterable Select list using Esc keyboard
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+      And I click on dropdown button
+    When I hit ESC key
+    Then "filterable" Select list is closed
+
+  @positive
+  Scenario: Check the onFilterChange events after typed string into the input
+    Given I open "Design System Select filterable" component page "default story" in no iframe
+      And I focus default Select input
+    When I type "b" into default input
+    Then onFilterChange action was called in Actions Tab

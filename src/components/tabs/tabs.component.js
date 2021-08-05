@@ -40,11 +40,10 @@ const Tabs = ({
   const tabRefs = useRef([]);
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
-  const sidebarContext = useContext(DrawerSidebarContext);
+  const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
-  const isInSidebar = !!sidebarContext?.isInSidebar;
 
   useLayoutEffect(() => {
     const selectedTab =
@@ -212,7 +211,7 @@ const Tabs = ({
 
       const tabTitle = (
         <TabTitle
-          position={sidebarContext ? "left" : position}
+          position={isInSidebar ? "left" : position}
           className={child.props.className || ""}
           dataTabId={tabId}
           id={refId}
@@ -248,10 +247,10 @@ const Tabs = ({
     return (
       <TabsHeader
         align={align}
-        position={sidebarContext ? "left" : position}
+        position={isInSidebar ? "left" : position}
         role="tablist"
         extendedLine={extendedLine}
-        alternateStyling={variant === "alternate" || !!sidebarContext}
+        alternateStyling={variant === "alternate" || isInSidebar}
         noRightBorder={["no right side", "no sides"].includes(borders)}
         isInSidebar={isInSidebar}
       >
@@ -279,7 +278,7 @@ const Tabs = ({
 
   /** Builds all tabs where non selected tabs have class of hidden */
   const renderTabs = () => {
-    if (sidebarContext) return null;
+    if (isInSidebar) return null;
 
     if (!renderHiddenTabs) {
       return visibleTab();
@@ -314,7 +313,7 @@ const Tabs = ({
   return (
     <StyledTabs
       className={className}
-      position={sidebarContext ? "left" : position}
+      position={isInSidebar ? "left" : position}
       updateErrors={updateErrors}
       updateWarnings={updateWarnings}
       {...tagComponent("tabs", rest)}

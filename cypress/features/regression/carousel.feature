@@ -49,9 +49,6 @@ Feature: Carousel component
 
   @positive
   Scenario: Verify the click event for a clickable slide
-    Given I open "Carousel Test" component page "default"
-      And I select slideIndex to "1"
-      And I wait 500
-      And clear all actions in Actions Tab
+    Given I open default "Carousel Test" component in noIFrame with "carousel" json from "commonComponents" using "slideIndex1" object name
     When I click clickable slide
     Then click action was called in Actions Tab

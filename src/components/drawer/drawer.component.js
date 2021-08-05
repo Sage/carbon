@@ -16,7 +16,7 @@ import {
 } from "./drawer.style";
 import StickyFooter from "../../__internal__/sticky-footer";
 
-const DrawerSidebarContext = React.createContext();
+const DrawerSidebarContext = React.createContext({});
 
 const Drawer = ({
   defaultExpanded = true,

@@ -57,6 +57,13 @@ const Card = ({
 
   const onClickHandler = interactive ? handleClick : null;
 
+  const interactiveProps = interactive
+    ? {
+        tabIndex: 0,
+        type: "button",
+      }
+    : undefined;
+
   return (
     <StyledCard
       data-component="card"
@@ -64,10 +71,9 @@ const Card = ({
       interactive={interactive}
       draggable={draggable}
       spacing={spacing}
-      type="button"
       onClick={onClickHandler}
-      tabIndex={0}
       data-role={dataRole}
+      {...interactiveProps}
       {...rest}
     >
       {draggable && <Icon type="drag" />}

@@ -298,6 +298,7 @@ describe("ShowEditPod", () => {
       additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
       expect(additionalComponent.type()).toBe(StyledDeleteButton);
+      additionalComponent.unmount();
     });
 
     describe('with the "deleteText" prop', () => {
@@ -312,6 +313,7 @@ describe("ShowEditPod", () => {
         );
 
         expect(additionalComponent.text()).toBe(mockText);
+        additionalComponent.unmount();
       });
     });
 
@@ -326,11 +328,21 @@ describe("ShowEditPod", () => {
         );
 
         expect(additionalComponent.text()).toBe("Delete");
+        additionalComponent.unmount();
       });
     });
 
-    afterEach(() => {
-      additionalComponent.unmount();
+    describe("and hideDeleteButtonInViewMode is set", () => {
+      it("hides the delete button in view mode", () => {
+        wrapper = renderShowEditPod({
+          onDelete,
+          hideDeleteButtonInViewMode: true,
+        });
+
+        expect(wrapper.find(Pod).find('[data-element="delete"]').exists()).toBe(
+          false
+        );
+      });
     });
   });
 

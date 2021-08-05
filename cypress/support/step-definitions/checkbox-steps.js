@@ -1,5 +1,5 @@
 import { checkbox, checkboxRole } from "../../locators/checkbox";
-import { labelNoIFrame } from "../../locators";
+import { label } from "../../locators";
 import { positionOfElement } from "../helper";
 
 Given("I check {string} checkbox", (position) => {
@@ -7,7 +7,7 @@ Given("I check {string} checkbox", (position) => {
 });
 
 Then("checkbox label on preview is {word}", (text) => {
-  labelNoIFrame().should("have.text", `${text} (default)`);
+  label().should("have.text", `${text} (default)`);
 });
 
 When("I mark checkbox on preview", () => {

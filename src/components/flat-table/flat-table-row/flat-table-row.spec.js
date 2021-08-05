@@ -97,7 +97,7 @@ describe("FlatTableRow", () => {
           borderBottom: "1px solid transparent",
           borderLeft: `1px solid ${baseTheme.colors.focus}`,
           backgroundClip: "padding-box",
-          zIndex: "1001",
+          zIndex: "1002",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -366,7 +366,7 @@ describe("FlatTableRow", () => {
       ["StyledFlatTableCell", StyledFlatTableCell],
       ["StyledFlatTableCheckbox", StyledFlatTableCheckbox],
     ])("applies the expected styling to %s", (id, el) => {
-      wrapper = renderRowWithContext();
+      wrapper = renderRowWithContext({ onClick: () => {} });
       assertStyleMatch(
         {
           backgroundColor: baseTheme.flatTable.drawerSidebar.headerBackground,
@@ -399,7 +399,7 @@ describe("FlatTableRow", () => {
       }
     });
 
-    it('applies an additional "padding-left" to the "FLatTableRow" and removes "border-left" from first child', () => {
+    it('applies an additional "padding-left" to the "FlatTableRow" and removes "border-left" from first child', () => {
       wrapper = renderRowWithContext();
       assertStyleMatch(
         {
@@ -410,7 +410,7 @@ describe("FlatTableRow", () => {
       );
     });
 
-    it('removes "border-right" from "FLatTableRow" first child', () => {
+    it('removes "border-right" from "FlatTableRow" first child', () => {
       wrapper = renderRowWithContext();
       assertStyleMatch(
         {

@@ -584,6 +584,123 @@ It is possible to have one or any number of header rows set to sticky.
   </Story>
 </Preview>
 
+### With stickyHead, rowSpan and colspan
+
+Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `colspan`props.
+
+<Preview>
+  <Story name="with stickyHead rowSpan and colspan">
+    <div
+      style={{
+        height: "380px",
+        width: "310px",
+        overflowX: "auto"
+      }}
+    >
+      <FlatTable hasStickyHead>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader rowSpan={2}>Name</FlatTableHeader>
+            <FlatTableRowHeader rowSpan={2}>Code</FlatTableRowHeader>
+            <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
+            <FlatTableHeader rowSpan={2}></FlatTableHeader>
+            <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableHeader>Debit</FlatTableHeader>
+            <FlatTableHeader>Credit</FlatTableHeader>
+            <FlatTableHeader>Debit</FlatTableHeader>
+            <FlatTableHeader>Credit</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableRowHeader>000001</FlatTableRowHeader>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  </Story>
+</Preview>
+
 ### With stickyFooter prop set to true
 
 <Preview>

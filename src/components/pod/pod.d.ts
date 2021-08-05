@@ -8,29 +8,34 @@ export interface PodProps {
   /** Custom className */
   className?: string;
   /** Determines the padding around the pod */
-  size?:
-    | "none"
-    | "extra-small"
-    | "small"
-    | "medium"
-    | "large"
-    | "extra-large";
+  size?: "none" | "extra-small" | "small" | "medium" | "large" | "extra-large";
   /** Prop to apply a theme to the Pod */
   variant?: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
-  /** The collapsed state of the pod */
-  collapsed?: boolean;
   /** Title for the pod h4 element always shown */
   title?: string | React.ReactNode;
   /** Optional subtitle for the pod */
   subtitle?: string;
   /** Aligns the title to left, right or center */
   alignTitle?: "left" | "center" | "right";
-  /** Description for the pod */
-  description?: string;
   /** A component to render as a Pod footer */
   footer?: string | React.ReactNode;
   /** Supplies an edit action to the pod */
-  onEdit?: string | {} | (() => void);
+  onEdit?:
+    | string
+    | {}
+    | ((
+        ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      ) => void);
+  /** Supplies a delete action to the pod */
+  onDelete?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
+  /** Supplies an undo action to the pod in soft delete state. */
+  onUndo?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
+  /** Sets soft delete state */
+  softDelete?: boolean;
   /** Determines if the editable pod content should be full width */
   editContentFullWidth?: boolean;
   /** Determines if the edit button should be hidden until the user hovers over the content */

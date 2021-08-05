@@ -1,9 +1,8 @@
 import {
   buttonSubtextPreview,
   buttonDataComponent,
-  buttonDataComponentIFrame,
 } from "../../locators/button";
-import { iconIFrame, icon } from "../../locators";
+import { icon } from "../../locators";
 import { positionOfElement } from "../helper";
 
 Then("Button label on preview is {word}", (label) => {
@@ -71,20 +70,20 @@ Then("Button as a sibling background color is {string}", (color) => {
 });
 
 When("I click on {string}", (element) => {
-  buttonDataComponentIFrame(element).click({ force: true });
+  buttonDataComponent(element).click({ force: true });
 });
 
 When("I click on {string} as a sibling", (element) => {
-  buttonDataComponentIFrame(element).eq(positionOfElement("first")).click();
-  buttonDataComponentIFrame(element).eq(positionOfElement("second")).click();
+  buttonDataComponent(element).eq(positionOfElement("first")).click();
+  buttonDataComponent(element).eq(positionOfElement("second")).click();
 });
 
 Then("Button as a sibling icon is set to {string}", (iconName) => {
-  iconIFrame()
+  icon()
     .eq(positionOfElement("first"))
     .should("have.attr", "data-element", iconName)
     .and("be.visible");
-  iconIFrame()
+  icon()
     .eq(positionOfElement("second"))
     .should("have.attr", "data-element", iconName)
     .and("be.visible");

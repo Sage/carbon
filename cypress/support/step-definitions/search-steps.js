@@ -1,6 +1,5 @@
 import {
   searchInput,
-  searchIconIframe,
   searchDefaultInput,
   searchCrossIcon,
   searchButton,
@@ -9,6 +8,7 @@ import {
   searchInnerIcon,
   searchInputIframe,
   searchDefaultInputIframe,
+  searchIcon,
 } from "../../locators/search";
 import { keyCode } from "../helper";
 
@@ -59,12 +59,8 @@ When("I click on search icon", () => {
   searchButton().click({ force: true });
 });
 
-When("I click onto search icon", () => {
-  searchIconIframe().click({ force: true });
-});
-
 When("I click inside input", () => {
-  searchInputIframe().click();
+  searchInput().click();
 });
 
 When("I focus on cross icon", () => {
@@ -83,7 +79,7 @@ Then("search icon has golden border", () => {
 
 Then("search icon has proper inner color", () => {
   const mintColor = "rgb(0, 129, 93)";
-  searchIconIframe()
+  searchIcon()
     .should("have.css", "background-color", mintColor)
     .and("have.css", "border-color", mintColor);
 });

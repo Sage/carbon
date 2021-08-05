@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import I18n from "i18n-js";
 import styledSystemPropTypes from "@styled-system/prop-types";
+
 import tagComponent from "../../utils/helpers/tags/tags";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 import {
   StyledTileSelectContainer,
@@ -45,8 +46,8 @@ const TileSelect = ({
   footer,
   ...rest
 }) => {
+  const l = useLocale();
   const [hasFocus, setHasFocus] = useState(false);
-
   const handleDeselect = () =>
     onChange({
       target: {
@@ -68,7 +69,7 @@ const TileSelect = ({
         onClick={handleDeselect}
         disabled={disabled}
       >
-        {I18n.t("tileSelect.deselect", { defaultValue: "Deselect" })}
+        {l.tileSelect.deselect()}
       </StyledActionButton>
     );
   };

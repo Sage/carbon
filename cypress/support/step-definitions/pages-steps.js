@@ -2,14 +2,9 @@ import {
   dataComponentButtonByText,
   closeDataElement,
   backArrow,
-  closeDataElementIFrame,
 } from "../../locators/pages";
 import DEBUG_FLAG from "..";
-import {
-  getDataElementByValue,
-  getComponentNoIframe,
-  getComponentIFrame,
-} from "../../locators";
+import { getDataElementByValue, getComponent } from "../../locators";
 
 Then("My {word} Page is visible", (word) => {
   getDataElementByValue("title").should("have.text", `My ${word} Page`);
@@ -22,11 +17,6 @@ When("I go to {word} page", (word) => {
 
 When("I close page", () => {
   closeDataElement().click();
-});
-
-When("I close page in IFrame", () => {
-  closeDataElementIFrame().click({ force: true });
-  cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
 });
 
 Then("I go back", () => {
@@ -57,9 +47,5 @@ Then("page is closed", () => {
 });
 
 Then("I open Pages component preview", () => {
-  getComponentNoIframe("button").click();
-});
-
-Then("I open Pages component preview in Iframe", () => {
-  getComponentIFrame("button").click();
+  getComponent("button").click();
 });
