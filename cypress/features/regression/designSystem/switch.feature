@@ -4,7 +4,7 @@ Feature: Switch component
   @positive
   Scenario Outline: Change Switch component fieldHelp to <fieldHelp>
     When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
@@ -13,7 +13,7 @@ Feature: Switch component
   @positive
   Scenario Outline: Change Switch component label to <label>
     When I open Default "Design System Switch Test" component in noIFrame with "switch" json from "designSystem" using "<nameOfObject>" object name
-    Then label on preview is <label> in NoIFrame
+    Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
       | mp150ú¿¡üßä                  | labelOtherLanguage    |

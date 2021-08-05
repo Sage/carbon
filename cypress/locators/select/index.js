@@ -21,14 +21,7 @@ export const dropdownButton = () => cy.get(DROPDOWN_BUTTON);
 export const simpleSelectNoIframe = () => cy.get(SELECT);
 
 // component preview locators into iFrame
-export const simpleSelectIframe = () => cy.iFrame(SELECT);
 export const dropdownButtonInIframe = () => cy.iFrame(DROPDOWN_BUTTON);
-export const selectDataComponentInIframe = (component) =>
-  cy.iFrame(`[data-component="${component}-select"]`);
-export const selectListInIframe = () => cy.iFrame(SELECT_LIST);
-export const selectOptionInIframe = (index) =>
-  cy.iFrame(SELECT_OPTIONS).eq(index);
-export const multiSelectDataComponentInIframe = () => cy.iFrame(MULTI_SELECT);
 export const openOnFocusID = () => cy.get(OPEN_ON_FOCUS_ID);
 export const multiSelectPill = () => cy.get(PILL_PREVIEW);
 export const multiSelectPillByPosition = (index) =>

@@ -1,27 +1,323 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StyledBlock should match expected styles 1`] = `
-.c0 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #CCD6DB;
-  outline: none;
+exports[`ActionButtons StyledDeleteButton when isHovered prop is set should match expected styles 1`] = `
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
 }
 
-<div
-  className="c0"
-/>
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e90c";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 a .c2,
+.c4 button .c2 {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
+.c0 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c0:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+.c0::-moz-focus-inner {
+  border: none;
+}
+
+.c0 .c2 {
+  position: relative;
+}
+
+.c0 .c2:focus {
+  border: none;
+}
+
+.c6.c6 > a .c2,
+.c6.c6 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  color: #FFFFFF;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  color: #FFFFFF;
+}
+
+.c9.c9 > a .c2,
+.c9.c9 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  color: #FFFFFF;
+}
+
+.c11.c11 > a .c2,
+.c11.c11 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c12.c12 > a .c2,
+.c12.c12 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c13.c13 > a .c2,
+.c13.c13 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c14.c14 > a .c2,
+.c14.c14 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c15.c15 > a .c2,
+.c15.c15 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c16.c16 > a .c2,
+.c16.c16 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c17.c17 > a .c2,
+.c17.c17 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  color: #FFFFFF;
+}
+
+.c19.c19 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  color: #FFFFFF;
+}
+
+.c21.c21 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c21.c21 .c2 {
+  color: #FFFFFF;
+}
+
+.c1.c1 {
+  cursor: pointer;
+  border: 1px solid #CCD6DB;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: px;
+  background-color: #9F2D3F;
+  color: #FFFFFF;
+}
+
+.c1.c1 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c1.c1 .c2 {
+  color: #FFFFFF;
+}
+
+.c22.c22 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c23.c23 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c23.c23 .c2 {
+  color: #FFFFFF;
+}
+
+.c24.c24 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c24.c24 .c2 {
+  color: #FFFFFF;
+}
+
+.c25:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c25 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c25 .c2 svg {
+  margin-top: 0;
+}
+
+<button
+  className="c0 c1"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    className="c2 c3"
+    data-component="icon"
+    data-element="delete"
+    disabled={false}
+    fontSize="small"
+    type="delete"
+  />
+</button>
 `;
 
-exports[`StyledEditAction when isHovered prop is set should match expected styles 1`] = `
+exports[`ActionButtons StyledEditAction when isHovered prop is set should match expected styles 1`] = `
 .c0 {
   display: inline-block;
 }
@@ -61,31 +357,34 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   padding: 0;
 }
 
-.c1.c1 {
+.c1.c1 > a,
+.c1.c1 button {
   cursor: pointer;
   border: 1px solid #CCD6DB;
   margin-left: 8px;
-  background-color: #008200;
-  color: #FFFFFF;
-}
-
-.c1.c1 > a,
-.c1.c1 button {
-  width: 15px;
-  height: 15px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
   padding: px;
-  background-color: transparent;
-}
-
-.c1.c1 .c2 {
-  top: -2px;
-}
-
-.c1.c1 .c2 {
+  background-color: #006300;
   color: #FFFFFF;
 }
 
-.c1.c1 .carbon-link__content {
+.c1.c1 > a .c2,
+.c1.c1 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c1.c1 > a .c2,
+.c1.c1 button .c2 {
+  color: #FFFFFF;
+}
+
+.c1 .carbon-link__content {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   position: absolute;
@@ -108,12 +407,417 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
 </span>
 `;
 
-exports[`StyledEditContainer when internalEditButton prop is set should have expected styles 1`] = `
+exports[`ActionButtons StyledUndoButton when isHovered prop is set should match expected styles 1`] = `
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e9aa";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 a .c2,
+.c4 button .c2 {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  position: relative;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
 .c0 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c0:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+  z-index: 1;
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+.c0::-moz-focus-inner {
+  border: none;
+}
+
+.c0 .c2 {
+  position: relative;
+}
+
+.c0 .c2:focus {
+  border: none;
+}
+
+.c6.c6 > a .c2,
+.c6.c6 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c7.c7 > a .c2,
+.c7.c7 button .c2 {
+  color: #FFFFFF;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c8.c8 > a .c2,
+.c8.c8 button .c2 {
+  color: #FFFFFF;
+}
+
+.c9.c9 > a .c2,
+.c9.c9 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c10.c10 > a .c2,
+.c10.c10 button .c2 {
+  color: #FFFFFF;
+}
+
+.c11.c11 > a .c2,
+.c11.c11 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c12.c12 > a .c2,
+.c12.c12 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c13.c13 > a .c2,
+.c13.c13 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c14.c14 > a .c2,
+.c14.c14 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c15.c15 > a .c2,
+.c15.c15 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c16.c16 > a .c2,
+.c16.c16 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c17.c17 > a .c2,
+.c17.c17 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c18.c18 > a .c2,
+.c18.c18 button .c2 {
+  color: #FFFFFF;
+}
+
+.c19.c19 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c20.c20 .c2 {
+  color: #FFFFFF;
+}
+
+.c21.c21 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c21.c21 .c2 {
+  color: #FFFFFF;
+}
+
+.c22.c22 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c22.c22 .c2 {
+  color: #FFFFFF;
+}
+
+.c23.c23 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c24.c24 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c25.c25 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c26.c26 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c27.c27 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c28.c28 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c29.c29 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #C7384F;
+}
+
+.c30.c30 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c31.c31 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c31.c31 .c2 {
+  color: #FFFFFF;
+}
+
+.c32.c32 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c32.c32 .c2 {
+  color: #FFFFFF;
+}
+
+.c1.c1 {
+  cursor: pointer;
+  border: 1px solid #CCD6DB;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: px;
+  background-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1.c1 .c2 {
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  color: #008200;
+}
+
+.c1.c1 .c2 {
+  color: #FFFFFF;
+}
+
+.c33:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c33 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c33 .c2 svg {
+  margin-top: 0;
+}
+
+<button
+  className="c0 c1"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    className="c2 c3"
+    data-component="icon"
+    data-element="undo"
+    disabled={false}
+    fontSize="small"
+    type="undo"
+  />
+</button>
+`;
+
+exports[`StyledActionsContainer when internalEditButton prop is set should have expected styles 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   position: absolute;
   right: 2px;
   top: 2px;
   z-index: 10;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`StyledBlock should match expected styles 1`] = `
+.c0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #CCD6DB;
+  outline: none;
 }
 
 <div

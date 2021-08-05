@@ -2,9 +2,8 @@ Feature: Action Popover component
   I want to change Action Popover component properties
 
   Background: Open Action Popover component page
-    Given I open "Design System Action Popover Test" component page "default"
+    Given I open "Design System Action Popover Test" component page "default" in no iframe
       And I click the menu button element
-      And clear all actions in Actions Tab
 
   @positive
   Scenario: check email event

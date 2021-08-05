@@ -1,25 +1,24 @@
-import React from 'react';
-import I18n from 'i18n-js';
-import Heading from '../components-demo/component-heading';
-import { Wrapper, LovesCarbonWrapper, Image } from './loves-carbon.style';
-import devices from './devices.png';
-import Link from '../../../src/components/link';
+import React from "react";
+import Heading from "../components-demo/component-heading";
+import { Wrapper, LovesCarbonWrapper, Image } from "./loves-carbon.style";
+import devices from "./devices.png";
+import Link from "../../../src/components/link";
 
 const LovesCarbon = () => (
   <LovesCarbonWrapper>
     <Wrapper>
       <div>
         <Heading
-          title={ I18n.t('homepage.sage_loves_carbon.heading') }
-          titleSuffix={ I18n.t('homepage.sage_loves_carbon.heading_suffix') }
+          title="Sage Loves "
+          titleSuffix="Carbon"
           divider
-          text={ I18n.t('homepage.sage_loves_carbon.text') }
-          />
-        <Link href={ I18n.t('sage_href') } icon='arrow' iconAlign='right'>
-          { I18n.t('homepage.sage_loves_carbon.learn_more') }
+          text="Carbon is the heart of global Sage products for hundreds of thousands of users worldwide. Designers and developers at Sage and beyond help Carbon to constantly evolve. Carbon is loaded with knowledge, keeping you ahead in cutting-edge user experience."
+        />
+        <Link href="http://www.sage.com" icon="arrow" iconAlign="right">
+          Learn more about Sage
         </Link>
       </div>
-      <Image src={ devices } />
+      <Image src={devices} />
     </Wrapper>
   </LovesCarbonWrapper>
 );

@@ -13,7 +13,7 @@ Feature: Design System Checkbox component
   @positive
   Scenario Outline: Change Checkbox component field help to <fieldHelp>
     When I open Default "Design System Checkbox Test" component in noIFrame with "checkbox" json from "designSystem" using "<nameOfObject>" object name
-    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |

@@ -40,8 +40,8 @@ Feature: Design System Textbox multiple component
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     Given I open multiple "Design System Textbox Test" component in noIFrame with "textbox" json from "designSystem" using "<nameOfObject>" object name
-    When I hover mouse onto "first" help icon in NoIFrame
-      And I hover mouse onto "second" help icon in NoIFrame
+    When I hover mouse onto "first" help icon
+      And I hover mouse onto "second" help icon
     Then Multiple tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |

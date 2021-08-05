@@ -1,8 +1,6 @@
-import { eventInAction } from "../../locators";
 import {
   linkPreviewText,
   linkPreviewCloseIcon,
-  linkPreviewCloseIconIframe,
 } from "../../locators/link-preview";
 import { keyCode } from "../helper";
 
@@ -45,18 +43,18 @@ Then(
   }
 );
 
-When("I click Link Preview close icon in Iframe", () => {
-  linkPreviewCloseIconIframe().click();
+When("I click Link Preview close icon", () => {
+  linkPreviewCloseIcon().click();
 });
 
-When("I focus Link Preview close icon in Iframe", () => {
-  linkPreviewCloseIconIframe().parent().focus();
+When("I focus Link Preview close icon", () => {
+  linkPreviewCloseIcon().parent().focus();
 });
 
 When("I click onto Link Preview close icon using {string} key", (key) => {
-  linkPreviewCloseIconIframe().trigger("keydown", keyCode(key));
+  linkPreviewCloseIcon().trigger("keydown", keyCode(key));
 });
 
 Then("{string} action is called in Actions Tab for Link Preview", (event) => {
-  eventInAction(event);
+  cy.storyAction(event);
 });

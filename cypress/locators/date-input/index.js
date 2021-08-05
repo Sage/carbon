@@ -11,8 +11,8 @@ export const minDate = () => cy.get(MIN_DATE);
 export const maxDate = () => cy.get(MAX_DATE);
 
 // component preview locators
-export const dateInput = () => cy.iFrame(DATE_INPUT);
-export const dayPickerDay = (date) => cy.iFrame(`div[aria-label="${date}"]`);
+export const dateInput = () => cy.get(DATE_INPUT);
+export const dayPickerDay = (date) => cy.get(`div[aria-label="${date}"]`);
 
 export const dateInputNoIFrame = () => cy.get(DATE_INPUT).parent();
 export const dateIcon = () => cy.get(DATE_ICON);

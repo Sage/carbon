@@ -3,13 +3,12 @@ import {
   textboxByPosition,
   textboxIcon,
   textboxInput,
-  textboxInIFrame,
   textboxPrefixByPosition,
 } from "../../locators/textbox";
 import {
-  tooltipPreviewByPositionNoIFrame,
+  tooltipPreviewByPosition,
   labelByPosition,
-  fieldHelpPreviewByPositionNoIFrame,
+  fieldHelpPreviewByPosition,
 } from "../../locators";
 import { positionOfElement } from "../helper";
 
@@ -27,11 +26,11 @@ Then("Multiple Textbox placeholder is set to {word}", (text) => {
 });
 
 Then("Multiple fieldHelp on preview is set to {word}", (text) => {
-  fieldHelpPreviewByPositionNoIFrame(positionOfElement("first")).should(
+  fieldHelpPreviewByPosition(positionOfElement("first")).should(
     "have.text",
     text
   );
-  fieldHelpPreviewByPositionNoIFrame(positionOfElement("second")).should(
+  fieldHelpPreviewByPosition(positionOfElement("second")).should(
     "have.text",
     text
   );
@@ -43,10 +42,10 @@ Then("Multiple label is set to {word}", (text) => {
 });
 
 Then("Multiple tooltipPreview on preview is set to {word}", (text) => {
-  tooltipPreviewByPositionNoIFrame(positionOfElement("first"))
+  tooltipPreviewByPosition(positionOfElement("first"))
     .wait(250)
     .should("have.text", text);
-  tooltipPreviewByPositionNoIFrame(positionOfElement("second"))
+  tooltipPreviewByPosition(positionOfElement("second"))
     .wait(250)
     .should("have.text", text);
 });
@@ -96,7 +95,7 @@ When("I click on Textbox", () => {
 });
 
 Then("Textbox input has golden border on focus", () => {
-  textboxInIFrame().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  textbox().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });
 
 Then("Prefix is set to {word}", (prefix) => {

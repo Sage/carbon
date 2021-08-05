@@ -7,16 +7,9 @@ import {
   rowNumbers,
   sortIcon,
   tableBody,
-  tableHeaderInIFrame,
   tableAjax,
-  paginationButtonByIndexInIFrame,
 } from "../../locators/table";
-import {
-  themeColor,
-  tableHeaderSize,
-  positionOfElement,
-  positionOfPaginationButton,
-} from "../helper";
+import { themeColor, tableHeaderSize, positionOfElement } from "../helper";
 
 Then("I see {int} records", (records) => {
   if (records === 0) {
@@ -160,14 +153,10 @@ Then("input type on preview is set to {string}", (type) => {
   }
 });
 
-Then("I click {string} header in IFrame", (headerName) => {
+Then("I click {string} header", (headerName) => {
   if (headerName === "Country") {
-    tableHeaderInIFrame().eq(positionOfElement("first")).click();
+    tableHeader().eq(positionOfElement("first")).click();
   } else {
-    tableHeaderInIFrame().eq(positionOfElement("second")).click();
+    tableHeader().eq(positionOfElement("second")).click();
   }
-});
-
-Then("I click {string} pagination button in IFrame", (button) => {
-  paginationButtonByIndexInIFrame(positionOfPaginationButton(button)).click();
 });

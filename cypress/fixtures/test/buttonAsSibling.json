@@ -49,5 +49,10 @@
     "has icon": true,
     "iconType": "add",
     "iconPosition": "before"
+  },
+  "iconTypeAlert": {
+    "has icon": true,
+    "iconType": "alert",
+    "iconPosition": "before"
   }
 }
