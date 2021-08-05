@@ -1,3 +1,12 @@
+### [81.0.4](https://github.com/Sage/carbon/compare/v81.0.3...v81.0.4) (2021-08-05)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure correct z-index is applied to flat-table-header ([0aeb143](https://github.com/Sage/carbon/commit/0aeb1435935e06b59b1f9086945174e9673c8637)), closes [#4226](https://github.com/Sage/carbon/issues/4226)
+* **flat-table-header:** add padding-right specifically for Firefox ([d85e134](https://github.com/Sage/carbon/commit/d85e1342d3c26ed794f87fdb4541b783ef4c4986))
+* **flat-table-row:** apply border-left if preceding row has a row header ([04af1c5](https://github.com/Sage/carbon/commit/04af1c53c32d44f1bf0e95791b8b276926b47389))
+
 ### [81.0.3](https://github.com/Sage/carbon/compare/v81.0.2...v81.0.3) (2021-08-05)
 
 
