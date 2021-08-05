@@ -1,3 +1,10 @@
+### [81.0.3](https://github.com/Sage/carbon/compare/v81.0.2...v81.0.3) (2021-08-05)
+
+
+### Bug Fixes
+
+* **flat-table-row:** remove hover state for rows within drawer sidebar and no onclick ([222f5fb](https://github.com/Sage/carbon/commit/222f5fb7c28c0ccf8de9cecf85c4dea4806119f8)), closes [#4276](https://github.com/Sage/carbon/issues/4276)
+
 ### [81.0.2](https://github.com/Sage/carbon/compare/v81.0.1...v81.0.2) (2021-08-05)
 
 
