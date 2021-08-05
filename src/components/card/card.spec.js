@@ -13,6 +13,7 @@ import Link from "../link";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import StyledCardFooter from "./card-footer/card-footer.style";
 import { CARD_SIZES } from "./card.config";
+import StyledCard from "./card.style";
 
 describe("Card", () => {
   testStyledSystemMargin((props) => <Card {...props}>Content</Card>);
@@ -29,6 +30,24 @@ describe("Card", () => {
       });
 
       expect(wrapper.containsMatchingElement(content)).toBe(true);
+    });
+
+    describe("when interactive prop is not provided", () => {
+      it("should not provide `type` and `tabIndex` props", () => {
+        const wrapper = mount(<Card> Card content </Card>);
+
+        expect(wrapper.find(StyledCard).prop("type")).toBe(undefined);
+        expect(wrapper.find(StyledCard).prop("tabIndex")).toBe(undefined);
+      });
+    });
+
+    describe("when interactive prop is provided", () => {
+      it("should provide `type` and `tabIndex` props", () => {
+        const wrapper = mount(<Card interactive> Card content </Card>);
+
+        expect(wrapper.find(StyledCard).prop("type")).toBe("button");
+        expect(wrapper.find(StyledCard).prop("tabIndex")).toBe(0);
+      });
     });
 
     describe.each(CARD_SIZES)(
