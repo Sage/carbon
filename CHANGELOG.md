@@ -1,3 +1,10 @@
+### [81.0.2](https://github.com/Sage/carbon/compare/v81.0.1...v81.0.2) (2021-08-05)
+
+
+### Bug Fixes
+
+* **card:** incorrect props on a static card ([1c069b8](https://github.com/Sage/carbon/commit/1c069b860a1657872c1547847a3ba83df1e06434))
+
 ### [81.0.1](https://github.com/Sage/carbon/compare/v81.0.0...v81.0.1) (2021-08-04)
 
 
