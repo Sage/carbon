@@ -154,6 +154,7 @@ const MenuItem = ({
           clickToOpen={clickToOpen}
           maxWidth={maxWidth}
           asPassiveItem={asPassiveItem}
+          ariaLabel={ariaLabel}
           {...elementProps}
           {...rest}
         >
