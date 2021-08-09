@@ -94,7 +94,7 @@
     "cross-env": "^5.2.0",
     "cypress": "^7.1.0",
     "cypress-axe": "^0.12.2",
-    "cypress-cucumber-preprocessor": "^4.0.3",
+    "cypress-cucumber-preprocessor": "^4.2.0",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.5.0",
     "cypress-storybook": "^0.5.1",
