@@ -1,3 +1,13 @@
+### [81.0.5](https://github.com/Sage/carbon/compare/v81.0.4...v81.0.5) (2021-08-06)
+
+
+### Bug Fixes
+
+* **link:** add additional ARIA if no children ([1d8a598](https://github.com/Sage/carbon/commit/1d8a5986b4f3a6d2175c9f0dddc3c2cafdd09072))
+* **menu:** add aria-role to fix accessibility violations ([8e562a0](https://github.com/Sage/carbon/commit/8e562a086223617764815aa2e454c9d0f12f3f5f))
+* **menu-full-screen:** add missing ARIA ([020b7d2](https://github.com/Sage/carbon/commit/020b7d291560938fdc878392b5ba1a24fe0ee6da))
+* **menu-item:** add ariaLabel to submenu ([e1c1765](https://github.com/Sage/carbon/commit/e1c1765af5293f86e1ed8422baed296942ce2f1e))
+
 ### [81.0.4](https://github.com/Sage/carbon/compare/v81.0.3...v81.0.4) (2021-08-05)
 
 
