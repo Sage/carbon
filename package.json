@@ -69,7 +69,7 @@
     "@storybook/addon-links": "^6.3.4",
     "@storybook/addon-viewport": "^6.3.4",
     "@storybook/addons": "^6.3.4",
-    "@storybook/components": "^6.3.4",
+    "@storybook/components": "^6.3.6",
     "@storybook/react": "^6.3.4",
     "@storybook/theming": "^6.3.4",
     "@types/enzyme": "^3.10.3",
