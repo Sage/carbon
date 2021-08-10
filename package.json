@@ -42,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/Sage/carbon/issues"
   },
-  "homepage": "https://github.com/Sage/carbon#readme",
+  "homepage": "https://carbon.sage.com",
   "peerDependencies": {
     "draft-js": "^0.11.5",
     "react": "^16.12.0",
