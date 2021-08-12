@@ -5,6 +5,7 @@ import tagComponent from "../../utils/helpers/tags";
 import { StyledCheckboxGroup } from "./checkbox.style";
 import Fieldset from "../../__internal__/fieldset";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -23,38 +24,41 @@ const CheckboxGroup = (props) => {
     legendWidth,
     legendAlign,
     legendSpacing,
+    tooltipPosition,
   } = props;
 
   return (
-    <Fieldset
-      legend={legend}
-      inline={legendInline}
-      legendWidth={legendWidth}
-      legendAlign={legendAlign}
-      legendSpacing={legendSpacing}
-      error={error}
-      warning={warning}
-      info={info}
-      isRequired={required}
-      {...tagComponent("checkboxgroup", props)}
-      blockGroupBehaviour={!(error || warning || info)}
-      {...filterStyledSystemMarginProps(props)}
-    >
-      <StyledCheckboxGroup
-        data-component="checkbox-group"
-        legendInline={legendInline}
+    <TooltipProvider tooltipPosition={tooltipPosition}>
+      <Fieldset
+        legend={legend}
+        inline={legendInline}
+        legendWidth={legendWidth}
+        legendAlign={legendAlign}
+        legendSpacing={legendSpacing}
+        error={error}
+        warning={warning}
+        info={info}
+        isRequired={required}
+        {...tagComponent("checkboxgroup", props)}
+        blockGroupBehaviour={!(error || warning || info)}
+        {...filterStyledSystemMarginProps(props)}
       >
-        {React.Children.map(children, (child) =>
-          React.cloneElement(child, {
-            inputName: groupName,
-            error: !!error,
-            warning: !!warning,
-            info: !!info,
-            ...child.props,
-          })
-        )}
-      </StyledCheckboxGroup>
-    </Fieldset>
+        <StyledCheckboxGroup
+          data-component="checkbox-group"
+          legendInline={legendInline}
+        >
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, {
+              inputName: groupName,
+              error: !!error,
+              warning: !!warning,
+              info: !!info,
+              ...child.props,
+            })
+          )}
+        </StyledCheckboxGroup>
+      </Fieldset>
+    </TooltipProvider>
   );
 };
 
@@ -91,6 +95,8 @@ CheckboxGroup.propTypes = {
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default CheckboxGroup;

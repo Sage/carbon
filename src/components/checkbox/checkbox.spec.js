@@ -507,4 +507,16 @@ describe("Checkbox", () => {
       expect(tooltip.prop("message")).toEqual(text);
     });
   });
+
+  describe("tooltipPosition", () => {
+    it("should override the default value", () => {
+      const wrapper = render(
+        { label: "foo", error: "message", tooltipPosition: "bottom" },
+        mount
+      );
+      const { position } = wrapper.find(Tooltip).props();
+
+      expect(position).toEqual("bottom");
+    });
+  });
 });

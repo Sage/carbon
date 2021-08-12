@@ -19,6 +19,8 @@ export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   name?: string;
   /** The value of the checkbox, passed on form submit */
   value?: string;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function Checkbox(props: CheckboxProps): JSX.Element;
