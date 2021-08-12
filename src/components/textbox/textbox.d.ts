@@ -67,6 +67,8 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   value?: string | string[] | object | object[];
   /** A callback to retrieve the input reference */
   inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 export interface TextboxProps extends CommonTextboxProps, SpaceProps {
