@@ -4,7 +4,7 @@ Carbon is a [React](https://facebook.github.io/react/) component library develop
 
 ## Getting started
 
-Our [getting started guide](docs/getting-started.stories.mdx) provides intructions on how to install and use the Carbon library.
+Our [getting started guide](docs/getting-started.stories.mdx) provides instructions on how to install and use the Carbon library.
 
 ## Examples
 
@@ -21,6 +21,22 @@ We support and test the Carbon Library against the latest versions of the follow
 
 We provide polyfills for the latest two versions of each of these browsers to give a grace period to update.
 
+## Versioning
+
+We follow [Semantic Versioning](https://semver.org/) and we use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+While we make every effort to avoid breaking changes, sometimes they are necessary. We choose to take an overly cautious
+approach to breaking changes. That is we will mark something as a breaking change, even if it is extremely unlikely to affect any consumers.
+
+We choose to make frequent but small breaking changes to give you the choice of making small incremental updates or by jumping multiple versions
+in one upgrade. Ultimately the amount of breaking changes is the same, but version number increases more frequently.
+
+We will batch breaking changes into a single version if there is a technical reason why we can't make a small breaking change, or if the impact is extraordinarily low.
+
+We publish release notes that include the necessary upgrade steps. We also publish a codemod when possible, this will update your code to work with the new version.
+
+For more information please see the [GitHub releases](https://github.com/Sage/carbon).
+
 ## Contributing
 
 Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to suggest bugfixes and raise issues.
@@ -35,4 +51,4 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 
 Carbon is licensed under the [Apache-2.0 licence](LICENSE).
 
-Copyright (c) 2018 Sage Group Plc. All rights reserved.
+Copyright (c) 2018-2021 Sage Group Plc. All rights reserved.
