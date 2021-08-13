@@ -30,6 +30,8 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   validationOnLabel?: boolean;
   /** The value of the switch, passed on form submit */
   value?: string;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function Switch(props: SwitchProps): JSX.Element;
