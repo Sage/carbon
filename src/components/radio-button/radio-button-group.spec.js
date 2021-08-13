@@ -9,6 +9,7 @@ import { RadioButton, RadioButtonGroup } from ".";
 import RadioButtonGroupStyle from "./radio-button-group.style";
 import Fieldset from "../../__internal__/fieldset";
 import Label from "../../__internal__/label";
+import Tooltip from "../tooltip";
 
 const buttonValues = ["test-1", "test-2"];
 const name = "test-group";
@@ -191,6 +192,19 @@ describe("RadioButtonGroup", () => {
     it("the isRequired prop is passed to the fieldset", () => {
       const fieldset = wrapper.find(Fieldset);
       expect(fieldset.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("tooltipPosition", () => {
+    it("overrides the default position when value is passed", () => {
+      const { position } = render(
+        { error: "message", tooltipPosition: "bottom" },
+        mount
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("bottom");
     });
   });
 });
