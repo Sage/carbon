@@ -402,6 +402,7 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   >
     <span
       className="carbon-link__content"
+      role="link"
     />
   </a>
 </span>

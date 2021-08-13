@@ -79,7 +79,13 @@ class InternalLink extends React.Component {
     <>
       {this.renderLinkIcon()}
 
-      <span className="carbon-link__content">
+      <span
+        {...(!this.props.children && {
+          "aria-label": this.props.ariaLabel,
+          role: "link",
+        })}
+        className="carbon-link__content"
+      >
         {this.props.isSkipLink ? "Skip to main content" : this.props.children}
       </span>
 
