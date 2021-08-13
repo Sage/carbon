@@ -32,7 +32,7 @@ const StyledAdornment = styled.div`
   visibility: ${({ children }) => (children ? "visible" : "hidden")};
 
   > :first-child {
-    top: 4px;
+    top: 2px;
   }
 `;
 
@@ -123,7 +123,6 @@ const StyledTileSelectInput = styled(Input)`
 const StyledTitleContainer = styled.div`
   display: inline-flex;
   align-items: flex-end;
-  margin-bottom: 8px;
   position: relative;
   flex-wrap: wrap;
   width: 100%;
@@ -132,6 +131,7 @@ const StyledTitleContainer = styled.div`
   > div:nth-child(1) {
     display: flex;
     flex-grow: 1;
+    margin-bottom: 4px;
   }
 `;
 
