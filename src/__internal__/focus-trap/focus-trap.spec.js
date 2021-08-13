@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import FocusTrap from "./focus-trap.component";
@@ -426,6 +427,61 @@ describe("FocusTrap", () => {
           </ModalContext.Provider>
         );
       }).not.toThrow();
+    });
+  });
+
+  describe("when content in the children tree changes", () => {
+    it("should trigger the MutationObserver", () => {
+      const mutationObserverMock = jest.fn(function MutationObserver(callback) {
+        this.observe = jest.fn();
+        this.disconnect = jest.fn();
+        this.trigger = () => {
+          callback();
+        };
+      });
+      global.MutationObserver = mutationObserverMock;
+
+      const ChangingChild = () => {
+        const [loading, setLoading] = useState(true);
+
+        useEffect(() => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        }, []);
+
+        if (loading) {
+          return <input type="text" />;
+        }
+
+        return (
+          <>
+            <button type="button">Test button One</button>
+          </>
+        );
+      };
+
+      const wrapper = mount(
+        <MockComponent>
+          <ChangingChild />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+
+      const [observerInstance] = mutationObserverMock.mock.instances;
+      expect(observerInstance.observe).toHaveBeenCalledTimes(1);
+      expect(document.activeElement).toMatchObject(wrapper.find("input").at(0));
+
+      act(() => {
+        jest.runAllTimers();
+      });
+      act(() => {
+        observerInstance.trigger();
+      });
+
+      expect(document.activeElement).toMatchObject(
+        wrapper.find("button").at(0)
+      );
     });
   });
 });
