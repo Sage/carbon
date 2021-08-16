@@ -9,6 +9,7 @@ import ToolbarButton from "./toolbar-button";
 import Events from "../../../../utils/helpers/events/events";
 import Icon from "../../../icon";
 import Tooltip from "../../../tooltip";
+import useLocale from "../../../../hooks/__internal__/useLocale";
 
 const BOLD = "BOLD";
 const ITALIC = "ITALIC";
@@ -22,6 +23,8 @@ const Toolbar = ({
   setBlockStyle,
   setInlineStyle,
 }) => {
+  const { textEditor } = useLocale();
+  const { tooltipMessages, ariaLabels } = textEditor;
   const controlRefs = [useRef(), useRef(), useRef(), useRef()];
   const [focusIndex, setFocusIndex] = useState(0);
   const [tabbable, setTabbable] = useState(true);
@@ -104,11 +107,11 @@ const Toolbar = ({
       <StyledEditorStyleControls>
         <Tooltip
           isVisible={activeTooltip === "Bold"}
-          message="Bold"
+          message={tooltipMessages.bold()}
           position="top"
         >
           <ToolbarButton
-            ariaLabel="bold"
+            ariaLabel={ariaLabels.bold()}
             onKeyDown={(ev) => handleKeyDown(ev, BOLD)}
             onMouseDown={(ev) => handleInlineStyleChange(ev, BOLD)}
             activated={activeControls.BOLD}
@@ -124,11 +127,11 @@ const Toolbar = ({
         </Tooltip>
         <Tooltip
           isVisible={activeTooltip === "Italic"}
-          message="Italic"
+          message={tooltipMessages.italic()}
           position="top"
         >
           <ToolbarButton
-            ariaLabel="italic"
+            ariaLabel={ariaLabels.italic()}
             onKeyDown={(ev) => handleKeyDown(ev, ITALIC)}
             onMouseDown={(ev) => handleInlineStyleChange(ev, ITALIC)}
             activated={activeControls.ITALIC}
@@ -144,11 +147,11 @@ const Toolbar = ({
         </Tooltip>
         <Tooltip
           isVisible={activeTooltip === "Bulleted List"}
-          message="Bulleted List"
+          message={tooltipMessages.bulletList()}
           position="top"
         >
           <ToolbarButton
-            ariaLabel="bullet-list"
+            ariaLabel={ariaLabels.bulletList()}
             onKeyDown={(ev) => handleKeyDown(ev, UNORDERED_LIST)}
             onMouseDown={(ev) => handleBlockType(ev, UNORDERED_LIST)}
             activated={activeControls[UNORDERED_LIST]}
@@ -164,11 +167,11 @@ const Toolbar = ({
         </Tooltip>
         <Tooltip
           isVisible={activeTooltip === "Numbered List"}
-          message="Numbered List"
+          message={tooltipMessages.numberList()}
           position="top"
         >
           <ToolbarButton
-            ariaLabel="number-list"
+            ariaLabel={ariaLabels.numberList()}
             onKeyDown={(ev) => handleKeyDown(ev, ORDERED_LIST)}
             onMouseDown={(ev) => handleBlockType(ev, ORDERED_LIST)}
             activated={activeControls[ORDERED_LIST]}
