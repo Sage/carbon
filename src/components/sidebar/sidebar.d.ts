@@ -1,14 +1,19 @@
 import * as React from "react";
-import Modal, { ModalProps } from "../modal/modal";
 
 export interface SidebarContextProps {
   isInSidebar: boolean;
 }
-export interface SidebarProps extends ModalProps {
+export interface SidebarProps {
+  /** Determines if the Esc Key closes the modal */
+  disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI?: boolean;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
+  /** A custom close event handler */
+  onCancel?: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  /** Sets the open state of the modal */
+  open: boolean;
   /** Sets the position of sidebar, either left or right. */
   position?: string;
   /** Sets the size of the sidebar when open. */
@@ -16,7 +21,10 @@ export interface SidebarProps extends ModalProps {
 }
 
 declare const SidebarContext: React.Context<SidebarContextProps>;
-declare class Sidebar extends Modal<SidebarProps> {}
+
+declare function Sidebar(
+  props: SidebarProps
+): JSX.Element;
 
 export { SidebarContext };
 export default Sidebar;
