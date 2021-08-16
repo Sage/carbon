@@ -23,7 +23,7 @@ export interface SidebarProps {
 declare const SidebarContext: React.Context<SidebarContextProps>;
 
 declare function Sidebar(
-  props: SidebarProps
+  props: SidebarProps & React.RefAttributes<HTMLDivElement>
 ): JSX.Element;
 
 export { SidebarContext };
