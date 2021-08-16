@@ -57,9 +57,7 @@ const FocusTrap = ({
   }, [hasNewInputs, wrapperRef]);
 
   useEffect(() => {
-    const observer = new MutationObserver(function () {
-      updateFocusableElements();
-    });
+    const observer = new MutationObserver(updateFocusableElements);
 
     observer.observe(trapRef.current, {
       subtree: true,

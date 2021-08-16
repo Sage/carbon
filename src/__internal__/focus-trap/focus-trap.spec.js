@@ -439,7 +439,9 @@ describe("FocusTrap", () => {
           callback();
         };
       });
-      global.MutationObserver = mutationObserverMock;
+      jest
+        .spyOn(global, "MutationObserver")
+        .mockImplementation(mutationObserverMock);
 
       const ChangingChild = () => {
         const [loading, setLoading] = useState(true);
@@ -482,6 +484,8 @@ describe("FocusTrap", () => {
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
+
+      jest.restoreAllMocks();
     });
   });
 });
