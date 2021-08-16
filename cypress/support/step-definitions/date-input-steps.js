@@ -1,13 +1,14 @@
+import { getDataElementByValue } from "../../locators";
 import {
   dateInput,
   dayPickerDay,
-  minDate,
-  maxDate,
   dayPickerWrapper,
   dateIcon,
   dateInputNoIFrame,
   dayPickerParentNoIFrame,
+  dayPickerHeading,
 } from "../../locators/date-input/index";
+import { keyCode } from "../helper";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
 const TODAY_CALENDAR = Cypress.dayjs().format("ddd D MMM YYYY");
@@ -17,19 +18,14 @@ const YESTERDAY_CALENDAR = Cypress.dayjs()
 const TOMORROW_CALENDAR = Cypress.dayjs()
   .add(1, "days")
   .format("ddd D MMM YYYY");
-const TODAY_KNOBS = Cypress.dayjs().format("YYYY-MM-DD");
 const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
+const NEXT_MONTH = Cypress.dayjs().add(1, "months").format("MMMM YYYY");
+const PREVIOUS_MONTH = Cypress.dayjs()
+  .subtract(1, "months")
+  .format("MMMM YYYY");
 
 When("I set dateInput to today", () => {
   dateInput().clear().type(TODAY_DATE_INPUT);
-});
-
-When("I set minDate to today", () => {
-  minDate().clear().type(TODAY_KNOBS);
-});
-
-When("I set maxDate to today", () => {
-  maxDate().clear().type(TODAY_KNOBS);
 });
 
 Then("the date before minDate is not available", () => {
@@ -107,3 +103,25 @@ Then("Date input is visible at the {word}", (position) => {
     .should("have.attr", "data-popper-placement", `${position}-start`)
     .and("be.visible");
 });
+
+When("I click {string} arrow", (monthArrow) => {
+  getDataElementByValue(monthArrow).click();
+});
+
+Then("{string} month is shown in dayPicker", (whichMonth) => {
+  if (whichMonth === "next") {
+    dayPickerHeading().should("have.text", NEXT_MONTH);
+  } else if (whichMonth === "previous") {
+    dayPickerHeading().should("have.text", PREVIOUS_MONTH);
+  } else {
+    throw new Error("Only Next or Previous month can be applied");
+  }
+});
+
+When(
+  "I press {string} key on focused {string} arrow of dayPicker",
+  (monthArrow, key) => {
+    dayPickerWrapper().focus();
+    getDataElementByValue(monthArrow).trigger("keydown", keyCode(key));
+  }
+);
