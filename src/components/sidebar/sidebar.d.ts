@@ -18,4 +18,5 @@ export interface SidebarProps extends ModalProps {
 declare const SidebarContext: React.Context<SidebarContextProps>;
 declare class Sidebar extends Modal<SidebarProps> {}
 
+export { SidebarContext };
 export default Sidebar;
