@@ -3,6 +3,7 @@ import { margin } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
 import Link from "../link";
+import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 
@@ -238,7 +239,7 @@ const StyledEditAction = styled(Link)`
       })}
   }
 
-  .carbon-link__content {
+  ${StyledLinkContent} {
     clip: rect(1px, 1px, 1px, 1px);
     position: absolute;
   }

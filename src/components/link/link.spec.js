@@ -1,9 +1,9 @@
 import React from "react";
-import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
+import { mount, shallow } from "enzyme";
+import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import Link from "./link.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import LinkStyle from "./link.style";
+import { StyledLink } from "./link.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
@@ -22,7 +22,7 @@ describe("Link", () => {
 
   it("renders as expected", () => {
     expect(
-      TestRenderer.create(<Link href="www.foo.com">test</Link>)
+      noThemeSnapshot(shallow(<Link href="www.foo.com">test</Link>))
     ).toMatchSnapshot();
   });
 
@@ -78,26 +78,17 @@ describe("Link", () => {
       );
     });
 
-    it("should call the events preventDefault function when true and clicked", () => {
+    it("should not call the onClick function when true and clicked", () => {
       const spy = jest.fn();
-      const event = { preventDefault: spy };
-      wrapper = renderLink({ disabled: true }, mount);
-      wrapper.find("InternalLink").instance().handleClick(event);
-      expect(spy).toHaveBeenCalled();
-    });
-
-    it("should not call the events preventDefault function when false and clicked", () => {
-      const spy = jest.fn();
-      const event = { preventDefault: spy };
-      wrapper = renderLink({ disabled: false }, mount);
-      wrapper.find("InternalLink").instance().handleClick(event);
+      wrapper = renderLink({ disabled: true, onClick: spy }, mount);
+      wrapper.find("button").simulate("click");
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it("should not call passed onClick function when disabled is false and link is clicked", () => {
+    it("should call the onClick function when false and clicked", () => {
       const spy = jest.fn();
       wrapper = renderLink({ disabled: false, onClick: spy }, mount);
-      wrapper.find("InternalLink").instance().handleClick();
+      wrapper.find("button").simulate("click");
       expect(spy).toHaveBeenCalled();
     });
   });
@@ -143,7 +134,7 @@ describe("Link", () => {
           marginRight: "5px",
           position: "relative",
         },
-        wrapper.find(LinkStyle),
+        wrapper.find(StyledLink),
         { modifier: `a ${StyledIcon}` }
       );
     });
@@ -156,7 +147,7 @@ describe("Link", () => {
           marginLeft: "5px",
           position: "relative",
         },
-        wrapper.find(LinkStyle),
+        wrapper.find(StyledLink),
         { modifier: `a ${StyledIcon}` }
       );
     });
@@ -171,7 +162,7 @@ describe("Link", () => {
           marginLeft: "0",
           position: "relative",
         },
-        wrapper.find(LinkStyle),
+        wrapper.find(StyledLink),
         { modifier: `a ${StyledIcon}` }
       );
     });
