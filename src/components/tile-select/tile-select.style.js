@@ -5,17 +5,12 @@ import { Input } from "../../__internal__/input";
 import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import { baseTheme } from "../../style/themes";
-import Button from "../button";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
   font-weight: 900;
   margin: 0;
   margin-right: 16px;
-`;
-
-const StyledActionButton = styled(Button)`
-  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
 `;
 
 const StyledSubtitle = styled.h4`
@@ -29,7 +24,7 @@ const StyledAdornment = styled.div`
   position: static;
   z-index: 200;
   margin-right: 16px;
-  visibility: ${({ children }) => (children ? "visible" : "hidden")};
+  align-self: flex-end;
 
   > :first-child {
     top: 2px;
@@ -132,6 +127,7 @@ const StyledTitleContainer = styled.div`
     display: flex;
     flex-grow: 1;
     margin-bottom: 4px;
+    height: 34px;
   }
 `;
 
@@ -225,5 +221,4 @@ export {
   StyledFooterWrapper,
   StyledFocusWrapper,
   StyledTitleAndSubtitleWrapper,
-  StyledActionButton,
 };

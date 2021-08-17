@@ -18,9 +18,9 @@ import {
   StyledFooterWrapper,
   StyledFocusWrapper,
   StyledTitleAndSubtitleWrapper,
-  StyledActionButton,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Button from "../button/button.component";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -62,15 +62,16 @@ const TileSelect = ({
     if (customActionButton) return customActionButton(handleDeselect);
 
     return (
-      <StyledActionButton
-        checked={checked}
-        buttonType="tertiary"
-        size="small"
-        onClick={handleDeselect}
-        disabled={disabled}
-      >
-        {l.tileSelect.deselect()}
-      </StyledActionButton>
+      checked && (
+        <Button
+          buttonType="tertiary"
+          size="small"
+          disabled={disabled}
+          onClick={handleDeselect}
+        >
+          {l.tileSelect.deselect()}
+        </Button>
+      )
     );
   };
 
@@ -131,7 +132,9 @@ const TileSelect = ({
                 )}
               </StyledTitleAndSubtitleWrapper>
 
-              <StyledAdornment>{titleAdornment}</StyledAdornment>
+              {titleAdornment && (
+                <StyledAdornment>{titleAdornment}</StyledAdornment>
+              )}
             </div>
 
             <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
