@@ -146,6 +146,20 @@ export default {
   table: {
     noData: () => "No results to display",
   },
+  textEditor: {
+    tooltipMessages: {
+      bold: () => "Bold",
+      italic: () => "Italic",
+      bulletList: () => "Bulleted List",
+      numberList: () => "Numbered List",
+    },
+    ariaLabels: {
+      bold: () => "bold",
+      italic: () => "italic",
+      bulletList: () => "bullet-list",
+      numberList: () => "number-list",
+    },
+  },
   tileSelect: {
     deselect: () => "Deselect",
   },
