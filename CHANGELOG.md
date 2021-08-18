@@ -1,3 +1,10 @@
+### [81.1.1](https://github.com/Sage/carbon/compare/v81.1.0...v81.1.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **date-picker:** month could not be changed in datepicker ([053bb88](https://github.com/Sage/carbon/commit/053bb88286d37a56c59e6640b3b2cfe74cc8540f))
+
 ## [81.1.0](https://github.com/Sage/carbon/compare/v81.0.5...v81.1.0) (2021-08-17)
 
 
