@@ -1,13 +1,14 @@
 import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
 import { useState, useRef } from "react";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import TranslationKeys from '../../../.storybook/utils/translation-keys-table';
+
 import TextEditor, {
   TextEditorState as EditorState,
   TextEditorContentState as ContentState,
 } from "./text-editor.component";
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
-import TranslationKeys from '../../../.storybook/utils/translation-keys-table';
 
 <Meta
   title="Design System/Text Editor"
@@ -23,6 +24,7 @@ peer-dependency to enable it to work.
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -342,58 +344,56 @@ icon. This example has mocked some functionality: previews will display for any 
 
 ## Translation keys
 
-It is possible to override the default translations for the Toolbar controls by passing in a custom locale object to the 
-[I18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page). Within this custom locale object you should 
-define a `textEditor` object with `ariaLabels` and `tooltipMessages` properties, these in turn should have the properties 
-defined in the table below as functions that return the desired translation strings.
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
 <TranslationKeys
   translationData={
     [
       {
-        name: "ariaLabels.bold",
+        name: "textEditor.ariaLabels.bold",
         type: "func",
         description: "text to be read out by a screen reader when bold toolbar button is navigated to",
         returnType: "string"
       },
       {
-        name: "ariaLabels.italic",
+        name: "textEditor.ariaLabels.italic",
         type: "func",
         description: "text to be read out by a screen reader when italic toolbar button is navigated to",
         returnType: "string"
       },
       {
-        name: "ariaLabels.bulletList",
+        name: "textEditor.ariaLabels.bulletList",
         type: "func",
         description: "text to be read out by a screen reader when bullet list toolbar button is navigated to",
         returnType: "string"
       },
       {
-        name: "ariaLabels.numberList",
+        name: "textEditor.ariaLabels.numberList",
         type: "func",
         description: "text to be read out by a screen reader when number list toolbar button is navigated to",
         returnType: "string"
       },
       {
-        name: "tooltipMessages.bold",
+        name: "textEditor.tooltipMessages.bold",
         type: "func",
         description: "visible when the user hovers over the bold toolbar button",
         returnType: "string"
       },
       {
-        name: "tooltipMessages.italic",
+        name: "textEditor.tooltipMessages.italic",
         type: "func",
         description: "visible when the user hovers over the italic toolbar button",
         returnType: "string"
       },
       {
-        name: "tooltipMessages.bulletList",
+        name: "textEditor.tooltipMessages.bulletList",
         type: "func",
         description: "visible when the user hovers over the bullet list toolbar button",
         returnType: "string"
       },
       {
-        name: "tooltipMessages.numberList",
+        name: "textEditor.tooltipMessages.numberList",
         type: "func",
         description: "visible when the user hovers over the number list toolbar button",
         returnType: "string"
