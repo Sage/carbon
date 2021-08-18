@@ -1,5 +1,7 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import { TileSelect, TileSelectGroup } from ".";
 import Pill from "../pill/"
@@ -7,7 +9,7 @@ import Icon from "../icon";
 import Button from "../button";
 import Box from "../box";
 import Typography from "../typography";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+
 
 <Meta
   title="Design System/Tile Select"
@@ -21,6 +23,7 @@ Tile Select is an input visualized as a single or grouped set of tiles. It behav
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 To use this component, import the `TileSelect` and `TileSelectGroup` if you want to have `TileSelects` grouped.
@@ -431,3 +434,22 @@ support being passed either a number between 1 and 8 that is then multiplied by 
   margin
   noHeader
 />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "tileSelect.deselect",
+        description: "The text for the deselect button component",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>
+
