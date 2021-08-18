@@ -1,5 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Form from ".";
 import Textbox from "../textbox";
@@ -17,7 +19,6 @@ import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
 import Dialog from "../dialog";
 import AppWrapper from "../app-wrapper";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Form" parameters={{ info: { disable: true } }} />
 
@@ -30,6 +31,7 @@ Represents a document section containing interactive controls for submitting inf
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -621,3 +623,21 @@ Please click on "Show code" below to see how to set these components up for alig
 ### Form
 
 <StyledSystemProps of={Form} spacing noHeader />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "error.messages.formSummary",
+        description: "The text to displayed when there are errors or warnings present in the form",
+        type: "func",
+        returnType: "string when validation failures and null when no failures"
+      },
+    ]
+  }
+/>
