@@ -1,3 +1,10 @@
+## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
+
+
+### Features
+
+* **toolbar:** add support for overriding translations in TextEditor Toolbar ([483a43f](https://github.com/Sage/carbon/commit/483a43fd4b2a8515299560512fa3fc4d9552c9b1)), closes [#4121](https://github.com/Sage/carbon/issues/4121)
+
 ### [81.1.1](https://github.com/Sage/carbon/compare/v81.1.0...v81.1.1) (2021-08-18)
 
 
