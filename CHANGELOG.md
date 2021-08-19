@@ -1,3 +1,10 @@
+### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** add mutation observer ([562fd12](https://github.com/Sage/carbon/commit/562fd12379df01d52a32b24bc979fa03a919e190)), closes [#4255](https://github.com/Sage/carbon/issues/4255)
+
 ## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
 
 
