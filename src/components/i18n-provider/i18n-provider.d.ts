@@ -65,6 +65,20 @@ export interface I18nProviderProps {
     table: {
       noData: () => string;
     };
+    textEditor: {
+      tooltipMessages: {
+        bold: () => string;
+        italic: () => string;
+        bulletList: () => string;
+        numberList: () => string;
+      };
+      ariaLabels: {
+        bold: () => string;
+        italic: () => string;
+        bulletList: () => string;
+        numberList: () => string;
+      };
+    };
     titleSelect: {
       deselect: () => string;
     };

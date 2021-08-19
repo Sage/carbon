@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import LocaleUtils from "react-day-picker/moment";
 import DayPicker from "react-day-picker";
+import isEqual from "lodash/isEqual";
 
 import Popover from "../../__internal__/popover";
 import DateHelper from "../../utils/helpers/date/date";
@@ -20,9 +21,17 @@ const DatePicker = ({
   disablePortal,
 }) => {
   const l = useLocale();
+  const locale = l.locale();
+  const formats = l.date.formats.inputs();
+  const format = l.date.formats.javascript();
   const [lastValidDate, setLastValidDate] = useState(
     DateHelper.formatDateString(new Date().toString())
   );
+  const [localeData, setLocaleData] = useState({
+    locale,
+    formats,
+    format,
+  });
   const ref = useRef(null);
 
   const popoverModifiers = useMemo(
@@ -43,11 +52,27 @@ const DatePicker = ({
     []
   );
 
-  const localeData = {
-    locale: l.locale(),
-    formats: l.date.formats.inputs(),
-    format: l.date.formats.javascript(),
-  };
+  useEffect(() => {
+    if (
+      localeData.format === format &&
+      isEqual(localeData.formats, formats) &&
+      localeData.locale === locale
+    ) {
+      return;
+    }
+    setLocaleData({
+      locale,
+      formats,
+      format,
+    });
+  }, [
+    localeData.format,
+    localeData.formats,
+    localeData.locale,
+    format,
+    formats,
+    locale,
+  ]);
 
   useEffect(() => {
     let monthDate;
