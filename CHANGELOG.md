@@ -1,3 +1,24 @@
+### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** add mutation observer ([562fd12](https://github.com/Sage/carbon/commit/562fd12379df01d52a32b24bc979fa03a919e190)), closes [#4255](https://github.com/Sage/carbon/issues/4255)
+
+## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
+
+
+### Features
+
+* **toolbar:** add support for overriding translations in TextEditor Toolbar ([483a43f](https://github.com/Sage/carbon/commit/483a43fd4b2a8515299560512fa3fc4d9552c9b1)), closes [#4121](https://github.com/Sage/carbon/issues/4121)
+
+### [81.1.1](https://github.com/Sage/carbon/compare/v81.1.0...v81.1.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **date-picker:** month could not be changed in datepicker ([053bb88](https://github.com/Sage/carbon/commit/053bb88286d37a56c59e6640b3b2cfe74cc8540f))
+
 ## [81.1.0](https://github.com/Sage/carbon/compare/v81.0.5...v81.1.0) (2021-08-17)
 
 

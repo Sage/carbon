@@ -81,6 +81,20 @@ I18nProvider.propTypes = {
     table: PropTypes.shape({
       noData: PropTypes.func,
     }),
+    textEditor: PropTypes.shape({
+      tooltipMessages: PropTypes.shape({
+        bold: PropTypes.func,
+        italic: PropTypes.func,
+        bulletList: PropTypes.func,
+        numberList: PropTypes.func,
+      }),
+      ariaLabels: PropTypes.shape({
+        bold: PropTypes.func,
+        italic: PropTypes.func,
+        bulletList: PropTypes.func,
+        numberList: PropTypes.func,
+      }),
+    }),
     titleSelect: PropTypes.shape({
       deselect: PropTypes.func,
     }),
