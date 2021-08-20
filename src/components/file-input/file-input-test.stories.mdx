@@ -1,0 +1,45 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import LoaderBar from "../loader-bar";
+import FileInput from ".";
+import Button from "../button";
+import { LOADER_BAR_SIZES } from "../loader-bar/loader-bar.config";
+
+<Meta
+  title="Design System/File Inputs/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: ["small", "medium", "large"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const FileInputStory = ({ size, ...args }) => {
+  return <FileInput fileChooseAction={() => {}} size={size} {...args} />;
+};
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      size: "medium",
+      disabled: false,
+      error: "",
+      isUploading: false,
+      allowMultiple: false,
+      draggable: false,
+      dragPlaceholder: "",
+      label: "File input",
+    }}
+  >
+    {FileInputStory.bind({})}
+  </Story>
+</Preview>

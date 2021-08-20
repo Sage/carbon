@@ -1,0 +1,209 @@
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import FileInput from ".";
+import Textbox from "../textbox";
+import Decimal from "../decimal";
+import { Select, Option } from "../select";
+import { useState } from "react";
+
+<Meta title="Design System/File Inputs" />
+
+# File input
+
+File input allows the user to upload files(s).
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import FileInput from "carbon-react/lib/components/file-input";
+```
+
+## Examples
+
+### Default
+
+<Preview>
+  <Story name="default">
+    <FileInput m={2} label={"Default"} fileChooseAction={() => {}} />
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="disabled">
+    <FileInput disabled m={2} label={"Disabled"} fileChooseAction={() => {}} />
+  </Story>
+</Preview>
+
+### Allow multiple files
+
+<Preview>
+  <Story name="allow multiple">
+    <FileInput
+      m={2}
+      label={"Allows multiple"}
+      allowMultiple
+      fileChooseAction={() => {}}
+    />
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="size">
+    <FileInput m={2} label={"Small"} size="small" fileChooseAction={() => {}} />
+    <FileInput
+      m={2}
+      label={"Medium"}
+      size="medium"
+      fileChooseAction={() => {}}
+    />
+    <FileInput m={2} label={"Large"} size="large" fileChooseAction={() => {}} />
+  </Story>
+</Preview>
+
+### With accept prop
+
+<Preview>
+  <Story name="accept property">
+    <FileInput
+      m={2}
+      label={"With accept property (png only)"}
+      accept={"image/png"}
+      fileChooseAction={() => {}}
+    />
+  </Story>
+</Preview>
+
+### With file validation
+
+<Preview>
+  <Story name="with validation">
+    {() => {
+      const [error, setError] = useState("");
+      return (
+        <FileInput
+          m={2}
+          label={"With max size of 10kB"}
+          fileChooseAction={(files) => {
+            const sizeSum = files.reduce((total, file) => total + file.size, 0);
+            if (sizeSum > 10000) setError("This file is too big");
+            else setError("");
+          }}
+          allowMultiple
+          error={error}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With isUploading prop
+
+<Preview>
+  <Story name="isUploading">
+    <FileInput
+      m={2}
+      label={"With isUploading prop"}
+      isUploading
+      fileChooseAction={() => {}}
+    />
+  </Story>
+</Preview>
+
+### Draggable
+
+<Preview>
+  <Story name="draggable">
+    <FileInput
+      m={2}
+      label={"draggable"}
+      fileChooseAction={() => {}}
+      draggable
+      dragPlaceholder="Drop the file here."
+    />
+  </Story>
+</Preview>
+
+### Draggable disabled
+
+<Preview>
+  <Story name="draggable disabled">
+    <FileInput
+      m={2}
+      label={"Draggable disabled"}
+      fileChooseAction={() => {}}
+      draggable
+      dragPlaceholder="Drop the file here."
+      disabled
+    />
+  </Story>
+</Preview>
+
+### Draggable allow multiple
+
+<Preview>
+  <Story name="draggable multiple">
+    <FileInput
+      m={2}
+      label={"draggable multiple"}
+      fileChooseAction={() => {}}
+      draggable
+      allowMultiple
+      dragPlaceholder="Drop the file here."
+    />
+  </Story>
+</Preview>
+
+### Draggable with file validation
+
+<Preview>
+  <Story name="draggable with validation">
+    {() => {
+      const [error, setError] = useState("");
+      return (
+        <FileInput
+          m={2}
+          label={"With max size of 10kB"}
+          fileChooseAction={(files) => {
+            const sizeSum = files.reduce((total, file) => total + file.size, 0);
+            if (sizeSum > 10000) setError("These files are too big");
+            else setError("");
+          }}
+          allowMultiple
+          error={error}
+          draggable
+          dragPlaceholder="Drop the file here."
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### Draggable with accept property
+
+<Preview>
+  <Story name="draggable accept png only">
+    <FileInput
+      m={2}
+      label={"PNG files only"}
+      fileChooseAction={() => {}}
+      draggable
+      dragPlaceholder="Drop the file here."
+      accept={"image/png"}
+    />
+  </Story>
+</Preview>
+
+## Props
+
+### FileInput
+
+<Props of={FileInput} />
