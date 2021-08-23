@@ -7,6 +7,7 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -37,6 +38,7 @@ const Checkbox = ({
   disabled,
   inputWidth,
   size,
+  tooltipPosition,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -68,28 +70,31 @@ const Checkbox = ({
     disabled,
     inputWidth,
     labelWidth,
+    tooltipPosition,
   };
 
   return (
-    <CheckboxStyle
-      {...tagComponent("checkbox", props)}
-      disabled={disabled}
-      labelSpacing={labelSpacing}
-      inputWidth={inputWidth}
-      labelWidth={labelWidth}
-      adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
-      error={error}
-      warning={warning}
-      info={info}
-      fieldHelpInline={fieldHelpInline}
-      reverse={reverse}
-      size={size}
-      {...props}
-    >
-      <CheckableInput {...inputProps}>
-        <CheckboxSvg />
-      </CheckableInput>
-    </CheckboxStyle>
+    <TooltipProvider tooltipPosition={tooltipPosition}>
+      <CheckboxStyle
+        {...tagComponent("checkbox", props)}
+        disabled={disabled}
+        labelSpacing={labelSpacing}
+        inputWidth={inputWidth}
+        labelWidth={labelWidth}
+        adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
+        error={error}
+        warning={warning}
+        info={info}
+        fieldHelpInline={fieldHelpInline}
+        reverse={reverse}
+        size={size}
+        {...props}
+      >
+        <CheckableInput {...inputProps}>
+          <CheckboxSvg />
+        </CheckableInput>
+      </CheckboxStyle>
+    </TooltipProvider>
   );
 };
 
@@ -151,6 +156,8 @@ Checkbox.propTypes = {
   adaptiveSpacingBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 Checkbox.defaultProps = {

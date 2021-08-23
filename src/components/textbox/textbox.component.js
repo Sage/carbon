@@ -12,6 +12,7 @@ import FormField from "../../__internal__/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -46,51 +47,56 @@ const Textbox = ({
   required,
   positionedChildren,
   inputRef,
+  tooltipPosition,
   ...props
 }) => {
   return (
-    <InputBehaviour>
-      <FormField
-        childOfForm={childOfForm}
-        isOptional={isOptional}
-        {...filterOutPaddingProps(props)}
-        useValidationIcon={validationOnLabel}
-        labelWidth={labelWidth}
-        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        isRequired={required}
-      >
-        <InputPresentation
-          type="text"
-          {...removeParentProps(props)}
-          inputWidth={inputWidth || 100 - labelWidth}
-          positionedChildren={positionedChildren}
+    <TooltipProvider tooltipPosition={tooltipPosition}>
+      <InputBehaviour>
+        <FormField
+          childOfForm={childOfForm}
+          isOptional={isOptional}
+          {...filterOutPaddingProps(props)}
+          useValidationIcon={validationOnLabel}
+          labelWidth={labelWidth}
+          adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+          isRequired={required}
         >
-          {leftChildren}
-          {prefix ? (
-            <StyledPrefix data-element="textbox-prefix">{prefix}</StyledPrefix>
-          ) : null}
-          <Input
-            {...(required && { required })}
+          <InputPresentation
+            type="text"
             {...removeParentProps(props)}
-            placeholder={
-              props.disabled || props.readOnly ? "" : props.placeholder
-            }
-            aria-invalid={!!props.error}
-            inputRef={inputRef}
-            value={visibleValue(value, formattedValue)}
-          />
-          {children}
-          <InputIconToggle
-            {...removeParentProps(props)}
-            useValidationIcon={!validationOnLabel}
-            onClick={iconOnClick || props.onClick}
-            onMouseDown={iconOnMouseDown}
-            inputIcon={inputIcon}
-            iconTabIndex={iconTabIndex}
-          />
-        </InputPresentation>
-      </FormField>
-    </InputBehaviour>
+            inputWidth={inputWidth || 100 - labelWidth}
+            positionedChildren={positionedChildren}
+          >
+            {leftChildren}
+            {prefix ? (
+              <StyledPrefix data-element="textbox-prefix">
+                {prefix}
+              </StyledPrefix>
+            ) : null}
+            <Input
+              {...(required && { required })}
+              {...removeParentProps(props)}
+              placeholder={
+                props.disabled || props.readOnly ? "" : props.placeholder
+              }
+              aria-invalid={!!props.error}
+              inputRef={inputRef}
+              value={visibleValue(value, formattedValue)}
+            />
+            {children}
+            <InputIconToggle
+              {...removeParentProps(props)}
+              useValidationIcon={!validationOnLabel}
+              onClick={iconOnClick || props.onClick}
+              onMouseDown={iconOnMouseDown}
+              inputIcon={inputIcon}
+              iconTabIndex={iconTabIndex}
+            />
+          </InputPresentation>
+        </FormField>
+      </InputBehaviour>
+    </TooltipProvider>
   );
 };
 
@@ -205,6 +211,8 @@ Textbox.propTypes = {
   required: PropTypes.bool,
   /** A callback to retrieve the input reference */
   inputRef: PropTypes.func,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 Textbox.defaultProps = {

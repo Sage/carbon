@@ -17,6 +17,7 @@ import browserTypeCheck, {
 } from "../../utils/helpers/browser-type-check";
 import styledColor from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 jest.mock("../../utils/helpers/browser-type-check");
 jest.mock("@tippyjs/react/headless", () => ({
@@ -555,6 +556,16 @@ describe("Icon component", () => {
         expect(wrapper.find(Tooltip).props().position).toEqual(position);
       }
     );
+
+    it('tooltips "position" can be overriden by context', () => {
+      const wrapper = mount(
+        <TooltipProvider tooltipPosition="top">
+          <Icon tooltipMessage="foo" type="home" tooltipPosition="left" />
+        </TooltipProvider>
+      );
+
+      expect(wrapper.find(Tooltip).props().position).toBe("top");
+    });
 
     it("supports being controlled via tooltipVisible prop", () => {
       const wrapper = mount(

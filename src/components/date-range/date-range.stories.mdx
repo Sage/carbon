@@ -103,6 +103,32 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          {...validation}
+          tooltipPosition="top"
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
 #### As a string, displayed on label
 
 <Preview>
@@ -120,6 +146,33 @@ For more information check our [Validations](?path=/docs/documentation-validatio
           value={["2016-10-01", "2016-10-30"]}
           validationOnLabel
           {...validation}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - label"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-label`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          validationOnLabel
+          {...validation}
+          tooltipPosition="top"
         />
       ))
     }

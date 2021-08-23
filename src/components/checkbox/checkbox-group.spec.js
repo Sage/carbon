@@ -8,6 +8,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
 import Fieldset from "../../__internal__/fieldset";
+import Tooltip from "../tooltip";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";
@@ -124,5 +125,17 @@ describe("CheckboxGroup", () => {
   it("blocks the group behaviour if no validation set on group", () => {
     const wrapper = render({});
     expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
+  });
+
+  describe("tooltipPosition", () => {
+    it("should override the default value", () => {
+      const wrapper = render(
+        { legend: "foo", error: "message", tooltipPosition: "bottom" },
+        mount
+      );
+      const { position } = wrapper.find(Tooltip).props();
+
+      expect(position).toEqual("bottom");
+    });
   });
 });

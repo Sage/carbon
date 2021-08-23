@@ -23,6 +23,8 @@ interface CheckboxGroupProps extends ValidationPropTypes, MarginProps {
   labelSpacing?: 1 | 2;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Overrides the default tooltip */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function CheckboxGroup(props: CheckboxGroupProps): JSX.Element;

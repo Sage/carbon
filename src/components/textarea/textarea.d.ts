@@ -58,6 +58,8 @@ export interface TextareaProps extends ValidationPropTypes, MarginProps {
   value?: string;
   /** Whether to display the character count message in red */
   warnOverLimit?: boolean;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare class Textarea extends React.Component<TextareaProps> {}
