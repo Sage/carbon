@@ -1,3 +1,10 @@
+### [81.2.2](https://github.com/Sage/carbon/compare/v81.2.1...v81.2.2) (2021-08-20)
+
+
+### Bug Fixes
+
+* **select:** scroll option into view when using keyboard navigation ([d09ef73](https://github.com/Sage/carbon/commit/d09ef739f730039f6105273f75b16a40ad753f78)), closes [#4270](https://github.com/Sage/carbon/issues/4270)
+
 ### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
 
 
