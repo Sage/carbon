@@ -1,3 +1,44 @@
+### [81.2.2](https://github.com/Sage/carbon/compare/v81.2.1...v81.2.2) (2021-08-20)
+
+
+### Bug Fixes
+
+* **select:** scroll option into view when using keyboard navigation ([d09ef73](https://github.com/Sage/carbon/commit/d09ef739f730039f6105273f75b16a40ad753f78)), closes [#4270](https://github.com/Sage/carbon/issues/4270)
+
+### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** add mutation observer ([562fd12](https://github.com/Sage/carbon/commit/562fd12379df01d52a32b24bc979fa03a919e190)), closes [#4255](https://github.com/Sage/carbon/issues/4255)
+
+## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
+
+
+### Features
+
+* **toolbar:** add support for overriding translations in TextEditor Toolbar ([483a43f](https://github.com/Sage/carbon/commit/483a43fd4b2a8515299560512fa3fc4d9552c9b1)), closes [#4121](https://github.com/Sage/carbon/issues/4121)
+
+### [81.1.1](https://github.com/Sage/carbon/compare/v81.1.0...v81.1.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **date-picker:** month could not be changed in datepicker ([053bb88](https://github.com/Sage/carbon/commit/053bb88286d37a56c59e6640b3b2cfe74cc8540f))
+
+## [81.1.0](https://github.com/Sage/carbon/compare/v81.0.5...v81.1.0) (2021-08-17)
+
+
+### Features
+
+* **sidebar:** implement ref forwarding ([da9fbd1](https://github.com/Sage/carbon/commit/da9fbd1129b3324b70147ac755da077ba2f05b46))
+
+
+### Bug Fixes
+
+* **sidebar:** incorrect typescript class export ([9a1b9c8](https://github.com/Sage/carbon/commit/9a1b9c843725871f32897d59c8c4e649838a9ff8))
+* **sidebar:** sidebar context not exported in typescript ([1e026e4](https://github.com/Sage/carbon/commit/1e026e47c1d6f82dfe221e07e8c2ff4f3b5d3e50))
+
 ### [81.0.5](https://github.com/Sage/carbon/compare/v81.0.4...v81.0.5) (2021-08-06)
 
 

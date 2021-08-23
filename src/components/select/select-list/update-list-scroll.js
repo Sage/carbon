@@ -1,5 +1,9 @@
 export default function updateListScrollTop(indexOfCurrent, list, options) {
-  if (!list || !options[indexOfCurrent]) {
+  if (
+    !list ||
+    !options[indexOfCurrent] ||
+    options[indexOfCurrent].current === null
+  ) {
     list.scrollTop = 0;
 
     return;

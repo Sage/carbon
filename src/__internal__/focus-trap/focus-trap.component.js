@@ -1,4 +1,4 @@
-import {
+import React, {
   useCallback,
   useContext,
   useEffect,
@@ -23,6 +23,7 @@ const FocusTrap = ({
   bespokeTrap,
   wrapperRef,
 }) => {
+  const trapRef = useRef(null);
   const firstOpen = useRef(true);
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
@@ -39,7 +40,7 @@ const FocusTrap = ({
     [focusableElements]
   );
 
-  useLayoutEffect(() => {
+  const updateFocusableElements = useCallback(() => {
     if (wrapperRef) {
       const ref = wrapperRef.current;
 
@@ -53,7 +54,24 @@ const FocusTrap = ({
         setLastElement(elements[elements.length - 1]);
       }
     }
-  }, [children, hasNewInputs, wrapperRef]);
+  }, [hasNewInputs, wrapperRef]);
+
+  useEffect(() => {
+    const observer = new MutationObserver(updateFocusableElements);
+
+    observer.observe(trapRef.current, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [updateFocusableElements]);
+
+  useLayoutEffect(() => {
+    updateFocusableElements();
+  }, [children, updateFocusableElements]);
 
   useEffect(() => {
     if (
@@ -112,7 +130,7 @@ const FocusTrap = ({
     };
   }, [firstElement, lastElement, focusableElements, bespokeTrap]);
 
-  return children;
+  return <div ref={trapRef}>{children}</div>;
 };
 
 FocusTrap.propTypes = {

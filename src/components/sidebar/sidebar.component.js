@@ -11,76 +11,80 @@ import Box from "../box";
 
 export const SidebarContext = React.createContext({});
 
-const Sidebar = ({
-  open,
-  disableEscKey,
-  enableBackgroundUI,
-  header,
-  position,
-  size,
-  children,
-  onCancel,
-  ...rest
-}) => {
-  const sideBarRef = useRef();
+const Sidebar = React.forwardRef(
+  (
+    {
+      open,
+      disableEscKey,
+      enableBackgroundUI,
+      header,
+      position,
+      size,
+      children,
+      onCancel,
+      ...rest
+    },
+    ref
+  ) => {
+    const sidebarRef = ref || useRef();
+    const closeIcon = () => {
+      if (!onCancel) return null;
+      return (
+        <IconButton aria-label="close" onAction={onCancel} data-element="close">
+          <Icon type="close" />
+        </IconButton>
+      );
+    };
 
-  const closeIcon = () => {
-    if (!onCancel) return null;
-    return (
-      <IconButton aria-label="close" onAction={onCancel} data-element="close">
-        <Icon type="close" />
-      </IconButton>
-    );
-  };
+    const componentTags = {
+      "data-component": "sidebar",
+      "data-element": rest["data-element"],
+      "data-role": rest["data-role"],
+    };
 
-  const componentTags = {
-    "data-component": "sidebar",
-    "data-element": rest["data-element"],
-    "data-role": rest["data-role"],
-  };
-
-  const sidebar = (
-    <SidebarStyle
-      ref={sideBarRef}
-      position={position}
-      size={size}
-      data-element="sidebar"
-      role="complementary"
-      onCancel={onCancel}
-    >
-      {closeIcon()}
-      {header && <SidebarHeader>{header}</SidebarHeader>}
-      <Box
-        data-element="sidebar-content"
-        p={4}
-        pt="27px"
-        scrollVariant="light"
-        overflow="auto"
+    const sidebar = (
+      <SidebarStyle
+        ref={sidebarRef}
+        position={position}
+        size={size}
+        data-element="sidebar"
+        role="complementary"
+        onCancel={onCancel}
       >
-        <SidebarContext.Provider value={{ isInSidebar: true }}>
-          {children}
-        </SidebarContext.Provider>
-      </Box>
-    </SidebarStyle>
-  );
+        {closeIcon()}
+        {header && <SidebarHeader>{header}</SidebarHeader>}
+        <Box
+          data-element="sidebar-content"
+          p={4}
+          pt="27px"
+          scrollVariant="light"
+          overflow="auto"
+        >
+          <SidebarContext.Provider value={{ isInSidebar: true }}>
+            {children}
+          </SidebarContext.Provider>
+        </Box>
+      </SidebarStyle>
+    );
 
-  return (
-    <Modal
-      open={open}
-      onCancel={onCancel}
-      disableEscKey={disableEscKey}
-      enableBackgroundUI={enableBackgroundUI}
-      className="carbon-sidebar"
-      {...componentTags}
-    >
-      {enableBackgroundUI ? (
-        sidebar
-      ) : (
-        <FocusTrap wrapperRef={sideBarRef}>{sidebar}</FocusTrap>
-      )}
-    </Modal>
-  );
-};
+    return (
+      <Modal
+        open={open}
+        onCancel={onCancel}
+        disableEscKey={disableEscKey}
+        enableBackgroundUI={enableBackgroundUI}
+        className="carbon-sidebar"
+        {...componentTags}
+      >
+        {enableBackgroundUI ? (
+          sidebar
+        ) : (
+          <FocusTrap wrapperRef={sidebarRef}>{sidebar}</FocusTrap>
+        )}
+      </Modal>
+    );
+  }
+);
 
 Sidebar.propTypes = {
   /** Modal content */
