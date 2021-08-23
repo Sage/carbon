@@ -16,6 +16,11 @@ describe("ElementResize", () => {
         ElementResize.addListener(null, callback);
         expect(element.__resizeListenerCallbacks__).toEqual(undefined);
       });
+      it("does nothing on removal", () => {
+        expect(() =>
+          ElementResize.removeListener(null, callback)
+        ).not.toThrow();
+      });
     });
     describe("no listener yet set", () => {
       it("creates an object to watch", () => {

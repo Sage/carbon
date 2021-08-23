@@ -82,6 +82,10 @@ const ElementResize = {
    * @param {Function} fn - the callback
    */
   removeListener: (element, callback) => {
+    if (!element) {
+      return;
+    }
+
     if (element.__resizeListenerCallbacks__) {
       // remove the event listener from the array
       element.__resizeListenerCallbacks__.splice(
