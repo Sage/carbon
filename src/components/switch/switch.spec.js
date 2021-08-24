@@ -24,6 +24,7 @@ import SwitchStyle from "./switch.style";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import Label from "../../__internal__/label";
 import I18nProvider from "../i18n-provider";
+import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -511,6 +512,39 @@ describe("Switch", () => {
       expect(
         wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()
       ).toEqual(false);
+    });
+  });
+
+  describe("tooltipPosition", () => {
+    it("overrides the default placement when icon is on input", () => {
+      const { position } = render(
+        {
+          label: "My Label",
+          labelHelp: "Please help me?",
+          tooltipPosition: "top",
+        },
+        mount
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
+    });
+
+    it("overrides the default placement when icon is on label", () => {
+      const { position } = render(
+        {
+          label: "My Label",
+          labelHelp: "Please help me?",
+          tooltipPosition: "top",
+          validationOnLabel: true,
+        },
+        mount
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
     });
   });
 

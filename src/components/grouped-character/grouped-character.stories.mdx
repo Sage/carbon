@@ -379,6 +379,40 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [state, setState] = useState({
+        error: "1231231",
+        warning: "1231231",
+        info: "1231231",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <GroupedCharacter
+            label="GroupedCharacter"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
+            groups={[2, 2, 3]}
+            separator="-"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="bottom"
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Preview>
+
 #### As a string, displayed on label
 
 <Preview>
@@ -413,6 +447,41 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Preview>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - label"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [state, setState] = useState({
+        error: "1231231",
+        warning: "1231231",
+        info: "1231231",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <GroupedCharacter
+            label="GroupedCharacter"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
+            groups={[2, 2, 3]}
+            separator="-"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="top"
           />
         </div>
       ));

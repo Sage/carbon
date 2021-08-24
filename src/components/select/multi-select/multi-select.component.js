@@ -41,6 +41,7 @@ const MultiSelect = React.forwardRef(
       isLoading,
       tableHeader,
       multiColumn,
+      tooltipPosition,
       ...textboxProps
     },
     inputRef
@@ -443,6 +444,7 @@ const MultiSelect = React.forwardRef(
         iconOnMouseDown: handleTextboxMouseDown,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
+        tooltipPosition,
         ...textboxProps,
       };
     }
@@ -535,6 +537,8 @@ MultiSelect.propTypes = {
   noResultsMessage: PropTypes.string,
   /** If true the loader animation is displayed in the option list */
   isLoading: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default MultiSelect;

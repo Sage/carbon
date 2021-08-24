@@ -30,6 +30,8 @@ export interface SimpleSelectProps extends FormInputPropTypes {
   transparent?: boolean;
   /** The selected value(s), when the component is operating in controlled mode */
   value?: string | object;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function SimpleSelect(props: SimpleSelectProps & React.RefAttributes<HTMLInputElement>): JSX.Element;

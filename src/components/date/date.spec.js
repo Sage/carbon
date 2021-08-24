@@ -16,6 +16,7 @@ import { isEdge } from "../../utils/helpers/browser-type-check";
 import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import enGB from "../../locales/en-gb";
+import Tooltip from "../tooltip";
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
@@ -824,6 +825,29 @@ describe("Date", () => {
         wrapper.update();
         expect(wrapper.find(Textbox).props().value).toEqual("12/12/2012");
       });
+    });
+  });
+
+  describe("tooltipPosition", () => {
+    it("overrides the default position when validation is on input", () => {
+      const { position } = render({ error: "message", tooltipPosition: "top" })
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
+    });
+
+    it("overrides the default position when validation is on label", () => {
+      const { position } = render({
+        label: "foo",
+        validationOnLabel: true,
+        error: "message",
+        tooltipPosition: "top",
+      })
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
     });
   });
 });

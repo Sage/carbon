@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -38,7 +38,7 @@ const ValidationIcon = ({
     hasFocus: groupHasFocus,
     hasMouseOver: groupHasMouseOver,
   } = useContext(InputGroupContext);
-  const [triggeredByIcon, setTriggeredByIcon] = React.useState(false);
+  const [triggeredByIcon, setTriggeredByIcon] = useState(false);
 
   const validationType = getValidationType({ error, warning, info });
 

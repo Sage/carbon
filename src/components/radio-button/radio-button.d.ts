@@ -14,6 +14,8 @@ export interface RadioButtonProps extends CommonCheckableInputProps, MarginProps
   size?: "small" | "large";
   /** the value of the Radio Button, passed on form submit */
   value: string;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function RadioButton(props: RadioButtonProps & React.RefAttributes<HTMLInputElement>): JSX.Element;

@@ -74,6 +74,8 @@ export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
   size?: "small" | "medium" | "large";
   /** When true, validation icons will be placed on labels instead of being placed on the inputs */
   validationOnLabel?: boolean;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function NumeralDate(props: NumeralDateProps): JSX.Element;

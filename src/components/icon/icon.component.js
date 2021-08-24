@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags";
@@ -7,6 +7,7 @@ import Tooltip from "../tooltip";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Logger from "../../utils/logger";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
+import { TooltipContext } from "../../__internal__/tooltip-provider";
 
 let deprecatedWarnTriggered = false;
 
@@ -97,10 +98,14 @@ const Icon = React.forwardRef(
     if (tooltipMessage) {
       const visible = disabled ? false : tooltipVisible;
 
+      const { tooltipPosition: tooltipPositionFromContext } = useContext(
+        TooltipContext
+      );
+
       return (
         <Tooltip
           message={tooltipMessage}
-          position={tooltipPosition}
+          position={tooltipPositionFromContext || tooltipPosition}
           type={type}
           isVisible={visible}
           isPartOfInput={isPartOfInput}
