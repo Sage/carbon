@@ -352,6 +352,21 @@ describe("TileSelect", () => {
       );
     });
   });
+
+  describe("prefixAdornment prop", () => {
+    it("renders the passed in node", () => {
+      const MyComp = () => <div>foo</div>;
+
+      render({
+        checked: true,
+        id: "id",
+        name: "name",
+        prefixAdornment: <MyComp />,
+      });
+
+      expect(wrapper.find(MyComp).exists()).toBeTruthy();
+    });
+  });
 });
 
 describe("TileSelectGroup", () => {

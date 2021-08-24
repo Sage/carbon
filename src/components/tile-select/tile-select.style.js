@@ -126,6 +126,7 @@ const StyledDeselectWrapper = styled.div`
     position: relative;
     top: -4px;
     right: 8px;
+    height: fit-content;
 
     ${hasActionAdornment &&
     `

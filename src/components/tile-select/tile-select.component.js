@@ -26,6 +26,8 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
+const checkPropTypeIsNode = (prop) => typeof prop !== "string" && { as: "div" };
+
 const TileSelect = ({
   onChange,
   onBlur,
@@ -44,6 +46,7 @@ const TileSelect = ({
   customActionButton,
   actionButtonAdornment,
   footer,
+  prefixAdornment,
   ...rest
 }) => {
   const l = useLocale();
@@ -113,20 +116,17 @@ const TileSelect = ({
         />
         <StyledTileSelect disabled={disabled} checked={checked}>
           <Box display="flex" justifyContent="space-between">
-            <Box>
+            {prefixAdornment && <Box mr={3}>{prefixAdornment}</Box>}
+            <Box flexGrow="1">
               <StyledTitleContainer>
                 {title && (
-                  <StyledTitle
-                    {...(typeof title !== "string" && { as: "div" })}
-                  >
+                  <StyledTitle {...checkPropTypeIsNode(title)}>
                     {title}
                   </StyledTitle>
                 )}
 
                 {subtitle && (
-                  <StyledSubtitle
-                    {...(typeof subtitle !== "string" && { as: "div" })}
-                  >
+                  <StyledSubtitle {...checkPropTypeIsNode(subtitle)}>
                     {subtitle}
                   </StyledSubtitle>
                 )}
@@ -135,9 +135,7 @@ const TileSelect = ({
                   <StyledAdornment>{titleAdornment}</StyledAdornment>
                 )}
               </StyledTitleContainer>
-              <StyledDescription
-                {...(typeof description !== "string" && { as: "div" })}
-              >
+              <StyledDescription {...checkPropTypeIsNode(description)}>
                 {description}
               </StyledDescription>
               {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
@@ -191,6 +189,8 @@ TileSelect.propTypes = {
   actionButtonAdornment: PropTypes.node,
   /** footer of the TileSelect */
   footer: PropTypes.node,
+  /** Component to render in the top left corner of TileSelect */
+  prefixAdornment: PropTypes.node,
 };
 
 TileSelect.displayName = "TileSelect";
