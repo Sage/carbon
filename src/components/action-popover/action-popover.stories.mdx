@@ -3,6 +3,7 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import { Basic } from "./action-popover.stories";
 import { Preview as MyPreview } from "@storybook/components";
 import LinkTo from "@storybook/addon-links/react";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import {
   ActionPopover,
@@ -43,6 +44,7 @@ Click the ellipsis icon to show actions the user can take on a specific table ro
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -993,3 +995,21 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 ### ActionPopoverItem Props
 
 <Props of={MenuItem} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object 
+to the [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "actionPopover.ariaLabel",
+        description: "The text for the aria-label attribute",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

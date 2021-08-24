@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import Message from '.';
 import Button from '../button';
@@ -22,6 +23,7 @@ Presents a static message which stays on screen.
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 ```javascript
@@ -211,3 +213,21 @@ To see a full list of available margin props, please visit the props table at th
 ### Message
 
 <StyledSystemProps of={Message} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "mssage.closeButtonAriaLabel",
+        description: "The text for the aria-label attribute of the close button",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>
