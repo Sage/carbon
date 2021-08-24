@@ -21,6 +21,7 @@ import {
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
+import StyledIcon from "../icon/icon.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -237,6 +238,18 @@ describe("TileSelect", () => {
         wrapper.find(StyledFocusWrapper)
       );
     });
+
+    it("applies correct styles to title container", () => {
+      assertStyleMatch(
+        {
+          display: "inline-flex",
+          alignItems: "baseline",
+          flexWrap: "wrap",
+          marginRight: "16px",
+        },
+        wrapper.find(StyledTitleContainer)
+      );
+    });
   });
 
   describe("customActionButton render prop", () => {
@@ -277,8 +290,11 @@ describe("TileSelect", () => {
       });
 
       expect(
-        wrapper.find(StyledDeselectWrapper).props().children.length
-      ).toEqual(2);
+        wrapper.find(StyledDeselectWrapper).find(Button).exists()
+      ).toBeTruthy();
+      expect(
+        wrapper.find(StyledDeselectWrapper).find(Button).props().children
+      ).toEqual("Deselect");
       expect(
         wrapper.find(StyledDeselectWrapper).find(Icon).exists()
       ).toBeTruthy();
@@ -287,10 +303,18 @@ describe("TileSelect", () => {
         {
           marginRight: "16px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "baseline",
           minHeight: "32px",
         },
         wrapper.find(StyledDeselectWrapper)
+      );
+
+      assertStyleMatch(
+        {
+          top: "2px",
+        },
+        wrapper.find(StyledDeselectWrapper),
+        { modifier: `${StyledIcon}` }
       );
     });
   });

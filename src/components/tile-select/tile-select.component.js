@@ -5,6 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Button from "../button";
+import Box from "../box";
 
 import {
   StyledTileSelectContainer,
@@ -57,11 +58,10 @@ const TileSelect = ({
       },
     });
 
-  const renderActionButton = () => {
-    if (customActionButton) return customActionButton(handleDeselect);
-
-    return (
-      checked && (
+  const renderActionButton = () => (
+    <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+      {customActionButton && customActionButton(handleDeselect)}
+      {!customActionButton && checked && (
         <Button
           buttonType="tertiary"
           size="small"
@@ -70,9 +70,10 @@ const TileSelect = ({
         >
           {l.tileSelect.deselect()}
         </Button>
-      )
-    );
-  };
+      )}
+      {actionButtonAdornment}
+    </StyledDeselectWrapper>
+  );
 
   useEffect(() => {
     if (disabled && hasFocus) {
@@ -111,37 +112,40 @@ const TileSelect = ({
           {...rest}
         />
         <StyledTileSelect disabled={disabled} checked={checked}>
-          <StyledTitleContainer>
-            {title && (
-              <StyledTitle {...(typeof title !== "string" && { as: "div" })}>
-                {title}
-              </StyledTitle>
-            )}
+          <Box display="flex" justifyContent="space-between">
+            <Box>
+              <StyledTitleContainer>
+                {title && (
+                  <StyledTitle
+                    {...(typeof title !== "string" && { as: "div" })}
+                  >
+                    {title}
+                  </StyledTitle>
+                )}
 
-            {subtitle && (
-              <StyledSubtitle
-                {...(typeof subtitle !== "string" && { as: "div" })}
+                {subtitle && (
+                  <StyledSubtitle
+                    {...(typeof subtitle !== "string" && { as: "div" })}
+                  >
+                    {subtitle}
+                  </StyledSubtitle>
+                )}
+
+                {titleAdornment && (
+                  <StyledAdornment>{titleAdornment}</StyledAdornment>
+                )}
+              </StyledTitleContainer>
+              <StyledDescription
+                {...(typeof description !== "string" && { as: "div" })}
               >
-                {subtitle}
-              </StyledSubtitle>
-            )}
-
-            {titleAdornment && (
-              <StyledAdornment>{titleAdornment}</StyledAdornment>
-            )}
-          </StyledTitleContainer>
-          <StyledDescription
-            {...(typeof description !== "string" && { as: "div" })}
-          >
-            {description}
-          </StyledDescription>
-          {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+                {description}
+              </StyledDescription>
+              {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+            </Box>
+            {(customActionButton || checked) && renderActionButton()}
+          </Box>
         </StyledTileSelect>
       </StyledFocusWrapper>
-      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
-        {renderActionButton()}
-        {actionButtonAdornment}
-      </StyledDeselectWrapper>
     </StyledTileSelectContainer>
   );
 };
