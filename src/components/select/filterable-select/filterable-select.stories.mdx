@@ -1,11 +1,13 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { action } from "@storybook/addon-actions";
 import { useState, useRef } from "react";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
 import Button from "../../button";
 import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
-import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 <Meta
   title="Design System/Select/Filterable"
@@ -21,6 +23,7 @@ Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with In
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -600,3 +603,33 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 ### Props of the Option Component
 <Props of={Option} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "select.actionButtonText",
+        description: "The text for the action button component",
+        type: "func",
+        returnType: "string"
+      },
+      {
+        name: "select.placeholder",
+        description: "The text for the input component placeholder",
+        type: "func",
+        returnType: "string"
+      },
+      {
+        name: "select.noResultsForTerm",
+        description: "The text displayed when search term returns no results",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

@@ -2,10 +2,12 @@ import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
 import { action } from "@storybook/addon-actions";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import { MultiSelect, Option, OptionRow } from "../";
-import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 <Meta
   title="Design System/Select/MultiSelect"
@@ -22,6 +24,7 @@ Select multiple options from the drop-down menu. MultiSelect is a component that
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -487,3 +490,21 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
 ### Props of the Option Component
 
 <Props of={Option} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "select.placeholder",
+        description: "The text for the input component placeholder",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>
