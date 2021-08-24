@@ -13,6 +13,7 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
 
@@ -80,6 +81,33 @@ describe("Textbox", () => {
         ).toBe(true);
       }
     );
+
+    describe("overriding the tooltip position", () => {
+      it.each([
+        ["top", true],
+        ["bottom", true],
+        ["left", true],
+        ["top", false],
+        ["bottom", false],
+        ["left", false],
+      ])(
+        "should pass the expected value rather than the default ('right')",
+        (tooltipPosition, onLabel) => {
+          const wrapper = mount(
+            <Textbox
+              label="Label"
+              error="Message"
+              validationOnLabel={onLabel}
+              tooltipPosition={tooltipPosition}
+            />
+          );
+
+          const { position } = wrapper.find(Tooltip).props();
+
+          expect(position).toEqual(tooltipPosition);
+        }
+      );
+    });
   });
 
   describe("when the prefix prop is set", () => {

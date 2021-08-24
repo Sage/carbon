@@ -269,6 +269,30 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="single switch - string validation - tooltipPosition overriden"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}-tooltipPosition-override`}
+          key={`switch-${type}`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-tooltipPosition-override`}
+          onChange={(e) => setIsChecked((state) => !state)}
+          tooltipPosition="top"
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
 #### As a string with validationOnLabel
 
 <Preview>
@@ -284,6 +308,31 @@ For more information check our [Validations](?path=/docs/documentation-validatio
           name={`switch-${type}-label`}
           validationOnLabel
           onChange={(e) => setIsChecked((state) => !state)}
+        />
+      ));
+    }}
+  </Story>
+</Preview>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="single switch - string validation - validationOnLabel - tooltipPosition overriden"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return ["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}-label-tooltipPosition-override`}
+          key={`switch-${type}-label`}
+          {...{ [type]: "Message" }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}-label-tooltipPosition-override`}
+          validationOnLabel
+          onChange={(e) => setIsChecked((state) => !state)}
+          tooltipPosition="top"
         />
       ));
     }}

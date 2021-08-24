@@ -7,6 +7,7 @@ import RadioButtonGroupStyle from "./radio-button-group.style";
 import RadioButtonMapper from "./radio-button-mapper.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -32,6 +33,7 @@ const RadioButtonGroup = (props) => {
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
     required,
+    tooltipPosition,
   } = props;
 
   const marginProps = filterStyledSystemMarginProps(props);
@@ -55,47 +57,49 @@ const RadioButtonGroup = (props) => {
   }
 
   return (
-    <Fieldset
-      legend={legend}
-      error={error}
-      warning={warning}
-      info={info}
-      inline={inlineLegend}
-      legendWidth={legendWidth}
-      legendAlign={legendAlign}
-      legendSpacing={legendSpacing}
-      isRequired={required}
-      {...tagComponent("radiogroup", props)}
-      {...marginProps}
-      ml={marginLeft}
-      blockGroupBehaviour={!(error || warning || info)}
-    >
-      <RadioButtonGroupStyle
-        data-component="radio-button-group"
-        role="radiogroup"
-        inline={inline}
-        legendInline={inlineLegend}
+    <TooltipProvider tooltipPosition={tooltipPosition}>
+      <Fieldset
+        legend={legend}
+        error={error}
+        warning={warning}
+        info={info}
+        inline={inlineLegend}
+        legendWidth={legendWidth}
+        legendAlign={legendAlign}
+        legendSpacing={legendSpacing}
+        isRequired={required}
+        {...tagComponent("radiogroup", props)}
+        {...marginProps}
+        ml={marginLeft}
+        blockGroupBehaviour={!(error || warning || info)}
       >
-        <RadioButtonMapper
-          name={name}
-          onBlur={onBlur}
-          onChange={onChange}
-          value={value}
+        <RadioButtonGroupStyle
+          data-component="radio-button-group"
+          role="radiogroup"
+          inline={inline}
+          legendInline={inlineLegend}
         >
-          {React.Children.map(children, (child) => {
-            return React.cloneElement(child, {
-              inline,
-              labelSpacing,
-              error: !!error,
-              warning: !!warning,
-              info: !!info,
-              required,
-              ...child.props,
-            });
-          })}
-        </RadioButtonMapper>
-      </RadioButtonGroupStyle>
-    </Fieldset>
+          <RadioButtonMapper
+            name={name}
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
+          >
+            {React.Children.map(children, (child) => {
+              return React.cloneElement(child, {
+                inline,
+                labelSpacing,
+                error: !!error,
+                warning: !!warning,
+                info: !!info,
+                required,
+                ...child.props,
+              });
+            })}
+          </RadioButtonMapper>
+        </RadioButtonGroupStyle>
+      </Fieldset>
+    </TooltipProvider>
   );
 };
 
@@ -143,6 +147,8 @@ RadioButtonGroup.propTypes = {
   adaptiveSpacingBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default RadioButtonGroup;

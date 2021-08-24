@@ -59,6 +59,7 @@ const NumeralDate = ({
   size,
   enableInternalError,
   enableInternalWarning,
+  tooltipPosition,
   ...rest
 }) => {
   const l = useLocale();
@@ -221,6 +222,7 @@ const NumeralDate = ({
                       info,
                     })}
                   size={size}
+                  tooltipPosition={tooltipPosition}
                 />
               </StyledDateField>
             );
@@ -310,6 +312,8 @@ NumeralDate.propTypes = {
   required: PropTypes.bool,
   /** Size of an input */
   size: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default NumeralDate;

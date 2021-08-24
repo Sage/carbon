@@ -308,6 +308,33 @@ You can use the `size` prop to set the size of the field.
   </Story>
 </Preview>
 
+### Overriding tooltip position
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="overriding tooltip position"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <>
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to top"
+        label="As string"
+        tooltipPosition="top"
+      />
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to right"
+        label="As string - displayed on a label"
+        validationOnLabel
+        tooltipPosition="right"
+      />
+    </>
+  </Story>
+</Preview>
+
 ## Props 
 
 ### NumeralDate

@@ -12,6 +12,7 @@ import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../utils/helpers/guid/guid";
 import StyledTextarea from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const getFormatNumber = (value, locale) =>
   new Intl.NumberFormat(locale).format(value);
@@ -146,61 +147,64 @@ class Textarea extends React.Component {
       adaptiveLabelBreakpoint,
       inputWidth,
       labelWidth,
+      tooltipPosition,
       ...props
     } = this.props;
 
     return (
-      <InputBehaviour>
-        <StyledTextarea
-          labelInline={labelInline}
-          {...filterStyledSystemMarginProps(props)}
-        >
-          <FormField
-            label={label}
-            disabled={disabled}
-            id={this.id}
+      <TooltipProvider tooltipPosition={tooltipPosition}>
+        <InputBehaviour>
+          <StyledTextarea
             labelInline={labelInline}
-            labelWidth={labelWidth}
-            isRequired={props.required}
-            useValidationIcon={validationOnLabel}
-            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-            {...filterOutSpacingProps(props)}
+            {...filterStyledSystemMarginProps(props)}
           >
-            <InputPresentation
-              type="text"
-              size={size}
+            <FormField
+              label={label}
               disabled={disabled}
-              readOnly={readOnly}
-              inputWidth={
-                typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
-              }
-              {...props}
+              id={this.id}
+              labelInline={labelInline}
+              labelWidth={labelWidth}
+              isRequired={props.required}
+              useValidationIcon={validationOnLabel}
+              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+              {...filterOutSpacingProps(props)}
             >
-              <Input
-                ref={this._input}
-                maxLength={
-                  enforceCharacterLimit && characterLimit
-                    ? characterLimit
-                    : undefined
-                }
-                onChange={onChange}
+              <InputPresentation
+                type="text"
+                size={size}
                 disabled={disabled}
                 readOnly={readOnly}
-                labelInline={labelInline}
-                placeholder={disabled ? "" : placeholder}
-                rows={rows}
-                cols={cols}
-                id={this.id}
-                as="textarea"
+                inputWidth={
+                  typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+                }
                 {...props}
-              />
-              {children}
-              {this.renderValidation()}
-            </InputPresentation>
-          </FormField>
-          {this.characterCount}
-        </StyledTextarea>
-      </InputBehaviour>
+              >
+                <Input
+                  ref={this._input}
+                  maxLength={
+                    enforceCharacterLimit && characterLimit
+                      ? characterLimit
+                      : undefined
+                  }
+                  onChange={onChange}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  labelInline={labelInline}
+                  placeholder={disabled ? "" : placeholder}
+                  rows={rows}
+                  cols={cols}
+                  id={this.id}
+                  as="textarea"
+                  {...props}
+                />
+                {children}
+                {this.renderValidation()}
+              </InputPresentation>
+            </FormField>
+            {this.characterCount}
+          </StyledTextarea>
+        </InputBehaviour>
+      </TooltipProvider>
     );
   }
 }
@@ -275,6 +279,8 @@ Textarea.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 Textarea.defaultProps = {
