@@ -2,8 +2,6 @@ import * as React from "react";
 import { IconType } from "components/icon/icon";
 
 export interface LinkProps {
-  /** Classes to apply to the component. */
-  className?: string;
   /** The disabled state of the link. */
   disabled?: boolean;
   /** An href for an anchor tag. */
@@ -15,9 +13,13 @@ export interface LinkProps {
   /** Function called when the mouse is clicked. */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   /** Function called when a key is pressed. */
-  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement> | React.KeyboardEventHandler<HTMLButtonElement>;
+  onKeyDown?:
+    | React.KeyboardEventHandler<HTMLAnchorElement>
+    | React.KeyboardEventHandler<HTMLButtonElement>;
   /** Function called when a mouse down event triggers. */
-  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement> | React.MouseEventHandler<HTMLButtonElement>;
+  onMouseDown?:
+    | React.MouseEventHandler<HTMLAnchorElement>
+    | React.MouseEventHandler<HTMLButtonElement>;
   /** Whether to include the link in the tab order of the page */
   tabbable?: boolean;
   /** A message to display as a tooltip to the link. */
@@ -36,10 +38,10 @@ export interface LinkProps {
   rel?: string;
 }
 
-declare type LinkRefAttributes = React.RefAttributes<HTMLLinkElement> | React.RefAttributes<HTMLButtonElement>;
+declare type LinkRefAttributes =
+  | React.RefAttributes<HTMLLinkElement>
+  | React.RefAttributes<HTMLButtonElement>;
 
-declare class InternalLink extends React.Component<LinkProps> {}
 declare function Link(props: LinkProps & LinkRefAttributes): JSX.Element;
 
-export { InternalLink };
 export default Link;

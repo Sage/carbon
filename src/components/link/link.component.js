@@ -2,131 +2,118 @@ import React from "react";
 import PropTypes from "prop-types";
 import Icon from "../icon";
 import Event from "../../utils/helpers/events";
-import LinkStyle from "./link.style";
+import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../utils/helpers/tags";
 
-class InternalLink extends React.Component {
-  static safeProps = ["onClick"];
+const Link = React.forwardRef(
+  (
+    {
+      children,
+      className,
+      onKeyDown,
+      href,
+      onClick,
+      onMouseDown,
+      icon,
+      iconAlign,
+      isSkipLink,
+      disabled,
+      ariaLabel,
+      rel,
+      tooltipMessage,
+      tooltipPosition,
+      tabbable,
+      target,
+      ...props
+    },
+    ref
+  ) => {
+    const tabIndex = tabbable && !disabled ? "0" : "-1";
+    const handleOnKeyDown = (ev) => {
+      if (onKeyDown) {
+        onKeyDown(ev);
+      }
 
-  onKeyDown = (ev) => {
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(ev);
-    }
+      // return early if there is no onClick or there is a href prop
+      // or the event is not an enter key
+      if (href || (!Event.isEnterKey(ev) && !Event.isSpaceKey(ev))) {
+        return;
+      }
 
-    // return early if there is no onClick or there is a href prop
-    // or the event is not an enter key
-    if (this.props.href || (!Event.isEnterKey(ev) && !Event.isSpaceKey(ev))) {
-      return;
-    }
-
-    if (this.props.onClick) {
-      this.props.onClick(ev);
-    }
-  };
-
-  renderLinkIcon = (currentAlignment = "left") => {
-    const hasProperAlignment =
-      this.props.icon && this.props.iconAlign === currentAlignment;
-
-    return hasProperAlignment ? this.icon : null;
-  };
-
-  get icon() {
-    return (
-      <Icon
-        type={this.props.icon}
-        bgTheme="none"
-        iconColor="business-color"
-        disabled={this.props.disabled}
-        ariaLabel={this.props.ariaLabel}
-        tooltipMessage={this.props.tooltipMessage}
-        tooltipPosition={this.props.tooltipPosition}
-      />
-    );
-  }
-
-  get tabIndex() {
-    return this.props.tabbable && !this.props.disabled ? "0" : "-1";
-  }
-
-  get componentProps() {
-    return {
-      onKeyDown: this.onKeyDown,
-      onMouseDown: this.props.onMouseDown,
-      disabled: this.props.disabled,
-      onClick: this.handleClick,
-      tabIndex: this.tabIndex,
-      target: this.props.target,
-      ref: this.props.innerRef,
-      href: this.props.href,
-      rel: this.props.rel,
+      if (onClick) {
+        onClick(ev);
+      }
     };
-  }
+    const renderLinkIcon = (currentAlignment = "left") => {
+      const hasProperAlignment = icon && iconAlign === currentAlignment;
 
-  handleClick = (ev) => {
-    if (this.props.disabled) {
-      ev.preventDefault();
-    } else if (this.props.onClick) {
-      this.props.onClick(ev);
-    }
-  };
+      return hasProperAlignment ? (
+        <Icon
+          type={icon}
+          bgTheme="none"
+          iconColor="business-color"
+          disabled={disabled}
+          ariaLabel={ariaLabel}
+          tooltipMessage={tooltipMessage}
+          tooltipPosition={tooltipPosition}
+        />
+      ) : null;
+    };
+    const componentProps = {
+      onKeyDown: handleOnKeyDown,
+      onMouseDown,
+      onClick,
+      disabled,
+      tabIndex,
+      target,
+      ref,
+      href,
+      rel,
+    };
+    const createLinkBasedOnType = () => {
+      let type = "a";
 
-  /**
-   * className `@carbon-link__content` is related to `ShowEditPod` component
-   * */
+      if (onClick) {
+        type = "button";
+      }
 
-  linkContent = () => (
-    <>
-      {this.renderLinkIcon()}
+      return React.createElement(
+        type,
+        { ...componentProps },
+        <>
+          {renderLinkIcon()}
 
-      <span
-        {...(!this.props.children && {
-          "aria-label": this.props.ariaLabel,
-          role: "link",
-        })}
-        className="carbon-link__content"
-      >
-        {this.props.isSkipLink ? "Skip to main content" : this.props.children}
-      </span>
+          <StyledContent
+            {...(!children && {
+              "aria-label": ariaLabel,
+              role: "link",
+            })}
+          >
+            {isSkipLink ? "Skip to main content" : children}
+          </StyledContent>
 
-      {this.renderLinkIcon("right")}
-    </>
-  );
-
-  createLinkBasedOnType = () => {
-    let type = "a";
-
-    if (this.props.onClick) {
-      type = "button";
-    }
-
-    return React.createElement(
-      type,
-      { ...this.componentProps },
-      this.linkContent()
-    );
-  };
-
-  render() {
-    const { disabled, className, iconAlign, children, isSkipLink } = this.props;
+          {renderLinkIcon("right")}
+        </>
+      );
+    };
 
     return (
-      <LinkStyle
+      <StyledLink
         isSkipLink={isSkipLink}
         disabled={disabled}
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}
-        {...tagComponent("link", this.props)}
+        {...tagComponent("link", props)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
-        {this.createLinkBasedOnType()}
-      </LinkStyle>
+        {createLinkBasedOnType()}
+      </StyledLink>
     );
   }
-}
+);
 
-InternalLink.propTypes = {
+Link.propTypes = {
   /** Child content to render in the link. */
   children: PropTypes.node,
   /** Classes to apply to the component. */
@@ -159,30 +146,15 @@ InternalLink.propTypes = {
   isSkipLink: PropTypes.bool,
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
   target: PropTypes.string,
-  /** Ref to be forwarded
-   * @ignore
-   * @private
-   */
-  innerRef: PropTypes.object,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
   /** allows to set rel property in <a> tag */
   rel: PropTypes.string,
 };
 
-InternalLink.defaultProps = {
+Link.defaultProps = {
   iconAlign: "left",
   tabbable: true,
-  hasContent: true,
 };
 
-const Link = React.forwardRef((props, ref) => (
-  <InternalLink innerRef={ref} {...props} />
-));
-
-Link.defaultProps = InternalLink.defaultProps;
-Link.propTypes = InternalLink.propTypes;
-Link.displayName = "Link";
-
-export { InternalLink };
 export default Link;
