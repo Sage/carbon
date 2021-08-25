@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import NumeralDate from ".";
 
 <Meta
@@ -16,6 +18,7 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 Import `NumeralDate` into the project.
@@ -305,7 +308,64 @@ You can use the `size` prop to set the size of the field.
   </Story>
 </Preview>
 
+### Overriding tooltip position
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="overriding tooltip position"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <>
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to top"
+        label="As string"
+        tooltipPosition="top"
+      />
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to right"
+        label="As string - displayed on a label"
+        validationOnLabel
+        tooltipPosition="right"
+      />
+    </>
+  </Story>
+</Preview>
+
 ## Props 
 
 ### NumeralDate
 <StyledSystemProps of={NumeralDate} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "numeralDate.validation.day",
+        description: "The text displayed in the tooltip if the day validation fails",
+        type: "func",
+        returnType: "string"
+      },
+       {
+        name: "numeralDate.validation.month",
+        description: "The text displayed in the tooltip if the month validation fails",
+        type: "func",
+        returnType: "string"
+      },
+      {
+        name: "numeralDate.validation.year",
+        description: "The text displayed in the tooltip if the year validation fails",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

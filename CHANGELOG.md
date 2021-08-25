@@ -1,3 +1,48 @@
+## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** remove get icon, tabIndex and componentProps functions
+
+### Code Refactoring
+
+* **link:** convert a class component to a function component ([44c56e6](https://github.com/Sage/carbon/commit/44c56e6bb6f877c5b2e3ce9165f1fa3fc01a7a90))
+
+## [81.3.0](https://github.com/Sage/carbon/compare/v81.2.2...v81.3.0) (2021-08-23)
+
+
+### Features
+
+* **checkbox, checkbox-group:** add tooltipPosition prop to the interface ([b000e45](https://github.com/Sage/carbon/commit/b000e4553f9432b5e1db8cef9faf2655b5daf252))
+* **date:** add tooltipPosition prop to interface ([97c41c0](https://github.com/Sage/carbon/commit/97c41c0796159063e671707ecc40027ce9d1a181))
+* **date-range:** add tooltipPosition prop to interface ([68def53](https://github.com/Sage/carbon/commit/68def5369fd0d91d31bd05389be6d11aecbc38fc))
+* **decimal:** add tooltipPosition prop to interface ([3322ec3](https://github.com/Sage/carbon/commit/3322ec317a5a1fcc1676a50355eb5fd6183e99ae))
+* **filterable-select:** add tooltipPosition prop to interface ([327e96b](https://github.com/Sage/carbon/commit/327e96b7c641f10899ce2f0d20420a98e652a0e5))
+* **icon:** component consumes TooltipContext to allow overriding toolitip position ([a7e0841](https://github.com/Sage/carbon/commit/a7e084111a2bcbdf38ff2cb2577da276210e112d))
+* **multi-select:** add tooltipPosition prop to interface ([68f1d91](https://github.com/Sage/carbon/commit/68f1d9190d9b1fc9c52424db53a66c848705c2f3))
+* **numeral-date:** add tooltipPosition prop to interface ([bf5e35d](https://github.com/Sage/carbon/commit/bf5e35d65ad7ab9adbdc86dedf14f18ac503566f))
+* **radio-button, radio-button-group:** add tooltipPosition prop to interface ([7aa0ce1](https://github.com/Sage/carbon/commit/7aa0ce1f75974f6a3a4868b10c158a70b68fcb57))
+* **simple-select:** add tooltipPosition prop to interface ([a7f3e9a](https://github.com/Sage/carbon/commit/a7f3e9a212770b5115c8893ac7689f58b81f5168))
+* **switch:** add tooltipPosition prop to interface ([57e994e](https://github.com/Sage/carbon/commit/57e994ed4cbff10bd983362f7f9032b06d45f37f))
+* **textarea:** add tooltipPosition prop to interface ([016466d](https://github.com/Sage/carbon/commit/016466dc19ab5e5b122139836c1566a1a7754019))
+* **textbox:** integrate TooltipProvider and surface tooltipPosition prop ([c05dd40](https://github.com/Sage/carbon/commit/c05dd40c4bbde571e1ae32e496fac16f59d02441))
+* **tooltip-provider:** add context and provider component ([957f14a](https://github.com/Sage/carbon/commit/957f14af0c246b919d9791684a656eba7be53e73))
+
+### [81.2.2](https://github.com/Sage/carbon/compare/v81.2.1...v81.2.2) (2021-08-20)
+
+
+### Bug Fixes
+
+* **select:** scroll option into view when using keyboard navigation ([d09ef73](https://github.com/Sage/carbon/commit/d09ef739f730039f6105273f75b16a40ad753f78)), closes [#4270](https://github.com/Sage/carbon/issues/4270)
+
+### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** add mutation observer ([562fd12](https://github.com/Sage/carbon/commit/562fd12379df01d52a32b24bc979fa03a919e190)), closes [#4255](https://github.com/Sage/carbon/issues/4255)
+
 ## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
 
 

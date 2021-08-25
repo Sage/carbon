@@ -11,6 +11,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
+import Tooltip from "../tooltip";
 
 jest.useFakeTimers();
 
@@ -429,6 +430,36 @@ describe("StyledDateRange", () => {
     );
     assertStyleMatch({ verticalAlign: "bottom" }, wrapper, {
       modifier: `& ${StyledDateInput}`,
+    });
+  });
+
+  describe("tooltipPosition", () => {
+    it("overrides the default value when icon is on input", () => {
+      const { position } = renderDateRange(
+        { startError: "message", tooltipPosition: "top" },
+        mount
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
+    });
+
+    it("overrides the default value when icon is on label", () => {
+      const { position } = renderDateRange(
+        {
+          startLabel: "start",
+          endLabel: "end",
+          validationOnLabel: true,
+          startError: "message",
+          tooltipPosition: "top",
+        },
+        mount
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("top");
     });
   });
 });

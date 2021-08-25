@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { baseTheme } from "../../style/themes";
 import StyledButton from "../button/button.style";
-import LinkStyle from "../link/link.style";
+import { StyledLink } from "../link/link.style";
 
 export const StyledDl = styled.dl`
   ${space}
@@ -52,7 +52,7 @@ export const StyledDd = styled.dd`
       border: none;
     }
 
-    ${LinkStyle} {
+    ${StyledLink} {
       a, button {
         font-weight: 700px;
         text-decoration: none;

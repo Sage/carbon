@@ -35,6 +35,8 @@ export interface RadioButtonGroupProps
   required?: boolean;
   /** value of the selected RadioButton */
   value?: string;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function RadioButtonGroup(props: RadioButtonGroupProps): JSX.Element;

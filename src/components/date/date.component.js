@@ -486,6 +486,7 @@ class BaseDateInput extends React.Component {
       labelInline,
       adaptiveLabelBreakpoint,
       disablePortal,
+      tooltipPosition,
       ...inputProps
     } = this.props;
 
@@ -520,6 +521,7 @@ class BaseDateInput extends React.Component {
           })}
           inputRef={this.assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+          tooltipPosition={tooltipPosition}
           {...events}
         />
         {this.renderHiddenInput()}

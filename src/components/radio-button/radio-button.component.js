@@ -6,6 +6,7 @@ import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -44,6 +45,7 @@ const RadioButton = React.forwardRef(
       error,
       warning,
       info,
+      tooltipPosition,
       ...props
     },
     ref
@@ -94,18 +96,20 @@ const RadioButton = React.forwardRef(
     };
 
     return (
-      <RadioButtonStyle
-        inline={inline}
-        reverse={reverse}
-        size={size}
-        {...commonProps}
-        {...marginProps}
-        {...tagComponent("radio-button", props)}
-      >
-        <CheckableInput {...inputProps}>
-          <RadioButtonSvg />
-        </CheckableInput>
-      </RadioButtonStyle>
+      <TooltipProvider tooltipPosition={tooltipPosition}>
+        <RadioButtonStyle
+          inline={inline}
+          reverse={reverse}
+          size={size}
+          {...commonProps}
+          {...marginProps}
+          {...tagComponent("radio-button", props)}
+        >
+          <CheckableInput {...inputProps}>
+            <RadioButtonSvg />
+          </CheckableInput>
+        </RadioButtonStyle>
+      </TooltipProvider>
     );
   }
 );
@@ -159,6 +163,8 @@ RadioButton.propTypes = {
     }
     return null;
   },
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   ...radioButtonGroupPassedProps,
 };
 

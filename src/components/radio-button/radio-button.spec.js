@@ -12,6 +12,7 @@ import guid from "../../utils/helpers/guid/guid";
 import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
+import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -189,6 +190,23 @@ describe("RadioButton", () => {
           { modifier: "svg" }
         );
       });
+    });
+  });
+
+  describe("tooltipPosition", () => {
+    it("overrides the default position when value is passed", () => {
+      const { position } = mount(
+        <RadioButton
+          value="foo"
+          label="foo"
+          error="message"
+          tooltipPosition="bottom"
+        />
+      )
+        .find(Tooltip)
+        .props();
+
+      expect(position).toEqual("bottom");
     });
   });
 

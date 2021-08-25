@@ -225,6 +225,7 @@ class DateRange extends React.Component {
           data-element="start-date"
           ref={this.startDateInputRef}
           labelWidth={this.inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
+          tooltipPosition={this.props.tooltipPosition}
         />
         <DateInput
           {...this.dateProps("end")}
@@ -232,6 +233,7 @@ class DateRange extends React.Component {
           data-element="end-date"
           ref={this.endDateInputRef}
           labelWidth={this.inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
+          tooltipPosition={this.props.tooltipPosition}
         />
       </StyledDateRange>
     );
@@ -299,6 +301,8 @@ DateRange.propTypes = {
   name: PropTypes.string,
   /** An optional string prop to provide an id to the component */
   id: PropTypes.string,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default DateRange;

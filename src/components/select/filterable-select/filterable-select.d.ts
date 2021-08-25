@@ -35,6 +35,8 @@ export interface FilterableSelectProps extends FormInputPropTypes {
   tableHeader?: React.ReactNode;
   /** The selected value(s), when the component is operating in controlled mode */
   value?: string | object;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function FilterableSelect(props: FilterableSelectProps & React.RefAttributes<HTMLInputElement>): JSX.Element;

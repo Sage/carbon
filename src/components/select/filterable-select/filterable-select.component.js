@@ -38,6 +38,7 @@ const FilterableSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      tooltipPosition,
       ...textboxProps
     },
     inputRef
@@ -453,6 +454,7 @@ const FilterableSelect = React.forwardRef(
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         onMouseDown: handleTextboxMouseDown,
+        tooltipPosition,
         ...textboxProps,
       };
     }
@@ -547,6 +549,8 @@ FilterableSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default FilterableSelect;
