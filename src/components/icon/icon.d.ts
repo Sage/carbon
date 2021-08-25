@@ -24,6 +24,7 @@ export type IconType =
   | "arrow_down"
   | "arrow_left"
   | "arrow_left_boxed"
+  | "arrow_left_right_small"
   | "arrow_left_small"
   | "arrow_right"
   | "arrow_right_small"
