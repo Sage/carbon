@@ -153,6 +153,7 @@ export type IconType =
   | "minus_large"
   | "mobile"
   | "money_bag"
+  | "pause"
   | "pause_circle"
   | "pdf"
   | "people"

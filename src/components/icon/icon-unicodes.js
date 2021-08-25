@@ -84,7 +84,7 @@ const actions = {
   hide: "\\e998",
   video: "\\e95e",
   play: "\\e95f",
-
+  pause: "\\e96d",
   play_circle: "\\e96c",
   pause_circle: "\\e96b",
   scan: "\\e96e",

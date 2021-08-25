@@ -179,6 +179,7 @@ export const ICONS = [
   "minus_large",
   "mobile",
   "money_bag",
+  "pause",
   "pause_circle",
   "pdf",
   "people",
