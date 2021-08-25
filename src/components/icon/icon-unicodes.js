@@ -175,6 +175,7 @@ const misc = {
   stacked_boxes: "\\e97c",
   tag: "\\e985",
   three_boxes: "\\e97d",
+  squares_nine: "\\e969",
   coins: "\\e96a",
   file_generic: "\\e991",
   file_pdf: "\\e990",

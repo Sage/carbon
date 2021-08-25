@@ -212,6 +212,7 @@ export const ICONS = [
   "split",
   "split_container",
   "square_dot",
+  "squares_nine",
   "stacked_boxes",
   "stacked_squares",
   "submitted",
