@@ -175,6 +175,7 @@ const misc = {
   stacked_boxes: "\\e97c",
   tag: "\\e985",
   three_boxes: "\\e97d",
+  circle_with_dots: "\\e965",
   squares_nine: "\\e969",
   coins: "\\e96a",
   file_generic: "\\e991",
@@ -223,7 +224,7 @@ const legacyNames = {
   true_tick: statusSymbols.tick,
   arrow: navigation.arrow_right,
   in_transit: "\\e964",
-  progress: "\\e965",
+  progress: misc.circle_with_dots,
 };
 
 const iconUnicodes = {

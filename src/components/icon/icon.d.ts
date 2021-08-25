@@ -70,6 +70,7 @@ export type IconType =
   | "chevron_left_thick"
   | "chevron_right_thick"
   | "chevron_up_thick"
+  | "circle_with_dots"
   | "circles_connection"
   | "clock"
   | "close"
