@@ -331,8 +331,8 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   display: inline-block;
 }
 
-.c0 a .c2,
-.c0 button .c2 {
+.c0 a .c7,
+.c0 button .c7 {
   position: relative;
   vertical-align: middle;
   margin-right: 0;
@@ -357,6 +357,30 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   padding: 0;
 }
 
+.c3 .c2 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
+.c4 .c2 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
+.c5 .c2 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
+.c6 .c2 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
 .c1.c1 > a,
 .c1.c1 button {
   cursor: pointer;
@@ -371,20 +395,20 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   color: #FFFFFF;
 }
 
-.c1.c1 > a .c2,
-.c1.c1 button .c2 {
+.c1.c1 > a .c7,
+.c1.c1 button .c7 {
   top: -2px;
   height: 16px;
   width: 16px;
   color: #008200;
 }
 
-.c1.c1 > a .c2,
-.c1.c1 button .c2 {
+.c1.c1 > a .c7,
+.c1.c1 button .c7 {
   color: #FFFFFF;
 }
 
-.c1 .carbon-link__content {
+.c1 .c2 {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   position: absolute;
@@ -396,12 +420,11 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   disabled={false}
 >
   <a
-    onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex="0"
   >
     <span
-      className="carbon-link__content"
+      className="c2 "
       role="link"
     />
   </a>

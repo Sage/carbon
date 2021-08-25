@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
-const LinkStyle = styled.span`
+const StyledLink = styled.span`
   ${({ isSkipLink, theme, iconAlign, hasContent, disabled }) => css`
     display: inline-block;
 
@@ -78,15 +78,17 @@ const LinkStyle = styled.span`
   `}
 `;
 
-LinkStyle.defaultProps = {
+StyledLink.defaultProps = {
   theme: baseTheme,
   disabled: false,
   hasContent: true,
 };
 
-LinkStyle.propTypes = {
+StyledLink.propTypes = {
   disabled: PropTypes.bool,
   hasContent: PropTypes.bool,
 };
 
-export default LinkStyle;
+const StyledContent = styled.span``;
+
+export { StyledLink, StyledContent };

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../style/themes";
-import LinkStyle from "../../link/link.style";
+import { StyledLink } from "../../link/link.style";
 import IconStyle from "../../icon/icon.style";
 
 const StyledMenuItemWrapper = styled.a`
@@ -60,14 +60,14 @@ const StyledMenuItemWrapper = styled.a`
     }
 
     a,
-    ${LinkStyle} a,
+    ${StyledLink} a,
     button,
-    ${LinkStyle} button {
+    ${StyledLink} button {
       padding: 0 16px;
     }
 
     button,
-    ${LinkStyle} button {
+    ${StyledLink} button {
       line-height: 40px;
       height: 40px;
       margin: 0px;
@@ -77,9 +77,9 @@ const StyledMenuItemWrapper = styled.a`
     a,
     button,
     [data-component="icon"],
-    ${LinkStyle} a,
-    ${LinkStyle} button,
-    ${LinkStyle} [data-component="icon"] {
+    ${StyledLink} a,
+    ${StyledLink} button,
+    ${StyledLink} [data-component="icon"] {
       font-weight: 700;
       text-decoration: none;
       color: ${theme.colors.black};
@@ -95,8 +95,8 @@ const StyledMenuItemWrapper = styled.a`
 
     a:focus,
     button:focus,
-    ${LinkStyle} a:focus,
-    ${LinkStyle} button:focus {
+    ${StyledLink} a:focus,
+    ${StyledLink} button:focus {
       color: ${theme.colors.white};
       box-shadow: inset 0 0 0 2px ${theme.colors.focus};
       background: ${theme.colors.primary};
@@ -141,7 +141,7 @@ const StyledMenuItemWrapper = styled.a`
       button,
       button:hover,
       [data-component="icon"],
-      ${LinkStyle} [data-component="icon"] {
+      ${StyledLink} [data-component="icon"] {
         font-weight: 700;
         text-decoration: none;
         color: ${theme.colors.white};
@@ -298,9 +298,9 @@ const StyledMenuItemWrapper = styled.a`
       `}
 
       a,
-      ${LinkStyle} a,
+      ${StyledLink} a,
       button,
-      ${LinkStyle} button {
+      ${StyledLink} button {
         width: 100vw;
         box-sizing: border-box;
       }
