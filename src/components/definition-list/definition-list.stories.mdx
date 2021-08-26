@@ -4,6 +4,8 @@ import Icon from "../icon";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Box from "../box";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
+import Hr from "../hr";
+import Typography from "../typography";
 
 <Meta
   title="Design System/Definition List"
@@ -104,6 +106,118 @@ _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`
   </Story>
 </Preview>
 
+### As a single column
+
+Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment 
+for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
+
+<Preview>
+  <Story name="as a single column">
+    <Dl w="200px" dtTextAlign="left" asSingleColumn>
+      <Dt>First</Dt>
+      <Dd>Description</Dd>
+      <Dt>Second</Dt>
+      <Dd>
+        <Box display="inline-flex" alignItems="center">
+          <Box mr={1}>Details example</Box>
+          <Icon type="tick" />
+        </Box>
+      </Dd>
+      <Dt>Third</Dt>
+      <Dd>Description</Dd>
+    </Dl>
+  </Story>
+</Preview>
+
+It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components 
+such as `Typography` and `Hr`.
+
+<Preview>
+  <Story name="multiple single columns with segments" parameters={{ chromatic: { disable: true } }}>
+    <Box width="65%" px={2} pt={4} pb={3}>
+      <Box width="90%">
+        <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
+          Segment Header
+        </Typography>
+        <Hr ml={0} mt={2} />
+      </Box>
+      <Box mb={3} display="flex">
+        <Box flexGrow="1">
+          <Dl dtTextAlign="left" asSingleColumn>
+            <Dt>First</Dt>
+            <Dd>Description</Dd>
+            <Dt>Second</Dt>
+            <Dd>
+              <Box display="inline-flex" alignItems="center">
+                <Box mr={1}>Details example</Box>
+                <Icon type="tick" />
+              </Box>
+            </Dd>
+            <Dt>Third</Dt>
+            <Dd>Description</Dd>
+          </Dl>
+        </Box>
+        <Box flexGrow="1">
+          <Dl dtTextAlign="left" asSingleColumn>
+            <Dt>First</Dt>
+            <Dd>Description</Dd>
+            <Dt>Second</Dt>
+            <Dd>
+              <Box display="inline-flex" alignItems="center">
+                <Box mr={1}>Details example</Box>
+                <Icon type="tick" />
+              </Box>
+            </Dd>
+            <Dt>Third</Dt>
+            <Dd>Description</Dd>
+          </Dl>
+        </Box>
+      </Box>
+      <Box width="90%">
+        <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
+          Segment Header
+        </Typography>
+        <Hr ml={0} mt={2} />
+      </Box>
+      <Box display="flex">
+        <Box width="100%">
+          <Dl dtTextAlign="left" asSingleColumn>
+            <Dt>First</Dt>
+            <Dd>Description</Dd>
+            <Dt>Second</Dt>
+            <Dd>
+              <Box display="inline-flex" alignItems="center">
+                <Box mr={1}>Details example</Box>
+                <Icon type="tick" />
+              </Box>
+            </Dd>
+            <Dt>Third</Dt>
+            <Dd>Description</Dd>
+          </Dl>
+        </Box>
+        <Box width="100%">
+          <Dl dtTextAlign="left" asSingleColumn>
+            <Dt>First</Dt>
+            <Dd>Description</Dd>
+            <Dt>Second</Dt>
+            <Dd>
+              <Box display="inline-flex" alignItems="center">
+                <Box mr={1}>Details example</Box>
+                <Icon type="tick" />
+              </Box>
+            </Dd>
+            <Dt>Third</Dt>
+            <Dd>Description</Dd>
+          </Dl>
+        </Box>
+      </Box>
+      <Box width="90%">
+        <Hr ml={0} mt={1} />
+      </Box>
+    </Box>
+  </Story>
+</Preview>
+
 ## Props
 
 ### Dl
@@ -112,8 +226,8 @@ _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`
 
 ### Dt
 
-<StyledSystemProps of={Dt} noHeader spacing />
+<StyledSystemProps of={Dt} noHeader spacing defaults={{ mb: 2, pr: 3 }} />
 
 ### Dd
 
-<StyledSystemProps of={Dd} noHeader spacing />
+<StyledSystemProps of={Dd} noHeader spacing defaults={{ mb: 2 }} />
