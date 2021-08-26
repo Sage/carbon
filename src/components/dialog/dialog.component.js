@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 
 import Modal from "../modal";
 import Heading from "../heading";
-import ElementResize from "../../utils/helpers/element-resize";
+
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import {
   DialogStyle,
   DialogTitleStyle,
@@ -64,10 +65,11 @@ const Dialog = ({
     dialogRef.current.style.left = `${midPointX}px`;
   }, []);
 
+  useResizeObserver(innerContentRef, centerDialog, !open);
+
   const addListeners = useCallback(() => {
     /* istanbul ignore else */
     if (!listenersAdded.current) {
-      ElementResize.addListener(innerContentRef.current, centerDialog);
       window.addEventListener("resize", centerDialog);
       listenersAdded.current = true;
     }
@@ -75,7 +77,6 @@ const Dialog = ({
 
   const removeListeners = useCallback(() => {
     if (listenersAdded.current) {
-      ElementResize.removeListener(innerContentRef.current, centerDialog);
       window.removeEventListener("resize", centerDialog);
       listenersAdded.current = false;
     }

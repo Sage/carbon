@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import ElementResize from "../../utils/helpers/element-resize";
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -62,15 +62,15 @@ const Form = ({
     []
   );
 
+  useResizeObserver(formRef, checkStickyFooter, !stickyFooter);
+
   const addStickyFooterListeners = useCallback(() => {
-    ElementResize.addListener(formRef.current, checkStickyFooter);
     window.addEventListener("resize", checkStickyFooter, true);
     window.addEventListener("scroll", checkStickyFooter, true);
     stickyListenersAddedRef.current = true;
   }, [checkStickyFooter]);
 
   const removeStickyFooterListeners = useCallback(() => {
-    ElementResize.removeListener(formRef.current, checkStickyFooter);
     window.removeEventListener("resize", checkStickyFooter, true);
     window.removeEventListener("scroll", checkStickyFooter, true);
     stickyListenersAddedRef.current = false;

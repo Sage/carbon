@@ -139,7 +139,6 @@
     "@tippyjs/react": "^4.2.5",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
-    "bowser": "~1.5.0",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
     "escape-string-regexp": "^4.0.0",
