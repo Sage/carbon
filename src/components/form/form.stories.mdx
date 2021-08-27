@@ -10,6 +10,7 @@ import { RadioButton, RadioButtonGroup } from "../radio-button";
 import DateInput from "../date";
 import { Select, Option } from "../select";
 import { Checkbox } from "../checkbox";
+import InlineInputs from "../inline-inputs";
 import Hr from "../../components/hr";
 import Switch from "../switch";
 import Button from "../button";
@@ -47,25 +48,31 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
 
 <Preview>
   <Story name="default with sticky footer">
-    <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      stickyFooter
-    >
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
+    <Form>
+      <Textbox label="Text Input" labelInline />
+      <Select label="Select Input" labelInline>
+        <Option value="1" text="option 1" key="1" />
+        <Option value="2" text="option 2" key="1" />
+        <Option value="3" text="option 3" key="1" />
+      </Select>
+      <InlineInputs label="Inline Inputs" gutter="none" labelWidth="30">
+        <Textbox />
+        <Textbox />
+        <Select>
+          <Option value="1" text="option 1" key="1" />
+          <Option value="2" text="option 2" key="1" />
+          <Option value="3" text="option 3" key="1" />
+        </Select>
+      </InlineInputs>
+      <InlineInputs label="Inline Inputs with a gutter" gutter="large" labelWidth="30">
+        <Textbox />
+        <Textbox />
+        <Select>
+          <Option value="1" text="option 1" key="1" />
+          <Option value="2" text="option 2" key="1" />
+          <Option value="3" text="option 3" key="1" />
+        </Select>
+      </InlineInputs>
     </Form>
   </Story>
 </Preview>
