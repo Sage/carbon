@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { SimpleColorPicker, SimpleColor } from ".";
 import Box from "../box";
@@ -14,6 +14,7 @@ import Box from "../box";
 - Choose from a small palette of pre-set colours, with indication of a currently selected colour.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -48,7 +49,12 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
         setState(target.value);
       };
       return (
-        <SimpleColorPicker name="picker-default-example" legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker
+          name="picker-default-example"
+          legend="Legend"
+          onChange={onChange}
+          value={state}
+        >
           {colors.map(({ color, label }) => (
             <SimpleColor
               value={color}
@@ -73,7 +79,12 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
         setState(target.value);
       };
       return (
-        <SimpleColorPicker name="picker-disabled-example" legend="Legend" onChange={onChange} value={state}>
+        <SimpleColorPicker
+          name="picker-disabled-example"
+          legend="Legend"
+          onChange={onChange}
+          value={state}
+        >
           {[
             { color: "transparent", label: "transparent" },
             { color: "#0073C1", label: "blue" },

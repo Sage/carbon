@@ -1,0 +1,440 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  Sort,
+} from ".";
+import guid from "../../utils/helpers/guid";
+import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
+
+<Meta
+  title="Design System/Flat Table/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    colorTheme: {
+      options: FLAT_TABLE_THEMES,
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const names = [
+  "Chris Thompson",
+  "Uri Foster",
+  "Daniel Dopper",
+  "Patrice Jambon",
+  "Ace Walker",
+  "Harriet Lewis",
+  "Lauren Hughes",
+  "Holly Smith",
+];
+
+export const headRowData = {
+  employee: "Employee",
+  location: "Location",
+  role: "Role",
+  department: "Department",
+  companyVehicle: "Company vehicle",
+  performanceReview: "Performance review date",
+  employmentStart: "Employment start date",
+};
+
+export const getDay = (i) => {
+  if (i > 28) {
+    return "05";
+  }
+  if (i < 10) {
+    return `0${i}`;
+  }
+  return `${i}`;
+};
+
+export const getMonth = (i) => {
+  if (i > 12) {
+    return "11";
+  }
+  if (i < 10) {
+    return `0${i}`;
+  }
+  return `${i}`;
+};
+
+export const getYear = (i) => 2020 - i;
+
+export const rowData = (i) => ({
+  employee: (
+    <>
+      <h5 style={{ margin: 0 }}>{names[i]}</h5>000000{i + 10}
+    </>
+  ),
+  location: i % 2 === 0 ? "Newcastle" : "Barcelona",
+  role: i > 2 && i % 2 !== 0 ? "Advisor" : "Manager",
+  department: i > 3 ? "Sales" : "IT",
+  companyVehicle: i > 3 && i % 2 === 0 ? "Yes" : "No",
+  performanceReview:
+    i + 1 <= 12
+      ? `${getDay(i + 1)}/${getMonth(i + 1)}/${getYear(i)}`
+      : "11/05/20",
+  employmentStart:
+    i + 1 < 12
+      ? `${getDay(27 - i)}/${getMonth(12 - i)}/${getYear(i)}`
+      : "11/07/20",
+});
+
+export function getRowWithInputs(onClickFn, hasHeaderRow) {
+  let firstRow = <FlatTableCell>Row with inputs</FlatTableCell>;
+  if (hasHeaderRow) {
+    firstRow = <FlatTableRowHeader>Row with inputs</FlatTableRowHeader>;
+  }
+  return (
+    <FlatTableRow key="rowWithInputs" onClick={onClickFn}>
+      {firstRow}
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+      <FlatTableCell>
+        <input />
+      </FlatTableCell>
+    </FlatTableRow>
+  );
+}
+
+export function getTableData() {
+  return processJsonData({
+    labels: headRowData,
+    clients: renderBody(8),
+  });
+}
+
+export function renderBody(rowCount) {
+  const rows = [...Array(rowCount)];
+  return rows.map((_, i) => {
+    return rowData(i);
+  });
+}
+
+export function processJsonData({ labels, clients }) {
+  return {
+    headData: {
+      id: guid(),
+      data: processRowData(labels, "header"),
+    },
+    bodyData: clients.map((row) => {
+      return {
+        id: guid(),
+        bodyData: processRowData(row, "cell"),
+      };
+    }),
+  };
+}
+
+export function processRowData(row, cellType) {
+  return Object.keys(row).map((columnKey) => {
+    let align = "left";
+    if (["performanceReview", "employmentStart"].includes(columnKey)) {
+      align = "right";
+    }
+    return {
+      id: guid(),
+      content: row[columnKey],
+      cellType,
+      align,
+    };
+  });
+}
+
+export const FlatTableStory = ({
+  hasStickyHead,
+  hasHeaderRow,
+  hasClickableRows,
+  firstColumnWidth,
+  secondColumnWidth,
+  horizontalBorderSize,
+  horizontalBorderColor,
+  bgColor,
+  verticalBorder,
+  verticalBorderColor,
+  caption,
+  captionSpecialCharacters,
+  ...args
+}) => {
+  const processed = getTableData();
+  // used to show how the table behaves constrained or on lower resolutions
+  const tableSizeConstraints = {
+    height: "auto",
+    width: "auto",
+    overflowX: "auto",
+  };
+  let onClickFn;
+  let rowWithInputs = <></>;
+  if (hasStickyHead) {
+    tableSizeConstraints.height = "300px";
+  }
+  if (hasHeaderRow) {
+    tableSizeConstraints.width = "600px";
+  }
+  if (hasClickableRows) {
+    onClickFn = action("click");
+    rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
+  }
+  return (
+    <div style={tableSizeConstraints}>
+      <FlatTable
+        hasStickyHead={hasStickyHead}
+        caption={caption || captionSpecialCharacters}
+        {...args}
+      >
+        <FlatTableHead>
+          <FlatTableRow
+            key={processed.headData.id}
+            horizontalBorderSize={horizontalBorderSize && horizontalBorderSize}
+          >
+            {processed.headData.data.map((cellData, index) => {
+              let Component = FlatTableHeader;
+              if (index === 0 && hasHeaderRow) {
+                Component = FlatTableRowHeader;
+              }
+              return (
+                <Component
+                  key={cellData.id}
+                  {...(index === 0 && { width: firstColumnWidth })}
+                  {...(index === 1 && { width: secondColumnWidth })}
+                  verticalBorder={verticalBorder && verticalBorder}
+                >
+                  {cellData.content}
+                </Component>
+              );
+            })}
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          {rowWithInputs}
+          {processed.bodyData.map((rowData) => (
+            <FlatTableRow
+              key={rowData.id}
+              onClick={onClickFn}
+              horizontalBorderSize={
+                horizontalBorderSize && horizontalBorderSize
+              }
+              horizontalBorderColor={
+                horizontalBorderColor && horizontalBorderColor
+              }
+              bgColor={bgColor && bgColor}
+            >
+              {rowData.bodyData.map((cellData, index) => {
+                let Component = FlatTableCell;
+                if (index === 0 && hasHeaderRow) {
+                  Component = FlatTableRowHeader;
+                }
+                return (
+                  <Component
+                    key={cellData.id}
+                    align={cellData.align}
+                    verticalBorder={verticalBorder}
+                    verticalBorderColor={verticalBorderColor}
+                  >
+                    {cellData.content}
+                  </Component>
+                );
+              })}
+            </FlatTableRow>
+          ))}
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  );
+};
+
+export const FlatTableSortableStory = (args) => {
+  const headDataItems = [
+    { name: "client", isActive: false },
+    { name: "total", isActive: false },
+  ];
+  const bodyDataItems = [
+    { client: "Jason Atkinson", total: 1349 },
+    { client: "Monty Parker", total: 849 },
+    { client: "Blake Sutton", total: 3840 },
+    { client: "Tyler Webb", total: 280 },
+  ];
+  const [headData, setHeadData] = useState(headDataItems);
+  const [sortType, setSortType] = useState("ascending");
+  const [sortValue, setSortValue] = useState();
+  const sortByNumber = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      if (type === "ascending") {
+        return a[sortByValue] - b[sortByValue];
+      }
+      if (type === "descending") {
+        return b[sortByValue] - a[sortByValue];
+      }
+      return 0;
+    });
+    return sortedData;
+  };
+  const sortByString = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      const nameA = a[sortByValue].toUpperCase();
+      const nameB = b[sortByValue].toUpperCase();
+      if (type === "ascending") {
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      }
+      if (type === "descending") {
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+      }
+      return 0;
+    });
+    return sortedData;
+  };
+  const handleClick = (value) => {
+    const tempHeadData = headData;
+    tempHeadData.forEach((item) => {
+      item.isActive = false;
+      if (item.name === value) {
+        item.isActive = !item.isActive;
+      }
+    });
+    setSortValue(value);
+    setSortType(sortType === "ascending" ? "descending" : "ascending");
+    setHeadData([...tempHeadData]);
+  };
+  const renderSortedData = (sortByValue) => {
+    let sortedData = bodyDataItems;
+    if (typeof bodyDataItems[0][sortByValue] === "string") {
+      sortedData = sortByString(sortedData, sortByValue, sortType);
+    }
+    if (typeof bodyDataItems[0][sortByValue] === "number") {
+      sortedData = sortByNumber(sortedData, sortByValue, sortType);
+    }
+    return sortedData.map((dataItem) => {
+      return (
+        <FlatTableRow key={dataItem.client}>
+          <FlatTableCell>{dataItem.client}</FlatTableCell>
+          <FlatTableCell>{dataItem.total}</FlatTableCell>
+        </FlatTableRow>
+      );
+    });
+  };
+  return (
+    <FlatTable {...args}>
+      <FlatTableHead>
+        <FlatTableRow>
+          {headData.map((dataItem) => {
+            return (
+              <FlatTableHeader key={dataItem.name}>
+                <Sort
+                  onClick={() => handleClick(dataItem.name)}
+                  sortType={dataItem.isActive && sortType}
+                >
+                  {dataItem.name}
+                </Sort>
+              </FlatTableHeader>
+            );
+          })}
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+    </FlatTable>
+  );
+};
+
+# Flat Table
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    argTypes={{
+      size: {
+        options: FLAT_TABLE_SIZES,
+        control: {
+          type: "select",
+        },
+      },
+      horizontalBorderSize: {
+        options: ["small", "medium", "large"],
+        control: {
+          type: "select",
+        },
+      },
+      verticalBorder: {
+        options: ["small", "medium", "large"],
+        control: {
+          type: "select",
+        },
+      },
+      captionSpecialCharacters: specialCharacters,
+    }}
+    args={{
+      ariaDescribedby: "",
+      hasStickyHead: false,
+      hasHeaderRow: false,
+      hasClickableRows: false,
+      caption: "",
+      captionSpecialCharacters: undefined,
+      specialCharacters: undefined,
+      colorTheme: "dark",
+      firstColumnWidth: 150,
+      secondColumnWidth: 120,
+      size: FlatTable.defaultProps.size,
+      horizontalBorderSize: undefined,
+      horizontalBorderColor: "",
+      bgColor: "",
+      verticalBorder: undefined,
+      verticalBorderColor: "",
+    }}
+  >
+    {FlatTableStory.bind({})}
+  </Story>
+</Preview>
+
+### Sortable
+
+<Preview>
+  <Story
+    name="sortable"
+    args={{
+      colorTheme: "dark",
+    }}
+  >
+    {FlatTableSortableStory.bind({})}
+  </Story>
+</Preview>

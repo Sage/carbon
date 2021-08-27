@@ -1,9 +1,5 @@
-// knobs locators
-export const FORM = "#storybook-panel-root";
-export const TAB_LIST = '[role="tablist"]';
-export const CLOSE_ICON_BUTTON = 'button[data-element="close"]';
-
 // component preview locators
+export const CLOSE_ICON_BUTTON = 'button[data-element="close"]';
 export const HELP_ICON_PREVIEW = '[data-component="help"]';
 export const TOOLTIP_PREVIEW = '[data-component="tooltip"]';
 export const FIELD_HELP_PREVIEW = 'span[data-element="help"]';

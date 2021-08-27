@@ -7,10 +7,12 @@
   },
   "childrenOtherLanguage": {
     "loading": false,
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
     "loading": false,
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   }
 }

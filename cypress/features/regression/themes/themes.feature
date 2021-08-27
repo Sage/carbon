@@ -3,7 +3,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button component theme to <theme>
-    When I open knobs "Design System Button Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Design System Button Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |
@@ -27,10 +27,10 @@ Feature: Theming addon
     When I open default "Icon Test" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "icon" component css "background-color" is set to "<theme>" common
     Examples:
-      | theme  | nameOfObject     |
-      | mint   | iconThemeMint    |
-      | aegean | iconThemeAegean  |
-      | none   | iconThemeNone    |
+      | theme  | nameOfObject    |
+      | mint   | iconThemeMint   |
+      | aegean | iconThemeAegean |
+      | none   | iconThemeNone   |
 
   @positive
   Scenario Outline: I set Link component theme to <theme>
