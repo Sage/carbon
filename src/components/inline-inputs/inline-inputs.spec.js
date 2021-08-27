@@ -8,6 +8,7 @@ import Textbox from "../textbox";
 import InlineInputs from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import InputPresentation from "../../__internal__/input/input-presentation.style";
 
 describe("Inline Inputs", () => {
   let wrapper;
@@ -82,16 +83,6 @@ describe("Inline Inputs", () => {
         { modifier: "input" }
       );
     });
-
-    it("then columns should have negative margin to create 1px borders between inputs", () => {
-      assertStyleMatch(
-        {
-          marginLeft: "-1px",
-        },
-        wrapper,
-        { modifier: `${StyledColumn} + ${StyledColumn}` }
-      );
-    });
   });
 
   describe("when a gutter prop is passed in", () => {
@@ -103,6 +94,24 @@ describe("Inline Inputs", () => {
 
     it("then the gutter prop should be passed down to the row component", () => {
       expect(wrapper.find("Row").props().gutter).toEqual(gutterValue);
+    });
+  });
+
+  describe("when a gutter prop is set to none", () => {
+    const gutterValue = "none";
+
+    beforeEach(() => {
+      wrapper = render({ gutter: gutterValue }, mount);
+    });
+
+    it("then the borderLeft css property of the adjacent input should be set to none", () => {
+      assertStyleMatch(
+        {
+          borderLeft: "none",
+        },
+        wrapper,
+        { modifier: `${StyledColumn} + ${StyledColumn} ${InputPresentation}` }
+      );
     });
   });
 

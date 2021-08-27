@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledRow from "../row/row.style";
 import StyledColumn from "../row/column/column.style";
+import InputPresentation from "../../__internal__/input/input-presentation.style";
 
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
@@ -44,10 +45,6 @@ const StyledInlineInputs = styled.div`
     flex-grow: 1;
   }
 
-  ${StyledColumn} + ${StyledColumn} {
-    margin-left: -1px;
-  }
-
   ${({ gutter }) =>
     css`
       ${StyledRow} {
@@ -59,6 +56,13 @@ const StyledInlineInputs = styled.div`
           padding-left: ${spacings[gutter]}px;
         }
       }
+
+      ${gutter === "none" &&
+      css`
+        ${StyledColumn} + ${StyledColumn} ${InputPresentation} {
+          border-left: none;
+        }
+      `}
     `}
 `;
 
