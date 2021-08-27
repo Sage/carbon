@@ -351,6 +351,26 @@ describe("FilterableSelect", () => {
     });
   });
 
+  describe("when the filter text is part of the text value", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderSelect({ defaultValue: "opt1" });
+    });
+
+    it("then that text should be selected", () => {
+      const changeEventObject = { target: { value: "gre" } };
+
+      wrapper.find("input").simulate("click");
+      wrapper.find("input").simulate("change", changeEventObject);
+      act(() => {
+        wrapper.find(SelectList).prop("onSelectListClose")();
+      });
+
+      expect(wrapper.find("input").getDOMNode().selectionStart).toBe(3);
+    });
+  });
+
   describe("when the onSelect is called in the open SelectList", () => {
     const navigationKeyOptionObject = {
       value: "Foo",
