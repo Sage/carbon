@@ -1,3 +1,14 @@
+## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** remove get icon, tabIndex and componentProps functions
+
+### Code Refactoring
+
+* **link:** convert a class component to a function component ([44c56e6](https://github.com/Sage/carbon/commit/44c56e6bb6f877c5b2e3ce9165f1fa3fc01a7a90))
+
 ## [81.3.0](https://github.com/Sage/carbon/compare/v81.2.2...v81.3.0) (2021-08-23)
 
 
