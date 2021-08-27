@@ -9,8 +9,12 @@ export interface InlineInputsProps {
   gutter?: "none" | "extra-small" | "small"| "medium-small"| "medium"| "medium-large"| "large"| "extra-large";
   /** The id of the corresponding input control for the label */
   htmlFor?: string;
+  /** Width of the inline inputs container in percentage */
+  inputWidth?: number;
   /** Defines the label text for the heading. */
   label?: string;
+  /** Width of a label in percentage */
+  labelWidth?: number;
 }
 
 declare function InlineInputs(props: InlineInputsProps): JSX.Element;

@@ -35,7 +35,7 @@ describe("Inline Inputs", () => {
     it("then the label should have specific styles", () => {
       assertStyleMatch(
         {
-          marginRight: "15px",
+          paddingRight: "16px",
           width: "auto",
         },
         wrapper,
@@ -113,6 +113,50 @@ describe("Inline Inputs", () => {
 
     it('then the gutter prop on the row component should be "none"', () => {
       expect(wrapper.find("Row").props().gutter).toEqual("none");
+    });
+  });
+
+  describe("when a labelWidth prop is passed in", () => {
+    const labelWidth = 30;
+
+    beforeEach(() => {
+      wrapper = render({ labelWidth }, mount);
+    });
+
+    it("then the label should have percentage width of this prop value", () => {
+      assertStyleMatch(
+        {
+          width: `${labelWidth}%`,
+        },
+        wrapper,
+        { modifier: `${StyledLabelContainer}` }
+      );
+    });
+
+    it("then the inline input container width should cover the rest of the percentage", () => {
+      assertStyleMatch(
+        {
+          flex: `0 0 ${100 - labelWidth}%`,
+        },
+        wrapper
+      );
+    });
+  });
+
+  describe("when a inputWidth prop is passed in", () => {
+    const inputWidth = 70;
+
+    beforeEach(() => {
+      wrapper = render({ inputWidth }, mount);
+    });
+
+    it("then the inline input container should have percentage width of this prop value", () => {
+      assertStyleMatch(
+        {
+          flex: `0 0 ${inputWidth}%`,
+        },
+        wrapper
+      );
     });
   });
 

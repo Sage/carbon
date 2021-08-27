@@ -20,10 +20,16 @@ const StyledInlineInputs = styled.div`
   display: flex;
   align-items: center;
 
+  ${({ inputWidth }) =>
+    inputWidth &&
+    `
+    flex: 0 0 ${inputWidth}%;
+  `}
+
   ${StyledLabelContainer} {
     margin-bottom: 0;
-    margin-right: 15px;
-    width: auto;
+    padding-right: 16px;
+    width: ${({ labelWidth }) => (labelWidth ? `${labelWidth}%` : "auto")};
   }
 
   input {
