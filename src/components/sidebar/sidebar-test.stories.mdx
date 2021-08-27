@@ -1,0 +1,73 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import Button from "../button";
+import Sidebar from ".";
+import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
+
+<Meta
+  title="Sidebar/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    position: {
+      options: SIDEBAR_ALIGNMENTS,
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: SIDEBAR_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const SidebarStory = (args) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onCancel = () => {
+    setIsOpen(false);
+    action("cancel")();
+  };
+  const openSidebar = () => {
+    setIsOpen(true);
+  };
+  return (
+    <>
+      <Button onClick={openSidebar}>Open sidebar</Button>
+      <Sidebar open={isOpen} onCancel={onCancel} {...args}>
+        <div>
+          <Button as="primary">Test</Button>
+          <Button as="secondary" ml={2}>
+            Last
+          </Button>
+        </div>
+        <div style={{ marginBottom: 3000 }}>Main content</div>
+      </Sidebar>
+    </>
+  );
+};
+
+# Sidebar
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      enableBackgroundUI: Sidebar.defaultProps.enableBackgroundUI,
+      position: Sidebar.defaultProps.position,
+      size: Sidebar.defaultProps.size,
+    }}
+  >
+    {SidebarStory.bind({})}
+  </Story>
+</Preview>

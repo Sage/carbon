@@ -1,16 +1,20 @@
 { 
   "subtextOtherLanguage": {
     "size": "large",
-    "subtext": "mp150ú¿¡üßä"
+    "subtext": "",
+    "subtextSpecialCharacters": "otherLanguage"
   },
   "subtextSpecialCharacter": {
     "size": "large",
-    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subtext": "",
+    "subtextSpecialCharacters": "specialCharacters"
   },
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   }
 }

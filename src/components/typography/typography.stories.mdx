@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 import Typography, { List, ListItem } from ".";
 import LinkTo from "@storybook/addon-links/react";
@@ -9,10 +9,11 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 # Typography
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
 
 ```javascript
 import Typography, {
@@ -127,12 +128,15 @@ It's also possible to create ordered and unordered lists using the `List`, `List
 </Preview>
 
 ## Example of truncate
+
 The `truncate` prop is a boolean prop that automatically applies the styles required to trunacte a piece of text.
+
 <Preview>
   <Story name="truncate" parameters={{ info: { disable: true } }}>
-    <div style={{height: "80px", width: "80px", backgroundColor: "yellow"}}>
+    <div style={{ height: "80px", width: "80px", backgroundColor: "yellow" }}>
       <Typography truncate>
-        The is an example of using the truncate prop. This is an example of some text with applied.
+        The is an example of using the truncate prop. This is an example of some
+        text with applied.
       </Typography>
     </div>
   </Story>
@@ -215,12 +219,12 @@ The `truncate` prop is a boolean prop that automatically applies the styles requ
       type: { summary: "string" },
       description: "Override the word-wrap type",
     },
-   {
+    {
       name: "textOverflow",
       type: { summary: "string" },
       description: "Override the text-overflow type",
     },
-   {
+    {
       name: "truncate",
       type: { summary: "boolean" },
       description: "Applies styling for truncation",

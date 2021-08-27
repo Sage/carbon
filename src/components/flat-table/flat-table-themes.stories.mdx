@@ -1,20 +1,24 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { 
-  FlatTable, 
-  FlatTableHead, 
-  FlatTableBody, 
-  FlatTableRow, 
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
   FlatTableHeader,
   FlatTableCell,
-} from '.';
+} from ".";
 
-<Meta title="Design System/Flat Table/Color Themes" parameters={{ info: { disable: true }}} />
+<Meta
+  title="Design System/Flat Table/Color Themes"
+  parameters={{ info: { disable: true } }}
+/>
 
 # Table Header Color Themes
 
 ## Examples
 
 ### With transparent-white theme
+
 To create a transparent effect for the header, the background-color is set to match a white background
 
 <Preview>
@@ -60,14 +64,14 @@ To create a transparent effect for the header, the background-color is set to ma
   </Story>
 </Preview>
 
-
 ### With transparent-base theme
+
 To create a transparent effect for the header, the background-color is set to match the base app background
 
 <Preview>
   <Story name="transparent-base theme">
     <FlatTable colorTheme="transparent-base">
-     <FlatTableHead>
+      <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
@@ -119,25 +123,25 @@ To create a transparent effect for the header, the background-color is set to ma
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>John Doe</FlatTableCell>
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>Jane Doe</FlatTableCell>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
-          <FlatTableRow>
+        <FlatTableRow>
           <FlatTableCell>Jane Smith</FlatTableCell>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>

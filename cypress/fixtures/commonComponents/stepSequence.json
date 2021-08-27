@@ -9,29 +9,40 @@
     "indicator": 999
   },
   "indicatorOtherLanguage": {
-    "indicator": "mp150ú¿¡üßä"
+    "indicator": "",
+    "indicatorSpecialCharacters": "otherLanguage"
   },
   "indicatorSpecialCharacter": {
-    "indicator": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "indicator": "",
+    "indicatorSpecialCharacters": "specialCharacters"
   },
   "hiddenCompleteLabelOtherLanguage": {
     "status": "complete",
-    "hiddenCompleteLabel": "mp150ú¿¡üßä"
+    "children": "",
+    "hiddenCompleteLabel": "",
+    "hiddenCompleteLabelSpecialCharacters": "otherLanguage"
   },
   "hiddenCurrentLabelOtherLanguage": {
     "status": "current",
-    "hiddenCurrentLabel": "mp150ú¿¡üßä"
+    "children": "",
+    "hiddenCurrentLabel": "",
+    "indicator": "",
+    "hiddenCurrentLabelSpecialCharacters": "otherLanguage"
   },
   "ariaLabelOtherLanguage": {
-    "ariaLabel": "mp150ú¿¡üßä"
+    "ariaLabel": "",
+    "ariaLabelSpecialCharacters": "otherLanguage"
   },
   "ariaLabelSpecialCharacter": {
-    "ariaLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "ariaLabel": "",
+    "ariaLabelSpecialCharacters": "specialCharacters"
   },
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   }
 }

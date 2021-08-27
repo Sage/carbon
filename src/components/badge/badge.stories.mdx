@@ -1,24 +1,26 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
-import Badge  from ".";
-import Button from '../button'
+import Badge from ".";
+import Button from "../button";
 
 <Meta title="Design System/Badge" parameters={{ info: { disable: true } }} />
 
 # Badge
+
 Compact visual indicators that help things in common stand out.
 
-
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 To use Badge component you need to import `Badge` and use another component as a child.
 
 ```javascript
-import Badge from 'carbon-react/lib/components/badge';
+import Badge from "carbon-react/lib/components/badge";
 ```
 
 ## Examples
@@ -28,23 +30,29 @@ import Badge from 'carbon-react/lib/components/badge';
 <Preview>
   <Story name="default">
     <Badge counter={9}>
-      <Button style={{marginRight: 0}} buttonType="tertiary">Filter</Button>
+      <Button style={{ marginRight: 0 }} buttonType="tertiary">
+        Filter
+      </Button>
     </Badge>
   </Story>
 </Preview>
 
 ### Badge with counter 100
+
 Badge doesn't support more than 2 digits
 
 <Preview>
   <Story name="with 3 digits">
     <Badge counter={130}>
-      <Button style={{marginRight: 0}} buttonType="tertiary">Filter</Button>
+      <Button style={{ marginRight: 0 }} buttonType="tertiary">
+        Filter
+      </Button>
     </Badge>
   </Story>
 </Preview>
 
 ### Badge with counter 0
+
 If the counter is less than 1 badge will not show itself
 
 <Preview>
@@ -58,4 +66,5 @@ If the counter is less than 1 badge will not show itself
 ## Props
 
 ### Badge
+
 <Props of={Badge} />

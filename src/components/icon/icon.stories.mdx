@@ -1,6 +1,6 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Icon from "./";
 import Box from "../box";
@@ -19,6 +19,7 @@ A tooltip option is available within this component.
 Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -28,6 +29,7 @@ Many other components allow you to specify one of the standard Carbon icons to a
 ```javascript
 import Icon from "carbon-react/lib/components/icon";
 ```
+
 ## Examples
 
 ### Default
@@ -47,16 +49,32 @@ import Icon from "carbon-react/lib/components/icon";
 </Preview>
 
 ### With tooltip
-The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props, 
+
+The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props,
 such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Preview>
   <Story name="with tooltip">
     <div style={{ margin: 60, display: "inline" }}>
       <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
-      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different position!" tooltipPosition="bottom" />
-      <Icon mr={8} type="add" tooltipMessage="Hey I'm a tooltip with a different color!" tooltipBgColor="lightblue" tooltipFontColor="black" />
-      <Icon type="add" tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!" tooltipFlipOverrides={["right", "left"]} />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with a different position!"
+        tooltipPosition="bottom"
+      />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with a different color!"
+        tooltipBgColor="lightblue"
+        tooltipFontColor="black"
+      />
+      <Icon
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
+        tooltipFlipOverrides={["right", "left"]}
+      />
     </div>
   </Story>
 </Preview>
@@ -159,4 +177,5 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
 ## Props
 
 ### Icon
+
 <StyledSystemProps of={Icon} noHeader margin />

@@ -1,8 +1,10 @@
 { 
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   }
 }

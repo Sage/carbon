@@ -1,10 +1,12 @@
 {
   "altOtherLanguage": {
-    "alt": "mp150ú¿¡üßä",
+    "alt": "",
+    "altSpecialCharacters": "otherLanguage",
     "initials": "AZ"
   },
   "altSpecialCharacter": {
-    "alt": "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+    "alt": "",
+    "altSpecialCharacters": "specialCharacters",
     "initials": "AZ"
   },
   "iconTypeNone": {},

@@ -1,0 +1,228 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Toast from ".";
+import Button from "../button";
+import { TOAST_COLORS } from "./toast.config";
+
+<Meta
+  title="Design System/Toast/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    childrenSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const ToastStory = ({
+  children,
+  childrenSpecialCharacters,
+  ...args
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onDismissClick = (evt) => {
+    setIsOpen(!isOpen);
+    action("click")(evt);
+  };
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Toast</Button>
+      <Toast
+        id="toast-dismissible"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        children={children || childrenSpecialCharacters}
+        {...args}
+      />
+    </>
+  );
+};
+
+export const ToastVisualStory = ({
+  children,
+  childrenSpecialCharacters,
+  ...args
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <div>
+      {/* centered examples */}
+      <Toast
+        variant="info"
+        id="toast-quick-start"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        targetPortalId="visual"
+        children={children || childrenSpecialCharacters}
+        {...args}
+      />
+      <Toast
+        variant="info"
+        targetPortalId="visual"
+        children={children || childrenSpecialCharacters}
+        {...args}
+      />
+      <Toast
+        variant="error"
+        targetPortalId="visual"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Error
+      </Toast>
+      <Toast variant="error" targetPortalId="visual" open={isOpen}>
+        My Error
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Warning
+      </Toast>
+      <Toast variant="warning" targetPortalId="visual" open={isOpen}>
+        My Warning
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Success
+      </Toast>
+      <Toast variant="success" targetPortalId="visual" open={isOpen}>
+        My Success
+      </Toast>
+      {/* left-aligned examples */}
+      <Toast
+        variant="info"
+        id="toast-quick-start"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        children={children || childrenSpecialCharacters}
+        {...args}
+      />
+      <Toast
+        variant="info"
+        targetPortalId="visual-left-aligned"
+        isOpen={isOpen}
+        isCenter={false}
+        children={children || childrenSpecialCharacters}
+        {...args}
+      />
+      <Toast
+        variant="error"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="error"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My Success
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-left-aligned"
+        isCenter={false}
+        open={isOpen}
+      >
+        My Success
+      </Toast>
+    </div>
+  );
+};
+
+# Toast
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "My text",
+      childrenSpecialCharacters: undefined,
+      timeout: 0,
+      variant: "warning",
+      isCenter: true,
+    }}
+    argTypes={{
+      variant: {
+        options: TOAST_COLORS,
+        control: {
+          type: "select",
+        },
+      },
+    }}
+  >
+    {ToastStory.bind({})}
+  </Story>
+</Preview>
+
+### Visual
+
+<Preview>
+  <Story
+    name="visual"
+    args={{
+      children: "My text",
+      childrenSpecialCharacters: undefined,
+    }}
+    parameters={{
+      chromatic: {
+        disable: false,
+      },
+    }}
+  >
+    {ToastVisualStory.bind({})}
+  </Story>
+</Preview>
