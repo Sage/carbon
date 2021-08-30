@@ -1,3 +1,38 @@
+### [83.0.1](https://github.com/Sage/carbon/compare/v83.0.0...v83.0.1) (2021-08-30)
+
+
+### Bug Fixes
+
+* **pod:** add missing height prop type definition ([ec6d3ca](https://github.com/Sage/carbon/commit/ec6d3ca1128b79135d2f7fea70043a66ce86f402))
+
+## [83.0.0](https://github.com/Sage/carbon/compare/v82.1.0...v83.0.0) (2021-08-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pill:** all components that extend the pill component will need to be changed
+
+### Code Refactoring
+
+* **pill:** convert a class component to a function component ([e0302a4](https://github.com/Sage/carbon/commit/e0302a45da527d019b5836f6e78bb29fc04ee178))
+
+## [82.1.0](https://github.com/Sage/carbon/compare/v82.0.1...v82.1.0) (2021-08-30)
+
+
+### Features
+
+* **icon:** add arrow_left_right_small ([eb8f078](https://github.com/Sage/carbon/commit/eb8f078469945d95f229ab759648a99d765a2f10))
+* **icon:** add circle_with_dots ([c9047d1](https://github.com/Sage/carbon/commit/c9047d16a6848a54306e31c3229184a10c389600))
+* **icon:** add pause ([63c6eaf](https://github.com/Sage/carbon/commit/63c6eafbed10e9bb6d1d1c8e63bb036fccb8a059))
+* **icon:** add squares_nine ([0706c99](https://github.com/Sage/carbon/commit/0706c99abe3b4ea91ff8ad05c9d8bc205b68dfe6))
+
+### [82.0.1](https://github.com/Sage/carbon/compare/v82.0.0...v82.0.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* **filterable-select:** list not closed on click outside in Safari ([29b49df](https://github.com/Sage/carbon/commit/29b49df58606f56866b72c66a1699ba9d7b7e898))
+
 ## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
 
 

@@ -1,8 +1,10 @@
 { 
   "placeholderOtherLanguage": {
-    "placeholder": "mp150ú¿¡üßä"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "otherLanguage"
   },
   "placeholderSpecialCharacter": {
-    "placeholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "specialCharacters"
   }
 }

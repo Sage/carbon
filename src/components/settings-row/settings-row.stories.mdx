@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import SettingsRow from ".";
 
@@ -13,6 +13,7 @@ Useful to create a series of rows with a heading, explanatory text, and UI contr
 A good example is a settings page, or step-by-step wizard.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -45,10 +46,6 @@ All `children` are rendered in the input column to the right of the header colum
 
 ## Props
 
-### Settings Row 
+### Settings Row
 
-<StyledSystemProps
-  of={SettingsRow}
-  margin
-  noHeader
-/>
+<StyledSystemProps of={SettingsRow} margin noHeader />

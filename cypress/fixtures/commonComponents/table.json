@@ -37,10 +37,12 @@
     "sortOrder": "asc"
   },
   "captionOtherLanguage": {
-    "caption": "mp150ú¿¡üßä"
+    "caption": "",
+    "captionSpecialCharacters": "otherLanguage"
   },
   "captionSpecialCharacter": {
-    "caption": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "caption": "",
+    "captionSpecialCharacters": "specialCharacters"
   },
   "themePrimary": {
     "tableTheme": "primary"
@@ -64,7 +66,7 @@
     "size": "large"
   },
   "zebraStriping": {
-    "zebra striping": true
+    "isZebra": true
   },
   "pageSize0": {
     "pageSize": 0
@@ -100,22 +102,24 @@
   },
   "totalRecordsOtherLanguage": {
     "paginate": true,
-    "totalRecords": "mp150ú¿¡üßä"
+    "totalRecords": "",
+    "totalRecordsSpecialCharacters": "otherLanguage"
   },
   "totalRecordsSpecialCharacter": {
     "paginate": true,
-    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "totalRecords": "",
+    "totalRecordsSpecialCharacters": "specialCharacters"
   },
   "inputTypeTextbox": {
     "pageSize": 1,
-    "input type": "textbox"
+    "inputType": "textbox"
   },
   "inputTypeTextarea": {
     "pageSize": 1,
-    "input type": "textarea"
+    "inputType": "textarea"
   },
   "inputTypeDate": {
     "pageSize": 1,
-    "input type": "date"
+    "inputType": "date"
   }
 }

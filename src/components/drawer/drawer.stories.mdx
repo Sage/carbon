@@ -1,6 +1,5 @@
 import { useMemo, useState, useCallback, useContext } from "react";
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
-import { text, object } from "@storybook/addon-knobs";
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
 
@@ -76,36 +75,17 @@ import Drawer from "carbon-react/lib/components/drawer";
 ### Custom height
 
 <Preview>
-  <Story name="custom height">
-    <Drawer
-      height="230px"
-      defaultExpanded
-      expandedWidth={text("expandedWidth", "40%")}
-      animationDuration={text("animationDuration", "0.5s")}
-      sidebar={
-        <ul>
-          <li>link a</li>
-          <li>link b</li>
-          <li>link c</li>
-        </ul>
-      }
-    >
-      content body content body content body content body content body content
-      body content body
-    </Drawer>
-  </Story>
-</Preview>
-
-### Custom Background Color (Red)
-
-<Preview>
-  <Story name="background color red">
-    <div style={{ height: "200px" }}>
+  <Story
+    name="custom height"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+    }}
+  >
+    {(args) => (
       <Drawer
-        id="background-color-red-drawer"
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        backgroundColor={text("backgroundColorA", "#FF0000")}
+        height="230px"
+        defaultExpanded
         sidebar={
           <ul>
             <li>link a</li>
@@ -113,11 +93,44 @@ import Drawer from "carbon-react/lib/components/drawer";
             <li>link c</li>
           </ul>
         }
+        {...args}
       >
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    )}
+  </Story>
+</Preview>
+
+### Custom Background Color (Red)
+
+<Preview>
+  <Story
+    name="background color red"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+      backgroundColor: "#FF0000",
+    }}
+  >
+    {(args) => (
+      <div style={{ height: "200px" }}>
+        <Drawer
+          id="background-color-red-drawer"
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+          {...args}
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
@@ -126,24 +139,31 @@ import Drawer from "carbon-react/lib/components/drawer";
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
-  <Story name="background color white">
-    <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
-      <Drawer
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        backgroundColor={text("backgroundColorB", "#FFFFFF")}
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
-      >
-        content body content body content body content body content body content
-        body content body
-      </Drawer>
-    </div>
+  <Story
+    name="background color white"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+      backgroundColor: "#FFFFFF",
+    }}
+  >
+    {(args) => (
+      <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+        <Drawer
+          {...args}
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
@@ -152,24 +172,31 @@ Note: parent container background-color is set to red for demonstration purpose.
 Note: parent container background-color is set to red for demonstration purpose.
 
 <Preview>
-  <Story name="background color transparent">
-    <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
-      <Drawer
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        backgroundColor={text("backgroundColorC", "transparent")}
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
-      >
-        content body content body content body content body content body content
-        body content body
-      </Drawer>
-    </div>
+  <Story
+    name="background color transparent"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+      backgroundColor: "transparent",
+    }}
+  >
+    {(args) => (
+      <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+        <Drawer
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+          {...args}
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
@@ -200,25 +227,32 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### With Controls usage
 
 <Preview>
-  <Story name="with controls">
-    <div style={{ height: "200px" }}>
-      <Drawer
-        id="with-controls"
-        showControls={true}
-        expandedWidth={text("expandedWidth", "40%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
-      >
-        content body content body content body content body content body content
-        body content body
-      </Drawer>
-    </div>
+  <Story
+    name="with controls"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+    }}
+  >
+    {(args) => (
+      <div style={{ height: "200px" }}>
+        <Drawer
+          id="with-controls"
+          showControls={true}
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+          {...args}
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
@@ -476,191 +510,205 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### Custom Sidebar - FlatTable component as sidebar content
 
 <Preview>
-  <Story name="custom sidebar">
-    <div>
-      <Drawer
-        defaultExpanded
-        expandedWidth={text("expandedWidth", "35%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        sidebar={
-          <FlatTable
-            height="calc(100vh - 70px)"
-            hasStickyFooter
-            footer={
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: "8px",
-                  border: "1px solid gray",
-                  width: "102%",
-                  minWidth: "518px",
-                  backgroundColor: "#CCD6DB",
-                }}
-              >
-                Here is a footer
-              </div>
-            }
-          >
-            <FlatTableHead>
-              <FlatTableRow>
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
-              </FlatTableRow>
-            </FlatTableHead>
-            <FlatTableBody>
-              <FlatTableRow>
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>1</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>5</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Liz Anya</FlatTableCell>
-                <FlatTableCell>Stoke</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow>
-                <FlatTableCell>Karl Ickbred</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
-              </FlatTableRow>
-            </FlatTableBody>
-          </FlatTable>
-        }
-      >
-        content body content body content body content body content body content
-        body content body
-      </Drawer>
-    </div>
+  <Story
+    name="custom sidebar"
+    args={{
+      expandedWidth: "35%",
+      animationDuration: "0.5s",
+    }}
+  >
+    {(args) => (
+      <div>
+        <Drawer
+          defaultExpanded
+          sidebar={
+            <FlatTable
+              height="calc(100vh - 70px)"
+              hasStickyFooter
+              footer={
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "8px",
+                    border: "1px solid gray",
+                    width: "102%",
+                    minWidth: "518px",
+                    backgroundColor: "#CCD6DB",
+                  }}
+                >
+                  Here is a footer
+                </div>
+              }
+            >
+              <FlatTableHead>
+                <FlatTableRow>
+                  <FlatTableHeader>Name</FlatTableHeader>
+                  <FlatTableHeader>Location</FlatTableHeader>
+                  <FlatTableHeader>Relationship Status</FlatTableHeader>
+                  <FlatTableHeader>Dependents</FlatTableHeader>
+                </FlatTableRow>
+              </FlatTableHead>
+              <FlatTableBody>
+                <FlatTableRow>
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>London</FlatTableCell>
+                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell>0</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>Jane Doe</FlatTableCell>
+                  <FlatTableCell>York</FlatTableCell>
+                  <FlatTableCell>Married</FlatTableCell>
+                  <FlatTableCell>2</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>John Smith</FlatTableCell>
+                  <FlatTableCell>Edinburgh</FlatTableCell>
+                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell>1</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>Jane Smith</FlatTableCell>
+                  <FlatTableCell>Newcastle</FlatTableCell>
+                  <FlatTableCell>Married</FlatTableCell>
+                  <FlatTableCell>5</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>Liz Anya</FlatTableCell>
+                  <FlatTableCell>Stoke</FlatTableCell>
+                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell>2</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>Karl Ickbred</FlatTableCell>
+                  <FlatTableCell>Newcastle</FlatTableCell>
+                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell>0</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBody>
+            </FlatTable>
+          }
+          {...args}
+        >
+          content body content body content body content body content body
+          content body content body
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
 ### Custom Content - FlatTable component as drawer content
 
 <Preview>
-  <Story name="custom content">
-    <div style={{ height: "200px" }}>
-      <Drawer
-        expandedWidth={text("expandedWidth", "20%")}
-        animationDuration={text("animationDuration", "0.5s")}
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
-      >
-        <FlatTable>
-          <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader>Client</FlatTableHeader>
-              <FlatTableHeader>Client Type</FlatTableHeader>
-              <FlatTableHeader>Categories</FlatTableHeader>
-              <FlatTableHeader>Services</FlatTableHeader>
-              <FlatTableHeader>Client</FlatTableHeader>
-              <FlatTableHeader>Client Type</FlatTableHeader>
-              <FlatTableHeader>Categories</FlatTableHeader>
-              <FlatTableHeader>Services</FlatTableHeader>
-            </FlatTableRow>
-          </FlatTableHead>
-          <FlatTableBody>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>Business</FlatTableCell>
-              <FlatTableCell>Group1, Group2</FlatTableCell>
-              <FlatTableCell>Accounting</FlatTableCell>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>Business</FlatTableCell>
-              <FlatTableCell>Group1, Group2</FlatTableCell>
-              <FlatTableCell>Accounting</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Doe</FlatTableCell>
-              <FlatTableCell>Business</FlatTableCell>
-              <FlatTableCell>Group1, Group3</FlatTableCell>
-              <FlatTableCell>Accounting</FlatTableCell>
-              <FlatTableCell>Jane Doe</FlatTableCell>
-              <FlatTableCell>Business</FlatTableCell>
-              <FlatTableCell>Group1, Group3</FlatTableCell>
-              <FlatTableCell>Accounting</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>John Smith</FlatTableCell>
-              <FlatTableCell>Charity</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Payroll</FlatTableCell>
-              <FlatTableCell>John Smith</FlatTableCell>
-              <FlatTableCell>Charity</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Payroll</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Partnership</FlatTableCell>
-              <FlatTableCell>Group3</FlatTableCell>
-              <FlatTableCell>Final Tax</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      </Drawer>
-    </div>
+  <Story
+    name="custom content"
+    args={{
+      expandedWidth: "20%",
+      animationDuration: "0.5s",
+    }}
+  >
+    {(args) => (
+      <div style={{ height: "200px" }}>
+        <Drawer
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+          {...args}
+        >
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </Drawer>
+      </div>
+    )}
   </Story>
 </Preview>
 
@@ -756,8 +804,14 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
 ### Controlled Usage
 
 <Preview>
-  <Story name="controlled">
-    {() => {
+  <Story
+    name="controlled"
+    args={{
+      expandedWidth: "40%",
+      animationDuration: "0.5s",
+    }}
+  >
+    {(args) => {
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
@@ -775,8 +829,6 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
               backgroundColor="#FFF000"
               title={<h2>Controllage Usage Drawer</h2>}
               showControls
-              expandedWidth={text("expandedWidth", "40%")}
-              animationDuration={text("animationDuration", "0.5s")}
               expanded={isExpanded}
               onChange={onChangeHandler}
               sidebar={
@@ -786,6 +838,7 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
                   <li>link c</li>
                 </ul>
               }
+              {...args}
             >
               content body content body content body content body content body
               content body content body

@@ -1,4 +1,3 @@
-import { withKnobs } from "@storybook/addon-knobs";
 import withGlobalStyles from "./with-global-styles";
 import { withThemeSelector } from "./theme-selector";
 import { configureActions } from "@storybook/addon-actions";
@@ -80,4 +79,4 @@ export const parameters = {
   actions: { argTypesRegex: "^on.*" },
 };
 
-export const decorators = [withKnobs, withGlobalStyles, withThemeSelector];
+export const decorators = [withGlobalStyles, withThemeSelector];

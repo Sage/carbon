@@ -295,6 +295,7 @@ const FilterableSelect = React.forwardRef(
       if (
         isTextboxActive &&
         textboxRef &&
+        filterText.length &&
         textValue.length > filterText.length &&
         textStartsWithFilter
       ) {

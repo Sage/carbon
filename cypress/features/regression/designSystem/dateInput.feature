@@ -6,18 +6,18 @@ Feature: Design System Date Input component
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Change DateInput label to <label>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label>
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>

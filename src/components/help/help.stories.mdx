@@ -1,63 +1,71 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
-import Help from '.';
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Help from ".";
 
-<Meta title="Help" parameters={{ info: { disable: true }}} />
+<Meta title="Help" parameters={{ info: { disable: true } }} />
 
 # Help
-Typically triggered by the user hovering on an icon, displaying a single, short sentence. 
-Useful for explaining the difference between commands represented with icons, for example, batch table actions. 
+
+Typically triggered by the user hovering on an icon, displaying a single, short sentence.
+Useful for explaining the difference between commands represented with icons, for example, batch table actions.
 Bear in mind that tooltips may not work well (or at all) on mobile devices, so alternatives may be needed.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 Import `Help` into the project.
 
 ```javascript
 import Help from "carbon-react/lib/components/help";
 ```
+
 ## Examples
 
 ### Default
+
 <Preview>
-  <Story name="default" parameters={{chromatic: { disable: true }}}>
-    <div style={ { margin: '64px' } }>
-      <Help>
-        Some helpful text goes here
-      </Help>
+  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ margin: "64px" }}>
+      <Help>Some helpful text goes here</Help>
     </div>
   </Story>
 </Preview>
 
 ### Help with Tooltip Position
+
 The tooltip can be position `right`, `left`, `top` or `bottom`.
 Hover over the help component to see the different positions.
 
 <Preview>
   <Story name="with Tooltip Position">
     {() => {
-      return ['right', 'left', 'top', 'bottom'].map(position =>
-        <div style={ { margin: '64px 300px' } }>
+      return ["right", "left", "top", "bottom"].map((position) => (
+        <div style={{ margin: "64px 300px" }}>
           <Help tooltipPosition={position} isFocused={true}>
             {`This tooltip is positioned ${position}`}
           </Help>
         </div>
-      )
+      ));
     }}
   </Story>
 </Preview>
 
 ### Help with Tooltip color overrides
-The tooltip background and font colors can be overridden using the `tooltipBgColor` and `tooltipFontColor` props. These 
+
+The tooltip background and font colors can be overridden using the `tooltipBgColor` and `tooltipFontColor` props. These
 props accept and valid css color value.
 
 <Preview>
-  <Story name="with Tooltip color overrides" parameters={{chromatic: { disable: true }}}>
-    <div style={ { margin: '64px 300px' } }>
+  <Story
+    name="with Tooltip color overrides"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <div style={{ margin: "64px 300px" }}>
       <Help tooltipBgColor="lightblue" tooltipFontColor="black">
         The background and font color are overridden
       </Help>
@@ -65,34 +73,32 @@ props accept and valid css color value.
   </Story>
 </Preview>
 
-
 ## Help with Icons
+
 Using the `type` prop, different icons can be specified. In this example type has been assigned `error`, `add`, `minus` and `settings`
+
 <Preview>
-  <Story name="with Icons" parameters={{chromatic: { disable: true }}}>
+  <Story name="with Icons" parameters={{ chromatic: { disable: true } }}>
     {() => {
-      return [
-        'error',
-        'add',
-        'minus',
-        'settings',
-        ].map(icon =>
-        <div style={ { margin: '64px' } }>
+      return ["error", "add", "minus", "settings"].map((icon) => (
+        <div style={{ margin: "64px" }}>
           <Help type={`${icon}`}>
             {`This is the Help component with the ${icon} icon`}
           </Help>
         </div>
-      )
+      ));
     }}
   </Story>
 </Preview>
 
 ## Help with href
+
 Using the `href` prop, a link can be specified.
+
 <Preview>
-  <Story name="with href" parameters={{chromatic: { disable: true }}}>
-    <div style={ { margin: '64px' } }>
-      <Help href='https://carbon.sage.com'>
+  <Story name="with href" parameters={{ chromatic: { disable: true } }}>
+    <div style={{ margin: "64px" }}>
+      <Help href="https://carbon.sage.com">
         This is the Help component with a href.
       </Help>
     </div>
@@ -102,4 +108,5 @@ Using the `href` prop, a link can be specified.
 ## Props
 
 ### Help
-<StyledSystemProps of={Help} noHeader margin/>
+
+<StyledSystemProps of={Help} noHeader margin />

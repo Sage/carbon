@@ -1,0 +1,145 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import DialogFullScreen from ".";
+import Dialog from "../dialog";
+import Button from "../button";
+import Form from "../form";
+
+<Meta
+  title="Dialog Full Screen/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    titleSpecialCharacters: specialCharacters,
+    subtitleSpecialCharacters: specialCharacters,
+    childrenSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const DialogFullScreenStory = ({
+  stickyFooter,
+  formHeight,
+  childrenSpecialCharacters,
+  children,
+  titleSpecialCharacters,
+  title,
+  subtitleSpecialCharacters,
+  subtitle,
+  ...args
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleCancel = () => {
+    setIsOpen(false);
+    action("cancel")();
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  const handleClick = (evt) => {
+    action("click")(evt);
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Dialog</Button>
+      <DialogFullScreen
+        onCancel={handleCancel}
+        open={isOpen}
+        title={title || titleSpecialCharacters}
+        subtitle={subtitle || subtitleSpecialCharacters}
+        {...args}
+      >
+        <Form
+          stickyFooter={stickyFooter}
+          leftSideButtons={<Button onClick={handleCancel}>Cancel</Button>}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          {children || childrenSpecialCharacters || ""}
+          <div style={{ height: formHeight }} />
+        </Form>
+      </DialogFullScreen>
+    </>
+  );
+};
+
+export const DialogFullScreenNestedStory = () => {
+  const [mainDialogOpen, setMainDialogOpen] = useState(false);
+  const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
+  const handleMainDialogOpen = () => {
+    setMainDialogOpen(true);
+    action("main dialog open")();
+  };
+  const handleMainDialogCancel = () => {
+    setMainDialogOpen(false);
+    action("main dialog cancel")();
+  };
+  const handleNestedDialogOpen = () => {
+    setNestedDialogOpen(true);
+    action("nested dialog open")();
+  };
+  const handleNestedDialogCancel = () => {
+    setNestedDialogOpen(false);
+    action("nested dialog cancel")();
+  };
+  return (
+    <>
+      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
+      <DialogFullScreen
+        open={mainDialogOpen}
+        onCancel={handleMainDialogCancel}
+        title="Main Dialog"
+      >
+        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
+        <Dialog
+          open={nestedDialogOpen}
+          onCancel={handleNestedDialogCancel}
+          title="Nested Dialog"
+        >
+          Nested Dialog Content
+        </Dialog>
+      </DialogFullScreen>
+    </>
+  );
+};
+
+# DialogFullScreen
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      title: "Example Dialog",
+      titleSpecialCharacters: undefined,
+      subtitle: "Example Subtitle",
+      subtitleSpecialCharacters: undefined,
+      children: "Text Content",
+      childrenSpecialCharacters: undefined,
+      disableEscKey: false,
+      showCloseIcon: true,
+      formHeight: "2000px",
+      stickyFooter: false,
+      disableContentPadding: false,
+    }}
+  >
+    {DialogFullScreenStory.bind({})}
+  </Story>
+</Preview>
+
+### Nested
+
+<Preview>
+  <Story name="nested">{DialogFullScreenNestedStory.bind({})}</Story>
+</Preview>

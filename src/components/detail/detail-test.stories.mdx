@@ -1,0 +1,58 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import { ICONS } from "../icon/icon-config";
+import Detail from "./detail.component";
+
+<Meta
+  title="Detail/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    icon: {
+      options: ICONS,
+      control: {
+        type: "select",
+      },
+    },
+    footnoteSpecialCharacters: specialCharacters,
+    childrenSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const DetailStory = ({
+  footnote,
+  footnoteSpecialCharacters,
+  children,
+  childrenSpecialCharacters,
+  ...args
+}) => (
+  <Detail
+    footnote={footnote || footnoteSpecialCharacters}
+    children={children || childrenSpecialCharacters}
+    {...args}
+  />
+);
+
+# Detail
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      icon: null,
+      footnote: "This detail may require a footnote.",
+      footnoteSpecialCharacters: undefined,
+      children: "An example of a detail.",
+      childrenSpecialCharacters: undefined,
+    }}
+  >
+    {DetailStory.bind({})}
+  </Story>
+</Preview>

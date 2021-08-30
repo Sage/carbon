@@ -1,0 +1,90 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Heading from "./heading.component";
+import Pill from "../pill";
+
+<Meta
+  title="Heading/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    titleSpecialCharacters: specialCharacters,
+    childrenSpecialCharacters: specialCharacters,
+    subheaderSpecialCharacters: specialCharacters,
+    helpSpecialCharacters: specialCharacters,
+    helpLinkSpecialCharacters: specialCharacters,
+    backLinkSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const HeadingStory = ({
+  titleSpecialCharacters,
+  title,
+  childrenSpecialCharacters,
+  children,
+  subheaderSpecialCharacters,
+  subheader,
+  helpSpecialCharacters,
+  help,
+  helpLinkSpecialCharacters,
+  helpLink,
+  backLinkSpecialCharacters,
+  backLink,
+  ...args
+}) => {
+  return (
+    <Heading
+      pills={[
+        <Pill mr={2} key="1">
+          test pill 1
+        </Pill>,
+        <Pill mr={2} key="2" size="L">
+          test pill 2
+        </Pill>,
+        <Pill mr={2} key="3" size="XL">
+          test pill 3
+        </Pill>,
+      ]}
+      title={title || titleSpecialCharacters}
+      children={children || childrenSpecialCharacters}
+      subheader={subheader || subheaderSpecialCharacters}
+      help={help || helpSpecialCharacters}
+      helpLink={helpLink || helpLinkSpecialCharacters}
+      backLink={backLink || backLinkSpecialCharacters}
+      {...args}
+    />
+  );
+};
+
+# Heading
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      title: "This is a heading",
+      titleSpecialCharacters: undefined,
+      children: "This is content beneath a heading",
+      childrenSpecialCharacters: undefined,
+      subheader: "This is a subheading",
+      subheaderSpecialCharacters: undefined,
+      help: "",
+      helpSpecialCharacters: undefined,
+      helpLink: "",
+      helpLinkSpecialCharacters: undefined,
+      backLink: "",
+      backLinkSpecialCharacters: undefined,
+      divider: Heading.defaultProps.divider,
+      separator: Heading.defaultProps.separator,
+    }}
+  >
+    {HeadingStory.bind({})}
+  </Story>
+</Preview>
