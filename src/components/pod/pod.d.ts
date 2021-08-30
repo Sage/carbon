@@ -44,6 +44,8 @@ export interface PodProps {
   triggerEditOnContent?: boolean;
   /** Resets edit button styles to an older version */
   internalEditButton?: boolean;
+  /** Sets Pod height, number is changed to pixels and string is passed as raw css value */
+  height?: string | number;
 }
 
 declare class Pod extends React.Component<PodProps> {}
