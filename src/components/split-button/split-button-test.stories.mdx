@@ -1,0 +1,123 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Button from "../button";
+import Box from "../box";
+import { ICONS } from "../icon/icon-config";
+import {
+  SPLIT_BUTTON_ALIGNMENTS,
+  SPLIT_BUTTON_ICON_POSITIONS,
+  SPLIT_BUTTON_SIZES,
+  SPLIT_BUTTON_THEMES,
+} from "./split-button.config";
+import SplitButton from "./split-button.component";
+
+<Meta
+  title="Split Button/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    iconType: {
+      options: ["", ...ICONS],
+      control: {
+        type: "select",
+      },
+    },
+    iconPosition: {
+      options: SPLIT_BUTTON_ICON_POSITIONS,
+      control: {
+        type: "select",
+      },
+    },
+    buttonType: {
+      options: SPLIT_BUTTON_THEMES,
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: SPLIT_BUTTON_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    align: {
+      options: SPLIT_BUTTON_ALIGNMENTS,
+      control: {
+        type: "select",
+      },
+    },
+    textSpecialCharacters: specialCharacters,
+    subtextSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const SplitButtonStory = ({
+  buttonType,
+  dataElement,
+  dataRole,
+  text,
+  textSpecialCharacters,
+  subtext,
+  subtextSpecialCharacters,
+  iconType,
+  iconPosition,
+  ...args
+}) => {
+  return (
+    <Box height={400} mt={100} ml={100}>
+      <SplitButton
+        buttonType={buttonType}
+        data-element={dataElement}
+        data-role={dataRole}
+        text={text || textSpecialCharacters}
+        subtext={subtext || subtextSpecialCharacters}
+        iconType={iconType}
+        iconPosition={iconPosition}
+        {...args}
+        onClick={action("click")}
+      >
+        <Button {...args} onClick={action("click")}>
+          Example Button
+        </Button>
+        <Button {...args} onClick={action("click")}>
+          Example Button with long text
+        </Button>
+        <Button {...args} onClick={action("click")}>
+          Short
+        </Button>
+      </SplitButton>
+    </Box>
+  );
+};
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      iconType: "",
+      iconPosition: Button.defaultProps.iconPosition,
+      buttonType: Button.defaultProps.as,
+      dataElement: "data-element",
+      dataRole: "",
+      disabled: Button.defaultProps.disabled,
+      size: Button.defaultProps.size,
+      align: SplitButton.defaultProps.align,
+      text: "Example Split Button",
+      textSpecialCharacters: undefined,
+      subtext: Button.defaultProps.subtext,
+      subtextSpecialCharacters: undefined,
+    }}
+  >
+    {SplitButtonStory.bind({})}
+  </Story>
+</Preview>

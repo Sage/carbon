@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
@@ -167,9 +167,15 @@ Padding can be set on each cell individually by using the spacing props syntax. 
           <FlatTableHeader px={1} py={2}>
             Name
           </FlatTableHeader>
-          <FlatTableHeader px={2} py={2}>Location</FlatTableHeader>
-          <FlatTableHeader px={3} py={2}>Relationship Status</FlatTableHeader>
-          <FlatTableHeader px={4} py={2}>Dependents</FlatTableHeader>
+          <FlatTableHeader px={2} py={2}>
+            Location
+          </FlatTableHeader>
+          <FlatTableHeader px={3} py={2}>
+            Relationship Status
+          </FlatTableHeader>
+          <FlatTableHeader px={4} py={2}>
+            Dependents
+          </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1949,11 +1955,7 @@ of the button control.
 
 ### FlatTableCell
 
-<StyledSystemProps
-  of={FlatTableCell}
-  spacing
-  noHeader
-/>
+<StyledSystemProps of={FlatTableCell} spacing noHeader />
 
 ### FlatTableRowHeader
 

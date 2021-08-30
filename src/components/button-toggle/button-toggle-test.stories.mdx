@@ -1,0 +1,70 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import ButtonToggle from ".";
+
+<Meta
+  title="Button Toggle/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    childrenSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const ButtonToggleStory = ({
+  children,
+  childrenSpecialCharacters,
+  ...args
+}) => (
+  <div>
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-1"
+      onChange={() => action("onChange")("foo")}
+      onFocus={() => action("onFocus")("foo")}
+      onBlur={() => action("onBlur")("foo")}
+      children={children || childrenSpecialCharacters}
+      {...args}
+    />
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-2"
+      onChange={() => action("onChange")("bar")}
+      onFocus={() => action("onFocus")("bar")}
+      onBlur={() => action("onBlur")("bar")}
+      children={children || childrenSpecialCharacters}
+      {...args}
+    />
+    <ButtonToggle
+      name="new-button-toggle"
+      key="button-toggle-3"
+      onChange={() => action("onChange")("baz")}
+      onFocus={() => action("onFocus")("baz")}
+      onBlur={() => action("onBlur")("baz")}
+      children={children || childrenSpecialCharacters}
+      {...args}
+    />
+  </div>
+);
+
+# ToggleButton
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "Option",
+      childrenSpecialCharacters: undefined,
+    }}
+  >
+    {ButtonToggleStory.bind({})}
+  </Story>
+</Preview>

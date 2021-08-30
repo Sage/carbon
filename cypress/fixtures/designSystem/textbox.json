@@ -1,38 +1,42 @@
 {
   "placeholderOtherLanguage": {
-    "placeholder": "mp150ú¿¡üßä"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "otherLanguage"
   },
   "placeholderSpecialCharacter": {
-    "placeholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "specialCharacters"
   },
   "fieldHelpOtherLanguage": {
-    "fieldHelp": "mp150ú¿¡üßä"
+    "fieldHelpSpecialCharacters": "otherLanguage"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "fieldHelpSpecialCharacters": "specialCharacters"
   },
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
-    "labelHelp": "mp150ú¿¡üßä"
+    "labelHelpSpecialCharacters": "otherLanguage"
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "labelHelpSpecialCharacters": "specialCharacters"
   },
   "inputIconAdd": {
     "inputIcon": "add"
   },
   "prefixOtherLanguage": {
-    "prefix": "mp150ú¿¡üßä"
+    "prefixSpecialCharacters": "otherLanguage"
   },
   "prefixSpecialCharacter": {
-    "prefix": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "prefixSpecialCharacters": "specialCharacters"
   },
   "default": {
     

@@ -1,0 +1,74 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Search from ".";
+
+<Meta
+  title="Design System/Search/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    variant: {
+      options: ["default", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    placeholderSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const SearchStory = ({
+  placeholder,
+  placeholderSpecialCharacters,
+  ...args
+}) => {
+  const [value, setValue] = useState("");
+  const handleChange = (ev) => {
+    setValue(ev.target.value);
+    action("change")(ev);
+  };
+  const handleBlur = (ev) => {
+    action("blur")(ev);
+  };
+  const handleClick = (ev) => {
+    action("click")(ev);
+  };
+  return (
+    <Search
+      onChange={handleChange}
+      onBlur={handleBlur}
+      onClick={handleClick}
+      value={value}
+      placeholder={placeholder || placeholderSpecialCharacters}
+      name="search_name"
+      id="search_id"
+      {...args}
+    />
+  );
+};
+
+# Alert
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      placeholder: "Search...",
+      threshold: 3,
+      searchButton: true,
+      searchWidth: "",
+      variant: undefined,
+    }}
+  >
+    {SearchStory.bind({})}
+  </Story>
+</Preview>

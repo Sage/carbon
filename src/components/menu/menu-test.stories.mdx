@@ -1,0 +1,85 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import { Menu } from ".";
+import MenuItem from "./menu-item";
+import MenuFullscreen from "./menu-full-screen";
+
+<Meta
+  title="Design System/Menu/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: false,
+    },
+  }}
+  argTypes={{
+    menuType: {
+      options: ["light", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    startPosition: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const MenuStory = ({ menuType, startPosition }) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onClose = (evt) => {
+    setIsOpen(false);
+    action("close icon clicked")(evt);
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    action("open")();
+  };
+  return (
+    <Menu menuType={menuType}>
+      <MenuItem onClick={handleOpen}>Menu</MenuItem>
+      <MenuFullscreen
+        startPosition={startPosition}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem
+          onClick={(evt) => action("submenu item clicked")(evt)}
+          submenu="Menu Item Two"
+        >
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+        </MenuItem>
+        <MenuItem href="#">Menu Item Three</MenuItem>
+        <MenuItem href="#">Menu Item Four</MenuItem>
+        <MenuItem submenu="Menu Item Five">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+        </MenuItem>
+        <MenuItem href="#">Menu Item Six</MenuItem>
+      </MenuFullscreen>
+    </Menu>
+  );
+};
+
+# Menu
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      menuType: "light",
+      startPosition: "left",
+    }}
+  >
+    {MenuStory.bind({})}
+  </Story>
+</Preview>

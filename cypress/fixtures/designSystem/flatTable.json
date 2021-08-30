@@ -1,8 +1,8 @@
-{ 
-    "captionOtherLanguage": {
-        "caption": "mp150ú¿¡üßä"
-      },
-      "captionSpecialCharacter": {
-        "caption": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
-  } 
+{
+  "captionOtherLanguage": {
+    "captionSpecialCharacters": "otherLanguage"
+  },
+  "captionSpecialCharacter": {
+    "captionSpecialCharacters": "specialCharacters"
+  }
 }

@@ -1,39 +1,45 @@
 { 
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   },
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   },
   "subheaderOtherLanguage": {
-    "subheader": "mp150ú¿¡üßä"
+    "subheader": "",
+    "subheaderSpecialCharacters": "otherLanguage"
   },
   "subheaderSpecialCharacter": {
-    "subheader": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subheader": "",
+    "subheaderSpecialCharacters": "specialCharacters"
   },
   "helpOtherLanguage": {
-    "help": "mp150ú¿¡üßä"
+    "helpSpecialCharacters": "otherLanguage"
   },
   "helpSpecialCharacter": {
-    "help": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "helpSpecialCharacters": "specialCharacters"
   },
   "helpLinkOtherLanguage": {
-    "helpLink": "mp150ú¿¡üßä"
+    "helpLinkSpecialCharacters": "otherLanguage"
   },
   "helpLinkSpecialCharacter": {
-    "helpLink": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "helpLinkSpecialCharacters": "specialCharacters"
   },
   "backLinkOtherLanguage": {
-    "backLink": "mp150ú¿¡üßä"
+    "backLinkSpecialCharacters": "otherLanguage"
   },
   "backLinkSpecialCharacter": {
-    "backLink": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "backLinkSpecialCharacters": "specialCharacters"
   },
   "divider": {
     "divider": true

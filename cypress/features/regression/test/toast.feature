@@ -10,11 +10,11 @@ Feature: Toast component
   @positive
   Scenario Outline: Change Toast children to <children>
     When I open Test default "Toast" component in noIFrame with "toast" json from "test" using "<nameOfObject>" object name
-    Then Toast children is set to "<children>"
+    Then Toast children is set to <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario: Verify that Toast is closed by pressing Esc key
