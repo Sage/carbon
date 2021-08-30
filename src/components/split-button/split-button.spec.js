@@ -10,7 +10,6 @@ import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledButton from "../button/button.style";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import SmallTheme from "../../style/themes/small";
 import MediumTheme from "../../style/themes/medium";
 import {
@@ -19,6 +18,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
+import { baseTheme } from "../../style/themes";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -131,7 +131,7 @@ describe("SplitButton", () => {
 
   describe("render with custom className", () => {
     beforeEach(() => {
-      wrapper = render();
+      wrapper = render({}, singleButton, mount);
       toggle = wrapper.find('[data-element="toggle-button"]');
     });
 
@@ -146,10 +146,10 @@ describe("SplitButton", () => {
         toggle.contains(
           <Icon
             type="dropdown"
-            bgTheme="none"
-            iconColor="business-color"
+            bg="transparent"
+            color={baseTheme.colors.primary}
             disabled={false}
-            bgSize="small"
+            bgSize="extra-small"
             fontSize="small"
           />
         )
@@ -399,7 +399,6 @@ describe("SplitButton", () => {
 
       it("the handler should be called on the main button", () => {
         toggle.simulate("mouseenter");
-
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(ButtonWithForwardRef);
@@ -511,13 +510,13 @@ describe("SplitButton", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      beforeEach(() => {
-        wrapper = render();
-        toggle = wrapper.find('[data-element="toggle-button"]');
-      });
-
       it("include correct component, element and role data tags", () => {
-        rootTagTest(wrapper, "split-button", "bar", "baz");
+        wrapper = render({}, singleButton, mount);
+        expect(wrapper.find('[data-component="split-button"]').exists()).toBe(
+          true
+        );
+        expect(wrapper.find('[data-element="bar"]').exists()).toBe(true);
+        expect(wrapper.find('[data-role="baz"]').exists()).toBe(true);
       });
     });
 

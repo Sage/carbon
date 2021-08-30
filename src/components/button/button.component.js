@@ -5,6 +5,7 @@ import { ThemeContext } from "styled-components";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { baseTheme } from "../../style/themes";
 
 function renderChildren({
   /* eslint-disable react/prop-types */

@@ -31,6 +31,13 @@ const StyledSplitButtonToggle = styled(StyledButton)`
     ${buttonType === "secondary" && "border-left-width: 0;"}
     padding: 0 ${horizontalPaddingSizes[size]}px;
 
+    ${disabled &&
+    css`
+      ${StyledIcon} {
+        background: transparent;
+      }
+    `}
+
     ${StyledButton} + & {
       margin-left: 0;
 

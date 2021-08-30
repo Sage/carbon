@@ -7,6 +7,20 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c5::before {
@@ -78,6 +92,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c2 .c4 svg {
@@ -93,6 +108,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c6 .c4 svg {
@@ -240,6 +256,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c3 .c4 svg {
@@ -267,6 +284,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c14 .c4 svg {
@@ -400,6 +418,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   >
     <span
       className="c4 c5"
+      color="#008200"
       data-component="icon"
       data-element="dropdown"
       disabled={false}
