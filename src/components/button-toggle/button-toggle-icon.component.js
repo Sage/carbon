@@ -10,7 +10,6 @@ const ButtonToggleIcon = (props) => (
       fontSize={props.buttonIconSize}
       {...props}
       bg="transparent"
-      bgSize="extra-small"
     />
   </StyledButtonToggleIcon>
 );

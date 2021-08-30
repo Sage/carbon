@@ -41,6 +41,11 @@ const StyledButtonToggleContentWrapper = styled.div`
   height: 100%;
 `;
 
+const iconFontSizes = {
+  smallIcon: 16,
+  largeIcon: 32,
+};
+
 const StyledButtonToggleLabel = styled.label`
   display: inline-block;
   position: relative;
@@ -59,6 +64,11 @@ const StyledButtonToggleLabel = styled.label`
 
     ${StyledIcon} {
       color: ${theme.colors.black};
+
+      ${({ buttonIconSize }) => css`
+        width: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      `}
     }
 
     input:checked ~ && {
@@ -111,11 +121,6 @@ const StyledButtonToggleLabel = styled.label`
       cursor: not-allowed;
     `};
 `;
-
-const iconFontSizes = {
-  smallIcon: 16,
-  largeIcon: 32,
-};
 
 const StyledButtonToggleIcon = styled.div`
   margin-right: 8px;
