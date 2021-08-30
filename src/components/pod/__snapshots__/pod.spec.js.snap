@@ -2,11 +2,6 @@
 
 exports[`ActionButtons StyledDeleteButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,6 +14,10 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  vertical-align: middle;
   height: 24px;
   width: 24px;
 }
@@ -40,6 +39,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 .c4 button .c2 {
   position: relative;
   vertical-align: middle;
+  display: inline-block;
   margin-right: 5px;
 }
 
@@ -47,6 +47,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 .c5 button .c2 {
   position: relative;
   vertical-align: middle;
+  display: inline-block;
   margin-right: 0;
 }
 
@@ -310,6 +311,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c27 .c2 svg {
@@ -351,6 +353,7 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 .c0 button .c9 {
   position: relative;
   vertical-align: middle;
+  display: inline-block;
   margin-right: 0;
 }
 
@@ -411,6 +414,8 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 
 .c1.c1 > a,
 .c1.c1 button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
   cursor: pointer;
   border: 1px solid #CCD6DB;
   margin-left: 8px;
@@ -461,11 +466,6 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 
 exports[`ActionButtons StyledUndoButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -478,6 +478,10 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  vertical-align: middle;
   height: 24px;
   width: 24px;
 }
@@ -499,6 +503,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 .c4 button .c2 {
   position: relative;
   vertical-align: middle;
+  display: inline-block;
   margin-right: 5px;
 }
 
@@ -506,6 +511,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 .c5 button .c2 {
   position: relative;
   vertical-align: middle;
+  display: inline-block;
   margin-right: 0;
 }
 
@@ -829,6 +835,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c35 .c2 svg {

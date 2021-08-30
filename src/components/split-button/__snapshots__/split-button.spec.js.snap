@@ -2,11 +2,6 @@
 
 exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c5 {
-  display: inline-block;
-  position: relative;
-  color: #008200;
-  background-color: transparent;
-  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,6 +14,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  color: #008200;
+  background-color: transparent;
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
   height: 16px;
   width: 16px;
 }

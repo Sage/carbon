@@ -36,11 +36,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c11 {
-  display: inline-block;
-  position: relative;
-  color: #0073C1;
-  background-color: transparent;
-  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -53,6 +48,10 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  color: #0073C1;
+  background-color: transparent;
+  vertical-align: middle;
   height: 24px;
   width: 24px;
 }

@@ -140,7 +140,7 @@ describe("Icon component", () => {
       "#123456",
     ];
     describe.each(correctColors)("when color prop is provided", (color) => {
-      it("takes precedence over iconColor and renders properly colored Icon", () => {
+      it("renders properly colored Icon", () => {
         const wrapper = mount(<Icon type="home" color={color} />);
         const { color: renderedColor } = styledColor({
           theme: baseTheme,
@@ -168,7 +168,7 @@ describe("Icon component", () => {
         );
       });
 
-      it("takes precedence over iconColor and renders properly colored Icon with tooltip", () => {
+      it("renders properly colored Icon with tooltip", () => {
         const wrapper = mount(
           <Icon
             type="home"
@@ -219,7 +219,7 @@ describe("Icon component", () => {
       });
     });
     describe.each(correctColors)("when bg prop is provided", (color) => {
-      it("takes precedence over bgTheme and renders properly colored Icon", () => {
+      it("renders properly colored Icon", () => {
         const wrapper = mount(<Icon bg={color} type="message" />);
         const { backgroundColor } = styledColor({
           theme: baseTheme,
@@ -289,130 +289,13 @@ describe("Icon component", () => {
 
   describe("icon color", () => {
     it("renders proper icon color for disabled state", () => {
-      const wrapper = renderStyles({ disabled: true, bgTheme: "business" });
+      const wrapper = renderStyles({ disabled: true });
       assertStyleMatch(
         {
           color: baseTheme.icon.disabled,
         },
         wrapper.toJSON()
       );
-    });
-
-    describe.each(["error", "info", "business"])(
-      "when the background theme is %s",
-      (whiteIconBackground) => {
-        it("renders a white icon", () => {
-          const wrapper = renderStyles({ bgTheme: whiteIconBackground });
-          assertStyleMatch(
-            {
-              color: baseTheme.colors.white,
-            },
-            wrapper.toJSON()
-          );
-        });
-      }
-    );
-
-    describe.each(["success", "warning"])(
-      "when the background theme is %s",
-      (darkIconBackground) => {
-        it("renders a dark icon", () => {
-          const wrapper = renderStyles({
-            bgTheme: darkIconBackground,
-            isInteractive: true,
-          });
-          assertStyleMatch(
-            {
-              color: baseTheme.icon.default,
-            },
-            wrapper.toJSON()
-          );
-
-          assertStyleMatch(
-            {
-              color: baseTheme.icon.defaultHover,
-            },
-            wrapper.toJSON(),
-            { modifier: ":hover" }
-          );
-        });
-      }
-    );
-
-    describe("when bgTheme is set to none", () => {
-      it("renders white icon when iconColor is set to onDarkBackground", () => {
-        const wrapper = renderStyles({
-          iconColor: "on-dark-background",
-          bgTheme: "none",
-        });
-        assertStyleMatch(
-          {
-            color: baseTheme.colors.white,
-          },
-          wrapper.toJSON()
-        );
-      });
-
-      it("renders dark icon when iconColor is set to onLightBackground", () => {
-        const wrapper = renderStyles({
-          iconColor: "on-light-background",
-          bgTheme: "none",
-          isInteractive: true,
-        });
-        assertStyleMatch(
-          {
-            color: baseTheme.icon.onLightBackground,
-          },
-          wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            color: baseTheme.icon.onLightBackgroundHover,
-          },
-          wrapper.toJSON(),
-          { modifier: ":hover" }
-        );
-      });
-
-      describe('fontSize is "large" and bgSize is "small"', () => {
-        it('sets the height and width style properties of bgSize to same as "large"', () => {
-          const wrapper = renderStyles({
-            fontSize: "large",
-            bgTheme: "business",
-            bgSize: "small",
-          });
-          assertStyleMatch(
-            {
-              height: "40px",
-              width: "40px",
-            },
-            wrapper.toJSON()
-          );
-        });
-      });
-
-      it("renders dark icon when iconColor is set to business-color", () => {
-        const wrapper = renderStyles({
-          iconColor: "business-color",
-          bgTheme: "none",
-          isInteractive: true,
-        });
-        assertStyleMatch(
-          {
-            color: baseTheme.colors.primary,
-          },
-          wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            color: "#006800",
-          },
-          wrapper.toJSON(),
-          { modifier: ":hover" }
-        );
-      });
     });
   });
 
@@ -429,68 +312,30 @@ describe("Icon component", () => {
       });
     });
 
-    describe("when bgTheme is set to none", () => {
-      it("renders transparent background", () => {
-        const wrapper = renderStyles({ bgTheme: "none" });
+    describe("when used with bgSize and fontSize", () => {
+      it("should set correct height", () => {
+        const wrapper = renderStyles({
+          bg: "red",
+          fontSize: "medium",
+          bgSize: "small",
+        });
         assertStyleMatch(
           {
-            backgroundColor: "transparent",
+            height: "32px",
           },
           wrapper.toJSON()
         );
       });
     });
 
-    describe.each(["info", "error", "success", "warning"])(
-      "when bgTheme is set to one of the statuses",
-      (status) => {
-        const wrapper = renderStyles({ bgTheme: status, isInteractive: true });
-        const hoverColors = {
-          info: "#005C9B",
-          error: "#9F2D3F",
-          success: "#008D00",
-          warning: "#BA5000",
-        };
-
-        it(`renders proper background color for ${status}`, () => {
-          assertStyleMatch(
-            {
-              backgroundColor: baseTheme.colors[status],
-            },
-            wrapper.toJSON()
-          );
-
-          assertStyleMatch(
-            {
-              backgroundColor: hoverColors[status],
-            },
-            wrapper.toJSON(),
-            { modifier: ":hover" }
-          );
-        });
-      }
-    );
-
-    describe("when bgTheme is set to business", () => {
-      const wrapper = renderStyles({
-        bgTheme: "business",
-        isInteractive: true,
-      });
-
-      it("renders proper background color", () => {
+    describe("when bg is not provided", () => {
+      it("renders transparent background", () => {
+        const wrapper = renderStyles({});
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.colors.primary,
+            backgroundColor: "transparent",
           },
           wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            backgroundColor: "#006800",
-          },
-          wrapper.toJSON(),
-          { modifier: ":hover" }
         );
       });
     });
@@ -507,7 +352,7 @@ describe("Icon component", () => {
 
     describe.each(ICON_SIZES)("with bgSize prop provided", (size) => {
       it(`renders in the proper size for ${size}`, () => {
-        const wrapper = renderStyles({ bgSize: size });
+        const wrapper = renderStyles({ bgSize: size, bg: "red" });
         assertStyleMatch(
           {
             width: iconConfig.backgroundSize[size],
@@ -521,7 +366,7 @@ describe("Icon component", () => {
 
   describe.each(ICON_SHAPES)("background shape", (shape) => {
     it(`renders in the proper size for ${shape}`, () => {
-      const wrapper = renderStyles({ bgShape: shape });
+      const wrapper = renderStyles({ bgShape: shape, bg: "red" });
       assertStyleMatch(
         {
           borderRadius: iconConfig.backgroundShape[shape],

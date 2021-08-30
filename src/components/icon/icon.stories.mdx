@@ -93,20 +93,8 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
 <Preview>
   <Story name="various fontSizes">
     {["small", "medium", "large", "extra-large"].map((fontSize) => (
-      <Icon type="add" fontSize={fontSize} key={fontSize} />
+      <Icon bg="transparent" type="add" fontSize={fontSize} key={fontSize} />
     ))}
-  </Story>
-</Preview>
-
-### Various bgThemes
-
-<Preview>
-  <Story name="various bgThemes">
-    {["info", "error", "success", "warning", "business", "none"].map(
-      (bgTheme) => (
-        <Icon type="add" bgTheme={bgTheme} mr={1} key={bgTheme} />
-      )
-    )}
   </Story>
 </Preview>
 
@@ -117,7 +105,7 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
     {["circle", "rounded-rect", "square"].map((bgShape) => (
       <Icon
         type="add"
-        bgTheme="success"
+        bg="rgb(0, 176, 0)"
         bgShape={bgShape}
         mr={1}
         key={bgShape}
@@ -131,22 +119,13 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
 <Preview>
   <Story name="various bgSizes">
     {["small", "medium", "large", "extra-large"].map((bgSize) => (
-      <Icon type="add" bgTheme="success" bgSize={bgSize} mr={1} key={bgSize} />
-    ))}
-  </Story>
-</Preview>
-
-### IconColor variants
-
-<Preview>
-  <Story name="iconColor variants">
-    {[
-      "default",
-      "on-light-background",
-      "on-dark-background",
-      "business-color",
-    ].map((iconColor) => (
-      <Icon type="add" iconColor={iconColor} mr={1} key={iconColor} />
+      <Icon
+        type="add"
+        bg="rgb(0, 176, 0)"
+        bgSize={bgSize}
+        mr={1}
+        key={bgSize}
+      />
     ))}
   </Story>
 </Preview>
@@ -154,8 +133,7 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
 ### Custom colors
 
 It's possible to change the color of the Icon by using the `color` prop or background color by `bg` prop.
-These props will override `iconColor` and `bgTheme` prop values.
-See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo> for more information.
+See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information.
 
 <Preview>
   <Story

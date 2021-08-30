@@ -15,13 +15,7 @@ export type FontSize =
   | "large"
   | "extra-large";
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
-export type BackgroundTheme =
-  | "info"
-  | "error"
-  | "success"
-  | "warning"
-  | "business"
-  | "none";
+
 export type IconType =
   | "add"
   | "alert"
@@ -209,11 +203,7 @@ export type IconType =
   | "video"
   | "view"
   | "warning";
-export type IconColor =
-  | "default"
-  | "on-light-background"
-  | "on-dark-background"
-  | "business-color";
+
 
 export interface IconProps extends MarginProps {
   /** Icon type */
@@ -222,15 +212,11 @@ export interface IconProps extends MarginProps {
   bgSize?: BgSize;
   /** Background shape */
   bgShape?: BackgroundShape;
-  /** Background color theme */
-  bgTheme?: BackgroundTheme;
   /** Icon font size */
   fontSize?: FontSize;
-  /** Icon color */
-  iconColor?: IconColor;
-  /** Override iconColor, provide any color from palette or any valid css color value. */
+  /** Provide any color from palette or any valid css color value. */
   color?: string;
-  /** Override bgTheme, provide any color from palette or any valid css color value. */
+  /** Provide any color from palette or any valid css color value. */
   bg?: string;
   /** Sets the icon in the disabled state */
   disabled?: boolean;

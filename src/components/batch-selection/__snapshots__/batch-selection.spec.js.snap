@@ -2,11 +2,6 @@
 
 exports[`BatchSelection component should render correctly 1`] = `
 .c5 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,6 +14,10 @@ exports[`BatchSelection component should render correctly 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  vertical-align: middle;
   height: 24px;
   width: 24px;
 }

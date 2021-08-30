@@ -2,11 +2,26 @@
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
 .c2 {
-  display: inline-block;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  height: 16px;
+  width: 16px;
 }
 
 .c2::before {
@@ -31,6 +46,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c3 .c1 svg {
@@ -46,6 +62,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c4 .c1 svg {
@@ -61,6 +78,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c5 .c1 svg {
@@ -76,6 +94,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c6 .c1 svg {
@@ -91,6 +110,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c7 .c1 svg {
@@ -106,6 +126,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c8 .c1 svg {
@@ -121,6 +142,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c9 .c1 svg {
@@ -136,6 +158,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c10 .c1 svg {
@@ -151,6 +174,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c11 .c1 svg {
@@ -166,6 +190,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c12 .c1 svg {
@@ -181,6 +206,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c13 .c1 svg {
@@ -196,6 +222,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c14 .c1 svg {
@@ -211,6 +238,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c15 .c1 svg {
@@ -226,6 +254,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c16 .c1 svg {
@@ -241,6 +270,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c17 .c1 svg {
@@ -256,6 +286,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c18 .c1 svg {
@@ -271,6 +302,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c19 .c1 svg {
@@ -286,6 +318,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -303,6 +336,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -320,6 +354,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -337,6 +372,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c23 .c1 svg {
@@ -352,6 +388,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c24 .c1 svg {
@@ -367,6 +404,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c25 .c1 svg {
@@ -382,6 +420,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c26 .c1 svg {
@@ -397,6 +436,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c27 .c1 svg {
@@ -412,6 +452,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c28 .c1 svg {
@@ -427,6 +468,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c29 .c1 svg {
@@ -442,6 +484,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c30 .c1 svg {
@@ -457,6 +500,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c31 .c1 svg {
@@ -472,6 +516,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c32 .c1 svg {
@@ -487,6 +532,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c33 .c1 svg {
@@ -502,6 +548,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c34 .c1 svg {
@@ -517,6 +564,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c35 .c1 svg {
@@ -532,6 +580,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c36 .c1 svg {
@@ -547,6 +596,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c37 .c1 svg {
@@ -562,6 +612,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c38 .c1 svg {
@@ -577,6 +628,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c39 .c1 svg {
@@ -592,6 +644,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c40 .c1 svg {
@@ -607,6 +660,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c41 .c1 svg {
@@ -622,6 +676,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c42 .c1 svg {
@@ -637,6 +692,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c43 .c1 svg {
@@ -652,6 +708,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c44 .c1 svg {
@@ -667,6 +724,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c45 .c1 svg {
@@ -682,6 +740,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c46 .c1 svg {
@@ -697,6 +756,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c47 .c1 svg {
@@ -759,6 +819,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c0 .c1 svg {
@@ -783,6 +844,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   </span>
   <span
     className="c1 c2"
+    color="#008200"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -794,11 +856,26 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
 .c2 {
-  display: inline-block;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  height: 16px;
+  width: 16px;
 }
 
 .c2::before {
@@ -870,6 +947,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c0 .c1 svg {
@@ -885,6 +963,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c3 .c1 svg {
@@ -900,6 +979,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c4 .c1 svg {
@@ -915,6 +995,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c5 .c1 svg {
@@ -930,6 +1011,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c6 .c1 svg {
@@ -945,6 +1027,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c7 .c1 svg {
@@ -960,6 +1043,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c8 .c1 svg {
@@ -975,6 +1059,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c9 .c1 svg {
@@ -990,6 +1075,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c10 .c1 svg {
@@ -1005,6 +1091,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c11 .c1 svg {
@@ -1020,6 +1107,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c12 .c1 svg {
@@ -1035,6 +1123,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c13 .c1 svg {
@@ -1050,6 +1139,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c14 .c1 svg {
@@ -1065,6 +1155,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c15 .c1 svg {
@@ -1080,6 +1171,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c16 .c1 svg {
@@ -1095,6 +1187,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c17 .c1 svg {
@@ -1110,6 +1203,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c18 .c1 svg {
@@ -1125,6 +1219,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1142,6 +1237,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1159,6 +1255,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  width: 16px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1176,6 +1273,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c22 .c1 svg {
@@ -1191,6 +1289,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c23 .c1 svg {
@@ -1206,6 +1305,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c24 .c1 svg {
@@ -1221,6 +1321,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c25 .c1 svg {
@@ -1236,6 +1337,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c26 .c1 svg {
@@ -1251,6 +1353,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c27 .c1 svg {
@@ -1266,6 +1369,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c28 .c1 svg {
@@ -1281,6 +1385,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c29 .c1 svg {
@@ -1296,6 +1401,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c30 .c1 svg {
@@ -1311,6 +1417,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c31 .c1 svg {
@@ -1326,6 +1433,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c32 .c1 svg {
@@ -1341,6 +1449,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c33 .c1 svg {
@@ -1356,6 +1465,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c34 .c1 svg {
@@ -1371,6 +1481,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c35 .c1 svg {
@@ -1386,6 +1497,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c36 .c1 svg {
@@ -1401,6 +1513,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c37 .c1 svg {
@@ -1416,6 +1529,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c38 .c1 svg {
@@ -1431,6 +1545,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c39 .c1 svg {
@@ -1446,6 +1561,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c40 .c1 svg {
@@ -1461,6 +1577,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c41 .c1 svg {
@@ -1476,6 +1593,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c42 .c1 svg {
@@ -1491,6 +1609,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c43 .c1 svg {
@@ -1506,6 +1625,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c44 .c1 svg {
@@ -1521,6 +1641,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c45 .c1 svg {
@@ -1536,6 +1657,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
   margin-bottom: 0px;
   height: 16px;
+  width: 16px;
 }
 
 .c46 .c1 svg {
@@ -1553,6 +1675,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 >
   <span
     className="c1 c2"
+    color="#008200"
     data-component="icon"
     data-element="filter"
     disabled={false}
