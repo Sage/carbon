@@ -35,6 +35,7 @@ const StyledLink = styled.span`
       ${StyledIcon} {
         position: relative;
         vertical-align: middle;
+        display: inline-block;
         ${iconAlign === "left" &&
         css`
           margin-right: ${hasContent ? "5px" : 0};

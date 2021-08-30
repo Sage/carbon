@@ -133,11 +133,9 @@ describe("Link", () => {
   });
 
   describe("when component received an `icon` prop", () => {
-    beforeEach(() => {
-      wrapper.setProps({ icon: "basket" });
-    });
-
     it("should render an `Icon` correctly with the `basket` value", () => {
+      wrapper = renderLink({ icon: "basket" });
+
       expect(wrapper.find(Icon).props().type).toEqual("basket");
     });
 
@@ -167,7 +165,7 @@ describe("Link", () => {
 
     it("should render an `Icon` on the right with no margin when no children", () => {
       wrapper = mount(
-        <Link iconAlign="right" icon="home" href="www.sage.com" />
+        <Link iconAlign="right" href="www.sage.com" icon="busket" />
       );
       assertStyleMatch(
         {
@@ -181,14 +179,12 @@ describe("Link", () => {
     });
 
     it("should render a `Tooltip` if tooltipMessage is passed", () => {
-      wrapper = mount(
-        <Link
-          iconAlign="right"
-          icon="home"
-          href="www.sage.com"
-          tooltipMessage="foo"
-        />
-      );
+      wrapper = renderLink({
+        iconAlign: "right",
+        icon: "home",
+        href: "www.sage.com",
+        tooltipMessage: "foo",
+      });
 
       expect(wrapper.find(Tooltip).exists()).toBeTruthy();
     });

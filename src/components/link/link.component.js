@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
@@ -29,6 +30,8 @@ const Link = React.forwardRef(
     ref
   ) => {
     const tabIndex = tabbable && !disabled ? "0" : "-1";
+    const theme = useContext(ThemeContext) || baseTheme;
+
     const handleOnKeyDown = (ev) => {
       if (onKeyDown) {
         onKeyDown(ev);
@@ -50,8 +53,9 @@ const Link = React.forwardRef(
       return hasProperAlignment ? (
         <Icon
           type={icon}
-          bgTheme="none"
-          iconColor="business-color"
+          bg="transparent"
+          bgSize="extra-small"
+          color={theme.colors.primary}
           disabled={disabled}
           ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}
