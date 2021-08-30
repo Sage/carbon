@@ -1,27 +1,29 @@
 {
   "cancelLabelOtherLanguage": {
-    "cancelLabel": "mp150ú¿¡üßä"
+    "cancelLabelSpecialCharacters": "otherLanguage"
   },
   "cancelLabelSpecialCharacter": {
-    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "cancelLabelSpecialCharacters": "specialCharacters"
   },
   "confirmLabelOtherLanguage": {
-    "confirmLabel": "mp150ú¿¡üßä"
+    "confirmLabelSpecialCharacters": "otherLanguage"
   },
   "confirmLabelSpecialCharacter": {
-    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "confirmLabelSpecialCharacters": "specialCharacters"
   },
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   },
   "subtitleOtherLanguage": {
-    "subtitle": "mp150ú¿¡üßä"
+    "subtitleSpecialCharacters": "otherLanguage"
   },
   "subtitleSpecialCharacter": {
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subtitleSpecialCharacters": "specialCharacters"
   },
   "height0": {
     "height": 0

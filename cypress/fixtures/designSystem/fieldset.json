@@ -1,9 +1,11 @@
 { 
   "legendOtherLanguage": {
-    "legend": "mp150ú¿¡üßä"
+    "legend": "",
+    "legendSpecialCharacters": "otherLanguage"
   },
   "legendSpecialCharacter": {
-    "legend": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "legend": "",
+    "legendSpecialCharacters": "specialCharacters"
   },
   "legendEmpty": {
     "legend": ""

@@ -1,0 +1,111 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import Accordion from "./accordion.component";
+import AccordionGroup from "./accordion-group/accordion-group.component";
+import Textbox from "../textbox";
+import Box from "../box";
+
+<Meta
+  title="Design System/Accordion/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    iconAlign: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    iconType: {
+      options: ["chevron_down", "dropdown"],
+      control: {
+        type: "select",
+      },
+    },
+    borders: {
+      options: ["default", "full"],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["large", "small"],
+      control: {
+        type: "select",
+      },
+    },
+    scheme: {
+      options: ["white", "transparent"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const AccordionStory = (args) => {
+  return (
+    <Accordion onChange={action("expansionToggled")} {...args}>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  );
+};
+
+export const AccordionGroupedStory = () => (
+  <AccordionGroup>
+    <Accordion title="First Accordion" onChange={action("expansionToggled")}>
+      <Box p={2}>
+        <Textbox label="Textbox in an Accordion" />
+      </Box>
+    </Accordion>
+    <Accordion title="Second Accordion" onChange={action("expansionToggled")}>
+      <Box p={2}>
+        <Textbox label="Textbox in an Accordion" />
+      </Box>
+    </Accordion>
+    <Accordion title="Third Accordion" onChange={action("expansionToggled")}>
+      <Box p={2}>
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Box>
+    </Accordion>
+  </AccordionGroup>
+);
+
+# Accordion
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      iconType: undefined,
+      iconAlign: "right",
+      borders: undefined,
+      size: undefined,
+      customPadding: 0,
+      scheme: undefined,
+      title: "Title",
+      subTitle: "Sub Title",
+      width: "100%",
+    }}
+  >
+    {AccordionStory.bind({})}
+  </Story>
+</Preview>
+
+### Grouped
+
+<Preview>
+  <Story name="grouped">{AccordionGroupedStory.bind({})}</Story>
+</Preview>

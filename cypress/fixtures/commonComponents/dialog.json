@@ -12,16 +12,20 @@
     "height": "1000"
   },
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   },
   "subtitleOtherLanguage": {
-    "subtitle": "mp150ú¿¡üßä"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "otherLanguage"
   },
   "subtitleSpecialCharacter": {
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "specialCharacters"
   },
   "sizeExtraSmall": {
     "size": "extra-small"

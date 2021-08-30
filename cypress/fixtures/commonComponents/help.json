@@ -1,14 +1,18 @@
 {
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   },
   "hrefOtherLanguage": {
-    "href": "mp150ú¿¡üßä"
+    "href": "",
+    "hrefSpecialCharacters": "otherLanguage"
   },
   "hrefSpecialCharacter": {
-    "href": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "href": "",
+    "hrefSpecialCharacters": "specialCharacters"
   }
 }

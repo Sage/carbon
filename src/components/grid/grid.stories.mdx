@@ -1,15 +1,19 @@
-import { Meta, Preview, Story, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Preview, Story, Props } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
-import styled from 'styled-components';
+import styled from "styled-components";
 import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Grid" parameters={{ chromatic: { disable: true }}}/>
+<Meta
+  title="Design System/Grid"
+  parameters={{ chromatic: { disable: true } }}
+/>
 
 # Grid
+
 The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
 The Grid system is designed to provide:
 
@@ -19,6 +23,7 @@ The Grid system is designed to provide:
 - Position and width calculated dynamically.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
@@ -30,16 +35,19 @@ The Grid system is designed to provide:
 import { GridContainer, GridItem } from "carbon-react/lib/components/grid";
 ```
 
-## Designer Notes 
+## Designer Notes
+
 - The Grid system is implemented with the `GridContainer` and `GridItem` components that provide two types of layout.
 - It uses the [CSS Grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), which is a truly two-dimentional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
 
 ### `GridContainer`
+
 - Comprised of 12 equal-width columns, including external paddings and internal gutters.
 - Allows either percentage or a fixed pixel width.
 - Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's paddings and gutters will be based on that size.
 
 ### `GridItem`
+
 The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
 
 - Can be defined at any width between 1 and 12, each unit corresponding to a column of the `GridContainer`.
@@ -47,6 +55,7 @@ The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoi
 - Can be re-ordered on the page by viewport dimensions.
 
 ### Paddings
+
 Paddings for the `GridContainer` are set automatically in the CSS, following the values in this table.
 
 | Breakpoints                    | Device Type                         | Paddings |
@@ -58,6 +67,7 @@ Paddings for the `GridContainer` are set automatically in the CSS, following the
 | Extra Large (1921px and above) | Ultra High-Res Monitors             | 40px     |
 
 ### Gutters
+
 Gutters for the `GridItem` are set automatically in the CSS, following the values in this table.
 
 | Breakpoints                    | Device Type                         | Gutters |
@@ -71,10 +81,11 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 ## Examples
 
 ### Default
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}}>
+  <Story name="default" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem alignSelf="stretch" justifySelf="stretch">
         <Pod alignTitle="left" border padding="medium" variant="primary">
@@ -96,10 +107,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ### Justify
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="justify" parameters={{ info: { disable: true }}}>
+  <Story name="justify" parameters={{ info: { disable: true } }}>
     <div id="grid-justify">
       <GridContainer>
         <GridItem alignSelf="stretch" justifySelf="left">
@@ -123,10 +135,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ### Align
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="align" parameters={{ info: { disable: true }}}>
+  <Story name="align" parameters={{ info: { disable: true } }}>
     <div id="grid-align">
       <GridContainer>
         <GridItem alignSelf="end" justifySelf="left" gridColumn="1 / 1">
@@ -161,10 +174,14 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ### Custom
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="custom spacings" parameters={{ info: { disable: true }, chromatic: { disable: false } }}>
+  <Story
+    name="custom spacings"
+    parameters={{ info: { disable: true }, chromatic: { disable: false } }}
+  >
     <GridContainer p="20px" gridGap="5px">
       <GridItem
         p="20px 5px 20px 0"
@@ -245,13 +262,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ### Responsive Settings
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
 
 <Preview>
-  <Story
-    name="responsive-settings"
-    parameters={{ info: { disable: true }}}
-  >
+  <Story name="responsive-settings" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem
         responsiveSettings={[
@@ -345,10 +360,14 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 </Preview>
 
 ### With a subgrid
+
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Preview>
-  <Story name="subgrid" parameters={{ info: { disable: true }, chromatic: { disable: true }}}>
+  <Story
+    name="subgrid"
+    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  >
     <div id="grid-align">
       <GridContainer>
         <GridItem justifySelf="left" gridColumn="1 / 1">
@@ -420,59 +439,63 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <StyledSystemProps of={GridItem} padding />
 
 ### responsiveSettings
+
 <ArgsTable
-  rows={
-    [
-      {
-      name: 'alignSelf',
-      type: { summary: 'string' },
-      description: 'How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch'
-      },
-      {
-        name: 'gridColumn',
-        type: { summary: 'string'},
-        description: 'Starting and ending column position of the GridItem within the GridContainer separated by "/"'
-      },
-      {
-        name: 'gridRow',
-        type: { summary: 'number' },
-        description: 'Starting and ending row position of the GridItem within the GridContainer separated by "/"'
-      },
-      {
-        name: 'justifySelf',
-        type: { summary: 'string' },
-        description: 'How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch'
-      },
-      {
-        name: 'maxWidth',
-        type: { summary: 'string' },
-        description: 'Maximum width of the screen to which these rules to be applied'
-      },
-      {
-        name: 'p',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding'
-      },
-      {
-        name: 'pl',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-left'
-      },
-      {
-        name: 'pr',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-right'
-      },
-      {
-        name: 'pt',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-top'
-      },
-      {
-        name: 'pb',
-        type: { summary: 'string | number' },
-        description: 'Any valid CSS value to override default padding-bottom'
-      }
-    ]
-  }
+  rows={[
+    {
+      name: "alignSelf",
+      type: { summary: "string" },
+      description:
+        "How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch",
+    },
+    {
+      name: "gridColumn",
+      type: { summary: "string" },
+      description:
+        'Starting and ending column position of the GridItem within the GridContainer separated by "/"',
+    },
+    {
+      name: "gridRow",
+      type: { summary: "number" },
+      description:
+        'Starting and ending row position of the GridItem within the GridContainer separated by "/"',
+    },
+    {
+      name: "justifySelf",
+      type: { summary: "string" },
+      description:
+        "How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch",
+    },
+    {
+      name: "maxWidth",
+      type: { summary: "string" },
+      description:
+        "Maximum width of the screen to which these rules to be applied",
+    },
+    {
+      name: "p",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding",
+    },
+    {
+      name: "pl",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-left",
+    },
+    {
+      name: "pr",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-right",
+    },
+    {
+      name: "pt",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-top",
+    },
+    {
+      name: "pb",
+      type: { summary: "string | number" },
+      description: "Any valid CSS value to override default padding-bottom",
+    },
+  ]}
 />

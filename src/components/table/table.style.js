@@ -6,7 +6,7 @@ import {
   applyModernInternalStyling,
 } from "./table-modern.style.js";
 import StyledTableRow from "./table-row/table-row.style";
-import StyledLink from "../link/link.style";
+import { StyledLink } from "../link/link.style";
 import baseTheme from "../../style/themes/base";
 import StyledTableCell from "./table-cell/table-cell.style.js";
 

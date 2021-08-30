@@ -9,17 +9,16 @@ import { Table, TableCell, TableHeader, TableRow } from "..";
 import TextArea from "../../textarea";
 import DateInput from "../../date";
 import TextBox from "../../textbox";
-import { getCommonTextboxProps } from "../../textbox/textbox.stories";
 import { TABLE_INPUT_TYPES } from "../table.config";
 
-const pickInput = (name) => {
+const pickInput = (name, commonTextboxArgs) => {
   switch (name) {
     case TABLE_INPUT_TYPES[1]:
-      return <TextArea {...getCommonTextboxProps} />;
+      return <TextArea {...commonTextboxArgs} />;
     case TABLE_INPUT_TYPES[2]:
-      return <DateInput {...getCommonTextboxProps} />;
+      return <DateInput {...commonTextboxArgs} />;
     default:
-      return <TextBox {...getCommonTextboxProps} />;
+      return <TextBox {...commonTextboxArgs} />;
   }
 };
 
@@ -28,6 +27,7 @@ const Wrapper = ({
   sortedColumn,
   pageSize = 10,
   totalRecords,
+  commonTextboxArgs,
   ...props
 }) => {
   const data = countriesList.toJS();
@@ -77,7 +77,9 @@ const Wrapper = ({
           let cellContent = <TableCell>{row.name}</TableCell>;
           if (inputType) {
             cellContent = (
-              <TableCell size={size}>{pickInput(inputType)}</TableCell>
+              <TableCell size={size}>
+                {pickInput(inputType, commonTextboxArgs)}
+              </TableCell>
             );
           }
           return (

@@ -1,0 +1,69 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters, {
+  email,
+} from "../../../.storybook/utils/argTypes/specialCharacters";
+import Profile from "./profile.component";
+import { PROFILE_SIZES } from "./profile.config";
+
+<Meta
+  title="Profile/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: PROFILE_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    emailSpecialCharacters: {
+      options: [...specialCharacters.options, ...email.options],
+      mapping: {
+        ...specialCharacters.mapping,
+        ...email.mapping,
+      },
+    },
+    nameSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const ProfileStory = ({
+  email,
+  emailSpecialCharacters,
+  name,
+  nameSpecialCharacters,
+  ...args
+}) => (
+  <Profile
+    email={email || emailSpecialCharacters}
+    name={name || nameSpecialCharacters}
+    {...args}
+  />
+);
+
+# Profile
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      email: "johnsmith@sage.com",
+      initials: "JS",
+      size: PROFILE_SIZES[0],
+      name: "John Smith",
+      src: "",
+      emailSpecialCharacters: undefined,
+      nameSpecialCharacters: undefined,
+    }}
+  >
+    {ProfileStory.bind({})}
+  </Story>
+</Preview>

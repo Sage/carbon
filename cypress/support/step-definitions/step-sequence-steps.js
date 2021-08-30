@@ -1,10 +1,8 @@
 import {
   stepSequenceItemIndicator,
-  ariaLabel,
   stepSequenceDataComponent,
 } from "../../locators/step-sequence";
 
-const ARIA_LABEL = "Step 1 of 5";
 const INDICATOR = "1";
 
 Then("indicator is set to {word}", (indicator) => {
@@ -12,7 +10,7 @@ Then("indicator is set to {word}", (indicator) => {
 });
 
 Then("hidden label is set to {word}", (hiddenLabel) => {
-  ariaLabel(ARIA_LABEL).contains(hiddenLabel).should("have.text", hiddenLabel);
+  stepSequenceDataComponent().children().should("have.text", hiddenLabel);
 });
 
 Then("ariaLabel is set to {word}", (label) => {
@@ -20,5 +18,7 @@ Then("ariaLabel is set to {word}", (label) => {
 });
 
 Then("children is set {word}", (children) => {
-  ariaLabel(ARIA_LABEL).should("have.text", `${INDICATOR}${children}`);
+  stepSequenceDataComponent()
+    .children()
+    .should("have.text", `${INDICATOR}${children}`);
 });

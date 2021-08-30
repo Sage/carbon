@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
-import Confirm from '.';
-import Button from '../button';
+import Confirm from ".";
+import Button from "../button";
 
 <Meta
   title="Confirm"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Confirm
+
 Confirms or cancels an action.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -26,6 +28,7 @@ import Confirm from "carbon-react/lib/components/confirm";
 ```
 
 ## Designer Notes
+
 Shows a static message in a dialog which asks the user to confirm or cancel an action they’ve initiated.
 
 Useful to confirm actions which may be difficult to undo, or potentially harmful.
@@ -37,6 +40,7 @@ This component has the same options and properties as the Dialog component.
 A good example could be confirming deletion of a large number of records.
 
 ## Related Components
+
 - Longer message which stays on-screen? [Try Message](/?path=/docs/message--default-story "Message").
 - Longer, time sensitive message that must be dismissed? [Try Toast](/?path=/docs/design-system-toast--default-story "Toast").
 - Error or warning message that interrupts activity? [Try Alert](/?path=/docs/alert--default-story "Alert").
@@ -52,25 +56,22 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             cancelButtonDestructive
             title="Are you sure?"
             subtitle="Subtitle"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
-
 
 ### Single action
 
@@ -80,23 +81,20 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
-
 
 ### Destructive buttons
 
@@ -106,22 +104,20 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             destructive
             cancelButtonType="tertiary"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -134,21 +130,19 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             cancelButtonDestructive
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -161,21 +155,19 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             confirmButtonDestructive
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -188,23 +180,21 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             confirmButtonDestructive
             cancelButtonDestructive
             disableConfirm
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -217,27 +207,26 @@ A good example could be confirming deletion of a large number of records.
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             showCloseIcon
             disableCancel
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Change cancel button type
+
 Allows to set variant which is supported in `<Button />` and it will be applied to the `cancel` button
 
 <Preview>
@@ -246,26 +235,25 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             cancelButtonType="tertiary"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Change confirm button type
+
 Allows to set variant which is supported in `<Button />` and it will be applied to the `confirm` button
 
 <Preview>
@@ -274,21 +262,19 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             confirmButtonType="tertiary"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -301,23 +287,21 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             confirmButtonIconType="save"
             confirmButtonIconPosition="after"
             cancelButtonIconType="bin"
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -330,21 +314,19 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={ () => setIsOpen(!isOpen) }>
-            Open Confirm
-          </Button>
+          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
             isLoadingConfirm
-            open={ isOpen }
-            onConfirm={ () => setIsOpen(false) }
-            onCancel={ () => setIsOpen(false) }
+            open={isOpen}
+            onConfirm={() => setIsOpen(false)}
+            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../../style/themes";
-import LinkStyle from "../../../link/link.style";
+import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
@@ -42,8 +42,8 @@ const StyledSubmenu = styled.ul`
 
       a,
       button,
-      ${LinkStyle} a,
-      ${LinkStyle} button {
+      ${StyledLink} a,
+      ${StyledLink} button {
         width: 100%;
       }
     `}

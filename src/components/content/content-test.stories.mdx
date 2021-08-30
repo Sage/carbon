@@ -1,0 +1,61 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Content from "./content.component.js";
+
+<Meta
+  title="Design System/Content/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    variant: {
+      options: ["primary", "secondary"],
+      control: {
+        type: "select",
+      },
+    },
+    align: {
+      options: ["left", "center", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    childrenSpecialCharacters: specialCharacters,
+    titleSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const ContentStory = ({ children, childrenSpecialCharacters, title, titleSpecialCharacters, ...args }) => (
+  <Content
+    title={title || titleSpecialCharacters}
+    children={children || childrenSpecialCharacters}
+    {...args}
+  />
+);
+
+# Content
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      children: "An example of some content.",
+      childrenSpecialCharacters: undefined,
+      title: "Content Component",
+      titleSpecialCharacters: undefined,
+      variant: undefined,
+      inline: false,
+      align: undefined,
+      titleWidth: "",
+      bodyFullWidth: false,
+    }}
+  >
+    {ContentStory.bind({})}
+  </Story>
+</Preview>

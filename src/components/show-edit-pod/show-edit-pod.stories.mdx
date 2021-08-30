@@ -1,6 +1,7 @@
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import styled from "styled-components";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import ShowEditPod from "./";
 import Heading from "../heading";
@@ -19,6 +20,7 @@ import Textbox from "../textbox";
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -241,3 +243,27 @@ More guidance is available for each of the individual inputs you might place ins
 ### Show Edit Pod
 
 <StyledSystemProps of={ShowEditPod} margin noHeader />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "actions.edit",
+        description: "The text for edit action button",
+        type: "func",
+        returnType: "string"
+      },
+      {
+        name: "actions.delete",
+        description: "The text for delete action button",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

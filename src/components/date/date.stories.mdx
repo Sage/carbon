@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import DateInput, { BaseDateInput } from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
@@ -23,6 +24,7 @@ import Box from "../box";
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -334,3 +336,27 @@ It is possible to use the `tooltipPosition` to override the default placement of
 Due to the `Textbox` component being used internally by the `Date` component most of the `Textbox` props are appliable to `Date`
 
 <Props of={OriginalTextbox} exclude={["prefix", "inputIcon"]} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "date.formats.inputs",
+      description:
+        "The valid formats for the input component, any value matching one of these formats will be parsed to a date",
+      type: "func",
+      returnType: "string[]",
+    },
+    {
+      name: "date.formats.javascript",
+      description:
+        "The valid format for the picker/ calendar component, this the format that the input will display when it is blurred",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
