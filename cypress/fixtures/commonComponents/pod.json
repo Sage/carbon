@@ -1,29 +1,37 @@
 {
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   },
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   },
   "subtitleOtherLanguage": {
     "title": "title",
-    "subtitle": "mp150ú¿¡üßä"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "otherLanguage"
   },
   "subtitleSpecialCharacter": {
     "title": "title",
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "subtitle": "",
+    "subtitleSpecialCharacters": "specialCharacters"
   },
   "footerOtherLanguage": {
-    "footer": "mp150ú¿¡üßä"
+    "footer": "",
+    "footerSpecialCharacters": "otherLanguage"
   },
   "footerSpecialCharacter": {
-    "footer": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "footer": "",
+    "footerSpecialCharacters": "specialCharacters"
   },
   "triggerEditOnContent": {
     "onEdit": true,

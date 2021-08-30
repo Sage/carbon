@@ -1,11 +1,15 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import IconButton from ".";
-import Icon from "../icon"
+import Icon from "../icon";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Design System/Icon Button" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Design System/Icon Button"
+  parameters={{ info: { disable: true } }}
+/>
 
-# Icon Button 
+# Icon Button
+
 A component that can be used when a button with no text is needed
 
 ## Quick Start
@@ -14,17 +18,20 @@ A component that can be used when a button with no text is needed
 import IconButton from "carbon-react/lib/components/icon-button";
 ```
 
-## Examples 
+## Examples
 
-### Default 
+### Default
+
 <Preview>
   <Story name="default">
-    <IconButton onAction={() => {}}><Icon type='home' /></IconButton>
+    <IconButton onAction={() => {}}>
+      <Icon type="home" />
+    </IconButton>
   </Story>
 </Preview>
 
 ## Props
 
-### Icon Button 
+### Icon Button
 
 <StyledSystemProps of={IconButton} noHeader margin />

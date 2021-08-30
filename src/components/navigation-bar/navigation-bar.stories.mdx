@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import NavigationBar from "./navigation-bar.component";
 import { Menu, MenuItem } from "../menu";
 import Box from "../box";
@@ -9,14 +9,16 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <Meta title="Design System/Navigation Bar" />
 
 # Navigation Bar
+
 This component is used as a wrapper for the Menu component when used as a navigation layout.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
 
 ```javascript
 import NavigationBar from "carbon-react/lib/components/navigation-bar";
@@ -33,6 +35,7 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 </Preview>
 
 ### Light Theme Loading State
+
 If `isLoading={true}` the children will not be visible
 
 <Preview>
@@ -55,6 +58,7 @@ If `isLoading={true}` the children will not be visible
 </Preview>
 
 ### Dark Theme Loading State
+
 If `isLoading={true}` the children will not be visible
 
 <Preview>
@@ -69,6 +73,7 @@ If `isLoading={true}` the children will not be visible
 </Preview>
 
 ### With custom spacing
+
 The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any
 valid CSS string.
 
@@ -124,5 +129,6 @@ valid CSS string.
 
 ## Props
 
-### Navigation Bar 
-<StyledSystemProps of={NavigationBar} noHeader padding flexBox/>
+### Navigation Bar
+
+<StyledSystemProps of={NavigationBar} noHeader padding flexBox />

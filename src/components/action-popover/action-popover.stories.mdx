@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import { Basic } from "./action-popover.stories";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import { Preview as MyPreview } from "@storybook/components";
 import LinkTo from "@storybook/addon-links/react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -207,13 +206,9 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
           <TableCell>Doe</TableCell>
           <TableCell>
             <ActionPopover horizontalAlignment="right">
-              <ActionPopoverItem icon="email">
-                Email Invoice
-              </ActionPopoverItem>
+              <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
               <ActionPopoverDivider />
-              <ActionPopoverItem icon="delete">
-                Delete
-              </ActionPopoverItem>
+              <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
             </ActionPopover>
           </TableCell>
         </TableRow>

@@ -1,0 +1,58 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import DateInput from "./date.component";
+import {
+  commonTextboxArgTypes,
+  getCommonTextboxArgs,
+  getCommonTextboxArgsWithSpecialCaracters,
+} from "../textbox/textbox-test.stories.mdx";
+
+<Meta
+  title="Design System/Date Input/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={commonTextboxArgTypes}
+/>
+
+export const DateStory = (args) => {
+  const [state, setState] = useState("2019-04-04");
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
+  };
+  return (
+    <DateInput
+      name="dateinput"
+      value={state}
+      onChange={setValue}
+      onBlur={action("onBlur")}
+      onKeyDown={action("onKeyDown")}
+      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+    />
+  );
+};
+
+# Date
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      minDate: "",
+      maxDate: "",
+      allowEmptyValue: false,
+      mt: 0,
+      ...getCommonTextboxArgs(),
+    }}
+  >
+    {DateStory.bind({})}
+  </Story>
+</Preview>

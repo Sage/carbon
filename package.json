@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "82.0.0",
+  "version": "82.0.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -61,9 +61,9 @@
     "@semantic-release/git": "^9.0.0",
     "@storybook/addon-a11y": "^6.3.6",
     "@storybook/addon-actions": "^6.3.6",
+    "@storybook/addon-controls": "^6.3.7",
     "@storybook/addon-docs": "^6.3.6",
     "@storybook/addon-google-analytics": "^6.2.9",
-    "@storybook/addon-knobs": "^6.2.9",
     "@storybook/addon-links": "^6.3.6",
     "@storybook/addon-viewport": "^6.3.6",
     "@storybook/addons": "^6.3.6",

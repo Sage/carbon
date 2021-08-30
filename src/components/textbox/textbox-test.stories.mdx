@@ -1,0 +1,150 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Textbox from ".";
+import { ICONS } from "../icon/icon-config";
+
+export const commonTextboxArgTypes = {
+  labelAlign: {
+    options: ["left", "right"],
+    control: {
+      type: "select",
+    },
+  },
+  size: {
+    options: ["small", "medium", "large"],
+    control: {
+      type: "select",
+    },
+  },
+  inputIcon: {
+    options: ["", ...ICONS],
+    control: {
+      type: "select",
+    },
+  },
+  labelWidth: {
+    control: {
+      type: "range",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
+  inputWidth: {
+    control: {
+      type: "range",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
+  adaptiveLabelBreakpoint: {
+    control: {
+      type: "number",
+    },
+  },
+  prefixSpecialCharacters: specialCharacters,
+  fieldHelpSpecialCharacters: specialCharacters,
+  labelSpecialCharacters: specialCharacters,
+  labelHelpSpecialCharacters: specialCharacters,
+  placeholderSpecialCharacters: specialCharacters,
+};
+
+<Meta
+  title="Design System/Textbox/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={commonTextboxArgTypes}
+/>
+
+export const getCommonTextboxArgs = (
+  autoFocusDefault = false,
+  disabledDefault = false,
+  readOnlyDefault = false
+) => {
+  return {
+    disabled: disabledDefault,
+    readOnly: disabledDefault,
+    autoFocus: autoFocusDefault,
+    prefix: "",
+    prefixSpecialCharacters: undefined,
+    fieldHelp: "",
+    fieldHelpSpecialCharacters: undefined,
+    label: "Label",
+    labelSpecialCharacters: undefined,
+    labelHelp: "",
+    labelHelpSpecialCharacters: undefined,
+    placeholder: "",
+    placeholderSpecialCharacters: undefined,
+    labelInline: false,
+    adaptiveLabelBreakpoint: undefined,
+    labelWidth: 30,
+    inputWidth: 70,
+    labelAlign: undefined,
+    size: "medium",
+    inputIcon: undefined,
+    required: false,
+  };
+};
+
+export const getCommonTextboxArgsWithSpecialCaracters = (args) => {
+  const {
+    prefix,
+    prefixSpecialCharacters,
+    fieldHelp,
+    fieldHelpSpecialCharacters,
+    label,
+    labelSpecialCharacters,
+    labelHelp,
+    labelHelpSpecialCharacters,
+    placeholder,
+    placeholderSpecialCharacters,
+  } = args;
+  return {
+    ...args,
+    prefix: prefix || prefixSpecialCharacters,
+    fieldHelp: fieldHelp || fieldHelpSpecialCharacters,
+    label: label || labelSpecialCharacters,
+    labelHelp: labelHelp || labelHelpSpecialCharacters,
+    placeholder: placeholder || placeholderSpecialCharacters,
+  };
+};
+
+export const TextboxStory = (args) => (
+  <Textbox
+    onClick={action("onClick")}
+    iconOnClick={action("iconOnClick")}
+    {...getCommonTextboxArgsWithSpecialCaracters(args)}
+  />
+);
+
+export const MultipleTextboxStory = (args) => (
+  <>
+    <Textbox {...getCommonTextboxArgsWithSpecialCaracters(args)} />
+    <Textbox {...getCommonTextboxArgsWithSpecialCaracters(args)} />
+  </>
+);
+
+# Textbox
+
+### Default
+
+<Preview>
+  <Story name="default" args={getCommonTextboxArgs()}>
+    {TextboxStory.bind({})}
+  </Story>
+</Preview>
+
+### Multiple
+
+<Preview>
+  <Story name="multiple" args={getCommonTextboxArgs()}>
+    {MultipleTextboxStory.bind({})}
+  </Story>
+</Preview>

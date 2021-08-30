@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
 import { useState, forwardRef } from "react";
 import Tooltip from ".";
 import Icon from "../icon";
@@ -6,20 +6,22 @@ import Button from "../button";
 
 <Meta
   title="Design System/Tooltip"
-  parameters={{ info: { disable: true }, chromatic: { disable: true }}}
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
 />
 
 # Tooltip
-The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will 
-flip if there is no space in its default placement; and the arrow and tooltip will track the target element when a user scrolls 
+
+The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will
+flip if there is no space in its default placement; and the arrow and tooltip will track the target element when a user scrolls
 or the window resizes.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
-## Quick Start 
+## Quick Start
 
 ```javascript
 import Tooltip from "carbon-react/lib/components/tooltip";
@@ -27,7 +29,8 @@ import Tooltip from "carbon-react/lib/components/tooltip";
 
 ## Examples
 
-### Default 
+### Default
+
 To use the Tooltip, pass in the component you want it to display on in via the `children` prop, any component passed in
 must support `forwardRef`. By default the Tooltip does not need to be controlled and will display when the target element
 is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the
@@ -44,13 +47,13 @@ tooltip and it and the `children` prop are required.
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <div style={{ padding: "60px" }}>
           <Tooltip message="I am a tooltip!">
@@ -63,6 +66,7 @@ tooltip and it and the `children` prop are required.
 </Preview>
 
 ### Controlled
+
 The Tooltip can also be controlled via the `isVisible` prop.
 
 <Preview>
@@ -77,17 +81,19 @@ The Tooltip can also be controlled via the `isVisible` prop.
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <>
-          <div style={{display:"flex"}}>
-            <Button onClick={() => setIsVisible(!isVisible)}>Toggle tooltip</Button>
+          <div style={{ display: "flex" }}>
+            <Button onClick={() => setIsVisible(!isVisible)}>
+              Toggle tooltip
+            </Button>
           </div>
           <div style={{ padding: "60px" }}>
             <Tooltip message="I am a tooltip!" isVisible={isVisible}>
@@ -101,9 +107,10 @@ The Tooltip can also be controlled via the `isVisible` prop.
 </Preview>
 
 ### Positioning
-The Tooltip supports four `position`s: "top", "bottom", "left" and "right". However, if there is no room for it to display 
-in this position it will attempt to flip and dynamically place itself in the opposite position. The Tooltip will also track 
-the target element when a user scrolls. The flipping and tracking features can be seen by adjusting the window size 
+
+The Tooltip supports four `position`s: "top", "bottom", "left" and "right". However, if there is no room for it to display
+in this position it will attempt to flip and dynamically place itself in the opposite position. The Tooltip will also track
+the target element when a user scrolls. The flipping and tracking features can be seen by adjusting the window size
 (ideally in the canvas tab) and scrolling.
 
 <Preview>
@@ -118,18 +125,20 @@ the target element when a user scrolls. The flipping and tracking features can b
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <>
-          <div style={{ display:"flex" }}>
+          <div style={{ display: "flex" }}>
             <Button onClick={() => setPosition("top")}>Top Position</Button>
-            <Button onClick={() => setPosition("bottom")}>Bottom Position</Button>
+            <Button onClick={() => setPosition("bottom")}>
+              Bottom Position
+            </Button>
             <Button onClick={() => setPosition("left")}>Left Position</Button>
             <Button onClick={() => setPosition("right")}>Right Position</Button>
           </div>
@@ -145,11 +154,12 @@ the target element when a user scrolls. The flipping and tracking features can b
 </Preview>
 
 ### Overriding the default flip behaviour
-By default if there is no room for the Tooltip to display in the given position it will attempt to flip and dynamically 
-place itself in the opposite position. You can pass an array of `flipOverrides` which will alter the behaviour from the 
+
+By default if there is no room for the Tooltip to display in the given position it will attempt to flip and dynamically
+place itself in the opposite position. You can pass an array of `flipOverrides` which will alter the behaviour from the
 default, the Tooltip will flip to the positions defined in the array in the order they are defined. The overriding
-can be seen by adjusting the window size (ideally in the canvas tab) and scrolling. The example should render the 
-Tooltip "bottom" intitially, then flip to "right" when there is not enough room below, and finally to the "left" position 
+can be seen by adjusting the window size (ideally in the canvas tab) and scrolling. The example should render the
+Tooltip "bottom" intitially, then flip to "right" when there is not enough room below, and finally to the "left" position
 when there is no space to render to the right anymore.
 
 <Preview>
@@ -163,16 +173,21 @@ when there is no space to render to the right anymore.
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <div style={{ padding: "60px 0px 60px 250px" }}>
-          <Tooltip message="I am a tooltip!" isVisible position="bottom" flipOverrides={["right", "left"]}>
+          <Tooltip
+            message="I am a tooltip!"
+            isVisible
+            position="bottom"
+            flipOverrides={["right", "left"]}
+          >
             <Component>target</Component>
           </Tooltip>
         </div>
@@ -194,31 +209,32 @@ when there is no space to render to the right anymore.
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <div style={{ padding: "60px" }}>
           <Tooltip message="I am a tooltip!" size="large">
             <Component>target</Component>
           </Tooltip>
         </div>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Types
-The `Tooltip` can be rendered as two different `type`s which will alter the colour of the background: "error" 
+
+The `Tooltip` can be rendered as two different `type`s which will alter the colour of the background: "error"
 or if no value is passed it will default to a black background.
 
 <Preview>
   <Story name="types">
-     {() => {
+    {() => {
       const [type, setType] = useState(undefined);
       const Component = forwardRef(({ children }, ref) => (
         <button
@@ -228,16 +244,16 @@ or if no value is passed it will default to a black background.
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <>
-          <div style={{display:"flex"}}>
+          <div style={{ display: "flex" }}>
             <Button onClick={() => setType(undefined)}>Default Type</Button>
             <Button onClick={() => setType("error")}>Error Type</Button>
           </div>
@@ -253,12 +269,13 @@ or if no value is passed it will default to a black background.
 </Preview>
 
 ### Color overrides
-The `Tooltip` background and font color can be overridden via the `bgColor` and `fontColor` props and accept any valid 
+
+The `Tooltip` background and font color can be overridden via the `bgColor` and `fontColor` props and accept any valid
 css value. Any values passed to the `bgColor` prop will override the color applied by the `type`
 
 <Preview>
   <Story name="color overrides">
-     {() => {
+    {() => {
       const Component = forwardRef(({ children }, ref) => (
         <button
           tabIndex="0"
@@ -267,16 +284,20 @@ css value. Any values passed to the `bgColor` prop will override the color appli
             color: "white",
             cursor: "pointer",
             border: "none",
-            padding: "8px"
+            padding: "8px",
           }}
           ref={ref}
         >
           {children}
         </button>
-      ))
+      ));
       return (
         <div style={{ padding: "60px" }}>
-          <Tooltip message="I am a tooltip!" bgColor="lightblue" fontColor="black">
+          <Tooltip
+            message="I am a tooltip!"
+            bgColor="lightblue"
+            fontColor="black"
+          >
             <Component>target</Component>
           </Tooltip>
         </div>
@@ -288,4 +309,5 @@ css value. Any values passed to the `bgColor` prop will override the color appli
 ## Props
 
 ### Tooltip
+
 <Props of={Tooltip} />

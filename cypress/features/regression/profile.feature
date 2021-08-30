@@ -7,8 +7,8 @@ Feature: Profile default component
     Then email is set to <email>
       And avatar is taken from "<avatar>"
     Examples:
-      | email                | avatar                                                                      |
-      | andrew.tait@sage.com | https://www.gravatar.com/avatar/ec55ecf2e1c7e7e56a904b50245c24a4?s=24&d=404 |
+      | email                         | avatar                                                                      |
+      | test.frontend.squad@gmail.com | https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404 |
 
   @negative
   Scenario Outline: Set email out of scope to <email>

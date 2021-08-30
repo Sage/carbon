@@ -1,8 +1,10 @@
 { 
   "titleOtherLanguage": {
-    "title": "mp150ú¿¡üßä"
+    "title": "",
+    "titleSpecialCharacters": "otherLanguage"
   },
   "titleSpecialCharacter": {
-    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "title": "",
+    "titleSpecialCharacters": "specialCharacters"
   }
 }

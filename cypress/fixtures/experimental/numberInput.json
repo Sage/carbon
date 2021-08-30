@@ -1,43 +1,45 @@
 {
   "fieldHelpOtherLanguage": {
-    "fieldHelp": "mp150ú¿¡üßä"
+    "fieldHelpSpecialCharacters": "otherLanguage"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "fieldHelpSpecialCharacters": "specialCharacters"
   },
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
-    "labelHelp": "mp150ú¿¡üßä"
+    "labelHelpSpecialCharacters": "otherLanguage"
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "labelHelpSpecialCharacters": "specialCharacters"
   },
   "inputIconAdd": {
     "inputIcon": "add"
   },
   "onChangeDeferred": {
-    "onChangeDeferred": true
+    "onChangeDeferredEnabled": true
   },
   "onKeyDown": {
-    "onKeyDown": true
+    "onKeyDownEnabled": true
   },
   "deferTimeout1000": {
-    "onChangeDeferred": true,
+    "onChangeDeferredEnabled": true,
     "deferTimeout": 1000
   },
   "deferTimeout5000": {
-    "onChangeDeferred": true,
+    "onChangeDeferredEnabled": true,
     "deferTimeout": 5000
   },
   "deferTimeout10000": {
-    "onChangeDeferred": true,
+    "onChangeDeferredEnabled": true,
     "deferTimeout": 10000
   }
 }

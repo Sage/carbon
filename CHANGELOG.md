@@ -1,3 +1,10 @@
+### [82.0.1](https://github.com/Sage/carbon/compare/v82.0.0...v82.0.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* **filterable-select:** list not closed on click outside in Safari ([29b49df](https://github.com/Sage/carbon/commit/29b49df58606f56866b72c66a1699ba9d7b7e898))
+
 ## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
 
 

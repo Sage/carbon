@@ -21,6 +21,7 @@
     "counter": "test"
   },
   "counterSpecialCharacter": {
-    "counter": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "counter": "",
+    "counterSpecialCharacters": "specialCharacters"
   }
 }
