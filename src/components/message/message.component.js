@@ -40,7 +40,7 @@ const Message = ({
         onAction={onDismiss}
         variant={variant}
       >
-        <Icon type="close" />
+        <Icon type="close" bg="transparent" />
       </IconButton>
     );
   };
