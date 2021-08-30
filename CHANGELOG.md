@@ -1,3 +1,14 @@
+## [83.0.0](https://github.com/Sage/carbon/compare/v82.1.0...v83.0.0) (2021-08-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pill:** all components that extend the pill component will need to be changed
+
+### Code Refactoring
+
+* **pill:** convert a class component to a function component ([e0302a4](https://github.com/Sage/carbon/commit/e0302a45da527d019b5836f6e78bb29fc04ee178))
+
 ## [82.1.0](https://github.com/Sage/carbon/compare/v82.0.1...v82.1.0) (2021-08-30)
 
 
