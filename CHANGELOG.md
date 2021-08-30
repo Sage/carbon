@@ -1,3 +1,10 @@
+### [83.0.2](https://github.com/Sage/carbon/compare/v83.0.1...v83.0.2) (2021-08-30)
+
+
+### Bug Fixes
+
+* **select:** stop form submit when enter key is pressed with open list ([4351789](https://github.com/Sage/carbon/commit/4351789c9db826af5c235069e845b0c99971fe3a))
+
 ### [83.0.1](https://github.com/Sage/carbon/compare/v83.0.0...v83.0.1) (2021-08-30)
 
 
