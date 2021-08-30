@@ -84,7 +84,7 @@ const actions = {
   hide: "\\e998",
   video: "\\e95e",
   play: "\\e95f",
-
+  pause: "\\e96d",
   play_circle: "\\e96c",
   pause_circle: "\\e96b",
   scan: "\\e96e",
@@ -123,6 +123,7 @@ const navigation = {
   arrow_right: "\\e904",
   arrow_down: "\\e901",
   arrow_up: "\\e907",
+  arrow_left_right_small: "\\e964",
   arrow_left_small: "\\e963",
   arrow_right_small: "\\e962",
   block_arrow_right: "\\e97e",
@@ -175,6 +176,8 @@ const misc = {
   stacked_boxes: "\\e97c",
   tag: "\\e985",
   three_boxes: "\\e97d",
+  circle_with_dots: "\\e965",
+  squares_nine: "\\e969",
   coins: "\\e96a",
   file_generic: "\\e991",
   file_pdf: "\\e990",
@@ -221,8 +224,8 @@ const legacyNames = {
   settings_old: primaryNavigation.settings,
   true_tick: statusSymbols.tick,
   arrow: navigation.arrow_right,
-  in_transit: "\\e964",
-  progress: "\\e965",
+  in_transit: navigation.arrow_left_right_small,
+  progress: misc.circle_with_dots,
 };
 
 const iconUnicodes = {
