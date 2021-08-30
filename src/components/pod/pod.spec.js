@@ -416,10 +416,9 @@ describe("Pod", () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      const tagWrapper = shallow(<Pod data-element="bar" data-role="baz" />);
-
+      const tagWrapper = mount(<Pod data-element="bar" data-role="baz" />);
       it("include correct component, element and role data tags", () => {
-        rootTagTest(tagWrapper, "pod", "bar", "baz");
+        rootTagTest(tagWrapper.childAt(0), "pod", "bar", "baz");
       });
     });
 

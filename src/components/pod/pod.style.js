@@ -177,7 +177,7 @@ const getButtonStyles = ({
   isFocused,
   isHovered,
   internalEditButton,
-  iconColor,
+  color,
   hoverBackgroundColor,
 }) => css`
   cursor: pointer;
@@ -194,7 +194,7 @@ const getButtonStyles = ({
     top: -2px;
     height: 16px;
     width: 16px;
-    color: ${iconColor};
+    color: ${color};
   }
 
   ${noBorder && "border: none;"}
@@ -228,13 +228,15 @@ const getButtonStyles = ({
 const StyledEditAction = styled(Link)`
   && > a,
   && button {
+    text-decoration: none;
+
     ${({ displayOnlyOnHover, isHovered, isFocused }) =>
       displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
 
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.primary,
+        color: props.theme.colors.primary,
         hoverBackgroundColor: props.theme.colors.secondary,
       })}
   }
@@ -251,7 +253,7 @@ const StyledDeleteButton = styled(IconButton)`
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.error,
+        color: props.theme.colors.error,
         hoverBackgroundColor: props.theme.colors.destructive.hover,
       })}
   }
@@ -264,7 +266,7 @@ const StyledUndoButton = styled(IconButton)`
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.primary,
+        color: props.theme.colors.primary,
         hoverBackgroundColor: props.theme.colors.secondary,
       })}
   }
