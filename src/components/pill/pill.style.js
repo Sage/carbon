@@ -11,6 +11,8 @@ import { toColor } from "../../style/utils/color.js";
 function addStyleToPillIcon(fontSize) {
   return `
     ${StyledIcon} {
+      width: ${fontSize};
+
       &:before {
         font-size: ${fontSize};
       }
@@ -81,6 +83,10 @@ const PillStyle = styled.span`
         min-height: 16px;
         line-height: 16px;
         font-size: 10px;
+
+        ${StyledIcon} {
+          display: inline-block;
+        }
       `}
 
       ${size === "M" &&
@@ -88,6 +94,12 @@ const PillStyle = styled.span`
         min-height: 20px;
         line-height: 20px;
         font-size: 12px;
+
+        ${StyledIcon} {
+          display: inline-block;
+          bottom: 0px;
+          top: 2px;
+        }
       `}
 
       ${size === "L" &&
@@ -102,6 +114,11 @@ const PillStyle = styled.span`
         min-height: 26px;
         line-height: 26px;
         font-size: 16px;
+
+        ${StyledIcon} {
+          bottom: 0px;
+          top: 1px;
+        }
       `}
 
       ${isDeletable &&
