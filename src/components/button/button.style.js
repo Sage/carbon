@@ -47,7 +47,7 @@ const StyledButton = styled.button`
       width: 100%;
     `}
 
-  ${({ iconOnly, iconPosition, theme }) => css`
+  ${({ iconOnly, disabled, iconPosition, theme }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"
         ? `${theme.spacing}px`
@@ -57,10 +57,16 @@ const StyledButton = styled.button`
         : "0px"};
       margin-bottom: ${iconOnly ? "1px" : "0px"};
       height: ${additionalIconStyle};
+      width: 16px;
       svg {
         margin-top: 0;
       }
       ${iconOnly && "margin-left: auto; margin-right: auto"}
+
+      ${disabled &&
+      css`
+        background: transparent;
+      `}
     }
   `}
 `;
