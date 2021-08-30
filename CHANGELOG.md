@@ -1,3 +1,10 @@
+### [83.0.1](https://github.com/Sage/carbon/compare/v83.0.0...v83.0.1) (2021-08-30)
+
+
+### Bug Fixes
+
+* **pod:** add missing height prop type definition ([ec6d3ca](https://github.com/Sage/carbon/commit/ec6d3ca1128b79135d2f7fea70043a66ce86f402))
+
 ## [83.0.0](https://github.com/Sage/carbon/compare/v82.1.0...v83.0.0) (2021-08-30)
 
 
