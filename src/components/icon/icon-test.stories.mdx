@@ -37,12 +37,6 @@ import Icon from ".";
         type: "select",
       },
     },
-    bgTheme: {
-      options: ICON_BACKGROUNDS,
-      control: {
-        type: "select",
-      },
-    },
     fontSize: {
       options: ICON_SIZES,
       control: {
@@ -57,12 +51,6 @@ import Icon from ".";
     },
     bgShape: {
       options: ICON_SHAPES,
-      control: {
-        type: "select",
-      },
-    },
-    iconColor: {
-      options: ICON_BACKGROUNDS,
       control: {
         type: "select",
       },
@@ -85,37 +73,24 @@ export const IconAllStory = () => (
   <>
     {ICONS.map((type) =>
       ICON_SIZES.map((fontSize) => (
-        <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
+        <Icon bg="transparent" type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
       ))
     )}
     {[true, false].map((disabled) =>
       ICON_SIZES.map((fontSize) =>
-        ICON_BACKGROUNDS.map((bgTheme) => {
-          if (bgTheme !== "none") {
-            return ICON_SHAPES.map((bgShape) => {
-              return ICON_SIZES.map((bgSize) => (
-                <Icon
-                  type="add"
-                  disabled={disabled}
-                  key={`${fontSize}_${disabled}_${bgTheme}_${bgShape}_${bgSize}`}
-                  fontSize={fontSize}
-                  bgTheme={bgTheme}
-                  bgShape={bgShape}
-                  bgSize={bgSize}
-                />
-              ));
-            });
-          }
-          return ICON_COLORS.map((iconColor) => (
+        ICON_SHAPES.map((bgShape) =>
+          ICON_SIZES.map((bgSize) => (
             <Icon
               type="add"
               disabled={disabled}
-              key={`${fontSize}_${disabled}_${bgTheme}_${iconColor}`}
-              bgTheme={iconColor === "on-dark-background" ? "info" : bgTheme}
-              iconColor={iconColor}
+              key={`${fontSize}_${disabled}_${bgShape}_${bgSize}`}
+              fontSize={fontSize}
+              bgShape={bgShape}
+              bgSize={bgSize}
+              bg="transparent"
             />
-          ));
-        })
+          ))
+        )
       )
     )}
     {/* Custom colors */}
@@ -147,7 +122,6 @@ export const IconAllStory = () => (
       tooltipBgColor: "",
       tooltipFontColor: "",
       tooltipFlipOverrides: "right",
-      bgTheme: "none",
       fontSize: Icon.defaultProps.fontSize,
       ml: 0,
       mr: 0,
@@ -155,7 +129,6 @@ export const IconAllStory = () => (
       bg: "",
       bgSize: Icon.defaultProps.bgSize,
       bgShape: "circle",
-      iconColor: "default",
       disabled: Icon.defaultProps.disabled,
     }}
   >
