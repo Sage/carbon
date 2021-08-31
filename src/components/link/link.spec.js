@@ -165,7 +165,7 @@ describe("Link", () => {
 
     it("should render an `Icon` on the right with no margin when no children", () => {
       wrapper = mount(
-        <Link iconAlign="right" href="www.sage.com" icon="busket" />
+        <Link iconAlign="right" href="www.sage.com" icon="basket" />
       );
       assertStyleMatch(
         {

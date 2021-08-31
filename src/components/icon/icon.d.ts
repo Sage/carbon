@@ -204,7 +204,6 @@ export type IconType =
   | "view"
   | "warning";
 
-
 export interface IconProps extends MarginProps {
   /** Icon type */
   type: IconType;
