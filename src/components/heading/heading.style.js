@@ -57,7 +57,6 @@ const StyledHeadingBackButton = styled(Link)`
   button {
     margin: 0 1px 0 0;
     text-decoration: none;
-
     &:focus {
       background-color: transparent;
       outline: 3px solid ${({ theme }) => theme.colors.focus};
@@ -65,6 +64,7 @@ const StyledHeadingBackButton = styled(Link)`
 
     ${StyledIcon} {
       margin-right: 0;
+      display: inline-flex;
     }
   }
 `;
