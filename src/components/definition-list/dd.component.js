@@ -3,11 +3,14 @@ import propTypes from "@styled-system/prop-types";
 import PropTypes from "prop-types";
 import { StyledDd } from "./definition-list.style";
 
-const Dd = ({ children, ...rest }) => (
-  <StyledDd mb={rest.mb || 2} {...rest}>
-    {children}
-  </StyledDd>
-);
+const Dd = ({ children, ...rest }) => {
+  const { mb } = rest;
+  return (
+    <StyledDd mb={mb || 2} {...rest}>
+      {children}
+    </StyledDd>
+  );
+};
 
 Dd.propTypes = {
   ...propTypes.space,

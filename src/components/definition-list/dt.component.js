@@ -6,12 +6,12 @@ import DlContext from "./__internal__/dl.context";
 
 const Dt = ({ children, ...rest }) => {
   const { asSingleColumn } = useContext(DlContext);
-
+  const { mb, pr } = rest;
   return (
     <StyledDt
       data-element="dt"
-      mb={rest.mb || asSingleColumn ? undefined : 2}
-      pr={rest.pr || asSingleColumn ? undefined : 3}
+      mb={mb || asSingleColumn ? undefined : 2}
+      pr={pr || asSingleColumn ? undefined : 3}
       {...rest}
     >
       {children}
