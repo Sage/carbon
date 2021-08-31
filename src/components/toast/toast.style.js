@@ -17,8 +17,11 @@ const StyledPortal = styled(Portal)`
     ${({ isCenter }) =>
       isCenter &&
       css`
-        margin-left: 50%;
-        transform: translateX(-50%);
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
       `}
   `}
 `;
