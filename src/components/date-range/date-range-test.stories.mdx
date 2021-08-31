@@ -1,0 +1,77 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import DateRange from "./date-range.component";
+
+<Meta
+  title="Design System/Date Range/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    startLabelSpecialCharacters: specialCharacters,
+    endLabelSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const DateRangeStory = ({
+  allowEmptyValueOnStartDate,
+  allowEmptyValueOnEndDate,
+  startLabel,
+  startLabelSpecialCharacters,
+  endLabel,
+  endLabelSpecialCharacters,
+  ...args
+}) => {
+  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+  const handleChange = (evt) => {
+    const newValue = [
+      evt.target.value[0].rawValue,
+      evt.target.value[1].rawValue,
+    ];
+    setState(newValue);
+    action("changed")(evt.target.value);
+  };
+  return (
+    <DateRange
+      onChange={handleChange}
+      value={state}
+      onBlur={action("blur")}
+      startDateProps={{
+        allowEmptyValue: allowEmptyValueOnStartDate,
+      }}
+      endDateProps={{
+        allowEmptyValue: allowEmptyValueOnEndDate,
+      }}
+      startLabel={startLabel || startLabelSpecialCharacters}
+      endLabel={endLabel || endLabelSpecialCharacters}
+      {...args}
+    />
+  );
+};
+
+# Date Range
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      startLabel: "",
+      endLabel: "",
+      allowEmptyValueOnStartDate: true,
+      allowEmptyValueOnEndDate: true,
+      labelsInline: false,
+      startLabelSpecialCharacters: undefined,
+      endLabelSpecialCharacters: undefined,
+    }}
+  >
+    {DateRangeStory.bind({})}
+  </Story>
+</Preview>

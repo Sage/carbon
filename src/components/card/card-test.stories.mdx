@@ -1,0 +1,61 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import Card from "./card.component";
+import CardRow from "./card-row";
+import CardColumn from "./card-column";
+import CardFooter from "./card-footer";
+import Link from "../link";
+import Heading from "../heading";
+import Typography from "../typography/typography.component";
+import Icon from "../icon";
+
+<Meta
+  title="Design System/Card/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+/>
+
+export const CardStory = () => {
+  return (
+    <Card interactive action={action("action prop triggered")}>
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Stripe - [account name]" divider={false} />
+          <Typography variant="h5">user.name@sage.com</Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography variant="h5" weight="bold">
+            Stripe Balance
+          </Typography>
+          <Heading title="£ 0.00" divider={false} />
+          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+        </CardColumn>
+      </CardRow>
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            View Stripe Dashboard
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    </Card>
+  );
+};
+
+# Card
+
+### Default
+
+<Preview>
+  <Story name="default">{CardStory.bind({})}</Story>
+</Preview>

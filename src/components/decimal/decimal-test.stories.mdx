@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import Decimal from "./decimal.component";
+import {
+  commonTextboxArgTypes,
+  getCommonTextboxArgs,
+  getCommonTextboxArgsWithSpecialCaracters,
+} from "../textbox/textbox-test.stories.mdx";
+
+<Meta
+  title="Decimal Input/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    align: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    precision: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 15,
+        step: 1,
+      },
+    },
+    ...commonTextboxArgTypes,
+  }}
+/>
+
+export const commonArgs = {
+  align: Decimal.defaultProps.align,
+  precision: Decimal.defaultProps.precision,
+  autoFocus: false,
+  allowEmptyValue: false,
+  ...getCommonTextboxArgs(),
+};
+
+export const DecimalStory = (args) => {
+  const [state, setState] = useState("0.00");
+  const handleChange = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
+  };
+  return (
+    <Decimal
+      value={state}
+      onChange={handleChange}
+      onBlur={action("onBlur")}
+      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+    />
+  );
+};
+
+export const PostStory = ({ action: actionArg, ...args }) => {
+  const [state, setState] = useState("0.00");
+  const handleChange = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value.rawValue);
+  };
+  return (
+    <form method="POST" action={actionArg} target="_blank">
+      <p>
+        To test the hidden input go to{" "}
+        <a href="https://webhook.site">https://webhook.site</a> and generate a
+        new URL. Use this value for the <code>action</code> knob.
+      </p>
+      <Decimal
+        value={state}
+        onChange={handleChange}
+        onBlur={action("onBlur")}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+# Decimal
+
+### Default
+
+<Preview>
+  <Story name="default" args={commonArgs}>
+    {DecimalStory.bind({})}
+  </Story>
+</Preview>
+
+### Locale
+
+<Preview>
+  <Story
+    name="locale"
+    argTypes={{
+      locale: {
+        options: ["en", "fr", "no", "es-ES", "pt-PT"],
+        control: { type: "select" },
+      },
+    }}
+    args={{ ...commonArgs, locale: undefined }}
+  >
+    {DecimalStory.bind({})}
+  </Story>
+</Preview>
+
+### Post
+
+<Preview>
+  <Story name="post" args={{ ...commonArgs, action: "" }}>
+    {PostStory.bind({})}
+  </Story>
+</Preview>

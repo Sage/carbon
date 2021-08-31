@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import DialogFullScreen from ".";
 import { Accordion } from "../accordion";
@@ -843,21 +843,27 @@ to have a possibility to manage active `Tabs` group
 </Preview>
 
 ### Overriding the first focused element
-By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed. 
-However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference 
-to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element 
-you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop 
-and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example). 
+
+By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
+However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference
+to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element
+you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
+and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
 
 <Preview>
-  <Story name="focusing a different first element" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="focusing a different first element"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isOpenOne, setIsOpenOne] = useState(false);
       const [isOpenTwo, setIsOpenTwo] = useState(false);
       const ref = useRef();
       return (
         <>
-          <Button onClick={() => setIsOpenOne(true)}>Open Demo using focusFirstElement</Button>
+          <Button onClick={() => setIsOpenOne(true)}>
+            Open Demo using focusFirstElement
+          </Button>
           <DialogFullScreen
             focusFirstElement={ref}
             open={isOpenOne}
@@ -871,20 +877,19 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
-                height: "150px"
+                height: "150px",
               }}
             >
               <Button onClick={() => setisOpenOne(false)}>Not focused</Button>
-              <Button
-                forwardRef={ref}
-                onClick={() => setisOpenOne(false)}
-              >
+              <Button forwardRef={ref} onClick={() => setisOpenOne(false)}>
                 This should be focused first now
               </Button>
             </div>
             <Textbox value="Not Focused" />
           </DialogFullScreen>
-          <Button ml={2} onClick={() => setIsOpenTwo(true)}>Open Demo using autoFocus</Button>
+          <Button ml={2} onClick={() => setIsOpenTwo(true)}>
+            Open Demo using autoFocus
+          </Button>
           <DialogFullScreen
             disableAutoFocus
             open={isOpenTwo}
@@ -898,7 +903,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
-                height: "150px"
+                height: "150px",
               }}
             >
               <Button onClick={() => setisOpenTwo(false)}>Not focused</Button>

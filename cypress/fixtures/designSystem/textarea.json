@@ -24,16 +24,18 @@
     "rows": 300
   },
   "placeholderOtherLanguage": {
-    "placeholder": "mp150ú¿¡üßä"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "otherLanguage"
   },
   "placeholderSpecialCharacter": {
-    "placeholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "placeholder": "",
+    "placeholderSpecialCharacters": "specialCharacters"
   },
   "fieldHelpOtherLanguage": {
-    "fieldHelp": "mp150ú¿¡üßä"
+    "fieldHelpSpecialCharacters": "otherLanguage"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "fieldHelpSpecialCharacters": "specialCharacters"
   },
   "characterLimit-1000": {
     "characterLimit": -1000
@@ -57,30 +59,33 @@
     "characterLimit": 555555
   },
   "characterLimitOtherLanguage": {
-    "characterLimit": "mp150ú¿¡üßä"
+    "characterLimitSpecialCharacters": "otherLanguage"
   },
   "characterLimitSpecialCharacter": {
-    "characterLimit": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "characterLimitSpecialCharacters": "specialCharacters"
   },
   "characterLimit-0,112": {
-    "characterLimit": "-0,112"
+    "characterLimit": "",
+    "characterLimitSpecialCharacters": "floatMinusNumberCommaString"
   },
   "characterLimit0.1112333": {
     "characterLimit": 0.1112333
   },
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
-    "labelHelp": "mp150ú¿¡üßä"
+    "labelHelpSpecialCharacters": "otherLanguage"
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "labelHelpSpecialCharacters": "specialCharacters"
   },
   "characterLimit0warnOverLimitenforceCharacterLimitFalse": {
     "characterLimit": 0,

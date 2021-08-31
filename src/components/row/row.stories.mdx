@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import Typography from "../typography";
 import Box from "../box";
 import { Row, Column } from ".";
-import DeprecationWarning from '../../__internal__/DeprecationWarning';
-import LinkTo from '@storybook/addon-links/react';
+import DeprecationWarning from "../../__internal__/DeprecationWarning";
+import LinkTo from "@storybook/addon-links/react";
 
 <Meta title="Row" parameters={{ info: { disable: true } }} />
 
 <DeprecationWarning>
-  Row and Column are due to be depricated. Please use the <LinkTo kind='Design System/Grid' story='default'>Grid</LinkTo> component in place of Row and Column.
+  Row and Column are due to be depricated. Please use the{" "}
+  <LinkTo kind="Design System/Grid" story="default">
+    Grid
+  </LinkTo>{" "}
+  component in place of Row and Column.
 </DeprecationWarning>
 
 # Row & Column
@@ -20,6 +24,7 @@ Useful to organise the UI of a page into a simple column-based layout.
 Configure the number of columns, the margin between them, and toggle separators visibility.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)

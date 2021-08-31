@@ -205,6 +205,7 @@ const SelectList = React.forwardRef(
         } else if (key === "Tab" || key === "Escape") {
           onSelectListClose();
         } else if (key === "Enter" && !isActionButtonFocused) {
+          event.preventDefault();
           const currentOption = childrenList[currentOptionsListIndex];
 
           if (!currentOption) {

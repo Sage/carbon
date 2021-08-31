@@ -1,0 +1,50 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import Badge from "./badge.component";
+import Button from "../button";
+
+<Meta
+  title="Design system/Badge/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+    counterSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const BadgeStory = ({ counter, counterSpecialCharacters, args }) => {
+  const handleClick = () => {
+    action("click")();
+  };
+  return (
+    <Badge
+      onClick={handleClick}
+      counter={counter || counterSpecialCharacters}
+      {...args}
+    >
+      <Button style={{ marginRight: 0 }} buttonType="tertiary">
+        Filter
+      </Button>
+    </Badge>
+  );
+};
+
+# Badge
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      counter: 1,
+      counterSpecialCharacters: undefined,
+    }}
+  >
+    {BadgeStory.bind({})}
+  </Story>
+</Preview>

@@ -49,7 +49,7 @@ describe("Pill", () => {
     });
 
     it("does not render a close icon", () => {
-      expect(pill.props().onClick).toEqual(null);
+      expect(pill.props().onClick).toBe(null);
     });
   });
 
@@ -87,7 +87,7 @@ describe("Pill", () => {
         children: "My Text",
         onClick: spy,
       });
-      const pill = instance.find("span").hostNodes();
+      const pill = instance.find("span");
 
       pill.simulate("click");
       expect(spy).toHaveBeenCalled();

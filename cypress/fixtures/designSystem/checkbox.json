@@ -1,21 +1,27 @@
 {
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   },
   "fieldHelpOtherLanguage": {
-    "fieldHelp": "mp150ú¿¡üßä"
+    "fieldHelp": "",
+    "fieldHelpSpecialCharacters": "otherLanguage"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "fieldHelp": "",
+    "fieldHelpSpecialCharacters": "specialCharacters"
   },
   "labelHelpOtherLanguage": {
-    "labelHelp": "mp150ú¿¡üßä"
+    "labelHelp": "",
+    "labelHelpSpecialCharacters": "otherLanguage"
   },
   "labelHelpSpecialCharacter": {
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "labelHelp": "",
+    "labelHelpSpecialCharacters": "specialCharacters"
   },
   "default": {
     

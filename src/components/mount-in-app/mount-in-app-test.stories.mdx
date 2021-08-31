@@ -1,0 +1,30 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+
+import MountInApp from "./mount-in-app";
+
+<Meta
+  title="Mount In App/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+/>
+
+export const MountInAppStory = () => (
+  <div>
+    <div id="carbon-demo">Some content to be replaced.</div>
+    <MountInApp targetId="carbon-demo">
+      <div>Content to be mounted!</div>
+    </MountInApp>
+  </div>
+);
+
+# MountInApp
+
+### Default
+
+<Preview>
+  <Story name="default">{MountInAppStory.bind({})}</Story>
+</Preview>

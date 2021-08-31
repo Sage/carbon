@@ -1,14 +1,14 @@
 {
   "startLabelOtherLanguage": {
-    "startLabel": "mp150ú¿¡üßä"
+    "startLabelSpecialCharacters": "otherLanguage"
   },
   "startLabelSpecialCharacter": {
-    "startLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "startLabelSpecialCharacters": "specialCharacters"
   },
   "endLabelOtherLanguage": {
-    "endLabel": "mp150ú¿¡üßä"
+    "endLabelSpecialCharacters": "otherLanguage"
   },
   "endLabelSpecialCharacter": {
-    "endLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "endLabelSpecialCharacters": "specialCharacters"
   }
 }

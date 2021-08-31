@@ -1,64 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import StyledPill from "./pill.style";
 import Icon from "../icon";
-import { validProps } from "../../utils/ether";
 import tagComponent from "../../utils/helpers/tags";
 import IconButton from "../icon-button";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
-class Pill extends React.Component {
-  static marginSpaceProps = ["m", "mt", "mr", "mb", "ml", "mx", "my"];
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
+const renderCloseIcon = (onDelete) => (
+  <IconButton onAction={onDelete} data-element="close" aria-label="close">
+    <Icon type="cross" bgSize="small" bgTheme="none" />
+  </IconButton>
+);
 
-  static getMarginSpacePropTypes() {
-    return Pill.marginSpaceProps.reduce((prev, curr) => {
-      prev[curr] = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
-      return prev;
-    }, {});
-  }
-
-  static safeProps = ["onClick", ...this.marginSpaceProps];
-
-  renderCloseIcon() {
-    const { onDelete } = this.props;
-    return (
-      <IconButton onAction={onDelete} data-element="close" aria-label="close">
-        <Icon type="cross" bgSize="small" bgTheme="none" />
-      </IconButton>
-    );
-  }
-
-  render() {
-    const {
-      fill,
-      onDelete,
-      colorVariant,
-      borderColor,
-      pillRole,
-      children,
-      size,
-    } = this.props;
-
-    return (
-      <StyledPill
-        {...validProps(this)}
-        inFill={fill}
-        colorVariant={colorVariant}
-        isDeletable={onDelete}
-        pillRole={pillRole}
-        size={size}
-        borderColor={borderColor}
-        {...tagComponent("pill", this.props)}
-      >
-        {children}
-        {onDelete && this.renderCloseIcon()}
-      </StyledPill>
-    );
-  }
-}
+const Pill = ({
+  fill,
+  onDelete,
+  colorVariant,
+  borderColor,
+  pillRole,
+  children,
+  size,
+  onClick,
+  ...rest
+}) => (
+  <StyledPill
+    inFill={fill}
+    colorVariant={colorVariant}
+    isDeletable={onDelete}
+    pillRole={pillRole}
+    size={size}
+    borderColor={borderColor}
+    onClick={onClick}
+    {...tagComponent("pill", rest)}
+    {...rest}
+  >
+    {children}
+    {onDelete && renderCloseIcon(onDelete)}
+  </StyledPill>
+);
 
 Pill.propTypes = {
-  /** Styled system margin spacing props */
-  ...Pill.getMarginSpacePropTypes(),
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Change the color of a status pill. */
   colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
   /** Override color variant, provide any color from palette or any valid css color value. */
