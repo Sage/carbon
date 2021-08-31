@@ -1,3 +1,10 @@
+### [83.0.3](https://github.com/Sage/carbon/compare/v83.0.2...v83.0.3) (2021-08-31)
+
+
+### Bug Fixes
+
+* **toast:** stop blocking interactions with other elements ([84fd647](https://github.com/Sage/carbon/commit/84fd64756d245d06fa0b241bcafabfc85df0c223))
+
 ### [83.0.2](https://github.com/Sage/carbon/compare/v83.0.1...v83.0.2) (2021-08-30)
 
 
