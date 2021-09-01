@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { compact, assign } from "lodash";
+import { compact } from "lodash";
 import { withTheme } from "styled-components";
 import tagComponent from "../../utils/helpers/tags/tags";
 import Slide from "./slide/slide.component";
@@ -22,7 +22,6 @@ import baseTheme from "../../style/themes/base";
 
 const NEXT = "next";
 const PREVIOUS = "previous";
-const TRANSITION_TIME = 750;
 
 class BaseCarousel extends React.Component {
   constructor(...args) {
@@ -34,8 +33,6 @@ class BaseCarousel extends React.Component {
     this.onPreviousClick = this.onPreviousClick.bind(this);
     this.onNextClick = this.onNextClick.bind(this);
     this.onSlideSelection = this.onSlideSelection.bind(this);
-    this.previousButtonProps = this.previousButtonProps.bind(this);
-    this.nextButtonProps = this.nextButtonProps.bind(this);
     this.numOfSlides = this.numOfSlides.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
     this.id = guid();
@@ -45,7 +42,6 @@ class BaseCarousel extends React.Component {
     // Currently selected slide
     selectedSlideIndex:
       Number(this.props.slideIndex) || Number(this.props.initialSlideIndex),
-    disabled: false, // Next/Previous buttons disabled state
   };
 
   /** A lifecycle method that is called before re-render. */
@@ -54,7 +50,7 @@ class BaseCarousel extends React.Component {
 
     if (typeof this.props.slideIndex === "undefined") return;
 
-    const newIndex = this.verifyNewIndex(this.props.slideIndex);
+    const newIndex = this.props.slideIndex;
     const currentIndex = this.state.selectedSlideIndex;
 
     if (newIndex === currentIndex) return;
@@ -70,17 +66,14 @@ class BaseCarousel extends React.Component {
 
   /** Handles clicking on the previous button */
   onPreviousClick() {
-    let newIndex = this.state.selectedSlideIndex - 1;
-    if (newIndex < 0) {
-      newIndex = this.numOfSlides() - 1;
-    }
+    const newIndex = this.state.selectedSlideIndex - 1;
     this.transitionDirection = PREVIOUS;
     this.handleSlideChange(newIndex);
   }
 
   /** Handles clicking on the next button */
   onNextClick() {
-    const newIndex = (this.state.selectedSlideIndex + 1) % this.numOfSlides();
+    const newIndex = this.state.selectedSlideIndex + 1;
     this.transitionDirection = NEXT;
     this.handleSlideChange(newIndex);
   }
@@ -93,21 +86,6 @@ class BaseCarousel extends React.Component {
     this.handleSlideChange(newSlideSelection);
   }
 
-  /** Verifies the new index and corrects it if necessary */
-  verifyNewIndex(newIndex) {
-    if (newIndex < 0) {
-      // If the new index is negative, select the last slide
-      return this.numOfSlides() - 1;
-    }
-
-    if (newIndex > this.numOfSlides() - 1) {
-      // If the new index is bigger than the number of slides, select the first slide
-      return 0;
-    }
-
-    return newIndex;
-  }
-
   /** Handle the slide change to the newIndex */
   handleSlideChange(newIndex) {
     this.setState({ selectedSlideIndex: newIndex });
@@ -117,48 +95,12 @@ class BaseCarousel extends React.Component {
     }
   }
 
-  /** Gets the props for the previous button */
-  previousButtonProps() {
-    return !this.state.disabled ? { onClick: this.onPreviousClick } : {};
-  }
-
-  /** Gets the props for the next button */
-  nextButtonProps() {
-    return !this.state.disabled ? { onClick: this.onNextClick } : {};
-  }
-
   /** Gets the number of slides */
   numOfSlides() {
     return Array.isArray(this.props.children)
       ? compact(this.props.children).length
       : 1;
   }
-
-  /** Gets the currently visible slide */
-  visibleSlide = () => {
-    let index = this.state.selectedSlideIndex;
-
-    const visibleSlide = compact(React.Children.toArray(this.props.children))[
-      index
-    ];
-
-    index = visibleSlide.props.id || index;
-
-    const additionalProps = {
-      timeout: TRANSITION_TIME,
-      theme: this.props.theme,
-      slideProps: {
-        className: visibleSlide.props.className,
-        "data-element": "visible-slide",
-        key: `carbon-slide-${index}`,
-        ...visibleSlide.props,
-      },
-    };
-    return React.cloneElement(
-      visibleSlide,
-      assign({}, visibleSlide.props, additionalProps)
-    );
-  };
 
   visibleSlides() {
     const arrayWithKeys = React.Children.map(
@@ -190,7 +132,6 @@ class BaseCarousel extends React.Component {
           data-element="selector-inputs"
         >
           <CarouselSelectorInputStyle
-            disabled={this.state.disabled}
             data-element="selector-input"
             name={`carousel-slide-${this.id}`}
             id={`carousel-slide-${i}-${this.id}`}
@@ -222,7 +163,7 @@ class BaseCarousel extends React.Component {
     return (
       <CarouselPreviousButtonWrapperStyle>
         <CarouselButtonStyle
-          {...this.previousButtonProps()}
+          onClick={this.onPreviousClick}
           data-element="previous"
           aria-label="previous"
           disabled={isDisabled}
@@ -236,13 +177,12 @@ class BaseCarousel extends React.Component {
   /** Renders the next button */
   nextButton() {
     if (!this.props.enableNextButton) return null;
-    const numberOfChildren = this.props.children.length;
-    const isDisabled = numberOfChildren === this.state.selectedSlideIndex + 1;
+    const isDisabled = this.numOfSlides() === this.state.selectedSlideIndex + 1;
 
     return (
       <CarouselNextButtonWrapperStyle>
         <CarouselButtonStyle
-          {...this.nextButtonProps()}
+          onClick={this.onNextClick}
           data-element="next"
           aria-label="next"
           type="button"

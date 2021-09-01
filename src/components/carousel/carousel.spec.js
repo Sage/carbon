@@ -110,20 +110,6 @@ describe("BaseCarousel", () => {
       expect(wrapper.instance().transitionDirection).toEqual("previous");
       expect(wrapper.state().disabled).toBeFalsy();
 
-      // Move to slide 3
-      wrapper.setProps({ slideIndex: 3 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(0);
-      expect(wrapper.instance().transitionDirection).toEqual("previous");
-      expect(wrapper.state().disabled).toBeFalsy();
-
-      // Move to slide -1
-      wrapper.setProps({ slideIndex: -1 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      expect(wrapper.instance().transitionDirection).toEqual("next");
-      expect(wrapper.state().disabled).toBeFalsy();
-
       // Move to slide 2
       wrapper.setProps({ slideIndex: 2 });
 
@@ -131,6 +117,11 @@ describe("BaseCarousel", () => {
 
       // Undefined slideIndex
       wrapper.setProps({ slideIndex: undefined });
+
+      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+
+      // the same slideIndex
+      wrapper.setProps({ slideIndex: 2 });
 
       expect(wrapper.state().selectedSlideIndex).toEqual(2);
     });
@@ -158,34 +149,26 @@ describe("BaseCarousel", () => {
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
-      wrapper.setState({ selectedSlideIndex: 2 });
+      wrapper.setState({ selectedSlideIndex: 1 });
       wrapper.instance().onPreviousClick();
     });
 
     it("decrements the selectedSlideIndex", () => {
-      expect(wrapper.state().selectedSlideIndex).toEqual(1);
+      expect(wrapper.state().selectedSlideIndex).toEqual(0);
     });
 
     it("sets the transistion direction to previous", () => {
       expect(wrapper.instance().transitionDirection).toEqual("previous");
     });
 
-    describe("when on slide 0", () => {
-      it("sets the slideIndex to the last slide", () => {
-        wrapper.setState({ selectedSlideIndex: 0 });
-        wrapper.instance().onPreviousClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      });
-    });
-
     describe("when onSlideChange is set", () => {
       it("calls onSlideChange", () => {
         const onSlideChangeSpy = jasmine.createSpy();
         wrapper.setProps({ onSlideChange: onSlideChangeSpy });
-        wrapper.setState({ selectedSlideIndex: 0 });
+        wrapper.setState({ selectedSlideIndex: 2 });
         wrapper.instance().onPreviousClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(2);
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(2, "previous");
+        expect(wrapper.state().selectedSlideIndex).toEqual(1);
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "previous");
       });
     });
   });
@@ -216,9 +199,9 @@ describe("BaseCarousel", () => {
 
     describe("when on the last slide", () => {
       it("sets the slideIndex to the first slide", () => {
-        wrapper.setState({ selectedSlideIndex: 2 });
+        wrapper.setState({ selectedSlideIndex: 1 });
         wrapper.instance().onNextClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(0);
+        expect(wrapper.state().selectedSlideIndex).toEqual(2);
       });
     });
 
@@ -226,10 +209,10 @@ describe("BaseCarousel", () => {
       it("calls onSlideChange", () => {
         const onSlideChangeSpy = jasmine.createSpy();
         wrapper.setProps({ onSlideChange: onSlideChangeSpy });
-        wrapper.setState({ selectedSlideIndex: 2 });
+        wrapper.setState({ selectedSlideIndex: 1 });
         wrapper.instance().onNextClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(0);
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(0, "next");
+        expect(wrapper.state().selectedSlideIndex).toEqual(2);
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(2, "next");
       });
     });
   });
@@ -283,22 +266,6 @@ describe("BaseCarousel", () => {
     });
   });
 
-  describe("previousButtonProps", () => {
-    describe("when buttons are disabled", () => {
-      it("does not add a onClick", () => {
-        instance.setState({ disabled: true });
-        expect(instance.previousButtonProps().onClick).toBeUndefined();
-      });
-    });
-
-    describe("when buttons are not disabled", () => {
-      it("adds a onClick", () => {
-        instance.setState({ disabled: false });
-        expect(instance.previousButtonProps().onClick).toBeDefined();
-      });
-    });
-  });
-
   describe("numOfSlides", () => {
     describe("when one child", () => {
       it("returns 1", () => {
@@ -316,24 +283,6 @@ describe("BaseCarousel", () => {
       it("returns the number of children", () => {
         expect(instance.numOfSlides()).toEqual(3);
       });
-    });
-  });
-
-  describe("visibleSlides", () => {
-    let slide, wrapper;
-
-    beforeEach(() => {
-      wrapper = mount(
-        <BaseCarousel theme={mintTheme}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      slide = wrapper.instance().visibleSlide();
-    });
-
-    it("returns a slide instance", () => {
-      expect(slide.type).toEqual(Slide);
     });
   });
 
