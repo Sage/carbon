@@ -62,6 +62,15 @@ describe("Button", () => {
         wrapper,
         { modifier: `${StyledIcon}` }
       );
+      assertStyleMatch({ width: "40px" }, wrapper);
+    });
+    it("width matches the style for 'small' button", () => {
+      const wrapper = mount(<Button iconType="bin" size="small" />);
+      assertStyleMatch({ width: "32px" }, wrapper);
+    });
+    it("width matches the style for 'large' button", () => {
+      const wrapper = mount(<Button iconType="bin" size="large" />);
+      assertStyleMatch({ width: "48px" }, wrapper);
     });
   });
 

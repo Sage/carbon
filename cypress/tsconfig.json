@@ -4,7 +4,9 @@
     "baseUrl": "../node_modules",
     "outDir": "dist",
     "types": [
-      "cypress", "cypress-real-events"
+      "cypress",
+      "cypress-real-events",
+      "cypress-axe"
     ]
   },
   "include": [

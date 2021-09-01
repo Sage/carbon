@@ -1,29 +1,17 @@
 {
   "asTile": {
-    "as_Default": "tile"
+    "as": "tile"
   },
   "asTransparent": {
-    "as_Default": "transparent"
+    "as": "transparent"
   },
   "width1": {
-    "width_Default": 1
+    "width": 1
   },
   "width10": {
-    "width_Default": 10
+    "width": 10
   },
   "width90": {
-    "width_Default": 90
-  },
-  "contentOneChildrenOtherLanguage": {
-    "contentOneChildren_TileContent": "mp150ú¿¡üßä"
-  },
-  "contentOneChildrenSpecialCharacter": {
-    "contentOneChildren_TileContent": "!@#$%^*()_+-=~[];:.,?{}"
-  },
-  "contentOneTitleOtherLanguage": {
-    "contentOneTitle_TileContent": "mp150ú¿¡üßä"
-  },
-  "contentOneTitleSpecialCharacter": {
-    "contentOneTitle_TileContent": "!@#$%^*()_+-=~[];:.,?{}"
+    "width": 90
   }
 }

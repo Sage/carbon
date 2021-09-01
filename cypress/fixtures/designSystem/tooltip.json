@@ -41,10 +41,12 @@
   },
   "tooltipOtherLanguage": {
     "isVisible": true,
-    "message": "mp150ú¿¡üßä"
+    "message": "",
+    "messageSpecialCharacters": "otherLanguage"
   },
   "tooltipSpecialCharacter": {
     "isVisible": true,
-    "message": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "message": "",
+    "messageSpecialCharacters": "specialCharacters"
   }
 }

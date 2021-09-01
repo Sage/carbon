@@ -87,15 +87,24 @@ describe("SelectList", () => {
         });
       });
 
-      describe("and it's the Enter key with an option highlighted", () => {
-        it("then the onSelect prop should be called with expected data", () => {
-          wrapper.setProps({ highlightedValue: "opt3" });
+      describe("and it's the Enter key", () => {
+        it("then should call a preventDefault function", () => {
+          const spy = spyOn(enterKeyDownEvent, "preventDefault");
           testContainer.dispatchEvent(enterKeyDownEvent);
 
-          expect(onSelectFn).toHaveBeenCalledWith({
-            selectionType: "enterKey",
-            text: "blue",
-            value: "opt3",
+          expect(spy).toHaveBeenCalled();
+        });
+
+        describe("with an option highlighted", () => {
+          it("then the onSelect prop should be called with expected data", () => {
+            wrapper.setProps({ highlightedValue: "opt3" });
+            testContainer.dispatchEvent(enterKeyDownEvent);
+
+            expect(onSelectFn).toHaveBeenCalledWith({
+              selectionType: "enterKey",
+              text: "blue",
+              value: "opt3",
+            });
           });
         });
       });

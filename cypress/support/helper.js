@@ -1,7 +1,3 @@
-import {
-  knobsTab,
-  getKnobsInputWithName,
-} from "../locators";
 import DEBUG_FLAG from ".";
 
 const stringToURL = (str) => str.toLowerCase().replace(/ /g, "-");
@@ -23,7 +19,6 @@ export function visitComponentUrl(
   env = "story"
 ) {
   cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
-  if (!iFrameOnly) knobsTab().click({ force: true });
 }
 
 // eslint-disable-next-line max-params
@@ -38,7 +33,7 @@ export function visitComponentUrlWithParameters(
   cy.fixture(`${path}/${json}`).then(($json) => {
     const today = Cypress.dayjs().format("YYYY-MM-DD");
     const el = $json[nameOfObject];
-    let url = "";
+    let url = "&args=";
     for (const prop in el) {
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
@@ -46,7 +41,7 @@ export function visitComponentUrlWithParameters(
         if (prop === "minDate" || prop === "minDate") {
           el[prop] = today;
         }
-        url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+        url += `${prop}:${encodeURIComponent(el[prop])};`;
       }
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
@@ -114,10 +109,6 @@ export function continuePressingTABKey(count) {
   for (let i = 0; i < count; i++) {
     focused.tab();
   }
-}
-
-export async function asyncWaitForKnobs(propertyName, fieldName) {
-  await getKnobsInputWithName(propertyName, fieldName);
 }
 
 export function positionOfElement(type) {

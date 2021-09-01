@@ -1,0 +1,86 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
+
+import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import MultiActionButton from "./multi-action-button.component";
+import Button from "../button";
+import {
+  MULTI_ACTION_BUTTON_ALIGNMENTS,
+  MULTI_ACTION_BUTTON_SIZES,
+  MULTI_ACTION_BUTTON_THEMES,
+} from "./multi-action-button.config";
+
+<Meta
+  title="Multi Action Button/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    align: {
+      options: MULTI_ACTION_BUTTON_ALIGNMENTS,
+      control: {
+        type: "select",
+      },
+    },
+    buttonType: {
+      options: MULTI_ACTION_BUTTON_THEMES,
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: MULTI_ACTION_BUTTON_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    textSpecialCharacters: specialCharacters,
+    subtextSpecialCharacters: specialCharacters,
+  }}
+/>
+
+export const MultiActionButtonStory = ({
+  buttonType,
+  textContent,
+  text,
+  textSpecialCharacters,
+  subtext,
+  subtextSpecialCharacters,
+  ...args
+}) => (
+  <MultiActionButton
+    buttonType={buttonType}
+    text={text || textSpecialCharacters}
+    subtext={subtext || subtextSpecialCharacters}
+    onClick={action("click")}
+    {...args}
+  >
+    <Button {...args}>Example Button</Button>
+    <Button {...args}>Example Button with long text</Button>
+    <Button {...args}>Short</Button>
+  </MultiActionButton>
+);
+
+# Multi Action Button
+
+### Default
+
+<Preview>
+  <Story
+    name="default"
+    args={{
+      align: "left",
+      buttonType: Button.defaultProps.as,
+      size: Button.defaultProps.size,
+      subtext: Button.defaultProps.subtext,
+      text: "Example Multi Action Button",
+      textSpecialCharacters: undefined,
+      subtextSpecialCharacters: undefined,
+    }}
+  >
+    {MultiActionButtonStory.bind({})}
+  </Story>
+</Preview>

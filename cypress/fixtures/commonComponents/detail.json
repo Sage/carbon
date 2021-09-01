@@ -1,15 +1,19 @@
 { 
   "childrenOtherLanguage": {
-    "children": "mp150ú¿¡üßä"
+    "children": "",
+    "childrenSpecialCharacters": "otherLanguage"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "children": "",
+    "childrenSpecialCharacters": "specialCharacters"
   },
   "footnoteOtherLanguage": {
-    "footnote": "mp150ú¿¡üßä"
+    "footnote": "",
+    "footnoteSpecialCharacters": "otherLanguage"
   },
   "footnoteSpecialCharacter": {
-    "footnote": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "footnote": "",
+    "footnoteSpecialCharacters": "specialCharacters"
   },
   "iconChervonUp": {
     "icon": "chevron_up"

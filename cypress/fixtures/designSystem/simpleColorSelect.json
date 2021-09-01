@@ -1,15 +1,19 @@
 {
   "legendOtherLanguage": {
-    "legend": "mp150ú¿¡üßä"
+    "legend": "",
+    "legendSpecialCharacters": "otherLanguage"
   },
   "legendSpecialCharacter": {
-    "legend": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "legend": "",
+    "legendSpecialCharacters": "specialCharacters"
   },
   "nameOtherLanguage": {
-    "name": "mp150ú¿¡üßä"
+    "name": "",
+    "nameSpecialCharacters": "otherLanguage"
   },
   "nameSpecialCharacter": {
-    "name": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "name": "",
+    "nameSpecialCharacters": "specialCharacters"
   },
   "availableColors": {
     "availableColors": 

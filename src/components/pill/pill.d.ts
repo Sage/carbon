@@ -19,6 +19,6 @@ export interface PillProps extends MarginProps {
   size?: "S" | "M" | "L" | "XL";
 }
 
-declare class Pill extends React.Component<PillProps> {}
+declare function Pill(props: PillProps): JSX.Element;
 
 export default Pill;
