@@ -8,6 +8,7 @@ import Icon from "../icon";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
+import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
 
 export const SidebarContext = React.createContext({});
 
@@ -98,17 +99,9 @@ Sidebar.propTypes = {
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI: PropTypes.bool,
   /** Sets the position of sidebar, either left or right. */
-  position: PropTypes.string,
+  position: PropTypes.oneOf(SIDEBAR_ALIGNMENTS),
   /** Sets the size of the sidebar when open. */
-  size: PropTypes.oneOf([
-    "extra-small",
-    "small",
-    "medium-small",
-    "medium",
-    "medium-large",
-    "large",
-    "extra-large",
-  ]),
+  size: PropTypes.oneOf(SIDEBAR_SIZES),
   /** Node that will be used as sidebar header. */
   header: PropTypes.node,
 };
