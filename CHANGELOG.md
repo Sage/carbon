@@ -1,3 +1,10 @@
+## [83.1.0](https://github.com/Sage/carbon/compare/v83.0.3...v83.1.0) (2021-09-01)
+
+
+### Features
+
+* **button:** make icon only buttons squares ([dad293b](https://github.com/Sage/carbon/commit/dad293bf731289ce9b0635ddc4e4959e7e5cf3f3))
+
 ### [83.0.3](https://github.com/Sage/carbon/compare/v83.0.2...v83.0.3) (2021-08-31)
 
 
