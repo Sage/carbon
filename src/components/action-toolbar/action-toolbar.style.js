@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LinkStyleAnchor from "../link/link.style";
+import { StyledLink } from "../link/link.style";
 
 const StyledActionToolbar = styled.div`
   display: inline-block;
@@ -17,7 +17,7 @@ const StyledActionToolbarActions = styled.div`
   display: inline-flex;
   margin: 0 10px;
 
-  ${LinkStyleAnchor} {
+  ${StyledLink} {
     text-decoration: none;
   }
 

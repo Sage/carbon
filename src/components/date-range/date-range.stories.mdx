@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import DateRange from ".";
 
@@ -16,9 +17,11 @@ Captures a start and end date.
 Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -103,6 +106,32 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          {...validation}
+          tooltipPosition="top"
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
 #### As a string, displayed on label
 
 <Preview>
@@ -120,6 +149,33 @@ For more information check our [Validations](?path=/docs/documentation-validatio
           value={["2016-10-01", "2016-10-30"]}
           validationOnLabel
           {...validation}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - label"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() =>
+      [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-label`}
+          startLabel="Start"
+          endLabel="End"
+          value={["2016-10-01", "2016-10-30"]}
+          validationOnLabel
+          {...validation}
+          tooltipPosition="top"
         />
       ))
     }
@@ -171,3 +227,27 @@ You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDat
 ### Date Range
 
 <StyledSystemProps of={DateRange} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "date.formats.inputs",
+      description:
+        "The valid formats for the input component, any value matching one of these formats will be parsed to a date",
+      type: "func",
+      returnType: "string[]",
+    },
+    {
+      name: "date.formats.javascript",
+      description:
+        "The valid format for the picker/ calendar component, this the format that the input will display when it is blurred",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

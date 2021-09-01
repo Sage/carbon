@@ -7,7 +7,7 @@ Given("I check {string} checkbox", (position) => {
 });
 
 Then("checkbox label on preview is {word}", (text) => {
-  label().should("have.text", `${text} (default)`);
+  label().should("have.text", text);
 });
 
 When("I mark checkbox on preview", () => {

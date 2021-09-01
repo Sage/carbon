@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import Tile from ".";
 import Content from "../content";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -11,7 +11,7 @@ import { Accordion } from "../accordion";
 import TileFooter from "./tile-footer";
 import Typography from "../typography";
 import Box from "../box";
-import {ActionPopover, ActionPopoverItem} from "../action-popover";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Icon from "../icon";
 import VerticalDivider from "../vertical-divider";
 import Hr from "../hr";
@@ -19,9 +19,11 @@ import Hr from "../hr";
 <Meta title="Design System/Tile" parameters={{ info: { disable: true } }} />
 
 # Tile
+
 Tiles contain static content for visual scanning only, and don't contain controls.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -36,6 +38,7 @@ import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 ## Examples
 
 ### Default
+
 By default, the Tile component will have a horizontal layout.
 
 <Preview>
@@ -49,6 +52,7 @@ By default, the Tile component will have a horizontal layout.
 </Preview>
 
 ### Vertical
+
 The Tile component can be also have a vertical layout.
 
 <Preview>
@@ -162,8 +166,9 @@ The Tile component can be also have a vertical layout.
 </Preview>
 
 ### With custom widths
-The Tile component can also have a custom `width` which accepts either numbers or strings: any decimal between 0 and 1.0 
-will be converted into a percentage, any number grater will be be treated as pixels and any valid CSS string will also work. 
+
+The Tile component can also have a custom `width` which accepts either numbers or strings: any decimal between 0 and 1.0
+will be converted into a percentage, any number grater will be be treated as pixels and any valid CSS string will also work.
 Any child wrapped by a Tile component can be passed an optional `width` prop.
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
 
@@ -205,6 +210,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
 </Preview>
 
 ### With inline styling
+
 The Tile component can also have inline styling applied to the content.
 
 <Preview>
@@ -272,6 +278,7 @@ The Tile component can also have inline styling applied to the content.
 </Preview>
 
 ### With Definition List
+
 The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
 the same tags used in HTML5 but instead they are React elements.
 
@@ -316,6 +323,7 @@ Please note that Dl, Dd and Dt use our common spacing props.
 </Preview>
 
 ### With Definition List and custom `StyledDtDiv` width
+
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
 <Preview>
@@ -357,6 +365,7 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
 </Preview>
 
 ### With Definition List with custom text alignment
+
 In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
 
 <Preview>
@@ -388,58 +397,52 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
   <Story name="with Definition List and ActionPopover and Icon support">
     <Tile width="60%">
       <Dl>
-      <Dt>
-        <Box paddingTop="4px" display="inline-flex" alignItems="center">
-          Term example
-        </Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Icon type="tick" mr={1}/>
-          <Box>Details example</Box>
-        </Box>
-      </Dd>
-      <Dt>
-        <Box paddingTop="4px">
-          Term example
-        </Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Box mr={1}>Details example</Box>
-          <Icon type="tick" />
-        </Box>
-      </Dd>
-      <Dt>
-        <Box paddingTop="4px">
-          Term example
-        </Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Icon mr={1} type="tick" />
-          <Box mr={2}>Details example</Box>
-          <ActionPopover rightAlignMenu>
-            <ActionPopoverItem>Option 1</ActionPopoverItem>
-            <ActionPopoverItem>Option 2</ActionPopoverItem>
-          </ActionPopover>
-        </Box>
-      </Dd>
-      <Dt>
-        <Box paddingTop="4px">
-          Term example
-        </Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Box mr={2}>Details example</Box>
-          <ActionPopover rightAlignMenu>
-            <ActionPopoverItem>Option 1</ActionPopoverItem>
-            <ActionPopoverItem>Option 2</ActionPopoverItem>
-          </ActionPopover>
-        </Box>
-      </Dd>
-    </Dl>
+        <Dt>
+          <Box paddingTop="4px" display="inline-flex" alignItems="center">
+            Term example
+          </Box>
+        </Dt>
+        <Dd>
+          <Box display="inline-flex" alignItems="center">
+            <Icon type="tick" mr={1} />
+            <Box>Details example</Box>
+          </Box>
+        </Dd>
+        <Dt>
+          <Box paddingTop="4px">Term example</Box>
+        </Dt>
+        <Dd>
+          <Box display="inline-flex" alignItems="center">
+            <Box mr={1}>Details example</Box>
+            <Icon type="tick" />
+          </Box>
+        </Dd>
+        <Dt>
+          <Box paddingTop="4px">Term example</Box>
+        </Dt>
+        <Dd>
+          <Box display="inline-flex" alignItems="center">
+            <Icon mr={1} type="tick" />
+            <Box mr={2}>Details example</Box>
+            <ActionPopover rightAlignMenu>
+              <ActionPopoverItem>Option 1</ActionPopoverItem>
+              <ActionPopoverItem>Option 2</ActionPopoverItem>
+            </ActionPopover>
+          </Box>
+        </Dd>
+        <Dt>
+          <Box paddingTop="4px">Term example</Box>
+        </Dt>
+        <Dd>
+          <Box display="inline-flex" alignItems="center">
+            <Box mr={2}>Details example</Box>
+            <ActionPopover rightAlignMenu>
+              <ActionPopoverItem>Option 1</ActionPopoverItem>
+              <ActionPopoverItem>Option 2</ActionPopoverItem>
+            </ActionPopover>
+          </Box>
+        </Dd>
+      </Dl>
     </Tile>
   </Story>
 </Preview>
@@ -510,16 +513,27 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 ## Props
 
 ### Tile
-<StyledSystemProps noHeader of={Tile} spacing width spacingDefaults={{ p: 3 }} />
+
+<StyledSystemProps
+  noHeader
+  of={Tile}
+  spacing
+  width
+  spacingDefaults={{ p: 3 }}
+/>
 
 ### TileFooter
+
 <StyledSystemProps noHeader of={TileFooter} padding />
 
 ### Dl
+
 <StyledSystemProps of={Dl} noHeader spacing />
 
 ### Dd
+
 <StyledSystemProps of={Dd} noHeader spacing />
 
 ### Dt
+
 <StyledSystemProps of={Dt} noHeader spacing />

@@ -5,6 +5,7 @@ import SwitchStyle from "./switch.style";
 import CheckableInput from "../../__internal__/checkable-input";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const Switch = ({
   id,
@@ -21,6 +22,7 @@ const Switch = ({
   labelInline,
   name,
   adaptiveLabelBreakpoint,
+  tooltipPosition,
   ...rest
 }) => {
   const isControlled = checked !== undefined;
@@ -67,18 +69,20 @@ const Switch = ({
     labelInline && !reverse ? true : validationOnLabel;
 
   return (
-    <SwitchStyle {...tagComponent("Switch", rest)} {...switchProps}>
-      <CheckableInput
-        validationOnLabel={shouldValidationBeOnLabel && !disabled}
-        {...inputProps}
-      >
-        <SwitchSlider
-          useValidationIcon={!shouldValidationBeOnLabel && !disabled}
-          {...switchProps}
-          loading={loading}
-        />
-      </CheckableInput>
-    </SwitchStyle>
+    <TooltipProvider tooltipPosition={tooltipPosition}>
+      <SwitchStyle {...tagComponent("Switch", rest)} {...switchProps}>
+        <CheckableInput
+          validationOnLabel={shouldValidationBeOnLabel && !disabled}
+          {...inputProps}
+        >
+          <SwitchSlider
+            useValidationIcon={!shouldValidationBeOnLabel && !disabled}
+            {...switchProps}
+            loading={loading}
+          />
+        </CheckableInput>
+      </SwitchStyle>
+    </TooltipProvider>
   );
 };
 
@@ -148,6 +152,8 @@ Switch.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 Switch.defaultProps = {

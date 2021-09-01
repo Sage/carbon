@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 
 import Box from ".";
@@ -9,14 +9,17 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <Meta title="Design System/Box" />
 
 # Box
+
 Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 Import the box component to start using
 
 ```javascript
@@ -110,6 +113,7 @@ import Box from "carbon-react/lib/components/box";
 </Preview>
 
 ## OverflowWrap
+
 Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
 
 <Preview>
@@ -139,6 +143,7 @@ Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content 
 </Preview>
 
 ### Scroll
+
 Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari.
 If no `scrollVariant` prop is set then the scroll bar will resort to the browser default.
 
@@ -213,32 +218,29 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
   </Story>
 </Preview>
 
-## Props 
+## Props
 
 ### Style System
 
-<StyledSystemProps
-  spacing
-  color
-  flexBox
-  layout
-  noHeader
+<StyledSystemProps spacing color flexBox layout noHeader />
+
+### Scroll Variant
+
+<ArgsTable
+  rows={[
+    {
+      name: "overflowWrap",
+      type: { summary: "break-word | anywhere" },
+      description:
+        'String to set Box content break strategy. Note "anywhere" is not supported in Safari and IE11',
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "scrollVariant",
+      type: { summary: "dark | light" },
+      description: "String to denote which style variant to use for scrollbars",
+      required: false,
+    },
+  ]}
 />
-
-### Scroll Variant 
-
-<ArgsTable rows={[
-  {
-    name: 'overflowWrap',
-    type: { summary: 'break-word | anywhere' },
-    description: 'String to set Box content break strategy. Note "anywhere" is not supported in Safari and IE11',
-    required: false,
-    defaultValue: ''
-  },
-  {
-    name: 'scrollVariant',
-    type: { summary: 'dark | light' },
-    description: 'String to denote which style variant to use for scrollbars',
-    required: false
-  }
-]} />

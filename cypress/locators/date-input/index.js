@@ -1,14 +1,9 @@
 import {
-  MIN_DATE,
-  MAX_DATE,
   DATE_INPUT,
   DATE_ICON,
   DAY_PICKER_WRAPPER,
+  DAY_PICKER_HEADING,
 } from "./locators";
-
-// knobs locators
-export const minDate = () => cy.get(MIN_DATE);
-export const maxDate = () => cy.get(MAX_DATE);
 
 // component preview locators
 export const dateInput = () => cy.get(DATE_INPUT);
@@ -19,3 +14,4 @@ export const dateIcon = () => cy.get(DATE_ICON);
 export const dayPickerWrapper = () => cy.get(DAY_PICKER_WRAPPER);
 export const dayPickerParentNoIFrame = () =>
   cy.get(DAY_PICKER_WRAPPER).parent().parent();
+export const dayPickerHeading = () => cy.get(DAY_PICKER_HEADING).children();

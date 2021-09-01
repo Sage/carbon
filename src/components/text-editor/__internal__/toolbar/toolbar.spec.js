@@ -17,6 +17,7 @@ import Button from "../../../button/button.component";
 import StyledToolbarButton from "./toolbar-button/toolbar-button.style";
 import ToolbarButton from "./toolbar-button/toolbar-button.component";
 import Tooltip from "../../../tooltip";
+import I18nProvider from "../../../i18n-provider";
 
 jest.mock("@tippyjs/react/headless", () => ({
   __esModule: true,
@@ -26,7 +27,7 @@ jest.mock("@tippyjs/react/headless", () => ({
 const setInlineStyle = jest.fn();
 const setBlockStyle = jest.fn();
 
-const render = (props = {}, theme = baseTheme, renderer = mount) => {
+const render = (props = {}, theme = baseTheme, renderer = mount, locale) => {
   const defaultProps = {
     setInlineStyle,
     setBlockStyle,
@@ -34,9 +35,11 @@ const render = (props = {}, theme = baseTheme, renderer = mount) => {
   };
 
   return renderer(
-    <ThemeProvider theme={theme}>
-      <Toolbar {...defaultProps} {...props} />
-    </ThemeProvider>,
+    <I18nProvider locale={locale}>
+      <ThemeProvider theme={theme}>
+        <Toolbar {...defaultProps} {...props} />
+      </ThemeProvider>
+    </I18nProvider>,
     { attachTo: document.getElementById("enzymeContainer") }
   );
 };
@@ -289,5 +292,44 @@ describe("Toolbar", () => {
         true
       );
     });
+  });
+
+  describe("locale translations", () => {
+    const localeMock = {
+      locale: () => "mock-Locale",
+      textEditor: {
+        tooltipMessages: {
+          bold: () => "Foo Bold",
+          italic: () => "Foo Italic",
+          bulletList: () => "Foo Bulleted List",
+          numberList: () => "Foo Numbered List",
+        },
+        ariaLabels: {
+          bold: () => "foo-bold",
+          italic: () => "foo-italic",
+          bulletList: () => "foo-bullet-list",
+          numberList: () => "foo-number-list",
+        },
+      },
+    };
+    it.each([
+      ["bold", 0],
+      ["italic", 1],
+      ["bulletList", 2],
+      ["numberList", 3],
+    ])(
+      "override the tooltip message text and aria label for the controls",
+      (id, index) => {
+        wrapper = render({}, undefined, undefined, localeMock);
+
+        const { message } = wrapper.find(Tooltip).at(index).props();
+        const { ariaLabel } = wrapper.find(ToolbarButton).at(index).props();
+        const translatedMessage = localeMock.textEditor.tooltipMessages[id]();
+        const translatedAriaLabel = localeMock.textEditor.ariaLabels[id]();
+
+        expect(message).toEqual(translatedMessage);
+        expect(ariaLabel).toEqual(translatedAriaLabel);
+      }
+    );
   });
 });

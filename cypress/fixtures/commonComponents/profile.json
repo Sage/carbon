@@ -1,17 +1,22 @@
 {
   "emailGravatar": {
-    "email": "andrew.tait@sage.com"
+    "email": "",
+    "emailSpecialCharacters": "email"
   },
   "emailOtherLanguage": {
-    "email": "mp150ú¿¡üßä"
+    "email": "",
+    "emailSpecialCharacters": "otherLanguage"
   },
   "emailSpecialCharacter": {
-    "email": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "email": "",
+    "emailSpecialCharacters": "specialCharacters"
   },
   "nameOtherLanguage": {
-    "name": "mp150ú¿¡üßä"
+    "name": "",
+    "nameSpecialCharacters": "otherLanguage"
   },
   "nameSpecialCharacter": {
-    "name": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "name": "",
+    "nameSpecialCharacters": "specialCharacters"
   }
 }

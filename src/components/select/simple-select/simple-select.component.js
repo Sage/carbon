@@ -41,6 +41,7 @@ const SimpleSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      tooltipPosition,
       ...props
     },
     inputRef
@@ -376,6 +377,7 @@ const SimpleSelect = React.forwardRef(
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         onBlur: handleTextboxBlur,
+        tooltipPosition,
         ...props,
       };
     }
@@ -452,6 +454,8 @@ SimpleSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom: PropTypes.func,
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 SimpleSelect.defaultProps = {

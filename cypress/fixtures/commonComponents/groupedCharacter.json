@@ -1,61 +1,78 @@
 {
   "separator-": {
-    "separator": "-"
+    "separator": "",
+    "separatorSpecialCharacters": "minus"
   },
   "separator?": {
-    "separator": "?"
+    "separator": "",
+    "separatorSpecialCharacters": "questionMark"
   },
   "separator#": {
-    "separator": "#"
+    "separator": "",
+    "separatorSpecialCharacters": "hash"
   },
   "separator@": {
-    "separator": "@"
+    "separator": "",
+    "separatorSpecialCharacters": "at"
   },
   "separator$": {
-    "separator": "$"
+    "separator": "",
+    "separatorSpecialCharacters": "dollar"
   },
   "separator%": {
-    "separator": "%"
+    "separator": "",
+    "separatorSpecialCharacters": "percent"
   },
   "separator^": {
-    "separator": "^"
+    "separator": "",
+    "separatorSpecialCharacters": "caret"
   },
   "separator!": {
-    "separator": "!"
+    "separator": "",
+    "separatorSpecialCharacters": "exclamation"
   },
   "separator*": {
-    "separator": "*"
+    "separator": "",
+    "separatorSpecialCharacters": "asterisk"
   },
   "fieldHelpOtherLanguage": {
-    "fieldHelp": "mp150ú¿¡üßä"
+    "fieldHelpSpecialCharacters": "otherLanguage"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "fieldHelpSpecialCharacters": "specialCharacters"
   },
   "labelOtherLanguage": {
-    "label": "mp150ú¿¡üßä"
+    "label": "",
+    "labelSpecialCharacters": "otherLanguage"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "label": "",
+    "labelSpecialCharacters": "specialCharacters"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
-    "labelHelp": "mp150ú¿¡üßä"
+    "labelHelpSpecialCharacters": "otherLanguage"
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+    "labelHelpSpecialCharacters": "specialCharacters"
   },
   "inputIconAdd": {
     "inputIcon": "add"
   },
   "first": {
-    "groups": "[1,2,3]"
+    "groups[0]": "1",
+    "groups[1]": "2",
+    "groups[2]": "3"
   },
   "second": {
-    "groups": "[5,3,1]"
+    "groups[0]": "5",
+    "groups[1]": "3",
+    "groups[2]": "1"
   },
   "third": {
-    "groups": "[2,4,2]"
+    "groups[0]": "2",
+    "groups[1]": "4",
+    "groups[2]": "2"
   }
 }

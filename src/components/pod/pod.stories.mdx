@@ -1,6 +1,8 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import Pod from "./";
 import Heading from "../heading";
 import Button from "../button";
@@ -136,11 +138,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 
 <Preview>
   <Story name="with subtitle and footer">
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-    >
+    <Pod title="Title" subtitle="Subtitle" footer="Footer">
       Content
     </Pod>
   </Story>
@@ -150,12 +148,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 
 <Preview>
   <Story name="without border">
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      border={false}
-    >
+    <Pod title="Title" subtitle="Subtitle" footer="Footer" border={false}>
       Content
     </Pod>
   </Story>
@@ -165,12 +158,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 
 <Preview>
   <Story name="with edit button" parameters={{ chromatic: { disable: true } }}>
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-    >
+    <Pod title="Title" subtitle="Subtitle" footer="Footer" onEdit={() => {}}>
       Content
     </Pod>
   </Story>
@@ -379,3 +367,19 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 ### Pod
 
 <StyledSystemProps of={Pod} margin noHeader />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "actions.edit",
+      description: "The text for edit action button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

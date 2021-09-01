@@ -14,6 +14,7 @@ import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import guid from "../../utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -62,6 +63,18 @@ describe("Textarea", () => {
         ).toBe(true);
       });
 
+      it("overrides the tooltip position when the input and a value is passed in via tooltipPosition", () => {
+        wrapper = renderTextarea({
+          children: "mock content",
+          label: "Label",
+          [validationProp]: "Message",
+          tooltipPosition: "bottom",
+        });
+        expect(
+          wrapper.find(InputPresentation).find(Tooltip).props().position
+        ).toEqual("bottom");
+      });
+
       it("renders a validation icon on the label if validationOnLabel passed as true", () => {
         wrapper = renderTextarea({
           children: "mock content",
@@ -70,6 +83,20 @@ describe("Textarea", () => {
           validationOnLabel: true,
         });
         expect(wrapper.find(Label).find(ValidationIcon).exists()).toBe(true);
+      });
+
+      it("overrides the tooltip position when on the label and a value is passed in via tooltipPosition", () => {
+        wrapper = renderTextarea({
+          children: "mock content",
+          label: "Label",
+          [validationProp]: "Message",
+          validationOnLabel: true,
+          tooltipPosition: "bottom",
+        });
+        expect(
+          wrapper.find(Label).find(ValidationIcon).find(Tooltip).props()
+            .position
+        ).toEqual("bottom");
       });
     }
   );

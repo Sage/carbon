@@ -1,37 +1,46 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
 import { useState } from "react";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import { TileSelect, TileSelectGroup } from ".";
-import Pill from "../pill/"
+import Pill from "../pill/";
 import Icon from "../icon";
 import Button from "../button";
 import Box from "../box";
 import Typography from "../typography";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Tile Select"
-  parameters={{ info: { disable: true }}}
+  parameters={{ info: { disable: true } }}
 />
 
 # TileSelect
+
 Tile Select is an input visualized as a single or grouped set of tiles. It behaves like a `radio` or a `checkbox` depending on the mode it operates in.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
+
 To use this component, import the `TileSelect` and `TileSelectGroup` if you want to have `TileSelects` grouped.
 
 ```javascript
-import { TileSelectGroup, TileSelect } from "carbon-react/lib/components/tile-select"
+import {
+  TileSelectGroup,
+  TileSelect,
+} from "carbon-react/lib/components/tile-select";
 ```
 
 ## Examples
 
 ### Single Select
+
 By default, when grouped with the `TileSelectGroup`, this component operates in single select mode and `TileSelect` inputs are of type `radio`.
 
 In this mode all input props like `onChange`, `onBlur`, `name` and currently selected `value` are meant to be passed on the `TileSelectGroup`.
@@ -73,7 +82,13 @@ These props are then internally distributed on each of the `TileSelects` making 
             disabled
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+                tooltipVisible={false}
+              />
+            }
             description="Short and descriptive description"
           />
           <TileSelect
@@ -82,17 +97,23 @@ These props are then internally distributed on each of the `TileSelects` making 
             aria-label="4"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+              />
+            }
             description="Short and descriptive description"
           />
         </TileSelectGroup>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 #### Custom action button
-It is possible to overide the default action button via the `customActionButton` prop. It is a render prop which allows 
+
+It is possible to overide the default action button via the `customActionButton` prop. It is a render prop which allows
 access to the `onClick` functionality.
 
 <Preview>
@@ -115,21 +136,29 @@ access to the `onClick` functionality.
             aria-label="1"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Pill pillRole="status" colorVariant="neutral">{activated ? "Active" : "Inactive"}</Pill>}
+            titleAdornment={
+              <Pill pillRole="status" colorVariant="neutral">
+                {activated ? "Active" : "Inactive"}
+              </Pill>
+            }
             description="Short and descriptive description"
-            customActionButton={activated ? undefined : (onClick) => (
-              <Button
-                onClick={() => {
-                  setValue("1");
-                  setActivated(true);
-                }}
-                buttonType="tertiary"
-                type="button"
-                size="small"
-              >
-                Reactivate
-              </Button>
-            )}
+            customActionButton={
+              activated
+                ? undefined
+                : (onClick) => (
+                    <Button
+                      onClick={() => {
+                        setValue("1");
+                        setActivated(true);
+                      }}
+                      buttonType="tertiary"
+                      type="button"
+                      size="small"
+                    >
+                      Reactivate
+                    </Button>
+                  )
+            }
           />
           <TileSelect
             value="2"
@@ -137,7 +166,13 @@ access to the `onClick` functionality.
             aria-label="2"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={removed ? undefined : <Pill pillRole="status" colorVariant="neutral">Active</Pill>}
+            titleAdornment={
+              removed ? undefined : (
+                <Pill pillRole="status" colorVariant="neutral">
+                  Active
+                </Pill>
+              )
+            }
             description="Short and descriptive description"
             customActionButton={(onClick) => (
               <Button
@@ -156,12 +191,13 @@ access to the `onClick` functionality.
             )}
           />
         </TileSelectGroup>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 #### Action button adornment
+
 It is possible to render an additional adornment next to the action button through the `actionButtonAdornment` prop.
 
 <Preview>
@@ -182,7 +218,11 @@ It is possible to render an additional adornment next to the action button throu
             aria-label="1"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Pill pillRole="status" colorVariant="neutral">Inactive</Pill>}
+            titleAdornment={
+              <Pill pillRole="status" colorVariant="neutral">
+                Inactive
+              </Pill>
+            }
             description="Short and descriptive description"
             customActionButton={(onClick) => (
               <Button
@@ -196,7 +236,12 @@ It is possible to render an additional adornment next to the action button throu
                 Reactivate
               </Button>
             )}
-            actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be reactivated at this time" />}
+            actionButtonAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="This tile cannot be reactivated at this time"
+              />
+            }
           />
           <TileSelect
             value="2"
@@ -204,7 +249,12 @@ It is possible to render an additional adornment next to the action button throu
             aria-label="2"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+              />
+            }
             description="Short and descriptive description"
             customActionButton={(onClick) => (
               <Button
@@ -219,15 +269,21 @@ It is possible to render an additional adornment next to the action button throu
                 Remove
               </Button>
             )}
-            actionButtonAdornment={<Icon type="info" tooltipMessage="This tile cannot be removed at this time" />}
+            actionButtonAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="This tile cannot be removed at this time"
+              />
+            }
           />
         </TileSelectGroup>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Multi select
+
 To enable multi select mode on a `TileSelectGroup` `multiSelect` boolean prop has to be passed as `true`, `TileSelects` in this mode are of type `checkbox`.
 
 In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed individually on each of the `TileSelects` instead of on the `TileSelectGroup`.
@@ -256,7 +312,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             subtitle="Subtitle"
             description="Short and descriptive description"
             checked={value1}
-            onChange={e => setValue1(e.target.checked)}
+            onChange={(e) => setValue1(e.target.checked)}
           />
           <TileSelect
             value="2"
@@ -267,7 +323,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             titleAdornment={<Pill>Message</Pill>}
             description="Short and descriptive description"
             checked={value2}
-            onChange={e => setValue2(e.target.checked)}
+            onChange={(e) => setValue2(e.target.checked)}
           />
           <TileSelect
             value="3"
@@ -277,10 +333,16 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             disabled
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+                tooltipVisible={false}
+              />
+            }
             description="Short and descriptive description"
             checked={value3}
-            onChange={e => setValue3(e.target.checked)}
+            onChange={(e) => setValue3(e.target.checked)}
           />
           <TileSelect
             value="4"
@@ -289,18 +351,24 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
             aria-label="multi-4"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+              />
+            }
             description="Short and descriptive description"
             checked={value4}
-            onChange={e => setValue4(e.target.checked)}
+            onChange={(e) => setValue4(e.target.checked)}
           />
         </TileSelectGroup>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### Single tile
+
 `TileSelect` can be also used as a single component - it operates as a type `checkbox` by default.
 
 Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed directly on the `TileSelect`.
@@ -319,15 +387,16 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
           subtitle="Subtitle"
           description="Short and descriptive description"
           checked={isChecked}
-          onChange={e => setIsChecked(e.target.checked)}
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### With a footer
-To render a `footer` pass anything renderable to the prop like in the example below. 
+
+To render a `footer` pass anything renderable to the prop like in the example below.
 
 <Preview>
   <Story name="with a footer">
@@ -342,18 +411,31 @@ To render a `footer` pass anything renderable to the prop like in the example be
           title="Title"
           subtitle="Subtitle"
           checked={isChecked}
-          onChange={e => setIsChecked(e.target.checked)}
+          onChange={(e) => setIsChecked(e.target.checked)}
           description="Short and descriptive description"
-          footer={<Box pt={1} display="flex" alignItems="baseline">Here is some &nbsp;<Typography variant="strong">footer text</Typography><Button ml={1} buttonType="tertiary" iconPosition="after" iconType="home">Footer Button</Button></Box>}
+          footer={
+            <Box pt={1} display="flex" alignItems="baseline">
+              Here is some &nbsp;
+              <Typography variant="strong">footer text</Typography>
+              <Button
+                ml={1}
+                buttonType="tertiary"
+                iconPosition="after"
+                iconType="home"
+              >
+                Footer Button
+              </Button>
+            </Box>
+          }
         />
-      )
+      );
     }}
   </Story>
 </Preview>
 
-
 ### With custom spacing
-The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The  modifiers 
+
+The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The modifiers
 support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid CSS string.
 
 <Preview>
@@ -394,7 +476,13 @@ support being passed either a number between 1 and 8 that is then multiplied by 
             disabled
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" tooltipVisible={false} />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+                tooltipVisible={false}
+              />
+            }
             description="Short and descriptive description"
             mt={1}
           />
@@ -404,12 +492,17 @@ support being passed either a number between 1 and 8 that is then multiplied by 
             aria-label="4"
             title="Title"
             subtitle="Subtitle"
-            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            titleAdornment={
+              <Icon
+                type="info"
+                tooltipMessage="Short and non descriptive message"
+              />
+            }
             description="Short and descriptive description"
             mt={1}
           />
         </TileSelectGroup>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -418,16 +511,24 @@ support being passed either a number between 1 and 8 that is then multiplied by 
 
 ### TileSelect
 
-<StyledSystemProps
-  of={TileSelect}
-  margin
-  noHeader
-/>
+<StyledSystemProps of={TileSelect} margin noHeader />
 
 ### TileSelectGroup
 
-<StyledSystemProps
-  of={TileSelectGroup}
-  margin
-  noHeader
+<StyledSystemProps of={TileSelectGroup} margin noHeader />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "tileSelect.deselect",
+      description: "The text for the deselect button component",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
 />

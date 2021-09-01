@@ -6,18 +6,18 @@ Feature: Design System Date Input component
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Change DateInput label to <label>
     When I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label>
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
@@ -81,3 +81,27 @@ Feature: Design System Date Input component
       | position | nameOfObject |
       | bottom   | small        |
       | top      | large        |
+
+  @positive
+  Scenario Outline: Verify that <month> month is shown after navigation via arrows in DayPicker
+    Given I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "default" object name
+      And I set dateInput to today
+      And I click dateInput
+    When I click "<arrow>" arrow
+    Then "<month>" month is shown in dayPicker
+    Examples:
+      | arrow         | month    |
+      | chevron_right | next     |
+      | chevron_left  | previous |
+
+  @positive
+  Scenario Outline: Verify that <month> month is shown after navigation via keyboard <keyboardKey> key in DayPicker
+    Given I open default "Design System Date Input Test" component in noIFrame with "dateInput" json from "designSystem" using "default" object name
+      And I set dateInput to today
+      And I click dateInput
+    When I press "<arrow>" key on focused "<keyboardKey>" arrow of dayPicker
+    Then "<month>" month is shown in dayPicker
+    Examples:
+      | arrow         | month    | keyboardKey |
+      | chevron_right | next     | rightarrow  |
+      | chevron_left  | previous | leftarrow   |

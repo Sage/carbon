@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import Number from ".";
 import { OriginalTextbox } from "../textbox";
@@ -185,6 +185,29 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Number
+            label="Number"
+            value="123456"
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="bottom"
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
 #### As a string, displayed on label
 
 <Preview>
@@ -206,6 +229,30 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="validations - string - with tooltipPosition overriden - label"
+    parameters={{ chromatic: { disable: true } }}  
+  >
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <Number
+            label="Number"
+            value="123456"
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="top"
           />
         </div>
       ))

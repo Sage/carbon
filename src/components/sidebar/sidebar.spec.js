@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount } from "enzyme";
 import Sidebar from "./sidebar.component";
 import Textbox from "../textbox";
@@ -170,5 +170,23 @@ describe("SidebarStyle", () => {
         wrapper
       );
     });
+  });
+
+  it("the sidebar ref should be forwarded", () => {
+    let mockRef;
+
+    const WrapperComponent = () => {
+      mockRef = useRef();
+
+      return (
+        <Sidebar open ref={mockRef}>
+          test content
+        </Sidebar>
+      );
+    };
+
+    const wrapper = mount(<WrapperComponent />);
+
+    expect(mockRef.current).toBe(wrapper.find(SidebarStyle).getDOMNode());
   });
 });

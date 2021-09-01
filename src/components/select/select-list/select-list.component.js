@@ -72,15 +72,6 @@ const SelectList = React.forwardRef(
     const tableRef = useRef();
     const listActionButtonRef = useRef();
 
-    const optionRefs = useRef(
-      React.Children.map(children, (child) => {
-        if (child?.type === Option || child?.type === OptionRow) {
-          return React.createRef();
-        }
-        return null;
-      }).filter((child) => child)
-    );
-
     const setPlacementCallback = useCallback(
       (popper) => {
         placement.current = popper.placement;
@@ -98,6 +89,17 @@ const SelectList = React.forwardRef(
     const childrenList = useMemo(() => React.Children.toArray(children), [
       children,
     ]);
+
+    const optionRefList = useMemo(
+      () =>
+        React.Children.map(children, (child) => {
+          if (child?.type === Option || child?.type === OptionRow) {
+            return React.createRef();
+          }
+          return null;
+        }).filter((child) => child),
+      [children]
+    );
 
     const lastOptionIndex = useMemo(() => {
       let lastIndex = 0;
@@ -203,6 +205,7 @@ const SelectList = React.forwardRef(
         } else if (key === "Tab" || key === "Escape") {
           onSelectListClose();
         } else if (key === "Enter" && !isActionButtonFocused) {
+          event.preventDefault();
           const currentOption = childrenList[currentOptionsListIndex];
 
           if (!currentOption) {
@@ -263,13 +266,19 @@ const SelectList = React.forwardRef(
             onSelect: handleSelect,
             isHighlighted: currentOptionsListIndex === index,
             hidden: isLoading && React.Children.count(children) === 1,
-            ref: optionRefs.current[index],
+            ref: optionRefList[index],
           };
 
           return React.cloneElement(child, newProps);
         }),
 
-      [children, currentOptionsListIndex, handleSelect, isLoading]
+      [
+        children,
+        currentOptionsListIndex,
+        handleSelect,
+        isLoading,
+        optionRefList,
+      ]
     );
 
     const assignListWidth = useCallback(() => {
@@ -338,12 +347,19 @@ const SelectList = React.forwardRef(
         updateListScrollTop(
           indexOfMatch,
           multiColumn ? tableRef.current : listRef.current,
-          optionRefs.current
+          optionRefList
         );
 
         return indexOfMatch;
       });
-    }, [childrenList, filterText, getIndexOfMatch, lastFilter, multiColumn]);
+    }, [
+      childrenList,
+      filterText,
+      getIndexOfMatch,
+      lastFilter,
+      multiColumn,
+      optionRefList,
+    ]);
 
     useEffect(() => {
       if (!highlightedValue) {
@@ -355,9 +371,15 @@ const SelectList = React.forwardRef(
       updateListScrollTop(
         indexOfMatch,
         multiColumn ? tableRef.current : listRef.current,
-        optionRefs.current
+        optionRefList
       );
-    }, [childrenList, getIndexOfMatch, highlightedValue, multiColumn]);
+    }, [
+      childrenList,
+      getIndexOfMatch,
+      highlightedValue,
+      multiColumn,
+      optionRefList,
+    ]);
 
     useEffect(() => {
       if (isLoading && currentOptionsListIndex === lastOptionIndex) {

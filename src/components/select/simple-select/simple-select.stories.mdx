@@ -1,23 +1,29 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
+import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
 import { useState, useRef } from "react";
 import { Select, Option, OptionRow, OptionGroupHeader } from "../";
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
-import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 <Meta title="Design System/Select" parameters={{ info: { disable: true } }} />
 
 # Simple Select
+
 Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
+
 To use the `Select` component you have to import two components: `<Select />` and `<Option />`
 from `carbon-react/lib/components/select`.
 
@@ -26,9 +32,10 @@ import { Select, Option } from "carbon-react/lib/components/select";
 ```
 
 ## Designer Notes
+
 Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
 
-## Examples 
+## Examples
 
 ### Default
 
@@ -62,6 +69,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 </Preview>
 
 ### Required
+
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
@@ -130,6 +138,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### With object as value
+
 Option values could be passed as objects, useful when custom data is associated with an option.
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
@@ -228,6 +237,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 </Preview>
 
 ### With isLoading prop
+
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Preview>
@@ -289,6 +299,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
 </Preview>
 
 ### Infinite scroll example
+
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
@@ -565,6 +576,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
 </Preview>
 
 ### Enabling the adaptive behaviour
+
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
@@ -596,11 +608,32 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 
 ## Props
 
-### Select 
+### Select
+
 <StyledSystemProps noHeader of={Select} margin />
 
 ### Props derived from the Textbox Component
+
 <Props of={SelectTextbox} />
 
 ### Props of the Option Component
+
 <Props of={Option} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "select.placeholder",
+        description: "The text for the input component placeholder",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

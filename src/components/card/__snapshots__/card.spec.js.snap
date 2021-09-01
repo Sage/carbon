@@ -125,7 +125,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   >
     <a
       href="https://carbon.sage.com/"
-      onClick={[Function]}
       onKeyDown={[Function]}
       tabIndex="0"
     >
@@ -138,7 +137,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
         type="link"
       />
       <span
-        className="carbon-link__content"
+        className=""
       >
         View Stripe Dashboard
       </span>

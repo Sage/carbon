@@ -35,6 +35,17 @@ describe("updateListScrollTop", () => {
       });
     });
 
+    describe("and the option ref is null", () => {
+      it("should change the scrollTop property of that list to 0", () => {
+        const itemIndex = 0;
+
+        list.scrollTop = 500;
+        updateListScrollTop(itemIndex, list, [{ current: null }]);
+
+        expect(list.scrollTop).toBe(0);
+      });
+    });
+
     describe("and the combined items height is less than the list height", () => {
       it("should change the scrollTop property of that list to 0", () => {
         const itemIndex = 2;

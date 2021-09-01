@@ -20,14 +20,6 @@ const secondDate = "2019-02-08";
 const invalidDate = "2019-02-";
 const noDate = "";
 const currentDate = moment().toDate();
-const wrappingComponent = (props) => (
-  <I18nProvider
-    {...props}
-    locale={{
-      locale: () => "fr-FR",
-    }}
-  />
-);
 
 describe("DatePicker", () => {
   let wrapper;
@@ -225,21 +217,32 @@ describe("StyledDayPicker", () => {
   describe("i18n", () => {
     describe("translation", () => {
       it("renders properly", () => {
-        const wrapper = render(
-          {
-            inputDate: firstDate,
-            selectedDate: new Date("2019-04-01"),
+        const wrapper = renderI18n({
+          inputDate: firstDate,
+          selectedDate: new Date("2019-04-01"),
+          locale: {
+            locale: () => "fr-FR",
           },
-          mount,
-          {
-            wrappingComponent,
-          }
-        );
+        });
         expect(wrapper.find(DayPicker).props().locale).toBe("fr-FR");
+        wrapper.setProps({
+          locale: {
+            locale: () => "en-GB",
+          },
+        });
+        expect(wrapper.find(DayPicker).props().locale).toBe("en-GB");
       });
     });
   });
 });
+
+function renderI18n({ locale, ...props }) {
+  return mount(
+    <I18nProvider locale={locale}>
+      <DatePicker inputElement={inputElement} {...props} />
+    </I18nProvider>
+  );
+}
 
 function render(props, renderer = shallow, params) {
   return renderer(

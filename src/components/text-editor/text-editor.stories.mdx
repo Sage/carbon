@@ -1,12 +1,14 @@
 import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
 import { useState, useRef } from "react";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeys from "../../../.storybook/utils/translation-keys-table";
+
 import TextEditor, {
   TextEditorState as EditorState,
   TextEditorContentState as ContentState,
 } from "./text-editor.component";
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Text Editor"
@@ -14,14 +16,17 @@ import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 />
 
 # Text Editor
+
 The `TextEditor` was created using the `draftjs` framework. It requires consuming projects to install `draftjs` as a
 peer-dependency to enable it to work.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -32,7 +37,8 @@ import TextEditor, {
 } from "carbon-react/lib/components/text-editor";
 ```
 
-## Designer Notes 
+## Designer Notes
+
 To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
 
 It can be used as a controlled component where the content of the input is controlled externally, as such both
@@ -42,6 +48,7 @@ accessibility requirements are met.
 ## Examples
 
 ### Default
+
 In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial
 editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links
 in the input, this can be done by manually typing or pasting a valid url into the editor. Another feature of the
@@ -70,6 +77,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### With content
+
 The initial editorState can also be created with content using
 `EditorState.createWithContent(ContentState.createFromText(''))`, as it is below. Other options available for
 populating the content that can be found https://draftjs.org/docs/api-reference-content-state#static-methods.
@@ -103,6 +111,7 @@ editor can expects.
 </Preview>
 
 ### With optional Save/ Cancel buttons
+
 By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback
 will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
 otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
@@ -121,8 +130,22 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
             value={value}
             ref={ref}
             toolbarElements={[
-              <Button key="cancel button" buttonType="tertiary" onClick={ () => console.log('cancel') }>Cancel</Button>,
-              <Button key="save button" buttonType='primary' type="button" onClick={ () => console.log('save') } ml={2}>Save</Button>
+              <Button
+                key="cancel button"
+                buttonType="tertiary"
+                onClick={() => console.log("cancel")}
+              >
+                Cancel
+              </Button>,
+              <Button
+                key="save button"
+                buttonType="primary"
+                type="button"
+                onClick={() => console.log("save")}
+                ml={2}
+              >
+                Save
+              </Button>,
             ]}
             labelText="Text Editor Label"
           />
@@ -133,6 +156,7 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
 </Preview>
 
 ### With user defined character limit
+
 It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
 will prevent any input that would cause the content length to exceed it.
 
@@ -164,6 +188,7 @@ will prevent any input that would cause the content length to exceed it.
 </Preview>
 
 ### With validation
+
 It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`,
 `warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate
 this status.
@@ -204,7 +229,10 @@ this status.
 With use of `template strings` it is possible to pass multiline validation messages to the component.
 
 <Preview>
-  <Story name="with multiline validation" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="with multiline validation"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [value, setValue] = useState(
         EditorState.createWithContent(
@@ -239,8 +267,9 @@ Maybe try writing a little bit less?`
 </Preview>
 
 ### With custom row height
-The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2 
-which is multiplied by the line-height (21px). 
+
+The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2
+which is multiplied by the line-height (21px).
 
 <Preview>
   <Story name="with custom row height">
@@ -263,10 +292,11 @@ which is multiplied by the line-height (21px).
 </Preview>
 
 ### With link previews
-It is possible to render `EditorLinkPreview`s via the `previews` prop. The `onLinkAdded` prop provides a callback 
-that will allow any link added to report the url back to be used to make a call to whatever service or api you want. 
-Whilst in the `Editor`, these previews can be deleted by clicking or pressing the enter key, when focused, on the close 
-icon. This example has mocked some functionality: previews will display for any link that has a url ending in `.com`, 
+
+It is possible to render `EditorLinkPreview`s via the `previews` prop. The `onLinkAdded` prop provides a callback
+that will allow any link added to report the url back to be used to make a call to whatever service or api you want.
+Whilst in the `Editor`, these previews can be deleted by clicking or pressing the enter key, when focused, on the close
+icon. This example has mocked some functionality: previews will display for any link that has a url ending in `.com`,
 `.co.uk`, `.org` or `.net`. See the prop table below for the available props for the `EditorLinkPreview` component.
 
 <Preview>
@@ -283,24 +313,33 @@ icon. This example has mocked some functionality: previews will display for any 
           title="This is an example of a title"
           url="https://www.sage.com"
           description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
-        />
+        />,
       ]);
       const removeUrl = (reportedUrl) => {
-        previews.current = previews.current.filter((preview) => reportedUrl !== preview.props.url)
+        previews.current = previews.current.filter(
+          (preview) => reportedUrl !== preview.props.url
+        );
       };
       const checkValidDomain = (url) => {
         const domainsWhitelist = [".com", ".co.uk", ".org", ".net"];
-        const result = domainsWhitelist.filter(domain => url.endsWith(domain)).length;
+        const result = domainsWhitelist.filter((domain) => url.endsWith(domain))
+          .length;
         return !!result;
-      }
+      };
       const addUrl = (reportedUrl) => {
-        if (!previews.current.filter((preview) => reportedUrl === preview.props.url).length && checkValidDomain(reportedUrl)) {
+        if (
+          !previews.current.filter(
+            (preview) => reportedUrl === preview.props.url
+          ).length &&
+          checkValidDomain(reportedUrl)
+        ) {
           const previewConfig = {
             title: "This is an example of a title",
             isLoading: false,
             url: reportedUrl,
             image: undefined,
-            description: "Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
+            description:
+              "Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?",
           };
           const preview = (
             <EditorLinkPreview
@@ -308,7 +347,7 @@ icon. This example has mocked some functionality: previews will display for any 
               {...previewConfig}
             />
           );
-          previews.current.push(preview)
+          previews.current.push(preview);
         }
       };
       return (
@@ -331,10 +370,71 @@ icon. This example has mocked some functionality: previews will display for any 
 
 ## Props
 
-### Text Editor 
+### Text Editor
 
-<StyledSystemProps
-  of={TextEditor}
-  margin
-  noHeader
+<StyledSystemProps of={TextEditor} margin noHeader />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeys
+  translationData={[
+    {
+      name: "textEditor.ariaLabels.bold",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when bold toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.italic",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when italic toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.bulletList",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when bullet list toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.numberList",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when number list toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.bold",
+      type: "func",
+      description: "visible when the user hovers over the bold toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.italic",
+      type: "func",
+      description:
+        "visible when the user hovers over the italic toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.bulletList",
+      type: "func",
+      description:
+        "visible when the user hovers over the bullet list toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.numberList",
+      type: "func",
+      description:
+        "visible when the user hovers over the number list toolbar button",
+      returnType: "string",
+    },
+  ]}
 />

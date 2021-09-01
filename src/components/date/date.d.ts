@@ -20,6 +20,8 @@ export interface DateInputProps extends TextboxProps {
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** The current date YYYY-MM-DD */
   value?: string;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare class DateInput extends React.Component<DateInputProps> {}

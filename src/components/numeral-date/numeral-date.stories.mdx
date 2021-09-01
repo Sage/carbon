@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import NumeralDate from ".";
 
 <Meta
@@ -9,15 +11,19 @@ import NumeralDate from ".";
 />
 
 # Numeral Date
+
 For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
+
 Import `NumeralDate` into the project.
 
 ```javascript
@@ -165,15 +171,20 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
 </Preview>
 
 ### Internal validation
+
 `NumeralDate` has an optional internal validation mechanism implemented to check if the date partial values are correct.
 To enable `error` internal validation pass `enableInternalError` and to enable `warning` pass `enableInternalWarning`.
 To override default messages translations can be provided with following keys: `numeralDate.day`, `numeralDate.month`, `numeralDate.year`.
 
 #### As error
+
 When using the internal validations as error it is necessary to also provide an external validation to avoid situations where it is possible to submit a form while `NumeralDate` clearly indicates that the date is incorrect.
 
 <Preview>
-  <Story name="internal validation - error" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="internal validation - error"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
       return (
@@ -191,10 +202,14 @@ When using the internal validations as error it is necessary to also provide an 
 </Preview>
 
 #### As warning
+
 When using the internal validations as warning the external validation is not necessary, in this case internal warnings can be treated as feedback.
 
 <Preview>
-  <Story name="internal validation - warning" parameters={{ chromatic: { disable: true }}}>
+  <Story
+    name="internal validation - warning"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
       return (
@@ -225,11 +240,13 @@ When using the internal validations as warning the external validation is not ne
 </Preview>
 
 ### Enabling the adaptive behaviour
+
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Preview>
   <Story
-    name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}
+    name="enabling adaptive behaviour"
+    parameters={{ chromatic: { disable: true } }}
   >
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}
@@ -266,6 +283,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 </Preview>
 
 ### Required
+
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Preview>
@@ -281,6 +299,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 </Preview>
 
 ### Size
+
 You can use the `size` prop to set the size of the field.
 
 <Preview>
@@ -305,7 +324,65 @@ You can use the `size` prop to set the size of the field.
   </Story>
 </Preview>
 
-## Props 
+### Overriding tooltip position
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Preview>
+  <Story
+    name="overriding tooltip position"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <>
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to top"
+        label="As string"
+        tooltipPosition="top"
+      />
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to right"
+        label="As string - displayed on a label"
+        validationOnLabel
+        tooltipPosition="right"
+      />
+    </>
+  </Story>
+</Preview>
+
+## Props
 
 ### NumeralDate
+
 <StyledSystemProps of={NumeralDate} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the 
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={
+    [
+      {
+        name: "numeralDate.validation.day",
+        description: "The text displayed in the tooltip if the day validation fails",
+        type: "func",
+        returnType: "string"
+      },
+       {
+        name: "numeralDate.validation.month",
+        description: "The text displayed in the tooltip if the month validation fails",
+        type: "func",
+        returnType: "string"
+      },
+      {
+        name: "numeralDate.validation.year",
+        description: "The text displayed in the tooltip if the year validation fails",
+        type: "func",
+        returnType: "string"
+      },
+    ]
+  }
+/>

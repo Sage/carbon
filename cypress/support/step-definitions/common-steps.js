@@ -2,7 +2,6 @@ import {
   visitComponentUrl,
   pressESCKey,
   pressTABKey,
-  asyncWaitForKnobs,
   positionOfElement,
   keyCode,
   visitComponentUrlWithParameters,
@@ -11,11 +10,8 @@ import {
 } from "../helper";
 import {
   backgroundUILocator,
-  getKnobsInput,
-  getKnobsInputWithName,
   tooltipPreview,
   getDataElementByValue,
-  knobsNameTab,
   commonButtonPreviewRoot,
   closeIconButton,
   fieldHelpPreview,
@@ -67,36 +63,6 @@ Given(
     visitComponentUrl(component, story, true);
   }
 );
-
-When("I open {word} tab", (text) => {
-  cy.wait(500, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  knobsNameTab(text).click();
-});
-
-When("I set {word} to {word} word", (propertyName, text) => {
-  getKnobsInput(propertyName).clear().type(text);
-});
-
-When("I set {word} to {string}", (propertyName, text) => {
-  getKnobsInput(propertyName).clear().type(text);
-});
-
-When("I set {string} {string} to {string}", (propertyName, fieldName, text) => {
-  asyncWaitForKnobs(propertyName, fieldName);
-  getKnobsInputWithName(propertyName, fieldName).clear().type(text);
-});
-
-When("I set {word}-{word} to {string}", (word1, word2, text) => {
-  getKnobsInput(`${word1}-${word2}`).clear().type(text);
-});
-
-When("I select {word} to {string}", (propertyName, selection) => {
-  getKnobsInput(propertyName).select(selection);
-});
-
-When("I select {word} {word} to {string}", (propertyName, text, selection) => {
-  getKnobsInputWithName(propertyName, text).select(selection);
-});
 
 When("I open component preview", () => {
   commonButtonPreviewRoot().click();
@@ -185,16 +151,6 @@ When("I continue to hit Tab key {int} time(s)", (times) => {
 
 When("I hit shift Tab key {int} time(s)", (times) => {
   pressShiftTABKey(times);
-});
-
-When("I check {word} checkbox", (checkboxName) => {
-  getKnobsInput(checkboxName).scrollIntoView();
-  getKnobsInput(checkboxName).check();
-});
-
-When("I check {word} {word} checkbox", (checkboxName, text) => {
-  getKnobsInputWithName(checkboxName, text).scrollIntoView();
-  getKnobsInputWithName(checkboxName, text).check();
 });
 
 Then("{word} action was called in Actions Tab", (event) => {

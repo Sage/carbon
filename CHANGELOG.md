@@ -1,3 +1,124 @@
+### [83.0.3](https://github.com/Sage/carbon/compare/v83.0.2...v83.0.3) (2021-08-31)
+
+
+### Bug Fixes
+
+* **toast:** stop blocking interactions with other elements ([84fd647](https://github.com/Sage/carbon/commit/84fd64756d245d06fa0b241bcafabfc85df0c223))
+
+### [83.0.2](https://github.com/Sage/carbon/compare/v83.0.1...v83.0.2) (2021-08-30)
+
+
+### Bug Fixes
+
+* **select:** stop form submit when enter key is pressed with open list ([4351789](https://github.com/Sage/carbon/commit/4351789c9db826af5c235069e845b0c99971fe3a))
+
+### [83.0.1](https://github.com/Sage/carbon/compare/v83.0.0...v83.0.1) (2021-08-30)
+
+
+### Bug Fixes
+
+* **pod:** add missing height prop type definition ([ec6d3ca](https://github.com/Sage/carbon/commit/ec6d3ca1128b79135d2f7fea70043a66ce86f402))
+
+## [83.0.0](https://github.com/Sage/carbon/compare/v82.1.0...v83.0.0) (2021-08-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pill:** all components that extend the pill component will need to be changed
+
+### Code Refactoring
+
+* **pill:** convert a class component to a function component ([e0302a4](https://github.com/Sage/carbon/commit/e0302a45da527d019b5836f6e78bb29fc04ee178))
+
+## [82.1.0](https://github.com/Sage/carbon/compare/v82.0.1...v82.1.0) (2021-08-30)
+
+
+### Features
+
+* **icon:** add arrow_left_right_small ([eb8f078](https://github.com/Sage/carbon/commit/eb8f078469945d95f229ab759648a99d765a2f10))
+* **icon:** add circle_with_dots ([c9047d1](https://github.com/Sage/carbon/commit/c9047d16a6848a54306e31c3229184a10c389600))
+* **icon:** add pause ([63c6eaf](https://github.com/Sage/carbon/commit/63c6eafbed10e9bb6d1d1c8e63bb036fccb8a059))
+* **icon:** add squares_nine ([0706c99](https://github.com/Sage/carbon/commit/0706c99abe3b4ea91ff8ad05c9d8bc205b68dfe6))
+
+### [82.0.1](https://github.com/Sage/carbon/compare/v82.0.0...v82.0.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* **filterable-select:** list not closed on click outside in Safari ([29b49df](https://github.com/Sage/carbon/commit/29b49df58606f56866b72c66a1699ba9d7b7e898))
+
+## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** remove get icon, tabIndex and componentProps functions
+
+### Code Refactoring
+
+* **link:** convert a class component to a function component ([44c56e6](https://github.com/Sage/carbon/commit/44c56e6bb6f877c5b2e3ce9165f1fa3fc01a7a90))
+
+## [81.3.0](https://github.com/Sage/carbon/compare/v81.2.2...v81.3.0) (2021-08-23)
+
+
+### Features
+
+* **checkbox, checkbox-group:** add tooltipPosition prop to the interface ([b000e45](https://github.com/Sage/carbon/commit/b000e4553f9432b5e1db8cef9faf2655b5daf252))
+* **date:** add tooltipPosition prop to interface ([97c41c0](https://github.com/Sage/carbon/commit/97c41c0796159063e671707ecc40027ce9d1a181))
+* **date-range:** add tooltipPosition prop to interface ([68def53](https://github.com/Sage/carbon/commit/68def5369fd0d91d31bd05389be6d11aecbc38fc))
+* **decimal:** add tooltipPosition prop to interface ([3322ec3](https://github.com/Sage/carbon/commit/3322ec317a5a1fcc1676a50355eb5fd6183e99ae))
+* **filterable-select:** add tooltipPosition prop to interface ([327e96b](https://github.com/Sage/carbon/commit/327e96b7c641f10899ce2f0d20420a98e652a0e5))
+* **icon:** component consumes TooltipContext to allow overriding toolitip position ([a7e0841](https://github.com/Sage/carbon/commit/a7e084111a2bcbdf38ff2cb2577da276210e112d))
+* **multi-select:** add tooltipPosition prop to interface ([68f1d91](https://github.com/Sage/carbon/commit/68f1d9190d9b1fc9c52424db53a66c848705c2f3))
+* **numeral-date:** add tooltipPosition prop to interface ([bf5e35d](https://github.com/Sage/carbon/commit/bf5e35d65ad7ab9adbdc86dedf14f18ac503566f))
+* **radio-button, radio-button-group:** add tooltipPosition prop to interface ([7aa0ce1](https://github.com/Sage/carbon/commit/7aa0ce1f75974f6a3a4868b10c158a70b68fcb57))
+* **simple-select:** add tooltipPosition prop to interface ([a7f3e9a](https://github.com/Sage/carbon/commit/a7f3e9a212770b5115c8893ac7689f58b81f5168))
+* **switch:** add tooltipPosition prop to interface ([57e994e](https://github.com/Sage/carbon/commit/57e994ed4cbff10bd983362f7f9032b06d45f37f))
+* **textarea:** add tooltipPosition prop to interface ([016466d](https://github.com/Sage/carbon/commit/016466dc19ab5e5b122139836c1566a1a7754019))
+* **textbox:** integrate TooltipProvider and surface tooltipPosition prop ([c05dd40](https://github.com/Sage/carbon/commit/c05dd40c4bbde571e1ae32e496fac16f59d02441))
+* **tooltip-provider:** add context and provider component ([957f14a](https://github.com/Sage/carbon/commit/957f14af0c246b919d9791684a656eba7be53e73))
+
+### [81.2.2](https://github.com/Sage/carbon/compare/v81.2.1...v81.2.2) (2021-08-20)
+
+
+### Bug Fixes
+
+* **select:** scroll option into view when using keyboard navigation ([d09ef73](https://github.com/Sage/carbon/commit/d09ef739f730039f6105273f75b16a40ad753f78)), closes [#4270](https://github.com/Sage/carbon/issues/4270)
+
+### [81.2.1](https://github.com/Sage/carbon/compare/v81.2.0...v81.2.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **focus-trap:** add mutation observer ([562fd12](https://github.com/Sage/carbon/commit/562fd12379df01d52a32b24bc979fa03a919e190)), closes [#4255](https://github.com/Sage/carbon/issues/4255)
+
+## [81.2.0](https://github.com/Sage/carbon/compare/v81.1.1...v81.2.0) (2021-08-18)
+
+
+### Features
+
+* **toolbar:** add support for overriding translations in TextEditor Toolbar ([483a43f](https://github.com/Sage/carbon/commit/483a43fd4b2a8515299560512fa3fc4d9552c9b1)), closes [#4121](https://github.com/Sage/carbon/issues/4121)
+
+### [81.1.1](https://github.com/Sage/carbon/compare/v81.1.0...v81.1.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **date-picker:** month could not be changed in datepicker ([053bb88](https://github.com/Sage/carbon/commit/053bb88286d37a56c59e6640b3b2cfe74cc8540f))
+
+## [81.1.0](https://github.com/Sage/carbon/compare/v81.0.5...v81.1.0) (2021-08-17)
+
+
+### Features
+
+* **sidebar:** implement ref forwarding ([da9fbd1](https://github.com/Sage/carbon/commit/da9fbd1129b3324b70147ac755da077ba2f05b46))
+
+
+### Bug Fixes
+
+* **sidebar:** incorrect typescript class export ([9a1b9c8](https://github.com/Sage/carbon/commit/9a1b9c843725871f32897d59c8c4e649838a9ff8))
+* **sidebar:** sidebar context not exported in typescript ([1e026e4](https://github.com/Sage/carbon/commit/1e026e47c1d6f82dfe221e07e8c2ff4f3b5d3e50))
+
 ### [81.0.5](https://github.com/Sage/carbon/compare/v81.0.4...v81.0.5) (2021-08-06)
 
 
