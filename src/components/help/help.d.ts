@@ -1,11 +1,12 @@
+import * as React from "react";
 import { IconType } from "components/icon/icon";
 import { MarginProps } from "styled-system";
 
 export interface HelpProps extends MarginProps {
   /** Overrides the default 'as' attribute of the Help component */
   as?: string;
-  /** Message to display in tooltip */
-  children?: string;
+  /** The message to be displayed within the tooltip */
+  children?: React.ReactNode;
   /** [Legacy] A custom class name for the component. */
   className?: string;
   /** The unique id of the component (used with aria-describedby for accessibility) */
