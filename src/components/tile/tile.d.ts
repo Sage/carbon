@@ -13,7 +13,7 @@ export interface TileProps extends SpaceProps {
    */
   children?: React.ReactNode;
   /** The orientation of the tile - set to either horizontal or vertical */
-  orientation?: "horizonta" | "vertical";
+  orientation?: "horizontal" | "vertical";
   /**
    * Set a pixel with for the Tile component. If both are set to non-zero values, this
    * takes precedence over the percentage-based "width" prop.
