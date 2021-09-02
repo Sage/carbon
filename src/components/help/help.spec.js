@@ -33,7 +33,7 @@ describe("Help", () => {
     });
 
     it("passes the children as a prop", () => {
-      const mockMessage = "Help Message";
+      const mockMessage = <span>Help Message</span>;
       wrapper = mount(<Help>{mockMessage}</Help>);
       tooltip = wrapper.find(Tooltip);
       expect(tooltip.props().message).toBe(mockMessage);

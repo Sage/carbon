@@ -1,3 +1,30 @@
+## [84.0.0](https://github.com/Sage/carbon/compare/v83.2.0...v84.0.0) (2021-09-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **help:** aria-label and value are no longer rendered based on children
+There is a codemod available to assist with this upgrade:
+npx carbon-codemod add-prop src carbon-react/lib/components/help aria-label <value>
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Features
+
+* **help:** change the children proptype from string to node ([dad2b7f](https://github.com/Sage/carbon/commit/dad2b7f3b44fe3a1de4efe13d78ed774a4fd31fa))
+* **icon:** change the tooltip message proptype from string to node ([5b1a8e4](https://github.com/Sage/carbon/commit/5b1a8e42433dc1463fe84a59e0e5c8c8b3d7a6dd))
+
+
+### Bug Fixes
+
+* **link:** import the proper link component and the styled link ([b03de73](https://github.com/Sage/carbon/commit/b03de735769f7b8bad8b12b99087ee1d3c2016be))
+
+## [83.2.0](https://github.com/Sage/carbon/compare/v83.1.0...v83.2.0) (2021-09-02)
+
+
+### Features
+
+* **definition-list:** add support for rendering component as single column ([61e03d5](https://github.com/Sage/carbon/commit/61e03d5286cacfe58685336734e72b09b7df8529))
+
 ## [83.1.0](https://github.com/Sage/carbon/compare/v83.0.3...v83.1.0) (2021-09-01)
 
 
