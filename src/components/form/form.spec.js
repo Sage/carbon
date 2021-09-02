@@ -3,7 +3,8 @@ import { mount, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import baseTheme from "../../style/themes/base";
-import ElementResize from "../../utils/helpers/element-resize";
+
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -27,6 +28,7 @@ import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledSearch from "../search/search.style";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("Form", () => {
   let wrapper;
@@ -46,8 +48,6 @@ describe("Form", () => {
   it("cleans up event listeners after unmounting", () => {
     wrapper.update();
     const removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
-    const ElementResizeSpy = jest.spyOn(ElementResize, "removeListener");
-    const formNode = wrapper.find(StyledForm).getDOMNode();
 
     wrapper.unmount();
 
@@ -56,9 +56,6 @@ describe("Form", () => {
         (call) => call[0] === "scroll" || call[0] === "resize"
       )
     ).toHaveLength(2);
-    expect(
-      ElementResizeSpy.mock.calls.filter((call) => call[0] === formNode)
-    ).toHaveLength(1);
   });
 
   describe("when search used in Form component", () => {
@@ -111,11 +108,13 @@ describe("Form", () => {
   });
 
   describe("when stickyFooter prop is true", () => {
-    const assertThatFooterIsSticky = () => {
+    const dispatchScrollEvent = () => {
       act(() => {
         jest.runAllTimers();
         window.dispatchEvent(new Event("scroll"));
       });
+    };
+    const assertThatFooterIsSticky = () => {
       wrapper.update();
       expect(wrapper.find(StyledFormFooter).hasClass("sticky")).toBe(true);
       assertStyleMatch(
@@ -141,10 +140,6 @@ describe("Form", () => {
     };
 
     const assertThatFooterIsNotSticky = () => {
-      act(() => {
-        jest.runAllTimers();
-        window.dispatchEvent(new Event("scroll"));
-      });
       wrapper.update();
       assertStyleMatch(
         {
@@ -180,6 +175,7 @@ describe("Form", () => {
             bottom: 1051,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsSticky();
       });
 
@@ -192,6 +188,7 @@ describe("Form", () => {
             bottom: 900,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsNotSticky();
       });
 
@@ -203,6 +200,7 @@ describe("Form", () => {
             bottom: 1100,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsSticky();
 
         jest
@@ -211,7 +209,43 @@ describe("Form", () => {
             bottom: 1101,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsSticky();
+      });
+
+      it("render stickyFooter with sticky rules on resize if form bottom is above the bottom of window", () => {
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            bottom: 1051,
+          }));
+
+        act(() => {
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
+        });
+
+        assertThatFooterIsSticky();
+      });
+
+      it("renders form footer without sticky styles on resize if form bottom is above the bottom of window", () => {
+        const formNode = wrapper.find(StyledForm).getDOMNode();
+        jest
+          .spyOn(formNode, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            top: 100,
+            bottom: 900,
+          }));
+
+        act(() => {
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
+        });
+
+        assertThatFooterIsNotSticky();
       });
     });
 
@@ -245,6 +279,7 @@ describe("Form", () => {
             bottom: 1050,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsSticky();
       });
 
@@ -262,6 +297,7 @@ describe("Form", () => {
             bottom: 1050,
           }));
 
+        dispatchScrollEvent();
         assertThatFooterIsNotSticky();
       });
     });
