@@ -1,3 +1,10 @@
+## [83.2.0](https://github.com/Sage/carbon/compare/v83.1.0...v83.2.0) (2021-09-02)
+
+
+### Features
+
+* **definition-list:** add support for rendering component as single column ([61e03d5](https://github.com/Sage/carbon/commit/61e03d5286cacfe58685336734e72b09b7df8529))
+
 ## [83.1.0](https://github.com/Sage/carbon/compare/v83.0.3...v83.1.0) (2021-09-01)
 
 
