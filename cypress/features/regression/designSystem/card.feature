@@ -11,3 +11,38 @@ Feature: Design System Card component
   Given I open "Design System Card" component page "interactive" in no iframe
     When I hover mouse onto Card component
     Then Card component has interactive shadow
+
+  @positive
+  Scenario Outline: Drag <cardItem> card to the <columnName> column
+    Given I open "Design System Card" component page "with draggable" in no iframe
+    When I drag "<cardItem>" Card from the column to "<columnName>" column
+    Then "<cardItem>" Card is dragged to "<columnName>" column
+      And "1" column has <lengthOfFirstColumn> length
+      And "2" column has <lengthOfSecondColumn> length
+    Examples:
+      | cardItem | columnName | lengthOfFirstColumn | lengthOfSecondColumn |
+      | 1        | 2          | 2                   | 2                    |
+      | 3        | 1          | 4                   | 0                    |
+      | 4        | 2          | 2                   | 2                    |
+
+  @positive
+  Scenario: Drag First and Second Cards to the Product Two column
+    Given I open "Design System Card" component page "with draggable" in no iframe
+    When I drag "1" Card from the column to "2" column
+      And I drag "2" Card from the column to "2" column
+    Then "1" Card is dragged to "2" column
+      And "2" Card is dragged to "2" column
+      And "1" column has 1 length
+      And "2" column has 3 length
+
+  @positive
+  Scenario: Drag First and Second and Third Cards to the Product Two column
+    Given I open "Design System Card" component page "with draggable" in no iframe
+    When I drag "1" Card from the column to "2" column
+      And I drag "2" Card from the column to "2" column
+      And I drag "4" Card from the column to "2" column
+    Then "1" Card is dragged to "2" column
+      And "2" Card is dragged to "2" column
+      And "4" Card is dragged to "2" column
+      And "1" column has 0 length
+      And "2" column has 4 length

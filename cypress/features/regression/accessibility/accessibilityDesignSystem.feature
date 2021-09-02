@@ -26,7 +26,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System DuellingPicklist component default story page
-    When I open "Design System DuellingPicklist" component page "default" in no iframe
+    When I open "Design System DuellingPicklist Test" component page "default" in no iframe
     Then "DuellingPicklist" component has no accessibility violations
 
   @accessibility

@@ -1,69 +1,78 @@
-import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import AdvancedColorPicker from '.';
+import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import AdvancedColorPicker from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { useState } from 'react';
+import { useState } from "react";
 
 <Meta title="Design System/Advanced Color Picker" />
 
 # Advanced Color Picker
+
 Selects a single colour from a defined set.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
+
 To use advanced color picker, import `AdvancedColorPicker`
 
 ```javascript
-import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-picker"
+import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-picker";
 ```
 
 ## Examples
 
 ### Basic usage
+
 Shows how the color picker can be used to select a color from a predefined set.
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
-  {() => {
-    const [open, setOpen] = useState(true);
-    const [color, setColor] = useState();
-    const onChange = (e) => {
-      const { value } = e.target;
-      setColor(value);
-    };
-    return (
-      <AdvancedColorPicker
-        name='advancedPicker'
-        availableColors={ [
-          { value: '#FFFFFF', label: 'white' },
-          { value: 'transparent', label: 'transparent' },
-          { value: '#000000', label: 'black' },
-          { value: '#A3CAF0', label: 'blue' },
-          { value: '#FD9BA3', label: 'pink' },
-          { value: '#B4AEEA', label: 'purple' },
-          { value: '#ECE6AF', label: 'goldenrod' },
-          { value: '#EBAEDE', label: 'orchid' },
-          { value: '#EBC7AE', label: 'desert' },
-          { value: '#AEECEB', label: 'turquoise' },
-          { value: '#AEECD6', label: 'mint' }
-        ] }
-        defaultColor='#EBAEDE'
-        selectedColor={ color }
-        onChange={ onChange }
-        onOpen={ () => { setOpen(!open) } }
-        onClose={ () => { setOpen(false) } }
-        onBlur={ () => {} }
-        open={ open }
-      />
-    )
-  }}
+  <Story name="default" parameters={{ info: { disable: true } }}>
+    {() => {
+      const [open, setOpen] = useState(true);
+      const [color, setColor] = useState();
+      const onChange = (e) => {
+        const { value } = e.target;
+        setColor(value);
+      };
+      return (
+        <AdvancedColorPicker
+          name="advancedPicker"
+          availableColors={[
+            { value: "#FFFFFF", label: "white" },
+            { value: "transparent", label: "transparent" },
+            { value: "#000000", label: "black" },
+            { value: "#A3CAF0", label: "blue" },
+            { value: "#FD9BA3", label: "pink" },
+            { value: "#B4AEEA", label: "purple" },
+            { value: "#ECE6AF", label: "goldenrod" },
+            { value: "#EBAEDE", label: "orchid" },
+            { value: "#EBC7AE", label: "desert" },
+            { value: "#AEECEB", label: "turquoise" },
+            { value: "#AEECD6", label: "mint" },
+          ]}
+          defaultColor="#EBAEDE"
+          selectedColor={color}
+          onChange={onChange}
+          onOpen={() => {
+            setOpen(!open);
+          }}
+          onClose={() => {
+            setOpen(false);
+          }}
+          onBlur={() => {}}
+          open={open}
+        />
+      );
+    }}
   </Story>
 </Preview>
 
 ## Props
 
 ### AdvancedColorPicker
+
 <StyledSystemProps of={AdvancedColorPicker} noHeader margin />

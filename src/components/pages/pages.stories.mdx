@@ -1,17 +1,22 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import DefaultPages from './pages.component';
-import Page from './page/page.component';
-import DialogFullScreen from '../dialog-full-screen';
-import Heading from '../heading';
-import Button from '../button';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import DefaultPages from "./pages.component";
+import Page from "./page/page.component";
+import DialogFullScreen from "../dialog-full-screen";
+import Heading from "../heading";
+import Button from "../button";
 
-<Meta title="Pages" parameters={{ info: { disable: true }, chromatic: { disable: true }}} />
+<Meta
+  title="Pages"
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+/>
 
 # Pages
+
 Allows to slide to different pages in a full screen dialog.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -22,17 +27,19 @@ Allows to slide to different pages in a full screen dialog.
 import DefaultPages from "carbon-react/lib/components/pages";
 import Page from "carbon-react/lib/components/page/page";
 ```
+
 ## Examples
 
 ### Default
+
 <Preview>
   <Story name="default">
-   {() => {
+    {() => {
       const [isOpen, setIsOpen] = useState(false);
       const [pageIndex, setPageIndex] = useState(0);
       const [isDisabled, setIsDisabled] = useState(false);
       const handleCancel = () => {
-        setIsOpen(false); 
+        setIsOpen(false);
         setPageIndex(0);
       };
       const handleOpen = () => {
@@ -58,29 +65,34 @@ import Page from "carbon-react/lib/components/page/page";
       };
       return (
         <div>
-          <Button onClick={ handleOpen }>Open Preview</Button>
-          <DialogFullScreen
-            pagesStyling
-            open={ isOpen }
-            onCancel={ handleCancel }
-          >
-            <DefaultPages pageIndex={ pageIndex }>
-              <Page title={ <Heading title='My First Page' /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+          <Button onClick={handleOpen}>Open Preview</Button>
+          <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+            <DefaultPages pageIndex={pageIndex}>
+              <Page title={<Heading title="My First Page" />}>
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+              <Page
+                title={
+                  <Heading title="My Second Page" backLink={handleBackClick} />
+                }
+              >
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to third page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+              <Page
+                title={
+                  <Heading title="My Third Page" backLink={handleBackClick} />
+                }
+              />
             </DefaultPages>
           </DialogFullScreen>
         </div>
       );
-    }};
+    }}
+    ;
   </Story>
 </Preview>
 
@@ -88,13 +100,15 @@ import Page from "carbon-react/lib/components/page/page";
 
 <Preview>
   <Story name="with Initial Page Index">
-   {() => {
-      let initialpageIndex = 1
+    {() => {
+      let initialpageIndex = 1;
       const [isOpen, setIsOpen] = useState(false);
-      const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) ? Number(initialpageIndex) : undefined);
+      const [pageIndex, setPageIndex] = useState(
+        Number(initialpageIndex) ? Number(initialpageIndex) : undefined
+      );
       const [isDisabled, setIsDisabled] = useState(false);
       const handleCancel = () => {
-        setIsOpen(false); 
+        setIsOpen(false);
         setPageIndex(0);
       };
       const handleOpen = () => {
@@ -122,29 +136,37 @@ import Page from "carbon-react/lib/components/page/page";
       };
       return (
         <div>
-          <Button onClick={ handleOpen }>Open Preview</Button>
-          <DialogFullScreen
-            pagesStyling
-            open={ isOpen }
-            onCancel={ handleCancel }
-          >
-            <DefaultPages initialpageIndex={ initialpageIndex } pageIndex={ pageIndex }>
-              <Page title={ <Heading title='My First Page' /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+          <Button onClick={handleOpen}>Open Preview</Button>
+          <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+            <DefaultPages
+              initialpageIndex={initialpageIndex}
+              pageIndex={pageIndex}
+            >
+              <Page title={<Heading title="My First Page" />}>
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+              <Page
+                title={
+                  <Heading title="My Second Page" backLink={handleBackClick} />
+                }
+              >
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to third page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+              <Page
+                title={
+                  <Heading title="My Third Page" backLink={handleBackClick} />
+                }
+              />
             </DefaultPages>
           </DialogFullScreen>
         </div>
       );
-    }};
+    }}
+    ;
   </Story>
 </Preview>
 
@@ -154,10 +176,10 @@ import Page from "carbon-react/lib/components/page/page";
   <Story name="inside DialogFullScreen">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
-      const [pageIndex, setPageIndex] = useState('');
+      const [pageIndex, setPageIndex] = useState("");
       const [isDisabled, setIsDisabled] = useState(false);
       const handleCancel = () => {
-        setIsOpen(false); 
+        setIsOpen(false);
         setPageIndex(0);
       };
       const handleOpen = () => {
@@ -183,36 +205,43 @@ import Page from "carbon-react/lib/components/page/page";
       };
       return (
         <div>
-          <Button onClick={ handleOpen }>Open Preview</Button>
-          <DialogFullScreen
-            pagesStyling
-            open={ isOpen }
-            onCancel={ handleCancel }
-          >
-            <DefaultPages pageIndex={ pageIndex }>
-              <Page title={ <Heading title='My First Page' /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+          <Button onClick={handleOpen}>Open Preview</Button>
+          <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+            <DefaultPages pageIndex={pageIndex}>
+              <Page title={<Heading title="My First Page" />}>
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Second Page' backLink={ handleBackClick } /> }>
-                <Button onClick={ handleOnClick } disabled={ isDisabled }>
+              <Page
+                title={
+                  <Heading title="My Second Page" backLink={handleBackClick} />
+                }
+              >
+                <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to third page
                 </Button>
               </Page>
-              <Page title={ <Heading title='My Third Page' backLink={ handleBackClick } /> } />
+              <Page
+                title={
+                  <Heading title="My Third Page" backLink={handleBackClick} />
+                }
+              />
             </DefaultPages>
           </DialogFullScreen>
         </div>
       );
-    }};
+    }}
+    ;
   </Story>
 </Preview>
 
 ## Props
 
 ### Props for Pages
+
 <Props of={DefaultPages} />
 
 ### Props for Page
+
 <Props of={Page} />

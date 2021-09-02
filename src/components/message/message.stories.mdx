@@ -1,23 +1,22 @@
-import { useState } from 'react';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import Message from '.';
-import Button from '../button';
-import Typography, {List, ListItem} from '../typography';
-import Box from '../box';
-import Link from '../link';
+import Message from ".";
+import Button from "../button";
+import Typography, { List, ListItem } from "../typography";
+import Box from "../box";
+import Link from "../link";
 
-<Meta
-  title="Message"
-  parameters={{ info: { disable: true }}}
-/>
+<Meta title="Message" parameters={{ info: { disable: true } }} />
 
 # Message
+
 Presents a static message which stays on screen.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
@@ -26,14 +25,17 @@ Presents a static message which stays on screen.
 - [Translation keys](#translation-keys)
 
 ## Quick Start
+
 ```javascript
 import Message from "carbon-react/lib/components/message";
 ```
 
 ## Designer Notes
+
 Useful for messages which are longer or more important, where the user needs time to interpret them, or might need to refer back to them during an activity.
 
 Various types are available:
+
 - **Error** - tells the user about a negative outcome that has already happened. Try to focus the message text on the action the user needs to take to be successful, rather than what went wrong.
 - **Info** - gives context or advice to the user where there’s no risk of a negative outcome.
 - **Success** - indicates that an activity was successful. A good example could also present the user with onward options, such as ‘View a list of items’ or ‘Create another’.
@@ -57,15 +59,14 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
-          <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
-          >
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
+          <Message open={isOpen} onDismiss={() => setIsOpen(false)}>
             Some custom message
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -78,16 +79,18 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="error"
           >
             Some custom message
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -100,16 +103,18 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="success"
           >
             Some custom message
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
@@ -122,88 +127,110 @@ Message variant is `info` by default
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="warning"
           >
             Some custom message
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### With rich content
+
 It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
+
 <Preview>
   <Story name="with rich content">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="warning"
             title={<Typography variant="h4">Title</Typography>}
           >
             Some custom message
-            <Box mt='8px'>
+            <Box mt="8px">
               <List>
-                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
-                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
-                <ListItem>Some custom <Typography variant="b">message as a list</Typography>. <Link href="#">With a link</Link></ListItem>
+                <ListItem>
+                  Some custom{" "}
+                  <Typography variant="b">message as a list</Typography>.{" "}
+                  <Link href="#">With a link</Link>
+                </ListItem>
+                <ListItem>
+                  Some custom{" "}
+                  <Typography variant="b">message as a list</Typography>.{" "}
+                  <Link href="#">With a link</Link>
+                </ListItem>
+                <ListItem>
+                  Some custom{" "}
+                  <Typography variant="b">message as a list</Typography>.{" "}
+                  <Link href="#">With a link</Link>
+                </ListItem>
               </List>
             </Box>
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### With margin
-Margins can be applied to the `message` component using styled-system. 
+
+Margins can be applied to the `message` component using styled-system.
 To see a full list of available margin props, please visit the props table at the bottom of this page.
 
 [Visit Props Table](#props)
+
 <Preview>
   <Story name="with margin">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
       return (
         <>
-          {!isOpen && <Button onClick={ () => setIsOpen(true) }>Open Message</Button>}
+          {!isOpen && (
+            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
+          )}
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="warning"
             m={1}
           >
             Some custom message
           </Message>
           <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="warning"
             m={3}
           >
             Some custom message
           </Message>
-                    <Message
-            open={ isOpen }
-            onDismiss={ () => setIsOpen(false) }
+          <Message
+            open={isOpen}
+            onDismiss={() => setIsOpen(false)}
             variant="warning"
             m="16px"
           >
             Some custom message
           </Message>
         </>
-      )
+      );
     }}
   </Story>
 </Preview>

@@ -1,3 +1,59 @@
+## [83.1.0](https://github.com/Sage/carbon/compare/v83.0.3...v83.1.0) (2021-09-01)
+
+
+### Features
+
+* **button:** make icon only buttons squares ([dad293b](https://github.com/Sage/carbon/commit/dad293bf731289ce9b0635ddc4e4959e7e5cf3f3))
+
+### [83.0.3](https://github.com/Sage/carbon/compare/v83.0.2...v83.0.3) (2021-08-31)
+
+
+### Bug Fixes
+
+* **toast:** stop blocking interactions with other elements ([84fd647](https://github.com/Sage/carbon/commit/84fd64756d245d06fa0b241bcafabfc85df0c223))
+
+### [83.0.2](https://github.com/Sage/carbon/compare/v83.0.1...v83.0.2) (2021-08-30)
+
+
+### Bug Fixes
+
+* **select:** stop form submit when enter key is pressed with open list ([4351789](https://github.com/Sage/carbon/commit/4351789c9db826af5c235069e845b0c99971fe3a))
+
+### [83.0.1](https://github.com/Sage/carbon/compare/v83.0.0...v83.0.1) (2021-08-30)
+
+
+### Bug Fixes
+
+* **pod:** add missing height prop type definition ([ec6d3ca](https://github.com/Sage/carbon/commit/ec6d3ca1128b79135d2f7fea70043a66ce86f402))
+
+## [83.0.0](https://github.com/Sage/carbon/compare/v82.1.0...v83.0.0) (2021-08-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pill:** all components that extend the pill component will need to be changed
+
+### Code Refactoring
+
+* **pill:** convert a class component to a function component ([e0302a4](https://github.com/Sage/carbon/commit/e0302a45da527d019b5836f6e78bb29fc04ee178))
+
+## [82.1.0](https://github.com/Sage/carbon/compare/v82.0.1...v82.1.0) (2021-08-30)
+
+
+### Features
+
+* **icon:** add arrow_left_right_small ([eb8f078](https://github.com/Sage/carbon/commit/eb8f078469945d95f229ab759648a99d765a2f10))
+* **icon:** add circle_with_dots ([c9047d1](https://github.com/Sage/carbon/commit/c9047d16a6848a54306e31c3229184a10c389600))
+* **icon:** add pause ([63c6eaf](https://github.com/Sage/carbon/commit/63c6eafbed10e9bb6d1d1c8e63bb036fccb8a059))
+* **icon:** add squares_nine ([0706c99](https://github.com/Sage/carbon/commit/0706c99abe3b4ea91ff8ad05c9d8bc205b68dfe6))
+
+### [82.0.1](https://github.com/Sage/carbon/compare/v82.0.0...v82.0.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* **filterable-select:** list not closed on click outside in Safari ([29b49df](https://github.com/Sage/carbon/commit/29b49df58606f56866b72c66a1699ba9d7b7e898))
+
 ## [82.0.0](https://github.com/Sage/carbon/compare/v81.3.0...v82.0.0) (2021-08-24)
 
 

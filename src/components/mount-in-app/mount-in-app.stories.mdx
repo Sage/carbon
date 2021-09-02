@@ -1,12 +1,14 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import MountInApp from '.';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import MountInApp from ".";
 
-<Meta title="Mount In App" parameters={{ info: { disable: true }}} />
+<Meta title="Mount In App" parameters={{ info: { disable: true } }} />
 
 # Mount In App
+
 Mounts a component at a specific target in the DOM. Mount In App can also be used to integrate React components into pre-existing user interfaces.
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
@@ -20,11 +22,12 @@ import MountInApp from "carbon-react/lib/components/mount-in-app";
 ## Examples
 
 ### Default
+
 <Preview>
   <Story name="default">
     <div>
-      <div id='carbon-demo'>Some content to be replaced.</div>
-      <MountInApp targetId='carbon-demo'>
+      <div id="carbon-demo">Some content to be replaced.</div>
+      <MountInApp targetId="carbon-demo">
         <div>Content to be mounted!</div>
       </MountInApp>
     </div>
@@ -34,4 +37,5 @@ import MountInApp from "carbon-react/lib/components/mount-in-app";
 ## Props
 
 ### Mount In App
+
 <Props of={MountInApp} />

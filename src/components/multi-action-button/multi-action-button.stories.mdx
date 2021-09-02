@@ -1,16 +1,17 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import MultiActionButton from ".";
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
-import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Multi Action Button" parameters={{ info: { disable: true } }} />
 
 # Multi Action Button
 
 ## Contents
+
 - [Quick Start](#quick-start)
 - [Designer Notes](#designer-notes)
 - [Examples](#examples)
@@ -156,11 +157,7 @@ Subtext only works when `size` is `large`
 
 ### MultiActionButton
 
-<StyledSystemProps
-  of={MultiActionButton}
-  margin
-  noHeader
-/>
+<StyledSystemProps of={MultiActionButton} margin noHeader />
 
 ### Button
 
