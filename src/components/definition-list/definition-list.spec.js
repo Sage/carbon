@@ -6,15 +6,23 @@ import {
   assertStyleMatch,
   testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
-import { StyledDtDiv, StyledDdDiv } from "./definition-list.style";
+import {
+  StyledDl,
+  StyledDt,
+  StyledDtDiv,
+  StyledDdDiv,
+} from "./definition-list.style";
 import Dl from "./dl.component";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
+import DlContext from "./__internal__/dl.context";
 
 describe("DefinitionList", () => {
   let wrapper;
 
   const renderWrapper = (id, props, render = mount) => {
+    const { asSingleColumn } = props;
+
     const definitionObject = {
       Dl: (
         <Dl {...props}>
@@ -22,7 +30,13 @@ describe("DefinitionList", () => {
           <Dd>Barr</Dd>
         </Dl>
       ),
-      Dt: <Dt {...props}>Foo</Dt>,
+      Dt: asSingleColumn ? (
+        <DlContext.Provider value={{ asSingleColumn: true }}>
+          <Dt {...props}>Foo</Dt>
+        </DlContext.Provider>
+      ) : (
+        <Dt {...props}>Foo</Dt>
+      ),
       Dd: <Dd {...props}>Barr</Dd>,
     };
 
@@ -178,11 +192,17 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          paddingRight: "24px",
           color: "rgba(0,0,0,0.9)",
-          marginBottom: "16px",
         },
         wrapper
+      );
+
+      assertStyleMatch(
+        {
+          paddingRight: "24px",
+          marginBottom: "16px",
+        },
+        wrapper.find(StyledDt)
       );
     });
 
@@ -264,6 +284,43 @@ describe("DefinitionList", () => {
 
     it("should contain dd", () => {
       expect(wrapper.find(StyledDdDiv).props().children.length).toEqual(1);
+    });
+  });
+
+  describe("asSingleColumn", () => {
+    it("applies the expected styling to Dl", () => {
+      wrapper = renderWrapper("Dl", { asSingleColumn: true });
+
+      assertStyleMatch(
+        {
+          lineHeight: "21px",
+        },
+        wrapper.find(StyledDl)
+      );
+    });
+
+    it("applies the expected styling to Dt", () => {
+      wrapper = renderWrapper("Dt", { asSingleColumn: true });
+
+      assertStyleMatch(
+        {
+          marginBottom: undefined,
+          paddingRight: undefined,
+        },
+        wrapper.find(StyledDt)
+      );
+    });
+
+    it("applies the expected spacing when mb and pr props are passed to Dt", () => {
+      wrapper = renderWrapper("Dt", { asSingleColumn: true, mb: 3, pr: 5 });
+
+      assertStyleMatch(
+        {
+          marginBottom: "24px",
+          paddingRight: "40px",
+        },
+        wrapper.find(StyledDt)
+      );
     });
   });
 });

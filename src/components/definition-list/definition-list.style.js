@@ -6,12 +6,23 @@ import { StyledLink } from "../link/link.style";
 
 export const StyledDl = styled.dl`
   ${space}
-  display: grid;
-  height: auto;
+
+  ${({ asSingleColumn }) => css`
+    ${!asSingleColumn &&
+    css`
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: ${({ w }) => `${w}% auto;`};
+    `}
+    ${asSingleColumn &&
+    css`
+      line-height: 21px;
+    `}
+  `}
+
   width: 100%;
+  height: auto;
   background-color: transparent;
-  grid-template-rows: auto;
-  grid-template-columns: ${({ w }) => `${w}% auto;`};
 `;
 
 export const StyledDtDiv = styled.div`

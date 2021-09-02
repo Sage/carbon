@@ -1,5 +1,6 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
+
 export interface DlProps extends SpaceProps {
   /** This string will specify the text align styling of the `<dt></dt>`. */
   dtTextAlign?: "left" | "center" | "right";
@@ -9,6 +10,8 @@ export interface DlProps extends SpaceProps {
   w?: number;
   /** prop to render children. */
   children: React.ReactNode;
+  /** Render the DefinitionList as a single column */
+  asSingleColumn?: boolean;
 }
 
 declare function DlComponent(props: DlProps): JSX.Element;
