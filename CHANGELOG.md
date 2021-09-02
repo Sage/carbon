@@ -1,3 +1,10 @@
+### [84.0.1](https://github.com/Sage/carbon/compare/v84.0.0...v84.0.1) (2021-09-02)
+
+
+### Bug Fixes
+
+* **tile:** address spelling mistake with horizontal in the options for orientation prop ([e03b41a](https://github.com/Sage/carbon/commit/e03b41ad9a49592ce56515fbc32b1fe51938aa57))
+
 ## [84.0.0](https://github.com/Sage/carbon/compare/v83.2.0...v84.0.0) (2021-09-02)
 
 
