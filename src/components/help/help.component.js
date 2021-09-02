@@ -73,9 +73,8 @@ const Help = ({
       onMouseLeave={handleFocusBlur(false)}
       {...tagComponent("help", rest)}
       tabIndex={tabIndex}
-      value={children}
-      aria-label={children}
       {...filterStyledSystemMarginProps(rest)}
+      {...rest}
     >
       <Icon
         type={type}
@@ -95,7 +94,7 @@ Help.propTypes = {
   /** [Legacy] A custom class name for the component. */
   className: PropTypes.string,
   /** Message to display in tooltip */
-  children: PropTypes.string,
+  children: PropTypes.node,
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */

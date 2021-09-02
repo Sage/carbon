@@ -50,13 +50,22 @@ import Icon from "carbon-react/lib/components/icon";
 
 ### With tooltip
 
-The Icon supports rendering tooltips internally, just pass a string to `tooltipMessage` to enable this feature. Other props,
+The Icon supports rendering tooltips internally, just pass a node to `tooltipMessage` to enable this feature. Other props,
 such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Preview>
   <Story name="with tooltip">
     <div style={{ margin: 60, display: "inline" }}>
       <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage={
+          <>
+            Hey I'm a <em>custom</em> tooltip!
+          </>
+        }
+      />
       <Icon
         mr={8}
         type="add"

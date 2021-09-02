@@ -169,8 +169,8 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
-  /** The message string to be displayed in the tooltip */
-  tooltipMessage: PropTypes.string,
+  /** The message to be displayed within the tooltip */
+  tooltipMessage: PropTypes.node,
   /** The position to display the tooltip */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   /** Control whether the tooltip is visible */
