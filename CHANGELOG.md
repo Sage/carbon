@@ -1,3 +1,10 @@
+### [84.0.2](https://github.com/Sage/carbon/compare/v84.0.1...v84.0.2) (2021-09-03)
+
+
+### Bug Fixes
+
+* **sidebar:** add a type of children in interface, update the position and the size prop types ([56e6841](https://github.com/Sage/carbon/commit/56e6841828d013586f49d7f7022e496a68e58b14))
+
 ### [84.0.1](https://github.com/Sage/carbon/compare/v84.0.0...v84.0.1) (2021-09-02)
 
 
