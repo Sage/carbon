@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { StyledComponentHeader } from '../components-demo/component-heading/component-heading.style'; 
-import Link from '../../../src/components/link/link.style';
+import styled from "styled-components";
+import { StyledComponentHeader } from "../components-demo/component-heading/component-heading.style";
+import { StyledLink } from "../../../src/components/link/link.style";
 
 export const Wrapper = styled.div`
   margin: 0 auto;
@@ -11,10 +11,10 @@ export const Wrapper = styled.div`
 `;
 
 export const LovesCarbonWrapper = styled.div`
-  background-color: #E6EBED;
+  background-color: #e6ebed;
   width: 100%;
 
-  && ${Link} a {
+  && ${StyledLink} a {
     font-size: 18px;
     font-weight: bold;
   }
@@ -33,4 +33,3 @@ export const Image = styled.img`
     width: 50%;
   }
 `;
-

@@ -8,7 +8,12 @@ export type BgSize =
   | "large"
   | "extra-large";
 export type TooltipPositions = "top" | "bottom" | "left" | "right";
-export type FontSize = "extra-small" | "small" | "medium" | "large" | "extra-large";
+export type FontSize =
+  | "extra-small"
+  | "small"
+  | "medium"
+  | "large"
+  | "extra-large";
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 export type BackgroundTheme =
   | "info"
@@ -230,8 +235,8 @@ export interface IconProps extends MarginProps {
   disabled?: boolean;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
-  /** The message string to be displayed in the tooltip */
-  tooltipMessage?: string;
+  /** The message to be displayed within the tooltip */
+  tooltipMessage?: React.ReactNode;
   /** The position to display the tooltip */
   tooltipPosition?: TooltipPositions;
   /** Control whether the tooltip is visible */
