@@ -29,31 +29,42 @@ import baseTheme from "../../style/themes/base";
 const NEXT = "next";
 const PREVIOUS = "previous";
 
-const BaseCarousel = (props) => {
+const BaseCarousel = ({
+  children,
+  className,
+  enableSlideSelector = true,
+  enablePreviousButton = true,
+  enableNextButton = true,
+  initialSlideIndex = 0,
+  onSlideChange,
+  slideIndex,
+  theme = baseTheme,
+  ...props
+}) => {
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(
-    Number(props.slideIndex) || Number(props.initialSlideIndex)
+    Number(slideIndex) || Number(initialSlideIndex)
   );
   const transitionDirection = useRef(NEXT);
   const lastSlideIndexProp = useRef(props.slideIndex);
   const id = guid();
 
   const numOfSlides = useMemo(() => {
-    return Array.isArray(props.children) ? compact(props.children).length : 1;
-  }, [props.children]);
+    return Array.isArray(children) ? compact(children).length : 1;
+  }, [children]);
 
   const handleSlideChange = useCallback(
     (newIndex) => {
       setSelectedSlideIndex(newIndex);
 
-      if (props.onSlideChange) {
-        props.onSlideChange(newIndex, transitionDirection.current);
+      if (onSlideChange) {
+        onSlideChange(newIndex, transitionDirection.current);
       }
     },
-    [props.onSlideChange]
+    [onSlideChange]
   );
 
   useEffect(() => {
-    const newIndex = props.slideIndex;
+    const newIndex = slideIndex;
     const isNewIndexUndefined = typeof newIndex === "undefined";
     const isTheSameIndex =
       newIndex === lastSlideIndexProp.current ||
@@ -69,7 +80,7 @@ const BaseCarousel = (props) => {
 
     lastSlideIndexProp.current = newIndex;
     handleSlideChange(newIndex);
-  }, [handleSlideChange, props.slideIndex, selectedSlideIndex]);
+  }, [handleSlideChange, slideIndex, selectedSlideIndex]);
 
   function onPreviousClick() {
     const newIndex = selectedSlideIndex - 1;
@@ -91,12 +102,12 @@ const BaseCarousel = (props) => {
   }
 
   function visibleSlides() {
-    const arrayWithKeys = React.Children.map(props.children, (element, key) => {
+    const arrayWithKeys = React.Children.map(children, (element, key) => {
       return React.cloneElement(element, {
         key: `slide-${guid()}`,
         id: key,
         selectedIndex: selectedSlideIndex,
-        theme: props.theme,
+        theme,
         ...element.props,
       });
     });
@@ -105,7 +116,7 @@ const BaseCarousel = (props) => {
   }
 
   function slideSelector() {
-    if (!props.enableSlideSelector) return null;
+    if (!enableSlideSelector) return null;
 
     const buttons = [];
 
@@ -140,7 +151,7 @@ const BaseCarousel = (props) => {
   }
 
   function previousButton() {
-    if (!props.enablePreviousButton) return null;
+    if (!enablePreviousButton) return null;
     const isDisabled = selectedSlideIndex === 0;
 
     return (
@@ -158,7 +169,7 @@ const BaseCarousel = (props) => {
   }
 
   function nextButton() {
-    if (!props.enableNextButton) return null;
+    if (!enableNextButton) return null;
     const isDisabled = numOfSlides === selectedSlideIndex + 1;
 
     return (
@@ -177,7 +188,7 @@ const BaseCarousel = (props) => {
   }
   return (
     <CarouselWrapperStyle
-      className={props.className}
+      className={className}
       {...tagComponent("carousel", props)}
     >
       <div className="carbon-carousel__content">
@@ -211,14 +222,6 @@ BaseCarousel.propTypes = {
   onSlideChange: PropTypes.func,
   /** theme is used only to support legacy code */
   theme: PropTypes.object,
-};
-
-BaseCarousel.defaultProps = {
-  initialSlideIndex: 0,
-  enableSlideSelector: true,
-  enablePreviousButton: true,
-  enableNextButton: true,
-  theme: baseTheme,
 };
 
 const Carousel = withTheme(BaseCarousel);
