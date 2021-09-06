@@ -4,6 +4,7 @@ import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
 import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
+import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 
 const StyledTitle = styled.h3`
@@ -11,6 +12,7 @@ const StyledTitle = styled.h3`
   font-weight: 900;
   margin: 0;
   margin-right: 16px;
+  margin-bottom: 8px;
 `;
 
 const StyledSubtitle = styled.h4`
@@ -18,14 +20,12 @@ const StyledSubtitle = styled.h4`
   font-weight: 700;
   margin: 0;
   margin-right: 16px;
+  margin-bottom: 8px;
 `;
 
 const StyledAdornment = styled.div`
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 500;
+  margin-bottom: 8px;
 `;
 
 const StyledDescription = styled.p`
@@ -114,24 +114,30 @@ const StyledTileSelectInput = styled(Input)`
 
 const StyledTitleContainer = styled.div`
   display: inline-flex;
-  align-items: flex-end;
-  margin-bottom: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-right: 16px;
   position: relative;
 `;
 
 const StyledDeselectWrapper = styled.div`
   ${({ hasActionAdornment, theme }) => css`
-    position: absolute;
-    top: ${2 * theme.spacing}px;
-    right: ${theme.spacing}px;
     z-index: 200;
+    position: relative;
+    top: -4px;
+    right: 8px;
+    height: fit-content;
 
     ${hasActionAdornment &&
     `
       margin-right: ${2 * theme.spacing}px;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       min-height: ${4 * theme.spacing}px;
+
+      ${StyledIcon} {
+        top: 2px;
+      }
     `}
   `}
 `;

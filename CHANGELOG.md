@@ -1,3 +1,29 @@
+## [84.1.0](https://github.com/Sage/carbon/compare/v84.0.2...v84.1.0) (2021-09-03)
+
+
+### Features
+
+* **tile-select:** add support for rendering prefixAdornment ([16afad0](https://github.com/Sage/carbon/commit/16afad0dca0f2dd7a1b914082ad80e42f3683082))
+
+
+### Bug Fixes
+
+* **tile-select:** ensure title, subtitle and adornment wrap at smaller screen resolution ([c3af2cb](https://github.com/Sage/carbon/commit/c3af2cbdad4649b4a93171c1928af7b2e95e8f9d)), closes [#4219](https://github.com/Sage/carbon/issues/4219)
+
+### [84.0.2](https://github.com/Sage/carbon/compare/v84.0.1...v84.0.2) (2021-09-03)
+
+
+### Bug Fixes
+
+* **sidebar:** add a type of children in interface, update the position and the size prop types ([56e6841](https://github.com/Sage/carbon/commit/56e6841828d013586f49d7f7022e496a68e58b14))
+
+### [84.0.1](https://github.com/Sage/carbon/compare/v84.0.0...v84.0.1) (2021-09-02)
+
+
+### Bug Fixes
+
+* **tile:** address spelling mistake with horizontal in the options for orientation prop ([e03b41a](https://github.com/Sage/carbon/commit/e03b41ad9a49592ce56515fbc32b1fe51938aa57))
+
 ## [84.0.0](https://github.com/Sage/carbon/compare/v83.2.0...v84.0.0) (2021-09-02)
 
 
