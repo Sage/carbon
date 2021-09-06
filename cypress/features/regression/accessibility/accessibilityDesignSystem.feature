@@ -123,6 +123,7 @@ Feature: Accessibility tests - Design System folder
       | Flat Table            |
       | Hr                    |
       | Image                 |
+      | Loader Bar            |
       | Loader                |
       | Pager                 |
       | Simple color picker   |

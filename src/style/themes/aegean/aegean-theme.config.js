@@ -15,6 +15,7 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
       hoveredTabKeyline: palette.productBlueTint(30),
       disabled: palette.productBlueTint(40),
+      loadingBarBackground: palette.productBlueTint(70),
     },
 
     stepSequence: {

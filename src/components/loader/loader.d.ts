@@ -2,7 +2,7 @@ import { MarginProps } from "styled-system";
 
 export interface LoaderProps extends MarginProps {
   /** Size of the loader. */
-  size?: "small" | "large";
+  size?: "small" | "medium" | "large";
   /** Applies white color. */
   isInsideButton?: boolean;
   /** Applies slate color. Available only when isInsideButton is true. */
