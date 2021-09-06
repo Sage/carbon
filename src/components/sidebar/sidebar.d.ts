@@ -4,6 +4,8 @@ export interface SidebarContextProps {
   isInSidebar: boolean;
 }
 export interface SidebarProps {
+  /** Modal content */
+  children?: React.ReactNode;
   /** Determines if the Esc Key closes the modal */
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
@@ -15,9 +17,16 @@ export interface SidebarProps {
   /** Sets the open state of the modal */
   open: boolean;
   /** Sets the position of sidebar, either left or right. */
-  position?: string;
+  position?: "left" | "right";
   /** Sets the size of the sidebar when open. */
-  size?: string;
+  size?:
+    | "extra-small"
+    | "small"
+    | "medium-small"
+    | "medium"
+    | "medium-large"
+    | "large"
+    | "extra-large";
 }
 
 declare const SidebarContext: React.Context<SidebarContextProps>;
