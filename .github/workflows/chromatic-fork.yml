@@ -1,0 +1,29 @@
+name: Forked PR
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: 'Pull Request Number'
+        required: true
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'refs/pull/${{ github.event.inputs.number }}/head'
+        fetch-depth: 0
+    - uses: octokit/request-action@v2.x
+      id: get_branch_name
+      with:
+        route: GET /repos/{owner}/{repo}/pulls/{pull_number}
+        owner: ${{ github.event.repository.owner.login }}
+        repo: ${{ github.event.repository.name }}
+        pull_number: ${{ github.event.inputs.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '>=14.16.0 14'
+    - run: npm ci
+    - run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ fromJson(steps.get_branch_name.outputs.data).head.label }}"
