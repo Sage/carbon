@@ -21,6 +21,7 @@ import StyledFormField from "../../__internal__/form-field/form-field.style";
 import {
   StyledFormSummary,
   StyledInternalSummary,
+  StyledMessagePrefix,
 } from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
@@ -447,7 +448,8 @@ describe("Form", () => {
         wrapper.setProps({ errorCount: 1 });
         const errorSummary = wrapper.find('[data-element="errors"]');
         expect(errorSummary.find(Icon).props().type).toBe("error");
-        expect(errorSummary.find("span").at(1).text()).toBe("There is 1 error");
+        expect(wrapper.find(StyledMessagePrefix).text()).toBe("There is");
+        expect(errorSummary.find("span").at(1).text()).toBe("1 error");
 
         assertStyleMatch(
           {
@@ -463,9 +465,8 @@ describe("Form", () => {
         wrapper.setProps({ warningCount: 1 });
         const warningSummary = wrapper.find('[data-element="warnings"]');
         expect(warningSummary.find(Icon).props().type).toBe("warning");
-        expect(warningSummary.find("span").at(1).text()).toBe(
-          "There is 1 warning"
-        );
+        expect(wrapper.find(StyledMessagePrefix).text()).toBe("There is");
+        expect(warningSummary.find("span").at(1).text()).toBe("1 warning");
 
         assertStyleMatch(
           {
@@ -506,24 +507,38 @@ describe("Form", () => {
 
     describe("when either errorCount or warningCount or both are set on Form", () => {
       it.each([
-        [1, 0, "There is 1 error", null],
-        [2, 0, "There are 2 errors", null],
-        [0, 1, null, "There is 1 warning"],
-        [0, 2, null, "There are 2 warnings"],
-        [1, 1, "There is 1 error", "and 1 warning"],
-        [2, 1, "There are 2 errors", "and 1 warning"],
-        [2, 2, "There are 2 errors", "and 2 warnings"],
+        [1, 0, "There is", "1 error", null, null],
+        [2, 0, "There are", "2 errors", null, null],
+        [0, 1, null, null, "There is", "1 warning"],
+        [0, 2, null, null, "There are", "2 warnings"],
+        [1, 1, "There are", "1 error", "and", "1 warning"],
+        [2, 1, "There are", "2 errors", "and", "1 warning"],
+        [2, 2, "There are", "2 errors", "and", "2 warnings"],
       ])(
         "properly pluralized translation of error and warning messages is rendered",
-        (errorCount, warningCount, errMessage, warnMessage) => {
+        (
+          errorCount,
+          warningCount,
+          errPrefix,
+          errMessage,
+          warnPrefix,
+          warnMessage
+          // eslint-disable-next-line max-params
+        ) => {
           wrapper.setProps({ errorCount, warningCount });
           const warningPosition = errorCount ? 1 : 0;
           if (errorCount) {
+            expect(wrapper.find(StyledMessagePrefix).at(0).text()).toBe(
+              errPrefix
+            );
             expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
               errMessage
             );
           }
           if (warningCount) {
+            expect(
+              wrapper.find(StyledMessagePrefix).at(warningPosition).text()
+            ).toBe(warnPrefix);
             expect(
               wrapper.find(StyledInternalSummary).at(warningPosition).text()
             ).toBe(warnMessage);

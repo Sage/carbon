@@ -24,10 +24,20 @@ export const StyledFormSummary = styled.div`
   }
 `;
 
+export const StyledMessagePrefix = styled.div`
+  &:first-of-type {
+    margin-left: 4px;
+  }
+  margin-right: 4px;
+`;
+
 export const StyledInternalSummary = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 16px;
+  margin-right: 8px;
+  &:last-of-type {
+    margin-right: 16px;
+  }
   ${({ type, theme }) =>
     type === "warnings" &&
     css`
@@ -38,10 +48,6 @@ export const StyledInternalSummary = styled.div`
     css`
       color: ${theme.colors.error};
     `}
-
-  &:first-of-type {
-    margin-left: 4px;
-  }
 
   ${StyledIcon} {
     margin-right: 4px;
