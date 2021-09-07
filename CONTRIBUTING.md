@@ -134,8 +134,12 @@ Your branch should meet the following criteria:
 #### GitHub Checks
 
 Our GitHub checks don't run on a forked PR because the Chromatic and Cypress Dashboard require credentials. When you submit a PR a project maintainer will review your code.
+##### Cypress
 If there are no changes that could expose our credentials they will use [`git-push-fork-to-upstream-branch`](https://github.com/jklukas/git-push-fork-to-upstream-branch) to
 copy your branch into our repo. Doing this will trigger a `push` build and your PR checks will be updated. This is documented on the [Circle CI blog](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/).
+
+##### Chromatic
+If there are no changes that could expose our credentials they will start the `Forked PR` GitHub action. This will create a new chromatic build then update the PR checks.
 
 #### Preventing unnecessary builds
 
