@@ -54,7 +54,6 @@ describe("Button", () => {
   describe("when iconType specified with no children", () => {
     it("icon matches the style for an icon only button", () => {
       const wrapper = mount(<Button iconType="bin" />);
-
       assertStyleMatch(
         {
           marginBottom: "1px",
