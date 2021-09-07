@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Decimal from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
@@ -470,3 +471,19 @@ It is possible to use the `tooltipPosition` to override the default placement of
 Due to the `Textbox` component being used internally by the `Decimal` component, most of the `Textbox` props are appliable to `Decimal`
 
 <Props of={OriginalTextbox} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "locale",
+      description: "The locale code to display the correct format",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
