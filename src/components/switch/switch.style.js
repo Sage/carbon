@@ -42,7 +42,7 @@ const StyledSwitch = styled.div`
 
       &:hover + ${StyledSwitchSlider} {
         background-color: ${checked
-          ? theme.colors.secondary
+          ? theme.switch.onHover
           : theme.switch.offHover};
       }
     }
