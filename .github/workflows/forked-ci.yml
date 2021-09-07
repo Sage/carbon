@@ -45,6 +45,7 @@ jobs:
       - run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}"
 
   cypress:
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
