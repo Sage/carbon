@@ -34,6 +34,8 @@ export interface TileSelectProps extends MarginProps {
   actionButtonAdornment?: React.ReactNode;
   /** footer of the TileSelect */
   footer?: React.ReactNode;
+  /** Component to render in the top left corner of TileSelect */
+  prefixAdornment?: React.ReactNode;
 }
 
 declare function TileSelect(props: TileSelectProps): JSX.Element;
