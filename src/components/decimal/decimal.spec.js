@@ -1369,7 +1369,7 @@ describe("Decimal", () => {
             locale: () => "en-GB",
           },
         });
-        wrapper.find('input[data-element="input"]').simulate("blur");
+        blur();
         expect(value()).toBe("0.00");
       });
     });
