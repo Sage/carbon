@@ -11,6 +11,7 @@ import {
   StyledPagerLinkStyles,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
+  StyledSelect,
 } from "./pager.style";
 import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
@@ -161,6 +162,14 @@ describe("Pager", () => {
       const last = navLinks.last();
       last.simulate("click");
       expect(onLast).toHaveBeenCalledTimes(1);
+    });
+
+    it("updates value when pageSize prop is changed", () => {
+      wrapper = getWrapper();
+      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+      wrapper.setProps({ pageSize: 25 });
+      wrapper.update();
+      expect(wrapper.find(StyledSelect).prop("value")).toBe("25");
     });
   });
 

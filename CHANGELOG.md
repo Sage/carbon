@@ -1,3 +1,10 @@
+### [84.2.1](https://github.com/Sage/carbon/compare/v84.2.0...v84.2.1) (2021-09-08)
+
+
+### Bug Fixes
+
+* **pager:** update show select value when page size prop is changed ([41e4a5e](https://github.com/Sage/carbon/commit/41e4a5e5e6f8622d3ca09f5037907242c6d0bc50))
+
 ## [84.2.0](https://github.com/Sage/carbon/compare/v84.1.0...v84.2.0) (2021-09-07)
 
 
