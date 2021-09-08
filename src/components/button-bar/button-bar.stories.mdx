@@ -1,0 +1,148 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import ButtonBar from ".";
+import Button from "../button";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import IconButton from "../icon-button/icon-button.component";
+import Icon from "../icon";
+import {
+  BUTTON_BAR_SIZES,
+  BUTTON_BAR_ICON_POSITIONS,
+} from "./button-bar.config";
+
+<Meta
+  title="Design System/Button Bar"
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+/>
+
+# Button Bar
+
+A Button bar groups together multiple buttons.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
+
+```javascript
+import ButtonBar from "carbon-react/lib/components/button-bar";
+```
+
+## Examples
+
+Button bars of different sizes.
+
+<Preview>
+  <Story name="sizes">
+    <ButtonBar size="small" ml={2} mt={2}>
+      <Button>Small</Button>
+      <Button>Small</Button>
+      <Button>Small</Button>
+    </ButtonBar>
+    <ButtonBar ml={2} mt={2}>
+      <Button>Medium</Button>
+      <Button>Medium</Button>
+      <Button>Medium</Button>
+    </ButtonBar>
+    <ButtonBar size="large" ml={2} mt={2}>
+      <Button>Large</Button>
+      <Button>Large</Button>
+      <Button>Large</Button>
+    </ButtonBar>
+    <ButtonBar size="large" ml={2} mt={2}>
+      <Button subtext="subtext 1">Large</Button>
+      <Button subtext="subtext 2">Large</Button>
+      <Button subtext="subtext 3">Large</Button>
+    </ButtonBar>
+  </Story>
+</Preview>
+
+Button bars with different icon positions.
+
+<Preview>
+  <Story name="with icons">
+    {BUTTON_BAR_ICON_POSITIONS.map((iconPosition) =>
+      BUTTON_BAR_SIZES.map((size) => (
+        <ButtonBar
+          iconPosition={iconPosition}
+          size={size}
+          key={size + iconPosition}
+          ml={2}
+          mt={2}
+        >
+          <Button iconType="csv">{iconPosition}</Button>
+          <Button iconType="pdf">{iconPosition}</Button>
+          <Button iconType="delete">{iconPosition}</Button>
+        </ButtonBar>
+      ))
+    )}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="icons only">
+    {BUTTON_BAR_SIZES.map((size) => (
+      <ButtonBar size={size} key={size} ml={2} mt={2}>
+        <Button iconType="pdf" />
+        <Button iconType="csv" />
+        <Button iconType="delete" />
+      </ButtonBar>
+    ))}
+  </Story>
+</Preview>
+
+`IconButton` components on a button bar.
+
+<Preview>
+  <Story name="icon buttons">
+    <ButtonBar ml={2} mt={2}>
+      <IconButton onAction={() => {}}>
+        <Icon type="csv" />
+      </IconButton>
+      <IconButton onAction={() => {}}>
+        <Icon type="pdf" />
+      </IconButton>
+      <IconButton onAction={() => {}}>
+        <Icon type="bin" />
+      </IconButton>
+    </ButtonBar>
+  </Story>
+</Preview>
+
+Button bars can be `fullWidth`.
+
+<Preview>
+  <Story name="fullWidth">
+    <ButtonBar fullWidth size="small" ml={2} mt={2}>
+      <Button fullWidth>Small full width</Button>
+      <Button>Small full width</Button>
+      <Button>Small full width</Button>
+    </ButtonBar>
+    <ButtonBar fullWidth ml={2} mt={2}>
+      <Button as="primary">Medium full width</Button>
+      <Button>Medium full width</Button>
+      <Button>Medium full width</Button>
+    </ButtonBar>
+    <ButtonBar fullWidth size="large" ml={2} mt={2}>
+      <Button>Large full width</Button>
+      <Button>Large full width</Button>
+      <Button>Large full width</Button>
+    </ButtonBar>
+  </Story>
+</Preview>
+
+## Props
+
+Options shared between all of the above types of button bars. When setting padding we recommend using either the `p`, `py`
+or `px` props to ensure the spacing within the button bar is applied evenly.
+
+### Button Bar
+
+<StyledSystemProps
+  of={ButtonBar}
+  spacing
+  defaults={{ pt: "1px", pb: "1px", px: "24px" }}
+  noHeader
+/>

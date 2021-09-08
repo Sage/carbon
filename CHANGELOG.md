@@ -1,3 +1,10 @@
+## [84.2.0](https://github.com/Sage/carbon/compare/v84.1.0...v84.2.0) (2021-09-07)
+
+
+### Features
+
+* **button-bar:** create button-bar component ([cf7aa18](https://github.com/Sage/carbon/commit/cf7aa18fff616fe1a7adc77dfc8b6ad29f2e4de6))
+
 ## [84.1.0](https://github.com/Sage/carbon/compare/v84.0.2...v84.1.0) (2021-09-03)
 
 
