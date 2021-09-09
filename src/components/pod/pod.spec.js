@@ -118,28 +118,32 @@ describe("Pod", () => {
       expect(onDelete).not.toHaveBeenCalled();
     });
 
-    it("toggles the hover state when moving the mouse into the action button", () => {
-      wrapper.setProps({ onDelete: () => {} });
-      wrapper.find(StyledDeleteButton).props().onMouseEnter();
-      expect(wrapper.state().isDeleteHovered).toBe(true);
-    });
+    describe.each([
+      [
+        "mouse is hovered over the element",
+        "mouseenter",
+        "mouseleave",
+        "isHovered",
+      ],
+      ["the element is focused", "focus", "blur", "isFocused"],
+    ])("and %s", (description, eventType, nextEventType, propName) => {
+      beforeEach(() => {
+        wrapper.setProps({ onDelete: jest.fn() });
+      });
 
-    it("toggles the hover state when moving the mouse out of the action button", () => {
-      wrapper.setProps({ onDelete: () => {} });
-      wrapper.find(StyledDeleteButton).props().onMouseLeave();
-      expect(wrapper.state().isDeleteHovered).toBe(false);
-    });
+      it(`then the element should have the ${propName} prop set to true`, () => {
+        wrapper.find(StyledDeleteButton).simulate(eventType);
+        expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(true);
+      });
 
-    it("toggles the focus state when focusing on the action button", () => {
-      wrapper.setProps({ onDelete: () => {} });
-      wrapper.find(StyledDeleteButton).props().onFocus();
-      expect(wrapper.state().isDeleteFocused).toBe(true);
-    });
-
-    it("toggles the focus state when bluring the action button", () => {
-      wrapper.setProps({ onDelete: () => {} });
-      wrapper.find(StyledDeleteButton).props().onBlur();
-      expect(wrapper.state().isDeleteFocused).toBe(false);
+      describe(`and then ${nextEventType} is triggered`, () => {
+        it(`then the element should have the ${propName} prop set to false`, () => {
+          wrapper.find(StyledDeleteButton).simulate(eventType);
+          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(true);
+          wrapper.find(StyledDeleteButton).simulate(nextEventType);
+          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(false);
+        });
+      });
     });
   });
 
@@ -177,28 +181,35 @@ describe("Pod", () => {
       expect(onUndo).not.toHaveBeenCalled();
     });
 
-    it("toggles the hover state when moving the mouse into the action button", () => {
-      wrapper.setProps({ onUndo: () => {}, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onMouseEnter();
-      expect(wrapper.state().isUndoHovered).toBe(true);
-    });
+    describe.each([
+      [
+        "mouse is hovered over the element",
+        "mouseenter",
+        "mouseleave",
+        "isHovered",
+      ],
+      ["the element is focused", "focus", "blur", "isFocused"],
+    ])("and %s", (description, eventType, nextEventType, propName) => {
+      beforeEach(() => {
+        wrapper.setProps({
+          onUndo: jest.fn(),
+          softDelete: true,
+        });
+      });
 
-    it("toggles the hover state when moving the mouse out of the action button", () => {
-      wrapper.setProps({ onUndo: () => {}, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onMouseLeave();
-      expect(wrapper.state().isUndoHovered).toBe(false);
-    });
+      it(`then the element should have the ${propName} prop set to true`, () => {
+        wrapper.find(StyledUndoButton).simulate(eventType);
+        expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(true);
+      });
 
-    it("toggles the focus state when focusing on the action button", () => {
-      wrapper.setProps({ onUndo: () => {}, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onFocus();
-      expect(wrapper.state().isUndoFocused).toBe(true);
-    });
-
-    it("toggles the focus state when bluring the action button", () => {
-      wrapper.setProps({ onUndo: () => {}, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onBlur();
-      expect(wrapper.state().isUndoFocused).toBe(false);
+      describe(`and then ${nextEventType} is triggered`, () => {
+        it(`then the element should have the ${propName} prop set to false`, () => {
+          wrapper.find(StyledUndoButton).simulate(eventType);
+          expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(true);
+          wrapper.find(StyledUndoButton).simulate(nextEventType);
+          expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(false);
+        });
+      });
     });
   });
 
@@ -249,30 +260,6 @@ describe("Pod", () => {
       wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
       expect(onEdit).not.toHaveBeenCalled();
     });
-
-    it("toggles the hover state when moving the mouse into the action button", () => {
-      wrapper.setProps({ onEdit: () => {} });
-      wrapper.find('[data-element="edit-container"]').props().onMouseEnter();
-      expect(wrapper.state().isEditHovered).toBe(true);
-    });
-
-    it("toggles the hover state when moving the mouse out of the action button", () => {
-      wrapper.setProps({ onEdit: () => {} });
-      wrapper.find('[data-element="edit-container"]').props().onMouseLeave();
-      expect(wrapper.state().isEditHovered).toBe(false);
-    });
-
-    it("toggles the focus state when focusing on the action button", () => {
-      wrapper.setProps({ onEdit: () => {} });
-      wrapper.find('[data-element="edit-container"]').props().onFocus();
-      expect(wrapper.state().isEditFocused).toBe(true);
-    });
-
-    it("toggles the focus state when bluring the action button", () => {
-      wrapper.setProps({ onEdit: () => {} });
-      wrapper.find('[data-element="edit-container"]').props().onBlur();
-      expect(wrapper.state().isEditFocused).toBe(false);
-    });
   });
 
   describe("podContent", () => {
@@ -284,44 +271,46 @@ describe("Pod", () => {
       ])(
         "and triggerEditOnContent prop = %s displayEditButtonOnHover = %s",
         (displayEditButtonOnHover, triggerEditOnContent) => {
-          it("toggles the hover state when moving the mouse in to the pod", () => {
-            wrapper.setProps({
-              displayEditButtonOnHover,
-              triggerEditOnContent,
-              onEdit: () => {},
-            });
-            wrapper.find(StyledBlock).props().onMouseEnter();
-            expect(wrapper.state().isEditHovered).toBe(true);
-          });
+          describe.each([
+            [
+              "mouse is hovered over the element and then hovered out",
+              "mouseenter",
+              "mouseleave",
+            ],
+            ["the element is focused and then blurred", "focus", "blur"],
+          ])("and %s", (description, eventType, nextEventType) => {
+            const onEdit = jest.fn();
+            let editContainer;
 
-          it("toggles the hover state when moving the mouse out of the pod", () => {
-            wrapper.setProps({
-              displayEditButtonOnHover,
-              triggerEditOnContent,
-              onEdit: () => {},
+            beforeEach(() => {
+              wrapper.setProps({
+                displayEditButtonOnHover,
+                triggerEditOnContent,
+                onEdit,
+                variant: "tertiary",
+              });
+              editContainer = wrapper.find('[data-element="edit-container"]');
             });
-            wrapper.find(StyledBlock).props().onMouseLeave();
-            expect(wrapper.state().isEditHovered).toBe(false);
-          });
 
-          it("toggles the focus state when focusing on the pod", () => {
-            wrapper.setProps({
-              displayEditButtonOnHover,
-              triggerEditOnContent,
-              onEdit: () => {},
+            it(`then the content should have proper background on ${eventType}`, () => {
+              editContainer.simulate(eventType);
+              assertStyleMatch(
+                {
+                  backgroundColor: baseTheme.colors.secondary,
+                },
+                wrapper.find(StyledBlock)
+              );
             });
-            wrapper.find(StyledBlock).props().onFocus();
-            expect(wrapper.state().isEditFocused).toBe(true);
-          });
 
-          it("toggles the focus state when bluring on the pod", () => {
-            wrapper.setProps({
-              displayEditButtonOnHover,
-              triggerEditOnContent,
-              onEdit: () => {},
+            it(`then the content should have proper background on ${nextEventType}`, () => {
+              editContainer.simulate(nextEventType);
+              assertStyleMatch(
+                {
+                  backgroundColor: baseTheme.pod.tertiaryBackground,
+                },
+                wrapper.find(StyledBlock)
+              );
             });
-            wrapper.find(StyledBlock).props().onBlur();
-            expect(wrapper.state().isEditFocused).toBe(false);
           });
 
           describe("and onEdit prop is a function", () => {
