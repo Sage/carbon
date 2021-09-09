@@ -31,6 +31,7 @@ import {
 import { StyledPicklist } from "./picklist/picklist.style";
 import { areEqual } from "./picklist/picklist.component";
 import StyledPicklistDivider from "./picklist-divider/picklist-divider.style";
+import { DraggableContainer, DraggableItem } from "../draggable";
 
 const EmptyComponent = () => <div />;
 
@@ -860,7 +861,19 @@ describe("DuellingPicklist", () => {
   });
 
   describe("children", () => {
-    it("should throw an error if there are not two Picklist components", () => {
+    it("should not throw an error if there are one Picklist and one DraggableContainer selected", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      mount(
+        <DuellingPicklist>
+          <Picklist placeholder="placeholder" />
+          <DraggableContainer />
+        </DuellingPicklist>
+      );
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toBeCalled();
+      global.console.error.mockReset();
+    });
+    it("should throw an error if there are invalid components components", () => {
       jest.spyOn(global.console, "error").mockImplementation(() => {});
       mount(
         <DuellingPicklist>
@@ -869,8 +882,38 @@ describe("DuellingPicklist", () => {
       );
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: `children` must have two `Picklist`s\n    in DuellingPicklist"
+        `Warning: Failed prop type: \`children\` must have two \`Picklist\`s or one Picklist and one DraggableContainer
+    in DuellingPicklist`
       );
+      global.console.error.mockReset();
+    });
+    it("should not throw an error if there are one Picklist and one DraggableContainer selected", () => {
+      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      mount(
+        <DuellingPicklist>
+          <Picklist placeholder="placeholder" />
+          <Picklist
+            as="div"
+            placeholder={<PicklistPlaceholder text="Nothing to see here" />}
+          >
+            <DraggableContainer as="ul" getOrder={() => {}}>
+              <DraggableItem key="draggable-key" id="draggable-id">
+                <PicklistItem
+                  key="item-key"
+                  type="remove"
+                  onChange={jest.fn()}
+                  item="item"
+                  as="div"
+                >
+                  <div>Child</div>
+                </PicklistItem>
+              </DraggableItem>
+            </DraggableContainer>
+          </Picklist>
+        </DuellingPicklist>
+      );
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toBeCalled();
       global.console.error.mockReset();
     });
   });

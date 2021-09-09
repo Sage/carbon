@@ -25,7 +25,7 @@ const DropTarget = ({ children, getOrder, ...rest }) => {
   );
 };
 
-const DraggableContainer = ({ children, getOrder, ...rest }) => {
+const DraggableContainer = ({ children, getOrder, as, ...rest }) => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children)
   );
@@ -75,12 +75,13 @@ const DraggableContainer = ({ children, getOrder, ...rest }) => {
 
   return (
     <DndProvider backend={Backend}>
-      <DropTarget getOrder={getItemsId} {...marginProps}>
+      <DropTarget as={as} getOrder={getItemsId} {...marginProps}>
         {draggableItems.map((item) =>
           React.cloneElement(
             item,
             {
               id: `${item.props.id}`,
+              as: as === "ul" ? "li" : undefined,
               findItem,
               moveItem,
             },
@@ -99,6 +100,8 @@ DraggableContainer.propTypes = {
   ...marginPropTypes,
   /** Callback fired when order is changed */
   getOrder: PropTypes.func,
+  /** Overrides the default rendered HTML tag of the DraggableContainer component */
+  as: PropTypes.string,
   /**
    * The content of the component
    *
@@ -129,5 +132,7 @@ DropTarget.propTypes = {
   children: PropTypes.node.isRequired,
   getOrder: PropTypes.func,
 };
+
+DraggableContainer.displayName = "DraggableContainer";
 
 export default DraggableContainer;

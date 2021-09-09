@@ -7,12 +7,16 @@ import FocusContext from "../duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 import PicklistGroup from "../picklist-group/picklist-group.component";
 
-export const Picklist = ({ disabled, children, placeholder, index }) => {
+export const Picklist = ({ as, disabled, children, placeholder, index }) => {
   const { elementToFocus, setElementToFocus } = useContext(FocusContext);
 
-  const isEmpty = useMemo(() => !React.Children.toArray(children).length, [
-    children,
-  ]);
+  const isEmpty = useMemo(() => {
+    const childrenArr = React.Children.toArray(children);
+    return (
+      !childrenArr.length ||
+      (as === "div" && !childrenArr[0]?.props?.children?.length)
+    );
+  }, [as, children]);
 
   const filteredChildren = React.Children.toArray(children);
 
@@ -50,7 +54,7 @@ export const Picklist = ({ disabled, children, placeholder, index }) => {
     (child, childIndex) =>
       child &&
       React.cloneElement(child, {
-        ref: refs[childIndex],
+        ref: as !== "div" ? refs[childIndex] : null,
         disabled,
         index: childIndex,
         listIndex: index,
@@ -75,17 +79,24 @@ export const Picklist = ({ disabled, children, placeholder, index }) => {
 
   return (
     <StyledPicklist
+      as={as}
       data-element="picklist"
       scrollVariant="light"
       onKeyDown={handleKeyDown}
     >
-      {isEmpty && <StyledEmptyContainer>{placeholder}</StyledEmptyContainer>}
+      {isEmpty && (
+        <StyledEmptyContainer as={as === "div" && "div"}>
+          {placeholder}
+        </StyledEmptyContainer>
+      )}
       <TransitionGroup component={null}>{content}</TransitionGroup>
     </StyledPicklist>
   );
 };
 
 Picklist.propTypes = {
+  /** Overrides the default rendered HTML tag of the Picklist component */
+  as: PropTypes.string,
   /** List of PicklistItem elements */
   children: PropTypes.node,
   /** Placeholder to be rendered when list is empty */

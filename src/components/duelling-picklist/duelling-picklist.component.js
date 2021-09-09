@@ -12,6 +12,7 @@ import {
 } from "./duelling-picklist.style";
 import { Picklist } from "./picklist/picklist.component";
 import FocusContext from "./duelling-picklist.context";
+import { DraggableContainer } from "../draggable";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -97,10 +98,14 @@ DuellingPicklist.propTypes = {
     if (
       !prop ||
       !Array.isArray(prop) ||
-      prop.filter((el) => el.type === Picklist).length !== 2
+      (prop.filter((el) => el.type === Picklist).length !== 2 &&
+        !(
+          prop.filter((el) => el.type === Picklist).length === 1 &&
+          prop.filter((el) => el.type === DraggableContainer).length === 1
+        ))
     ) {
       error = new Error(
-        `\`${propName}\` must have two \`${Picklist.displayName}\`s`
+        `\`${propName}\` must have two \`${Picklist.displayName}\`s or one ${Picklist.displayName} and one ${DraggableContainer.displayName}`
       );
     }
 

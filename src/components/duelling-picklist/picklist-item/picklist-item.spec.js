@@ -101,4 +101,17 @@ describe("PicklistItem component", () => {
       expect(setElementToFocus).toHaveBeenCalledWith(0, 0, undefined);
     });
   });
+  describe("as div", () => {
+    it("renders correctly with div instead of li", () => {
+      const wrapper = render({
+        type: "add",
+        onChange: jest.fn(),
+        item: 1,
+        as: "div",
+      });
+
+      expect(wrapper.find(PicklistItem).exists()).toEqual(true);
+      expect(wrapper.find("li").exists()).toEqual(false);
+    });
+  });
 });

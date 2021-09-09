@@ -26,6 +26,7 @@ const PicklistItem = React.forwardRef(
       groupIndex,
       isLastGroup,
       isLastItem,
+      as,
       ...rest
     },
     ref
@@ -84,6 +85,7 @@ const PicklistItem = React.forwardRef(
         {...(type === "add" ? { enter: false } : {})}
       >
         <StyledPicklistItem
+          as={as}
           onKeyDown={handleKeydown}
           data-element="picklist-item"
           locked={locked}
@@ -127,6 +129,8 @@ PicklistItem.propTypes = {
   locked: PropTypes.bool,
   /** Tooltip message for the locked icon (only present when locked prop is true) */
   tooltipMessage: PropTypes.string,
+  /** Overrides the default rendered HTML tag of the PicklistItem component */
+  as: PropTypes.string,
   /** @private @ignore */
   highlighted: PropTypes.bool,
   /** @private @ignore */

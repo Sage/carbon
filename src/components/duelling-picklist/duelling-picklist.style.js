@@ -21,6 +21,17 @@ const StyledDuellingPicklist = styled.div`
   justify-content: space-between;
   align-items: stretch;
   position: relative;
+
+  ${StyledPicklist}:first-of-type {
+    padding-right: 36px;
+  }
+
+  ${StyledPicklist}:last-of-type {
+    padding-left: 36px;
+  }
+  ${StyledPicklist}:only-of-type {
+    padding-left: 4px;
+  }
 `;
 
 const StyledLabelContainer = styled.div`
@@ -61,6 +72,10 @@ const StyledPicklistPlaceholder = styled.div`
 `;
 
 StyledDuellingPicklistOverlay.defaultProps = {
+  theme: baseTheme,
+};
+
+StyledDuellingPicklist.defaultProps = {
   theme: baseTheme,
 };
 

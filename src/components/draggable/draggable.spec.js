@@ -278,3 +278,26 @@ describe("Draggable Checkbox", () => {
     });
   });
 });
+
+describe("Draggable Container as unordered list", () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(
+      <DraggableContainer as="ul">
+        <DraggableItem key="1" id={1}>
+          simple content
+        </DraggableItem>
+        <DraggableItem key="2" id={2}>
+          simple content
+        </DraggableItem>
+      </DraggableContainer>
+    );
+  });
+
+  it("renders unordered list and list items correctly", () => {
+    const ul = wrapper.find("ul");
+    expect(ul.exists()).toBe(true);
+    expect(wrapper.find("li").length).toEqual(2);
+  });
+});

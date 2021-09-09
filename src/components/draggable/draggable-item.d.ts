@@ -9,6 +9,8 @@ export interface DraggableItemProps {
   id: number | string;
   /** The content of the component. */
   children: React.ReactNode;
+  /** Overrides the default rendered HTML tag of the DraggableItem component */
+  as?: string;
   findItem?: () => void;
   moveItem?: () => void;
 }

@@ -3,6 +3,7 @@ import { useDrop, useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
+import { CSSTransition } from "react-transition-group";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import { StyledDraggableItem } from "./draggable-item.style";
 
@@ -14,6 +15,7 @@ const DraggableItem = ({
   moveItem,
   children,
   py = 1,
+  as,
   ...rest
 }) => {
   const originalIndex = findItem(id).index;
@@ -45,15 +47,18 @@ const DraggableItem = ({
   const paddingProps = filterStyledSystemPaddingProps(rest);
 
   return (
-    <StyledDraggableItem
-      data-element="draggable"
-      isDragging={isDragging}
-      ref={(node) => drag(drop(node))}
-      py={py}
-      {...paddingProps}
-    >
-      {children}
-    </StyledDraggableItem>
+    <CSSTransition in timeout={{ appear: 0 }} classNames="draggable">
+      <StyledDraggableItem
+        data-element="draggable"
+        isDragging={isDragging}
+        ref={(node) => drag(drop(node))}
+        py={py}
+        as={as}
+        {...paddingProps}
+      >
+        {children}
+      </StyledDraggableItem>
+    </CSSTransition>
   );
 };
 
@@ -65,6 +70,8 @@ DraggableItem.propTypes = {
    * Use this prop to make `Draggable` works
    */
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  /** Overrides the default rendered HTML tag of the DraggableItem component */
+  as: PropTypes.string,
   /** The content of the component. */
   children: PropTypes.node.isRequired,
   /**

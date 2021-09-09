@@ -8,6 +8,8 @@ type DraggableContainerChild =
   | undefined;
 
 export interface DraggableContainerProps {
+  /** Overrides the default rendered HTML tag of the DraggableContainer component */
+  as?: string;
   /** Callback fired when order is changed */
   getOrder?: (draggableItemIds: number[]) => void;
   /**
