@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
 import StyledInput from "./input.style";
-import StyledInlineInputs from "../../components/inline-inputs/inline-inputs.style";
 
 export const StyledInputPresentationContainer = styled.div`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;
@@ -45,10 +44,6 @@ const InputPresentationStyle = styled.div`
       && {
         outline: 3px solid ${theme.colors.focus};
         z-index: 2;
-      }
-
-      ${StyledInlineInputs} && {
-        position: relative;
       }
     `}
 

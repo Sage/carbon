@@ -6,17 +6,20 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 import Textbox from "../textbox";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import LocaleContext from "../../__internal__/i18n-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 class Decimal extends React.Component {
+  static contextType = LocaleContext;
+
   static maxPrecision = 15;
 
   emptyValue = this.props.allowEmptyValue ? "" : "0.00";
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     const isControlled = this.isControlled();
     const value = isControlled
@@ -166,9 +169,13 @@ class Decimal extends React.Component {
 
     const separator = this.getSeparator("decimal");
     const [integer, remainder] = value.split(".");
-    const formattedInteger = Intl.NumberFormat(this.props.locale, {
-      maximumFractionDigits: 0,
-    }).format(integer);
+
+    const formattedInteger = Intl.NumberFormat(
+      this.props.locale || this.context.locale(),
+      {
+        maximumFractionDigits: 0,
+      }
+    ).format(integer);
 
     let formattedNumber = formattedInteger;
     if (remainder && remainder.length > this.props.precision) {
@@ -222,13 +229,13 @@ class Decimal extends React.Component {
 
   getSeparator(separatorType) {
     const numberWithGroupAndDecimalSeparator = 10000.1;
-    return Intl.NumberFormat(this.props.locale)
+    return Intl.NumberFormat(this.props.locale || this.context.locale())
       .formatToParts(numberWithGroupAndDecimalSeparator)
       .find((part) => part.type === separatorType).value;
   }
 
   render() {
-    const { name, defaultValue, ...rest } = this.props;
+    const { name, defaultValue, locale, ...rest } = this.props;
     return (
       <>
         <Textbox
@@ -314,7 +321,7 @@ Decimal.propTypes = {
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
   /**
-   * The locale string - default en
+   * Override the locale string, default from I18nProvider
    */
   locale: PropTypes.string,
 };
@@ -323,7 +330,6 @@ Decimal.defaultProps = {
   align: "right",
   precision: 2,
   allowEmptyValue: false,
-  locale: "en",
 };
 
 export default Decimal;

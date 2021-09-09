@@ -73,7 +73,7 @@ const Link = React.forwardRef(
     const createLinkBasedOnType = () => {
       let type = "a";
 
-      if (onClick) {
+      if (onClick && !href) {
         type = "button";
       }
 

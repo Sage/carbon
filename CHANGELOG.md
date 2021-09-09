@@ -1,3 +1,22 @@
+## [84.4.0](https://github.com/Sage/carbon/compare/v84.3.0...v84.4.0) (2021-09-09)
+
+
+### Features
+
+* **link:** render an anchor element whenever a href prop is passed ([18e6471](https://github.com/Sage/carbon/commit/18e64719fd2f736e32c878b9b5611a630dac4fb6))
+
+## [84.3.0](https://github.com/Sage/carbon/compare/v84.2.1...v84.3.0) (2021-09-09)
+
+
+### Features
+
+* **inline-inputs:** add labelWidth and inputWidth props ([d7412b2](https://github.com/Sage/carbon/commit/d7412b253ea784d7fbb2cd8ff83a7eff041943e2))
+
+
+### Bug Fixes
+
+* **inline-inputs:** center label position when in form ([cafc9e4](https://github.com/Sage/carbon/commit/cafc9e45eae860935056b4b733e6d886e6b73c76))
+
 ### [84.2.1](https://github.com/Sage/carbon/compare/v84.2.0...v84.2.1) (2021-09-08)
 
 
