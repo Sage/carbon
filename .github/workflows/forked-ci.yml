@@ -44,86 +44,18 @@ jobs:
       - run: npm ci
       - run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}"
 
-  cypress:
+  trigger-cypress:
     needs: check
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        containers:
-          [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-          ]
-    container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: octokit/request-action@v2.x
+        id: dispatch_cypress
         with:
-          ref: "refs/pull/${{ github.event.inputs.number }}/head"
-          fetch-depth: 0
-      - name: Cache central NPM modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache Cypress binary
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-
-      - name: install dependencies and verify Cypress
+          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          workflow_id: "cypress.yml"
+          ref: "master"
+          inputs: '{"number": "${{ github.event.pull_request.number }}", "branch": "${{ needs.check.outputs.branch_name }}"}'
         env:
-          # make sure every Cypress install prints minimal information
-          CI: 1
-        run: |
-          npm ci
-          npx cypress cache path
-          npx cypress cache list
-          npx cypress verify
-          npx cypress info
-      # because of "record" and "parallel" parameters
-      # these containers will load balance all found tests among themselves
-      - name: Cypress run
-        uses: cypress-io/github-action@v2.10.2
-        with:
-          install: false
-          start: npm start
-          # quote the url to be safe against YML parsing surprises
-          wait-on: "http://localhost:9001"
-          wait-on-timeout: 250
-          record: true
-          parallel: true
-          group: ubuntu-regression
-          quiet: true
-          browser: chrome
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          CI: "true"
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
