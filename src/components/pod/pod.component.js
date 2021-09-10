@@ -1,4 +1,4 @@
-import React, { useState, useCallback, forwardRef, useContext } from "react";
+import React, { useState, useCallback, forwardRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -6,7 +6,6 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
-import PodContext from "./pod-context";
 import {
   StyledBlock,
   StyledContent,
@@ -57,13 +56,8 @@ const Pod = forwardRef(
     const [isDeleteHovered, setDeleteHovered] = useState(false);
     const [isUndoFocused, setUndoFocused] = useState(false);
     const [isUndoHovered, setUndoHovered] = useState(false);
-    const { heightOfTheLongestPod } = useContext(PodContext);
 
     let podHeight;
-
-    if (heightOfTheLongestPod) {
-      podHeight = `${heightOfTheLongestPod}px`;
-    }
 
     if (height && typeof height === "number") {
       podHeight = `${height}px`;

@@ -27,8 +27,6 @@ import {
 } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import { baseTheme } from "../../style/themes";
 import LocaleContext from "../../__internal__/i18n-context";
-import PodManager from "./pod-manager.component";
-import PodContext from "./pod-context";
 
 describe("Pod", () => {
   let instance;
@@ -54,23 +52,6 @@ describe("Pod", () => {
       wrapper.setProps({ title: "Title", subtitle: "Subtitle" });
       expect(wrapper.find(StyledSubtitle).props().children).toEqual("Subtitle");
     });
-  });
-
-  describe("PodManager", () => {
-    wrapper = mount(
-      <PodManager>
-        <PodContext.Provider value={{ heightOfTheLongestPod: "100" }}>
-          <Pod>test</Pod>
-        </PodContext.Provider>
-      </PodManager>
-    );
-
-    assertStyleMatch(
-      {
-        height: "100px",
-      },
-      wrapper.find(StyledPod)
-    );
   });
 
   describe("podFooter", () => {
