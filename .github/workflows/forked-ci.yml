@@ -56,6 +56,6 @@ jobs:
           repo: ${{ github.event.repository.name }}
           workflow_id: "cypress.yml"
           ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}", "branch": "${{ needs.check.outputs.branch_name }}"}'
+          inputs: '{"number": "${{ github.event.inputs.number }}", "branch": "${{ needs.check.outputs.branch_name }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
