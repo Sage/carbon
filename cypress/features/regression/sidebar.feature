@@ -3,17 +3,17 @@ Feature: Sidebar component
 
   @positive
   Scenario: Enable enableBackgroundUI checkbox for a Sidebar component
-    When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "enableBackgroundUI" object name
+    When I open default "Sidebar Test" component with "sidebar" json from "commonComponents" using "enableBackgroundUI" object name
     Then Sidebar component has enabled background UI
 
   @positive
   Scenario: Sidebar Pod position to left
-    When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "positionLeft" object name
+    When I open default "Sidebar Test" component with "sidebar" json from "commonComponents" using "positionLeft" object name
     Then Sidebar position value is set to "left"
 
   @positive
   Scenario Outline: Set Sidebar size to <size>
-    When I open default "Sidebar Test" component in noIFrame with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Sidebar Test" component with "sidebar" json from "commonComponents" using "<nameOfObject>" object name
     Then Sidebar size value is set to "<sizePropertyInPx>"
     Examples:
       | size         | sizePropertyInPx | nameOfObject    |

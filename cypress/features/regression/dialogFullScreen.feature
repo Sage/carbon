@@ -3,13 +3,13 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
-    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "showCloseIcon" object name
+    Given I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "showCloseIcon" object name
     When I click closeIcon
     Then Confirm dialog is not visible
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -18,7 +18,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -27,7 +27,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen children to <children>
-    When I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog Full Screen children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -36,13 +36,13 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Disable escape key
-    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
+    Given I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "disableEscKey" object name
     When I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    Given I open default "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enabledEscKey" object name
+    Given I open default "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "enabledEscKey" object name
     When I hit ESC key
     Then Dialog Full Screen is not visible
 
@@ -54,7 +54,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Verify that nested dialog is closed by pressing Esc key
-    Given I open nested "Dialog Full Screen Test" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
+    Given I open nested "Dialog Full Screen Test" component with "dialogFullScreen" json from "commonComponents" using "default" object name
       And I click "Open Main Dialog" button on preview
       And I wait 500
       And I click "Open Nested Dialog" button on preview

@@ -3,7 +3,7 @@ Feature: Split Button component
 
   @positive
   Scenario Outline: I set text to <text>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button label on preview is <text>
     Examples:
       | text                         | nameOfObject         |
@@ -12,7 +12,7 @@ Feature: Split Button component
 
   @positive
   Scenario Outline: I set subtext to <subtext>
-    When I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button subtext on preview is <subtext>
     Examples:
       | subtext                      | nameOfObject            |
@@ -21,20 +21,20 @@ Feature: Split Button component
 
   @positive
   Scenario: I expand Split Button component
-    Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    Given I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "default" object name
     When I hover mouse onto "dropdown" icon
     Then Split Button is expanded
 
   @ignore
   # there is no possibility to trigger mouseover on first element
   Scenario: Verify color palette for first element of Split Button component with focus
-    Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    Given I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "default" object name
     When I hover mouse onto split button
     Then Split Button first element has proper background-color "rgb(0, 96, 70)" and border "rgb(0, 96, 70)" color and has border-width 2 px
 
   @positive
   Scenario Outline: Verify color palette for second element of Split Button component with focus
-    Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    Given I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "default" object name
     When I hover mouse onto "dropdown" icon
     Then Split Button second element has proper background-color "<color>" and border "<color>" color and has border-width 2 px
       And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
@@ -44,7 +44,7 @@ Feature: Split Button component
 
   @positive
   Scenario Outline: Verify hover color and golden border for <element> element of Split Button component
-    Given I open default "Split Button Test" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    Given I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "default" object name
       And I hover mouse onto "dropdown" icon
     When I click "<element>" element of Split Button component
     Then Split Button expandable "<element>" element has golden border on focus

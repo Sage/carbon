@@ -3,7 +3,7 @@ Feature: Design System Simple Color Picker component
 
   @positive
   Scenario Outline: Set legend to <legend>
-    When I open default "Design System Simple Color Picker Test" component in noIFrame with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Design System Simple Color Picker Test" component with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
     Then simple color picker legend on preview is <legend>
     Examples:
       | legend                       | nameOfObject           |
@@ -12,7 +12,7 @@ Feature: Design System Simple Color Picker component
 
   @positive
   Scenario Outline: Set name to <name>
-    When I open default "Design System Simple Color Picker Test" component in noIFrame with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Design System Simple Color Picker Test" component with "simpleColorSelect" json from "designSystem" using "<nameOfObject>" object name
     Then simple color picker name <name>
     Examples:
       | name                         | nameOfObject         |
@@ -27,7 +27,7 @@ Feature: Design System Simple Color Picker component
   @ignore
   # there is no possibility to pass an array as an argument via url
   Scenario: Color Picker renders all the provided colors and their respective labels
-    When I open default "Design System Simple Color Picker Test" component in noIFrame with "simpleColorSelect" json from "designSystem" using "availableColors" object name
+    When I open default "Design System Simple Color Picker Test" component with "simpleColorSelect" json from "designSystem" using "availableColors" object name
     Then It renders with all colors with "simpleColorPickerNew" json
 
   @positive

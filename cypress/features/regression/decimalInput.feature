@@ -3,7 +3,7 @@ Feature: Decimal input component
 
   @positive
   Scenario Outline: Change Decimal component fieldHelp to <fieldHelp>
-    When I open default "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Decimal Input Test" component with "decimal" json from "commonComponents" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -12,7 +12,7 @@ Feature: Decimal input component
 
   @positive
   Scenario Outline: Change Decimal component label to <label>
-    When I open default "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Decimal Input Test" component with "decimal" json from "commonComponents" using "<nameOfObject>" object name
     Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
@@ -21,7 +21,7 @@ Feature: Decimal input component
 
   @positive
   Scenario Outline: Change Decimal component label help to <label>
-    Given I open default "Decimal Input Test" component in noIFrame with "decimal" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Decimal Input Test" component with "decimal" json from "commonComponents" using "<nameOfObject>" object name
     When I hover mouse onto "question" icon
     Then tooltipPreview on preview is set to <label>
     Examples:

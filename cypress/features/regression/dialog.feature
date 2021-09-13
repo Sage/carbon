@@ -3,7 +3,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Set height for Dialog to <height> but not bigger than viewportHeight
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog height is set to "<height>"
     Examples:
       | height | nameOfObject |
@@ -14,7 +14,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Change Dialog component title to <title>
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -23,7 +23,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -32,7 +32,7 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Dialog Test" component with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx | nameOfObject    |
@@ -46,7 +46,7 @@ Feature: Dialog component
 
   @positive
   Scenario: Disable ShowCloseIcon
-    When I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIconFalse" object name
+    When I open default "Dialog Test" component with "dialog" json from "commonComponents" using "showCloseIconFalse" object name
     Then closeIcon is not visible
 
   @positive
@@ -58,27 +58,27 @@ Feature: Dialog component
 
   @positive
   Scenario: Disable escape key
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "disableEscKey" object name
+    Given I open default "Dialog Test" component with "dialog" json from "commonComponents" using "disableEscKey" object name
       And I wait 500
     When I hit ESC key
     Then Dialog is visible
 
   @positive
   Scenario: Enable escape key
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "enabledEscKey" object name
+    Given I open default "Dialog Test" component with "dialog" json from "commonComponents" using "enabledEscKey" object name
     When I hit ESC key
     Then Dialog is not visible
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIcon" object name
+    Given I open default "Dialog Test" component with "dialog" json from "commonComponents" using "showCloseIcon" object name
       And closeIcon is visible
     When I click closeIcon
       And Dialog is not visible
 
   @positive
   Scenario Outline: Click on background outside Dialog and Dialog remains open
-    Given I open default "Dialog Test" component in noIFrame with "dialog" json from "commonComponents" using "default" object name
+    Given I open default "Dialog Test" component with "dialog" json from "commonComponents" using "default" object name
     When I click on background "<position>" outside dialog
     Then Dialog is visible
     Examples:

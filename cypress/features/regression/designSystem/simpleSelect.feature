@@ -101,7 +101,7 @@ Feature: Design System Select component
 
   @positive
   Scenario Outline: Show Select list is at the <position> in <size> viewport
-    Given I open Test default "Select" component in noIFrame with "simpleSelect" json from "test" using "<size>" object name
+    Given I open Test default "Select" component with "simpleSelect" json from "test" using "<size>" object name
       And I have a <size> viewport
     When I click on Select input in noIframe
     Then "simple" Select list is visible at the <position>

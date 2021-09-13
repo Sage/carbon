@@ -95,7 +95,7 @@ Feature: Design Systems FlatTable component
 
   @positive
   Scenario Outline: Change caption label to <caption>
-    When I open default "Design System Flat Table Test" component in noIFrame with "flatTable" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Design System Flat Table Test" component with "flatTable" json from "designSystem" using "<nameOfObject>" object name
     Then Flat table caption is set to <caption>
     Examples:
       | caption                      | nameOfObject            |

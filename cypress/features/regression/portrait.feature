@@ -3,7 +3,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Change Portrait alt to <alt>
-		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		When I open default "Portrait Test" component with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait alt on preview is set to <alt>
 		Examples:
 			| alt                          | nameOfObject        |
@@ -12,7 +12,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Render specified icon type <iconType>
-		When I open default "Portrait Test" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
+		When I open default "Portrait Test" component with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then <iconType> icon component should be rendered
 		Examples:
 			| iconType   | nameOfObject  |

@@ -3,7 +3,7 @@ Feature: Table Ajax component
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I open default "Table Ajax Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Ajax Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records for Table Ajax
     Examples:
       | pageSizeRecords | nameOfObject |

@@ -26,7 +26,7 @@ import { pagerSummary } from "../../locators/pager";
 const TEXT_ALIGN = "justify-content";
 
 Given(
-  "I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
+  "I open Test {word} {string} component with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
     visitComponentUrlWithParameters(
       `${component}-test`,
@@ -40,7 +40,7 @@ Given(
 );
 
 Given(
-  "I open {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
+  "I open {word} {string} component with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
     visitComponentUrlWithParameters(
       component,

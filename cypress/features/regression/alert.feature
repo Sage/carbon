@@ -3,7 +3,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component title to <title>
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -12,7 +12,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -21,7 +21,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component children to <children>
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -30,13 +30,13 @@ Feature: Alert component
 
   @positive
   Scenario: Disable escape key
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "disableEscKey" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "disableEscKey" object name
       And I press ESC onto focused element
     Then Alert is visible in NoIFrame
 
   @positive
   Scenario Outline: Set height for Alert dialog to <height> but not bigger than viewportHeight
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
       | height | nameOfObject |
@@ -46,7 +46,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Set Alert size to <sizeName>
-    When I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Alert Test" component with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx | nameOfObject    |
@@ -60,12 +60,12 @@ Feature: Alert component
 
   @positive
   Scenario: Alert is not visible
-    Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
+    Given I open default "Alert Test" component with "alert" json from "commonComponents" using "default" object name
     When I click closeIcon
     Then Alert is not visible
 
   @positive
   Scenario: Check cancel click event
-    Given I open default "Alert Test" component in noIFrame with "alert" json from "commonComponents" using "default" object name
+    Given I open default "Alert Test" component with "alert" json from "commonComponents" using "default" object name
     When I click closeIcon
     Then cancel action was called in Actions Tab
