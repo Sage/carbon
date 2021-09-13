@@ -14,14 +14,35 @@ const loaderAnimation = keyframes`
   }
 `;
 
+const getDimentions = (size) => {
+  let width;
+  let marginRight;
+  switch (size) {
+    case "medium":
+      width = "16px";
+      marginRight = "8px";
+      break;
+    case "large":
+      width = "20px";
+      marginRight = "8px";
+      break;
+    default:
+      width = "12px";
+      marginRight = "6px";
+  }
+  return `
+  width: ${width};
+  height: ${width};
+  margin-right: ${marginRight};
+  `;
+};
+
 const StyledLoaderSquare = styled.div`
   ${({ theme, size, isInsideButton, isActive }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: ${theme.colors.primary};
     display: inline-block;
-    height: ${size === "large" ? "16px" : "8px"};
-    width: ${size === "large" ? "16px" : "8px"};
-    margin-right: ${size === "large" ? "10px" : "6px"};
+    ${getDimentions(size)}
 
     ${isInsideButton &&
     css`
