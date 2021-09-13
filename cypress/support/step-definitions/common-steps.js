@@ -54,15 +54,8 @@ Given(
 );
 
 Given("I open {string} component page {string}", (component, story) => {
-  visitComponentUrl(component, story, false);
+  visitComponentUrl(component, story);
 });
-
-Given(
-  "I open {string} component page {string} in no iframe",
-  (component, story) => {
-    visitComponentUrl(component, story, true);
-  }
-);
 
 When("I open component preview", () => {
   commonButtonPreviewRoot().click();

@@ -54,20 +54,20 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Edit action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
     When I click edit Show Edit Pod component
     Then edit action was called in Actions Tab
 
   @positive
   Scenario: Delete action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
       And I click edit Show Edit Pod component
     When I click delete button
     Then delete action was called in Actions Tab
 
   @positive
   Scenario: Cancel action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
       And I click edit Show Edit Pod component
     When I click cancel button
     Then cancel action was called in Actions Tab

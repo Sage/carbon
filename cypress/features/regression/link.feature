@@ -37,16 +37,16 @@ Feature: Link component
 
   @positive
   Scenario: Check skip link is visible when focused
-    Given I open "Link" component page "is skip link" in no iframe
+    Given I open "Link" component page "is skip link"
     When I hit Tab key 1 times
     Then Skip link is visible
 
   @positive
   Scenario: Check skip link is not visible without focus
-    When I open "Link" component page "is skip link" in no iframe
+    When I open "Link" component page "is skip link"
     Then Skip link is not visible
 
   @positive
   Scenario: Check rel attr is able to be used in a link component
-    When I open "Link" component page "with rel" in no iframe
+    When I open "Link" component page "with rel"
     Then link has a rel attribute

@@ -21,7 +21,7 @@ Feature: Design System Simple Color Picker component
 
   @positive
   Scenario: When availableColors prop is provided changes rendered colors
-    When I open "Design System Simple Color Picker Test" component page "default" in no iframe
+    When I open "Design System Simple Color Picker Test" component page "default"
     Then It renders with all colors with "simpleColorPicker" json
 
   @ignore
@@ -32,7 +32,7 @@ Feature: Design System Simple Color Picker component
 
   @positive
   Scenario Outline: Navigate in simpleColorPicker to the <colorWasPickedUp> colorIndex using <keyboardKey> keyboardKey starts from <colorToPressOn> colorIndex
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
+    Given I open "Design System Simple Color Picker Test" component page "default"
     When I press <keyboardKey> on the <colorToPressOn> color
     Then Experimental Simple Color Picker <colorWasPickedUp> element was picked up
     Examples:
@@ -45,14 +45,14 @@ Feature: Design System Simple Color Picker component
 
   @positive
   Scenario: Up arrow moves selection up
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
+    Given I open "Design System Simple Color Picker Test" component page "default"
       And I select 6 color
     When I press uparrow on the 6 color
     Then Experimental Simple Color Picker 1 element was picked up
 
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected
-    Given I open "Design System Simple Color Picker Test" component page "default" in no iframe
+    Given I open "Design System Simple Color Picker Test" component page "default"
     When I pick <position> simple color input
     Then Experimental Simple Color Picker <position> element was picked up
     Examples:

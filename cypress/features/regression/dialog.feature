@@ -51,7 +51,7 @@ Feature: Dialog component
 
   @positive
   Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
-    Given I open "Design System Form" component page "In dialog with sticky footer" in no iframe
+    Given I open "Design System Form" component page "In dialog with sticky footer"
       And I click on Open Preview button
     When I scroll to the bottom of the dialog
     Then The footer is not sticky
@@ -89,6 +89,6 @@ Feature: Dialog component
 
   @positive
   Scenario: Cancel event
-    Given I open "Dialog Test" component page "default" in no iframe
+    Given I open "Dialog Test" component page "default"
     When I click closeIcon
     Then cancel action was called in Actions Tab

@@ -150,7 +150,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Verify input of Textarea component
-    Given I open "Design System Textarea Test" component page "default" in no iframe
+    Given I open "Design System Textarea Test" component page "default"
     When I input <input> into Textarea
     Then Textarea input on preview is set to <input>
     Examples:

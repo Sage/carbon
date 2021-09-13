@@ -31,7 +31,7 @@ Feature: Decimal input component
 
   @positive
   Scenario Outline: Check Decimal component input field will accept characters to <input>
-    Given I open "Decimal Input Test" component page "default" in no iframe
+    Given I open "Decimal Input Test" component page "default"
     When I set Decimal input to the "<input>"
     Then Decimal Input is set to "<input>"
     Examples:
@@ -41,6 +41,6 @@ Feature: Decimal input component
 
   @positive
   Scenario: Check Decimal component input field will accept white-space only
-    Given I open "Decimal Input Test" component page "default" in no iframe
+    Given I open "Decimal Input Test" component page "default"
     When I set Decimal input to a string with only white-space
     Then Decimal Input is set to white-space only

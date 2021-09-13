@@ -56,13 +56,13 @@ Feature: Split Button component
 
   @positive
   Scenario: Verify the click function for a main element of Split Button component
-    Given I open "Split Button Test" component page "default" in no iframe
+    Given I open "Split Button Test" component page "default"
     When I click "main-button" element of Split Button component
     Then click action was called in Actions Tab
 
   @positive
   Scenario Outline: Verify the click function for a <element> element of Split Button component
-    Given I open "Split Button Test" component page "default" in no iframe
+    Given I open "Split Button Test" component page "default"
       And I hover mouse onto "dropdown" icon
     When I click "<element>" element of Split Button component
     Then click action was called in Actions Tab
@@ -74,7 +74,7 @@ Feature: Split Button component
 
   @positive
   Scenario: Invoking Split Button component in a hidden container
-    Given I open "Split Button" component page "in overflow hidden container" in no iframe
+    Given I open "Split Button" component page "in overflow hidden container"
       And I expand accordionRow using "Enter" key
     When I hover mouse onto "dropdown" icon
     Then Split Button is expanded

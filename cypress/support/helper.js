@@ -2,23 +2,16 @@ import DEBUG_FLAG from ".";
 
 const stringToURL = (str) => str.toLowerCase().replace(/ /g, "-");
 
-function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
+function prepareUrl(component, suffix, prefix) {
   let url = Cypress.config().baseUrl;
-  const iFrame = Cypress.env("iframe") + prefix;
-  const story = Cypress.env(env) + prefix;
+  const story = Cypress.env("iframe") + prefix;
   // eslint-disable-next-line no-unused-expressions
-  iFrameOnly ? (url += iFrame) : (url += story);
+  url += story;
   return `${url}${stringToURL(component)}--${stringToURL(suffix)}`;
 }
 
-export function visitComponentUrl(
-  component,
-  suffix = "default",
-  iFrameOnly = false,
-  prefix = "",
-  env = "story"
-) {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
+export function visitComponentUrl(component, suffix = "default", prefix = "") {
+  cy.visit(prepareUrl(component, suffix, prefix));
 }
 
 // eslint-disable-next-line max-params

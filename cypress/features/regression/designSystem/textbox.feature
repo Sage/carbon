@@ -49,7 +49,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    Given I open "Design System Textbox Test" component page "default" in no iframe
+    Given I open "Design System Textbox Test" component page "default"
     When I type <input> into Textbox
     Then Textbox input on preview is set to <input>
     Examples:

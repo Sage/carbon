@@ -50,7 +50,7 @@ Feature: Design System Textbox multiple component
 
   @positive
   Scenario Outline: Verify input of Textbox multiple component
-    Given I open "Design System Textbox Test" component page "multiple" in no iframe
+    Given I open "Design System Textbox Test" component page "multiple"
     When I type <input> into "first" Textbox
       And I type <input> into "second" Textbox
     Then Multiple textbox input on preview is set to <input>

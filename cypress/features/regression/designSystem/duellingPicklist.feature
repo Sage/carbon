@@ -2,12 +2,12 @@ Feature: Design System Duelling Picklist Component
   I want to test Design System Duelling Picklist component
 
   Background: Design System Duelling Picklist Component in noIframe
-    Given I open "Design System DuellingPicklist Test" component page "default" in no iframe
+    Given I open "Design System DuellingPicklist Test" component page "default"
 
   @positive
   Scenario: All items are unassigned
     # commented because of BDD default scenario Given - When - Then
-    # Given I open "Test DuellingPicklist" component page "default" in no iframe
+    # Given I open "Test DuellingPicklist" component page "default"
     Then unassigned picklist has 20 items
       And assigned picklist is empty
 

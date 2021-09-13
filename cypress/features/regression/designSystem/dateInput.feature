@@ -44,7 +44,7 @@ Feature: Design System Date Input component
 
   @positive
   Scenario: Check Date Input today date
-    Given I open "Design System Date Input Test" component page "default" in no iframe
+    Given I open "Design System Date Input Test" component page "default"
     When I set dateInput to today
     Then the date is set to today
 

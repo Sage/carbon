@@ -74,32 +74,32 @@ Feature: Confirm component
 
   @positive
   Scenario: Cancel button type is set to tertiary
-    Given I open "Confirm" component page "cancel button type" in no iframe
+    Given I open "Confirm" component page "cancel button type"
     When I open component preview
     Then cancel button type is set to "tertiary"
 
   @positive
   Scenario: Buttons have destructive CSS properties
-    Given I open "Confirm" component page "destructive" in no iframe
+    Given I open "Confirm" component page "destructive"
     When I open component preview
     Then cancel button type is set to "destructive"
       And confirm button type is set to "destructive"
 
   @positive
   Scenario: Cancel button is disabled
-    Given I open "Confirm" component page "disable cancel" in no iframe
+    Given I open "Confirm" component page "disable cancel"
     When I open component preview
     Then "cancel" button is disabled
 
   @positive
   Scenario: Confirm button is disabled
-    Given I open "Confirm" component page "disable confirm" in no iframe
+    Given I open "Confirm" component page "disable confirm"
     When I open component preview
     Then "confirm" button is disabled
 
   @positive
   Scenario: Confirm button is in loading state
-    Given I open "Confirm" component page "is loading confirm" in no iframe
+    Given I open "Confirm" component page "is loading confirm"
     When I open component preview
     Then confirm button type is set to "isLoadingConfirm"
 
@@ -154,12 +154,12 @@ Feature: Confirm component
 
   @positive
   Scenario: Verify the confirm action for Confirm dialog
-    Given I open "Confirm Test" component page "default" in no iframe
+    Given I open "Confirm Test" component page "default"
     When I click on a confirmButton
     Then confirm action was called in Actions Tab
 
   @positive
   Scenario: Verify the cancel action for Confirm dialog
-    Given I open "Confirm Test" component page "default" in no iframe
+    Given I open "Confirm Test" component page "default"
     When I click on a cancelButton
     Then cancel action was called in Actions Tab

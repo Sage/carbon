@@ -58,5 +58,5 @@ Feature: Heading component
 
   @positive
   Scenario: Heading title has h1 HTML tag
-    Given I open "Heading" component page "default story" in no iframe
+    Given I open "Heading" component page "default story"
     Then Heading title has h1 HTML tag

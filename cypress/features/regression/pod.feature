@@ -44,7 +44,7 @@ Feature: Pod component
 
   @positive
   Scenario: Edit button is visible on hover
-    Given I open "Pod" component page "with display edit button on hover" in no iframe
+    Given I open "Pod" component page "with display edit button on hover"
     When I check that onEdit icon is not visible
       And I hover mouse onto pod
     Then The onEdit icon is visible
