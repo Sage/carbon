@@ -15,8 +15,8 @@ describe("Loader square", () => {
     assertStyleMatch(
       {
         backgroundColor: baseTheme.colors.primary,
-        height: "8px",
-        width: "8px",
+        height: "12px",
+        width: "12px",
         marginRight: "6px",
       },
       wrapper.toJSON()
@@ -52,9 +52,23 @@ describe("Loader square", () => {
       wrapper = render({ size: "large" });
       assertStyleMatch(
         {
+          height: "20px",
+          width: "20px",
+          marginRight: "8px",
+        },
+        wrapper.toJSON()
+      );
+    });
+  });
+
+  describe("when size is set to medium", () => {
+    it("applies proper width, height and margin", () => {
+      wrapper = render({ size: "medium" });
+      assertStyleMatch(
+        {
           height: "16px",
           width: "16px",
-          marginRight: "10px",
+          marginRight: "8px",
         },
         wrapper.toJSON()
       );

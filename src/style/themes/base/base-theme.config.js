@@ -22,6 +22,7 @@ export default (palette) => {
       disabled: palette.genericGreenTint(40),
       whiteMix: palette.genericGreenTint(90),
       withOpacity: baseWithOpacity(0.55),
+      loadingBarBackground: palette.genericGreenTint(70),
 
       // generic
       black: "#000000",

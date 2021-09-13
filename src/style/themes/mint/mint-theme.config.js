@@ -10,6 +10,7 @@ export default (palette) => {
       whiteMix: palette.productGreenTint(90),
       hoveredTabKeyline: palette.productGreenTint(30),
       disabled: palette.productGreenTint(40),
+      loadingBarBackground: palette.productGreenTint(70),
     },
 
     stepSequence: {

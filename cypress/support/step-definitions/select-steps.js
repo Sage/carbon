@@ -159,7 +159,9 @@ When("I click on Select input with lazy loading in no iframe", () => {
 });
 
 Then("Lazy loading is visible", () => {
-  loader().should("be.visible");
+  for (let i = 0; i < 3; i++) {
+    loader(i).should("be.visible");
+  }
 });
 
 When("I scroll to the {string} of Select List", (direction) => {

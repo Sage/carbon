@@ -1,4 +1,7 @@
 {
+  "sizeDefault": {
+
+  },
   "sizeSmall": {
     "size": "small"
   },
@@ -8,6 +11,10 @@
   "isInsideButtonSmall": {
     "isInsideButton": true,
     "size": "small"
+  },
+  "isInsideButtonDefault": {
+    "isInsideButton": true,
+    "size": "medium"
   },
   "isInsideButtonLarge": {
     "isInsideButton": true,
