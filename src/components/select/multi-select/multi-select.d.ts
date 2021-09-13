@@ -39,6 +39,25 @@ export interface MultiSelectProps
   value?: string[] | Record<string, unknown>[];
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Placement of the select list in relation to the input element */
+  listPlacement?:
+    | "auto"
+    | "auto-start"
+    | "auto-end"
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "left"
+    | "left-start"
+    | "left-end";
+  /** Use the opposite list placement if the set placement does not fit */
+  flipEnabled?: bool;
 }
 
 declare function MultiSelect(

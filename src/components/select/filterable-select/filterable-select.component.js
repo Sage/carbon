@@ -47,6 +47,8 @@ const FilterableSelect = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       tooltipPosition,
+      listPlacement = "bottom-start",
+      flipEnabled = true,
       ...textboxProps
     },
     inputRef
@@ -496,6 +498,8 @@ const FilterableSelect = React.forwardRef(
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         loaderDataRole="filterable-select-list-loader"
+        listPlacement={listPlacement}
+        flipEnabled={flipEnabled}
       >
         {children}
       </FilterableSelectList>
@@ -567,6 +571,26 @@ FilterableSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Placement of the select list in relation to the input element */
+  listPlacement: PropTypes.oneOf([
+    "auto",
+    "auto-start",
+    "auto-end",
+    "top",
+    "top-start",
+    "top-end",
+    "bottom",
+    "bottom-start",
+    "bottom-end",
+    "right",
+    "right-start",
+    "right-end",
+    "left",
+    "left-start",
+    "left-end",
+  ]),
+  /** Use the opposite list placement if the set placement does not fit */
+  flipEnabled: PropTypes.bool,
 };
 
 FilterableSelect.defaultProps = {

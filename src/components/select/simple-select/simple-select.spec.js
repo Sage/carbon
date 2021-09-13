@@ -410,6 +410,40 @@ describe("SimpleSelect", () => {
         expect(wrapper.find(SelectList).exists()).toBe(false);
       });
     });
+
+    it.each([
+      "auto",
+      "auto-start",
+      "auto-end",
+      "top",
+      "top-start",
+      "top-end",
+      "bottom",
+      "bottom-start",
+      "bottom-end",
+      "right",
+      "right-start",
+      "right-end",
+      "left",
+      "left-start",
+      "left-end",
+    ])("the listPlacement prop should be passed", (listPlacement) => {
+      const wrapper = renderSelect({ listPlacement });
+
+      wrapper.find("input").simulate("click");
+      expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+        listPlacement
+      );
+    });
+
+    it("the flipEnabled prop should be passed", () => {
+      const wrapper = renderSelect({ flipEnabled: false });
+
+      wrapper.find("input").simulate("click");
+      expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
+      wrapper.setProps({ flipEnabled: true });
+      expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
+    });
   });
 
   describe("when the Dropdown Icon in the Textbox has been clicked", () => {

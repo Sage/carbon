@@ -20,6 +20,28 @@ export default {
         disabled: true,
       },
     },
+    listPlacement: {
+      options: [
+        "auto",
+        "auto-start",
+        "auto-end",
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "right",
+        "right-start",
+        "right-end",
+        "left",
+        "left-start",
+        "left-end",
+      ],
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 
@@ -67,9 +89,14 @@ Default.argTypes = {
   isLoading: { table: { disable: true }, control: false },
   onListScrollBottom: { table: { disable: true }, control: false },
   tooltipPosition: { table: { disable: true }, control: false },
+  "data-component": { table: { disable: true }, control: false },
+  "data-element": { table: { disable: true }, control: false },
+  "data-role": { table: { disable: true }, control: false },
 };
 Default.args = {
   mt: 0,
+  listPlacement: undefined,
+  flipEnabled: true,
 };
 
 export { Default };
