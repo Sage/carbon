@@ -33,7 +33,7 @@ const Loader = ({ isInsideButton, isActive, size, ...rest }) => {
 };
 
 Loader.defaultProps = {
-  size: "small",
+  size: "medium",
   isInsideButton: false,
   isActive: true,
 };
@@ -41,7 +41,7 @@ Loader.defaultProps = {
 Loader.propTypes = {
   ...marginPropTypes,
   /** Size of the loader. */
-  size: PropTypes.oneOf(["small", "large"]),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Applies white color. */
   isInsideButton: PropTypes.bool,
   /** Applies slate color. Available only when isInsideButton is true. */

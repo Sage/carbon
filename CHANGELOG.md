@@ -1,3 +1,10 @@
+## [84.5.0](https://github.com/Sage/carbon/compare/v84.4.0...v84.5.0) (2021-09-13)
+
+
+### Features
+
+* **loader-bar:** create loader-bar ([a5d5f7c](https://github.com/Sage/carbon/commit/a5d5f7c042814426a149e3787c81c9c82f2d4817))
+
 ## [84.4.0](https://github.com/Sage/carbon/compare/v84.3.0...v84.4.0) (2021-09-09)
 
 

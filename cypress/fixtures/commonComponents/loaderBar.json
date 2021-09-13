@@ -1,0 +1,11 @@
+{
+  "sizeDefault": {
+
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeLarge": {
+    "size": "large"
+  }
+}
