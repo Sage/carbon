@@ -54,7 +54,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Loader Bar component theme to <theme>
-    When I open Test default "Loader Bar" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open Test default "Loader Bar" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Loader Bar component css background color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |

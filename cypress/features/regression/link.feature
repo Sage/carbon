@@ -27,7 +27,7 @@ Feature: Link component
 
   @positive
   Scenario: Link is not tabbable
-    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbableFlase" object name
+    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbableFalse" object name
     Then Link is not tabbable
 
   @positive

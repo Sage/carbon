@@ -9,10 +9,6 @@ const DEBUG_FLAG = false;
 /* returning false here prevents Cypress from failing the test */
 Cypress.on("uncaught:exception", () => false);
 
-Cypress.Commands.overwrite("type", (originalFn, subject, string, options) =>
-  originalFn(subject, string, Object.assign({}, options, { delay: 75 }))
-);
-
 Cypress.Commands.overwrite("log", (subject, message) =>
   cy.task("log", message)
 );
