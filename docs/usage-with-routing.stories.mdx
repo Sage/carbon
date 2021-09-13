@@ -38,11 +38,19 @@ const CarbonButtonWithReactRouter = ({ to, children }) => {
 
 const CarbonLinkWithReactRouter = ({ to, children }) => {
   const history = useHistory();
-  const onClick = useCallback(() => {
-    history.push(to);
-  }, [to, history]);
+  const onClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      history.push(to);
+    },
+    [to, history]
+  );
 
-  return <Link onClick={onClick}>{children}</Link>;
+  return (
+    <Link onClick={onClick} href={to}>
+      {children}
+    </Link>
+  );
 };
 
 const CarbonTabsWithReactRouter = ({ children }) => {
@@ -56,7 +64,11 @@ const CarbonTabsWithReactRouter = ({ children }) => {
     [history]
   );
 
-  return <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>{children}</Tabs>;
+  return (
+    <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>
+      {children}
+    </Tabs>
+  );
 };
 
 const Home = () => (
@@ -121,11 +133,19 @@ const CarbonButtonWithReactRouter = ({ to, children }) => {
 
 const CarbonLinkWithReactRouter = ({ to, children }) => {
   const navigate = useNavigate();
-  const onClick = useCallback(() => {
-    navigate(to);
-  }, [to, navigate]);
+  const onClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      navigate(to);
+    },
+    [to, navigate]
+  );
 
-  return <Link onClick={onClick}>{children}</Link>;
+  return (
+    <Link onClick={onClick} href={to}>
+      {children}
+    </Link>
+  );
 };
 
 const CarbonTabsWithReactRouter = ({ children }) => {
@@ -139,7 +159,11 @@ const CarbonTabsWithReactRouter = ({ children }) => {
     [navigate]
   );
 
-  return <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>{children}</Tabs>;
+  return (
+    <Tabs onTabChange={handleTabChange} selectedTabId={activeTab}>
+      {children}
+    </Tabs>
+  );
 };
 
 const Home = () => (

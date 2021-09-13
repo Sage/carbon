@@ -8,6 +8,7 @@ import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
+import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
 import StyledSearch from "../search/search.style";
 
@@ -49,6 +50,15 @@ export const StyledForm = styled.form`
 
   & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
     margin-top: 0;
+    margin-bottom: ${({ fieldSpacing, theme }) =>
+      theme.spacing * fieldSpacing}px;
+  }
+
+  ${StyledInlineInputs} {
+    ${StyledFormField} {
+      margin-bottom: 0;
+    }
+
     margin-bottom: ${({ fieldSpacing, theme }) =>
       theme.spacing * fieldSpacing}px;
   }

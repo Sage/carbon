@@ -60,6 +60,7 @@ const StyledButton = styled.button`
       svg {
         margin-top: 0;
       }
+      ${iconOnly && "margin-left: auto; margin-right: auto"}
     }
   `}
 `;
@@ -75,7 +76,32 @@ function additionalIconStyle({ iconType }) {
   return "16px";
 }
 
-function stylingForType({ disabled, buttonType, theme, size, destructive }) {
+function stylingForIconOnly(size) {
+  let dimension = "";
+  switch (size) {
+    case "small":
+      dimension = "32px";
+      break;
+    case "large":
+      dimension = "48px";
+      break;
+    default:
+      dimension = "40px";
+  }
+  return `
+  padding: 0px; 
+  width: ${dimension}; 
+  min-height: ${dimension}`;
+}
+
+function stylingForType({
+  iconOnly,
+  disabled,
+  buttonType,
+  theme,
+  size,
+  destructive,
+}) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -104,6 +130,7 @@ function stylingForType({ disabled, buttonType, theme, size, destructive }) {
       font-size: 16px;
       min-height: 48px;
     `}
+    ${iconOnly && stylingForIconOnly(size)}
   `;
 }
 

@@ -8,7 +8,7 @@ When("I click onto {string} tab", (anchorNaviIndex) => {
 });
 
 Then("{string} anchor navigation section is visible", (anchorName) => {
-  anchorNavigationStickyMainPage(anchorName).parent().should("be.visible");
+  anchorNavigationStickyMainPage(anchorName).should("be.visible");
 });
 
 When("I scroll window to the {string} position", (anchorName) => {

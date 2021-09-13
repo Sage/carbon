@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import { StyledDl, StyledDtDiv, StyledDdDiv } from "./definition-list.style";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
+import DlContext from "./__internal__/dl.context";
 
 const Dl = ({
   children,
   w = 50,
   dtTextAlign = "right",
   ddTextAlign = "left",
+  asSingleColumn = false,
   ...rest
 }) => {
   const dlComponent = [];
@@ -57,8 +59,15 @@ const Dl = ({
   };
 
   return (
-    <StyledDl w={w} data-component="dl" {...rest}>
-      {composeDlComponent(listChildren)}
+    <StyledDl
+      w={w}
+      data-component="dl"
+      asSingleColumn={asSingleColumn}
+      {...rest}
+    >
+      <DlContext.Provider value={{ asSingleColumn }}>
+        {composeDlComponent(listChildren)}
+      </DlContext.Provider>
     </StyledDl>
   );
 };
@@ -70,7 +79,7 @@ Dl.propTypes = {
   /** This string will specify the text align styling of the `<dd></dd>`. */
   ddTextAlign: PropTypes.oneOf(["left", "center", "right"]),
   /** This value will specify the width of the `StyledDtDiv` as a percentage. The remaining space will be taken up
-      by the `StyledDdDiv`.
+      by the `StyledDdDiv`. This prop has no effect when `asSingleColumn` is set.
    */
   w: PropTypes.number,
   /**
@@ -78,5 +87,7 @@ Dl.propTypes = {
    * @ignore
    */
   children: PropTypes.node.isRequired,
+  /** Render the DefinitionList as a single column */
+  asSingleColumn: PropTypes.bool,
 };
 export default Dl;

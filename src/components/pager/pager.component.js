@@ -53,6 +53,7 @@ const Pager = ({
 
   useEffect(() => {
     setCurrentPageSize(Number(pageSize));
+    setValue(pageSize);
   }, [pageSize]);
 
   useEffect(() => {

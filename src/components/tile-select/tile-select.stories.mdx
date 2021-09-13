@@ -8,6 +8,7 @@ import Pill from "../pill/";
 import Icon from "../icon";
 import Button from "../button";
 import Box from "../box";
+import Image from "../image";
 import Typography from "../typography";
 
 <Meta
@@ -377,6 +378,10 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
   <Story name="single tile">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
+      const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
       return (
         <TileSelect
           value="1"
@@ -387,7 +392,7 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
           subtitle="Subtitle"
           description="Short and descriptive description"
           checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
+          onChange={handleChange}
         />
       );
     }}
@@ -402,16 +407,20 @@ To render a `footer` pass anything renderable to the prop like in the example be
   <Story name="with a footer">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
+       const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
       return (
         <TileSelect
           value="1"
           id="single-1"
           aria-label="single-1"
           name="single"
-          title="Title"
-          subtitle="Subtitle"
+          title="Title Short and descriptive description"
+          subtitle="Subtitle Short and descriptive description"
           checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
+          onChange={handleChange}
           description="Short and descriptive description"
           footer={
             <Box pt={1} display="flex" alignItems="baseline">
@@ -429,6 +438,36 @@ To render a `footer` pass anything renderable to the prop like in the example be
           }
         />
       );
+    }}
+  </Story>
+</Preview>
+
+### With a prefix adornment
+To render a prefixed adornment in the top left corner of the `TileSelect` you can pass any node in via the `prefixAdornment` prop. 
+
+<Preview>
+  <Story name="with a prefix adornment">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
+      return (
+        <TileSelect
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          checked={isChecked}
+          prefixAdornment={<Image height="40px" width="40px" backgroundImage={`url(${require("../../../.assets/flexible.svg")})`} />}
+          titleAdornment={<Pill>Message</Pill>}
+          onChange={handleChange}
+          description="Short and descriptive description"
+        />
+      )
     }}
   </Story>
 </Preview>

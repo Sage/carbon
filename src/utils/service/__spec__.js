@@ -331,10 +331,7 @@ describe("Service", () => {
 
     describe("with a transformRequest", () => {
       it("transforms the data", (done) => {
-        service.setTransformRequest((data) => {
-          const d = { bar: "custom" };
-          return JSON.stringify(d);
-        });
+        service.setTransformRequest((data) => ({ bar: "custom" }));
         service.post(
           { foo: "posted" },
           () => {},

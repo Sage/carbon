@@ -286,6 +286,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c20 .c1 svg {
@@ -298,9 +300,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c21 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
-  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c21 .c1 svg {
@@ -313,9 +317,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c22 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
-  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c22 .c1 svg {
@@ -664,6 +670,36 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c45 .c1 svg {
+  margin-top: 0;
+}
+
+.c46:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c46 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c46 .c1 svg {
+  margin-top: 0;
+}
+
+.c47:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c47 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c47 .c1 svg {
   margin-top: 0;
 }
 
@@ -1089,6 +1125,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c19 .c1 svg {
@@ -1101,9 +1139,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c20 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
-  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c20 .c1 svg {
@@ -1116,9 +1156,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c21 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
-  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
   height: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .c21 .c1 svg {
@@ -1467,6 +1509,36 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c44 .c1 svg {
+  margin-top: 0;
+}
+
+.c45:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c45 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c45 .c1 svg {
+  margin-top: 0;
+}
+
+.c46:hover .c1 {
+  color: #FFFFFF;
+}
+
+.c46 .c1 {
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c46 .c1 svg {
   margin-top: 0;
 }
 

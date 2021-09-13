@@ -1,41 +1,35 @@
 import React from "react";
 import { mount } from "enzyme";
-import Browser from "../../utils/helpers/browser/browser";
+import { act } from "react-dom/test-utils";
+
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog from "./dialog.component";
 import { DialogStyle, DialogTitleStyle } from "./dialog.style";
 import Button from "../button";
 import Heading from "../heading";
 import { Row, Column } from "../row";
-import ElementResize from "../../utils/helpers/element-resize/element-resize";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Form from "../form";
 import { StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
 
+jest.mock("../../hooks/__internal__/useResizeObserver");
+
 describe("Dialog", () => {
   let onCancel;
-  let mockWindow;
-  let addElementResizeSpy;
-  let removeElementResizeSpy;
+  let addEventListenerSpy;
+  let removeEventListenerSpy;
 
   let wrapper;
   beforeEach(() => {
     onCancel = jasmine.createSpy("cancel");
-    mockWindow = {
-      addEventListener() {},
-      removeEventListener() {},
-      getComputedStyle() {
-        return {};
-      },
-    };
-    Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
   });
 
   describe("event listeners", () => {
     beforeEach(() => {
-      addElementResizeSpy = jest.spyOn(ElementResize, "addListener");
-      removeElementResizeSpy = jest.spyOn(ElementResize, "removeListener");
+      addEventListenerSpy = jest.spyOn(window, "addEventListener");
+      removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
     });
 
     afterEach(() => {
@@ -49,7 +43,9 @@ describe("Dialog", () => {
         </Dialog>
       );
 
-      expect(addElementResizeSpy).toHaveBeenCalledTimes(1);
+      expect(
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(1);
     });
 
     it("does not bind if component is not open on mount", () => {
@@ -59,7 +55,9 @@ describe("Dialog", () => {
         </Dialog>
       );
 
-      expect(addElementResizeSpy).toHaveBeenCalledTimes(0);
+      expect(
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(0);
     });
 
     it("removes the event listener if modal was open on unmount", () => {
@@ -70,7 +68,9 @@ describe("Dialog", () => {
       );
       wrapper.unmount();
 
-      expect(removeElementResizeSpy).toHaveBeenCalledTimes(1);
+      expect(
+        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(1);
     });
 
     it("does not remove the event listener if it was not in use on unmount", () => {
@@ -81,7 +81,9 @@ describe("Dialog", () => {
       );
       wrapper.unmount();
 
-      expect(removeElementResizeSpy).toHaveBeenCalledTimes(0);
+      expect(
+        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(0);
     });
 
     it("adds event listeners on modal open", () => {
@@ -93,7 +95,9 @@ describe("Dialog", () => {
 
       wrapper.setProps({ open: true });
 
-      expect(addElementResizeSpy).toHaveBeenCalledTimes(1);
+      expect(
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(1);
     });
 
     it("removes event listeners on modal close", () => {
@@ -104,8 +108,9 @@ describe("Dialog", () => {
       );
 
       wrapper.setProps({ open: false });
-
-      expect(removeElementResizeSpy).toHaveBeenCalledTimes(1);
+      expect(
+        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(1);
     });
   });
 
@@ -127,7 +132,7 @@ describe("Dialog", () => {
     }).not.toThrow();
   });
 
-  describe("dialog is centered on open", () => {
+  describe("dialog is centered", () => {
     beforeEach(() => {
       window.innerHeight = 300;
       window.innerWidth = 100;
@@ -140,7 +145,7 @@ describe("Dialog", () => {
     });
 
     describe("when dialog is lower than 20px", () => {
-      it("sets top position to the correct value", () => {
+      it("sets top position to the correct value on open", () => {
         wrapper = mount(
           <Dialog open>
             <div />
@@ -150,10 +155,34 @@ describe("Dialog", () => {
           "150px"
         );
       });
+
+      it("sets top position to the correct value on resize", () => {
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
+
+        jest
+          .spyOn(Element.prototype, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            height: 100,
+          }));
+
+        act(() => {
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
+        });
+
+        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
+          "100px"
+        );
+      });
     });
 
     describe("when dialog is higher than 20px", () => {
-      it("sets top position to 20px", () => {
+      it("sets top position to 20px on open", () => {
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(() => ({
@@ -170,10 +199,34 @@ describe("Dialog", () => {
           "20px"
         );
       });
+
+      it("sets top position to 20px on resize", () => {
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
+
+        jest
+          .spyOn(Element.prototype, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            height: 261,
+          }));
+
+        act(() => {
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
+        });
+
+        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
+          "20px"
+        );
+      });
     });
 
     describe("when dialog is less than 20px from the side", () => {
-      it("sets top position to 20px", () => {
+      it("sets left position to 20px on open", () => {
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(() => ({
@@ -185,6 +238,30 @@ describe("Dialog", () => {
             <div />
           </Dialog>
         );
+
+        expect(wrapper.find(DialogStyle).getDOMNode().style.left).toEqual(
+          "20px"
+        );
+      });
+
+      it("sets left position to 20px on resize", () => {
+        wrapper = mount(
+          <Dialog open>
+            <div />
+          </Dialog>
+        );
+
+        jest
+          .spyOn(Element.prototype, "getBoundingClientRect")
+          .mockImplementation(() => ({
+            width: 361,
+          }));
+
+        act(() => {
+          useResizeObserver.mock.calls[
+            useResizeObserver.mock.calls.length - 1
+          ][1]();
+        });
 
         expect(wrapper.find(DialogStyle).getDOMNode().style.left).toEqual(
           "20px"
