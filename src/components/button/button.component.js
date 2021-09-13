@@ -1,47 +1,34 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
-import { ThemeContext } from "styled-components";
-import Icon from "../icon";
+
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { baseTheme } from "../../style/themes";
+import InternalButtonIcon from "./__internal__/InternalButtonIcon.component";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
   iconType,
   iconPosition,
   size,
+  disabled,
   subtext,
   children,
-  disabled,
-  buttonType,
   iconTooltipMessage,
   iconTooltipPosition,
-  theme = baseTheme,
+  buttonType,
   /* eslint-enable */
 }) {
-  const iconColorMap = {
-    primary: "white",
-    /* eslint-disable react/prop-types */
-    secondary: theme.colors.primary,
-    tertiary: theme.colors.primary,
-    darkBackground: theme.colors.primary,
-    /* eslint-enable react/prop-types */
-  };
-
   const iconProps = {
     type: iconType,
     disabled,
-    bg: "transparent",
-    bgSize: "extra-small",
-    color: iconColorMap[buttonType],
+    buttonType,
   };
 
   return (
     <>
       {iconType && iconPosition === "before" && children && (
-        <Icon {...iconProps} />
+        <InternalButtonIcon {...iconProps} />
       )}
       <span>
         <span data-element="main-text">{children}</span>
@@ -52,14 +39,14 @@ function renderChildren({
         )}
       </span>
       {iconType && !children && (
-        <Icon
+        <InternalButtonIcon
           {...iconProps}
           tooltipMessage={iconTooltipMessage}
           tooltipPosition={iconTooltipPosition}
         />
       )}
       {iconType && iconPosition === "after" && children && (
-        <Icon {...iconProps} />
+        <InternalButtonIcon {...iconProps} />
       )}
     </>
   );
@@ -136,7 +123,6 @@ const renderStyledButton = (buttonProps) => {
 };
 
 const Button = (props) => {
-  const theme = useContext(ThemeContext);
   const { size, subtext } = props;
   const linkRef = useRef(null);
   const { as, buttonType, forwardRef, ...rest } = props;
@@ -144,7 +130,6 @@ const Button = (props) => {
     ...rest,
     buttonType: buttonType || as,
     ref: forwardRef || linkRef,
-    theme,
   };
 
   if (subtext.length > 0 && size !== "large") {

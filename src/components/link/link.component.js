@@ -5,6 +5,7 @@ import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { baseTheme } from "../../style/themes";
 
 const Link = React.forwardRef(
   (

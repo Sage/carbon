@@ -4,6 +4,7 @@ import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
 
 import Icon from "components/icon";
+import InternalButtonIcon from "./__internal__/InternalButtonIcon.component";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import BaseTheme from "../../style/themes/base";
@@ -122,8 +123,8 @@ describe("Button", () => {
 
             it("contains an Icon", () => {
               const assertion =
-                wrapper.find(Icon).exists() &&
-                wrapper.find(Icon).props().type === "filter";
+                wrapper.find(InternalButtonIcon).exists() &&
+                wrapper.find(InternalButtonIcon).props().type === "filter";
               expect(assertion).toEqual(true);
             });
           }
@@ -146,8 +147,8 @@ describe("Button", () => {
 
         it("contains an Icon", () => {
           const assertion =
-            wrapper.find(Icon).exists() &&
-            wrapper.find(Icon).props().type === "filter";
+            wrapper.find(InternalButtonIcon).exists() &&
+            wrapper.find(InternalButtonIcon).props().type === "filter";
           expect(assertion).toEqual(true);
         });
       }
