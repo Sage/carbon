@@ -367,6 +367,30 @@ describe("TileSelect", () => {
       expect(wrapper.find(MyComp).exists()).toBeTruthy();
     });
   });
+
+  describe("additionalInformation prop", () => {
+    it("renders the passed in node", () => {
+      const MyComp = () => <div>foo</div>;
+
+      render({
+        checked: true,
+        id: "id",
+        name: "name",
+        additionalInformation: <MyComp />,
+        title: "foo",
+        titleAdornment: <div>bar</div>,
+      });
+
+      expect(wrapper.find(MyComp).exists()).toBeTruthy();
+
+      assertStyleMatch(
+        {
+          marginBottom: "4px",
+        },
+        wrapper.find(StyledAdornment)
+      );
+    });
+  });
 });
 
 describe("TileSelectGroup", () => {

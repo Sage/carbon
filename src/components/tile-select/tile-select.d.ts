@@ -36,6 +36,8 @@ export interface TileSelectProps extends MarginProps {
   footer?: React.ReactNode;
   /** Component to render in the top left corner of TileSelect */
   prefixAdornment?: React.ReactNode;
+  /** Component to render additional information row between title and description */
+  additionalInformation?: React.ReactNode;
 }
 
 declare function TileSelect(props: TileSelectProps): JSX.Element;
