@@ -1,10 +1,8 @@
-import { 
-  getComponent, 
-  getElement,
-} from "../../locators";
+import { getComponent, getElement } from "../../locators";
 import {
   buttonToggleComponent,
   linkComponent,
+  loaderBarComponent,
   loaderComponent,
 } from "../../locators/themes";
 
@@ -82,6 +80,21 @@ Then(
         BACKGROUND_COLOR,
         json.common[themeName]
       );
+    });
+  }
+);
+
+Then(
+  "Loader Bar component css background color is set to {string}",
+  (themeName) => {
+    cy.fixture("themes/themes.json").then((json) => {
+      loaderBarComponent()
+        .children()
+        .should("have.css", BACKGROUND_COLOR, json["loader-bar"][themeName]);
+      loaderBarComponent()
+        .children()
+        .children()
+        .should("have.css", BACKGROUND_COLOR, json.common[themeName]);
     });
   }
 );

@@ -53,6 +53,16 @@ Feature: Theming addon
       | none   | themeNone    |
 
   @positive
+  Scenario Outline: I set Loader Bar component theme to <theme>
+    When I open Test default "Loader Bar" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
+    Then Loader Bar component css background color is set to "<theme>"
+    Examples:
+      | theme  | nameOfObject |
+      | mint   | themeMint    |
+      | aegean | themeAegean  |
+      | none   | themeNone    |
+
+  @positive
   Scenario Outline: I set Multiaction Button component theme to <theme>
     When I open default-story "Multi action button" component in noIFrame with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
