@@ -263,6 +263,42 @@ describe("MenuItem", () => {
       });
     });
 
+    describe("with onSubmenuOpen prop set", () => {
+      it("should pass the onSubmenuOpen prop to Submenu", () => {
+        const mockCallback = jest.fn();
+
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType: "light" }}>
+            <MenuItem submenu="submenu" onSubmenuOpen={mockCallback}>
+              <MenuItem>Item one</MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        );
+
+        expect(wrapper.find(Submenu).props().onSubmenuOpen).toEqual(
+          mockCallback
+        );
+      });
+    });
+
+    describe("with onSubmenuClose prop set", () => {
+      it("should pass the onSubmenuClose prop to Submenu", () => {
+        const mockCallback = jest.fn();
+
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType: "light" }}>
+            <MenuItem submenu="submenu" onSubmenuClose={mockCallback}>
+              <MenuItem>Item one</MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        );
+
+        expect(wrapper.find(Submenu).props().onSubmenuClose).toEqual(
+          mockCallback
+        );
+      });
+    });
+
     describe("showDropdownArrow", () => {
       describe("when true (default)", () => {
         it("should pass the showDropdownArrow prop to Submenu", () => {
