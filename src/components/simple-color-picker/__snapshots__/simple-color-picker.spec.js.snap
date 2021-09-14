@@ -173,9 +173,8 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c6:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-border: none;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .c6::-webkit-input-placeholder {
@@ -192,12 +191,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 
 .c6::placeholder {
   color: rgba(0,0,0,0.55);
-}
-
-.c6:invalid,
-.c6:required {
-  box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 .c7 {

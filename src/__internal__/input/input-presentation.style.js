@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
-import StyledInput from "./input.style";
 
 export const StyledInputPresentationContainer = styled.div`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;
@@ -23,12 +22,6 @@ const InputPresentationStyle = styled.div`
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].horizontalPadding};
   padding-right: ${({ size }) => sizes[size].horizontalPadding};
-
-  ${StyledInput} {
-    &:-webkit-autofill {
-      margin-top: 2px;
-    }
-  }
 
   ${({ disabled, theme }) =>
     disabled &&
