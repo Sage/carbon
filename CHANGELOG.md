@@ -1,3 +1,14 @@
+## [86.0.0](https://github.com/Sage/carbon/compare/v85.0.0...v86.0.0) (2021-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pages:** Pages is no more class component
+
+### Code Refactoring
+
+* **pages:** rewrite to be functional ([accc933](https://github.com/Sage/carbon/commit/accc9334e957df0f80198361c62ad4cc4f921af3))
+
 ## [85.0.0](https://github.com/Sage/carbon/compare/v84.5.0...v85.0.0) (2021-09-13)
 
 
