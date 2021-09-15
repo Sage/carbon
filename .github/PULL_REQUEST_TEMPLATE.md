@@ -1,4 +1,5 @@
 ### Proposed behaviour
+
 <!--
 A clear and concise description of what changes this PR makes.
 
@@ -9,11 +10,12 @@ Please DO NOT share screenshots or the source code of your project.
 You can create a codesandbox to show the behaviour before/after this pull request by forking this template https://codesandbox.io/s/carbon-quickstart-xi5jc
 
 If you include a CodeSandbox link, the bot will fork it with the new built version of carbon.
-If you have a commit that includes fixes #123 and issue #123 has a CodeSandbox link in the body, the bot will fork 
+If you have a commit that includes fixes #123 and issue #123 has a CodeSandbox link in the body, the bot will fork
 it with the new built version of carbon.
 -->
 
 ### Current behaviour
+
 <!--
 A clear and concise description of the behaviour before this change.
 
@@ -21,9 +23,11 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 -->
 
 ### Checklist
+
 <!-- Each PR should include the following -->
 
 - [ ] Commits follow our style guide
+- [ ] Related issues linked in commit messages if required
 - [ ] Screenshots are included in the PR if useful
 - [ ] All themes are supported if required
 - [ ] Unit tests added or updated if required
@@ -31,10 +35,17 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] Storybook added or updated if required
 - [ ] Translations added or updated (including creating or amending translation keys table in storybook) if required
 - [ ] Typescript `d.ts` file added or updated if required
-- [ ] Carbon implementation and Design System documentation are congruent
+
+#### QA
+
+- [ ] Tested in sandbox/storybook
+- [ ] Add new Cypress test coverage if required
+- [ ] Carbon implementation matches Design System/designs
 
 ### Additional context
+
 <!-- Add any other context or links about the pull request here. -->
 
 ### Testing instructions
+
 <!-- How can a reviewer test this PR? -->
