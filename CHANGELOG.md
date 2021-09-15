@@ -1,3 +1,14 @@
+## [87.0.0](https://github.com/Sage/carbon/compare/v86.0.1...v87.0.0) (2021-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form-summary:** `errors.messages.formSummary` key returns an array of strings instead of a string
+
+### Code Refactoring
+
+* **form-summary:** change the design of the validation message ([6dc74a9](https://github.com/Sage/carbon/commit/6dc74a9c4777e9131906fb5ba0b33e3e173dd07b))
+
 ### [86.0.1](https://github.com/Sage/carbon/compare/v86.0.0...v86.0.1) (2021-09-15)
 
 
