@@ -139,9 +139,9 @@ Cypress tests are written in Gherkin syntax with Cucumber expressions. Observe t
   * Common steps (`common-steps.js`) are used for all common actions.
 
 Some common test steps:
-  * I open `<story name>` `<component name>` component in noIFrame with `<dedicated json file>` json from `<directory to take json from>` using `<object name in json>` object name
+  * I open `<story name>` `<component name>` component with `<dedicated json file>` json from `<directory to take json from>` using `<object name in json>` object name
   * I open `<name>` component page `<story name>`;
-  * I open `<name>` component page `<story name>` in no iframe.
+ 
 
 ##### Scenario tags
 Test scenarios in feature files can be tagged to enable a subset of scenarios to be run, ignored or identified in some manner. Use the following tags:
@@ -200,11 +200,8 @@ An example of an `index.js` file:
 import { BUTTON_SUBTEXT_PREVIEW, BUTTON_DATA_COMPONENT_PREVIEW } from './locators';
 
 // component preview locators
-export const buttonSubtextPreview = () => cy.iFrame(BUTTON_SUBTEXT_PREVIEW);
-export const buttonDataComponent = () => cy.iFrame(BUTTON_DATA_COMPONENT_PREVIEW);
-
-// component preview locators in no IFrame
-export const buttonDataComponentNoIFrame = () => cy.get(BUTTON_DATA_COMPONENT_PREVIEW);
+export const buttonSubtextPreview = () => cy.get(BUTTON_SUBTEXT_PREVIEW);
+export const buttonDataComponent = () => cy.get(BUTTON_DATA_COMPONENT_PREVIEW);
 ```
 
 An example of a corresponding `locators.js` file:
