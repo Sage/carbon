@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { StyledFormSummary, StyledInternalSummary } from "./form-summary.style";
+import {
+  StyledFormSummary,
+  StyledInternalSummary,
+  StyledMessagePrefix,
+} from "./form-summary.style";
 import Icon from "../../icon";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
@@ -11,13 +15,20 @@ const Summary = ({ type, errors, warnings }) => {
     errors,
     warnings,
   };
+  const message = useMemo(
+    () => l.errors.messages.formSummary(errors, warnings, type),
+    [l.errors.messages, errors, warnings, type]
+  );
 
   if (messages[type]) {
     return (
-      <StyledInternalSummary type={type} data-element={type}>
-        <Icon type={type.slice(0, -1)} />
-        <span>{l.errors.messages.formSummary(errors, warnings, type)}</span>
-      </StyledInternalSummary>
+      <>
+        <StyledMessagePrefix>{message[0]}</StyledMessagePrefix>
+        <StyledInternalSummary type={type} data-element={type}>
+          <Icon type={type.slice(0, -1)} />
+          <span>{message[1]}</span>
+        </StyledInternalSummary>
+      </>
     );
   }
   return null;
