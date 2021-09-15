@@ -39,6 +39,14 @@ body:
       placeholder: https://codesandbox.io/s/carbon-quickstart-xi5jc
     validations:
       required: true
+  - type: input
+    id: jira-id
+    attributes:
+      label: JIRA Ticket (Sage Only)
+      description: >- 
+        Please include any related JIRA ticket numbers. If we accept this report, we'll create another JIRA ticket and add a `relates to` link to your tickets.
+        Do not include any URL's.
+      placeholder: FE-123, SBS-456
   - type: textarea
     id: suggested-solution
     attributes:
