@@ -1,3 +1,10 @@
+### [86.0.1](https://github.com/Sage/carbon/compare/v86.0.0...v86.0.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* **flat-table-head:** ensure table head row children are an array before running find function ([e0b42e8](https://github.com/Sage/carbon/commit/e0b42e805dd92212351dc036645dbe56ab0f0550)), closes [#4378](https://github.com/Sage/carbon/issues/4378)
+
 ## [86.0.0](https://github.com/Sage/carbon/compare/v85.0.0...v86.0.0) (2021-09-14)
 
 
