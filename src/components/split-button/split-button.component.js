@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../icon";
@@ -17,108 +17,97 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
-class SplitButton extends Component {
-  constructor(props) {
-    super(props);
-    this.buttonLabelId = guid();
-    this.additionalButtons = [];
-    this.listening = false;
-    this.isToggleButtonFocused = false;
-    this.userInputType =
-      "ontouchstart" in document.documentElement ? "touchstart" : "click";
+const SplitButton = ({
+  align = "left",
+  as = "secondary",
+  buttonType,
+  children,
+  disabled = false,
+  iconPosition = "before",
+  iconType,
+  onClick,
+  size = "medium",
+  subtext,
+  text,
+  ...rest
+}) => {
+  const isToggleButtonFocused = useRef(false);
+  const buttonLabelId = useRef(guid());
+  const additionalButtons = useRef([]);
+  const splitButtonNode = useRef();
+  const buttonContainer = useRef();
+  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
+  const [minWidth, setMinWidth] = useState(0);
+  const userInputType = useRef(
+    "ontouchstart" in document.documentElement ? "touchstart" : "click"
+  );
 
-    this.splitButtonNode = React.createRef();
-    this.buttonContainer = React.createRef();
-  }
+  const hideButtons = useCallback(() => {
+    if (isToggleButtonFocused.current) return;
 
-  state = {
-    showAdditionalButtons: false,
-    minWidth: 0,
-  };
+    setShowAdditionalButtons(false);
+  }, []);
 
-  focusToggleButton = () => {
-    this.isToggleButtonFocused = true;
-    this.showButtons();
-  };
+  const handleClickOutside = useCallback(
+    ({ target }) => {
+      if (
+        !splitButtonNode.current.contains(target) &&
+        buttonContainer.current &&
+        !buttonContainer.current.contains(target)
+      ) {
+        hideButtons();
+      }
+    },
+    [hideButtons]
+  );
 
-  showButtons = () => {
-    document.addEventListener(this.userInputType, this.handleClickOutside);
-    this.setState({
-      showAdditionalButtons: true,
-      minWidth:
-        CONTENT_WIDTH_RATIO *
-        this.splitButtonNode.current.getBoundingClientRect().width,
-    });
+  const handleKeyDown = useCallback(
+    (ev) => {
+      if (!showAdditionalButtons) {
+        return;
+      }
 
-    if (!this.listening) {
-      document.addEventListener("keydown", this.handleKeyDown);
-      this.listening = true;
-    }
-  };
+      const numOfChildren = children.length - 1;
+      const currentIndex = additionalButtons.current.findIndex(isActiveElement);
+      let nextIndex = -1;
 
-  hideButtons = () => {
-    if (this.isToggleButtonFocused) return;
+      if (Events.isUpKey(ev)) {
+        nextIndex = currentIndex > 0 ? currentIndex - 1 : numOfChildren;
+        ev.preventDefault();
+      }
+      if (Events.isDownKey(ev)) {
+        nextIndex = currentIndex < numOfChildren ? currentIndex + 1 : 0;
+        ev.preventDefault();
+      } else if (Events.isTabKey(ev)) {
+        // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
+        setTimeout(hideButtons, 0);
+      }
 
-    this.setState({ showAdditionalButtons: false });
-    document.removeEventListener(this.userInputType, this.handleClickOutside);
+      if (nextIndex > -1) {
+        additionalButtons.current[nextIndex].focus();
+      }
+    },
+    [hideButtons, children, showAdditionalButtons]
+  );
 
-    if (this.listening) {
-      document.removeEventListener("keydown", this.handleKeyDown);
-      this.listening = false;
-    }
-  };
+  useEffect(() => {
+    const inputType = userInputType.current;
 
-  handleClickOutside = ({ target }) => {
-    if (
-      !this.splitButtonNode.current.contains(target) &&
-      this.buttonContainer.current &&
-      !this.buttonContainer.current.contains(target)
-    ) {
-      this.hideButtons();
-    }
-  };
+    document.addEventListener(inputType, handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
 
-  isActiveElement(node) {
-    return node === document.activeElement;
-  }
+    return function cleanup() {
+      document.removeEventListener(inputType, handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClickOutside, handleKeyDown]);
 
-  handleKeyDown = (ev) => {
-    const { children } = this.props;
-    const currentIndex = this.additionalButtons.findIndex(this.isActiveElement);
-    let nextIndex = -1;
-    if (Events.isUpKey(ev)) {
-      nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
-      ev.preventDefault();
-    }
-    if (Events.isDownKey(ev)) {
-      nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
-      ev.preventDefault();
-    } else if (Events.isTabKey(ev)) {
-      // timeout enforces thet the "hideButtons" method will be run after browser focuses on the next element
-      setTimeout(this.hideButtons, 0);
-    }
-
-    if (nextIndex > -1) {
-      this.additionalButtons[nextIndex].focus();
-    }
-  };
-
-  get mainButtonProps() {
-    const {
-      as,
-      buttonType,
-      disabled,
-      iconType,
-      onClick,
-      size,
-      subtext,
-    } = this.props;
-
+  function mainButtonProps() {
     return {
-      onMouseEnter: this.hideButtons,
-      onFocus: this.hideButtons,
-      onTouchStart: this.hideButtons,
-      iconPosition: this.props.iconPosition,
+      onMouseEnter: hideButtons,
+      onFocus: hideButtons,
+      onTouchStart: hideButtons,
+      iconPosition,
       as,
       buttonType,
       disabled,
@@ -129,145 +118,149 @@ class SplitButton extends Component {
     };
   }
 
-  get toggleButtonProps() {
+  function toggleButtonProps() {
     const opts = {
-      disabled: this.props.disabled,
-      displayed: this.state.showAdditionalButtons,
-      onTouchStart: this.showButtons,
-      onFocus: this.focusToggleButton,
+      disabled,
+      displayed: showAdditionalButtons,
+      onTouchStart: showButtons,
+      onFocus: focusToggleButton,
       onBlur: () => {
-        this.isToggleButtonFocused = false;
+        isToggleButtonFocused.current = false;
       },
-      onKeyDown: this.handleToggleButtonKeyDown,
-      buttonType: this.props.buttonType || this.props.as,
-      size: this.props.size,
+      onKeyDown: handleToggleButtonKeyDown,
+      buttonType: buttonType || as,
+      size,
     };
 
-    if (!this.props.disabled) {
-      opts.onMouseEnter = this.showButtons;
+    if (!disabled) {
+      opts.onMouseEnter = showButtons;
     }
 
     return opts;
   }
 
-  componentTags = () => {
+  function componentTags() {
     return {
       "data-component": "split-button",
-      "data-element": this.props["data-element"],
-      "data-role": this.props["data-role"],
+      "data-element": rest["data-element"],
+      "data-role": rest["data-role"],
     };
-  };
-
-  addRef(ref, index) {
-    if (!ref) return;
-    this.additionalButtons[index] = ref;
   }
 
-  getIconColor(buttonType) {
+  function addRef(ref, index) {
+    if (!ref) return;
+    additionalButtons.current[index] = ref;
+  }
+
+  function getIconColor() {
     const colorsMap = {
       primary: "on-dark-background",
       secondary: "business-color",
     };
-    return colorsMap[buttonType];
+    return colorsMap[buttonType || as];
   }
 
-  /**
-   * Returns the HTML for the main button.
-   */
-  get renderMainButton() {
+  function renderMainButton() {
     return [
       <Button
         data-element="main-button"
         key="main-button"
-        id={this.buttonLabelId}
-        {...this.mainButtonProps}
+        id={buttonLabelId.current}
+        {...mainButtonProps()}
       >
-        {this.props.text}
+        {text}
       </Button>,
       <StyledSplitButtonToggle
         aria-haspopup="true"
-        aria-expanded={this.state.showAdditionalButtons}
+        aria-expanded={showAdditionalButtons}
         aria-label="Show more"
         data-element="toggle-button"
         key="toggle-button"
-        {...this.toggleButtonProps}
+        {...toggleButtonProps()}
       >
         <Icon
           type="dropdown"
           bgTheme="none"
-          iconColor={this.getIconColor(this.toggleButtonProps.buttonType)}
-          disabled={this.toggleButtonProps.disabled}
+          iconColor={getIconColor()}
+          disabled={disabled}
         />
       </StyledSplitButtonToggle>,
     ];
   }
 
-  handleToggleButtonKeyDown = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      this.additionalButtons[0].focus();
-    }
-  };
+  function showButtons() {
+    setShowAdditionalButtons(true);
+    setMinWidth(
+      CONTENT_WIDTH_RATIO *
+        splitButtonNode.current.getBoundingClientRect().width
+    );
+  }
 
-  childrenWithProps() {
-    const { children } = this.props;
+  function handleToggleButtonKeyDown(ev) {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+      additionalButtons.current[0].focus();
+    }
+  }
+
+  function childrenWithProps() {
     const childArray = Array.isArray(children) ? children : [children];
 
     return childArray.filter(Boolean).map((child, index) => {
-      const props = {
+      const childProps = {
         key: index.toString(),
         role: "menuitem",
-        ref: (button) => this.addRef(button, index),
+        ref: (button) => addRef(button, index),
         tabIndex: -1,
       };
       if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...props} />;
+        return <ButtonWithForwardRef {...child.props} {...childProps} />;
       }
 
-      return React.cloneElement(child, props);
+      return React.cloneElement(child, childProps);
     });
   }
 
-  get renderAdditionalButtons() {
-    const children = this.childrenWithProps();
+  function focusToggleButton() {
+    isToggleButtonFocused.current = true;
+    showButtons();
+  }
 
-    if (!this.state.showAdditionalButtons) return null;
+  function isActiveElement(node) {
+    return node === document.activeElement;
+  }
+
+  function renderAdditionalButtons() {
+    if (!showAdditionalButtons) return null;
 
     return (
-      <Popover placement="bottom-end" reference={this.splitButtonNode}>
+      <Popover placement="bottom-end" reference={splitButtonNode}>
         <StyledSplitButtonChildrenContainer
           role="menu"
-          aria-label={this.props.text}
+          aria-label={text}
           data-element="additional-buttons"
-          align={this.props.align}
-          minWidth={this.state.minWidth}
-          ref={this.buttonContainer}
+          align={align}
+          minWidth={minWidth}
+          ref={buttonContainer}
         >
-          {children}
+          {childrenWithProps()}
         </StyledSplitButtonChildrenContainer>
       </Popover>
     );
   }
 
-  componentWillUnmount() {
-    document.removeEventListener(this.userInputType, this.handleClickOutside);
-    document.removeEventListener("keydown", this.handleKeyDown);
-  }
-
-  render() {
-    return (
-      <StyledSplitButton
-        aria-haspopup="true"
-        onMouseLeave={this.hideButtons}
-        ref={this.splitButtonNode}
-        {...this.componentTags()}
-        {...filterStyledSystemMarginProps(this.props)}
-      >
-        {this.renderMainButton}
-        {this.renderAdditionalButtons}
-      </StyledSplitButton>
-    );
-  }
-}
+  return (
+    <StyledSplitButton
+      aria-haspopup="true"
+      onMouseLeave={hideButtons}
+      ref={splitButtonNode}
+      {...componentTags()}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      {renderMainButton()}
+      {renderAdditionalButtons()}
+    </StyledSplitButton>
+  );
+};
 
 SplitButton.propTypes = {
   ...marginPropTypes,
@@ -291,14 +284,6 @@ SplitButton.propTypes = {
   iconPosition: PropTypes.oneOf(["before", "after"]),
   /** Set align of the rendered content */
   align: PropTypes.oneOf(["left", "right"]),
-};
-
-SplitButton.defaultProps = {
-  as: "secondary",
-  disabled: false,
-  size: "medium",
-  iconPosition: "before",
-  align: "left",
 };
 
 SplitButton.safeProps = ["buttonType", "as", "disabled", "size"];

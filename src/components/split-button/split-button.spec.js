@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
+import { act } from "react-dom/test-utils";
 
 import { ThemeProvider } from "styled-components";
 import SplitButton from "./split-button.component";
@@ -9,10 +10,7 @@ import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledButton from "../button/button.style";
-import {
-  elementsTagTest,
-  rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
 import SmallTheme from "../../style/themes/small";
 import MediumTheme from "../../style/themes/medium";
 import {
@@ -137,8 +135,10 @@ describe("SplitButton", () => {
       toggle = wrapper.find('[data-element="toggle-button"]');
     });
 
-    it("sets default state", () => {
-      expect(wrapper.instance().state.showAdditionalButtons).toEqual(false);
+    it("does not render additional buttons", () => {
+      expect(wrapper.find("[data-element='additional-buttons']").exists()).toBe(
+        false
+      );
     });
 
     it("renders dropdown icon", () => {
@@ -301,33 +301,6 @@ describe("SplitButton", () => {
     });
   });
 
-  describe("button refs", () => {
-    let wrapper4;
-    beforeEach(() => {
-      wrapper4 = render(
-        {
-          text: "mainButton",
-          "data-element": "bar",
-          "data-role": "baz",
-        },
-        multipleButtons,
-        mount
-      );
-    });
-
-    it("creates and stores refs for the additonal buttons", () => {
-      toggle = wrapper4.find('[data-element="toggle-button"]').hostNodes();
-      toggle.prop("onFocus")();
-      const { additionalButtons } = wrapper4.instance();
-      expect(additionalButtons.length).toEqual(multipleButtons.length);
-      additionalButtons.forEach((btn) => expect(btn).not.toEqual(null));
-    });
-
-    afterEach(() => {
-      wrapper4.unmount();
-    });
-  });
-
   describe("toggle button with mouse events", () => {
     describe("mouse enter dropdown toggle", () => {
       beforeEach(() => {
@@ -341,16 +314,22 @@ describe("SplitButton", () => {
         toggle = wrapper.find(StyledSplitButtonToggle);
       });
 
-      it("changes showAdditionalButtons state", () => {
+      it("renders additional buttons", () => {
         toggle.simulate("mouseenter");
-        expect(wrapper.state().showAdditionalButtons).toEqual(true);
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(true);
       });
 
-      it("when disabled it does not change the state", () => {
+      it("when disabled it does not render additional buttons", () => {
         wrapper = render({ disabled: true }, singleButton, mount);
         toggle = wrapper.find(StyledSplitButtonToggle);
         toggle.simulate("mouseenter");
-        expect(wrapper.state().showAdditionalButtons).toEqual(false);
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(false);
       });
 
       it("when disabled it has the expected styling", () => {
@@ -367,42 +346,32 @@ describe("SplitButton", () => {
       });
 
       afterEach(() => {
-        wrapper.instance().hideButtons();
         wrapper.unmount();
       });
     });
 
     describe("mouse leave split-button", () => {
       let mainButton;
+
       beforeEach(() => {
         wrapper = render({}, singleButton, mount);
         mainButton = wrapper.find(Button);
         toggle = wrapper.find(StyledSplitButtonToggle);
       });
 
-      it("changes showAdditionalButtons state", () => {
-        toggle.simulate("mouseenter");
-        toggle.simulate("mouseenter"); // for branch coverage
-        expect(wrapper.state().showAdditionalButtons).toEqual(true);
-        expect(wrapper.instance().listening).toEqual(true);
-        wrapper.simulate("mouseleave");
-        wrapper.simulate("mouseleave"); // for branch coverage
-        wrapper.instance().forceUpdate();
-        expect(wrapper.state().showAdditionalButtons).toEqual(false);
-        expect(wrapper.instance().listening).toEqual(false);
-      });
-
       it("hides additional buttons", () => {
         toggle.simulate("mouseenter");
+
         expect(
-          wrapper.find(StyledSplitButtonChildrenContainer).exists()
-        ).toBeTruthy();
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(true);
 
         mainButton.simulate("mouseenter");
-        wrapper.instance().forceUpdate();
+        wrapper.update();
+
         expect(
-          wrapper.find(StyledSplitButtonChildrenContainer).exists()
-        ).toBeFalsy();
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(false);
       });
 
       afterEach(() => {
@@ -430,7 +399,7 @@ describe("SplitButton", () => {
 
       it("the handler should be called on the main button", () => {
         toggle.simulate("mouseenter");
-        wrapper.instance().forceUpdate();
+
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(ButtonWithForwardRef);
@@ -466,21 +435,28 @@ describe("SplitButton", () => {
           <SplitButton text="Split button">{singleButton}</SplitButton>,
           { attachTo: domWrapper }
         );
-        simulateFocusOnToggle(wrapper);
+
+        act(() => {
+          simulateFocusOnToggle(wrapper);
+        });
       });
 
       describe("on the Menu element", () => {
         it("then the Menu should not be closed", () => {
           expect(
-            wrapper.find(StyledSplitButtonChildrenContainer).exists()
+            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
           ).toBe(true);
-          wrapper
-            .find(StyledSplitButtonChildrenContainer)
-            .find(Button)
-            .getDOMNode()
-            .dispatchEvent(nativeInputEvent);
+
+          act(() => {
+            wrapper
+              .find(StyledSplitButtonChildrenContainer)
+              .find(Button)
+              .getDOMNode()
+              .dispatchEvent(nativeInputEvent);
+          });
+
           expect(
-            wrapper.find(StyledSplitButtonChildrenContainer).exists()
+            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
           ).toBe(true);
         });
       });
@@ -489,11 +465,15 @@ describe("SplitButton", () => {
         describe("and focus is still on the toggle button", () => {
           it("then the Menu should not be closed", () => {
             expect(
-              wrapper.find(StyledSplitButtonChildrenContainer).exists()
+              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
             ).toBe(true);
-            domWrapper.dispatchEvent(nativeInputEvent);
+
+            act(() => {
+              domWrapper.dispatchEvent(nativeInputEvent);
+            });
+
             expect(
-              wrapper.find(StyledSplitButtonChildrenContainer).exists()
+              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
             ).toBe(true);
           });
         });
@@ -501,10 +481,14 @@ describe("SplitButton", () => {
         describe("and focus is on a button in the menu", () => {
           it("then the Menu should be closed", () => {
             expect(
-              wrapper.find(StyledSplitButtonChildrenContainer).exists()
+              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
             ).toBe(true);
             simulateBlurOnToggle(wrapper);
-            domWrapper.dispatchEvent(nativeInputEvent);
+
+            act(() => {
+              domWrapper.dispatchEvent(nativeInputEvent);
+            });
+
             expect(
               wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
             ).toBe(false);
@@ -537,16 +521,17 @@ describe("SplitButton", () => {
       });
     });
 
-    describe("on internal elements", () => {
-      const wrapper5 = render({}, multipleButtons);
-      wrapper5.setState({ showAdditionalButtons: true });
+    describe.each(["additional-buttons", "main-button", "toggle-button"])(
+      "%s element is tagged",
+      (element) => {
+        wrapper = render({}, multipleButtons, mount);
 
-      elementsTagTest(wrapper5, [
-        "additional-buttons",
-        "main-button",
-        "toggle-button",
-      ]);
-    });
+        toggle = wrapper.find(StyledSplitButtonToggle);
+        toggle.simulate("mouseenter");
+
+        expect(wrapper.find({ "data-element": element }).exists()).toBe(true);
+      }
+    );
   });
 
   describe("when focused on the toggle button", () => {
@@ -580,7 +565,7 @@ describe("SplitButton", () => {
           .find(additionalButtonsSelector)
           .find("button")
           .at(0);
-        expect(firstButton.instance()).toBe(document.activeElement);
+        expect(firstButton.getDOMNode()).toBe(document.activeElement);
       });
     });
 
@@ -645,7 +630,7 @@ describe("SplitButton", () => {
           .find("button")
           .at(0);
 
-        expect(firstButton.instance()).not.toBe(document.activeElement);
+        expect(firstButton.getDOMNode()).not.toBe(document.activeElement);
       });
     });
 
