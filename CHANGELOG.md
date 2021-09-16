@@ -1,3 +1,10 @@
+### [87.0.1](https://github.com/Sage/carbon/compare/v87.0.0...v87.0.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect styling when required and in error state ([83794d8](https://github.com/Sage/carbon/commit/83794d8cd62175187ee0a9d86574ad8227fd7c90))
+
 ## [87.0.0](https://github.com/Sage/carbon/compare/v86.0.1...v87.0.0) (2021-09-15)
 
 
