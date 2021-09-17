@@ -33,7 +33,7 @@ function render(props = {}, renderer = mount) {
     ...props,
   };
 
-  renderer(<Decimal {...defaultProps} />);
+  renderer(<Decimal precision={2} {...defaultProps} />);
 }
 
 describe("Decimal", () => {
@@ -131,7 +131,7 @@ describe("Decimal", () => {
   });
 
   testStyledSystemMargin(
-    (props) => <Decimal {...props} />,
+    (props) => <Decimal precision={2} {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
     { modifier: "&&&" }
@@ -851,7 +851,11 @@ describe("Decimal", () => {
 
           it("adds additional zeros if required", () => {
             const onBlur = jest.fn();
-            render({ onBlur, precision: 4, ...itProps });
+            render({
+              onBlur,
+              precision: 4,
+              ...itProps,
+            });
             type("12345,56");
             blur();
             expect(value()).toBe("12.345,5600");
@@ -860,7 +864,11 @@ describe("Decimal", () => {
 
           it("does not format a value with numbers and too many delimiters", () => {
             const onBlur = jest.fn();
-            render({ onBlur, precision: 4, ...itProps });
+            render({
+              onBlur,
+              precision: 4,
+              ...itProps,
+            });
             type("123..45,56");
             blur();
             expect(value()).toBe("123..45,56");
@@ -869,7 +877,11 @@ describe("Decimal", () => {
 
           it("does not format a value with numbers and too many separators", () => {
             const onBlur = jest.fn();
-            render({ onBlur, precision: 4, ...itProps });
+            render({
+              onBlur,
+              precision: 4,
+              ...itProps,
+            });
             type("1,,2345,56");
             blur();
             expect(value()).toBe("1,,2345,56");
@@ -896,7 +908,7 @@ describe("Decimal", () => {
         });
 
         it("calls onChange when the user enters a value", () => {
-          render({ ...itProps });
+          render({ defaultValue: "0.05", ...itProps });
           type("12345,56");
           expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -1090,6 +1102,7 @@ describe("Decimal", () => {
       expect(onChange).not.toHaveBeenCalled();
     });
   });
+
   describe("Controlled", () => {
     it("can be controlled", () => {
       render({ value: "123" });
@@ -1113,8 +1126,8 @@ describe("Decimal", () => {
 
     it("typing a negative value does not revert to the default value", () => {
       render({ value: "123" });
-      setProps({ value: "-" });
-      expect(onChange).not.toHaveBeenCalled();
+      type("-");
+      expect(onChange).toHaveBeenCalled();
       expect(value()).toBe("-");
       expect(hiddenValue()).toBe("-");
     });
