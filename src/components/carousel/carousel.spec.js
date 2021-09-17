@@ -1,12 +1,8 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import BaseCarousel, { Carousel, Slide } from "./carousel.component";
 import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
 import {
-  CarouselStyledIconLeft,
-  CarouselSelectorInputStyle,
-  CarouselStyledIconRight,
   CarouselPreviousButtonWrapperStyle,
   CarouselStyledIcon,
   CarouselButtonStyle,
@@ -19,408 +15,214 @@ import {
 import mintTheme from "../../style/themes/mint";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
-describe("BaseCarousel", () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <BaseCarousel className="foobar">
-        <Slide />
-        <Slide />
-        <Slide />
-      </BaseCarousel>
-    );
-  });
-
-  describe("componentWillMount", () => {
-    describe("when slideIndex is passed", () => {
-      it("sets the intial slide to the prop", () => {
-        const wrapper = shallow(
-          <BaseCarousel slideIndex={1}>
-            <Slide />
-            <Slide />
-            <Slide />
-          </BaseCarousel>
-        );
-
-        expect(wrapper.state("selectedSlideIndex")).toEqual(1);
-      });
-    });
-
-    describe("when initialSlideIndex is passed", () => {
-      it("sets the intial slide to the prop", () => {
-        const wrapper = shallow(
-          <BaseCarousel initialSlideIndex={2}>
-            <Slide />
-            <Slide />
-            <Slide />
-          </BaseCarousel>
-        );
-
-        expect(wrapper.state("selectedSlideIndex")).toEqual(2);
-      });
-    });
-
-    describe("when initialSelectedId is not passed", () => {
-      it("defaults the initial slide to slide 0", () => {
-        const wrapper = shallow(
-          <BaseCarousel>
-            <Slide />
-            <Slide />
-            <Slide />
-          </BaseCarousel>
-        );
-
-        expect(wrapper.state("selectedSlideIndex")).toEqual(0);
-      });
-    });
-  });
-
-  describe("componentWillReceiveProps", () => {
-    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
-      wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-          <Slide />
-          <Slide />
-        </BaseCarousel>
-      );
+describe("Carousel", () => {
+  describe("when the Previous button has been clicked", () => {
+    let wrapper;
+    const onSlideChangeSpy = jest.fn();
 
     beforeEach(() => {
-      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
+      onSlideChangeSpy.mockClear();
     });
 
-    it("navigates between slides correctly when the slideIndex prop changes", () => {
-      // Initial state
-      expect(wrapper.state().selectedSlideIndex).toEqual(0);
-      expect(wrapper.state().disabled).toBeFalsy();
-      expect(enableButtonsAfterTimeoutSpy).not.toHaveBeenCalled();
+    describe("with initialSlideIndex set to an index other than the first", () => {
+      it("then onSlideChange should have been called with the previous index and a phrase 'previous'", () => {
+        wrapper = renderCarousel({
+          initialSlideIndex: 1,
+          onSlideChange: onSlideChangeSpy,
+        });
+        wrapper
+          .find("button[data-element='previous']")
+          .first()
+          .simulate("click");
 
-      // Move to slide 2
-      wrapper.setProps({ slideIndex: 2 });
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(0, "previous");
+      });
 
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      expect(wrapper.instance().transitionDirection).toEqual("next");
-      expect(wrapper.state().disabled).toBeFalsy();
+      describe("and the enablePreviousButton prop has been set to false", () => {
+        it("then the previous button should not have been rendered", () => {
+          wrapper = renderCarousel({
+            initialSlideIndex: 1,
+            onSlideChange: onSlideChangeSpy,
+            enablePreviousButton: false,
+          });
 
-      // Move to slide 1
-      wrapper.setProps({ slideIndex: 1 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(1);
-      expect(wrapper.instance().transitionDirection).toEqual("previous");
-      expect(wrapper.state().disabled).toBeFalsy();
-
-      // Move to slide 3
-      wrapper.setProps({ slideIndex: 3 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(0);
-      expect(wrapper.instance().transitionDirection).toEqual("previous");
-      expect(wrapper.state().disabled).toBeFalsy();
-
-      // Move to slide -1
-      wrapper.setProps({ slideIndex: -1 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      expect(wrapper.instance().transitionDirection).toEqual("next");
-      expect(wrapper.state().disabled).toBeFalsy();
-
-      // Move to slide 2
-      wrapper.setProps({ slideIndex: 2 });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
-
-      // Undefined slideIndex
-      wrapper.setProps({ slideIndex: undefined });
-
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
+          expect(wrapper.find("button[data-element='previous']").exists()).toBe(
+            false
+          );
+        });
+      });
     });
 
-    describe("when onSlideChange is set", () => {
-      it("calls onSlideChange", () => {
-        const onSlideChangeSpy = jasmine.createSpy();
-        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
+    describe("with initialSlideIndex set to the first index", () => {
+      beforeEach(() => {
+        wrapper = renderCarousel({
+          initialSlideIndex: 0,
+          onSlideChange: onSlideChangeSpy,
+        });
+        wrapper
+          .find("button[data-element='previous']")
+          .first()
+          .simulate("click");
+      });
+
+      it("then the button should be disabled", () => {
+        expect(
+          wrapper.find("button[data-element='previous']").props().disabled
+        ).toBe(true);
+      });
+
+      it("then onSlideChange should not have been called", () => {
+        expect(onSlideChangeSpy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when the Next button has been clicked", () => {
+    let wrapper;
+    const onSlideChangeSpy = jest.fn();
+
+    beforeEach(() => {
+      onSlideChangeSpy.mockClear();
+    });
+
+    describe("with initialSlideIndex set to an index other than the last", () => {
+      it("then onSlideChange should have been called with next index and the phrase 'next'", () => {
+        wrapper = renderCarousel({
+          initialSlideIndex: 0,
+          onSlideChange: onSlideChangeSpy,
+        });
+        wrapper.find("button[data-element='next']").first().simulate("click");
+
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "next");
+      });
+
+      describe("and the enableNextButton prop has been set to false", () => {
+        it("then the next button should not have been rendered", () => {
+          wrapper = renderCarousel({
+            initialSlideIndex: 0,
+            onSlideChange: onSlideChangeSpy,
+            enableNextButton: false,
+          });
+
+          expect(wrapper.find("button[data-element='next']").exists()).toBe(
+            false
+          );
+        });
+      });
+    });
+
+    describe("with initialSlideIndex set to the last index", () => {
+      beforeEach(() => {
+        wrapper = renderCarousel({
+          initialSlideIndex: 2,
+          onSlideChange: onSlideChangeSpy,
+        });
+        wrapper.find("button[data-element='next']").first().simulate("click");
+      });
+
+      it("then the button should be disabled", () => {
+        expect(
+          wrapper.find("button[data-element='next']").props().disabled
+        ).toBe(true);
+      });
+
+      it("then onSlideChange should not have been called", () => {
+        expect(onSlideChangeSpy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when the enableSlideSelector prop is set to false", () => {
+    it("then the slide selector should not have been rendered", () => {
+      const wrapper = renderCarousel({
+        initialSlideIndex: 0,
+        enableSlideSelector: false,
+      });
+
+      expect(
+        wrapper.find("input[data-element='selector-input']").exists()
+      ).toBe(false);
+    });
+  });
+
+  describe("when the a Slide Selector button with a higher index than current has been clicked", () => {
+    it(`then onSlideChange should have been called with that index and the phrase 'next'`, () => {
+      const onSlideChangeSpy = jest.fn();
+      const wrapper = renderCarousel({
+        initialSlideIndex: 0,
+        onSlideChange: onSlideChangeSpy,
+      });
+      wrapper
+        .find("input[data-element='selector-input']")
+        .at(1)
+        .simulate("change", { target: { checked: true, value: 1 } });
+
+      expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "next");
+    });
+  });
+
+  describe("when the a Slide Selector button with a lower index than current has been clicked", () => {
+    it(`then onSlideChange should have been called with that index and the phrase 'previous'`, () => {
+      const onSlideChangeSpy = jest.fn();
+      const wrapper = renderCarousel({
+        initialSlideIndex: 2,
+        onSlideChange: onSlideChangeSpy,
+      });
+      wrapper
+        .find("input[data-element='selector-input']")
+        .at(1)
+        .simulate("change", { target: { checked: true, value: 1 } });
+
+      expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "previous");
+    });
+  });
+
+  describe("when there is only one slide", () => {
+    it("then both previous and next buttons should be disabled", () => {
+      const wrapper = renderCarousel({ children: <Slide /> });
+
+      expect(
+        wrapper.find("button[data-element='previous']").props().disabled
+      ).toBe(true);
+      expect(wrapper.find("button[data-element='next']").props().disabled).toBe(
+        true
+      );
+    });
+  });
+
+  describe("when the slideIndex prop has been passed with a slide number", () => {
+    const onSlideChangeSpy = jest.fn();
+    let wrapper;
+
+    beforeEach(() => {
+      onSlideChangeSpy.mockClear();
+      wrapper = renderCarousel({
+        initialSlideIndex: 1,
+        onSlideChange: onSlideChangeSpy,
+      });
+    });
+
+    describe("and the current slide has lower index", () => {
+      it("then onSlideChange should have been called with the same slide number and 'next' word", () => {
+        wrapper.setProps({ slideIndex: 2 });
+
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(2, "next");
+      });
+    });
+
+    describe("and the current slide has higher index", () => {
+      it("then onSlideChange should have been called with the same slide number and 'previous' word", () => {
+        wrapper.setProps({ slideIndex: 0 });
+
+        expect(onSlideChangeSpy).toHaveBeenCalledWith(0, "previous");
+      });
+    });
+
+    describe("and it's the same slide number as current slide", () => {
+      it("then onSlideChange should not have been called", () => {
         wrapper.setProps({ slideIndex: 1 });
 
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "previous");
-      });
-    });
-  });
-
-  describe("onPreviousClick", () => {
-    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
-      wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-          <Slide />
-          <Slide />
-        </BaseCarousel>
-      );
-
-    beforeEach(() => {
-      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
-      wrapper.setState({ selectedSlideIndex: 2 });
-      wrapper.instance().onPreviousClick();
-    });
-
-    it("decrements the selectedSlideIndex", () => {
-      expect(wrapper.state().selectedSlideIndex).toEqual(1);
-    });
-
-    it("sets the transistion direction to previous", () => {
-      expect(wrapper.instance().transitionDirection).toEqual("previous");
-    });
-
-    describe("when on slide 0", () => {
-      it("sets the slideIndex to the last slide", () => {
-        wrapper.setState({ selectedSlideIndex: 0 });
-        wrapper.instance().onPreviousClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(2);
-      });
-    });
-
-    describe("when onSlideChange is set", () => {
-      it("calls onSlideChange", () => {
-        const onSlideChangeSpy = jasmine.createSpy();
-        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
-        wrapper.setState({ selectedSlideIndex: 0 });
-        wrapper.instance().onPreviousClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(2);
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(2, "previous");
-      });
-    });
-  });
-
-  describe("onNextClick", () => {
-    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
-      wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-          <Slide />
-          <Slide />
-        </BaseCarousel>
-      );
-
-    beforeEach(() => {
-      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
-      wrapper.setState({ selectedSlideIndex: 0 });
-      wrapper.instance().onNextClick();
-    });
-
-    it("increments the selectedSlideIndex", () => {
-      expect(wrapper.state().selectedSlideIndex).toEqual(1);
-    });
-
-    it("sets the transistion direction to next", () => {
-      expect(wrapper.instance().transitionDirection).toEqual("next");
-    });
-
-    describe("when on the last slide", () => {
-      it("sets the slideIndex to the first slide", () => {
-        wrapper.setState({ selectedSlideIndex: 2 });
-        wrapper.instance().onNextClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(0);
-      });
-    });
-
-    describe("when onSlideChange is set", () => {
-      it("calls onSlideChange", () => {
-        const onSlideChangeSpy = jasmine.createSpy();
-        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
-        wrapper.setState({ selectedSlideIndex: 2 });
-        wrapper.instance().onNextClick();
-        expect(wrapper.state().selectedSlideIndex).toEqual(0);
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(0, "next");
-      });
-    });
-  });
-
-  describe("onSlideSelection", () => {
-    const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
-      wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-          <Slide />
-          <Slide />
-        </BaseCarousel>
-      );
-
-    beforeEach(() => {
-      wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
-      wrapper.setState({ selectedSlideIndex: 0 });
-      const ev = { target: { value: 2 } };
-      wrapper.instance().onSlideSelection(ev);
-    });
-
-    it("sets the new slideIndex", () => {
-      expect(wrapper.state().selectedSlideIndex).toEqual(2);
-    });
-
-    describe("when new slide index is greater than current", () => {
-      it("sets the transistion group to NEXT", () => {
-        expect(wrapper.instance().transitionDirection).toEqual("next");
-      });
-    });
-
-    describe("when new slide index is less than current", () => {
-      it("sets the transistion group to PREVIOUS", () => {
-        wrapper.setState({ selectedSlideIndex: 2 });
-        const ev = { target: { value: 1 } };
-        wrapper.instance().onSlideSelection(ev);
-        expect(wrapper.instance().transitionDirection).toEqual("previous");
-      });
-    });
-
-    describe("when onSlideChange is set", () => {
-      it("calls onSlideChange", () => {
-        const onSlideChangeSpy = jasmine.createSpy();
-        wrapper.setProps({ onSlideChange: onSlideChangeSpy });
-        wrapper.setState({ selectedSlideIndex: 2 });
-        const ev = { target: { value: 1 } };
-        wrapper.instance().onSlideSelection(ev);
-        expect(wrapper.instance().transitionDirection).toEqual("previous");
-        expect(onSlideChangeSpy).toHaveBeenCalledWith(1, "previous");
-      });
-    });
-  });
-
-  describe("previousButtonProps", () => {
-    describe("when buttons are disabled", () => {
-      it("does not add a onClick", () => {
-        instance.setState({ disabled: true });
-        expect(instance.previousButtonProps().onClick).toBeUndefined();
-      });
-    });
-
-    describe("when buttons are not disabled", () => {
-      it("adds a onClick", () => {
-        instance.setState({ disabled: false });
-        expect(instance.previousButtonProps().onClick).toBeDefined();
-      });
-    });
-  });
-
-  describe("numOfSlides", () => {
-    describe("when one child", () => {
-      it("returns 1", () => {
-        instance = TestUtils.renderIntoDocument(
-          <BaseCarousel className="foobar">
-            <Slide />
-          </BaseCarousel>
-        );
-
-        expect(instance.numOfSlides()).toEqual(1);
-      });
-    });
-
-    describe("when an array of children", () => {
-      it("returns the number of children", () => {
-        expect(instance.numOfSlides()).toEqual(3);
-      });
-    });
-  });
-
-  describe("visibleSlides", () => {
-    let slide, wrapper;
-
-    beforeEach(() => {
-      wrapper = mount(
-        <BaseCarousel theme={mintTheme}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      slide = wrapper.instance().visibleSlide();
-    });
-
-    it("returns a slide instance", () => {
-      expect(slide.type).toEqual(Slide);
-    });
-  });
-
-  describe("slideSelector", () => {
-    describe("when enableSlideSelector is set to true", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-          <Slide />
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("renders a button for each slide", () => {
-        const buttons = wrapper.find(CarouselSelectorInputStyle);
-
-        expect(buttons.exists()).toBeTruthy();
-        expect(buttons.length).toEqual(3);
-      });
-    });
-
-    describe("when enableSlideSelector is set to false", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0} enableSlideSelector={false}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("does not render the slide selector", () => {
-        const buttons = wrapper.find(CarouselSelectorInputStyle);
-        expect(buttons.exists()).toBeFalsy();
-      });
-    });
-  });
-
-  describe("previousButton", () => {
-    describe("when enablePreviousButton is set to true", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("renders a previous button", () => {
-        const arrow = wrapper.find(CarouselStyledIconLeft);
-        expect(arrow.exists()).toBeTruthy();
-      });
-    });
-
-    describe("when enablePreviousButton is set to false", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0} enablePreviousButton={false}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("does not render a previous button", () => {
-        const arrow = wrapper.find(".carbon-carousel__previous-arrow");
-        expect(arrow.exists()).toBeFalsy();
-      });
-    });
-  });
-
-  describe("nextButton", () => {
-    describe("when enableNextButton is set to true", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0} enableNextButton>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("renders a next button", () => {
-        const arrow = wrapper.find(CarouselStyledIconRight);
-        expect(arrow.exists()).toBeTruthy();
-      });
-    });
-
-    describe("when enableNextButton is set to false", () => {
-      const wrapper = shallow(
-        <BaseCarousel initialSlideIndex={0} enableNextButton={false}>
-          <Slide />
-        </BaseCarousel>
-      );
-
-      it("does not render a next button", () => {
-        const arrow = wrapper.find(CarouselStyledIconRight);
-        expect(arrow.exists()).toBeFalsy();
+        expect(onSlideChangeSpy).not.toHaveBeenCalled();
       });
     });
   });
@@ -450,21 +252,6 @@ describe("BaseCarousel", () => {
         wrapper.find('[data-element="visible-slide"]').exists();
       });
     });
-  });
-});
-
-describe("When button get click", () => {
-  let wrapper;
-
-  it("should not change state of disabled", () => {
-    wrapper = mount(
-      <Carousel initialSlideIndex={0}>
-        <Slide />
-        <Slide />
-      </Carousel>
-    );
-    wrapper.find(CarouselButtonStyle).at(1).simulate("click");
-    expect(wrapper.find(CarouselSliderWrapper).props().elementIndex).toEqual(1);
   });
 });
 
@@ -612,3 +399,25 @@ describe("SlideStyle", () => {
     );
   });
 });
+
+it("coverage filler for else path", () => {
+  const wrapper = mount(
+    <BaseCarousel>
+      <Slide />
+      <Slide />
+      <Slide />
+    </BaseCarousel>
+  );
+
+  wrapper.find("button[data-element='next']").first().simulate("click");
+});
+
+function renderCarousel(props, renderer = mount) {
+  const children = props.children || [
+    <Slide key="slide1" />,
+    <Slide key="slide2" />,
+    <Slide key="slide3" />,
+  ];
+
+  return renderer(<Carousel {...props}>{children}</Carousel>);
+}

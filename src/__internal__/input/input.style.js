@@ -14,9 +14,8 @@ const StyledInput = styled.input`
   width: 30px;
 
   &:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px #fff inset;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    -webkit-box-border: none;
+    background-clip: text;
+    -webkit-background-clip: text;
   }
 
   ${({ align }) =>
@@ -35,11 +34,6 @@ const StyledInput = styled.input`
       color: ${theme.disabled.disabled};
       cursor: not-allowed;
     `}
-
-  &:invalid, &:required {
-    box-shadow: 0 0 0px 1000px #fff inset;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-  }
 
   ${({ readOnly, theme }) =>
     readOnly &&

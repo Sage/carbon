@@ -77,18 +77,21 @@ function additionalIconStyle({ iconType }) {
 }
 
 function stylingForIconOnly(size) {
-  let width = "";
+  let dimension = "";
   switch (size) {
     case "small":
-      width = "32px";
+      dimension = "32px";
       break;
     case "large":
-      width = "48px";
+      dimension = "48px";
       break;
     default:
-      width = "40px";
+      dimension = "40px";
   }
-  return `padding-left: 0px; padding-right: 0px; width: ${width};`;
+  return `
+  padding: 0px; 
+  width: ${dimension}; 
+  min-height: ${dimension}`;
 }
 
 function stylingForType({
@@ -109,7 +112,6 @@ function stylingForType({
     }
 
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
-    ${iconOnly && stylingForIconOnly(size)}
 
     ${size === "small" &&
     css`
@@ -128,6 +130,7 @@ function stylingForType({
       font-size: 16px;
       min-height: 48px;
     `}
+    ${iconOnly && stylingForIconOnly(size)}
   `;
 }
 

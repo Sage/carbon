@@ -1,3 +1,136 @@
+### [87.0.1](https://github.com/Sage/carbon/compare/v87.0.0...v87.0.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect styling when required and in error state ([83794d8](https://github.com/Sage/carbon/commit/83794d8cd62175187ee0a9d86574ad8227fd7c90))
+
+## [87.0.0](https://github.com/Sage/carbon/compare/v86.0.1...v87.0.0) (2021-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form-summary:** `errors.messages.formSummary` key returns an array of strings instead of a string
+
+### Code Refactoring
+
+* **form-summary:** change the design of the validation message ([6dc74a9](https://github.com/Sage/carbon/commit/6dc74a9c4777e9131906fb5ba0b33e3e173dd07b))
+
+### [86.0.1](https://github.com/Sage/carbon/compare/v86.0.0...v86.0.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* **flat-table-head:** ensure table head row children are an array before running find function ([e0b42e8](https://github.com/Sage/carbon/commit/e0b42e805dd92212351dc036645dbe56ab0f0550)), closes [#4378](https://github.com/Sage/carbon/issues/4378)
+
+## [86.0.0](https://github.com/Sage/carbon/compare/v85.0.0...v86.0.0) (2021-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pages:** Pages is no more class component
+
+### Code Refactoring
+
+* **pages:** rewrite to be functional ([accc933](https://github.com/Sage/carbon/commit/accc9334e957df0f80198361c62ad4cc4f921af3))
+
+## [85.0.0](https://github.com/Sage/carbon/compare/v84.5.0...v85.0.0) (2021-09-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **carousel:** Carousel is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **carousel:** change class component to functional ([3536d54](https://github.com/Sage/carbon/commit/3536d543d752a6ca4b7bc62d4ffe4377696bf59f))
+
+## [84.5.0](https://github.com/Sage/carbon/compare/v84.4.0...v84.5.0) (2021-09-13)
+
+
+### Features
+
+* **loader-bar:** create loader-bar ([a5d5f7c](https://github.com/Sage/carbon/commit/a5d5f7c042814426a149e3787c81c9c82f2d4817))
+
+## [84.4.0](https://github.com/Sage/carbon/compare/v84.3.0...v84.4.0) (2021-09-09)
+
+
+### Features
+
+* **link:** render an anchor element whenever a href prop is passed ([18e6471](https://github.com/Sage/carbon/commit/18e64719fd2f736e32c878b9b5611a630dac4fb6))
+
+## [84.3.0](https://github.com/Sage/carbon/compare/v84.2.1...v84.3.0) (2021-09-09)
+
+
+### Features
+
+* **inline-inputs:** add labelWidth and inputWidth props ([d7412b2](https://github.com/Sage/carbon/commit/d7412b253ea784d7fbb2cd8ff83a7eff041943e2))
+
+
+### Bug Fixes
+
+* **inline-inputs:** center label position when in form ([cafc9e4](https://github.com/Sage/carbon/commit/cafc9e45eae860935056b4b733e6d886e6b73c76))
+
+### [84.2.1](https://github.com/Sage/carbon/compare/v84.2.0...v84.2.1) (2021-09-08)
+
+
+### Bug Fixes
+
+* **pager:** update show select value when page size prop is changed ([41e4a5e](https://github.com/Sage/carbon/commit/41e4a5e5e6f8622d3ca09f5037907242c6d0bc50))
+
+## [84.2.0](https://github.com/Sage/carbon/compare/v84.1.0...v84.2.0) (2021-09-07)
+
+
+### Features
+
+* **button-bar:** create button-bar component ([cf7aa18](https://github.com/Sage/carbon/commit/cf7aa18fff616fe1a7adc77dfc8b6ad29f2e4de6))
+
+## [84.1.0](https://github.com/Sage/carbon/compare/v84.0.2...v84.1.0) (2021-09-03)
+
+
+### Features
+
+* **tile-select:** add support for rendering prefixAdornment ([16afad0](https://github.com/Sage/carbon/commit/16afad0dca0f2dd7a1b914082ad80e42f3683082))
+
+
+### Bug Fixes
+
+* **tile-select:** ensure title, subtitle and adornment wrap at smaller screen resolution ([c3af2cb](https://github.com/Sage/carbon/commit/c3af2cbdad4649b4a93171c1928af7b2e95e8f9d)), closes [#4219](https://github.com/Sage/carbon/issues/4219)
+
+### [84.0.2](https://github.com/Sage/carbon/compare/v84.0.1...v84.0.2) (2021-09-03)
+
+
+### Bug Fixes
+
+* **sidebar:** add a type of children in interface, update the position and the size prop types ([56e6841](https://github.com/Sage/carbon/commit/56e6841828d013586f49d7f7022e496a68e58b14))
+
+### [84.0.1](https://github.com/Sage/carbon/compare/v84.0.0...v84.0.1) (2021-09-02)
+
+
+### Bug Fixes
+
+* **tile:** address spelling mistake with horizontal in the options for orientation prop ([e03b41a](https://github.com/Sage/carbon/commit/e03b41ad9a49592ce56515fbc32b1fe51938aa57))
+
+## [84.0.0](https://github.com/Sage/carbon/compare/v83.2.0...v84.0.0) (2021-09-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **help:** aria-label and value are no longer rendered based on children
+There is a codemod available to assist with this upgrade:
+npx carbon-codemod add-prop src carbon-react/lib/components/help aria-label <value>
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Features
+
+* **help:** change the children proptype from string to node ([dad2b7f](https://github.com/Sage/carbon/commit/dad2b7f3b44fe3a1de4efe13d78ed774a4fd31fa))
+* **icon:** change the tooltip message proptype from string to node ([5b1a8e4](https://github.com/Sage/carbon/commit/5b1a8e42433dc1463fe84a59e0e5c8c8b3d7a6dd))
+
+
+### Bug Fixes
+
+* **link:** import the proper link component and the styled link ([b03de73](https://github.com/Sage/carbon/commit/b03de735769f7b8bad8b12b99087ee1d3c2016be))
+
 ## [83.2.0](https://github.com/Sage/carbon/compare/v83.1.0...v83.2.0) (2021-09-02)
 
 

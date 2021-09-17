@@ -119,6 +119,19 @@ describe("Link", () => {
     });
   });
 
+  describe("when component received a `href` prop and a `onClick` prop", () => {
+    it("should render an `<a>` element and call the onClick function", () => {
+      const onClickFn = jest.fn();
+      wrapper.setProps({ href: "#", onClick: onClickFn });
+
+      expect(wrapper.find("a")).toHaveLength(1);
+
+      wrapper.find("a").simulate("click");
+
+      expect(onClickFn).toHaveBeenCalled();
+    });
+  });
+
   describe("when component received an `icon` prop", () => {
     beforeEach(() => {
       wrapper.setProps({ icon: "basket" });
@@ -206,7 +219,7 @@ describe("Link", () => {
           onKeyDown: onKeyDownFn,
           onClick: onClickFn,
         });
-        wrapper.find("button").simulate("keydown", { which: 13 });
+        wrapper.find("a").simulate("keydown", { which: 13 });
 
         expect(onClickFn).not.toHaveBeenCalled();
       });

@@ -10,6 +10,7 @@ import { RadioButton, RadioButtonGroup } from "../radio-button";
 import DateInput from "../date";
 import { Select, Option } from "../select";
 import { Checkbox } from "../checkbox";
+import InlineInputs from "../inline-inputs";
 import Hr from "../../components/hr";
 import Switch from "../switch";
 import Button from "../button";
@@ -615,6 +616,41 @@ Please click on "Show code" below to see how to set these components up for alig
   </Story>
 </Preview>
 
+### With labels inline
+
+<Preview>
+  <Story name="with labels inline">
+    <Form
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      stickyFooter
+    >
+      <Textbox label="Textbox" labelInline labelWidth="30" />
+      <InlineInputs label="Inline Inputs" gutter="none" labelWidth="30">
+        <Textbox />
+        <Textbox />
+        <Select>
+          <Option value="1" text="option 1" key="1" />
+          <Option value="2" text="option 2" key="1" />
+          <Option value="3" text="option 3" key="1" />
+        </Select>
+      </InlineInputs>
+      <InlineInputs label="Inline Inputs with a gutter" gutter="large" labelWidth="30">
+        <Textbox />
+        <Textbox />
+        <Select>
+          <Option value="1" text="option 1" key="1" />
+          <Option value="2" text="option 2" key="1" />
+          <Option value="3" text="option 3" key="1" />
+        </Select>
+      </InlineInputs>
+    </Form>
+  </Story>
+</Preview>
+
 ## Props
 
 ### Form
@@ -623,18 +659,18 @@ Please click on "Show code" below to see how to set these components up for alig
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object to the 
+The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
 <TranslationKeysTable
-  translationData={
-    [
-      {
-        name: "error.messages.formSummary",
-        description: "The text to displayed when there are errors or warnings present in the form",
-        type: "func",
-        returnType: "string when validation failures and null when no failures"
-      },
-    ]
-  }
+  translationData={[
+    {
+      name: "error.messages.formSummary",
+      description:
+        "The text to displayed when there are errors or warnings present in the form",
+      type: "func",
+      returnType:
+        "an array of strings when validation failures and null when no failures",
+    },
+  ]}
 />

@@ -8,6 +8,7 @@ import Textbox from "../textbox";
 import InlineInputs from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import InputPresentation from "../../__internal__/input/input-presentation.style";
 
 describe("Inline Inputs", () => {
   let wrapper;
@@ -35,7 +36,7 @@ describe("Inline Inputs", () => {
     it("then the label should have specific styles", () => {
       assertStyleMatch(
         {
-          marginRight: "15px",
+          paddingRight: "16px",
           width: "auto",
         },
         wrapper,
@@ -82,16 +83,6 @@ describe("Inline Inputs", () => {
         { modifier: "input" }
       );
     });
-
-    it("then columns should have negative margin to create 1px borders between inputs", () => {
-      assertStyleMatch(
-        {
-          marginLeft: "-1px",
-        },
-        wrapper,
-        { modifier: `${StyledColumn} + ${StyledColumn}` }
-      );
-    });
   });
 
   describe("when a gutter prop is passed in", () => {
@@ -106,6 +97,24 @@ describe("Inline Inputs", () => {
     });
   });
 
+  describe("when a gutter prop is set to none", () => {
+    const gutterValue = "none";
+
+    beforeEach(() => {
+      wrapper = render({ gutter: gutterValue }, mount);
+    });
+
+    it("then the borderLeft css property of the adjacent input should be set to none", () => {
+      assertStyleMatch(
+        {
+          borderLeft: "none",
+        },
+        wrapper,
+        { modifier: `${StyledColumn} + ${StyledColumn} ${InputPresentation}` }
+      );
+    });
+  });
+
   describe("when no gutter prop is passed in", () => {
     beforeEach(() => {
       wrapper = render();
@@ -113,6 +122,50 @@ describe("Inline Inputs", () => {
 
     it('then the gutter prop on the row component should be "none"', () => {
       expect(wrapper.find("Row").props().gutter).toEqual("none");
+    });
+  });
+
+  describe("when a labelWidth prop is passed in", () => {
+    const labelWidth = 30;
+
+    beforeEach(() => {
+      wrapper = render({ labelWidth }, mount);
+    });
+
+    it("then the label should have percentage width of this prop value", () => {
+      assertStyleMatch(
+        {
+          width: `${labelWidth}%`,
+        },
+        wrapper,
+        { modifier: `${StyledLabelContainer}` }
+      );
+    });
+
+    it("then the inline input container width should cover the rest of the percentage", () => {
+      assertStyleMatch(
+        {
+          flex: `0 0 ${100 - labelWidth}%`,
+        },
+        wrapper
+      );
+    });
+  });
+
+  describe("when a inputWidth prop is passed in", () => {
+    const inputWidth = 70;
+
+    beforeEach(() => {
+      wrapper = render({ inputWidth }, mount);
+    });
+
+    it("then the inline input container should have percentage width of this prop value", () => {
+      assertStyleMatch(
+        {
+          flex: `0 0 ${inputWidth}%`,
+        },
+        wrapper
+      );
     });
   });
 

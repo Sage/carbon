@@ -20,9 +20,23 @@ const columnWrapper = (children) => {
 };
 
 const InlineInputs = (props) => {
-  const { label, htmlFor, children, className, gutter } = props;
+  const {
+    label,
+    htmlFor,
+    children,
+    className,
+    gutter,
+    inputWidth,
+    labelWidth,
+  } = props;
 
   const labelId = useRef(createGuid());
+  const widthProps = { inputWidth };
+
+  if (labelWidth) {
+    widthProps.labelWidth = labelWidth;
+    widthProps.inputWidth = inputWidth || 100 - labelWidth;
+  }
 
   function renderLabel() {
     if (!label) return null;
@@ -47,6 +61,7 @@ const InlineInputs = (props) => {
       gutter={gutter}
       data-component="inline-inputs"
       className={className}
+      {...widthProps}
     >
       {renderLabel()}
       <Row gutter={gutter}>{columnWrapper(renderChildren())}</Row>
@@ -75,6 +90,10 @@ InlineInputs.propTypes = {
     "large",
     "extra-large",
   ]),
+  /** Width of the inline inputs container in percentage */
+  inputWidth: PropTypes.number,
+  /** Width of a label in percentage */
+  labelWidth: PropTypes.number,
 };
 
 InlineInputs.defaultProps = {

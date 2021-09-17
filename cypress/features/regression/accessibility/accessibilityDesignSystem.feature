@@ -65,6 +65,18 @@ Feature: Accessibility tests - Design System folder
       | dashed icon           |
 
   @accessibility
+  Scenario Outline: Design System Button Bar component <story> page
+    When I open "Design System Button Bar" component page "<story>" in no iframe
+    Then "Button Bar <story> page" component has no accessibility violations
+    Examples:
+      | story        |
+      | sizes        |
+      | with icons   |
+      | icons only   |
+      | icon buttons |
+      | full width   |
+
+  @accessibility
   Scenario: Design System Button component as a sibling story page
     When I open "Design System Button Test" component page "as a sibling" in no iframe
     Then "button" component has no accessibility violations
@@ -111,6 +123,7 @@ Feature: Accessibility tests - Design System folder
       | Flat Table            |
       | Hr                    |
       | Image                 |
+      | Loader Bar            |
       | Loader                |
       | Pager                 |
       | Simple color picker   |

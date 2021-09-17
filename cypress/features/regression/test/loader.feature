@@ -4,20 +4,22 @@ Feature: Loader default component
   @positive
   Scenario Outline: I set Loader component size to <size>
     When I open Test default "Loader" component in noIFrame with "loader" json from "commonComponents" using "<nameOfObject>" object name
-    Then Loader width is set to 1366 px and height is set to <height> px
+    Then Loader width and height is set to <height> px and margin is set to <margin> px
     Examples:
-      | size  | height | nameOfObject |
-      | small | 17     | sizeSmall    |
-      | large | 19     | sizeLarge    |
+      | size    | height | margin | nameOfObject |
+      | small   | 12     | 6      | sizeSmall    |
+      | default | 16     | 8      | sizeDefault  |
+      | large   | 20     | 8      | sizeLarge    |
 
   @positive
-  Scenario Outline: Verify size of button with loader
+  Scenario Outline: Verify size of button with <size> loader
     When I open Test default "Loader" component in noIFrame with "loader" json from "commonComponents" using "<nameOfObject>" object name
     Then button with loader width is set to <width> px and height is set to 40 px
     Examples:
-      | size  | width | nameOfObject        |
-      | small | 88    | isInsideButtonSmall |
-      | large | 120   | isInsideButtonLarge |
+      | size    | width | nameOfObject          |
+      | small   | 100   | isInsideButtonSmall   |
+      | default | 116   | isInsideButtonDefault |
+      | large   | 128   | isInsideButtonLarge   |
 
   @positive
   Scenario: Loader isInsideButton

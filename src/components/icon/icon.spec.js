@@ -546,6 +546,14 @@ describe("Icon component", () => {
       expect(wrapper.find(Tooltip).props().message).toEqual("foo");
     });
 
+    it("renders when a custom tooltipMessage is passed", () => {
+      const customMessage = <span>foo</span>;
+      const wrapper = mount(
+        <Icon type="home" tooltipMessage={customMessage} />
+      );
+      expect(wrapper.find(Tooltip).props().message).toEqual(customMessage);
+    });
+
     it.each(["top", "bottom", "left", "right"])(
       "renders in a given tooltipPosition",
       (position) => {

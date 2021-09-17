@@ -95,17 +95,17 @@ export default {
         (errors, warnings, type) => {
           const errorPlural = isSingular(errors) ? "error" : "errors";
           const warningPlural = isSingular(warnings) ? "warning" : "warnings";
-          const isErrorPlural = isSingular(errors) ? "is" : "are";
+          const isErrorPlural = isSingular(errors) && !warnings ? "is" : "are";
           const isWarningPlural = isSingular(warnings) ? "is" : "are";
 
           if (errors && warnings && type === "warnings") {
-            return `and ${warnings} ${warningPlural}`;
+            return ["and", `${warnings} ${warningPlural}`];
           }
           if (errors) {
-            return `There ${isErrorPlural} ${errors} ${errorPlural}`;
+            return [`There ${isErrorPlural}`, `${errors} ${errorPlural}`];
           }
           if (warnings) {
-            return `There ${isWarningPlural} ${warnings} ${warningPlural}`;
+            return [`There ${isWarningPlural}`, `${warnings} ${warningPlural}`];
           }
           return null;
         },

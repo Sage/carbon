@@ -752,9 +752,7 @@ describe("Table", () => {
       const configureLink = wrapper.find(Link);
 
       expect(configureLink.length).toEqual(1);
-      configureLink
-        .find("button")
-        .simulate("click", { preventDefault: () => {} });
+      configureLink.find("a").simulate("click", { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();
     });
   });
