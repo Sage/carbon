@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Preview } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Textbox, { OriginalTextbox } from ".";
 
 <Meta title="Design System/Textbox" parameters={{ info: { disable: true } }} />
@@ -43,6 +44,29 @@ import Textbox from "carbon-react/lib/components/textbox";
         setState(target.value);
       };
       return <Textbox label="Textbox" value={state} onChange={setValue} />;
+    }}
+  </Story>
+</Preview>
+
+### Character counter
+
+<Preview>
+  <Story name="character counter">
+    {() => {
+      const [state, setState] = useState("Textbox");
+      const setValue = ({ target }) => {
+        setState(target.value);
+      };
+      return (
+        <Textbox
+          label="Textbox"
+          value={state}
+          onChange={setValue}
+          characterLimit="10"
+          enforceCharacterLimit={false}
+          warnOverLimit
+        />
+      );
     }}
   </Story>
 </Preview>
@@ -317,3 +341,20 @@ It is possible to use the `tooltipPosition` to override the default placement of
 ### Textbox
 
 <StyledSystemProps of={OriginalTextbox} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "locale",
+      description:
+        "The locale code to display the correct number format in the counter",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

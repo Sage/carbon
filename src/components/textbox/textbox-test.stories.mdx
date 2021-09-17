@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Meta, Story, Preview } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
@@ -90,6 +91,9 @@ export const getCommonTextboxArgs = (
     size: "medium",
     inputIcon: undefined,
     required: false,
+    enforceCharacterLimit: false,
+    characterLimit: "",
+    warnOverLimit: false,
   };
 };
 
@@ -116,13 +120,21 @@ export const getCommonTextboxArgsWithSpecialCaracters = (args) => {
   };
 };
 
-export const TextboxStory = (args) => (
-  <Textbox
-    onClick={action("onClick")}
-    iconOnClick={action("iconOnClick")}
-    {...getCommonTextboxArgsWithSpecialCaracters(args)}
-  />
-);
+export const TextboxStory = (args) => {
+  const [state, setState] = useState("");
+  const setValue = ({ target: { value } }) => {
+    setState(value);
+  };
+  return (
+    <Textbox
+      onClick={action("onClick")}
+      iconOnClick={action("iconOnClick")}
+      value={state}
+      onChange={setValue}
+      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+    />
+  );
+};
 
 export const MultipleTextboxStory = (args) => (
   <>
