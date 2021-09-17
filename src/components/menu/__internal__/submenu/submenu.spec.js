@@ -216,6 +216,60 @@ describe("Submenu component", () => {
       });
     });
 
+    describe("when onSubmenuOpen prop set", () => {
+      let mockCallback;
+
+      beforeEach(() => {
+        mockCallback = jest.fn();
+
+        wrapper = render("light", { onSubmenuOpen: mockCallback });
+      });
+
+      afterEach(() => {
+        jest.resetAllMocks();
+      });
+
+      describe("when submenu opens", () => {
+        it("should trigger the callback", () => {
+          openSubmenu(wrapper);
+
+          expect(mockCallback).toHaveBeenCalledWith();
+        });
+      });
+    });
+
+    describe("when onSubmenuClose prop set", () => {
+      let mockCallback;
+
+      beforeEach(() => {
+        mockCallback = jest.fn();
+
+        wrapper = render("light", { onSubmenuClose: mockCallback });
+      });
+
+      afterEach(() => {
+        jest.resetAllMocks();
+      });
+
+      describe("when submenu closes", () => {
+        it("should trigger the callback", () => {
+          openSubmenu(wrapper);
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(0)
+              .props()
+              .onKeyDown(events.shiftTab);
+          });
+
+          wrapper.update();
+
+          expect(mockCallback).toHaveBeenCalledWith();
+        });
+      });
+    });
+
     describe("when href prop set", () => {
       beforeEach(() => {
         wrapper = render("light", { href: "/path" });

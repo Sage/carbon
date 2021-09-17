@@ -35,6 +35,8 @@ const MenuItem = ({
   clickToOpen,
   maxWidth,
   menuOpen,
+  onSubmenuOpen,
+  onSubmenuClose,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -155,6 +157,8 @@ const MenuItem = ({
           maxWidth={maxWidth}
           asPassiveItem={asPassiveItem}
           ariaLabel={ariaLabel}
+          onSubmenuOpen={onSubmenuOpen}
+          onSubmenuClose={onSubmenuClose}
           {...elementProps}
           {...rest}
         >
@@ -261,6 +265,10 @@ MenuItem.propTypes = {
     }
     return PropTypes.string(props, ...rest);
   },
+  /** Callback triggered when submenu opens. Only valid with submenu prop */
+  onSubmenuOpen: PropTypes.func,
+  /** Callback triggered when submenu closes. Only valid with submenu prop */
+  onSubmenuClose: PropTypes.func,
 };
 
 export default MenuItem;
