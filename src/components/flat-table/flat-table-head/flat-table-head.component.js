@@ -28,9 +28,9 @@ const FlatTableHead = ({ children }) => {
            This is only needed when the preceding row has rowSpans applied, 
            as in any other use case the rows will all have FlatTableRowHeaders */
         const previousRowHasHeader = !!hasFlatTableRowHeader;
-        hasFlatTableRowHeader = child.props.children.find(
-          (c) => c.type === FlatTableRowHeader
-        );
+        hasFlatTableRowHeader = React.Children.toArray(
+          child.props.children
+        ).find((c) => c.type === FlatTableRowHeader);
         return React.cloneElement(child, {
           ...child.props,
           stickyOffset: rowHeights.slice(0, index).reduce((a, b) => a + b, 0),

@@ -1,3 +1,28 @@
+### [87.0.1](https://github.com/Sage/carbon/compare/v87.0.0...v87.0.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect styling when required and in error state ([83794d8](https://github.com/Sage/carbon/commit/83794d8cd62175187ee0a9d86574ad8227fd7c90))
+
+## [87.0.0](https://github.com/Sage/carbon/compare/v86.0.1...v87.0.0) (2021-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form-summary:** `errors.messages.formSummary` key returns an array of strings instead of a string
+
+### Code Refactoring
+
+* **form-summary:** change the design of the validation message ([6dc74a9](https://github.com/Sage/carbon/commit/6dc74a9c4777e9131906fb5ba0b33e3e173dd07b))
+
+### [86.0.1](https://github.com/Sage/carbon/compare/v86.0.0...v86.0.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* **flat-table-head:** ensure table head row children are an array before running find function ([e0b42e8](https://github.com/Sage/carbon/commit/e0b42e805dd92212351dc036645dbe56ab0f0550)), closes [#4378](https://github.com/Sage/carbon/issues/4378)
+
 ## [86.0.0](https://github.com/Sage/carbon/compare/v85.0.0...v86.0.0) (2021-09-14)
 
 
