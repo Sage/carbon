@@ -1,3 +1,10 @@
+## [87.2.0](https://github.com/Sage/carbon/compare/v87.1.0...v87.2.0) (2021-09-17)
+
+
+### Features
+
+* **textbox:** add a character counter ([bffdf35](https://github.com/Sage/carbon/commit/bffdf3598a0ad86499fb3f6af8c7e1f2ba30c635))
+
 ## [87.1.0](https://github.com/Sage/carbon/compare/v87.0.1...v87.1.0) (2021-09-17)
 
 
