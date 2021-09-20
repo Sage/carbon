@@ -14,7 +14,7 @@ export interface ContentProps extends MarginProps {
   /** Displays the content inline with the title */
   inline?: boolean;
   /** The title of the content component */
-  title?: string;
+  title?: React.ReactNode;
   /** Sets a custom width for the title element */
   titleWidth?: string;
   /** Applies a theme to the Content Value: primary, secondary */
