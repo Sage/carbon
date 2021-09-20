@@ -262,7 +262,6 @@ const Submenu = React.forwardRef(
       return (
         <StyledSubmenuWrapper
           data-component="submenu-wrapper"
-          role="menuitem"
           ref={submenuRef}
           inFullscreenView={inFullscreenView}
           menuType={menuContext.menuType}
@@ -310,7 +309,6 @@ const Submenu = React.forwardRef(
     return (
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
-        role="menuitem"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         onClick={clickToOpen ? () => openSubmenu() : undefined}
