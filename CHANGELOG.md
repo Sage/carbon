@@ -1,3 +1,10 @@
+## [87.4.0](https://github.com/Sage/carbon/compare/v87.3.0...v87.4.0) (2021-09-20)
+
+
+### Features
+
+* **navigation-bar:** add sticky position ([1b298fe](https://github.com/Sage/carbon/commit/1b298fefe9dbcc696fa66a71c843a052a65cd258))
+
 ## [87.3.0](https://github.com/Sage/carbon/compare/v87.2.0...v87.3.0) (2021-09-20)
 
 
