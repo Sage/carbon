@@ -9,6 +9,8 @@ const NavigationBar = ({
   isLoading = false,
   children,
   ariaLabel,
+  stickyOffset = "0",
+  stickyPosition,
   ...props
 }) => {
   return (
@@ -17,6 +19,8 @@ const NavigationBar = ({
       aria-label={ariaLabel}
       navigationType={navigationType}
       data-component="navigation-bar"
+      stickyOffset={stickyOffset}
+      stickyPosition={stickyPosition}
       {...props}
     >
       {!isLoading && children}
@@ -30,10 +34,14 @@ NavigationBar.propTypes = {
   ...propTypes.flexbox,
   children: PropTypes.node,
   ariaLabel: PropTypes.string,
-  /** color scheme of navigation component */
+  /** Color scheme of navigation component */
   navigationType: PropTypes.oneOf(["light", "dark"]),
-  /** if 'true' the children will not be visible */
+  /** If 'true' the children will not be visible */
   isLoading: PropTypes.bool,
+  /** Defines the position of sticky navigation bar */
+  stickyPosition: PropTypes.oneOf(["top", "bottom"]),
+  /** Defines the offset of sticky navigation bar */
+  stickyOffset: PropTypes.string,
 };
 
 export default NavigationBar;
