@@ -1,3 +1,10 @@
+## [87.3.0](https://github.com/Sage/carbon/compare/v87.2.0...v87.3.0) (2021-09-20)
+
+
+### Features
+
+* **flat-table:** add drag and drop functionality to table rows ([20671e4](https://github.com/Sage/carbon/commit/20671e43a0a8c5861503f4cca3202aa9fd07af3c))
+
 ## [87.2.0](https://github.com/Sage/carbon/compare/v87.1.0...v87.2.0) (2021-09-17)
 
 
