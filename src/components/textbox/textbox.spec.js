@@ -13,6 +13,9 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import CharacterCount from "../../__internal__/character-count";
+import I18nProvider from "../i18n-provider";
+import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
 
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
@@ -34,6 +37,37 @@ describe("Textbox", () => {
       .dive()
       .dive();
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it("renders a counter", () => {
+    const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
+
+    expect(wrapper.find(CharacterCount).text()).toBe("11/100");
+  });
+
+  it("renders a counter with an overlimit warning", () => {
+    const wrapper = mount(
+      <Textbox
+        value="test string"
+        characterLimit="10"
+        enforceCharacterLimit={false}
+        warnOverLimit
+      />
+    );
+
+    assertStyleMatch(
+      {
+        color: baseTheme.colors.error,
+      },
+      wrapper.find(CharacterCount)
+    );
+  });
+
+  it("sets max length", () => {
+    const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
+
+    expect(wrapper.find(CharacterCount).text()).toBe("11/100");
+    expect(wrapper.find("input").prop("maxLength")).toBe("100");
   });
 
   it("supports a separate onClick handler passing for the icon", () => {
@@ -157,6 +191,24 @@ describe("Textbox", () => {
       expect(
         wrapper.find(InputPresentation).props().positionedChildren
       ).toEqual(<Component />);
+    });
+  });
+
+  describe("i18n", () => {
+    it.each([
+      ["en-GB", "0/1,000,000"],
+      ["fr-FR", "0/1 000 000"],
+    ])("displays %s format", (locale, limit) => {
+      const wrapper = mount(<Textbox value="" characterLimit="1000000" />, {
+        wrappingComponent: I18nProvider,
+        wrappingComponentProps: {
+          locale: {
+            locale: () => locale,
+          },
+        },
+      });
+
+      expect(wrapper.find(CharacterCount).text()).toBe(limit);
     });
   });
 });

@@ -13,6 +13,7 @@ import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -48,8 +49,18 @@ const Textbox = ({
   positionedChildren,
   inputRef,
   tooltipPosition,
+  enforceCharacterLimit = true,
+  characterLimit,
+  warnOverLimit = false,
   ...props
 }) => {
+  const [maxLength, characterCount] = useCharacterCount(
+    value,
+    characterLimit,
+    warnOverLimit,
+    enforceCharacterLimit
+  );
+
   return (
     <TooltipProvider tooltipPosition={tooltipPosition}>
       <InputBehaviour>
@@ -83,6 +94,7 @@ const Textbox = ({
               aria-invalid={!!props.error}
               inputRef={inputRef}
               value={visibleValue(value, formattedValue)}
+              maxLength={maxLength}
             />
             {children}
             <InputIconToggle
@@ -95,6 +107,7 @@ const Textbox = ({
             />
           </InputPresentation>
         </FormField>
+        {characterCount}
       </InputBehaviour>
     </TooltipProvider>
   );
@@ -213,6 +226,12 @@ Textbox.propTypes = {
   inputRef: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Stop the user typing over the characterLimit */
+  enforceCharacterLimit: PropTypes.bool,
+  /** Character limit of the textarea */
+  characterLimit: PropTypes.string,
+  /** Whether to display the character count message in red */
+  warnOverLimit: PropTypes.bool,
 };
 
 Textbox.defaultProps = {

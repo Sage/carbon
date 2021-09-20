@@ -1,3 +1,17 @@
+## [87.2.0](https://github.com/Sage/carbon/compare/v87.1.0...v87.2.0) (2021-09-17)
+
+
+### Features
+
+* **textbox:** add a character counter ([bffdf35](https://github.com/Sage/carbon/commit/bffdf3598a0ad86499fb3f6af8c7e1f2ba30c635))
+
+## [87.1.0](https://github.com/Sage/carbon/compare/v87.0.1...v87.1.0) (2021-09-17)
+
+
+### Features
+
+* **menu-item:** add callbacks for submenu toggle ([2507335](https://github.com/Sage/carbon/commit/2507335f816e5b9f63677abb8ae01907262fcb77)), closes [#4303](https://github.com/Sage/carbon/issues/4303)
+
 ### [87.0.1](https://github.com/Sage/carbon/compare/v87.0.0...v87.0.1) (2021-09-16)
 
 

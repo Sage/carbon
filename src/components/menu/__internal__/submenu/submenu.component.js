@@ -34,6 +34,8 @@ const Submenu = React.forwardRef(
       href,
       maxWidth,
       asPassiveItem,
+      onSubmenuOpen,
+      onSubmenuClose,
       ...rest
     },
     ref
@@ -73,12 +75,18 @@ const Submenu = React.forwardRef(
       startCharacterTimeout();
     }, [startCharacterTimeout]);
 
+    const openSubmenu = useCallback(() => {
+      setSubmenuOpen(true);
+      if (onSubmenuOpen) onSubmenuOpen();
+    }, [onSubmenuOpen]);
+
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
+      if (onSubmenuClose) onSubmenuClose();
       setSubmenuFocusIndex(undefined);
       setBlockDoubleFocus(false);
       setCharacterString("");
-    }, []);
+    }, [onSubmenuClose]);
 
     const handleKeyDown = useCallback(
       (event, index = submenuFocusIndex) => {
@@ -90,7 +98,7 @@ const Submenu = React.forwardRef(
             Events.isUpKey(event)
           ) {
             event.preventDefault();
-            setSubmenuOpen(true);
+            openSubmenu();
             if (!href) {
               setSubmenuFocusIndex(0);
             }
@@ -208,6 +216,7 @@ const Submenu = React.forwardRef(
         menuContext,
         arrayOfFormattedChildren,
         numberOfChildren,
+        openSubmenu,
         closeSubmenu,
         onKeyDown,
         characterString,
@@ -302,9 +311,9 @@ const Submenu = React.forwardRef(
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
         role="menuitem"
-        onMouseOver={!clickToOpen ? () => setSubmenuOpen(true) : undefined}
+        onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
-        onClick={clickToOpen ? () => setSubmenuOpen(true) : undefined}
+        onClick={clickToOpen ? () => openSubmenu() : undefined}
         ref={submenuRef}
         isSubmenuOpen={submenuOpen}
       >
@@ -387,6 +396,10 @@ Submenu.propTypes = {
   maxWidth: PropTypes.string,
   /** Used to set a submenu parent to passive styling in MenuFullscreen */
   asPassiveItem: PropTypes.bool,
+  /** Callback triggered when submenu opens. Only valid with submenu prop */
+  onSubmenuOpen: PropTypes.func,
+  /** Callback triggered when submenu closes. Only valid with submenu prop */
+  onSubmenuClose: PropTypes.func,
 };
 
 export default Submenu;
