@@ -1,3 +1,10 @@
+## [87.5.0](https://github.com/Sage/carbon/compare/v87.4.0...v87.5.0) (2021-09-21)
+
+
+### Features
+
+* **tile-select:** surface new additonalInformation prop ([fa21724](https://github.com/Sage/carbon/commit/fa217241427360d78d9248a434a16bdb09e7367f))
+
 ## [87.4.0](https://github.com/Sage/carbon/compare/v87.3.0...v87.4.0) (2021-09-20)
 
 
