@@ -50,13 +50,6 @@ Feature: Dialog component
     Then closeIcon is not visible
 
   @positive
-  Scenario: Verify that stickyFormFooter is not visible when scrolled to the bottom
-    Given I open "Form" component page "In dialog with sticky footer"
-      And I click on Open Preview button
-    When I scroll to the bottom of the dialog
-    Then The footer is not sticky
-
-  @positive
   Scenario: Disable escape key
     Given I open default "Dialog Test" component with "dialog" json from "commonComponents" using "disableEscKey" object name
       And I wait 500
