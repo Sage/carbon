@@ -24,13 +24,17 @@ export interface I18nProviderProps {
     };
     date: {
       formats: {
-        inputs: () => [string],
-        javascript: () => string,
-      }
-    },
+        inputs: () => [string];
+        javascript: () => string;
+      };
+    };
     errors: {
       messages: {
-        formSummary: (errors: number, warnings: number, type: string) => string;
+        formSummary: (
+          errors: number,
+          warnings: number,
+          type: string
+        ) => [string, string];
       };
     };
     message: {

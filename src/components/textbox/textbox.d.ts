@@ -80,6 +80,12 @@ export interface TextboxProps extends CommonTextboxProps, SpaceProps {
   mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
+  /** Character limit of the textarea */
+  characterLimit?: string;
+  /** Stop the user typing over the characterLimit */
+  enforceCharacterLimit?: boolean;
+  /** Whether to display the character count message in red */
+  warnOverLimit?: boolean;
 }
 
 declare function Textbox(props: TextboxProps): JSX.Element;

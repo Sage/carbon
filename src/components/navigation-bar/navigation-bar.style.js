@@ -36,6 +36,13 @@ const StyledNavigationBar = styled.nav`
     margin-right: 10px;
   }
 
+  ${({ stickyPosition, stickyOffset }) =>
+    stickyPosition &&
+    css`
+      position: sticky;
+      ${stickyPosition}: ${stickyOffset}
+    `};
+
   ${({ navigationType, theme }) => css`
     min-height: 40px;
     background-color: ${theme.navigationBar.light.background};

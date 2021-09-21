@@ -13,6 +13,7 @@ import StyledFlatTableRow from "./flat-table-row.style";
 import { DrawerSidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header";
+import FlatTableRowDraggable from "./__internal__/flat-table-row-draggable.component";
 import { FlatTableThemeContext } from "../flat-table.component";
 
 const FlatTableRow = React.forwardRef(
@@ -33,6 +34,10 @@ const FlatTableRow = React.forwardRef(
       horizontalBorderColor,
       horizontalBorderSize = "small",
       applyBorderLeft,
+      id,
+      draggable,
+      findItem,
+      moveItem,
     },
     ref
   ) => {
@@ -128,57 +133,70 @@ const FlatTableRow = React.forwardRef(
       setIsExpanded(expanded);
     }, [expanded]);
 
+    const rowComponent = (isInSidebar) => (
+      <StyledFlatTableRow
+        isInSidebar={isInSidebar}
+        expandable={expandable}
+        isSubRow={isSubRow}
+        isFirstSubRow={isFirstSubRow}
+        data-element={isSubRow ? "flat-table-sub-row" : "flat-table-row"}
+        highlighted={highlighted}
+        selected={selected}
+        onClick={handleClick}
+        firstCellIndex={firstCellIndex()}
+        ref={rowRef}
+        rowHeaderIndex={rowHeaderIndex}
+        colorTheme={themeContext.colorTheme}
+        size={themeContext.size}
+        stickyOffset={stickyOffset}
+        bgColor={bgColor}
+        horizontalBorderColor={horizontalBorderColor}
+        horizontalBorderSize={horizontalBorderSize}
+        applyBorderLeft={applyBorderLeft}
+        draggable={draggable}
+        {...interactiveRowProps}
+      >
+        {React.Children.map(children, (child, index) => {
+          return (
+            child &&
+            React.cloneElement(child, {
+              expandable: expandable && index === firstCellIndex(),
+              onClick:
+                expandable &&
+                index === firstCellIndex() &&
+                firstColumnExpandable
+                  ? () => toggleExpanded()
+                  : undefined,
+              onKeyDown:
+                expandable &&
+                index === firstCellIndex() &&
+                firstColumnExpandable
+                  ? handleCellKeyDown
+                  : undefined,
+              cellIndex: index,
+              reportCellWidth:
+                index < rowHeaderIndex ? reportCellWidth : undefined,
+              leftPosition: leftPositions[index],
+              ...child.props,
+            })
+          );
+        })}
+      </StyledFlatTableRow>
+    );
+
+    const draggableComponent = (isInSidebar) => (
+      <FlatTableRowDraggable id={id} moveItem={moveItem} findItem={findItem}>
+        {rowComponent(isInSidebar)}
+      </FlatTableRowDraggable>
+    );
+
     return (
       <DrawerSidebarContext.Consumer>
         {({ isInSidebar }) => (
           <>
-            <StyledFlatTableRow
-              isInSidebar={isInSidebar}
-              expandable={expandable}
-              isSubRow={isSubRow}
-              isFirstSubRow={isFirstSubRow}
-              data-element={isSubRow ? "flat-table-sub-row" : "flat-table-row"}
-              highlighted={highlighted}
-              selected={selected}
-              onClick={handleClick}
-              firstCellIndex={firstCellIndex()}
-              ref={rowRef}
-              rowHeaderIndex={rowHeaderIndex}
-              colorTheme={themeContext.colorTheme}
-              size={themeContext.size}
-              stickyOffset={stickyOffset}
-              bgColor={bgColor}
-              horizontalBorderColor={horizontalBorderColor}
-              horizontalBorderSize={horizontalBorderSize}
-              applyBorderLeft={applyBorderLeft}
-              {...interactiveRowProps}
-            >
-              {React.Children.map(children, (child, index) => {
-                return (
-                  child &&
-                  React.cloneElement(child, {
-                    expandable: expandable && index === firstCellIndex(),
-                    onClick:
-                      expandable &&
-                      index === firstCellIndex() &&
-                      firstColumnExpandable
-                        ? () => toggleExpanded()
-                        : undefined,
-                    onKeyDown:
-                      expandable &&
-                      index === firstCellIndex() &&
-                      firstColumnExpandable
-                        ? handleCellKeyDown
-                        : undefined,
-                    cellIndex: index,
-                    reportCellWidth:
-                      index < rowHeaderIndex ? reportCellWidth : undefined,
-                    leftPosition: leftPositions[index],
-                    ...child.props,
-                  })
-                );
-              })}
-            </StyledFlatTableRow>
+            {draggable
+              ? draggableComponent(isInSidebar)
+              : rowComponent(isInSidebar)}
             {isExpanded &&
               subRows &&
               React.Children.map(
@@ -229,6 +247,23 @@ FlatTableRow.propTypes = {
   stickyOffset: PropTypes.number,
   /** @ignore @private applies a border-left to the first child */
   applyBorderLeft: PropTypes.bool,
+  /** ID for use in drag and drop functionality
+   * @private
+   * @ignore
+   */
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * @private
+   * @ignore
+   */
+  findItem: PropTypes.func,
+  /**
+   * @private
+   * @ignore
+   */
+  moveItem: PropTypes.func,
+  /** @ignore @private position in header if multiple rows */
+  draggable: PropTypes.bool,
 };
 
 export default FlatTableRow;

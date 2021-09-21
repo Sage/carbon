@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
+import baseTheme from "../../style/themes/base";
 
 const StyledCharacterCount = styled.div`
   text-align: right;
