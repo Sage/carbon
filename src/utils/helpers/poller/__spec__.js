@@ -1,6 +1,6 @@
 import Request from "superagent";
 import Poller from "./poller";
-import Logger from "../../logger";
+import Logger from "../../../__internal__/utils/logger";
 
 /* global jest */
 jest.mock("superagent");

@@ -5,7 +5,7 @@ import {
   StyledMultiStepWizard,
   StyledMultiStepWizardContent,
 } from "./multi-step-wizard.style";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 
 /**
  * A MultiStepWizard widget.

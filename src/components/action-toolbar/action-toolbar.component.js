@@ -8,7 +8,7 @@ import {
   StyledActionToolbarTotal,
   StyledActionToolbarActions,
 } from "./action-toolbar.style";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;

@@ -1,5 +1,5 @@
 import Request from "superagent";
-import Logger from "../../logger";
+import Logger from "../../../__internal__/utils/logger";
 
 /**
  * A helper to make poll an endpoint with a GET request

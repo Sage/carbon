@@ -1,4 +1,4 @@
-import Logger from "../../logger";
+import Logger from "../../../__internal__/utils/logger";
 /**
  * A function to display a warning in the console when a deprecated component is being used in developpment
  */

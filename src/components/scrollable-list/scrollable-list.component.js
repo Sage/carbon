@@ -5,7 +5,7 @@ import Events from "../../utils/helpers/events";
 import asScrollableListItem from "./as-scrollable-list-item.wrapper";
 import ScrollableListContext from "./scrollable-list.context";
 import ScrollableListContainer from "./scrollable-list.style";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 class ScrollableList extends Component {

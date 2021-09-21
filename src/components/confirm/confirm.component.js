@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 import Heading from "../heading";
 import Dialog from "../dialog";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";

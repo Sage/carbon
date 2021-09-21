@@ -49,15 +49,6 @@ const log = (message, type, opts = {}) => {
  *
  * You can also pass an option of 'group', this will group messages together that
  * share the same group name and are triggered within 500ms of one another.
- *
- * To Use:
- *
- * ```
- * import Logger from 'carbon-react/lib/utils/logger';
- *
- * Logger.warn('My Message');
- *
- * ```
  */
 const Logger = {
   setEnabledState: (newState) => {

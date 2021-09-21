@@ -1,4 +1,4 @@
-import Logger from "./";
+import Logger from ".";
 
 describe("Logger", () => {
   it("Outputs to the console", () => {

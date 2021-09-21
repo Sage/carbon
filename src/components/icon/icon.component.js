@@ -5,7 +5,7 @@ import tagComponent from "../../utils/helpers/tags";
 import StyledIcon from "./icon.style";
 import Tooltip from "../tooltip";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Logger from "../../utils/logger";
+import Logger from "../../__internal__/utils/logger";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
 

@@ -7,7 +7,7 @@ import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
 import CustomDragLayer from "../custom-drag-layer";
 import Browser from "../../../utils/helpers/browser";
 import ScrollableParent from "../../../utils/helpers/scrollable-parent";
-import Logger from "../../../utils/logger/logger";
+import Logger from "../../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledSubmenuBlock from "./submenu-block.style";
 import MenuContext from "../menu.context";
-import Logger from "../../../utils/logger/logger";
+import Logger from "../../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 

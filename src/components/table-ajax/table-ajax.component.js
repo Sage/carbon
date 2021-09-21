@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableSubheader,
 } from "../table";
-import Logger from "../../utils/logger";
+import Logger from "../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 
