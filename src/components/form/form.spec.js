@@ -73,6 +73,19 @@ describe("Form", () => {
     });
   });
 
+  describe("when height prop is set", () => {
+    it("sets the correct height onto StyledForm", () => {
+      wrapper = mount(<StyledForm height="100px" />);
+
+      assertStyleMatch(
+        {
+          height: "100px",
+        },
+        wrapper.find(StyledForm)
+      );
+    });
+  });
+
   describe("When `fieldSpacing` applied", () => {
     wrapper = mount(<StyledForm />);
 

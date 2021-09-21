@@ -34,6 +34,7 @@ const Form = ({
   dialogRef,
   fieldSpacing = 3,
   noValidate = true,
+  height,
   ...rest
 }) => {
   const [isFooterSticky, setIsFooterSticky] = useState(false);
@@ -98,6 +99,7 @@ const Form = ({
       fieldSpacing={fieldSpacing}
       noValidate={noValidate}
       isInSidebar={isInSidebar}
+      height={height}
       {...rest}
     >
       {children}
@@ -168,6 +170,9 @@ Form.propTypes = {
    * Used to detect if FormFooter should be sticky when used in Dialog component
    */
   dialogRef: PropTypes.shape({ current: PropTypes.any }),
+
+  /** Height of the form (any valid CSS value) */
+  height: PropTypes.string,
 };
 
 export default Form;

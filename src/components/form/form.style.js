@@ -48,6 +48,12 @@ export const StyledFormFooter = styled.div`
 export const StyledForm = styled.form`
   ${space}
 
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height};
+    `}
+
   & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) =>
