@@ -47,6 +47,7 @@ const TileSelect = ({
   actionButtonAdornment,
   footer,
   prefixAdornment,
+  additionalInformation,
   ...rest
 }) => {
   const l = useLocale();
@@ -132,9 +133,14 @@ const TileSelect = ({
                 )}
 
                 {titleAdornment && (
-                  <StyledAdornment>{titleAdornment}</StyledAdornment>
+                  <StyledAdornment
+                    hasAdditionalInformation={!!additionalInformation}
+                  >
+                    {titleAdornment}
+                  </StyledAdornment>
                 )}
               </StyledTitleContainer>
+              {additionalInformation && <div>{additionalInformation}</div>}
               <StyledDescription {...checkPropTypeIsNode(description)}>
                 {description}
               </StyledDescription>
@@ -191,6 +197,8 @@ TileSelect.propTypes = {
   footer: PropTypes.node,
   /** Component to render in the top left corner of TileSelect */
   prefixAdornment: PropTypes.node,
+  /** Component to render additional information row between title and description */
+  additionalInformation: PropTypes.node,
 };
 
 TileSelect.displayName = "TileSelect";
