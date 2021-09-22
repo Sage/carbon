@@ -7,7 +7,7 @@ import guid from "../../../utils/helpers/guid";
 import WithDrop from "../../drag-and-drop/with-drop";
 import DraggableTableCell from "../draggable-table-cell";
 import StyledTableRow from "./table-row.style";
-import { validProps } from "../../../utils/ether";
+import { validProps } from "../../../__internal__/utils/ether";
 import tagComponent from "../../../utils/helpers/tags";
 import { ActionPopover } from "../../action-popover";
 

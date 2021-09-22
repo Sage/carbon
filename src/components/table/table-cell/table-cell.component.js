@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import StyledTableCell from "./table-cell.style";
 import Date from "../../date";
 import TextArea from "../../textarea";
-import { validProps } from "../../../utils/ether";
+import { validProps } from "../../../__internal__/utils/ether";
 import tagComponent from "../../../utils/helpers/tags";
 
 /**

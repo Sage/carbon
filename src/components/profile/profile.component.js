@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { acronymize } from "../../utils/ether/ether";
+import { acronymize } from "../../__internal__/utils/ether";
 import tagComponent from "../../utils/helpers/tags/tags";
 import {
   ProfileStyle,

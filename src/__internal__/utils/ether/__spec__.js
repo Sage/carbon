@@ -8,7 +8,6 @@ import {
 import React from "react";
 import PropTypes from "prop-types";
 import TestUtils from "react-dom/test-utils";
-import Pod from "../../components/pod";
 
 class Comp extends React.Component {
   render() {
