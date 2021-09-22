@@ -68,6 +68,16 @@ describe("Profile", () => {
           "FBB"
         );
       });
+
+      it("returns empty string when name is an empty string", () => {
+        instance = shallow(<Profile name="" email="foo@bar.com" />);
+        expect(instance.find(ProfileAvatarStyle).props().initials).toEqual("");
+      });
+
+      it("returns empty string when name is a space", () => {
+        instance = shallow(<Profile name=" " email="foo@bar.com" />);
+        expect(instance.find(ProfileAvatarStyle).props().initials).toEqual("");
+      });
     });
 
     describe("text", () => {
