@@ -73,15 +73,15 @@ export const PodStory = ({
   <Story
     name="default"
     args={{
-      border: Pod.defaultProps.border,
+      border: true,
       children: "This is some example content for a Pod",
       childrenSpecialCharacters: undefined,
-      size: Pod.defaultProps.size,
+      size: "medium",
       title: "",
       titleSpecialCharacters: undefined,
       subtitle: "",
       subtitleSpecialCharacters: undefined,
-      alignTitle: Pod.defaultProps.alignTitle,
+      alignTitle: "left",
       footer: "",
       footerSpecialCharacters: undefined,
       onEdit: false,
@@ -92,7 +92,7 @@ export const PodStory = ({
       displayEditButtonOnHover: false,
       triggerEditOnContent: false,
       internalEditButton: false,
-      variant: Pod.defaultProps.variant,
+      variant: "primary",
     }}
   >
     {PodStory.bind({})}
