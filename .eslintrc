@@ -43,6 +43,7 @@
     "react/no-this-in-sfc": 0,
     "react/no-unescaped-entities": "off",
     "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
     "react/forbid-prop-types": "off",
