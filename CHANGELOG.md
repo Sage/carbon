@@ -1,3 +1,14 @@
+## [88.0.0](https://github.com/Sage/carbon/compare/v87.5.0...v88.0.0) (2021-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **profile:** Profile is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **profile:** convert from class to functional component ([2a704f7](https://github.com/Sage/carbon/commit/2a704f715bd821b8daa9585237533d0d8e3293a4))
+
 ## [87.5.0](https://github.com/Sage/carbon/compare/v87.4.0...v87.5.0) (2021-09-21)
 
 
