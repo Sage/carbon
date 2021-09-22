@@ -24,7 +24,8 @@ const Input = React.forwardRef(
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
     const deferredTimeout = useRef(null);
-    const input = ref || useRef(null);
+    let input = useRef(null);
+    if (ref) input = ref;
 
     useEffect(() => {
       if (autoFocus && input.current) input.current.focus();

@@ -29,8 +29,6 @@ const filterOutSpacingProps = (obj) =>
   );
 
 class BaseDateInput extends React.Component {
-  static contextType = LocaleContext;
-
   localeData = {
     locale: this.context.locale(),
     formats: this.context.date.formats.inputs(),
@@ -586,6 +584,8 @@ function canReturnValue(value, allowEmptyValue, locale, formats, format) {
 }
 
 const DateInput = withUniqueIdProps(BaseDateInput);
+
+BaseDateInput.contextType = LocaleContext;
 
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,

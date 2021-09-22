@@ -14,8 +14,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 class DateRange extends React.Component {
-  static contextType = LocaleContext;
-
   localeData = {
     locale: this.context.locale(),
     formats: this.context.date.formats.inputs(),
@@ -239,6 +237,8 @@ class DateRange extends React.Component {
     );
   }
 }
+
+DateRange.contextType = LocaleContext;
 
 DateRange.propTypes = {
   /** Filtered styled system margin props */

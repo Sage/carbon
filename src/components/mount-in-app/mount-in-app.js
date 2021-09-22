@@ -6,18 +6,6 @@ import Logger from "../../utils/logger/logger";
 let deprecatedWarnTriggered = false;
 
 class MountInApp extends React.Component {
-  static propTypes = {
-    /**
-     * Children elements
-     */
-    children: PropTypes.node,
-
-    /**
-     * ID of the element in which the children components will be rendered.
-     */
-    targetId: PropTypes.string,
-  };
-
   componentDidMount() {
     if (this.targetElement) {
       ReactDOM.render(this.contentHtml, this.targetElement);
@@ -52,5 +40,17 @@ class MountInApp extends React.Component {
     return null;
   }
 }
+
+MountInApp.propTypes = {
+  /**
+   * Children elements
+   */
+  children: PropTypes.node,
+
+  /**
+   * ID of the element in which the children components will be rendered.
+   */
+  targetId: PropTypes.string,
+};
 
 export default MountInApp;

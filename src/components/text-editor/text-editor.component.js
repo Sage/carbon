@@ -69,7 +69,9 @@ const TextEditor = React.forwardRef(
     const [inlines, setInlines] = useState([]);
     const [activeInlines, setActiveInlines] = useState({});
     const [focusToolbar, setFocusToolbar] = useState(false);
-    const editor = ref || useRef();
+
+    const editorRef = useRef();
+    const editor = ref || editorRef;
     const contentLength = getContent(value).getPlainText("").length;
     const moveCursor = useRef(contentLength > 0);
     const lastKeyPressed = useRef();

@@ -42,7 +42,8 @@ const FlatTableRow = React.forwardRef(
     ref
   ) => {
     const [isExpanded, setIsExpanded] = useState(expanded);
-    const rowRef = ref || useRef();
+    let rowRef = useRef();
+    if (ref) rowRef = ref;
     const firstColumnExpandable = expandableArea === "firstColumn";
     const [stickyCellWidths, setStickyCellWidths] = useState([]);
     const [leftPositions, setLeftPositions] = useState([]);

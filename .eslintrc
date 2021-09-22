@@ -43,6 +43,10 @@
     "react/no-this-in-sfc": 0,
     "react/no-unescaped-entities": "off",
     "react/jsx-filename-extension": "off",
+    "react/jsx-no-bind": [
+      "error",
+      { "allowArrowFunctions": true, "allowFunctions": true }
+    ],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
@@ -64,6 +68,7 @@
         ]
       }
     ],
+    "react/state-in-constructor": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     // Copy from airbnb with UNSAFE_ ignore added

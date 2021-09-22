@@ -12,8 +12,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 class Decimal extends React.Component {
-  static contextType = LocaleContext;
-
   static maxPrecision = 15;
 
   emptyValue = this.props.allowEmptyValue ? "" : "0.00";
@@ -255,6 +253,8 @@ class Decimal extends React.Component {
     );
   }
 }
+
+Decimal.contextType = LocaleContext;
 
 Decimal.propTypes = {
   /** Styled-system margin props */

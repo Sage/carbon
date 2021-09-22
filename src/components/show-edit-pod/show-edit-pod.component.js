@@ -20,8 +20,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 class ShowEditPod extends React.Component {
-  static contextType = LocaleContext;
-
   state = {
     editing: false,
   };
@@ -195,6 +193,8 @@ class ShowEditPod extends React.Component {
     );
   }
 }
+
+ShowEditPod.contextType = LocaleContext;
 
 ShowEditPod.propTypes = {
   ...marginPropTypes,

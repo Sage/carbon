@@ -18,8 +18,6 @@ import LocaleContext from "../../__internal__/i18n-context";
 let deprecatedWarnTriggered = false;
 
 class ConfigurableItems extends React.Component {
-  static contextType = LocaleContext;
-
   constructor(props) {
     super(props);
     if (!deprecatedWarnTriggered) {
@@ -86,6 +84,8 @@ class ConfigurableItems extends React.Component {
     );
   }
 }
+
+ConfigurableItems.contextType = LocaleContext;
 
 ConfigurableItems.propTypes = {
   /** Children elements. */

@@ -20,16 +20,6 @@ class ScrollableList extends Component {
     }
   }
 
-  static propTypes = {
-    alwaysHighlight: PropTypes.bool, // ensures an item is always highlighted
-    isLoopable: PropTypes.bool,
-    children: PropTypes.node,
-    keyNavigation: PropTypes.bool,
-    maxHeight: PropTypes.string,
-    onLazyLoad: PropTypes.func,
-    onSelect: PropTypes.func,
-  };
-
   state = {
     selectedItem: -1, // defaults to nothing being highlighted
   };
@@ -235,5 +225,15 @@ class ScrollableList extends Component {
     );
   }
 }
+
+ScrollableList.propTypes = {
+  alwaysHighlight: PropTypes.bool, // ensures an item is always highlighted
+  isLoopable: PropTypes.bool,
+  children: PropTypes.node,
+  keyNavigation: PropTypes.bool,
+  maxHeight: PropTypes.string,
+  onLazyLoad: PropTypes.func,
+  onSelect: PropTypes.func,
+};
 
 export default ScrollableList;
