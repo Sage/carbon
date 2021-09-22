@@ -1,3 +1,63 @@
+## [87.5.0](https://github.com/Sage/carbon/compare/v87.4.0...v87.5.0) (2021-09-21)
+
+
+### Features
+
+* **tile-select:** surface new additonalInformation prop ([fa21724](https://github.com/Sage/carbon/commit/fa217241427360d78d9248a434a16bdb09e7367f))
+
+## [87.4.0](https://github.com/Sage/carbon/compare/v87.3.0...v87.4.0) (2021-09-20)
+
+
+### Features
+
+* **navigation-bar:** add sticky position ([1b298fe](https://github.com/Sage/carbon/commit/1b298fefe9dbcc696fa66a71c843a052a65cd258))
+
+## [87.3.0](https://github.com/Sage/carbon/compare/v87.2.0...v87.3.0) (2021-09-20)
+
+
+### Features
+
+* **flat-table:** add drag and drop functionality to table rows ([20671e4](https://github.com/Sage/carbon/commit/20671e43a0a8c5861503f4cca3202aa9fd07af3c))
+
+## [87.2.0](https://github.com/Sage/carbon/compare/v87.1.0...v87.2.0) (2021-09-17)
+
+
+### Features
+
+* **textbox:** add a character counter ([bffdf35](https://github.com/Sage/carbon/commit/bffdf3598a0ad86499fb3f6af8c7e1f2ba30c635))
+
+## [87.1.0](https://github.com/Sage/carbon/compare/v87.0.1...v87.1.0) (2021-09-17)
+
+
+### Features
+
+* **menu-item:** add callbacks for submenu toggle ([2507335](https://github.com/Sage/carbon/commit/2507335f816e5b9f63677abb8ae01907262fcb77)), closes [#4303](https://github.com/Sage/carbon/issues/4303)
+
+### [87.0.1](https://github.com/Sage/carbon/compare/v87.0.0...v87.0.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect styling when required and in error state ([83794d8](https://github.com/Sage/carbon/commit/83794d8cd62175187ee0a9d86574ad8227fd7c90))
+
+## [87.0.0](https://github.com/Sage/carbon/compare/v86.0.1...v87.0.0) (2021-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form-summary:** `errors.messages.formSummary` key returns an array of strings instead of a string
+
+### Code Refactoring
+
+* **form-summary:** change the design of the validation message ([6dc74a9](https://github.com/Sage/carbon/commit/6dc74a9c4777e9131906fb5ba0b33e3e173dd07b))
+
+### [86.0.1](https://github.com/Sage/carbon/compare/v86.0.0...v86.0.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* **flat-table-head:** ensure table head row children are an array before running find function ([e0b42e8](https://github.com/Sage/carbon/commit/e0b42e805dd92212351dc036645dbe56ab0f0550)), closes [#4378](https://github.com/Sage/carbon/issues/4378)
+
 ## [86.0.0](https://github.com/Sage/carbon/compare/v85.0.0...v86.0.0) (2021-09-14)
 
 

@@ -659,18 +659,18 @@ Please click on "Show code" below to see how to set these components up for alig
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object to the 
+The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
 <TranslationKeysTable
-  translationData={
-    [
-      {
-        name: "error.messages.formSummary",
-        description: "The text to displayed when there are errors or warnings present in the form",
-        type: "func",
-        returnType: "string when validation failures and null when no failures"
-      },
-    ]
-  }
+  translationData={[
+    {
+      name: "error.messages.formSummary",
+      description:
+        "The text to displayed when there are errors or warnings present in the form",
+      type: "func",
+      returnType:
+        "an array of strings when validation failures and null when no failures",
+    },
+  ]}
 />

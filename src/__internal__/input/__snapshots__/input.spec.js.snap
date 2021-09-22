@@ -17,9 +17,8 @@ exports[`Input renders with an input 1`] = `
 }
 
 .c0:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-border: none;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .c0::-webkit-input-placeholder {
@@ -36,12 +35,6 @@ exports[`Input renders with an input 1`] = `
 
 .c0::placeholder {
   color: rgba(0,0,0,0.55);
-}
-
-.c0:invalid,
-.c0:required {
-  box-shadow: 0 0 0px 1000px #fff inset;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 <input

@@ -472,6 +472,39 @@ To render a prefixed adornment in the top left corner of the `TileSelect` you ca
   </Story>
 </Preview>
 
+### With additional information
+
+It is possible to render an additional row of information or content between the `title` and the `description` by passing in 
+any node to the `additionalInformation` prop.
+
+<Preview>
+  <Story name="with additional information">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
+      return (
+        <TileSelect
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          titleAdornment={<Pill>Message</Pill>}
+          description="Short and descriptive description"
+          additionalInformation={<><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mb={1}>Further information</Pill></>}
+          checked={isChecked}
+          onChange={handleChange}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+
 ### With custom spacing
 
 The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The modifiers

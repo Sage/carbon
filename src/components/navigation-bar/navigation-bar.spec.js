@@ -125,4 +125,24 @@ describe("NavigationBar", () => {
       { media: query }
     );
   });
+
+  it.each([
+    ["top", undefined],
+    ["top", "10px"],
+    ["bottom", undefined],
+    ["bottom", "10px"],
+  ])("should set correct sticky offset", (position, offset) => {
+    wrapper = mount(
+      <NavigationBar stickyPosition={position} stickyOffset={offset}>
+        <div>test content</div>
+      </NavigationBar>
+    );
+    assertStyleMatch(
+      {
+        position: "sticky",
+        [position]: offset || "0",
+      },
+      wrapper
+    );
+  });
 });

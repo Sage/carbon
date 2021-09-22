@@ -25,6 +25,10 @@ export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   showDropdownArrow?: boolean;
   /** If no text is provided an ariaLabel should be given to facilitate accessibility. */
   ariaLabel?: string;
+  /** Callback triggered when submenu opens. Only valid with submenu prop */
+  onSubmenuOpen?: () => void;
+  /** Callback triggered when submenu closes. Only valid with submenu prop */
+  onSubmenuClose?: () => void;
 }
 
 export interface MenuWithChildren extends MenuItemBaseProps {

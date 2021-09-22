@@ -7,6 +7,8 @@ export interface NavigationBarProp extends SpaceProps {
   ariaLabel?: string;
   navigationType?: "light" | "dark";
   isLoading?: boolean;
+  stickyPosition?: "top" | "bottom";
+  stickyOffset?: string;
 }
 
 declare function NavigationBar(props: NavigationBarProp): JSX.Element;

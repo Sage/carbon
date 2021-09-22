@@ -115,6 +115,10 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-bottom: 1px solid #668592;
 }
 
+.c7 .c10:first-child {
+  border-left: 1px solid #668592;
+}
+
 .c5 .c8,
 .c5 .c15 {
   border-left: none;

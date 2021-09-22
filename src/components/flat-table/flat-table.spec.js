@@ -462,6 +462,33 @@ describe("FlatTable", () => {
     });
   });
 
+  describe("when FlatTableHead rows have only one child", () => {
+    it("does not throw an error", () => {
+      expect(() => {
+        mount(
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableHeader>City</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+      }).not.toThrow();
+    });
+  });
+
   describe("footer", () => {
     let wrapper;
 

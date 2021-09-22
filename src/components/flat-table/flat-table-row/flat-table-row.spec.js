@@ -17,6 +17,7 @@ import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
+import { FlatTableBodyDraggable } from "..";
 import { FlatTableThemeContext } from "../flat-table.component";
 
 const events = {
@@ -1152,6 +1153,294 @@ describe("FlatTableRow", () => {
           }
         );
       });
+    });
+  });
+
+  describe("Draggable Table with subRows", () => {
+    it("should expand the sub rows", () => {
+      const subRows = [
+        <FlatTableRow>
+          <FlatTableCell>York</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const component = (
+        <table>
+          <FlatTableBodyDraggable>
+            <FlatTableRow expandable subRow={subRows} key={0} id={0} index={0}>
+              <FlatTableCell>UK</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              expanded
+              subRow={subRows}
+              key={1}
+              id={1}
+              index={1}
+            >
+              <FlatTableCell>Germany</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRow={subRows} key={2} id={2} index={2}>
+              <FlatTableCell>Finland</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </table>
+      );
+
+      const wrapper = mount(component);
+
+      act(() => {
+        wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+      });
+
+      wrapper.update();
+
+      expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+    });
+
+    it("sets any preceding columns to sticky as well", () => {
+      const subRows = [
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const wrapper = mount(
+        <table>
+          <FlatTableBodyDraggable>
+            <FlatTableRow
+              expandable
+              subRow={subRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </table>
+      );
+      act(() =>
+        wrapper.find(FlatTableHeader).at(0).props().reportCellWidth(200, 0)
+      );
+
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableHeader).at(0)
+      );
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableCell).at(0)
+      );
+
+      assertStyleMatch(
+        {
+          position: "sticky",
+        },
+        wrapper.find(StyledFlatTableCheckbox)
+      );
+
+      assertStyleMatch(
+        {
+          position: undefined,
+        },
+        wrapper.find(StyledFlatTableHeader).at(1)
+      );
+    });
+
+    it("should update the expanded state of the rows", () => {
+      const subRows = [
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const MockComponent = (props) => {
+        const [expanded, setExpanded] = React.useState(false);
+        return (
+          <>
+            <button type="button" onClick={() => setExpanded(!expanded)}>
+              Change Expanded State
+            </button>
+            <table>
+              <tbody>
+                <FlatTableRow {...props} expanded={expanded}>
+                  <FlatTableCell>cell1</FlatTableCell>
+                  <FlatTableCell>cell2</FlatTableCell>
+                </FlatTableRow>
+              </tbody>
+            </table>
+          </>
+        );
+      };
+
+      const wrapper = mount(<MockComponent expandable subRows={subRows} />);
+
+      act(() => {
+        wrapper.find("button").props().onClick();
+      });
+      wrapper.update();
+
+      expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+      act(() => {
+        wrapper.find("button").props().onClick();
+      });
+      wrapper.update();
+
+      expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+    });
+
+    it("should render the sub rows open when expanded set to true", () => {
+      const subRows = [
+        <FlatTableRow>
+          <FlatTableCell>York</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const component = (
+        <table>
+          <FlatTableBodyDraggable>
+            <FlatTableRow
+              expandable
+              subRows={subRows}
+              key={0}
+              id={0}
+              index={0}
+              expanded
+            >
+              <FlatTableCell>UK</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              expanded
+              subRows={subRows}
+              key={1}
+              id={1}
+              index={1}
+            >
+              <FlatTableCell>Germany</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow
+              expandable
+              subRows={subRows}
+              key={2}
+              id={2}
+              index={2}
+              expanded
+            >
+              <FlatTableCell>Finland</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </table>
+      );
+
+      const wrapper = mount(component);
+
+      expect(wrapper.find(StyledFlatTableRow).length).toEqual(9);
+    });
+
+    it("make sure first cell is clickable", () => {
+      const subRows = [
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableCell>1</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const wrapper = mount(
+        <table>
+          <FlatTableBodyDraggable>
+            <FlatTableRow
+              expandable
+              subRow={subRows}
+              expandableArea="firstColumn"
+            >
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </table>
+      );
+
+      act(() => {
+        wrapper.find("td").at(0).props().onClick();
+      });
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          position: undefined,
+        },
+        wrapper.find(StyledFlatTableHeader).at(1)
+      );
+    });
+
+    it("make sure styling is applied when dragging", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <StyledFlatTableRow isDragging>
+              <FlatTableCell>Test</FlatTableCell>
+            </StyledFlatTableRow>
+          </tbody>
+        </table>
+      );
+      assertStyleMatch(
+        {
+          backgroundColor: "#BFCCD2",
+        },
+        wrapper,
+        { modifier: `${StyledFlatTableCell}` }
+      );
+    });
+
+    it("make sure styling is applied when dragging in a sidebar", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <StyledFlatTableRow isDragging isInSidebar>
+              <FlatTableCell>Test</FlatTableCell>
+            </StyledFlatTableRow>
+          </tbody>
+        </table>
+      );
+      assertStyleMatch(
+        {
+          backgroundColor: "#99ADB6",
+        },
+        wrapper,
+        { modifier: `${StyledFlatTableCell}` }
+      );
     });
   });
 });
