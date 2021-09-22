@@ -1,3 +1,16 @@
+## [89.0.0](https://github.com/Sage/carbon/compare/v88.0.0...v89.0.0) (2021-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod-manager:** deprecated pod-manager component has been removed
+* **pod:** Pod is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **pod:** rewrite class component to functional ([fc65a0f](https://github.com/Sage/carbon/commit/fc65a0f37c77d7815a1cb5ce95d0153240dc5785))
+* **pod-manager:** remove deprecated pod-manager component ([997d734](https://github.com/Sage/carbon/commit/997d7346aea263831bafcaae30136a2a7c5e5ef1))
+
 ## [88.0.0](https://github.com/Sage/carbon/compare/v87.5.0...v88.0.0) (2021-09-22)
 
 
