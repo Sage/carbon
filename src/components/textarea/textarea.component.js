@@ -4,7 +4,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { InputPresentation } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
-import CharacterCount from "./character-count";
+import CharacterCount from "../../__internal__/character-count";
 import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";

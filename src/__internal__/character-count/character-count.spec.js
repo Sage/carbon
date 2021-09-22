@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import baseTheme from "../../../style/themes/base";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import baseTheme from "../../style/themes/base";
 import CharacterCount from ".";
 
 describe("CharacterCount", () => {

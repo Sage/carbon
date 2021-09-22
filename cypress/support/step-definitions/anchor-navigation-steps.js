@@ -8,7 +8,8 @@ When("I click onto {string} tab", (anchorNaviIndex) => {
 });
 
 Then("{string} anchor navigation section is visible", (anchorName) => {
-  anchorNavigationStickyMainPage(anchorName).should("be.visible");
+  anchorNavigationStickyMainPage(anchorName).as("anchorNavigation");
+  cy.get("@anchorNavigation").should("be.visible");
 });
 
 When("I scroll window to the {string} position", (anchorName) => {

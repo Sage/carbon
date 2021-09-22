@@ -11,6 +11,7 @@ import {
   FlatTableCell,
   FlatTableCheckbox,
   Sort,
+  FlatTableBodyDraggable
 } from ".";
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
@@ -1922,6 +1923,51 @@ of the button control.
   </Story>
 </Preview>
 
+## Draggable rows
+
+<Preview>
+  <Story name="with draggable rows">
+    {() => {
+      const [state, setState] = useState([
+        {
+          id: "0",
+          name: "UK",
+        },
+        {
+          id: "1",
+          name: "Germany",
+        },
+        {
+          id: "2",
+          name: "China",
+        },
+        {
+          id: "3",
+          name: "US",
+        },
+      ]);
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader />
+              <FlatTableHeader>Country</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBodyDraggable>
+            {state.map((row, index) => (
+              <FlatTableRow key={row.id} id={row.id} index={index}>
+                <FlatTableCell>{row.name}</FlatTableCell>
+              </FlatTableRow>
+            ))}
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+    }}
+  </Story>
+</Preview>
+
+
 ## Props
 
 ### FlatTable
@@ -1935,6 +1981,10 @@ of the button control.
 ### FlatTableBody
 
 <Props of={FlatTableBody} />
+
+### FlatTableBodyDraggable
+
+<Props of={FlatTableBodyDraggable} />
 
 ### FlatTableRow
 

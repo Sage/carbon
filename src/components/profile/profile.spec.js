@@ -1,7 +1,6 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
+
 import Profile from "./profile.component";
 import {
   elementsTagTest,
@@ -60,22 +59,14 @@ describe("Profile", () => {
         instance.setProps({ className: "foo" });
         expect(instance.hasClass("foo")).toBeTruthy();
       });
-
-      it("renders the large class if applied", () => {
-        instance = TestRenderer.create(
-          <Profile name="Foo" email="foo@bar.com" initials="FB" large />
-        );
-
-        expect(instance).toMatchSnapshot();
-      });
     });
 
     describe("initials", () => {
       it("calculates the initials when not provided", () => {
-        instance = TestUtils.renderIntoDocument(
-          <Profile name="Foo Bar Baz" email="foo@bar.com" />
+        instance = shallow(<Profile name="Foo Bar Baz" email="foo@bar.com" />);
+        expect(instance.find(ProfileAvatarStyle).props().initials).toEqual(
+          "FBB"
         );
-        expect(instance.initials).toEqual("FBB");
       });
     });
 

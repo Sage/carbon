@@ -11,8 +11,6 @@ export interface ProfileProps {
   email: string;
   /** Define initials to display if there is no Gravatar image. */
   initials?: string;
-  /** [Legacy] Enable a larger theme for the name. */
-  large?: boolean;
   /** Allow to setup size for the component */
   size?: "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 }

@@ -35,10 +35,6 @@ exports[`InputPresentation renders presentational div and context provider for i
   padding-right: 11px;
 }
 
-.c1 .c2:-webkit-autofill {
-  margin-top: 2px;
-}
-
 .c1 input::-ms-clear {
   display: none;
 }

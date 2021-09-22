@@ -127,6 +127,96 @@ valid CSS string.
   </Story>
 </Preview>
 
+### Sticky
+
+The `stickyPosition` prop can be used to make the navigation bar stick to the top or bottom of it's nearest scrolling ancestor. Then the position relative to the top/bottom can be offset using the `stickyOffset` prop.
+
+<Preview>
+  <Story name="sticky" parameters={{ info: { disable: true } }}>
+    <div style={{ overflow: "scroll" }}>
+      <div
+        style={{
+          margin: "50px",
+          height: "250px",
+        }}
+      >
+        <NavigationBar
+          stickyPosition="top"
+          stickyOffset="25px"
+          aria-label="header"
+        >
+          <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+            <SageIcon style={{ alignSelf: "center" }} />
+            <Box>
+              <VerticalDivider displayInline pr={0} />
+            </Box>
+            <Menu display="flex" flex="1">
+              <MenuItem flex="1" onClick={() => {}}>
+                Menu Item One
+              </MenuItem>
+              <MenuItem flex="0 0 auto" href="#">
+                Menu Item Two
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </NavigationBar>
+        <div
+          style={{
+            height: "1000px",
+            background: "green",
+          }}
+        />
+        <NavigationBar
+          stickyPosition="bottom"
+          stickyOffset="25px"
+          aria-label="footer"
+        >
+          <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+            <SageIcon style={{ alignSelf: "center" }} />
+            <Box>
+              <VerticalDivider displayInline pr={0} />
+            </Box>
+            <Menu display="flex" flex="1">
+              <MenuItem flex="1" onClick={() => {}}>
+                Menu Item One
+              </MenuItem>
+              <MenuItem flex="0 0 auto" href="#">
+                Menu Item Two
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </NavigationBar>
+      </div>
+    </div>
+  </Story>
+</Preview>
+
 ## Props
 
 ### Navigation Bar

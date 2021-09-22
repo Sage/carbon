@@ -5,7 +5,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import CharacterCount from "./character-count";
+import CharacterCount from "../../__internal__/character-count";
 import Textarea from ".";
 import baseTheme from "../../style/themes/base";
 import InputPresentation from "../../__internal__/input/input-presentation.component";

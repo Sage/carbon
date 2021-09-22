@@ -73,6 +73,8 @@ const StyledFlatTableRow = styled.tr`
     size,
     theme,
     applyBorderLeft,
+    isDragging,
+    draggable,
   }) => {
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
     const customBorderColor = horizontalBorderColor
@@ -112,6 +114,9 @@ const StyledFlatTableRow = styled.tr`
 
       ${StyledFlatTableHeader} {
         border-bottom: 1px solid ${borderColor(colorTheme, theme)};
+        :first-child {
+          border-left: 1px solid ${borderColor(colorTheme, theme)};
+        }
       }
 
       ${stickyOffset > 0 &&
@@ -256,6 +261,27 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
           padding-left: ${size === "compact" ? "32px" : "40px"};
+        }
+      `}
+
+      ${isDragging &&
+      css`
+        border: ${isInSidebar
+            ? theme.palette.slateTint(40)
+            : theme.palette.slateTint(55)}
+          2px solid;
+        cursor: grabbing;
+        ${allCellTypes} {
+          background-color: ${isInSidebar
+            ? theme.palette.slateTint(60)
+            : theme.palette.slateTint(75)};
+        }
+      `}
+
+      ${draggable &&
+      css`
+        ${StyledIcon}:first-of-type {
+          font-size: 16px;
         }
       `}
 

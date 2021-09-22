@@ -25,7 +25,8 @@ const StyledSubtitle = styled.h4`
 
 const StyledAdornment = styled.div`
   z-index: 500;
-  margin-bottom: 8px;
+  margin-bottom: ${({ hasAdditionalInformation }) =>
+    hasAdditionalInformation ? "4" : "8"}px;
 `;
 
 const StyledDescription = styled.p`
