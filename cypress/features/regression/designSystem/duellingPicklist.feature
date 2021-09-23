@@ -1,7 +1,7 @@
 Feature: Design System Duelling Picklist Component
   I want to test Design System Duelling Picklist component
 
-  Background: Design System Duelling Picklist Component in noIframe
+  Background: Design System Duelling Picklist Component
     Given I open "Design System DuellingPicklist Test" component page "default"
 
   @positive

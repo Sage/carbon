@@ -72,7 +72,7 @@ Feature: Design Systems Menu component
   @positive
   Scenario: Check that the Search component is focusable by using the downarrow key
     Given I open "Design System Menu" component page "submenu with search"
-      And I click onto root in Test directory in no iFrame
+      And I click onto root in Test directory
       And I hit Tab key 1 time
       And I wait 50
       And I press "Enter" onto focused element
@@ -83,7 +83,7 @@ Feature: Design Systems Menu component
   @positive
   Scenario: Check that the Search component is focusable by using the uparrow key
     Given I open "Design System Menu" component page "submenu with search"
-      And I click onto root in Test directory in no iFrame
+      And I click onto root in Test directory
       And I hit Tab key 1 time
       And I wait 50
       And I press "Enter" onto focused element
@@ -96,7 +96,7 @@ Feature: Design Systems Menu component
   @positive
   Scenario: Check that the Search component close icon is focusable in Menu when using keyboard navigation
     Given I open "Design System Menu" component page "submenu with search"
-      And I click onto root in Test directory in no iFrame
+      And I click onto root in Test directory
       And I hit Tab key 1 times
       And I wait 50
       And I press "Enter" onto focused element

@@ -13,7 +13,7 @@ Feature: Accessibility tests - Design System folder
   @accessibility
   Scenario: Design System Accordion component primary page opened state
     Given I open "Design System Accordion" component page "default story"
-    When I expand Design System accordionRow via click in NoIFrame
+    When I expand Design System accordionRow via click
     Then "Accordion default page" component has no accessibility violations
 
   @accessibility
@@ -103,7 +103,7 @@ Feature: Accessibility tests - Design System folder
   @accessibility
   Scenario: Design System Popover Container component default page
     Given I open "Design System Popover Container" component page "default story"
-    When I open popover container in NoIFrame
+    When I open popover container
     Then "Popover Container" component has no accessibility violations
 
   @accessibility
@@ -159,7 +159,7 @@ Feature: Accessibility tests - Design System folder
   @accessibility
   Scenario: Design System Select component default story page
     Given I open "Design System Select" component page "default story"
-    When I click on Select input in noIframe
+    When I click on default Select input
     Then "Select" component has no accessibility violations
 
   @accessibility

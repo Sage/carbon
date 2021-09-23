@@ -5,7 +5,7 @@ import {
   TEXT_EDITOR_TOOLBAR,
 } from "./locators";
 
-// component preview locators in NoIFrame
+// component preview locators
 export const textEditorCounter = () => cy.get(TEXT_EDITOR_COUNTER);
 export const textEditorInput = () => cy.get(TEXT_EDITOR_INPUT);
 export const textEditorToolbar = (buttonType) =>

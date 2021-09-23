@@ -183,7 +183,7 @@ When("I press {string} key times {int}", (key, times) => {
   }
 });
 
-When("I click onto root in Test directory in no iFrame", () => {
+When("I click onto root in Test directory", () => {
   cy.get("#root").click({ force: true });
 });
 
@@ -191,7 +191,7 @@ Then("totalRecords is set to {string} {word}", (totalRecords, element) => {
   pagerSummary().invoke("text").should("contain", `${totalRecords} ${element}`);
 });
 
-Then("label Align on preview is {string} in NoIFrame", (direction) => {
+Then("label Align on preview is {string}", (direction) => {
   if (direction === "left") {
     getDataElementByValue("label")
       .parent()

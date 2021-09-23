@@ -64,7 +64,7 @@ Then(
   }
 );
 
-When("I expand Design System accordionRow via click in NoIFrame", () => {
+When("I expand Design System accordionRow via click", () => {
   accordionDefaultTitle().click();
 });
 

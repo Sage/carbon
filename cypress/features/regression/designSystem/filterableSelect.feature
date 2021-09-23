@@ -43,7 +43,7 @@ Feature: Design System Filterable Select component
   Scenario: Close Filterable Select list by clicking out of component
     Given I open "Design System Select filterable" component page "controlled"
       And I click on dropdown button
-    When I click onto root in Test directory in no iFrame
+    When I click onto root in Test directory
     Then "filterable" Select list is closed
 
   @positive
@@ -87,7 +87,7 @@ Feature: Design System Filterable Select component
   @positive
   Scenario: Full list options is visible when value is set and select is opened again
     Given I open "Design System Select filterable" component page "default story"
-      And I type "A" into simple select input in noIframe
+      And I type "A" into default input
       And option list has 3 elements
       And visible options on Select list are "Amber", "Black", "Orange"
       And I click on "first" option on Select list

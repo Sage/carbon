@@ -4,8 +4,8 @@ import {
   dayPickerDay,
   dayPickerWrapper,
   dateIcon,
-  dateInputNoIFrame,
-  dayPickerParentNoIFrame,
+  dateInputParent,
+  dayPickerParent,
   dayPickerHeading,
 } from "../../locators/date-input/index";
 import { keyCode } from "../helper";
@@ -47,7 +47,7 @@ Then("the date after maxDate is not available", () => {
 });
 
 When("I click dateInput", () => {
-  dateInputNoIFrame().click({ force: true });
+  dateInputParent().click({ force: true });
 });
 
 When("I choose date yesterday via DayPicker", () => {
@@ -91,7 +91,7 @@ When("I click onto date icon twice", () => {
 });
 
 When("I click dateInput twice", () => {
-  dateInputNoIFrame()
+  dateInputParent()
     .click({ force: true })
     .then(($el) => {
       $el.click();
@@ -99,7 +99,7 @@ When("I click dateInput twice", () => {
 });
 
 Then("Date input is visible at the {word}", (position) => {
-  dayPickerParentNoIFrame()
+  dayPickerParent()
     .should("have.attr", "data-popper-placement", `${position}-start`)
     .and("be.visible");
 });

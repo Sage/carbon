@@ -22,7 +22,7 @@ import {
   commonDataElementInputPreview,
   label,
 } from "../../locators";
-import { dataComponentButtonByTextNoIFrame } from "../../locators/pages";
+import { dataComponentButtonByText } from "../../locators/pages";
 import { loader } from "../../locators/loader";
 
 When("I focus select input", () => {
@@ -69,9 +69,6 @@ When("I click on default Select input", () => {
   simpleSelect().click();
 });
 
-When("I click on Select input in noIframe", () => {
-  simpleSelect().click();
-});
 When("{string} option on the list is hovered over", (position) => {
   selectOption(positionOfElement(position))
     .should("have.attr", "aria-selected", "true")
@@ -129,10 +126,6 @@ When("I type {string} into default input", (text) => {
   simpleSelect().type(text);
 });
 
-When("I type {string} into simple select input in noIframe", (text) => {
-  simpleSelect().type(text);
-});
-
 When("{string} option on Select list is {string}", (position, text) => {
   selectOption(positionOfElement(position)).should("have.text", text);
 });
@@ -146,7 +139,7 @@ When("I click on Select label", () => {
 });
 
 When("I click onto {string} button", (buttonName) => {
-  dataComponentButtonByTextNoIFrame(buttonName).click();
+  dataComponentButtonByText(buttonName).click();
 });
 
 When("I click on Select input with lazy loading", () => {

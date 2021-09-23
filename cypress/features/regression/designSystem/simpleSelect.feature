@@ -28,7 +28,7 @@ Feature: Design System Select component
   Scenario: Close Select list by clicking out of component
     Given I open "Design System Select" component page "controlled"
       And I click on dropdown button
-    When I click onto root in Test directory in no iFrame
+    When I click onto root in Test directory
     Then "simple" Select list is closed
 
   @positive
@@ -103,7 +103,7 @@ Feature: Design System Select component
   Scenario Outline: Show Select list is at the <position> in <size> viewport
     Given I open Test default "Select" component with "simpleSelect" json from "test" using "<size>" object name
       And I have a <size> viewport
-    When I click on Select input in noIframe
+    When I click on default Select input
     Then "simple" Select list is visible at the <position>
     Examples:
       | position | size  |

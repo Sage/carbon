@@ -117,7 +117,7 @@ Feature: Action Popover component
   @positive
   Scenario: Open Action Popover and close it by clicking outside of the component
     Given I click the menu button element
-    When I click onto root in Test directory in no iFrame
+    When I click onto root in Test directory
     Then Action Popover element is not visible
 
   @positive

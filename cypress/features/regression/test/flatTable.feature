@@ -1,5 +1,5 @@
 Feature: FlatTable component
-  I want to check FlatTable component properties in no iFrame
+  I want to check FlatTable component properties
 
   @positive
   Scenario: Header and row of FlatTable are visible after scrolling to the bottom right

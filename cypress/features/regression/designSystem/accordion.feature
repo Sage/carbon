@@ -4,7 +4,7 @@ Feature: Design System Accordion component
   @positive
   Scenario: I expand accordion using click
     Given I open "Design System Accordion" component page "default story"
-    When I expand Design System accordionRow via click in NoIFrame
+    When I expand Design System accordionRow via click
     Then accordionRow is expanded
 
   @positive

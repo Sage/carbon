@@ -4,7 +4,7 @@ Feature: GroupedCharacter component
   @positive
   Scenario Outline: Set groups to <nameOfObject> and verify input
     Given I open default "GroupedCharacter Test" component with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
-    When I put "<example>" example grouped character in no Iframe
+    When I put "<example>" example grouped character
     Then example grouped character is "<result>"
     Examples:
       | nameOfObject | example   | result      |
@@ -15,7 +15,7 @@ Feature: GroupedCharacter component
   @positive
   Scenario Outline: Set separator to <separator>
     Given I open default "GroupedCharacter Test" component with "groupedCharacter" json from "commonComponents" using "<nameOfObject>" object name
-    When I put "<text>" example grouped character in no Iframe
+    When I put "<text>" example grouped character
     Then example grouped character is "<result>"
     Examples:
       | separator | text   | result   | nameOfObject |

@@ -22,7 +22,7 @@ Feature: Design System Date Input component
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
     When I open default "Design System Date Input Test" component with "dateInput" json from "designSystem" using "<nameOfObject>" object name
-    Then label Align on preview is "<labelAlign>" in NoIFrame
+    Then label Align on preview is "<labelAlign>"
     Examples:
       | labelAlign | nameOfObject    |
       | left       | labelAlignLeft  |

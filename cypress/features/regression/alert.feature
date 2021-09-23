@@ -32,7 +32,7 @@ Feature: Alert component
   Scenario: Disable escape key
     When I open default "Alert Test" component with "alert" json from "commonComponents" using "disableEscKey" object name
       And I press ESC onto focused element
-    Then Alert is visible in NoIFrame
+    Then Alert is visible
 
   @positive
   Scenario Outline: Set height for Alert dialog to <height> but not bigger than viewportHeight

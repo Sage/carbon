@@ -41,7 +41,7 @@ Feature: Design System Multi Select component
   Scenario: Close Multi Select list by clicking out of component
     Given I open "Design System Select multiselect" component page "controlled"
       And I click on dropdown button
-    When I click onto root in Test directory in no iFrame
+    When I click onto root in Test directory
     Then multi Select list is closed
 
   @positive

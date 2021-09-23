@@ -4,13 +4,13 @@ Feature: Design System Popover container component
   @positive
   Scenario: Popover container is opened
     Given I open "Design System Popover container" component page "default story"
-    When I open popover container in NoIFrame
+    When I open popover container
     Then Popover container is visible
 
   @positive
   Scenario: Popover container is closed
     Given I open "Design System Popover container" component page "default story"
-      And I open popover container in NoIFrame
+      And I open popover container
     When I click popover close icon
     Then Popover container is not visible
 
