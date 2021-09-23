@@ -14,8 +14,3 @@ export const searchButton = () =>
   searchDefault().find(BUTTON_DATA_COMPONENT_PREVIEW);
 export const searchInput = () => cy.get(SEARCH_COMPONENT).find("input");
 export const searchIcon = () => cy.get(BUTTON);
-
-export const searchInputIframe = () =>
-  cy.iFrame(SEARCH_COMPONENT).find("input");
-export const searchDefaultInputIframe = () =>
-  cy.iFrame(SEARCH_COMPONENT).find("input");

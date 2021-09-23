@@ -3,7 +3,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> default story
-    Given I open "<component>" component page "default story" in no iframe
+    Given I open "<component>" component page "default story"
     Then "<component>" component has no accessibility violations
     Examples:
       | component           |
@@ -37,7 +37,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
-    Given I open "<component>" component page "default story" in no iframe
+    Given I open "<component>" component page "default story"
     When I open component preview
     Then "<component>" component has no accessibility violations
     Examples:
@@ -47,7 +47,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> default story
-    When I open "<component> Test" component page "default" in no iframe
+    When I open "<component> Test" component page "default"
     Then "<component> Test default story" component has no accessibility violations
     Examples:
       | component        |
@@ -58,7 +58,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story page
-    When I open "<component>" component page "validations boolean" in no iframe
+    When I open "<component>" component page "validations boolean"
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
@@ -68,7 +68,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> validations string story page
-    When I open "<component>" component page "validations string component" in no iframe
+    When I open "<component>" component page "validations string component"
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
@@ -78,7 +78,7 @@ Feature: Accessibility tests - Common list
 
   @accessibility
   Scenario Outline: Component <component> validations string label story page
-    When I open "<component>" component page "validations string label" in no iframe
+    When I open "<component>" component page "validations string label"
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |

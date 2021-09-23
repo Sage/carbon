@@ -3,7 +3,7 @@ Feature: Row component
 
   @positive
   Scenario Outline: Set children to <children>
-    When I open default "Row Test" component in noIFrame with "row" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Row Test" component with "row" json from "commonComponents" using "<nameOfObject>" object name
     Then column text is <children>
     Examples:
       | children                     | nameOfObject             |

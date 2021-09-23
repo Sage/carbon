@@ -6,7 +6,8 @@
     "countries*"
   ],
   "env": {
-    "TAGS": "not @ignore"
+    "TAGS": "not @ignore",
+    "iframe": "iframe.html?id="
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [

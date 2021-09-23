@@ -26,7 +26,7 @@ import { pagerSummary } from "../../locators/pager";
 const TEXT_ALIGN = "justify-content";
 
 Given(
-  "I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
+  "I open Test {word} {string} component with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
     visitComponentUrlWithParameters(
       `${component}-test`,
@@ -40,7 +40,7 @@ Given(
 );
 
 Given(
-  "I open {word} {string} component in noIFrame with {string} json from {string} using {string} object name",
+  "I open {word} {string} component with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
     visitComponentUrlWithParameters(
       component,
@@ -54,15 +54,8 @@ Given(
 );
 
 Given("I open {string} component page {string}", (component, story) => {
-  visitComponentUrl(component, story, false);
+  visitComponentUrl(component, story);
 });
-
-Given(
-  "I open {string} component page {string} in no iframe",
-  (component, story) => {
-    visitComponentUrl(component, story, true);
-  }
-);
 
 When("I open component preview", () => {
   commonButtonPreviewRoot().click();
@@ -190,7 +183,7 @@ When("I press {string} key times {int}", (key, times) => {
   }
 });
 
-When("I click onto root in Test directory in no iFrame", () => {
+When("I click onto root in Test directory", () => {
   cy.get("#root").click({ force: true });
 });
 
@@ -198,7 +191,7 @@ Then("totalRecords is set to {string} {word}", (totalRecords, element) => {
   pagerSummary().invoke("text").should("contain", `${totalRecords} ${element}`);
 });
 
-Then("label Align on preview is {string} in NoIFrame", (direction) => {
+Then("label Align on preview is {string}", (direction) => {
   if (direction === "left") {
     getDataElementByValue("label")
       .parent()

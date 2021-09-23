@@ -13,11 +13,7 @@ import {
   menu,
   menuItem,
 } from "../../locators/menu";
-import {
-  searchDefaultInput,
-  searchInput,
-  searchCrossIcon,
-} from "../../locators/search/index";
+import { searchInput, searchCrossIcon } from "../../locators/search/index";
 import { positionOfElement, keyCode } from "../helper";
 
 const span = "span";
@@ -162,10 +158,6 @@ Then("Search component input should be focused", () => {
 
 Then("Search component input icon should be focused", () => {
   searchCrossIcon().parent().should("have.focus");
-});
-
-When("Type {string} text into search input", (text) => {
-  searchDefaultInput().type(text);
 });
 
 Then("Menu is in fullscreen mode", () => {
