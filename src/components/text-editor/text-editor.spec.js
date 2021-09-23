@@ -26,10 +26,10 @@ import Label from "../../__internal__/label";
 import LabelWrapper from "./__internal__/label-wrapper";
 import EditorLinkPreview from "../link-preview";
 import ValidationIcon from "../../__internal__/validations";
-import { isSafari } from "../../utils/helpers/browser-type-check";
+import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import IconButton from "../icon-button";
 
-jest.mock("../../utils/helpers/browser-type-check");
+jest.mock("../../__internal__/utils/helpers/browser-type-check");
 isSafari.mockImplementation(() => false);
 
 jest.mock("../../utils/helpers/guid");

@@ -12,7 +12,7 @@ import DatePicker from "./date-picker.component";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
 import DateHelper from "../../utils/helpers/date/date";
-import { isEdge } from "../../utils/helpers/browser-type-check";
+import { isEdge } from "../../__internal__/utils/helpers/browser-type-check";
 import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import enGB from "../../locales/en-gb";
@@ -20,7 +20,7 @@ import Tooltip from "../tooltip";
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
-jest.mock("../../utils/helpers/browser-type-check");
+jest.mock("../../__internal__/utils/helpers/browser-type-check");
 
 describe("StyledDateInput", () => {
   it("renders correctly for default theme", () => {
