@@ -1,3 +1,10 @@
+## [89.3.0](https://github.com/Sage/carbon/compare/v89.2.0...v89.3.0) (2021-09-23)
+
+
+### Features
+
+* **content:** change a string type of the title prop to a node type ([b096825](https://github.com/Sage/carbon/commit/b0968256b02e9cc588a0e0d32e627f0ea9b49b43))
+
 ## [89.2.0](https://github.com/Sage/carbon/compare/v89.1.0...v89.2.0) (2021-09-23)
 
 
