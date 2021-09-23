@@ -12,8 +12,7 @@ export interface ConfigurableItemsProps {
   /** Callback triggered when the form is saved. */
   onSave: (ev: React.FormEvent<HTMLFormElement>) => void;
   /** An internal prop. Helpful to detect which component should be rendered */
-  theme?: object;
-
+  theme?: Record<string, unknown>;
 }
 
 declare function ConfigurableItems(props: ConfigurableItemsProps): JSX.Element;

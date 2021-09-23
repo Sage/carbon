@@ -48,6 +48,13 @@ export interface TypographyProps extends SpaceProps, ColorProps {
   truncate?: boolean;
 }
 
-declare function Typography(attrs: StyledComponentProps<"div", {}, TypographyProps, "">): JSX.Element;
+declare function Typography(
+  attrs: StyledComponentProps<
+    "div",
+    Record<string, unknown>,
+    TypographyProps,
+    ""
+  >
+): JSX.Element;
 
 export default Typography;

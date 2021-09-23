@@ -31,7 +31,11 @@ export interface CommonInputProps
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** The value of the Input */
-  value?: string | string[] | object | object[];
+  value?:
+    | string
+    | string[]
+    | Record<string, unknown>
+    | Record<string, unknown>[];
 }
 
 export interface InputProps extends CommonInputProps {

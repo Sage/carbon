@@ -8,7 +8,7 @@ interface ActionToolbarChildProps {
 
 export interface ActionToolbarProps {
   /** The actions to display in the toolbar */
-  actions: object;
+  actions: Record<string, unknown>;
   /** A custom class name for the component. */
   className?: string;
   /** A function to return child components for the action toolbar. */

@@ -1,8 +1,7 @@
 import * as React from "react";
-import NavigationBar from "./navigation-bar.component";
 import { SpaceProps } from "styled-system";
 
-export interface NavigationBarProp extends SpaceProps {
+export interface NavigationBarProps extends SpaceProps {
   children?: React.ReactNode;
   ariaLabel?: string;
   navigationType?: "light" | "dark";
@@ -11,6 +10,6 @@ export interface NavigationBarProp extends SpaceProps {
   stickyOffset?: string;
 }
 
-declare function NavigationBar(props: NavigationBarProp): JSX.Element;
+declare function NavigationBar(props: NavigationBarProps): JSX.Element;
 
 export default NavigationBar;

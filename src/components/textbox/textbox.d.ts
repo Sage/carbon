@@ -86,7 +86,11 @@ export interface CommonTextboxProps
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Input */
-  value?: string | string[] | object | object[];
+  value?:
+    | string
+    | string[]
+    | Record<string, unknown>
+    | Record<string, unknown>[];
   /** A callback to retrieve the input reference */
   inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
   /** Overrides the default tooltip position */

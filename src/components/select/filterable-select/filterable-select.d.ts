@@ -13,7 +13,7 @@ export interface FilterableSelectProps
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue?: string | object;
+  defaultValue?: string | Record<string, unknown>;
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
   disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
@@ -41,7 +41,7 @@ export interface FilterableSelectProps
    */
   tableHeader?: React.ReactNode;
   /** The selected value(s), when the component is operating in controlled mode */
-  value?: string | object;
+  value?: string | Record<string, unknown>;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }

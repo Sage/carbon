@@ -5,11 +5,11 @@ export interface HeadingProps extends MarginProps {
   /** Custom className */
   className?: string;
   /** Defines the title for the heading. */
-  title?: string | object;
+  title?: string | Record<string, unknown>;
   /** Defines the title id for the heading. */
   titleId?: string;
   /** Defines the subheader for the heading. */
-  subheader?: string | object;
+  subheader?: string | Record<string, unknown>;
   /** Defines the subtitle id for the heading. */
   subtitleId?: string;
   /** Defines the help text for the heading. */
