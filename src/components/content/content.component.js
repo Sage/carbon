@@ -59,7 +59,7 @@ Content.propTypes = {
   /** The body of the content component */
   children: PropTypes.node,
   /** The title of the content component */
-  title: PropTypes.string,
+  title: PropTypes.node,
   /** Displays the content inline with the title */
   inline: PropTypes.bool,
   /** Aligns the content (left, center or right) */

@@ -34,6 +34,13 @@ describe("Content", () => {
       expect(wrapper.find(StyledContentTitle).exists()).toBe(true);
     });
 
+    it("renders a custom title", () => {
+      wrapper = renderWrapper({
+        title: <span>Title</span>,
+      });
+      expect(wrapper.find("span").text()).toBe("Title");
+    });
+
     it("renders a body", () => {
       wrapper = renderWrapper();
       expect(wrapper.find(StyledContentBody).exists()).toBe(true);
