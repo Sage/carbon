@@ -15,31 +15,6 @@ import {
 const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
 
 class Detail extends React.Component {
-  static propTypes = {
-    ...marginPropTypes,
-    /**
-     * Custom className
-     */
-    className: PropTypes.string,
-
-    /**
-     * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
-     *
-     * The type of icon to use.
-     */
-    icon: PropTypes.string,
-
-    /**
-     * A small detail to display under the main content.
-     */
-    footnote: PropTypes.string,
-
-    /**
-     * The rendered children of the component.
-     */
-    children: PropTypes.node,
-  };
-
   /**
    * Returns the markup for the icon if one if specified.
    *
@@ -100,5 +75,30 @@ class Detail extends React.Component {
     );
   }
 }
+
+Detail.propTypes = {
+  ...marginPropTypes,
+  /**
+   * Custom className
+   */
+  className: PropTypes.string,
+
+  /**
+   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   *
+   * The type of icon to use.
+   */
+  icon: PropTypes.string,
+
+  /**
+   * A small detail to display under the main content.
+   */
+  footnote: PropTypes.string,
+
+  /**
+   * The rendered children of the component.
+   */
+  children: PropTypes.node,
+};
 
 export default Detail;

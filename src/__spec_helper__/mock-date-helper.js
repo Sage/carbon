@@ -12,7 +12,7 @@ jest.mock("../utils/helpers/date", () => {
     default: (() => {
       const mockTodayDate = "1-1-2019";
       const isoDateFormat = "YYYY-MM-DD";
-      const MockedDateHelper = Object.assign({}, _DateHelper.default);
+      const MockedDateHelper = { ..._DateHelper.default };
 
       MockedDateHelper._parseDate = (value, options) =>
         _DateHelper.default._parseDate(value, options).utc();

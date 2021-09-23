@@ -96,11 +96,11 @@ describe("ActionPopover", () => {
 
     renderer(
       <ThemeProvider theme={mintTheme}>
-        <React.Fragment>
+        <>
           <input id="before" />
           <ActionPopover {...defaultProps} {...props} />
           <input id="after" />
-        </React.Fragment>
+        </>
       </ThemeProvider>
     );
   }
@@ -165,11 +165,11 @@ describe("ActionPopover", () => {
 
     renderer(
       <ThemeProvider theme={mintTheme}>
-        <React.Fragment>
+        <>
           <input id="before" />
           <ActionPopover {...defaultProps} {...props} />
           <input id="after" />
-        </React.Fragment>
+        </>
       </ThemeProvider>
     );
   }

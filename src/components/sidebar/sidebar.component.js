@@ -27,7 +27,8 @@ const Sidebar = React.forwardRef(
     },
     ref
   ) => {
-    const sidebarRef = ref || useRef();
+    let sidebarRef = useRef();
+    if (ref) sidebarRef = ref;
     const closeIcon = () => {
       if (!onCancel) return null;
       return (
