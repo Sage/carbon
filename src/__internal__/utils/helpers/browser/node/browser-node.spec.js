@@ -4,7 +4,7 @@
 
 import Browser from "../browser";
 
-/* global test */
+/** global test */
 
 describe("Browser", () => {
   describe("getWindow()", () => {

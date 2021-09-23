@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { mount } from "enzyme";
 import Browser from "./browser";
 
 describe("Browser", () => {
   let _window;
-  const elem = mount(<div className="foo bar baz" />);
 
   beforeEach(() => {
     _window = {
@@ -125,7 +123,7 @@ describe("Browser", () => {
     it("focuses on the input field of the passed in ref but does not select text", () => {
       const node = { focus: jest.fn() };
 
-      let fakeComponent = { _input: {} };
+      const fakeComponent = { _input: {} };
       spyOn(ReactDOM, "findDOMNode").and.returnValue(node);
       Browser.setInputFocus(fakeComponent);
       expect(node.focus).toHaveBeenCalled();
