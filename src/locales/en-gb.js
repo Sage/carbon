@@ -1,4 +1,5 @@
-export const isSingular = (count) => parseInt(count, 10) === 1;
+const isSingular = (count) =>
+  (typeof count === "string" ? parseInt(count) : count) === 1;
 
 export default {
   locale: () => "en-GB",
