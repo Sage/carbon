@@ -29,8 +29,6 @@ const filterOutSpacingProps = (obj) =>
   );
 
 class Textarea extends React.Component {
-  static contextType = LocaleContext;
-
   // Minimum height of the textarea
   minHeight = 0;
 
@@ -208,6 +206,8 @@ class Textarea extends React.Component {
     );
   }
 }
+
+Textarea.contextType = LocaleContext;
 
 Textarea.propTypes = {
   ...marginPropTypes,

@@ -43,11 +43,6 @@ let deprecatedWarnTriggered = false;
  *
  */
 class ActionToolbar extends React.Component {
-  static contextTypes = {
-    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
-  };
-
   constructor(...args) {
     super(...args);
 
@@ -160,6 +155,11 @@ ActionToolbar.propTypes = {
   className: PropTypes.string,
   /** A function to return child components for the action toolbar. */
   children: PropTypes.func,
+};
+
+ActionToolbar.contextTypes = {
+  attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+  detachActionToolbar: PropTypes.func, // tracks the action toolbar component
 };
 
 export default ActionToolbar;
