@@ -18,6 +18,7 @@ import {
   StyledTitleContainer,
   StyledFocusWrapper,
   StyledFooterWrapper,
+  StyledAccordionFooterWrapper,
 } from "./tile-select.style";
 import Button from "../button";
 import Icon from "../icon";
@@ -388,6 +389,40 @@ describe("TileSelect", () => {
           marginBottom: "4px",
         },
         wrapper.find(StyledAdornment)
+      );
+    });
+  });
+
+  describe("Accordion footer", () => {
+    it("renders the node passed in via the accordionContent prop", () => {
+      const MyComp = () => <div>foo</div>;
+
+      render({
+        checked: true,
+        id: "id",
+        name: "name",
+        accordionContent: <MyComp />,
+        accordionControl: (props) => <Button {...props}>Foo</Button>,
+      });
+
+      expect(wrapper.find(MyComp).exists()).toBeTruthy();
+
+      assertStyleMatch(
+        {
+          width: "fit-content",
+          position: "relative",
+          zIndex: "200",
+          left: "-12px",
+        },
+        wrapper.find(StyledAccordionFooterWrapper)
+      );
+
+      assertStyleMatch(
+        {
+          transform: "rotate(-90deg)",
+        },
+        wrapper.find(StyledAccordionFooterWrapper),
+        { modifier: 'span[data-element="chevron_down"]' }
       );
     });
   });
