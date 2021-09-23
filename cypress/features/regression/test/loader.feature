@@ -12,7 +12,7 @@ Feature: Loader default component
       | large   | 20     | 8      | sizeLarge    |
 
   @positive
-  Scenario Outline: Verify size of button with loader
+  Scenario Outline: Verify <size> size of button with loader
     When I open Test default "Loader" component with "loader" json from "commonComponents" using "<nameOfObject>" object name
     Then button with loader width is set to <width> px and height is set to 40 px
     Examples:
