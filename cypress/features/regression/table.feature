@@ -3,7 +3,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "highlightable" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
@@ -14,7 +14,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "highlightableFalse" object name
     When I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
@@ -25,7 +25,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Sort <headerName> Column by <sortedColumn>
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then "<headerName>" Table column can be sorted
     Examples:
       | nameOfObject     | headerName |
@@ -34,7 +34,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Sort Country column in <sortOrder> order
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Country column is sorted in "<sortOrder>" order
     Examples:
       | sortOrder | nameOfObject    |
@@ -43,7 +43,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Sort Code column in <sortOrder> order
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Code column is sorted in "<sortOrder>" order
     Examples:
       | sortOrder | nameOfObject |
@@ -52,7 +52,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
       | caption                      | nameOfObject            |
@@ -61,7 +61,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records
     Examples:
       | pageSizeRecords | nameOfObject |
@@ -72,7 +72,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Change event was called for sortedColumn
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "<nameOfObject>" object name
       And I click "<headerName>" header
     Then change action was called in Actions Tab
     Examples:
@@ -82,7 +82,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Change event was called after clicking <button> button
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "paginate" object name
     When I click "<button>" pagination button
     Then change action was called in Actions Tab
     Examples:
@@ -92,7 +92,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Change event was called after clicking <button> button
-    Given I open default "Table Test" component in noIFrame with "table" json from "commonComponents" using "paginate" object name
+    Given I open default "Table Test" component with "table" json from "commonComponents" using "paginate" object name
       And I click "last" pagination button
       And I click "<button>" pagination button
     Then change action was called in Actions Tab

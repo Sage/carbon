@@ -1,11 +1,13 @@
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
+import createGuid from "../../utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
+import Accordion from "./__internal__/accordion";
 
 import {
   StyledTileSelectContainer,
@@ -19,6 +21,7 @@ import {
   StyledDeselectWrapper,
   StyledFooterWrapper,
   StyledFocusWrapper,
+  StyledAccordionFooterWrapper,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -47,6 +50,10 @@ const TileSelect = ({
   actionButtonAdornment,
   footer,
   prefixAdornment,
+  additionalInformation,
+  accordionContent,
+  accordionControl,
+  accordionExpanded,
   ...rest
 }) => {
   const l = useLocale();
@@ -84,6 +91,10 @@ const TileSelect = ({
     }
   }, [disabled, hasFocus]);
 
+  const guid = useRef(createGuid());
+  const contentId = `AccordionContent_${guid.current}`;
+  const controlId = `AccordionControl_${guid.current}`;
+
   return (
     <StyledTileSelectContainer
       checked={checked}
@@ -115,8 +126,12 @@ const TileSelect = ({
           {...rest}
         />
         <StyledTileSelect disabled={disabled} checked={checked}>
-          <Box display="flex" justifyContent="space-between">
-            {prefixAdornment && <Box mr={3}>{prefixAdornment}</Box>}
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="row-reverse"
+          >
+            {(customActionButton || checked) && renderActionButton()}
             <Box flexGrow="1">
               <StyledTitleContainer>
                 {title && (
@@ -132,17 +147,38 @@ const TileSelect = ({
                 )}
 
                 {titleAdornment && (
-                  <StyledAdornment>{titleAdornment}</StyledAdornment>
+                  <StyledAdornment
+                    hasAdditionalInformation={!!additionalInformation}
+                  >
+                    {titleAdornment}
+                  </StyledAdornment>
                 )}
               </StyledTitleContainer>
+              {additionalInformation && <div>{additionalInformation}</div>}
               <StyledDescription {...checkPropTypeIsNode(description)}>
                 {description}
               </StyledDescription>
               {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+              {accordionContent && accordionControl && (
+                <StyledAccordionFooterWrapper
+                  accordionExpanded={accordionExpanded}
+                >
+                  {accordionControl(controlId, contentId)}
+                </StyledAccordionFooterWrapper>
+              )}
             </Box>
-            {(customActionButton || checked) && renderActionButton()}
+            {prefixAdornment && <Box mr={3}>{prefixAdornment}</Box>}
           </Box>
         </StyledTileSelect>
+        {accordionContent && (
+          <Accordion
+            contentId={contentId}
+            controlId={controlId}
+            expanded={accordionExpanded}
+          >
+            {accordionContent}
+          </Accordion>
+        )}
       </StyledFocusWrapper>
     </StyledTileSelectContainer>
   );
@@ -191,6 +227,17 @@ TileSelect.propTypes = {
   footer: PropTypes.node,
   /** Component to render in the top left corner of TileSelect */
   prefixAdornment: PropTypes.node,
+  /** Component to render additional information row between title and description */
+  additionalInformation: PropTypes.node,
+  /** Components to render in the TileSelect Accordion */
+  accordionContent: PropTypes.node,
+  /**
+   * Render prop to support rendering the control to handle the expanded state of the TileSelect Accordion.
+   * `(controlId, contentId) => <Button id={controlId} aria-controls={contentId}>...</Button>`
+   */
+  accordionControl: PropTypes.func,
+  /** Flag to control the open state of TileSelect Accordion */
+  accordionExpanded: PropTypes.bool,
 };
 
 TileSelect.displayName = "TileSelect";

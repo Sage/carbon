@@ -1,6 +1,6 @@
 import { commonDataElementInputPreview } from "../../locators";
 
-When("I put {string} example grouped character in no Iframe", (text) => {
+When("I put {string} example grouped character", (text) => {
   commonDataElementInputPreview()
     .clear()
     .type(text, { delay: 1000, force: true });

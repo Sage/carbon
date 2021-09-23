@@ -9,56 +9,6 @@ import ConfigurableItemsActions from "./actions";
 import ConfigurableItemsContent from "./configurable-items-content";
 
 class ConfigurableItemsPattern extends React.Component {
-  static propTypes = {
-    /**
-     * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
-     * The configurable data.
-     *
-     * @property itemsData
-     * @type {Object}
-     */
-    itemsData: PropTypes.object,
-
-    /**
-     * Callback triggered when the form is cancelled.
-     *
-     * @property onCancel
-     * @type {Function}
-     */
-    onCancel: PropTypes.func,
-
-    /**
-     * Callback triggered when the form reset button is pressed.
-     *
-     * @property onReset
-     * @type {Function}
-     */
-    onReset: PropTypes.func,
-
-    /**
-     * Callback triggered when the form is saved.
-     *
-     * @property onSave
-     * @type {Function}
-     */
-    onSave: PropTypes.func.isRequired,
-
-    /**
-     * The title for the dialog.
-     *
-     * @property title
-     * @type {Object}
-     */
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  };
-
   componentDidUpdate(prevProps, prevState) {
     if (
       this.props.itemsData &&
@@ -151,5 +101,55 @@ class ConfigurableItemsPattern extends React.Component {
     );
   }
 }
+
+ConfigurableItemsPattern.propTypes = {
+  /**
+   * A custom class name for the component.
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string,
+
+  /**
+   * The configurable data.
+   *
+   * @property itemsData
+   * @type {Object}
+   */
+  itemsData: PropTypes.object,
+
+  /**
+   * Callback triggered when the form is cancelled.
+   *
+   * @property onCancel
+   * @type {Function}
+   */
+  onCancel: PropTypes.func,
+
+  /**
+   * Callback triggered when the form reset button is pressed.
+   *
+   * @property onReset
+   * @type {Function}
+   */
+  onReset: PropTypes.func,
+
+  /**
+   * Callback triggered when the form is saved.
+   *
+   * @property onSave
+   * @type {Function}
+   */
+  onSave: PropTypes.func.isRequired,
+
+  /**
+   * The title for the dialog.
+   *
+   * @property title
+   * @type {Object}
+   */
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
 
 export default connect(ConfigurableItemsPattern, ConfigurableItemsStore);

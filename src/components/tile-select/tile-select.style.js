@@ -25,7 +25,8 @@ const StyledSubtitle = styled.h4`
 
 const StyledAdornment = styled.div`
   z-index: 500;
-  margin-bottom: 8px;
+  margin-bottom: ${({ hasAdditionalInformation }) =>
+    hasAdditionalInformation ? "4" : "8"}px;
 `;
 
 const StyledDescription = styled.p`
@@ -98,6 +99,20 @@ const StyledFooterWrapper = styled.div`
   width: fit-content;
   position: relative;
   z-index: 200;
+`;
+
+const StyledAccordionFooterWrapper = styled.div`
+  width: fit-content;
+  position: relative;
+  z-index: 200;
+  left: -12px;
+
+  ${({ accordionExpanded }) => `
+      span[data-element="chevron_down"] {
+        transition: transform 0.3s;
+        ${!accordionExpanded && "transform: rotate(-90deg)"};
+      }
+  `}
 `;
 
 const StyledTileSelectInput = styled(Input)`
@@ -214,4 +229,5 @@ export {
   StyledDeselectWrapper,
   StyledFooterWrapper,
   StyledFocusWrapper,
+  StyledAccordionFooterWrapper,
 };

@@ -472,6 +472,100 @@ To render a prefixed adornment in the top left corner of the `TileSelect` you ca
   </Story>
 </Preview>
 
+### With additional information
+
+It is possible to render an additional row of information or content between the `title` and the `description` by passing in 
+any node to the `additionalInformation` prop.
+
+<Preview>
+  <Story name="with additional information">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
+      return (
+        <TileSelect
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          titleAdornment={<Pill>Message</Pill>}
+          description="Short and descriptive description"
+          additionalInformation={<><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mb={1}>Further information</Pill></>}
+          checked={isChecked}
+          onChange={handleChange}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With accordion footer
+
+It is possible to render an `Accordion` footer for the `TileSelect`. Pass a desired layout to the `accordionContent` prop 
+and a use the `accordionControl` render prop to supply the control for the expanded state of the accordion by toggling the
+`accordionExpanded` prop.
+
+<Preview>
+  <Story name="with accordion footer">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      const [expanded, setExpanded] = useState(true);
+      const handleChange = (e) => {
+        const { value } = e.target;
+        setIsChecked(value === null ? false : true);
+      };
+      return (
+        <TileSelect
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          description="Short and descriptive description"
+          checked={isChecked}
+          onChange={handleChange}
+          prefixAdornment={<Image height="40px" width="40px" backgroundImage={`url(${require("../../../.assets/flexible.svg")})`} />}
+          accordionContent={
+            <Box display="flex" flexWrap="wrap">
+              <Box flexGrow="1" pr={1}>
+               <Box width="100%" height="100px" bg="primary" display="inline-block"></Box>
+              </Box>
+              <Box flexGrow="1" pl={1}>
+               <Box width="100%" height="100px" bg="primary" display="inline-block"></Box>
+              </Box>
+            </Box>
+          }
+          accordionControl={
+            (controlId, contentId) => (
+              <Button
+                buttonType="tertiary"
+                iconPosition="before"
+                iconType="chevron_down"
+                data-element="accordion-button"
+                onClick={() => setExpanded((expandedState) => !expandedState)}
+                px={1}
+                mt={2}
+                aria-controls={contentId}
+                id={controlId}
+              >
+                {expanded ? "Close" : "Open"} accordion 
+              </Button>
+            )
+          }
+          accordionExpanded={expanded}
+          setAccordionExpanded={setExpanded}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
 ### With custom spacing
 
 The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The modifiers

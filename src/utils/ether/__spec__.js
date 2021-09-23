@@ -74,17 +74,17 @@ describe("Ether", () => {
 
   describe("validProps", () => {
     class Foo extends React.Component {
-      static propTypes = {
-        foo: PropTypes.bool,
-        bar: PropTypes.bool,
-      };
-
       static safeProps = ["foo"];
 
       render() {
         return <div />;
       }
     }
+
+    Foo.propTypes = {
+      foo: PropTypes.bool,
+      bar: PropTypes.bool,
+    };
 
     const instance = new Foo({
       foo: "foo",

@@ -3,7 +3,7 @@ Feature: Tabs component
 
   @positive
   Scenario Outline: Tab <id> content is set and visible
-    Given I open Test default "Tabs" component in noIFrame with "tabs" json from "test" using "default" object name
+    Given I open Test default "Tabs" component with "tabs" json from "test" using "default" object name
     When I open Tab <id>
     Then Tab <id> content is visible
     Examples:
@@ -16,5 +16,5 @@ Feature: Tabs component
 
   @positive
   Scenario: Check that Tab has link properties
-    Given I open "Design System Tabs" component page "with link as a tab" in no iframe
+    Given I open "Design System Tabs" component page "with link as a tab"
     Then Second Tab has a link property

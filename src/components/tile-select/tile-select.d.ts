@@ -36,6 +36,14 @@ export interface TileSelectProps extends MarginProps {
   footer?: React.ReactNode;
   /** Component to render in the top left corner of TileSelect */
   prefixAdornment?: React.ReactNode;
+  /** Component to render additional information row between title and description */
+  additionalInformation?: React.ReactNode;
+  /** Components to render in the TileSelect Accordion */
+  accordionContent?: React.ReactNode;
+  /** Callback to toggle expanded state of TileSelect Accordion */
+  accordionControl?: (controlId: string, contentId: string) => JSX.Element;
+  /** Flag to control the open state of TileSelect Accordion */
+  accordionExpanded?: boolean;
 }
 
 declare function TileSelect(props: TileSelectProps): JSX.Element;

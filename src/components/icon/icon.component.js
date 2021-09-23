@@ -95,12 +95,12 @@ const Icon = React.forwardRef(
       />
     );
 
+    const { tooltipPosition: tooltipPositionFromContext } = useContext(
+      TooltipContext
+    );
+
     if (tooltipMessage) {
       const visible = disabled ? false : tooltipVisible;
-
-      const { tooltipPosition: tooltipPositionFromContext } = useContext(
-        TooltipContext
-      );
 
       return (
         <Tooltip
