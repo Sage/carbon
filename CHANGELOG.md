@@ -1,3 +1,10 @@
+## [89.2.0](https://github.com/Sage/carbon/compare/v89.1.0...v89.2.0) (2021-09-23)
+
+
+### Features
+
+* **i18n:** add types for the base locale file ([47964d5](https://github.com/Sage/carbon/commit/47964d52ce00e0f525c9a0877e01d9c0f97b409d))
+
 ## [89.1.0](https://github.com/Sage/carbon/compare/v89.0.0...v89.1.0) (2021-09-23)
 
 
