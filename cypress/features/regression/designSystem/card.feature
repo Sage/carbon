@@ -3,18 +3,18 @@ Feature: Design System Card component
 
   @positive
   Scenario: Verify the shadow whithout interactive card
-    Given I open "Design System Card" component page "default story" in no iframe
+    Given I open "Design System Card" component page "default story"
     Then Card component has non-interactive shadow
 
   @positive
   Scenario: Verify the interactive card shadow
-  Given I open "Design System Card" component page "interactive" in no iframe
+  Given I open "Design System Card" component page "interactive"
     When I hover mouse onto Card component
     Then Card component has interactive shadow
 
   @positive
   Scenario Outline: Drag <cardItem> card to the <columnName> column
-    Given I open "Design System Card" component page "with draggable" in no iframe
+    Given I open "Design System Card" component page "with draggable"
     When I drag "<cardItem>" Card from the column to "<columnName>" column
     Then "<cardItem>" Card is dragged to "<columnName>" column
       And "1" column has <lengthOfFirstColumn> length
@@ -27,7 +27,7 @@ Feature: Design System Card component
 
   @positive
   Scenario: Drag First and Second Cards to the Product Two column
-    Given I open "Design System Card" component page "with draggable" in no iframe
+    Given I open "Design System Card" component page "with draggable"
     When I drag "1" Card from the column to "2" column
       And I drag "2" Card from the column to "2" column
     Then "1" Card is dragged to "2" column
@@ -37,7 +37,7 @@ Feature: Design System Card component
 
   @positive
   Scenario: Drag First and Second and Third Cards to the Product Two column
-    Given I open "Design System Card" component page "with draggable" in no iframe
+    Given I open "Design System Card" component page "with draggable"
     When I drag "1" Card from the column to "2" column
       And I drag "2" Card from the column to "2" column
       And I drag "4" Card from the column to "2" column

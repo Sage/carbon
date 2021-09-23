@@ -3,7 +3,7 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod children to <children>
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "Pod Test" component with "pod" json from "commonComponents" using "<nameOfObject>" object name
     Then Pod children on preview is set to <children>
     Examples:
       | children                     | nameOfObject             |
@@ -12,7 +12,7 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod title to <title>
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "Pod Test" component with "pod" json from "commonComponents" using "<nameOfObject>" object name
     Then Pod title on preview is set to <title>
     Examples:
       | title                        | nameOfObject          |
@@ -21,7 +21,7 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod subtitle to <subtitle>
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "Pod Test" component with "pod" json from "commonComponents" using "<nameOfObject>" object name
     Then Pod subtitle on preview is set to <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -30,7 +30,7 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod footer to <footer>
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "Pod Test" component with "pod" json from "commonComponents" using "<nameOfObject>" object name
     Then Pod footer on preview is set to <footer>
     Examples:
       | footer                       | nameOfObject           |
@@ -39,18 +39,18 @@ Feature: Pod component
 
 @positive
   Scenario: Check the triggerEditOnContent checkbox
-    When I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "triggerEditOnContent" object name
+    When I open Default "Pod Test" component with "pod" json from "commonComponents" using "triggerEditOnContent" object name
     Then Pod component has triggerEditOnContent property
 
   @positive
   Scenario: Edit button is visible on hover
-    Given I open "Pod" component page "with display edit button on hover" in no iframe
+    Given I open "Pod" component page "with display edit button on hover"
     When I check that onEdit icon is not visible
       And I hover mouse onto pod
     Then The onEdit icon is visible
 
   @positive
   Scenario: Check the edit event
-    Given I open Default "Pod Test" component in noIFrame with "pod" json from "commonComponents" using "onEdit" object name
+    Given I open Default "Pod Test" component with "pod" json from "commonComponents" using "onEdit" object name
     When I click onEdit icon
     Then edit action was called in Actions Tab

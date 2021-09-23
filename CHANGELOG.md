@@ -1,3 +1,10 @@
+## [89.1.0](https://github.com/Sage/carbon/compare/v89.0.0...v89.1.0) (2021-09-23)
+
+
+### Features
+
+* **tile-select:** add support for rendering accordion footer ([0dd1f32](https://github.com/Sage/carbon/commit/0dd1f326d19ab3f213df3eaf15781aef88677924))
+
 ## [89.0.0](https://github.com/Sage/carbon/compare/v88.0.0...v89.0.0) (2021-09-22)
 
 

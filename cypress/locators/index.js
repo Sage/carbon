@@ -18,7 +18,7 @@ export const commonButtonPreviewRoot = () => cy.get(DLS_ROOT).find("button");
 export const label = () => cy.get(LABEL);
 export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 
-// component preview locators into iFrame
+// component preview locators
 export const dlsRoot = () => cy.get(DLS_ROOT);
 export const icon = () => cy.get(ICON);
 export const warningIcon = () => cy.get(WARNING_ICON);

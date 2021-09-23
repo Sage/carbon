@@ -27,6 +27,6 @@ Then("Alert is not visible", () => {
   alertDialogPreview().should("not.exist");
 });
 
-Then("Alert is visible in NoIFrame", () => {
+Then("Alert is visible", () => {
   alertDialogPreview().should("be.visible");
 });

@@ -101,6 +101,20 @@ const StyledFooterWrapper = styled.div`
   z-index: 200;
 `;
 
+const StyledAccordionFooterWrapper = styled.div`
+  width: fit-content;
+  position: relative;
+  z-index: 200;
+  left: -12px;
+
+  ${({ accordionExpanded }) => `
+      span[data-element="chevron_down"] {
+        transition: transform 0.3s;
+        ${!accordionExpanded && "transform: rotate(-90deg)"};
+      }
+  `}
+`;
+
 const StyledTileSelectInput = styled(Input)`
   position: absolute;
   top: 0;
@@ -215,4 +229,5 @@ export {
   StyledDeselectWrapper,
   StyledFooterWrapper,
   StyledFocusWrapper,
+  StyledAccordionFooterWrapper,
 };

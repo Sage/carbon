@@ -3,7 +3,7 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod cancelText on preview is set to <cancelText>
     Examples:
@@ -13,13 +13,13 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Disable cancel checkbox for a Show Edit Pod component
-    Given I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "cancelFalse" object name
+    Given I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "cancelFalse" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component hasn't a cancel button
 
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
-    Given I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod deleteText on preview is set to <deleteText>
     Examples:
@@ -29,7 +29,7 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod saveText on preview is set to <saveText>
     Examples:
@@ -39,13 +39,13 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "saving" object name
+    When I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "saving" object name
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has saving property
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>
-    When I open Default "ShowEditPod Test" component in noIFrame with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Default "ShowEditPod Test" component with "showEditPod" json from "commonComponents" using "<nameOfObject>" object name
     Then Show Edit Pod title on preview is set to <title>
     Examples:
       | title                        | nameOfObject          |
@@ -54,20 +54,20 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Edit action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
     When I click edit Show Edit Pod component
     Then edit action was called in Actions Tab
 
   @positive
   Scenario: Delete action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
       And I click edit Show Edit Pod component
     When I click delete button
     Then delete action was called in Actions Tab
 
   @positive
   Scenario: Cancel action was called
-    Given I open "ShowEditPod Test" component page "default" in no iframe
+    Given I open "ShowEditPod Test" component page "default"
       And I click edit Show Edit Pod component
     When I click cancel button
     Then cancel action was called in Actions Tab

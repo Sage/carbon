@@ -3,7 +3,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
-    When I open Test default "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Button" component with "button" json from "test" using "<nameOfObject>" object name
     Then Button subtext on preview is <subtext>
     Examples:
       | subtext                      | nameOfObject            |
@@ -12,7 +12,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button component label to <label>
-    When I open Test default "Button" component in noIFrame with "button" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Button" component with "button" json from "test" using "<nameOfObject>" object name
     Then Button label on preview is <label>
     Examples:
       | label                        | nameOfObject             |
@@ -21,6 +21,6 @@ Feature: Button component
 
   @positive
   Scenario: Verify the click function for a Button component
-    Given I open "Design System Button Test" component page "default" in no iframe
+    Given I open "Design System Button Test" component page "default"
     When I click on "button"
     Then click action was called in Actions Tab

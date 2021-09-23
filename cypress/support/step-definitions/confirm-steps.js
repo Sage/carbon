@@ -2,9 +2,7 @@ import {
   dialogPreview,
   dialogSubtitle,
   confirmButton,
-  confirmButtonIFrame,
   cancelButton,
-  cancelButtonIFrame,
 } from "../../locators/confirm";
 import { getDataElementByValue, icon } from "../../locators";
 import { positionOfElement } from "../helper";
@@ -13,16 +11,8 @@ Then("component subtitle on preview is {word}", (subtitle) => {
   dialogSubtitle().should("have.text", subtitle);
 });
 
-When("I click on a cancelButton in IFrame", () => {
-  cancelButtonIFrame().click();
-});
-
 When("I click on a cancelButton", () => {
   cancelButton().click({ force: true });
-});
-
-When("I click on a confirmButton in IFrame", () => {
-  confirmButtonIFrame().click();
 });
 
 When("I click on a confirmButton", () => {
