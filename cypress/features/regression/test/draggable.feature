@@ -1,8 +1,8 @@
 Feature: Draggable Component
   I want to change Draggable component
 
-  Background: Open Draggable Component in no iframe
-    Given I open "Design System Draggable Test" component page "default" in no iframe
+  Background: Open Draggable Component
+    Given I open "Design System Draggable Test" component page "default"
 
   @positive
   Scenario Outline: Drag record <record> inside Draggable to <destinationId> element position

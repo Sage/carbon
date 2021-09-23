@@ -3,7 +3,7 @@ Feature: Configurable Items component
 
   @positive
   Scenario Outline: Drag record inside Configurable Items element <record> to <destinationId> element position
-    Given I open "Configurable Items Test" component page "default" in no iframe
+    Given I open "Configurable Items Test" component page "default"
     When I drag Configurable Items "<record>" to <destinationId>
     Then Configurable Items "<record>" is dragged to <destinationId>
     Examples:
@@ -16,6 +16,6 @@ Feature: Configurable Items component
   
   @positive
   Scenario: Verify the drag function for Configurable Items component
-    Given I open "Configurable Items Test" component page "default" in no iframe
+    Given I open "Configurable Items Test" component page "default"
     When I drag Configurable Items "test 1" to 3
     Then dragged action was called in Actions Tab

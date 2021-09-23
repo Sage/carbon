@@ -3,13 +3,12 @@ import {
   selectOption,
   dropdownButton,
   selectList,
-  simpleSelectNoIframe,
+  simpleSelect,
   selectDataComponent,
   multiSelectDataComponent,
   openOnFocusID,
   multiSelectPill,
   multiSelectPillByPosition,
-  dropdownButtonInIframe,
   isLoading,
   selectListText,
   multiColumnsSelectListHeader,
@@ -23,7 +22,7 @@ import {
   commonDataElementInputPreview,
   label,
 } from "../../locators";
-import { dataComponentButtonByTextNoIFrame } from "../../locators/pages";
+import { dataComponentButtonByText } from "../../locators/pages";
 import { loader } from "../../locators/loader";
 
 When("I focus select input", () => {
@@ -31,7 +30,7 @@ When("I focus select input", () => {
 });
 
 When("I focus default Select input", () => {
-  simpleSelectNoIframe().focus();
+  simpleSelect().focus();
 });
 
 When("I focus openOnFocus Select input", () => {
@@ -67,12 +66,9 @@ When("I click on Select input", () => {
 });
 
 When("I click on default Select input", () => {
-  simpleSelectNoIframe().click();
+  simpleSelect().click();
 });
 
-When("I click on Select input in noIframe", () => {
-  simpleSelectNoIframe().click();
-});
 When("{string} option on the list is hovered over", (position) => {
   selectOption(positionOfElement(position))
     .should("have.attr", "aria-selected", "true")
@@ -84,7 +80,7 @@ When("I click onto controlled select using {string} key", (key) => {
 });
 
 When("I click onto default select using {string} key", (key) => {
-  simpleSelectNoIframe().trigger("keydown", keyCode(key));
+  simpleSelect().trigger("keydown", keyCode(key));
 });
 
 Then("Design system Select input has {string} value", (text) => {
@@ -111,10 +107,6 @@ When("I click on dropdown button", () => {
   dropdownButton().click();
 });
 
-When("I click on dropdown button in iframe", () => {
-  dropdownButtonInIframe().click();
-});
-
 When("I select value {string}", (text) => {
   simpleSelectID().type(`${text}{enter}`);
 });
@@ -131,11 +123,7 @@ When(
 );
 
 When("I type {string} into default input", (text) => {
-  simpleSelectNoIframe().type(text);
-});
-
-When("I type {string} into simple select input in noIframe", (text) => {
-  simpleSelectNoIframe().type(text);
+  simpleSelect().type(text);
 });
 
 When("{string} option on Select list is {string}", (position, text) => {
@@ -151,10 +139,10 @@ When("I click on Select label", () => {
 });
 
 When("I click onto {string} button", (buttonName) => {
-  dataComponentButtonByTextNoIFrame(buttonName).click();
+  dataComponentButtonByText(buttonName).click();
 });
 
-When("I click on Select input with lazy loading in no iframe", () => {
+When("I click on Select input with lazy loading", () => {
   isLoading().click();
 });
 

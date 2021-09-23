@@ -41,7 +41,7 @@
   "tabbable": {
     "tabbable": true
   },
-  "tabbableFlase": {
+  "tabbableFalse": {
     "tabbable": false
   },
   "icon": {

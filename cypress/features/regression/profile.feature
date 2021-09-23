@@ -3,7 +3,7 @@ Feature: Profile default component
 
   @positive
   Scenario Outline: Get avatar via email
-    When I open default "Profile Test" component in noIFrame with "profile" json from "commonComponents" using "emailGravatar" object name
+    When I open default "Profile Test" component with "profile" json from "commonComponents" using "emailGravatar" object name
     Then email is set to <email>
       And avatar is taken from "<avatar>"
     Examples:
@@ -12,7 +12,7 @@ Feature: Profile default component
 
   @negative
   Scenario Outline: Set email out of scope to <email>
-    When I open default "Profile Test" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Profile Test" component with "profile" json from "commonComponents" using "<nameOfObject>" object name
     Then email is set to <email>
     Examples:
       | email                        | nameOfObject          |
@@ -21,7 +21,7 @@ Feature: Profile default component
 
   @positive
   Scenario Outline: Set name to <name>
-    When I open default "Profile Test" component in noIFrame with "profile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Profile Test" component with "profile" json from "commonComponents" using "<nameOfObject>" object name
     Then name is set to <name>
     Examples:
       | name                         | nameOfObject         |
