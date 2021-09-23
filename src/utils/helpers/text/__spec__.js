@@ -1,5 +1,5 @@
 import Text from "./text";
-import Browser from "../browser";
+import Browser from "../../../__internal__/utils/helpers/browser";
 
 describe("Text", () => {
   describe("clearSelection", () => {

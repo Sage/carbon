@@ -6,7 +6,7 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../utils/helpers/tags/tags-specs";
-import Browser from "../../utils/helpers/browser";
+import Browser from "../../__internal__/utils/helpers/browser";
 import {
   ProfileNameStyle,
   ProfileEmailStyle,

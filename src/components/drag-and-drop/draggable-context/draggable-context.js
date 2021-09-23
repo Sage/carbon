@@ -5,7 +5,7 @@ import TouchBackend from "react-dnd-touch-backend";
 import ReactDOM from "react-dom";
 import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
 import CustomDragLayer from "../custom-drag-layer";
-import Browser from "../../../utils/helpers/browser";
+import Browser from "../../../__internal__/utils/helpers/browser";
 import ScrollableParent from "../../../utils/helpers/scrollable-parent";
 import Logger from "../../../__internal__/utils/logger";
 

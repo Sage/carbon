@@ -1,4 +1,4 @@
-import Browser from "../browser";
+import Browser from "../../../__internal__/utils/helpers/browser";
 
 /**
  * Text utility methods

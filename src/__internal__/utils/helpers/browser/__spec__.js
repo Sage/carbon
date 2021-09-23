@@ -122,7 +122,7 @@ describe("Browser", () => {
   });
 
   describe("setInputFocus", () => {
-    it("focuses on the input field of the passed in ref but doesnot select text", () => {
+    it("focuses on the input field of the passed in ref but does not select text", () => {
       const node = { focus: jest.fn() };
 
       let fakeComponent = { _input: {} };
