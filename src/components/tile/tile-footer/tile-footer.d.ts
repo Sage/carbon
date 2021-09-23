@@ -6,6 +6,8 @@ export interface TileFooterProps extends PaddingProps {
   variant?: "default" | "transparent";
 }
 
-declare function TileFooter(props: React.PropsWithChildren<TileFooterProps>): JSX.Element;
+declare function TileFooter(
+  props: React.PropsWithChildren<TileFooterProps>
+): JSX.Element;
 
 export default TileFooter;

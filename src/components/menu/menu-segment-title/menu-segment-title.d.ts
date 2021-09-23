@@ -5,6 +5,8 @@ export interface MenuTitleProps {
   variant?: "default" | "alternate";
 }
 
-declare function MenuTitle(props: MenuTitleProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
+declare function MenuTitle(
+  props: MenuTitleProps & React.RefAttributes<HTMLDivElement>
+): JSX.Element;
 
 export default MenuTitle;

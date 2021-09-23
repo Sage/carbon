@@ -2,16 +2,16 @@
 
 ### How to use a Button Toggle Group in a component:
 
-* In your file:
+- In your file:
 
 ```javascript
-import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
+import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ```
 
-* To render the Button Toggle Group:
+- To render the Button Toggle Group:
 
 ```javascript
-<ButtonToggleGroup value={ 'foo' } validations={ [] }>
+<ButtonToggleGroup value={"foo"} validations={[]}>
   <ButtonToggle />
 </ButtonToggleGroup>
 ```

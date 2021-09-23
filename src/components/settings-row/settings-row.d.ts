@@ -11,6 +11,8 @@ export interface SettingsRowProps {
   divider?: boolean;
 }
 
-declare function SettingsRow(props: React.PropsWithChildren<SettingsRowProps>): JSX.Element;
+declare function SettingsRow(
+  props: React.PropsWithChildren<SettingsRowProps>
+): JSX.Element;
 
 export default SettingsRow;

@@ -407,7 +407,7 @@ To render a `footer` pass anything renderable to the prop like in the example be
   <Story name="with a footer">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
-       const handleChange = (e) => {
+      const handleChange = (e) => {
         const { value } = e.target;
         setIsChecked(value === null ? false : true);
       };
@@ -443,7 +443,8 @@ To render a `footer` pass anything renderable to the prop like in the example be
 </Preview>
 
 ### With a prefix adornment
-To render a prefixed adornment in the top left corner of the `TileSelect` you can pass any node in via the `prefixAdornment` prop. 
+
+To render a prefixed adornment in the top left corner of the `TileSelect` you can pass any node in via the `prefixAdornment` prop.
 
 <Preview>
   <Story name="with a prefix adornment">
@@ -462,19 +463,25 @@ To render a prefixed adornment in the top left corner of the `TileSelect` you ca
           title="Title"
           subtitle="Subtitle"
           checked={isChecked}
-          prefixAdornment={<Image height="40px" width="40px" backgroundImage={`url(${require("../../../.assets/flexible.svg")})`} />}
+          prefixAdornment={
+            <Image
+              height="40px"
+              width="40px"
+              backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
+            />
+          }
           titleAdornment={<Pill>Message</Pill>}
           onChange={handleChange}
           description="Short and descriptive description"
         />
-      )
+      );
     }}
   </Story>
 </Preview>
 
 ### With additional information
 
-It is possible to render an additional row of information or content between the `title` and the `description` by passing in 
+It is possible to render an additional row of information or content between the `title` and the `description` by passing in
 any node to the `additionalInformation` prop.
 
 <Preview>
@@ -495,7 +502,19 @@ any node to the `additionalInformation` prop.
           subtitle="Subtitle"
           titleAdornment={<Pill>Message</Pill>}
           description="Short and descriptive description"
-          additionalInformation={<><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mr={1} mb="4px">Further information</Pill><Pill fill mb={1}>Further information</Pill></>}
+          additionalInformation={
+            <>
+              <Pill fill mr={1} mb="4px">
+                Further information
+              </Pill>
+              <Pill fill mr={1} mb="4px">
+                Further information
+              </Pill>
+              <Pill fill mb={1}>
+                Further information
+              </Pill>
+            </>
+          }
           checked={isChecked}
           onChange={handleChange}
         />
@@ -506,7 +525,7 @@ any node to the `additionalInformation` prop.
 
 ### With accordion footer
 
-It is possible to render an `Accordion` footer for the `TileSelect`. Pass a desired layout to the `accordionContent` prop 
+It is possible to render an `Accordion` footer for the `TileSelect`. Pass a desired layout to the `accordionContent` prop
 and a use the `accordionControl` render prop to supply the control for the expanded state of the accordion by toggling the
 `accordionExpanded` prop.
 
@@ -530,34 +549,48 @@ and a use the `accordionControl` render prop to supply the control for the expan
           description="Short and descriptive description"
           checked={isChecked}
           onChange={handleChange}
-          prefixAdornment={<Image height="40px" width="40px" backgroundImage={`url(${require("../../../.assets/flexible.svg")})`} />}
+          prefixAdornment={
+            <Image
+              height="40px"
+              width="40px"
+              backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
+            />
+          }
           accordionContent={
             <Box display="flex" flexWrap="wrap">
               <Box flexGrow="1" pr={1}>
-               <Box width="100%" height="100px" bg="primary" display="inline-block"></Box>
+                <Box
+                  width="100%"
+                  height="100px"
+                  bg="primary"
+                  display="inline-block"
+                ></Box>
               </Box>
               <Box flexGrow="1" pl={1}>
-               <Box width="100%" height="100px" bg="primary" display="inline-block"></Box>
+                <Box
+                  width="100%"
+                  height="100px"
+                  bg="primary"
+                  display="inline-block"
+                ></Box>
               </Box>
             </Box>
           }
-          accordionControl={
-            (controlId, contentId) => (
-              <Button
-                buttonType="tertiary"
-                iconPosition="before"
-                iconType="chevron_down"
-                data-element="accordion-button"
-                onClick={() => setExpanded((expandedState) => !expandedState)}
-                px={1}
-                mt={2}
-                aria-controls={contentId}
-                id={controlId}
-              >
-                {expanded ? "Close" : "Open"} accordion 
-              </Button>
-            )
-          }
+          accordionControl={(controlId, contentId) => (
+            <Button
+              buttonType="tertiary"
+              iconPosition="before"
+              iconType="chevron_down"
+              data-element="accordion-button"
+              onClick={() => setExpanded((expandedState) => !expandedState)}
+              px={1}
+              mt={2}
+              aria-controls={contentId}
+              id={controlId}
+            >
+              {expanded ? "Close" : "Open"} accordion
+            </Button>
+          )}
           accordionExpanded={expanded}
           setAccordionExpanded={setExpanded}
         />

@@ -4,9 +4,19 @@ import { DialogProps } from "../dialog/dialog";
 
 export interface ConfirmProps extends DialogProps {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
-  cancelButtonType?: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground";
+  cancelButtonType?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "dashed"
+    | "darkBackground";
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
-  confirmButtonType?: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground";
+  confirmButtonType?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "dashed"
+    | "darkBackground";
   /** Customise the cancel button label */
   cancelLabel?: string;
   /** Customise the confirm button label */

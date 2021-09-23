@@ -18,6 +18,8 @@ export interface FlatTableRowHeaderProps extends PaddingProps {
   verticalBorderColor?: string;
 }
 
-declare function FlatTableRowHeader(props: FlatTableRowHeaderProps): JSX.Element;
+declare function FlatTableRowHeader(
+  props: FlatTableRowHeaderProps
+): JSX.Element;
 
 export default FlatTableRowHeader;
