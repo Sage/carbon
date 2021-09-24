@@ -8,13 +8,6 @@ import { DraggableContext, WithDrag, WithDrop } from ".";
 export default {
   component: DraggableContext,
   title: "DraggableContext/Test",
-  argTypes: {
-    customDragLayer: {
-      table: {
-        disabled: true,
-      },
-    },
-  },
 };
 
 const Custom = () => {
@@ -67,10 +60,10 @@ const Custom = () => {
 
 Custom.storyName = "custom";
 Custom.argTypes = {
-  customDragLayer: { table: { disable: true } },
-  onDrag: { table: { disable: true } },
-  children: { table: { disable: true } },
-  autoScroll: { table: { disable: true } },
+  customDragLayer: { table: { disable: true }, control: false },
+  onDrag: { table: { disable: true }, control: false },
+  children: { table: { disable: true }, control: false },
+  autoScroll: { table: { disable: true }, control: false },
 };
 
 export { Custom };
