@@ -2,11 +2,11 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 import { css } from "styled-components";
+
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CheckableInput from ".";
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";
-import Label from "../label";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import {
@@ -23,27 +23,20 @@ function render(props) {
 describe("CheckableInput", () => {
   function mountInput(props) {
     return mount(
-      <CheckableInput
-        inputType="text"
-        inputValue=""
-        onChange={() => null}
-        {...props}
-      />
+      <CheckableInput type="text" value="" onChange={() => null} {...props} />
     );
   }
 
   describe("helpId", () => {
     describe("when label and labelHelp props are present", () => {
-      it("returns an appropriate helpId property", () => {
+      it("passes an appropriate helpId property to Help component", () => {
         const labelWrapper = mountInput({
-          inputId: "foo",
+          id: "foo",
           label: "bar",
           labelHelp: "baz",
-        })
-          .find(Label)
-          .find("label");
+        }).find(StyledHelp);
 
-        expect(labelWrapper.prop("id")).toBe("foo label");
+        expect(labelWrapper.prop("id")).toBe("foo help");
       });
     });
   });

@@ -241,7 +241,6 @@ class Decimal extends React.Component {
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.visibleValue}
-          data-component="decimal"
         />
         <input
           name={name}
@@ -259,6 +258,8 @@ Decimal.contextType = LocaleContext;
 Decimal.propTypes = {
   /** Styled-system margin props */
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
   /**
    * The default value alignment on the input
    */
@@ -330,6 +331,7 @@ Decimal.defaultProps = {
   align: "right",
   precision: 2,
   allowEmptyValue: false,
+  "data-component": "decimal",
 };
 
 export default Decimal;

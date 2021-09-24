@@ -84,20 +84,7 @@ function stylingForValidations({ theme, error, warning, info, disabled }) {
   `;
 }
 
-InputPresentationStyle.safeProps = [
-  "align",
-  "disabled",
-  "hasFocus",
-  "inputWidth",
-  "readOnly",
-  "size",
-  "error",
-  "warning",
-  "info",
-];
-
 InputPresentationStyle.defaultProps = {
-  inputWidth: 100,
   size: "medium",
   theme: baseTheme,
 };
@@ -106,7 +93,6 @@ InputPresentationStyle.propTypes = {
   align: PropTypes.string,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
-  inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(["small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

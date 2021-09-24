@@ -201,7 +201,6 @@ CheckboxStyle.propTypes = {
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string,
 };
 

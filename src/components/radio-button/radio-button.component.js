@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../utils/helpers/tags";
+
 import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";
@@ -24,6 +24,7 @@ const radioButtonGroupPassedProps = {
 const RadioButton = React.forwardRef(
   (
     {
+      autoFocus,
       checked,
       disabled,
       fieldHelp,
@@ -32,12 +33,14 @@ const RadioButton = React.forwardRef(
       inline,
       inputWidth,
       label,
+      labelHelp,
       labelAlign,
       labelSpacing,
       labelWidth,
       name,
       onChange,
       onBlur,
+      onFocus,
       value,
       reverse,
       required,
@@ -46,6 +49,9 @@ const RadioButton = React.forwardRef(
       warning,
       info,
       tooltipPosition,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...props
     },
     ref
@@ -72,19 +78,21 @@ const RadioButton = React.forwardRef(
 
     const inputProps = {
       ...commonProps,
+      autoFocus,
       checked,
       fieldHelp,
       name,
       onChange: handleChange,
       onBlur,
-      helpTag: "span",
+      onFocus,
       labelAlign,
       labelInline: true,
       labelWidth,
-      inputId: id,
       label,
-      inputValue: value,
-      inputType: "radio",
+      labelHelp,
+      id,
+      value,
+      type: "radio",
       /**
        * Invert the reverse prop, to ensure the FormField component renders the components
        * in the desired order (other elements which use FormField render their sub-components the
@@ -93,17 +101,20 @@ const RadioButton = React.forwardRef(
       reverse: !reverse,
       required,
       inputRef: ref,
+      ...props,
     };
 
     return (
       <TooltipProvider tooltipPosition={tooltipPosition}>
         <RadioButtonStyle
+          data-component={dataComponent}
+          data-role={dataRole}
+          data-element={dataElement}
           inline={inline}
           reverse={reverse}
           size={size}
           {...commonProps}
           {...marginProps}
-          {...tagComponent("radio-button", props)}
         >
           <CheckableInput {...inputProps}>
             <RadioButtonSvg />
@@ -118,6 +129,14 @@ RadioButton.displayName = "RadioButton";
 
 RadioButton.propTypes = {
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
+  /** If true the Component will be focused when page load */
+  autoFocus: PropTypes.bool,
   /** Set the value of the radio button */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -132,6 +151,8 @@ RadioButton.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  /** The content for the help tooltip, to appear next to the Label */
+  labelHelp: PropTypes.node,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(["left", "right"]),
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
@@ -144,6 +165,10 @@ RadioButton.propTypes = {
   onChange: PropTypes.func,
   /** Accepts a callback function which is triggered on blur event */
   onBlur: PropTypes.func,
+  /** Accepts a callback function which is triggered on focus event */
+  onFocus: PropTypes.func,
+  /** Accepts a callback function which is triggered on click event */
+  onClick: PropTypes.func,
   /** Reverses label and radio button display */
   reverse: PropTypes.bool,
   /**
@@ -171,6 +196,7 @@ RadioButton.propTypes = {
 RadioButton.defaultProps = {
   reverse: false,
   labelSpacing: 1,
+  "data-component": "radio-button",
 };
 
 export { RadioButton as PrivateRadioButton };

@@ -93,13 +93,13 @@ input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
 
 <div
   className="c0 c1"
+  data-component="button-toggle-group"
 >
   <div
     className="c2"
   >
     <div
       className="c3"
-      data-component="button-toggle-group"
       role="group"
     >
       <div

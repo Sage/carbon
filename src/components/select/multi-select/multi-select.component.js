@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
+
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../../style/utils";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -42,6 +47,10 @@ const MultiSelect = React.forwardRef(
       tableHeader,
       multiColumn,
       tooltipPosition,
+      size,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...textboxProps
     },
     inputRef
@@ -445,7 +454,8 @@ const MultiSelect = React.forwardRef(
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         tooltipPosition,
-        ...textboxProps,
+        size,
+        ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }
 
@@ -483,14 +493,17 @@ const MultiSelect = React.forwardRef(
 
     return (
       <StyledSelectMultiSelect
-        data-component="multiselect"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         ref={containerRef}
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor
-        {...textboxProps}
+        size={size}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        {...filterStyledSystemMarginProps(textboxProps)}
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
@@ -507,6 +520,12 @@ const MultiSelect = React.forwardRef(
 
 MultiSelect.propTypes = {
   ...formInputPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
   disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
@@ -539,6 +558,10 @@ MultiSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+};
+
+MultiSelect.defaultProps = {
+  "data-component": "multiselect",
 };
 
 export default MultiSelect;

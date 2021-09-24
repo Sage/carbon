@@ -14,31 +14,55 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const ButtonToggleGroup = (props) => {
-  const {
-    name,
-    inputWidth,
-    error,
-    warning,
-    info,
-    label,
-    onChange,
-    onBlur,
-    children,
-    value,
-    validationOnLabel,
-  } = props;
-
+const ButtonToggleGroup = ({
+  children,
+  name,
+  error,
+  warning,
+  info,
+  validationOnLabel,
+  label,
+  labelHelp,
+  labelSpacing,
+  inputWidth,
+  fieldHelp,
+  fieldHelpInline,
+  labelInline,
+  labelWidth,
+  labelAlign,
+  onChange,
+  onBlur,
+  value,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
+  ...props
+}) => {
   const validationProps = {
     error,
     warning,
     info,
   };
+
   return (
     <InputGroupBehaviour>
-      <FormField useValidationIcon={validationOnLabel} {...props}>
+      <FormField
+        useValidationIcon={validationOnLabel}
+        label={label}
+        labelHelp={labelHelp}
+        labelSpacing={labelSpacing}
+        fieldHelp={fieldHelp}
+        fieldHelpInline={fieldHelpInline}
+        labelInline={labelInline}
+        labelWidth={labelWidth}
+        labelAlign={labelAlign}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        {...validationProps}
+        {...filterStyledSystemMarginProps(props)}
+      >
         <ButtonToggleGroupStyle
-          data-component="button-toggle-group"
           aria-label={label}
           role="group"
           inputWidth={inputWidth}
@@ -66,6 +90,12 @@ const ButtonToggleGroup = (props) => {
 
 ButtonToggleGroup.propTypes = {
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
   /** Children to be rendered (ButtonToggle). */
@@ -129,6 +159,7 @@ ButtonToggleGroup.propTypes = {
 
 ButtonToggleGroup.defaultProps = {
   validationOnLabel: false,
+  "data-component": "button-toggle-group",
 };
 
 ButtonToggleGroup.displayName = "ButtonToggleGroup";

@@ -39,8 +39,12 @@ const validations = {
 const NumeralDate = ({
   dateFormat = ["dd", "mm", "yyyy"],
   defaultValue,
+  disabled,
   error = "",
   warning = "",
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
   info,
   id,
   name,
@@ -53,9 +57,11 @@ const NumeralDate = ({
   labelWidth,
   labelAlign,
   labelHelp,
+  labelSpacing,
   fieldHelp,
   adaptiveLabelBreakpoint,
   required,
+  readOnly,
   size,
   enableInternalError,
   enableInternalWarning,
@@ -166,16 +172,21 @@ const NumeralDate = ({
   return (
     <InputGroupBehaviour>
       <FormField
-        label={label}
+        data-component={dataComponent}
+        data-element={dataElement}
+        data-role={dataRole}
+        disabled={disabled}
         useValidationIcon={validationOnLabel}
         id={uniqueId}
         error={internalError}
         warning={internalWarning}
         info={info}
+        label={label}
         labelInline={labelInline}
         labelWidth={labelWidth}
         labelAlign={labelAlign}
         labelHelp={labelHelp}
+        labelSpacing={labelSpacing}
         fieldHelp={fieldHelp}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
         isRequired={required}
@@ -204,6 +215,8 @@ const NumeralDate = ({
               >
                 <Textbox
                   {...(index === 0 && { id: uniqueId })}
+                  disabled={disabled}
+                  readOnly={readOnly}
                   placeholder={datePart}
                   value={dateValue[datePart]}
                   onChange={(e) => handleChange(e, datePart)}
@@ -236,6 +249,16 @@ const NumeralDate = ({
 NumeralDate.propTypes = {
   /** Filtered styled system margin props */
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
+  /** If true, the component will be disabled */
+  disabled: PropTypes.bool,
+  /** If true, the component will be read-only */
+  readOnly: PropTypes.bool,
   /** Array of strings to define custom input layout.
   Allowed formats:
   ['dd', 'mm', 'yyyy'],
@@ -304,6 +327,8 @@ NumeralDate.propTypes = {
   labelAlign: PropTypes.oneOf(["left", "right"]),
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth: PropTypes.number,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
