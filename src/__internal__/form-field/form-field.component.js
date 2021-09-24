@@ -61,6 +61,7 @@ const FormField = ({
     <FormFieldStyle
       {...tagComponent(rest["data-component"], rest)}
       {...marginProps}
+      className={rest.className}
     >
       <FieldLineStyle inline={inlineLabel}>
         {reverse && children}

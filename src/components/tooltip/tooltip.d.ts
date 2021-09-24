@@ -29,7 +29,7 @@ export interface TooltipProps {
 
 export interface TooltipInternalProps extends TooltipProps {
   isPartOfInput?: boolean;
-  inputSize?: "small" | "medium" | "large";
+  inputSize?: "extra-small" | "small" | "medium" | "large";
 }
 
 declare function Tooltip(

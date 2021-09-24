@@ -67,7 +67,7 @@ InputPresentation.propTypes = {
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   positionedChildren: PropTypes.node,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

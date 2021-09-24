@@ -45,6 +45,7 @@ export default (palette) => {
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
       warning: palette.carrotOrange,
+      warningText: palette.carrotOrangeShade(20),
       destructive: {
         hover: palette.errorRedShade(20),
       },
@@ -188,9 +189,9 @@ export default (palette) => {
     },
 
     readOnly: {
-      textboxBackground: palette.slateTint(98),
+      textboxBackground: palette.slateTint(95),
       textboxBorder: palette.slateTint(80),
-      textboxText: palette.blackOpacity(0.74),
+      textboxText: palette.blackOpacity(0.9),
     },
 
     content: {

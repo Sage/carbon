@@ -42,11 +42,11 @@ const InputPresentationStyle = styled.div`
 
   ${stylingForValidations}
 
-  ${({ readOnly, theme }) =>
+  ${({ readOnly, theme, error }) =>
     readOnly &&
     css`
       background-color: ${theme.readOnly.textboxBackground};
-      border-color: ${theme.readOnly.textboxBorder};
+      ${!error && `border-color: ${theme.readOnly.textboxBorder}`};
     `}
 
   ${({ align }) => align === "right" && "flex-direction: row-reverse"}
@@ -77,7 +77,7 @@ function stylingForValidations({ theme, error, warning, info, disabled }) {
   }
 
   return css`
-    border-color: ${validationColor} !important;
+    border-color: ${validationColor};
     z-index: 1;
     ${error &&
     `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
@@ -94,7 +94,7 @@ InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   readOnly: PropTypes.bool,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

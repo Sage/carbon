@@ -76,12 +76,30 @@ import Textbox from "carbon-react/lib/components/textbox";
 <Preview>
   <Story name="sizes">
     {() =>
-      ["small", "medium", "large"].map((size) => (
+      ["extra-small", "small", "medium", "large"].map((size) => (
         <Textbox
           key={`Textbox - ${size}`}
           label={`Textbox - ${size}`}
           value="Textbox"
           size={size}
+          mb={2}
+        />
+      ))
+    }
+  </Story>
+</Preview>
+
+### Widths
+
+<Preview>
+  <Story name="widths">
+    {() =>
+      ["extra-small", "small", "medium", "large"].map((width) => (
+        <Textbox
+          key={`Textbox width - ${width}`}
+          label={`Textbox width - ${width}`}
+          value="Textbox"
+          width={width}
           mb={2}
         />
       ))
@@ -116,11 +134,25 @@ import Textbox from "carbon-react/lib/components/textbox";
   </Story>
 </Preview>
 
+### Prefix
+
+<Preview>
+  <Story name="prefix">
+    <Textbox label="Textbox" value="Textbox" prefix="pre" />;
+  </Story>
+</Preview>
+
 ### Disabled
 
 <Preview>
   <Story name="disabled">
     <Textbox label="Textbox" value="Textbox" disabled />
+    <Textbox
+      label="Textbox with icon"
+      value="Textbox"
+      disabled
+      inputIcon="search"
+    />
   </Story>
 </Preview>
 
@@ -279,6 +311,34 @@ It is possible to use the `tooltipPosition` to override the default placement of
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
+          />
+        </div>
+      ))
+    }
+  </Story>
+</Preview>
+
+#### New designs validation
+
+<Preview>
+  <Story name="validations - string - new design">
+    {() =>
+      ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <Textbox
+            m={4}
+            newValidationDesign
+            label="Textbox"
+            value="Textbox"
+            {...{ [validationType]: "Message" }}
+          />
+          <Textbox
+            m={4}
+            newValidationDesign
+            label="Textbox - readOnly"
+            value="Textbox"
+            readOnly
+            {...{ [validationType]: "Message" }}
           />
         </div>
       ))

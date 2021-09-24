@@ -1,7 +1,6 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import Textbox from ".";
-
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
@@ -17,6 +16,8 @@ import CharacterCount from "../../__internal__/character-count";
 import I18nProvider from "../i18n-provider";
 import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
+import { ErrorBorder, StyledHintText } from "./textbox.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 
 jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
 
@@ -27,17 +28,6 @@ describe("Textbox", () => {
     (component) => component.find(FormFieldStyle),
     { modifier: "&&&" }
   );
-
-  it("renders with InputPresentation and Input and correct props passed to Input", () => {
-    const wrapper = shallow(
-      <Textbox value="foobar" leftChildren="southpaw children">
-        normal children
-      </Textbox>
-    )
-      .dive()
-      .dive();
-    expect(wrapper).toMatchSnapshot();
-  });
 
   it("renders a counter", () => {
     const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
@@ -209,6 +199,28 @@ describe("Textbox", () => {
       });
 
       expect(wrapper.find(CharacterCount).text()).toBe(limit);
+    });
+  });
+  describe("hint", () => {
+    it("is visible when the prop is passed", () => {
+      const wrapper = mount(
+        <Textbox labelHelp="Example hint text" newValidationDesign />
+      );
+      console.log(wrapper.debug());
+      expect(wrapper.find(StyledHintText).exists()).toEqual(true);
+    });
+  });
+  describe("new validation design", () => {
+    it("error message is visible when the prop is passed", () => {
+      const wrapper = mount(<Textbox newValidationDesign error="Error" />);
+      expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+      expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+    });
+
+    it("warning message is visible when the prop is passed", () => {
+      const wrapper = mount(<Textbox newValidationDesign warning="Warning" />);
+      expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+      expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
     });
   });
 });

@@ -19,6 +19,12 @@ export const commonTextboxArgTypes = {
       type: "select",
     },
   },
+  width: {
+    options: ["extra-small", "small", "medium", "large"],
+    control: {
+      type: "select",
+    },
+  },
   inputIcon: {
     options: ["", ...ICONS],
     control: {
@@ -94,6 +100,8 @@ export const getCommonTextboxArgs = (
     enforceCharacterLimit: false,
     characterLimit: "",
     warnOverLimit: false,
+    error: "",
+    warning: "",
   };
 };
 
@@ -127,6 +135,7 @@ export const TextboxStory = (args) => {
   };
   return (
     <Textbox
+      m={2}
       onClick={action("onClick")}
       iconOnClick={action("iconOnClick")}
       value={state}

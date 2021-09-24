@@ -5,12 +5,13 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
-import FormField from "../../__internal__/form-field";
 import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import { ErrorBorder, StyledHintText, StyledFormField } from "./textbox.style";
+import ValidationMessage from "../../__internal__/validation-message";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -67,6 +68,7 @@ const Textbox = ({
   enforceCharacterLimit = true,
   characterLimit,
   warnOverLimit = false,
+  newValidationDesign,
   ...props
 }) => {
   const [maxLength, characterCount] = useCharacterCount(
@@ -79,9 +81,9 @@ const Textbox = ({
   return (
     <TooltipProvider tooltipPosition={tooltipPosition}>
       <InputBehaviour>
-        <FormField
+        <StyledFormField
           disabled={disabled}
-          fieldHelp={fieldHelp}
+          fieldHelp={!newValidationDesign ? fieldHelp : undefined}
           error={error}
           warning={warning}
           info={info}
@@ -95,14 +97,21 @@ const Textbox = ({
           id={id}
           reverse={reverse}
           isOptional={isOptional}
-          useValidationIcon={validationOnLabel}
+          useValidationIcon={!newValidationDesign && validationOnLabel}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           isRequired={required}
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
+          width={props.width}
           {...filterStyledSystemMarginProps(props)}
         >
+          {newValidationDesign && labelHelp && (
+            <StyledHintText>{labelHelp}</StyledHintText>
+          )}
+          {newValidationDesign && (
+            <ValidationMessage error={error} warning={warning} />
+          )}
           <InputPresentation
             align={align}
             disabled={disabled}
@@ -120,6 +129,10 @@ const Textbox = ({
                 {prefix}
               </StyledPrefix>
             ) : null}
+            {newValidationDesign && error && <ErrorBorder error />}
+            {newValidationDesign && warning && !error && (
+              <ErrorBorder warning />
+            )}
             <Input
               {...(required && { required })}
               align={align}
@@ -143,22 +156,24 @@ const Textbox = ({
               {...props}
             />
             {children}
-            <InputIconToggle
-              align={align}
-              disabled={disabled}
-              error={error}
-              iconTabIndex={iconTabIndex}
-              info={info}
-              inputIcon={inputIcon}
-              onClick={iconOnClick || onClick}
-              onMouseDown={iconOnMouseDown || onMouseDown}
-              readOnly={readOnly}
-              size={size}
-              useValidationIcon={!validationOnLabel}
-              warning={warning}
-            />
+            {!newValidationDesign && (
+              <InputIconToggle
+                align={align}
+                disabled={disabled}
+                error={error}
+                iconTabIndex={iconTabIndex}
+                info={info}
+                inputIcon={inputIcon}
+                onClick={iconOnClick || onClick}
+                onMouseDown={iconOnMouseDown || onMouseDown}
+                readOnly={readOnly}
+                size={size}
+                useValidationIcon={!validationOnLabel}
+                warning={warning}
+              />
+            )}
           </InputPresentation>
-        </FormField>
+        </StyledFormField>
         {characterCount}
       </InputBehaviour>
     </TooltipProvider>
@@ -258,7 +273,7 @@ Textbox.propTypes = {
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   /** Placeholder string to be displayed in input */
   placeholder: PropTypes.string,
   /**
@@ -301,12 +316,24 @@ Textbox.propTypes = {
   characterLimit: PropTypes.string,
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
+  /** Specifies the width of the component */
+  width: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium",
+    "large",
+    "extra-large",
+  ]),
+  /** Removes tooltips and adds validation message below label */
+  newValidationDesign: PropTypes.bool,
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
   size: "medium",
   validationOnLabel: false,
+  width: "medium",
+  newValidationDesign: false,
 };
 
 export { Textbox as OriginalTextbox };

@@ -37,7 +37,7 @@ InputIconToggleStyle.defaultProps = {
 };
 
 InputIconToggleStyle.propTypes = {
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   info: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

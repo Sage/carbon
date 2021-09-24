@@ -95,7 +95,7 @@ const ValidationIcon = ({
 ValidationIcon.propTypes = {
   ...marginPropTypes,
   /** A small string to indicate the size of the icon */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   /** The unique id of the component (used with aria-describedby for accessibility) */
   iconId: PropTypes.string,
   /** Define position of the tooltip */

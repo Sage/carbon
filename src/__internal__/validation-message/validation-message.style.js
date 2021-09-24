@@ -17,7 +17,7 @@ const StyledValidationMessage = styled.p`
   ${({ theme, type }) => css`
     color: ${getColorForValidationMessage(type, theme)}
     font-weight: ${type === "error" ? "bold" : "regular"};
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 8px;
   `}
 `;

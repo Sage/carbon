@@ -198,7 +198,7 @@ Icon.propTypes = {
   /** @ignore @private */
   isPartOfInput: PropTypes.bool,
   /** @ignore @private */
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+  inputSize: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   /** @ignore @private */
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.number]),
 };

@@ -25,6 +25,7 @@ const tooltipOffset = (position, inputSize, isPartOfInput) => {
 
   switch (inputSize) {
     case "small":
+    case "extra-small":
       return `
         ${position}: 5px;
         @-moz-document url-prefix() { 

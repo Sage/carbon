@@ -8,22 +8,18 @@ const ValidationMessage = ({ error, warning, info }) => {
   const validation = error || warning || info;
   const isStringValidation = typeof validation === "string";
 
+  if (!isStringValidation) return null;
+
   return (
     <>
-      {isStringValidation && (
-        <>
-          {error && <StyledValidationMessage>{error}</StyledValidationMessage>}
-          {warning && !error && (
-            <StyledValidationMessage type="warning">
-              {warning}
-            </StyledValidationMessage>
-          )}
-          {info && !warning && !error && (
-            <StyledValidationMessage type="info">
-              {info}
-            </StyledValidationMessage>
-          )}
-        </>
+      {error && <StyledValidationMessage>{error}</StyledValidationMessage>}
+      {warning && !error && (
+        <StyledValidationMessage type="warning">
+          {warning}
+        </StyledValidationMessage>
+      )}
+      {info && !warning && !error && (
+        <StyledValidationMessage type="info">{info}</StyledValidationMessage>
       )}
     </>
   );

@@ -76,7 +76,7 @@ InputIconToggle.propTypes = {
   onBlur: PropTypes.func,
   onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   align: PropTypes.oneOf(["left", "right"]),
   useValidationIcon: PropTypes.bool,
   iconTabIndex: PropTypes.number,

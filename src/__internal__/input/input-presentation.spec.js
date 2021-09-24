@@ -60,7 +60,7 @@ describe("InputPresentation", () => {
 
           assertStyleMatch(
             {
-              borderColor: `${baseTheme.colors[validation]} !important`,
+              borderColor: `${baseTheme.colors[validation]}`,
               boxShadow: validation === "error" ? boxShadow : undefined,
             },
             render({ [validation]: true }).find(InputPresentationStyle)
@@ -79,7 +79,7 @@ describe("InputPresentation", () => {
 
           assertStyleMatch(
             {
-              borderColor: `${baseTheme.colors[validation]} !important`,
+              borderColor: `${baseTheme.colors[validation]}`,
               boxShadow: validation === "error" ? boxShadow : undefined,
             },
             render({ [validation]: "Message" }).find(InputPresentationStyle)

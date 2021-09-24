@@ -82,7 +82,7 @@ export interface CommonTextboxProps
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Input */
@@ -95,6 +95,8 @@ export interface CommonTextboxProps
   inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Removes tooltips and adds validation message below label */
+  newValidationDesign?: boolean;
 }
 
 export interface TextboxProps extends CommonTextboxProps {

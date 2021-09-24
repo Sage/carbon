@@ -6,7 +6,7 @@ export interface InputIconToggleProps {
   warning?: boolean | string;
   disabled?: boolean;
   readOnly?: boolean;
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
   onClick?: (ev: React.ChangeEvent<HTMLElement>) => void;
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
   onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;

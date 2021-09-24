@@ -11,7 +11,7 @@ export interface CommonInputPresentationProps extends ValidationPropTypes {
   /** If true, the component will be read-only */
   readOnly?: boolean;
   /** Size of an input */
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
 }
 
 export interface InputPresentationProps extends CommonInputPresentationProps {

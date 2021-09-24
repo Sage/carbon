@@ -1,4 +1,11 @@
 export default {
+  "extra-small": {
+    height: "24px",
+    verticalPadding: "4px",
+    horizontalPadding: "8px",
+    tooltipVerticalOffset: 3,
+    tooltipHorizontalOffset: 1,
+  },
   small: {
     height: "32px",
     verticalPadding: "7px",

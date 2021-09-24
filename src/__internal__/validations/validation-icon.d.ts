@@ -4,7 +4,7 @@ import { ValidationPropTypes } from ".";
 
 export interface ValidationIconProps extends ValidationPropTypes {
   /** A small string to indicate the size of the icon */
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
   /** The unique id of the component (used with aria-describedby for accessibility) */
   iconId?: string;
   /** Define position of the tooltip */

@@ -119,7 +119,7 @@ Tooltip.propTypes = {
   /** @ignore @private */
   isPartOfInput: PropTypes.bool,
   /** @ignore @private */
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+  inputSize: PropTypes.oneOf(["extra-small", "small", "medium", "large"]),
   /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
   flipOverrides: (props, propName) => {
     const prop = props[propName];
