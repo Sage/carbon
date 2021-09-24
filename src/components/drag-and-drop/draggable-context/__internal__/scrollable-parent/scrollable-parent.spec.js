@@ -1,5 +1,5 @@
-import Browser from "../../../../../__internal__/utils/helpers/browser";
 import React from "react";
+import Browser from "../../../../../__internal__/utils/helpers/browser";
 import ScrollableParent from "./scrollable-parent";
 
 describe("ScrollableParent", () => {
