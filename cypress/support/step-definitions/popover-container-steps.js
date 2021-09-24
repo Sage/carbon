@@ -3,13 +3,13 @@ import {
   popoverContainerTitle,
   popoverContainerContentSecondInnerElement,
   popoverCloseIcon,
-  popoverSettingsIconNoIFrame,
+  popoverSettingsIcon,
 } from "../../locators/popover-container";
 import { keyCode } from "../helper";
 
 Then("Popover container is visible", () => {
   popoverContainerContent().should("exist");
-  popoverSettingsIconNoIFrame().should("exist");
+  popoverSettingsIcon().should("exist");
   popoverContainerContent().should("be.visible");
   popoverContainerContent()
     .should("have.css", "background-color", "rgb(255, 255, 255)")
@@ -36,7 +36,7 @@ Then("Popover container is not visible", () => {
 });
 
 When("I click onto popover setting icon using {string} key", (key) => {
-  popoverSettingsIconNoIFrame().trigger("keydown", keyCode(key));
+  popoverSettingsIcon().trigger("keydown", keyCode(key));
 });
 
 Then("I press onto closeIcon using {string} key", (key) => {
@@ -47,6 +47,6 @@ When("I click popover close icon", () => {
   popoverCloseIcon().click();
 });
 
-When("I open popover container in NoIFrame", () => {
-  popoverSettingsIconNoIFrame().click();
+When("I open popover container", () => {
+  popoverSettingsIcon().click();
 });

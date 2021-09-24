@@ -74,101 +74,6 @@ class MultiStepWizard extends React.Component {
     }
   }
 
-  static propTypes = {
-    /**
-     * Individual steps
-     *
-     * @property steps
-     * @type {Array}
-     */
-    steps: PropTypes.arrayOf(PropTypes.object).isRequired,
-
-    /**
-     * Custom function that is called immediately before a submit event
-     *
-     * @property beforeSubmitValidation
-     * @type {Function}
-     */
-    beforeSubmitValidation: PropTypes.func,
-
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
-     * A custom submit event handler
-     *
-     * @property onSubmit
-     * @type {Function}
-     */
-    onSubmit: PropTypes.func.isRequired,
-
-    /**
-     * Current step
-     *
-     * @property currentStep
-     * @type {Number}
-     * @default 1
-     */
-    currentStep: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-
-    /**
-     * Determines if the wizard disables inactive steps
-     *
-     * @property enableInactiveSteps
-     * @type {Boolean}
-     * @default false
-     */
-    enableInactiveSteps: PropTypes.bool,
-
-    /**
-     * Add custom logic to next button
-     *
-     * @property onNext
-     */
-    onNext: PropTypes.func,
-
-    /**
-     * Add custom logic to previous button
-     *
-     * @property onPrevious
-     */
-    onBack: PropTypes.func,
-
-    /**
-     * The completion state of the wizard
-     *
-     * @property enableInactiveSteps
-     * @type {Boolean}
-     * @default false
-     */
-    completed: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  };
-
-  static defaultProps = {
-    beforeSubmitValidation: null,
-    className: "",
-    completed: false,
-    currentStep: 1,
-    enableInactiveSteps: false,
-    onNext: null,
-    onBack: null,
-  };
-
-  static childContextTypes = {
-    /**
-     * Defines a context object for child components of this wizard.
-     *
-     * @property wizard
-     * @type {Object}
-     */
-    wizard: PropTypes.object,
-  };
-
   /**
    * Returns wizard object to child components.
    *
@@ -333,5 +238,100 @@ class MultiStepWizard extends React.Component {
     );
   }
 }
+
+MultiStepWizard.propTypes = {
+  /**
+   * Individual steps
+   *
+   * @property steps
+   * @type {Array}
+   */
+  steps: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+  /**
+   * Custom function that is called immediately before a submit event
+   *
+   * @property beforeSubmitValidation
+   * @type {Function}
+   */
+  beforeSubmitValidation: PropTypes.func,
+
+  /**
+   * Custom className
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string,
+
+  /**
+   * A custom submit event handler
+   *
+   * @property onSubmit
+   * @type {Function}
+   */
+  onSubmit: PropTypes.func.isRequired,
+
+  /**
+   * Current step
+   *
+   * @property currentStep
+   * @type {Number}
+   * @default 1
+   */
+  currentStep: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+
+  /**
+   * Determines if the wizard disables inactive steps
+   *
+   * @property enableInactiveSteps
+   * @type {Boolean}
+   * @default false
+   */
+  enableInactiveSteps: PropTypes.bool,
+
+  /**
+   * Add custom logic to next button
+   *
+   * @property onNext
+   */
+  onNext: PropTypes.func,
+
+  /**
+   * Add custom logic to previous button
+   *
+   * @property onPrevious
+   */
+  onBack: PropTypes.func,
+
+  /**
+   * The completion state of the wizard
+   *
+   * @property enableInactiveSteps
+   * @type {Boolean}
+   * @default false
+   */
+  completed: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+};
+
+MultiStepWizard.defaultProps = {
+  beforeSubmitValidation: null,
+  className: "",
+  completed: false,
+  currentStep: 1,
+  enableInactiveSteps: false,
+  onNext: null,
+  onBack: null,
+};
+
+MultiStepWizard.childContextTypes = {
+  /**
+   * Defines a context object for child components of this wizard.
+   *
+   * @property wizard
+   * @type {Object}
+   */
+  wizard: PropTypes.object,
+};
 
 export default MultiStepWizard;

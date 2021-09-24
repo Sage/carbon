@@ -3,13 +3,13 @@ Feature: Toast component
 
   @positive
   Scenario: Verify the click action in Actions Tab
-    Given I open "Design System Toast Test" component page "default" in no iframe
+    Given I open "Design System Toast Test" component page "default"
     When I click closeIcon
     Then click action was called in Actions Tab
 
   @positive
   Scenario Outline: Change Toast children to <children>
-    When I open Test default "Toast" component in noIFrame with "toast" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Toast" component with "toast" json from "test" using "<nameOfObject>" object name
     Then Toast children is set to <children>
     Examples:
       | children                     | nameOfObject             |
@@ -18,6 +18,6 @@ Feature: Toast component
 
   @positive
   Scenario: Verify that Toast is closed by pressing Esc key
-    Given I open "Design System Toast Test" component page "default" in no iframe
+    Given I open "Design System Toast Test" component page "default"
     When I hit ESC key
     Then Toast component is not visible

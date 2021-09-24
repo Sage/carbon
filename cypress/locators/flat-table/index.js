@@ -8,10 +8,6 @@ import {
 } from "./locators";
 
 // component preview locators
-export const flatTableInIframe = () => cy.iFrame(FLAT_TABLE_COMPONENT);
-export const flatTableBodyRowsInIframe = () =>
-  flatTableInIframe().find("tbody tr");
-
 export const flatTable = () => cy.get(FLAT_TABLE_COMPONENT);
 export const flatTableHeader = () => flatTable().find("thead tr");
 export const flatTableHeaderCells = () => flatTableHeader().find("th");

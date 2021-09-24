@@ -3,7 +3,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Set totalRecords to <totalRecords>
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
       And I am on 1st of "<maxPages>" pages
     Examples:
@@ -17,13 +17,13 @@ Feature: Pager component
 
   @positive
   Scenario: Set totalRecords to 1 and check spell of item word
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "totalRecords1" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "totalRecords1" object name
     Then totalRecords is set to "1" item
       And I am on 1st of "1" pages
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
       And I am on 1st of "1" pages
     Examples:
@@ -34,7 +34,7 @@ Feature: Pager component
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "<nameOfObject>" object name
     Then totalRecords is set to "" items
       And I am on 1st of "1" pages
     Examples:
@@ -44,7 +44,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Set pageSize to <pageSize> items
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "<nameOfObject>" object name
     Then pageSize is set to "<pageSize>" items
       And I am on 1st of "<maxPages>" pages
     Examples:
@@ -56,13 +56,13 @@ Feature: Pager component
 
   @positive
   Scenario: Set pageSize to 1 item
-    When I open Test default "Pager" component in noIFrame with "pager" json from "test" using "pageSize1" object name
+    When I open Test default "Pager" component with "pager" json from "test" using "pageSize1" object name
     Then pageSize is set to "1" item
       And I am on 1st of "100" pages
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on last button
-    Given I open Test default "Pager" component in noIFrame with "pager" json from "test" using "default" object name
+    Given I open Test default "Pager" component with "pager" json from "test" using "default" object name
     When I click "last" pagination button
     Then pagination "<button>" button is disabled
     Examples:
@@ -72,7 +72,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on first button
-    Given I open Test default "Pager" component in noIFrame with "pager" json from "test" using "default" object name
+    Given I open Test default "Pager" component with "pager" json from "test" using "default" object name
       And I click "last" pagination button
     When I click "first" pagination button
     Then pagination "<button>" button is disabled
@@ -83,7 +83,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after previous paginate
-    Given I open Test default "Pager" component in noIFrame with "pager" json from "test" using "default" object name
+    Given I open Test default "Pager" component with "pager" json from "test" using "default" object name
       And I type "10" to input pagination
     When I press previous button 9 times
     Then pagination "<button>" button is disabled
@@ -94,7 +94,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking next button
-    Given I open Test default "Pager" component in noIFrame with "pager" json from "test" using "default" object name
+    Given I open Test default "Pager" component with "pager" json from "test" using "default" object name
     When I press next button 9 times
     Then pagination "<button>" button is disabled
     Examples:
@@ -104,13 +104,13 @@ Feature: Pager component
 
   @positive
   Scenario: Pagination input has golden border
-    Given I open "Design System Pager" component page "default" in no iframe
+    Given I open "Design System Pager" component page "default"
     When I click on pagination input
     Then pagination input has golden border
 
   @positive
   Scenario: Current page displays 0 when zero pages
-    Given I open "Design System Pager" component page "loading state" in no iframe
+    Given I open "Design System Pager" component page "loading state"
       And I click on pagination input
     When I hit Tab key 1 time
     Then Current page input is set to 0

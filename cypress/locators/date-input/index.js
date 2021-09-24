@@ -9,9 +9,9 @@ import {
 export const dateInput = () => cy.get(DATE_INPUT);
 export const dayPickerDay = (date) => cy.get(`div[aria-label="${date}"]`);
 
-export const dateInputNoIFrame = () => cy.get(DATE_INPUT).parent();
+export const dateInputParent = () => cy.get(DATE_INPUT).parent();
 export const dateIcon = () => cy.get(DATE_ICON);
 export const dayPickerWrapper = () => cy.get(DAY_PICKER_WRAPPER);
-export const dayPickerParentNoIFrame = () =>
+export const dayPickerParent = () =>
   cy.get(DAY_PICKER_WRAPPER).parent().parent();
 export const dayPickerHeading = () => cy.get(DAY_PICKER_HEADING).children();

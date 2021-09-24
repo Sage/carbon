@@ -1,3 +1,55 @@
+## [89.3.0](https://github.com/Sage/carbon/compare/v89.2.0...v89.3.0) (2021-09-23)
+
+
+### Features
+
+* **content:** change a string type of the title prop to a node type ([b096825](https://github.com/Sage/carbon/commit/b0968256b02e9cc588a0e0d32e627f0ea9b49b43))
+
+## [89.2.0](https://github.com/Sage/carbon/compare/v89.1.0...v89.2.0) (2021-09-23)
+
+
+### Features
+
+* **i18n:** add types for the base locale file ([47964d5](https://github.com/Sage/carbon/commit/47964d52ce00e0f525c9a0877e01d9c0f97b409d))
+
+## [89.1.0](https://github.com/Sage/carbon/compare/v89.0.0...v89.1.0) (2021-09-23)
+
+
+### Features
+
+* **tile-select:** add support for rendering accordion footer ([0dd1f32](https://github.com/Sage/carbon/commit/0dd1f326d19ab3f213df3eaf15781aef88677924))
+
+## [89.0.0](https://github.com/Sage/carbon/compare/v88.0.0...v89.0.0) (2021-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod-manager:** deprecated pod-manager component has been removed
+* **pod:** Pod is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **pod:** rewrite class component to functional ([fc65a0f](https://github.com/Sage/carbon/commit/fc65a0f37c77d7815a1cb5ce95d0153240dc5785))
+* **pod-manager:** remove deprecated pod-manager component ([997d734](https://github.com/Sage/carbon/commit/997d7346aea263831bafcaae30136a2a7c5e5ef1))
+
+## [88.0.0](https://github.com/Sage/carbon/compare/v87.5.0...v88.0.0) (2021-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **profile:** Profile is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **profile:** convert from class to functional component ([2a704f7](https://github.com/Sage/carbon/commit/2a704f715bd821b8daa9585237533d0d8e3293a4))
+
+## [87.5.0](https://github.com/Sage/carbon/compare/v87.4.0...v87.5.0) (2021-09-21)
+
+
+### Features
+
+* **tile-select:** surface new additonalInformation prop ([fa21724](https://github.com/Sage/carbon/commit/fa217241427360d78d9248a434a16bdb09e7367f))
+
 ## [87.4.0](https://github.com/Sage/carbon/compare/v87.3.0...v87.4.0) (2021-09-20)
 
 

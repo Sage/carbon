@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import classNames from "classnames";
+
 import { acronymize } from "../../utils/ether/ether";
 import tagComponent from "../../utils/helpers/tags/tags";
 import {
@@ -17,36 +17,20 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-class Profile extends React.Component {
-  /** Determines whether a `src` prop has been supplied */
-  get hasSrc() {
-    return Boolean(this.props.src);
-  }
+const Profile = ({ src, className, initials, name, size, email, ...props }) => {
+  const getInitials = () => {
+    if (initials) return initials;
+    return acronymize(name);
+  };
 
-  /** Returns the classes for the component. */
-  get classes() {
-    return classNames(this.props.className);
-  }
-
-  /** Returns the initials for the name. */
-  get initials() {
-    if (this.props.initials) return this.props.initials;
-    return acronymize(this.props.name);
-  }
-
-  get marginProps() {
-    return filterStyledSystemMarginProps(this.props);
-  }
-
-  /** Returns the avatar portion of the profile. */
-  get avatar() {
-    if (this.hasSrc) {
+  const avatar = () => {
+    if (src) {
       return (
         <ProfileAvatarStyle
-          src={this.props.src}
-          alt={this.initials}
-          initials={this.initials}
-          size={this.props.size}
+          src={src}
+          alt={getInitials()}
+          initials={getInitials()}
+          size={size}
           shape="square"
           data-element="user-image"
         />
@@ -54,42 +38,38 @@ class Profile extends React.Component {
     }
     return (
       <ProfileAvatarStyle
-        initials={this.initials}
-        gravatar={this.props.email}
-        size={this.props.size}
+        initials={getInitials()}
+        gravatar={email}
+        size={size}
       />
     );
-  }
+  };
 
-  /** Returns the text portion of the profile. */
-  get text() {
+  const text = () => {
     return (
-      <ProfileDetailsStyle size={this.props.size} hasSrc={this.hasSrc}>
-        <ProfileNameStyle size={this.props.size} data-element="name">
-          {this.props.name}
+      <ProfileDetailsStyle size={size} hasSrc={!!src}>
+        <ProfileNameStyle size={size} data-element="name">
+          {name}
         </ProfileNameStyle>
-        <ProfileEmailStyle size={this.props.size} data-element="email">
-          {this.props.email}
+        <ProfileEmailStyle size={size} data-element="email">
+          {email}
         </ProfileEmailStyle>
       </ProfileDetailsStyle>
     );
-  }
+  };
 
-  render() {
-    return (
-      <ProfileStyle
-        large={this.props.large}
-        className={this.classes}
-        hasSrc={this.hasSrc}
-        {...tagComponent("profile", this.props)}
-        {...this.marginProps}
-      >
-        {this.avatar}
-        {this.text}
-      </ProfileStyle>
-    );
-  }
-}
+  return (
+    <ProfileStyle
+      className={className}
+      hasSrc={!!src}
+      {...tagComponent("profile", props)}
+      {...filterStyledSystemMarginProps(props)}
+    >
+      {avatar()}
+      {text()}
+    </ProfileStyle>
+  );
+};
 
 Profile.propTypes = {
   ...marginPropTypes,
@@ -103,14 +83,8 @@ Profile.propTypes = {
   email: PropTypes.string.isRequired,
   /** Define initials to display if there is no Gravatar image. */
   initials: PropTypes.string,
-  /** [Legacy] Enable a larger theme for the name. */
-  large: PropTypes.bool,
   /** Allow to setup size for the component */
   size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
-};
-
-Profile.defaultProps = {
-  large: false,
 };
 
 export default Profile;

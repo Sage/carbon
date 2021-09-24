@@ -6,8 +6,6 @@ import {
   searchWitchButtonInput,
   searchDefaultInnerIcon,
   searchInnerIcon,
-  searchInputIframe,
-  searchDefaultInputIframe,
   searchIcon,
 } from "../../locators/search";
 import { keyCode } from "../helper";
@@ -29,7 +27,7 @@ When("Type {string} text into search with button input", (text) => {
 });
 
 When("Type {string} text into search input", (text) => {
-  searchInputIframe().clear().type(text);
+  searchDefaultInput().clear().type(text);
 });
 
 Then("Search component has input and {string} as icon", (iconType) => {
@@ -94,8 +92,4 @@ Then("search icon as button is not visible", () => {
 
 When("I press onto cross icon using {string} key", (key) => {
   searchCrossIcon().trigger("keydown", keyCode(key));
-});
-
-When("Type {string} text into search input inIFrame", (text) => {
-  searchDefaultInputIframe().type(text);
 });

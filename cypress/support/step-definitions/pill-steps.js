@@ -1,15 +1,7 @@
-import {
-  pillPreview,
-  pillCloseIcon,
-  pillCloseIconIframe,
-} from "../../locators/pill";
+import { pillPreview, pillCloseIcon } from "../../locators/pill";
 
 Then("Pill children on preview is set to {word}", (text) => {
   pillPreview().should("have.text", text);
-});
-
-When("I click cross icon in Iframe", () => {
-  pillCloseIconIframe().click();
 });
 
 When("I focus Pill close icon", () => {

@@ -26,89 +26,6 @@ import {
  * @constructor
  */
 class Step extends React.Component {
-  static propTypes = {
-    /**
-     * Step number
-     *
-     * @property stepNumber
-     * @type {Number}
-     */
-    stepNumber: PropTypes.number.isRequired,
-
-    /**
-     * Determines if the step renders default buttons
-     *
-     * @property defaultButton
-     * @type {Boolean}
-     * @default true
-     */
-    defaultButton: PropTypes.bool,
-
-    /**
-     * Custom function that is called when moving the step forward.
-     * This function overrides the step's default behaviour of moving next.
-     *
-     * @property onNext
-     * @type {Function}
-     */
-    onNext: PropTypes.func,
-
-    /**
-     * Custom function that is called when moving the step backward.
-     * This function overrides the step's default behaviour of moving back.
-     *
-     * @property onBack
-     * @type {Function}
-     */
-    onBack: PropTypes.func,
-
-    /**
-     * Additional buttons
-     *
-     * @property extraButtons
-     * @type {Array}
-     */
-    extraButtons: PropTypes.arrayOf(PropTypes.object),
-
-    /**
-     * Determines if the step is enabled
-     *
-     * @property enabled
-     * @type {Boolean}
-     */
-    enabled: PropTypes.bool,
-
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: PropTypes.node,
-  };
-
-  static defaultProps = {
-    children: null,
-    className: "",
-    defaultButton: true,
-    enabled: false,
-    extraButtons: [],
-    onBack: null,
-    onNext: null,
-  };
-
-  static contextTypes = {
-    wizard: PropTypes.object,
-  };
-
   /**
    * Completes the step's wizard and triggers the custom submit event handler of the step's wizard
    *
@@ -406,5 +323,88 @@ class Step extends React.Component {
     return <div className="multi-step-wizard-step--none" />;
   }
 }
+
+Step.propTypes = {
+  /**
+   * Step number
+   *
+   * @property stepNumber
+   * @type {Number}
+   */
+  stepNumber: PropTypes.number.isRequired,
+
+  /**
+   * Determines if the step renders default buttons
+   *
+   * @property defaultButton
+   * @type {Boolean}
+   * @default true
+   */
+  defaultButton: PropTypes.bool,
+
+  /**
+   * Custom function that is called when moving the step forward.
+   * This function overrides the step's default behaviour of moving next.
+   *
+   * @property onNext
+   * @type {Function}
+   */
+  onNext: PropTypes.func,
+
+  /**
+   * Custom function that is called when moving the step backward.
+   * This function overrides the step's default behaviour of moving back.
+   *
+   * @property onBack
+   * @type {Function}
+   */
+  onBack: PropTypes.func,
+
+  /**
+   * Additional buttons
+   *
+   * @property extraButtons
+   * @type {Array}
+   */
+  extraButtons: PropTypes.arrayOf(PropTypes.object),
+
+  /**
+   * Determines if the step is enabled
+   *
+   * @property enabled
+   * @type {Boolean}
+   */
+  enabled: PropTypes.bool,
+
+  /**
+   * Custom className
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string,
+
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
+};
+
+Step.defaultProps = {
+  children: null,
+  className: "",
+  defaultButton: true,
+  enabled: false,
+  extraButtons: [],
+  onBack: null,
+  onNext: null,
+};
+
+Step.contextTypes = {
+  wizard: PropTypes.object,
+};
 
 export default Step;

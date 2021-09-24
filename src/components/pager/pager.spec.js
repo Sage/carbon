@@ -15,11 +15,13 @@ import {
 } from "./pager.style";
 import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
-import { isSingular } from "../../locales/en-gb";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
+
+const isSingular = (count) =>
+  (typeof count === "string" ? parseInt(count) : count) === 1;
 
 const wrappingComponent = (props) => (
   <I18nProvider
@@ -57,6 +59,24 @@ describe("Pager", () => {
   it("sets total records to 0 by default", () => {
     const wrapper = render();
     expect(wrapper.find(StyledPagerSummary).text()).toBe("0 items");
+  });
+
+  describe("sets size selector value a type of string", () => {
+    it("when page size prop is a type of number", () => {
+      const wrapper = render({
+        showPageSizeSelection: true,
+        pageSize: 10,
+      });
+      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+    });
+
+    it("when page size prop is a type of string", () => {
+      const wrapper = render({
+        showPageSizeSelection: true,
+        pageSize: "10",
+      });
+      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+    });
   });
 
   describe("Navigate correctly on link click", () => {
