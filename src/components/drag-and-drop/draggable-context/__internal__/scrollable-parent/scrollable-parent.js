@@ -1,4 +1,4 @@
-import Browser from "../../../__internal__/utils/helpers/browser";
+import Browser from "../../../../../__internal__/utils/helpers/browser";
 
 /**
  * @method

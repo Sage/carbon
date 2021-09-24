@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
 import CustomDragLayer from "../custom-drag-layer";
 import Browser from "../../../__internal__/utils/helpers/browser";
-import ScrollableParent from "../../../utils/helpers/scrollable-parent";
+import ScrollableParent from "./__internal__/scrollable-parent";
 import Logger from "../../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
