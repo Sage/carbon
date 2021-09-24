@@ -1,3 +1,14 @@
+## [91.0.0](https://github.com/Sage/carbon/compare/v90.0.2...v91.0.0) (2021-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **split-button:** SplitButton is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **split-button:** rewrite class component to functional ([c459149](https://github.com/Sage/carbon/commit/c45914901baf38eeeaa72f801664fe95da45c75c))
+
 ### [90.0.2](https://github.com/Sage/carbon/compare/v90.0.1...v90.0.2) (2021-09-24)
 
 
