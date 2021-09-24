@@ -1,3 +1,10 @@
+### [90.0.2](https://github.com/Sage/carbon/compare/v90.0.1...v90.0.2) (2021-09-24)
+
+
+### Bug Fixes
+
+* **simple-select:** change the test story format from mdx to js ([ef617d3](https://github.com/Sage/carbon/commit/ef617d366f41529b05d1766357fb8f222ebd4f4f))
+
 ### [90.0.1](https://github.com/Sage/carbon/compare/v90.0.0...v90.0.1) (2021-09-24)
 
 
