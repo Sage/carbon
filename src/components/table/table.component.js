@@ -19,8 +19,6 @@ import LocaleContext from "../../__internal__/i18n-context";
 let deprecatedWarnTriggered = false;
 
 class Table extends React.Component {
-  static contextType = LocaleContext;
-
   constructor(props) {
     super(props);
     if (!deprecatedWarnTriggered) {
@@ -527,6 +525,8 @@ class Table extends React.Component {
     );
   }
 }
+
+Table.contextType = LocaleContext;
 
 Table.propTypes = {
   /**  The actions to display in the toolbar  */

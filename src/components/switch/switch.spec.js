@@ -21,7 +21,6 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import { baseTheme } from "../../style/themes";
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle from "./switch.style";
-import SwitchSlider from "./__internal__/switch-slider.component";
 import Label from "../../__internal__/label";
 import I18nProvider from "../i18n-provider";
 import Tooltip from "../tooltip";
@@ -252,9 +251,6 @@ describe("Switch", () => {
             expect(wrapper.find(CheckableInput).props().labelInline).toEqual(
               true
             );
-            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(
-              true
-            );
           });
         });
 
@@ -277,9 +273,6 @@ describe("Switch", () => {
               false
             );
             expect(wrapper.find(CheckableInput).props().labelInline).toEqual(
-              false
-            );
-            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(
               false
             );
           });

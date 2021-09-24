@@ -483,9 +483,11 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
 
 <StyledSystemProps of={MultiSelect} noHeader margin />
 
-### Props derived from the Textbox Component
+Due to the `Textbox` component being used internally by the `MultiSelect` component, most of the `Textbox` props are applicable to `MultiSelect`
 
 <Props of={SelectTextbox} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
@@ -493,18 +495,16 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object to the 
+The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
 <TranslationKeysTable
-  translationData={
-    [
-      {
-        name: "select.placeholder",
-        description: "The text for the input component placeholder",
-        type: "func",
-        returnType: "string"
-      },
-    ]
-  }
+  translationData={[
+    {
+      name: "select.placeholder",
+      description: "The text for the input component placeholder",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
 />

@@ -25,6 +25,16 @@ interface NumeralDateEvent {
 }
 
 export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
+  /** If true, the component will be disabled */
+  disabled?: boolean;
+  /** If true, the component will be read-only */
+  readOnly?: boolean;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /* Array of strings to define custom input layout.
@@ -64,7 +74,9 @@ export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
   labelInline?: boolean;
   /** Label width */
   labelWidth?: number;
-  /** Blur event handler  */
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing?: 1 | 2;
+  /** Blur event handler */
   onBlur?: (ev: NumeralDateEvent) => void;
   /** Change event handler */
   onChange?: (ev: NumeralDateEvent) => void;

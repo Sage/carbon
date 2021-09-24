@@ -17,8 +17,6 @@ interface CheckboxGroupProps extends ValidationPropTypes, MarginProps {
   children: React.ReactNode;
   /** Specifies the name prop to be applied to each button in the group */
   groupName: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** Flag to configure component as mandatory */

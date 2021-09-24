@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import invariant from "invariant";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../style/utils";
 import Events from "../../utils/helpers/events/events";
 import DateHelper from "../../utils/helpers/date/date";
-import tagComponent from "../../utils/helpers/tags/tags";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
@@ -21,16 +23,7 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-// Spacing props filtering is a temporary solution until FormField and all related components are refactored
-// FIXME FE-3370
-const filterOutSpacingProps = (obj) =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !styledSystemPropTypes.space[key])
-  );
-
 class BaseDateInput extends React.Component {
-  static contextType = LocaleContext;
-
   localeData = {
     locale: this.context.locale(),
     formats: this.context.date.formats.inputs(),
@@ -487,6 +480,9 @@ class BaseDateInput extends React.Component {
       adaptiveLabelBreakpoint,
       disablePortal,
       tooltipPosition,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...inputProps
     } = this.props;
 
@@ -507,11 +503,13 @@ class BaseDateInput extends React.Component {
         role="presentation"
         size={inputProps.size}
         labelInline={labelInline}
-        {...tagComponent("date", this.props)}
+        data-component={dataComponent}
+        data-element={dataElement}
+        data-role={dataRole}
         {...filterStyledSystemMarginProps(this.props)}
       >
         <Textbox
-          {...filterOutSpacingProps(inputProps)}
+          {...filterOutStyledSystemSpacingProps(inputProps)}
           inputIcon="calendar"
           value={this.state.visibleValue}
           labelInline={labelInline}
@@ -587,9 +585,17 @@ function canReturnValue(value, allowEmptyValue, locale, formats, format) {
 
 const DateInput = withUniqueIdProps(BaseDateInput);
 
+BaseDateInput.contextType = LocaleContext;
+
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** Boolean to allow the input to have an empty value */
   allowEmptyValue: PropTypes.bool,
   /** Automatically focus on component mount */
@@ -618,6 +624,7 @@ BaseDateInput.propTypes = {
 
 BaseDateInput.defaultProps = {
   disablePortal: false,
+  "data-component": "date",
 };
 
 export { defaultDateFormat, BaseDateInput };

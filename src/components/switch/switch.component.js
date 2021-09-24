@@ -1,17 +1,25 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import tagComponent from "../../utils/helpers/tags";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
 import SwitchStyle from "./switch.style";
 import CheckableInput from "../../__internal__/checkable-input";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const Switch = ({
+  autoFocus,
   id,
   label,
   onChange,
   onBlur,
+  onFocus,
   value,
   checked,
   defaultChecked,
@@ -20,9 +28,19 @@ const Switch = ({
   reverse,
   validationOnLabel,
   labelInline,
+  labelSpacing,
+  labelHelp,
+  fieldHelpInline,
+  size,
   name,
   adaptiveLabelBreakpoint,
   tooltipPosition,
+  error,
+  warning,
+  info,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }) => {
   const isControlled = checked !== undefined;
@@ -40,46 +58,67 @@ const Switch = ({
   );
 
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
-  let inlineLabel = labelInline;
+  let shouldLabelBeInline = labelInline;
   if (adaptiveLabelBreakpoint) {
-    inlineLabel = largeScreen;
+    shouldLabelBeInline = largeScreen;
   }
-
-  const switchProps = {
-    ...rest,
-    labelInline: inlineLabel,
-    disabled: disabled || loading,
-    checked: isControlled ? checked : checkedInternal,
-    reverse: !reverse, // switched to preserve backward compatibility
-  };
-
-  const inputProps = {
-    ...switchProps,
-    onBlur,
-    onChange: isControlled ? onChange : onChangeInternal,
-    inputId: id,
-    name,
-    label,
-    inputValue: value,
-    inputType: "checkbox",
-    reverse: !reverse, // switched to preserve backward compatibility
-  };
 
   const shouldValidationBeOnLabel =
     labelInline && !reverse ? true : validationOnLabel;
 
+  const switchStyleProps = {
+    "data-component": dataComponent,
+    "data-role": dataRole,
+    "data-element": dataElement,
+    checked: isControlled ? checked : checkedInternal,
+    fieldHelpInline,
+    labelInline: shouldLabelBeInline,
+    labelSpacing,
+    reverse: !reverse, // switched to preserve backward compatibility
+    size,
+    ...filterStyledSystemMarginProps(rest),
+  };
+
+  const switchSliderProps = {
+    checked: isControlled ? checked : checkedInternal,
+    disabled: disabled || loading,
+    loading,
+    size,
+    error,
+    warning,
+    info,
+    useValidationIcon: !shouldValidationBeOnLabel && !disabled,
+  };
+
+  const inputProps = {
+    autoFocus,
+    error,
+    warning,
+    info,
+    disabled: disabled || loading,
+    checked: isControlled ? checked : checkedInternal,
+    fieldHelpInline,
+    labelInline: shouldLabelBeInline,
+    labelSpacing,
+    onBlur,
+    onFocus,
+    onChange: isControlled ? onChange : onChangeInternal,
+    id,
+    name,
+    label,
+    labelHelp,
+    value,
+    type: "checkbox",
+    reverse: !reverse, // switched to preserve backward compatibility
+    validationOnLabel: shouldValidationBeOnLabel && !disabled,
+    ...rest,
+  };
+
   return (
     <TooltipProvider tooltipPosition={tooltipPosition}>
-      <SwitchStyle {...tagComponent("Switch", rest)} {...switchProps}>
-        <CheckableInput
-          validationOnLabel={shouldValidationBeOnLabel && !disabled}
-          {...inputProps}
-        >
-          <SwitchSlider
-            useValidationIcon={!shouldValidationBeOnLabel && !disabled}
-            {...switchProps}
-            loading={loading}
-          />
+      <SwitchStyle {...switchStyleProps}>
+        <CheckableInput {...inputProps}>
+          <SwitchSlider {...switchSliderProps} />
         </CheckableInput>
       </SwitchStyle>
     </TooltipProvider>
@@ -87,6 +126,16 @@ const Switch = ({
 };
 
 Switch.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
+  /** If true the Component will be focused when page load */
+  autoFocus: PropTypes.bool,
   /** Set the value of the Switch if component is meant to be used as controlled */
   checked: PropTypes.bool,
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
@@ -105,7 +154,7 @@ Switch.propTypes = {
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(["left", "right"]),
-  /** Help text */
+  /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
@@ -137,6 +186,10 @@ Switch.propTypes = {
   onChange: PropTypes.func,
   /** Accepts a callback function which is triggered on blur event */
   onBlur: PropTypes.func,
+  /** Accepts a callback function which is triggered on focus event */
+  onFocus: PropTypes.func,
+  /** Accepts a callback function which is triggered on click event */
+  onClick: PropTypes.func,
   /** Reverses label and Switch display */
   reverse: PropTypes.bool,
   /**
@@ -146,8 +199,6 @@ Switch.propTypes = {
   size: PropTypes.oneOf(["small", "large"]),
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
@@ -160,6 +211,7 @@ Switch.defaultProps = {
   labelInline: false,
   reverse: true,
   validationOnLabel: false,
+  "data-component": "switch",
 };
 
 export { Switch as BaseSwitch };

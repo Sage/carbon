@@ -8,11 +8,6 @@ const withUniqueIdProps = (WrappedComponent) => {
 
     name = guid();
 
-    static propTypes = {
-      forwardedRef: PropTypes.object,
-      id: PropTypes.string,
-    };
-
     render() {
       const { forwardedRef, id, ...props } = this.props;
 
@@ -26,6 +21,11 @@ const withUniqueIdProps = (WrappedComponent) => {
       );
     }
   }
+
+  WithUniqueIdProps.propTypes = {
+    forwardedRef: PropTypes.object,
+    id: PropTypes.string,
+  };
 
   const Component = React.forwardRef((props, ref) => {
     return <WithUniqueIdProps {...props} forwardedRef={ref} />;

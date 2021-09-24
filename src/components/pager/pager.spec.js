@@ -11,15 +11,17 @@ import {
   StyledPagerLinkStyles,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
-  StyledSelect,
+  StyledSelectContainer,
 } from "./pager.style";
 import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
-import { isSingular } from "../../locales/en-gb";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
+
+const isSingular = (count) =>
+  (typeof count === "string" ? parseInt(count) : count) === 1;
 
 const wrappingComponent = (props) => (
   <I18nProvider
@@ -57,6 +59,24 @@ describe("Pager", () => {
   it("sets total records to 0 by default", () => {
     const wrapper = render();
     expect(wrapper.find(StyledPagerSummary).text()).toBe("0 items");
+  });
+
+  describe("sets size selector value a type of string", () => {
+    it("when page size prop is a type of number", () => {
+      const wrapper = render({
+        showPageSizeSelection: true,
+        pageSize: 10,
+      });
+      expect(wrapper.find(Select).prop("value")).toBe("10");
+    });
+
+    it("when page size prop is a type of string", () => {
+      const wrapper = render({
+        showPageSizeSelection: true,
+        pageSize: "10",
+      });
+      expect(wrapper.find(Select).prop("value")).toBe("10");
+    });
   });
 
   describe("Navigate correctly on link click", () => {
@@ -166,10 +186,10 @@ describe("Pager", () => {
 
     it("updates value when pageSize prop is changed", () => {
       wrapper = getWrapper();
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+      expect(wrapper.find(Select).prop("value")).toBe("10");
       wrapper.setProps({ pageSize: 25 });
       wrapper.update();
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("25");
+      expect(wrapper.find(Select).prop("value")).toBe("25");
     });
   });
 
@@ -249,15 +269,15 @@ describe("Pager", () => {
     it("renders the pageSize Select when 'showPageSizeSelection' is true", () => {
       wrapper = render({ ...props, onPagination: () => true });
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
       expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
       );
@@ -269,15 +289,14 @@ describe("Pager", () => {
         showPageSizeLabelBefore: false,
         onPagination: () => true,
       });
+
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild
-      ).toEqual(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-      );
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+      ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
+
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
       );
@@ -290,17 +309,14 @@ describe("Pager", () => {
         onPagination: () => true,
       });
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild
-      ).toEqual(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-      );
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+      ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
     });
 
     it("does not render the total number of records 'showTotalRecords' is false", () => {
@@ -384,11 +400,11 @@ describe("Pager", () => {
 
   describe("i18n", () => {
     const getShow = (wrapper) =>
-      wrapper.find("div[data-component='simple-select']").getDOMNode()
-        .parentElement.firstChild.textContent;
+      wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+        .textContent;
     const getRecords = (wrapper) =>
-      wrapper.find("div[data-component='simple-select']").getDOMNode()
-        .parentElement.lastChild.textContent;
+      wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+        .textContent;
 
     describe("default", () => {
       it("show", () => {

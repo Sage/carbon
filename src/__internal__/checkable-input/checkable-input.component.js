@@ -11,6 +11,7 @@ import HiddenCheckableInput from "./hidden-checkable-input.component";
 import guid from "../../utils/helpers/guid";
 
 const CheckableInput = ({
+  autoFocus,
   checked,
   children,
   disabled,
@@ -18,10 +19,10 @@ const CheckableInput = ({
   fieldHelp,
   fieldHelpInline,
   info,
-  inputId,
+  id: inputId,
   inputRef,
-  inputType,
-  inputValue,
+  type,
+  value,
   inputWidth,
   label,
   labelAlign,
@@ -35,14 +36,13 @@ const CheckableInput = ({
   onFocus,
   required,
   reverse,
-  tabindex,
   validationOnLabel,
   warning,
+  ...props
 }) => {
   const { current: id } = useRef(inputId || guid());
-  const labelId = `${id} label`;
   const helpId = `${id} help`;
-  const isRadio = inputType === "radio";
+  const isRadio = type === "radio";
 
   const formFieldProps = {
     disabled,
@@ -56,7 +56,6 @@ const CheckableInput = ({
     labelAlign,
     labelHelp,
     labelHelpIcon: "info",
-    labelId,
     labelInline,
     labelSpacing,
     name: id,
@@ -69,20 +68,20 @@ const CheckableInput = ({
   };
 
   const inputProps = {
+    autoFocus,
     checked,
     disabled,
     helpId,
     id,
     inputRef,
-    inputType,
-    inputValue,
-    labelId,
+    type,
+    value,
     name,
     onBlur,
     onChange,
     onFocus,
     required,
-    tabindex,
+    ...props,
   };
 
   return (
@@ -107,6 +106,8 @@ const CheckableInput = ({
 };
 
 CheckableInput.propTypes = {
+  /** If true the Component will be focused when page load */
+  autoFocus: PropTypes.bool,
   /** Set the value of the CheckableInput */
   checked: PropTypes.bool,
   /** Used to set the visible aspect of the input (i.e. the checkbox sprite, input slider etc) */
@@ -130,11 +131,11 @@ CheckableInput.propTypes = {
   /** Displays fieldHelp inline with the CheckableInput */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
-  inputId: PropTypes.string,
+  id: PropTypes.string,
   /** Specifies input type, 'checkbox' or 'radio' */
-  inputType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   /** Value passed to the input */
-  inputValue: PropTypes.string,
+  value: PropTypes.string,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content for the Label to apply to the input */
@@ -161,8 +162,6 @@ CheckableInput.propTypes = {
   reverse: PropTypes.bool,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
-  /** Input tabindex */
-  tabindex: PropTypes.string,
   /** A callback to retrieve the input reference */
   inputRef: PropTypes.oneOfType([
     PropTypes.func,

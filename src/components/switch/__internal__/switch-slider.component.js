@@ -1,30 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 
 import Loader from "../../loader/loader.component";
 import StyledSwitchSlider from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
-import { filterStyledSystemMarginProps } from "../../../style/utils";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
-
-const SwitchSlider = (props) => {
+const SwitchSlider = ({
+  checked,
+  disabled,
+  loading,
+  size,
+  error,
+  warning,
+  info,
+  useValidationIcon,
+}) => {
   const l = useLocale();
-  const {
-    checked,
-    disabled,
-    loading,
-    size,
-    error,
-    warning,
-    info,
-    useValidationIcon,
-  } = props;
 
   const panelContent = checked ? l.switch.on() : l.switch.off();
 
@@ -47,9 +40,8 @@ const SwitchSlider = (props) => {
 
   const loaderProps = {
     isInsideButton: true,
-    isActive: props.checked,
+    isActive: checked,
     size,
-    ...filterStyledSystemMarginProps(props),
   };
 
   const sliderContent = (
@@ -59,17 +51,14 @@ const SwitchSlider = (props) => {
   );
 
   return (
-    <StyledSwitchSlider
-      {...switchSliderStyleProps}
-      {...filterStyledSystemMarginProps(props)}
-    >
+    <StyledSwitchSlider {...switchSliderStyleProps}>
       {sliderContent}
       {useValidationIcon && (
         <ValidationIcon
           error={error}
           warning={warning}
           info={info}
-          size={props.size}
+          size={size}
           tooltipFlipOverrides={["top", "bottom"]}
         />
       )}
@@ -78,8 +67,6 @@ const SwitchSlider = (props) => {
 };
 
 SwitchSlider.propTypes = {
-  /** Filtered styled system margin props */
-  ...marginPropTypes,
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,

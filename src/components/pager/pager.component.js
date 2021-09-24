@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
+
+import { Select } from "../select";
 import PagerNavigation from "./__internal__/pager-navigation.component";
 import Option from "../select/option/option.component";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -8,7 +10,7 @@ import {
   StyledPagerSizeOptions,
   StyledPagerSummary,
   StyledPagerSizeOptionsInner,
-  StyledSelect,
+  StyledSelectContainer,
 } from "./pager.style";
 import Events from "../../utils/helpers/events/events";
 
@@ -129,23 +131,25 @@ const Pager = ({
 
   const sizeSelector = () => {
     return (
-      <StyledSelect
-        value={String(value)}
-        onChange={(ev) => setValue(ev.target.value)}
-        onBlur={() => setValue(currentPageSize)}
-        onKeyDown={handleKeyDown}
-        data-element="page-select"
-        id="page-select"
-      >
-        {pageSizeSelectionOptions.map((sizeOption) => (
-          <Option
-            key={sizeOption.id}
-            text={sizeOption.id}
-            value={String(sizeOption.name)}
-            onClick={handleOnPagination}
-          />
-        ))}
-      </StyledSelect>
+      <StyledSelectContainer>
+        <Select
+          value={String(value)}
+          onChange={(ev) => setValue(ev.target.value)}
+          onBlur={() => setValue(currentPageSize)}
+          onKeyDown={handleKeyDown}
+          data-element="page-select"
+          id="page-select"
+        >
+          {pageSizeSelectionOptions.map((sizeOption) => (
+            <Option
+              key={sizeOption.id}
+              text={sizeOption.id}
+              value={String(sizeOption.name)}
+              onClick={handleOnPagination}
+            />
+          ))}
+        </Select>
+      </StyledSelectContainer>
     );
   };
 

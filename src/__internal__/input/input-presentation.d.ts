@@ -15,8 +15,6 @@ export interface CommonInputPresentationProps extends ValidationPropTypes {
 }
 
 export interface InputPresentationProps extends CommonInputPresentationProps {
-  /** If true the outline is rendered around the input */
-  hasFocus?: boolean;
   /** Content to be rendered before the input */
   positionedChildren?: React.ReactNode;
 }

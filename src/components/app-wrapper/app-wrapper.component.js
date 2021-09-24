@@ -9,24 +9,6 @@ import StyledAppWrapper from "./app-wrapper.style";
  * Manages the width and containment of your application.
  */
 class AppWrapper extends React.Component {
-  static propTypes = {
-    /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: PropTypes.node,
-
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-  };
-
   constructor(...args) {
     super(...args);
     this.classes = this.classes.bind(this);
@@ -57,5 +39,23 @@ class AppWrapper extends React.Component {
     );
   }
 }
+
+AppWrapper.propTypes = {
+  /**
+   * Children elements
+   *
+   * @property children
+   * @type {Node}
+   */
+  children: PropTypes.node,
+
+  /**
+   * Custom className
+   *
+   * @property className
+   * @type {String}
+   */
+  className: PropTypes.string,
+};
 
 export default AppWrapper;

@@ -2,10 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import {
-  filterStyledSystemMarginProps,
-  filterStyledSystemPaddingProps,
-} from "../../style/utils";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
@@ -19,23 +16,39 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-// Padding props filtering is a temporary solution until FormField and all related components are refactored
-// FIXME FE-3370
-const paddingPropTypes = filterStyledSystemPaddingProps(
-  styledSystemPropTypes.space
-);
-const filterOutPaddingProps = (obj) =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !paddingPropTypes[key])
-  );
-
 const Textbox = ({
+  align,
+  autoFocus,
   children,
+  disabled,
   inputIcon,
   leftChildren,
+  labelId,
+  label,
+  labelAlign,
+  labelHelp,
+  labelInline,
+  labelSpacing,
+  id,
   formattedValue,
+  fieldHelp,
+  error,
+  warning,
+  info,
+  name,
+  reverse,
+  size,
   value,
-  childOfForm,
+  readOnly,
+  placeholder,
+  inputRef,
+  onBlur,
+  onClick,
+  onFocus,
+  onChange,
+  onMouseDown,
+  onChangeDeferred,
+  deferTimeout,
   isOptional,
   iconOnClick,
   iconOnMouseDown,
@@ -47,8 +60,10 @@ const Textbox = ({
   adaptiveLabelBreakpoint,
   required,
   positionedChildren,
-  inputRef,
   tooltipPosition,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
   enforceCharacterLimit = true,
   characterLimit,
   warnOverLimit = false,
@@ -65,17 +80,37 @@ const Textbox = ({
     <TooltipProvider tooltipPosition={tooltipPosition}>
       <InputBehaviour>
         <FormField
-          childOfForm={childOfForm}
-          isOptional={isOptional}
-          {...filterOutPaddingProps(props)}
-          useValidationIcon={validationOnLabel}
+          disabled={disabled}
+          fieldHelp={fieldHelp}
+          error={error}
+          warning={warning}
+          info={info}
+          label={label}
+          labelId={labelId}
+          labelAlign={labelAlign}
+          labelHelp={labelHelp}
+          labelInline={labelInline}
+          labelSpacing={labelSpacing}
           labelWidth={labelWidth}
+          id={id}
+          reverse={reverse}
+          isOptional={isOptional}
+          useValidationIcon={validationOnLabel}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           isRequired={required}
+          data-component={dataComponent}
+          data-role={dataRole}
+          data-element={dataElement}
+          {...filterStyledSystemMarginProps(props)}
         >
           <InputPresentation
-            type="text"
-            {...removeParentProps(props)}
+            align={align}
+            disabled={disabled}
+            readOnly={readOnly}
+            size={size}
+            error={error}
+            warning={warning}
+            info={info}
             inputWidth={inputWidth || 100 - labelWidth}
             positionedChildren={positionedChildren}
           >
@@ -87,23 +122,40 @@ const Textbox = ({
             ) : null}
             <Input
               {...(required && { required })}
-              {...removeParentProps(props)}
-              placeholder={
-                props.disabled || props.readOnly ? "" : props.placeholder
-              }
-              aria-invalid={!!props.error}
+              align={align}
+              aria-invalid={!!error}
+              autoFocus={autoFocus}
+              deferTimeout={deferTimeout}
+              disabled={disabled}
+              id={id}
               inputRef={inputRef}
+              name={name}
+              onBlur={onBlur}
+              onChange={onChange}
+              onChangeDeferred={onChangeDeferred}
+              onClick={onClick}
+              onFocus={onFocus}
+              onMouseDown={onMouseDown}
+              placeholder={disabled || readOnly ? "" : placeholder}
+              readOnly={readOnly}
               value={visibleValue(value, formattedValue)}
               maxLength={maxLength}
+              {...props}
             />
             {children}
             <InputIconToggle
-              {...removeParentProps(props)}
-              useValidationIcon={!validationOnLabel}
-              onClick={iconOnClick || props.onClick}
-              onMouseDown={iconOnMouseDown}
-              inputIcon={inputIcon}
+              align={align}
+              disabled={disabled}
+              error={error}
               iconTabIndex={iconTabIndex}
+              info={info}
+              inputIcon={inputIcon}
+              onClick={iconOnClick || onClick}
+              onMouseDown={iconOnMouseDown || onMouseDown}
+              readOnly={readOnly}
+              size={size}
+              useValidationIcon={!validationOnLabel}
+              warning={warning}
             />
           </InputPresentation>
         </FormField>
@@ -113,14 +165,6 @@ const Textbox = ({
   );
 };
 
-function removeParentProps(props) {
-  delete props["data-element"];
-  delete props["data-component"];
-  delete props["data-role"];
-  delete props.className;
-  return props;
-}
-
 function visibleValue(value, formattedValue) {
   return typeof formattedValue === "string" ? formattedValue : value;
 }
@@ -128,6 +172,16 @@ function visibleValue(value, formattedValue) {
 Textbox.propTypes = {
   /** Filtered styled system margin props */
   ...marginPropTypes,
+  /** Automatically focus the input on component mount */
+  autoFocus: PropTypes.bool,
+  /* The default value alignment on the input */
+  align: PropTypes.oneOf(["right", "left"]),
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /**
    * An optional alternative for props.value, this is useful if the
    * real value is an ID but you want to show a human-readable version.
@@ -147,12 +201,18 @@ Textbox.propTypes = {
   readOnly: PropTypes.bool,
   /** Event handler for the change event */
   onChange: PropTypes.func,
-  /** Event handler for the keyDown event */
-  onKeyDown: PropTypes.func,
+  /** Event handler for the focus event */
+  onFocus: PropTypes.func,
+  /** Event handler for the blur event */
+  onBlur: PropTypes.func,
+  /** Event handler for the mouse down event */
+  onMouseDown: PropTypes.func,
   /** Defered callback called after the onChange event */
   onChangeDeferred: PropTypes.func,
   /** Integer to determine timeout for defered callback */
   deferTimeout: PropTypes.number,
+  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
+  id: PropTypes.string,
   /** Label */
   label: PropTypes.string,
   /** Inline label alignment */
@@ -167,6 +227,8 @@ Textbox.propTypes = {
   labelWidth: PropTypes.number,
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth: PropTypes.number,
+  /** Input name */
+  name: PropTypes.string,
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
   /** Type of the icon that will be rendered next to the input */
@@ -179,8 +241,6 @@ Textbox.propTypes = {
   inputIcon: PropTypes.string,
   /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
-  /** Flag to configure component when in a Form */
-  childOfForm: PropTypes.bool,
   /** [Legacy] Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Indicate that error has occurred
@@ -208,6 +268,13 @@ Textbox.propTypes = {
    *
    */
   positionedChildren: PropTypes.node,
+  /**
+   * Label id passed from Select component
+   * @private
+   * @ignore
+   *
+   */
+  labelId: PropTypes.string,
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
   /** Optional handler for mousedown event on Textbox icon */
@@ -218,6 +285,8 @@ Textbox.propTypes = {
   onClick: PropTypes.func,
   /** Emphasized part of the displayed text */
   prefix: PropTypes.string,
+  /** Reverses label and input display */
+  reverse: PropTypes.bool,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as required */

@@ -606,9 +606,11 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 <StyledSystemProps of={FilterableSelect} noHeader margin />
 
-### Props derived from the Textbox Component
+Due to the `Textbox` component being used internally by the `FilterableSelect` component, most of the `Textbox` props are applicable to `FilterableSelect`
 
 <Props of={SelectTextbox} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
@@ -616,30 +618,28 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object to the 
+The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
 
 <TranslationKeysTable
-  translationData={
-    [
-      {
-        name: "select.actionButtonText",
-        description: "The text for the action button component",
-        type: "func",
-        returnType: "string"
-      },
-      {
-        name: "select.placeholder",
-        description: "The text for the input component placeholder",
-        type: "func",
-        returnType: "string"
-      },
-      {
-        name: "select.noResultsForTerm",
-        description: "The text displayed when search term returns no results",
-        type: "func",
-        returnType: "string"
-      },
-    ]
-  }
+  translationData={[
+    {
+      name: "select.actionButtonText",
+      description: "The text for the action button component",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.placeholder",
+      description: "The text for the input component placeholder",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.noResultsForTerm",
+      description: "The text displayed when search term returns no results",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
 />

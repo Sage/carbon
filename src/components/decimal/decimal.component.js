@@ -12,8 +12,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 class Decimal extends React.Component {
-  static contextType = LocaleContext;
-
   static maxPrecision = 15;
 
   emptyValue = this.props.allowEmptyValue ? "" : "0.00";
@@ -243,7 +241,6 @@ class Decimal extends React.Component {
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.visibleValue}
-          data-component="decimal"
         />
         <input
           name={name}
@@ -256,9 +253,13 @@ class Decimal extends React.Component {
   }
 }
 
+Decimal.contextType = LocaleContext;
+
 Decimal.propTypes = {
   /** Styled-system margin props */
   ...marginPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
   /**
    * The default value alignment on the input
    */
@@ -330,6 +331,7 @@ Decimal.defaultProps = {
   align: "right",
   precision: 2,
   allowEmptyValue: false,
+  "data-component": "decimal",
 };
 
 export default Decimal;

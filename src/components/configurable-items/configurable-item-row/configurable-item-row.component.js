@@ -13,11 +13,6 @@ import {
 import baseTheme from "../../../style/themes/base";
 
 class ConfigurableItemRow extends React.Component {
-  static contextTypes = {
-    dragDropManager: PropTypes.object, // the React DND DragDropManager
-    dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
-  };
-
   iconHTML() {
     return (
       <div>
@@ -115,6 +110,11 @@ ConfigurableItemRow.propTypes = {
   rowIndex: PropTypes.number,
   /** An internal prop. Helpful to detect which component should be rendered */
   theme: PropTypes.object,
+};
+
+ConfigurableItemRow.contextTypes = {
+  dragDropManager: PropTypes.object, // the React DND DragDropManager
+  dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
 };
 
 ConfigurableItemRow.defaultProps = {

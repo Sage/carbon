@@ -15,21 +15,6 @@ const collect = (monitor) => {
 };
 
 class CustomDragLayer extends React.Component {
-  static propTypes = {
-    /**
-     * The dom node being dragged.
-     */
-    draggableNode: PropTypes.oneOfType([PropTypes.object, PropTypes.node]),
-
-    /**
-     * Determine if the component is being dragged or not.
-     */
-    /* ESLint is not detecting that the prop is called via nextProps */
-    /* eslint-disable react/no-unused-prop-types */
-    isDragging: PropTypes.bool.isRequired,
-    /* eslint-enable react/no-unused-prop-types */
-  };
-
   UNSAFE_componentWillUpdate(nextProps) {
     if (
       nextProps.isDragging &&
@@ -96,6 +81,21 @@ class CustomDragLayer extends React.Component {
     );
   }
 }
+
+CustomDragLayer.propTypes = {
+  /**
+   * The dom node being dragged.
+   */
+  draggableNode: PropTypes.oneOfType([PropTypes.object, PropTypes.node]),
+
+  /**
+   * Determine if the component is being dragged or not.
+   */
+  /* ESLint is not detecting that the prop is called via nextProps */
+  /* eslint-disable react/no-unused-prop-types */
+  isDragging: PropTypes.bool.isRequired,
+  /* eslint-enable react/no-unused-prop-types */
+};
 
 const UndecoratedCustomDragLayer = CustomDragLayer;
 export { UndecoratedCustomDragLayer, collect };

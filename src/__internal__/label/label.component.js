@@ -20,7 +20,6 @@ const Label = ({
   inline,
   align = "right",
   width,
-  childOfForm,
   optional,
   labelId,
   helpId,
@@ -30,7 +29,6 @@ const Label = ({
   info,
   help,
   helpIcon,
-  helpTag,
   helpTabIndex,
   useValidationIcon = true,
   htmlFor,
@@ -95,7 +93,6 @@ const Label = ({
         <IconWrapperStyle {...wrapperProps}>
           <Help
             helpId={helpId}
-            as={helpTag}
             tabIndex={helpTabIndex}
             type={helpIcon}
             isFocused={isFocused}
@@ -113,7 +110,6 @@ const Label = ({
       inline={inline}
       width={width}
       optional={optional}
-      childOfForm={childOfForm}
       pr={pr}
       pl={pl}
     >
@@ -138,8 +134,6 @@ Label.propTypes = {
   width: PropTypes.number,
   /** Label alignment */
   align: PropTypes.oneOf(["left", "right"]),
-  /** Flag to indicate that component is used in a Form */
-  childOfForm: PropTypes.bool,
   /** When true, label is placed in line an input */
   inline: PropTypes.bool,
   /** If true, the component will be disabled */
@@ -162,8 +156,6 @@ Label.propTypes = {
   help: PropTypes.node,
   /** Icon type */
   helpIcon: PropTypes.string,
-  /** Overrides the default 'as' attribute of the Help component */
-  helpTag: PropTypes.string,
   /** Overrides the default tabindex of the Help component */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Whether to show the validation icon */

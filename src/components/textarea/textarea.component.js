@@ -20,17 +20,7 @@ const getFormatNumber = (value, locale) =>
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
-
-// Spacing props filtering is a temporary solution until FormField and all related components are refactored
-// FIXME FE-3370
-const filterOutSpacingProps = (obj) =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !styledSystemPropTypes.space[key])
-  );
-
 class Textarea extends React.Component {
-  static contextType = LocaleContext;
-
   // Minimum height of the textarea
   minHeight = 0;
 
@@ -82,31 +72,6 @@ class Textarea extends React.Component {
     }
   };
 
-  renderValidation() {
-    const {
-      disabled,
-      readOnly,
-      inputIcon,
-      size,
-      error,
-      warning,
-      info,
-      validationOnLabel,
-    } = this.props;
-    return (
-      <InputIconToggle
-        disabled={disabled}
-        readOnly={readOnly}
-        inputIcon={inputIcon}
-        size={size}
-        error={error}
-        warning={warning}
-        info={info}
-        useValidationIcon={!validationOnLabel}
-      />
-    );
-  }
-
   get overLimit() {
     const value = this.props.value || "";
     return value.length > parseInt(this.props.characterLimit, 10);
@@ -131,6 +96,8 @@ class Textarea extends React.Component {
 
   render() {
     const {
+      autoFocus,
+      fieldHelp,
       label,
       size,
       children,
@@ -139,6 +106,14 @@ class Textarea extends React.Component {
       onChange,
       disabled,
       labelInline,
+      labelAlign,
+      labelHelp,
+      labelSpacing,
+      inputIcon,
+      error,
+      warning,
+      info,
+      name,
       readOnly,
       placeholder,
       rows,
@@ -148,6 +123,9 @@ class Textarea extends React.Component {
       inputWidth,
       labelWidth,
       tooltipPosition,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...props
     } = this.props;
 
@@ -156,30 +134,43 @@ class Textarea extends React.Component {
         <InputBehaviour>
           <StyledTextarea
             labelInline={labelInline}
+            data-component={dataComponent}
+            data-role={dataRole}
+            data-element={dataElement}
             {...filterStyledSystemMarginProps(props)}
           >
             <FormField
+              fieldHelp={fieldHelp}
+              error={error}
+              warning={warning}
+              info={info}
               label={label}
               disabled={disabled}
               id={this.id}
               labelInline={labelInline}
+              labelAlign={labelAlign}
               labelWidth={labelWidth}
+              labelHelp={labelHelp}
+              labelSpacing={labelSpacing}
               isRequired={props.required}
               useValidationIcon={validationOnLabel}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-              {...filterOutSpacingProps(props)}
             >
               <InputPresentation
-                type="text"
                 size={size}
                 disabled={disabled}
                 readOnly={readOnly}
                 inputWidth={
                   typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
                 }
-                {...props}
+                error={error}
+                warning={warning}
+                info={info}
               >
                 <Input
+                  autoFocus={autoFocus}
+                  name={name}
+                  aria-invalid={!!error}
                   ref={this._input}
                   maxLength={
                     enforceCharacterLimit && characterLimit
@@ -198,7 +189,16 @@ class Textarea extends React.Component {
                   {...props}
                 />
                 {children}
-                {this.renderValidation()}
+                <InputIconToggle
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  inputIcon={inputIcon}
+                  size={size}
+                  error={error}
+                  warning={warning}
+                  info={info}
+                  useValidationIcon={!validationOnLabel}
+                />
               </InputPresentation>
             </FormField>
             {this.characterCount}
@@ -209,8 +209,18 @@ class Textarea extends React.Component {
   }
 }
 
+Textarea.contextType = LocaleContext;
+
 Textarea.propTypes = {
   ...marginPropTypes,
+  /** Automatically focus the input on component mount */
+  autoFocus: PropTypes.bool,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** id of the input */
   id: PropTypes.string,
   /** Character limit of the textarea */
@@ -225,10 +235,14 @@ Textarea.propTypes = {
   enforceCharacterLimit: PropTypes.bool,
   /** Allows the Textareas Height to change based on user input */
   expandable: PropTypes.bool,
+  /** Help content to be displayed under an input */
+  fieldHelp: PropTypes.node,
   /** The content of the label for the input */
   label: PropTypes.string,
   /** Text applied to label help tooltip */
   labelHelp: PropTypes.node,
+  /** Inline label alignment */
+  labelAlign: PropTypes.oneOf(["left", "right"]),
   /** When true, label is placed in line with an input */
   labelInline: PropTypes.bool,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */

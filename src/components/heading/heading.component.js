@@ -23,69 +23,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 class Heading extends React.Component {
-  static propTypes = {
-    ...marginPropTypes,
-    /**
-     * Children elements
-     */
-    children: PropTypes.node,
-
-    /**
-     * Defines the title for the heading.
-     */
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-    /**
-     * Defines the title id for the heading.
-     */
-    titleId: PropTypes.string,
-
-    /**
-     * Defines the subheader for the heading.
-     */
-    subheader: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-    /**
-     * Defines the subtitle id for the heading.
-     */
-    subtitleId: PropTypes.string,
-
-    /**
-     * Defines the help text for the heading.
-     */
-    help: PropTypes.string,
-
-    /**
-     * Defines the help link for the heading.
-     */
-    helpLink: PropTypes.string,
-
-    /**
-     * Defines the a href for the back link.
-     */
-    backLink: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    /**
-     * Adds a divider below the heading and the content.
-     */
-    divider: PropTypes.bool,
-
-    /**
-     * Adds a separator between the title and the subheader.
-     */
-    separator: PropTypes.bool,
-
-    /**
-     * Pills that will be added after the title.
-     */
-    pills: PropTypes.node,
-  };
-
-  static defaultProps = {
-    divider: true,
-    separator: false,
-  };
-
   /**
    * Returns the help component.
    *
@@ -237,5 +174,68 @@ class Heading extends React.Component {
     );
   }
 }
+
+Heading.propTypes = {
+  ...marginPropTypes,
+  /**
+   * Children elements
+   */
+  children: PropTypes.node,
+
+  /**
+   * Defines the title for the heading.
+   */
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+  /**
+   * Defines the title id for the heading.
+   */
+  titleId: PropTypes.string,
+
+  /**
+   * Defines the subheader for the heading.
+   */
+  subheader: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+  /**
+   * Defines the subtitle id for the heading.
+   */
+  subtitleId: PropTypes.string,
+
+  /**
+   * Defines the help text for the heading.
+   */
+  help: PropTypes.string,
+
+  /**
+   * Defines the help link for the heading.
+   */
+  helpLink: PropTypes.string,
+
+  /**
+   * Defines the a href for the back link.
+   */
+  backLink: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+  /**
+   * Adds a divider below the heading and the content.
+   */
+  divider: PropTypes.bool,
+
+  /**
+   * Adds a separator between the title and the subheader.
+   */
+  separator: PropTypes.bool,
+
+  /**
+   * Pills that will be added after the title.
+   */
+  pills: PropTypes.node,
+};
+
+Heading.defaultProps = {
+  divider: true,
+  separator: false,
+};
 
 export default Heading;

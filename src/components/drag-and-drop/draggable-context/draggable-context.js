@@ -12,47 +12,6 @@ import Logger from "../../../utils/logger/logger";
 let deprecatedWarnTriggered = false;
 
 class DraggableContext extends React.Component {
-  static propTypes = {
-    /**
-     * The element(s) where you want to apply drag
-     * and drop functionality
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Optional CustomDragLayer to use for the ghost row when dragging & dropping
-     */
-    customDragLayer: PropTypes.node,
-
-    /**
-     * Callback function for when an item has been dragged
-     * e.g. to update data in a store
-     */
-    onDrag: PropTypes.func.isRequired,
-
-    /**
-     * Prop to enable/disable auto scroll on drag
-     */
-    autoScroll: PropTypes.bool,
-  };
-
-  /**
-   * Defines a context object for child components of the draggable context component.
-   * https://facebook.github.io/react/docs/context.html
-   */
-  static childContextTypes = {
-    dragAndDropActiveIndex: PropTypes.number, // Tracks the currently dragged index
-    dragAndDropBeginDrag: PropTypes.func, // Callback for when dragging begins
-    dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
-    dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
-    dragAndDropOnDrag: PropTypes.func, // Callback for when order is changed
-  };
-
-  static defaultProps = {
-    customDragLayer: <CustomDragLayer />,
-    autoScroll: false,
-  };
-
   state = {
     activeIndex: null, // {Number} tracks the currently dragged index
   };
@@ -227,6 +186,47 @@ class DraggableContext extends React.Component {
     );
   }
 }
+
+DraggableContext.propTypes = {
+  /**
+   * The element(s) where you want to apply drag
+   * and drop functionality
+   */
+  children: PropTypes.node.isRequired,
+
+  /**
+   * Optional CustomDragLayer to use for the ghost row when dragging & dropping
+   */
+  customDragLayer: PropTypes.node,
+
+  /**
+   * Callback function for when an item has been dragged
+   * e.g. to update data in a store
+   */
+  onDrag: PropTypes.func.isRequired,
+
+  /**
+   * Prop to enable/disable auto scroll on drag
+   */
+  autoScroll: PropTypes.bool,
+};
+
+/**
+ * Defines a context object for child components of the draggable context component.
+ * https://facebook.github.io/react/docs/context.html
+ */
+DraggableContext.childContextTypes = {
+  dragAndDropActiveIndex: PropTypes.number, // Tracks the currently dragged index
+  dragAndDropBeginDrag: PropTypes.func, // Callback for when dragging begins
+  dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
+  dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
+  dragAndDropOnDrag: PropTypes.func, // Callback for when order is changed
+};
+
+DraggableContext.defaultProps = {
+  customDragLayer: <CustomDragLayer />,
+  autoScroll: false,
+};
 
 export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(
   DraggableContext

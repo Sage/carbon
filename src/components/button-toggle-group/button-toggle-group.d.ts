@@ -1,4 +1,5 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 
 import { ButtonToggleProps } from "../button-toggle";
 import { ValidationPropTypes } from "../../__internal__/validations";
@@ -9,7 +10,15 @@ type ButtonToggle =
   | null
   | undefined;
 
-export interface ButtonToggleGroupProps extends ValidationPropTypes {
+export interface ButtonToggleGroupProps
+  extends ValidationPropTypes,
+    MarginProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
   /** Children to be rendered (ButtonToggle). */
@@ -40,8 +49,6 @@ export interface ButtonToggleGroupProps extends ValidationPropTypes {
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** The value of the Button Toggle Group */
   value?: string;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
 }
 
 declare function ButtonToggleGroup(props: ButtonToggleGroupProps): JSX.Element;
