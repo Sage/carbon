@@ -1,3 +1,10 @@
+### [90.0.1](https://github.com/Sage/carbon/compare/v90.0.0...v90.0.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* **vertical-divider:** change tint type to number ([bbe5556](https://github.com/Sage/carbon/commit/bbe55562f0b664867934f56fb344d413c84a2621)), closes [#4422](https://github.com/Sage/carbon/issues/4422)
+
 ## [90.0.0](https://github.com/Sage/carbon/compare/v89.3.0...v90.0.0) (2021-09-24)
 
 
