@@ -55,17 +55,14 @@ export const StyledLabelContainer = styled.div`
       width: ${width === 0 ? StyledLabelContainer.defaultProps.width : width}%;
     `}
 
-  ${({ childOfForm, optional }) =>
-    childOfForm &&
+  ${({ optional }) =>
+    optional &&
     css`
-      ${optional &&
-      css`
-        ::after {
-          content: "(optional)";
-          font-weight: 350;
-          margin-left: 4px;
-        }
-      `}
+      ::after {
+        content: "(optional)";
+        font-weight: 350;
+        margin-left: 4px;
+      }
     `}
 `;
 

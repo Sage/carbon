@@ -1,8 +1,7 @@
 import * as React from "react";
-import { MarginProps } from "styled-system";
 import { CommonTextboxProps } from "../textbox";
 
-export interface DecimalProps extends CommonTextboxProps, MarginProps {
+export interface DecimalProps extends CommonTextboxProps {
   /** Text alignment of the label */
   align?: "left" | "right";
   /** Allow an empty value instead of defaulting to 0.00 */
@@ -18,7 +17,7 @@ export interface DecimalProps extends CommonTextboxProps, MarginProps {
   /** Handler for blur event */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Handler for key press event */
-  onKeyPress?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** The input name */
   name?: string;
   /** The decimal precision of the value in the input */

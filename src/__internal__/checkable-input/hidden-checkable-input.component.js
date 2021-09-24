@@ -5,12 +5,13 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const HiddenCheckableInput = ({
   helpId,
-  labelId,
   name,
-  inputType,
-  inputValue,
-  tabindex,
+  checked,
+  type,
+  value,
   inputRef,
+  onChange,
+  autoFocus,
   ...props
 }) => {
   const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
@@ -36,45 +37,61 @@ const HiddenCheckableInput = ({
   };
 
   const handleMouseEnter = (ev) => {
+    if (props.onMouseEnter) props.onMouseEnter(ev);
     if (onMouseEnter) onMouseEnter(ev);
     if (onMouseEnterGroup) onMouseEnterGroup(ev);
   };
 
   const handleMouseLeave = (ev) => {
+    if (props.onMouseLeave) props.onMouseLeave(ev);
     if (onMouseLeave) onMouseLeave(ev);
     if (onMouseLeaveGroup) onMouseLeaveGroup(ev);
   };
 
   return (
     <HiddenCheckableInputStyle
-      aria-checked={props.checked}
-      aria-labelledby={labelId}
+      autoFocus={autoFocus}
+      aria-checked={checked}
+      checked={checked}
       aria-describedby={helpId}
       name={name}
-      role={inputType}
-      tabIndex={tabindex}
-      type={inputType}
-      value={inputValue}
+      role={type}
+      type={type}
+      value={value}
       {...props}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onChange={onChange}
       ref={inputRef}
     />
   );
 };
 
 HiddenCheckableInput.propTypes = {
+  /** Allows component to be focused on page load */
+  autoFocus: PropTypes.bool,
+  /** Checked state of the input */
   checked: PropTypes.bool,
-  labelId: PropTypes.string,
+  /** Element id for aria-describedby */
   helpId: PropTypes.string,
+  /** Input name */
   name: PropTypes.string,
-  onBlur: PropTypes.func,
+  /** OnChange event handler */
+  onChange: PropTypes.func,
+  /** OnFocus event handler */
   onFocus: PropTypes.func,
-  inputType: PropTypes.string.isRequired,
-  inputValue: PropTypes.string,
-  tabindex: PropTypes.number,
+  /** Blur event handler */
+  onBlur: PropTypes.func,
+  /** OnMouseLeave event handler */
+  onMouseLeave: PropTypes.func,
+  /** OnMouseEnter event handler */
+  onMouseEnter: PropTypes.func,
+  /** HTML type attribute of the input */
+  type: PropTypes.string.isRequired,
+  /** Value of the input */
+  value: PropTypes.string,
   /** A callback to retrieve the input reference */
   inputRef: PropTypes.oneOfType([
     PropTypes.func,

@@ -2,10 +2,9 @@ import styled, { css } from "styled-components";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import Select from "../select/simple-select/simple-select.component";
 import baseTheme from "../../style/themes/base";
 
-const StyledSelect = styled(Select)`
+const StyledSelectContainer = styled.div`
   height: 26px;
 
   ${StyledInputPresentation} {
@@ -229,5 +228,5 @@ export {
   StyledPagerLinkStyles,
   StyledPagerNoSelect,
   StyledPagerSummary,
-  StyledSelect,
+  StyledSelectContainer,
 };

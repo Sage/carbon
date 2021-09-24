@@ -11,7 +11,7 @@ import {
   StyledPagerLinkStyles,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
-  StyledSelect,
+  StyledSelectContainer,
 } from "./pager.style";
 import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
@@ -67,7 +67,7 @@ describe("Pager", () => {
         showPageSizeSelection: true,
         pageSize: 10,
       });
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+      expect(wrapper.find(Select).prop("value")).toBe("10");
     });
 
     it("when page size prop is a type of string", () => {
@@ -75,7 +75,7 @@ describe("Pager", () => {
         showPageSizeSelection: true,
         pageSize: "10",
       });
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+      expect(wrapper.find(Select).prop("value")).toBe("10");
     });
   });
 
@@ -186,10 +186,10 @@ describe("Pager", () => {
 
     it("updates value when pageSize prop is changed", () => {
       wrapper = getWrapper();
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("10");
+      expect(wrapper.find(Select).prop("value")).toBe("10");
       wrapper.setProps({ pageSize: 25 });
       wrapper.update();
-      expect(wrapper.find(StyledSelect).prop("value")).toBe("25");
+      expect(wrapper.find(Select).prop("value")).toBe("25");
     });
   });
 
@@ -269,15 +269,15 @@ describe("Pager", () => {
     it("renders the pageSize Select when 'showPageSizeSelection' is true", () => {
       wrapper = render({ ...props, onPagination: () => true });
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
       expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
       );
@@ -289,15 +289,14 @@ describe("Pager", () => {
         showPageSizeLabelBefore: false,
         onPagination: () => true,
       });
+
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild
-      ).toEqual(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-      );
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+      ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
+
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
       );
@@ -310,17 +309,14 @@ describe("Pager", () => {
         onPagination: () => true,
       });
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.firstChild.textContent
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+          .textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
       expect(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-          .parentElement.lastChild
-      ).toEqual(
-        wrapper.find("div[data-component='simple-select']").getDOMNode()
-      );
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+      ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
     });
 
     it("does not render the total number of records 'showTotalRecords' is false", () => {
@@ -404,11 +400,11 @@ describe("Pager", () => {
 
   describe("i18n", () => {
     const getShow = (wrapper) =>
-      wrapper.find("div[data-component='simple-select']").getDOMNode()
-        .parentElement.firstChild.textContent;
+      wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+        .textContent;
     const getRecords = (wrapper) =>
-      wrapper.find("div[data-component='simple-select']").getDOMNode()
-        .parentElement.lastChild.textContent;
+      wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+        .textContent;
 
     describe("default", () => {
       it("show", () => {

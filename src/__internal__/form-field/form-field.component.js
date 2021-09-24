@@ -1,12 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
 import FieldHelp from "../field-help";
 import tagComponent from "../../utils/helpers/tags";
 import { TabContext } from "../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
 const FormField = ({
   children,
@@ -17,7 +23,6 @@ const FormField = ({
   warning,
   info,
   helpId,
-  helpTag,
   helpTabIndex,
   label,
   labelId,
@@ -27,12 +32,9 @@ const FormField = ({
   labelInline,
   labelSpacing = 2,
   labelWidth,
-  name,
   id,
   reverse,
-  childOfForm,
   isOptional,
-  readOnly,
   useValidationIcon,
   adaptiveLabelBreakpoint,
   isRequired,
@@ -53,61 +55,12 @@ const FormField = ({
     }
   }, [id, context, error, warning, info]);
 
-  // Conditionally add the spacing props, we can't spread ...rest because some of the parent components
-  // incorrectly pass props that are consumed in other components.
-  //
-  // The styled-system/space props need to be conditional, a undefined value is still considered a value and affects the
-  // the behaviour
-  //
-  // FIXME FE-3370
-  const spacingProps = [
-    "m",
-    "margin",
-    "ml",
-    "marginLeft",
-    "mr",
-    "marginRight",
-    "mt",
-    "marginTop",
-    "mb",
-    "marginBottom",
-    "mx",
-    "marginLeft",
-    "mx",
-    "marginRight",
-    "my",
-    "marginTop",
-    "my",
-    "marginBottom",
-    "p",
-    "padding",
-    "pl",
-    "paddingLeft",
-    "pr",
-    "paddingRight",
-    "pt",
-    "paddingTop",
-    "pb",
-    "paddingBottom",
-    "px",
-    "paddingLeft",
-    "px",
-    "paddingRight",
-    "py",
-    "paddingTop",
-    "py",
-    "paddingBottom",
-  ].reduce((prev, curr) => {
-    if (Object.prototype.hasOwnProperty.call(rest, curr)) {
-      prev[curr] = rest[curr];
-    }
-    return prev;
-  }, {});
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
     <FormFieldStyle
       {...tagComponent(rest["data-component"], rest)}
-      {...spacingProps}
+      {...marginProps}
     >
       <FieldLineStyle inline={inlineLabel}>
         {reverse && children}
@@ -117,19 +70,16 @@ const FormField = ({
             labelId={labelId}
             align={labelAlign}
             disabled={disabled}
-            readOnly={readOnly}
             error={error}
             warning={warning}
             info={info}
             help={labelHelp}
             helpId={helpId}
-            helpTag={helpTag}
             helpTabIndex={helpTabIndex}
             htmlFor={id}
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
             width={labelWidth}
-            childOfForm={childOfForm}
             optional={isOptional}
             useValidationIcon={useValidationIcon}
             pr={!reverse ? labelSpacing : undefined}
@@ -175,22 +125,21 @@ const errorPropType = (props, propName, componentName, ...rest) => {
 };
 
 FormField.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
+  /** Styled system margin props */
+  ...marginPropTypes,
   children: PropTypes.node,
-  childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
   "data-component": PropTypes.string,
+  "data-role": PropTypes.string,
+  "data-element": PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   error: errorPropType,
   warning: errorPropType,
   info: errorPropType,
   helpId: PropTypes.string,
-  helpTag: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   id: PropTypes.string.isRequired,
-  name: PropTypes.string,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
   labelId: PropTypes.string,
@@ -201,7 +150,6 @@ FormField.propTypes = {
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   labelWidth: PropTypes.number,
-  readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   useValidationIcon: PropTypes.bool,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */

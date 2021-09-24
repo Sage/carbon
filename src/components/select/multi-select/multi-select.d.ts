@@ -1,7 +1,16 @@
 import * as React from "react";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
-export interface MultiSelectProps extends FormInputPropTypes {
+export interface MultiSelectProps
+  extends Omit<FormInputPropTypes, "defaultValue"> {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
+  /** Size of an input */
+  size?: "small" | "medium" | "large";
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
@@ -32,6 +41,8 @@ export interface MultiSelectProps extends FormInputPropTypes {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-declare function MultiSelect(props: MultiSelectProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
+declare function MultiSelect(
+  props: MultiSelectProps & React.RefAttributes<HTMLInputElement>
+): JSX.Element;
 
 export default MultiSelect;

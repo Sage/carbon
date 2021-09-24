@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TextboxProps } from "../textbox";
 
-export interface GroupedCharacterProps extends TextboxProps {
+export interface GroupedCharacterProps extends Omit<TextboxProps, "value"> {
   /** Default input value if component is meant to be used as an uncontrolled component */
   defaultValue?: string;
   /** pattern by which input value should be grouped */

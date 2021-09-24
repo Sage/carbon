@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../utils/helpers/tags";
+
 import CheckboxStyle from "./checkbox.style";
 import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./checkbox-svg.component";
@@ -21,6 +21,7 @@ const Checkbox = ({
   /* FIXME: FE-4102 */
   onClick,
   onBlur,
+  onFocus,
   value,
   fieldHelp,
   autoFocus,
@@ -39,6 +40,9 @@ const Checkbox = ({
   inputWidth,
   size,
   tooltipPosition,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -50,11 +54,12 @@ const Checkbox = ({
     onClick,
     onChange,
     onBlur,
+    onFocus,
     labelInline: true,
-    inputId: id,
+    id,
     label,
-    inputValue: value,
-    inputType: "checkbox",
+    value,
+    type: "checkbox",
     name,
     reverse: !reverse,
     fieldHelp,
@@ -71,16 +76,18 @@ const Checkbox = ({
     inputWidth,
     labelWidth,
     tooltipPosition,
+    ...props,
   };
 
   return (
     <TooltipProvider tooltipPosition={tooltipPosition}>
       <CheckboxStyle
-        {...tagComponent("checkbox", props)}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
         disabled={disabled}
         labelSpacing={labelSpacing}
         inputWidth={inputWidth}
-        labelWidth={labelWidth}
         adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
         error={error}
         warning={warning}
@@ -88,7 +95,7 @@ const Checkbox = ({
         fieldHelpInline={fieldHelpInline}
         reverse={reverse}
         size={size}
-        {...props}
+        {...filterStyledSystemMarginProps(props)}
       >
         <CheckableInput {...inputProps}>
           <CheckboxSvg />
@@ -101,7 +108,13 @@ const Checkbox = ({
 Checkbox.propTypes = {
   /** Filtered styled system margin props */
   ...marginPropTypes,
-  /** Set the value of the checkbox */
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
+  /** Checked state of the input */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
@@ -125,6 +138,8 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   /** Accepts a callback function which is triggered on blur event */
   onBlur: PropTypes.func,
+  /** Accepts a callback function which is triggered on focus event */
+  onFocus: PropTypes.func,
   /** Accepts a callback function which is triggered on click event */
   onClick: PropTypes.func,
   /** Reverses label and checkbox display */
@@ -148,7 +163,7 @@ Checkbox.propTypes = {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Allows component to be focused on page load */
+  /** If true the Component will be focused when page load */
   autoFocus: PropTypes.bool,
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
@@ -162,6 +177,7 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
   reverse: false,
+  "data-component": "checkbox",
 };
 
 export default Checkbox;

@@ -241,7 +241,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Preview>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}  
+    parameters={{ chromatic: { disable: true } }}
   >
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -293,3 +293,5 @@ It is possible to use the `tooltipPosition` to override the default placement of
 Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
 
 <Props of={OriginalTextbox} />
+
+**Any other supplied props will be provided to the underlying HTML input element**

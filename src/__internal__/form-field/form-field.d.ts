@@ -1,20 +1,16 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { MarginProps } from "styled-system";
 import { ValidationPropTypes } from "../validations";
 
 export interface CommonFormFieldPropTypes
-  extends SpaceProps,
+  extends MarginProps,
     ValidationPropTypes {
-  /** Flag to indicate that component is used in a Form */
-  childOfForm?: boolean;
   /** If true, the component will be disabled */
   disabled?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** The unique id of the Help component */
   helpId?: string;
-  /** Overrides the default 'as' attribute of the Help component */
-  helpTag?: string;
   /** Overrides the default tabindex of the Help component */
   helpTabIndex?: number | string;
   /** Label content */
@@ -53,11 +49,14 @@ export interface FormFieldPropTypes extends CommonFormFieldPropTypes {
   isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
-  /** If true, the component will be read-only */
-  readOnly?: boolean;
   /** Whether to show the validation icon */
   useValidationIcon?: boolean;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
 }
 
 declare function FormField(props: FormFieldPropTypes): JSX.Element;
