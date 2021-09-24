@@ -1,3 +1,22 @@
+## [90.0.0](https://github.com/Sage/carbon/compare/v89.3.0...v90.0.0) (2021-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **inputs:** Props not declared in propTypes (including className) are no longer
+being spread on the root element in following components:
+ButtonToggleGroup, Checkbox, Date, Decimal,
+GroupedCharacter, Number, RadioButton, Select, MultiSelect,
+FilterableSelect, Switch, Textarea, Textbox.
+
+Furthermore in all these components apart from the ButtonToggleGroup
+all not declared props will be passed to the underlying HTML input
+element
+
+### Code Refactoring
+
+* **inputs:** change the way props are spread internally ([1cc93ec](https://github.com/Sage/carbon/commit/1cc93ec3e81acf5f8c44834d327587daaca46ae5))
+
 ## [89.3.0](https://github.com/Sage/carbon/compare/v89.2.0...v89.3.0) (2021-09-23)
 
 
