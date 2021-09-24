@@ -6,29 +6,21 @@ exports[`Textbox renders with InputPresentation and Input and correct props pass
     <FormField
       id="mocked-guid"
       labelWidth={30}
-      name="mocked-guid"
-      size="medium"
       useValidationIcon={false}
     >
       <InputPresentation
-        id="mocked-guid"
         inputWidth={70}
-        name="mocked-guid"
         size="medium"
-        type="text"
       >
         southpaw children
         <ForwardRef
           aria-invalid={false}
           id="mocked-guid"
           name="mocked-guid"
-          size="medium"
           value="foobar"
         />
         normal children
         <InputIconToggle
-          id="mocked-guid"
-          name="mocked-guid"
           size="medium"
           useValidationIcon={true}
         />

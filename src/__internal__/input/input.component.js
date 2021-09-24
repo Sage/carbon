@@ -6,6 +6,10 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 const Input = React.forwardRef(
   (
     {
+      align,
+      placeholder,
+      disabled,
+      readOnly,
       autoFocus,
       inputRef,
       onClick,
@@ -74,6 +78,10 @@ const Input = React.forwardRef(
     return (
       <StyledInput
         {...rest}
+        align={align}
+        placeholder={placeholder}
+        disabled={disabled}
+        readOnly={readOnly}
         name={name}
         type={type}
         id={id || name}
@@ -89,6 +97,10 @@ const Input = React.forwardRef(
 );
 
 Input.propTypes = {
+  align: PropTypes.oneOf(["right", "left"]),
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
   className: PropTypes.string,
   id: PropTypes.string,
   /** A callback to retrieve the input reference */

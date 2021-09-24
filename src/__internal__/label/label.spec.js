@@ -106,7 +106,6 @@ describe("Label", () => {
     it('applies styling for an inline "optional" label', () => {
       const wrapper = render({
         inline: true,
-        childOfForm: true,
         optional: true,
         theme: mintTheme,
       });
@@ -134,7 +133,6 @@ describe("Label", () => {
     it('applies styling for an inline "isRequired" label', () => {
       const wrapper = render({
         inline: true,
-        childOfForm: false,
         isRequired: true,
         theme: mintTheme,
       });

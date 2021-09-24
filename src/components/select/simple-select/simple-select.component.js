@@ -9,6 +9,10 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../../style/utils";
 import StyledSelect from "../select.style";
 import SelectTextbox, {
   formInputPropTypes,
@@ -42,6 +46,9 @@ const SimpleSelect = React.forwardRef(
       tableHeader,
       multiColumn,
       tooltipPosition,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...props
     },
     inputRef
@@ -378,7 +385,7 @@ const SimpleSelect = React.forwardRef(
         onChange: handleTextboxChange,
         onBlur: handleTextboxBlur,
         tooltipPosition,
-        ...props,
+        ...filterOutStyledSystemSpacingProps(props),
       };
     }
     const selectList = (
@@ -404,14 +411,16 @@ const SimpleSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        data-component="simple-select"
         transparent={transparent}
         disabled={disabled}
         readOnly={readOnly}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         ref={containerRef}
-        {...props}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        {...filterStyledSystemMarginProps(props)}
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
@@ -430,6 +439,12 @@ SimpleSelect.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
   ...formInputPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
@@ -460,6 +475,7 @@ SimpleSelect.propTypes = {
 
 SimpleSelect.defaultProps = {
   disablePortal: false,
+  "data-component": "simple-select",
 };
 
 export default SimpleSelect;

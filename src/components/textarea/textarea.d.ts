@@ -2,8 +2,20 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 import { ValidationPropTypes } from "../../__internal__/validations";
+import { CommonInputProps } from "../../__internal__/input";
 
-export interface TextareaProps extends ValidationPropTypes, MarginProps {
+export interface TextareaProps
+  extends ValidationPropTypes,
+    MarginProps,
+    Omit<CommonInputProps, "size"> {
+  /** Automatically focus the input on component mount */
+  autoFocus?: boolean;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Character limit of the textarea */
@@ -34,8 +46,6 @@ export interface TextareaProps extends ValidationPropTypes, MarginProps {
   labelSpacing?: 1 | 2;
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth?: number;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Name of the input */
   name?: string;
   /** Callback fired when the user types in the Textarea */

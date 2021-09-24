@@ -13,7 +13,7 @@ const render = (
   return mount(
     <InputGroupContext.Provider value={inputGroupContextValue}>
       <InputContext.Provider value={inputContextValue}>
-        <HiddenCheckableInput inputType="test" {...props} />
+        <HiddenCheckableInput type="test" {...props} />
       </InputContext.Provider>
     </InputGroupContext.Provider>
   );
@@ -28,9 +28,11 @@ describe("HiddenCheckableInput", () => {
   let contextOnFocus;
   let groupContextOnFocus;
 
+  let propOnMouseEnter;
   let contextOnMouseEnter;
   let groupContextOnMouseEnter;
 
+  let propOnMouseLeave;
   let contextOnMouseLeave;
   let groupContextOnMouseLeave;
 
@@ -45,9 +47,11 @@ describe("HiddenCheckableInput", () => {
     contextOnFocus = jest.fn();
     groupContextOnFocus = jest.fn();
 
+    propOnMouseEnter = jest.fn();
     contextOnMouseEnter = jest.fn();
     groupContextOnMouseEnter = jest.fn();
 
+    propOnMouseLeave = jest.fn();
     contextOnMouseLeave = jest.fn();
     groupContextOnMouseLeave = jest.fn();
 
@@ -55,6 +59,8 @@ describe("HiddenCheckableInput", () => {
       {
         onBlur: propOnBlur,
         onFocus: propOnFocus,
+        onMouseEnter: propOnMouseEnter,
+        onMouseLeave: propOnMouseLeave,
       },
       {
         onBlur: groupContextOnBlur,
@@ -76,9 +82,9 @@ describe("HiddenCheckableInput", () => {
       checked: true,
       helpId: "test-help",
       name: "test-name",
-      inputType: "test-type",
-      inputValue: "test-value",
-      tabindex: 0,
+      type: "test-type",
+      value: "test-value",
+      tabIndex: 0,
     };
 
     const shallowWrapper = shallow(<HiddenCheckableInput {...props} />);
@@ -101,12 +107,14 @@ describe("HiddenCheckableInput", () => {
 
   it("triggers onMouseEnter callbacks passed from context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onMouseEnter();
+    expect(propOnMouseEnter).toHaveBeenCalled();
     expect(contextOnMouseEnter).toHaveBeenCalled();
     expect(groupContextOnMouseEnter).toHaveBeenCalled();
   });
 
   it("triggers onMouseLeave callbacks passed from context", () => {
     wrapper.find(HiddenCheckableInputStyle).props().onMouseLeave();
+    expect(propOnMouseLeave).toHaveBeenCalled();
     expect(contextOnMouseLeave).toHaveBeenCalled();
     expect(groupContextOnMouseLeave).toHaveBeenCalled();
   });

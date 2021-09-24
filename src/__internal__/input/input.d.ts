@@ -1,6 +1,9 @@
 import * as React from "react";
 
-export interface CommonInputProps {
+export interface CommonInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "type"> {
+  /* The default value alignment on the input */
+  align?: "right" | "left";
   /** If true the Component will be focused when rendered */
   autoFocus?: boolean;
   /** If true, the component will be disabled */
@@ -8,7 +11,7 @@ export interface CommonInputProps {
   /** HTML id attribute of the input */
   id?: string;
   /** A callback to retrieve the input reference */
-  inputRef?: () => void;
+  inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
@@ -19,7 +22,7 @@ export interface CommonInputProps {
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
-  /** pecify a callback triggered on keuyDown */
+  /** Specify a callback triggered on keyDown */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Placeholder string to be displayed in input */
   placeholder?: string;
@@ -41,9 +44,7 @@ export interface InputProps extends CommonInputProps {
 }
 
 declare function Input(
-  props: InputProps &
-    React.RefAttributes<HTMLInputElement> &
-    React.HTMLProps<HTMLInputElement>
+  props: InputProps & React.RefAttributes<HTMLInputElement>
 ): JSX.Element;
 
 export default Input;

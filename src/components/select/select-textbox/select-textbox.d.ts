@@ -1,8 +1,11 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+
+import { CommonTextboxProps } from "../../textbox";
 import { ValidationPropTypes } from "../../../__internal__/validations";
 
-export interface FormInputPropTypes extends ValidationPropTypes, SpaceProps {
+export interface FormInputPropTypes
+  extends ValidationPropTypes,
+    CommonTextboxProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** If true the Component will be focused when rendered */

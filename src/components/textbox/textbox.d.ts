@@ -1,13 +1,25 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { MarginProps } from "styled-system";
 
 import { ValidationPropTypes } from "../../__internal__/validations";
+import { CommonInputProps } from "../../__internal__/input";
 
-export interface CommonTextboxProps extends ValidationPropTypes {
+export interface CommonTextboxProps
+  extends ValidationPropTypes,
+    MarginProps,
+    Omit<CommonInputProps, "size"> {
+  /** Automatically focus the input on component mount */
+  autoFocus?: boolean;
+  /* The default value alignment on the input */
+  align?: "right" | "left";
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** Flag to indicate that component is used in a Form */
-  childOfForm?: boolean;
   /** Integer to determine a timeout for the defered callback */
   deferTimeout?: number;
   /** If true, the component will be disabled */
@@ -19,6 +31,8 @@ export interface CommonTextboxProps extends ValidationPropTypes {
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue?: string;
+  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
+  id?: string;
   /** Type of the icon that will be rendered next to the input */
   inputIcon?: string;
   /** Optional handler for click event on Textbox icon */
@@ -47,12 +61,20 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
-  /** Specify a callback triggered on keuyDown */
-  onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
+  /** Event handler for the focus event */
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Event handler for the blur event */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Event handler for the mouse down event */
+  onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Input name */
+  name?: string;
   /** Placeholder string to be displayed in input */
   placeholder?: string;
   /** Emphasized part of the displayed text */
   prefix?: string;
+  /** Reverses label and input display */
+  reverse?: boolean;
   /** The unformatted value  */
   rawValue?: string;
   /** If true, the component will be read-only */
@@ -71,15 +93,15 @@ export interface CommonTextboxProps extends ValidationPropTypes {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-export interface TextboxProps extends CommonTextboxProps, SpaceProps {
+export interface TextboxProps extends CommonTextboxProps {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
   /** [Legacy] Flag to configure component as optional in Form */
   isOptional?: boolean;
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
+  /** Label id passed from Select component */
+  labelId?: string;
   /** Character limit of the textarea */
   characterLimit?: string;
   /** Stop the user typing over the characterLimit */

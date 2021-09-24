@@ -8,6 +8,7 @@ const SelectTextbox = ({
   disabled,
   readOnly,
   placeholder,
+  labelId,
   size,
   onClick,
   onFocus,
@@ -51,6 +52,7 @@ const SelectTextbox = ({
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
       onBlur: handleTextboxBlur,
+      labelId,
       ...restProps,
     };
   }
@@ -78,6 +80,13 @@ const formInputPropTypes = {
   disabled: PropTypes.bool,
   /** If true the Component will be focused when rendered */
   autoFocus: PropTypes.bool,
+  /**
+   * Label id passed from Select component
+   * @private
+   * @ignore
+   *
+   */
+  labelId: PropTypes.string,
   /** Label */
   label: PropTypes.string,
   /** Text applied to label help tooltip */

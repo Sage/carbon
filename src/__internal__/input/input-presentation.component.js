@@ -4,14 +4,19 @@ import PropTypes from "prop-types";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
-import extractProps from "../../utils/helpers/extract-props";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const InputPresentation = ({
   children,
   positionedChildren,
   inputWidth,
-  ...rest
+  align,
+  disabled,
+  readOnly,
+  size,
+  error,
+  warning,
+  info,
 }) => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
     InputContext
@@ -21,8 +26,6 @@ const InputPresentation = ({
     onMouseEnter: onGroupMouseEnter,
     onMouseLeave: onGroupMouseLeave,
   } = useContext(InputGroupContext);
-
-  const styleProps = extractProps(rest, InputPresentationStyle);
 
   const handleMouseEnter = (e) => {
     if (onMouseEnter) onMouseEnter(e);
@@ -43,7 +46,13 @@ const InputPresentation = ({
         onMouseDown={onMouseDown}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        {...styleProps}
+        align={align}
+        disabled={disabled}
+        readOnly={readOnly}
+        size={size}
+        warning={warning}
+        error={error}
+        info={info}
       >
         {children}
       </InputPresentationStyle>
@@ -55,7 +64,6 @@ InputPresentation.propTypes = {
   children: PropTypes.node,
   align: PropTypes.string,
   disabled: PropTypes.bool,
-  hasFocus: PropTypes.bool,
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   positionedChildren: PropTypes.node,

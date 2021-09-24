@@ -2,6 +2,12 @@ import * as React from "react";
 import { TextboxProps } from "../textbox/textbox";
 
 export interface DateInputProps extends TextboxProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
   /** Boolean to allow the input to have an empty value */
   allowEmptyValue?: boolean;
   /** Automatically focus on component mount */

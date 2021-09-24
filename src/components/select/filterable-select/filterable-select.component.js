@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
+
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../../style/utils";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -38,6 +43,9 @@ const FilterableSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
       tooltipPosition,
       ...textboxProps
     },
@@ -455,7 +463,7 @@ const FilterableSelect = React.forwardRef(
         onChange: handleTextboxChange,
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
-        ...textboxProps,
+        ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }
 
@@ -495,14 +503,16 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        data-component="filterable-select"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         ref={containerRef}
         hasTextCursor
         readOnly={readOnly}
         disabled={disabled}
-        {...textboxProps}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        {...filterStyledSystemMarginProps(textboxProps)}
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
@@ -519,6 +529,12 @@ const FilterableSelect = React.forwardRef(
 
 FilterableSelect.propTypes = {
   ...formInputPropTypes,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
   disablePortal: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
@@ -551,6 +567,10 @@ FilterableSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+};
+
+FilterableSelect.defaultProps = {
+  "data-component": "filterable-select",
 };
 
 export default FilterableSelect;
