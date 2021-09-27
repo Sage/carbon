@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DropTarget } from "react-dnd-legacy";
-import ItemTypes from "../../../utils/helpers/dnd/item-types";
+import ItemTypes from "../__internal__/item-types";
 import Browser from "../../../__internal__/utils/helpers/browser";
 
 class WithDrop extends React.Component {

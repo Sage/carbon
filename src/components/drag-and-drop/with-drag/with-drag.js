@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DragSource } from "react-dnd-legacy";
-import ItemTypes from "../../../utils/helpers/dnd/item-types";
+import ItemTypes from "../__internal__/item-types";
 import BrowserHelper from "../../../__internal__/utils/helpers/browser";
 
 class WithDrag extends React.Component {
