@@ -1,4 +1,5 @@
 {
+  "root": true,
   "parser": "babel-eslint",
   "rules": {
     "strict": 0,
@@ -115,5 +116,37 @@
     "When": true,
     "Then": true,
     "And": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "project": "./tsconfig.json"
+      },
+      "plugins": ["@typescript-eslint", "jest"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint",
+        "plugin:react-hooks/recommended",
+        "plugin:jest/recommended",
+        "plugin:jest-dom/recommended"
+      ],
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      },
+      "rules": {
+        "import/named": "off",
+        "react/prefer-stateless-function": "off"
+      }
+    }
+  ]
 }

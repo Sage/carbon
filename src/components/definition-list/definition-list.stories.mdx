@@ -108,7 +108,7 @@ _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`
 
 ### As a single column
 
-Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment 
+Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment
 for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
 
 <Preview>
@@ -129,11 +129,14 @@ for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `
   </Story>
 </Preview>
 
-It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components 
+It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components
 such as `Typography` and `Hr`.
 
 <Preview>
-  <Story name="multiple single columns with segments" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="multiple single columns with segments"
+    parameters={{ chromatic: { disable: true } }}
+  >
     <Box width="65%" px={2} pt={4} pb={3}>
       <Box width="90%">
         <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">

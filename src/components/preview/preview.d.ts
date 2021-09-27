@@ -12,6 +12,8 @@ export interface PreviewProps extends MarginProps {
   width?: string;
 }
 
-declare function Preview(props: React.PropsWithChildren<PreviewProps>): JSX.Element;
+declare function Preview(
+  props: React.PropsWithChildren<PreviewProps>
+): JSX.Element;
 
 export default Preview;

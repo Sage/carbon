@@ -22,7 +22,7 @@ export interface PodProps {
   /** Supplies an edit action to the pod */
   onEdit?:
     | string
-    | {}
+    | Record<string, unknown>
     | ((
         ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
       ) => void);

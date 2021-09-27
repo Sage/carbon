@@ -7,6 +7,8 @@ export interface FlatTableBodyDraggableProps {
   getOrder?: (draggableItemIds: number[]) => void;
 }
 
-declare function FlatTableBodyDraggable(props: FlatTableBodyDraggableProps): JSX.Element;
+declare function FlatTableBodyDraggable(
+  props: FlatTableBodyDraggableProps
+): JSX.Element;
 
 export default FlatTableBodyDraggable;

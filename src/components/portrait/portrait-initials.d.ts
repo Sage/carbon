@@ -1,9 +1,8 @@
-import * as React from "react";
 import { PortraitSizes, PortraitShapes } from "./portrait";
 
 export interface PortraitInitialsProps {
   /** The theme to use. */
-  theme?: object;
+  theme?: Record<string, unknown>;
   /** The user's initials to render. */
   initials: string;
   /** The size of the initials image. */

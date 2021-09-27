@@ -1,6 +1,7 @@
 import * as React from "react";
-import { TableBorderSize } from "..";
 import { PaddingProps } from "styled-system";
+
+import { TableBorderSize } from "..";
 
 export interface FlatTableHeaderProps extends PaddingProps {
   /** Content alignment */

@@ -10,13 +10,15 @@ export interface PicklistItemProps {
   /** Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item */
   onChange: () => void;
   /** Value passed to the onChange handler */
-  item: object | string | number;
+  item: Record<string, unknown> | string | number;
   /** Disable the item */
   locked?: boolean;
   /** Tooltip message for the locked icon (only present when locked prop is true) */
   tooltipMessage?: string;
 }
 
-declare function PicklistItem(props: PicklistItemProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
+declare function PicklistItem(
+  props: PicklistItemProps & React.RefAttributes<HTMLInputElement>
+): JSX.Element;
 
 export default PicklistItem;

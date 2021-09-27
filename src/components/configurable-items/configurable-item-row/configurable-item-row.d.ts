@@ -14,10 +14,12 @@ export interface ConfigurableItemRowProps {
   /** The unique index for the row. */
   rowIndex: number;
   /** An internal prop. Helpful to detect which component should be rendered */
-  theme?: object;
+  theme?: Record<string, unknown>;
 }
 
-declare function ConfigurableItemRow(props: ConfigurableItemRowProps): JSX.Element;
+declare function ConfigurableItemRow(
+  props: ConfigurableItemRowProps
+): JSX.Element;
 
 export { ConfigurableItemRow as ConfigurableItemRowWithoutHOC };
 export default ConfigurableItemRow;

@@ -28,7 +28,7 @@ export interface AccordionProps extends SpaceProps {
   title: React.ReactNode;
   /** An info message to be displayed in the tooltip */
   info?: string;
-  /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
+  /** Callback fired when expansion state changes */
   onChange?: (
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     isExpanded: boolean

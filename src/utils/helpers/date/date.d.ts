@@ -9,7 +9,7 @@ interface FormatDateToCurrentLocaleArgs extends Locale {
 }
 
 interface IsValidDateArgs extends FormatDateToCurrentLocaleArgs {
-  options?: object;
+  options?: Record<string, unknown>;
 }
 
 interface FormatValueArgs extends IsValidDateArgs {
@@ -23,12 +23,12 @@ interface WithinRangeArgs extends FormatDateToCurrentLocaleArgs {
 
 export interface DateHelper {
   sanitizeDateInput: (value: string) => string;
-  isValidDate: (IsValidDateArgs) => boolean;
-  formatValue: (FormatValueArgs) => string;
+  isValidDate: (params: IsValidDateArgs) => boolean;
+  formatValue: (params: FormatValueArgs) => string;
   stringToDate: (value: string) => Date;
   formatDateString: (value: string, formatTo?: string) => string;
   todayFormatted: (format?: string) => string;
   weekdaysMinified: (locale: string) => string[];
-  withinRange: (WithinRangeArgs) => boolean;
-  formatDateToCurrentLocale: (FormatDateToCurrentLocaleArgs) => string;
+  withinRange: (params: WithinRangeArgs) => boolean;
+  formatDateToCurrentLocale: (params: FormatDateToCurrentLocaleArgs) => string;
 }

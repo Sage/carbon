@@ -1,9 +1,9 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 
-export interface NoteProps  extends MarginProps {
+export interface NoteProps extends MarginProps {
   /**  The rich text content to display in the Note */
-  noteContent: object;
+  noteContent: Record<string, unknown>;
   /** Set a percentage-based width for the whole Note component, relative to its parent. */
   width?: number;
   /** renders a control for the Note */

@@ -29,7 +29,13 @@ import Content from "./content.component.js";
   }}
 />
 
-export const ContentStory = ({ children, childrenSpecialCharacters, title, titleSpecialCharacters, ...args }) => (
+export const ContentStory = ({
+  children,
+  childrenSpecialCharacters,
+  title,
+  titleSpecialCharacters,
+  ...args
+}) => (
   <Content
     title={title || titleSpecialCharacters}
     children={children || childrenSpecialCharacters}

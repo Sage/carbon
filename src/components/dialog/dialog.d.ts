@@ -11,7 +11,9 @@ export interface DialogProps extends ModalProps {
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
   /** A custom close event handler */
-  onCancel?: (ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>) => void;
+  onCancel?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+  ) => void;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
   /** Size of dialog, default size is 750px */
@@ -19,7 +21,7 @@ export interface DialogProps extends ModalProps {
   /** Subtitle displayed at top of dialog */
   subtitle?: string;
   /** Title displayed at top of dialog */
-  title?: string | object;
+  title?: string | Record<string, unknown>;
 }
 
 declare class Dialog extends Modal<DialogProps> {}

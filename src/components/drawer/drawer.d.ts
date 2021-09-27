@@ -18,7 +18,7 @@ export interface DrawerPropTypes {
   expandedWidth?: string;
   /** Sets custom height to Drawer component */
   height?: string;
-  /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
+  /** Callback fired when expansion state changes */
   onChange?: (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     isExpanded: boolean

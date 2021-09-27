@@ -11,6 +11,8 @@ export interface PicklistGroupProps {
   onChange: () => void;
 }
 
-declare function PicklistGroup(props: PicklistGroupProps & React.RefAttributes<HTMLInputElement>): JSX.Element;
+declare function PicklistGroup(
+  props: PicklistGroupProps & React.RefAttributes<HTMLInputElement>
+): JSX.Element;
 
 export default PicklistGroup;

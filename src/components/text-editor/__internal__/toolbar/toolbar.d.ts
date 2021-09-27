@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface ToolbarProps {
-  activeControls: object;
+  activeControls: Record<string, unknown>;
   /** Additional elements to be rendered, e.g. Save and Cancel Button */
   toolbarElements?: React.ReactNode;
   setInlineStyle: (args: number) => any;

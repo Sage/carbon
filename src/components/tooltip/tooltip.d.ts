@@ -24,7 +24,7 @@ export interface TooltipProps {
    * must be an array containing some or all of ["top", "bottom", "left", "right"]
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
-   flipOverrides?: ["top" | "bottom" | "left" | "right"];
+  flipOverrides?: ["top" | "bottom" | "left" | "right"];
 }
 
 export interface TooltipInternalProps extends TooltipProps {
@@ -32,6 +32,8 @@ export interface TooltipInternalProps extends TooltipProps {
   inputSize?: "small" | "medium" | "large";
 }
 
-declare function Tooltip(props: TooltipProps & React.RefAttributes<HTMLDivElement>): JSX.Element;
+declare function Tooltip(
+  props: TooltipProps & React.RefAttributes<HTMLDivElement>
+): JSX.Element;
 
 export default Tooltip;

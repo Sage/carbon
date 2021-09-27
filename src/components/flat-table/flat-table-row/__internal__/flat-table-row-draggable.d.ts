@@ -6,13 +6,15 @@ export interface FlatTableRowDraggableProps {
   /** ID for use in drag and drop functionality */
   id?: number | string;
   /** function to find an item in the list of draggable items */
-  findItem: () => object;
+  findItem: () => Record<string, unknown>;
   /** function to reposition an item in the list of draggable items */
   moveItem: () => void;
   /** item is draggable */
   draggable?: boolean;
 }
 
-declare function FlatTableRowDraggable(props: FlatTableRowDraggableProps): JSX.Element;
+declare function FlatTableRowDraggable(
+  props: FlatTableRowDraggableProps
+): JSX.Element;
 
 export default FlatTableRowDraggable;

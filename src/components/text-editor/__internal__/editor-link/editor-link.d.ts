@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface EditorLinkProps {
   children: React.ReactNode;
-  contentState: object;
+  contentState: Record<string, unknown>;
   entityKey?: string;
 }
 

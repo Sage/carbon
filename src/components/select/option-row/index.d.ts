@@ -6,9 +6,11 @@ export interface OptionRowProps {
   /** Row content, should consist of multiple td elements */
   children: React.ReactNode;
   /** The option's invisible internal value */
-  value: string | object;
+  value: string | Record<string, unknown>;
 }
 
-declare function OptionRow(props: OptionRowProps & React.RefAttributes<HTMLTableRowElement>): JSX.Element;
+declare function OptionRow(
+  props: OptionRowProps & React.RefAttributes<HTMLTableRowElement>
+): JSX.Element;
 
 export default OptionRow;

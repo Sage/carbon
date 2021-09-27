@@ -13,6 +13,8 @@ export interface ToolbarButtonProps {
   tabbable?: boolean;
 }
 
-declare function ToolbarButton(props: ToolbarButtonProps & React.RefAttributes<HTMLButtonElement>): JSX.Element;
+declare function ToolbarButton(
+  props: ToolbarButtonProps & React.RefAttributes<HTMLButtonElement>
+): JSX.Element;
 
 export default ToolbarButton;

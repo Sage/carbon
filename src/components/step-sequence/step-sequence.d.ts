@@ -5,6 +5,8 @@ export interface StepSequenceProps {
   orientation?: "horizontal" | "vertical";
 }
 
-declare function StepSequence(props: React.PropsWithChildren<StepSequenceProps>): JSX.Element;
+declare function StepSequence(
+  props: React.PropsWithChildren<StepSequenceProps>
+): JSX.Element;
 
 export default StepSequence;

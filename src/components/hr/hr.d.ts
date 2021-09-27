@@ -1,4 +1,3 @@
-import * as React from "react";
 import { SpaceProps } from "styled-system";
 
 export interface HrProps extends SpaceProps {

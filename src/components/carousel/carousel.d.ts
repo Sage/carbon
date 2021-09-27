@@ -19,7 +19,7 @@ export interface CarouselProps {
   /** The selected slide */
   slideIndex?: number | string;
   /** theme is used only to support legacy code */
-  theme?: object;
+  theme?: Record<string, unknown>;
 }
 
 declare class Carousel extends React.Component<CarouselProps> {}
