@@ -17,7 +17,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           workflow_id: "chromatic.yml"
           ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+          inputs: '{"number": "${{ github.event.inputs.number }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
 
