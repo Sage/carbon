@@ -271,8 +271,8 @@ Menu items can also be displayed without icons.
 
 ### With custom menu button
 
-It is possible to use the &quot;renderButton&quot; prop to override the default button used to trigger the opening and closing of
-ActionPopoverMenu. See the prop tables below for the properties surfaced to any custom component being passed in.
+It is possible to use the `renderButton` prop to override the default button used to trigger the opening and closing of
+ActionPopoverMenu. Expand the code example below for how to use this.
 
 <Preview>
   <Story name="with custom menu button">
@@ -291,7 +291,11 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
             <FlatTableCell>Doe</FlatTableCell>
             <FlatTableCell>
               <ActionPopover
-                renderButton={({ tabIndex, "data-element": dataElement }) => (
+                renderButton={({
+                  tabIndex,
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }) => (
                   <ActionPopoverMenuButton
                     buttonType="tertiary"
                     iconType="dropdown"
@@ -299,6 +303,7 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
                     size="small"
                     tabIndex={tabIndex}
                     data-element={dataElement}
+                    {...ariaAttributes}
                   >
                     More
                   </ActionPopoverMenuButton>
@@ -319,11 +324,15 @@ ActionPopoverMenu. See the prop tables below for the properties surfaced to any 
             <FlatTableCell>Doe</FlatTableCell>
             <FlatTableCell>
               <ActionPopover
-                renderButton={({ "data-element": dataElement }) => (
+                renderButton={({
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }) => (
                   <Link
                     onClick={() => {}}
                     tabbable={false}
                     data-element={dataElement}
+                    {...ariaAttributes}
                   >
                     More
                   </Link>
@@ -688,7 +697,7 @@ When sub-menus aligns to the right hand side, the key shortcuts are switiched: p
 is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
 
 <Story
-  name="keyboard access right aligned submenu"
+  name="keyboard navigation right aligned submenu"
   parameters={{ docs: { disable: true } }}
 >
   <div style={{ height: "250px" }}>
@@ -776,21 +785,7 @@ used actions, in this example "manage devices".
             <FlatTableCell>Mobile Phone</FlatTableCell>
             <FlatTableCell>Online</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                rightAlignMenu
-                renderButton={({ tabIndex, "data-element": dataElement }) => (
-                  <ActionPopoverMenuButton
-                    buttonType="tertiary"
-                    iconType="dropdown"
-                    iconPosition="after"
-                    size="small"
-                    tabIndex={tabIndex}
-                    data-element={dataElement}
-                  >
-                    More
-                  </ActionPopoverMenuButton>
-                )}
-              >
+              <ActionPopover rightAlignMenu>
                 <ActionPopoverItem onClick={() => {}}>
                   Enroll Device
                 </ActionPopoverItem>
@@ -826,21 +821,7 @@ used actions, in this example "manage devices".
             <FlatTableCell>Mobile Phone</FlatTableCell>
             <FlatTableCell>Online</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                rightAlignMenu
-                renderButton={({ tabIndex, "data-element": dataElement }) => (
-                  <ActionPopoverMenuButton
-                    buttonType="tertiary"
-                    iconType="dropdown"
-                    iconPosition="after"
-                    size="small"
-                    tabIndex={tabIndex}
-                    data-element={dataElement}
-                  >
-                    More
-                  </ActionPopoverMenuButton>
-                )}
-              >
+              <ActionPopover rightAlignMenu>
                 <ActionPopoverItem
                   download
                   icon="download"
