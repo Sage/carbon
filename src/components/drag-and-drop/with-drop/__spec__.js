@@ -111,6 +111,15 @@ describe("WithDrop", () => {
         expect(hoverPropSpy).not.toHaveBeenCalled();
         expect(hoverContextSpy).toHaveBeenCalled();
       });
+
+      describe("when window.getSelection is defined", () => {
+        it("calls removeAllRanges on the selection", () => {
+          backend.simulateBeginDrag([handlerId]);
+          backend.simulateHover([targetId]);
+
+          expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+        });
+      });
     });
   });
 
