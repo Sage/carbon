@@ -1,3 +1,10 @@
+### [91.0.1](https://github.com/Sage/carbon/compare/v91.0.0...v91.0.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **i18n-provider:** fix type definition ([73b485f](https://github.com/Sage/carbon/commit/73b485f4d718d80387216cf94497fff4b7936a35))
+
 ## [91.0.0](https://github.com/Sage/carbon/compare/v90.0.2...v91.0.0) (2021-09-24)
 
 
