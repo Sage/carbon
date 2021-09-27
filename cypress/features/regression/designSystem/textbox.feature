@@ -1,9 +1,9 @@
-Feature: Design System Textbox component
-  I want to check Design System Textbox component properties
+Feature: Textbox component
+  I want to check Textbox component properties
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then Textbox placeholder is set to <placeholder>
     Examples:
       | placeholder                  | nameOfObject                |
@@ -12,7 +12,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Set prefix to <prefix>
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then Prefix is set to <prefix>
     Examples:
       | prefix                       | nameOfObject           |
@@ -21,7 +21,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -30,7 +30,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
@@ -39,7 +39,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -49,7 +49,7 @@ Feature: Design System Textbox component
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    Given I open "Design System Textbox Test" component page "default"
+    Given I open "Textbox Test" component page "default"
     When I type <input> into Textbox
     Then Textbox input on preview is set to <input>
     Examples:
@@ -59,18 +59,18 @@ Feature: Design System Textbox component
 
   @positive
   Scenario: Check icon inside of Textbox is visible
-    When I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "inputIconAdd" object name
+    When I open default "Textbox Test" component with "textbox" json from "designSystem" using "inputIconAdd" object name
     Then icon name on preview is "add"
 
   @positive
   Scenario: Check iconOnClick event
-    Given I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "inputIconAdd" object name
+    Given I open default "Textbox Test" component with "textbox" json from "designSystem" using "inputIconAdd" object name
     When I click on icon inside of Textbox
     Then iconOnClick action was called in Actions Tab
 
   @positive
   Scenario: Check onClick event
-    Given I open default "Design System Textbox Test" component with "textbox" json from "designSystem" using "default" object name
+    Given I open default "Textbox Test" component with "textbox" json from "designSystem" using "default" object name
     When I click on Textbox
     Then onClick action was called in Actions Tab
       And Textbox input has golden border on focus

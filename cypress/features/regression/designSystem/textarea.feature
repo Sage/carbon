@@ -1,9 +1,9 @@
-Feature: Design System Textarea component
-  I want to check Design System Textarea component properties
+Feature: Textarea component
+  I want to check Textarea component properties
 
   @positive
   Scenario Outline: Enable expandable checkbox for a Textarea component
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "expandable" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "expandable" object name
     When I input <text> into Textarea
     Then Textarea component is expandable
     Examples:
@@ -12,7 +12,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Enable and disable expandable checkbox for a Textarea component
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "expandableFalse" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "expandableFalse" object name
     When I input <text> into Textarea
     Then Textarea component is not expandable
     Examples:
@@ -21,7 +21,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set cols to <cols>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then cols is set to "<cols>"
     Examples:
       | cols | nameOfObject |
@@ -31,7 +31,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set rows to <rows>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then rows is set to "<rows>"
     Examples:
       | rows | nameOfObject |
@@ -41,7 +41,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then placeholder is set to <placeholder>
     Examples:
       | placeholder                  | nameOfObject                |
@@ -50,7 +50,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -59,7 +59,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then characterLimit is set to "<characterLimit>"
       And characterLimit for default Textarea is shown as "<result>"
     Examples:
@@ -74,7 +74,7 @@ Feature: Design System Textarea component
 
   @negative
   Scenario Outline: Set characterLimit out of scope to <characterLimit>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then characterLimit for default Textarea is not set to <characterLimit>
     Examples:
       | characterLimit               | nameOfObject                   |
@@ -85,7 +85,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     Then label on preview is <label>
     Examples:
       | label                        | nameOfObject          |
@@ -94,7 +94,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    When I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
@@ -104,7 +104,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     When I input <text> into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
@@ -115,7 +115,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     When I input <text> into Textarea
     Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
     Examples:
@@ -126,7 +126,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     When I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
@@ -138,7 +138,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
-    Given I open default "Design System-Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
+    Given I open default "Textarea Test" component with "textarea" json from "designSystem" using "<nameOfObject>" object name
     When I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
@@ -150,7 +150,7 @@ Feature: Design System Textarea component
 
   @positive
   Scenario Outline: Verify input of Textarea component
-    Given I open "Design System Textarea Test" component page "default"
+    Given I open "Textarea Test" component page "default"
     When I input <input> into Textarea
     Then Textarea input on preview is set to <input>
     Examples:

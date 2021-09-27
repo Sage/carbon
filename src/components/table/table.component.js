@@ -25,7 +25,7 @@ class Table extends React.Component {
       deprecatedWarnTriggered = true;
       // eslint-disable-next-line max-len
       Logger.deprecate(
-        "`Table` component is deprecated and will soon be removed. Please use `FlatTable` instead: https://carbon.sage.com/?path=/story/design-system-flat-table--default-story"
+        "`Table` component is deprecated and will soon be removed. Please use `FlatTable` instead: https://carbon.sage.com/?path=/story/flat-table--default-story"
       );
     }
   }

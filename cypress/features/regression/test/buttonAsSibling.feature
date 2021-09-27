@@ -62,7 +62,7 @@ Feature: Button as a sibling component
 
   @positive
   Scenario: Verify the click function for a Button component
-    Given I open "Design System Button Test" component page "as a sibling"
+    Given I open "Button Test" component page "as a sibling"
     When I click on "button" as a sibling
     Then click action was called in Actions Tab
 

@@ -2870,7 +2870,7 @@ cell paddings should depend on FlatTable size prop
 * **select:** Experimental Select component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
 * **select-async:** SelectAsync component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
 Also check an example of how to provide data fetching functionality
-https://carbon.sage.com/?path=/docs/design-system-select--with-is-loading-prop
+https://carbon.sage.com/?path=/docs/select--with-is-loading-prop
 * **date:** Date component no longer supports classic theme
 * **textbox:** Textbox no longer supports classic theme
 * **textarea:** Textarea input no longer supports classic theme

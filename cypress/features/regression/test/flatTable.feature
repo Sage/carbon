@@ -12,7 +12,7 @@ Feature: FlatTable component
 
   @positive
   Scenario Outline: Show page size select list of FlatTable is at the <position> in <size> viewport
-    Given I open "Design System Flat Table" component page "paginated with sticky header"
+    Given I open "Flat Table" component page "paginated with sticky header"
       And I have a <size> viewport
     When pageSize select list is opened
     Then pageSizeSelectList is visible at the <position>

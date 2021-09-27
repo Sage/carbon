@@ -7,7 +7,7 @@ import { Select, Option } from "..";
 
 export default {
   component: Select,
-  title: "Design System/Select/Test",
+  title: "Select/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

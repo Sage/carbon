@@ -39,6 +39,6 @@ Feature: Badge component
 
   @positive
   Scenario: Click event
-    Given I open "Design System Badge Test" component page "default"
+    Given I open "Badge Test" component page "default"
     When I click onto Badge component
     Then click action was called in Actions Tab

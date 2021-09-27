@@ -1,9 +1,9 @@
-Feature: Design System Select component
-  I want to change Design System Select component properties
+Feature: Select component
+  I want to change Select component properties
 
   @positive
   Scenario Outline: Open Select list using <key>
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
     When I click onto controlled select using "<key>" key
     Then "simple" Select list is opened
     Examples:
@@ -13,38 +13,38 @@ Feature: Design System Select component
 
   @positive
   Scenario: Open Select list by mouse click on text input
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
     When I click on Select input
     Then "simple" Select list is opened
 
   @positive
   Scenario: Close Select list using Tab keyboard
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
       And I focus select input
     When I press Tab onto focused element
     Then "simple" Select list is closed
 
   @positive
   Scenario: Close Select list by clicking out of component
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
       And I click on dropdown button
     When I click onto root in Test directory
     Then "simple" Select list is closed
 
   @positive
   Scenario: Choose option from Select list by mouse clicking
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
       And I click on Select input
     When I select value "Amber"
-    Then Design system Select input has "Amber" value
+    Then Simple Select input has "Amber" value
       And "simple" Select list is closed
 
   @positive
   Scenario Outline: Choose <selectedValue> option from Select list by typing <selectableValue> value in input
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
       And I click on Select input
     When I type "<selectableValue>" into input
-    Then Design system Select input has "<selectedValue>" value
+    Then Simple Select input has "<selectedValue>" value
       And "<position>" option on the list is hovered over
     Examples:
       | selectableValue | selectedValue | position |
@@ -53,7 +53,7 @@ Feature: Design System Select component
 
   @positive
   Scenario Outline: Open select list using arrow key
-    Given I open "Design System Select" component page "controlled"
+    Given I open "Select" component page "controlled"
       And I focus select input
     When I click onto controlled select using "<key>" key
     Then "simple" Select list is opened
@@ -64,13 +64,13 @@ Feature: Design System Select component
 
   @positive
   Scenario: Lazy loading is visible after open the Simple Select
-    Given I open "Design System Select" component page "with is loading prop"
+    Given I open "Select" component page "with is loading prop"
     When I click on Select input with lazy loading
     Then Lazy loading is visible
 
   @positive
   Scenario: Lazy loading is visible after open and scroll to the botton of the Simple Select
-    Given I open "Design System Select" component page "with infinite scroll"
+    Given I open "Select" component page "with infinite scroll"
       And I click on dropdown button
       And Lazy loading is visible
       And I wait 2500
@@ -80,20 +80,20 @@ Feature: Design System Select component
 
   @positive
   Scenario: Check that using an object as a value displays the correct options
-    Given I open "Design System Select" component page "with object as value"
+    Given I open "Select" component page "with object as value"
     When I click on dropdown button
     Then visible options on Select list are "Amber", "Black", "Blue"
 
   @positive
   Scenario: Check that options can be selected and displayed correctly when using an object as a value
-    Given I open "Design System Select" component page "with object as value"
+    Given I open "Select" component page "with object as value"
       And I click on dropdown button
     When I click on "first" option on Select list
     Then Select input has "Amber" value
 
   @positive
   Scenario: Check that Select has multiColumns in option list
-    Given I open "Design System Select" component page "with multiple columns"
+    Given I open "Select" component page "with multiple columns"
     When I click on dropdown button
     Then "simple" Select list is opened
       And Option list has multiColumns header
@@ -112,7 +112,7 @@ Feature: Design System Select component
 
   @positive
   Scenario: Check the onOpen, onClick, onFocus after clicking on the input
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
     When I click on default Select input
     Then onOpen action was called in Actions Tab
       And onFocus action was called in Actions Tab
@@ -120,14 +120,14 @@ Feature: Design System Select component
 
   @positive
   Scenario: Check the onChange event by clicking mouse on the select list option
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
       And I click on default Select input
     When I click on "first" option on Select list
     Then onChange action was called in Actions Tab
 
   @positive
   Scenario: Check the onKeyDown event after clicking arrow
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
       And I focus default Select input
     When I click onto default select using "downarrow" key
       And I wait 500
@@ -136,7 +136,7 @@ Feature: Design System Select component
 
   @positive
   Scenario Outline: Check the onKeyDown event after press <key>
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
       And I focus default Select input
     When I click onto default select using "<key>" key
       And I wait 500
@@ -150,14 +150,14 @@ Feature: Design System Select component
 
   @positive
   Scenario: Check the onBlur event
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
       And I focus default Select input
     When I click on Select label
     Then onBlur action was called in Actions Tab
 
   @positive
   Scenario: Close Select list using Esc keyboard
-    Given I open "Design System Select" component page "default story"
+    Given I open "Select" component page "default story"
       And I click on default Select input
     When I hit ESC key
     Then "simple" Select list is closed
