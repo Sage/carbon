@@ -3,7 +3,7 @@ import * as React from "react";
 import Locale from "../../locales";
 
 export interface I18nProviderProps {
-  locale: Locale;
+  locale: Partial<Locale>;
   children: React.ReactNode;
 }
 

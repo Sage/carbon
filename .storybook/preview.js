@@ -1,6 +1,8 @@
 import withGlobalStyles from "./with-global-styles";
 import { withThemeSelector } from "./theme-selector";
+import { withLocaleSelector } from "./locale-selector";
 import { configureActions } from "@storybook/addon-actions";
+
 import sageTheme from "./sageTheme";
 import "./style/fonts.css";
 import "./style/story-root.css";
@@ -79,4 +81,23 @@ export const parameters = {
   actions: { argTypesRegex: "^on.*" },
 };
 
-export const decorators = [withGlobalStyles, withThemeSelector];
+export const globalTypes = {
+  locale: {
+    name: "Locale",
+    description: "Internationalization locale",
+    defaultValue: "en-GB",
+    toolbar: {
+      icon: "globe",
+      items: [
+        { value: "en-GB", right: "🇬🇧", title: "English" },
+        { value: "pl-PL", right: "🇵🇱", title: "Polski" },
+      ],
+    },
+  },
+};
+
+export const decorators = [
+  withGlobalStyles,
+  withThemeSelector,
+  withLocaleSelector,
+];

@@ -30,7 +30,7 @@ interface Locale {
         errors: number,
         warnings: number,
         type: string
-      ) => [string, string];
+      ) => [string, string] | null;
     };
   };
   message: {
@@ -79,7 +79,7 @@ interface Locale {
       numberList: () => string;
     };
   };
-  titleSelect: {
+  tileSelect: {
     deselect: () => string;
   };
   wizards: {
