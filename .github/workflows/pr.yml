@@ -1,12 +1,30 @@
-name: Forked CI
+name: PR checks
+
 on:
-  workflow_dispatch:
-    inputs:
-      number:
-        description: "Pull Request Number"
-        required: true
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
 jobs:
+  trigger-cypress:
+    # if not a fork
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: octokit/request-action@v2.x
+        id: dispatch_cypress
+        with:
+          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          workflow_id: "cypress.yml"
+          ref: "master"
+          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
+
   trigger-chromatic:
+    # if not a fork or a draft
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
       - uses: octokit/request-action@v2.x
@@ -18,20 +36,5 @@ jobs:
           workflow_id: "chromatic.yml"
           ref: "master"
           inputs: '{"number": "${{ github.event.pull_request.number }}"}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
-
-  trigger-cypress:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: octokit/request-action@v2.x
-        id: dispatch_cypress
-        with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: "cypress.yml"
-          ref: "master"
-          inputs: '{"number": "${{ github.event.inputs.number }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}

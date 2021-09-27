@@ -6,9 +6,7 @@ on:
       number:
         description: "Pull Request Number"
         required: true
-      branch:
-        description: "Branch Name"
-        required: true
+
 jobs:
   cypress:
     runs-on: ubuntu-latest
@@ -46,6 +44,16 @@ jobs:
           ]
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
+      - id: get_pull
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          pull_number: ${{ github.event.inputs.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -89,7 +97,7 @@ jobs:
           quiet: true
           browser: chrome
         env:
-          COMMIT_INFO_BRANCH: ${{ github.event.inputs.branch }}
+          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CI: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
