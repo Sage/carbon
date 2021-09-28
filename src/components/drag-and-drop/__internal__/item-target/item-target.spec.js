@@ -1,6 +1,5 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import ItemTargetHelper from "./";
+import ItemTargetHelper from ".";
 
 describe("ItemTargetHelper", () => {
   describe("onHoverUpDown", () => {
@@ -99,7 +98,7 @@ describe("ItemTargetHelper", () => {
 
         clientOffset.y = 51;
         monitorItem.index = 1;
-        let contextSpy = jasmine.createSpy();
+        const contextSpy = jasmine.createSpy();
 
         component.context = {
           dragAndDropOnDrag: contextSpy,
