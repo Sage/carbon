@@ -7,6 +7,7 @@ exports[`FormField with a label renders the label component above the childen 1`
   <Memo(Label)
     align="left"
     help="Help me!"
+    helpId="test-help-id"
     htmlFor="formField"
     inline={true}
     pr={2}

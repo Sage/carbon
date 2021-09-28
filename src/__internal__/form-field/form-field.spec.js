@@ -58,6 +58,7 @@ describe("FormField", () => {
           labelInline: true,
           labelWidth: 20,
           size: "small",
+          helpId: "test-help-id",
         }).children()
       ).toMatchSnapshot();
     });
@@ -69,6 +70,13 @@ describe("FormField", () => {
         label: "Name",
       });
       expect(comp.find(Label).props().htmlFor).toEqual("foo");
+    });
+
+    it("passes the helpId to the Label id prop", () => {
+      const helpId = "test-help-id";
+      expect(
+        render({ helpId, label: "test label" }).find(Label).prop("helpId")
+      ).toBe(helpId);
     });
 
     describe("when adaptiveLabelBreakpoint prop is set", () => {
@@ -142,6 +150,15 @@ describe("FormField", () => {
           }).children()
         ).toMatchSnapshot();
       });
+    });
+
+    it("passes the fieldHelpId to the FieldHelp id prop", () => {
+      const fieldHelpId = "test-help-id";
+      expect(
+        render({ fieldHelpId, fieldHelp: "test label" })
+          .find(FieldHelp)
+          .prop("id")
+      ).toBe(fieldHelpId);
     });
 
     describe("with TabContext", () => {

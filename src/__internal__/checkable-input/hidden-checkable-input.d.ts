@@ -33,6 +33,10 @@ export interface HiddenCheckableInputProps
   type: string;
   /** Element id for aria-describedby */
   helpId?: string;
+  /** Element id for aria-describedby */
+  fieldHelpId?: string;
+  /** Element id for aria-labelledby */
+  labelId?: string;
 }
 
 declare function HiddenCheckableInput(
