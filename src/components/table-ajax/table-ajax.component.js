@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Request from "superagent";
 
-import serialize from "../../utils/helpers/serialize";
+import serialize from "./__internal__/serialize/serialize";
 import {
   Table,
   TableRow,
