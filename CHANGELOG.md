@@ -1,3 +1,10 @@
+### [91.0.2](https://github.com/Sage/carbon/compare/v91.0.1...v91.0.2) (2021-09-28)
+
+
+### Bug Fixes
+
+* **menu:** remove menubar and menuitem roles ([b2f6f0d](https://github.com/Sage/carbon/commit/b2f6f0dba1e089a2ccd9a0d1aa9daad941152410)), closes [#4394](https://github.com/Sage/carbon/issues/4394)
+
 ### [91.0.1](https://github.com/Sage/carbon/compare/v91.0.0...v91.0.1) (2021-09-27)
 
 
