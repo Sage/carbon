@@ -262,7 +262,6 @@ const Submenu = React.forwardRef(
       return (
         <StyledSubmenuWrapper
           data-component="submenu-wrapper"
-          role="menuitem"
           ref={submenuRef}
           inFullscreenView={inFullscreenView}
           menuType={menuContext.menuType}
@@ -270,7 +269,6 @@ const Submenu = React.forwardRef(
         >
           <StyledMenuItemWrapper
             {...rest}
-            data-component="menu-item"
             className={className}
             menuType={menuContext.menuType}
             ref={ref}
@@ -284,6 +282,7 @@ const Submenu = React.forwardRef(
             {title}
           </StyledMenuItemWrapper>
           <StyledSubmenu
+            data-component="submenu"
             variant={variant}
             menuType={menuContext.menuType}
             inFullscreenView={inFullscreenView}
@@ -310,7 +309,6 @@ const Submenu = React.forwardRef(
     return (
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
-        role="menuitem"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         onClick={clickToOpen ? () => openSubmenu() : undefined}
@@ -319,7 +317,6 @@ const Submenu = React.forwardRef(
       >
         <StyledMenuItemWrapper
           {...rest}
-          data-component="menu-item"
           className={className}
           menuType={menuContext.menuType}
           ref={ref}
@@ -340,6 +337,7 @@ const Submenu = React.forwardRef(
 
         {submenuOpen && (
           <StyledSubmenu
+            data-component="submenu"
             submenuDirection={submenuDirection}
             variant={variant}
             menuType={menuContext.menuType}

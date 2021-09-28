@@ -8,7 +8,7 @@ const MenuDivider = React.forwardRef(({ size = "default" }, ref) => {
   const menuContext = useContext(MenuContext);
 
   return (
-    <StyledMenuItem role="presentation" inSubmenu>
+    <StyledMenuItem inSubmenu>
       <StyledDivider
         size={size}
         data-component="menu-divider"
