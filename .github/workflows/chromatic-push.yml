@@ -1,0 +1,28 @@
+name: Chromatic Push
+
+on:
+  push:
+    # We need these branches to update their baselines when they are merged into
+    branches:
+      - master
+      - "[0-9]+.x"
+      - "[0-9]+.x.x"
+      - "[0-9]+.[0-9]+.x"
+      - "major/**"
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ">=14.16.0 14"
+      - run: npm ci
+      - uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitOnceUploaded: true # We don't want it to fail CI, we'll be using the GitHub Check
