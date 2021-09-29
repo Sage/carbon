@@ -11,7 +11,7 @@ const getStories = () =>
   });
 
 module.exports = {
-  stories: async (list) => [
+  stories: (list) => [
     ...list,
     "./welcome-page/welcome.stories.js",
     "../docs/*.stories.mdx",
